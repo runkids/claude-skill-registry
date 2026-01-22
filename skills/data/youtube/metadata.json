@@ -1,10 +1,7 @@
 {
   "name": "youtube",
-  "description": "YouTube Data API v3 via curl. Use this skill to search videos, get video/channel info, list playlists, and fetch comments.",
-  "repo": "vm0-ai/vm0-skills",
-  "category": "data",
-  "tags": [
-    "youtube"
-  ],
-  "stars": 8
+  "repo": "ericmjl/skills",
+  "path": "skills/youtube/SKILL.md",
+  "source": "github.com/ericmjl/skills",
+  "downloaded_at": "2026-01-22T03:20:32.760855Z"
 }

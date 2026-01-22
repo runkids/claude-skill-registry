@@ -1,12 +1,7 @@
 {
   "name": "code-validator",
-  "description": "驗證 maihouses 專案的 TypeScript/React 代碼品質，確保符合 CLAUDE.md 的最高規格標準。當修改或審查代碼時自動使用。",
   "repo": "cityfish91159/maihouses",
-  "category": "development",
-  "tags": [
-    "code",
-    "validator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/code-validator/SKILL.md",
+  "source": "github.com/cityfish91159/maihouses",
+  "downloaded_at": "2026-01-22T03:30:17.497795Z"
 }

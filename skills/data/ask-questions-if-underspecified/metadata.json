@@ -1,7 +1,7 @@
 {
   "name": "ask-questions-if-underspecified",
-  "repo": "mikeastock/agents",
-  "path": "skills/ask-questions-if-underspecified/SKILL.md",
-  "source": "github.com/mikeastock/agents",
-  "downloaded_at": "2026-01-14T03:42:42.341914Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/ask-questions-if-underspecified/skills/ask-questions-if-underspecified/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-22T03:09:28.460180Z"
 }

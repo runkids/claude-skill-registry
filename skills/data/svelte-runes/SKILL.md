@@ -2,7 +2,7 @@
 name: svelte-runes
 # IMPORTANT: Keep description on ONE line for Claude Code compatibility
 # prettier-ignore
-description: Svelte runes guidance. Use for reactive state, props, effects, or migration. Covers $state, $derived, $effect, $props, $bindable. Prevents reactivity mistakes.
+description: Svelte runes guidance. Use for reactive state, props, effects, attachments, or migration. Covers $state, $derived, $effect, @attach. Prevents reactivity mistakes.
 ---
 
 # Svelte Runes
@@ -45,9 +45,8 @@ Objects/arrays are deeply reactive by default.
   snippet syntax
 - [common-mistakes.md](references/common-mistakes.md) - Anti-patterns
   with fixes
-
-> For `@attach` and other template directives, see the
-> **svelte-template-directives** skill.
+- [attachments.md](references/attachments.md) - @attach replaces use:
+  actions
 
 ## Notes
 

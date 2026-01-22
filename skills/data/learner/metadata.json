@@ -1,9 +1,7 @@
 {
   "name": "learner",
-  "description": "Auto-discover patterns from reflexion episodes. Run post-feature to consolidate successful approaches into reusable patterns and skills.",
-  "repo": "dug-21/neural-data-platform",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "path": "skills/learner/SKILL.md",
+  "source": "github.com/Yeachan-Heo/oh-my-claudecode",
+  "downloaded_at": "2026-01-22T01:22:59.478797Z"
 }

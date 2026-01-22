@@ -1,9 +1,7 @@
 {
   "name": "skills-creator",
-  "description": "Creates and maintains Agent Skills with effective triggers and progressive disclosure. Use when user requests to create a skill, generate a SKILL.md, build custom capabilities, or mentions \"create ski",
-  "repo": "Emz1998/avaris-ai",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "HaRu-LLC/ai-pm_system_notebooklmuse",
+  "path": ".agent/skills/meta/skills-creator/SKILL.md",
+  "source": "github.com/HaRu-LLC/ai-pm_system_notebooklmuse",
+  "downloaded_at": "2026-01-22T01:39:45.211801Z"
 }

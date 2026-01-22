@@ -1,13 +1,7 @@
 {
   "name": "prompt-optimization-claude-45",
-  "description": "Optimize CLAUDE.md files and Skills for Claude Code CLI. Use when reviewing, creating, or improving system prompts, CLAUDE.md configurations, or Skill files. Transforms negative instructions into posi",
-  "repo": "Jamie-BitFlight/claude_skills",
-  "category": "development",
-  "tags": [
-    "prompt",
-    "optimization",
-    "claude"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/jamie-bitflight-claude-skills/prompt-optimization-claude-45/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-01-22T01:10:47.644541Z"
 }

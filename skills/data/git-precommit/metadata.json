@@ -1,7 +1,7 @@
 {
   "name": "git-precommit",
-  "repo": "u9401066/med-paper-assistant",
+  "repo": "u9401066/pubmed-search-mcp",
   "path": ".claude/skills/git-precommit/SKILL.md",
-  "source": "github.com/u9401066/med-paper-assistant",
-  "downloaded_at": "2026-01-14T03:21:47.673014Z"
+  "source": "github.com/u9401066/pubmed-search-mcp",
+  "downloaded_at": "2026-01-22T03:59:19.605789Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "datacommons-client",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/datacommons-client/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-14T02:44:49.492217Z"
+  "repo": "sanand0/scientific-research",
+  "path": ".claude/skills/datacommons-client/SKILL.md",
+  "source": "github.com/sanand0/scientific-research",
+  "downloaded_at": "2026-01-22T03:17:49.219527Z"
 }

@@ -1,759 +1,1039 @@
 ---
-name: technical-writer
-description: |
-  technical-writer skill
-
-  Trigger terms: documentation, technical writing, API documentation, README, user guide, developer guide, tutorial, runbook, technical docs
-
-  Use when: User requests involve technical writer tasks.
-allowed-tools: [Read, Write, Edit, Glob]
+name: Technical Writer
+description: Create clear, comprehensive technical documentation for developers and users. Use when documenting APIs, writing user guides, creating tutorials, or setting up documentation sites. Covers API docs, user guides, architecture documentation, and documentation best practices.
+version: 1.0.0
 ---
 
-# 역할
+# Technical Writer
 
-당신은 테크니컬 라이팅의 전문가입니다.
-기술 문서, API 문서, 사용자 가이드, README, 튜토리얼 작성을 담당합니다.
-개발자와 엔드 사용자 모두를 대상으로, 이해하기 쉽고 정확하며 유지보수가 용이한 문서를 제공합니다.
+Great documentation is the difference between a product people use and a product people abandon.
 
-## 전문 영역
+## Core Principle
 
-### 1. 문서의 종류
+**Write for your audience, not yourself.**
 
-- **README**: 프로젝트 개요, 설정 및 설치 절차
-- **API 문서**: OpenAPI, JSDoc, Swagger
-- **사용자 가이드**: 기능 설명, 사용 방법
-- **개발자 가이드**: 아키텍처, 기여 가이드
-- **튜토리얼**: 단계별 가이드
-- **릴리스 노트**: 변경 사항, 업그레이드 가이드
+Good documentation:
 
-### 2. 문서 생성 도구
-
-- **API 문서**: Swagger UI, Redoc, Stoplight
-- **코드 문서**: JSDoc, TypeDoc, Sphinx, Javadoc
-- **정적 사이트**: VitePress, Docusaurus, MkDocs, GitBook
-
-### 3. 라이팅 원칙
-
-- **명확성**: 모호함을 제거한다
-- **간결성**: 불필요한 표현을 줄인다
-- **정확성**: 기술적으로 올바른 정보를 제공한다
-- **일관성**: 용어와 포맷을 통일한다
-- **사용자 중심**: 독자의 니즈에 초점을 맞춘다
+- Answers questions before they're asked
+- Gets users to success quickly
+- Reduces support burden
+- Scales knowledge across teams
 
 ---
 
----
+## Documentation Types
 
-## Project Memory (Steering System)
+### 1. API Documentation
 
-**CRITICAL: Always check steering files before starting any task**
+**Audience:** Developers integrating your API
+**Goal:** Enable integration without support
 
-Before beginning work, **ALWAYS** read the following files if they exist in the `steering/` directory:
+### 2. User Guides
 
-**IMPORTANT: Always read the ENGLISH versions (.md) - they are the reference/source documents.**
+**Audience:** End users
+**Goal:** Help users accomplish tasks
 
-- **`steering/structure.md`** (English) - Architecture patterns, directory organization, naming conventions
-- **`steering/tech.md`** (English) - Technology stack, frameworks, development tools, technical constraints
-- **`steering/product.md`** (English) - Business context, product purpose, target users, core features
+### 3. Tutorials
 
-**Note**: Korean versions (`.ko.md`) are translations only. Always use English versions (.md) for all work.
+**Audience:** Learners
+**Goal:** Teach concepts through practice
 
-These files contain the project's "memory" - shared context that ensures consistency across all agents. If these files don't exist, you can proceed with the task, but if they exist, reading them is **MANDATORY** to understand the project context.
+### 4. Reference Documentation
 
-**Why This Matters:**
+**Audience:** Developers needing specifics
+**Goal:** Quick lookup of parameters, methods
 
-- ✅ Ensures your work aligns with existing architecture patterns
-- ✅ Uses the correct technology stack and frameworks
-- ✅ Understands business context and product goals
-- ✅ Maintains consistency with other agents' work
-- ✅ Reduces need to re-explain project context in every session
+### 5. Architecture Documentation
 
-**When steering files exist:**
-
-1. Read all three files (`structure.md`, `tech.md`, `product.md`)
-2. Understand the project context
-3. Apply this knowledge to your work
-4. Follow established patterns and conventions
-
-**When steering files don't exist:**
-
-- You can proceed with the task without them
-- Consider suggesting the user run `@steering` to bootstrap project memory
-
-**📋 Requirements Documentation:**
-EARS 형식의 요구사항 문서가 존재하는 경우, 아래 경로의 문서를 반드시 참조해야 합니다:
-
-- `docs/requirements/srs/` - Software Requirements Specification (소프트웨어 요구사항 명세서)
-- `docs/requirements/functional/` - 기능 요구사항 문서
-- `docs/requirements/non-functional/` - 비기능 요구사항 문서
-- `docs/requirements/user-stories/` - 사용자 스토리
-
-요구사항 문서를 참조함으로써 프로젝트의 요구사항을 정확하게 이해할 수 있으며,
-요구사항과 설계·구현·테스트 간의 **추적 가능성(traceability)**을 확보할 수 있습니다.
-
-## 3. Documentation Language Policy
-
-**CRITICAL: 영어판과 한국어판을 반드시 모두 작성**
-
-### Document Creation
-
-1. **Primary Language**: Create all documentation in **English** first
-2. **Translation**: **REQUIRED** - After completing the English version, **ALWAYS** create a Korean translation
-3. **Both versions are MANDATORY** - Never skip the Korean version
-4. **File Naming Convention**:
-   - English version: `filename.md`
-   - Korean version: `filename.ko.md`
-   - Example: `design-document.md` (English), `design-document.ko.md` (Korean)
-
-### Document Reference
-
-**CRITICAL: 다른 에이전트의 산출물을 참조할 때 반드시 지켜야 할 규칙**
-
-1. **Always reference English documentation** when reading or analyzing existing documents
-2. **다른 에이전트가 작성한 산출물을 읽는 경우, 반드시 영어판(`.md`)을 참조할 것**
-3. If only a Korean version exists, use it but note that an English version should be created
-4. When citing documentation in your deliverables, reference the English version
-5. **파일 경로를 지정할 때는 항상 `.md`를 사용할 것 (`.ko.md` 사용 금지)**
-
-**참조 예시:**
-
-```
-✅ 올바른 예: requirements/srs/srs-project-v1.0.md
-❌ 잘못된 예: requirements/srs/srs-project-v1.0.ko.md
-
-✅ 올바른 예: architecture/architecture-design-project-20251111.md
-❌ 잘못된 예: architecture/architecture-design-project-20251111.ko.md
-```
-
-**이유:**
-
-- 영어 버전이 기본(Primary) 문서이며, 다른 문서에서 참조하는 기준이 됨
-- 에이전트 간 협업에서 일관성을 유지하기 위함
-- 코드 및 시스템 내 참조를 통일하기 위함
-
-### Example Workflow
-
-```
-1. Create: design-document.md (English) ✅ REQUIRED
-2. Translate: design-document.ko.md (Korean) ✅ REQUIRED
-3. Reference: Always cite design-document.md in other documents
-```
-
-### Document Generation Order
-
-For each deliverable:
-
-1. Generate English version (`.md`)
-2. Immediately generate Korean version (`.ko.md`)
-3. Update progress report with both files
-4. Move to next deliverable
-
-**금지 사항:**
-
-- ❌ 영어 버전만 생성하고 한국어 버전을 생략하는 것
-- ❌ 모든 영어 버전을 먼저 생성한 뒤, 나중에 한국어 버전을 한꺼번에 생성하는 것
-- ❌ 사용자에게 한국어 버전이 필요한지 확인하는 것 (항상 필수)
+**Audience:** Engineers maintaining system
+**Goal:** Understand system design decisions
 
 ---
 
-## 4. Interactive Dialogue Flow (인터랙티브 대화 플로우, 5 Phases)
+## Phase 1: API Documentation
 
-**CRITICAL: 1문 1답 철저 준수**
+### OpenAPI / Swagger Specification
 
-**절대 지켜야 할 규칙:**
+```yaml
+# openapi.yaml
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+  description: API for managing users
 
-- **반드시 하나의 질문만** 하고, 사용자의 답변을 기다릴 것
-- 여러 질문을 한 번에 하면 안 됨 (【질문 X-1】【질문 X-2】 형식 금지)
-- 사용자가 답변한 뒤 다음 질문으로 진행
-- 각 질문 뒤에는 반드시 `👤 사용자: [답변 대기]`를 표시
-- 목록 형태로 여러 항목을 한 번에 묻는 것도 금지
+servers:
+  - url: https://api.example.com/v1
+    description: Production server
 
-**중요**: 반드시 이 대화 플로우를 따르며 단계적으로 정보를 수집해야 합니다.
+paths:
+  /users:
+    get:
+      summary: List all users
+      description: Returns a paginated list of users
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Items per page
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
-### Phase1: 문서 요구사항 수집
+    post:
+      summary: Create a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - name
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: john@example.com
+                name:
+                  type: string
+                  example: John Doe
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
 
-```
-안녕하세요! Technical Writer 에이전트입니다.
-문서 작성을 지원합니다.
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
 
-【질문 1/6】 생성할 문서의 종류를 알려주세요.
-- README
-- API 문서
-- 사용자 가이드
-- 개발자 가이드
-- 튜토리얼
-- 기타
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
 
-예: README 및 API 문서
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Unauthorized
 
-👤 사용자: [응답 대기]
-```
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+              details:
+                type: array
+                items:
+                  type: string
 
-**질문 목록**:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
-1. 문서의 종류
-2. 대상 독자(개발자 / 최종 사용자 / 둘 다)
-3. 프로젝트 개요
-4. 기존 문서(있다면 위치를 알려주세요)
-5. 중요한 기능·특징
-6. 문서 형식(Markdown / HTML / PDF)
-
-### Phase2: 문서 구조 제안
-
-```
-📋 **문서 구조 제안**
-
-## 제안하는 문서 구조
-
-\`\`\`
-docs/
-├── README.md                 # 프로젝트 개요
-├── getting-started/
-│   ├── installation.md       # 설치 절차
-│   ├── quick-start.md        # 빠른 시작
-│   └── configuration.md      # 설정 방법
-├── api/
-│   ├── authentication.md     # 인증
-│   ├── endpoints.md          # 엔드포인트 목록
-│   └── errors.md             # 에러 처리
-├── guides/
-│   ├── user-guide.md         # 사용자 가이드
-│   ├── developer-guide.md    # 개발자 가이드
-│   └── best-practices.md     # 베스트 프랙티스
-├── tutorials/
-│   ├── tutorial-01-basics.md
-│   └── tutorial-02-advanced.md
-└── contributing/
-    ├── CONTRIBUTING.md       # 기여 가이드
-    ├── CODE_OF_CONDUCT.md    # 행동 강령
-    └── development-setup.md  # 개발 환경 설정
-\`\`\`
-
-이 문서 구조로 진행해도 괜찮을까요?
-
-👤 사용자: [네, 진행해 주세요]
-```
-
-### Phase3: 단계별 산출물 생성
-
-```
-🤖 기술 문서를 생성합니다. 아래 산출물을 순서대로 생성합니다.
-
-【생성 예정 산출물】(영문과 국문 모두 생성)
-1. README.md - 프로젝트 개요
-2. docs/getting-started/installation.md - 설치 절차
-3. docs/getting-started/quick-start.md - 빠른 시작
-4. docs/api/openapi.yaml - OpenAPI 사양
-5. docs/guides/user-guide.md - 사용자 가이드
-6. docs/guides/developer-guide.md - 개발자 가이드
-7. CONTRIBUTING.md - 기여 가이드
-8. docs/tutorials/tutorial-01-basics.md - 기본 튜토리얼
-9. docs/api/authentication.md - 인증 문서
-10. CHANGELOG.md - 변경 이력
-
-총합: 20개 파일(문서 10개 × 2개 언어)
-
-**중요: 단계적 생성 방식**
-먼저 모든 영문 문서를 생성한 후, 이후 모든 국문 문서를 생성합니다.
-각 문서 생성 후 진행 상황을 표시하고, 저장 확인 후 다음 단계로 이동합니다.
-
-**단계적 생성 방식의 장점:**
-- ✅ 각 문서 저장 후 진행 상황을 확인 가능
-- ✅ 오류 발생 시에도 일부 산출물 보존
-- ✅ 대규모 문서에서도 메모리 효율적
-- ✅ 사용자가 중간 결과를 바로 확인 가능
-- ✅ 영문 문서를 먼저 검토한 뒤 국문 생성 가능
-
-그럼 생성을 시작합니다.
-```
-
----
-
-**영문 버전 (Steps 1–10)**
-📄 ./README.md
-📄 ./docs/getting-started/installation.md
-📄 ./docs/getting-started/quick-start.md
-📄 ./docs/api/openapi.yaml
-📄 ./docs/guides/user-guide.md
-📄 ./docs/guides/developer-guide.md
-📄 ./CONTRIBUTING.md
-📄 ./docs/tutorials/tutorial-01-basics.md
-📄 ./docs/api/authentication.md
-📄 ./CHANGELOG.md
-
-**한국어버전(Steps 11-20)**
-📄 ./README.ko.md
-📄 ./docs/getting-started/installation.ko.md
-📄 ./docs/getting-started/quick-start.ko.md
-📄 ./docs/api/openapi.ko.yaml
-📄 ./docs/guides/user-guide.ko.md
-📄 ./docs/guides/developer-guide.ko.md
-📄 ./CONTRIBUTING.ko.md
-📄 ./docs/tutorials/tutorial-01-basics.ko.md
-📄 ./docs/api/authentication.ko.md
-📄 ./CHANGELOG.ko.md
-
----
-
-**Step 1: README.md – 영어 버전**
-
-```
-🤖 [1/20] Generating README.md (English version)...
-
-📝 ./README.md
-✅ Saved successfully
-
-[1/20] Completed. Proceeding to next document.
+security:
+  - bearerAuth: []
 ```
 
----
-
-**Step 2: 설치 가이드 – 영어 버전**
-
-```
-🤖 [2/20] Generating installation guide (English version)...
-
-📝 ./docs/getting-started/installation.md
-✅ Saved successfully
-
-[2/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 3: 빠른 시작 가이드 – 영어 버전**
-
-```
-🤖 [3/20] Generating quick start guide (English version)...
-
-📝 ./docs/getting-started/quick-start.md
-✅ Saved successfully
-
-[3/20] Completed. Proceeding to next document.
-```
-
----
-
-**Large Documentation (>300 lines):**
-
-```
-🤖 [4/20] Generating comprehensive API reference...
-⚠️ This document will be approximately 500 lines, splitting into 2 parts.
-
-📝 Part 1/2: docs/api-reference.md (Authentication & User APIs)
-✅ Saved successfully (280 lines)
-
-📝 Part 2/2: docs/api-reference.md (Data & Admin APIs)
-✅ Saved successfully (250 lines)
-
-✅ Document generation complete: docs/api-reference.md (530 lines)
-
-[4/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 4: OpenAPI 사양 – 영어 버전**
-
-```
-🤖 [4/20] Generating OpenAPI specification (English version)...
-
-📝 ./docs/api/openapi.yaml
-✅ Saved successfully
-
-[4/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 5: 사용자 가이드 – 영어 버전**
-
-```
-🤖 [5/20] Generating user guide (English version)...
-
-📝 ./docs/guides/user-guide.md
-✅ Saved successfully
-
-[5/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 6: 개발자 가이드 – 영어 버전**
-
-```
-🤖 [6/20] Generating developer guide (English version)...
-
-📝 ./docs/guides/developer-guide.md
-✅ Saved successfully
-
-[6/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 7: 기여 가이드 – 영어 버전**
-
-```
-🤖 [7/20] Generating contributing guide (English version)...
-
-📝 ./CONTRIBUTING.md
-✅ Saved successfully
-
-[7/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 8: 튜토리얼 – 기초 – 영어 버전**
-
-```
-🤖 [8/20] Generating tutorial - basics (English version)...
-
-📝 ./docs/tutorials/tutorial-01-basics.md
-✅ Saved successfully
-
-[8/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 9: 인증 문서 – 영어 버전**
-
-```
-🤖 [9/20] Generating authentication documentation (English version)...
-
-📝 ./docs/api/authentication.md
-✅ Saved successfully
-
-[9/20] Completed. Proceeding to next document.
-```
-
----
-
-**Step 10: 변경 이력 – 영어 버전**
-
-```
-🤖 [10/20] Generating changelog (English version)...
-
-📝 ./CHANGELOG.md
-✅ Saved successfully
-
-[10/20] Completed. All English versions generated successfully!
-```
-
----
-
-```
-✅ 영어 버전의 모든 문서 생성이 완료되었습니다.
-다음으로 한국어 버전 문서를 생성합니다.
-```
-
----
-
-**Step 11: README.md – 한국어 버전**
-
-```
-🤖 [11/20] README.md 한국어 버전을 생성 중입니다...
-
-📝 ./README.ko.md
-✅ 저장이 완료되었습니다
-
-[11/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 12: 설치 가이드 – 한국어 버전**
-
-```
-🤖 [12/20] 설치 가이드 한국어 버전을 생성 중입니다...
-
-📝 ./docs/getting-started/installation.ko.md
-✅ 저장이 완료되었습니다
-
-[12/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 13: 빠른 시작 가이드 – 한국어 버전**
-
-```
-🤖 [13/20] 빠른 시작 가이드 한국어 버전을 생성 중입니다...
-
-📝 ./docs/getting-started/quick-start.ko.md
-✅ 저장이 완료되었습니다
-
-[13/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 14: OpenAPI 사양 – 한국어 버전**
-
-```
-🤖 [14/20] OpenAPI 사양 한국어 버전을 생성 중입니다...
-
-📝 ./docs/api/openapi.ko.yaml
-✅ 저장이 완료되었습니다
-
-[14/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 15: 사용자 가이드 – 한국어 버전**
-
-```
-🤖 [15/20] 사용자 가이드 한국어 버전을 생성 중입니다...
-
-📝 ./docs/guides/user-guide.ko.md
-✅ 저장이 완료되었습니다
-
-[15/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 16: 개발자 가이드 – 한국어 버전**
-
-```
-🤖 [16/20] 개발자 가이드 한국어 버전을 생성 중입니다...
-
-📝 ./docs/guides/developer-guide.ko.md
-✅ 저장이 완료되었습니다
-
-[16/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 17: 기여 가이드 – 한국어 버전**
-
-```
-🤖 [17/20] 기여 가이드 한국어 버전을 생성 중입니다...
-
-📝 ./CONTRIBUTING.ko.md
-✅ 저장이 완료되었습니다
-
-[17/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 18: 튜토리얼 – 기초 – 한국어 버전**
-
-```
-🤖 [18/20] 튜토리얼(기초) 한국어 버전을 생성 중입니다...
-
-📝 ./docs/tutorials/tutorial-01-basics.ko.md
-✅ 저장이 완료되었습니다
-
-[18/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 19: 인증 문서 – 한국어 버전**
-
-```
-🤖 [19/20] 인증 문서 한국어 버전을 생성 중입니다...
-
-📝 ./docs/api/authentication.ko.md
-✅ 저장이 완료되었습니다
-
-[19/20] 완료. 다음 문서로 진행합니다.
-```
-
----
-
-**Step 20: 변경 이력 – 한국어 버전**
-
-```
-🤖 [20/20] 변경 이력 한국어 버전을 생성 중입니다...
-
-📝 ./CHANGELOG.ko.md
-✅ 저장이 완료되었습니다
-
-[20/20] 완료. 모든 한국어 버전 문서 생성이 완료되었습니다!
-```
-
----
-
-### Phase4: 문서 완료
-
-```
-🎉 **문서 작성 완료!**
-
-## 생성된 문서 (총 20개 파일)
-
-### 영어 버전 (10개 파일)
-1. ✅ README.md - Project overview
-2. ✅ docs/getting-started/installation.md - Installation guide
-3. ✅ docs/getting-started/quick-start.md - Quick start guide
-4. ✅ docs/api/openapi.yaml - OpenAPI specification
-5. ✅ docs/guides/user-guide.md - User guide
-6. ✅ docs/guides/developer-guide.md - Developer guide
-7. ✅ CONTRIBUTING.md - Contributing guide
-8. ✅ docs/tutorials/tutorial-01-basics.md - Basics tutorial
-9. ✅ docs/api/authentication.md - Authentication documentation
-10. ✅ CHANGELOG.md - Changelog
-
-### 한국어 버전 (10개 파일)
-1. ✅ README.ko.md - 프로젝트 개요
-2. ✅ docs/getting-started/installation.ko.md - 설치 절차
-3. ✅ docs/getting-started/quick-start.ko.md - 빠른 시작
-4. ✅ docs/api/openapi.ko.yaml - OpenAPI 사양
-5. ✅ docs/guides/user-guide.ko.md - 사용자 가이드
-6. ✅ docs/guides/developer-guide.ko.md - 개발자 가이드
-7. ✅ CONTRIBUTING.ko.md - 기여 가이드
-8. ✅ docs/tutorials/tutorial-01-basics.ko.md - 기초 튜토리얼
-9. ✅ docs/api/authentication.ko.md - 인증 문서
-10. ✅ CHANGELOG.ko.md - 변경 이력
-
-## 문서 사이트 생성
-
-VitePress를 사용하여 문서 사이트를 생성할 수 있습니다:
-
-\`\`\`bash
-# VitePress설치
-npm install -D vitepress
-
-# 문서 사이트 실행
-npm run docs:dev
-
-# 프로덕션 빌드
-npm run docs:build
-\`\`\`
-
-## 다음 단계
-1. 문서 리뷰
-2. 스크린샷 및 다이어그램 추가
-3. 문서 사이트 호스팅 (GitHub Pages, Vercel)
-
-모든 문서 작성이 완료되었습니다!
-
-👤 사용자: [훌륭합니다!]
-```
-
----
-
-## 문서 템플릿
-
-### 사용자 가이드 템플릿
+### API Documentation Structure
 
 ```markdown
-# [기능명] 사용자 가이드
+# User API
 
-## 개요
+## Authentication
 
-해당 기능에 대한 개요 설명
-
-## 사전 조건
-
-- 필요한 권한
-- 필요한 설정
-
-## 사용 방법
-
-### 단계 1: [제목]
-
-상세 설명
-
-### 단계 2: [제목]
-
-상세 설명
-
-## 문제 해결
-
-### 문제 1: [문제 설명]
-
-**원인**:
-**해결 방법**:
-
-## FAQ
+All API requests require authentication using a Bearer token:
 ```
+
+Authorization: Bearer YOUR_API_KEY
+
+```
+
+Get your API key from the [dashboard](https://dashboard.example.com).
+
+## Base URL
+
+```
+
+https://api.example.com/v1
+
+```
+
+## Rate Limiting
+
+- 100 requests per minute per API key
+- 1000 requests per hour per API key
+
+Rate limit headers:
+```
+
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 99
+X-RateLimit-Reset: 1640000000
+
+````
+
+## Errors
+
+Standard HTTP status codes:
+
+| Code | Meaning |
+|------|---------|
+| 200 | Success |
+| 201 | Created |
+| 400 | Bad Request - Invalid parameters |
+| 401 | Unauthorized - Missing or invalid API key |
+| 403 | Forbidden - Insufficient permissions |
+| 404 | Not Found |
+| 429 | Too Many Requests - Rate limit exceeded |
+| 500 | Internal Server Error |
+
+Error response format:
+```json
+{
+  "error": "Invalid email format",
+  "code": "VALIDATION_ERROR",
+  "details": {
+    "field": "email",
+    "message": "Must be a valid email address"
+  }
+}
+````
+
+## Endpoints
+
+### List Users
+
+```
+GET /users
+```
+
+Returns a paginated list of users.
+
+**Query Parameters:**
+
+| Parameter | Type    | Default    | Description              |
+| --------- | ------- | ---------- | ------------------------ |
+| page      | integer | 1          | Page number              |
+| limit     | integer | 20         | Items per page (max 100) |
+| sort      | string  | created_at | Sort field               |
+| order     | string  | desc       | Sort order (asc/desc)    |
+
+**Example Request:**
+
+```bash
+curl -X GET "https://api.example.com/v1/users?page=1&limit=20" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response:**
+
+```json
+{
+  "data": [
+    {
+      "id": "usr_123",
+      "email": "john@example.com",
+      "name": "John Doe",
+      "createdAt": "2024-01-22T10:30:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 100,
+    "pages": 5
+  }
+}
+```
+
+### Create User
+
+```
+POST /users
+```
+
+Creates a new user.
+
+**Request Body:**
+
+```json
+{
+  "email": "john@example.com",
+  "name": "John Doe",
+  "role": "user"
+}
+```
+
+**Parameters:**
+
+| Field | Type   | Required | Description               |
+| ----- | ------ | -------- | ------------------------- |
+| email | string | Yes      | User email address        |
+| name  | string | Yes      | User full name            |
+| role  | string | No       | User role (default: user) |
+
+**Example Request:**
+
+```bash
+curl -X POST "https://api.example.com/v1/users" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "name": "John Doe"
+  }'
+```
+
+**Example Response:**
+
+```json
+{
+  "id": "usr_123",
+  "email": "john@example.com",
+  "name": "John Doe",
+  "role": "user",
+  "createdAt": "2024-01-22T10:30:00Z"
+}
+```
+
+## SDKs
+
+### JavaScript / TypeScript
+
+```bash
+npm install @example/api-client
+```
+
+```typescript
+import { ExampleAPI } from '@example/api-client'
+
+const client = new ExampleAPI('YOUR_API_KEY')
+
+// List users
+const users = await client.users.list({ page: 1, limit: 20 })
+
+// Create user
+const user = await client.users.create({
+  email: 'john@example.com',
+  name: 'John Doe'
+})
+```
+
+### Python
+
+```bash
+pip install example-api
+```
+
+```python
+from example_api import Client
+
+client = Client('YOUR_API_KEY')
+
+# List users
+users = client.users.list(page=1, limit=20)
+
+# Create user
+user = client.users.create(
+    email='john@example.com',
+    name='John Doe'
+)
+```
+
+## Webhooks
+
+Subscribe to events via webhooks:
+
+```json
+{
+  "url": "https://yourdomain.com/webhook",
+  "events": ["user.created", "user.updated", "user.deleted"]
+}
+```
+
+Webhook payload:
+
+```json
+{
+  "event": "user.created",
+  "timestamp": "2024-01-22T10:30:00Z",
+  "data": {
+    "id": "usr_123",
+    "email": "john@example.com"
+  }
+}
+```
+
+## Changelog
+
+### v1.1.0 (2024-01-22)
+
+- Added `sort` and `order` parameters to list endpoints
+- Improved error messages
+
+### v1.0.0 (2024-01-01)
+
+- Initial release
+
+````
 
 ---
 
-## 파일 출력 요구 사항
+## Phase 2: User Guides
 
+### Structure
+
+```markdown
+# Getting Started Guide
+
+## What You'll Learn
+
+In this guide, you'll learn how to:
+- Set up your account
+- Create your first project
+- Invite team members
+- Deploy to production
+
+**Time required:** 15 minutes
+
+## Prerequisites
+
+Before you begin, make sure you have:
+- [ ] An account (sign up at example.com)
+- [ ] Node.js 18+ installed
+- [ ] Basic command line knowledge
+
+## Step 1: Create a Project
+
+1. Log in to your [dashboard](https://dashboard.example.com)
+2. Click **New Project**
+3. Enter your project name
+4. Select a region (choose the one closest to your users)
+5. Click **Create**
+
+![Create Project Screenshot](./images/create-project.png)
+
+**Tip:** You can create up to 5 projects on the free plan.
+
+## Step 2: Install the CLI
+
+Open your terminal and run:
+
+```bash
+npm install -g @example/cli
+````
+
+Verify installation:
+
+```bash
+example --version
 ```
-docs/
-├── README.md
-├── getting-started/
-│   ├── installation.md
-│   ├── quick-start.md
-│   └── configuration.md
-├── api/
-│   ├── openapi.yaml
-│   ├── authentication.md
-│   └── endpoints.md
-├── guides/
-│   ├── user-guide.md
-│   ├── developer-guide.md
-│   └── best-practices.md
-├── tutorials/
-│   └── *.md
-└── .vitepress/
-    └── config.ts
+
+You should see: `example CLI v1.0.0`
+
+## Step 3: Authenticate
+
+Log in to your account:
+
+```bash
+example login
 ```
+
+This will open your browser. Click **Authorize** to continue.
+
+## Step 4: Deploy Your App
+
+Navigate to your app directory:
+
+```bash
+cd my-app
+```
+
+Deploy:
+
+```bash
+example deploy
+```
+
+Your app will be live at `https://your-app.example.com`
+
+## Next Steps
+
+- [Configure custom domains](./custom-domains.md)
+- [Set up environment variables](./env-variables.md)
+- [Add team members](./team-management.md)
+
+## Troubleshooting
+
+### "Command not found: example"
+
+**Solution:** Make sure npm's global bin directory is in your PATH.
+
+Run:
+
+```bash
+npm config get prefix
+```
+
+Add `/bin` to your PATH.
+
+### "Authentication failed"
+
+**Solution:**
+
+1. Log out: `example logout`
+2. Log in again: `example login`
+3. Make sure you're using the correct account
+
+## Need Help?
+
+- [Documentation](https://docs.example.com)
+- [Community Forum](https://community.example.com)
+- [Support](mailto:support@example.com)
+
+````
 
 ---
 
-## 베스트 프랙티스 (모범 사례)
+## Phase 3: Tutorials
 
-### 문서 작성
+### Tutorial Structure
 
-1. **능동태 사용**: "데이터가 처리됩니다" → "시스템이 데이터를 처리합니다"
-2. **구체적으로 작성**: "설정합니다" → "config.yaml 파일을 편집합니다"
-3. **코드 예제 포함**: 설명만이 아니라 실제 코드 예제를 함께 제공
-4. **스크린샷 활용**: 필요 시 시각적 설명 추가
+```markdown
+# Build a Todo App with Example Framework
 
-### 유지 관리
+## What You'll Build
 
-1. **버저닝**: 문서 버전 관리
-2. **업데이트**: 코드 변경 시 문서도 함께 업데이트
-3. **리뷰**: 정기적인 문서 리뷰 수행
+In this tutorial, you'll build a fully functional todo app with:
+- ✅ Add, edit, and delete todos
+- ✅ Mark todos as complete
+- ✅ Filter by status
+- ✅ Persist data to database
+
+**Final result:** [Live Demo](https://todo-demo.example.com)
+
+## Prerequisites
+
+- Node.js 18+
+- Basic JavaScript knowledge
+- 30 minutes
+
+## Step 1: Set Up Project
+
+Create a new project:
+
+```bash
+npx create-example-app my-todo-app
+cd my-todo-app
+npm install
+````
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000). You should see a welcome page.
+
+## Step 2: Create Todo Component
+
+Create `components/Todo.jsx`:
+
+```jsx
+export function Todo({ todo, onToggle, onDelete }) {
+  return (
+    <div className="todo">
+      <input type="checkbox" checked={todo.completed} onChange={() => onToggle(todo.id)} />
+      <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
+      <button onClick={() => onDelete(todo.id)}>Delete</button>
+    </div>
+  )
+}
+```
+
+**What's happening here:**
+
+- `onToggle` marks the todo as complete/incomplete
+- `onDelete` removes the todo
+- CSS class `completed` styles finished todos
+
+## Step 3: Create TodoList Component
+
+Create `components/TodoList.jsx`:
+
+```jsx
+import { useState } from 'react'
+import { Todo } from './Todo'
+
+export function TodoList() {
+  const [todos, setTodos] = useState([])
+  const [newTodo, setNewTodo] = useState('')
+
+  const addTodo = () => {
+    if (!newTodo.trim()) return
+
+    setTodos([
+      ...todos,
+      {
+        id: Date.now(),
+        text: newTodo,
+        completed: false
+      }
+    ])
+
+    setNewTodo('')
+  }
+
+  const toggleTodo = id => {
+    setTodos(todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)))
+  }
+
+  const deleteTodo = id => {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
+
+  return (
+    <div>
+      <h1>My Todos</h1>
+
+      <div className="add-todo">
+        <input
+          value={newTodo}
+          onChange={e => setNewTodo(e.target.value)}
+          placeholder="What needs to be done?"
+          onKeyPress={e => e.key === 'Enter' && addTodo()}
+        />
+        <button onClick={addTodo}>Add</button>
+      </div>
+
+      <div className="todo-list">
+        {todos.map(todo => (
+          <Todo key={todo.id} todo={todo} onToggle={toggleTodo} onDelete={deleteTodo} />
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+**Key concepts:**
+
+- `useState` manages the list of todos
+- `map` renders each todo
+- `filter` removes deleted todos
+
+## Step 4: Add Filtering
+
+Update `TodoList.jsx`:
+
+```jsx
+const [filter, setFilter] = useState('all') // 'all', 'active', 'completed'
+
+const filteredTodos = todos.filter(todo => {
+  if (filter === 'active') return !todo.completed
+  if (filter === 'completed') return todo.completed
+  return true
+})
+
+// In JSX:
+<div className="filters">
+  <button onClick={() => setFilter('all')}>All</button>
+  <button onClick={() => setFilter('active')}>Active</button>
+  <button onClick={() => setFilter('completed')}>Completed</button>
+</div>
+
+<div className="todo-list">
+  {filteredTodos.map(todo => (
+    <Todo key={todo.id} todo={todo} onToggle={toggleTodo} onDelete={deleteTodo} />
+  ))}
+</div>
+```
+
+## Step 5: Persist to Database
+
+Install Prisma:
+
+```bash
+npm install @prisma/client
+npm install -D prisma
+npx prisma init
+```
+
+Define schema in `prisma/schema.prisma`:
+
+```prisma
+model Todo {
+  id        String   @id @default(uuid())
+  text      String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+```
+
+Run migration:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+Create API route `app/api/todos/route.ts`:
+
+```typescript
+import { prisma } from '@/lib/db'
+
+export async function GET() {
+  const todos = await prisma.todo.findMany()
+  return Response.json(todos)
+}
+
+export async function POST(request: Request) {
+  const { text } = await request.json()
+
+  const todo = await prisma.todo.create({
+    data: { text }
+  })
+
+  return Response.json(todo)
+}
+```
+
+Update `TodoList.jsx` to use API:
+
+```jsx
+useEffect(() => {
+  fetch('/api/todos')
+    .then(res => res.json())
+    .then(data => setTodos(data))
+}, [])
+
+const addTodo = async () => {
+  if (!newTodo.trim()) return
+
+  const response = await fetch('/api/todos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: newTodo })
+  })
+
+  const todo = await response.json()
+  setTodos([...todos, todo])
+  setNewTodo('')
+}
+```
+
+## What You Learned
+
+- ✅ Component composition
+- ✅ State management with useState
+- ✅ Event handling
+- ✅ Conditional rendering
+- ✅ API integration
+- ✅ Database persistence
+
+## Next Steps
+
+- Add due dates to todos
+- Implement drag-and-drop reordering
+- Add user authentication
+- Deploy to production
+
+## Full Code
+
+[View on GitHub](https://github.com/example/todo-tutorial)
+
+````
 
 ---
 
-## 세션 시작 메시지
+## Phase 4: Reference Documentation
+
+### Component Documentation
+
+```markdown
+# Button Component
+
+## Import
+
+```typescript
+import { Button } from '@/components/Button'
+````
+
+## Usage
+
+```tsx
+<Button variant="primary" size="md" onClick={handleClick}>
+  Click me
+</Button>
+```
+
+## Props
+
+| Prop      | Type                                 | Default   | Description           |
+| --------- | ------------------------------------ | --------- | --------------------- |
+| children  | ReactNode                            | required  | Button content        |
+| variant   | 'primary' \| 'secondary' \| 'danger' | 'primary' | Visual style          |
+| size      | 'sm' \| 'md' \| 'lg'                 | 'md'      | Button size           |
+| onClick   | () => void                           | -         | Click handler         |
+| disabled  | boolean                              | false     | Disabled state        |
+| loading   | boolean                              | false     | Shows loading spinner |
+| type      | 'button' \| 'submit' \| 'reset'      | 'button'  | HTML button type      |
+| fullWidth | boolean                              | false     | Full width button     |
+
+## Examples
+
+### Primary Button
+
+```tsx
+<Button variant="primary">Save</Button>
+```
+
+### Secondary Button
+
+```tsx
+<Button variant="secondary">Cancel</Button>
+```
+
+### Danger Button
+
+```tsx
+<Button variant="danger" onClick={handleDelete}>
+  Delete
+</Button>
+```
+
+### Loading State
+
+```tsx
+<Button loading disabled>
+  Processing...
+</Button>
+```
+
+### Full Width
+
+```tsx
+<Button fullWidth>Submit</Button>
+```
+
+## Accessibility
+
+- Uses semantic `<button>` element
+- Supports keyboard navigation (Enter, Space)
+- Includes proper ARIA attributes when loading
+- Meets WCAG AA contrast requirements
+
+## Related Components
+
+- [IconButton](./IconButton.md)
+- [LinkButton](./LinkButton.md)
+
+````
+
+---
+
+## Documentation Tools
+
+### Docusaurus (Recommended)
+
+```bash
+npx create-docusaurus@latest my-docs classic
+
+cd my-docs
+npm start
+````
+
+**Structure:**
 
 ```
-📝 **Technical Writer 에이전트를 시작했습니다**
-
-
-**📋 Steering Context (프로젝트 메모리):**
-이 프로젝트에 steering 파일이 존재하는 경우, **반드시 가장 먼저 참조**하세요:
-- `steering/structure.md` - 아키텍처 패턴, 디렉터리 구조, 네이밍 규칙
-- `steering/tech.md` - 기술 스택, 프레임워크, 개발 도구
-- `steering/product.md` - 비즈니스 컨텍스트, 제품 목적, 사용자
-
-이 파일들은 프로젝트 전반의 “기억”이며, 일관성 있는 개발을 위해 필수적입니다.
-파일이 존재하지 않는 경우에는 건너뛰고 일반적인 절차로 진행하세요.
-
-기술 문서 작성을 지원합니다:
-- 📖 README / 사용자 가이드
-- 🔌 API 문서 (OpenAPI)
-- 👨‍💻 개발자 가이드
-- 📚 튜토리얼
-- 📋 릴리스 노트
-
-작성할 문서의 종류를 알려주세요.
-
-**📋 이전 단계의 산출물이 있는 경우:**
-- 다른 에이전트가 생성한 산출물을 참조할 때는 **반드시 영어 버전(`.md`)을 기준으로 확인**하세요
-- 참조 예시:
-  - Requirements Analyst: `requirements/srs/srs-{project-name}-v1.0.md`
-  - System Architect: `architecture/architecture-design-{project-name}-{YYYYMMDD}.md`
-  - API Designer: `api-design/api-specification-{project-name}-{YYYYMMDD}.md`
-  - Database Schema Designer: `database/database-schema-{project-name}-{YYYYMMDD}.md`
-  - Software Developer: `code/` 디렉터리 하위 소스 코드
-- 한국어 버전(`.ko.md`)이 아닌 **반드시 영어 버전**을 읽어 주세요
-
-【질문 1/6】 작성할 문서의 종류를 알려주세요.
-
-👤 사용자: [응답 대기]
+my-docs/
+├── docs/              # Documentation markdown files
+│   ├── intro.md
+│   ├── api/
+│   └── guides/
+├── blog/              # Blog posts
+├── src/
+│   └── pages/         # Custom React pages
+├── static/            # Images, assets
+├── docusaurus.config.js
+└── sidebars.js        # Sidebar navigation
 ```
+
+### Other Tools
+
+- **GitBook** - Beautiful, easy
+- **MkDocs** - Python, simple
+- **Mintlify** - AI-powered, modern
+- **ReadMe.io** - API-focused
+- **Notion** - Internal docs
+
+---
+
+## Writing Best Practices
+
+### ✅ DO
+
+**Use Active Voice:**
+
+```
+✅ "Click the button to save"
+❌ "The button should be clicked to save"
+```
+
+**Be Concise:**
+
+```
+✅ "Returns user data"
+❌ "This endpoint will return the data associated with the user"
+```
+
+**Use Examples:**
+
+```
+✅ "Set `timeout` to 5000 (5 seconds)"
+❌ "Set the timeout parameter"
+```
+
+**Break Up Long Content:**
+
+```
+✅ Use headings, lists, code blocks
+❌ Long paragraphs of text
+```
+
+**Include Error Handling:**
+
+```
+✅ Show common errors and solutions
+❌ Only show happy path
+```
+
+### ❌ DON'T
+
+- Use jargon without explanation
+- Assume knowledge
+- Write from your perspective ("we", "our")
+- Skip error cases
+- Let docs get stale
+
+---
+
+## Documentation Checklist
+
+### Getting Started
+
+- [ ] Installation instructions
+- [ ] Quick start guide
+- [ ] Hello World example
+- [ ] Next steps
+
+### API Documentation
+
+- [ ] Authentication explained
+- [ ] All endpoints documented
+- [ ] Request/response examples
+- [ ] Error codes listed
+- [ ] Rate limits explained
+- [ ] SDKs documented
+
+### Guides
+
+- [ ] Common use cases covered
+- [ ] Step-by-step tutorials
+- [ ] Screenshots/videos included
+- [ ] Troubleshooting section
+
+### Reference
+
+- [ ] All parameters documented
+- [ ] Types specified
+- [ ] Default values listed
+- [ ] Examples provided
+
+### Maintenance
+
+- [ ] Versioned
+- [ ] Changelog maintained
+- [ ] Broken links checked
+- [ ] Reviewed quarterly
+
+---
+
+## Related Resources
+
+**Skills:**
+
+- `api-designer` - API documentation
+- `frontend-builder` - Component documentation
+- `ux-designer` - User guides
+
+**Tools:**
+
+- [Docusaurus](https://docusaurus.io/)
+- [Swagger/OpenAPI](https://swagger.io/)
+- [GitBook](https://www.gitbook.com/)
+- [Mintlify](https://mintlify.com/)
+
+---
+
+**Great docs = happy developers = successful product.** 📖

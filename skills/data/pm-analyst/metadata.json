@@ -1,7 +1,7 @@
 {
   "name": "pm-analyst",
-  "repo": "cncorp/arsenal",
-  "path": "dot-claude/skills/pm-analyst/SKILL.md",
-  "source": "github.com/cncorp/arsenal",
-  "downloaded_at": "2026-01-14T04:01:20.430400Z"
+  "repo": "shaul1991/shaul-agents-plugin",
+  "path": "skills/pm-analyst/SKILL.md",
+  "source": "github.com/shaul1991/shaul-agents-plugin",
+  "downloaded_at": "2026-01-22T02:12:24.296822Z"
 }

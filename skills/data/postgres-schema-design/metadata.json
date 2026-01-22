@@ -1,7 +1,7 @@
 {
   "name": "postgres-schema-design",
-  "repo": "MUmerRazzaq/fast-next-todo",
-  "path": ".claude/skills/postgres-schema-design/SKILL.md",
-  "source": "github.com/MUmerRazzaq/fast-next-todo",
-  "downloaded_at": "2026-01-14T03:58:15.405484Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/database/postgres-schema-design/SKILL.MD",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-22T03:18:26.888231Z"
 }

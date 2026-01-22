@@ -1,9 +1,7 @@
 {
   "name": "presentation-builder",
-  "description": "Structure compelling presentations with clear narratives and visual suggestions",
-  "repo": "tatat/agents-playground",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/talk-to-slidev-workflow/.claude/skills/presentation-builder/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-22T03:29:22.564713Z"
 }

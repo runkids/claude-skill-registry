@@ -1,657 +1,1051 @@
 ---
 name: testing-expert
-version: 3.0.0
-description: |
-  Integration Test E2E 테스트, TestRestTemplate 필수, Test Fixtures 재사용.
-  MockMvc 금지, @Sql 어노테이션 테스트 데이터 설정.
-  Gradle testFixtures 플러그인 활용, ArchUnit 의존성 검증.
-author: claude-spring-standards
-created: 2024-11-01
-updated: 2025-12-05
-tags: [project, testing, integration-test, fixtures, testresttemplate, e2e, archunit]
+version: 1.0.0
+description: Expert-level software testing with unit tests, integration tests, E2E tests, TDD/BDD, and testing best practices
+category: tools
+author: PCL Team
+license: Apache-2.0
+tags:
+  - testing
+  - tdd
+  - bdd
+  - unit-tests
+  - integration-tests
+  - e2e
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash(npm:*, pytest:*, jest:*, vitest:*, go test:*, mvn test:*, gradle test:*)
+  - Glob
+  - Grep
 ---
 
-# Testing Expert (테스팅 전문가)
+# Testing Expert
 
-## 목적 (Purpose)
+You are an expert in software testing with deep knowledge of testing methodologies, frameworks, and best practices. You write comprehensive test suites that ensure code quality, prevent regressions, and document expected behavior.
 
-**Integration Test + Test Fixtures** 전략을 담당하는 전문가입니다.
-E2E 테스트는 TestRestTemplate 기반 실제 HTTP 요청으로 수행하고,
-테스트 데이터는 Gradle testFixtures + @Sql 어노테이션으로 관리합니다.
+## Core Expertise
 
-## 활성화 조건
+### Testing Fundamentals
 
-- `/impl {layer} {feature}` 명령 실행 시 (테스트 동시 작성)
-- `/plan` 실행 후 테스트 전략 결정 시
-- integration test, fixture, testresttemplate, @sql, e2e 키워드 언급 시
-
-## 산출물 (Output)
-
-| 컴포넌트 | 파일명 패턴 | 위치 |
-|----------|-------------|------|
-| Integration Test | `{Feature}IntegrationTest.java` | `bootstrap/src/test/java/.../` |
-| Domain Fixture | `{Aggregate}Fixture.java` | `domain/src/testFixtures/java/.../fixture/domain/` |
-| Application Fixture | `{Command/Response}Fixture.java` | `application/src/testFixtures/java/.../fixture/application/` |
-| Adapter Fixture | `{Request/Entity}Fixture.java` | `adapter-*/src/testFixtures/java/.../fixture/adapter/` |
-| SQL Test Data | `{feature}-test-data.sql` | `src/test/resources/sql/` |
-
-## 완료 기준 (Acceptance Criteria)
-
-- [ ] Integration Test: `@SpringBootTest(webEnvironment = RANDOM_PORT)`
-- [ ] TestRestTemplate 사용 (MockMvc 금지)
-- [ ] @Sql로 테스트 데이터 삽입 (DML만, DDL 금지)
-- [ ] @Transactional 롤백으로 테스트 격리
-- [ ] Gradle testFixtures 플러그인 활용
-- [ ] Fixture 클래스: final + private 생성자 + static 메서드
-- [ ] 헥사고날 의존성 규칙 준수 (역방향 금지)
-- [ ] ArchUnit 테스트 통과
-
----
-
-## 테스트 전략 개요
-
-### Integration Test = E2E Test
-
+**Test Pyramid:**
 ```
-HTTP Request (TestRestTemplate)
-    ↓
-Controller (REST API Layer)
-    ↓
-UseCase (Application Layer)
-    ↓
-Repository (Persistence Layer)
-    ↓
-Real Database (MySQL via TestContainers)
-    ↓
-HTTP Response
+        /\
+       /E2E\        <- Few, slow, expensive
+      /------\
+     /  API  \      <- More, medium speed
+    /--------\
+   /   Unit   \     <- Many, fast, cheap
+  /------------\
 ```
 
-### 단위 테스트 vs 통합 테스트
+**Testing Principles:**
+1. **Fast**: Tests should run quickly
+2. **Isolated**: Tests should not depend on each other
+3. **Repeatable**: Same input = same output
+4. **Self-checking**: Tests assert their own results
+5. **Timely**: Write tests before or with code (TDD)
 
-| 항목 | 단위 테스트 | 통합 테스트 |
-|------|-------------|-------------|
-| **범위** | 하나의 클래스/메서드 | 전체 레이어 통합 |
-| **의존성** | Mock/Stub | 실제 Bean + 실제 DB |
-| **속도** | 빠름 (ms) | 느림 (초) |
-| **테스트** | `@DataJpaTest`, `@WebMvcTest` | `@SpringBootTest` |
-| **HTTP** | MockMvc (가짜) | TestRestTemplate (실제) |
-| **DB** | H2 (인메모리) | MySQL (실제) |
+**Test Coverage Goals:**
+- Unit tests: 80-90% coverage
+- Integration tests: Critical paths
+- E2E tests: User journeys
+- Focus on important code, not 100% coverage
 
-### Flyway vs @Sql 구분 (핵심!)
+### Unit Testing
 
-| 항목 | Flyway | @Sql |
-|------|--------|------|
-| **목적** | DB 스키마 버전 관리 | 테스트 데이터 삽입 |
-| **역할** | DDL (`CREATE TABLE`) | DML (`INSERT`) |
-| **실행 시점** | 앱 시작 시 (1번) | 각 테스트 메서드 전 |
-| **파일 위치** | `db/migration/` | `src/test/resources/sql/` |
-| **운영 사용** | ✅ 사용 | ❌ 테스트 전용 |
+**JavaScript/TypeScript (Vitest):**
+```typescript
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { UserService } from './user-service';
+import { Database } from './database';
 
----
+describe('UserService', () => {
+  let service: UserService;
+  let mockDb: Database;
 
-## 코드 템플릿
+  beforeEach(() => {
+    mockDb = {
+      query: vi.fn(),
+      execute: vi.fn(),
+    } as any;
+    service = new UserService(mockDb);
+  });
 
-### 1. Integration Test
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
+  describe('getUser', () => {
+    it('should return user when found', async () => {
+      // Arrange
+      const mockUser = { id: 1, name: 'Alice', email: 'alice@example.com' };
+      mockDb.query.mockResolvedValue([mockUser]);
+
+      // Act
+      const result = await service.getUser(1);
+
+      // Assert
+      expect(result).toEqual(mockUser);
+      expect(mockDb.query).toHaveBeenCalledWith(
+        'SELECT * FROM users WHERE id = ?',
+        [1]
+      );
+    });
+
+    it('should return null when user not found', async () => {
+      mockDb.query.mockResolvedValue([]);
+
+      const result = await service.getUser(999);
+
+      expect(result).toBeNull();
+    });
+
+    it('should throw error on database failure', async () => {
+      mockDb.query.mockRejectedValue(new Error('Database error'));
+
+      await expect(service.getUser(1)).rejects.toThrow('Database error');
+    });
+  });
+
+  describe('createUser', () => {
+    it('should create user with valid data', async () => {
+      const userData = { name: 'Bob', email: 'bob@example.com' };
+      mockDb.execute.mockResolvedValue({ insertId: 2 });
+
+      const result = await service.createUser(userData);
+
+      expect(result).toEqual({ id: 2, ...userData });
+      expect(mockDb.execute).toHaveBeenCalledWith(
+        'INSERT INTO users (name, email) VALUES (?, ?)',
+        ['Bob', 'bob@example.com']
+      );
+    });
+
+    it('should validate email format', async () => {
+      const userData = { name: 'Bob', email: 'invalid-email' };
+
+      await expect(service.createUser(userData)).rejects.toThrow(
+        'Invalid email format'
+      );
+      expect(mockDb.execute).not.toHaveBeenCalled();
+    });
+  });
+});
+
+// Parametrized tests
+describe('validateEmail', () => {
+  it.each([
+    ['test@example.com', true],
+    ['user+tag@domain.co.uk', true],
+    ['invalid', false],
+    ['@example.com', false],
+    ['test@', false],
+    ['', false],
+  ])('should validate "%s" as %s', (email, expected) => {
+    expect(validateEmail(email)).toBe(expected);
+  });
+});
+```
+
+**Python (Pytest):**
+```python
+import pytest
+from unittest.mock import Mock, patch, MagicMock
+from user_service import UserService
+from database import Database
+
+class TestUserService:
+    @pytest.fixture
+    def mock_db(self):
+        return Mock(spec=Database)
+
+    @pytest.fixture
+    def service(self, mock_db):
+        return UserService(mock_db)
+
+    def test_get_user_found(self, service, mock_db):
+        # Arrange
+        mock_user = {'id': 1, 'name': 'Alice', 'email': 'alice@example.com'}
+        mock_db.query.return_value = [mock_user]
+
+        # Act
+        result = service.get_user(1)
+
+        # Assert
+        assert result == mock_user
+        mock_db.query.assert_called_once_with(
+            'SELECT * FROM users WHERE id = ?',
+            (1,)
+        )
+
+    def test_get_user_not_found(self, service, mock_db):
+        mock_db.query.return_value = []
+
+        result = service.get_user(999)
+
+        assert result is None
+
+    def test_get_user_database_error(self, service, mock_db):
+        mock_db.query.side_effect = Exception('Database error')
+
+        with pytest.raises(Exception, match='Database error'):
+            service.get_user(1)
+
+    def test_create_user_valid(self, service, mock_db):
+        user_data = {'name': 'Bob', 'email': 'bob@example.com'}
+        mock_db.execute.return_value = {'insert_id': 2}
+
+        result = service.create_user(user_data)
+
+        assert result == {'id': 2, **user_data}
+        mock_db.execute.assert_called_once()
+
+    @pytest.mark.parametrize('email,expected', [
+        ('test@example.com', True),
+        ('user+tag@domain.co.uk', True),
+        ('invalid', False),
+        ('@example.com', False),
+        ('test@', False),
+        ('', False),
+    ])
+    def test_validate_email(self, email, expected):
+        assert validate_email(email) == expected
+
+    @pytest.mark.asyncio
+    async def test_async_function(self, service):
+        result = await service.fetch_user_async(1)
+        assert result is not None
+```
+
+**Go:**
+```go
+package user
+
+import (
+    "testing"
+    "errors"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/mock"
+)
+
+// Mock database
+type MockDatabase struct {
+    mock.Mock
+}
+
+func (m *MockDatabase) Query(query string, args ...interface{}) ([]User, error) {
+    ret := m.Called(query, args)
+    return ret.Get(0).([]User), ret.Error(1)
+}
+
+func TestGetUser(t *testing.T) {
+    // Arrange
+    mockDB := new(MockDatabase)
+    service := NewUserService(mockDB)
+    expectedUser := User{ID: 1, Name: "Alice", Email: "alice@example.com"}
+
+    mockDB.On("Query", "SELECT * FROM users WHERE id = ?", 1).
+        Return([]User{expectedUser}, nil)
+
+    // Act
+    user, err := service.GetUser(1)
+
+    // Assert
+    assert.NoError(t, err)
+    assert.Equal(t, expectedUser, user)
+    mockDB.AssertExpectations(t)
+}
+
+func TestGetUserNotFound(t *testing.T) {
+    mockDB := new(MockDatabase)
+    service := NewUserService(mockDB)
+
+    mockDB.On("Query", "SELECT * FROM users WHERE id = ?", 999).
+        Return([]User{}, nil)
+
+    user, err := service.GetUser(999)
+
+    assert.NoError(t, err)
+    assert.Nil(t, user)
+}
+
+// Table-driven tests
+func TestValidateEmail(t *testing.T) {
+    tests := []struct {
+        name     string
+        email    string
+        expected bool
+    }{
+        {"valid email", "test@example.com", true},
+        {"valid with plus", "user+tag@example.com", true},
+        {"invalid no @", "invalid", false},
+        {"invalid no domain", "test@", false},
+        {"empty", "", false},
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result := ValidateEmail(tt.email)
+            assert.Equal(t, tt.expected, result)
+        })
+    }
+}
+
+// Benchmarks
+func BenchmarkGetUser(b *testing.B) {
+    mockDB := new(MockDatabase)
+    service := NewUserService(mockDB)
+    mockDB.On("Query", mock.Anything, mock.Anything).
+        Return([]User{{ID: 1, Name: "Test"}}, nil)
+
+    b.ResetTimer()
+    for i := 0; i < b.N; i++ {
+        service.GetUser(1)
+    }
+}
+```
+
+**Java (JUnit 5):**
 ```java
-package com.ryuqq.bootstrap;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+class UserServiceTest {
+    private UserService service;
+    private Database mockDb;
 
-import static org.assertj.core.api.Assertions.assertThat;
+    @BeforeEach
+    void setUp() {
+        mockDb = mock(Database.class);
+        service = new UserService(mockDb);
+    }
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-@Testcontainers
-@Transactional
-@DisplayName("Order 통합 테스트")
-class OrderIntegrationTest {
-
-    @Container
-    static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:15-alpine")
-        .withDatabaseName("test")
-        .withUsername("test")
-        .withPassword("test");
-
-    @Autowired
-    private TestRestTemplate restTemplate;
+    @AfterEach
+    void tearDown() {
+        reset(mockDb);
+    }
 
     @Test
-    @Sql("/sql/orders-test-data.sql")
-    @DisplayName("E2E - 주문 생성")
-    void shouldCreateOrder() {
-        // Given
-        PlaceOrderRequest request = new PlaceOrderRequest(1L, 100L, 10);
+    @DisplayName("Should return user when found")
+    void shouldReturnUserWhenFound() {
+        // Arrange
+        User expectedUser = new User(1, "Alice", "alice@example.com");
+        when(mockDb.query(anyString(), eq(1)))
+            .thenReturn(List.of(expectedUser));
 
-        // When
-        ResponseEntity<ApiResponse<OrderResponse>> response = restTemplate.exchange(
-            "/api/v1/orders",
-            HttpMethod.POST,
-            new HttpEntity<>(request),
-            new ParameterizedTypeReference<>() {}
+        // Act
+        User result = service.getUser(1);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedUser.getName(), result.getName());
+        verify(mockDb).query(
+            "SELECT * FROM users WHERE id = ?",
+            1
         );
-
-        // Then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getData().orderId()).isNotNull();
     }
 
     @Test
-    @Sql("/sql/orders-test-data.sql")
-    @DisplayName("E2E - 주문 조회")
-    void shouldGetOrder() {
-        // Given
-        Long orderId = 100L;
+    @DisplayName("Should return null when user not found")
+    void shouldReturnNullWhenNotFound() {
+        when(mockDb.query(anyString(), anyInt()))
+            .thenReturn(Collections.emptyList());
 
-        // When
-        ResponseEntity<ApiResponse<OrderResponse>> response = restTemplate.exchange(
-            "/api/v1/orders/{orderId}",
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<>() {},
-            orderId
-        );
+        User result = service.getUser(999);
 
-        // Then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().getData().orderId()).isEqualTo(orderId);
+        assertNull(result);
+    }
+
+    @Test
+    @DisplayName("Should throw exception on database error")
+    void shouldThrowOnDatabaseError() {
+        when(mockDb.query(anyString(), anyInt()))
+            .thenThrow(new DatabaseException("Connection failed"));
+
+        assertThrows(DatabaseException.class, () -> {
+            service.getUser(1);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "test@example.com",
+        "user+tag@example.com"
+    })
+    @DisplayName("Should accept valid emails")
+    void shouldAcceptValidEmails(String email) {
+        assertTrue(service.validateEmail(email));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "invalid, false",
+        "@example.com, false",
+        "test@, false",
+        "'', false"
+    })
+    @DisplayName("Should reject invalid emails")
+    void shouldRejectInvalidEmails(String email, boolean expected) {
+        assertEquals(expected, service.validateEmail(email));
+    }
+
+    @Nested
+    @DisplayName("Create user tests")
+    class CreateUserTests {
+        @Test
+        void shouldCreateUserWithValidData() {
+            UserData data = new UserData("Bob", "bob@example.com");
+            when(mockDb.execute(anyString(), any()))
+                .thenReturn(2);
+
+            User result = service.createUser(data);
+
+            assertNotNull(result);
+            assertEquals(2, result.getId());
+            assertEquals("Bob", result.getName());
+        }
+
+        @Test
+        void shouldValidateEmailBeforeCreating() {
+            UserData data = new UserData("Bob", "invalid-email");
+
+            assertThrows(ValidationException.class, () -> {
+                service.createUser(data);
+            });
+
+            verify(mockDb, never()).execute(anyString(), any());
+        }
     }
 }
 ```
 
-**핵심 규칙**:
-- `@SpringBootTest(webEnvironment = RANDOM_PORT)` 필수
-- TestRestTemplate 주입 (MockMvc 금지)
-- `@Sql` 로 테스트 데이터 삽입 (DML만)
-- `@Transactional` 롤백으로 테스트 격리
-- `@Testcontainers` + MySQL 실제 DB
+### Integration Testing
 
-### 2. Domain Fixture (testFixtures 소스셋)
+**API Integration Tests (Supertest + Express):**
+```typescript
+import request from 'supertest';
+import { app } from '../app';
+import { database } from '../database';
 
-```java
-package com.ryuqq.fixture.domain;
+describe('User API Integration Tests', () => {
+  beforeAll(async () => {
+    await database.connect();
+  });
 
-import com.ryuqq.domain.order.aggregate.Order;
-import com.ryuqq.domain.order.vo.OrderId;
-import com.ryuqq.domain.order.vo.OrderStatus;
-import com.ryuqq.domain.order.vo.Money;
+  afterAll(async () => {
+    await database.disconnect();
+  });
 
-import java.math.BigDecimal;
+  beforeEach(async () => {
+    await database.clear();
+  });
 
-/**
- * Order Domain 객체 Test Fixture
- *
- * <p>모든 레이어에서 재사용 가능한 Domain 객체 생성 유틸리티</p>
- */
-public final class OrderFixture {
+  describe('POST /api/users', () => {
+    it('should create a new user', async () => {
+      const userData = {
+        name: 'Alice',
+        email: 'alice@example.com',
+        age: 30,
+      };
 
-    private OrderFixture() {
-        throw new AssertionError("Utility class - do not instantiate");
-    }
+      const response = await request(app)
+        .post('/api/users')
+        .send(userData)
+        .expect(201);
 
-    /**
-     * 신규 Order (ID 미할당)
-     */
-    public static Order defaultNewOrder() {
-        return Order.forNew(
-            new CustomerId(1L),
-            Money.of(BigDecimal.valueOf(50000))
-        );
-    }
+      expect(response.body).toMatchObject({
+        id: expect.any(Number),
+        name: 'Alice',
+        email: 'alice@example.com',
+        age: 30,
+      });
 
-    /**
-     * 기존 Order (ID 할당됨, 저장된 상태)
-     */
-    public static Order defaultExistingOrder() {
-        return Order.forExisting(
-            OrderId.of(1L),
-            new CustomerId(1L),
-            Money.of(BigDecimal.valueOf(50000)),
-            OrderStatus.PLACED
-        );
-    }
+      // Verify in database
+      const users = await database.query('SELECT * FROM users WHERE id = ?', [
+        response.body.id,
+      ]);
+      expect(users).toHaveLength(1);
+      expect(users[0].name).toBe('Alice');
+    });
 
-    /**
-     * 확정된 Order
-     */
-    public static Order confirmedOrder() {
-        Order order = defaultExistingOrder();
-        order.confirm();
-        return order;
-    }
+    it('should return 400 for invalid email', async () => {
+      const response = await request(app)
+        .post('/api/users')
+        .send({ name: 'Bob', email: 'invalid' })
+        .expect(400);
 
-    /**
-     * 취소된 Order
-     */
-    public static Order canceledOrder() {
-        Order order = defaultExistingOrder();
-        order.cancel();
-        return order;
-    }
+      expect(response.body).toHaveProperty('error');
+      expect(response.body.error).toContain('email');
+    });
+  });
 
-    /**
-     * 커스텀 Order 빌더
-     */
-    public static Order customOrder(Long id, BigDecimal amount, OrderStatus status) {
-        return Order.forExisting(
-            OrderId.of(id),
-            new CustomerId(1L),
-            Money.of(amount),
-            status
-        );
-    }
+  describe('GET /api/users/:id', () => {
+    it('should return user by id', async () => {
+      // Create user in database
+      const userId = await database.execute(
+        'INSERT INTO users (name, email) VALUES (?, ?)',
+        ['Charlie', 'charlie@example.com']
+      );
+
+      const response = await request(app)
+        .get(`/api/users/${userId}`)
+        .expect(200);
+
+      expect(response.body).toMatchObject({
+        id: userId,
+        name: 'Charlie',
+        email: 'charlie@example.com',
+      });
+    });
+
+    it('should return 404 for non-existent user', async () => {
+      await request(app).get('/api/users/999').expect(404);
+    });
+  });
+});
+```
+
+**Database Integration Tests (Python + SQLAlchemy):**
+```python
+import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from models import Base, User
+from repositories import UserRepository
+
+@pytest.fixture(scope='module')
+def engine():
+    # Use in-memory SQLite for tests
+    engine = create_engine('sqlite:///:memory:')
+    Base.metadata.create_all(engine)
+    yield engine
+    engine.dispose()
+
+@pytest.fixture
+def db_session(engine):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    yield session
+    session.rollback()
+    session.close()
+
+@pytest.fixture
+def user_repository(db_session):
+    return UserRepository(db_session)
+
+class TestUserRepository:
+    def test_create_user(self, user_repository, db_session):
+        user = user_repository.create(
+            name='Alice',
+            email='alice@example.com'
+        )
+
+        assert user.id is not None
+        assert user.name == 'Alice'
+
+        # Verify in database
+        db_user = db_session.query(User).filter_by(id=user.id).first()
+        assert db_user is not None
+        assert db_user.name == 'Alice'
+
+    def test_find_by_email(self, user_repository, db_session):
+        # Create user
+        user_repository.create(name='Bob', email='bob@example.com')
+
+        # Find by email
+        found = user_repository.find_by_email('bob@example.com')
+
+        assert found is not None
+        assert found.name == 'Bob'
+
+    def test_update_user(self, user_repository):
+        user = user_repository.create(name='Charlie', email='charlie@example.com')
+
+        user_repository.update(user.id, name='Charles')
+
+        updated = user_repository.find_by_id(user.id)
+        assert updated.name == 'Charles'
+```
+
+### End-to-End Testing
+
+**Playwright (Modern E2E):**
+```typescript
+import { test, expect } from '@playwright/test';
+
+test.describe('User Registration Flow', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:3000');
+  });
+
+  test('should register new user successfully', async ({ page }) => {
+    // Navigate to registration
+    await page.click('text=Sign Up');
+
+    // Fill form
+    await page.fill('input[name="name"]', 'Alice');
+    await page.fill('input[name="email"]', 'alice@example.com');
+    await page.fill('input[name="password"]', 'SecurePass123!');
+    await page.fill('input[name="confirmPassword"]', 'SecurePass123!');
+
+    // Submit form
+    await page.click('button[type="submit"]');
+
+    // Wait for success message
+    await expect(page.locator('text=Registration successful')).toBeVisible();
+
+    // Verify redirect to dashboard
+    await expect(page).toHaveURL(/.*dashboard/);
+    await expect(page.locator('text=Welcome, Alice')).toBeVisible();
+  });
+
+  test('should show error for invalid email', async ({ page }) => {
+    await page.click('text=Sign Up');
+    await page.fill('input[name="email"]', 'invalid-email');
+    await page.fill('input[name="password"]', 'password');
+
+    await page.click('button[type="submit"]');
+
+    await expect(page.locator('text=Invalid email format')).toBeVisible();
+  });
+
+  test('should show error for weak password', async ({ page }) => {
+    await page.click('text=Sign Up');
+    await page.fill('input[name="password"]', '123');
+
+    await page.click('button[type="submit"]');
+
+    await expect(
+      page.locator('text=Password must be at least 8 characters')
+    ).toBeVisible();
+  });
+});
+
+test.describe('User Login Flow', () => {
+  test('should login with valid credentials', async ({ page }) => {
+    await page.goto('http://localhost:3000/login');
+
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password"]', 'TestPass123!');
+    await page.click('button[type="submit"]');
+
+    await expect(page).toHaveURL(/.*dashboard/);
+  });
+
+  test('should show error for invalid credentials', async ({ page }) => {
+    await page.goto('http://localhost:3000/login');
+
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password"]', 'WrongPassword');
+    await page.click('button[type="submit"]');
+
+    await expect(page.locator('text=Invalid credentials')).toBeVisible();
+  });
+});
+```
+
+**Cypress:**
+```typescript
+describe('Shopping Cart', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    cy.login('user@example.com', 'password');
+  });
+
+  it('should add product to cart', () => {
+    cy.get('[data-testid="product-1"]').click();
+    cy.get('[data-testid="add-to-cart"]').click();
+
+    cy.get('[data-testid="cart-icon"]').should('contain', '1');
+
+    cy.get('[data-testid="cart-icon"]').click();
+    cy.get('[data-testid="cart-items"]')
+      .should('have.length', 1)
+      .first()
+      .should('contain', 'Product Name');
+  });
+
+  it('should complete checkout process', () => {
+    // Add products
+    cy.get('[data-testid="product-1"]').click();
+    cy.get('[data-testid="add-to-cart"]').click();
+
+    // Go to cart
+    cy.get('[data-testid="cart-icon"]').click();
+
+    // Proceed to checkout
+    cy.get('[data-testid="checkout-button"]').click();
+
+    // Fill shipping info
+    cy.get('input[name="address"]').type('123 Main St');
+    cy.get('input[name="city"]').type('New York');
+    cy.get('input[name="zip"]').type('10001');
+
+    // Fill payment info
+    cy.get('input[name="cardNumber"]').type('4111111111111111');
+    cy.get('input[name="expiry"]').type('12/25');
+    cy.get('input[name="cvv"]').type('123');
+
+    // Submit order
+    cy.get('[data-testid="place-order"]').click();
+
+    // Verify success
+    cy.get('[data-testid="order-success"]').should('be.visible');
+    cy.url().should('include', '/order-confirmation');
+  });
+});
+
+// Custom commands
+Cypress.Commands.add('login', (email: string, password: string) => {
+  cy.session([email, password], () => {
+    cy.visit('/login');
+    cy.get('input[name="email"]').type(email);
+    cy.get('input[name="password"]').type(password);
+    cy.get('button[type="submit"]').click();
+    cy.url().should('include', '/dashboard');
+  });
+});
+```
+
+### Test-Driven Development (TDD)
+
+**TDD Workflow:**
+```
+1. Write failing test (RED)
+2. Write minimum code to pass (GREEN)
+3. Refactor code (REFACTOR)
+4. Repeat
+```
+
+**TDD Example:**
+```typescript
+// Step 1: Write failing test (RED)
+describe('Calculator', () => {
+  it('should add two numbers', () => {
+    const calc = new Calculator();
+    expect(calc.add(2, 3)).toBe(5);
+  });
+});
+
+// Test fails: Calculator class doesn't exist
+
+// Step 2: Write minimum code (GREEN)
+class Calculator {
+  add(a: number, b: number): number {
+    return a + b;
+  }
+}
+
+// Test passes
+
+// Step 3: Add more tests
+it('should subtract two numbers', () => {
+  const calc = new Calculator();
+  expect(calc.subtract(5, 3)).toBe(2);
+});
+
+// Test fails: subtract method doesn't exist
+
+// Step 4: Implement
+class Calculator {
+  add(a: number, b: number): number {
+    return a + b;
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b;
+  }
+}
+
+// Test passes
+
+// Step 5: Refactor if needed
+// Code is simple, no refactoring needed
+```
+
+### Behavior-Driven Development (BDD)
+
+**Cucumber/Gherkin:**
+```gherkin
+Feature: User Authentication
+  As a user
+  I want to log in to the application
+  So that I can access my account
+
+  Background:
+    Given the user "alice@example.com" exists with password "SecurePass123"
+
+  Scenario: Successful login
+    Given I am on the login page
+    When I enter email "alice@example.com"
+    And I enter password "SecurePass123"
+    And I click the login button
+    Then I should be redirected to the dashboard
+    And I should see "Welcome, Alice"
+
+  Scenario: Failed login with wrong password
+    Given I am on the login page
+    When I enter email "alice@example.com"
+    And I enter password "WrongPassword"
+    And I click the login button
+    Then I should see an error message "Invalid credentials"
+    And I should remain on the login page
+
+  Scenario Outline: Email validation
+    Given I am on the registration page
+    When I enter email "<email>"
+    Then I should see "<message>"
+
+    Examples:
+      | email              | message                   |
+      | alice@example.com  |                           |
+      | invalid            | Invalid email format      |
+      | @example.com       | Invalid email format      |
+      |                    | Email is required         |
+```
+
+**Step Definitions:**
+```typescript
+import { Given, When, Then } from '@cucumber/cucumber';
+import { expect } from '@playwright/test';
+
+Given('the user {string} exists with password {string}', async function (email, password) {
+  await this.database.createUser({ email, password });
+});
+
+Given('I am on the login page', async function () {
+  await this.page.goto('http://localhost:3000/login');
+});
+
+When('I enter email {string}', async function (email) {
+  await this.page.fill('input[name="email"]', email);
+});
+
+When('I enter password {string}', async function (password) {
+  await this.page.fill('input[name="password"]', password);
+});
+
+When('I click the login button', async function () {
+  await this.page.click('button[type="submit"]');
+});
+
+Then('I should be redirected to the dashboard', async function () {
+  await expect(this.page).toHaveURL(/.*dashboard/);
+});
+
+Then('I should see {string}', async function (text) {
+  await expect(this.page.locator(`text=${text}`)).toBeVisible();
+});
+```
+
+## Best Practices
+
+### 1. AAA Pattern (Arrange-Act-Assert)
+```typescript
+test('should calculate total price', () => {
+  // Arrange - Set up test data
+  const cart = new ShoppingCart();
+  cart.addItem({ name: 'Book', price: 10 });
+  cart.addItem({ name: 'Pen', price: 2 });
+
+  // Act - Execute the behavior
+  const total = cart.calculateTotal();
+
+  // Assert - Verify the outcome
+  expect(total).toBe(12);
+});
+```
+
+### 2. Test Independence
+```typescript
+// Bad - tests depend on order
+test('create user', () => {
+  userId = createUser('Alice'); // Global state
+});
+
+test('get user', () => {
+  const user = getUser(userId); // Depends on previous test
+  expect(user.name).toBe('Alice');
+});
+
+// Good - each test is independent
+test('create user', () => {
+  const userId = createUser('Alice');
+  expect(userId).toBeGreaterThan(0);
+});
+
+test('get user', () => {
+  const userId = createUser('Bob'); // Own setup
+  const user = getUser(userId);
+  expect(user.name).toBe('Bob');
+});
+```
+
+### 3. Test Naming
+```typescript
+// Bad
+test('test1', () => { ... });
+test('user test', () => { ... });
+
+// Good - descriptive names
+test('should return user when ID exists', () => { ... });
+test('should throw error when ID is negative', () => { ... });
+test('should create user with valid email', () => { ... });
+```
+
+### 4. One Assertion Per Test (Generally)
+```typescript
+// Acceptable for related assertions
+test('should create user with correct data', () => {
+  const user = createUser({ name: 'Alice', email: 'alice@example.com' });
+
+  expect(user.id).toBeGreaterThan(0);
+  expect(user.name).toBe('Alice');
+  expect(user.email).toBe('alice@example.com');
+  expect(user.createdAt).toBeInstanceOf(Date);
+});
+
+// Better - split if testing different behaviors
+test('should assign ID to new user', () => {
+  const user = createUser({ name: 'Alice', email: 'alice@example.com' });
+  expect(user.id).toBeGreaterThan(0);
+});
+
+test('should set creation timestamp', () => {
+  const user = createUser({ name: 'Alice', email: 'alice@example.com' });
+  expect(user.createdAt).toBeInstanceOf(Date);
+});
+```
+
+### 5. Use Test Doubles Appropriately
+```typescript
+// Stub - Returns predefined values
+const stub = {
+  getUser: () => ({ id: 1, name: 'Alice' }),
+};
+
+// Mock - Records interactions and can verify them
+const mock = vi.fn().mockReturnValue({ id: 1, name: 'Alice' });
+service.getUser(1);
+expect(mock).toHaveBeenCalledWith(1);
+
+// Spy - Wraps real object and records calls
+const spy = vi.spyOn(database, 'query');
+service.getUser(1);
+expect(spy).toHaveBeenCalled();
+```
+
+### 6. Test Edge Cases
+```typescript
+describe('divide', () => {
+  it('should divide positive numbers', () => {
+    expect(divide(10, 2)).toBe(5);
+  });
+
+  it('should divide negative numbers', () => {
+    expect(divide(-10, 2)).toBe(-5);
+  });
+
+  it('should throw error on division by zero', () => {
+    expect(() => divide(10, 0)).toThrow('Division by zero');
+  });
+
+  it('should handle floating point division', () => {
+    expect(divide(1, 3)).toBeCloseTo(0.333, 2);
+  });
+
+  it('should handle very large numbers', () => {
+    expect(divide(Number.MAX_SAFE_INTEGER, 2)).toBeGreaterThan(0);
+  });
+});
+```
+
+### 7. Keep Tests Fast
+```typescript
+// Bad - slow tests
+test('process large dataset', async () => {
+  const data = Array.from({ length: 1000000 }, (_, i) => i);
+  await processData(data); // Takes 10 seconds
+});
+
+// Good - use smaller datasets or mock
+test('process large dataset', async () => {
+  const data = Array.from({ length: 100 }, (_, i) => i);
+  await processData(data); // Takes 10ms
+});
+
+// Or mock the expensive operation
+test('process large dataset', async () => {
+  const mockProcess = vi.fn().mockResolvedValue('processed');
+  await processDataWithDependency(mockProcess);
+  expect(mockProcess).toHaveBeenCalled();
+});
+```
+
+## Common Patterns
+
+### Test Fixtures
+```typescript
+// Shared test data
+const testUsers = {
+  alice: { id: 1, name: 'Alice', email: 'alice@example.com' },
+  bob: { id: 2, name: 'Bob', email: 'bob@example.com' },
+};
+
+// Factory functions
+function createTestUser(overrides = {}) {
+  return {
+    id: 1,
+    name: 'Test User',
+    email: 'test@example.com',
+    createdAt: new Date(),
+    ...overrides,
+  };
 }
 ```
 
-**핵심 규칙**:
-- **위치**: `domain/src/testFixtures/java/com/ryuqq/fixture/domain/`
-- `final` 클래스
-- `private` 생성자 (인스턴스 생성 방지)
-- `static` 메서드만 사용
-- Domain 객체만 의존 (Application/Adapter 의존 금지)
+### Setup and Teardown
+```typescript
+describe('Database tests', () => {
+  beforeAll(async () => {
+    // Runs once before all tests
+    await database.connect();
+  });
 
-### 3. Application Fixture
+  afterAll(async () => {
+    // Runs once after all tests
+    await database.disconnect();
+  });
 
-```java
-package com.ryuqq.fixture.application.command;
+  beforeEach(async () => {
+    // Runs before each test
+    await database.clear();
+  });
 
-import com.ryuqq.application.order.dto.command.PlaceOrderCommand;
-
-import java.math.BigDecimal;
-
-/**
- * PlaceOrderCommand DTO Test Fixture
- */
-public final class PlaceOrderCommandFixture {
-
-    private PlaceOrderCommandFixture() {
-        throw new AssertionError("Utility class - do not instantiate");
-    }
-
-    public static PlaceOrderCommand defaultCommand() {
-        return new PlaceOrderCommand(
-            1L,
-            BigDecimal.valueOf(50000)
-        );
-    }
-
-    public static PlaceOrderCommand customCommand(Long customerId, BigDecimal amount) {
-        return new PlaceOrderCommand(customerId, amount);
-    }
-}
+  afterEach(() => {
+    // Runs after each test
+    vi.clearAllMocks();
+  });
+});
 ```
 
-### 4. Request Fixture (REST API)
-
-```java
-package com.ryuqq.fixture.adapter.rest;
-
-import com.ryuqq.adapter.in.rest.order.dto.PlaceOrderRequest;
-
-import java.math.BigDecimal;
-import java.util.List;
-
-/**
- * REST API Request DTO Test Fixture
- */
-public final class OrderRequestFixture {
-
-    private OrderRequestFixture() {
-        throw new AssertionError("Utility class - do not instantiate");
-    }
-
-    public static PlaceOrderRequest validCreateRequest() {
-        return new PlaceOrderRequest(
-            1L,
-            List.of(OrderItemRequestFixture.validItemRequest())
-        );
-    }
-
-    public static PlaceOrderRequest invalidRequest_EmptyItems() {
-        return new PlaceOrderRequest(1L, List.of());
-    }
-
-    public static PlaceOrderRequest invalidRequest_NullCustomerId() {
-        return new PlaceOrderRequest(
-            null,
-            List.of(OrderItemRequestFixture.validItemRequest())
-        );
-    }
-}
-```
-
-### 5. @Sql 테스트 데이터 (DML만!)
-
-```sql
--- src/test/resources/sql/orders-test-data.sql
-
--- 클린업 (FK 역순)
-DELETE FROM order_items;
-DELETE FROM orders;
-DELETE FROM customers;
-
--- 테스트 데이터 삽입 (FK 순서)
-INSERT INTO customers (customer_id, name, email)
-OVERRIDING SYSTEM VALUE
-VALUES (1, 'Alice', 'alice@example.com');
-
-INSERT INTO customers (customer_id, name, email)
-OVERRIDING SYSTEM VALUE
-VALUES (2, 'Bob', 'bob@example.com');
-
-INSERT INTO orders (order_id, customer_id, status, total_amount, order_date)
-OVERRIDING SYSTEM VALUE
-VALUES (100, 1, 'PENDING', 10000, '2024-01-01');
-
-INSERT INTO orders (order_id, customer_id, status, total_amount, order_date)
-OVERRIDING SYSTEM VALUE
-VALUES (101, 1, 'CONFIRMED', 20000, '2024-01-02');
-
-INSERT INTO order_items (order_item_id, order_id, product_id, quantity, price)
-OVERRIDING SYSTEM VALUE
-VALUES (1000, 100, 200, 2, 5000);
-```
-
-**핵심 규칙**:
-- **DDL 금지**: `CREATE TABLE`, `ALTER TABLE` 절대 금지 (Flyway 책임)
-- **DML만**: `INSERT`, `UPDATE`, `DELETE`만 허용
-- **클린업 먼저**: DELETE → INSERT 순서
-- **FK 순서**: 부모 먼저, 자식 나중
-
-### 6. Gradle build.gradle 설정
-
-```groovy
-// domain/build.gradle
-plugins {
-    id 'java-library'
-    id 'java-test-fixtures'  // ⭐ testFixtures 활성화
-}
-
-dependencies {
-    // Test
-    testImplementation libs.junit.jupiter
-    testImplementation libs.archunit.junit5
-
-    // Test Fixtures - Domain은 순수 Java만
-    // NO external dependencies
-}
-```
-
-```groovy
-// application/build.gradle
-plugins {
-    id 'java-library'
-    id 'java-test-fixtures'
-}
-
-dependencies {
-    api project(':domain')
-
-    // Test
-    testImplementation libs.spring.boot.starter.test
-    testImplementation testFixtures(project(':domain'))  // ⭐ Domain Fixture
-
-    // Test Fixtures
-    testFixturesApi project(':domain')
-    testFixturesApi testFixtures(project(':domain'))
-}
-```
-
-```groovy
-// bootstrap/build.gradle (Integration Test)
-dependencies {
-    testImplementation libs.spring.boot.starter.test
-    testImplementation libs.testcontainers.mysql
-    testImplementation libs.testcontainers.junit
-
-    // Fixtures
-    testImplementation testFixtures(project(':domain'))
-    testImplementation testFixtures(project(':application'))
-    testImplementation testFixtures(project(':adapter-in:rest-api'))
-}
-```
-
----
-
-## 테스트 실행 흐름
-
-```
-1. TestContainers 시작
-   └─ Docker → MySQL 컨테이너 시작
-
-2. Spring Boot 시작 (@SpringBootTest)
-   └─ 전체 Bean 로딩
-
-3. Flyway 자동 실행 (spring.flyway.enabled=true)
-   └─ V1 → V2 → V3 ... (테이블 생성)
-
-4. @Sql 실행 (각 테스트 메서드 전)
-   └─ INSERT 테스트 데이터
-
-5. 테스트 메서드 실행
-   └─ TestRestTemplate → Controller → UseCase → Repository → DB
-
-6. @Transactional 롤백
-   └─ @Sql 데이터 자동 삭제
-
-7. 다음 테스트 메서드 (4~6 반복)
-
-8. TestContainers 종료
-   └─ MySQL 컨테이너 삭제
-```
-
----
-
-## Fixture 의존성 규칙
-
-### 허용되는 의존성 (✅)
-
-```
-domain testFixtures
-    ↓ 의존
-  domain (Production)
-
-application testFixtures
-    ↓ 의존              ↓ 의존
-  application      domain testFixtures
-
-adapter-in testFixtures
-    ↓ 의존                    ↓ 의존
-  adapter-in         application testFixtures
-```
-
-### 금지된 의존성 (❌)
-
-```
-domain testFixtures → application testFixtures   ❌ 역방향
-application testFixtures → adapter-* testFixtures   ❌ 역방향
-adapter-in testFixtures → adapter-out testFixtures   ❌ 교차 금지
-```
-
-### 의존성 매트릭스
-
-| From ↓ / To → | domain Fixture | application Fixture | adapter Fixture |
-|---------------|----------------|---------------------|-----------------|
-| **domain tests** | ✅ | ❌ | ❌ |
-| **application tests** | ✅ | ✅ | ❌ |
-| **adapter-in tests** | ✅ | ✅ | ✅ (in만) |
-| **adapter-out tests** | ✅ | ❌ | ✅ (out만) |
-
----
-
-## Zero-Tolerance 규칙
-
-### ✅ MANDATORY (필수)
-
-| 규칙 | 설명 |
-|------|------|
-| `@SpringBootTest(RANDOM_PORT)` | 전체 컨텍스트 + 실제 HTTP 서버 |
-| TestRestTemplate | 실제 HTTP 요청/응답 검증 |
-| `@Transactional` | 테스트 격리, 자동 롤백 |
-| `@Sql` DML만 | INSERT, UPDATE, DELETE만 |
-| `@ActiveProfiles("test")` | 테스트 전용 설정 |
-| `@Testcontainers` | 실제 DB (MySQL) |
-| Fixture: final 클래스 | 상속 금지 |
-| Fixture: private 생성자 | 인스턴스 생성 금지 |
-| Fixture: static 메서드 | 유틸리티 패턴 |
-| `*Fixture` 접미사 | 네이밍 규칙 |
-
-### ❌ PROHIBITED (금지)
-
-| 항목 | 이유 |
-|------|------|
-| MockMvc | 가짜 HTTP, TestRestTemplate 사용 |
-| `@Sql`에 DDL | CREATE TABLE 금지, Flyway 책임 |
-| `@WebMvcTest` | 통합 테스트는 `@SpringBootTest` |
-| `@MockBean` 남발 | 실제 Bean 사용 (통합 테스트) |
-| EntityManager.persist() | @Sql 사용, SQL 파일로 관리 |
-| `@DirtiesContext` | 느림, `@Transactional` 롤백 사용 |
-| 역방향 Fixture 의존 | domain → application 금지 |
-| H2 사용 | MySQL (TestContainers) 사용 |
-
----
-
-## 패키지 구조
-
-```
-project/
-├── domain/
-│   ├── src/main/java/
-│   ├── src/test/java/
-│   └── src/testFixtures/java/
-│       └── com/ryuqq/fixture/domain/
-│           ├── OrderFixture.java
-│           ├── ProductFixture.java
-│           └── CustomerFixture.java
-│
-├── application/
-│   ├── src/main/java/
-│   ├── src/test/java/
-│   └── src/testFixtures/java/
-│       └── com/ryuqq/fixture/application/
-│           ├── command/
-│           │   └── PlaceOrderCommandFixture.java
-│           └── response/
-│               └── OrderResponseFixture.java
-│
-├── adapter-in/rest-api/
-│   ├── src/main/java/
-│   ├── src/test/java/
-│   └── src/testFixtures/java/
-│       └── com/ryuqq/fixture/adapter/rest/
-│           └── OrderRequestFixture.java
-│
-├── adapter-out/persistence-mysql/
-│   ├── src/main/java/
-│   ├── src/test/java/
-│   └── src/testFixtures/java/
-│       └── com/ryuqq/fixture/adapter/persistence/
-│           └── OrderEntityFixture.java
-│
-└── bootstrap/
-    └── src/test/
-        ├── java/
-        │   └── com/ryuqq/bootstrap/
-        │       └── OrderIntegrationTest.java
-        └── resources/sql/
-            └── orders-test-data.sql
-```
-
----
-
-## 체크리스트 (Output Checklist)
-
-### Integration Test
-- [ ] `@SpringBootTest(webEnvironment = RANDOM_PORT)`
-- [ ] `@ActiveProfiles("test")`
-- [ ] `@Testcontainers` + `@Container MySQLContainer`
-- [ ] `@Transactional` 테스트 격리
-- [ ] TestRestTemplate 주입 (MockMvc 금지)
-- [ ] `@Sql("/sql/test-data.sql")` 테스트 데이터
-- [ ] `@DisplayName` 테스트 설명
-- [ ] Given/When/Then 패턴
-- [ ] HTTP 상태 코드 검증
-- [ ] 응답 Body 검증
-
-### Domain Fixture
-- [ ] 위치: `domain/src/testFixtures/java/.../fixture/domain/`
-- [ ] `public final class {Aggregate}Fixture`
-- [ ] `private` 생성자 + `AssertionError`
-- [ ] `static` 메서드만
-- [ ] `defaultNewOrder()` - 신규 객체
-- [ ] `defaultExistingOrder()` - 기존 객체
-- [ ] `customOrder(...)` - 커스텀 빌더
-- [ ] Domain 객체만 의존
-
-### Application Fixture
-- [ ] 위치: `application/src/testFixtures/java/.../fixture/application/`
-- [ ] Command/Query/Response 별 Fixture
-- [ ] Domain Fixture 재사용 가능
-- [ ] Adapter Fixture 의존 금지
-
-### @Sql 파일
-- [ ] 위치: `src/test/resources/sql/`
-- [ ] DDL 금지 (CREATE TABLE 없음)
-- [ ] DML만 (INSERT, UPDATE, DELETE)
-- [ ] DELETE 먼저 (클린업)
-- [ ] INSERT 나중 (FK 순서)
-- [ ] `OVERRIDING SYSTEM VALUE` (ID 명시)
-
-### Gradle 설정
-- [ ] `java-test-fixtures` 플러그인
-- [ ] `testFixtures(project(':domain'))` 의존성
-- [ ] `testFixturesApi` 전파 설정
-- [ ] TestContainers 의존성
-
----
-
-## ArchUnit 테스트 체크리스트
-
-### Fixture 의존성 규칙 (9개)
-
-- [ ] domain Fixture: domain만 의존
-- [ ] application Fixture: application + domain Fixture 의존
-- [ ] domain Fixture → application Fixture 금지
-- [ ] application Fixture → adapter Fixture 금지
-- [ ] adapter-in Fixture → adapter-out Fixture 금지
-- [ ] adapter-out Fixture → adapter-in Fixture 금지
-- [ ] Fixture 클래스: public
-- [ ] Fixture 클래스: `*Fixture` 접미사
-- [ ] Fixture 클래스: fixture 패키지 위치
-
----
-
-## Fixture 네이밍 컨벤션
-
-| 패턴 | 용도 | 예시 |
-|------|------|------|
-| `default*()` | 기본 객체 | `defaultOrder()`, `defaultNewOrder()` |
-| `*WithStatus()` | 특정 상태 | `orderWithPendingStatus()` |
-| `custom*()` | 커스텀 빌더 | `customOrder(Long id, ...)` |
-| `invalid*()` | 유효하지 않은 객체 | `invalidOrder()` (예외 테스트) |
-| `valid*Request()` | 유효한 요청 | `validCreateRequest()` |
-| `invalid*Request_*()` | 무효 요청 (사유) | `invalidRequest_EmptyItems()` |
-
----
-
-## 참조 문서
-
-- **Integration Test Guide**: `docs/coding_convention/05-testing/integration-testing/01_integration-testing-overview.md`
-- **Test Fixtures Guide**: `docs/coding_convention/05-testing/test-fixtures/01_test-fixtures-guide.md`
-- **Test Fixtures ArchUnit**: `docs/coding_convention/05-testing/test-fixtures/02_test-fixtures-archunit.md`
-- **Flyway Guide**: `docs/coding_convention/04-persistence-layer/mysql/config/flyway-guide.md`
+## Approach
+
+When writing tests:
+
+1. **Write Tests First** (TDD) or with code
+2. **Test Behavior, Not Implementation**: Focus on what, not how
+3. **Keep Tests Simple**: Tests should be easier to understand than code
+4. **Use Descriptive Names**: Test name = documentation
+5. **Test Edge Cases**: Nulls, empty arrays, boundary values
+6. **Mock External Dependencies**: Databases, APIs, file system
+7. **Maintain Tests**: Refactor tests with production code
+8. **Aim for Coverage**: 80%+ but don't chase 100%
+
+Always write tests that are fast, reliable, isolated, and maintainable. Good tests are the best documentation for your code.

@@ -1,14 +1,5 @@
 ---
-name: docs-validating-factual-accuracy
 description: Universal methodology for verifying factual correctness in documentation using WebSearch and WebFetch tools. Covers command syntax verification, version checking, code example validation, API correctness, confidence classification system ([Verified], [Error], [Outdated], [Unverified]), source prioritization, and update frequency rules. Essential for maintaining factual accuracy in technical documentation and educational content
-allowed-tools: [Read, Glob, Grep, WebFetch, WebSearch, Write, Bash]
-tags:
-  - factual-validation
-  - verification
-  - web-search
-  - accuracy
-  - confidence-classification
-  - technical-documentation
 ---
 
 # Factual Validation Methodology Skill
@@ -489,13 +480,13 @@ Step 3: Compare and classify
 
 ## Reference Documentation
 
-**Primary Convention**: [Factual Validation Convention](../../../governance/conventions/content/factual-validation.md)
+**Primary Convention**: [Factual Validation Convention](../../../../governance/conventions/content/factual-validation.md)
 
 **Related Conventions**:
 
-- [Content Quality Principles](../../../governance/conventions/content/quality.md) - Universal content standards
-- [Criticality Levels](../../../governance/development/quality/criticality-levels.md) - Severity classification system
-- [Timestamp Format](../../../governance/conventions/formatting/timestamp.md) - Validation metadata timestamps
+- [Content Quality Principles](../../../../governance/conventions/content/quality.md) - Universal content standards
+- [Criticality Levels](../../../../governance/development/quality/criticality-levels.md) - Severity classification system
+- [Timestamp Format](../../../../governance/conventions/formatting/timestamp.md) - Validation metadata timestamps
 
 **Related Skills**:
 
@@ -513,13 +504,13 @@ This Skill packages critical factual validation methodology for maintaining accu
 
 ## References
 
-**Primary Convention**: [Factual Validation Convention](../../../governance/conventions/content/factual-validation.md)
+**Primary Convention**: [Factual Validation Convention](../../../../governance/conventions/content/factual-validation.md)
 
 **Related Conventions**:
 
-- [Content Quality Principles](../../../governance/conventions/content/quality.md) - Universal content standards
-- [Criticality Levels](../../../governance/development/quality/criticality-levels.md) - Severity classification
-- [Timestamp Format](../../../governance/conventions/formatting/timestamp.md) - Validation metadata timestamps
+- [Content Quality Principles](../../../../governance/conventions/content/quality.md) - Universal content standards
+- [Criticality Levels](../../../../governance/development/quality/criticality-levels.md) - Severity classification
+- [Timestamp Format](../../../../governance/conventions/formatting/timestamp.md) - Validation metadata timestamps
 
 **Related Skills**:
 

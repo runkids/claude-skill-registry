@@ -1,12 +1,7 @@
 {
   "name": "agent-authoring",
-  "description": "Guide for authoring, designing, and building specialized AI agents. Use when creating, updating, reviewing, or improving agents that handle specific tasks with focused expertise. Helps design AGENT.md",
   "repo": "philoserf/claude-code-setup",
-  "category": "design",
-  "tags": [
-    "agent",
-    "authoring"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/agent-authoring/SKILL.md",
+  "source": "github.com/philoserf/claude-code-setup",
+  "downloaded_at": "2026-01-22T01:30:34.005484Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "outline-collaborator",
-  "description": "Act as an active outline partner who develops structure collaboratively. Use when developing, iterating, or improving story outlines. Generates scene beats, character arcs, plot structures, and explor",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/structure/outline-collaborator/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-21T03:40:36.230058Z"
 }

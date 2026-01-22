@@ -1,7 +1,7 @@
 {
   "name": "clean-branches",
-  "repo": "boaznahum/cubesolve",
-  "path": ".claude/skills/clean-branches/SKILL.md",
-  "source": "github.com/boaznahum/cubesolve",
-  "downloaded_at": "2026-01-14T02:58:22.398915Z"
+  "repo": "gupsammy/Claude-setup",
+  "path": "skills/clean-branches/SKILL.md",
+  "source": "github.com/gupsammy/Claude-setup",
+  "downloaded_at": "2026-01-22T04:13:16.948792Z"
 }

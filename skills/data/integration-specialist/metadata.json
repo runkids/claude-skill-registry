@@ -1,12 +1,7 @@
 {
   "name": "integration-specialist",
-  "description": "\"RAN system integration with microservices architecture, cognitive consciousness, and intelligent orchestration for seamless network integration. Use when integrating RAN systems, implementing microse",
-  "repo": "ricable/ericsson-ran-automation-agentdb",
-  "category": "testing",
-  "tags": [
-    "integration",
-    "specialist"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/agentdb/.claude/skills/integration-specialist/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-01-22T01:13:29.455175Z"
 }

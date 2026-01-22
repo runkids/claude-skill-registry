@@ -1,9 +1,7 @@
 {
   "name": "adding-notes",
-  "description": "Add new notes to the Second Brain knowledge base. Use when the user provides a resource (URL, book, podcast, article, GitHub repo, Reddit thread) and asks to \"add a note\", \"create a note\", \"save this\"",
   "repo": "alexanderop/second-brain-nuxt",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/adding-notes/SKILL.md",
+  "source": "github.com/alexanderop/second-brain-nuxt",
+  "downloaded_at": "2026-01-22T01:45:15.053576Z"
 }

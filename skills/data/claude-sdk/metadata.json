@@ -1,7 +1,7 @@
 {
   "name": "claude-sdk",
-  "repo": "anton-abyzov/specweave",
-  "path": "plugins/specweave-plugin-dev/skills/claude-sdk/SKILL.md",
-  "source": "github.com/anton-abyzov/specweave",
-  "downloaded_at": "2026-01-14T03:26:46.360010Z"
+  "repo": "frankxai/ai-architect",
+  "path": "skills/claude-sdk/SKILL.md",
+  "source": "github.com/frankxai/ai-architect",
+  "downloaded_at": "2026-01-19T02:09:25.080273Z"
 }

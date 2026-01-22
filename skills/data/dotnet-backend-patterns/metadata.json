@@ -1,7 +1,7 @@
 {
   "name": "dotnet-backend-patterns",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/dotnet-contribution/skills/dotnet-backend-patterns/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:33.108085Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/dotnet-contribution/skills/dotnet-backend-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-22T03:51:08.632048Z"
 }

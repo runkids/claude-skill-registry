@@ -1,13 +1,7 @@
 {
   "name": "neutral-target-baseline",
-  "description": "Establish neutral baseline metrics for unbiased assessment.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "product",
-  "tags": [
-    "neutral",
-    "target",
-    "baseline"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/neutral-target-baseline/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:45.800363Z"
 }

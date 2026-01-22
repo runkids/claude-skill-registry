@@ -1,7 +1,7 @@
 {
   "name": "test-engineer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/test-engineer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:16.175498Z"
+  "repo": "Denissvgn/project-team-ag",
+  "path": ".agent/skills/test-engineer/SKILL.md",
+  "source": "github.com/Denissvgn/project-team-ag",
+  "downloaded_at": "2026-01-22T04:13:06.182298Z"
 }

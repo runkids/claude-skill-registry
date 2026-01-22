@@ -1,460 +1,313 @@
 ---
 name: github-analysis
-description: Systematically analyze GitHub tickets with proper local reproduction. Automatically substitutes production URLs with local DDEV hosts, ensures database sync, downloads missing assets, and reproduces issues locally before proposing solutions.
+description: Analyze GitHub commits, generate PR reviews, calculate contributor leaderboards, and assess code quality. Use when analyzing git commits, reviewing code, generating GitHub activity reports, or tracking developer contributions.
 ---
 
-# GitHub Ticket Analysis Skill
+# GitHub Analysis
 
-## Overview
-This skill provides a comprehensive, systematic approach to analyzing GitHub tickets. It ensures issues are properly reproduced in the local development environment before proposing solutions, preventing wasted effort on cache issues, environment differences, or missing data.
+Analyze GitHub activity, review code, and track contributions.
 
-## When to Use This Skill
-- User asks to "analyze", "debug", "fix", or "investigate" a GitHub ticket/issue
-- User provides a GitHub issue number for investigation
-- User asks about a specific bug reported in GitHub
-- User requests help with reproducing an issue from a ticket
+## Quick Start
 
-## Critical First Principle: Always Reproduce Locally
-**NEVER propose a solution without first reproducing the issue in the local environment.**
-
-Many apparent bugs are actually:
-- Cache issues (clear cache and retry)
-- Database differences between environments
-- Missing media files
-- Environment configuration differences
-
-## GitHub Ticket Analysis Workflow
-
-### Step 1: Read the GitHub Ticket
+Analyze commits from JSON file:
 ```bash
-# Use the GitHub MCP tools to read the issue
-# Capture: title, description, screenshots, URLs, expected vs actual behavior
+python scripts/analyze_commits.py commits.json
 ```
 
-**Extract from the ticket:**
-- Issue title and description
-- Any URLs mentioned (production/staging/UAT)
-- Screenshots or images attached
-- Expected behavior vs actual behavior
-- Steps to reproduce (if provided)
-- Browser/environment details (if mentioned)
-
-### Step 2: Substitute Production URLs with Local DDEV Host
-**CRITICAL RULE: Always convert production URLs to local equivalents**
-
-**URL Substitution Patterns:**
-```
-Production:  https://pvcpipesupplies.com/...
-Local DDEV:  https://pvcpipesupplies.ddev.site/...
-
-Production:  https://www.domain.com/...
-Local DDEV:  https://{project}.ddev.site/...
-
-Production:  http://domain.com/...
-Local DDEV:  https://{project}.ddev.site/...
-```
-
-**How to determine DDEV host:**
+Generate leaderboard:
 ```bash
-# Check DDEV configuration
-ddev describe | grep -i "primary url"
-
-# Or read from .ddev/config.yaml
-grep "^name:" .ddev/config.yaml
-# The URL will be: https://{name}.ddev.site
+python scripts/calculate_leaderboard.py commits.json --period week
 ```
 
-**Example:**
-```
-Ticket says: "Bug on https://pvcpipesupplies.com/product/test.html"
-You test:     https://pvcpipesupplies.ddev.site/product/test.html
-```
+## Commit Analysis
 
-### Step 3: Verify Local Environment is Running
+### What to Extract
+
+From each commit, analyze:
+- **Author & timestamp**
+- **Commit message quality**
+  - Clear (explains what and why)
+  - Vague (just what, no why)
+  - Cryptic (no context)
+- **Files changed** (count and types)
+- **Lines added/removed**
+- **Code quality indicators**
+  - TODOs added
+  - FIXMEs added
+  - Console.log/debugging code
+  - Commented code
+  - Large file changes (>500 lines)
+
+### Quality Scoring
+
+**Commit Message Quality:**
+- Excellent (8-10): Clear what + why, follows conventions
+- Good (5-7): Clear what, some context
+- Poor (1-4): Vague or no context
+- Bad (0): Single word, "wip", "test"
+
+**Code Quality Indicators:**
 ```bash
-# Ensure DDEV is running
-ddev describe
+# Check for debugging code
+grep -r "console.log\|debugger\|print(" changed_files/
 
-# If not running:
-ddev start
+# Check for TODOs
+grep -r "TODO\|FIXME" changed_files/ | wc -l
 
-# Verify services are healthy
-ddev exec php -v
-ddev exec mysql -e "SELECT 1"
+# Check for commented code
+grep -r "^[[:space:]]*//.*=\|^[[:space:]]*/\*" changed_files/
 ```
 
-### Step 4: Test the URL Locally and Compare with Live
-**First attempt: Test with current local data**
+## PR Review Template
 
-1. Open the local URL in your mental model (via WebFetch if needed)
-2. Fetch the same URL from production
-3. Compare the content/behavior
-
-**If content differs significantly:**
-```
-STOP: Database sync required
-
-The local environment may have stale data.
-Proceed to Step 5 to pull fresh database from production.
-```
-
-**If content is similar:**
-```
-Continue testing - local data appears current
-```
-
-### Step 5: Pull Fresh Database from Production (When Needed)
-**When to pull database:**
-- Local content differs from production
-- Ticket mentions specific products/customers/orders not in local DB
-- Last DB pull was more than a week ago
-- Ticket involves catalog, customer, or order data
-
-**How to pull database:**
-```bash
-# Project-agnostic path resolution
-SNAPSHOT_SCRIPT="./snapshot_live_filtered.sh"
-
-# Check if script exists
-if [ -f "$SNAPSHOT_SCRIPT" ]; then
-    echo "Found database sync script at project root"
-
-    # Inform user this will take several minutes
-    echo "⚠️  This will pull fresh production database (5-10 minutes)"
-    echo "⚠️  Your local database will be replaced"
-
-    # Execute the snapshot script
-    bash "$SNAPSHOT_SCRIPT"
-
-    # After import, flush caches
-    ddev exec bin/magento cache:flush
-    ddev exec bin/magento indexer:reindex
-else
-    echo "❌ Database sync script not found at project root"
-    echo "Ask user how to pull production database"
-fi
-```
-
-**What the snapshot script does:**
-1. Connects to production server via SSH
-2. Creates filtered database dump (excludes logs, sessions, temp tables)
-3. Downloads dump to local machine
-4. Drops local database
-5. Imports production dump
-6. Creates local admin user
-7. Generates admin token
-
-**After database import:**
-```bash
-# Clear all caches
-ddev exec bin/magento cache:flush
-
-# Reindex if needed
-ddev exec bin/magento indexer:reindex
-
-# Verify data
-ddev exec bin/magento admin:user:list
-```
-
-**Then retry the URL and verify content matches production**
-
-### Step 6: Download Missing Media Assets (If Needed)
-**When to download media:**
-- Product images return 404
-- Screenshots show images that don't display locally
-- Media-heavy pages have broken images
-
-**How to download missing images:**
-
-**Option A: Download specific image**
-```bash
-# Determine production URL
-PROD_URL="https://production-site.com"
-
-# Determine image path from HTML/error
-IMAGE_PATH="/media/catalog/product/x/y/xyz.jpg"
-
-# Download to correct local path
-LOCAL_MEDIA="pub/media"
-mkdir -p "$(dirname "$LOCAL_MEDIA${IMAGE_PATH#/media}")"
-
-# Use wget or curl to download
-wget -P "$(dirname "$LOCAL_MEDIA${IMAGE_PATH#/media}")" \
-     "${PROD_URL}${IMAGE_PATH}"
-
-# Or use curl
-curl -o "${LOCAL_MEDIA}${IMAGE_PATH#/media}" \
-     "${PROD_URL}${IMAGE_PATH}"
-```
-
-**Option B: Sync entire media directory (large operation)**
-```bash
-# If many images are missing, consider rsync from production
-# This requires SSH access to production
-
-# Example (project-agnostic):
-rsync -avz --progress \
-      production-server:/path/to/production/pub/media/catalog/product/ \
-      ./pub/media/catalog/product/
-```
-
-**Option C: Download via WebFetch**
-```bash
-# For specific images, use WebFetch tool to access the production URL
-# Then save the image content to the correct local path
-```
-
-**Verify media exists:**
-```bash
-# Check if image exists locally
-ls -la pub/media/catalog/product/path/to/image.jpg
-
-# Verify permissions
-chmod 644 pub/media/catalog/product/path/to/image.jpg
-```
-
-### Step 7: Reproduce the Issue Locally
-**Now that environment is synced, reproduce the exact issue:**
-
-1. **Follow ticket reproduction steps exactly**
-   - Use the same URL (converted to local)
-   - Use the same browser actions
-   - Use the same user role if specified
-
-2. **Document what you observe**
-   - Does the issue reproduce? (Yes/No)
-   - What is the actual behavior?
-   - Any console errors?
-   - Any PHP errors in logs?
-
-3. **If issue does NOT reproduce locally:**
-   ```
-   Possible reasons:
-   - Cache issue (most common!)
-   - Environment-specific configuration
-   - Production-only modules/settings
-   - External service integration
-
-   Action: Report back to user that issue does not reproduce locally
-   Suggest: Clear cache on production and retry
-   ```
-
-4. **If issue DOES reproduce locally:**
-   ```
-   Great! Now you can investigate the root cause
-   Proceed to Step 8
-   ```
-
-### Step 8: Investigate Root Cause
-**Only after reproducing locally, begin investigation:**
-
-1. **Check browser console for errors**
-   ```bash
-   # If WebFetch used, look for JavaScript errors in output
-   # If testing manually, check browser developer tools
-   ```
-
-2. **Check PHP error logs**
-   ```bash
-   # System logs
-   ddev exec tail -f var/log/system.log
-
-   # Exception logs
-   ddev exec tail -f var/log/exception.log
-
-   # Debug logs (if enabled)
-   ddev exec tail -f var/log/debug.log
-   ```
-
-3. **Identify the code path**
-   - Find templates involved
-   - Find controllers/blocks/viewmodels
-   - Find relevant configuration
-
-4. **Use debugging tools**
-   ```bash
-   # Enable Xdebug if needed
-   ddev xdebug on
-
-   # Check configuration
-   ddev exec bin/magento config:show | grep -i "relevant_section"
-
-   # Check module status
-   ddev exec bin/magento module:status | grep -i "ModuleName"
-   ```
-
-### Step 9: Test the Fix Locally
-**Before proposing solution, test it works:**
-
-1. **Implement the fix in local environment**
-2. **Clear caches**
-   ```bash
-   ddev exec bin/magento cache:flush
-   ```
-3. **Test the original reproduction steps**
-4. **Verify issue is resolved**
-5. **Test related functionality (regression testing)**
-
-### Step 10: Document the Solution
-**Provide comprehensive solution documentation:**
+Use this structure for code reviews:
 
 ```markdown
-## Issue Analysis: [Ticket Number]
+# Pull Request Review
 
-### Issue Reproduced: [Yes/No]
+## Summary
+[1-2 sentence overview of changes]
 
-### Root Cause:
-[Explain what was wrong]
+## Code Quality Assessment
 
-### Solution:
-[Explain the fix]
+### Structure & Organization
+- ✅ **Good**: Well-organized, clear separation of concerns
+- ⚠️  **Needs Work**: Mixed responsibilities, unclear structure
+- 🔴 **Issues**: Significant structural problems
 
-### Files Modified:
-- path/to/file1.php:123
-- path/to/file2.phtml:45
+### Naming & Readability
+- **Variables**: [clear/unclear/inconsistent]
+- **Functions**: [descriptive/vague/confusing]
+- **Comments**: [helpful/missing/outdated]
 
-### Testing Performed:
-- [X] Original issue resolved
-- [X] No console errors
-- [X] Related features still work
-- [X] Caches cleared and retested
+### Testing
+- [ ] Unit tests included
+- [ ] Integration tests updated
+- [ ] Edge cases covered
+- [ ] Test coverage: [%]
 
-### Deployment Notes:
-[Any special deployment considerations]
+## Issues Found
 
-### Regression Risk:
-[Low/Medium/High - explain why]
+### 🔴 Critical
+- [Issue with security/correctness impact]
+
+### 🟡 Warnings
+- [Issue that should be addressed]
+
+### 🔵 Suggestions
+- [Nice-to-have improvements]
+
+## Security Check
+
+- [ ] No hardcoded credentials
+- [ ] No SQL injection risks
+- [ ] No XSS vulnerabilities
+- [ ] Input validation present
+- [ ] Authentication/authorization correct
+
+## Performance
+
+- [ ] No obvious performance issues
+- [ ] Database queries optimized
+- [ ] No N+1 query problems
+- [ ] Appropriate caching
+
+## Recommendations
+
+1. [Priority recommendation]
+2. [Additional improvement]
+3. [Nice-to-have enhancement]
+
+## Verdict
+
+- [ ] ✅ **Approve** - Ready to merge
+- [ ] 🟡 **Approve with Comments** - Minor issues, can merge
+- [ ] 🔴 **Request Changes** - Must address issues before merge
 ```
 
-## Common Pitfalls to Avoid
+## Contributor Leaderboard
 
-### ❌ DON'T: Analyze Without Reproducing
-**Bad:** Read ticket → Guess at solution → Propose fix
-**Good:** Read ticket → Reproduce locally → Investigate → Test fix → Propose solution
+### Metrics
 
-### ❌ DON'T: Use Production URLs in Testing
-**Bad:** Test `https://production.com/page.html`
-**Good:** Test `https://project.ddev.site/page.html`
+Track these metrics per contributor:
 
-### ❌ DON'T: Skip Database Sync When Needed
-**Bad:** "Can't find product in local" → Give up
-**Good:** "Can't find product" → Pull fresh DB → Continue
+1. **Commit Count** (weight: 1x)
+2. **Lines Changed** (weight: 0.5x)
+   - Added lines + modified lines
+3. **Commit Quality** (weight: 2x)
+   - Average message quality score
+4. **PR Reviews** (weight: 1.5x)
+   - Number of PR reviews contributed
+5. **Response Time** (weight: 1x)
+   - Average time to respond to PR comments
 
-### ❌ DON'T: Ignore Cache as Potential Cause
-**Bad:** Immediately dive into code analysis
-**Good:** First reproduce, then check if cache clear resolves it
+### Scoring Formula
 
-### ❌ DON'T: Propose Solutions for Non-Reproducible Issues
-**Bad:** Can't reproduce but suggest code changes anyway
-**Good:** Can't reproduce → Report this → Suggest cache clear on production
+```
+Total Score = (commits × 1) +
+              (lines_changed / 100 × 0.5) +
+              (avg_quality × 2) +
+              (pr_reviews × 1.5) +
+              (10 - avg_response_hours × 1)
+```
 
-## Project-Agnostic Path Patterns
+### Leaderboard Format
 
-**Use these patterns to work in any project:**
+```markdown
+# GitHub Contributor Leaderboard
+## Period: [Week/Month]
+
+| Rank | Contributor | Score | Commits | Lines | Quality | Reviews |
+|------|-------------|-------|---------|-------|---------|---------|
+| 1    | John Doe    | 45.2  | 12      | 1,234 | 8.5     | 5       |
+| 2    | Jane Smith  | 38.7  | 10      | 987   | 7.8     | 4       |
+```
+
+## Code Quality Metrics
+
+### Complexity Analysis
 
 ```bash
-# DDEV config
-CONFIG_FILE="./.ddev/config.yaml"
-
-# Database snapshot script (at project root)
-DB_SNAPSHOT="./snapshot_live_filtered.sh"
-
-# Magento directories
-MAGENTO_ROOT="."
-BIN_MAGENTO="./bin/magento"
-PUB_MEDIA="./pub/media"
-VAR_LOG="./var/log"
-
-# Custom code locations
-APP_CODE="./app/code"
-APP_DESIGN="./app/design"
-
-# Execute Magento CLI
-ddev exec bin/magento [command]
-
-# Check logs
-ddev exec tail -f var/log/system.log
+# Count function complexity (rough estimate)
+# Functions with >4 nested levels or >50 lines
+grep -n "function\|def " file.js | while read line; do
+    # Analyze complexity
+done
 ```
 
-## Quick Reference: Common Commands
+### Code Churn
+
+Files with high churn (changed frequently):
+```bash
+git log --format=format: --name-only | \
+    sort | uniq -c | sort -rn | head -20
+```
+
+High churn may indicate:
+- Unstable code
+- Unclear requirements
+- Technical debt
+- Active development area
+
+### Test Coverage
 
 ```bash
-# Start environment
-ddev start
-
-# Get DDEV URL
-ddev describe | grep "primary url"
-
-# Pull production database
-bash ./snapshot_live_filtered.sh
-
-# Clear caches
-ddev exec bin/magento cache:flush
-
-# Check logs
-ddev exec tail -100 var/log/system.log
-ddev exec tail -100 var/log/exception.log
-
-# Download missing image
-IMAGE_URL="https://production.com/media/path/to/image.jpg"
-curl -o pub/media/path/to/image.jpg "$IMAGE_URL"
-
-# Enable Xdebug
-ddev xdebug on
-
-# Check module status
-ddev exec bin/magento module:status
+# Run test coverage (example)
+npm test -- --coverage
+python -m pytest --cov=src tests/
 ```
 
-## Example Workflow
+Good coverage targets:
+- Critical paths: 90%+
+- Business logic: 80%+
+- Overall: 70%+
 
-**Ticket: "Product page shows wrong price"**
+## Data Processing
 
-1. ✅ Read GitHub issue #123
-2. ✅ Extract URL: `https://production.com/product/abc.html`
-3. ✅ Convert to local: `https://project.ddev.site/product/abc.html`
-4. ✅ Test local URL → Shows old price ($10 instead of $15)
-5. ✅ Test production URL → Shows correct price ($15)
-6. ✅ **Database sync needed** → Run `./snapshot_live_filtered.sh`
-7. ✅ Retest local URL → Now shows $15 ✓
-8. ✅ Issue does NOT reproduce with fresh data
-9. ✅ **Conclusion: Stale local data, not a bug**
-10. ✅ Recommend: Clear cache on production and verify
+### Input Format (commits.json)
 
-**Result: Prevented wasted debugging effort on non-existent bug**
+```json
+[
+  {
+    "sha": "abc123",
+    "author": "John Doe",
+    "email": "john@example.com",
+    "date": "2026-01-04T10:30:00Z",
+    "message": "Add user authentication feature",
+    "files_changed": ["src/auth.js", "src/users.js"],
+    "additions": 125,
+    "deletions": 45,
+    "files_count": 2
+  }
+]
+```
 
-## Environment-Specific Notes
+### Output Format (analysis.json)
 
-**For Magento 2 / Mage-OS projects:**
-- Database snapshot script uses `n98-magerun2`
-- Admin user creation included in snapshot script
-- Cache flush required after DB import
-- Indexing may be required for catalog changes
+```json
+{
+  "summary": {
+    "total_commits": 25,
+    "total_contributors": 5,
+    "total_files_changed": 67,
+    "total_lines": 2345
+  },
+  "contributors": [
+    {
+      "name": "John Doe",
+      "commits": 12,
+      "lines_changed": 1234,
+      "avg_quality": 8.5,
+      "score": 45.2
+    }
+  ],
+  "hot_files": [
+    {"file": "src/auth.js", "changes": 8}
+  ],
+  "quality_issues": [
+    {"type": "TODO", "count": 5},
+    {"type": "console.log", "count": 3}
+  ]
+}
+```
 
-**For Hyvä Themes projects:**
-- Static content may need regeneration
-- Tailwind CSS may need rebuild
-- ViewModels may have cached data
+## Scripts
 
-**For DDEV environments:**
-- Always use `ddev exec` prefix for commands
-- DDEV hostname format: `{project-name}.ddev.site`
-- Services accessible: web, db, mailhog, etc.
+### analyze_commits.py
 
-## Success Criteria
+Analyzes commit data and generates metrics.
 
-✅ **Issue was reproduced in local environment**
-✅ **Root cause identified with evidence**
-✅ **Fix implemented and tested locally**
-✅ **Related functionality verified (no regressions)**
-✅ **Solution documented with file paths and line numbers**
-✅ **Deployment steps clearly outlined**
+**Usage:**
+```bash
+python scripts/analyze_commits.py input.json --output analysis.json
+```
 
-## When Not to Use This Skill
+### calculate_leaderboard.py
 
-- Production-only issues (no local access)
-- Infrastructure issues (server, networking, DNS)
-- Third-party service issues (payment gateway, shipping API)
-- Issues already confirmed as cache-related by user
+Calculates contributor rankings.
 
-In these cases, document the limitations and work with available information.
+**Usage:**
+```bash
+python scripts/calculate_leaderboard.py commits.json \
+    --period week \
+    --output leaderboard.json
+```
+
+### generate_report.py
+
+Generates HTML report from analysis.
+
+**Usage:**
+```bash
+python scripts/generate_report.py analysis.json \
+    --template github-summary \
+    --output report.html
+```
+
+## Integration with Agents
+
+### Code Agent
+
+```python
+# Get commits from GitHub
+commits = github.get_commits(repo='owner/repo', days=7)
+
+# Analyze with skill
+python scripts/analyze_commits.py commits.json
+```
+
+### Reporting Agent
+
+```python
+# Generate leaderboard
+python scripts/calculate_leaderboard.py commits.json
+
+# Create HTML report
+python scripts/generate_report.py analysis.json --template github-summary
+```
+
+## Reference Files
+
+- [metrics.md](reference/metrics.md) - Detailed scoring algorithms
+- [patterns.md](reference/patterns.md) - Code quality patterns to detect
+- [templates.md](reference/templates.md) - Additional report templates

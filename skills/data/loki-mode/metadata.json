@@ -1,12 +1,7 @@
 {
   "name": "loki-mode",
-  "description": "Multi-agent autonomous startup system for Claude Code. Triggers on \"Loki Mode\". Orchestrates 100+ specialized agents across engineering, QA, DevOps, security, data/ML, business operations, marketing, ",
-  "repo": "asklokesh/claudeskill-loki-mode",
-  "category": "devops",
-  "tags": [
-    "loki",
-    "mode"
-  ],
-  "stars": 330,
-  "source": "SkillsMP Synced Skills"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/loki-mode/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-22T04:03:35.531338Z"
 }

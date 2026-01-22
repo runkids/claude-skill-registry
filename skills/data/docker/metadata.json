@@ -1,7 +1,7 @@
 {
   "name": "docker",
-  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "path": ".github/agents/app-starter/agents-context/skills/docker/SKILL.md",
-  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "downloaded_at": "2026-01-14T04:00:39.031187Z"
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/docker/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-22T04:10:29.185998Z"
 }

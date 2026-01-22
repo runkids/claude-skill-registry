@@ -1,7 +1,7 @@
 {
   "name": "devops-deployment",
-  "repo": "ArieGoldkin/ai-agent-hub",
+  "repo": "yonatangross/skillforge-claude-plugin",
   "path": "skills/devops-deployment/SKILL.md",
-  "source": "github.com/ArieGoldkin/ai-agent-hub",
-  "downloaded_at": "2026-01-14T03:52:03.082817Z"
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-22T01:25:10.659794Z"
 }

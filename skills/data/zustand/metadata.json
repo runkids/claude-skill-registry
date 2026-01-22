@@ -1,11 +1,7 @@
 {
   "name": "zustand",
-  "description": "Zustand 5+ state management. Use when creating stores, selectors, middleware, or persisting state.",
-  "repo": "tirtza-weinfeld/hippocampx",
-  "category": "development",
-  "tags": [
-    "zustand"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mgd34msu/goodvibes-gemini",
+  "path": "skills/zustand/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-gemini",
+  "downloaded_at": "2026-01-22T01:04:03.147417Z"
 }

@@ -1,17 +1,21 @@
 {
-  "updated_at": "2026-01-14T04:12:18.573896Z",
+  "updated_at": "2026-01-22T04:19:06.041334Z",
   "categories": [
     {
+      "name": "PRD-to-Tasks",
+      "count": 1
+    },
+    {
       "name": "data",
-      "count": 14133
+      "count": 20225
     },
     {
       "name": "design",
-      "count": 2545
+      "count": 2361
     },
     {
       "name": "development",
-      "count": 7746
+      "count": 7251
     },
     {
       "name": "devops",
@@ -31,7 +35,7 @@
     },
     {
       "name": "other",
-      "count": 1
+      "count": 456
     },
     {
       "name": "product",
@@ -39,7 +43,7 @@
     },
     {
       "name": "productivity",
-      "count": 748
+      "count": 686
     },
     {
       "name": "security",
@@ -47,7 +51,7 @@
     },
     {
       "name": "testing",
-      "count": 3058
+      "count": 3059
     }
   ]
 }

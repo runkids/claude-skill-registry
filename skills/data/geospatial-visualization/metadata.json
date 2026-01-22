@@ -1,7 +1,7 @@
 {
   "name": "geospatial-visualization",
-  "repo": "robertpelloni/aios",
+  "repo": "robertpelloni/borg",
   "path": "agents/rse-agents/plugins/holoviz-visualization/skills/geospatial-visualization/SKILL.md",
-  "source": "github.com/robertpelloni/aios",
-  "downloaded_at": "2026-01-14T03:45:49.478620Z"
+  "source": "github.com/robertpelloni/borg",
+  "downloaded_at": "2026-01-22T03:34:16.497730Z"
 }

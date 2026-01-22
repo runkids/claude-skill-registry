@@ -2,12 +2,20 @@
 name: database-change-management
 description: |
   Plan and implement safe database schema changes including migrations, indexes, and backfills. Use when creating
-  tables, adding columns, optimizing queries, or managing Eloquent relationships. EXCLUSIVE to database-admin agent.
-allowed-tools: Read, Edit, Bash, Grep, Glob, Write
+  tables, adding columns, optimizing queries, or managing Eloquent/SQLAlchemy relationships. EXCLUSIVE to database-admin agent.
+allowed-tools: Read, Edit, Bash, Grep, Glob, Write, mcp_context7
 ---
 # Database Change Management
 
 **Exclusive to:** `database-admin` agent
+
+## 📚 Context7 (Memory) — Up-to-Date Docs
+
+Lookup latest ORM patterns before implementing:
+```
+mcp_context7_resolve-library-id(libraryName="laravel", query="eloquent relationships")
+mcp_context7_query-docs(libraryId="/laravel/docs", query="migrations foreign keys")
+```
 
 ## Validation Loop (MANDATORY)
 

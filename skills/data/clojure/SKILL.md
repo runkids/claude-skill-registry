@@ -1,83 +1,70 @@
 ---
 name: clojure
-description: Clojure ecosystem = babashka + clj + lein + shadow-cljs.
-version: 1.0.0
+description: Develop Clojure applications using deps.edn, tools.deps, and functional patterns. Activate when working with .clj/.cljc/.cljs files, deps.edn, or user mentions Clojure, REPL, spec, transducers, reducers, or functional programming.
 ---
 
+# Clojure Development
 
-# clojure
+Functional-first Clojure with **deps.edn**, **tools.deps**, and **immutability**.
 
-Clojure ecosystem = babashka + clj + lein + shadow-cljs.
+## Workflow
 
-## Atomic Skills
+```
+1. MODEL    -> Define data with maps, records, specs
+2. COMPOSE  -> Build with pure functions, ->> threading
+3. TEST     -> Write tests first (clojure.test or Kaocha)
+4. VALIDATE -> clojure -M:test/run && clj-kondo --lint src
+5. ITERATE  -> Refactor in REPL, keep functions pure
+```
 
-| Skill | Startup | Domain |
-|-------|---------|--------|
-| babashka | 10ms | Scripting |
-| clj | 2s | JVM REPL |
-| lein | 3s | Build tool |
-| shadow-cljs | 5s | ClojureScript |
-
-## Quick Start
+## CLI
 
 ```bash
-# Scripting (fast)
-bb -e '(+ 1 2 3)'
+# Project setup
+clojure -Tnew app :name myuser/myapp    # New app project
+clojure -Tnew lib :name myuser/mylib    # New library
 
-# JVM (full)
-clj -M -m myapp.core
+# Run
+clojure -M -m myapp.core                # Run -main
+clojure -M:run                          # Via alias
+clojure -X:run                          # Exec function
 
-# Web (ClojureScript)
-npx shadow-cljs watch app
+# REPL
+clj                                     # Basic REPL
+clojure -M:repl/rebel                   # Rebel readline
+
+# Test
+clojure -X:test/run                     # Run tests (Kaocha)
+clojure -M:test -m kaocha.runner        # Alternative
+
+# Build
+clojure -T:build uber                   # Uberjar
+clojure -T:build jar                    # Library jar
+
+# Dependencies
+clojure -X:deps tree                    # Dependency tree
+clojure -X:deps find-versions :lib clojure.java-time/clojure.java-time
+clojure -M:search/outdated              # Find outdated deps
 ```
 
-## deps.edn
+## Notes
 
-```clojure
-{:deps {org.clojure/clojure {:mvn/version "1.12.0"}}
- :aliases {:dev {:extra-paths ["dev"]}
-           :test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.0"}}}}}
-```
+Project layout, deps.edn templates, core patterns, naming conventions, and anti-patterns live in `reference.md`.
 
-## bb.edn
-
-```clojure
-{:tasks {:build (shell "clj -T:build uber")
-         :test (shell "clj -M:test")
-         :repl (clojure "-M:dev -m nrepl.cmdline")}}
-```
-
-
-
-## Scientific Skill Interleaving
-
-This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
-
-### Graph Theory
-- **networkx** [○] via bicomodule
-  - Universal graph hub
-
-### Bibliography References
-
-- `general`: 734 citations in bib.duckdb
-
-## Cat# Integration
-
-This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
+## Research Tools
 
 ```
-Trit: 0 (ERGODIC)
-Home: Prof
-Poly Op: ⊗
-Kan Role: Adj
-Color: #26D826
+# gh search code for real-world Clojure patterns
+gh search code "(go-loop [" --language=clojure
+gh search code "(comp (map" --language=clojure
+gh search code "(s/def ::" --language=clojure
 ```
 
-### GF(3) Naturality
+## References
 
-The skill participates in triads satisfying:
-```
-(-1) + (0) + (+1) ≡ 0 (mod 3)
-```
-
-This ensures compositional coherence in the Cat# equipment structure.
+- [reference.md](reference.md) - Data structures, best practices, idioms, error handling
+- [patterns.md](cookbook/patterns.md) - Functional patterns, sequences, transducers
+- [concurrency.md](cookbook/concurrency.md) - Atoms, refs, agents, core.async
+- [spec.md](cookbook/spec.md) - clojure.spec validation & generative testing
+- [testing.md](cookbook/testing.md) - clojure.test, Kaocha configuration
+- [macros.md](cookbook/macros.md) - Metaprogramming patterns

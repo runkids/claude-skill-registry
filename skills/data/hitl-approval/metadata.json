@@ -1,7 +1,7 @@
 {
   "name": "hitl-approval",
-  "repo": "metasaver/metasaver-marketplace",
-  "path": "plugins/metasaver-core/skills/workflow-steps/hitl-approval/SKILL.md",
-  "source": "github.com/metasaver/metasaver-marketplace",
-  "downloaded_at": "2026-01-14T01:43:51.250122Z"
+  "repo": "skillrecordings/support",
+  "path": ".claude/skills/hitl-approval/SKILL.md",
+  "source": "github.com/skillrecordings/support",
+  "downloaded_at": "2026-01-22T03:15:14.183802Z"
 }

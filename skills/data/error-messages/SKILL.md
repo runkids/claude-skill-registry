@@ -1,263 +1,547 @@
 ---
-name: error-messages
-description: Error Message Style Guide for Validation Errors
+name: Error Messages
+description: Comprehensive guide to writing clear, helpful, and user-friendly error messages that guide users to solutions
 ---
 
+# Error Messages
 
-# Error Message Style Guide
+## Why Error Messages Matter
 
-This guide establishes the standard format for validation error messages in the gh-aw codebase. All validation errors should be clear, actionable, and include examples.
+**Problem:** Bad error messages frustrate users and increase support tickets
 
-## Error Message Template
-
+### Bad Error Message
 ```
-[what's wrong]. [what's expected]. [example of correct usage]
-```
-
-Each error message should answer three questions:
-1. **What's wrong?** - Clearly state the validation error
-2. **What's expected?** - Explain the valid format or values
-3. **How to fix it?** - Provide a concrete example of correct usage
-
-## Good Examples
-
-These examples follow the template and provide actionable guidance:
-
-### Time Delta Validation (from time_delta.go)
-```go
-return nil, fmt.Errorf("invalid time delta format: +%s. Expected format like +25h, +3d, +1w, +1mo, +1d12h30m", deltaStr)
-```
-✅ **Why it's good:**
-- Clearly identifies the invalid input
-- Lists multiple valid format examples
-- Shows combined formats (+1d12h30m)
-
-### Type Validation with Example
-```go
-return "", fmt.Errorf("manual-approval value must be a string, got %T. Example: manual-approval: \"production\"", val)
-```
-✅ **Why it's good:**
-- Shows actual type received (%T)
-- Provides concrete YAML example
-- Uses proper YAML syntax with quotes
-
-### Enum Validation with Options
-```go
-return fmt.Errorf("invalid engine: %s. Valid engines are: copilot, claude, codex, custom. Example: engine: copilot", engineID)
-```
-✅ **Why it's good:**
-- Lists all valid options
-- Provides simplest example
-- Uses consistent formatting
-
-### MCP Configuration
-```go
-return fmt.Errorf("tool '%s' mcp configuration must specify either 'command' or 'container'. Example:\ntools:\n  %s:\n    command: \"npx @my/tool\"", toolName, toolName)
-```
-✅ **Why it's good:**
-- Explains mutual exclusivity
-- Shows realistic tool name
-- Formats multi-line YAML example
-
-## Bad Examples
-
-These examples lack clarity or actionable guidance:
-
-### Too Vague
-```go
-return fmt.Errorf("invalid format")
-```
-❌ **Problems:**
-- Doesn't specify what format is invalid
-- Doesn't explain expected format
-- No example provided
-
-### Missing Example
-```go
-return fmt.Errorf("manual-approval value must be a string")
-```
-❌ **Problems:**
-- States requirement but no example
-- User doesn't know proper YAML syntax
-- Could be clearer about type received
-
-### Incomplete Information
-```go
-return fmt.Errorf("invalid engine: %s", engineID)
-```
-❌ **Problems:**
-- Doesn't list valid options
-- No guidance on fixing the error
-- User must search documentation
-
-## When to Include Examples
-
-Always include examples for:
-
-1. **Format/Syntax Errors** - Show the correct syntax
-   ```go
-   fmt.Errorf("invalid date format. Expected: YYYY-MM-DD HH:MM:SS. Example: 2024-01-15 14:30:00")
-   ```
-
-2. **Enum/Choice Fields** - List all valid options
-   ```go
-   fmt.Errorf("invalid permission level: %s. Valid levels: read, write, none. Example: permissions:\n  contents: read", level)
-   ```
-
-3. **Type Mismatches** - Show expected type and example
-   ```go
-   fmt.Errorf("timeout-minutes must be an integer, got %T. Example: timeout-minutes: 10", value)
-   ```
-
-4. **Complex Configurations** - Provide complete valid example
-   ```go
-   fmt.Errorf("invalid MCP server config. Example:\nmcp-servers:\n  my-server:\n    command: \"node\"\n    args: [\"server.js\"]")
-   ```
-
-## When Examples May Be Optional
-
-Examples can be omitted when:
-
-1. **Error is from wrapped error** - When wrapping another error with context
-   ```go
-   return fmt.Errorf("failed to parse configuration: %w", err)
-   ```
-
-2. **Error is self-explanatory with clear context**
-   ```go
-   return fmt.Errorf("duplicate unit '%s' in time delta: +%s", unit, deltaStr)
-   ```
-
-3. **Error points to specific documentation**
-   ```go
-   return fmt.Errorf("unsupported feature. See https://docs.example.com/features")
-   ```
-
-## Formatting Guidelines
-
-### Use Type Verbs for Dynamic Content
-- `%s` - strings
-- `%d` - integers  
-- `%T` - type of value
-- `%v` - general value
-- `%w` - wrapped errors
-
-### Multi-line Examples
-For YAML configuration examples spanning multiple lines:
-```go
-fmt.Errorf("invalid config. Example:\ntools:\n  github:\n    mode: \"remote\"")
+Error: 500
 ```
 
-### Quoting in Examples
-Use proper YAML syntax in examples:
-```go
-// Good - shows quotes when needed
-fmt.Errorf("Example: name: \"my-workflow\"")
+### Good Error Message
+```
+We couldn't process your payment
 
-// Good - shows no quotes for simple values
-fmt.Errorf("Example: timeout-minutes: 10")
+Your card was declined. Please check your card details or try a different payment method.
+
+Need help? Contact support@example.com
 ```
 
-### Consistent Terminology
-Use the same field names as in YAML:
-```go
-// Good - matches YAML field name
-fmt.Errorf("timeout-minutes must be positive")
+---
 
-// Bad - uses different name
-fmt.Errorf("timeout must be positive")
+## Principles of Good Error Messages
+
+### 1. Explain What Happened
+```
+Bad:  "Error"
+Good: "We couldn't save your changes"
 ```
 
-## Error Message Testing
+### 2. Explain Why It Happened
+```
+Bad:  "Failed"
+Good: "Your session expired after 30 minutes of inactivity"
+```
 
-All improved error messages should have corresponding tests:
+### 3. Tell Users What to Do Next
+```
+Bad:  "Invalid input"
+Good: "Email address is required. Please enter your email to continue."
+```
 
-```go
-func TestErrorMessageQuality(t *testing.T) {
-    err := validateSomething(invalidInput)
-    require.Error(t, err)
-    
-    // Error should explain what's wrong
-    assert.Contains(t, err.Error(), "invalid")
-    
-    // Error should include expected format or values
-    assert.Contains(t, err.Error(), "Expected")
-    
-    // Error should include example
-    assert.Contains(t, err.Error(), "Example:")
+### 4. Use Plain Language (No Jargon)
+```
+Bad:  "ERR_CONNECTION_REFUSED"
+Good: "We couldn't connect to the server. Please check your internet connection."
+```
+
+### 5. Be Empathetic (Not Blaming)
+```
+Bad:  "You entered an invalid email"
+Good: "This email address doesn't look right. Please check for typos."
+```
+
+---
+
+## Error Message Structure
+
+### Template
+```
+[What happened]
+
+[Why it happened] (optional)
+
+[What to do next]
+
+[Additional help] (optional)
+```
+
+### Example
+```
+We couldn't create your account
+
+An account with this email already exists.
+
+Try logging in instead, or use a different email address.
+
+Forgot your password? Reset it here.
+```
+
+---
+
+## Types of Errors
+
+### Validation Errors
+```
+Field is empty:
+"Email is required"
+
+Invalid format:
+"Please enter a valid email address (example@domain.com)"
+
+Out of range:
+"Password must be at least 8 characters"
+
+Duplicate:
+"This username is already taken. Try another one."
+```
+
+### System Errors
+```
+Server error:
+"Something went wrong on our end. We're working to fix it. Please try again in a few minutes."
+
+Network error:
+"We couldn't connect to the server. Please check your internet connection and try again."
+
+Timeout:
+"This is taking longer than expected. Please try again."
+```
+
+### Permission Errors
+```
+Not logged in:
+"Please log in to continue"
+
+Insufficient permissions:
+"You don't have permission to access this page. Contact your admin for access."
+
+Subscription required:
+"This feature is only available on Pro plans. Upgrade to unlock it."
+```
+
+### Not Found Errors
+```
+Page not found:
+"We couldn't find this page. It may have been moved or deleted."
+
+Resource not found:
+"This file doesn't exist anymore. It may have been deleted."
+```
+
+---
+
+## Writing Guidelines
+
+### Be Specific
+```
+Bad:  "Invalid input"
+Good: "Password must contain at least one number"
+```
+
+### Be Concise
+```
+Bad:  "We apologize for the inconvenience, but we were unable to process your request at this time due to a technical issue on our end."
+Good: "We couldn't process your request. Please try again."
+```
+
+### Be Helpful
+```
+Bad:  "Error 403"
+Good: "You don't have permission to view this page. Contact support@example.com for access."
+```
+
+### Avoid Technical Jargon
+```
+Bad:  "ERR_SSL_PROTOCOL_ERROR"
+Good: "This site's security certificate is invalid. Try again later."
+```
+
+### Don't Blame the User
+```
+Bad:  "You forgot to enter your email"
+Good: "Email is required"
+```
+
+---
+
+## Error Message Examples
+
+### Form Validation
+```html
+<!-- Empty field -->
+<div class="error">
+  Email is required
+</div>
+
+<!-- Invalid format -->
+<div class="error">
+  Please enter a valid email address
+</div>
+
+<!-- Password too short -->
+<div class="error">
+  Password must be at least 8 characters
+</div>
+
+<!-- Passwords don't match -->
+<div class="error">
+  Passwords don't match. Please try again.
+</div>
+```
+
+### Login Errors
+```
+Wrong password:
+"Incorrect password. Try again or reset your password."
+
+Account not found:
+"We couldn't find an account with this email. Sign up instead?"
+
+Account locked:
+"Your account has been locked after multiple failed login attempts. Reset your password to unlock it."
+
+Email not verified:
+"Please verify your email before logging in. Didn't receive the email? Resend it."
+```
+
+### Payment Errors
+```
+Card declined:
+"Your card was declined. Please check your card details or try a different payment method."
+
+Insufficient funds:
+"Your card has insufficient funds. Please try a different payment method."
+
+Expired card:
+"Your card has expired. Please update your payment method."
+
+Invalid CVV:
+"The security code (CVV) is incorrect. It's the 3-digit number on the back of your card."
+```
+
+### File Upload Errors
+```
+File too large:
+"This file is too large. Maximum size is 10MB."
+
+Invalid file type:
+"This file type isn't supported. Please upload a JPG, PNG, or PDF."
+
+Upload failed:
+"We couldn't upload your file. Please check your internet connection and try again."
+```
+
+---
+
+## Error Severity Levels
+
+### Info (Blue)
+```
+"Your changes were saved as a draft"
+```
+
+### Warning (Yellow)
+```
+"Your session will expire in 5 minutes. Save your work."
+```
+
+### Error (Red)
+```
+"We couldn't save your changes. Please try again."
+```
+
+### Success (Green)
+```
+"Your changes were saved successfully"
+```
+
+---
+
+## Inline vs Modal Errors
+
+### Inline Errors (Preferred for Forms)
+```html
+<input type="email" class="error" />
+<span class="error-message">Please enter a valid email</span>
+```
+
+**Pros:**
+- Immediate feedback
+- User can fix without dismissing
+- Less disruptive
+
+### Modal Errors (For Critical Errors)
+```html
+<div class="modal">
+  <h2>Payment Failed</h2>
+  <p>Your card was declined. Please try a different payment method.</p>
+  <button>Try Again</button>
+</div>
+```
+
+**Use for:**
+- Critical errors
+- Errors requiring immediate attention
+- Errors blocking workflow
+
+---
+
+## Error Recovery
+
+### Provide Clear Actions
+```
+Bad:
+"Error occurred"
+[OK]
+
+Good:
+"We couldn't save your changes"
+[Try Again] [Save as Draft] [Cancel]
+```
+
+### Auto-Retry (When Appropriate)
+```
+"Connection lost. Retrying in 3 seconds..."
+
+[Retry Now] [Cancel]
+```
+
+### Preserve User Data
+```
+"We couldn't submit your form. Your responses have been saved."
+
+[Try Again]
+```
+
+---
+
+## Error Prevention
+
+### Validate Early
+```html
+<!-- Validate on blur -->
+<input type="email" onblur="validateEmail()" />
+
+<!-- Show format hint -->
+<input type="password" />
+<span class="hint">Must be at least 8 characters</span>
+```
+
+### Provide Examples
+```
+Phone number: (555) 123-4567
+Date: MM/DD/YYYY
+```
+
+### Use Appropriate Input Types
+```html
+<!-- Email keyboard on mobile -->
+<input type="email" />
+
+<!-- Number keyboard on mobile -->
+<input type="tel" />
+
+<!-- Date picker -->
+<input type="date" />
+```
+
+---
+
+## Accessibility
+
+### Use ARIA Labels
+```html
+<div role="alert" aria-live="polite">
+  Email is required
+</div>
+```
+
+### Associate Errors with Fields
+```html
+<input type="email" aria-describedby="email-error" />
+<span id="email-error" class="error">
+  Please enter a valid email
+</span>
+```
+
+### Use Color + Text
+```
+Don't rely on color alone
+✗ Red border only
+✓ Red border + error icon + error text
+```
+
+---
+
+## Error Tracking
+
+### Log Errors for Analysis
+```javascript
+function logError(errorType, errorMessage, context) {
+  analytics.track('Error Shown', {
+    type: errorType,
+    message: errorMessage,
+    page: window.location.pathname,
+    context: context
+  });
 }
+
+// Usage
+logError('validation', 'Invalid email', { field: 'email' });
 ```
 
-## Migration Strategy
-
-When improving existing error messages:
-
-1. **Identify the error** - Find validation error that lacks clarity
-2. **Analyze context** - Understand what's being validated
-3. **Apply template** - Add what's wrong + expected + example
-4. **Add tests** - Verify error message content
-5. **Update comments** - Document the validation logic
-
-## Examples by Category
-
-### Format Validation
-```go
-// Time deltas
-fmt.Errorf("invalid time delta format: +%s. Expected format like +25h, +3d, +1w, +1mo, +1d12h30m", input)
-
-// Dates
-fmt.Errorf("invalid date format: %s. Expected: YYYY-MM-DD or relative like -1w. Example: 2024-01-15 or -7d", input)
-
-// URLs
-fmt.Errorf("invalid URL format: %s. Expected: https:// URL. Example: https://api.example.com", input)
+### Monitor Error Rates
+```
+Track:
+- Most common errors
+- Error rate by page
+- Time to resolve errors
+- Errors leading to abandonment
 ```
 
-### Type Validation
-```go
-// Boolean expected
-fmt.Errorf("read-only must be a boolean, got %T. Example: read-only: true", value)
+---
 
-// String expected
-fmt.Errorf("workflow name must be a string, got %T. Example: name: \"my-workflow\"", value)
+## Testing Error Messages
 
-// Object expected
-fmt.Errorf("permissions must be an object, got %T. Example: permissions:\n  contents: read", value)
+### Test Scenarios
+```
+✓ Empty fields
+✓ Invalid formats
+✓ Network failures
+✓ Server errors
+✓ Permission errors
+✓ Edge cases
 ```
 
-### Choice/Enum Validation
-```go
-// Engine selection
-fmt.Errorf("invalid engine: %s. Valid engines: copilot, claude, codex, custom. Example: engine: copilot", id)
-
-// Permission levels
-fmt.Errorf("invalid permission level: %s. Valid levels: read, write, none. Example: contents: read", level)
-
-// Tool modes
-fmt.Errorf("invalid mode: %s. Valid modes: local, remote. Example: mode: \"remote\"", mode)
+### User Testing
+```
+Ask users:
+- Do you understand what went wrong?
+- Do you know how to fix it?
+- Is the message helpful?
 ```
 
-### Configuration Validation
-```go
-// Missing required field
-fmt.Errorf("tool '%s' missing required 'command' field. Example:\ntools:\n  %s:\n    command: \"node server.js\"", name, name)
+---
 
-// Mutually exclusive fields
-fmt.Errorf("cannot specify both 'command' and 'container'. Choose one. Example: command: \"node server.js\"")
+## Best Practices
 
-// Invalid combination
-fmt.Errorf("http MCP servers cannot use 'container' field. Example:\ntools:\n  my-http:\n    type: http\n    url: \"https://api.example.com\"")
+### 1. Be Human
+```
+Bad:  "ERR_INVALID_INPUT_001"
+Good: "Oops! This email doesn't look right."
 ```
 
-## References
+### 2. Be Specific
+```
+Bad:  "Something went wrong"
+Good: "We couldn't send your email. Please check the recipient's address."
+```
 
-- **Excellent example to follow**: `pkg/workflow/time_delta.go`
-- **Pattern inspiration**: Go standard library error messages
-- **Testing examples**: `pkg/workflow/*_test.go`
+### 3. Be Actionable
+```
+Bad:  "Error"
+Good: "Connection lost. Check your internet and try again."
+```
 
-## Tools
+### 4. Be Empathetic
+```
+Bad:  "You entered the wrong password"
+Good: "Incorrect password. Try again or reset it."
+```
 
-When writing error messages, consider:
-- The user's perspective (what do they need to fix it?)
-- The context (where in the workflow is the error?)
-- The documentation (should we reference specific docs?)
-- The complexity (is multi-line example needed?)
+### 5. Be Consistent
+```
+Use same tone and structure across all errors
+```
+
+---
+
+## Common Mistakes
+
+### ❌ Too Technical
+```
+"ERR_CONNECTION_REFUSED: ECONNREFUSED"
+```
+
+### ❌ Too Vague
+```
+"Error occurred"
+```
+
+### ❌ Blaming User
+```
+"You didn't enter a valid email"
+```
+
+### ❌ No Solution
+```
+"Invalid input"
+```
+
+### ❌ All Caps
+```
+"ERROR: PAYMENT FAILED"
+```
+
+---
+
+## Error Message Checklist
+
+```
+☐ Explains what happened
+☐ Explains why (if helpful)
+☐ Tells user what to do next
+☐ Uses plain language
+☐ Is empathetic (not blaming)
+☐ Is specific (not vague)
+☐ Is concise (not wordy)
+☐ Provides help link (if needed)
+☐ Is accessible (ARIA labels)
+☐ Is tested with users
+```
+
+---
+
+## Summary
+
+**Good Error Messages:**
+- Explain what happened
+- Explain why
+- Tell users what to do
+- Use plain language
+- Are empathetic
+
+**Structure:**
+```
+[What happened]
+[Why it happened]
+[What to do next]
+[Additional help]
+```
+
+**Types:**
+- Validation errors
+- System errors
+- Permission errors
+- Not found errors
+
+**Best Practices:**
+- Be human
+- Be specific
+- Be actionable
+- Be empathetic
+- Be consistent
+
+**Avoid:**
+- Technical jargon
+- Vague messages
+- Blaming users
+- No solutions
+- All caps

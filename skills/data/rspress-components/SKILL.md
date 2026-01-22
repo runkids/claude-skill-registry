@@ -2,6 +2,7 @@
 name: rspress-components
 description: Use RSPress built-in components and MDX features in documentation. Use when adding interactive elements like tabs, badges, steps, callouts, or code groups to documentation pages.
 allowed-tools: Read, Write, Edit, Glob
+agent: rspress-doc-agent
 ---
 
 # RSPress Components Skill

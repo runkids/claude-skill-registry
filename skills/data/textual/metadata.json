@@ -1,9 +1,7 @@
 {
   "name": "textual",
-  "description": "Expert guidance for building TUI (Text User Interface) applications with the Textual framework. Invoke when user asks about Textual development, TUI apps, widgets, screens, CSS styling, reactive progr",
-  "repo": "KyleKing/vcr-tui",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "GobbyAI/gobby",
+  "path": ".claude/commands/textual/SKILL.md",
+  "source": "github.com/GobbyAI/gobby",
+  "downloaded_at": "2026-01-17T01:37:08.667468Z"
 }

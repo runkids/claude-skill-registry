@@ -1,7 +1,7 @@
 {
   "name": "slo-sli-design",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/observability-planning/skills/slo-sli-design/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-14T03:00:22.627247Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/slo-sli-design/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-22T01:26:16.763842Z"
 }

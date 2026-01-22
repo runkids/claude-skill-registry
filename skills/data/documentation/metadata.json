@@ -1,7 +1,7 @@
 {
   "name": "documentation",
-  "repo": "Intellifill/IntelliFill",
+  "repo": "medride/claude-code-research",
   "path": ".claude/skills/documentation/SKILL.md",
-  "source": "github.com/Intellifill/IntelliFill",
-  "downloaded_at": "2026-01-14T04:00:06.143770Z"
+  "source": "github.com/medride/claude-code-research",
+  "downloaded_at": "2026-01-22T04:02:33.468606Z"
 }

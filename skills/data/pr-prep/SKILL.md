@@ -30,6 +30,8 @@ dependencies:
   - sanctum:git-workspace-review
   - imbue:evidence-logging
   - imbue:structured-output
+  - scribe:slop-detector
+  - scribe:doc-generator
 
 # Claude Code 2.1.0+ lifecycle hooks
 hooks:
@@ -39,7 +41,7 @@ hooks:
         # Log quality gate execution
         if echo "$CLAUDE_TOOL_INPUT" | grep -qE "(make|npm|cargo|pytest|ruff|eslint|clippy) (test|lint|fmt|build|check)"; then
           cmd=$(echo "$CLAUDE_TOOL_INPUT" | jq -r '.command // empty' 2>/dev/null || echo 'N/A')
-          echo "[skill:pr-prep] ✓ Quality gate: $cmd at $(date)" >> /tmp/skill-audit.log
+          echo "[skill:pr-prep] Quality gate: $cmd at $(date)" >> ${CLAUDE_CODE_TMPDIR:-/tmp}/skill-audit.log
         fi
       once: false
   PostToolUse:
@@ -48,11 +50,11 @@ hooks:
         # Track PR template generation
         file=$(echo "$CLAUDE_TOOL_INPUT" | jq -r '.file_path // empty' 2>/dev/null)
         if echo "$file" | grep -qE "(pr[-_]description|PR[-_]TEMPLATE|pull[-_]request)"; then
-          echo "[skill:pr-prep] 📝 PR template written: $file at $(date)" >> /tmp/skill-audit.log
+          echo "[skill:pr-prep] PR template written: $file at $(date)" >> ${CLAUDE_CODE_TMPDIR:-/tmp}/skill-audit.log
         fi
   Stop:
     - command: |
-        echo "[skill:pr-prep] === Workflow completed at $(date) ===" >> /tmp/skill-audit.log
+        echo "[skill:pr-prep] === Workflow completed at $(date) ===" >> ${CLAUDE_CODE_TMPDIR:-/tmp}/skill-audit.log
 ---
 
 # Pull Request Preparation Workflow
@@ -68,6 +70,7 @@ Create `TodoWrite` items for each of these steps before you start:
 3. `pr-prep:changes-summarized`
 4. `pr-prep:testing-documented`
 5. `pr-prep:pr-drafted`
+6. `pr-prep:content-verified` - AI slop detection via scribe
 
 Mark them as complete as each section is finished.
 
@@ -98,6 +101,40 @@ Mark them as complete as each section is finished.
 - Add issue references, screenshots, or follow-up TODOs.
 - **See `modules/pr-template.md`** for template structure and examples.
 
+## Step 6: Verify Content Quality (`content-verified`)
+
+Apply `Skill(scribe:slop-detector)` principles to the drafted PR description.
+
+### Writing Quality Checklist
+
+Before finalizing, verify the PR description:
+
+- [ ] No tier-1 slop words: delve, comprehensive, leverage, utilize, robust, seamless
+- [ ] No formulaic phrases: "I'd be happy to", "In order to", "It should be noted"
+- [ ] No AI attribution in text
+- [ ] Specific claims grounded with evidence (commands, numbers, filenames)
+- [ ] Balanced structure (not all bullets, some prose for context)
+- [ ] Active voice preferred over passive
+
+### Vocabulary Substitutions
+
+| Instead of | Use |
+|------------|-----|
+| leverage | use |
+| utilize | use |
+| comprehensive | thorough, complete |
+| robust | solid, reliable |
+| facilitate | help, enable |
+| streamline | simplify |
+
+### Remediation
+
+If PR description contains slop markers, apply `Skill(scribe:doc-generator)` principles:
+1. Ground claims with specifics
+2. Remove marketing language
+3. Use direct statements
+4. Cut unnecessary qualifiers
+
 ## Output Instructions
 - Write the final PR description to the provided path.
 - After writing, print the file path and show its contents.
@@ -110,11 +147,4 @@ Mark them as complete as each section is finished.
 
 ### Common Issues
 
-**Command not found**
-Ensure all dependencies are installed and in PATH
-
-**Permission errors**
-Check file permissions and run with appropriate privileges
-
-**Unexpected behavior**
-Enable verbose logging with `--verbose` flag
+If commands like `make` or `npm` are missing, verify your environment setup against the project's `README`. For permission errors, check write access to build directories. If a step fails silently, retry the command with verbose flags (e.g., `-vv`) to inspect the error log.

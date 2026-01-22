@@ -1,176 +1,118 @@
 ---
 name: escalate
-description: Use when stuck in circles and want to hand off to another agent (Codex CLI) with full context
-disable-model-invocation: true
+description: 'Structured escalation with evidence. Surfaces blocking issues for human decision, referencing the Manifest hierarchy.'
+user-invocable: false
 ---
 
-# Escalate
+# /escalate - Structured Escalation
 
-Generate a handoff prompt for another agent when you're stuck and need fresh perspective.
+## Goal
 
-## When to Use
+Surface a blocking issue for human decision with structured evidence, referencing the Manifest hierarchy.
 
-- You've tried multiple approaches and keep hitting the same walls
-- You're going in circles and want a fresh perspective
-- You need to context-switch but want to preserve progress for Codex CLI or another agent
+## Input
 
-## Workflow
+`$ARGUMENTS` = escalation context
 
-```
-/escalate → Choose detail level → Choose handoff mode → Analyze session → Generate prompt → pbcopy
-```
+Examples:
+- "INV-G1 blocking after 3 attempts"
+- "AC-1.2 blocking after 3 attempts"
+- "Manual criteria AC-2.3 needs human review"
 
-## Step 1: Ask Detail Level
+## Principles
 
-Use `AskUserQuestion` to ask:
+1. **Evidence required** - No lazy escalations. Must include what was tried and why it failed.
 
-```
-How much context for the handoff?
+2. **Structured options** - Present possible paths forward with tradeoffs, not just "I'm stuck".
 
-1. Concise (~200-400 words) - Problem, key blockers, clear ask
-2. Detailed (~500-800 words) - Above plus files, errors, code snippets
-```
+3. **Respect hierarchy** - Global Invariant blocking = task-level issue. AC blocking = deliverable-level issue.
 
-## Step 2: Ask Handoff Mode
+## Evidence Requirements
 
-Use `AskUserQuestion` to ask:
+For blocking criterion escalation, MUST include:
 
-```
-What should the next agent do?
+1. **Which criterion** - specific ID (INV-G*, AC-*.*)
+2. **At least 3 attempts** - what was tried
+3. **Why each failed** - not just "didn't work"
+4. **Hypothesis** - theory about root cause
+5. **Options** - possible paths forward with tradeoffs
 
-1. Continue - Pick up where I left off and solve this
-2. Fresh perspective - Ignore my approaches, try something new
-3. Validate first - Confirm my understanding, then propose alternatives
-4. Other - [let user specify custom instruction]
-```
+**Lazy escalations are NOT acceptable:**
+- "I can't figure this out"
+- "This is hard"
+- "INV-G1 is failing" (without attempts)
 
-## Step 3: Analyze the Session
+## Escalation Types
 
-Review the conversation to extract:
+### Global Invariant Blocking
 
-| Section | What to Capture |
-|---------|-----------------|
-| **Problem** | The core objective - what you're trying to accomplish |
-| **Approaches Tried** | Each attempt and why it didn't work |
-| **Current Hypothesis** | What you think might be the root cause |
-| **Relevant Files** | Key file paths that are central to the issue |
-| **Error Messages** | Specific errors encountered (exact text) |
-| **Constraints** | Things that must be preserved or avoided |
-
-**For concise mode:** Focus on Problem, Approaches Tried, and one key blocker.
-
-**For detailed mode:** Include all sections with code snippets and full error messages.
-
-## Step 4: Generate the Prompt
-
-### Template
+Task-level blocker. Cannot complete while this fails.
 
 ```markdown
-# Problem
+## Escalation: Global Invariant [INV-G{N}] Blocking
 
-[Clear statement of what you're trying to accomplish]
+**Criterion:** [description]
+**Type:** Global Invariant (task fails if violated)
+**Impact:** Cannot complete task until resolved
 
-# Approaches Tried
+### Attempts
+1. **[Approach 1]** - What: ... Result: ... Why failed: ...
+2. **[Approach 2]** - ...
+3. **[Approach 3]** - ...
 
-- **Approach 1:** [what you tried]
-  - Result: [what happened]
-  - Why it failed: [analysis]
+### Hypothesis
+[Theory about why this is problematic]
 
-- **Approach 2:** [what you tried]
-  - Result: [what happened]
-  - Why it failed: [analysis]
+### Possible Resolutions
+1. **Fix root cause**: [description] - Effort: ... Risk: ...
+2. **Amend invariant**: Relax to [new wording] - Rationale: ...
+3. **Remove invariant**: Not applicable to this task - Rationale: ...
 
-[Continue for each significant approach]
-
-# Current Hypothesis
-
-[What you think might be the root cause or blocker]
-
-# Relevant Context
-
-**Files:**
-- `path/to/file.ts` - [why it's relevant]
-- `path/to/other.ts` - [why it's relevant]
-
-**Errors:**
-```
-[Exact error messages]
+### Requesting
+Human decision on path forward.
 ```
 
-**Constraints:**
-- [Things that must be preserved]
-- [Approaches to avoid and why]
+### Acceptance Criteria Blocking
 
-# Your Task
-
-[Based on handoff mode:]
-
-- Continue: "Pick up where I left off. The context above shows what's been tried. Find a path forward and solve this."
-- Fresh perspective: "Ignore the approaches above - they haven't worked. Look at this problem fresh and propose a different strategy."
-- Validate first: "First, confirm whether my understanding of the problem is correct. Then propose an alternative approach."
-- Other: [User's custom instruction]
-```
-
-## Step 5: Copy to Clipboard
-
-```bash
-echo "[generated prompt]" | pbcopy
-```
-
-Use a heredoc for multi-line content:
-
-```bash
-pbcopy << 'EOF'
-[generated prompt content]
-EOF
-```
-
-## Step 6: Confirm
-
-Tell the user:
-
-```
-Handoff prompt copied to clipboard. Paste into Codex CLI to continue.
-```
-
-## Quality Checklist
-
-- [ ] Problem statement is clear and self-contained
-- [ ] Approaches include WHY they failed, not just WHAT was tried
-- [ ] Hypothesis is specific, not vague
-- [ ] File paths are absolute or repo-relative
-- [ ] Error messages are exact, not paraphrased
-- [ ] Constraints call out landmines to avoid
-- [ ] Handoff instruction matches selected mode
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Vague problem statement | Be specific about the goal and success criteria |
-| Listing approaches without failure analysis | Always explain WHY each approach didn't work |
-| Missing context | Include enough that the next agent doesn't need to ask clarifying questions |
-| Too much detail in concise mode | Ruthlessly cut to ~300 words for concise |
-| Forgetting constraints | Warn about approaches that look promising but have been ruled out |
-
-## Example Output (Concise)
+Deliverable-level blocker.
 
 ```markdown
-# Problem
+## Escalation: Acceptance Criteria [AC-{D}.{N}] Blocking
 
-Trying to get Jest tests to run in a WordPress plugin. Tests pass locally but fail in CI with "Cannot find module '@wordpress/scripts'" errors.
+**Criterion:** [description]
+**Type:** AC for Deliverable {D}: [name]
+**Impact:** Deliverable incomplete
 
-# Approaches Tried
+### Context
+Other ACs in this deliverable: [statuses]
 
-- **Verified node_modules:** Confirmed package is installed, same versions local and CI
-- **Cleared CI cache:** Rebuilt from scratch, same error
-- **Checked path resolution:** Added moduleNameMapper in jest.config.js, no change
+### Attempts
+[same as above]
 
-# Current Hypothesis
+### Possible Resolutions
+1. **Different implementation**: [approach]
+2. **Amend criterion**: Change to [new wording]
+3. **Remove criterion**: Not actually needed
+4. **Descope deliverable**: Remove AC, deliverable still valuable
 
-CI environment might have different NODE_PATH or module resolution behavior. The @wordpress/scripts package uses a nested dependency structure.
+### Requesting
+Human decision on path forward.
+```
 
-# Your Task
+### Manual Criteria Review
 
-Pick up where I left off. The context above shows what's been tried. Find a path forward and solve this.
+All automated criteria pass. Manual criteria need human verification.
+
+```markdown
+## Escalation: Manual Criteria Require Human Review
+
+All automated criteria pass.
+
+### Manual Criteria Pending
+- **AC-{D}.{N}**: [description] - How to verify: [from manifest]
+
+### What Was Executed
+[Brief summary]
+
+Please review and confirm completion.
 ```

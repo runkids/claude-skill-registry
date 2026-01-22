@@ -1,192 +1,235 @@
 ---
 name: multi-agent-orchestration
-description: Enable Claude to orchestrate complex tasks by spawning and managing specialized sub-agents for parallel or sequential decomposition. Use when tasks have clear independent subtasks, require specialized approaches for different components, benefit from parallel processing, need fault isolation, or involve complex state management across multiple steps. Best for data pipelines, code analysis workflows, content creation pipelines, and multi-stage processing tasks.
+description: Multi-agent coordination and synthesis patterns. Use when orchestrating multiple specialized agents, implementing fan-out/fan-in workflows, or synthesizing outputs from parallel agents.
+context: fork
+agent: workflow-architect
+version: 1.0.0
+author: SkillForge
+user-invocable: false
 ---
 
 # Multi-Agent Orchestration
 
-Orchestrate complex tasks through specialized sub-agents with parallel or sequential execution.
+Coordinate multiple specialized agents for complex tasks.
 
-## Core Principles
-
-1. **Minimal Context**: Each sub-agent receives only task-specific data
-2. **Clear Contracts**: Explicit input/output for all agents
-3. **File-Based Communication**: Use filesystem for data exchange between agents
-4. **Graceful Failure**: Errors isolated to individual agents
-5. **Resource Limits**: Track concurrent operations and token usage
-
-## When to Use
-
-✅ **Use for:**
-- Data pipelines with extraction → transformation → analysis stages
-- Code analysis with parallel linting, security scanning, performance checks
-- Content creation with research → outline → writing → editing phases
-- Multi-source data aggregation requiring parallel fetches
-
-❌ **Don't use for:**
-- Simple linear tasks
-- Tasks where coordination overhead exceeds benefits
-- Real-time interactions requiring constant back-and-forth
-
-## Quick Start
-
-### 1. Import the Orchestrator
+## Fan-Out/Fan-In Pattern
 
 ```python
-from scripts.orchestrator import Orchestrator, AgentTask, AgentStatus
+async def multi_agent_analysis(content: str) -> dict:
+    """Fan-out to specialists, fan-in to synthesize."""
+    agents = [
+        ("security", security_agent),
+        ("performance", performance_agent),
+        ("code_quality", quality_agent),
+        ("architecture", architecture_agent),
+    ]
+
+    # Fan-out: Run all agents in parallel
+    tasks = [agent(content) for _, agent in agents]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    # Filter successful results
+    findings = [
+        {"agent": name, "result": result}
+        for (name, _), result in zip(agents, results)
+        if not isinstance(result, Exception)
+    ]
+
+    # Fan-in: Synthesize findings
+    return await synthesize_findings(findings)
 ```
 
-### 2. Define Agent Tasks
+## Supervisor Pattern
 
 ```python
-orchestrator = Orchestrator(max_concurrent=3)
+class Supervisor:
+    """Central coordinator that routes to specialists."""
 
-# Parallel extraction
-orchestrator.register_task(AgentTask(
-    agent_id="extract_api",
-    role="API Data Extractor",
-    context={"endpoint": "api.example.com/data"},
-    instructions="Extract data and save to data/api_data.json"
-))
+    def __init__(self, agents: dict):
+        self.agents = agents  # {"security": agent, "performance": agent}
+        self.completed = []
 
-orchestrator.register_task(AgentTask(
-    agent_id="extract_db", 
-    role="Database Extractor",
-    context={"query": "SELECT * FROM users"},
-    instructions="Extract data and save to data/db_data.json"
-))
+    async def run(self, task: str) -> dict:
+        """Route task through appropriate agents."""
+        # 1. Determine which agents to use
+        plan = await self.plan_routing(task)
 
-# Sequential transformation (depends on extraction)
-orchestrator.register_task(AgentTask(
-    agent_id="transform",
-    role="Data Transformer",
-    context={"input_files": ["data/api_data.json", "data/db_data.json"]},
-    instructions="Merge data and save to data/transformed.json",
-    dependencies=["extract_api", "extract_db"]
-))
+        # 2. Execute in dependency order
+        results = {}
+        for agent_name in plan.execution_order:
+            if plan.can_parallelize(agent_name):
+                # Run parallel batch
+                batch = plan.get_parallel_batch(agent_name)
+                batch_results = await asyncio.gather(*[
+                    self.agents[name](task, context=results)
+                    for name in batch
+                ])
+                results.update(dict(zip(batch, batch_results)))
+            else:
+                # Run sequential
+                results[agent_name] = await self.agents[agent_name](
+                    task, context=results
+                )
+
+        return results
+
+    async def plan_routing(self, task: str) -> RoutingPlan:
+        """Use LLM to determine agent routing."""
+        response = await llm.chat([{
+            "role": "user",
+            "content": f"""Task: {task}
+
+Available agents: {list(self.agents.keys())}
+
+Which agents should handle this task?
+What order? Can any run in parallel?"""
+        }])
+        return parse_routing_plan(response.content)
 ```
 
-### 3. Execute
+## Conflict Resolution
 
 ```python
-results = await orchestrator.execute_chain()
+async def resolve_conflicts(findings: list[dict]) -> list[dict]:
+    """When agents disagree, resolve by confidence or LLM."""
+    conflicts = detect_conflicts(findings)
 
-if results["transform"].status == AgentStatus.SUCCESS:
-    print(f"Output: {results['transform'].output}")
+    if not conflicts:
+        return findings
+
+    for conflict in conflicts:
+        # Option 1: Higher confidence wins
+        winner = max(conflict.agents, key=lambda a: a.confidence)
+
+        # Option 2: LLM arbitration
+        resolution = await llm.chat([{
+            "role": "user",
+            "content": f"""Two agents disagree:
+
+Agent A ({conflict.agent_a.name}): {conflict.agent_a.finding}
+Agent B ({conflict.agent_b.name}): {conflict.agent_b.finding}
+
+Which is more likely correct and why?"""
+        }])
+
+        # Record resolution
+        conflict.resolution = parse_resolution(resolution.content)
+
+    return apply_resolutions(findings, conflicts)
 ```
 
-## Execution Patterns
-
-### Parallel Execution
-Independent tasks run simultaneously:
-```python
-results = await orchestrator.execute_parallel()
-```
-
-### Sequential Chain
-Tasks execute respecting dependencies:
-```python
-results = await orchestrator.execute_chain()
-```
-
-### Mixed Workflow
-Combine patterns - parallel stages with sequential dependencies between stages.
-
-## Agent Context Isolation
-
-Each agent receives minimal context:
-
-```python
-context = {
-    "input_file": "data.csv",
-    "operation": "filter_nulls",
-    "output_file": "filtered.csv"
-}
-```
-
-**Never pass:**
-- Full orchestrator state
-- Other agents' results (unless explicit dependency)
-- Entire conversation history
-
-## File-Based Communication
-
-Agents communicate via filesystem:
+## Synthesis Pattern
 
 ```python
-# Agent 1 writes
-with open("data/stage1_output.json", "w") as f:
-    json.dump(results, f)
+async def synthesize_findings(findings: list[dict]) -> dict:
+    """Combine multiple agent outputs into coherent result."""
+    # Group by category
+    by_category = {}
+    for f in findings:
+        cat = f.get("category", "general")
+        by_category.setdefault(cat, []).append(f)
 
-# Agent 2 reads (via dependency)
-context = {"input_file": "data/stage1_output.json"}
+    # Synthesize each category
+    synthesis = await llm.chat([{
+        "role": "user",
+        "content": f"""Synthesize these agent findings into a coherent summary:
+
+{json.dumps(by_category, indent=2)}
+
+Output format:
+- Executive summary (2-3 sentences)
+- Key findings by category
+- Recommendations
+- Confidence score (0-1)"""
+    }])
+
+    return parse_synthesis(synthesis.content)
 ```
 
-Use workspace directory structure:
-```
-/tmp/orchestration_workspace/
-├── agent1/
-│   ├── input.json
-│   └── output.json
-├── agent2/
-│   └── results.json
-└── shared/
-    └── common_data.json
-```
-
-## Error Handling
+## Agent Communication Bus
 
 ```python
-# Automatic retry with exponential backoff
-orchestrator = Orchestrator(max_retries=3)
+class AgentBus:
+    """Message passing between agents."""
 
-# Check results
-for agent_id, result in results.items():
-    if result.status == AgentStatus.FAILED:
-        print(f"Agent {agent_id} failed: {result.error}")
+    def __init__(self):
+        self.messages = []
+        self.subscribers = {}
+
+    def publish(self, from_agent: str, message: dict):
+        """Broadcast message to all agents."""
+        msg = {"from": from_agent, "data": message, "ts": time.time()}
+        self.messages.append(msg)
+
+        for callback in self.subscribers.values():
+            callback(msg)
+
+    def subscribe(self, agent_id: str, callback):
+        """Register agent to receive messages."""
+        self.subscribers[agent_id] = callback
+
+    def get_history(self, agent_id: str = None) -> list:
+        """Get message history, optionally filtered."""
+        if agent_id:
+            return [m for m in self.messages if m["from"] == agent_id]
+        return self.messages
 ```
 
-## Resource Management
+## Key Decisions
 
-```python
-# Limit concurrent agents
-orchestrator = Orchestrator(max_concurrent=5)
+| Decision | Recommendation |
+|----------|----------------|
+| Agent count | 3-8 specialists |
+| Parallelism | Parallelize independent agents |
+| Conflict resolution | Confidence score or LLM arbitration |
+| Communication | Shared state or message bus |
 
-# Track token usage
-orchestrator = TokenAwareOrchestrator(token_budget=100000)
-```
+## Common Mistakes
 
-## Common Patterns
+- No timeout per agent (one slow agent blocks all)
+- No error isolation (one failure crashes workflow)
+- Over-coordination (too much overhead)
+- Missing synthesis (raw agent outputs not useful)
 
-### Data Pipeline
-```
-Extract (parallel) → Transform (sequential) → Analyze (sequential)
-```
+## Related Skills
 
-### Code Analysis
-```
-Lint + Security Scan + Performance Check (parallel) → Report (sequential)
-```
+- `langgraph-supervisor` - LangGraph supervisor pattern
+- `langgraph-parallel` - Fan-out/fan-in with LangGraph
+- `agent-loops` - Single agent patterns
 
-### Content Creation
-```
-Research → Outline → [Intro + Body + Conclusion] (parallel) → Edit
-```
+## Capability Details
 
-## Implementation Details
+### agent-communication
+**Keywords:** agent communication, message passing, agent protocol, inter-agent
+**Solves:**
+- Establish communication between agents
+- Implement message passing patterns
+- Handle async agent communication
 
-See `references/implementation-guide.md` for:
-- Complete class implementations
-- Advanced patterns (hierarchical delegation, message bus)
-- Integration with Claude Code subprocess execution
-- Monitoring and debugging strategies
+### task-delegation
+**Keywords:** delegate, task routing, work distribution, agent dispatch
+**Solves:**
+- Route tasks to specialized agents
+- Implement work distribution strategies
+- Handle agent capability matching
 
-See `scripts/orchestrator.py` for ready-to-use orchestrator classes.
+### result-aggregation
+**Keywords:** aggregate, combine results, merge outputs, synthesis
+**Solves:**
+- Combine outputs from multiple agents
+- Implement result synthesis patterns
+- Handle conflicting agent outputs
 
-## Best Practices
+### error-coordination
+**Keywords:** error handling, retry, fallback agent, failure recovery
+**Solves:**
+- Handle agent failures gracefully
+- Implement retry and fallback patterns
+- Coordinate error recovery
 
-1. **Start small**: Test with 2-3 agents before scaling
-2. **Profile execution**: Log timing to identify bottlenecks
-3. **Use timeouts**: Set reasonable limits per agent
-4. **Cleanup workspace**: Remove temporary files after completion
-5. **Log everything**: Maintain execution log for debugging
+### agent-lifecycle
+**Keywords:** lifecycle, spawn agent, terminate, agent pool
+**Solves:**
+- Manage agent creation and termination
+- Implement agent pooling
+- Handle agent health checks

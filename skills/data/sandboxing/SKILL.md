@@ -1,499 +1,521 @@
-# Sandboxing Skill
-
 ---
-name: sandboxing
-version: 1.0.0
-domain: security/isolation
-risk_level: HIGH
-languages: [python, c, rust, go]
-frameworks: [seccomp, apparmor, selinux, bubblewrap]
-requires_security_review: true
-compliance: [SOC2, FedRAMP]
-last_updated: 2025-01-15
+name: Sandboxing
+description: Comprehensive guide to sandboxing AI agents including code execution isolation, resource limits, security boundaries, and safe tool execution
 ---
 
-> **MANDATORY READING PROTOCOL**: Before implementing sandboxing, read `references/advanced-patterns.md` for defense-in-depth strategies and `references/threat-model.md` for container escape scenarios.
+# Sandboxing
 
-## 1. Overview
+## Why Sandbox Agents?
 
-### 1.1 Purpose and Scope
+**Problem:** Agents execute code and use tools - need isolation for safety
 
-This skill provides process isolation and sandboxing for JARVIS components:
-
-- **Linux**: seccomp-bpf, AppArmor/SELinux, namespaces, cgroups
-- **Windows**: AppContainer, Job Objects, Restricted Tokens
-- **macOS**: sandbox-exec, App Sandbox entitlements
-- **Containers**: Docker/Podman security contexts, Kubernetes SecurityContext
-
-### 1.2 Risk Assessment
-
-**Risk Level**: HIGH
-
-**Justification**:
-- Sandbox escapes allow full system compromise
-- Misconfigurations negate all isolation benefits
-- Kernel vulnerabilities bypass userspace controls
-- Plugin/extension execution requires strong isolation
-
-**Attack Surface**:
-- Syscall filtering gaps
-- Namespace escape vectors
-- Capability misconfigurations
-- Resource exhaustion attacks
-
-## 2. Core Responsibilities
-
-### 2.1 Primary Functions
-
-1. **Isolate untrusted code** execution from host system
-2. **Restrict syscalls** to minimum required set
-3. **Limit resources** (CPU, memory, network, filesystem)
-4. **Enforce security policies** via MAC (AppArmor/SELinux)
-5. **Contain failures** to prevent cascade effects
-
-### 2.2 Core Principles
-
-- **TDD First**: Write tests for sandbox restrictions before implementation
-- **Performance Aware**: Cache permissions, lazy-load capabilities, minimize syscall overhead
-- **Defense in Depth**: Layer multiple isolation mechanisms
-- **Least Privilege**: Grant minimum permissions required
-- **Fail Secure**: Default deny all access
-
-### 2.3 Security Principles
-
-- **NEVER** run untrusted code without syscall filtering
-- **NEVER** grant CAP_SYS_ADMIN to sandboxed processes
-- **ALWAYS** drop all capabilities not explicitly required
-- **ALWAYS** use read-only root filesystem where possible
-- **ALWAYS** apply defense-in-depth (multiple layers)
-
-## 3. Technology Stack
-
-| Platform | Primary | Secondary | MAC |
-|----------|---------|-----------|-----|
-| Linux | seccomp-bpf | namespaces | AppArmor/SELinux |
-| Windows | AppContainer | Job Objects | WDAC |
-| macOS | sandbox-exec | Entitlements | TCC |
-| Containers | securityContext | RuntimeClass | Pod Security |
-
-**Recommended Tools**: bubblewrap, firejail, nsjail, gVisor
-
-## 4. Implementation Patterns
-
-### 4.1 Seccomp-BPF Filter (python-seccomp)
-
-```python
-import seccomp
-import os
-
-def create_minimal_sandbox():
-    """Create minimal seccomp sandbox for untrusted code."""
-    filter = seccomp.SyscallFilter(defaction=seccomp.KILL)
-
-    # Essential syscalls
-    essential = [
-        'read', 'write', 'close', 'fstat', 'lseek',
-        'mmap', 'mprotect', 'munmap', 'brk',
-        'rt_sigaction', 'rt_sigprocmask', 'rt_sigreturn',
-        'exit', 'exit_group', 'futex', 'clock_gettime',
-    ]
-
-    for syscall in essential:
-        filter.add_rule(seccomp.ALLOW, syscall)
-
-    return filter
-
-def run_sandboxed(func, *args, **kwargs):
-    """Execute function in seccomp sandbox."""
-    filter = create_minimal_sandbox()
-    pid = os.fork()
-
-    if pid == 0:
-        filter.load()
-        try:
-            func(*args, **kwargs)
-            os._exit(0)
-        except Exception:
-            os._exit(1)
-    else:
-        _, status = os.waitpid(pid, 0)
-        return os.WEXITSTATUS(status) == 0
+### Risks Without Sandboxing
+```
+Agent executes malicious code → Compromises system
+Agent uses tool incorrectly → Deletes production data
+Agent consumes too many resources → Crashes server
+Agent accesses sensitive data → Data breach
 ```
 
-**📚 For custom BPF filters and advanced seccomp**:
-- See `references/advanced-patterns.md#seccomp-bpf`
+### With Sandboxing
+```
+Agent runs in isolated environment
+Limited resources (CPU, memory, time)
+Restricted permissions
+Cannot harm host system
+```
 
-### 4.2 Bubblewrap Sandbox (Recommended)
+---
 
+## Sandboxing Strategies
+
+### Process Isolation
+```
+Run agent in separate process
+Kill process if misbehaves
+Process cannot access host resources
+```
+
+### Container Isolation
+```
+Run agent in Docker container
+Container has limited resources
+Cannot access host filesystem
+Network access restricted
+```
+
+### VM Isolation
+```
+Run agent in virtual machine
+Strongest isolation
+Highest overhead
+```
+
+---
+
+## Code Execution Sandboxing
+
+### Subprocess with Timeout
 ```python
 import subprocess
-from typing import List
+import signal
 
-class BubblewrapSandbox:
-    """High-level sandboxing using bubblewrap."""
-
-    def __init__(self):
-        self._args = ['bwrap']
-
-    def with_minimal_filesystem(self) -> 'BubblewrapSandbox':
-        self._args.extend([
-            '--ro-bind', '/usr', '/usr',
-            '--ro-bind', '/lib', '/lib',
-            '--ro-bind', '/lib64', '/lib64',
-            '--symlink', 'usr/bin', '/bin',
-            '--proc', '/proc', '--dev', '/dev',
-            '--tmpfs', '/tmp',
-        ])
-        return self
-
-    def with_network_isolation(self) -> 'BubblewrapSandbox':
-        self._args.append('--unshare-net')
-        return self
-
-    def drop_capabilities(self) -> 'BubblewrapSandbox':
-        self._args.append('--cap-drop ALL')
-        return self
-
-    def run(self, command: List[str], timeout: int = 30):
-        return subprocess.run(
-            self._args + ['--'] + command,
-            capture_output=True, timeout=timeout
+def execute_code_sandboxed(code, timeout_seconds=5):
+    """Execute code in subprocess with timeout"""
+    try:
+        result = subprocess.run(
+            ["python", "-c", code],
+            capture_output=True,
+            text=True,
+            timeout=timeout_seconds,
+            check=True
         )
+        return {"success": True, "output": result.stdout}
+    
+    except subprocess.TimeoutExpired:
+        return {"success": False, "error": "Execution timeout"}
+    
+    except subprocess.CalledProcessError as e:
+        return {"success": False, "error": e.stderr}
 
 # Usage
-def run_untrusted_script(script_path: str) -> str:
-    sandbox = BubblewrapSandbox()
-    sandbox.with_minimal_filesystem().with_network_isolation().drop_capabilities()
-    result = sandbox.run(['python3', script_path], timeout=10)
-    return result.stdout.decode()
+result = execute_code_sandboxed("print('Hello')", timeout_seconds=5)
 ```
 
-**📚 For namespace isolation and advanced bubblewrap**:
-- See `references/advanced-patterns.md#namespaces`
-
-### 4.3 Kubernetes SecurityContext
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: jarvis-worker
-spec:
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 1000
-    fsGroup: 1000
-    seccompProfile:
-      type: RuntimeDefault
-
-  containers:
-  - name: worker
-    image: jarvis-worker:latest
-    securityContext:
-      allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
-      capabilities:
-        drop: [ALL]
-
-    resources:
-      limits:
-        cpu: "1"
-        memory: "512Mi"
-
-    volumeMounts:
-    - name: tmp
-      mountPath: /tmp
-
-  volumes:
-  - name: tmp
-    emptyDir:
-      medium: Memory
-      sizeLimit: 64Mi
-```
-
-## 5. Implementation Workflow (TDD)
-
-### Step 1: Write Failing Test First
-
+### Docker Container
 ```python
-import pytest
-from sandbox import SandboxManager
+import docker
 
-class TestSandboxRestrictions:
-    """Test sandbox isolation before implementation."""
+def execute_code_in_docker(code, timeout_seconds=30):
+    """Execute code in Docker container"""
+    client = docker.from_env()
+    
+    try:
+        # Run code in container
+        container = client.containers.run(
+            image="python:3.9-slim",
+            command=["python", "-c", code],
+            detach=True,
+            mem_limit="256m",  # 256MB RAM limit
+            cpu_quota=50000,   # 50% CPU limit
+            network_disabled=True,  # No network access
+            read_only=True,    # Read-only filesystem
+            remove=True        # Auto-remove after execution
+        )
+        
+        # Wait for completion with timeout
+        result = container.wait(timeout=timeout_seconds)
+        logs = container.logs().decode('utf-8')
+        
+        return {"success": result["StatusCode"] == 0, "output": logs}
+    
+    except docker.errors.ContainerError as e:
+        return {"success": False, "error": str(e)}
+    
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
-    @pytest.fixture
-    def sandbox(self):
-        return SandboxManager()
-
-    def test_network_blocked(self, sandbox):
-        """WRITE FIRST: Network access must be blocked."""
-        result = sandbox.run(['curl', '-s', 'http://example.com'])
-        assert result.returncode != 0, "Network should be blocked"
-
-    def test_filesystem_readonly(self, sandbox):
-        """WRITE FIRST: Root filesystem must be read-only."""
-        result = sandbox.run(['touch', '/test-file'])
-        assert result.returncode != 0, "Root FS should be read-only"
-
-    def test_capabilities_dropped(self, sandbox):
-        """WRITE FIRST: All capabilities must be dropped."""
-        result = sandbox.run(['cat', '/proc/self/status'])
-        assert 'CapEff:\t0000000000000000' in result.stdout
-
-    def test_syscall_blocked(self, sandbox):
-        """WRITE FIRST: Dangerous syscalls must be blocked."""
-        # ptrace should be blocked by seccomp
-        result = sandbox.run(['strace', 'ls'])
-        assert result.returncode != 0, "ptrace should be blocked"
-
-    def test_escape_attempt_fails(self, sandbox):
-        """WRITE FIRST: Container escape must fail."""
-        result = sandbox.run(['ls', '/proc/1/root'])
-        assert result.returncode != 0, "Namespace escape blocked"
+# Usage
+result = execute_code_in_docker("print('Hello from Docker')")
 ```
 
-### Step 2: Implement Minimum to Pass
-
+### E2B (Code Interpreter)
 ```python
-class SandboxManager:
-    def __init__(self):
-        self._bwrap_args = ['bwrap', '--unshare-net', '--ro-bind', '/', '/',
-                           '--cap-drop', 'ALL', '--seccomp', '3']
+from e2b import Sandbox
 
-    def run(self, command, timeout=30):
-        import subprocess
-        return subprocess.run(self._bwrap_args + ['--'] + command,
-                              capture_output=True, text=True, timeout=timeout)
+def execute_code_e2b(code, timeout_seconds=30):
+    """Execute code using E2B sandbox"""
+    sandbox = Sandbox(timeout=timeout_seconds)
+    
+    try:
+        result = sandbox.run_code(code)
+        return {
+            "success": True,
+            "output": result.stdout,
+            "error": result.stderr
+        }
+    
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+    
+    finally:
+        sandbox.close()
 ```
 
-### Step 3: Refactor with Defense-in-Depth
+---
 
+## Resource Limits
+
+### CPU Limit
 ```python
-class SandboxManager:
-    def __init__(self, profile: str = 'strict'):
-        self._bwrap_args = ['bwrap', '--unshare-all']
-        if profile == 'network': self._bwrap_args.append('--share-net')
-        self._bwrap_args.extend(['--ro-bind', '/usr', '/usr', '--tmpfs', '/tmp',
-                                 '--cap-drop', 'ALL', '--seccomp', '3'])
+import resource
+
+def set_cpu_limit(seconds):
+    """Limit CPU time"""
+    resource.setrlimit(resource.RLIMIT_CPU, (seconds, seconds))
+
+# Usage
+set_cpu_limit(5)  # Max 5 seconds of CPU time
 ```
 
-### Step 4: Run Full Verification
-
-```bash
-# Run all sandbox tests
-pytest tests/sandbox/ -v --tb=short
-
-# Test specific isolation features
-pytest tests/sandbox/test_network.py -v
-pytest tests/sandbox/test_capabilities.py -v
-pytest tests/sandbox/test_escapes.py -v
-
-# Security audit
-python -m security_audit --sandbox
-```
-
-## 6. Performance Patterns
-
-### 6.1 Permission Caching
-
+### Memory Limit
 ```python
-# Bad: Load permissions from disk on every operation
-def run_sandboxed(command):
-    permissions = load_permissions_from_disk()  # Slow I/O every time
-    return execute(command)
+def set_memory_limit(bytes):
+    """Limit memory usage"""
+    resource.setrlimit(resource.RLIMIT_AS, (bytes, bytes))
 
-# Good: Cache with TTL
-class PermissionCache:
-    def __init__(self, ttl=300):
-        self._cache, self._ttl = {}, ttl
-
-    def get(self, profile):
-        if profile in self._cache and time() - self._cache[profile][1] < self._ttl:
-            return self._cache[profile][0]
-        perms = load_from_disk(profile)
-        self._cache[profile] = (perms, time())
-        return perms
+# Usage
+set_memory_limit(256 * 1024 * 1024)  # Max 256MB
 ```
 
-### 6.2 Lazy Capability Loading
-
+### Docker Resource Limits
 ```python
-# Bad: Load all security modules at startup
-class Sandbox:
-    def __init__(self):
-        self.seccomp = load_seccomp_filters()      # Expensive
-        self.apparmor = load_apparmor_profiles()   # Expensive
-
-# Good: Lazy load only when needed
-class Sandbox:
-    _seccomp = None
-    @property
-    def seccomp(self):
-        if self._seccomp is None: self._seccomp = load_seccomp_filters()
-        return self._seccomp
+container = client.containers.run(
+    image="python:3.9-slim",
+    command=["python", "script.py"],
+    mem_limit="256m",      # Memory limit
+    memswap_limit="256m",  # Memory + swap limit
+    cpu_quota=50000,       # CPU limit (50%)
+    pids_limit=100,        # Max 100 processes
+    ulimits=[
+        docker.types.Ulimit(name='nofile', soft=1024, hard=1024)  # Max 1024 open files
+    ]
+)
 ```
 
-### 6.3 Efficient IPC
+---
 
+## File System Isolation
+
+### Temporary Directory
 ```python
-# Bad: Serialize full state for each call
-def send_to_sandbox(data):
-    return sandbox.communicate(serialize_full_state() + data)
+import tempfile
+import os
 
-# Good: Use shared memory for large data
-class EfficientIPC:
-    def __init__(self, size=1024*1024):
-        self._shm = mmap.mmap(-1, size)
-    def send(self, data): self._shm.seek(0); self._shm.write(data)
-    def recv(self, size): self._shm.seek(0); return self._shm.read(size)
+def execute_with_temp_dir(code):
+    """Execute code in temporary directory"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Change to temp directory
+        original_dir = os.getcwd()
+        os.chdir(tmpdir)
+        
+        try:
+            # Execute code
+            exec(code)
+        finally:
+            # Restore original directory
+            os.chdir(original_dir)
+        
+        # Temp directory automatically deleted
 ```
 
-### 6.4 Resource Pooling
-
+### Read-Only Filesystem
 ```python
-# Bad: Create new sandbox for each task
-for task in tasks:
-    sandbox = create_sandbox()  # Expensive
-    sandbox.run(task); sandbox.destroy()
-
-# Good: Pool and reuse
-class SandboxPool:
-    def __init__(self, size=4):
-        self._pool = Queue(size)
-        for _ in range(size): self._pool.put(create_sandbox())
-    def acquire(self): return self._pool.get()
-    def release(self, sb): sb.reset(); self._pool.put(sb)
+# Docker with read-only filesystem
+container = client.containers.run(
+    image="python:3.9-slim",
+    command=["python", "-c", code],
+    read_only=True,  # Cannot write to filesystem
+    tmpfs={'/tmp': 'size=100M'}  # Allow writes to /tmp only
+)
 ```
 
-### 6.5 Minimal Privilege Sets
+---
 
+## Network Isolation
+
+### Disable Network Access
 ```python
-# Bad: Request all capabilities upfront
-CAPS = ['CAP_NET_ADMIN', 'CAP_SYS_ADMIN', 'CAP_DAC_OVERRIDE', ...]
+# Docker without network
+container = client.containers.run(
+    image="python:3.9-slim",
+    command=["python", "-c", code],
+    network_disabled=True  # No network access
+)
+```
 
-# Good: Minimal sets per operation
-CAPABILITY_SETS = {
-    'network_bind': ['CAP_NET_BIND_SERVICE'],
-    'file_read': [],
-    'file_write': ['CAP_DAC_OVERRIDE'],
+### Restricted Network Access
+```python
+# Docker with custom network (whitelist IPs)
+network = client.networks.create(
+    name="agent-network",
+    driver="bridge",
+    ipam=docker.types.IPAMConfig(
+        pool_configs=[
+            docker.types.IPAMPool(subnet="172.20.0.0/16")
+        ]
+    )
+)
+
+container = client.containers.run(
+    image="python:3.9-slim",
+    command=["python", "-c", code],
+    network=network.name
+)
+```
+
+---
+
+## Tool Execution Sandboxing
+
+### Whitelist Allowed Tools
+```python
+ALLOWED_TOOLS = {
+    "search_web",
+    "get_weather",
+    "calculate"
 }
-def get_caps(op): return CAPABILITY_SETS.get(op, [])
+
+def execute_tool(tool_name, params):
+    """Execute tool only if whitelisted"""
+    if tool_name not in ALLOWED_TOOLS:
+        raise PermissionError(f"Tool '{tool_name}' not allowed")
+    
+    # Execute tool
+    return tools[tool_name](**params)
 ```
 
-## 7. Security Standards
-
-### 7.1 Known Vulnerabilities
-
-| CVE | Severity | Component | Mitigation |
-|-----|----------|-----------|------------|
-| CVE-2024-21626 | Critical | runC | Container escape - runC 1.1.12+ |
-| CVE-2022-0185 | High | Linux kernel | Heap overflow - Kernel update |
-| CVE-2022-0492 | High | cgroups | Escape - Drop CAP_SYS_ADMIN |
-| CVE-2022-0847 | High | Linux kernel | Dirty Pipe - Kernel 5.16.11+ |
-| CVE-2023-2431 | Low | Kubernetes | Seccomp bypass - K8s patch |
-
-### 7.2 OWASP Mapping
-
-| OWASP 2025 | Risk | Implementation |
-|------------|------|----------------|
-| A01: Broken Access Control | Critical | Namespace isolation, MAC |
-| A04: Insecure Design | High | Defense in depth |
-| A05: Security Misconfiguration | Critical | Secure defaults |
-
-### 7.3 Defense-in-Depth Layers
-
-1. **Seccomp**: Syscall filtering
-2. **Namespaces**: Resource isolation
-3. **Capabilities**: Privilege reduction
-4. **MAC**: Mandatory access control (AppArmor/SELinux)
-5. **Cgroups**: Resource limits
-
-**📚 For detailed OWASP coverage**:
-- See `references/security-examples.md`
-
-## 8. Testing Requirements
-
+### Parameter Validation
 ```python
-class TestSandboxSecurity:
-    def test_network_isolated(self, sandbox):
-        assert sandbox.run(['curl', '-s', 'https://example.com']).returncode != 0
-    def test_capabilities_dropped(self, sandbox):
-        assert 'CapEff:\t0' in sandbox.run(['cat', '/proc/self/status']).stdout
-    def test_escape_attempts_blocked(self, sandbox):
-        assert sandbox.run(['ls', '/proc/1/root']).returncode != 0
+def validate_tool_params(tool_name, params):
+    """Validate tool parameters before execution"""
+    
+    if tool_name == "send_email":
+        # Validate email address
+        if not is_valid_email(params.get("to")):
+            raise ValueError("Invalid email address")
+        
+        # Prevent sending to external domains
+        if not params["to"].endswith("@company.com"):
+            raise PermissionError("Can only send to @company.com")
+    
+    if tool_name == "delete_file":
+        # Prevent deleting system files
+        if params["path"].startswith("/system/"):
+            raise PermissionError("Cannot delete system files")
+    
+    return True
+
+def execute_tool_safe(tool_name, params):
+    validate_tool_params(tool_name, params)
+    return execute_tool(tool_name, params)
 ```
 
-**📚 For complete test suite**: See `references/security-examples.md#testing`
+### Rate Limiting
+```python
+from collections import defaultdict
+import time
 
-## 9. Common Mistakes
+class RateLimiter:
+    def __init__(self):
+        self.calls = defaultdict(list)
+    
+    def check_limit(self, tool_name, max_calls=10, window_seconds=60):
+        """Check if tool call is within rate limit"""
+        now = time.time()
+        
+        # Remove old calls outside window
+        self.calls[tool_name] = [
+            t for t in self.calls[tool_name]
+            if now - t < window_seconds
+        ]
+        
+        # Check limit
+        if len(self.calls[tool_name]) >= max_calls:
+            raise Exception(f"Rate limit exceeded for {tool_name}")
+        
+        # Record call
+        self.calls[tool_name].append(now)
 
-### Critical Anti-Patterns
+rate_limiter = RateLimiter()
 
-```yaml
-# ❌ NEVER: runAsUser: 0 (root)          ✅ ALWAYS: runAsNonRoot: true, runAsUser: 1000
-# ❌ NEVER: add: [SYS_ADMIN]              ✅ ALWAYS: drop: [ALL], add only needed
-# ❌ NEVER: privileged: true              ✅ ALWAYS: privileged: false
-# ❌ NEVER: No seccomp profile            ✅ ALWAYS: seccompProfile: RuntimeDefault
+def execute_tool_with_rate_limit(tool_name, params):
+    rate_limiter.check_limit(tool_name, max_calls=10, window_seconds=60)
+    return execute_tool(tool_name, params)
 ```
 
-```yaml
-# Example secure configuration
-securityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  privileged: false
-  allowPrivilegeEscalation: false
-  capabilities: {drop: [ALL]}
-  seccompProfile: {type: RuntimeDefault}
+---
+
+## Monitoring Sandboxed Execution
+
+### Track Resource Usage
+```python
+import psutil
+
+def monitor_execution(process_id):
+    """Monitor resource usage of sandboxed process"""
+    process = psutil.Process(process_id)
+    
+    while process.is_running():
+        cpu_percent = process.cpu_percent(interval=1)
+        memory_mb = process.memory_info().rss / 1024 / 1024
+        
+        print(f"CPU: {cpu_percent}%, Memory: {memory_mb:.1f}MB")
+        
+        # Kill if exceeds limits
+        if cpu_percent > 80:
+            process.kill()
+            raise Exception("CPU limit exceeded")
+        
+        if memory_mb > 512:
+            process.kill()
+            raise Exception("Memory limit exceeded")
 ```
 
-**📚 For complete anti-patterns**: See `references/advanced-patterns.md#anti-patterns`
+### Log Sandbox Events
+```python
+def log_sandbox_event(event_type, details):
+    """Log sandbox events for audit"""
+    logger.info({
+        "timestamp": datetime.utcnow().isoformat(),
+        "event_type": event_type,
+        "details": details
+    })
 
-## 10. Pre-Implementation Checklist
+# Usage
+log_sandbox_event("code_execution", {
+    "code": code,
+    "timeout": timeout_seconds,
+    "success": result["success"]
+})
 
-### Phase 1: Before Writing Code
-- [ ] Identify isolation requirements from PRD
-- [ ] Review threat model for attack vectors
-- [ ] Define minimal capability set needed
-- [ ] Choose appropriate isolation layers
-- [ ] Write failing tests for all restrictions
+log_sandbox_event("tool_execution", {
+    "tool_name": tool_name,
+    "params": params,
+    "result": result
+})
+```
 
-### Phase 2: During Implementation
-- [ ] Implement defense-in-depth layers
-- [ ] Drop all capabilities, add back only required
-- [ ] Apply seccomp filters for syscall blocking
-- [ ] Configure namespace isolation
-- [ ] Set up resource limits (cgroups)
-- [ ] Use read-only root filesystem
-- [ ] Run tests after each layer added
+---
 
-### Phase 3: Before Committing
-- [ ] All sandbox restriction tests pass
-- [ ] Escape attempt tests verified
-- [ ] No containers running as root
-- [ ] allowPrivilegeEscalation: false
-- [ ] seccompProfile: RuntimeDefault or stricter
-- [ ] Resource limits defined
-- [ ] Security audit completed
-- [ ] Performance benchmarks acceptable
+## Security Best Practices
 
-## 11. Summary
+### 1. Principle of Least Privilege
+```python
+# Good: Only allow necessary tools
+ALLOWED_TOOLS = {"search_web", "calculate"}
 
-### Key Objectives
-1. **Multi-layer defense**: Combine seccomp, namespaces, capabilities, MAC
-2. **Minimal privileges**: Drop all capabilities, run as non-root
-3. **Syscall filtering**: Block dangerous syscalls by default
-4. **Container hardening**: Read-only filesystem, no privilege escalation
+# Bad: Allow all tools
+ALLOWED_TOOLS = "*"
+```
 
-### Security Reminders
-- A single misconfiguration can negate all sandboxing
-- Defense-in-depth is essential - no single layer is sufficient
-- Test escape attempts as part of security validation
+### 2. Validate All Inputs
+```python
+# Good
+def execute_tool(tool_name, params):
+    validate_tool_name(tool_name)
+    validate_params(params)
+    return tools[tool_name](**params)
 
-### References
-- `references/advanced-patterns.md` - Custom seccomp, gVisor, namespaces
-- `references/security-examples.md` - Platform-specific implementations
-- `references/threat-model.md` - Container escape scenarios
+# Bad
+def execute_tool(tool_name, params):
+    return tools[tool_name](**params)  # No validation
+```
 
-**Sandboxing is your last line of defense. When everything else fails, the sandbox must hold.**
+### 3. Set Resource Limits
+```python
+# Good
+execute_code_sandboxed(code, timeout_seconds=30, memory_limit_mb=256)
+
+# Bad
+execute_code_sandboxed(code)  # No limits
+```
+
+### 4. Isolate Network Access
+```python
+# Good
+container = client.containers.run(
+    image="python:3.9-slim",
+    network_disabled=True
+)
+
+# Bad
+container = client.containers.run(
+    image="python:3.9-slim"
+)  # Full network access
+```
+
+### 5. Use Read-Only Filesystem
+```python
+# Good
+container = client.containers.run(
+    image="python:3.9-slim",
+    read_only=True,
+    tmpfs={'/tmp': 'size=100M'}
+)
+
+# Bad
+container = client.containers.run(
+    image="python:3.9-slim"
+)  # Writable filesystem
+```
+
+---
+
+## Tools and Services
+
+### E2B (Code Interpreter)
+```python
+from e2b import Sandbox
+
+sandbox = Sandbox()
+result = sandbox.run_code("print('Hello')")
+sandbox.close()
+```
+
+### Firecracker (Lightweight VMs)
+```python
+# AWS Lambda uses Firecracker for isolation
+# Fast startup (<125ms)
+# Strong isolation
+```
+
+### gVisor (Google)
+```python
+# Container runtime with additional isolation
+# Used by Google Cloud Run
+```
+
+---
+
+## Summary
+
+**Sandboxing:** Isolate agent execution for safety
+
+**Strategies:**
+- Process isolation
+- Container isolation (Docker)
+- VM isolation
+
+**Resource Limits:**
+- CPU time
+- Memory usage
+- Disk I/O
+- Network bandwidth
+
+**File System:**
+- Temporary directories
+- Read-only filesystem
+- Restricted paths
+
+**Network:**
+- Disable network
+- Whitelist IPs/domains
+
+**Tool Execution:**
+- Whitelist allowed tools
+- Validate parameters
+- Rate limiting
+
+**Best Practices:**
+- Least privilege
+- Validate inputs
+- Set resource limits
+- Isolate network
+- Read-only filesystem
+
+**Tools:**
+- E2B (code interpreter)
+- Docker (containers)
+- Firecracker (lightweight VMs)
+- gVisor (container isolation)

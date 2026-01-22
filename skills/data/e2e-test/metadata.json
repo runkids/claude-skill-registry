@@ -1,7 +1,7 @@
 {
   "name": "e2e-test",
-  "repo": "zzoohub/mealio",
+  "repo": "WhatIfWeDigDeeper/claude-template",
   "path": ".claude/skills/e2e-test/SKILL.md",
-  "source": "github.com/zzoohub/mealio",
-  "downloaded_at": "2026-01-14T02:55:17.679742Z"
+  "source": "github.com/WhatIfWeDigDeeper/claude-template",
+  "downloaded_at": "2026-01-22T02:11:45.115492Z"
 }

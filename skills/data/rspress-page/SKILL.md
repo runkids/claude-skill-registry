@@ -2,6 +2,8 @@
 name: rspress-page
 description: Scaffold new RSPress documentation pages with proper structure and templates. Use when creating new docs pages, adding package documentation, writing guides, or setting up API reference pages.
 allowed-tools: Read, Write, Edit, Glob, Grep
+context: fork
+agent: rspress-doc-agent
 ---
 
 # RSPress Page Scaffolding

@@ -1,8 +1,7 @@
 {
   "name": "vertex-ai-deployer",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Vertex Ai Deployer - Auto-activating skill for ML Deployment.Triggers on: vertex ai deployer, vertex ai deployerPart of the ML Deployment skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:12.182816Z"
+  "path": "planned-skills/generated/08-ml-deployment/vertex-ai-deployer/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-22T01:55:41.822109Z"
 }

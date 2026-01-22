@@ -1,7 +1,7 @@
 {
   "name": "security-patterns",
-  "repo": "vanman2024/dev-lifecycle-marketplace",
-  "path": "plugins/security/skills/security-patterns/SKILL.md",
-  "source": "github.com/vanman2024/dev-lifecycle-marketplace",
-  "downloaded_at": "2026-01-14T03:07:40.375985Z"
+  "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "path": "skills/security-patterns/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-22T04:11:04.188533Z"
 }

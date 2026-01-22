@@ -1,237 +1,162 @@
 ---
 name: java-testing
-description: Test Java applications - JUnit 5, Mockito, integration testing, TDD patterns
-sasmp_version: "1.3.0"
-version: "3.0.0"
-bonded_agent: 04-java-testing
-bond_type: PRIMARY_BOND
-allowed-tools: Read, Write, Bash, Glob, Grep
-
-# Parameter Validation
-parameters:
-  test_type:
-    type: string
-    enum: [unit, integration, e2e, contract]
-    description: Type of test to create
-  framework:
-    type: string
-    default: junit5
-    enum: [junit5, testng]
-    description: Testing framework
+description: >
+  Java testing guidelines using Spock Framework and Groovy. Covers test structure,
+  mocking patterns, persistence testing with Testcontainers, gRPC testing, and
+  Spring Boot test configurations. Use when writing or reviewing tests.
+compatibility: Java projects using Spock Framework
+metadata:
+  version: "1.0.0"
+  technology: java
+  category: testing
+  tags:
+    - java
+    - testing
+    - spock
+    - groovy
+    - testcontainers
 ---
 
-# Java Testing Skill
+# Java Testing
 
-Write comprehensive tests for Java applications with modern testing practices.
+Guidelines for writing tests in Java projects using the Spock Framework and Groovy.
 
-## Overview
+## When to use this skill
 
-This skill covers Java testing with JUnit 5, Mockito, AssertJ, and integration testing with Spring Boot Test and Testcontainers. Includes TDD patterns and test coverage strategies.
+- Writing new tests
+- Reviewing test code
+- Setting up test infrastructure
+- Configuring Testcontainers
+- Mocking dependencies in Spring Boot tests
 
-## When to Use This Skill
+## Skill Contents
 
-Use when you need to:
-- Write unit tests with JUnit 5
-- Create mocks with Mockito
-- Build integration tests with Testcontainers
-- Implement TDD/BDD practices
-- Improve test coverage
+### Sections
 
-## Topics Covered
+- [When to use this skill](#when-to-use-this-skill) (L24-L31)
+- [Quick Start](#quick-start) (L57-L77)
+- [Key Patterns](#key-patterns) (L78-L87)
+- [Mocking Patterns](#mocking-patterns) (L88-L123)
+- [Persistence Testing](#persistence-testing) (L124-L139)
+- [References](#references) (L140-L147)
+- [Related Rules](#related-rules) (L148-L152)
+- [Related Skills](#related-skills) (L153-L158)
 
-### JUnit 5
-- @Test, @Nested, @DisplayName
-- @ParameterizedTest with sources
-- Lifecycle annotations
-- Extensions and custom annotations
+### Available Resources
 
-### Mockito
-- @Mock, @InjectMocks, @Spy
-- Stubbing (when/thenReturn)
-- Verification (verify, times)
-- BDD style (given/willReturn)
+**📚 references/** - Detailed documentation
+- [grpc testing](references/grpc-testing.md)
+- [junit5 migration](references/junit5-migration.md)
+- [spock patterns](references/spock-patterns.md)
+- [test setup workflow](references/test-setup-workflow.md)
+- [test utilities](references/test-utilities.md)
+- [testcontainers setup](references/testcontainers-setup.md)
 
-### AssertJ
-- Fluent assertions
-- Collection assertions
-- Exception assertions
-- Custom assertions
+---
 
-### Integration Testing
-- @SpringBootTest slices
-- Testcontainers setup
-- MockMvc for APIs
-- Database testing
+## Quick Start
 
-## Quick Reference
+### 1. Test Structure
 
-```java
-// Unit Test with Mockito
-@ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+```groovy
+def "should do Y when X"() {
+    given:
+        // create test data
+    when:
+        // execute process
+    then:
+        // assert output
+    where: // use test table if suited
+}
+```
 
-    @Mock
-    private UserRepository userRepository;
+### 2. Test Naming
 
-    @InjectMocks
-    private UserService userService;
+- Test files: `<ClassName>Spec.groovy`
+- Test methods: `"should [expected behavior] when [condition]"`
 
-    @Test
-    @DisplayName("Should find user by ID")
-    void shouldFindUserById() {
-        // Given
-        User user = new User(1L, "John");
-        given(userRepository.findById(1L)).willReturn(Optional.of(user));
+## Key Patterns
 
-        // When
-        Optional<User> result = userService.findById(1L);
+| Pattern | When to Use |
+|---------|-------------|
+| **Spock Mock** | Unit tests without Spring context |
+| **@SpringBean** | Spring integration tests with mocks |
+| **@ServiceConnection** | Testcontainers database connection |
+| **InProcessServer** | gRPC client/server testing |
+| **Data Tables** | Multiple test cases with same structure |
 
-        // Then
-        assertThat(result)
-            .isPresent()
-            .hasValueSatisfying(u ->
-                assertThat(u.getName()).isEqualTo("John"));
-        then(userRepository).should().findById(1L);
+## Mocking Patterns
+
+### Unit Tests (No Spring)
+
+```groovy
+class SomeSpec extends Specification {
+    SomeInterface someInterface = Mock()
+
+    def "test method"() {
+        given:
+            def underTest = new ClassUnderTest(someInterface)
+        when:
+            // call method
+        then:
+            1 * someInterface.someMethod("value") >> responseClass
     }
 }
+```
 
-// Parameterized Test
-@ParameterizedTest
-@CsvSource({
-    "valid@email.com, true",
-    "invalid-email, false",
-    "'', false"
-})
-void shouldValidateEmail(String email, boolean expected) {
-    assertThat(validator.isValid(email)).isEqualTo(expected);
-}
+### Spring Integration Tests
 
-// Integration Test with Testcontainers
-@Testcontainers
+```groovy
 @SpringBootTest
-class OrderRepositoryIT {
+class SomeSpec extends Specification {
+    @SpringBean
+    SomeInterface someInterface = Mock()
 
-    @Container
-    static PostgreSQLContainer<?> postgres =
-        new PostgreSQLContainer<>("postgres:15");
-
-    @DynamicPropertySource
-    static void configure(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
-    }
-
-    @Autowired
-    private OrderRepository repository;
-
-    @Test
-    void shouldPersistOrder() {
-        Order saved = repository.save(new Order("item", 100.0));
-        assertThat(saved.getId()).isNotNull();
-    }
-}
-
-// API Test with MockMvc
-@WebMvcTest(UserController.class)
-class UserControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private UserService userService;
-
-    @Test
-    void shouldReturnUser() throws Exception {
-        given(userService.findById(1L))
-            .willReturn(Optional.of(new User(1L, "John")));
-
-        mockMvc.perform(get("/api/users/1"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.name").value("John"));
+    def "test method"() {
+        when:
+            // call method
+        then:
+            1 * someInterface.someMethod(_) >> { throw new RuntimeException() }
     }
 }
 ```
 
-## Test Data Builders
+## Persistence Testing
 
-```java
-public class UserTestBuilder {
-    private Long id = 1L;
-    private String name = "John Doe";
-    private String email = "john@example.com";
-    private boolean active = true;
+Use Testcontainers with `@ServiceConnection` for database tests:
 
-    public static UserTestBuilder aUser() {
-        return new UserTestBuilder();
-    }
-
-    public UserTestBuilder withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public UserTestBuilder inactive() {
-        this.active = false;
-        return this;
-    }
-
-    public User build() {
-        return new User(id, name, email, active);
+```groovy
+@Configuration
+class IntegrationTestConfiguration {
+    @Bean
+    @ServiceConnection
+    PostgreSQLContainer<?> postgreSQLContainer() {
+        return new PostgreSQLContainer<>("postgres:14-alpine")
+                .withDatabaseName("test_db")
     }
 }
-
-// Usage
-User user = aUser().withName("Jane").inactive().build();
 ```
 
-## Coverage Goals
+## References
 
-```xml
-<!-- JaCoCo configuration -->
-<configuration>
-    <rules>
-        <rule>
-            <element>BUNDLE</element>
-            <limits>
-                <limit>
-                    <counter>LINE</counter>
-                    <value>COVEREDRATIO</value>
-                    <minimum>0.80</minimum>
-                </limit>
-            </limits>
-        </rule>
-    </rules>
-</configuration>
-```
+| Reference | Description |
+|-----------|-------------|
+| [references/spock-patterns.md](references/spock-patterns.md) | Advanced Spock patterns |
+| [references/testcontainers-setup.md](references/testcontainers-setup.md) | Testcontainers configuration |
+| [references/grpc-testing.md](references/grpc-testing.md) | gRPC test patterns |
 
-## Troubleshooting
+## Related Rules
 
-### Common Issues
-
-| Problem | Cause | Solution |
-|---------|-------|----------|
-| Mock not working | Missing @ExtendWith | Add MockitoExtension |
-| NPE in test | Mock not initialized | Check @InjectMocks |
-| Flaky test | Shared state | Isolate test data |
-| Context fails | Missing bean | Use @MockBean |
-
-### Debug Checklist
-```
-□ Run single test in isolation
-□ Check mock setup matches invocation
-□ Verify @BeforeEach setup
-□ Review @Transactional boundaries
-□ Check for shared mutable state
-```
-
-## Usage
-
-```
-Skill("java-testing")
-```
+- `.cursor/rules/java-testing-guidelines.mdc` - Full testing reference
+- `.cursor/rules/java-flyway-migrations.mdc` - Flyway for test schema
 
 ## Related Skills
-- `java-testing-advanced` - Advanced patterns
-- `java-spring-boot` - Spring test slices
+
+| Skill | Purpose |
+|-------|---------|
+| [java-coverage](../java-coverage/SKILL.md) | JaCoCo test coverage |
+| [gradle-standards](../gradle-standards/SKILL.md) | Test dependency bundles |
+<!-- AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY -->
+<!-- Source: bitsoex/ai-code-instructions → java/skills/java-testing/SKILL.md -->
+<!-- To modify, edit the source file and run the distribution workflow -->
+

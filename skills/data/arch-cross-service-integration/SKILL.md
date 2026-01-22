@@ -1,5 +1,5 @@
 ---
-name: cross-service-integration
+name: arch-cross-service-integration
 description: Use when designing or implementing cross-service communication, data synchronization, or service boundary patterns.
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash, Task
 ---
@@ -271,3 +271,8 @@ if (existing.LastMessageSyncDate <= message.CreatedUtcDate)
 - [ ] Soft delete synchronized properly
 - [ ] Force sync mechanism available
 - [ ] Monitoring/alerting in place
+
+## Task Planning Notes
+
+- Always plan and break many small todo tasks
+- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

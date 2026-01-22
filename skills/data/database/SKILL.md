@@ -1,34 +1,107 @@
 ---
-name: database
-description: Database - schema, indexes, migrations. Use when working with databases.
+name: Database Operations
+description: Manage database operations, migrations, RLS policies, and performance optimization
+triggers:
+  - "database"
+  - "supabase"
+  - "query database"
+  - "run migration"
+  - "sql"
 ---
 
-# Database Guideline
+# Database Operations Skill
 
-## Tech Stack
+Perform database operations using Supabase MCP integration or raw SQL.
 
-* **Database**: Neon (Postgres)
-* **ORM**: Drizzle
-* **Migrations**: Drizzle Kit
+## Capabilities
 
-## Non-Negotiables
+- Execute SQL queries
+- Run migrations
+- Manage RLS policies
+- Schema inspection
+- Data seeding
+- Performance optimization
+- Backup operations
 
-* All database access through Drizzle (no raw SQL unless necessary)
-* Migration files must exist, be complete, and be committed
-* CI must fail if schema changes aren't represented by migrations
-* No schema drift between environments
-* Drizzle schema is SSOT for database structure
+## MCP Integration
 
-## Context
+Uses: `@supabase/mcp` (if available)
 
-Database handles physical implementation — schema, indexes, migrations, query performance. Conceptual modeling (entities, relationships) lives in `data-modeling`.
+## Critical Patterns
 
-Drizzle is the SSOT for database access. Type-safe, end-to-end.
+### Always Enable RLS
+```sql
+-- MANDATORY for all tables
+ALTER TABLE <table_name> ENABLE ROW LEVEL SECURITY;
 
-## Driving Questions
+CREATE POLICY "Users view own data"
+  ON <table_name> FOR SELECT
+  USING (auth.uid() = user_id);
+```
 
-* Is all database access through Drizzle?
-* Are migrations complete and committed?
-* What constraints are missing that would prevent invalid state?
-* Where are missing indexes causing slow queries?
-* What queries are N+1 or unbounded?
+### Migration Template
+```sql
+-- Migration: {sequence}_{description}
+-- Date: {timestamp}
+
+BEGIN;
+
+-- Changes
+CREATE TABLE IF NOT EXISTS new_table (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS immediately
+ALTER TABLE new_table ENABLE ROW LEVEL SECURITY;
+
+-- Add policies
+CREATE POLICY "Users access own rows"
+  ON new_table FOR ALL
+  USING (auth.uid() = user_id);
+
+COMMIT;
+```
+
+## Common Operations
+
+### Schema Inspection
+```bash
+"Using Supabase MCP, show:
+ - All tables in database
+ - Schema for {table_name}
+ - All RLS policies
+ Save: temp/database/schema.md"
+```
+
+### Run Migration
+```bash
+"Using Supabase MCP:
+ Read: database/migrations/003_add_analytics.sql
+ Execute on database
+ Verify: Migration successful
+ Update: Migration log"
+```
+
+### Performance Check
+```bash
+"Analyze database performance:
+ - Check table sizes
+ - Identify slow queries (>100ms)
+ - Find missing indexes
+ - Suggest optimizations
+ Output: temp/database/performance-report.md"
+```
+
+## Security Checklist
+
+- [ ] RLS enabled on ALL tables
+- [ ] Policies prevent unauthorized access
+- [ ] Service role key never exposed to client
+- [ ] Input validation on all queries
+- [ ] Parameterized queries (no SQL injection)
+
+---
+
+**Remember**: Security first! Always enable RLS and use parameterized queries.

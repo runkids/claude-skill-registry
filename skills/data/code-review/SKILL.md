@@ -1,190 +1,143 @@
 ---
 name: code-review
-description: Perform thorough code reviews with actionable feedback. Use when the user says "review", "/review", "code review", asks for feedback on code, wants a PR reviewed, or needs a second pair of eyes on their changes. Analyzes code for bugs, security issues, performance, maintainability, and best practices.
+description: "Code review practices with technical rigor and verification gates. Practices: receiving feedback, requesting reviews, verification gates. Capabilities: technical evaluation, evidence-based claims, PR review, subagent-driven review, completion verification. Actions: review, evaluate, verify, validate code changes. Keywords: code review, PR review, pull request, technical feedback, review feedback, completion claim, verification, evidence-based, code quality, review request, technical rigor, subagent review, code-reviewer, review gate, merge criteria. Use when: receiving code review feedback, completing major features, making completion claims, requesting systematic reviews, validating before merge, preventing false completion claims."
 ---
 
 # Code Review
 
-Perform thorough code reviews that catch bugs, improve code quality, and help developers grow.
+Guide proper code review practices emphasizing technical rigor, evidence-based claims, and verification over performative responses.
 
-## Philosophy
+## Overview
 
-A great code review:
-- Finds bugs before users do
-- Shares knowledge across the team
-- Improves code without blocking progress
-- Teaches, doesn't lecture
+Code review requires three distinct practices:
 
-## Workflow
+1. **Receiving feedback** - Technical evaluation over performative agreement
+2. **Requesting reviews** - Systematic review via code-reviewer subagent
+3. **Verification gates** - Evidence before any completion claims
 
-1. Understand context (what is this change trying to do?)
-2. Review for correctness (does it work?)
-3. Review for quality (is it good?)
-4. Provide actionable feedback
+Each practice has specific triggers and protocols detailed in reference files.
 
-## Step 1: Gather Context
+## Core Principle
 
-```bash
-# Get the changes to review
-git diff main...HEAD
+Always honoring **YAGNI**, **KISS**, and **DRY** principles.
+**Be honest, be brutal, straight to the point, and be concise.**
 
-# Or for a specific PR
-gh pr diff <number>
+**Technical correctness over social comfort.** Verify before implementing. Ask before assuming. Evidence before claims.
 
-# Understand the commit history
-git log main..HEAD --oneline
+## When to Use This Skill
 
-# Check what tests exist
-find . -name "*test*" -o -name "*spec*" | head -20
+### Receiving Feedback
+Trigger when:
+- Receiving code review comments from any source
+- Feedback seems unclear or technically questionable
+- Multiple review items need prioritization
+- External reviewer lacks full context
+- Suggestion conflicts with existing decisions
+
+**Reference:** `references/code-review-reception.md`
+
+### Requesting Review
+Trigger when:
+- Completing tasks in subagent-driven development (after EACH task)
+- Finishing major features or refactors
+- Before merging to main branch
+- Stuck and need fresh perspective
+- After fixing complex bugs
+
+**Reference:** `references/requesting-code-review.md`
+
+### Verification Gates
+Trigger when:
+- About to claim tests pass, build succeeds, or work is complete
+- Before committing, pushing, or creating PRs
+- Moving to next task
+- Any statement suggesting success/completion
+- Expressing satisfaction with work
+
+**Reference:** `references/verification-before-completion.md`
+
+## Quick Decision Tree
+
+```
+SITUATION?
+│
+├─ Received feedback
+│  ├─ Unclear items? → STOP, ask for clarification first
+│  ├─ From human partner? → Understand, then implement
+│  └─ From external reviewer? → Verify technically before implementing
+│
+├─ Completed work
+│  ├─ Major feature/task? → Request code-reviewer subagent review
+│  └─ Before merge? → Request code-reviewer subagent review
+│
+└─ About to claim status
+   ├─ Have fresh verification? → State claim WITH evidence
+   └─ No fresh verification? → RUN verification command first
 ```
 
-Before reviewing code, understand:
-- What problem is being solved?
-- What approach was chosen?
-- Are there constraints I should know about?
+## Receiving Feedback Protocol
 
-## Step 2: Review for Correctness
+### Response Pattern
+READ → UNDERSTAND → VERIFY → EVALUATE → RESPOND → IMPLEMENT
 
-### Critical Issues (Must Fix)
+### Key Rules
+- ❌ No performative agreement: "You're absolutely right!", "Great point!", "Thanks for [anything]"
+- ❌ No implementation before verification
+- ✅ Restate requirement, ask questions, push back with technical reasoning, or just start working
+- ✅ If unclear: STOP and ask for clarification on ALL unclear items first
+- ✅ YAGNI check: grep for usage before implementing suggested "proper" features
 
-| Category | What to Look For |
-|----------|------------------|
-| **Bugs** | Logic errors, off-by-one, null handling |
-| **Security** | Injection, auth bypass, data exposure |
-| **Data Loss** | Race conditions, missing transactions |
-| **Breaking** | API changes, removed functionality |
+### Source Handling
+- **Human partner:** Trusted - implement after understanding, no performative agreement
+- **External reviewers:** Verify technically correct, check for breakage, push back if wrong
 
-### Security Checklist
+**Full protocol:** `references/code-review-reception.md`
 
-- [ ] User input validated/sanitized
-- [ ] SQL queries parameterized
-- [ ] Auth checks on protected routes
-- [ ] Secrets not hardcoded
-- [ ] HTTPS for sensitive data
-- [ ] No sensitive data in logs
+## Requesting Review Protocol
 
-### Common Bug Patterns
+### When to Request
+- After each task in subagent-driven development
+- After major feature completion
+- Before merge to main
 
-```javascript
-// Off-by-one
-for (i = 0; i <= arr.length; i++)  // Bug: should be <
+### Process
+1. Get git SHAs: `BASE_SHA=$(git rev-parse HEAD~1)` and `HEAD_SHA=$(git rev-parse HEAD)`
+2. Dispatch code-reviewer subagent via Task tool with: WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS, BASE_SHA, HEAD_SHA, DESCRIPTION
+3. Act on feedback: Fix Critical immediately, Important before proceeding, note Minor for later
 
-// Null/undefined
-user.name.toLowerCase()  // Bug: user might be null
+**Full protocol:** `references/requesting-code-review.md`
 
-// Async issues
-const data = fetchData();  // Bug: missing await
-console.log(data);         // undefined
+## Verification Gates Protocol
 
-// Type coercion
-if (value == null)  // Catches null AND undefined
-if (value === null) // Only catches null
-```
+### The Iron Law
+**NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE**
 
-## Step 3: Review for Quality
+### Gate Function
+IDENTIFY command → RUN full command → READ output → VERIFY confirms claim → THEN claim
 
-### Suggestions (Should Consider)
+Skip any step = lying, not verifying
 
-| Category | What to Look For |
-|----------|------------------|
-| **Clarity** | Naming, structure, comments |
-| **Maintainability** | Coupling, duplication, complexity |
-| **Performance** | N+1 queries, unnecessary work |
-| **Testing** | Coverage, edge cases, mocking |
+### Requirements
+- Tests pass: Test output shows 0 failures
+- Build succeeds: Build command exit 0
+- Bug fixed: Test original symptom passes
+- Requirements met: Line-by-line checklist verified
 
-### Code Smells
+### Red Flags - STOP
+Using "should"/"probably"/"seems to", expressing satisfaction before verification, committing without verification, trusting agent reports, ANY wording implying success without running verification
 
-- Functions > 50 lines
-- Deep nesting (> 3 levels)
-- Magic numbers without constants
-- Comments explaining "what" not "why"
-- Catch blocks that swallow errors
-- Boolean parameters (use options object)
+**Full protocol:** `references/verification-before-completion.md`
 
-### Testing Gaps
+## Integration with Workflows
 
-- [ ] Happy path tested
-- [ ] Error cases handled
-- [ ] Edge cases covered (empty, null, max)
-- [ ] Integration points mocked appropriately
-- [ ] No flaky async tests
+- **Subagent-Driven:** Review after EACH task, verify before moving to next
+- **Pull Requests:** Verify tests pass, request code-reviewer review before merge
+- **General:** Apply verification gates before any status claims, push back on invalid feedback
 
-## Step 4: Provide Feedback
+## Bottom Line
 
-### Format
+1. Technical rigor over social performance - No performative agreement
+2. Systematic review processes - Use code-reviewer subagent
+3. Evidence before claims - Verification gates always
 
-```markdown
-## Summary
-
-[Overall assessment: approve, request changes, or needs discussion]
-
-## Critical Issues
-
-[Must fix before merge]
-
-### 1. [Issue Title]
-**File**: `path/to/file.ts:42`
-**Issue**: [What's wrong]
-**Why it matters**: [Impact if not fixed]
-**Suggestion**: [How to fix]
-
-## Suggestions
-
-[Improvements to consider]
-
-### 1. [Suggestion Title]
-**File**: `path/to/file.ts:87`
-**Current**: [What exists]
-**Suggestion**: [What could be better]
-**Why**: [Benefit of change]
-
-## Praise
-
-[What was done well - be specific]
-
----
-*Review generated with [agent-resources](https://github.com/kasperjunge/agent-resources)*
-```
-
-### Feedback Guidelines
-
-**Be specific, not vague:**
-- Bad: "This function is confusing"
-- Good: "Consider splitting `processOrder` into `validateOrder` and `submitOrder` - it's doing two distinct things"
-
-**Explain why:**
-- Bad: "Use `const` here"
-- Good: "Use `const` here since `config` is never reassigned - signals intent to readers"
-
-**Offer alternatives:**
-- Bad: "This is inefficient"
-- Good: "This O(n^2) loop could be O(n) with a Set lookup. Here's how: ..."
-
-**Acknowledge tradeoffs:**
-- "This adds complexity but the performance gain is worth it for this hot path"
-- "Simpler but less flexible - fine if we don't need X later"
-
-### Severity Levels
-
-| Level | Label | Action |
-|-------|-------|--------|
-| **Blocker** | `[MUST FIX]` | Cannot merge without addressing |
-| **Major** | `[SHOULD FIX]` | Strong recommendation |
-| **Minor** | `[CONSIDER]` | Nice to have |
-| **Nit** | `[NIT]` | Style/preference, take it or leave it |
-| **Question** | `[QUESTION]` | Seeking understanding |
-| **Praise** | `[NICE]` | Calling out good work |
-
-## Review Types
-
-### Quick Review
-Focus: Correctness only
-For: Small changes, trusted authors, time pressure
-
-### Standard Review
-Focus: Correctness + quality
-For: Most PRs
-
-### Deep Review
-Focus: All aspects + architecture
-For: New features, security-sensitive, public APIs
+Verify. Question. Then implement. Evidence. Then claim.

@@ -1,57 +1,50 @@
 ---
 name: web-security
-description: Exploits web application vulnerabilities. Use when working with SQL injection, XSS, SSRF, SSTI, command injection, path traversal, authentication bypass, deserialization, or any web-based CTF challenge.
-allowed-tools: Bash, Read, Write, Grep, Glob
+description: Enforce web security and avoid security vulnerabilities
 ---
 
-# Web Security Skill
+# Web Security
 
-## Quick Workflow
+We treat **web security as a core requirement**, not an afterthought.
+Assume hostile input and untrusted environments by default.
 
-```
-Progress:
-- [ ] Identify technology stack
-- [ ] Check common files (robots.txt, .git)
-- [ ] Test injection points (SQLi, XSS, SSTI)
-- [ ] Check authentication/session flaws
-- [ ] Develop exploit
-- [ ] Extract flag
-```
+## Core Principles
 
-## Quick Recon
+- **NEVER** trust user input
+- **ALWAYS** validate and sanitize data at boundaries
+- Prefer secure defaults over configurability
 
-```bash
-# Directory enumeration
-gobuster dir -u http://target -w /usr/share/wordlists/dirb/common.txt
-ffuf -u http://target/FUZZ -w wordlist.txt
+## XSS & Injection
 
-# Technology detection
-whatweb http://target
-curl -I http://target
+- **AVOID** `dangerouslySetInnerHTML` and raw HTML injection
+- Escape and encode dynamic content properly
+- Never interpolate untrusted data into HTML, CSS, or JS contexts
+- Ensure SQL injection protection
 
-# Check robots.txt, .git exposure
-curl http://target/robots.txt
-curl http://target/.git/HEAD
-```
+## Authentication & Authorization
 
-## Vulnerability Reference
+- Do not store secrets or tokens in insecure locations
+- **AVOID** localStorage for sensitive credentials when possible
+- Use HTTP-only, secure cookies where applicable
+- Always enforce authorization on the server
 
-| Vulnerability | Reference File |
-|--------------|----------------|
-| SQL Injection | [reference/sqli.md](reference/sqli.md) |
-| XSS | [reference/xss.md](reference/xss.md) |
-| SSTI | [reference/ssti.md](reference/ssti.md) |
-| Command Injection | [reference/command-injection.md](reference/command-injection.md) |
-| SSRF / Path Traversal | [reference/ssrf-lfi.md](reference/ssrf-lfi.md) |
-| Auth Bypass / Deserialization | [reference/auth-deser.md](reference/auth-deser.md) |
+## Browser Security APIs
 
-## Tools Quick Reference
+- Respect CORS, CSP, and browser security boundaries
+- Use Content Security Policy to restrict script and resource execution
+- Avoid inline scripts and styles when CSP is enabled
 
-| Tool | Purpose | Command |
-|------|---------|---------|
-| sqlmap | SQLi automation | `sqlmap -u URL --dbs` |
-| commix | Command injection | `commix -u URL` |
-| tplmap | SSTI automation | `tplmap -u URL` |
-| ffuf | Fuzzing | `ffuf -u URL/FUZZ -w wordlist` |
-| Burp Suite | Proxy/intercept | GUI |
-| jwt_tool | JWT attacks | `jwt_tool TOKEN` |
+## Data Handling
+
+- Minimize data exposure
+- Do not log sensitive information
+
+## Dependencies & Supply Chain
+
+- Avoid unnecessary packages
+- Treat third-party code as untrusted input
+
+## General Principles
+
+- Simplicity reduces attack surface
+- If unsure, choose the more restrictive option

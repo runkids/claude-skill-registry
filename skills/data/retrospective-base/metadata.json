@@ -1,11 +1,7 @@
 {
   "name": "retrospective-base",
-  "description": "Framework for retrospectives at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with \"daily retro\", \"weekly retro\", \"monthly retro\", etc. Answers three questions - what worked, wha",
   "repo": "ZachBeta/claude-as-coach",
-  "category": "data",
-  "tags": [
-    "retrospective",
-    "base"
-  ],
-  "stars": 3
+  "path": "skills/retrospective-base/SKILL.md",
+  "source": "github.com/ZachBeta/claude-as-coach",
+  "downloaded_at": "2026-01-21T01:12:44.392967Z"
 }

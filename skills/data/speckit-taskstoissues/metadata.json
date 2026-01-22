@@ -1,9 +1,7 @@
 {
   "name": "speckit-taskstoissues",
-  "description": "Convert existing tasks into actionable, dependency-ordered GitHub issues for the feature based on available design artifacts.",
-  "repo": "dceoy/gh-actions-for-devops",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "dceoy/speckit-agent-skills",
+  "path": "skills/speckit-taskstoissues/SKILL.md",
+  "source": "github.com/dceoy/speckit-agent-skills",
+  "downloaded_at": "2026-01-22T02:10:10.873632Z"
 }

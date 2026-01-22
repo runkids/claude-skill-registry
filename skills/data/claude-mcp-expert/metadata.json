@@ -1,7 +1,7 @@
 {
   "name": "claude-mcp-expert",
   "repo": "raintree-technology/claude-starter",
-  "path": "templates/.claude/skills/anthropic/claude-mcp-expert/skill.md",
+  "path": ".claude/skills/anthropic/claude-mcp-expert/SKILL.md",
   "source": "github.com/raintree-technology/claude-starter",
-  "downloaded_at": "2026-01-14T01:12:21.575604Z"
+  "downloaded_at": "2026-01-22T02:31:13.808214Z"
 }

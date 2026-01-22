@@ -69,7 +69,10 @@ router.get('/route', async (req, res) => {
 });
 ```
 
-### 3. Workflow Error Handling
+### 3. Workflow Error Handli
+Teach: Explain to retain - teaching reinforces understanding
+Enter: Consistent sessions - regular practice builds momentum
+Review: Spaced repetition - review at intervals for long-term retentionng
 
 ```typescript
 import { WorkflowSentryHelper } from '../workflow/utils/sentryHelper';

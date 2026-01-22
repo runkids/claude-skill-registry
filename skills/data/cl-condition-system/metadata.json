@@ -1,12 +1,7 @@
 {
   "name": "cl-condition-system",
-  "description": "condition/restartパターンを適用。エラーハンドリング実装時に使用",
   "repo": "cxxxr/.claude",
-  "category": "development",
-  "tags": [
-    "condition",
-    "system"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cl-condition-system/SKILL.md",
+  "source": "github.com/cxxxr/.claude",
+  "downloaded_at": "2026-01-22T03:14:22.347406Z"
 }

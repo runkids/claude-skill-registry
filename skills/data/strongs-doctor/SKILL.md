@@ -158,30 +158,56 @@ const isValidStrongsNumber = (num: string): boolean => {
 };
 ```
 
-### Issue 3: Corrupted kjv_strongs_words Data
+### Issue 3: kjv_strongs_words Data Pattern (CRITICAL)
 
-**Symptoms:** Wrong Strong's numbers, "David_s" text, duplicate entries
+**Symptoms:** Wrong Strong's numbers displayed, G3588 (article) shown for "God", punctuation showing Strong's numbers
 
-**Known Corruption:** ~1,500 entries with punctuation mapped to H1732/H8416
+**Root Cause:** The kjv_strongs_words table stores Strong's numbers on **trailing empty strings or punctuation**, NOT directly on words.
 
-**Detection Query:**
+**Data Pattern:**
+```
+word_order 4:  "God"   strongs_number=null     <- actual word
+word_order 5:  ""      strongs_number="G3588"  <- article (often ignored)
+word_order 6:  ""      strongs_number="G2316"  <- THIS is the Strong's for "God"
+word_order 7:  "so"    strongs_number=null     <- next word
+```
+
+**Resolution Rules (used by `get_kjv_verses_tagged` RPC):**
+1. **Group by word:** Assign each row to a "word group" - counter increments on each actual word
+2. **Find trailing carriers:** Empty strings and punctuation after a word belong to that word's group
+3. **Take the LAST Strong's:** When multiple carriers exist, the LAST one has the main Strong's number
+4. **Ignore direct Strong's:** Strong's numbers directly on words (like "For" with G3588) are often incorrect artifacts
+
+**Verification Query:**
 ```sql
--- Find corrupted entries (punctuation with Strong's numbers)
-SELECT word_text, strongs_number, COUNT(*)
+-- See word groups for John 3:16
+WITH words_classified AS (
+  SELECT w.word_order, w.word_text, w.strongs_number,
+    w.word_text != '' AND w.word_text !~ '^[\s\.,;:?!\-\(\)''\"]+$' AS is_actual_word
+  FROM bible_schema.kjv_strongs_words w
+  WHERE w.verse_id = (
+    SELECT v.id FROM bible_schema.verses v
+    JOIN bible_schema.verse_keys vk ON vk.id = v.verse_key_id
+    JOIN bible_schema.bible_versions bv ON bv.id = v.version_id
+    WHERE vk.osis = 'John.3.16' AND bv.code = 'KJV'
+  )
+)
+SELECT *, SUM(CASE WHEN is_actual_word THEN 1 ELSE 0 END)
+  OVER (ORDER BY word_order) AS word_group
+FROM words_classified ORDER BY word_order LIMIT 20;
+```
+
+**Detection Query (corrupted punctuation count):**
+```sql
+-- Count punctuation with Strong's numbers (expected: ~86,000)
+SELECT word_text, COUNT(*) as count
 FROM bible_schema.kjv_strongs_words
-WHERE word_text IN ('.', ',', ';', ':', '?', '')
+WHERE word_text IN ('.', ',', ';', ':', '?', '!', '-', '(', ')')
   AND strongs_number IS NOT NULL
-GROUP BY word_text, strongs_number
-ORDER BY COUNT(*) DESC;
+GROUP BY word_text ORDER BY count DESC;
 ```
 
-**Fix Migration Pattern:**
-```sql
--- Delete corrupted entries where punctuation has Strong's numbers
-DELETE FROM bible_schema.kjv_strongs_words
-WHERE word_text IN ('.', ',', ';', ':', '?', '')
-  AND strongs_number IS NOT NULL;
-```
+**DO NOT delete these entries** - they are intentional carriers for the Strong's numbers!
 
 ### Issue 4: Cross-Reference Parsing Errors
 

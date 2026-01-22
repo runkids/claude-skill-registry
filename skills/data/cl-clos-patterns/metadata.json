@@ -1,12 +1,7 @@
 {
   "name": "cl-clos-patterns",
-  "description": "CLOS設計パターンを適用。クラス設計・メソッド実装時に使用",
   "repo": "cxxxr/.claude",
-  "category": "development",
-  "tags": [
-    "clos",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cl-clos-patterns/SKILL.md",
+  "source": "github.com/cxxxr/.claude",
+  "downloaded_at": "2026-01-22T03:14:22.230638Z"
 }

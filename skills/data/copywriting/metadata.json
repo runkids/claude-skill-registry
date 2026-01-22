@@ -1,7 +1,7 @@
 {
   "name": "copywriting",
-  "repo": "dengineproblem/agents-monorepo",
+  "repo": "kimny1143/claude-code-template",
   "path": ".claude/skills/copywriting/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-14T02:07:57.441769Z"
+  "source": "github.com/kimny1143/claude-code-template",
+  "downloaded_at": "2026-01-22T03:28:06.531778Z"
 }

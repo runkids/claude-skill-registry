@@ -1,12 +1,7 @@
 {
   "name": "writing-style",
-  "description": "Human writing standards to eliminate AI-generated text patterns. This skill should be used for any copywriting, marketing content, documentation, or professional writing to ensure output reads as genu",
-  "repo": "nestmind-app/docs",
-  "category": "documents",
-  "tags": [
-    "writing",
-    "style"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "alexanderop/second-brain-nuxt",
+  "path": ".claude/skills/writing-style/SKILL.md",
+  "source": "github.com/alexanderop/second-brain-nuxt",
+  "downloaded_at": "2026-01-22T01:45:15.221120Z"
 }

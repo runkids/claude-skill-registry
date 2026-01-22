@@ -1,80 +1,84 @@
 ---
 name: observability
-description: Unified observability for the .NET 8 WPF widget host app - logging, telemetry, health checks, diagnostics exports, and operational tooling. Use when configuring Serilog, Application Insights, health checks, correlation IDs, or support tools.
+description: Query Prometheus metrics, Loki logs, and Grafana dashboards for diagnostics and incident response.
+agents: [rex, grizz, nova, blaze, bolt, cipher, cleo, tess]
+triggers: [metrics, logs, prometheus, loki, grafana, monitoring, alerts, incident]
 ---
 
-# Observability
+# Observability Tools
 
-## Overview
+Query metrics, logs, and dashboards for diagnostics and incident response.
 
-Provide unified logging, telemetry, and operational tooling that helps diagnose issues in development and production.
+## Prometheus (Metrics)
 
-## Core Areas
+Query metrics for performance analysis and alerting.
 
-### 1. Structured Logging
-- Serilog with file sink (rolling, 7-day retention)
-- Application Insights for cloud telemetry
-- ETW for local diagnostics
-- Correlation IDs on user-initiated actions
+```
+# CPU usage by pod
+prometheus_query({
+  query: 'rate(container_cpu_usage_seconds_total{namespace="my-service"}[5m])'
+})
 
-### 2. Telemetry
-- Custom events for key actions (AppStarted, WidgetCreated, SyncCompleted)
-- Exception tracking with stack traces
-- Performance metrics (startup time, memory, responsiveness)
+# Memory usage
+prometheus_query({
+  query: 'container_memory_usage_bytes{namespace="my-service"}'
+})
 
-### 3. Health Checks
-- Database connectivity
-- Sync service availability
-- Configuration validity
-- Widget instance integrity
+# HTTP request rate
+prometheus_query({
+  query: 'rate(http_requests_total{namespace="my-service"}[5m])'
+})
 
-### 4. Diagnostics Export
-- Logs (last N days, redacted)
-- Configuration (sanitized)
-- Environment info (OS, .NET version, app version)
-- Health check results
+# Error rate
+prometheus_query({
+  query: 'rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])'
+})
+```
 
-## Definition of Done (DoD)
+## Loki (Logs)
 
-- [ ] Serilog configured with file sink (7-day rolling)
-- [ ] Correlation IDs present on all user-initiated actions
-- [ ] No PII or secrets in logs (verified before merge)
-- [ ] Structured properties used instead of string interpolation
-- [ ] Application Insights wired when connection string available
-- [ ] Health check for each critical subsystem (DB, sync, config)
-- [ ] Diagnostics export redacts all tokens/secrets/PII
-- [ ] Support tools accessible from Settings or Help menu
-- [ ] Log levels appropriate (Debug for verbose, Warning+ for production)
+Query logs for debugging and incident investigation.
 
-## Key Components
+```
+# Application logs
+loki_query({
+  query: '{namespace="my-service", app="api"} |= "error"',
+  limit: 100
+})
 
-| Component | Location | Purpose |
-|-----------|----------|---------|
-| `LogBootstrapper` | `3SC/Logging/` | Serilog initialization |
-| `CorrelationContext` | `3SC/Logging/` | Scoped correlation IDs |
-| `OperationLogger` | `3SC/Logging/` | Operation logging with timing |
-| `TelemetryEventSource` | `3SC/Logging/` | ETW event source |
-| `HealthService` | `3SC/Observability/` | Health check orchestration |
-| `DiagnosticsExportService` | `3SC/Services/` | Export bundle creation |
+# Structured log parsing
+loki_query({
+  query: '{namespace="my-service"} | json | level="error"'
+})
 
-## Workflow
+# Time-based filtering
+loki_query({
+  query: '{namespace="my-service"}',
+  start: "2024-01-01T00:00:00Z",
+  end: "2024-01-01T01:00:00Z"
+})
+```
 
-1. Use `CorrelationContext.BeginScope()` for user-initiated operations
-2. Log with structured properties: `Log.Information("Widget {WidgetId} created", id)`
-3. Add health checks for new subsystems in `Observability/Checks/`
-4. Include new data in diagnostics export when relevant
-5. Never log secrets, tokens, or PII
+## Common Queries
 
-## Anti-Patterns
+| Scenario | Query Type | Example |
+|----------|------------|---------|
+| High latency | Prometheus | `histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))` |
+| Errors spike | Loki | `{app="api"} \|= "error" \| json \| count by (error_type)` |
+| Memory leak | Prometheus | `container_memory_usage_bytes{pod=~"api.*"}` |
+| Failed requests | Loki | `{app="api"} \| json \| status >= 500` |
 
-- ❌ String interpolation in logs: `Log.Information($"User {name}")`
-- ❌ Swallowing exceptions without logging
-- ❌ Logging sensitive data
-- ❌ Missing correlation IDs on async operations
+## Incident Response Flow
 
-## References
+1. **Check alerts** - What triggered?
+2. **Query metrics** - Is it resource exhaustion?
+3. **Query logs** - What errors are occurring?
+4. **Correlate** - Match timestamps across metrics and logs
+5. **Identify root cause** - Database? Network? Code bug?
 
-- `3SC/Logging/` for logging implementation
-- `3SC/Observability/` for health checks
-- `3SC/Services/DiagnosticsExportService.cs` for export
+## Best Practices
 
+1. **Start broad, then narrow** - Filter down to specific pods
+2. **Use time ranges** - Don't query unbounded
+3. **Correlate metrics + logs** - Same time window
+4. **Check dashboard first** - Grafana may have pre-built views

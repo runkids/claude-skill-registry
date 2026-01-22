@@ -1,160 +1,435 @@
 ---
 name: product-management
-description: "A Claude Code skill for executing high-quality product management work end-to-end: discovery, strategy, roadmaps, metrics, and leadership - using only operational templates, checklists, and patterns (no theory)."
+description: Product management expertise for product strategy, roadmap planning, feature prioritization (RICE, ICE, MoSCoW), customer research, A/B testing, product analytics, and product-market fit. Use when building product roadmaps, prioritizing features, or defining product strategy.
 ---
 
-# Product Operations Skill – Quick Reference
+# Product Management Expert
 
-This skill turns Claude into an **operator**, not a lecturer.
+Comprehensive product frameworks for strategy, roadmapping, prioritization, and product-market fit.
 
-Everything here is:
-- **Executable**: templates, checklists, decision flows
-- **Decision-first**: measurable outcomes, explicit trade-offs, clear ownership
-- **Organized**: resources for depth; templates for immediate copy-paste
+## Product Strategy
 
----
+### Product Vision Framework
 
-**Modern Best Practices (Dec 2025)**:
-- Evidence quality beats confidence: label signals strong/medium/weak; write what would change your mind.
-- Outcomes > output: roadmaps are bets with measurable impact and guardrails, not feature inventories.
-- Metrics must be defined (formula + timeframe + data source) to be actionable.
-- Privacy, security, and accessibility are requirements, not afterthoughts.
-- Optional: AI / Automation is allowed only when explicitly requested and policy-compliant.
+```
+VISION COMPONENTS:
 
-## When to Use This Skill
+TARGET CUSTOMER:
+- Who are we building for?
+- What segments? What personas?
 
-Claude should invoke this skill when the user asks to **do real product work**, such as:
+CUSTOMER NEED:
+- What problem are we solving?
+- What job to be done?
 
-- “Create / refine a PRD / spec / business case / 1-pager”
-- “Turn this idea into a roadmap” / “Outcome roadmap for X”
-- “Design a discovery plan / interview script / experiment plan”
-- “Define success metrics / OKRs / metric tree”
-- “Position this product against competitors”
-- “Run a difficult conversation / feedback / 1:1 / negotiation”
-- “Plan a product strategy / vision / opportunity assessment”
+KEY BENEFIT:
+- Primary value proposition
+- Why customers will choose us
 
-Claude should NOT use this skill for:
-- Book summaries, philosophy, or general education
-- Long case studies or storytelling
+DIFFERENTIATOR:
+- What makes us unique?
+- Competitive advantage
 
----
-
-## Quick Reference
-
-| Task | Template | Domain | Output |
-|------|----------|---------|---------|
-| Discovery interview | `customer-interview-template.md` | Discovery | Interview script with Mom Test patterns |
-| Opportunity mapping | `opportunity-solution-tree.md` | Discovery | OST with outcomes, problems, solutions |
-| Outcome roadmap | `outcome-roadmap.md` | Roadmap | Now/Next/Later with outcomes and themes |
-| OKR definition | `okr-template.md` | Metrics | 1-3 objectives with 2-4 key results each |
-| Product positioning | `positioning-template.md` | Strategy | Competitive alternatives → value → segment |
-| Product vision | `product-vision-template.md` | Strategy | From→To narrative with 3-5 year horizon |
-| 1:1 meeting | `1-1-template.md` | Leadership | Check-in, progress, blockers, growth |
-| Post-incident debrief | `a3-debrief.md` | Leadership | Intent vs actual, root cause, action items |
-
----
-
-## Decision Tree: Choosing the Right Workflow
-
-```text
-User needs: [Product Work Type]
-    ├─ Discovery / Validation?
-    │   ├─ Customer insights? → Customer interview template
-    │   ├─ Hypothesis testing? → Assumption test template
-    │   └─ Opportunity mapping? → Opportunity Solution Tree
-    │
-    ├─ Strategy / Vision?
-    │   ├─ Long-term direction? → Product vision template
-    │   ├─ Market positioning? → Positioning template (Dunford)
-    │   ├─ Big opportunity? → Opportunity assessment
-    │   └─ Amazon-style spec? → PR/FAQ template
-    │
-    ├─ Planning / Roadmap?
-    │   ├─ Outcome-driven? → Outcome roadmap (Now/Next/Later)
-    │   ├─ Theme-based? → Theme roadmap
-    │   └─ Metrics / OKRs? → Metric tree + OKR template
-    │
-    └─ Leadership / Team Ops?
-        ├─ 1:1 meeting? → 1-1 template
-        ├─ Giving feedback? → Feedback template (SBI model)
-        ├─ Post-incident? → A3 debrief
-        └─ Negotiation? → Negotiation one-sheet (Voss)
+AMAZON PRESS RELEASE FORMAT:
+- Headline
+- Summary (who, what, when, where, why)
+- Problem statement
+- Solution description
+- Customer quote
+- How to get started
 ```
 
----
+### Product-Market Fit
 
-## Do / Avoid (Dec 2025)
+```
+PMF INDICATORS:
 
-### Do
+QUANTITATIVE:
+- 40%+ would be "very disappointed" without product (Sean Ellis)
+- Strong organic growth/referrals
+- Low churn, high retention
+- Improving unit economics
 
-- Start from the decision: what are we deciding, by when, and with what evidence.
-- Define metrics precisely (formula + timeframe + data source) and add guardrails.
-- Use discovery to de-risk value before building; prioritize by evidence, not opinions.
-- Write “match vs ignore” competitive decisions, not feature grids.
+QUALITATIVE:
+- Customers actively advocating
+- Word of mouth driving acquisition
+- Pull from market (not push)
+- Customers expanding usage
 
-### Avoid
+PMF SURVEY:
+"How would you feel if you could no longer use [product]?"
+- Very disappointed → Target 40%+
+- Somewhat disappointed
+- Not disappointed
 
-- Roadmap theater (shipping lists) without outcomes and learning loops.
-- Vanity KPIs (raw signups, impressions) without activation/retention definitions.
-- “Build-first validation” (shipping MVPs without falsifiable hypotheses).
-- Collecting customer data without purpose limitation, retention, and access controls.
+PMF STAGES:
+1. Problem-Solution Fit: Validated problem worth solving
+2. Product-Market Fit: Solution resonates with market
+3. Business Model Fit: Sustainable economics
+4. Scale: Growth mechanics work
+```
 
-## What Good Looks Like
+### Jobs to Be Done (JTBD)
 
-- Evidence: 5–10 real user touchpoints or equivalent primary data for material bets.
-- Scope: clear non-goals and acceptance criteria that can be tested.
-- Learning: post-launch review with metric deltas, guardrail impact, and next decision.
+```
+JOB STATEMENT:
+When [situation], I want to [motivation], so I can [expected outcome].
 
-## Optional: AI / Automation
+FORCES OF PROGRESS:
+Push: Current pain/frustration
+Pull: Attraction to new solution
+Anxiety: Concerns about switching
+Habit: Comfort with status quo
+```
 
-Use only when explicitly requested and policy-compliant.
+See [Customer Research Methods](./references/customer-research-methods.md) for detailed JTBD methodology and interview techniques.
 
-- PRD templates: [../docs-ai-prd/templates/prd/prd-template.md](../docs-ai-prd/templates/prd/prd-template.md) and [../docs-ai-prd/templates/prd/ai-prd-template.md](../docs-ai-prd/templates/prd/ai-prd-template.md)
-- AI system lifecycle: [templates/ai/ai-lifecycle-template.md](templates/ai/ai-lifecycle-template.md)
-- Agentic workflow docs: [templates/ai/agentic-ai-orchestration.md](templates/ai/agentic-ai-orchestration.md)
-- AI product patterns: [resources/ai-product-patterns.md](resources/ai-product-patterns.md)
+## Roadmap Planning
 
-## Navigation
+### Roadmap Types
 
-**Resources**
-- [resources/discovery-best-practices.md](resources/discovery-best-practices.md)
-- [resources/roadmap-patterns.md](resources/roadmap-patterns.md)
-- [resources/delivery-best-practices.md](resources/delivery-best-practices.md)
-- [resources/strategy-patterns.md](resources/strategy-patterns.md)
-- [resources/positioning-patterns.md](resources/positioning-patterns.md)
-- [resources/data-product-best-practices.md](resources/data-product-best-practices.md)
-- [resources/interviewing-patterns.md](resources/interviewing-patterns.md)
-- [resources/metrics-best-practices.md](resources/metrics-best-practices.md)
-- [resources/leadership-decision-frameworks.md](resources/leadership-decision-frameworks.md)
-- [resources/operational-guide.md](resources/operational-guide.md)
-- [data/sources.json](data/sources.json)
+| Type          | Timeframe  | Audience            | Detail Level |
+| ------------- | ---------- | ------------------- | ------------ |
+| **Vision**    | 2-5 years  | Board, executives   | Themes       |
+| **Strategic** | 1-2 years  | Leadership          | Initiatives  |
+| **Release**   | 3-6 months | Teams, stakeholders | Features     |
+| **Sprint**    | 2-4 weeks  | Dev team            | User stories |
 
-**Templates**
-- Discovery: [templates/discovery/customer-interview-template.md](templates/discovery/customer-interview-template.md), [templates/discovery/assumption-test-template.md](templates/discovery/assumption-test-template.md), [templates/discovery/opportunity-solution-tree.md](templates/discovery/opportunity-solution-tree.md)
-- Strategy/Vision: [templates/strategy/product-vision-template.md](templates/strategy/product-vision-template.md), [templates/strategy/opportunity-assessment.md](templates/strategy/opportunity-assessment.md), [templates/strategy/positioning-template.md](templates/strategy/positioning-template.md), [templates/strategy/PRFAQ-template.md](templates/strategy/PRFAQ-template.md)
-- Data: [templates/data/data-product-canvas.md](templates/data/data-product-canvas.md)
-- Roadmaps: [templates/roadmap/outcome-roadmap.md](templates/roadmap/outcome-roadmap.md), [templates/roadmap/theme-roadmap.md](templates/roadmap/theme-roadmap.md)
-- Metrics: [templates/metrics/metric-tree.md](templates/metrics/metric-tree.md), [templates/metrics/okr-template.md](templates/metrics/okr-template.md)
-- Ops/Leadership: [templates/ops/1-1-template.md](templates/ops/1-1-template.md), [templates/ops/feedback-template.md](templates/ops/feedback-template.md), [templates/ops/a3-debrief.md](templates/ops/a3-debrief.md), [templates/ops/negotiation-one-sheet.md](templates/ops/negotiation-one-sheet.md)
+### OKR Framework for Product
 
-**Related Skills**
-- [../docs-ai-prd/SKILL.md](../docs-ai-prd/SKILL.md) — PRD, stories, and prompt/playbook templates
-- [../software-architecture-design/SKILL.md](../software-architecture-design/SKILL.md) — System design guidance for specs and PRDs
-- [../software-frontend/SKILL.md](../software-frontend/SKILL.md) — UI implementation considerations for product specs
-- [../software-backend/SKILL.md](../software-backend/SKILL.md) — Backend/API implications of product decisions
+```
+PRODUCT OKR STRUCTURE:
 
----
+OBJECTIVE: [Qualitative goal]
 
-## Operational Guide
+KEY RESULT 1: [Metric] from [X] to [Y]
+KEY RESULT 2: [Metric] from [X] to [Y]
+KEY RESULT 3: [Metric] from [X] to [Y]
 
-See [resources/operational-guide.md](resources/operational-guide.md) for detailed patterns, template walkthroughs, example flows, and execution checklists. Keep SKILL.md as the navigation hub; use templates/ when producing artifacts.
+EXAMPLE:
+O: Become the preferred solution for enterprise customers
+KR1: Increase enterprise NPS from 40 to 60
+KR2: Reduce enterprise churn from 8% to 4%
+KR3: Increase enterprise ACV from $50K to $75K
+```
 
----
+## Feature Prioritization
 
-## External Resources
+### RICE Framework
 
-See [data/sources.json](data/sources.json) for official frameworks (Lean Startup, OST, PR/FAQ, OKRs) and AI/LLM safety references.
+```
+RICE SCORE = (Reach x Impact x Confidence) / Effort
 
----
+REACH: How many customers affected per quarter
+- Count: Number of users, customers, transactions
 
-Use the quick reference and decision tree above to choose a template, then follow the operational guide for depth.
+IMPACT: Effect on individual customer
+- 3 = Massive
+- 2 = High
+- 1 = Medium
+- 0.5 = Low
+- 0.25 = Minimal
+
+CONFIDENCE: How sure are we
+- 100% = High confidence
+- 80% = Medium
+- 50% = Low
+
+EFFORT: Person-months of work
+- Engineering time
+- Design time
+- PM time
+
+EXAMPLE:
+| Feature | Reach | Impact | Conf | Effort | RICE |
+|---------|-------|--------|------|--------|------|
+| A | 5000 | 2 | 80% | 3 | 2667 |
+| B | 1000 | 3 | 100% | 1 | 3000 |
+| C | 10000 | 1 | 50% | 5 | 1000 |
+```
+
+### ICE Framework
+
+```
+ICE SCORE = Impact x Confidence x Ease
+
+IMPACT (1-10):
+How much will this move our key metric?
+
+CONFIDENCE (1-10):
+How sure are we about impact estimate?
+
+EASE (1-10):
+How easy to implement?
+
+Note: Simpler than RICE, good for quick decisions
+```
+
+### MoSCoW Method
+
+| Category        | Definition                  | Guidance              |
+| --------------- | --------------------------- | --------------------- |
+| **Must Have**   | Non-negotiable for release  | Core functionality    |
+| **Should Have** | Important but not critical  | High value, can defer |
+| **Could Have**  | Nice to have                | If time permits       |
+| **Won't Have**  | Out of scope (this release) | Future consideration  |
+
+### Kano Model
+
+```
+CATEGORIES:
+
+BASIC (Must-be):
+- Expected features
+- Absence causes dissatisfaction
+- Example: Login functionality
+
+PERFORMANCE (Linear):
+- More is better
+- Satisfaction proportional to fulfillment
+- Example: Speed, capacity
+
+DELIGHTERS (Excitement):
+- Unexpected features
+- Absence doesn't cause dissatisfaction
+- Presence greatly increases satisfaction
+- Example: Innovative features
+```
+
+## Customer Research
+
+### Research Methods
+
+| Method              | When to Use              | Sample Size | Time      |
+| ------------------- | ------------------------ | ----------- | --------- |
+| **User Interviews** | Deep understanding       | 5-15        | 2-4 weeks |
+| **Surveys**         | Quantify findings        | 100-1000+   | 1-2 weeks |
+| **Usability Tests** | Validate designs         | 5-8         | 1-2 weeks |
+| **A/B Tests**       | Compare options          | 1000+       | 2-4 weeks |
+| **Analytics**       | Understand behavior      | N/A         | Ongoing   |
+| **Card Sorting**    | Information architecture | 15-30       | 1 week    |
+| **Diary Studies**   | Long-term behavior       | 10-20       | 2-4 weeks |
+
+See [Customer Research Methods](./references/customer-research-methods.md) for detailed interview frameworks, persona templates, and usability testing protocols.
+
+## Product Analytics
+
+### Key Metrics Framework
+
+```
+PIRATE METRICS (AARRR):
+
+ACQUISITION:
+- How do users find us?
+- Metrics: Traffic, signups, installs
+
+ACTIVATION:
+- First positive experience
+- Metrics: Onboarding completion, first value
+
+RETENTION:
+- Do they come back?
+- Metrics: DAU/MAU, cohort retention
+
+REVENUE:
+- Do they pay?
+- Metrics: Conversion, ARPU, LTV
+
+REFERRAL:
+- Do they tell others?
+- Metrics: NPS, referral rate, viral coefficient
+```
+
+### Product Health Metrics
+
+| Metric               | Formula                           | Target   |
+| -------------------- | --------------------------------- | -------- |
+| **DAU/MAU**          | Daily users / Monthly users       | 20-50%+  |
+| **Activation Rate**  | Completed setup / Signups         | 40-60%+  |
+| **Feature Adoption** | Users using feature / Total users | Varies   |
+| **Time to Value**    | Days to first value               | Minimize |
+| **Power Users**      | Heavy users / Total users         | 15-25%   |
+
+See [Analytics and Experimentation](./references/analytics-and-experimentation.md) for detailed cohort analysis, retention benchmarks, and event tracking strategies.
+
+## A/B Testing
+
+### Experiment Framework
+
+```
+EXPERIMENT DESIGN:
+
+HYPOTHESIS:
+If we [change], then [metric] will [improve/decrease] because [rationale].
+
+METRICS:
+- Primary: The metric you're trying to move
+- Secondary: Other metrics to monitor
+- Guardrails: Metrics that shouldn't degrade
+
+SAMPLE SIZE:
+Use calculator based on:
+- Baseline conversion rate
+- Minimum detectable effect (MDE)
+- Statistical significance (usually 95%)
+- Power (usually 80%)
+
+DURATION:
+- At least 1 business cycle
+- Adequate sample size
+- Account for novelty effects
+```
+
+### Decision Framework
+
+- **Ship**: Stat sig + practical sig + no negative guardrails
+- **Iterate**: Directionally positive but not stat sig, or mixed results
+- **Kill**: No effect or negative impact
+- **Investigate**: Unexpected results, large variance, segment differences
+
+See [Analytics and Experimentation](./references/analytics-and-experimentation.md) for detailed statistical concepts, common pitfalls, and segmentation analysis.
+
+## Product Launches
+
+### Launch Checklist
+
+```
+PRE-LAUNCH:
+- [ ] Feature complete and tested
+- [ ] Documentation ready
+- [ ] Support team trained
+- [ ] Marketing materials prepared
+- [ ] Sales team enabled
+- [ ] Beta feedback incorporated
+- [ ] Success metrics defined
+
+LAUNCH:
+- [ ] Staged rollout plan
+- [ ] Monitoring dashboards live
+- [ ] War room established
+- [ ] Communication sent
+- [ ] Feature flags enabled
+
+POST-LAUNCH:
+- [ ] Monitor metrics and feedback
+- [ ] Address critical issues
+- [ ] Gather early learnings
+- [ ] Celebrate wins
+- [ ] Retrospective scheduled
+```
+
+### Go-to-Market Plan
+
+| Element               | Description                  |
+| --------------------- | ---------------------------- |
+| **Target Segment**    | Who is this for?             |
+| **Value Proposition** | Why will they care?          |
+| **Pricing**           | How will we charge?          |
+| **Distribution**      | How will they get it?        |
+| **Messaging**         | What will we say?            |
+| **Enablement**        | How will teams sell/support? |
+| **Measurement**       | How will we track success?   |
+
+## Product Discovery
+
+### Discovery Techniques
+
+| Technique               | Purpose              | When to Use       |
+| ----------------------- | -------------------- | ----------------- |
+| **Opportunity Mapping** | Identify problems    | Early discovery   |
+| **Story Mapping**       | Visualize journeys   | Planning releases |
+| **Design Sprints**      | Rapid prototyping    | Big bets          |
+| **Fake Door Tests**     | Validate demand      | Before building   |
+| **Wizard of Oz**        | Test concepts        | Complex features  |
+| **Concierge MVP**       | Manual service first | New markets       |
+
+### Opportunity Assessment
+
+```
+OPPORTUNITY CANVAS:
+
+PROBLEM:
+What problem are we solving?
+Who has this problem?
+How do they solve it today?
+
+EVIDENCE:
+What data supports this?
+Customer quotes/feedback?
+Market research?
+
+SOLUTION:
+What are we proposing?
+Why will it work?
+What's the MVP?
+
+ASSUMPTIONS:
+What must be true?
+What risks exist?
+How will we validate?
+
+OUTCOME:
+Success metrics?
+Business impact?
+Customer impact?
+```
+
+## Deliverable Templates
+
+### PRD Structure (One-Pager)
+
+```
+1. EXECUTIVE SUMMARY (3-4 sentences)
+- What: One-line description
+- Why: Core problem being solved
+- Who: Target users
+- Success: How we'll measure it
+
+2. BACKGROUND & CONTEXT
+- Current situation and pain points
+- Supporting data
+- Strategic alignment
+
+3. GOALS & SUCCESS METRICS
+- Primary goal and success metric
+- Secondary goals and metrics
+- Guardrail metrics
+
+4. USER STORIES
+Format: "As a [persona], I want to [action], so that [benefit]"
+- Acceptance criteria
+- Priority (Must/Should/Could Have)
+
+5. SOLUTION OVERVIEW
+- High-level description
+- Key user flows
+- Out of scope
+
+6. DESIGN & TECHNICAL CONSIDERATIONS
+- Mockups/wireframes
+- Dependencies
+- Scalability
+
+7. LAUNCH PLAN
+- Rollout strategy
+- Success criteria
+- Risk mitigation
+
+8. OPEN QUESTIONS
+- Unresolved decisions
+- Areas needing research
+```
+
+## Additional Resources
+
+For comprehensive product management frameworks and methodologies:
+
+- [Product Strategy Expert](./references/product-strategy-expert.md) - Complete PM reference guide
+- [Customer Research Methods](./references/customer-research-methods.md) - Interview frameworks, personas, usability testing
+- [Analytics and Experimentation](./references/analytics-and-experimentation.md) - Retention analysis, A/B testing, event tracking
+
+## See Also
+
+- [Data Science](../data-science/SKILL.md) - Analytics and ML
+- [Marketing](../marketing/SKILL.md) - Go-to-market strategy
+- [Business Strategy](../business-strategy/SKILL.md) - Strategic planning

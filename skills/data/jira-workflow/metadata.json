@@ -1,9 +1,7 @@
 {
   "name": "jira-workflow",
-  "description": "Manage J4C project tasks via Jira API. Use for ALL Jira project management tasks including creating tasks, checking ready work, linking dependencies, transitioning status, or adding comments.",
-  "repo": "fwojciec/jira4claude",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "bitsoex/bitso-java",
+  "path": ".claude/skills/jira-workflow/SKILL.md",
+  "source": "github.com/bitsoex/bitso-java",
+  "downloaded_at": "2026-01-22T02:30:38.216569Z"
 }

@@ -5,9 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
-  mode: collaborative
 ---
 
 # Story Collaborator: Active Writing Partner Skill
@@ -197,3 +194,52 @@ For this skill, persist:
 
 Pattern: `{project}-collab-{date}.md`
 Example: `novel-collab-2025-01-15.md`
+
+## Anti-Patterns
+
+### 1. Voice Takeover
+**Pattern:** Generating prose that sounds like you rather than matching the writer's established voice.
+**Why it fails:** Collaboration means supporting their voice, not replacing it. If your contributions don't sound like their story, they can't use them. The work loses coherence.
+**Fix:** Read their samples first. Mirror their sentence patterns, vocabulary level, and POV approach. Your contributions should be indistinguishable from theirs.
+
+### 2. Single Option Delivery
+**Pattern:** Providing one version as if it's the answer rather than offering alternatives.
+**Why it fails:** Single options feel like instructions. The writer is pushed toward accepting rather than choosing. Collaboration means they stay in creative control.
+**Fix:** Default to 2-4 options with different approaches. Label what each accomplishes. Let them choose, combine, or reject. Your job is expansion, not decision.
+
+### 3. Direction Without Consent
+**Pattern:** Introducing plot developments, character changes, or world details the writer didn't request.
+**Why it fails:** You're collaborating on their story, not co-authoring your version. Unsolicited additions redirect their vision. Even if your idea is good, it's not your call.
+**Fix:** Generate only what's requested. If you see an opportunity, ask: "Would you want me to explore...?" Wait for consent before expanding scope.
+
+### 4. Draft as Final
+**Pattern:** Treating your generated content as finished rather than as proposal to react to.
+**Why it fails:** Drafts are starting points. Presenting them as final creates pressure to accept. Writers feel like editors rather than authors.
+**Fix:** Frame everything as proposal: "Here's a draft to react to..." "Feel free to take what works..." "The bones are here; the voice should be yours."
+
+### 5. Craft Silence
+**Pattern:** Generating prose without explaining the thinking behind choices.
+**Why it fails:** Writers don't just want content; they want to learn. Silent generation is ghost-writing, not collaboration. Understanding the choices helps them apply principles themselves.
+**Fix:** Note key choices: "I used subtext here because..." "This dialogue avoids on-the-nose by..." Teach through the work, not just through the output.
+
+## Integration
+
+### Inbound (feeds into this skill)
+| Skill | What it provides |
+|-------|------------------|
+| story-sense | Diagnostic framework guiding what to generate |
+| cliche-transcendence | Originality principles for generated content |
+| scene-sequencing | Structure for scene-level generation |
+| (writer's draft) | Voice and style to match |
+
+### Outbound (this skill enables)
+| Skill | What this provides |
+|-------|-------------|
+| (writer's project) | Draft material ready for incorporation |
+| revision | Content to revise and polish |
+
+### Complementary
+| Skill | Relationship |
+|-------|--------------|
+| story-coach | Story-coach guides through questions; story-collaborator generates content. Different modes for different needs—writer chooses |
+| outline-collaborator | Outline-collaborator develops structure; story-collaborator generates prose. Sequential workflow |

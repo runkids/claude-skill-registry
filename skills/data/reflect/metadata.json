@@ -1,7 +1,7 @@
 {
   "name": "reflect",
-  "repo": "anton-abyzov/specweave",
-  "path": "plugins/specweave/skills/reflect/SKILL.md",
-  "source": "github.com/anton-abyzov/specweave",
-  "downloaded_at": "2026-01-14T03:26:37.175966Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/reflect/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-22T04:17:15.283183Z"
 }

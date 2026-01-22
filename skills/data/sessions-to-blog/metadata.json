@@ -1,12 +1,7 @@
 {
   "name": "sessions-to-blog",
-  "description": "Generate MDX blog posts or recaps from session logs in `sessions/articles`. Use when the user asks to turn daily session notes into publishable blog posts, define writing style or linking rules for th",
-  "repo": "jMerta/codex-skills",
-  "category": "data",
-  "tags": [
-    "sessions",
-    "blog"
-  ],
-  "stars": 90,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lancenunes/codex-skills",
+  "path": "sessions-to-blog/SKILL.md",
+  "source": "github.com/lancenunes/codex-skills",
+  "downloaded_at": "2026-01-22T01:08:11.617195Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "github",
-  "repo": "clawdbot/clawdbot",
-  "path": "skills/github/SKILL.md",
-  "source": "github.com/clawdbot/clawdbot",
-  "downloaded_at": "2026-01-14T04:05:31.548812Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/github/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-22T04:17:12.772209Z"
 }

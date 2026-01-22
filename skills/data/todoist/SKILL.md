@@ -1,135 +1,232 @@
 ---
 name: todoist
-description: Manage tasks and projects in Todoist. Use when user asks about tasks, to-dos, reminders, or productivity.
-homepage: https://todoist.com
-metadata:
-  clawdbot:
-    emoji: "✅"
-    requires:
-      bins: ["todoist"]
-      env: ["TODOIST_API_TOKEN"]
+description: Manage tasks, projects, and productivity in Todoist. View tasks, add new items, check completed work, and organize projects.
 ---
 
-# Todoist CLI
+# Todoist Task Management
 
-CLI for Todoist task management, built on the official TypeScript SDK.
+This skill provides access to Todoist via the REST API.
 
-## Installation
+## Setup Required
 
+**Get your API token:**
+
+1. Go to Todoist Settings → Integrations → Developer
+2. Or visit: https://todoist.com/app/settings/integrations/developer
+3. Copy your API token
+
+Set as environment variable:
 ```bash
-npm install -g todoist-ts-cli
+export TODOIST_TOKEN="your-api-token"
 ```
 
-## Setup
+## When to Use
 
-1. Get API token from https://todoist.com/app/settings/integrations/developer
-2. Either:
-   ```bash
-   todoist auth <your-token>
-   # or
-   export TODOIST_API_TOKEN="your-token"
-   ```
+Use this skill when the user:
+- Asks about their tasks, TODOs, or what they need to do
+- Wants to add a new task or reminder
+- Asks about completed tasks or productivity
+- Wants to organize projects or sections
+- Mentions "Todoist" or their task list
 
-## Commands
+## API Endpoints
+
+Base URL: `https://api.todoist.com/rest/v2`
+
+All requests need:
+```bash
+-H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+**Important:** Use `$(printenv TODOIST_TOKEN)` to ensure the token expands correctly in all shell contexts (zsh eval can lose variable values).
 
 ### Tasks
 
+**Get All Tasks**:
 ```bash
-todoist                    # Show today's tasks (default)
-todoist today              # Same as above
-todoist tasks              # List tasks (today + overdue)
-todoist tasks --all        # All tasks
-todoist tasks -p "Work"    # Tasks in project
-todoist tasks -f "p1"      # Filter query (priority 1)
-todoist tasks --json
+curl -s "https://api.todoist.com/rest/v2/tasks" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
 ```
 
-### Add Tasks
-
+**Get Tasks by Filter**:
 ```bash
-todoist add "Buy groceries"
-todoist add "Meeting" --due "tomorrow 10am"
-todoist add "Review PR" --due "today" --priority 1 --project "Work"
-todoist add "Call mom" -d "sunday" -l "family"  # with label
+curl -s -G "https://api.todoist.com/rest/v2/tasks" \
+  --data-urlencode "filter=today" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
 ```
 
-### Manage Tasks
-
+**Get Single Task**:
 ```bash
-todoist view <id>          # View task details
-todoist done <id>          # Complete task
-todoist reopen <id>        # Reopen completed task
-todoist update <id> --due "next week"
-todoist move <id> -p "Personal"
-todoist delete <id>
+curl -s "https://api.todoist.com/rest/v2/tasks/{TASK_ID}" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
 ```
 
-### Search
-
+**Create Task**:
 ```bash
-todoist search "meeting"
+curl -s -X POST "https://api.todoist.com/rest/v2/tasks" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "Task name",
+    "due_string": "tomorrow",
+    "priority": 2
+  }'
 ```
 
-### Projects & Labels
-
+**Complete Task**:
 ```bash
-todoist projects           # List projects
-todoist project-add "New Project"
-todoist labels             # List labels
-todoist label-add "urgent"
+curl -s -X POST "https://api.todoist.com/rest/v2/tasks/{TASK_ID}/close" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+### Projects
+
+**Get All Projects**:
+```bash
+curl -s "https://api.todoist.com/rest/v2/projects" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+**Get Project**:
+```bash
+curl -s "https://api.todoist.com/rest/v2/projects/{PROJECT_ID}" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+### Sections
+
+**Get Sections**:
+```bash
+curl -s "https://api.todoist.com/rest/v2/sections" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+**Get Sections in Project**:
+```bash
+curl -s "https://api.todoist.com/rest/v2/sections?project_id={PROJECT_ID}" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+### Labels
+
+**Get All Labels**:
+```bash
+curl -s "https://api.todoist.com/rest/v2/labels" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
 ```
 
 ### Comments
 
+**Get Comments on Task**:
 ```bash
-todoist comments <task-id>
-todoist comment <task-id> "Note about this task"
+curl -s "https://api.todoist.com/rest/v2/comments?task_id={TASK_ID}" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
 ```
 
-## Usage Examples
-
-**User: "What do I have to do today?"**
+**Add Comment**:
 ```bash
-todoist today
-```
-
-**User: "Add 'buy milk' to my tasks"**
-```bash
-todoist add "Buy milk" --due "today"
-```
-
-**User: "Remind me to call the dentist tomorrow"**
-```bash
-todoist add "Call the dentist" --due "tomorrow"
-```
-
-**User: "Mark the grocery task as done"**
-```bash
-todoist search "grocery"   # Find task ID
-todoist done <id>
-```
-
-**User: "What's on my work project?"**
-```bash
-todoist tasks -p "Work"
-```
-
-**User: "Show my high priority tasks"**
-```bash
-todoist tasks -f "p1"
+curl -s -X POST "https://api.todoist.com/rest/v2/comments" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "task_id": "TASK_ID",
+    "content": "Comment text"
+  }'
 ```
 
 ## Filter Syntax
 
-Todoist supports powerful filter queries:
-- `p1`, `p2`, `p3`, `p4` - Priority levels
-- `today`, `tomorrow`, `overdue`
-- `@label` - Tasks with label
-- `#project` - Tasks in project
-- `search: keyword` - Search
+The `filter` parameter accepts Todoist filter syntax:
+
+| Filter | Description |
+|--------|-------------|
+| `today` | Due today |
+| `tomorrow` | Due tomorrow |
+| `overdue` | Past due |
+| `7 days` or `next 7 days` | Due in next 7 days |
+| `no date` | No due date |
+| `p1` | Priority 1 (urgent) |
+| `@label_name` | Has label |
+| `#project_name` | In project |
+| `/section_name` | In section |
+| `assigned to: me` | Assigned to you |
+| `today & p1` | Combine with & |
+| `today | tomorrow` | Combine with | (or) |
+
+## Common Workflows
+
+### Get Today's Tasks
+```bash
+curl -s -G "https://api.todoist.com/rest/v2/tasks" \
+  --data-urlencode "filter=today" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)" | jq '.[] | {content, due: .due.string, priority}'
+```
+
+### Get Overdue Tasks
+```bash
+curl -s -G "https://api.todoist.com/rest/v2/tasks" \
+  --data-urlencode "filter=overdue" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+### Add a Task for Tomorrow
+```bash
+curl -s -X POST "https://api.todoist.com/rest/v2/tasks" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "Review the PR",
+    "due_string": "tomorrow",
+    "priority": 2
+  }'
+```
+
+### Get All Tasks in a Project
+```bash
+# First, find project ID
+curl -s "https://api.todoist.com/rest/v2/projects" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)" | jq '.[] | {name, id}'
+
+# Then get tasks
+curl -s "https://api.todoist.com/rest/v2/tasks?project_id={PROJECT_ID}" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+### Get High Priority Tasks
+```bash
+curl -s -G "https://api.todoist.com/rest/v2/tasks" \
+  --data-urlencode "filter=p1 | p2" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)"
+```
+
+### List Projects with Task Counts
+```bash
+curl -s "https://api.todoist.com/rest/v2/projects" \
+  -H "Authorization: Bearer $(printenv TODOIST_TOKEN)" | jq '.[] | {name, id}'
+```
+
+## Task Properties
+
+When creating tasks:
+- **content**: Task text (required)
+- **description**: Additional details
+- **due_string**: Natural language date ("tomorrow", "every monday")
+- **due_date**: Specific date (YYYY-MM-DD)
+- **due_datetime**: With time (RFC3339)
+- **priority**: 1 (urgent) to 4 (normal) - note: API uses 1=urgent, opposite of UI
+- **project_id**: Project to add to
+- **section_id**: Section within project
+- **labels**: Array of label names
+- **assignee_id**: For shared projects
 
 ## Notes
 
-- Task IDs are shown in task listings
-- Due dates support natural language ("tomorrow", "next monday", "jan 15")
-- Priority 1 is highest, 4 is lowest
+- API rate limit: 1000 requests per 15 minutes per user
+- Priority in API: 1 = urgent (p1 in UI), 4 = normal
+- Due strings support natural language in multiple languages
+- Get your token at: https://todoist.com/app/settings/integrations/developer
+
+## Sources
+
+- [Todoist REST API Reference](https://developer.todoist.com/rest/v2/)
+- [Find your API token](https://www.todoist.com/help/articles/find-your-api-token-Jpzx9IIlB)

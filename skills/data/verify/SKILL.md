@@ -1,259 +1,127 @@
 ---
 name: verify
-description: Run tests and fix issues end-to-end with Claude CodePro
+description: 검증 스킬. 빌드, 린트, 테스트 검증. 커밋/PR 전 필수 실행. AI가 스스로 코드를 검증하는 자체 검증 루프.
 ---
-# VERIFY MODE: Verification and Quality Assurance Process with Code Review
 
-> **WARNING: DO NOT use the Task tool with any subagent_type (Explore, Plan, general-purpose).**
-> Perform ALL verification yourself using direct tool calls (Read, Grep, Glob, Bash, MCP tools).
-> Sub-agents lose context and make verification inconsistent.
+# Verify Skill
 
-**Available MCP Tools:**
-- **Context7** - Library documentation lookup: `resolve-library-id(query, libraryName)` then `query-docs(libraryId, query)` - descriptive queries required (see `library-docs.md`)
-- **Firecrawl** - Web search and scraping (`firecrawl_search`, `firecrawl_scrape`) for researching issues
-- **mcp-cli** - Custom MCP servers via `mcp-cli <server>/<tool> '<json>'` for servers in `mcp_servers.json`
+자체 검증 루프. AI가 스스로 코드를 검증할 수 있는 수단.
 
-## The Process
+> Boris: "품질을 2~3배 높이는 비결입니다. Claude가 코드를 짠 뒤 스스로 검증할 수 있는 루프(Loop)를 만들어 주세요."
 
-Tests → Program execution → **Rules compliance audit** → Call chain analysis → Coverage → Quality checks → Code review → E2E → Final verification
-
-Active verification with comprehensive code review that immediately fixes issues as discovered, ensuring all tests pass, code quality is high, and system works end-to-end.
-
-### Step 1: Run & Fix Unit Tests
-
-Run unit tests and fix any failures immediately.
-
-**If failures:** Identify → Read test → Fix implementation → Re-run → Continue until all pass
-
-### Step 2: Run & Fix Integration Tests
-
-Run integration tests and fix any failures immediately.
-
-**Common issues:** Database connections, mock configuration, missing test data
-
-### Step 3: Build and Execute the Actual Program (MANDATORY)
-
-**⚠️ CRITICAL: Tests passing ≠ Program works**
-
-Run the actual program and verify real output.
-
-**If bugs are found:**
-1. Fix bugs immediately (no need to add tasks for minor fixes)
-2. Re-run to verify the fix worked
-3. Continue verification - do not stop or hand off to user
-
-### Step 3a: Feature Parity Check (if applicable)
-
-**For refactoring/migration tasks:** Verify ALL original functionality is preserved.
-
-**Process:**
-1. Compare old implementation with new implementation
-2. Create checklist of features from old code
-3. Verify each feature exists in new code
-4. Run new code and verify same behavior as old code
-
-**If features are MISSING:**
-
-This is a serious issue - the implementation is incomplete.
-
-1. **Add new tasks to the plan file:**
-   - Read the existing plan
-   - Add new tasks for each missing feature (follow existing task format)
-   - Mark new tasks with `[MISSING]` prefix in task title
-   - Update the Progress Tracking section with new task count
-   - Add note: `> Extended [Date]: Tasks X-Y added for missing features found during verification`
-
-2. **Set plan status to PENDING:**
-   ```
-   Edit the plan file and change the Status line:
-   Status: COMPLETE  →  Status: PENDING
-   ```
-
-3. **Inform user:**
-   ```
-   ⚠️ VERIFICATION FAILED - Missing Features Detected
-
-   Found [N] missing features that need implementation:
-   - [Feature 1]
-   - [Feature 2]
-   - ...
-
-   The plan has been updated with [N] new tasks.
-   ```
-
-4. **STOP** - Do not continue verification
-
-### Step 4: Rules Compliance Audit
-
-**MANDATORY: Verify work complies with ALL project rules before proceeding.**
-
-#### Process
-
-1. **Discover all rules:**
-   ```
-   Glob(".claude/rules/standard/*.md") → Read each file
-   Glob(".claude/rules/custom/*.md") → Read each file
-   ```
-
-2. **For each rule file:**
-   - Read the entire file
-   - Extract the key requirements and constraints
-   - Check if each requirement was followed during implementation
-   - Note any violations
-
-3. **Classify violations:**
-   - **Fixable Now:** Can be remediated immediately (run missing commands, apply fixes)
-   - **Structural:** Cannot be fixed retroactively (missed TDD cycle, architectural issues)
-
-4. **Remediate:** Execute fixes for all fixable violations before continuing
-
-#### Output Format
+## 검증 단계
 
 ```
-## Rules Compliance Audit
-
-### Rules Checked
-- `.claude/rules/standard/[filename].md` - [Brief description]
-- `.claude/rules/custom/[filename].md` - [Brief description]
-- ...
-
-### ✅ Compliant
-- [Rule file]: [Requirements that were followed]
-
-### ⚠️ Violations Found (Fixable)
-- [Rule file]: [Violation] → [Fix action to execute now]
-
-### ❌ Violations Found (Structural)
-- [Rule file]: [Violation] → [What should have been done differently]
-
-### Remediation
-[Execute each fix action listed above]
-[Show output/evidence of fixes applied]
+/verify
+    │
+    ├─ Step 1: 빌드 검증
+    │   └─ pnpm build
+    │       ├─ 성공 → Step 2로
+    │       └─ 실패 → 에러 분석 → 코드 수정 → 재검증
+    │
+    ├─ Step 2: 린트 검증
+    │   └─ pnpm lint
+    │       ├─ 성공 → Step 3로
+    │       └─ 에러 → 자동 수정 또는 코드 수정 → 재검증
+    │
+    └─ Step 3: 테스트 검증
+        └─ pnpm test:run
+            ├─ 성공 → 검증 완료
+            └─ 실패 → 테스트 또는 코드 수정 → 재검증
 ```
 
-#### Completion Gate
+## 호출 시점
 
-**DO NOT proceed to Step 5 until:**
-- All rule files have been read and checked
-- All fixable violations have been remediated
-- Structural violations have been documented
+| 시점 | 필수 여부 | 이유 |
+|------|----------|------|
+| 커밋 전 | **필수** | 빌드 실패 커밋 방지 |
+| PR 생성 전 | **필수** | CI 실패 방지 |
+| 구현 완료 후 | 권장 | 조기 문제 발견 |
+| 리뷰 이슈 수정 후 | 권장 | 수정 검증 |
 
-**If serious structural violations exist:** Consider whether to continue or restart implementation.
+## 검증 결과 처리
 
-### Step 5: Call Chain Analysis
+| 결과 | 조치 |
+|------|------|
+| 빌드 실패 | 에러 메시지 분석 → 코드 수정 → `/verify` 재실행 |
+| 린트 에러 | `pnpm lint --fix` 시도 → 수동 수정 필요 시 코드 수정 |
+| 테스트 실패 | 실패 테스트 분석 → 테스트 또는 구현 수정 |
+| **모두 통과** | 커밋/PR 진행 가능 |
 
-**Perform deep impact analysis for all changes:**
+## 검증 루프 (Self-Healing)
 
-1. **Trace Upwards (Callers):**
-   - Identify all code that calls modified functions
-   - Verify they handle new return values/exceptions
-   - Check for breaking changes in interfaces
+```
+코드 수정
+    ↓
+/verify 실행
+    ↓
+실패 발견? ─Yes→ 에러 분석 → 코드 수정 → (루프)
+    │
+    No
+    ↓
+커밋/PR 진행
+```
 
-2. **Trace Downwards (Callees):**
-   - Identify all dependencies of modified code
-   - Verify correct parameter passing
-   - Check error handling from callees
+**핵심**: 검증 실패 시 사용자 개입 없이 Claude가 스스로 수정하고 재검증합니다.
 
-3. **Side Effect Analysis:**
-   - Database state changes
-   - Cache invalidation needs
-   - External system impacts
-   - Global state modifications
+## 명령어 레퍼런스
 
-### Step 6: Check Coverage
-
-Verify test coverage meets requirements.
-
-**If insufficient:** Identify uncovered lines → Write tests for critical paths → Verify improvement
-
-### Step 7: Run Quality Checks
-
-Run automated quality tools and fix any issues found.
-
-### Step 8: Code Review Simulation
-
-**Perform self-review using code review checklist:**
-
-- [ ] **Logic Correctness:** Edge cases handled, algorithms correct
-- [ ] **Architecture & Design:** SOLID principles, no unnecessary coupling
-- [ ] **Performance:** No N+1 queries, efficient algorithms, no memory leaks
-- [ ] **Security:** No SQL injection, XSS, proper auth/authz
-- [ ] **Readability:** Clear naming, complex logic documented
-- [ ] **Error Handling:** Graceful error handling, adequate logging
-- [ ] **Convention Compliance:** Follows project standards
-
-**If issues found:** Document and fix immediately
-
-### Step 9: E2E Verification (if applicable)
-
-Run end-to-end tests as appropriate for the application type.
-
-#### For APIs: Manual or Automated API Testing
-
-**When applicable:** REST APIs, GraphQL APIs, authentication systems, microservices
-
-**Test with curl:**
 ```bash
-# Health check
-curl -s http://localhost:8000/health | jq
+# 빌드 검증
+pnpm build
 
-# CRUD operations
-curl -X POST http://localhost:8000/api/resource -H "Content-Type: application/json" -d '{"name": "test"}'
-curl -s http://localhost:8000/api/resource/1 | jq
-curl -X PUT http://localhost:8000/api/resource/1 -H "Content-Type: application/json" -d '{"name": "updated"}'
-curl -X DELETE http://localhost:8000/api/resource/1
+# 린트 검증
+pnpm lint
+
+# 린트 자동 수정
+pnpm lint --fix
+
+# 테스트 검증
+pnpm test:run
+
+# 특정 테스트만 실행
+pnpm test:run <패턴>
+
+# 타입 체크
+pnpm typecheck
 ```
 
-**Verify:**
-- All requests succeed with expected status codes
-- Response times are acceptable
-- Authentication flows work correctly
-- CRUD operations complete successfully
-- Error scenarios return proper error codes
+## 예시
 
-**If failures:** Analyze failure → Check API endpoint → Fix implementation → Re-run → Continue until all pass
+### 입력
+```
+/verify
+```
 
-### Step 10: Final Verification
+### 실행 흐름
 
-**Run everything one more time:**
-- All tests
-- Program build and execution
-- Diagnostics
-- Call chain validation
+```
+1. pnpm build
+   ✗ 에러: Cannot find module '@/shared/types'
+   → import 경로 수정
+   → pnpm build 재실행
+   ✓ 빌드 성공
 
-**Success criteria:**
-- All tests passing
-- No diagnostics errors
-- Program builds and executes successfully with correct output
-- Coverage ≥ 80%
-- All Definition of Done criteria met
-- Code review checklist complete
-- No breaking changes in call chains
+2. pnpm lint
+   ✗ 에러: 'useState' is defined but never used
+   → 불필요한 import 제거
+   → pnpm lint 재실행
+   ✓ 린트 통과
 
-### Step 11: Update Plan Status
+3. pnpm test:run
+   ✓ 모든 테스트 통과
 
-**Status Lifecycle:** `PENDING` → `COMPLETE` → `VERIFIED`
+4. 결과: "검증 완료. 커밋 가능합니다."
+```
 
-**When ALL verification passes (no missing features, no bugs, rules compliant):**
+## 주의사항
 
-1. **MANDATORY: Update plan status to VERIFIED**
-   ```
-   Edit the plan file and change the Status line:
-   Status: COMPLETE  →  Status: VERIFIED
-   ```
-2. Inform user: "✅ Verification complete. Plan status updated to VERIFIED."
+- **검증 생략 금지**: 커밋/PR 전에는 반드시 `/verify` 실행
+- **수동 개입 최소화**: 가능한 Claude가 스스로 문제 해결
+- **루프 제한**: 동일 에러로 3회 이상 실패 시 사용자에게 알림
 
-**When verification FAILS (missing features, serious bugs, or unfixed rule violations):**
+## Chrome Extension 특수 사항
 
-1. Add new tasks to the plan for missing features/bugs
-2. **Set status back to PENDING:**
-   ```
-   Edit the plan file and change the Status line:
-   Status: COMPLETE  →  Status: PENDING
-   ```
-3. Inform user: "⚠️ Found issues. Fixing and re-verifying..."
-4. Automatically fix bugs one after another
-5. After fixing, **loop back to Step 1** and re-run verification
-6. **The /spec workflow handles this automatically** - do not tell user to run another command
-
-**Fix immediately | Test after each fix | No "should work" - verify it works | Keep fixing until green**
+- Chrome API 모킹: 테스트에서 `chrome.storage` 등을 모킹 필요
+- Manifest 검증: `manifest.json` 구문 오류 확인
+- 빌드 출력: `dist/` 폴더에 정상 생성 확인

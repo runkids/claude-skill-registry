@@ -1,340 +1,399 @@
 ---
 name: reverse-engineer
-description: Deep codebase analysis to generate 9 comprehensive documentation files. Adapts based on path choice - Greenfield extracts business logic only (tech-agnostic), Brownfield extracts business logic + technical implementation (tech-prescriptive). This is Step 2 of 6 in the reverse engineering process.
+description: |
+  Reverse engineer existing code into SDD specification documents.
+  Use when: analyzing legacy code, documenting undocumented systems, creating specs from existing implementations.
+  Keywords: reverse engineering, legacy code, documentation, spec extraction, code archaeology, 反向工程, 舊有程式碼, 規格提取.
 ---
 
-# Reverse Engineer (Path-Aware)
+# Reverse Engineering to SDD Specification Guide
 
-**Step 2 of 6** in the Reverse Engineering to Spec-Driven Development process.
+> **Language**: English | [繁體中文](../../../locales/zh-TW/skills/claude-code/reverse-engineer/SKILL.md)
 
-**Estimated Time:** 30-45 minutes
-**Prerequisites:** Step 1 completed (`analysis-report.md` and path selection)
-**Output:** 9 comprehensive documentation files in `docs/reverse-engineering/`
+**Version**: 1.1.0
+**Last Updated**: 2026-01-19
+**Applicability**: Claude Code Skills
 
-**Path-Dependent Behavior:**
-- **Greenfield:** Extract business logic only (framework-agnostic)
-- **Brownfield:** Extract business logic + technical implementation details
-
-**Note:** Output is the same regardless of implementation framework (Spec Kit or BMAD). The framework choice only affects what happens at Gear 6 (handoff).
-
----
-
-## When to Use This Skill
-
-Use this skill when:
-- You've completed Step 1 (Initial Analysis) with path selection
-- Ready to extract comprehensive documentation from code
-- Path has been chosen (greenfield or brownfield)
-- Preparing to create formal specifications
-
-**Trigger Phrases:**
-- "Reverse engineer the codebase"
-- "Generate comprehensive documentation"
-- "Extract business logic" (greenfield)
-- "Document the full implementation" (brownfield)
+> **Core Standard**: This skill implements [Reverse Engineering Standards](../../../core/reverse-engineering-standards.md). For comprehensive methodology documentation accessible by any AI tool, refer to the core standard.
 
 ---
 
-## What This Skill Does
+## Purpose
 
-This skill performs deep codebase analysis and generates **9 comprehensive documentation files**.
+This skill guides you through reverse engineering existing code into SDD (Spec-Driven Development) specification documents, with strict adherence to Anti-Hallucination standards.
 
-**Content adapts based on your route (greenfield vs brownfield):**
+## Quick Reference
 
-### Path A: Greenfield (Business Logic Only)
-- Focus on WHAT the system does
-- Avoid framework/technology specifics
-- Extract user stories, business rules, workflows
-- Framework-agnostic functional requirements
-- Can be implemented in any tech stack
+### Reverse Engineering Workflow
 
-### Path B: Brownfield (Business Logic + Technical)
-- Focus on WHAT and HOW
-- Document exact frameworks, libraries, versions
-- Extract file paths, configurations, schemas
-- Prescriptive technical requirements
-- Enables `/speckit.analyze` validation
-
-**9 Documentation Files Generated:**
-
-1. **functional-specification.md** - Business logic, requirements, user stories (+ tech details for brownfield)
-2. **integration-points.md** - External services, APIs, dependencies, data flows (single source of truth)
-3. **configuration-reference.md** - Config options (business-level for greenfield, all details for brownfield)
-4. **data-architecture.md** - Data models, API contracts (abstract for greenfield, schemas for brownfield)
-5. **operations-guide.md** - Operational needs (requirements for greenfield, current setup for brownfield)
-6. **technical-debt-analysis.md** - Issues and improvements
-7. **observability-requirements.md** - Monitoring needs (goals for greenfield, current state for brownfield)
-8. **visual-design-system.md** - UI/UX patterns (requirements for greenfield, implementation for brownfield)
-9. **test-documentation.md** - Testing requirements (targets for greenfield, current state for brownfield)
-
----
-
-## Configuration Check (FIRST STEP!)
-
-**Load state file to check detection type and route:**
-
-```bash
-# Check what kind of application we're analyzing
-DETECTION_TYPE=$(cat .stackshift-state.json | jq -r '.detection_type // .path')
-echo "Detection: $DETECTION_TYPE"
-
-# Check extraction approach
-ROUTE=$(cat .stackshift-state.json | jq -r '.route // .path')
-echo "Route: $ROUTE"
-
-# Check spec output location (Greenfield only)
-SPEC_OUTPUT=$(cat .stackshift-state.json | jq -r '.config.spec_output_location // "."')
-echo "Writing specs to: $SPEC_OUTPUT"
-
-# Create output directories if needed
-if [ "$SPEC_OUTPUT" != "." ]; then
-  mkdir -p "$SPEC_OUTPUT/docs/reverse-engineering"
-  mkdir -p "$SPEC_OUTPUT/.specify/memory/specifications"
-fi
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              Reverse Engineering Workflow                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1️⃣  Code Analysis (AI Automated)                              │
+│      ├─ Scan code structure, APIs, data models                 │
+│      ├─ Parse existing tests for acceptance criteria           │
+│      └─ Generate draft spec (with uncertainty labels)          │
+│                                                                 │
+│  2️⃣  Human Input (Required)                                    │
+│      ├─ Write Motivation (why this feature exists)             │
+│      ├─ Add Risk Assessment                                    │
+│      └─ Verify dependencies and business context               │
+│                                                                 │
+│  3️⃣  Review & Confirm                                          │
+│      ├─ Discuss with stakeholders                              │
+│      └─ Confirm [Confirmed] / [Inferred] / [Unknown] labels    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-**State file structure:**
-```json
-{
-  "detection_type": "monorepo-service",  // What kind of app
-  "route": "greenfield",                  // How to spec it
-  "implementation_framework": "speckit",  // speckit or bmad (affects Gear 6 only)
-  "config": {
-    "spec_output_location": "~/git/my-new-app",
-    "build_location": "~/git/my-new-app",
-    "target_stack": "Next.js 15..."
+### What Can vs Cannot Be Extracted
+
+| Aspect | Extractable | Certainty | Notes |
+|--------|-------------|-----------|-------|
+| **API Endpoints** | ✅ Yes | [Confirmed] | Route definitions, HTTP methods |
+| **Data Models** | ✅ Yes | [Confirmed] | Types, interfaces, schemas |
+| **Function Signatures** | ✅ Yes | [Confirmed] | Parameters, return types |
+| **Test Cases** | ✅ Yes | [Confirmed] | → Acceptance Criteria |
+| **Dependencies** | ✅ Yes | [Confirmed] | Package references |
+| **Behavior Patterns** | ⚠️ Partial | [Inferred] | From code analysis |
+| **Motivation/Why** | ❌ No | [Unknown] | Needs human input |
+| **Business Context** | ❌ No | [Unknown] | Needs human input |
+| **Risk Assessment** | ❌ No | [Unknown] | Needs domain expertise |
+| **Trade-off Decisions** | ❌ No | [Unknown] | Historical context missing |
+
+## Core Principles
+
+### 1. Anti-Hallucination Compliance
+
+**CRITICAL**: This skill MUST strictly follow [Anti-Hallucination Standards](../../../core/anti-hallucination.md).
+
+#### Certainty Labels
+
+| Tag | Use When | Example |
+|-----|----------|---------|
+| `[Confirmed]` | Direct evidence from code/tests | API endpoint at `src/api/users.ts:15` |
+| `[Inferred]` | Logical deduction from patterns | "Likely uses dependency injection based on constructor pattern" |
+| `[Unknown]` | Cannot determine from code | Motivation, business requirements |
+| `[Need Confirmation]` | Requires human verification | Design intent, edge case handling |
+
+#### Source Attribution
+
+Every extracted item MUST include source attribution:
+
+```markdown
+## API Design
+
+### User Authentication
+[Confirmed] POST /api/auth/login endpoint accepts email and password
+- [Source: Code] src/controllers/AuthController.ts:25-45
+- [Source: Code] src/routes/auth.ts:8
+
+### Session Management
+[Inferred] Sessions expire after 24 hours based on JWT expiry configuration
+- [Source: Code] src/config/auth.ts:12 - TOKEN_EXPIRY=86400
+- [Source: Knowledge] Standard JWT expiry interpretation (⚠️ Verify intent)
+```
+
+### 2. Progressive Disclosure
+
+Start with high-level architecture, then drill down:
+
+1. **System Overview**: Entry points, main components
+2. **Component Details**: Individual modules, their responsibilities
+3. **Implementation Specifics**: Algorithms, data flows
+
+### 3. Test-to-Requirement Mapping
+
+Extract acceptance criteria from tests:
+
+```javascript
+// Test file: src/tests/auth.test.ts
+describe('Authentication', () => {
+  it('should return 401 for invalid credentials', () => {...});
+  it('should issue JWT token on successful login', () => {...});
+  it('should refresh token before expiry', () => {...});
+});
+```
+
+Becomes:
+
+```markdown
+## Acceptance Criteria
+[Inferred] From test analysis (src/tests/auth.test.ts):
+- [ ] Return 401 status code for invalid credentials
+- [ ] Issue JWT token on successful login
+- [ ] Support token refresh before expiry
+```
+
+## Workflow Stages
+
+### Stage 1: Code Scanning
+
+**Input**: File path or directory
+**Output**: Code structure analysis
+
+**Actions**:
+1. Identify entry points (main functions, API routes, event handlers)
+2. Map module dependencies
+3. Extract type definitions and interfaces
+4. List configuration sources
+
+### Stage 2: Test Analysis
+
+**Input**: Test files
+**Output**: Acceptance criteria candidates
+
+**Actions**:
+1. Parse test case names
+2. Extract Given-When-Then patterns (if BDD-style)
+3. Identify boundary conditions
+4. Note coverage gaps
+
+### Stage 3: Gap Identification
+
+**Input**: Code + test analysis
+**Output**: List of unknowns requiring human input
+
+**Required Human Input**:
+- [ ] Motivation: Why was this feature built?
+- [ ] User Story: Who uses this and for what purpose?
+- [ ] Risks: What could go wrong?
+- [ ] Trade-offs: Why this approach over alternatives?
+- [ ] Out of Scope: What was explicitly excluded?
+
+### Stage 4: Spec Generation
+
+**Input**: All analysis results
+**Output**: Draft specification document
+
+**Template**: Use [reverse-spec-template.md](../../../templates/reverse-spec-template.md)
+
+### Stage 5: Human Review
+
+**Input**: Draft specification
+**Output**: Validated specification
+
+**Review Checklist**:
+- [ ] All `[Confirmed]` items verified accurate
+- [ ] All `[Inferred]` items validated or corrected
+- [ ] All `[Unknown]` items filled in by human
+- [ ] Source citations checked
+- [ ] Business context added
+
+## Examples
+
+### Example 1: API Endpoint Extraction
+
+**Input Code** (`src/controllers/UserController.ts`):
+```typescript
+export class UserController {
+  @Get('/users/:id')
+  @Authorize('admin', 'user')
+  async getUser(@Param('id') id: string): Promise<User> {
+    return this.userService.findById(id);
   }
 }
 ```
 
-**Output structure (same for all frameworks):**
+**Extracted Specification**:
+```markdown
+## API Endpoints
+
+### GET /users/:id
+[Confirmed] Retrieves a user by ID
+- [Source: Code] src/controllers/UserController.ts:3-7
+
+**Authorization**: [Confirmed] Requires 'admin' or 'user' role
+- [Source: Code] @Authorize decorator at line 4
+
+**Parameters**:
+- `id` (path, required): User identifier [Confirmed]
+
+**Response**: [Confirmed] Returns User object
+- [Source: Code] Return type at line 5
+
+**Error Handling**: [Unknown] Error responses not evident from code
 ```
-docs/reverse-engineering/
-├── functional-specification.md
-├── integration-points.md
-├── configuration-reference.md
-├── data-architecture.md
-├── operations-guide.md
-├── technical-debt-analysis.md
-├── observability-requirements.md
-├── visual-design-system.md
-└── test-documentation.md
+
+### Example 2: Test-to-Criteria Extraction
+
+**Input Test** (`src/tests/cart.test.ts`):
+```typescript
+describe('Shopping Cart', () => {
+  it('should add item to empty cart', () => {...});
+  it('should increment quantity for duplicate items', () => {...});
+  it('should not exceed maximum quantity of 99', () => {...});
+  it('should calculate total with tax', () => {...});
+});
 ```
 
-**Extraction approach based on detection + route:**
+**Extracted Acceptance Criteria**:
+```markdown
+## Acceptance Criteria
 
-| Detection Type | + Greenfield | + Brownfield |
-|----------------|--------------|--------------|
-| **Monorepo Service** | Business logic only (tech-agnostic) | Full implementation + shared packages (tech-prescriptive) |
-| **Nx App** | Business logic only (framework-agnostic) | Full Nx/Angular implementation details |
-| **Generic App** | Business logic only | Full implementation |
+[Inferred] From test analysis (src/tests/cart.test.ts):
+- [ ] Can add item to empty cart (line 2)
+- [ ] Increments quantity for duplicate items (line 3)
+- [ ] Maximum quantity limit: 99 items (line 4)
+- [ ] Total calculation includes tax (line 5)
 
-**How it works:**
-- `detection_type` determines WHAT patterns to look for (shared packages, Nx project config, monorepo structure, etc.)
-- `route` determines HOW to document them (tech-agnostic vs tech-prescriptive)
+[Unknown] Tax calculation rules not specified in tests
+[Need Confirmation] What happens when cart exceeds 99 items? (reject or cap?)
+```
 
-**Examples:**
-- Monorepo Service + Greenfield → Extract what the service does (not React/Express specifics)
-- Monorepo Service + Brownfield → Extract full Express routes, React components, shared utilities
-- Nx App + Greenfield → Extract business logic (not Angular specifics)
-- Nx App + Brownfield → Extract full Nx configuration, Angular components, project graph
+## Integration with Other Skills
 
----
+### With /spec (Spec-Driven Development)
 
-## Process Overview
+1. Generate reverse-engineered spec using `/reverse-spec`
+2. Review and fill in `[Unknown]` sections
+3. Use `/spec review` to validate completeness
+4. Proceed with normal SDD workflow for enhancements
 
-### Phase 1: Deep Codebase Analysis
+### With /tdd (Test-Driven Development)
 
-**Approach depends on path:**
+1. Extract existing test patterns
+2. Identify test coverage gaps
+3. Use `/tdd` to add missing tests
+4. Update spec with new acceptance criteria
 
-Use the Task tool with `subagent_type=stackshift:code-analyzer` (or `Explore` as fallback) to analyze:
+### With /bdd (Behavior-Driven Development)
 
-#### 1.1 Backend Analysis
-- All API endpoints (method, path, auth, params, purpose)
-- Data models (schemas, types, interfaces, fields)
-- Configuration (env vars, config files, settings)
-- External integrations (APIs, services, databases)
-- Business logic (services, utilities, algorithms)
+1. Convert extracted acceptance criteria to Gherkin format
+2. Use `/bdd` to formalize scenarios
+3. Validate scenarios with stakeholders
 
-See [operations/backend-analysis.md](operations/backend-analysis.md)
+## Complete Reverse Engineering Pipeline
 
-#### 1.2 Frontend Analysis
-- All pages/routes (path, purpose, auth requirement)
-- Components catalog (layout, form, UI components)
-- State management (store structure, global state)
-- API client (how frontend calls backend)
-- Styling (design system, themes, component styles)
+The reverse engineering skill supports a complete SDD → BDD → TDD pipeline:
 
-See [operations/frontend-analysis.md](operations/frontend-analysis.md)
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   Complete Reverse Engineering Pipeline                   │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│   Code + Tests                                                          │
+│        │                                                                │
+│        ▼                                                                │
+│   /reverse-spec                                                         │
+│        │                                                                │
+│        └─→ Generate SPEC-XXX with Acceptance Criteria                   │
+│                │                                                        │
+│                ▼                                                        │
+│   /reverse-bdd                                                          │
+│        │                                                                │
+│        ├─→ AC → Gherkin scenario conversion                             │
+│        ├─→ Auto-transform bullet points to Given-When-Then              │
+│        └─→ Generate .feature files                                      │
+│                │                                                        │
+│                ▼                                                        │
+│   /reverse-tdd                                                          │
+│        │                                                                │
+│        ├─→ Analyze existing unit tests                                  │
+│        └─→ Generate coverage report with gaps                           │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
-#### 1.3 Infrastructure Analysis
-- Deployment (IaC tools, configuration)
-- CI/CD (pipelines, workflows)
-- Hosting (cloud provider, services)
-- Database (type, schema, migrations)
-- Storage (object storage, file systems)
+### Pipeline Commands
 
-See [operations/infrastructure-analysis.md](operations/infrastructure-analysis.md)
+| Command | Input | Output | Purpose |
+|---------|-------|--------|---------|
+| `/reverse-spec` | Code directory | SPEC-XXX.md | Extract requirements from code |
+| `/reverse-bdd` | SPEC file | .feature files | Convert AC to Gherkin scenarios |
+| `/reverse-tdd` | .feature files | Coverage report | Map scenarios to unit tests |
 
-#### 1.4 Testing Analysis
-- Test files (location, framework, coverage)
-- Test types (unit, integration, E2E)
-- Coverage estimates (% covered)
-- Test data (mocks, fixtures, seeds)
+### Usage Example
 
-See [operations/testing-analysis.md](operations/testing-analysis.md)
+```bash
+# Step 1: Reverse engineer code to SDD specification
+/reverse-spec src/auth/
 
-### Phase 2: Generate Documentation
+# Step 2: Transform acceptance criteria to BDD scenarios
+/reverse-bdd specs/SPEC-AUTH.md
 
-Create `docs/reverse-engineering/` directory and generate all 8 documentation files.
+# Step 3: Analyze test coverage against BDD scenarios
+/reverse-tdd features/auth.feature
+```
 
-See [operations/generate-docs.md](operations/generate-docs.md) for templates and guidelines.
+### Detailed Guides
 
----
+- [BDD Extraction Workflow](./bdd-extraction.md) - Detailed guide for AC → Gherkin transformation
+- [TDD Analysis Workflow](./tdd-analysis.md) - Detailed guide for BDD → TDD coverage analysis
 
-## Output Files
+## Anti-Patterns to Avoid
 
-All 9 documentation files are written to `docs/reverse-engineering/` regardless of implementation framework choice.
+### ❌ Don't Do This
 
----
+1. **Fabricating Motivation**
+   - Wrong: "This feature was built to improve user experience"
+   - Right: "[Unknown] Motivation requires human input"
 
-### 1. functional-specification.md
-**Focus:** Business logic, WHAT the system does (not HOW)
+2. **Assuming Requirements**
+   - Wrong: "The system requires SSO support"
+   - Right: "[Need Confirmation] SSO configuration found in code - is this a requirement?"
 
-**Sections:**
-- Executive Summary (purpose, users, value)
-- Functional Requirements (FR-001, FR-002, ...)
-- User Stories (P0/P1/P2/P3 priorities)
-- Non-Functional Requirements (NFR-001, ...)
-- Business Rules (validation, authorization, workflows)
-- System Boundaries (scope, integrations)
-- Success Criteria (measurable outcomes)
+3. **Speculating About Unread Code**
+   - Wrong: "The PaymentService handles Stripe integration"
+   - Right: "[Unknown] PaymentService functionality - need to read src/services/PaymentService.ts"
 
-**Critical:** Framework-agnostic, testable, measurable
+4. **Presenting Options Without Uncertainty**
+   - Wrong: "The code uses Redis for caching"
+   - Right: "[Confirmed] Redis client configured in src/config/cache.ts:5"
 
-### 2. configuration-reference.md
-**Complete inventory** of all configuration:
-- Environment variables
-- Config file options
-- Feature flags
-- Secrets and credentials (how managed)
-- Default values
+## Best Practices
 
-### 3. data-architecture.md
-**All data models and API contracts:**
-- Data models (with field types, constraints, relationships)
-- API endpoints (request/response formats)
-- JSON Schemas
-- GraphQL schemas (if applicable)
-- Database ER diagram (textual)
+### Do's
 
-### 4. operations-guide.md
-**How to deploy and maintain:**
-- Deployment procedures
-- Infrastructure overview
-- Monitoring and alerting
-- Backup and recovery
-- Troubleshooting runbooks
+- ✅ Read all relevant files before making claims
+- ✅ Tag every statement with certainty level
+- ✅ Include source citations with file:line
+- ✅ Clearly list what needs human input
+- ✅ Preserve original code comments as context
 
-### 5. technical-debt-analysis.md
-**Issues and improvements:**
-- Code quality issues
-- Missing tests
-- Security vulnerabilities
-- Performance bottlenecks
-- Refactoring opportunities
+### Don'ts
 
-### 6. observability-requirements.md
-**Logging, monitoring, alerting:**
-- What to log (events, errors, metrics)
-- Monitoring requirements (uptime, latency, errors)
-- Alerting rules and thresholds
-- Debugging capabilities
-
-### 7. visual-design-system.md
-**UI/UX patterns:**
-- Component library
-- Design tokens (colors, typography, spacing)
-- Responsive breakpoints
-- Accessibility standards
-- User flows
-
-### 8. test-documentation.md
-**Testing requirements:**
-- Test strategy
-- Coverage requirements
-- Test patterns and conventions
-- E2E scenarios
-- Performance testing
+- ❌ Assume motivation or business context
+- ❌ Present inferences as confirmed facts
+- ❌ Skip source attribution
+- ❌ Generate specs for unread code
+- ❌ Fill in `[Unknown]` sections without human input
 
 ---
 
-## Success Criteria
+## Configuration Detection
 
-- ✅ `docs/reverse-engineering/` directory created
-- ✅ All 9 documentation files generated
-- ✅ Comprehensive coverage of all application aspects
-- ✅ Framework-agnostic functional specification (for greenfield)
-- ✅ Complete data model documentation
-- ✅ Ready to proceed to Step 3 (Create Specifications)
+This skill auto-detects project configuration:
 
----
-
-## Next Step
-
-Once all documentation is generated and reviewed:
-
-**For GitHub Spec Kit** (`implementation_framework: speckit`):
-- Proceed to **Step 3: Create Specifications** - Use `/stackshift.create-specs` to transform docs into `.specify/` specs
-
-**For BMAD Method** (`implementation_framework: bmad`):
-- Proceed to **Step 6: Implementation** which will hand off to BMAD's `*workflow-init`
-- BMAD's PM and Architect agents will use the reverse-engineering docs as rich context
-- They will collaboratively create the PRD and architecture through conversation
+1. Check for existing `specs/` directory
+2. Check for SDD tooling (OpenSpec, Spec Kit)
+3. Detect test framework for acceptance criteria extraction
+4. Identify code patterns (MVC, DDD, etc.)
 
 ---
 
-## Important Guidelines
+## Related Standards
 
-### Framework-Agnostic Documentation
-
-**DO:**
-- Describe WHAT, not HOW
-- Focus on business logic and requirements
-- Use generic terms (e.g., "HTTP API" not "Express routes")
-
-**DON'T:**
-- Hard-code framework names in functional specs
-- Describe implementation details in requirements
-- Mix business logic with technical implementation
-
-### Completeness
-
-Use the Explore agent to ensure you find:
-- ALL API endpoints (not just the obvious ones)
-- ALL data models (including DTOs, types, interfaces)
-- ALL configuration options (check multiple files)
-- ALL external integrations
-
-### Quality Standards
-
-Each document must be:
-- **Comprehensive** - Nothing important missing
-- **Accurate** - Reflects actual code, not assumptions
-- **Organized** - Clear sections, easy to navigate
-- **Actionable** - Can be used to rebuild the system
+- [Reverse Engineering Standards](../../../core/reverse-engineering-standards.md) - **Core methodology standard (primary reference)**
+- [Spec-Driven Development](../../../core/spec-driven-development.md) - Output format and review process
+- [Anti-Hallucination Guidelines](../../../core/anti-hallucination.md) - Evidence-based analysis requirements
+- [Code Review Checklist](../../../core/code-review-checklist.md) - Review guidelines
 
 ---
 
-## Technical Notes
+## Version History
 
-- Use Task tool with `subagent_type=stackshift:code-analyzer` for path-aware extraction
-- Fallback to `subagent_type=Explore` if StackShift agent not available
-- Parallel analysis: Run backend, frontend, infrastructure analysis concurrently
-- Use multiple rounds of exploration for complex codebases
-- Cross-reference findings across different parts of the codebase
-- The `stackshift:code-analyzer` agent understands greenfield vs brownfield routes automatically
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.1.0 | 2026-01-19 | Add BDD/TDD pipeline integration; Add core standard reference |
+| 1.0.0 | 2026-01-19 | Initial release |
 
 ---
 
-**Remember:** This is Step 2 of 6. The documentation you generate here will be transformed into formal specifications in Step 3.
+## License
+
+This skill is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+**Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

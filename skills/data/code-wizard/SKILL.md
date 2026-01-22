@@ -24,7 +24,7 @@ raamattu-nyt/
 │   │   ├── hooks/             # React hooks
 │   │   ├── lib/               # Business logic, services
 │   │   └── integrations/      # External services (Supabase)
-│   └── prompting-machine/     # AI prompting app
+│   └── idea-machina/     # AI prompting app
 ├── packages/
 │   ├── ui/                    # Shared shadcn components
 │   ├── shared-auth/           # Auth hooks, session

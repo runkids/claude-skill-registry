@@ -1,62 +1,153 @@
 ---
 name: git-commit
-description: 定义小芽家教项目的 Git 提交规范，包含 Type 类型、任务关联和原子提交原则。
+description: Generate commit messages following conventional commits format
 ---
 
-# Git 提交技能
+# Git Commit Skill
 
-## 核心原则
+Generate consistent, descriptive commit messages following the Conventional Commits specification.
 
-### 原子提交
-> **每次提交仅包含一个逻辑变更，禁止批量提交。**
-
-### 正确示例
-```bash
-git add backend/app/api/conversations.py
-git commit -m "[LWP-1] 实现会话创建 API"
-```
-
-### 错误示例
-```bash
-git add .
-git commit -m "LWP-1 完成"  # 违反原子提交原则
-```
-
----
-
-## 提交信息格式
+## Commit Message Format
 
 ```
-[TYPE](任务ID): 简短描述
+<type>(<scope>): <subject>
 
-详细说明（可选）
-- 完成项 1
-- 完成项 2
+<body>
 
-Refs: 任务ID
+<footer>
 ```
 
----
+### Components
 
-## TYPE 类型
+| Part | Required | Description |
+|------|----------|-------------|
+| type | Yes | Category of change |
+| scope | No | Module/component affected |
+| subject | Yes | Brief description (imperative mood) |
+| body | No | Detailed explanation |
+| footer | No | Breaking changes, issue refs |
 
-| 类型 | 说明 | 示例 |
-|------|------|------|
-| `feat` | 新功能 | `feat: 添加用户注册功能` |
-| `fix` | Bug 修复 | `fix: 修复会话超时问题` |
-| `docs` | 文档更新 | `docs: 更新 API 文档` |
-| `refactor` | 代码重构 | `refactor: 优化对话引擎` |
-| `test` | 测试相关 | `test: 添加单元测试` |
-| `chore` | 构建/工具 | `chore: 更新依赖版本` |
+## Commit Types
 
----
+| Type | When to Use | Example |
+|------|-------------|---------|
+| `feat` | New feature | `feat(auth): add password reset flow` |
+| `fix` | Bug fix | `fix(cart): correct total calculation` |
+| `refactor` | Code restructuring | `refactor(api): extract validation logic` |
+| `docs` | Documentation only | `docs: update API examples` |
+| `style` | Formatting changes | `style: fix indentation` |
+| `test` | Adding/updating tests | `test(user): add signup edge cases` |
+| `chore` | Maintenance tasks | `chore: update dependencies` |
+| `perf` | Performance improvement | `perf(query): add index for user lookup` |
+| `ci` | CI/CD changes | `ci: add deployment workflow` |
+| `build` | Build system changes | `build: configure webpack splitting` |
 
-## 任务关联
-- 所有提交必须附带对应的 Task ID
-- Task ID 格式：`LWP-X`（如 LWP-1）
+## Writing Guidelines
 
----
+### Subject Line
+- Max 50 characters
+- Imperative mood ("Add" not "Added" or "Adds")
+- No period at the end
+- Capitalize first letter
 
-## 相关技能
-- `tdd-cycle` - TDD 开发流程
-- `github-sync` - GitHub 和 Taskmaster 同步
+### Body
+- Wrap at 72 characters
+- Explain **what** and **why**, not how
+- Separate from subject with blank line
+
+### Footer
+- Reference issues: `Fixes #123`, `Closes #456`
+- Note breaking changes: `BREAKING CHANGE: description`
+
+## Process
+
+1. **Check staged changes**
+   ```bash
+   git diff --staged
+   ```
+
+2. **Analyze the changes**
+   - What files were modified?
+   - What functionality changed?
+   - Is this a feature, fix, or refactor?
+
+3. **Determine scope**
+   - What module/component is affected?
+   - Use lowercase, hyphenated if needed
+
+4. **Write the subject**
+   - Start with imperative verb
+   - Be specific but concise
+
+5. **Add body if needed**
+   - Complex changes need explanation
+   - Bug fixes should mention root cause
+
+6. **Add footer if applicable**
+   - Link to issues
+   - Note breaking changes
+
+## Examples
+
+### Simple Feature
+```
+feat(user): add email verification on signup
+```
+
+### Bug Fix with Context
+```
+fix(checkout): prevent double submission
+
+Users could click the submit button multiple times before
+the form disabled, causing duplicate orders.
+
+Added loading state and disabled button during submission.
+
+Fixes #234
+```
+
+### Breaking Change
+```
+feat(api): change authentication to use JWT
+
+Migrate from session-based auth to JWT tokens.
+Client applications need to update their auth handling.
+
+BREAKING CHANGE: Authentication now requires Bearer token
+in Authorization header instead of session cookie.
+
+Migration guide: docs/migration/jwt-auth.md
+```
+
+### Refactoring
+```
+refactor(validation): extract form validation to shared util
+
+Move repeated validation logic from multiple form components
+into a shared validation utility for consistency.
+
+No functional changes.
+```
+
+## Anti-Patterns
+
+| Don't | Do |
+|-------|-----|
+| `fix stuff` | `fix(auth): handle expired token gracefully` |
+| `wip` | `feat(dashboard): add chart component (partial)` |
+| `changes` | `refactor(utils): simplify date formatting` |
+| `Update file.ts` | `fix(user): correct email validation regex` |
+| Mixed changes | Separate commits for separate concerns |
+
+## Quick Reference
+
+```
+feat:     New feature
+fix:      Bug fix
+refactor: Code restructuring (no behavior change)
+docs:     Documentation
+style:    Formatting (no code change)
+test:     Tests
+chore:    Maintenance
+perf:     Performance
+```

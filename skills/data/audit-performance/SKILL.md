@@ -1,398 +1,329 @@
 ---
 name: audit-performance
-description: Performance-focused audit that can run in background during implementation. Checks for inefficiencies, memory leaks, widget rebuilds. Injects P0 findings to main agent.
+description: Run a single-session performance audit on the codebase
 ---
 
-# Performance Audit Skill
+# Single-Session Performance Audit
 
-Specialized audit focusing on performance concerns. Can run standalone or in background during /implement.
+## Pre-Audit Validation
 
----
+**Step 1: Check Thresholds**
 
-## When to Use
+Run `npm run review:check` and report results.
 
-- **Background Mode**: Automatically during /implement (spawned by implement skill)
-- **Standalone Mode**: `/audit-performance {files or feature}` for independent performance review
-- When optimizing code for performance before release
+- If no thresholds triggered: "⚠️ No review thresholds triggered. Proceed
+  anyway?"
+- Continue with audit regardless (user invoked intentionally)
 
----
+**Step 2: Gather Current Baselines**
 
-## Agent Compatibility
+Collect these metrics by running commands:
 
-- OUTPUT_DIR: `.claude/output` for Claude Code, `.codex/output` for Codex CLI
-- Background mode uses Task tool with `run_in_background: true`
-- Injection to main agent via findings file or direct message
+```bash
+# Build output (bundle sizes)
+npm run build 2>&1 | tail -30
 
----
+# Count client vs server components
+grep -rn "use client" app/ components/ --include="*.tsx" 2>/dev/null | wc -l
+grep -rn "use server" app/ components/ --include="*.tsx" 2>/dev/null | wc -l
 
-## Check Categories
+# Count useEffect hooks (potential performance issues)
+grep -rn "useEffect" --include="*.tsx" --include="*.ts" 2>/dev/null | wc -l
 
-### P0 - Critical Performance (MUST FIX IMMEDIATELY)
+# Count real-time listeners
+grep -rn "onSnapshot" --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l
 
-| Check | Description | Example |
-|-------|-------------|---------|
-| Infinite Loops | Unbounded loops or recursion | `while(true)` without break |
-| Memory Leaks | Undisposed controllers/streams | Missing `dispose()` calls |
-| Main Thread Blocking | Expensive sync operations | Large JSON parse on UI thread |
-| O(n²) on Large Data | Quadratic algorithms on lists | Nested loops on 1000+ items |
-| Uncontrolled Growth | Unbounded list/map growth | Adding without cleanup |
-| Blocking I/O | Sync file/network on main | `File.readAsStringSync()` |
-
-### P1 - Important Performance (SHOULD FIX)
-
-| Check | Description | Example |
-|-------|-------------|---------|
-| Unnecessary Rebuilds | Widgets rebuilding too often | Missing const, wrong keys |
-| Missing Const | Non-const constructors | `Widget()` instead of `const Widget()` |
-| Expensive build() | Heavy computation in build | Parsing/sorting in build() |
-| Inefficient List Ops | Repeated list traversals | Multiple `.where()` calls |
-| Missing Virtualization | Long lists without lazy loading | ListView without builder |
-| Repeated Calculations | Same computation multiple times | No memoization |
-| Large Image Loading | Unoptimized image loading | Full-res images in lists |
-| Excessive Providers | Too many provider rebuilds | Over-granular state |
-
-### P2 - Minor Performance (CONSIDER)
-
-| Check | Description | Example |
-|-------|-------------|---------|
-| String Concatenation | Repeated + in loops | Use StringBuffer |
-| Suboptimal Algorithm | Could be more efficient | O(n log n) possible |
-| Missing Caching | Repeated network calls | No local cache |
-| Verbose Code | Could be simplified | Unnecessary conversions |
-
----
-
-## Flutter/Dart Specific Checks
-
-### Widget Rebuild Issues
-
-```dart
-// P1: Missing const
-return Container(  // ❌
-  child: Text('Hello'),
-);
-
-return const Container(  // ✓
-  child: Text('Hello'),
-);
-
-// P1: Widget method instead of class
-Widget _buildHeader() {  // ❌ Causes parent rebuild
-  return Text('Header');
-}
-
-class HeaderWidget extends StatelessWidget {  // ✓
-  const HeaderWidget();
-  @override
-  Widget build(context) => const Text('Header');
-}
-
-// P1: Missing keys in lists
-ListView.builder(
-  itemBuilder: (ctx, i) => ItemWidget(items[i]),  // ❌ No key
-);
-
-ListView.builder(
-  itemBuilder: (ctx, i) => ItemWidget(
-    key: ValueKey(items[i].id),  // ✓
-    items[i],
-  ),
-);
+# Image optimization check
+grep -rn "<img" --include="*.tsx" 2>/dev/null | wc -l
+grep -rn "next/image" --include="*.tsx" 2>/dev/null | wc -l
 ```
 
-### Memory Management
+**Step 3: Load False Positives Database**
 
-```dart
-// P0: Missing dispose
-class MyController extends StateNotifier<MyState> {
-  final StreamSubscription _sub;
+Read `docs/audits/FALSE_POSITIVES.jsonl` and filter findings matching:
 
-  MyController() : super(MyState()) {
-    _sub = stream.listen(onData);
-  }
+- Category: `performance`
+- Expired entries (skip if `expires` date passed)
 
-  // ❌ Missing dispose - memory leak!
-}
+Note patterns to exclude from final findings. If file doesn't exist, proceed
+with no exclusions.
 
-// ✓ Correct disposal
-@override
-void dispose() {
-  _sub.cancel();
-  super.dispose();
-}
+**Step 4: Check Template Currency**
 
-// P0: Undisposed TextEditingController
-final _controller = TextEditingController();  // ❌ In StatelessWidget
-```
+Read `docs/templates/MULTI_AI_PERFORMANCE_AUDIT_PLAN_TEMPLATE.md` and verify:
 
-### Expensive Operations
+- [ ] Stack versions match package.json
+- [ ] Bundle size baseline is recent
+- [ ] Performance-critical paths are accurate
 
-```dart
-// P0: Blocking main thread
-void loadData() {
-  final data = File(path).readAsStringSync();  // ❌ Sync I/O
-  final json = jsonDecode(data);  // ❌ Large parse on main
-}
-
-// ✓ Async with isolate
-Future<void> loadData() async {
-  final data = await File(path).readAsString();
-  final json = await compute(jsonDecode, data);
-}
-
-// P1: Expensive build
-@override
-Widget build(context) {
-  final sorted = items.toList()..sort();  // ❌ Sort on every build
-  return ListView(...);
-}
-```
+If outdated, note discrepancies but proceed with current values.
 
 ---
 
-## Execution Flow
+## Audit Execution
 
-### Background Mode (During /implement)
+**Focus Areas (6 Categories):**
 
-```
-/implement invokes background audit:
-    │
-    ├── Task tool (background: true)
-    │   └── Prompt: "Run /audit-performance on files: {list}"
-    │
-    ├── Audit scans each file
-    │   ├── Check P0 items
-    │   ├── Check P1 items
-    │   └── Check P2 items
-    │
-    ├── Generate findings
-    │   └── Write to: .claude/output/audit-{session}-performance.json
-    │
-    └── Injection Decision
-        ├── If P0 found: Inject immediately to main agent
-        │   └── Message: "PERFORMANCE P0: {finding}. Fix before continuing."
-        │   └── Main agent MUST fix before next task
-        │
-        └── If only P1/P2: Collect for summary
-            └── Report at end of implementation
-```
+1. Bundle Size & Loading (large deps, code splitting, dynamic imports)
+2. Rendering Performance (re-renders, memoization, virtualization)
+3. Data Fetching & Caching (query optimization, caching strategy)
+4. Memory Management (effect cleanup, subscription leaks)
+5. Core Web Vitals (LCP, INP, CLS optimization)
+6. Offline Support (NEW - 2026-01-17):
+   - Offline state storage (localStorage, IndexedDB, cache API)
+   - Sync strategy (optimistic updates, conflict resolution)
+   - Failure mode handling (network errors, retry logic)
+   - Offline-first data patterns (queue writes, batch sync)
+   - Service worker caching strategy
+   - Offline testability (can app function without network?)
 
-### Standalone Mode
+**For each category:**
 
-```
-/audit-performance {target}
-    │
-    ├── Identify target files
-    │   ├── Feature name → find related files
-    │   ├── File paths → use directly
-    │   └── "all" → scan entire codebase
-    │
-    ├── Run all performance checks
-    │
-    ├── Generate report
-    │   └── .claude/output/audit-performance-{feature}.md
-    │
-    └── Display summary with P0/P1/P2 counts
-```
+1. Search relevant files using Grep/Glob
+2. Identify specific issues with file:line references
+3. Classify severity: S0 (>50% impact) | S1 (20-50%) | S2 (5-20%) | S3 (<5%)
+4. Estimate effort: E0 (trivial) | E1 (hours) | E2 (day) | E3 (major)
+5. Note affected metric (LCP, bundle, render, memory)
+6. **Assign confidence level** (see Evidence Requirements below)
+
+**Performance Patterns to Find:**
+
+- Inline arrow functions in JSX props
+- Object literals in JSX props
+- Missing React.memo on frequently re-rendered components
+- useEffect without cleanup
+- Large components without code splitting
+- Queries without limits
+- onSnapshot where one-time fetch would suffice
+
+**Scope:**
+
+- Include: `app/`, `components/`, `lib/`, `hooks/`
+- Exclude: `node_modules/`, `.next/`, `docs/`, `tests/`
 
 ---
 
-## Output Format
+## Evidence Requirements (MANDATORY)
 
-### JSON Output (for background mode injection)
+**All findings MUST include:**
+
+1. **File:Line Reference** - Exact location (e.g., `components/List.tsx:45`)
+2. **Code Snippet** - The actual problematic code (3-5 lines of context)
+3. **Verification Method** - How you confirmed this is an issue (build output,
+   grep, profiling)
+4. **Impact Estimate** - Quantified performance impact (% improvement, KB saved,
+   ms saved)
+
+**Confidence Levels:**
+
+- **HIGH (90%+)**: Confirmed by build output, Lighthouse, or profiling data;
+  verified file exists, code snippet matches
+- **MEDIUM (70-89%)**: Found via pattern search, file verified, performance
+  impact estimated
+- **LOW (<70%)**: Pattern match only, impact uncertain, needs profiling to
+  confirm
+
+**S0/S1 findings require:**
+
+- HIGH or MEDIUM confidence (LOW confidence S0/S1 must be escalated)
+- Dual-pass verification (re-read the code after initial finding)
+- Quantified impact estimate with methodology
+
+---
+
+## Cross-Reference Validation
+
+Before finalizing findings, cross-reference with:
+
+1. **Build output** - Mark bundle findings as "TOOL_VALIDATED" if build shows
+   large chunks
+2. **Lighthouse data** - Mark Web Vitals findings as "TOOL_VALIDATED" if
+   Lighthouse flagged
+3. **React DevTools** - Mark rendering findings as "TOOL_VALIDATED" if profiler
+   confirms re-renders
+4. **Prior audits** - Check `docs/audits/single-session/performance/` for
+   duplicate findings
+
+Findings without tool validation should note: `"cross_ref": "MANUAL_ONLY"`
+
+---
+
+## Dual-Pass Verification (S0/S1 Only)
+
+For all S0 (>50% impact) and S1 (20-50% impact) findings:
+
+1. **First Pass**: Identify the issue, note file:line and initial evidence
+2. **Second Pass**: Re-read the actual code in context
+   - Verify the performance issue is real
+   - Check for existing optimizations (memo, useMemo, useCallback)
+   - Confirm file and line still exist
+3. **Decision**: Mark as CONFIRMED or DOWNGRADE (with reason)
+
+Document dual-pass result in finding: `"verified": "DUAL_PASS_CONFIRMED"` or
+`"verified": "DOWNGRADED_TO_S2"`
+
+---
+
+## Output Requirements
+
+**1. Markdown Summary (display to user):**
+
+```markdown
+## Performance Audit - [DATE]
+
+### Baselines
+
+- Build time: Xs
+- Bundle size: X KB (gzipped)
+- Client components: X
+- useEffect hooks: X
+- Real-time listeners: X
+
+### Findings Summary
+
+| Severity | Count | Affected Metric | Confidence  |
+| -------- | ----- | --------------- | ----------- |
+| S0       | X     | ...             | HIGH/MEDIUM |
+| S1       | X     | ...             | HIGH/MEDIUM |
+| S2       | X     | ...             | ...         |
+| S3       | X     | ...             | ...         |
+
+### Top 5 Optimization Opportunities
+
+1. [file:line] - Description (S1/E1) - Est. X% improvement - DUAL_PASS_CONFIRMED
+2. ...
+
+### False Positives Filtered
+
+- X findings excluded (matched FALSE_POSITIVES.jsonl patterns)
+
+### Quick Wins (E0-E1)
+
+- ...
+
+### Recommendations
+
+- ...
+```
+
+**2. JSONL Findings (save to file):**
+
+Create file: `docs/audits/single-session/performance/audit-[YYYY-MM-DD].jsonl`
+
+Each line (UPDATED SCHEMA with confidence and verification):
 
 ```json
 {
-  "audit_type": "performance",
-  "timestamp": "2026-01-03T10:30:00Z",
-  "files_scanned": ["file1.dart", "file2.dart"],
-  "severity_summary": {
-    "P0": 0,
-    "P1": 4,
-    "P2": 3
-  },
-  "inject_to_main": false,
-  "estimated_impact": "medium",
-  "findings": [
-    {
-      "severity": "P1",
-      "category": "missing_const",
-      "file": "lib/src/screens/home_screen.dart",
-      "line": 45,
-      "code": "return Container(",
-      "message": "Widget could be const",
-      "fix": "Add const keyword: return const Container("
-    }
-  ]
+  "id": "PERF-001",
+  "category": "Bundle|Rendering|DataFetch|Memory|WebVitals|Offline",
+  "severity": "S0|S1|S2|S3",
+  "effort": "E0|E1|E2|E3",
+  "confidence": "HIGH|MEDIUM|LOW",
+  "verified": "DUAL_PASS_CONFIRMED|TOOL_VALIDATED|MANUAL_ONLY",
+  "file": "path/to/file.ts",
+  "line": 123,
+  "title": "Short description",
+  "description": "Detailed issue",
+  "affected_metric": "LCP|INP|CLS|bundle|render|memory",
+  "estimated_improvement": "X%",
+  "recommendation": "How to fix",
+  "evidence": ["code snippet", "build output", "profiling data"],
+  "cross_ref": "build|lighthouse|profiler|MANUAL_ONLY"
 }
 ```
 
-### Markdown Report (for standalone mode)
+**3. Markdown Report (save to file):**
 
-```markdown
-# Performance Audit Report: {Feature}
+Create file: `docs/audits/single-session/performance/audit-[YYYY-MM-DD].md`
 
-## Summary
-
-| Severity | Count | Impact |
-|----------|-------|--------|
-| P0 (Critical) | 0 | - |
-| P1 (Important) | 4 | Medium |
-| P2 (Minor) | 3 | Low |
-
-**Overall**: PASS (no P0 issues)
-**Estimated Impact**: Medium rebuild reduction
-
-## Important Findings (P1)
-
-### 1. Missing const constructors (3 occurrences)
-- **Files**: home_screen.dart, profile_screen.dart
-- **Impact**: Unnecessary widget rebuilds
-- **Fix**: Add `const` keyword to widget constructors
-
-### 2. Expensive operation in build()
-- **File**: list_screen.dart:67
-- **Code**: `items.toList()..sort()`
-- **Impact**: Sorting on every rebuild
-- **Fix**: Move sorting to controller/state
-
-## Minor Findings (P2)
-...
-
-## Performance Recommendations
-1. Add const to 15 widgets for ~20% fewer rebuilds
-2. Move sorting to controller for ~50ms improvement
-3. Consider virtualization for product list (100+ items)
-```
+Full markdown report with all findings, baselines, and optimization plan.
 
 ---
 
-## Injection Protocol
+## Post-Audit Validation
 
-When running in background mode and P0 is found:
+**Before finalizing the audit:**
 
-```
-1. Write finding to audit file immediately
-2. Send message to main agent:
+1. **Run Validation Script:**
 
-   "⚡ PERFORMANCE P0 DETECTED
+   ```bash
+   node scripts/validate-audit.js docs/audits/single-session/performance/audit-[YYYY-MM-DD].jsonl
+   ```
 
-   File: {file}:{line}
-   Issue: {category}
-   Code: {code snippet}
+2. **Validation Checks:**
+   - All findings have required fields
+   - No matches in FALSE_POSITIVES.jsonl (or documented override)
+   - No duplicate findings
+   - All S0/S1 have HIGH or MEDIUM confidence
+   - All S0/S1 have DUAL_PASS_CONFIRMED or TOOL_VALIDATED
 
-   Impact: {description of performance impact}
-   Fix Required: {fix description}
-
-   ⚠️ You MUST fix this before continuing to the next task."
-
-3. Main agent receives message and:
-   a. Stops current task
-   b. Fixes the performance issue
-   c. Re-runs audit on fixed file
-   d. Continues only when P0 count = 0
-```
+3. **If validation fails:**
+   - Review flagged findings
+   - Fix or document exceptions
+   - Re-run validation
 
 ---
 
-## Integration with RPI Workflow
+## Post-Audit
 
-### In /implement Phase 2.5
-
-```markdown
-After completing each task group (e.g., after T1-T3):
-
-1. Get list of files created/modified
-2. Spawn background performance audit:
-
-   Task tool:
-     subagent_type: "general-purpose"
-     run_in_background: true
-     prompt: "Run /audit-performance on: {file list}.
-              Write findings to .claude/output/audit-{session}-performance.json.
-              If P0 found, report immediately."
-
-3. Continue with next task group
-4. Before Phase 3 (Verification):
-   - Wait for background audit completion
-   - Check for any P0 findings
-   - Fix all P0 before proceeding
-```
-
----
-
-## Prompt Template
-
-When invoked, execute:
-
-```
-## Performance Audit: {target}
-
-Analyzing for performance issues...
-
-### Files to Audit
-{list of files}
-
-### P0 Checks (Critical)
-□ Infinite loops
-□ Memory leaks (undisposed resources)
-□ Main thread blocking
-□ O(n²) on large data
-□ Uncontrolled growth
-□ Blocking I/O
-
-### P1 Checks (Important)
-□ Unnecessary widget rebuilds
-□ Missing const constructors
-□ Expensive build() operations
-□ Inefficient list operations
-□ Missing virtualization
-□ Repeated calculations
-□ Large image loading
-□ Excessive provider rebuilds
-
-### Flutter-Specific Analysis
-
-For each widget file:
-- Check for const usage
-- Check for proper keys in lists
-- Check for widget methods vs classes
-- Check for expensive operations in build()
-
-For each controller/service:
-- Check for proper disposal
-- Check for stream subscription cleanup
-- Check for async patterns
-
-### Findings
-
-[Analyze each file and report findings by severity]
-
-### Summary
-
-| Severity | Count |
-|----------|-------|
-| P0 | {n} |
-| P1 | {n} |
-| P2 | {n} |
-
-**Status**: {PASS if P0=0, FAIL otherwise}
-**Estimated Impact**: {low/medium/high}
-
-{If P0 > 0: List required fixes}
-{If background mode and P0 > 0: Inject to main agent}
-```
+1. Display summary to user
+2. Confirm files saved to `docs/audits/single-session/performance/`
+3. Run `node scripts/validate-audit.js` on the JSONL file
+4. **Validate CANON schema** (if audit updates CANON files):
+   ```bash
+   npm run validate:canon
+   ```
+   Ensure all CANON files pass validation before committing.
+5. **Update AUDIT_TRACKER.md** - Add entry to "Performance Audits" table:
+   - Date: Today's date
+   - Session: Current session number from SESSION_CONTEXT.md
+   - Commits Covered: Number of commits since last performance audit
+   - Files Covered: Number of performance-critical files analyzed
+   - Findings: Total count (e.g., "2 S1, 4 S2, 3 S3")
+   - Reset Threshold: YES (single-session audits reset that category's
+     threshold)
+6. **Update Technical Debt Backlog** - Re-aggregate all findings:
+   ```bash
+   npm run aggregate:audit-findings
+   ```
+   This updates `docs/aggregation/MASTER_ISSUE_LIST.md` and the Technical Debt
+   Backlog section in `ROADMAP.md`. Review the updated counts and ensure new
+   findings are properly categorized.
+7. Ask: "Would you like me to fix any of these issues now? (Quick wins
+   recommended first)"
 
 ---
 
-## Quick Reference
+## Threshold System
 
-```
-# Standalone
-/audit-performance                     # Audit current feature
-/audit-performance lib/src/screens/    # Audit specific directory
-/audit-performance home_screen.dart    # Audit specific file
+### Category-Specific Thresholds
 
-# Background (invoked by /implement)
-# Automatically runs during implementation
+This audit **resets the performance category threshold** in
+`docs/AUDIT_TRACKER.md` (single-session audits reset their own category;
+multi-AI audits reset all thresholds). Reset means the commit counter for this
+category starts counting from zero after this audit.
+
+**Performance audit triggers (check AUDIT_TRACKER.md):**
+
+- 30+ commits since last performance audit, OR
+- Bundle size change detected, OR
+- New heavy dependencies added
+
+### Multi-AI Escalation
+
+After 3 single-session performance audits, a full multi-AI Performance Audit is
+recommended. Track this in AUDIT_TRACKER.md "Single audits completed" counter.
+
+---
+
+## Adding New False Positives
+
+If you encounter a pattern that should be excluded from future audits:
+
+```bash
+node scripts/add-false-positive.js \
+  --pattern "regex-pattern" \
+  --category "performance" \
+  --reason "Explanation of why this is not a performance issue" \
+  --source "AI_REVIEW_LEARNINGS_LOG.md#review-XXX"
 ```

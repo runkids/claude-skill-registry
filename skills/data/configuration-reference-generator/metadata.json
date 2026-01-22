@@ -1,7 +1,7 @@
 {
   "name": "configuration-reference-generator",
-  "repo": "vx-daniel/tb-docs-project",
-  "path": ".claude/skills/configuration-reference-generator/SKILL.md",
-  "source": "github.com/vx-daniel/tb-docs-project",
-  "downloaded_at": "2026-01-14T03:42:24.982267Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "skills/17-technical-docs/configuration-reference-generator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-19T01:50:04.131284Z"
 }

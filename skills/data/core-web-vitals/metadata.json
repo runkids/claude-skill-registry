@@ -1,13 +1,7 @@
 {
   "name": "core-web-vitals",
-  "description": "Measure and optimize Core Web Vitals (LCP, INP, CLS). Use when implementing CWV tracking or debugging performance.",
-  "repo": "nexus-labs-automation/web-observability",
-  "category": "development",
-  "tags": [
-    "core",
-    "web",
-    "vitals"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "addyosmani/web-quality-skills",
+  "path": "skills/core-web-vitals/SKILL.md",
+  "source": "github.com/addyosmani/web-quality-skills",
+  "downloaded_at": "2026-01-22T01:41:49.600507Z"
 }

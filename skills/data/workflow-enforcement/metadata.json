@@ -1,7 +1,7 @@
 {
   "name": "workflow-enforcement",
-  "repo": "metasaver/metasaver-marketplace",
-  "path": "plugins/metasaver-core/skills/cross-cutting/workflow-enforcement/SKILL.md",
-  "source": "github.com/metasaver/metasaver-marketplace",
-  "downloaded_at": "2026-01-14T01:43:54.238910Z"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/workflow-enforcement/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-22T01:54:22.865258Z"
 }

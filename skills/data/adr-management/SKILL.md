@@ -1,253 +1,138 @@
 ---
 name: adr-management
-description: Manage Architectural Decision Records (ADRs) with CRUD operations, automatic numbering, and AsciiDoc formatting
-allowed-tools: Read, Edit, Write, Bash, Grep, Glob, Skill
+description: Create and manage Architecture Decision Records (ADRs). Use when documenting technology choices, design decisions, or architectural changes that need to be tracked over time.
+allowed-tools: Read, Write, Glob, Grep, Skill
 ---
 
-# ADR Management Skill
+# ADR Management
 
-Manage Architectural Decision Records (ADRs) stored in `doc/adr/` directory.
+## When to Use This Skill
 
-## Purpose
+Use this skill when you need to:
 
-Provide structured management of architectural decisions:
+- Document a technology choice or design decision
+- Record why a particular approach was selected over alternatives
+- Track the history of architectural decisions
+- Create a searchable record of decisions for team onboarding
 
-- **Create** ADRs with automatic numbering and template
-- **Read** ADR content by number
-- **Update** ADR status through lifecycle
-- **Delete** ADRs when necessary
-- **List** all ADRs with optional filtering
-- **Validate** ADR format using cui-documentation
+**Keywords:** adr, architecture decision record, decision log, why we chose, alternatives considered, design decision, technology choice
 
-## Available Workflows
+## ADR Workflow
 
-| Workflow | Purpose | Script Used |
-|----------|---------|-------------|
-| **list-adrs** | List all ADRs with optional filtering | `manage-adr.py list` |
-| **create-adr** | Create new ADR from template | `manage-adr.py create` |
-| **read-adr** | Read ADR content | `manage-adr.py read` |
-| **update-adr** | Update ADR status | `manage-adr.py update` |
-| **delete-adr** | Delete ADR (with confirmation) | `manage-adr.py delete` |
-| **validate-adr** | Validate ADR format | cui-documentation workflows |
+### Creating a New ADR
 
-## Workflow: list-adrs
+1. **Determine the next ADR number**
+   - Check existing ADRs in `/architecture/adr/`
+   - Use sequential numbering: 0001, 0002, 0003, etc.
 
-List all ADRs with optional status filtering.
+2. **Create the ADR file**
+   - Location: `/architecture/adr/NNNN-title-in-kebab-case.md`
+   - Use the template from `references/adr-template.md`
 
-### Parameters
+3. **Fill in required sections**
+   - Status: Start with "Proposed"
+   - Date: Current date in YYYY-MM-DD format
+   - Context: Describe the problem and constraints
+   - Decision: State the decision clearly
+   - Consequences: List positive, negative, and neutral outcomes
 
-- `status` (optional): Filter by status (Proposed, Accepted, Deprecated, Superseded)
+4. **Document alternatives**
+   - List each alternative considered
+   - Include pros, cons, and why it was rejected
 
-### Steps
+5. **Optional: Generate context diagram**
+   - If visualization plugin is available, generate a diagram showing the decision's context
+   - Use: `visualization:diagram-generator` for C4 or component diagrams
 
-**Step 1: Execute List**
-
-```bash
-python3 .plan/execute-script.py pm-documents:adr-management:manage-adr list [--status {status}]
-```
-
-**Step 3: Parse Output**
-
-Parse JSON output containing ADR list with metadata.
-
-### Output
-
-```json
-{
-  "success": true,
-  "operation": "list",
-  "count": 3,
-  "adrs": [
-    {"number": 1, "title": "Use PostgreSQL", "status": "Accepted", "path": "doc/adr/001-Use_PostgreSQL.adoc"},
-    {"number": 2, "title": "Adopt Quarkus", "status": "Proposed", "path": "doc/adr/002-Adopt_Quarkus.adoc"}
-  ]
-}
-```
-
-## Workflow: create-adr
-
-Create a new ADR with automatic numbering.
-
-### Parameters
-
-- `title` (required): ADR title
-- `status` (optional, default: "Proposed"): Initial status
-
-### Steps
-
-**Step 1: Create ADR**
-
-```bash
-python3 .plan/execute-script.py pm-documents:adr-management:manage-adr create --title "{title}" [--status "{status}"]
-```
-
-**Step 3: Parse Output**
-
-Extract created file path from JSON output.
-
-**Step 4: Open for Editing**
-
-Read the created file and inform user to fill in content sections.
-
-**Step 5: Validate Format**
-
-```
-Skill: pm-documents:cui-documentation
-Execute workflow: validate-format
-Parameters:
-  target: {created_path}
-```
-
-### Output
-
-```
-ADR Created: doc/adr/004-{title}.adoc
-Number: ADR-004
-Status: Proposed
-
-Next steps:
-1. Edit doc/adr/004-{title}.adoc to fill in:
-   - Context
-   - Decision
-   - Consequences
-   - Alternatives
-2. Update status to "Accepted" when approved
-```
-
-## Workflow: read-adr
-
-Read ADR content by number.
-
-### Parameters
-
-- `number` (required): ADR number (1, 2, 3, etc.)
-
-### Steps
-
-**Step 1: Read ADR**
-
-```bash
-python3 .plan/execute-script.py pm-documents:adr-management:manage-adr read --number {number}
-```
-
-**Step 3: Display Content**
-
-Show ADR metadata and content to user.
-
-## Workflow: update-adr
-
-Update ADR status through lifecycle.
-
-### Parameters
-
-- `number` (required): ADR number
-- `status` (required): New status (Proposed, Accepted, Deprecated, Superseded)
-
-### Steps
-
-**Step 1: Update ADR**
-
-```bash
-python3 .plan/execute-script.py pm-documents:adr-management:manage-adr update --number {number} --status {status}
-```
-
-**Step 3: Confirm Update**
-
-Report updated status to user.
-
-## Workflow: delete-adr
-
-Delete ADR with confirmation.
-
-### Parameters
-
-- `number` (required): ADR number
-- `force` (required): Must be true to confirm deletion
-
-### Steps
-
-**Step 1: Delete ADR**
-
-```bash
-python3 .plan/execute-script.py pm-documents:adr-management:manage-adr delete --number {number} --force
-```
-
-**Step 3: Confirm Deletion**
-
-Report deletion to user.
-
-## Workflow: validate-adr
-
-Validate ADR format using cui-documentation skill.
-
-### Parameters
-
-- `number` (required): ADR number to validate
-
-### Steps
-
-**Step 1: Find ADR Path**
-
-Use list-adrs workflow to get ADR path by number.
-
-**Step 2: Validate Format**
-
-```
-Skill: pm-documents:cui-documentation
-Execute workflow: validate-format
-Parameters:
-  target: {adr_path}
-```
-
-**Step 3: Report Results**
-
-Report validation results to user.
-
-## Integration with cui-documentation
-
-This skill integrates with `cui-documentation` for:
-
-- **Format validation**: Ensures AsciiDoc formatting compliance
-- **Link verification**: Validates cross-references
-- **Content review**: Reviews ADR content quality
-
-## ADR Lifecycle
-
-```
-Proposed → Accepted → [Deprecated | Superseded]
-```
+### ADR Status Lifecycle
 
 | Status | Meaning |
-|--------|---------|
-| Proposed | Under discussion, not yet approved |
-| Accepted | Approved and active |
-| Deprecated | No longer relevant or applicable |
-| Superseded | Replaced by another ADR |
+| --- | --- |
+| Proposed | Decision is under discussion |
+| Accepted | Decision has been approved and implemented |
+| Deprecated | Decision is no longer relevant but kept for history |
+| Superseded | Decision has been replaced by a newer ADR |
 
-## ADR Template Structure
+When superseding an ADR:
 
-Each ADR contains these sections:
+1. Update the old ADR's status to "Superseded by ADR-XXXX"
+2. Reference the old ADR in the new ADR's "Related Decisions" section
 
-1. **Status** - Current lifecycle status
-2. **Context** - Problem context and background
-3. **Decision** - The architectural decision made
-4. **Consequences** - Positive, negative outcomes and risks
-5. **Alternatives Considered** - Options that were not chosen
-6. **References** - Related documents and links
+### Searching Existing ADRs
 
-## File Naming Convention
+Before creating a new ADR, search for existing relevant decisions:
 
-ADRs follow this naming pattern:
+```bash
+# Search ADR titles
+ls /architecture/adr/
 
-```
-doc/adr/{NNN}-{Title_With_Underscores}.adoc
+# Search ADR content for keywords
+grep -r "keyword" /architecture/adr/
 ```
 
-Examples:
-- `doc/adr/001-Use_PostgreSQL_for_Persistence.adoc`
-- `doc/adr/002-Adopt_Quarkus_Framework.adoc`
-- `doc/adr/003-Implement_CQRS_Pattern.adoc`
+## Integration with Architecture Principles
 
-## References
+Link ADRs to architecture principles when the decision:
 
-- [cui-documentation SKILL](../cui-documentation/SKILL.md) - Format validation
+- Implements a principle
+- Makes a trade-off against a principle
+- Establishes a new principle
+
+Reference format: "This decision implements Principle P1: [Principle Name]"
+
+## Template Reference
+
+The ADR template is available at `references/adr-template.md`. Key sections:
+
+- **Status**: Current state of the decision
+- **Date**: When the decision was made
+- **Deciders**: Who was involved
+- **Context**: Problem and constraints
+- **Decision**: What was decided
+- **Consequences**: Outcomes (positive, negative, neutral)
+- **Alternatives Considered**: What else was evaluated
+- **Related Decisions**: Links to related ADRs
+- **References**: Supporting documentation
+
+## Best Practices
+
+1. **One decision per ADR** - Keep ADRs focused
+2. **Immutable history** - Never delete ADRs, only supersede
+3. **Link decisions** - Reference related ADRs
+4. **Include context** - Future readers need to understand the constraints
+5. **Be honest about trade-offs** - Document negative consequences too
+
+## Related: Specification-Driven ADRs
+
+If you're extracting decisions FROM specifications, consider using the `spec-driven-development` plugin's `/spec:adr:create` which links ADRs directly to specification IDs (SPEC-xxx). Those ADRs are stored in `docs/adr/` (linked to specification IDs).
+
+Both approaches use MADR format and can coexist in the same project.
+
+## Repository Structure
+
+Ensure your project has the standard architecture directory:
+
+```text
+/architecture/
+  /adr/
+    0001-record-template.md
+    0002-first-decision.md
+    ...
+```
+
+If the directory doesn't exist, create it before adding ADRs.
+
+## Version History
+
+- **v1.0.0** (2025-12-05): Initial release
+  - ADR creation and management workflow
+  - Status lifecycle documentation
+  - Integration with architecture principles
+  - Template reference and best practices
+
+---
+
+## Last Updated
+
+**Date:** 2025-12-05
+**Model:** claude-opus-4-5-20251101

@@ -1,7 +1,7 @@
 {
   "name": "tech-lead",
-  "repo": "anton-abyzov/specweave",
-  "path": "plugins/specweave/skills/tech-lead/SKILL.md",
-  "source": "github.com/anton-abyzov/specweave",
-  "downloaded_at": "2026-01-14T03:26:38.239883Z"
+  "repo": "lotosbin/claude-skills",
+  "path": ".claude/skills/tech-lead/Skill.md",
+  "source": "github.com/lotosbin/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:17.472928Z"
 }

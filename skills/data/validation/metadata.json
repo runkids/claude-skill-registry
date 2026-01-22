@@ -1,7 +1,7 @@
 {
   "name": "validation",
-  "repo": "matteocervelli/llms",
-  "path": "src/tools/skill_builder/templates/validation/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-14T03:06:51.584208Z"
+  "repo": "HR-AR/Project-Conductor",
+  "path": ".claude/skills/validation/SKILL.md",
+  "source": "github.com/HR-AR/Project-Conductor",
+  "downloaded_at": "2026-01-22T02:09:33.884945Z"
 }

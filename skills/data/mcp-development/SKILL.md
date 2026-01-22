@@ -1,259 +1,224 @@
 ---
 name: mcp-development
-description: MCPサーバー開発を支援します。プロトコル準拠、Pydanticスキーマ設計、Playwright統合のベストプラクティスを提供します。
-allowed-tools: Read Edit Write Glob Grep Bash
+description: Guide for creating MCP (Model Context Protocol) servers that enable LLMs to interact with external services. Use when building MCP servers, integrating external APIs, implementing tool servers, or creating agent capabilities. Covers TypeScript/Python patterns, tool design, and evaluation creation.
 ---
 
-# MCP Development スキル
+# MCP Server Development
 
-このスキルは、**Constitution Article 3: MCP Protocol Compliance** を支援し、MCPサーバー開発のベストプラクティスを提供します。
+Create MCP servers that enable LLMs to interact with external services through well-designed tools.
 
-## 起動条件
+## Development Phases
 
-以下の状況で起動します：
+### Phase 1: Research & Planning
 
-1. **MCPツール実装時**: 新しいMCPツールを追加する際
-2. **スキーマ設計時**: 入出力スキーマを定義する際
-3. **Playwright統合時**: ブラウザ自動化を実装する際
-4. **セッション管理実装時**: 認証状態を管理する際
-5. **エラーハンドリング設計時**: MCPエラーレスポンスを設計する際
+**Understand the API:**
+- Review service's API documentation
+- Identify key endpoints, auth requirements, data models
+- Use Context7 or Firecrawl as needed
 
-## MCPプロトコル要件
+**Tool Selection:**
+- Prioritize comprehensive API coverage over workflow shortcuts
+- List endpoints to implement, starting with most common operations
+- Balance single-operation tools (flexible) vs workflow tools (convenient)
 
-### ツール定義
+**Load Framework Docs:**
+- TypeScript SDK: `https://raw.githubusercontent.com/modelcontextprotocol/typescript-sdk/main/README.md`
+- Python SDK: `https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/README.md`
 
-MCPツールは以下の構造を持つ必要があります：
+### Phase 2: Implementation
 
-```python
-from mcp.types import Tool, TextContent
-from pydantic import BaseModel, Field
+**Recommended Stack:**
+- **Language**: TypeScript (best SDK support, good for agent-generated code)
+- **Transport**: Streamable HTTP for remote, stdio for local
 
-class CreateDraftInput(BaseModel):
-    """下書き作成の入力パラメータ"""
-    title: str = Field(..., description="記事のタイトル")
-    body: str = Field(..., description="記事の本文（Markdown形式）")
-    tags: list[str] | None = Field(None, description="記事のタグ一覧")
-
-# ツール定義
-create_draft_tool = Tool(
-    name="create_draft",
-    description="note.comに記事の下書きを作成します",
-    inputSchema=CreateDraftInput.model_json_schema(),
-)
+**Project Structure (TypeScript):**
+```
+my-mcp-server/
+├── src/
+│   ├── index.ts          # Server entry point
+│   ├── tools/            # Tool implementations
+│   └── utils/            # Shared utilities
+├── package.json
+└── tsconfig.json
 ```
 
-### Pydanticモデル設計
-
-**必須ルール**:
-
-1. **すべての入力パラメータはPydanticモデルで検証**
-2. **Fieldに説明を必ず付与**
-3. **型アノテーションを明確に指定**
-
-```python
-from pydantic import BaseModel, Field, field_validator
-
-class ArticleContent(BaseModel):
-    """記事コンテンツのスキーマ"""
-    title: str = Field(..., min_length=1, max_length=200, description="記事タイトル")
-    body: str = Field(..., min_length=1, description="記事本文")
-    status: str = Field("draft", pattern="^(draft|published)$", description="記事状態")
-
-    @field_validator("title")
-    @classmethod
-    def title_not_empty(cls, v: str) -> str:
-        if not v.strip():
-            raise ValueError("タイトルは空にできません")
-        return v.strip()
+**Tool Implementation Pattern:**
+```typescript
+server.registerTool({
+  name: "service_operation",
+  description: "Concise description of what this does",
+  inputSchema: z.object({
+    param: z.string().describe("What this parameter is for"),
+    optional: z.number().optional().describe("Optional config"),
+  }),
+  outputSchema: z.object({
+    result: z.string(),
+    metadata: z.object({ count: z.number() }),
+  }),
+  annotations: {
+    readOnlyHint: true,      // Doesn't modify state
+    destructiveHint: false,  // Doesn't delete data
+    idempotentHint: true,    // Safe to retry
+    openWorldHint: false,    // Bounded result set
+  },
+  async execute({ param, optional }) {
+    // Implementation with proper error handling
+    const result = await apiClient.doOperation(param);
+    return {
+      structuredContent: { result: result.data, metadata: { count: 1 } },
+      content: [{ type: "text", text: `Operation completed: ${result.data}` }],
+    };
+  },
+});
 ```
 
-### エラーレスポンス
+### Phase 3: Review & Test
 
-MCPエラーは適切な形式で返す必要があります：
+**Code Quality:**
+- No duplicated code (DRY principle)
+- Consistent error handling with actionable messages
+- Full type coverage
+- Clear tool descriptions
 
-```python
-from mcp.types import TextContent, ErrorData
-from mcp.shared.exceptions import McpError
+**Testing:**
+```bash
+# TypeScript - verify compilation
+npm run build
 
-class NoteApiError(McpError):
-    """note.com API関連のエラー"""
-    pass
+# Test with MCP Inspector
+npx @modelcontextprotocol/inspector
 
-class AuthenticationError(NoteApiError):
-    """認証エラー"""
-    def __init__(self, message: str = "認証が必要です"):
-        super().__init__(ErrorData(code=-32001, message=message))
-
-class SessionExpiredError(NoteApiError):
-    """セッション期限切れエラー"""
-    def __init__(self):
-        super().__init__(ErrorData(
-            code=-32002,
-            message="セッションの有効期限が切れました。再ログインしてください。"
-        ))
+# Python - verify syntax
+python -m py_compile your_server.py
 ```
 
-## Playwright統合
+### Phase 4: Evaluations
 
-### ブラウザライフサイクル管理
+Create 10 evaluation questions to test effectiveness:
 
-```python
-from playwright.async_api import async_playwright, Browser, Page
-from contextlib import asynccontextmanager
+**Question Requirements:**
+- **Independent**: Not dependent on other questions
+- **Read-only**: Only non-destructive operations
+- **Complex**: Require multiple tool calls
+- **Realistic**: Based on real use cases
+- **Verifiable**: Single, clear answer
+- **Stable**: Answer won't change over time
 
-class BrowserManager:
-    """ブラウザインスタンスのライフサイクル管理"""
-
-    def __init__(self) -> None:
-        self._browser: Browser | None = None
-        self._page: Page | None = None
-
-    async def get_page(self) -> Page:
-        """既存のページを再利用、なければ新規作成"""
-        if self._page is not None and not self._page.is_closed():
-            return self._page
-
-        if self._browser is None:
-            playwright = await async_playwright().start()
-            self._browser = await playwright.chromium.launch(headless=False)
-
-        self._page = await self._browser.new_page()
-        return self._page
-
-    async def close(self) -> None:
-        """リソースのクリーンアップ"""
-        if self._page:
-            await self._page.close()
-        if self._browser:
-            await self._browser.close()
+**Format:**
+```xml
+<evaluation>
+  <qa_pair>
+    <question>Find all repositories with more than 100 stars 
+    that were created this year. What is the total star count?</question>
+    <answer>1547</answer>
+  </qa_pair>
+</evaluation>
 ```
 
-### 作業ウィンドウの再利用
+## Tool Design Best Practices
 
-```python
-async def show_preview(self, article_id: str) -> None:
-    """プレビューを表示（既存ウィンドウを再利用）"""
-    page = await self.browser_manager.get_page()
+### Naming Convention
 
-    # 既にプレビューページにいる場合はリロード
-    current_url = page.url
-    preview_url = f"https://note.com/api/v1/text_notes/{article_id}/preview"
-
-    if current_url == preview_url:
-        await page.reload()
-    else:
-        await page.goto(preview_url)
+Use consistent prefixes with action-oriented names:
+```
+✅ github_create_issue, github_list_repos, github_get_user
+✅ slack_send_message, slack_list_channels
+❌ createIssue, listRepos (inconsistent)
+❌ issue, repos (not action-oriented)
 ```
 
-## セッション管理
+### Descriptions
 
-### セキュアなセッション保存
+```typescript
+// ❌ Too vague
+description: "Gets data from the API"
 
-OSのキーチェーン/資格情報マネージャーを使用：
-
-```python
-import keyring
-from dataclasses import dataclass
-from datetime import datetime
-import json
-
-SERVICE_NAME = "note-mcp"
-
-@dataclass
-class Session:
-    """セッション情報"""
-    cookies: dict[str, str]
-    user_id: str
-    expires_at: datetime
-
-    def is_valid(self) -> bool:
-        """セッションが有効かチェック"""
-        return datetime.now() < self.expires_at
-
-def save_session(session: Session) -> None:
-    """セッションをセキュアに保存"""
-    keyring.set_password(
-        SERVICE_NAME,
-        "session",
-        json.dumps({
-            "cookies": session.cookies,
-            "user_id": session.user_id,
-            "expires_at": session.expires_at.isoformat(),
-        })
-    )
-
-def load_session() -> Session | None:
-    """保存されたセッションを読み込み"""
-    data = keyring.get_password(SERVICE_NAME, "session")
-    if data is None:
-        return None
-
-    parsed = json.loads(data)
-    session = Session(
-        cookies=parsed["cookies"],
-        user_id=parsed["user_id"],
-        expires_at=datetime.fromisoformat(parsed["expires_at"]),
-    )
-
-    if not session.is_valid():
-        keyring.delete_password(SERVICE_NAME, "session")
-        return None
-
-    return session
+// ✅ Specific and helpful
+description: "Retrieves repository metadata including stars, forks, and last commit date. Returns structured data for analysis."
 ```
 
-### セッション期限切れ処理
+### Error Messages
 
-```python
-async def execute_with_session(self, operation: Callable) -> Any:
-    """セッションを確認して操作を実行"""
-    session = load_session()
+Guide agents toward solutions:
+```typescript
+// ❌ Generic error
+throw new Error("Request failed");
 
-    if session is None:
-        raise AuthenticationError("ログインが必要です")
-
-    if not session.is_valid():
-        raise SessionExpiredError()
-
-    try:
-        return await operation()
-    except SessionExpiredError:
-        # セッションをクリアして再認証を促す
-        keyring.delete_password(SERVICE_NAME, "session")
-        raise
+// ✅ Actionable error
+throw new Error(
+  "Repository not found. Verify the owner/repo format (e.g., 'anthropics/sdk'). " +
+  "Use github_search_repos to find the correct repository name."
+);
 ```
 
-## 実装チェックリスト
+### Pagination
 
-### MCPツール作成時
+Support filtering and pagination for list operations:
+```typescript
+inputSchema: z.object({
+  query: z.string().optional().describe("Filter results"),
+  limit: z.number().default(20).describe("Max results to return"),
+  cursor: z.string().optional().describe("Pagination cursor from previous response"),
+}),
+```
 
-- [ ] Pydanticモデルで入力を定義
-- [ ] Fieldに説明を付与
-- [ ] ツール定義にdescriptionを記載
-- [ ] 適切なエラーレスポンスを実装
+### Output Schemas
 
-### Playwright統合時
+Define structured output for better agent understanding:
+```typescript
+outputSchema: z.object({
+  items: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    metadata: z.record(z.unknown()),
+  })),
+  nextCursor: z.string().optional(),
+  totalCount: z.number(),
+}),
+```
 
-- [ ] ブラウザライフサイクルを管理
-- [ ] 作業ウィンドウを再利用
-- [ ] クリーンアップ処理を実装
-- [ ] エラー時のリカバリを考慮
+## Tool Annotations Reference
 
-### セッション管理時
+| Annotation | Description | Example |
+|------------|-------------|---------|
+| `readOnlyHint` | Tool doesn't modify external state | List operations, queries |
+| `destructiveHint` | Tool permanently deletes data | Delete operations |
+| `idempotentHint` | Multiple calls produce same result | Get by ID, upsert |
+| `openWorldHint` | Results may change between calls | Real-time data feeds |
 
-- [ ] OSのセキュアストレージを使用
-- [ ] 有効期限チェックを実装
-- [ ] 期限切れ時のエラーメッセージを明確に
-- [ ] 再認証フローを提供
+## Common Patterns
 
-## 参考リソース
+### API Client Setup
+```typescript
+const client = {
+  baseUrl: process.env.API_URL,
+  headers: { Authorization: `Bearer ${process.env.API_KEY}` },
+  
+  async request<T>(path: string, options?: RequestInit): Promise<T> {
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      ...options,
+      headers: { ...this.headers, ...options?.headers },
+    });
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status} - ${await response.text()}`);
+    }
+    return response.json();
+  },
+};
+```
 
-- MCP Protocol仕様: https://modelcontextprotocol.io/
-- Pydantic v2ドキュメント: https://docs.pydantic.dev/
-- Playwright Pythonドキュメント: https://playwright.dev/python/
+### Batch Operations
+```typescript
+// Allow operating on multiple items efficiently
+inputSchema: z.object({
+  ids: z.array(z.string()).max(100).describe("IDs to process (max 100)"),
+}),
+```
 
-## 注意事項
-
-- note.comの非公式APIを使用するため、仕様変更で動作しなくなる可能性あり
-- レート制限を遵守（目安: 10リクエスト/分）
-- 自己責任・無保証での公開を前提
+### Dry Run Support
+```typescript
+inputSchema: z.object({
+  changes: z.array(ChangeSchema),
+  dryRun: z.boolean().default(false).describe("Preview changes without applying"),
+}),
+```

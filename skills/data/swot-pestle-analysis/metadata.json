@@ -1,7 +1,7 @@
 {
   "name": "swot-pestle-analysis",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/business-analysis/skills/swot-pestle-analysis/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-14T03:00:24.115349Z"
+  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+  "path": ".claude/skills/business-analysis/swot-pestle-analysis/SKILL.md",
+  "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
+  "downloaded_at": "2026-01-22T02:59:33.842386Z"
 }

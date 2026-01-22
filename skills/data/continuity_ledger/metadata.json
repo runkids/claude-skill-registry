@@ -1,7 +1,7 @@
 {
   "name": "continuity_ledger",
-  "repo": "MitchellkellerLG/claude-workspace-template",
+  "repo": "wildcard/caro",
   "path": ".claude/skills/continuity_ledger/SKILL.md",
-  "source": "github.com/MitchellkellerLG/claude-workspace-template",
-  "downloaded_at": "2026-01-14T02:55:24.446059Z"
+  "source": "github.com/wildcard/caro",
+  "downloaded_at": "2026-01-22T03:44:39.921286Z"
 }

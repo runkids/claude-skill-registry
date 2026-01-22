@@ -1,7 +1,7 @@
 {
   "name": "ralph",
-  "repo": "mgreenly/ikigai",
-  "path": ".claude/library/ralph/SKILL.md",
-  "source": "github.com/mgreenly/ikigai",
-  "downloaded_at": "2026-01-14T03:06:56.477628Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/ralph/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:36.205077Z"
 }

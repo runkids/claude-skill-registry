@@ -1,434 +1,192 @@
 ---
 name: github-workflows
-description: Diagnose, fix, and optimize GitHub Actions workflows for Rust projects. Use when setting up CI/CD, troubleshooting workflow failures, optimizing build times with caching, or ensuring best practices for testing, linting, and releases.
+description: Initialize or update GitHub Actions workflows for Go projects with comprehensive CI/CD pipelines including linting, testing, coverage, snapshot builds, and releases
 ---
 
-# GitHub Workflows
+# GitHub Workflows Setup Skill
 
-Diagnose, fix, and optimize GitHub Actions workflows for Rust projects.
+Automate Go project CI/CD with production-ready GitHub Actions workflows for testing, linting, coverage reporting, and releases.
 
-## Purpose
+## Overview
 
-Set up robust CI/CD pipelines for Rust projects with proper caching, testing, linting, and release automation.
+This skill provides a complete GitHub Actions CI/CD setup for Go projects:
 
-## Before Making Changes: Verify Current State
+- **Linting**: Automated code quality checks with golangci-lint
+- **Coverage**: Test coverage reporting with badge generation
+- **Snapshot**: Test release builds on every push
+- **Release**: Automated releases with GoReleaser on tag push
+- **Dependabot**: Automated dependency updates
+- **Funding**: GitHub Sponsors configuration
 
-**ALWAYS start by checking the current workflow configuration before making any changes:**
+All workflows integrate with [Task](https://taskfile.dev) for consistent build commands.
 
-### 1. Get Repository Information
+## Prerequisites
 
-```bash
-# Get current repo info (owner, name)
-gh repo view --json nameWithOwner,owner,name
+1. **GitHub repository**: Project hosted on GitHub
+2. **Go module**: Project uses Go modules (`go.mod` present)
+3. **Task runner** (recommended): Taskfile.yml for build commands
+   - Install: `brew install go-task/tap/go-task`
+   - Docs: https://taskfile.dev
+4. **GoReleaser config** (for releases): `.goreleaser.yml` in repository root
+5. **GitHub Container Registry**: Enabled for Docker image publishing
 
-# Example output: {"name":"rust-self-learning-memory","nameWithOwner":"d-o-hub/rust-self-learning-memory","owner":"d-o-hub"}
-```
+## Workflow Architecture
 
-### 2. List Existing Workflows
+| Workflow | Trigger | Purpose | Permissions |
+|----------|---------|---------|-------------|
+| **linter.yml** | Every push | Code quality validation | `contents: read` |
+| **snapshot.yml** | Every push | Test release process | `contents: read` |
+| **coverage.yml** | Push to main | Generate coverage badge | `contents: write` |
+| **release.yml** | Push tags | Production release | `contents: write`, `packages: write` |
 
-```bash
-# List all workflows
-gh workflow list
+Workflow files are located in `assets/workflows/` directory.
 
-# View workflow details
-gh workflow view <workflow-name>
-```
+## Quick Start
 
-### 3. Check Recent Workflow Runs
-
-```bash
-# List recent runs
-gh run list --limit 10
-
-# View specific run details
-gh run view <run-id>
-
-# View run logs
-gh run view <run-id> --log
-```
-
-### 4. Check Existing Workflow Files
+### Step 1: Copy Workflow Files
 
 ```bash
-# List workflow files
-ls -la .github/workflows/
+# Create directories
+mkdir -p .github/workflows
 
-# Review each workflow
-cat .github/workflows/*.yml
+# Copy workflows from assets
+cp assets/workflows/*.yml .github/workflows/
+
+# Copy configurations
+cp assets/dependabot.yml .github/dependabot.yml
+cp assets/FUNDING.yml .github/FUNDING.yml
 ```
 
-### 5. Check for Existing Issues
+### Step 2: Configure Taskfile (Recommended)
 
-```bash
-# Check for workflow-related issues
-gh issue list --label ci --label github-actions --label workflow
-```
-
-**Only after understanding the current state should you suggest changes or additions.**
-
-## Quick Reference
-
-- **[Caching Strategies](caching-strategies.md)** - Manual cache, rust-cache, sccache, cache keys
-- **[Troubleshooting](troubleshooting.md)** - Common issues, debugging, fixes
-- **[Advanced Features](advanced-features.md)** - Coverage, security, benchmarking, quality gates, docs deployment
-- **[Release Management](release-management.md)** - Automated releases, versioning, changelog generation, crates.io publishing
-
-## Complete Rust CI Workflow (2025)
+Create or update `Taskfile.yml`:
 
 ```yaml
-name: Rust CI
+version: '3'
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-env:
-  CARGO_TERM_COLOR: always
-  RUST_BACKTRACE: 1
-
-jobs:
-  check:
-    name: Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Cache Rust dependencies
-        uses: Swatinem/rust-cache@v2
-
-      - name: Run cargo check
-        run: cargo check --all --verbose
-
-  fmt:
-    name: Format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
-
-      - name: Check formatting
-        run: cargo fmt -- --check
-
-  clippy:
-    name: Clippy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
-
-      - name: Cache Rust dependencies
-        uses: Swatinem/rust-cache@v2
-
-      - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+tasks:
+  linter:
+    desc: Run golangci-lint
+    cmds:
+      - golangci-lint run ./...
 
   test:
-    name: Test
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        rust: [stable]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v5
+    desc: Run tests
+    cmds:
+      - go test -v ./...
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ matrix.rust }}
+  snapshot:
+    desc: Create snapshot build (test release)
+    cmds:
+      - goreleaser release --snapshot --clean --skip=publish
 
-      - name: Cache Rust dependencies
-        uses: Swatinem/rust-cache@v2
-
-      - name: Run tests
-        run: cargo test --all --verbose
-
-      - name: Run tests with all features
-        run: cargo test --all-features --verbose
-
-  coverage:
-    name: Coverage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Install cargo-llvm-cov
-        run: cargo install cargo-llvm-cov
-
-      - name: Generate coverage
-        run: cargo llvm-cov --lcov --all-features --workspace --output-path lcov.info
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          file: ./lcov.info
-          fail_ci_if_error: false
+  release:
+    desc: Create production release
+    cmds:
+      - goreleaser release --clean
 ```
 
-## Quick Start Workflows
+### Step 3: Customize Go Version
 
-### Minimal CI (Quick Feedback)
-
-```yaml
-name: Quick CI
-
-on: [push, pull_request]
-
-jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
-      - run: cargo check --all
-      - run: cargo fmt -- --check
-      - run: cargo clippy -- -D warnings
-      - run: cargo test --all
-```
-
-### Project-Specific: Self-Learning Memory CI
+Update Go version in all workflows:
 
 ```yaml
-name: Self-Learning Memory CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-
-env:
-  CARGO_TERM_COLOR: always
-  RUST_BACKTRACE: 1
-
-jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
-      - run: cargo check --all --verbose
-
-  fmt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
-      - run: cargo fmt -- --check
-
-  clippy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
-      - uses: Swatinem/rust-cache@v2
-      - run: cargo clippy --all-targets -- -D warnings
-
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    steps:
-      - uses: actions/checkout@v5
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
-      - run: cargo test --all --verbose
-      - run: cargo test --all --all-features --verbose
-```
-
-## Common Tasks
-
-### Setup Rust Toolchain
-
-```yaml
-# Stable
-- uses: dtolnay/rust-toolchain@stable
-
-# With components
-- uses: dtolnay/rust-toolchain@stable
+- uses: actions/setup-go@v6
   with:
-    components: rustfmt, clippy
+    go-version: '1.24'  # CUSTOMIZE: Use your Go version
+```
 
-# Specific version
-- uses: dtolnay/rust-toolchain@master
+### Step 4: Customize Coverage Settings
+
+In `.github/workflows/coverage.yml`:
+
+```yaml
+- name: Generate coverage badge
   with:
-    toolchain: 1.75.0
+    limit-coverage: "70"  # CUSTOMIZE: Set your coverage threshold
 ```
 
-### Cache Dependencies
+### Step 5: Update Funding Configuration
+
+Update `.github/FUNDING.yml`:
 
 ```yaml
-# Recommended: Use rust-cache (automatic)
-- uses: Swatinem/rust-cache@v2
-  with:
-    shared-key: "stable"
-    save-if: ${{ github.ref == 'refs/heads/main' }}
-
-# Alternative: Manual cache
-- uses: actions/cache@v4
-  with:
-    path: |
-      ~/.cargo/registry/index
-      ~/.cargo/registry/cache
-      target
-    key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-    restore-keys: |
-      ${{ runner.os }}-cargo-
-    save-always: true
+github: [YOUR_GITHUB_USERNAME]  # CUSTOMIZE
 ```
 
-See **[caching-strategies.md](caching-strategies.md)** for detailed caching options.
+### Step 6: Configure GitHub Settings
 
-### Run Tests
+Enable required GitHub features:
 
-```yaml
-# All tests
-- run: cargo test --all
+**Actions Permissions**:
+- Settings → Actions → General
+- Set "Workflow permissions" to "Read and write permissions"
 
-# With verbose output
-- run: cargo test --all --verbose
+**GitHub Container Registry**:
+- Settings → Packages
+- Enable "Inherit access from repository"
 
-# With all features
-- run: cargo test --all-features
+**Branch Protection** (optional):
+- Settings → Branches → Add rule
+- Require status checks: `linter`, `goreleaser-snapshot`
 
-# With backtrace
-- run: RUST_BACKTRACE=1 cargo test --all
+**Secrets** (if needed):
+- Settings → Secrets → Actions
+- Add `HOMEBREW_TAP_TOKEN` (if using Homebrew in GoReleaser)
 
-# Single-threaded (for race conditions)
-- run: cargo test --all -- --test-threads=1
+### Step 7: Test Workflows
+
+```bash
+# 1. Push changes to trigger linter and snapshot
+git add .github/
+git commit -m "ci: add GitHub Actions workflows"
+git push origin main
+
+# 2. Check workflow runs at: https://github.com/OWNER/REPO/actions
+
+# 3. Test release workflow (without publishing)
+git tag -a v0.1.0-test -m "Test release"
+git push origin v0.1.0-test
+
+# 4. If successful, create real release
+git tag -a v1.0.0 -m "First release"
+git push origin v1.0.0
 ```
 
-### Build Project
+## Status Badges (Optional)
 
-```yaml
-# Development build
-- run: cargo build --all
+Add workflow badges to README.md:
 
-# Release build
-- run: cargo build --release --all
-
-# With timing info
-- run: cargo build --release --timings
+```markdown
+[![Linter](https://github.com/OWNER/REPO/actions/workflows/linter.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/linter.yml)
+[![Release](https://github.com/OWNER/REPO/actions/workflows/release.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/release.yml)
+![Coverage](https://raw.githubusercontent.com/OWNER/REPO/main/coverage-badge.svg)
 ```
 
-### Lint and Format
+## Expected Output
 
-### Using cargo-llvm-cov (Recommended)
-```yaml
-- name: Install llvm-cov
-  run: cargo install cargo-llvm-cov
+After using this skill, your repository will have:
+- ✓ Complete CI/CD pipeline with 4 workflows
+- ✓ Automated linting on every push
+- ✓ Snapshot builds to validate releases
+- ✓ Coverage badges showing test coverage
+- ✓ Automated releases on Git tags
+- ✓ Dependabot for dependency updates
+- ✓ GitHub Sponsors configuration
+- ✓ Production-ready workflow structure
 
-- name: Generate coverage
-  run: cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
+Your project will have professional-grade CI/CD matching industry best practices.
 
-- name: Upload to Codecov
-  uses: codecov/codecov-action@v4
-  with:
-    files: lcov.info
-    token: ${{ secrets.CODECOV_TOKEN }}
-```
+## Additional Documentation
 
-### Alternative: Generate multiple formats
-```yaml
-- name: Install llvm-cov
-  run: cargo install cargo-llvm-cov
+- **Detailed configurations and customization**: See [REFERENCE.md](REFERENCE.md)
+- **Troubleshooting common issues**: See [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+- **Workflow templates**: Available in `assets/workflows/` directory
 
-- name: Generate coverage (HTML + LCOV)
-  run: |
-    cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
-    cargo llvm-cov --all-features --workspace --html --output-dir coverage
+## Resources
 
-# Run clippy with fix
-- run: cargo clippy --fix
-```
-
-## Best Practices (2025)
-
-### DO:
-✓ Use `actions/cache@v4` with `save-always: true`
-✓ Use `hashFiles('**/Cargo.lock')` for cache keys
-✓ Implement `restore-keys` for cache fallback
-✓ Use `dtolnay/rust-toolchain` (not deprecated actions-rs)
-✓ Split large caches to avoid 2GB limit
-✓ Test on multiple platforms (matrix)
-✓ Use `Swatinem/rust-cache@v2` for simplicity
-✓ Cache both registry and target directory
-✓ Set `CARGO_TERM_COLOR: always` for readable logs
-✓ Use `continue-on-error` for experimental builds
-
-### DON'T:
-✗ Use deprecated `actions-rs/*` actions
-✗ Create monolithic cache entries >2GB
-✗ Cache without `restore-keys`
-✗ Forget `save-always: true` for partial builds
-✗ Cache `target/` across different jobs without unique keys
-✗ Run expensive operations on every PR
-✗ Use `actions/cache@v3` and `@v4` inconsistently
-✗ Hardcode Rust version (use rust-toolchain file)
-
-## Common Issues
-
-Quick reference - see **[troubleshooting.md](troubleshooting.md)** for full details:
-
-1. **Cache not saved on failure** → Use `save-always: true`
-2. **Cache key mismatch** → Use `hashFiles()` and `restore-keys`
-3. **Deprecated actions-rs** → Use `dtolnay/rust-toolchain`
-4. **tar creation errors** → Use `rust-cache` or exclude problematic paths
-5. **Files >2GB** → Split into smaller caches
-6. **Workflow permissions** → Set `permissions:` in workflow
-7. **Flaky tests** → Add retries with `nick-fields/retry@v2`
-
-## Detailed Documentation
-
-- **[Caching Strategies](caching-strategies.md)** - All caching methods, cache keys, performance tips
-- **[Troubleshooting](troubleshooting.md)** - Issues, fixes, debugging, monitoring
-- **[Advanced Features](advanced-features.md)** - Releases, coverage, security, multi-platform
-
-## Integration with Project
-
-**Before suggesting workflow changes:**
-1. Run `gh repo view --json nameWithOwner,owner,name` to get actual repo info
-2. Use the actual owner/repo names in all workflow examples
-3. Check existing workflows with `gh workflow list`
-4. Review current workflow files in `.github/workflows/`
-
-**For this project (d-o-hub/rust-self-learning-memory):**
-- The workflows ensure all `memory-core`, `memory-storage-turso`, and `memory-storage-redb` crates are tested across platforms
-- Quality gates enforce 90% code coverage threshold
-- Benchmarks track performance regressions
-- Supply chain security with cargo-deny and cargo-audit
-
-## Quick Checklist
-
-Before committing workflow changes:
-- [ ] Uses `actions/cache@v4` or `Swatinem/rust-cache@v2`
-- [ ] Has `save-always: true` for caches
-- [ ] Uses `dtolnay/rust-toolchain` (not actions-rs)
-- [ ] Caches are <2GB each
-- [ ] Has `restore-keys` for fallback
-- [ ] Tests on multiple platforms (if needed)
-- [ ] Clippy runs with `-D warnings`
-- [ ] Format check included
-- [ ] Permissions set appropriately
+- **GitHub Actions**: https://docs.github.com/en/actions
+- **Task Runner**: https://taskfile.dev
+- **golangci-lint**: https://golangci-lint.run
+- **GoReleaser**: https://goreleaser.com
+- **Dependabot**: https://docs.github.com/en/code-security/dependabot

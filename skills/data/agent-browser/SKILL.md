@@ -1,239 +1,150 @@
 ---
 name: agent-browser
-description: CLI-based headless browser automation for AI agents. Use when users ask to automate web browsing via command-line, interact with web pages using accessibility snapshots, scrape websites, fill forms, take screenshots, or perform browser testing. Ideal for simple sequential browser tasks. Trigger phrases include "use agent-browser", "browse to", "automate this website", "get page snapshot", "click element", "fill form field". Prefer this over dev-browser for simpler tasks that don't need complex Playwright scripting.
+description: Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, test web applications, or extract information from web pages.
 ---
 
-# Agent Browser
+# Browser Automation with agent-browser
 
-CLI tool for browser automation via bash commands. Uses snapshot + ref workflow optimized for AI agents.
-
-## Setup (Run First)
-
-Run setup script before first use:
+## Install
 
 ```bash
-skills/agent-browser/scripts/setup.sh
+npm install -g agent-browser
+agent-browser install
 ```
 
-After setup, run all commands from the skill directory:
+## Quick start
 
 ```bash
-cd skills/agent-browser && npx agent-browser <command>
+agent-browser open <url>        # Navigate to page
+agent-browser snapshot -i       # Get interactive elements with refs
+agent-browser click @e1         # Click element by ref
+agent-browser fill @e2 "text"   # Fill input by ref
+agent-browser close             # Close browser
 ```
 
-## Core Workflow
+## Core workflow
 
-1. Navigate to URL
-2. Get accessibility snapshot with element refs
-3. Interact using refs (`@e1`, `@e2`, etc.)
-4. Repeat snapshot after page changes
+1. Navigate: `agent-browser open <url>`
+2. Snapshot: `agent-browser snapshot -i` (returns elements with refs like `@e1`, `@e2`)
+3. Interact using refs from the snapshot
+4. Re-snapshot after navigation or significant DOM changes
 
-```bash
-cd skills/agent-browser && npx agent-browser open example.com
-cd skills/agent-browser && npx agent-browser snapshot -i --json
-cd skills/agent-browser && npx agent-browser click @e2
-cd skills/agent-browser && npx agent-browser fill @e3 "text"
-cd skills/agent-browser && npx agent-browser snapshot -i --json
-cd skills/agent-browser && npx agent-browser close
-```
-
-## Snapshot Options
-
-| Flag | Effect |
-|------|--------|
-| `-i, --interactive` | Only interactive elements (buttons, links, inputs) |
-| `-c, --compact` | Remove empty structural elements |
-| `-d N, --depth N` | Limit tree depth |
-| `-s SEL, --selector SEL` | Scope to CSS selector |
-| `--json` | Machine-readable output |
-
-Example output:
-```
-- heading "Example Domain" [ref=e1] [level=1]
-- button "Submit" [ref=e2]
-- textbox "Email" [ref=e3]
-- link "Learn more" [ref=e4]
-```
-
-## Essential Commands
-
-> All commands below assume you're in the skill directory or prefix with `cd skills/agent-browser &&`
+## Commands
 
 ### Navigation
 ```bash
-npx agent-browser open <url>
-npx agent-browser back
-npx agent-browser forward
-npx agent-browser reload
-npx agent-browser close
+agent-browser open <url>      # Navigate to URL
+agent-browser back            # Go back
+agent-browser forward         # Go forward  
+agent-browser reload          # Reload page
+agent-browser close           # Close browser
 ```
 
-### Interaction
+### Snapshot (page analysis)
 ```bash
-npx agent-browser click <sel>              # Click element
-npx agent-browser dblclick <sel>           # Double-click element
-npx agent-browser fill <sel> <text>        # Clear and fill input
-npx agent-browser type <sel> <text>        # Type without clearing
-npx agent-browser press <key>              # Press key (Enter, Tab, Control+a)
-npx agent-browser hover <sel>              # Hover element
-npx agent-browser focus <sel>              # Focus element
-npx agent-browser check <sel>              # Check checkbox
-npx agent-browser uncheck <sel>            # Uncheck checkbox
-npx agent-browser select <sel> <value>     # Select dropdown option
-npx agent-browser scroll up|down [px]      # Scroll page
-npx agent-browser scrollintoview <sel>     # Scroll element into view
-npx agent-browser drag <src> <tgt>         # Drag and drop
-npx agent-browser upload <sel> <files>     # Upload files
+agent-browser snapshot        # Full accessibility tree
+agent-browser snapshot -i     # Interactive elements only (recommended)
+agent-browser snapshot -c     # Compact output
+agent-browser snapshot -d 3   # Limit depth to 3
 ```
 
-### Getting Data
+### Interactions (use @refs from snapshot)
 ```bash
-npx agent-browser get text <sel>           # Get text content
-npx agent-browser get html <sel>           # Get innerHTML
-npx agent-browser get value <sel>          # Get input value
-npx agent-browser get attr <sel> <attr>    # Get attribute
-npx agent-browser get title                # Page title
-npx agent-browser get url                  # Current URL
-npx agent-browser get count <sel>          # Count matching elements
-npx agent-browser get box <sel>            # Get bounding box
+agent-browser click @e1           # Click
+agent-browser dblclick @e1        # Double-click
+agent-browser fill @e2 "text"     # Clear and type
+agent-browser type @e2 "text"     # Type without clearing
+agent-browser press Enter         # Press key
+agent-browser press Control+a     # Key combination
+agent-browser hover @e1           # Hover
+agent-browser check @e1           # Check checkbox
+agent-browser uncheck @e1         # Uncheck checkbox
+agent-browser select @e1 "value"  # Select dropdown
+agent-browser scroll down 500     # Scroll page
+agent-browser scrollintoview @e1  # Scroll element into view
 ```
 
-### State Checks
+### Get information
 ```bash
-npx agent-browser is visible <sel>
-npx agent-browser is enabled <sel>
-npx agent-browser is checked <sel>
+agent-browser get text @e1        # Get element text
+agent-browser get value @e1       # Get input value
+agent-browser get title           # Get page title
+agent-browser get url             # Get current URL
 ```
 
-### Screenshots & PDF
+### Screenshots
 ```bash
-npx agent-browser screenshot output.png    # Save screenshot to file
-npx agent-browser screenshot --full pg.png # Full page screenshot
-npx agent-browser pdf output.pdf           # Save as PDF
+agent-browser screenshot          # Screenshot to stdout
+agent-browser screenshot path.png # Save to file
+agent-browser screenshot --full   # Full page
 ```
 
 ### Wait
 ```bash
-npx agent-browser wait <selector>          # Wait for element
-npx agent-browser wait <ms>                # Wait for time
-npx agent-browser wait --text "Welcome"    # Wait for text
-npx agent-browser wait --url "**/dash"     # Wait for URL pattern
-npx agent-browser wait --load networkidle  # Wait for load state
-npx agent-browser wait --fn "window.ready" # Wait for JS condition
+agent-browser wait @e1                     # Wait for element
+agent-browser wait 2000                    # Wait milliseconds
+agent-browser wait --text "Success"        # Wait for text
+agent-browser wait --load networkidle      # Wait for network idle
 ```
 
-## Selectors
-
-### Refs (Preferred)
-Use refs from snapshot output:
+### Semantic locators (alternative to refs)
 ```bash
-npx agent-browser click @e2
-npx agent-browser fill @e3 "email@test.com"
+agent-browser find role button click --name "Submit"
+agent-browser find text "Sign In" click
+agent-browser find label "Email" fill "user@test.com"
 ```
 
-### CSS Selectors
+## Example: Form submission
+
 ```bash
-npx agent-browser click "#submit"
-npx agent-browser click ".btn-primary"
-npx agent-browser click "div > button"
+agent-browser open https://example.com/form
+agent-browser snapshot -i
+# Output shows: textbox "Email" [ref=e1], textbox "Password" [ref=e2], button "Submit" [ref=e3]
+
+agent-browser fill @e1 "user@example.com"
+agent-browser fill @e2 "password123"
+agent-browser click @e3
+agent-browser wait --load networkidle
+agent-browser snapshot -i  # Check result
 ```
 
-### Text & XPath
+## Example: Authentication with saved state
+
 ```bash
-npx agent-browser click "text=Submit"
-npx agent-browser click "xpath=//button"
+# Login once
+agent-browser open https://app.example.com/login
+agent-browser snapshot -i
+agent-browser fill @e1 "username"
+agent-browser fill @e2 "password"
+agent-browser click @e3
+agent-browser wait --url "**/dashboard"
+agent-browser state save auth.json
+
+# Later sessions: load saved state
+agent-browser state load auth.json
+agent-browser open https://app.example.com/dashboard
 ```
 
-### Semantic Locators
+## Sessions (parallel browsers)
+
 ```bash
-npx agent-browser find role button click --name "Submit"
-npx agent-browser find label "Email" fill "test@test.com"
-npx agent-browser find text "Sign In" click
-npx agent-browser find placeholder "Search" fill "query"
+agent-browser --session test1 open site-a.com
+agent-browser --session test2 open site-b.com
+agent-browser session list
 ```
 
-## Sessions
+## JSON output (for parsing)
 
-Run isolated browser instances:
+Add `--json` for machine-readable output:
 ```bash
-npx agent-browser --session agent1 open site-a.com
-npx agent-browser --session agent2 open site-b.com
-
-# Or via environment
-AGENT_BROWSER_SESSION=agent1 npx agent-browser click @e2
-
-# List sessions
-npx agent-browser session list
-```
-
-## Global Options
-
-| Option | Effect |
-|--------|--------|
-| `--session <name>` | Use isolated session |
-| `--json` | JSON output for parsing |
-| `--headed` | Show browser window |
-| `--debug` | Debug output |
-
-## Common Patterns
-
-### Login Flow
-```bash
-cd skills/agent-browser
-npx agent-browser open https://example.com/login
-npx agent-browser snapshot -i --json
-npx agent-browser fill @e1 "username"
-npx agent-browser fill @e2 "password"
-npx agent-browser click @e3  # Submit button
-npx agent-browser wait --url "**/dashboard"
-npx agent-browser snapshot -i --json
-```
-
-### Form Submission
-```bash
-cd skills/agent-browser
-npx agent-browser open https://example.com/form
-npx agent-browser snapshot -i --json
-npx agent-browser fill @e1 "John Doe"
-npx agent-browser fill @e2 "john@example.com"
-npx agent-browser select @e3 "Option A"
-npx agent-browser check @e4
-npx agent-browser click @e5  # Submit
-npx agent-browser wait --text "Success"
-```
-
-### Data Extraction
-```bash
-cd skills/agent-browser
-npx agent-browser open https://example.com/data
-npx agent-browser snapshot --json > page_structure.json
-npx agent-browser get text ".results" --json
-npx agent-browser screenshot results.png
+agent-browser snapshot -i --json
+agent-browser get text @e1 --json
 ```
 
 ## Debugging
 
 ```bash
-cd skills/agent-browser
-npx agent-browser --headed open example.com  # See browser window
-npx agent-browser screenshot debug.png        # Capture current state
-npx agent-browser highlight <sel>             # Highlight element visually
-npx agent-browser console                     # View console messages
-npx agent-browser errors                      # View page errors
-npx agent-browser trace start                 # Start trace recording
-# ... do actions ...
-npx agent-browser trace stop trace.zip        # Save trace
+agent-browser open example.com --headed  # Show browser window
+agent-browser console                    # View console messages
+agent-browser errors                     # View page errors
 ```
-
-## Advanced Commands
-
-See [references/commands.md](references/commands.md) for:
-- Screenshots (format, quality, element-specific)
-- Video recording (limitations noted)
-- Tracing with screenshots/snapshots
-- Cookies & storage management
-- Network interception
-- Tabs & windows
-- Frames & dialogs
-- Mouse control
-- Geolocation & device emulation

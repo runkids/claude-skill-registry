@@ -1,8 +1,7 @@
 {
   "name": "scrum-team-product-owner",
-  "repo": "atusy/agentic-scrum",
-  "category": "data",
-  "description": "AI-Agentic Product Owner accountable for maximizing product value through effective Product Backlog management. Use when creating PBIs, ordering backlog, or accepting sprints.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:59.865554Z"
+  "repo": "staticWagomU/dotfiles",
+  "path": "config/claude/skills/scrum-team-product-owner/SKILL.md",
+  "source": "github.com/staticWagomU/dotfiles",
+  "downloaded_at": "2026-01-22T00:55:42.979066Z"
 }

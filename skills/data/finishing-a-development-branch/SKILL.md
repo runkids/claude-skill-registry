@@ -1,92 +1,87 @@
 ---
-name: finishing-a-development-branch
-description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup
+name: Finishing a Development Branch
+description: Use this when you have completed some feature implementation and have written passing tests, and you are ready to create a PR.
 ---
 
-# Finishing a Development Branch
+<required>
+*CRITICAL* Add the following steps to your Todo list using TodoWrite:
 
-## Overview
-
-Guide completion of development work by presenting clear options and handling chosen workflow.
-
-**Core principle:** Verify tests → Present options → Execute choice → Clean up.
-
-**Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
-
-## The Process
-
-### Step 1: Verify Tests
-
-**Before presenting options, verify tests pass:**
+1. Use the Task tool to verify tests by using the project's test suite.
 
 ```bash
 # Run project's test suite
-npm test / cargo test / pytest / go test ./...
+bb test / npm test / cargo test / pytest / go test ./...
 ```
 
 **If tests fail:**
+
 ```
-Tests failing (<N> failures). Must fix before completing:
+Tests failing (<N> failures). Must fix before creating PR:
 
 [Show failures]
 
-Cannot proceed with merge/PR until tests pass.
+Cannot proceed until tests pass.
 ```
 
-Stop. Don't proceed to Step 2.
+2. Confirm that there is some formatting/lint/typechecking in the project. If NONE of these exist, ask me if there was something that you missed.
 
-**If tests pass:** Continue to Step 2.
-
-### Step 2: Determine Base Branch
+3. Use the Task tool to run any formatters and fix issues in a subagent.
 
 ```bash
-# Try common base branches
-git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null
+# Clojure 
+bb fmt
+
+# Node.js/JavaScript/TypeScript
+ls package.json 2>/dev/null && jq -r '.scripts | keys[]' package.json | grep -E 'format|lint'
+
+# Rust
+ls rustfmt.toml .rustfmt.toml 2>/dev/null
+
+# Python
+ls .flake8 pyproject.toml setup.cfg 2>/dev/null
+
+# Go
+ls .golangci.yml .golangci.yaml 2>/dev/null
 ```
 
-Or ask: "This branch split from main - is that correct?"
-
-### Step 3: Present Options
-
-Present exactly these 4 options:
-
-```
-Implementation complete. What would you like to do?
-
-1. Merge back to <base-branch> locally
-2. Push and create a Pull Request
-3. Keep the branch as-is (I'll handle it later)
-4. Discard this work
-
-Which option?
-```
-
-**Don't add explanation** - keep options concise.
-
-### Step 4: Execute Choice
-
-#### Option 1: Merge Locally
+4. Use the Task tool to run any linters and fix issues in a subagent.
 
 ```bash
-# Switch to base branch
-git checkout <base-branch>
+# Clojure
+bb lint
 
-# Pull latest
-git pull
+# Node.js - check package.json scripts
+npm run lint  # or: npm run lint:fix, npm run eslint
 
-# Merge feature branch
-git merge <feature-branch>
+# Rust
+cargo clippy --fix --allow-dirty --allow-staged
 
-# Verify tests on merged result
-<test command>
+# Python
+ruff check --fix .
+# or: flake8 ., pylint .
 
-# If tests pass
-git branch -d <feature-branch>
+# Go
+golangci-lint run --fix
 ```
 
-Then: Cleanup worktree (Step 5)
+5. Use the Task tool to run type checking and fix issues in a subagent.
 
-#### Option 2: Push and Create PR
+6. Use the code-reviewer subagent to do a self review. You do *NOT* have to follow the subagent's suggestions. This is merely a way to get a fresh pair of eyes on the code.
+
+7. Confirm that you are not on the main branch. If you are, ask me before proceeding. NEVER push to main without permission.
+
+8. Use `git add` to stage the changes to files you edited for this feature. Follow
+
+    Commit message rules:
+    - Never mention beads, bd issues in the commit message
+    - Never use **bold** formatting
+    - Never use emoji in the commit message
+    - Never mention Claude/AI/LLMS/Coding Agents in the commit message
+    - Do not list or mention files in the commit message (that is redundant, the commit itself has a list of files)
+    - Do not include other redundant or obvious information
+    - Use `git log -n 10` to look at past 10 commits, follow a similar commit message style (number of lines, casing etc)
+
+8. Push and create a PR.
 
 ```bash
 # Push branch
@@ -95,6 +90,7 @@ git push -u origin <feature-branch>
 # Create PR
 gh pr create --title "<title>" --body "$(cat <<'EOF'
 ## Summary
+
 <2-3 bullets of what changed>
 
 ## Test Plan
@@ -103,98 +99,24 @@ EOF
 )"
 ```
 
-Then: Cleanup worktree (Step 5)
+9. Make sure the PR branch CI succeeds. Skip if there are no checks/ci.
 
-#### Option 3: Keep As-Is
-
-Report: "Keeping branch <name>. Worktree preserved at <path>."
-
-**Don't cleanup worktree.**
-
-#### Option 4: Discard
-
-**Confirm first:**
-```
-This will permanently delete:
-- Branch <name>
-- All commits: <commit-list>
-- Worktree at <path>
-
-Type 'discard' to confirm.
-```
-
-Wait for exact confirmation.
-
-If confirmed:
 ```bash
-git checkout <base-branch>
-git branch -D <feature-branch>
+# Check if the PR CI succeeded
+gh pr checks
+
+# If it is still running, sleep and check again
+sleep 60 && gh pr checks
 ```
 
-Then: Cleanup worktree (Step 5)
+If CI did not pass, examine why.
+If the CI did not start, this is likely due to merge conflicts; merge main, fix conflicts, and try again.
+<system-reminder>Do not move forward without a ci status unless you have checked for merge conflicts</system-reminder>
 
-### Step 5: Cleanup Worktree
+- Make changes as needed, push a new commit, and repeat the process.
+<system-reminder> It is *critical* that you fix any ci issues, EVEN IF YOU DID NOT CAUSE THEM. </system-reminder>
 
-**For Options 1, 2, 4:**
+9. Tell me: "I can automatically get review comments, just let me know when to do so."
+</required>
 
-Check if in worktree:
-```bash
-git worktree list | grep $(git branch --show-current)
-```
 
-If yes:
-```bash
-git worktree remove <worktree-path>
-```
-
-**For Option 3:** Keep worktree.
-
-## Quick Reference
-
-| Option | Merge | Push | Keep Worktree | Cleanup Branch |
-|--------|-------|------|---------------|----------------|
-| 1. Merge locally | ✓ | - | - | ✓ |
-| 2. Create PR | - | ✓ | ✓ | - |
-| 3. Keep as-is | - | - | ✓ | - |
-| 4. Discard | - | - | - | ✓ (force) |
-
-## Common Mistakes
-
-**Skipping test verification**
-- **Problem:** Merge broken code, create failing PR
-- **Fix:** Always verify tests before offering options
-
-**Open-ended questions**
-- **Problem:** "What should I do next?" → ambiguous
-- **Fix:** Present exactly 4 structured options
-
-**Automatic worktree cleanup**
-- **Problem:** Remove worktree when might need it (Option 2, 3)
-- **Fix:** Only cleanup for Options 1 and 4
-
-**No confirmation for discard**
-- **Problem:** Accidentally delete work
-- **Fix:** Require typed "discard" confirmation
-
-## Red Flags
-
-**Never:**
-- Proceed with failing tests
-- Merge without verifying tests on result
-- Delete work without confirmation
-- Force-push without explicit request
-
-**Always:**
-- Verify tests before offering options
-- Present exactly 4 options
-- Get typed confirmation for Option 4
-- Clean up worktree for Options 1 & 4 only
-
-## Integration
-
-**Called by:**
-- **subagent-driven-development** (Step 7) - After all tasks complete
-- **executing-plans** (Step 5) - After all batches complete
-
-**Pairs with:**
-- **using-git-worktrees** - Cleans up worktree created by that skill

@@ -1,7 +1,7 @@
 {
   "name": "deploy",
-  "repo": "marcoloco23/claude-workflow",
+  "repo": "mmbianco78/signalroom",
   "path": ".claude/skills/deploy/SKILL.md",
-  "source": "github.com/marcoloco23/claude-workflow",
-  "downloaded_at": "2026-01-14T03:32:47.346351Z"
+  "source": "github.com/mmbianco78/signalroom",
+  "downloaded_at": "2026-01-22T02:15:39.756805Z"
 }

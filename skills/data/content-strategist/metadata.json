@@ -1,12 +1,7 @@
 {
   "name": "content-strategist",
-  "description": "Defines editorial priorities for AndesRC blog. Maps topics to funnel stages (TOFU/MOFU/BOFU), identifies pillar vs. satellite content, and ensures alignment with the 4 content pillars. Use when starti",
-  "repo": "dasalazarr/andes",
-  "category": "marketing",
-  "tags": [
-    "content",
-    "strategist"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "NoCodeify/aeo",
+  "path": ".claude/skills/content-strategist/SKILL.md",
+  "source": "github.com/NoCodeify/aeo",
+  "downloaded_at": "2026-01-21T03:43:44.026072Z"
 }

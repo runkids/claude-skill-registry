@@ -1,7 +1,7 @@
 {
   "name": "tech-debt-analyzer",
-  "repo": "ntaksh42/agents",
-  "path": ".claude/skills/tech-debt-analyzer/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-14T03:51:01.262478Z"
+  "repo": "travisjneuman/.claude",
+  "path": "skills/tech-debt-analyzer/SKILL.md",
+  "source": "github.com/travisjneuman/.claude",
+  "downloaded_at": "2026-01-22T04:01:31.596675Z"
 }

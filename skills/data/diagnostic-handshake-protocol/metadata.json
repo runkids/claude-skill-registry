@@ -1,13 +1,7 @@
 {
   "name": "diagnostic-handshake-protocol",
-  "description": "Execute diagnostic handshake to verify system state and calibration.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "diagnostic",
-    "handshake",
-    "protocol"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/diagnostic-handshake-protocol/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:48.078135Z"
 }

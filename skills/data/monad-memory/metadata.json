@@ -1,8 +1,7 @@
 {
   "name": "monad-memory",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "data",
-  "description": "MONAD-grounded cognitive architecture for AI memory as morphemic substrate navigation. Memory is not storage but substrate sampling - accessing the same structure that underlies reality. Implements \u03c6-",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:59.514948Z"
+  "path": ".claude/skills/monad-memory/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:24.886974Z"
 }

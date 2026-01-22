@@ -1,7 +1,7 @@
 {
   "name": "cpu-gpu-performance",
   "repo": "athola/claude-night-market",
-  "path": "plugins/conserve/skills/performance-monitoring/cpu-gpu-performance/SKILL.md",
+  "path": "plugins/conserve/skills/cpu-gpu-performance/SKILL.md",
   "source": "github.com/athola/claude-night-market",
-  "downloaded_at": "2026-01-14T01:32:44.651864Z"
+  "downloaded_at": "2026-01-22T03:09:15.356625Z"
 }

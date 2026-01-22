@@ -1,337 +1,226 @@
 ---
 name: mermaid
-description: "Create text-based diagrams using Mermaid syntax. Perfect for version-controlled diagrams that render in GitHub, documentation sites, and markdown files."
-allowed-tools: [Read, Write, Edit, Bash]
+description: Guide for creating beautiful Mermaid diagrams with proper styling for GitHub markdown (dark/light mode compatible, no icons).
 ---
 
-# Nano Banana - Mermaid Diagrams
+# Mermaid Diagram Skill
 
-## Overview
+This skill provides guidance on creating beautiful, professional Mermaid diagrams that render correctly on GitHub and work well in both light and dark mode.
 
-Create diagrams using Mermaid's text-based syntax. Mermaid diagrams are version-controllable, render natively in GitHub/GitLab, and are perfect for documentation.
+## Core Principles
 
-**Key Features:**
-- 📝 **Text-Based**: Diagrams as code, easy to version control
-- 🔄 **Git-Friendly**: Diff-able, merge-able, reviewable
-- 🌐 **Wide Support**: GitHub, GitLab, Notion, Obsidian, and more
-- 🎨 **Customizable**: Themes and styling options
+1. **Use dark fills with light strokes** — Ensures readability in both light and dark mode
+2. **Set subgraph fills to `none`** — Allows subgraphs to adapt to any background
+3. **Use rounded shapes** — `([text])` for stadium shapes, `((text))` for circles
+4. **No Font Awesome icons** — GitHub doesn't support `fa:fa-*` icons, they render as text
+5. **Quote subgraph labels** — Use `subgraph Name["Label Text"]` syntax
+6. **Define classDef styles at the top** — Keep all styling together for maintainability
 
-## When to Use Mermaid
+## The Golden Rule: Dark Fills + Light Strokes
 
-| Use Mermaid When... | Use AI Diagrams When... |
-|---------------------|------------------------|
-| Diagrams need version control | One-off visualization needed |
-| Team collaboration on diagrams | High visual polish required |
-| Diagrams in markdown docs | Complex custom styling needed |
-| Frequent diagram updates | Photo-realistic or artistic |
-| GitHub/GitLab rendering | Publication-quality required |
+The key insight for dark/light mode compatibility:
 
-## Supported Diagram Types
+```
+classDef myStyle fill:#DARK_COLOUR,stroke:#LIGHT_COLOUR,stroke-width:2px,color:#fff
+```
 
-### 1. Flowcharts
+- **Fill**: Use a darker shade (the node background)
+- **Stroke**: Use a lighter shade of the same colour family (the border)
+- **Color**: Always `#fff` (white text on dark background)
+
+This approach ensures nodes are readable regardless of the page background.
+
+## GitHub-Compatible Template
+
+This is the canonical template for GitHub-rendered Mermaid diagrams:
 
 ```mermaid
 flowchart TD
-    A[Start] --> B{Is it working?}
-    B -->|Yes| C[Great!]
-    B -->|No| D[Debug]
-    D --> B
-    C --> E[End]
-```
+    %% --- COLOUR PALETTE & STYLING ---
+    %% Dark fills + light strokes = readable in both light and dark mode
+    classDef user fill:#374151,stroke:#d1d5db,stroke-width:2px,color:#fff
+    classDef primary fill:#5b21b6,stroke:#ddd6fe,stroke-width:2px,color:#fff
+    classDef secondary fill:#1e40af,stroke:#bfdbfe,stroke-width:2px,color:#fff
+    classDef accent fill:#c2410c,stroke:#fed7aa,stroke-width:2px,color:#fff
+    classDef success fill:#047857,stroke:#a7f3d0,stroke-width:2px,color:#fff
 
-**Syntax:**
-```
-flowchart TD
-    A[Start] --> B{Is it working?}
-    B -->|Yes| C[Great!]
-    B -->|No| D[Debug]
-    D --> B
-    C --> E[End]
-```
+    %% --- NODES ---
+    User((User)):::user
+    User --> Action(["Performs action"]):::user
 
-**Directions:** `TD` (top-down), `LR` (left-right), `BT` (bottom-top), `RL` (right-left)
+    Action --> Primary
 
-**Node Shapes:**
-- `[text]` - Rectangle
-- `(text)` - Rounded rectangle
-- `{text}` - Diamond (decision)
-- `([text])` - Stadium
-- `[[text]]` - Subroutine
-- `[(text)]` - Cylinder (database)
-
-### 2. Sequence Diagrams
-
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant A as App
-    participant S as Server
-    participant D as Database
-
-    U->>A: Click Login
-    A->>S: POST /auth/login
-    S->>D: Query user
-    D-->>S: User data
-    S-->>A: JWT Token
-    A-->>U: Redirect to dashboard
-```
-
-**Syntax:**
-```
-sequenceDiagram
-    participant U as User
-    participant A as App
-    participant S as Server
-
-    U->>A: Request
-    A->>S: Forward
-    S-->>A: Response
-    A-->>U: Display
-```
-
-**Arrow Types:**
-- `->` Solid line without arrow
-- `-->` Dotted line without arrow
-- `->>` Solid line with arrow
-- `-->>` Dotted line with arrow
-- `-x` Solid line with X
-- `--x` Dotted line with X
-
-### 3. Class Diagrams
-
-```mermaid
-classDiagram
-    class User {
-        +String id
-        +String email
-        +String name
-        +login()
-        +logout()
-    }
-    class Order {
-        +String id
-        +Date created
-        +List~Item~ items
-        +calculateTotal()
-    }
-    class Item {
-        +String name
-        +Float price
-        +Int quantity
-    }
-
-    User "1" --> "*" Order : places
-    Order "*" --> "*" Item : contains
-```
-
-### 4. Entity Relationship Diagrams
-
-```mermaid
-erDiagram
-    USER ||--o{ ORDER : places
-    ORDER ||--|{ LINE_ITEM : contains
-    PRODUCT ||--o{ LINE_ITEM : "ordered in"
-
-    USER {
-        int id PK
-        string email
-        string name
-    }
-    ORDER {
-        int id PK
-        int user_id FK
-        date created_at
-    }
-    LINE_ITEM {
-        int order_id FK
-        int product_id FK
-        int quantity
-    }
-    PRODUCT {
-        int id PK
-        string name
-        decimal price
-    }
-```
-
-**Relationship Syntax:**
-- `||--||` One to one
-- `||--o{` One to many
-- `}o--o{` Many to many
-
-### 5. State Diagrams
-
-```mermaid
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> Review : Submit
-    Review --> Approved : Approve
-    Review --> Draft : Request Changes
-    Approved --> Published : Publish
-    Published --> Archived : Archive
-    Archived --> [*]
-```
-
-### 6. Gantt Charts
-
-```mermaid
-gantt
-    title Project Timeline
-    dateFormat YYYY-MM-DD
-
-    section Planning
-    Requirements     :a1, 2024-01-01, 7d
-    Design           :a2, after a1, 14d
-
-    section Development
-    Backend API      :b1, after a2, 21d
-    Frontend UI      :b2, after a2, 21d
-    Integration      :b3, after b1, 7d
-
-    section Testing
-    QA Testing       :c1, after b3, 14d
-    UAT              :c2, after c1, 7d
-```
-
-### 7. Pie Charts
-
-```mermaid
-pie title Technology Stack Distribution
-    "Python" : 40
-    "JavaScript" : 30
-    "Go" : 20
-    "Other" : 10
-```
-
-### 8. Git Graphs
-
-```mermaid
-gitGraph
-    commit
-    commit
-    branch feature
-    checkout feature
-    commit
-    commit
-    checkout main
-    merge feature
-    commit
-    branch hotfix
-    checkout hotfix
-    commit
-    checkout main
-    merge hotfix
-```
-
-## Using Mermaid in Documentation
-
-### In Markdown Files
-
-~~~markdown
-# Architecture Overview
-
-```mermaid
-flowchart LR
-    Client --> API
-    API --> Database
-    API --> Cache
-```
-~~~
-
-### In GitHub README
-
-GitHub automatically renders Mermaid in markdown files. Just use the fenced code block with `mermaid` language identifier.
-
-### Export to PNG/SVG
-
-Use Mermaid CLI for image export:
-
-```bash
-# Install Mermaid CLI
-npm install -g @mermaid-js/mermaid-cli
-
-# Export to PNG
-mmdc -i diagram.mmd -o diagram.png
-
-# Export to SVG
-mmdc -i diagram.mmd -o diagram.svg
-
-# With custom theme
-mmdc -i diagram.mmd -o diagram.png -t dark
-```
-
-## Themes
-
-```mermaid
-%%{init: {'theme': 'forest'}}%%
-flowchart LR
-    A --> B --> C
-```
-
-**Available Themes:**
-- `default` - Default Mermaid theme
-- `forest` - Green tones
-- `dark` - Dark mode
-- `neutral` - Grayscale
-- `base` - Minimal styling
-
-## Best Practices
-
-### Keep It Simple
-```
-# ✅ Good - Clear and readable
-flowchart LR
-    A[Input] --> B[Process] --> C[Output]
-
-# ❌ Avoid - Too complex
-flowchart LR
-    A --> B --> C --> D --> E --> F --> G --> H
-    B --> X --> Y --> Z
-    C --> X
-    D --> Y
-```
-
-### Use Meaningful Labels
-```
-# ✅ Good - Descriptive labels
-flowchart TD
-    Auth[Authentication Service] --> Users[(User Database)]
-
-# ❌ Avoid - Generic labels
-flowchart TD
-    A --> B
-```
-
-### Group Related Elements
-```mermaid
-flowchart TB
-    subgraph Frontend
-        UI[React App]
-        State[Redux Store]
+    subgraph Primary["Primary Component"]
+        direction TB
+        Step1(["Step 1"]):::primary
+        Step2(["Step 2"]):::primary
+        Step1 --> Step2
     end
 
-    subgraph Backend
-        API[REST API]
-        DB[(PostgreSQL)]
+    subgraph Secondary["Secondary Component"]
+        direction TB
+        Process(["Process"]):::secondary
     end
 
-    UI --> API
-    API --> DB
+    Primary --> Secondary
+    Secondary --> Output(["Output"]):::success
+
+    %% --- SUBGRAPH STYLES ---
+    %% fill:none allows subgraphs to adapt to any background
+    style Primary fill:none,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray:5 5,color:#8b5cf6
+    style Secondary fill:none,stroke:#3b82f6,stroke-width:2px,color:#3b82f6
 ```
 
-## Integration with Nano Banana
+## Colour Pairing Examples
 
-For simple, version-controlled diagrams → Use **Mermaid**
-For publication-quality, complex visuals → Use **diagram** skill
+Choose any colours you like — just follow the dark fill + light stroke pattern:
 
-**Hybrid Approach:**
-1. Draft diagram structure in Mermaid
-2. Iterate on the design in version control
-3. When finalized, generate polished version with `diagram` skill
+| Fill (Dark) | Stroke (Light) | Result |
+|-------------|----------------|--------|
+| `#374151` | `#d1d5db` | Grey |
+| `#5b21b6` | `#ddd6fe` | Purple |
+| `#1e40af` | `#bfdbfe` | Blue |
+| `#c2410c` | `#fed7aa` | Orange |
+| `#047857` | `#a7f3d0` | Green |
+| `#b91c1c` | `#fecaca` | Red |
+| `#0f766e` | `#99f6e4` | Teal |
 
-## Resources
+These are just examples. Use whatever colours suit your diagram — the principle is what matters.
 
-- [Mermaid Documentation](https://mermaid.js.org/intro/)
-- [Live Editor](https://mermaid.live/)
-- [Mermaid CLI](https://github.com/mermaid-js/mermaid-cli)
-- [GitHub Mermaid Support](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)
+## Subgraph Syntax
+
+### ❌ WRONG — Causes parse error
+```mermaid
+subgraph MyGroup [Label With Spaces]
+```
+
+### ✅ CORRECT — Quote the label
+```mermaid
+subgraph MyGroup["Label With Spaces"]
+```
+
+## Node Shapes
+
+### ❌ WRONG — Square brackets are harsh
+```mermaid
+A[Square Node]
+```
+
+### ✅ CORRECT — Use rounded shapes
+```mermaid
+A(["Stadium shape"])     %% Rounded ends - use for most nodes
+B((Circle))              %% Circle - use for users/actors
+C{{"Decision"}}          %% Hexagon for decisions
+D[(Database)]            %% Cylinder for databases/storage
+```
+
+## Subgraph Styling
+
+### ❌ WRONG — Coloured fills break in dark mode
+```mermaid
+style MySubgraph fill:#f0f9ff,stroke:#3182ce
+```
+
+### ✅ CORRECT — Transparent fills adapt to any background
+```mermaid
+style MySubgraph fill:none,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray:5 5,color:#8b5cf6
+```
+
+**Key points:**
+- `fill:none` makes the background transparent
+- `stroke-dasharray:5 5` creates a dashed border (optional, looks clean)
+- `color:#...` sets the subgraph label colour to match the border
+
+## Link Styling
+
+```mermaid
+A --> B              %% Solid arrow
+A -.-> B             %% Dashed arrow
+A -.->|Label| B      %% Dashed arrow with label
+A ==> B              %% Thick arrow
+```
+
+## Complete Example
+
+```mermaid
+flowchart TD
+    classDef user fill:#374151,stroke:#d1d5db,stroke-width:2px,color:#fff
+    classDef process fill:#5b21b6,stroke:#ddd6fe,stroke-width:2px,color:#fff
+    classDef decision fill:#c2410c,stroke:#fed7aa,stroke-width:2px,color:#fff
+    classDef success fill:#047857,stroke:#a7f3d0,stroke-width:2px,color:#fff
+
+    User((User)):::user
+    User --> Request(["Makes request"]):::user
+
+    Request --> Process
+
+    subgraph Process["Processing"]
+        direction TB
+        Validate(["Validate input"]):::process
+        Execute(["Execute logic"]):::process
+        Validate --> Execute
+    end
+
+    Execute --> Check{{"Success?"}}:::decision
+    Check -->|Yes| Done(["Complete"]):::success
+    Check -->|No| Request
+
+    style Process fill:none,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray:5 5,color:#8b5cf6
+```
+
+## Common Mistakes
+
+### ❌ Font Awesome icons (GitHub doesn't support them)
+```mermaid
+A[fa:fa-user User]  %% Renders as literal text
+```
+
+### ❌ Light fills with dark text
+```mermaid
+classDef bad fill:#ffffff,stroke:#000000,color:#000000  %% Invisible in dark mode
+```
+
+### ❌ Coloured subgraph fills
+```mermaid
+style Sub fill:#e0f2fe  %% Looks different in light vs dark mode
+```
+
+### ❌ Unquoted subgraph labels with spaces
+```mermaid
+subgraph Sub [My Label]  %% Parse error!
+```
+
+## Quick Reference
+
+```mermaid
+flowchart TD
+    %% 1. Define styles: dark fill + light stroke + white text
+    classDef myStyle fill:#DARK,stroke:#LIGHT,stroke-width:2px,color:#fff
+
+    %% 2. Use rounded shapes
+    Node(["Text"]):::myStyle
+
+    %% 3. Quote subgraph labels
+    subgraph Sub["My Label"]
+        Inner(["Inner"])
+    end
+
+    %% 4. Style subgraphs with fill:none
+    style Sub fill:none,stroke:#COLOR,stroke-width:2px,color:#COLOR
+```
+
+## When to Use This Skill
+
+Invoke this skill when creating:
+- Architecture diagrams for PRs
+- System flow documentation
+- Data pipeline visualisations
+- Process flowcharts
+- Any diagram in GitHub markdown
+
+## GitHub-Specific Notes
+
+1. **No Font Awesome** — GitHub's Mermaid renderer doesn't support FA icons
+2. **No HTML** — Can't use `<br>` or other HTML in node labels
+3. **Quote labels with spaces** — `subgraph X["Label"]` not `subgraph X [Label]`
+4. **Test locally** — Use [mermaid.live](https://mermaid.live) to preview before committing

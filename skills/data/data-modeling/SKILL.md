@@ -1,34 +1,80 @@
 ---
 name: data-modeling
-description: Data modeling - entities, relationships, schemas. Use when designing data structures.
+description: Dimensional modeling, normalization, and schema design for analytics.
 ---
 
-# Data Modeling Guideline
+# Data Modeling
 
-## Tech Stack
+## Dimensional Modeling
 
-* **API**: tRPC
-* **Framework**: Next.js (with Turbopack)
-* **Database**: Neon (Postgres)
-* **ORM**: Drizzle
+### Star Schema
 
-## Non-Negotiables
+```
+        ┌─────────────┐
+        │ dim_date    │
+        └──────┬──────┘
+               │
+┌──────────┐   │   ┌──────────────┐
+│dim_store │───┼───│  fct_sales   │
+└──────────┘   │   └──────────────┘
+               │
+        ┌──────┴──────┐
+        │dim_product  │
+        └─────────────┘
+```
 
-* All authorization must be server-enforced (no client-trust)
-* Platform is source of truth — third-party services sync FROM platform
-* UI must never contradict server-truth
-* High-value mutations must have audit trail (who/when/why/before/after)
+### Fact Tables
 
-## Context
+```sql
+CREATE TABLE fct_sales (
+    sale_id BIGINT PRIMARY KEY,
+    date_key INT REFERENCES dim_date(date_key),
+    store_key INT REFERENCES dim_store(store_key),
+    product_key INT REFERENCES dim_product(product_key),
+    quantity INT,
+    unit_price DECIMAL(10,2),
+    total_amount DECIMAL(10,2),
+    _loaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-Data modeling is conceptual — entities, relationships, domain boundaries. Physical implementation (indexes, migrations, query performance) lives in `database`.
+### Dimension Tables
 
-Consider: what are the real-world entities? How do they relate? What invariants must hold? What will break when requirements change?
+```sql
+CREATE TABLE dim_product (
+    product_key INT PRIMARY KEY,
+    product_id VARCHAR(50),  -- Natural key
+    name VARCHAR(255),
+    category VARCHAR(100),
+    subcategory VARCHAR(100),
+    brand VARCHAR(100),
+    -- SCD Type 2 fields
+    valid_from DATE,
+    valid_to DATE,
+    is_current BOOLEAN
+);
+```
 
-## Driving Questions
+## SCD Types
 
-* If we were designing this from scratch, what would be different?
-* Where will the current model break as the product scales?
-* What implicit assumptions are waiting to cause bugs?
-* Where is complexity hiding that makes the system hard to reason about?
-* What domain boundaries are we violating?
+| Type | Description | Use Case |
+|------|-------------|----------|
+| **Type 1** | Overwrite | Corrections |
+| **Type 2** | New row + versioning | Track history |
+| **Type 3** | Previous value column | Limited history |
+
+## Normalization
+
+| Form | Rule |
+|------|------|
+| **1NF** | Atomic values, no repeating groups |
+| **2NF** | 1NF + no partial dependencies |
+| **3NF** | 2NF + no transitive dependencies |
+
+## Naming Conventions
+
+- `dim_` prefix for dimensions
+- `fct_` prefix for facts
+- `stg_` prefix for staging
+- `int_` prefix for intermediate
+- Snake_case for columns

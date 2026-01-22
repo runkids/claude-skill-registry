@@ -2,7 +2,7 @@
 name: skill-audit
 description: Audits skills for discoverability and triggering effectiveness. Use when reviewing skill descriptions, checking trigger coverage, validating progressive disclosure, fixing invocation issues, or learning skill best practices.
 allowed-tools: [Read, Glob, Grep, Bash]
-model: claude-sonnet-4-5-20250929
+# model: inherit
 ---
 
 ## Reference Files
@@ -390,7 +390,7 @@ No files are modified during audits. Reports can be saved to `~/.claude/logs/eva
 **Audit a single skill**:
 
 ```text
-User: "Audit my audit-bash skill for discoverability"
+User: "Audit my hook-audit skill for discoverability"
 Assistant: [Reads SKILL.md, analyzes description, generates report]
 ```
 

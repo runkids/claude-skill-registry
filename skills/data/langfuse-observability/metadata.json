@@ -1,7 +1,7 @@
 {
   "name": "langfuse-observability",
-  "repo": "phrazzld/claude-config",
+  "repo": "yonatangross/skillforge-claude-plugin",
   "path": "skills/langfuse-observability/SKILL.md",
-  "source": "github.com/phrazzld/claude-config",
-  "downloaded_at": "2026-01-14T03:03:38.576289Z"
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-17T01:47:44.736516Z"
 }

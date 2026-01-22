@@ -1,234 +1,559 @@
 ---
 name: agent-creator
-description: AI Agent 自动化创建工具。当用户需要设计、创建、配置 AI Agent，包括定义 Agent 角色、设计 System Prompt、规划工具集、编排工作流程时使用此技能。支持对话型、任务型、研究型、多Agent协作等多种架构。
+description: Use this skill when architecting new Claude Code agents following Anthropic best practices. Guides through YAML frontmatter creation, agent structure definition, role boundaries, and validation. Critical for creating minimal agent files (~150 lines) with proper skill invocations. Examples: <example>Context: User wants to create a new agent for security auditing user: "Create a security-auditor agent" assistant: "I'll use the agent-creator skill to build this agent following Anthropic best practices" <commentary>New agent creation requires the agent-creator skill to ensure proper structure and YAML frontmatter.</commentary></example> <example>Context: Existing agent file is too verbose and needs refactoring user: "The architect agent is 2000 lines, refactor it to minimal structure" assistant: "I'll use the agent-creator skill to refactor this into a minimal ~150 line agent with a separate skill file" <commentary>Agent refactoring requires the agent-creator skill to separate identity from technical procedures.</commentary></example>
+color: orange
 ---
 
-# Agent Creator
+# Agent Creator Skill
 
-自动化创建高质量 AI Agent 的完整指南和工具集。
+**Purpose**: Guide creation of Claude Code agents following Anthropic official best practices.
 
-## Agent 核心组成
+**When to use**: Creating new agents, refactoring existing agents, validating agent structure.
 
-一个完整的 Agent 包含以下要素：
+---
 
-| 组件 | 作用 | 必需 |
-|------|------|------|
-| **Identity** | 角色定位、能力边界 | ✅ |
-| **System Prompt** | 行为指令、输出规范 | ✅ |
-| **Tools** | 可调用的工具/API | ⚡ |
-| **Memory** | 上下文管理策略 | ⚡ |
-| **Workflow** | 决策逻辑、状态流转 | ⚡ |
-| **Guardrails** | 安全边界、错误处理 | ✅ |
+## 🎯 Core Principles
 
-⚡ = 根据 Agent 类型决定
+### Agent Structure Philosophy
+- **Minimal agents (~150 lines)**: Only identity, role, boundaries, and skill invocation
+- **Comprehensive skills**: All technical procedures, workflows, and references
+- **Progressive disclosure**: Metadata → Agent .md → SKILL.md → References (on demand)
+- **Mandatory skill invocation**: Agents MUST invoke their skill before work
 
-## Agent 类型速查
-
-| 类型 | 特点 | 适用场景 |
-|------|------|----------|
-| **Conversational** | 多轮对话、上下文理解 | 客服、助手、咨询 |
-| **Task** | 目标驱动、自主执行 | 自动化、数据处理 |
-| **Research** | 信息收集、分析综合 | 调研、报告生成 |
-| **Multi-Agent** | 角色分工、协作完成 | 复杂任务、模拟 |
-
-详细模板见 `templates/` 目录。
-
-## 创建工作流
-
-### Phase 1: 需求定义
-
+### Separation of Concerns
 ```
-1. 明确 Agent 要解决的核心问题
-2. 确定目标用户和使用场景
-3. 列出成功标准和约束条件
+Agent .md (150 lines)           Skill SKILL.md (varies)
+├─ YAML frontmatter             ├─ Technical workflows
+├─ Identity & role              ├─ Context7 checkpoints
+├─ Authority & boundaries       ├─ MCP integrations
+├─ Workspace isolation          ├─ Best practices
+├─ Mandatory skill call         ├─ Code patterns
+└─ Quick reference              └─ References/ (on demand)
 ```
 
-**关键问题清单：**
-- Agent 的主要职责是什么？
-- 用户会如何与它交互？
-- 它需要访问哪些数据/系统？
-- 有哪些绝对不能做的事？
-- 如何衡量它的表现？
+---
 
-### Phase 2: 角色设计
+## 📋 6-PHASE WORKFLOW
 
-```
-1. 定义 Agent 身份和人设
-2. 明确能力范围和边界
-3. 设定交互风格和语气
-```
+### PHASE 1: Discovery & Analysis
 
-**Identity 模板：**
-```
-你是 [角色名称]，一个专注于 [领域] 的 AI 助手。
+**Objective**: Understand the agent's purpose and role in the system.
 
-##核心能力
-- [能力1]
-- [能力2]
+**Steps**:
+1. Identify the agent's primary responsibility
+2. Determine where it fits in the workflow (Architect → Test → Implementer → Supabase → UI/UX)
+3. Define clear trigger scenarios (when should this agent activate?)
+4. List exclusive authorizations (what ONLY this agent can do)
+5. Define strict prohibitions (what this agent must NEVER do)
 
-## 边界
-- 你可以：[允许的行为]
-- 你不能：[禁止的行为]
-```
+**Questions to answer**:
+- What problem does this agent solve?
+- What are its inputs and outputs?
+- Which other agents does it interact with?
+- What are its success criteria?
 
-### Phase 3: 工具规划
+**Deliverable**: Written notes on agent's role, triggers, and boundaries
 
-```
-1. 列出完成任务所需的工具
-2. 定义每个工具的 schema
-3. 设计工具调用的决策逻辑
-```
+---
 
-**工具定义规范见** `references/tool-schema.md`
+### PHASE 2: Context7 Research (MANDATORY)
 
-### Phase 4: Prompt 工程
+**Objective**: Consult official Anthropic documentation for latest best practices.
 
-```
-1. 编写 System Prompt
-2. 设计输出格式规范
-3. 添加 few-shot 示例
-```
+**⚠️ CRITICAL**: You MUST query Context7 before creating or refactoring agents.
 
-**Prompt 结构：**
-```
-[Identity] - 角色定义
-[Context] - 背景信息
-[Instructions] - 行为指令
-[Constraints] - 约束条件
-[Output Format] - 输出规范
-[Examples] - 示例（可选）
+**Required queries**:
+
+```bash
+# Query 1: General agent best practices
+mcp__context7__resolve-library-id "claude code"
+mcp__context7__get-library-docs "/anthropics/claude-code" topic="custom agents creation best practices"
+
+# Query 2: Agent templates and examples
+mcp__context7__resolve-library-id "claude code templates"
+mcp__context7__get-library-docs "/davila7/claude-code-templates" topic="agent creation yaml structure examples"
+
+# Query 3: YAML frontmatter validation (if uncertain)
+mcp__context7__get-library-docs "/anthropics/claude-code" topic="yaml frontmatter agent configuration"
 ```
 
-### Phase 5: 安全设计
+**What to look for**:
+- ✅ Latest YAML frontmatter requirements
+- ✅ Agent file structure changes
+- ✅ Description formatting patterns
+- ✅ Example agent implementations
+- ✅ Validation rules and common mistakes
 
-```
-1. 定义输入验证规则
-2. 设置输出过滤机制
-3. 配置错误处理策略
-4. 添加人工介入触发条件
-```
+**Reference documents** (consult if Context7 unavailable):
+- `references/context7-queries.md` - Pre-built query patterns
+- `references/yaml-frontmatter-guide.md` - YAML validation rules
 
-### Phase 6: 测试验证
+**Deliverable**: Notes on any differences from existing patterns, new requirements
 
-```
-1. 正常场景测试
-2. 边界条件测试
-3. 对抗性测试
-4. 性能压力测试
-```
+---
 
-## System Prompt 设计原则
+### PHASE 3: YAML Frontmatter Design
 
-### 1. 清晰具体
+**Objective**: Create valid, descriptive YAML frontmatter for the agent.
 
-```
-❌ 你是一个有帮助的助手
-✅ 你是一个专业的代码审查助手，专注于 Python 代码的安全性和性能优化
-```
-
-### 2. 结构化指令
-
-```
-❌ 帮用户写代码，要写得好一点
-✅ 当用户请求代码帮助时：1. 先理解需求，必要时提问澄清
-   2. 提供带注释的完整代码
-   3. 解释关键实现决策
-   4. 指出潜在的边界情况
+**Required fields**:
+```yaml
+---
+name: {agent-name}          # kebab-case REQUIRED
+description: ...            # Trigger + examples REQUIRED
+model: sonnet               # Default REQUIRED
+color: {color}              # Visual ID REQUIRED
+---
 ```
 
-### 3. 明确边界
-
+**Description structure** (CRITICAL):
 ```
-✅ 你只处理与[领域] 相关的问题。对于超出范围的请求，礼貌说明并建议合适的资源。
-```
-
-### 4. 输出格式化
-
-```
-✅ 响应格式：
-   - 简短问题：直接回答，不超过3句
-   - 复杂问题：使用标题分段，包含示例
-   - 代码请求：使用代码块，添加语言标识
-```
-
-## 常见架构模式
-
-### ReAct (Reasoning + Acting)
-
-```
-思考 → 行动 → 观察 → 思考 → ...
-
-适用：需要多步推理和工具调用的任务
+Use this agent when {trigger scenario}. Specializes in {expertise}.
+Examples:
+<example>
+Context: {situation}
+user: '{request}'
+assistant: '{response}'
+<commentary>{reasoning}</commentary>
+</example>
+<example>
+Context: {another situation}
+user: '{another request}'
+assistant: '{another response}'
+<commentary>{more reasoning}</commentary>
+</example>
 ```
 
-### Plan-and-Execute
+**Naming conventions**:
+- **Name**: kebab-case (test-architect, ui-ux-expert, supabase-data-specialist)
+- **Color**: Match role type (see `references/color-conventions.md`)
+  - red = Architect/Chief
+  - blue = Testing/QA
+  - yellow = Implementation
+  - green = Data/Database
+  - pink = UI/UX
+  - purple = Security/Review
+  - orange = DevOps/Infrastructure
 
+**Examples reference**: `assets/yaml-examples.yml`
+
+**Validation checklist**:
+- [ ] Name is kebab-case (lowercase-with-hyphens)
+- [ ] Description starts with "Use this agent when..."
+- [ ] Description has 2-3 `<example>` blocks
+- [ ] Each example has Context, user, assistant, `<commentary>`
+- [ ] Model is "sonnet"
+- [ ] Color matches role convention
+- [ ] YAML syntax is valid (no unescaped colons)
+
+**Deliverable**: Complete YAML frontmatter block
+
+---
+
+### PHASE 4: Agent Body Structure
+
+**Objective**: Create the minimal ~150 line agent body following standard structure.
+
+**Template**: Use `assets/agent-minimal-template.md` as base.
+
+**Required sections** (in order):
+
+#### 1. IDENTITY & ROLE
+```markdown
+# IDENTITY & ROLE
+
+You are the **{Agent Title}**—{one-sentence mission}.
+
+## Core Mission
+
+{2-3 paragraphs explaining:
+ - What this agent does
+ - Why it exists
+ - How it fits in the system}
+
+## Authority & Boundaries
+
+**YOU ARE THE ONLY AGENT AUTHORIZED TO**:
+- {Specific responsibility 1}
+- {Specific responsibility 2}
+- {Specific responsibility 3}
+
+**YOU ARE STRICTLY PROHIBITED FROM**:
+- {Specific prohibition 1}
+- {Specific prohibition 2}
+- {Specific prohibition 3}
 ```
-规划完整步骤 → 逐步执行 → 验证结果
 
-适用：复杂任务分解、项目规划
+**Tips**:
+- Be SPECIFIC, not vague (❌ "handle data" → ✅ "implement Supabase RLS policies")
+- Use active voice and imperative mood
+- Clearly separate what this agent CAN vs CANNOT do
+
+#### 2. ITERATIVE WORKFLOW v2.0
+```markdown
+# ITERATIVE WORKFLOW v2.0
+
+## Your Workspace
+
+**Isolated folder**: `PRDs/{domain}/{feature}/{agent-name}/`
+
+**Files YOU read**:
+- ✅ `{agent-name}/00-request.md` (Architect writes)
+- ✅ `architect/00-master-prd.md` (reference)
+- ✅ `{previous-agent}/handoff-XXX.md` (if enabled)
+
+**Files you CANNOT read**:
+- ❌ Other agent folders (Architect coordinates information)
 ```
 
-### Router Pattern
+**Purpose**: Establish workspace isolation and file access boundaries.
 
+#### 3. MANDATORY SKILL INVOCATION
+```markdown
+# 🎯 MANDATORY SKILL INVOCATION
+
+**CRITICAL**: Before ANY work, invoke your technical skill:
+
+\```
+Skill: {agent-name}-skill
+\```
+
+**The skill provides**:
+- ✅ Step-by-step technical procedures
+- ✅ Context7 consultation checkpoints (MANDATORY phases)
+- ✅ MCP integration workflows
+- ✅ Technology-specific references (loaded on demand)
+- ✅ Code patterns and best practices
+
+**This skill is NOT optional—it is your complete technical manual.**
 ```
-分析请求 → 路由到专门处理器 → 返回结果
 
-适用：多功能 Agent、意图分类
+**Purpose**: Force agent to use its comprehensive skill before starting work.
+
+#### 4. QUICK REFERENCE
+```markdown
+# QUICK REFERENCE
+
+**Triggers**: {When to use this agent - 1-2 sentences}
+**Deliverables**: {What this agent produces - bulleted list}
+**Success metrics**: {How to measure completion - 2-3 criteria}
+
+---
+
+**Complete technical guide**: `.claude/skills/{agent-name}-skill/SKILL.md`
 ```
 
-### Reflection Pattern
+**Purpose**: Fast lookup for triggers and expected outputs.
 
+**Validation checklist**:
+- [ ] All 4 sections present (Identity, Workflow, Skill Invocation, Quick Reference)
+- [ ] Agent-specific placeholders replaced (no generic {agent-name} left)
+- [ ] Boundaries are specific and actionable
+- [ ] Skill invocation is marked as MANDATORY/CRITICAL
+- [ ] File is ~80-250 lines (not too short, not too verbose)
+
+**Deliverable**: Complete agent .md file
+
+---
+
+### PHASE 5: Validation & Testing
+
+**Objective**: Verify the agent file is valid and follows best practices.
+
+**Automated validation**:
+```bash
+# Run validation script
+./scripts/validate-agent.sh .claude/agents/{agent-name}.md
 ```
-生成输出 → 自我评估 → 改进 → 最终输出
 
-适用：高质量内容生成、代码优化
+**The script checks**:
+- ✅ YAML frontmatter exists and is valid
+- ✅ Required YAML fields (name, description, model, color)
+- ✅ Name is kebab-case
+- ✅ Description has examples and commentary
+- ✅ Color is valid
+- ✅ All required sections present
+- ✅ File length is reasonable (~80-250 lines)
+
+**Manual validation checklist**:
+- [ ] YAML frontmatter is syntactically correct
+- [ ] Description triggers are clear and specific
+- [ ] Examples demonstrate when to use the agent
+- [ ] Commentary explains the reasoning
+- [ ] Authorities are exclusive and specific
+- [ ] Prohibitions prevent scope creep
+- [ ] Workspace isolation is clearly defined
+- [ ] Skill invocation is mandatory and emphasized
+- [ ] Quick reference is accurate and complete
+
+**Common mistakes to avoid**:
+- ❌ Generic triggers ("Use when needed")
+- ❌ Vague boundaries ("Handle database stuff")
+- ❌ Missing examples in description
+- ❌ Non-kebab-case name (TestArchitect, test_architect)
+- ❌ Invalid color
+- ❌ Missing skill invocation section
+- ❌ Agent is >300 lines (move content to skill)
+
+**Reference documents**:
+- `references/agent-structure.md` - Complete structure guide
+- `references/yaml-frontmatter-guide.md` - YAML validation details
+
+**Deliverable**: Validated agent file passing all checks
+
+---
+
+### PHASE 6: Skill Scaffold Creation
+
+**Objective**: Create the companion skill structure for this agent.
+
+**⚠️ NOTE**: This phase creates the STRUCTURE only. The skill content is created separately using the `skill-creator` skill.
+
+**Directory structure to create**:
+```
+.claude/skills/{agent-name}-skill/
+├── SKILL.md                    # Main skill file (create with skill-creator)
+├── metadata.json               # Skill metadata
+├── references/                 # Reference documents (loaded on demand)
+│   └── README.md              # Index of references
+├── scripts/                    # Automation scripts
+│   └── README.md              # Script documentation
+└── assets/                     # Templates, examples, diagrams
+    └── README.md              # Asset catalog
 ```
 
-## 快速开始
-
-### 创建简单 Agent
-
-```python
-# 最小可用 Agent 配置
-agent_config = {
-    "name": "my-agent",
-    "system_prompt": """
-你是一个专业的 [领域] 助手。
-
-## 职责
-- [主要职责]
-
-## 约束
-- [关键约束]
-""",
-    "tools": [],# 按需添加
-    "temperature": 0.7
+**Metadata template** (`metadata.json`):
+```json
+{
+  "name": "{agent-name}-skill",
+  "version": "1.0.0",
+  "description": "Technical workflow and best practices for {agent-name} agent",
+  "agent": "{agent-name}",
+  "technologies": ["list", "of", "technologies"],
+  "mcps_required": ["context7", "supabase", "chrome-devtools"],
+  "references_count": 0,
+  "last_updated": "2025-10-24"
 }
 ```
 
-### 使用模板
+**Reference README template** (`references/README.md`):
+```markdown
+# {Agent Name} Skill References
 
-根据需求选择合适的模板：
-- `templates/conversational-agent.md` - 对话型
-- `templates/task-agent.md` - 任务型
-- `templates/research-agent.md` - 研究型
-- `templates/multi-agent.md` - 多Agent协作
+References are loaded **on demand** when specific technical guidance is needed.
 
-## 检查清单
+## Available References
 
-创建 Agent 前确认：
+1. **{reference-name}.md** - {Brief description}
+   - When to consult: {Trigger}
+   - Context7 equivalent: {Query if applicable}
 
-- [ ] 明确定义了 Agent 的核心职责
-- [ ] System Prompt 结构清晰、指令具体
-- [ ] 工具定义完整、schema 规范
-- [ ] 设置了适当的安全边界
-- [ ] 定义了错误处理策略
-- [ ] 准备了测试用例
-- [ ] 考虑了边界情况和对抗场景
+## Update Policy
 
-## 参考资源
+References should be refreshed when:
+- Context7 documentation changes
+- New best practices emerge
+- Technology versions change
+- Common mistakes are identified
+```
 
-- `templates/` - Agent 类型模板
-- `references/tool-schema.md` - 工具定义规范
-- `references/prompt-patterns.md` - Prompt 设计模式
+**Validation checklist**:
+- [ ] Skill directory created at correct path
+- [ ] metadata.json has correct agent reference
+- [ ] All 4 subdirectories present (references/, scripts/, assets/, root)
+- [ ] README.md files guide future content creation
+- [ ] Skill name matches agent name + "-skill" suffix
+
+**Deliverable**: Skill directory structure ready for content population
+
+---
+
+### 🎯 AUTOMATIC HANDOFF TO SKILL-CREATOR
+
+**⚠️ CRITICAL**: Agent creation is NOT complete until the skill is populated with technical content.
+
+**Now invoke the skill-creator to complete the skill**:
+
+```
+Skill: skill-creator
+```
+
+**Provide the skill-creator with this information**:
+
+```markdown
+Agent: {agent-name}
+Color: {color}
+Role: {role from agent mission}
+
+Primary Responsibilities (from agent authorities):
+- {Authority 1}
+- {Authority 2}
+- {Authority 3}
+
+Technologies Involved:
+- {List technologies this agent works with}
+- {e.g., Vitest, Playwright for test-architect}
+- {e.g., Supabase, PostgreSQL, RLS for supabase-agent}
+
+Required MCP Integrations:
+- context7 (MANDATORY for all agents)
+- {Other MCPs: supabase, chrome-devtools, etc.}
+
+Skill Content to Include:
+- 6-phase workflow specific to this agent's role
+- Context7 checkpoints (mandatory consultation phases)
+- Technology-specific references (loaded on demand)
+- Code pattern examples and best practices
+- Common mistakes and troubleshooting guides
+- Automation scripts (if applicable)
+
+Reference the existing agent structure for consistency.
+```
+
+**Expected skill-creator deliverables**:
+- ✅ SKILL.md with complete 6-phase workflow
+- ✅ references/ with technology-specific best practices
+- ✅ scripts/ with automation tools (if applicable)
+- ✅ assets/ with templates and examples
+- ✅ Updated metadata.json with accurate counts
+
+**Once skill-creator completes**:
+1. Validate the complete agent + skill package
+2. Test agent invocation in Claude Code
+3. Verify skill invocation from agent works
+4. Update project documentation
+
+---
+
+**Phase 6 Complete** ✅
+**Next**: Invoke `Skill: skill-creator` to populate the skill with technical content
+
+---
+
+## 🛠️ UTILITIES & HELPERS
+
+### Quick Start: New Agent from Scratch
+
+**Use the initialization script**:
+```bash
+./scripts/init-agent.sh <agent-name> <color> "<role-description>"
+
+# Example:
+./scripts/init-agent.sh security-auditor purple "Security review and vulnerability scanning"
+```
+
+**What it does**:
+- ✅ Creates agent file from template
+- ✅ Validates naming conventions
+- ✅ Replaces basic placeholders
+- ✅ Guides you through next steps
+
+**Then**:
+1. Edit the created file to fill in FILL_THIS placeholders
+2. Add 2-3 examples to YAML description
+3. Complete Core Mission section
+4. Define Authority & Boundaries
+5. Run validation: `./scripts/validate-agent.sh .claude/agents/{agent-name}.md`
+6. Create skill structure (Phase 6)
+
+---
+
+### Quick Start: Refactor Existing Agent
+
+**Steps**:
+1. **Backup** the current agent file
+2. **Extract** identity information:
+   - Who is this agent? (title, mission)
+   - What can it do exclusively? (authorities)
+   - What must it never do? (prohibitions)
+3. **Extract** technical content:
+   - Workflows and procedures → Move to SKILL.md
+   - Technology references → Move to references/
+   - Code examples → Move to assets/
+4. **Create** minimal agent using `assets/agent-minimal-template.md`
+5. **Validate** new structure: `./scripts/validate-agent.sh`
+6. **Create** skill with extracted technical content
+
+**Before/After example**:
+```
+BEFORE:
+- architect-agent.md: 2078 lines (identity + workflows + examples + references)
+
+AFTER:
+- architect-agent.md: 150 lines (identity + skill invocation only)
+- .claude/skills/architect-agent-skill/
+  ├── SKILL.md: Workflows and procedures
+  ├── references/: Best practices documents
+  └── assets/: Templates and examples
+```
+
+---
+
+### Reference Documents (Load on Demand)
+
+**Available references**:
+
+1. **`references/agent-structure.md`**
+   - **When to use**: Creating or refactoring agent structure
+   - **Contains**: Complete section-by-section breakdown, common mistakes, validation tips
+
+2. **`references/yaml-frontmatter-guide.md`**
+   - **When to use**: Writing or debugging YAML frontmatter
+   - **Contains**: Field specifications, validation rules, error examples, testing methods
+
+3. **`references/context7-queries.md`**
+   - **When to use**: Need to verify latest Anthropic best practices
+   - **Contains**: Pre-built queries, when to consult Context7, refresh workflows
+
+4. **`references/color-conventions.md`**
+   - **When to use**: Choosing agent color
+   - **Contains**: Color mapping by role, visual organization principles, validation checklist
+
+**Loading pattern**:
+- Don't load all references upfront
+- Reference them by name in SKILL.md
+- Agent loads specific reference when needed
+- Example: "See `references/color-conventions.md` for color selection guide"
+
+---
+
+## ✅ SUCCESS CRITERIA
+
+Agent creation is complete when:
+
+- [ ] YAML frontmatter is valid and descriptive
+- [ ] Agent file is 80-250 lines
+- [ ] All required sections present
+- [ ] Boundaries are specific and actionable
+- [ ] Skill invocation is mandatory and emphasized
+- [ ] `./scripts/validate-agent.sh` passes without errors
+- [ ] Skill directory structure created
+- [ ] Agent triggers Claude Code as expected
+- [ ] Examples demonstrate clear usage patterns
+- [ ] Color matches role convention
+
+---
+
+## 📚 ADDITIONAL RESOURCES
+
+### Official Documentation (via Context7)
+- Anthropic Claude Code docs: `/anthropics/claude-code`
+- Community templates: `/davila7/claude-code-templates`
+
+### Project-Specific
+- Iterative workflow: `.claude/agents/README-ITERATIVE-V2.md`
+- Agent examples: `.claude/agents/` (architect-agent, test-architect, etc.)
+- PRD system: `PRDs/WORKFLOW-ITERATIVO.md`
+
+### Scripts
+- `scripts/init-agent.sh` - Initialize new agent from template
+- `scripts/validate-agent.sh` - Validate agent structure and YAML
+
+### Templates
+- `assets/agent-minimal-template.md` - Complete agent template
+- `assets/yaml-examples.yml` - Working YAML frontmatter examples
+
+---
+
+**Last Updated**: 2025-10-24
+**Maintained by**: Agent Creator Skill (self-referential)

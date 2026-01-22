@@ -1,98 +1,133 @@
 ---
 name: ux-psychology
-description: Apply UX psychology principles to frontend design. Use when designing UI components, improving user experience, increasing conversion, or making design decisions. Covers 43 psychological concepts including cognitive biases, behavioral patterns, visual design principles, and engagement techniques. Triggers on requests like "design a pricing page", "improve signup flow", "increase engagement", or "apply psychology to UI".
+description: "UX心理学効果をUI設計に適用。ランディングページ、価格表、オンボーディング、CTA設計時に自動参照。"
 ---
 
-# UX Psychology for Frontend Design
+# UX Psychology
 
-Apply psychological principles to create more effective, engaging user interfaces.
+UI設計に心理学効果を適用するためのスキル。
 
-## Workflow
+## 適用パターン
 
-### 1. Identify Design Goal
+### ランディングページ
 
-Determine the primary objective:
-- **Conversion**: Pricing, signup, checkout
-- **Engagement**: Retention, time-on-site, repeat visits
-- **Usability**: Task completion, error reduction
-- **Trust**: Credibility, security perception
+| セクション | 適用効果 | 実装例 |
+|-----------|---------|--------|
+| ヒーロー | フレーミング効果 | ポジティブなアウトカムを強調 |
+| 社会的証明 | 権威バイアス | 著名な顧客ロゴ、メディア掲載 |
+| CTA | 損失回避 | 「チャンスを逃さないでください」 |
+| 価格表 | アンカー効果 | 高価格プランを最初に表示 |
 
-### 2. Select Relevant Concepts
+### オンボーディング
 
-Based on goal, consult the appropriate reference file:
+| ステップ | 効果 | 実装例 |
+|---------|------|--------|
+| 初回 | 段階的開示 | 1画面1コンセプト |
+| 進行中 | 目標勾配効果 | プログレスバー表示 |
+| 完了 | ピーク・エンドの法則 | 祝福アニメーション |
 
-| Goal | Reference File | Key Concepts |
-|------|---------------|--------------|
-| Conversion | `references/cognitive-biases.md` | Anchoring, Loss Aversion, Framing |
-| Engagement | `references/engagement.md` | Gamification, Variable Reward, Social Proof |
-| Usability | `references/behavioral-patterns.md` | Cognitive Load, Progressive Disclosure, Default Effect |
-| Visual Appeal | `references/visual-design.md` | Aesthetic-Usability, Visual Hierarchy |
+### 価格表
 
-### 3. Apply Concepts to Design
+| 効果 | 実装 |
+|------|------|
+| アンカー効果 | Pro（高価格）を最初に表示 |
+| おとり効果 | 中間プランを最も魅力的に |
+| 社会的証明 | 「最も人気」バッジ |
+| 損失回避 | 「年払いで2ヶ月分お得」 |
 
-For each selected concept:
-1. Read the detailed pattern from reference file
-2. Identify specific UI elements to apply it to
-3. Implement with code examples provided
+---
 
-## Quick Reference: 43 Concepts
+## 主要な心理学効果
 
-### Cognitive Biases (→ `references/cognitive-biases.md`)
-Anchoring Effect, Confirmation Bias, Expectation Bias, Familiarity Bias, Framing Effect, Halo Effect, Loss Aversion, Sunk Cost Effect, Survey Bias
+### 認知負荷に関する効果
 
-### Behavioral Patterns (→ `references/behavioral-patterns.md`)
-Cognitive Load, Decision Fatigue, Default Effect, Foot-in-the-Door, Goal Gradient Effect, Intentional Friction, Nudge Effect, Progressive Disclosure, Reactance, Reactive Onboarding, Selective Attention, Temptation Bundling, Zeigarnik Effect
+**ヒックの法則**
+選択肢が増えると意思決定時間が増加する。
+→ 選択肢を3-5個に限定
 
-### Visual Design (→ `references/visual-design.md`)
-Aesthetic-Usability Effect, Banner Blindness, Visual Hierarchy, Visual Anchor, Skeuomorphism, Serial Position Effect, Priming Effect
+**認知負荷理論**
+人間のワーキングメモリには限界がある。
+→ 1画面1アクション、チャンク分け
 
-### Engagement (→ `references/engagement.md`)
-Curiosity Gap, Decoy Effect, Doherty Threshold, Empathy Gap, Endowment Effect, Gamification, Hawthorne Effect, Labor Illusion, Peak-End Rule, Pygmalion Effect, Scarcity, Social Proof, User Delight, Variable Reward
+**ミラーの法則**
+7±2個が記憶容量の限界。
+→ メニュー項目、ステップ数を制限
 
-## Common Design Patterns
+### 行動促進に関する効果
 
-### Pricing Page
-```
-Applied concepts:
-- Anchoring: Show highest-priced plan first
-- Decoy Effect: Make middle plan look like best value
-- Social Proof: "Most Popular" badge
-- Visual Anchor: Highlight recommended plan visually
-```
+**目標勾配効果**
+ゴールに近づくほどモチベーションが上がる。
+→ プログレスバー、「あと○ステップ」
 
-### Signup Flow
-```
-Applied concepts:
-- Foot-in-the-Door: Start with email only, ask details later
-- Cognitive Load: One task per screen
-- Goal Gradient: Show progress bar
-- Default Effect: Pre-select recommended options
-```
+**ツァイガルニク効果**
+未完了のタスクは記憶に残りやすい。
+→ 「○%完了」の表示
 
-### E-commerce Product Page
-```
-Applied concepts:
-- Scarcity: "Only 3 left in stock"
-- Social Proof: Reviews and ratings
-- Loss Aversion: "Don't miss out..."
-- Aesthetic-Usability: High-quality product images
-```
+**段階的コミットメント**
+小さなコミットメントから始めると大きなコミットメントに繋がる。
+→ マイクロコンバージョン
 
-## Ethical Guidelines
+### 信頼構築に関する効果
 
-### Dark Patterns to Avoid
-- False scarcity claims
-- Hidden fees
-- Difficult cancellation flows
-- Manipulative loss aversion messaging
-- Forced opt-ins
+**社会的証明**
+他者の行動を参考にする傾向。
+→ 利用者数、レビュー、ロゴ
 
-### Ethical UX Design
-- Prioritize user benefit
-- Provide transparent information
-- Respect user choice
-- Build trust over tricks
+**権威バイアス**
+専門家の意見を信頼する傾向。
+→ メディア掲載、資格、受賞歴
 
-## Source
+**単純接触効果**
+繰り返し見るものに好意を持つ。
+→ 一貫したブランディング
 
-Based on: https://www.shokasonjuku.com/ux-psychology
+### 意思決定に関する効果
+
+**フレーミング効果**
+同じ情報でも提示方法で印象が変わる。
+→ 「90%成功」vs「10%失敗」
+
+**アンカー効果**
+最初に見た数字が基準になる。
+→ 高価格プランを先に表示
+
+**損失回避**
+利得より損失を重く感じる。
+→ 「逃さないでください」
+
+**現状維持バイアス**
+変化を避ける傾向。
+→ デフォルト設定を推奨オプションに
+
+---
+
+## ダークパターン禁止
+
+以下は**絶対に避ける**:
+
+- 偽の希少性（「残り3枠」等の嘘）
+- 強制的継続課金の隠蔽
+- 意図的な混乱（紛らわしいボタン）
+- 過度な通知
+- 罪悪感を煽るコピー
+- 退会の複雑化
+
+---
+
+## 適用チェックリスト
+
+- [ ] 認知負荷を最小化（1画面1アクション）
+- [ ] 美的ユーザビリティ効果を意識
+- [ ] 社会的証明を適切に配置
+- [ ] CTAに損失回避を適用
+- [ ] プログレス表示で目標勾配効果
+- [ ] ダークパターン排除を確認
+
+---
+
+## 関連スキル
+
+- **ui-ux-pro-max**: 視覚的実装
+- **lp-optimizer**: ページ最適化
+- **marketing-psychology**: マーケティング視点の心理学
+- **copywriting**: コピーへの心理学適用

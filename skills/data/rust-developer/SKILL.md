@@ -316,17 +316,19 @@ When reviewing Rust PRs, check against:
 
 ---
 
-## Catalyst-Specific Patterns
+## Example Project Patterns
 
-### Project Structure
+> **Note:** The following patterns are examples from a real project. Adapt them to your own project structure.
+
+### Project Structure Example
 
 ```
-catalyst/
-├── catalyst-core/         # Core library (shared logic)
+my-project/
+├── my-project-core/       # Core library (shared logic)
 │   ├── src/
 │   │   └── lib.rs
 │   └── Cargo.toml
-└── catalyst-cli/          # CLI binaries (hooks, tools)
+└── my-project-cli/        # CLI binaries (hooks, tools)
     ├── src/bin/
     │   ├── file_analyzer.rs
     │   ├── skill_activation_prompt.rs
@@ -334,7 +336,7 @@ catalyst/
     └── Cargo.toml
 ```
 
-### Common Patterns in This Project
+### Common Patterns
 
 **Binary Structure:**
 ```rust
@@ -392,11 +394,9 @@ error!(
 
 ---
 
-## Integration with Catalyst Workflow
+## When to Use This Skill
 
-### When This Skill Activates
-
-This skill automatically activates when:
+This skill is useful when:
 
 1. **File Triggers:**
    - Editing any `.rs` file in the project
@@ -413,13 +413,6 @@ This skill automatically activates when:
    - Code contains Rust-specific patterns (Result, Option, impl, trait)
    - Working with thiserror, anyhow, serde
    - Using Rust ecosystem crates
-
-### Complementary Skills
-
-This skill works well with:
-
-- **skill-developer** - When creating new skills in Rust
-- **error-tracking** - When integrating Sentry (though we don't use it for Rust yet)
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "name": "powershell-windows",
-  "repo": "xenitV1/claude-code-maestro",
-  "path": "skills/powershell-windows/SKILL.md",
-  "source": "github.com/xenitV1/claude-code-maestro",
-  "downloaded_at": "2026-01-14T03:41:46.944912Z"
+  "repo": "CongDon1207/AGENTS.md",
+  "path": ".agent/skills/powershell-windows/SKILL.md",
+  "source": "github.com/CongDon1207/AGENTS.md",
+  "downloaded_at": "2026-01-22T03:08:25.624361Z"
 }

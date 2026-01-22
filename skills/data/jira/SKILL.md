@@ -1,242 +1,201 @@
 ---
 name: jira
-description: Jira project management including issues, sprints, boards, and workflows. Activate for Jira tickets, sprint planning, backlog management, and Atlassian integration.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+description: "Create, list, view, and manage Jira issues via REST API; triggers on 'jira', 'create ticket', 'list issues', 'change type'."
 ---
 
-# Jira Skill
+## Purpose
+Model-neutral helper to interact with Jira via Atlassian REST API v3. Supports creating issues, listing, viewing, assigning, and transitioning.
 
-Provides comprehensive Jira project management capabilities for the Golden Armada AI Agent Fleet Platform.
+## Triggers
+Use when the user says: "create a jira ticket", "list jira issues", "jira create", "show jira issue", "assign ticket".
 
-## When to Use This Skill
+## Configuration
+Reads from `~/.jira.d/`:
+- `config.yml` - endpoint, user, authentication-method
+- `api-token` - raw API token (no variable assignment)
 
-Activate this skill when working with:
-- Issue creation and management
-- Sprint planning and execution
-- Backlog grooming
-- Jira API integration
-- Workflow automation
+Example config.yml:
+```yaml
+endpoint: https://yourcompany.atlassian.net
+user: your.email@company.com
+authentication-method: api-token
+```
 
-## Jira API Quick Reference
+## How to use
 
-### Authentication
-\`\`\`python
-from jira import JIRA
+### Create Issue
+```bash
+# Create Epic
+lisa jira create --type epic --project PROJ --summary "Feature title" --description "Description text"
 
-# Basic auth
-jira = JIRA(
-    server='https://your-domain.atlassian.net',
-    basic_auth=('email@example.com', 'API_TOKEN')
-)
+# Create Story
+lisa jira create --type story --project PROJ --summary "Story title" --parent PROJ-123
 
-# OAuth
-jira = JIRA(
-    server='https://your-domain.atlassian.net',
-    oauth={
-        'access_token': 'ACCESS_TOKEN',
-        'access_token_secret': 'ACCESS_TOKEN_SECRET',
-        'consumer_key': 'CONSUMER_KEY',
-        'key_cert': 'KEY_CERT'
-    }
-)
-\`\`\`
+# Create Sub-task
+lisa jira create --type subtask --project PROJ --summary "Sub-task title" --parent PROJ-123
 
-### Issue Operations
+# Create with assignment
+lisa jira create --type task --project PROJ --summary "Task" --assign me
+```
 
-\`\`\`python
-# Create issue
-new_issue = jira.create_issue(
-    project='GA',
-    summary='Implement agent health monitoring',
-    description='Add health check endpoints and monitoring dashboards',
-    issuetype={'name': 'Story'},
-    priority={'name': 'High'},
-    labels=['backend', 'monitoring'],
-    components=[{'name': 'Agent Platform'}]
-)
-print(f"Created: {new_issue.key}")
+### List Issues
+```bash
+# List by project
+lisa jira list --project PROJ --limit 10
 
-# Get issue
-issue = jira.issue('GA-123')
-print(f"Summary: {issue.fields.summary}")
-print(f"Status: {issue.fields.status.name}")
+# List with JQL
+lisa jira list --jql "assignee = currentUser() ORDER BY created DESC" --limit 5
 
-# Update issue
-issue.update(
-    summary='Updated summary',
-    description='Updated description',
-    priority={'name': 'Critical'}
-)
+# List my issues
+lisa jira list --mine --limit 10
+```
 
-# Add comment
-jira.add_comment(issue, 'This is a comment')
+### View Issue
+```bash
+lisa jira view PROJ-123
+```
 
-# Transition issue
-jira.transition_issue(issue, 'In Progress')
+### Assign Issue
+```bash
+# Assign to self
+lisa jira assign PROJ-123 --to me
 
-# Assign issue
-jira.assign_issue(issue, 'username')
+# Assign to user
+lisa jira assign PROJ-123 --to "user@company.com"
+```
 
-# Link issues
-jira.create_issue_link('Blocks', 'GA-123', 'GA-124')
-\`\`\`
+### Transition Issue
+```bash
+# Move to In Progress
+lisa jira transition PROJ-123 --to "In Progress"
 
-### Search (JQL)
+# Move to Done
+lisa jira transition PROJ-123 --to "Done"
 
-\`\`\`python
-# Basic search
-issues = jira.search_issues('project = GA AND status = "In Progress"')
+# Move to Code Review
+lisa jira transition PROJ-123 --to "Code Review"
+```
 
-# With fields
-issues = jira.search_issues(
-    'project = GA',
-    fields='summary,status,assignee',
-    maxResults=50
-)
+### Change Issue Type
+```bash
+# Change Epic to Story
+lisa jira change-type PROJ-123 --to story
 
-# Common JQL queries
-queries = {
-    'my_open': 'assignee = currentUser() AND status != Done',
-    'sprint_backlog': 'project = GA AND sprint in openSprints()',
-    'high_priority': 'project = GA AND priority = High AND status != Done',
-    'recently_updated': 'project = GA AND updated >= -7d ORDER BY updated DESC',
-    'unassigned': 'project = GA AND assignee is EMPTY AND status != Done',
-    'bugs': 'project = GA AND issuetype = Bug AND status != Done'
+# Change to Task
+lisa jira change-type PROJ-123 --to task
+```
+
+Valid types: `epic`, `story`, `task`, `subtask`, `bug`
+
+## Workflow: PR Created
+
+**When a Pull Request is created**, transition all associated Jira tickets to "Code Review":
+
+1. Identify the ticket(s) from the branch name (e.g., `PROJ-123`)
+2. Check if the ticket has subtasks (use `view` command)
+3. Transition the main ticket and ALL subtasks to "Code Review"
+
+```bash
+# Example: Transition epic and all subtasks to Code Review
+lisa jira transition PROJ-123 --to "Code Review"
+
+# For subtasks (if in "To Do", first move to "In Progress")
+for ticket in PROJ-124 PROJ-125 PROJ-126; do
+  lisa jira transition "$ticket" --to "Code Review"
+done
+```
+
+**Note:** If a ticket is in "To Do", you may need to transition through "In Progress" first:
+```bash
+lisa jira transition PROJ-123 --to "In Progress"
+lisa jira transition PROJ-123 --to "Code Review"
+```
+
+**See also:** `git` skill for PR creation, CI triggers, and test retriggers.
+
+## I/O Contract (examples)
+
+### Create
+```json
+{
+  "status": "ok",
+  "action": "create",
+  "issue": {
+    "key": "PROJ-123",
+    "url": "https://company.atlassian.net/browse/PROJ-123",
+    "summary": "Feature title",
+    "type": "Epic"
+  }
 }
+```
 
-for name, jql in queries.items():
-    results = jira.search_issues(jql)
-    print(f"{name}: {len(results)} issues")
-\`\`\`
+### List
+```json
+{
+  "status": "ok",
+  "action": "list",
+  "issues": [
+    {"key": "PROJ-123", "summary": "...", "status": "To Do", "assignee": "John Doe"}
+  ],
+  "total": 10
+}
+```
 
-### Sprint Management
+### View
+```json
+{
+  "status": "ok",
+  "action": "view",
+  "issue": {
+    "key": "PROJ-123",
+    "summary": "...",
+    "description": "...",
+    "status": "To Do",
+    "assignee": "John Doe",
+    "reporter": "...",
+    "created": "2026-01-13T...",
+    "subtasks": [...]
+  }
+}
+```
 
-\`\`\`python
-# Get board
-board = jira.boards(name='GA Board')[0]
+### Change Type
+```json
+{
+  "status": "ok",
+  "action": "change-type",
+  "issue": {
+    "key": "PROJ-123",
+    "url": "https://company.atlassian.net/browse/PROJ-123",
+    "previousType": "Epic",
+    "newType": "story"
+  }
+}
+```
 
-# Get sprints
-sprints = jira.sprints(board.id)
-active_sprint = next(s for s in sprints if s.state == 'active')
+### Error
+```json
+{
+  "status": "error",
+  "error": "Authentication failed",
+  "details": "..."
+}
+```
 
-# Get sprint issues
-sprint_issues = jira.search_issues(f'sprint = {active_sprint.id}')
+## Issue Types
+Standard Jira issue types (IDs may vary by project):
+- `epic` (10000) - Parent for features
+- `story` (10001) - User stories
+- `task` (10002) - General tasks
+- `subtask` (10003) - Sub-tasks linked to parent
+- `bug` (10004) - Bug reports
 
-# Create sprint
-new_sprint = jira.create_sprint(
-    name='Sprint 15',
-    board_id=board.id,
-    startDate='2024-01-15',
-    endDate='2024-01-29'
-)
+## Cross-model checklist
+- Claude: concise instructions; use JSON output for parsing
+- Gemini: explicit commands and minimal formatting
 
-# Add issues to sprint
-jira.add_issues_to_sprint(active_sprint.id, ['GA-123', 'GA-124'])
-
-# Start/Complete sprint
-jira.update_sprint(sprint.id, state='active')
-jira.update_sprint(sprint.id, state='closed')
-\`\`\`
-
-### Bulk Operations
-
-\`\`\`python
-# Bulk create
-issues_to_create = [
-    {
-        'project': {'key': 'GA'},
-        'summary': f'Task {i}',
-        'issuetype': {'name': 'Task'}
-    }
-    for i in range(1, 6)
-]
-created = jira.create_issues(issues_to_create)
-
-# Bulk transition
-issues = jira.search_issues('project = GA AND status = "To Do"')
-for issue in issues:
-    jira.transition_issue(issue, 'In Progress')
-\`\`\`
-
-## Issue Templates
-
-### Story Template
-\`\`\`markdown
-## User Story
-As a [type of user],
-I want [goal]
-So that [benefit]
-
-## Acceptance Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
-
-## Technical Notes
-- Implementation details
-- Dependencies
-
-## Definition of Done
-- [ ] Code complete
-- [ ] Tests written
-- [ ] Documentation updated
-- [ ] Code reviewed
-\`\`\`
-
-### Bug Template
-\`\`\`markdown
-## Description
-Brief description of the bug
-
-## Steps to Reproduce
-1. Step 1
-2. Step 2
-3. Step 3
-
-## Expected Behavior
-What should happen
-
-## Actual Behavior
-What actually happens
-
-## Environment
-- OS:
-- Browser:
-- Version:
-
-## Screenshots/Logs
-Attach relevant screenshots or logs
-\`\`\`
-
-## Workflow States
-
-\`\`\`
-┌──────────┐    ┌─────────────┐    ┌────────────┐    ┌────────┐
-│  To Do   │ -> │ In Progress │ -> │ In Review  │ -> │  Done  │
-└──────────┘    └─────────────┘    └────────────┘    └────────┘
-     ^                                    │
-     └────────────────────────────────────┘
-                   (Rejected)
-\`\`\`
-
-## Golden Armada Jira Commands
-
-\`\`\`bash
-# Create issue from CLI
-/jira-create --type story --summary "Implement feature X" --priority high
-
-# Get sprint status
-/jira-status --sprint current
-
-# Transition issue
-/jira-transition GA-123 --status "In Progress"
-
-# Sync with development
-/atlassian-sync --commits --branch main
-\`\`\`
+## Notes
+- Requires Node.js >= 18 (uses native fetch)
+- API token must have project access permissions
+- Description uses Atlassian Document Format (ADF) internally
+- Rate limits apply per Atlassian Cloud policies

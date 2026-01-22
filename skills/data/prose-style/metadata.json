@@ -1,9 +1,7 @@
 {
   "name": "prose-style",
-  "description": "Diagnose sentence-level issues after structure is solid. Use when prose feels flat, sentences are monotonous, word choices are generic, or voice is inconsistent.",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/craft/prose-style/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-21T03:40:39.610215Z"
 }

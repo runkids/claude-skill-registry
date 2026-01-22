@@ -1,9 +1,7 @@
 {
   "name": "git-best-practices",
-  "description": "Generate comprehensive, detailed git commit messages following best practices with problem explanations for fixes and complete change lists for features. Use when committing changes, writing commit me",
-  "repo": "T1nker-1220/.claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "AI-Original-Steak-Sauce/v2_heras_garden",
+  "path": ".github/skills/git-best-practices/SKILL.md",
+  "source": "github.com/AI-Original-Steak-Sauce/v2_heras_garden",
+  "downloaded_at": "2026-01-22T03:58:51.134183Z"
 }

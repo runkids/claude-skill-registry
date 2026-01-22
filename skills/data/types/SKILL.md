@@ -1,29 +1,60 @@
 ---
+description: Imported skill types from vercel
 name: types
-description: Reference for Splitrail's core data types. Use when working with ConversationMessage, Stats, DailyStats, or other type definitions.
+signature: 677c9c0ef9108122bf35284e30b60d0c51a0ea17b2f54d9ab318b369b4a0a81e
+source: /a0/tmp/skills_research/vercel/packages/react-best-practices-build/src/types.ts
 ---
 
-# Key Types
+/**
+ * Type definitions for React Performance Guidelines rules
+ */
 
-Read `src/types.rs` for full definitions.
+export type ImpactLevel = 'CRITICAL' | 'HIGH' | 'MEDIUM-HIGH' | 'MEDIUM' | 'LOW-MEDIUM' | 'LOW'
 
-## Core Types
+export interface CodeExample {
+  label: string // e.g., "Incorrect", "Correct", "Example"
+  description?: string // Optional description before code
+  code: string
+  language?: string // Default: 'typescript' or 'tsx'
+  additionalText?: string // Optional text after code block (explanations, reasons)
+}
 
-- **ConversationMessage** - Normalized message format across all analyzers. Contains application source, timestamp, hashes for deduplication, model info, token/cost stats, and role.
+export interface Rule {
+  id: string // e.g., "1.1", "2.3"
+  title: string
+  section: number // Main section number (1-8)
+  subsection?: number // Subsection number within section
+  impact: ImpactLevel
+  impactDescription?: string // e.g., "2-10× improvement"
+  explanation: string
+  examples: CodeExample[]
+  references?: string[] // URLs or citations
+  tags?: string[] // For categorization/search
+}
 
-- **Stats** - Comprehensive usage metrics for a single message including token counts, costs, file operations, todo tracking, and composition stats by file type.
+export interface Section {
+  number: number
+  title: string
+  impact: ImpactLevel
+  impactDescription?: string
+  introduction?: string
+  rules: Rule[]
+}
 
-- **DailyStats** - Pre-aggregated stats per date with message counts, conversation counts, model breakdown, and embedded Stats.
+export interface GuidelinesDocument {
+  version: string
+  organization: string
+  date: string
+  abstract: string
+  sections: Section[]
+  references?: string[]
+}
 
-- **Application** - Enum identifying which AI coding tool a message came from.
-
-- **MessageRole** - User or Assistant.
-
-## Hashing Strategy
-
-- `local_hash`: Deduplication within a single analyzer
-- `global_hash`: Deduplication on upload to Splitrail Cloud
-
-## Aggregation
-
-Use `crate::utils::aggregate_by_date()` to group messages into daily stats. See `src/utils.rs`.
+export interface TestCase {
+  ruleId: string
+  ruleTitle: string
+  type: 'bad' | 'good'
+  code: string
+  language: string
+  description?: string
+}

@@ -1,8 +1,7 @@
 {
   "name": "content-workflow",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Use when implementing editorial workflows, approval chains, scheduled publishing, or role-based content permissions. Covers workflow states, transitions, notifications, and workflow APIs for headless ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:00.641779Z"
+  "path": "plugins/content-management-system/skills/content-workflow/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-17T01:53:11.060792Z"
 }

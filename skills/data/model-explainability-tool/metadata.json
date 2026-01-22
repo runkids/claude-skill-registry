@@ -1,8 +1,7 @@
 {
   "name": "model-explainability-tool",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Model Explainability Tool - Auto-activating skill for ML Training.Triggers on: model explainability tool, model explainability toolPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:03.560580Z"
+  "path": "skills/07-ml-training/model-explainability-tool/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-22T01:55:42.744460Z"
 }

@@ -2,6 +2,8 @@
 name: rspress-api-docs
 description: Generate API documentation from TypeScript source code for RSPress. Use when documenting package APIs, extracting types from source code, or creating function/class reference pages.
 allowed-tools: Read, Write, Edit, Glob, Grep
+context: fork
+agent: rspress-doc-agent
 ---
 
 # RSPress API Documentation
@@ -26,18 +28,22 @@ This skill focuses on the manual approach for better results.
 API reference documentation lives under package directories:
 
 ```text
-docs/src/en/packages/@savvy-web/{package}/api/
-├── index.md              # API overview and exports list
+docs/src/en/{package}/api/
+├── index.mdx             # API overview (frontmatter only, user can add content)
 ├── functions/            # Function reference pages
-│   ├── index.md
-│   └── function-name.md
+│   ├── index.mdx
+│   └── function-name.mdx
 ├── types/                # Type and interface reference
-│   ├── index.md
-│   └── type-name.md
+│   ├── index.mdx
+│   └── type-name.mdx
 └── classes/              # Class reference pages
-    ├── index.md
-    └── class-name.md
+    ├── index.mdx
+    └── class-name.mdx
 ```
+
+**Note:** All API documentation files are generated as `.mdx` files. The main
+`index.mdx` overview file is only generated if it doesn't exist - if you've
+added custom content to it, it will be preserved across regenerations.
 
 ## Manual Documentation Workflow
 
@@ -45,11 +51,11 @@ docs/src/en/packages/@savvy-web/{package}/api/
 1. **Identify exports** - Use Grep to find exported functions, types, classes
 1. **Read source files** - Extract type signatures, JSDoc comments
 1. **Create markdown pages** - Write structured documentation for each export
-1. **Link from index** - Add entries to `api/index.md` for navigation
+1. **Link from index** - Add entries to `api/index.mdx` for navigation
 
 ## Function Documentation
 
-Create function reference pages at `api/functions/{function-name}.md`:
+Create function reference pages at `api/functions/{function-name}.mdx`:
 
 ```markdown
 # functionName
@@ -96,7 +102,7 @@ console.log(result);
 
 ## Type/Interface Documentation
 
-Create type reference pages at `api/types/{type-name}.md`:
+Create type reference pages at `api/types/{type-name}.mdx`:
 
 ```markdown
 # TypeName
@@ -147,7 +153,7 @@ const example: TypeName = {
 
 ## Class Documentation
 
-Create class reference pages at `api/classes/{class-name}.md`:
+Create class reference pages at `api/classes/{class-name}.mdx`:
 
 ```markdown
 # ClassName
@@ -224,25 +230,20 @@ grep -r "^export class " src/
 
 ## API Index Page
 
-Create an overview at `api/index.md`:
+The overview file at `api/index.mdx` is auto-generated with frontmatter only.
+If the file doesn't exist, it will be created with:
 
 ```markdown
-# API Reference
+---
+title: API Reference
+description: Auto-generated API documentation for package-name
+overview: true
+---
 
-Complete API reference for @savvy-web/package-name.
-
-## Functions
-
-* [functionName](./functions/function-name.md) - Brief description
-
-## Types
-
-* [TypeName](./types/type-name.md) - Brief description
-
-## Classes
-
-* [ClassName](./classes/class-name.md) - Brief description
 ```
+
+You can add custom content below the frontmatter. The plugin preserves existing
+`index.mdx` files, so your custom content won't be overwritten.
 
 ## Tips
 

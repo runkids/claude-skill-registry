@@ -1,7 +1,7 @@
 {
   "name": "skill-builder",
-  "repo": "daispacy/py-claude-marketplace",
-  "path": "py-plugin/skills/skill-builder/SKILL.md",
-  "source": "github.com/daispacy/py-claude-marketplace",
-  "downloaded_at": "2026-01-14T04:01:26.486350Z"
+  "repo": "mc-zuri/mineflayer-bedrock",
+  "path": ".claude/skills/skill-builder/SKILL.md",
+  "source": "github.com/mc-zuri/mineflayer-bedrock",
+  "downloaded_at": "2026-01-22T04:10:56.712868Z"
 }

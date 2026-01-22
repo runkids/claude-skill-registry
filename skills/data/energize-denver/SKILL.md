@@ -227,3 +227,19 @@ When consulting [./article-xiv-requirements.md](./article-xiv-requirements.md), 
 - Production efficiency requires measured data (estimated data not explicitly allowed)
 - Weather normalization required for energy data
 - Complete calendar year coverage required (no partial-year data)
+
+
+## Saving Next Steps
+
+When energize-denver work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "energize-denver" \
+  --content "## Priority Tasks
+1. Review Energize Denver compliance requirements
+2. Calculate MAI production efficiency targets
+3. Determine applicable compliance pathway"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

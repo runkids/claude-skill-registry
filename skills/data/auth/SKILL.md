@@ -1,34 +1,56 @@
 ---
-name: auth
-description: Authentication patterns - sign-in, SSO, passkeys, sessions. Use when implementing auth flows.
+name: Authentication Logic
+description: Guide to using Better Auth for client and server-side authentication.
 ---
 
-# Auth Guideline
+# Authentication Logic
 
-## Tech Stack
+## Overview
+We use **Better Auth** (`better-auth`) for identifying users.
 
-* **Auth**: Better Auth
-* **Framework**: Next.js (with Turbopack)
-* **Database**: Neon (Postgres)
-* **ORM**: Drizzle
+## Config
+- **Client**: `lib/auth-client.ts` exports `authClient`.
+- **Server**: `lib/auth.ts` exports `auth`.
 
-## Non-Negotiables
+## Client-Side Usage
+Use `authClient` for signing in, signing out, and checking session state in Client Components.
 
-* All authentication via Better Auth (no custom implementation)
-* All authorization decisions must be server-enforced (no client-trust)
-* Email verification required for high-impact capabilities
-* Session token in httpOnly cookie only
-* If SSO provider secrets are missing, hide the option (no broken UI)
+```tsx
+import { authClient } from "@/lib/auth-client";
 
-## Context
+// Sign In
+await authClient.signIn.email({
+  email,
+  password,
+});
 
-Auth handles how users get sessions — sign-in, SSO, token issuance. Session management (visibility, revocation, step-up) lives in `account-security`.
+// Social Sign In
+await authClient.signIn.social({
+  provider: "google",
+  callbackURL: "/onboarding", 
+});
 
-Better Auth is the SSOT for authentication. No custom auth implementations.
+// Sign Out
+await authClient.signOut();
+```
 
-## Driving Questions
+## Server-Side Usage
+Use `auth.api.getSession` for protecting API routes or Server Actions.
 
-* Is all auth handled by Better Auth?
-* Are we building custom auth logic that Better Auth already provides?
-* What's the sign-in experience for first-time vs returning users?
-* What happens when a user loses access to their primary auth method?
+```ts
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
+const session = await auth.api.getSession({
+  headers: await headers()
+});
+
+if (!session) {
+  return new Response("Unauthorized", { status: 401 });
+}
+```
+
+## AuthBar Component
+- Located at `textbook/src/components/AuthBar/index.tsx`.
+- Displays user avatar or login button.
+- Fetches session from `/api/auth/session` (Next.js API route proxying Better Auth).

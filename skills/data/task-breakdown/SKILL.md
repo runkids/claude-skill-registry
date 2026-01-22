@@ -1,223 +1,108 @@
 ---
 name: task-breakdown
-description: Break down high-level plans into specific tasks with file paths,
-  line numbers, and verification steps. Creates execution-ready implementation
-  plans.
+description: 专业的任务拆解器，将复杂需求拆分成"独立可运行与可演示"的最小闭环任务卡。严格按照纵向切片、单一数据变化、单一入口原则，确保每张任务卡都能在单回合实现并验证。当用户说"帮我拆解一下任务"、"用任务拆解器分析"、"按规范拆分"或需要将一个大的开发需求拆分成可执行的小任务时使用。输出格式严格按照[src/renderer/TODO.md]标准存储。
 ---
 
-# Task Breakdown Skill
+# 任务拆解器
 
-## Purpose
-Transform architecture plans into atomic, executable tasks with clear verification criteria.
+## 核心规范
 
-## When to Use
-- After architecture plan is approved
-- Converting design to implementation steps
-- Creating detailed work breakdown
-- Estimating implementation effort
+### 【切法（硬约束）】
+- **纵向切片**：每张卡必须打通 DB→API→UI 的单一路径
+- **单一数据变化**：每张卡仅包含 创建 / 更新 / 删除 三选一
+- **单一入口**：每张卡只提供一个可演示入口（按钮 / 表单 / 命令）
 
-## Task Template
-Use [templates/task-template.md](templates/task-template.md) for consistent task format.
+### 【颗粒度（硬约束）】
+- **单回合可实现**：一次"生成→本地验证→小修再试"能跑通
+- **上限控制**：≤1 路由 / ≤1 页面 / ≤1 领域模型
+- **外部依赖处理**：用"假实现/固定响应"先跑通闭环
+- **范围控制**：冻结公共接口签名，仅改动本卡所需最小范围
 
-## Task Criteria
+### 【DoD（完成定义）】
+1. ✅ 页面可开；有可点击入口，并有成功/失败反馈
+2. ✅ 数据可写入并可查询到（结果可见）
+3. ✅ 日志可定位（请求/错误日志含路由与追踪线索/ID）
+4. ✅ 可写 3 条测试（成功写入 / 校验失败 / 读取列表），预期可通过
+5. ✅ README 可写一键命令（启动/迁移/测试）与顺序说明
 
-### Atomic Tasks Must Be:
-1. **Single-concern**: One logical change per task
-2. **Verifiable**: Clear success criteria
-3. **Bounded**: Defined start and end
-4. **Estimated**: Size/complexity indicated
-5. **Ordered**: Dependencies explicit
+### 【表达规则】
+- 只写可执行指令：对象 / 动作 / 参数 / 路径 / 命令
+- 禁止形容词空话
 
-### Task Size Guidelines
+### 【黑名单（禁止出现）】
+- "优化 / 完善 / 健壮性 / 体验更好 / 通用化 / 抽象封装 / 重构以提升质量 / 提升性能"
+- 任何无法以页面/脚本/测试**直接验证**的模糊表述
 
-| Size | Description | Typical Scope |
-|------|-------------|---------------|
-| **XS** | Single line change | Typo fix, constant update, config tweak |
-| **S** | Single function | Add/modify one function, simple test |
-| **M** | Single file | Multiple functions in one file |
-| **L** | Multiple files, one concern | Feature spanning 2-4 files |
-| **XL** | Too large - split further | Break into smaller tasks |
+## 拆解流程
 
-**Rule**: If a task is XL, it must be broken down further.
+### Step 1: 需求分析
+1. 理解整体需求目标和业务价值
+2. 识别涉及的数据模型和核心业务对象
+3. 确定技术栈和架构约束
 
-## File Operation Types
+### Step 2: 纵向切片识别
+1. 按业务功能垂直切片，每张卡独立完成 DB→API→UI
+2. 识别创建(Create) / 更新(Update) / 删除(Delete) 操作
+3. 避免查询(Read)作为独立卡片，查询应嵌入其他操作
 
-### CREATE
-Create new file from scratch.
-```markdown
-| Action | File | Details |
-|--------|------|---------|
-| CREATE | `src/services/auth.ts` | New auth service, follow UserService pattern |
+### Step 3: 颗粒度控制
+1. 检查每张卡是否满足 ≤1 路由 / ≤1 页面 / ≤1 模型
+2. 如超出限制，继续切分直至满足
+3. 识别外部依赖，设计假实现方案
+
+### Step 4: 验证设计
+1. 自检清单逐卡检查
+2. 确保 30-60 秒内可完成演示录屏
+3. 确认 DoD 六项全部可落地
+
+## 输出格式
+
+```
+[任务卡]
+标题: <动词> <对象> <路径>
+切片: DB(<表/字段/迁移>) / API(<METHOD> <ROUTE> 校验:… 仅一种数据变化) / UI(/page 路径与 1 个操作入口)
+验证点: <CLI/页面/SQL/脚本；用户如何一步步验证；可直接抄运行>
+DoD: <逐条说明本卡如何满足"DoD"六项>
+约束: <冻结签名/最小改动/外部依赖的假实现方案等>
+演示点: <30–60 秒录屏要点：从操作到看到结果>
 ```
 
-Include:
-- Full file path
-- Template or pattern to follow
-- Key exports/functions to include
+## 使用示例
 
-### MODIFY
-Change existing file.
-```markdown
-| Action | File | Details |
-|--------|------|---------|
-| MODIFY | `src/routes/index.ts` | Lines 45-60, add auth routes |
+### 用户输入
+"帮我做一个用户管理系统，包含注册、登录、个人信息管理功能"
+
+### 拆解输出
+```
+[任务卡]
+标题: 创建用户注册 /api/v1/users/register
+切片: DB(users表: id,username,email,password_hash,created_at) / API(POST /api/v1/users/register 校验:username≥3字符,email格式,password≥8字符) / UI(/register 页面:注册表单)
+验证点: 1) 打开 /register 填写表单提交 2) 查看数据库users表新记录 3) 测试重复用户名被拒绝
+DoD: ✅ 页面可访问并有表单 ✅ 提交后数据写入users表 ✅ 请求日志含追踪ID ✅ 可测试成功注册/重复用户/字段校验 ✅ README含启动和测试命令
+约束: 密码明文存储(后续加密),邮箱验证延后,无外部依赖
+演示点: 30秒录屏：打开注册页→填写信息→提交→查数据库确认记录
+
+[任务卡]
+标题: 创建用户登录 /api/v1/users/login
+切片: DB(users表: username,password_hash) / API(POST /api/v1/users/login 校验:username存在,password匹配) / UI(/login 页面:登录表单)
+验证点: 1) 已注册用户登录成功 2) 错误密码登录失败 3) 不存在的用户登录失败
+DoD: ✅ 登录页面可访问 ✅ 成功登录返回token ✅ 错误有明确反馈 ✅ 可测试成功/失败场景 ✅ README含测试命令
+约束: 使用假token(后续JWT),无session管理,密码校验延后
+演示点: 30秒录屏：打开登录页→输入正确信息→登录成功→查看响应
 ```
 
-Include:
-- File path
-- Line range
-- Description of change
-- Before/after state
+## 协作规范
 
-### DELETE
-Remove file or code.
-```markdown
-| Action | File | Details |
-|--------|------|---------|
-| DELETE | `src/old/legacy-auth.ts` | Remove deprecated auth system |
-```
+1. **输出任务卡后停止**，等待人工确认
+2. **未确认不得进入实现**
+3. **若被判颗粒度或切法不合格**，必须自动重切并重输
+4. **直到全部任务卡满足"切法/颗粒度/DoD"**
 
-Include:
-- File path
-- Reason for deletion
-- Confirmation of no dependencies
+## 自检清单（逐卡必检）
 
-### MOVE
-Relocate file.
-```markdown
-| Action | File | Details |
-|--------|------|---------|
-| MOVE | `src/auth.ts` → `src/services/auth.ts` | Reorganize to services directory |
-```
-
-Include:
-- Source and destination paths
-- Import updates needed
-- Git history preservation note
-
-## Verification Approaches
-
-| Type | Command | Use Case |
-|------|---------|----------|
-| Type Check | `npm run typecheck` | TypeScript changes |
-| Lint | `npm run lint` | Style/format compliance |
-| Unit Test | `npm test -- [pattern]` | Logic verification |
-| Integration Test | `npm run test:integration` | Component interaction |
-| E2E Test | `npm run e2e` | Full workflow |
-| Build | `npm run build` | Compilation verification |
-| Manual | [Specific instructions] | UI/UX, visual changes |
-
-### Framework-Specific Commands
-
-**Node.js/TypeScript:**
-```bash
-npm run typecheck
-npm run lint
-npm test -- --testPathPattern=auth
-```
-
-**Python:**
-```bash
-python -m pytest tests/test_auth.py
-python -m mypy src/auth.py
-python -m flake8 src/auth.py
-```
-
-**Go:**
-```bash
-go test ./auth/...
-go vet ./auth/...
-golint ./auth/...
-```
-
-## Dependency Types
-
-### Hard Dependency
-Must complete before next task starts.
-```markdown
-**Dependencies:** Task 1.1 (hard) - Needs auth service to exist
-```
-
-### Soft Dependency
-Should complete first but can proceed if needed.
-```markdown
-**Dependencies:** Task 1.2 (soft) - Ideally after tests written
-```
-
-### None
-Independent task, can run in parallel.
-```markdown
-**Dependencies:** None
-```
-
-## Commit Message Conventions
-
-Follow conventional commits format:
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-### Types
-- `feat`: New feature
-- `fix`: Bug fix
-- `refactor`: Code change without feature/fix
-- `docs`: Documentation only
-- `test`: Adding tests
-- `chore`: Maintenance tasks
-
-### Examples
-```
-feat(auth): implement JWT token service
-
-- Add token generation with configurable expiry
-- Add token validation with signature verification
-- Integrate with user service for claims
-
-Closes #123
-```
-
-## Priority Levels
-
-| Priority | Meaning | When to Use |
-|----------|---------|-------------|
-| **P1** | Critical | Blocking other work, core functionality |
-| **P2** | High | Important, should be done soon |
-| **P3** | Medium | Standard priority |
-| **P4** | Low | Nice to have, can defer |
-
-## Phase Organization
-
-Group tasks into logical phases:
-1. **Foundation**: Core infrastructure, shared utilities
-2. **Core Features**: Main functionality
-3. **Integration**: Connecting components
-4. **Testing**: Test implementation
-5. **Documentation**: Docs and cleanup
-
-## Output Quality Checklist
-
-Before finalizing implementation plan:
-- [ ] All tasks are appropriately sized (no XL tasks)
-- [ ] File paths are complete and accurate
-- [ ] Line numbers included for modifications
-- [ ] Current and expected state shown for changes
-- [ ] Verification commands are runnable
-- [ ] Commit messages follow project conventions
-- [ ] Dependencies clearly marked
-- [ ] Phases organized logically
-- [ ] All architecture components covered
-- [ ] No orphan tasks (everything connects)
-
-## Output Location
-Save implementation plans to: `docs/plans/implementation-{session}.md`
-
-## Integration with Workflow
-
-1. **Architecture document** provides component design
-2. **Task breakdown** creates executable tasks (this skill)
-3. **Implementation** follows tasks exactly
-4. **Validation** verifies each task's success criteria
+- [ ] 是否 DB→API→UI 贯通？是否仅 1 个入口、1 种数据变化？
+- [ ] 是否 ≤1 路由 / ≤1 页面 / ≤1 模型？若否，是否已经继续切小？
+- [ ] 是否能在 30–60 秒内录屏完成演示？
+- [ ] DoD 六项是否都能在本卡落地（并能写进 README/测试）？
+- [ ] 是否先打通闭环，把校验/边界/样式放到后续卡？
+- [ ] 是否完全没有黑名单词？

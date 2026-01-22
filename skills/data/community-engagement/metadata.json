@@ -1,7 +1,7 @@
 {
   "name": "community-engagement",
-  "repo": "terraphim/opencode-skills",
-  "path": "skill/community-engagement/SKILL.md",
-  "source": "github.com/terraphim/opencode-skills",
-  "downloaded_at": "2026-01-14T02:27:06.439999Z"
+  "repo": "gtmagents/gtm-agents",
+  "path": "plugins/social-media/skills/community-engagement/SKILL.md",
+  "source": "github.com/gtmagents/gtm-agents",
+  "downloaded_at": "2026-01-22T03:37:42.907038Z"
 }

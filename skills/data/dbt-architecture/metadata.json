@@ -1,12 +1,7 @@
 {
   "name": "dbt-architecture",
-  "description": "dbt project structure using medallion architecture (bronze/silver/gold layers). Use this skill when planning project organization, establishing folder structure, defining naming conventions, implement",
   "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "category": "productivity",
-  "tags": [
-    "dbt",
-    "architecture"
-  ],
-  "stars": 23,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dbt-architecture/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-22T01:53:20.939105Z"
 }

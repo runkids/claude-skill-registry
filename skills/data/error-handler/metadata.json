@@ -1,12 +1,7 @@
 {
   "name": "error-handler",
-  "description": "Provides battle-tested error handling patterns for TypeScript and Python. Use when implementing error handling, creating try/catch blocks, or handling exceptions.",
-  "repo": "benshapyro/cadre-devkit-claude",
-  "category": "testing",
-  "tags": [
-    "error",
-    "handler"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ainexllc/ainexsuite",
+  "path": ".claude/skills/error-handler/SKILL.md",
+  "source": "github.com/ainexllc/ainexsuite",
+  "downloaded_at": "2026-01-21T01:10:33.286642Z"
 }

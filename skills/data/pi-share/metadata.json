@@ -1,7 +1,7 @@
 {
   "name": "pi-share",
-  "repo": "mitsuhiko/agent-stuff",
-  "path": "skills/pi-share/SKILL.md",
-  "source": "github.com/mitsuhiko/agent-stuff",
-  "downloaded_at": "2026-01-14T02:27:00.215497Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/pi-share/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-21T01:12:39.201710Z"
 }

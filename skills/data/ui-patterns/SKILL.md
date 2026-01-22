@@ -1,183 +1,322 @@
 ---
-name: UI/UX Patterns for ZX
-description: |
-  Use this skill for game UI: "menu", "HUD", "UI", "pause menu", "title screen", "health bar", "score display", "button navigation", "focus states", "rom_font".
-
-  **Load references when:**
-  - Standard layouts, inventory grids → `references/common-layouts.md`
-version: 1.1.0
+name: ui-patterns
+description: "Opinionated UI constraints and patterns for building better interfaces. Focuses on accessibility, usability, and implementation best practices."
+enabled: true
+visibility: default
+allowedTools: ["read", "write", "edit", "glob", "grep"]
 ---
 
-# UI/UX Patterns for Nethercore ZX
+# UI Patterns Skill
 
-ZX provides 2D drawing primitives. Games implement their own UI systems.
+Opinionated constraints for building better, more usable interfaces.
 
-## 2D Drawing FFI
+## Core Principles
 
-| Function | Purpose |
+1. **Accessibility first** - Use accessible primitives, not custom implementations
+2. **Performance matters** - Animate only transform/opacity, respect user preferences
+3. **Convention over configuration** - Follow established patterns
+4. **User respect** - Never block paste, always provide escape hatches
+
+---
+
+## Technical Stack
+
+| Category | Default |
 |----------|---------|
-| `draw_rect(x, y, w, h, color)` | Filled rectangle |
-| `draw_text_str(text, x, y, size, color)` | Text with current font |
-| `draw_line(x1, y1, x2, y2, thick, color)` | Line segment |
-| `draw_circle(x, y, radius, color)` | Filled circle |
-| `rom_font_str(id)` | Bind ROM font |
-
-**Color:** `0xRRGGBBAA` | **Screen:** 960×540, origin top-left
+| CSS Framework | Tailwind CSS |
+| Animation (JS) | motion/react |
+| Class Logic | cn() utility (clsx + tailwind-merge) |
+| Accessible Components | Base UI, React Aria, or Radix |
 
 ---
 
-## Menu State Machine
+## Component Patterns
 
-```rust
-enum GameState { Title, Playing, Paused, GameOver }
+### Keyboard-Interactive Components
 
-fn update(game: &mut Game) {
-    match game.state {
-        GameState::Title => update_title_menu(game),
-        GameState::Playing => update_gameplay(game),
-        // ...
-    }
-}
+```
+RULE: NEVER rebuild keyboard/focus behavior manually
+
+Required: Use accessible primitives
+- Dialogs → Base UI / Radix / React Aria
+- Dropdowns → Base UI / Radix / React Aria
+- Tabs → Base UI / Radix / React Aria
+- Tooltips → Radix / Floating UI
+
+Why: Custom implementations miss edge cases
+- Focus trapping, focus restoration
+- Arrow key navigation
+- Screen reader announcements
+- Escape key handling
 ```
 
-### Navigation Pattern
+### Icon-Only Buttons
 
-```rust
-fn update_menu(sel: &mut u8, max: u8) {
-    if button_pressed(0, button::UP) && *sel > 0 { *sel -= 1; }
-    if button_pressed(0, button::DOWN) && *sel < max - 1 { *sel += 1; }
-}
+```tsx
+// ❌ Wrong
+<button><Icon /></button>
+
+// ✅ Correct
+<button aria-label="Close dialog"><Icon /></button>
 ```
 
-### Rendering Menu Options
+### Destructive Actions
 
-```rust
-fn render_options(options: &[&str], selected: u8, base_y: f32) {
-    for (i, opt) in options.iter().enumerate() {
-        let color = if i == selected as usize { 0xFFFF00FF } else { 0xAAAAAAFF };
-        draw_text_str(opt, 400.0, base_y + i as f32 * 50.0, 32.0, color);
-    }
-    // Selection indicator
-    draw_text_str(">", 370.0, base_y + selected as f32 * 50.0, 32.0, 0xFFFF00FF);
-}
+```tsx
+// Always require confirmation via AlertDialog
+
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="destructive">Delete</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+    <AlertDialogDescription>
+      This action cannot be undone.
+    </AlertDialogDescription>
+    <AlertDialogCancel>Cancel</AlertDialogCancel>
+    <AlertDialogAction>Delete</AlertDialogAction>
+  </AlertDialogContent>
+</AlertDialog>
 ```
 
----
+### Error Messages
 
-## HUD Elements
+```
+RULE: Display errors near where the action happens
 
-### Health Bar
-
-```rust
-fn render_health_bar(current: i32, max: i32, x: f32, y: f32, w: f32, h: f32) {
-    let ratio = (current as f32 / max as f32).clamp(0.0, 1.0);
-    let color = if ratio > 0.5 { 0x00CC00FF }
-                else if ratio > 0.25 { 0xCCCC00FF }
-                else { 0xCC0000FF };
-    draw_rect(x, y, w, h, 0x333333FF);     // Background
-    draw_rect(x, y, w * ratio, h, color);  // Fill
-}
+✅ Inline validation under form fields
+✅ Toast/notification after action failure
+❌ Generic error page
+❌ Console-only errors
 ```
 
-### Score Display
+### Empty States
 
-```rust
-fn render_score(score: u32, x: f32, y: f32) {
-    let text = format!("SCORE: {:08}", score);
-    draw_text_str(&text, x, y, 24.0, 0xFFFFFFFF);
-}
 ```
+RULE: Always provide one actionable path forward
 
-### Timer (with flash warning)
-
-```rust
-fn render_timer(ticks: u64, x: f32, y: f32) {
-    let secs = ticks / 60;
-    let text = format!("{:02}:{:02}", secs / 60, secs % 60);
-    let color = if ticks < 600 && (ticks / 15) % 2 == 0 { 0xFF0000FF } else { 0xFFFFFFFF };
-    draw_text_str(&text, x, y, 36.0, color);
-}
+✅ "No items yet. Create your first item →"
+❌ "No items"
 ```
 
 ---
 
-## Focus System (Controller Navigation)
+## Animation Constraints
 
-```rust
-struct FocusGrid { columns: u8, rows: u8, current: u8 }
+### General Rules
 
-impl FocusGrid {
-    fn update(&mut self) {
-        let col = self.current % self.columns;
-        let row = self.current / self.columns;
-        if button_pressed(0, button::LEFT) && col > 0 { self.current -= 1; }
-        if button_pressed(0, button::RIGHT) && col < self.columns - 1 { self.current += 1; }
-        if button_pressed(0, button::UP) && row > 0 { self.current -= self.columns; }
-        if button_pressed(0, button::DOWN) && row < self.rows - 1 { self.current += self.columns; }
-    }
+```
+1. NO animations unless explicitly requested
+2. Animate ONLY transform and opacity
+3. Duration ≤ 200ms for interactions
+4. ALWAYS respect prefers-reduced-motion
+```
+
+### Implementation
+
+```css
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 ```
 
-### Button with Focus State
+```tsx
+// Motion library pattern
+import { motion } from 'motion/react'
 
-```rust
-fn render_button(text: &str, x: f32, y: f32, w: f32, h: f32, focused: bool) {
-    let bg = if focused { 0x4444AAFF } else { 0x333366FF };
-    let border = if focused { 0xFFFF00FF } else { 0x666699FF };
-    draw_rect(x, y, w, h, bg);
-    // Draw border lines...
-    draw_text_str(text, x + 10.0, y + h/2.0 - 10.0, 20.0, 0xFFFFFFFF);
-}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.2 }}
+>
+  Content
+</motion.div>
 ```
 
 ---
 
-## Font Rendering
+## Typography Patterns
 
-```rust
-static mut MAIN_FONT: u32 = 0;
+### Text Balance & Wrap
 
-fn init() {
-    unsafe { MAIN_FONT = rom_font_str("main_font"); }
-}
+```tsx
+// Headings: prevent orphans
+<h1 className="text-balance">
+  Heading that wraps nicely
+</h1>
 
-fn draw_text_shadowed(text: &str, x: f32, y: f32, size: f32, color: u32) {
-    let off = size * 0.08;
-    draw_text_str(text, x + off, y + off, size, 0x000000AA);  // Shadow
-    draw_text_str(text, x, y, size, color);
-}
+// Body text: better line breaks
+<p className="text-pretty">
+  Longer paragraph text
+</p>
+
+// Data/numbers: consistent width
+<span className="tabular-nums">
+  1,234.56
+</span>
+```
+
+### Responsive Typography
+
+```tsx
+// Fluid type scale with clamp
+className="text-[clamp(1rem,2vw,1.5rem)]"
+
+// Or Tailwind responsive
+className="text-base md:text-lg lg:text-xl"
 ```
 
 ---
 
-## Pause Overlay
+## Form Patterns
 
-```rust
-fn render_pause_overlay(selected: u8) {
-    draw_rect(0.0, 0.0, 960.0, 540.0, 0x00000099);  // Dim background
-    draw_rect(330.0, 180.0, 300.0, 180.0, 0x222244FF);  // Box
-    draw_text_str("PAUSED", 420.0, 200.0, 40.0, 0xFFFFFFFF);
-    render_options(&["Resume", "Quit"], selected, 260.0);
+### Never Block Paste
+
+```tsx
+// ❌ Never do this
+<input onPaste={(e) => e.preventDefault()} />
+
+// ✅ Always allow paste
+<input />
+```
+
+### Input Validation
+
+```tsx
+// Prefer native validation + progressive enhancement
+
+<input
+  type="email"
+  required
+  pattern="[^@]+@[^@]+\.[^@]+"
+  aria-describedby="email-error"
+/>
+<span id="email-error" role="alert">
+  {error && error}
+</span>
+```
+
+### Form Layout
+
+```tsx
+// Labels always visible, above inputs
+<div className="flex flex-col gap-1.5">
+  <label htmlFor="email" className="text-sm font-medium">
+    Email
+  </label>
+  <input id="email" type="email" className="..." />
+</div>
+```
+
+---
+
+## Layout Patterns
+
+### Container Queries (Modern)
+
+```tsx
+<div className="@container">
+  <div className="@md:flex-row flex flex-col gap-4">
+    {/* Responds to container, not viewport */}
+  </div>
+</div>
+```
+
+### Responsive Grid
+
+```tsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {items.map(item => <Card key={item.id} {...item} />)}
+</div>
+```
+
+### Sticky Elements
+
+```tsx
+<header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm">
+  Navigation
+</header>
+```
+
+---
+
+## Color & Theme Patterns
+
+### CSS Variables
+
+```css
+:root {
+  --color-primary: 220 90% 56%;
+  --color-background: 0 0% 100%;
+  --color-foreground: 220 10% 10%;
+}
+
+.dark {
+  --color-primary: 220 90% 66%;
+  --color-background: 220 10% 10%;
+  --color-foreground: 0 0% 98%;
 }
 ```
 
----
+### Usage with Tailwind
 
-## Complete HUD Layout
-
+```tsx
+<div className="bg-[hsl(var(--color-background))] text-[hsl(var(--color-foreground))]">
+  <button className="bg-[hsl(var(--color-primary))]">
+    Action
+  </button>
+</div>
 ```
-+--[HP BAR]-------------------[TIMER]-------------------[SCORE]--+
-|                                                                  |
-|                         GAME AREA                                |
-|                                                                  |
-+--[LIVES]--------------------------------------------------[AMMO]-+
-```
-
-See **`references/common-layouts.md`** for inventory, dialogue boxes, minimaps.
 
 ---
 
-## Related Skills
+## Common Anti-Patterns
 
-- **`gameplay-mechanics`** — Dialogue and choice menus
-- **`multiplayer-patterns`** — Per-player HUD for split-screen
+### ❌ Avoid
+
+| Pattern | Problem | Solution |
+|---------|---------|----------|
+| Custom focus ring | Inconsistent | Use focus-visible |
+| onClick on div | Not keyboard accessible | Use button/link |
+| Placeholder as label | Disappears on focus | Real label |
+| Disabled submit | Confusing UX | Show validation errors |
+| Horizontal scroll | Mobile unfriendly | Responsive design |
+| Fixed heights | Content overflow | min-height or auto |
+
+### ✅ Prefer
+
+```tsx
+// Focus states
+className="focus-visible:ring-2 focus-visible:ring-offset-2"
+
+// Semantic buttons
+<button type="button" onClick={handleClick}>
+  Click me
+</button>
+
+// Proper labels
+<label htmlFor="field">Label</label>
+<input id="field" />
+```
+
+---
+
+## Checklist
+
+Before completing UI work:
+
+- [ ] All interactive elements are keyboard accessible
+- [ ] Icon buttons have aria-labels
+- [ ] Destructive actions require confirmation
+- [ ] Errors display near the action
+- [ ] Empty states have actionable paths
+- [ ] Animations respect prefers-reduced-motion
+- [ ] Paste is not blocked
+- [ ] Focus states are visible
+- [ ] Color contrast meets WCAG AA (4.5:1)

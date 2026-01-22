@@ -1,7 +1,7 @@
 {
   "name": "nextjs-data-fetching",
-  "repo": "CoderMariusz/MonoPilot",
-  "path": ".claude/skills/nextjs-data-fetching/SKILL.md",
-  "source": "github.com/CoderMariusz/MonoPilot",
-  "downloaded_at": "2026-01-14T03:46:40.746417Z"
+  "repo": "JosiahSiegel/claude-plugin-marketplace",
+  "path": "plugins/nextjs-master/skills/nextjs-data-fetching/SKILL.md",
+  "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
+  "downloaded_at": "2026-01-22T03:16:50.113636Z"
 }

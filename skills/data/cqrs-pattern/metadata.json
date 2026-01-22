@@ -1,7 +1,7 @@
 {
   "name": "cqrs-pattern",
-  "repo": "naporin0624/claude-plugin-hono-electron",
-  "path": "skills/cqrs-pattern/SKILL.md",
-  "source": "github.com/naporin0624/claude-plugin-hono-electron",
-  "downloaded_at": "2026-01-14T03:45:44.477660Z"
+  "repo": "AmnadTaowsoam/cerebratechai-claude-skills",
+  "path": "09-microservices/cqrs-pattern/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
+  "downloaded_at": "2026-01-19T02:22:10.364526Z"
 }

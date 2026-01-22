@@ -1,285 +1,458 @@
 ---
 name: explore-codebase
-description: Autonomously explore unfamiliar codebases using Julie's code intelligence. Use semantic search, symbol navigation, and call path tracing to understand architecture without reading entire files. Activates when user asks to understand, explore, or learn about a codebase.
-allowed-tools: mcp__julie__fast_search, mcp__julie__get_symbols, mcp__julie__fast_goto, mcp__julie__fast_refs, mcp__julie__trace_call_path, mcp__julie__fast_explore
+description: 'Find all files relevant to a query with orthogonal exploration for comprehensive coverage. Returns topic-specific overview + file list with line ranges. Uses parallel agents for thorough+ levels to ensure nothing is missed.'
+context: fork
 ---
 
-# Explore Codebase Skill
+**User request**: $ARGUMENTS
 
-## Purpose
-Understand unfamiliar codebases **efficiently** using Julie's code intelligence without reading entire files. This skill uses **semantic search**, **symbol navigation**, and **execution flow tracing** to build a mental model of the code.
+Orchestrate codebase exploration agents to find all files relevant to a query, then synthesize into a unified reading list.
 
-## When to Activate
-Use when the user:
-- **Wants to understand code**: "how does authentication work?", "explain the architecture"
-- **Needs to find something**: "where is error handling?", "find the database layer"
-- **Explores new codebase**: "I'm new to this project", "help me understand this code"
-- **Investigates functionality**: "how does X feature work?", "trace this execution flow"
+**Loop**: Determine thoroughness → [Quick/Medium: single agent → return] | [Thorough+: Create orchestration file → Decompose → Launch Wave 1 → Collect findings → Cross-reference → Evaluate gaps → [Gap-fill if needed] → Refresh context → Synthesize → Output]
 
-## Julie's Code Intelligence Tools
+**Orchestration file** (thorough+ only): `/tmp/explore-orchestration-{topic-slug}-{YYYYMMDD-HHMMSS}.md`
 
-### 🔍 Search & Discovery
+**You do NOT read source files** - you orchestrate agents and synthesize their findings into a unified reading list. The main agent reads the files after you return.
 
-**fast_search** - Semantic + text search
-```
-Mode: "semantic" - Understands intent ("find authentication logic")
-Mode: "lines" - Fast text search ("find all imports")
-Mode: "symbols" - Symbol-only search ("class UserService")
-```
+---
 
-**fast_explore** - Multi-mode exploration
-```
-Mode: "logic" - Business logic discovery (filters framework noise)
-Mode: "similar" - Semantic duplicate detection (find redundant code)
-Mode: "dependencies" - Dependency analysis (transitive dependency trees)
-```
+## Thoroughness Level
 
-### 📖 Symbol Understanding
+**FIRST**: Determine thoroughness before exploring. Parse from natural language or auto-select.
 
-**get_symbols** - File structure overview (70-90% token savings!)
-```
-Mode: "structure" - High-level overview (classes, functions, imports)
-Mode: "full" - Complete symbol details with relationships
-Mode: "definitions" - Just the symbols (minimal)
-```
+**Auto-selection**:
+- Single entity lookup ("where is X?") → quick
+- Single bounded feature/bug → medium
+- Multi-area feature, interaction queries → thorough
+- "comprehensive"/"all"/"architecture"/"audit" → very-thorough
 
-**Key benefit:** See file structure WITHOUT reading entire file!
+| Level | Exploration Strategy |
+|-------|---------------------|
+| **quick** | Single agent, no orchestration file, return agent output directly |
+| **medium** | Single agent, no orchestration file, return agent output directly |
+| **thorough** | Orchestration file, orthogonal agents (2-3), cross-reference, optional gap-fill |
+| **very-thorough** | Orchestration file, orthogonal agents (3-4), cross-reference, gap-fill wave |
 
-### 🧭 Navigation
+**Topic-slug format**: Extract 2-4 key terms, lowercase, replace spaces with hyphens. Example: "authentication flow" → `authentication-flow`
 
-**fast_goto** - Jump to definitions
-```
-Find where symbols are defined across the codebase
-```
+State: `**Thoroughness**: [level] — [reason]` then proceed.
 
-**fast_refs** - Find all references
-```
-See everywhere a symbol is used
-```
+---
 
-### 🔗 Execution Flow Tracing
+## Quick / Medium Flow
 
-**trace_call_path** - Cross-language call graphs
-```
-Direction: "upstream" - What calls this? (callers)
-Direction: "downstream" - What does this call? (callees)
-Direction: "both" - Full call graph
-```
-
-**Unique feature:** Traces across language boundaries!
-
-## Orchestration Strategy
-
-### Pattern 1: Top-Down Exploration
-**Goal:** Understand overall architecture
+### 1. Launch single agent
 
 ```
-1. fast_explore({ mode: "logic", domain: "core" }) → Business logic overview
-2. get_symbols(mode="structure") on key files
-3. trace_call_path(direction="downstream") on entry points
-4. Identify patterns and layers
+Task(subagent_type: "vibe-workflow:codebase-explorer", prompt: "$ARGUMENTS")
 ```
 
-### Pattern 2: Feature Investigation
-**Goal:** Understand specific feature
+### 2. Return agent output directly
+
+When agent returns, its output becomes your output. No synthesis needed.
+
+---
+
+## Thorough / Very-Thorough Flow
+
+### Phase 1: Initial Setup
+
+#### 1.1 Get timestamp & create todo list
+
+Run: `date +%Y%m%d-%H%M%S` → for filename and timestamps
+
+**Starter todos** (seeds - list grows during decomposition):
 
 ```
-1. fast_search(query="feature name", mode="semantic")
-2. get_symbols on relevant files
-3. trace_call_path to understand execution flow
-4. fast_refs to see all usage points
+- [ ] Create orchestration file; done when file created
+- [ ] Topic decomposition→log; done when angles identified
+- [ ] (expand: agent assignments as decomposition reveals)
+- [ ] Launch Wave 1 agents; done when all agents spawned
+- [ ] Collect Agent 1→log; done when findings written
+- [ ] Collect Agent 2→log; done when findings written
+- [ ] (expand: more agents as needed)
+- [ ] Cross-reference→log; done when duplicates/conflicts resolved
+- [ ] Evaluate gaps→log; done when gaps classified
+- [ ] (expand: gap-fill if continuing)
+- [ ] Refresh: read full orchestration file
+- [ ] Synthesize→unified reading list; done when all files deduplicated + prioritized
 ```
 
-### Pattern 3: Bug Investigation
-**Goal:** Find where something is broken
+**Critical todos** (never skip):
+- `→log` after EACH agent completion
+- `Refresh:` ALWAYS before synthesis
 
-```
-1. fast_search for error messages or symptoms
-2. fast_goto to find definitions
-3. trace_call_path(direction="upstream") to find callers
-4. Analyze execution flow for root cause
-```
+#### 1.2 Create orchestration file
 
-### Pattern 4: Dependency Discovery
-**Goal:** Understand what uses what
-
-```
-1. fast_refs on key symbols
-2. trace_call_path(direction="both") for full graph
-3. Map dependencies and relationships
-```
-
-## Example Exploration Session
+Path: `/tmp/explore-orchestration-{topic-slug}-{YYYYMMDD-HHMMSS}.md`
 
 ```markdown
-User: "How does authentication work in this codebase?"
+# Codebase Exploration Orchestration: {topic}
+Timestamp: {YYYYMMDD-HHMMSS}
+Thoroughness: {level}
 
-Skill activates → Systematic exploration
+## Exploration Query
+{Original query}
 
-Step 1: Semantic Search
-→ fast_search({ query: "authentication logic", mode: "semantic" })
+## Topic Decomposition
+- Core topic: {main thing to find}
+- Angles to explore: (populated in Phase 2)
+- Expected agent count: {based on level}
 
-Results:
-- src/middleware/auth.ts (score: 0.95)
-- src/services/user-service.ts (score: 0.89)
-- src/utils/jwt.ts (score: 0.87)
+## Agent Assignments
+(populated in Phase 2)
 
-Step 2: Symbol Structure (Token-Efficient)
-→ get_symbols({ file: "src/middleware/auth.ts", mode: "structure" })
+## Agent Status
+(updated as agents complete)
 
-Structure:
-- class AuthMiddleware
-  - authenticate(): middleware function
-  - validateToken(): token validation
-  - extractUser(): user extraction
-- imports: jwt, UserService
+## Collected Findings
+(populated as agents return - includes OVERVIEW and FILES TO READ from each)
 
-Step 3: Trace Execution Flow
-→ trace_call_path({
-    symbol: "authenticate",
-    direction: "downstream"
-  })
+## Cross-Reference Analysis
+(populated after all agents return)
 
-Execution flow:
-authenticate()
-  → validateToken()
-    → jwt.verify()
-  → extractUser()
-    → UserService.findById()
+## Gap Evaluation
+(populated after cross-reference)
 
-Step 4: Find Usage Points
-→ fast_refs({ symbol: "authenticate" })
-
-Used in:
-- src/routes/api.ts (10 locations)
-- src/routes/admin.ts (5 locations)
-- src/app.ts (1 location - middleware registration)
-
-Analysis: "Authentication uses JWT middleware that validates tokens
-via the UserService. The authenticate function is registered globally
-in app.ts and protects 15 routes across api and admin routers."
+## Unified Reading List
+(populated in synthesis)
 ```
 
-## Token Efficiency Strategy
+### Phase 2: Decompose & Assign
 
-**Traditional approach:**
-```
-Read entire file (500 lines) → 12,000 tokens
-Analyze → Extract relevant parts
-```
+#### 2.1 Decompose into orthogonal angles
 
-**Julie approach:**
-```
-get_symbols(mode="structure") → 800 tokens (93% savings!)
-See structure → Navigate precisely
-Only read specific symbols if needed
-```
+**Standard angles for codebase exploration:**
 
-### When to Use What
+| Angle | Focus | Example Scope |
+|-------|-------|---------------|
+| **Implementation** | Core logic files | "Files that implement {topic} behavior" |
+| **Usage** | Callers, integration points | "Files that call/use {topic}" |
+| **Tests** | Test files, fixtures | "Test files for {topic}" |
+| **Config** | Configuration, environment | "Config files affecting {topic}" |
 
-**get_symbols** (PREFERRED):
-- Understanding file structure
-- Seeing available symbols
-- Quick orientation
-- Before deep dive
+**Decomposition rules:**
+- thorough: 2-3 angles (usually Implementation + Usage + Tests)
+- very-thorough: 3-4 angles (all four)
+- Each angle gets explicit boundaries to prevent overlap
 
-**Full file read** (SPARINGLY):
-- After identifying specific target
-- When understanding implementation details
-- After narrowing down with symbols
+**Orthogonality check**: Before assigning agents, verify no two angles would naturally search the same files.
 
-## Cross-Language Navigation
+#### 2.2 Plan agent assignments with boundaries
 
-**Julie's Unique Capability:** Trace calls across language boundaries
+| Angle | Focus | Explicitly EXCLUDE |
+|-------|-------|-------------------|
+| Implementation | Core {topic} files | callers, tests, config |
+| Usage | Files that call {topic} | core implementation, tests, config |
+| Tests | Test files for {topic} | implementation, callers, config |
+| Config | Config affecting {topic} | implementation, callers, tests |
 
-```typescript
-// TypeScript
-import { processPayment } from './payment-service';
-
-processPayment(data);  // → What does this call?
-```
+#### 2.3 Expand todos for each agent
 
 ```
-→ trace_call_path({ symbol: "processPayment", direction: "downstream" })
-
-Execution flow:
-TypeScript processPayment()
-  → Rust payment_processor::process()  ← CROSSES LANGUAGE BOUNDARY
-    → SQL stored_procedure_charge()    ← CROSSES AGAIN
+- [x] Topic decomposition→log; angles identified
+- [ ] Agent 1: implementation angle; done when core files found
+- [ ] Agent 2: usage angle; done when callers identified
+- [ ] Agent 3: tests angle; done when test files found
+- [ ] Launch Wave 1 agents (parallel); done when all spawned
+- [ ] Collect Agent 1→log; done when findings written
+- [ ] Collect Agent 2→log; done when findings written
+- [ ] Collect Agent 3→log; done when findings written
+- [ ] Cross-reference→log; done when duplicates/conflicts resolved
+...
 ```
 
-**No other tool does this!**
+#### 2.4 Update orchestration file
 
-## Orchestration Examples
+```markdown
+## Topic Decomposition
+- Core topic: {topic}
+- Angles identified:
+  1. Implementation: {what this covers}
+  2. Usage: {what this covers}
+  3. Tests: {what this covers}
 
-### Example 1: New to Codebase
-```
-User: "I'm new to this project, help me understand it"
-
-1. fast_explore({ mode: "logic", domain: "core" }) → Business logic overview
-2. get_symbols(file="src/main.ts", mode="structure") → Entry point
-3. trace_call_path on main() → See initialization flow
-4. Present: "This is a [type] application with [layers].
-   Main entry point initializes [components] and starts [server]."
-```
-
-### Example 2: Find Feature
-```
-User: "Where is the email sending code?"
-
-1. fast_search({ query: "send email", mode: "semantic" })
-2. get_symbols on top results
-3. trace_call_path to see what triggers it
-4. Present: "Email sending is in [file] via [class/function],
-   called from [locations]."
+## Agent Assignments
+| Agent | Angle | Prompt | Status |
+|-------|-------|--------|--------|
+| 1 | Implementation | "{prompt}" | Pending |
+| 2 | Usage | "{prompt}" | Pending |
+| 3 | Tests | "{prompt}" | Pending |
 ```
 
-### Example 3: Understand Error
+### Phase 3: Launch Parallel Agents
+
+#### 3.1 Launch agents in single message
+
+Use Task tool with `subagent_type: "vibe-workflow:codebase-explorer"` for each angle. **Launch all agents in parallel** (single message with multiple Task tool calls).
+
+**Agent prompt template:**
 ```
-User: "Why am I getting 'Invalid token' errors?"
+{Specific exploration focus for this angle}
 
-1. fast_search({ query: "Invalid token" })
-2. fast_goto on token validation
-3. trace_call_path(direction="upstream") → Who calls this?
-4. Analyze: "Token validation happens in [middleware],
-   called by [routes]. Error occurs when [condition]."
+YOUR ASSIGNED SCOPE:
+- {what to explore}
+- {specific patterns or areas}
+
+DO NOT EXPLORE (other agents cover these):
+- {angles assigned to other agents}
+
+Thoroughness within scope: medium
 ```
 
-## Key Behaviors
+**Example for "authentication" query (thorough):**
 
-### ✅ DO
-- Start with semantic search for relevant code
-- Use get_symbols before reading files (massive token savings)
-- Trace execution paths to understand flow
-- Navigate with fast_goto and fast_refs
-- Build mental model incrementally
-- Explain findings clearly to user
+Agent 1 (Implementation):
+```
+Find core authentication implementation files.
 
-### ❌ DON'T
-- Read entire files without checking symbols first
-- Do random grep searches (use semantic search!)
-- Ignore call path tracing (understanding flow is critical)
-- Overwhelm user with too much detail
-- Skip symbol structure overview
+YOUR ASSIGNED SCOPE:
+- Auth service/module files
+- Token generation, validation logic
+- Session management implementation
+- Password hashing, credential verification
 
-## Success Criteria
+DO NOT EXPLORE (other agents cover these):
+- Files that CALL auth (usage patterns)
+- Test files
+- Config files
 
-This skill succeeds when:
-- User understands codebase architecture quickly
-- Minimal tokens used (via get_symbols)
-- Clear execution flow explained
-- Relevant code located efficiently
-- User can navigate codebase independently afterward
+Thoroughness within scope: medium
+```
 
-## Performance
+Agent 2 (Usage):
+```
+Find files that use/call authentication.
 
-- **get_symbols**: ~100ms (vs seconds to read/parse full file)
-- **fast_search**: <10ms text, <100ms semantic
-- **trace_call_path**: <200ms (including cross-language)
-- **fast_refs**: <50ms
+YOUR ASSIGNED SCOPE:
+- Route handlers that require auth
+- Middleware that checks auth
+- Services that depend on auth context
+- Integration points with auth
 
-Total exploration session: ~500ms + reading time for specific targets
+DO NOT EXPLORE (other agents cover these):
+- Core auth implementation files
+- Test files
+- Config files
+
+Thoroughness within scope: medium
+```
+
+Agent 3 (Tests):
+```
+Find authentication test files.
+
+YOUR ASSIGNED SCOPE:
+- Unit tests for auth
+- Integration tests for auth flows
+- Test fixtures and mocks for auth
+- E2E tests involving authentication
+
+DO NOT EXPLORE (other agents cover these):
+- Core auth implementation
+- Files that use auth
+- Config files
+
+Thoroughness within scope: medium
+```
+
+#### 3.2 Update orchestration file after EACH agent completes
+
+**After EACH agent returns**, immediately write findings:
+
+```markdown
+## Collected Findings
+
+### Agent 1: Implementation
+**Status**: Complete
+**Files Found**: {count}
+
+#### OVERVIEW (from agent)
+{paste agent's overview}
+
+#### FILES TO READ (from agent)
+MUST READ:
+- {paste agent's must-read list}
+
+SHOULD READ:
+- {paste agent's should-read list}
+
+REFERENCE:
+- {paste agent's reference list}
+
+#### OUT OF SCOPE (from agent)
+- {paste any out-of-scope discoveries}
 
 ---
 
-**Remember:** Julie's superpower is understanding code structure WITHOUT reading entire files. Use get_symbols liberally, search semantically, and trace execution flows for rapid comprehension!
+### Agent 2: Usage
+...
+```
+
+**Mark the write-to-log todo complete after each write.**
+
+### Phase 4: Cross-Reference & Evaluate Gaps
+
+#### 4.1 Analyze findings across agents
+
+After ALL agents complete, analyze for:
+
+- **Duplicates**: Same file in multiple agents' lists
+- **Overlapping ranges**: Same file with different line ranges
+- **Out-of-scope discoveries**: Items agents noted but didn't pursue
+- **Coverage gaps**: Obvious areas no agent covered
+- **Priority conflicts**: Same file at different priority levels
+
+#### 4.2 Update orchestration file with cross-reference
+
+```markdown
+## Cross-Reference Analysis
+
+### Duplicates Found
+- {file}: appeared in Agent 1 (MUST READ) and Agent 3 (SHOULD READ) → keep MUST READ
+- {file}: appeared in Agent 1 (:50-100) and Agent 2 (:80-150) → merge to :50-150
+
+### Out-of-Scope Discoveries (need follow-up?)
+- Agent 1 noted: {discovery} → excluded because: {reason}
+- Agent 2 noted: {discovery} → excluded because: {reason}
+
+### Coverage Check
+- [ ] Core entry points covered?
+- [ ] Error handling paths covered?
+- [ ] Configuration dependencies identified?
+- [ ] Test coverage visible?
+
+### Gaps Identified
+- {Gap 1}: {why it's a gap}
+- {Gap 2}: {why it's a gap}
+```
+
+#### 4.3 Evaluate gaps
+
+```markdown
+## Gap Evaluation
+
+### Gaps Requiring Follow-up
+- [ ] {Gap}: {specific - e.g., "No agent explored error handling paths"}
+
+### Gaps to Note (don't pursue)
+- {Gap}: {why minor - e.g., "Logging files not critical for understanding topic"}
+
+### Decision
+- Gaps requiring follow-up: {count}
+- **Action**: {LAUNCH GAP-FILL | PROCEED TO SYNTHESIS}
+```
+
+**Gap-fill rules:**
+- thorough: only for obvious critical gaps (missing core area)
+- very-thorough: for any identified gaps
+- Maximum 1-2 gap-fill agents
+
+#### 4.4 Launch gap-fill (if needed)
+
+**Gap-fill prompt:**
+```
+Fill exploration gap: {specific gap}
+
+Context from initial exploration:
+- Already found: {summary of files from initial agents}
+- Gap identified: {what's missing}
+
+Focus narrowly on this gap. Don't re-explore already-covered areas.
+
+Thoroughness: medium
+```
+
+After gap-fill agents return, write findings to orchestration file and update cross-reference.
+
+### Phase 5: Synthesize Unified Reading List
+
+#### 5.1 Refresh context (MANDATORY)
+
+**CRITICAL**: Read the FULL orchestration file using Read tool to restore ALL agent findings into context.
+
+```
+- [x] Refresh context: read full orchestration file  ← Must complete BEFORE synthesis
+- [ ] Synthesize unified reading list
+```
+
+**Why this matters**: By this point, findings from multiple agents have been written to the file. Context degradation means details may have faded. Reading the full file brings all findings into recent context.
+
+#### 5.2 Generate unified reading list
+
+**Only after completing 5.1** - synthesize all agent findings:
+
+```markdown
+## OVERVIEW
+
+[Merged overview combining insights from all agents. 150-400 words.
+Describe: file organization, relationships between areas, entry points, data flow.
+Synthesize structural knowledge from all angles explored.]
+
+## FILES TO READ
+
+MUST READ:
+- path/file.ext:lines - [reason]
+...
+
+SHOULD READ:
+- path/file.ext:lines - [reason]
+...
+
+REFERENCE:
+- path/file.ext - [reason]
+...
+
+## EXPLORATION SUMMARY
+
+| Angle | Agent | Files Found | Key Discovery |
+|-------|-------|-------------|---------------|
+| Implementation | 1 | N | {1-liner} |
+| Usage | 2 | N | {1-liner} |
+| Tests | 3 | N | {1-liner} |
+| Gap-fill | 4 | N | {1-liner} |
+
+**Gaps noted but not explored**: {list or "none"}
+
+---
+Orchestration file: {path}
+```
+
+**Deduplication rules:**
+- Same file from multiple agents → keep highest priority, note "(multiple agents)"
+- Overlapping line ranges → merge into single range (union)
+- Conflicting priorities → use higher priority (MUST > SHOULD > REFERENCE)
+
+#### 5.3 Mark all todos complete
+
+---
+
+## Key Principles
+
+| Principle | Rule |
+|-----------|------|
+| Thoroughness first | Determine level before any exploration |
+| Write after each agent | Write to orchestration file after EACH agent |
+| Todos with write-to-log | Each agent collection gets a write-to-orchestration-file todo |
+| Parallel launch | All initial agents in single message |
+| Cross-reference | Analyze for duplicates, gaps, conflicts after agents return |
+| Limited gap-fill | At most 1-2 gap-fill agents, not unbounded |
+| **Context refresh** | **Read full orchestration file BEFORE synthesis - non-negotiable** |
+| No source file reads | You orchestrate and synthesize - main agent reads files after |
+
+**Log Pattern Summary**:
+1. Create orchestration file at start
+2. Add write-to-log todos after each agent collection
+3. Write findings after EVERY agent returns
+4. "Refresh context: read full orchestration file" todo before synthesis
+5. Read FULL file before synthesis (restores all context)
+
+## Never Do
+
+- Read source files yourself (you synthesize agent findings, not file contents)
+- Skip write-to-log todos (every agent completion must be written)
+- Synthesize without completing "Refresh context" todo first
+- Launch agents sequentially when they could be parallel
+- Skip cross-reference step for thorough+
+- Launch unbounded gap-fill waves
+- Let agents explore overlapping areas

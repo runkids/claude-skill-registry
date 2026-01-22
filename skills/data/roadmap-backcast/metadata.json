@@ -1,12 +1,7 @@
 {
   "name": "roadmap-backcast",
-  "description": "Use when planning with fixed deadline or target outcome, working backward from future goal to present, defining milestones and dependencies, mapping critical path, identifying what must happen when, p",
-  "repo": "lyndonkl/claude",
-  "category": "product",
-  "tags": [
-    "roadmap",
-    "backcast"
-  ],
-  "stars": 8,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/product-manager-workflow/.claude/skills/roadmap-backcast/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-22T03:29:20.961011Z"
 }

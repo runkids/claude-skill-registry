@@ -1,12 +1,7 @@
 {
   "name": "frontend-excellence",
-  "description": "Design systems, component libraries, responsive UI/UX, accessibility. Build premium interfaces that enterprise clients expect.",
-  "repo": "Juan-Martinez16/-git",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "excellence"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "5dlabs/cto",
+  "path": "templates/skills/quality/frontend-excellence/SKILL.md",
+  "source": "github.com/5dlabs/cto",
+  "downloaded_at": "2026-01-22T03:27:10.428901Z"
 }

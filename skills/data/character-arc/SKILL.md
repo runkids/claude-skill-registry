@@ -5,8 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
 ---
 
 # Character Arc: Transformation Skill
@@ -200,3 +198,26 @@ For this skill, persist:
 
 Pattern: `{character-name}-arc-{date}.md`
 Example: `protagonist-arc-2025-01-15.md`
+
+## Integration
+
+### Inbound (feeds into character-arc)
+| Skill | What it provides |
+|-------|------------------|
+| story-sense | State 4 diagnosis: "Characters Without Dimension" |
+| story-idea-generator | Initial character concept from genre-first process |
+
+### Outbound (character-arc enables)
+| Skill | What character-arc provides |
+|-------|-------------|
+| dialogue | Character voice distinctiveness from arc position |
+| scene-sequencing | Character goals for scene-level conflict |
+| endings | Arc completion for satisfying resolution |
+
+### Complementary
+| Skill | Relationship |
+|-------|--------------|
+| cliche-transcendence | Avoids default character types and transformations |
+| worldbuilding | Character backgrounds fit world logic |
+| underdog-unit | Ensemble dynamics across multiple arcs |
+| sensitivity-check | Arc representations avoid harmful stereotypes |

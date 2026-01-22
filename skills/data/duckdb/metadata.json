@@ -1,7 +1,7 @@
 {
   "name": "duckdb",
-  "repo": "silvainfm/monaco_paie",
-  "path": ".claude/skills/duckdb/SKILL.md",
-  "source": "github.com/silvainfm/monaco_paie",
-  "downloaded_at": "2026-01-14T03:24:28.142027Z"
+  "repo": "davidgasquez/dotfiles",
+  "path": "agents/skills/duckdb/SKILL.md",
+  "source": "github.com/davidgasquez/dotfiles",
+  "downloaded_at": "2026-01-22T01:40:49.460346Z"
 }

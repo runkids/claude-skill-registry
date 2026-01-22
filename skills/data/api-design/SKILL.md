@@ -1,685 +1,600 @@
 ---
-name: API Design
-description: REST API best practices, OpenAPI/Swagger patterns, authentication, and error response formats
-keywords:
-  - api
-  - rest
-  - openapi
-  - swagger
-  - authentication
-  - jwt
-  - oauth
+name: arcanea-api-design
+description: Design APIs that developers love. RESTful principles, GraphQL patterns, versioning strategies, and the art of creating interfaces that are intuitive, consistent, and future-proof.
+version: 2.0.0
+author: Arcanea
+tags: [api, rest, graphql, design, interfaces, development]
+triggers:
+  - api design
+  - rest api
+  - graphql
+  - endpoints
+  - api versioning
+  - interface design
 ---
 
-# API Design
+# The API Design Codex
 
-## When to Use
+> *"An API is a user interface for developers. Design it with the same care you'd design a UI for users."*
 
-**Perfect for:**
-- Designing RESTful web services
-- Mobile and web client integrations
-- Microservices architecture
-- Public and private API development
-- API documentation and schema definition
+---
 
-**Not ideal for:**
-- Real-time communication (use WebSockets/gRPC)
-- File streaming (use direct downloads)
-- Complex queries (consider GraphQL or gRPC)
+## The API Design Philosophy
 
-## Quick Reference
+### First Principles
 
-### REST API Principles
 ```
-GET    /api/v1/users              - List all users
-POST   /api/v1/users              - Create new user
-GET    /api/v1/users/{id}         - Get specific user
-PUT    /api/v1/users/{id}         - Replace user
-PATCH  /api/v1/users/{id}         - Update user fields
-DELETE /api/v1/users/{id}         - Delete user
+GOOD APIs ARE:
+• Predictable   - Behavior matches expectations
+• Consistent    - Same patterns everywhere
+• Simple        - Easy to use, hard to misuse
+• Evolvable     - Can change without breaking
+• Documented    - Self-describing where possible
 
-GET    /api/v1/users/{id}/posts   - Get user's posts
-POST   /api/v1/users/{id}/posts   - Create post for user
+GOOD APIs DO NOT:
+• Surprise developers
+• Require reading implementation
+• Change behavior silently
+• Expose internal details
+• Force awkward workarounds
 ```
 
-### Standard HTTP Status Codes
+---
+
+## RESTful API Design
+
+### The REST Maturity Model
+
 ```
-2xx Success:
-  200 OK                  - Request succeeded
-  201 Created             - Resource created
-  202 Accepted            - Request accepted for processing
-  204 No Content          - Success, no body to return
-
-3xx Redirection:
-  301 Moved Permanently   - Resource moved
-  304 Not Modified        - Use cached response
-  307 Temporary Redirect  - Use same method for redirect
-
-4xx Client Error:
-  400 Bad Request         - Invalid request format
-  401 Unauthorized        - Authentication required
-  403 Forbidden           - Authenticated but no permission
-  404 Not Found           - Resource doesn't exist
-  409 Conflict            - Request conflicts with current state
-  422 Unprocessable       - Validation failed
-  429 Too Many Requests   - Rate limit exceeded
-
-5xx Server Error:
-  500 Internal Server Error - Unexpected server error
-  502 Bad Gateway           - Invalid upstream response
-  503 Service Unavailable   - Server temporarily down
+╔═══════════════════════════════════════════════════════════════════╗
+║                    RICHARDSON MATURITY MODEL                       ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║   LEVEL 0: The Swamp of POX                                       ║
+║   Single endpoint, RPC-style                                       ║
+║   POST /api → {action: "getUser", id: 1}                          ║
+║                                                                    ║
+║   LEVEL 1: Resources                                               ║
+║   Multiple endpoints, still mostly POST                            ║
+║   POST /users/1 → {action: "get"}                                 ║
+║                                                                    ║
+║   LEVEL 2: HTTP Verbs                                              ║
+║   Proper use of GET, POST, PUT, DELETE                             ║
+║   GET /users/1                                                     ║
+║                                                                    ║
+║   LEVEL 3: Hypermedia (HATEOAS)                                    ║
+║   Responses include links to related actions                       ║
+║   GET /users/1 → {..., links: [{rel: "orders", href: "/..."}]}    ║
+║                                                                    ║
+╚═══════════════════════════════════════════════════════════════════╝
 ```
 
-### Standard Error Response Format
+### Resource Naming
+
+```
+NOUNS, NOT VERBS:
+✓ GET /users          ✗ GET /getUsers
+✓ POST /orders        ✗ POST /createOrder
+✓ DELETE /items/1     ✗ POST /deleteItem
+
+PLURAL FOR COLLECTIONS:
+✓ /users              ✗ /user
+✓ /orders             ✗ /order
+
+HIERARCHY FOR RELATIONSHIPS:
+✓ /users/1/orders     ✗ /getUserOrders?userId=1
+✓ /orders/1/items     ✗ /orderItems?orderId=1
+
+KEBAB-CASE FOR MULTI-WORD:
+✓ /user-profiles      ✗ /userProfiles
+✓ /order-items        ✗ /order_items
+```
+
+### HTTP Methods
+
+```
+┌────────┬────────────────┬──────────────┬──────────────┐
+│ Method │ Purpose        │ Idempotent   │ Safe         │
+├────────┼────────────────┼──────────────┼──────────────┤
+│ GET    │ Read resource  │ Yes          │ Yes          │
+│ POST   │ Create new     │ No           │ No           │
+│ PUT    │ Replace all    │ Yes          │ No           │
+│ PATCH  │ Partial update │ No*          │ No           │
+│ DELETE │ Remove         │ Yes          │ No           │
+└────────┴────────────────┴──────────────┴──────────────┘
+
+*PATCH can be idempotent if designed carefully
+```
+
+### Status Codes
+
+```
+2XX SUCCESS:
+200 OK           - General success
+201 Created      - Resource created (include Location header)
+202 Accepted     - Processing started (async operations)
+204 No Content   - Success with no body (DELETE, PUT)
+
+4XX CLIENT ERRORS:
+400 Bad Request  - Malformed request
+401 Unauthorized - Authentication required
+403 Forbidden    - Authenticated but not permitted
+404 Not Found    - Resource doesn't exist
+409 Conflict     - State conflict (e.g., duplicate)
+422 Unprocessable - Valid syntax, invalid semantics
+
+5XX SERVER ERRORS:
+500 Internal     - Unexpected error
+502 Bad Gateway  - Upstream service failed
+503 Unavailable  - Temporarily overloaded
+504 Gateway Timeout - Upstream timeout
+```
+
+### Request/Response Design
+
 ```json
+// GOOD REQUEST
+POST /api/v1/users
+{
+  "email": "user@example.com",
+  "name": "John Doe",
+  "role": "member"
+}
+
+// GOOD RESPONSE
+{
+  "data": {
+    "id": "usr_123abc",
+    "email": "user@example.com",
+    "name": "John Doe",
+    "role": "member",
+    "createdAt": "2024-01-15T10:30:00Z"
+  },
+  "links": {
+    "self": "/api/v1/users/usr_123abc",
+    "orders": "/api/v1/users/usr_123abc/orders"
+  }
+}
+
+// GOOD ERROR
 {
   "error": {
     "code": "VALIDATION_ERROR",
-    "message": "Request validation failed",
-    "status": 422,
-    "timestamp": "2024-01-15T10:30:00Z",
+    "message": "Invalid request data",
     "details": [
       {
         "field": "email",
-        "message": "Invalid email format",
-        "type": "format"
-      },
-      {
-        "field": "age",
-        "message": "Must be between 18 and 120",
-        "type": "range"
+        "message": "Email format is invalid"
       }
-    ],
-    "request_id": "req_12345abcde"
+    ]
   }
 }
 ```
 
-### Success Response Format
-```json
+---
+
+## Pagination, Filtering, Sorting
+
+### Pagination Patterns
+
+```
+OFFSET-BASED (Simple, but has issues at scale):
+GET /users?offset=20&limit=10
+
+CURSOR-BASED (Better for large datasets):
+GET /users?cursor=eyJpZCI6MTAwfQ&limit=10
+
+Response:
 {
-  "data": {
-    "id": 123,
-    "name": "John Doe",
-    "email": "john@example.com"
-  },
-  "meta": {
-    "request_id": "req_12345abcde",
-    "timestamp": "2024-01-15T10:30:00Z"
+  "data": [...],
+  "pagination": {
+    "total": 1000,
+    "limit": 10,
+    "nextCursor": "eyJpZCI6MTEwfQ",
+    "prevCursor": "eyJpZCI6OTB9"
   }
 }
 ```
 
-### OpenAPI/Swagger Specification
+### Filtering
+
+```
+SIMPLE EQUALITY:
+GET /users?status=active&role=admin
+
+COMPARISON OPERATORS:
+GET /orders?total[gte]=100&total[lte]=500
+GET /users?createdAt[gt]=2024-01-01
+
+ARRAY VALUES:
+GET /users?status[]=active&status[]=pending
+
+SEARCH:
+GET /users?q=john
+GET /products?search=widget
+```
+
+### Sorting
+
+```
+SINGLE FIELD:
+GET /users?sort=createdAt
+GET /users?sort=-createdAt  (descending)
+
+MULTIPLE FIELDS:
+GET /users?sort=-createdAt,name
+GET /users?orderBy=createdAt:desc,name:asc
+```
+
+---
+
+## API Versioning
+
+### Versioning Strategies
+
+```
+URL PATH (Most common, explicit):
+GET /api/v1/users
+GET /api/v2/users
+
+QUERY PARAMETER:
+GET /api/users?version=1
+GET /api/users?v=2
+
+HEADER (Clean URLs, hidden version):
+GET /api/users
+Accept: application/vnd.api+json;version=1
+
+CONTENT NEGOTIATION:
+GET /api/users
+Accept: application/vnd.company.v2+json
+```
+
+### Version Lifecycle
+
+```
+┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐
+│  Alpha  │────▶│  Beta   │────▶│ Stable  │────▶│ Sunset  │
+└─────────┘     └─────────┘     └─────────┘     └─────────┘
+    ↓               ↓               ↓               ↓
+ Breaking        Breaking        Backward        Deprecation
+ changes OK      with notice     compatible      warnings
+```
+
+### Breaking vs Non-Breaking Changes
+
+```
+NON-BREAKING (Safe to add):
+✓ New optional fields
+✓ New endpoints
+✓ New query parameters
+✓ New response fields
+
+BREAKING (Requires new version):
+✗ Removing fields
+✗ Renaming fields
+✗ Changing field types
+✗ Changing URL structure
+✗ Changing validation rules
+```
+
+---
+
+## GraphQL Design
+
+### Schema Design
+
+```graphql
+# Type definitions
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  orders(first: Int, after: String): OrderConnection!
+  createdAt: DateTime!
+}
+
+type Order {
+  id: ID!
+  user: User!
+  items: [OrderItem!]!
+  total: Money!
+  status: OrderStatus!
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+# Connections for pagination
+type OrderConnection {
+  edges: [OrderEdge!]!
+  pageInfo: PageInfo!
+}
+
+type OrderEdge {
+  node: Order!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+```
+
+### Query Design
+
+```graphql
+type Query {
+  # Single resource
+  user(id: ID!): User
+
+  # Collection with filtering
+  users(
+    filter: UserFilter
+    orderBy: UserOrderBy
+    first: Int
+    after: String
+  ): UserConnection!
+
+  # Viewer pattern for current user
+  viewer: User
+}
+
+input UserFilter {
+  status: UserStatus
+  role: UserRole
+  search: String
+}
+
+input UserOrderBy {
+  field: UserOrderField!
+  direction: OrderDirection!
+}
+```
+
+### Mutation Design
+
+```graphql
+type Mutation {
+  # Create with input type
+  createUser(input: CreateUserInput!): CreateUserPayload!
+
+  # Update with partial input
+  updateUser(id: ID!, input: UpdateUserInput!): UpdateUserPayload!
+
+  # Delete returns deleted item or boolean
+  deleteUser(id: ID!): DeleteUserPayload!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  role: UserRole
+}
+
+type CreateUserPayload {
+  user: User
+  errors: [UserError!]!
+}
+
+type UserError {
+  field: String
+  message: String!
+  code: ErrorCode!
+}
+```
+
+---
+
+## Security Best Practices
+
+### Authentication
+
+```
+TOKEN-BASED:
+Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+
+API KEY:
+X-API-Key: sk_live_abcd1234
+
+OAUTH 2.0 FLOWS:
+• Authorization Code - Web apps
+• Client Credentials - Server-to-server
+• PKCE - Mobile/SPA apps
+```
+
+### Rate Limiting
+
+```
+HEADERS:
+X-RateLimit-Limit: 1000        # Total allowed
+X-RateLimit-Remaining: 999     # Remaining
+X-RateLimit-Reset: 1609459200  # Reset timestamp
+
+RESPONSE WHEN LIMITED:
+HTTP/1.1 429 Too Many Requests
+{
+  "error": {
+    "code": "RATE_LIMITED",
+    "message": "Rate limit exceeded",
+    "retryAfter": 60
+  }
+}
+```
+
+### Input Validation
+
+```
+ALWAYS VALIDATE:
+□ Type (string, number, boolean)
+□ Format (email, URL, UUID)
+□ Length (min, max)
+□ Range (min, max for numbers)
+□ Allowed values (enums)
+□ Required fields
+
+SANITIZE:
+□ Strip HTML
+□ Escape special characters
+□ Normalize unicode
+□ Limit nested depth
+```
+
+---
+
+## Documentation
+
+### OpenAPI/Swagger
+
 ```yaml
 openapi: 3.0.0
 info:
   title: User API
   version: 1.0.0
-  description: API for managing users
-  contact:
-    name: API Support
-    email: support@example.com
-
-servers:
-  - url: https://api.example.com/v1
-    description: Production
-  - url: https://staging-api.example.com/v1
-    description: Staging
 
 paths:
   /users:
     get:
-      operationId: listUsers
       summary: List all users
-      tags:
-        - Users
       parameters:
-        - name: limit
+        - name: status
           in: query
           schema:
-            type: integer
-            default: 10
-          description: Maximum number of users
-        - name: offset
-          in: query
-          schema:
-            type: integer
-            default: 0
-          description: Number of users to skip
+            type: string
+            enum: [active, inactive]
       responses:
-        '200':
-          description: List of users
+        200:
+          description: User list
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/User'
-                  meta:
-                    $ref: '#/components/schemas/Pagination'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-    post:
-      operationId: createUser
-      summary: Create new user
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUserRequest'
-      responses:
-        '201':
-          description: User created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '422':
-          description: Validation error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationError'
-
-  /users/{userId}:
-    get:
-      operationId: getUser
-      summary: Get user by ID
-      tags:
-        - Users
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: User details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '404':
-          description: User not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
-  schemas:
-    User:
-      type: object
-      required:
-        - id
-        - email
-        - name
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-        email:
-          type: string
-          format: email
-        age:
-          type: integer
-          minimum: 0
-          maximum: 150
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-
-    CreateUserRequest:
-      type: object
-      required:
-        - email
-        - name
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-        email:
-          type: string
-          format: email
-        age:
-          type: integer
-          minimum: 0
-          maximum: 150
-
-    Error:
-      type: object
-      required:
-        - error
-      properties:
-        error:
-          type: object
-          required:
-            - code
-            - message
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            status:
-              type: integer
-
-    ValidationError:
-      allOf:
-        - $ref: '#/components/schemas/Error'
-        - type: object
-          properties:
-            details:
-              type: array
-              items:
-                type: object
-                properties:
-                  field:
-                    type: string
-                  message:
-                    type: string
-
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-
-security:
-  - bearerAuth: []
+                $ref: '#/components/schemas/UserList'
 ```
 
-### JWT Authentication Pattern
-```python
-from datetime import datetime, timedelta, timezone
-import jwt
-from typing import Optional
+### Self-Documenting APIs
 
-SECRET_KEY = "your-secret-key"
-ALGORITHM = "HS256"
-EXPIRE_MINUTES = 30
-
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    """Create JWT access token."""
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
-    else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=EXPIRE_MINUTES)
-
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
-
-def verify_token(token: str) -> Optional[dict]:
-    """Verify JWT token."""
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except jwt.ExpiredSignatureError:
-        return None
-    except jwt.InvalidTokenError:
-        return None
-
-# Usage in API
-def get_current_user(token: str) -> Optional[dict]:
-    payload = verify_token(token)
-    if not payload:
-        raise Exception("Invalid or expired token")
-    return payload
-```
-
-### OAuth 2.0 Flow Pattern
-```
-User -> Client App -> Authorization Server -> Client App -> Resource Server
-
-1. User clicks "Login with Provider"
-2. Client redirects to authorization endpoint:
-   GET /oauth/authorize?client_id=xxx&redirect_uri=...&scope=read:user&state=random
-
-3. User authenticates and grants permission
-
-4. Authorization Server redirects to client with code:
-   GET /callback?code=auth_code&state=random
-
-5. Client exchanges code for token (backend):
-   POST /oauth/token
-   {
-     "client_id": "xxx",
-     "client_secret": "yyy",
-     "code": "auth_code",
-     "grant_type": "authorization_code"
-   }
-
-6. Server returns access token:
-   {
-     "access_token": "token...",
-     "token_type": "Bearer",
-     "expires_in": 3600,
-     "refresh_token": "refresh..."
-   }
-
-7. Client uses token to access resources:
-   GET /api/user
-   Authorization: Bearer token...
-```
-
-## Deep Dive
-
-### API Versioning Strategies
-```
-1. URL Path Versioning (Recommended):
-   GET /api/v1/users
-   GET /api/v2/users
-
-2. Query Parameter:
-   GET /api/users?version=1
-   GET /api/users?version=2
-
-3. Header:
-   GET /api/users
-   API-Version: 1
-
-4. Content Negotiation:
-   Accept: application/vnd.example.v1+json
-   Accept: application/vnd.example.v2+json
-```
-
-### Pagination Patterns
 ```json
-// Offset-based (simple, not ideal for large datasets)
+// HATEOAS - Include discoverable links
 {
-  "data": [...],
-  "pagination": {
-    "offset": 0,
-    "limit": 10,
-    "total": 500
-  }
-}
-
-// Cursor-based (efficient, good for large datasets)
-{
-  "data": [...],
-  "pagination": {
-    "cursor": "eyJpZCI6IDEwfQ==",
-    "next_cursor": "eyJpZCI6IDIwfQ==",
-    "has_more": true
-  }
-}
-
-// Keyset pagination (best for sorted data)
-{
-  "data": [...],
+  "data": { ... },
   "links": {
-    "next": "/api/users?after=123&before=456",
-    "prev": "/api/users?after=890&before=901"
-  }
+    "self": "/api/users/1",
+    "edit": "/api/users/1",
+    "delete": "/api/users/1",
+    "orders": "/api/users/1/orders"
+  },
+  "actions": [
+    {
+      "name": "deactivate",
+      "method": "POST",
+      "href": "/api/users/1/deactivate"
+    }
+  ]
 }
 ```
 
-### Caching Headers
-```
-# Cacheable by browser and intermediaries
-Cache-Control: public, max-age=3600
-ETag: "33a64df551425fcc55e4d42a148795d9f25f89d4"
-Last-Modified: Wed, 15 Jan 2024 10:30:00 GMT
+---
 
-# Private, only browser cache
-Cache-Control: private, max-age=600
+## Error Handling
 
-# Not cacheable
-Cache-Control: no-cache, no-store, must-revalidate
+### Error Response Structure
 
-# Conditional request (client checks if unchanged)
-If-None-Match: "33a64df551425fcc55e4d42a148795d9f25f89d4"
-If-Modified-Since: Wed, 15 Jan 2024 10:30:00 GMT
-```
-
-### Rate Limiting Headers
-```
-RateLimit-Limit: 1000
-RateLimit-Remaining: 999
-RateLimit-Reset: 1234567890
-RateLimit-RetryAfter: 60
-
-# Retry-After for 429 Too Many Requests
-HTTP/1.1 429 Too Many Requests
-Retry-After: 60
-```
-
-### GraphQL Basics
-```graphql
-query {
-  user(id: 123) {
-    id
-    name
-    email
-    posts {
-      id
-      title
-      created_at
+```json
+{
+  "error": {
+    "code": "RESOURCE_NOT_FOUND",
+    "message": "User with ID 'usr_123' not found",
+    "target": "user",
+    "details": [
+      {
+        "code": "INVALID_ID",
+        "target": "id",
+        "message": "ID format is invalid"
+      }
+    ],
+    "innererror": {
+      "trace": "abc123",
+      "timestamp": "2024-01-15T10:30:00Z"
     }
   }
 }
-
-mutation {
-  createUser(input: {
-    name: "John Doe"
-    email: "john@example.com"
-  }) {
-    id
-    name
-    email
-  }
-}
-
-subscription {
-  userCreated {
-    id
-    name
-    email
-  }
-}
 ```
 
-### Request/Response Logging
-```python
-import logging
-from functools import wraps
-import json
+### Error Code Conventions
 
-logger = logging.getLogger(__name__)
+```
+Use consistent, meaningful codes:
 
-def log_request(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        logger.info(
-            "API Request",
-            extra={
-                "method": request.method,
-                "path": request.path,
-                "query_params": dict(request.query_params),
-                "request_id": request.headers.get("X-Request-ID"),
-            }
-        )
+AUTHENTICATION:
+• AUTH_REQUIRED
+• AUTH_INVALID_TOKEN
+• AUTH_TOKEN_EXPIRED
 
-        try:
-            response = func(*args, **kwargs)
-            logger.info(
-                "API Response",
-                extra={
-                    "status_code": response.status_code,
-                    "request_id": request.headers.get("X-Request-ID"),
-                }
-            )
-            return response
-        except Exception as e:
-            logger.error(
-                "API Error",
-                extra={
-                    "error": str(e),
-                    "request_id": request.headers.get("X-Request-ID"),
-                },
-                exc_info=True
-            )
-            raise
-    return wrapper
+AUTHORIZATION:
+• FORBIDDEN
+• INSUFFICIENT_PERMISSIONS
+
+VALIDATION:
+• VALIDATION_ERROR
+• INVALID_FORMAT
+• MISSING_FIELD
+• FIELD_TOO_LONG
+
+RESOURCE:
+• RESOURCE_NOT_FOUND
+• RESOURCE_ALREADY_EXISTS
+• RESOURCE_CONFLICT
+
+RATE LIMITING:
+• RATE_LIMIT_EXCEEDED
+• QUOTA_EXCEEDED
 ```
 
-## Anti-Patterns
+---
 
-### DON'T: Use GET for State-Changing Operations
+## Quick Reference
+
+### API Design Checklist
+
 ```
-# Bad - violates REST principles
-GET /api/users/123/delete
-GET /api/users/123/activate
-
-# Good - use appropriate HTTP methods
-DELETE /api/users/123
-PATCH /api/users/123 { "status": "active" }
-```
-
-### DON'T: Mix Success and Error Codes
-```json
-// Bad - using 200 for error
-{
-  "status": 200,
-  "error": "User not found",
-  "data": null
-}
-
-// Good - use correct status code
-HTTP/1.1 404 Not Found
-{
-  "error": {
-    "code": "NOT_FOUND",
-    "message": "User not found"
-  }
-}
+□ Resources are nouns, plural
+□ HTTP methods used correctly
+□ Status codes are semantic
+□ Consistent naming conventions
+□ Pagination for lists
+□ Filtering and sorting
+□ Versioning strategy defined
+□ Error format standardized
+□ Rate limiting implemented
+□ Authentication documented
+□ OpenAPI spec available
+□ Examples for all endpoints
 ```
 
-### DON'T: Return Large Nested Objects
-```json
-// Bad - too much data
-{
-  "id": 1,
-  "name": "John",
-  "company": {
-    "id": 10,
-    "name": "Acme",
-    "employees": [...100+ objects...]
-  }
-}
+### REST vs GraphQL Decision
 
-// Good - minimal data, use links for expansion
-{
-  "id": 1,
-  "name": "John",
-  "company_id": 10,
-  "_links": {
-    "company": "/api/companies/10"
-  }
-}
+```
+CHOOSE REST WHEN:
+• Simple CRUD operations
+• Caching is important
+• Team knows REST well
+• Multiple simple clients
+• Request patterns are predictable
+
+CHOOSE GRAPHQL WHEN:
+• Complex, nested data
+• Mobile apps with bandwidth concerns
+• Frontend needs flexibility
+• Multiple related resources
+• Rapid frontend iteration
 ```
 
-### DON'T: Inconsistent Field Naming
-```json
-// Bad - inconsistent naming
-{
-  "user_id": 1,
-  "firstName": "John",
-  "last-name": "Doe",
-  "email_address": "john@example.com"
-}
+---
 
-// Good - consistent snake_case
-{
-  "user_id": 1,
-  "first_name": "John",
-  "last_name": "Doe",
-  "email": "john@example.com"
-}
-```
-
-### DON'T: Return Sensitive Data
-```json
-// Bad - exposing sensitive information
-{
-  "id": 1,
-  "name": "John",
-  "email": "john@example.com",
-  "password_hash": "bcrypt...",
-  "ssn": "123-45-6789",
-  "api_key": "sk_live_..."
-}
-
-// Good - only return necessary public data
-{
-  "id": 1,
-  "name": "John",
-  "email": "john@example.com"
-}
-```
-
-### DON'T: Ignore Security Headers
-```
-# Bad - missing security headers
-
-# Good - include security headers
-Content-Security-Policy: default-src 'self'
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1; mode=block
-Strict-Transport-Security: max-age=31536000; includeSubDomains
-Access-Control-Allow-Origin: https://trusted-domain.com
-Access-Control-Allow-Credentials: true
-```
-
-### DON'T: Forget CORS Handling
-```python
-# Bad - allowing all origins (security risk)
-@app.after_request
-def after_request(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
-
-# Good - explicit origin whitelist
-ALLOWED_ORIGINS = ['https://app.example.com', 'https://admin.example.com']
-
-@app.after_request
-def after_request(response):
-    origin = request.headers.get('Origin')
-    if origin in ALLOWED_ORIGINS:
-        response.headers['Access-Control-Allow-Origin'] = origin
-    return response
-```
+*"The best API is invisible. Developers use it without thinking about it because it does what they expect."*

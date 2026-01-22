@@ -1,7 +1,7 @@
 {
   "name": "requirements",
-  "repo": "pluginagentmarketplace/custom-plugin-product-manager",
-  "path": "skills/requirements/SKILL.md",
-  "source": "github.com/pluginagentmarketplace/custom-plugin-product-manager",
-  "downloaded_at": "2026-01-14T01:40:41.708429Z"
+  "repo": "ryryo/dot-claude-dev",
+  "path": "docs/SAMPLE/dot-claude-dev/dotfiles/claude/skills/requirements/SKILL.md",
+  "source": "github.com/ryryo/dot-claude-dev",
+  "downloaded_at": "2026-01-22T03:36:28.749032Z"
 }

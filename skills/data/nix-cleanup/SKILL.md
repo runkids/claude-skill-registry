@@ -1,89 +1,33 @@
 ---
 name: nix-cleanup
-description: CI workflow checks and code cleanup tools
+description: Run janitorial cleanup for this flake: flake check, statix/deadnix linting, and safe hygiene fixes.
 ---
 
-# NixOS CI and Code Cleanup
+# Nix Cleanup
 
-This skill provides context about the CI workflow and code cleanup tools used in this repository.
+## What I do
+- Keep cleanup aligned with this repo's linting and workflow rules.
+- Run checks in a safe order and summarize findings before edits.
+- Apply small hygiene fixes (unused bindings, repeated keys, legacy syntax) when requested.
 
-## CI Workflow
+## When to use me
+Use this skill when you want a janitorial pass before committing, or when Nix lint errors need cleanup.
 
-The CI is defined in @.github/workflows/ci.yml and runs three main checks:
+## Workflow
+1. Run `nix flake check --no-build` to validate the flake without builds.
+2. Run `nix run nixpkgs#statix -- check .` for linting.
+3. Run `nix run nixpkgs#deadnix -- .` for unused bindings.
+4. Summarize findings and ask before auto-fixing.
+5. If approved, apply `statix fix` and/or `deadnix -e`, then re-run checks.
 
-1. **Flake Check** (`nix flake check --no-build`)
-   - Validates flake syntax and structure
-   - Checks all NixOS configurations
-   - Ensures all outputs are buildable
-   - Does NOT build derivations (fast check)
+## Hygiene rules
+- Avoid repeated keys in attribute sets; nest under a single key.
+- Remove empty `let` blocks and unused arguments.
+- Prefer `lib.mkIf` over nested ifs.
+- Use `mkEnableOption` for boolean options.
+- Use `pkgs.stdenv.hostPlatform.system` instead of `system`.
 
-2. **Statix** (`nix run nixpkgs#statix -- check .`)
-   - Lints Nix code for common issues and anti-patterns
-   - Suggests best practices and improvements
-   - Can auto-fix issues with `statix fix`
-
-3. **Deadnix** (`nix run nixpkgs#deadnix -- .`)
-   - Detects unused code and bindings
-   - Finds dead `let` bindings, function arguments, etc.
-   - Can auto-fix with `deadnix -e`
-
-## Running Checks Locally
-
-Always run these before committing:
-
-```bash
-# Quick check (no builds)
-nix flake check --no-build
-
-# Lint for anti-patterns
-nix run nixpkgs#statix -- check .
-
-# Find dead code
-nix run nixpkgs#deadnix -- .
-```
-
-## Auto-fixing Issues
-
-```bash
-# Fix statix issues
-nix run nixpkgs#statix -- fix .
-
-# Remove dead code
-nix run nixpkgs#deadnix -- -e .
-```
-
-## Common Issues
-
-### Unused Let Bindings
-```nix
-# Bad - 'foo' is never used
-let
-  foo = "unused";
-  bar = "used";
-in bar
-
-# Good - removed unused binding
-let
-  bar = "used";
-in bar
-```
-
-### Unused Function Parameters
-```nix
-# Bad - 'pkgs' is never used
-{ pkgs, lib, ... }: {
-  imports = [ ];
-}
-
-# Good - removed from signature
-{ lib, ... }: {
-  imports = [ ];
-}
-```
-
-## Best Practices
-
-1. Always run `/nix-check` slash command after making changes
-2. Use `statix` and `deadnix` to keep code clean
-3. CI runs on every push and PR
-4. All checks must pass before merging
+## Safety
+- Never run destructive commands.
+- Never touch dotfile-managed program configs (see dotfiles policy).
+- Ask before changes that alter secrets or host definitions.

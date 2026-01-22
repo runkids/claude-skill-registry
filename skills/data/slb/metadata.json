@@ -1,9 +1,7 @@
 {
   "name": "slb",
-  "description": "Simultaneous Launch Button - two-person rule for destructive commands. Requires peer review before executing risky operations.",
-  "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/slb/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:06.352891Z"
 }

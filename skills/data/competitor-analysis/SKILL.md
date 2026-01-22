@@ -1,356 +1,367 @@
 ---
 name: competitor-analysis
-description: Analyze competitive landscape to identify strengths, weaknesses, opportunities, and threats. Inform product strategy and positioning based on market insights.
+description: 直接競合・間接競合を分析し、差別化ポイントを明確にする。新規プロダクト企画時、市場参入前の調査、既存プロダクトのポジショニング見直し時に使用。「競合を分析したい」「差別化ポイントを見つけたい」「市場調査」「既存の解決策を調べたい」などのリクエストで起動。
 ---
 
-# Competitor Analysis
+# 競合分析
 
-## Overview
+## 概要
 
-Systematic competitor analysis reveals market positioning, identifies competitive advantages, and informs strategic product decisions.
+対話とWebサーチを通じて競合を分析し、以下を生成する：
+1. 競合マップ（直接競合・間接競合）
+2. 競合比較表
+3. 差別化ポイント
 
-## When to Use
+## ワークフロー
 
-- Product strategy development
-- Market entry planning
-- Pricing strategy
-- Feature prioritization
-- Market positioning
-- Threat assessment
-- Investment decisions
+### フェーズ0: 前提ドキュメントの読み込み
 
-## Instructions
+前のステップの出力ファイルを読み込む。
 
-### 1. **Competitor Identification**
-
-```python
-# Identify and categorize competitors
-
-class CompetitorAnalysis:
-    COMPETITOR_TYPES = {
-        'Direct': 'Same market, same features',
-        'Indirect': 'Different approach, same problem',
-        'Adjacent': 'Related market, potential crossover',
-        'Emerging': 'New entrants, potential disruptors'
-    }
-
-    def identify_competitors(self, market_segment):
-        """Find all competitors"""
-        return {
-            'direct_competitors': [
-                {'name': 'Competitor A', 'market_share': '25%', 'founded': 2015},
-                {'name': 'Competitor B', 'market_share': '18%', 'founded': 2012}
-            ],
-            'indirect_competitors': [
-                {'name': 'Different Approach A', 'method': 'AI-powered'}
-            ],
-            'emerging_threats': [
-                {'name': 'Startup X', 'funding': '$10M Series A', 'differentiator': 'Mobile-first'}
-            ]
-        }
-
-    def analyze_competitor(self, competitor):
-        """Deep dive into competitor"""
-        return {
-            'name': competitor.name,
-            'founded': competitor.founded,
-            'headquarters': competitor.headquarters,
-            'funding': competitor.total_funding,
-            'employees': competitor.employee_count,
-            'market_share': competitor.market_share,
-            'target_market': competitor.segments,
-            'strengths': self.identify_strengths(competitor),
-            'weaknesses': self.identify_weaknesses(competitor),
-            'recent_moves': self.track_recent_moves(competitor)
-        }
-
-    def identify_strengths(self, competitor):
-        return {
-            'product': ['Feature completeness', 'UI/UX quality', 'Performance'],
-            'market': ['Brand recognition', 'Market share', 'Distribution'],
-            'financial': ['Funding', 'Revenue', 'Profitability'],
-            'team': ['Leadership', 'Engineering', 'Domain expertise']
-        }
-
-    def identify_weaknesses(self, competitor):
-        return {
-            'product': ['Missing features', 'Legacy architecture', 'Poor mobile experience'],
-            'market': ['Regional limitations', 'High prices', 'Poor support'],
-            'financial': ['Burn rate', 'Funding challenges', 'Profitability risk'],
-            'team': ['Key departures', 'Talent gaps', 'Execution issues']
-        }
-```
-
-### 2. **Competitive Matrix**
-
-```yaml
-Competitive Analysis Matrix:
-
-Market: Project Management Tools
-Analysis Date: January 2025
-
----
-
-## Feature Comparison
-
-Feature / Competitor | Our Product | Competitor A | Competitor B | Competitor C
----|---|---|---|---
-Gantt Charts | Yes | Yes | No | Yes
-Time Tracking | Yes | Limited | Yes | No
-Mobile Apps | iOS + Android | iOS only | iOS + Android | Web only
-API Available | Yes | Limited | Yes | No
-Integrations | 50+ | 20+ | 80+ | 10+
-Price (per user) | $8 | $10 | $6 | $15
-Storage | Unlimited | 5GB | 50GB | Unlimited
-Team Size Limit | None | 100 | 50 | 500
-On-Premise | Yes | No | Yes | No
-
-Score (out of 10):
-  Our Product: 8.5
-  Competitor A: 7.0
-  Competitor B: 7.5
-  Competitor C: 6.5
-
----
-
-## Positioning Matrix
-
-Performance/Capability (Y-axis) vs Price (X-axis)
-
-Quadrant I (High Performance, High Price):
-  - Competitor A: Premium positioning, enterprise focus
-
-Quadrant II (High Performance, Low Price):
-  - Our Product: Value leader
-  - Competitor B: Budget competitor
-
-Quadrant III (Low Performance, Low Price):
-  - Competitor C: Basic features only
-
-Quadrant IV (Low Performance, High Price):
-  - (Empty - weak positioning)
-
----
-
-## Customer Satisfaction Comparison
-
-Metric | Our Product | Competitor A | Competitor B | Industry Avg
----|---|---|---|---
-NPS (Net Promoter Score) | 48 | 42 | 35 | 40
-CSAT (Satisfaction) | 4.2/5 | 3.8/5 | 4.0/5 | 3.9/5
-Retention Rate | 92% | 85% | 78% | 80%
-Support Response Time | 2 hours | 4 hours | 8 hours | 6 hours
-Feature Adoption Rate | 65% | 45% | 50% | 52%
-
----
-
-## Pricing Analysis
-
-Our Pricing:
-  Starter: $8/user/month (small teams)
-  Professional: $12/user/month (growing teams)
-  Enterprise: Custom pricing
-
-Competitor Pricing:
-  Competitor A: $10/user/month flat
-  Competitor B: $6-$15/user/month (based on features)
-  Competitor C: $15/user/month (premium positioning)
-
----
-
-## Market Share & Growth
-
-Market Size: $8.5B globally
-
-Market Share (2024):
-  Competitor A: 18% ($1.53B)
-  Competitor B: 12% ($1.02B)
-  Our Product: 8% ($0.68B)
-  Competitor C: 5% ($0.43B)
-  Others: 57% ($4.84B)
-
-Growth Rate (YoY):
-  Our Product: 35%
-  Competitor A: 12%
-  Competitor B: 25%
-  Competitor C: 8%
-  Market Average: 18%
-
-Our Trajectory: Growing faster than competitors
-```
-
-### 3. **SWOT Analysis**
+#### 読み込み対象
+- `docs/PROBLEM_DEFINITION.md`
 
 ```javascript
-// Comprehensive SWOT assessment
-
-class SWOTAnalysis {
-  createSWOT(company) {
-    return {
-      strengths: [
-        'Superior mobile experience',
-        'Fastest implementation (2 weeks)',
-        'Best customer support (2-hour response)',
-        'Advanced AI-powered automation',
-        ' 95% customer retention',
-        'Strong engineering team'
-      ],
-      weaknesses: [
-        'Limited enterprise features',
-        'Lower brand recognition vs competitors',
-        'Smaller professional services team',
-        'Limited on-premise deployment',
-        'Fewer integrations than top competitor',
-        'Smaller customer base (less network effects)'
-      ],
-      opportunities: [
-        'Enterprise market (less penetrated)',
-        'International expansion (5x market)',
-        'AI/automation features (growing demand)',
-        'Vertical-specific solutions',
-        'API marketplace for partners',
-        'SMB market consolidation'
-      ],
-      threats: [
-        'Competitor A aggressively selling',
-        'Free alternatives gaining traction',
-        'Tech giants entering market (Google, Microsoft)',
-        'Economic slowdown (budget cuts)',
-        'Talent retention (headhunting)',
-        'AI commoditization'
-      ]
-    };
-  }
-
-  strategyRecommendations(swot) {
-    return {
-      leverage_strengths: [
-        'Market mobile-first advantage in campaigns',
-        'Highlight superior support in sales',
-        'Emphasize quick deployment (faster ROI)'
-      ],
-      address_weaknesses: [
-        'Develop enterprise features roadmap',
-        'Increase marketing/brand investment',
-        'Expand partnerships for integrations'
-      ],
-      capitalize_opportunities: [
-        'Launch enterprise edition (higher ACV)',
-        'Plan international expansion roadmap',
-        'Build AI feature suite aggressively'
-      ],
-      mitigate_threats: [
-        'Strengthen customer lock-in (switching costs)',
-        'Build ecosystem of partners',
-        'Focus on customer success/retention',
-        'Invest in differentiation'
-      ]
-    };
-  }
-}
+Read({ file_path: "docs/PROBLEM_DEFINITION.md" })
 ```
 
-### 4. **Competitive Insights Report**
+#### ファイルが存在する場合
 
-```yaml
-Competitive Intelligence Report
+読み込んだ内容から以下を抽出し、フェーズ1で活用：
+- ジョブ定義（分析対象のジョブとして使用）
+- ターゲットユーザー（競合のターゲットと比較）
+- ペイン（競合がどう解決しているか分析）
 
-Prepared For: Executive Team, Product Team
-Date: January 2025
+**遷移条件**: フェーズ1へ（対象ジョブの質問をスキップ可能）
 
----
+#### ファイルが存在しない場合
 
-## Executive Summary
+フェーズ1でAskUserQuestionを使って対象ジョブを確認。
 
-Market Status: Moderately competitive with emerging threats
-Opportunity: Underserved enterprise segment
-Recommendation: Invest in enterprise features and global expansion
+**遷移条件**: フェーズ1へ
 
----
+### フェーズ1: 対象領域の確認
 
-## Key Competitive Moves
+分析対象を明確にする。
 
-This Quarter:
-  - Competitor A: Released AI copilot feature
-    Our Response: Advanced in AI roadmap priority
+**注**: フェーズ0でPROBLEM_DEFINITION.mdを読み込み済みの場合、対象ジョブの質問はスキップし、既知の競合の確認のみ行う。
 
-  - Competitor B: Launched free tier
-    Our Response: Strengthen free tier features and conversion funnel
-
-  - Competitor C: Acquired integration company
-    Our Response: Expand API marketplace strategy
-
----
-
-## Market Trends
-
-1. AI/Automation: All competitors investing heavily
-   Impact: Must innovate or lose relevance
-   Timeline: Next 12 months critical
-
-2. Vertical Solutions: Moving to industry-specific products
-   Impact: Opportunity to capture niche markets
-   Timeline: 6-month window to launch
-
-3. Pricing Pressure: Race to lower entry price
-   Impact: Need to emphasize value/ROI over price
-   Timeline: Ongoing
-
-4. Consolidation: Market consolidation beginning
-   Impact: Opportunity for acquisition or IPO
-   Timeline: 18-24 months
-
----
-
-## Recommended Actions
-
-High Priority (Next 30 days):
-  1. Launch AI feature beta (response to Competitor A)
-  2. Analyze free tier conversion (response to Competitor B)
-  3. Identify vertical market targets
-
-Medium Priority (Next 90 days):
-  1. Develop enterprise edition
-  2. Build integration marketplace
-  3. Plan international expansion
-
-Long-term (6-12 months):
-  1. Position for acquisition or IPO
-  2. Build ecosystem and partnerships
-  3. Establish market leadership in chosen vertical
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "どのような問題/ジョブに対する競合を分析しますか？",
+      header: "対象ジョブ",
+      options: [
+        { label: "ジョブを入力", description: "ユーザーが達成したいこと" }
+      ],
+      multiSelect: false
+    },
+    {
+      question: "すでに知っている競合はありますか？",
+      header: "既知の競合",
+      options: [
+        { label: "ある", description: "競合名を入力" },
+        { label: "ない", description: "これから調査する" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
 ```
 
-## Best Practices
+**遷移条件**: 対象ジョブが明確になったらフェーズ2へ
 
-### ✅ DO
-- Analyze current and emerging competitors
-- Monitor competitor activities regularly
-- Understand customer perception of competition
-- Use competitive insights to inform strategy
-- Focus on differentiation, not just comparison
-- Include market trends in analysis
-- Update competitive analysis quarterly
-- Share insights across organization
-- Use data to back up claims
-- Consider indirect competitors too
+### フェーズ2: 競合の特定
 
-### ❌ DON'T
-- Obsess over competitor pricing
-- Copy competitor features blindly
-- Ignore emerging threats
-- Use only marketing materials for analysis
-- Focus only on feature comparison
-- Neglect customer feedback on competition
-- Make analysis too complex
-- Hide uncomfortable truths
-- Change strategy based on every competitor move
-- Ignore your competitive advantages
+直接競合と間接競合を洗い出す。
 
-## Competitive Analysis Tips
+#### 直接競合
 
-- Use public data sources (websites, job postings, funding)
-- Talk to customers about competitors
-- Follow competitor social media and blogs
-- Set up competitor monitoring alerts
-- Review customer reviews (G2, Capterra, etc.)
-- Attend industry conferences
+同じ問題を同じ方法で解決しようとしているプロダクト。
+
+```javascript
+WebSearch({
+  query: "[対象領域] ツール 比較"
+})
+```
+
+#### 間接競合
+
+同じ問題を**異なる方法**で解決しているもの。
+
+**考えるべき間接競合**:
+- 手作業（ツールを使わない）
+- Excel/スプレッドシート
+- 汎用ツールの組み合わせ
+- 外注/コンサルティング
+- 社内で自作
+
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "ユーザーは今、この問題をどうやって解決していますか？（ツールを使わない方法も含む）",
+      header: "現状の解決策",
+      options: [
+        { label: "解決策を入力", description: "例: 手動でEXPLAIN分析、外部DBAに依頼" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**遷移条件**: 競合が5-10個リストアップできたらフェーズ3へ
+
+### フェーズ3: 競合の調査
+
+各競合について情報を収集する。
+
+```javascript
+WebSearch({
+  query: "[競合名] 機能 価格 レビュー"
+})
+```
+
+#### 収集する情報
+
+| 項目           | 説明                       |
+| -------------- | -------------------------- |
+| **概要**       | 何をするプロダクトか       |
+| **ターゲット** | 誰向けか                   |
+| **主要機能**   | コア機能は何か             |
+| **価格**       | 料金体系                   |
+| **強み**       | ユーザーに評価されている点 |
+| **弱み**       | 不満や欠点                 |
+
+**遷移条件**: 主要競合3-5個の情報が揃ったらフェーズ4へ
+
+### フェーズ4: 競合比較分析
+
+競合を軸に沿って比較する。
+
+#### 比較軸の設定
+
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "ユーザーにとって重要な選択基準は何ですか？（3-5個）",
+      header: "比較軸",
+      options: [
+        { label: "基準を入力", description: "例: 使いやすさ、価格、精度、対応DB" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+#### 比較表の作成
+
+| 競合   | 軸1 | 軸2 | 軸3 | 軸4 |
+| ------ | --- | --- | --- | --- |
+| 競合A  | ◎   | △   | ○   | ×   |
+| 競合B  | ○   | ◎   | △   | ○   |
+| 手作業 | △   | ◎   | ×   | ○   |
+
+**遷移条件**: 比較表が完成したらフェーズ5へ
+
+### フェーズ5: 差別化ポイントの特定
+
+競合と比較して、どこで勝てるかを明確にする。
+
+**質問パターン**:
+- 「競合が弱い領域はどこか？」
+- 「ユーザーが競合に不満を持っている点は？」
+- 「競合がやっていないことは？」
+- 「自分たちの強みは何か？」
+
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "競合と比較して、どこで差別化できそうですか？",
+      header: "差別化",
+      options: [
+        { label: "差別化ポイントを入力", description: "競合より優れている点、競合にはない点" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+#### 差別化の種類
+
+| 種類                 | 説明               | 例                |
+| -------------------- | ------------------ | ----------------- |
+| **機能差別化**       | 競合にない機能     | 実測ベンチマーク  |
+| **ターゲット差別化** | 異なるセグメント   | DBA不在チーム向け |
+| **価格差別化**       | 価格帯が異なる     | 安価、従量課金    |
+| **体験差別化**       | UXが優れている     | 30秒で結果が出る  |
+| **統合差別化**       | 既存ツールとの連携 | GitHub PR連携     |
+
+**遷移条件**: 差別化ポイントが1-3個明確になったらフェーズ6へ
+
+### フェーズ6: ポジショニングマップ
+
+2軸で競合をマッピングする。
+
+```
+         高機能
+            │
+    ┌───────┼───────┐
+    │   B   │   A   │
+    │       │   ★   │  ← 自社
+ 高価 ──────┼────── 安価
+    │   C   │   D   │
+    │       │       │
+    └───────┼───────┘
+            │
+         シンプル
+```
+
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "ポジショニングマップの2軸は何にしますか？",
+      header: "軸の選択",
+      options: [
+        { label: "軸を入力", description: "例: 価格 vs 機能、専門性 vs 使いやすさ" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**遷移条件**: マップが作成できたらフェーズ7へ
+
+### フェーズ7: ドキュメント生成
+
+```markdown
+# 競合分析
+
+## 対象ジョブ
+[ユーザーが達成したいこと]
+
+## 競合マップ
+
+### 直接競合
+| 競合名 | 概要 | ターゲット |
+|--------|------|-----------|
+| ... | ... | ... |
+
+### 間接競合
+| 解決策 | 概要 | 長所 | 短所 |
+|--------|------|------|------|
+| 手作業 | ... | ... | ... |
+
+## 競合比較表
+
+| 競合 | 価格 | 機能 | 使いやすさ | ... |
+|------|------|------|-----------|-----|
+| ... | ... | ... | ... | ... |
+
+## 競合詳細分析
+
+### [競合A]
+- **概要**: ...
+- **ターゲット**: ...
+- **主要機能**: ...
+- **価格**: ...
+- **強み**: ...
+- **弱み**: ...
+- **ユーザーの声**: ...
+
+## ポジショニングマップ
+
+[Mermaid or ASCII図]
+
+## 差別化ポイント
+
+1. **[差別化1]**: ...
+2. **[差別化2]**: ...
+
+## 結論・示唆
+
+- ...
+```
+
+### 出力ファイル
+
+```javascript
+Write({
+  file_path: "docs/COMPETITOR_ANALYSIS.md",
+  content: competitorAnalysisContent
+})
+```
+
+### フェーズ8: セルフレビュー（サブエージェント）
+
+生成したドキュメントのレビューをサブエージェントに委譲する。
+
+```javascript
+Task({
+  description: "競合分析レビュー",
+  subagent_type: "general-purpose",
+  prompt: `
+以下の競合分析ドキュメントをレビューし、問題があれば修正してください。
+
+## レビュー対象ファイル
+- docs/COMPETITOR_ANALYSIS.md
+
+## レビュー観点
+
+1. **競合の網羅性**: 直接競合と間接競合が十分に洗い出されているか
+2. **情報の正確性**: 各競合の情報が正確か、最新か
+3. **比較の妥当性**: 比較軸がユーザーにとって重要な基準か
+4. **差別化の明確さ**: 差別化ポイントが具体的で実現可能か
+5. **ポジショニングの妥当性**: 選択した軸が適切か、マップが正確か
+
+## 出力形式
+
+1. 発見した問題のリスト（問題がない場合は「問題なし」）
+2. 各問題の修正内容
+3. 修正後のファイル更新（Editツールで修正）
+
+問題がなくなるまでレビューと修正を繰り返すこと。
+`
+})
+```
+
+## 調査のコツ
+
+### 情報源
+
+- 公式サイト
+- G2、Capterra等のレビューサイト
+- ProductHunt
+- Reddit、Hacker News
+- Twitter/Xでの言及
+- ユーザーインタビュー
+
+### 避けるべきこと
+
+- 競合を過小評価する
+- 機能だけで比較する（体験も重要）
+- 直接競合だけ見る（間接競合を忘れない）
+- 一度調査して終わり（定期的に更新）
+
+## 完了条件
+
+- [ ] 直接競合が3-5個特定されている
+- [ ] 間接競合が特定されている
+- [ ] 主要競合の詳細情報が収集されている
+- [ ] 比較表が作成されている
+- [ ] 差別化ポイントが1-3個明確になっている
+- [ ] COMPETITOR_ANALYSIS.mdが生成されている
+- [ ] セルフレビューが完了し、問題が解消されている
+
+## 関連スキル
+
+- **problem-definition**: 競合分析の前に問題を定義する場合
+- **slc-ideation**: 競合分析後、差別化を活かしたアイデアを磨く場合

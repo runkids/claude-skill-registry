@@ -1,9 +1,11 @@
 ---
 name: typescript-lsp
-description: TypeScript Language Server for exploring and understanding TypeScript/JavaScript codebases. PREFER OVER Grep/Glob for *.ts/*.tsx files - provides type-aware symbol search, reference finding, and code navigation. Use for exploring code structure, finding implementations, understanding type relationships, and verifying signatures before editing. (project)
+description: Search TypeScript SYMBOLS (functions, types, classes) - NOT text. Use Glob to find files, Grep for text search, LSP for symbol search. Provides type-aware results that understand imports, exports, and relationships.
 license: ISC
 compatibility: Requires bun
 allowed-tools: Bash
+metadata:
+  file-triggers: "*.ts,*.tsx,*.js,*.jsx"
 ---
 
 # TypeScript LSP Skill
@@ -21,14 +23,25 @@ Use these tools to:
 - **Verify before editing** - Check all usages before modifying or deleting exports
 - **Navigate code** - Jump to definitions, find implementations
 
-## When to Use LSP vs Grep/Glob
+## When to Use Each Tool
+
+| Tool | Purpose |
+|------|---------|
+| **Glob** | Find files by pattern |
+| **Grep** | Search text content |
+| **lsp-find** | Search TypeScript symbols |
+| **lsp-hover** | Get type info + TSDoc documentation |
+| **lsp-refs** | Find all references to a symbol |
+| **lsp-analyze** | Batch analysis of file structure |
+
+### LSP vs Grep/Glob
 
 | Task | Use LSP | Use Grep/Glob |
 |------|---------|---------------|
-| Find all usages of a function/type | ✅ `lsp-references` | ❌ Misses re-exports, aliases |
+| Find all usages of a function/type | ✅ `lsp-refs` | ❌ Misses re-exports, aliases |
 | Search for a symbol by name | ✅ `lsp-find` | ❌ Matches strings, comments |
+| Get type signature + TSDoc | ✅ `lsp-hover` | ❌ Not possible |
 | Understand file exports | ✅ `lsp-analyze --exports` | ❌ Doesn't resolve re-exports |
-| Get type signature | ✅ `lsp-hover` | ❌ Not possible |
 | Find files by pattern | ❌ | ✅ `Glob` |
 | Search non-TS files (md, json) | ❌ | ✅ `Grep` |
 | Search for text in comments/strings | ❌ | ✅ `Grep` |
@@ -53,7 +66,7 @@ Use these tools to:
 All scripts accept three types of file paths:
 - **Absolute paths**: `/Users/name/project/src/file.ts`
 - **Relative paths**: `./src/file.ts` or `../other/file.ts`
-- **Package export paths**: `plaited/main/b-element.ts` (resolved via `Bun.resolve()`)
+- **Package export paths**: `my-package/src/module.ts` (resolved via `Bun.resolve()`)
 
 Package export paths are recommended for portability and consistency with the package's exports field.
 
@@ -65,7 +78,7 @@ Package export paths are recommended for portability and consistency with the pa
 Get type information at a specific position.
 
 ```bash
-bun scripts/lsp-hover.ts <file> <line> <char>
+bunx @plaited/development-skills lsp-hover <file> <line> <char>
 ```
 
 **Arguments:**
@@ -75,38 +88,38 @@ bun scripts/lsp-hover.ts <file> <line> <char>
 
 **Example:**
 ```bash
-bun scripts/lsp-hover.ts plaited/main/b-element.ts 139 13
+bunx @plaited/development-skills lsp-hover src/utils/parser.ts 42 10
 ```
 
 #### lsp-symbols
 List all symbols in a file.
 
 ```bash
-bun scripts/lsp-symbols.ts <file>
+bunx @plaited/development-skills lsp-symbols <file>
 ```
 
 **Example:**
 ```bash
-bun scripts/lsp-symbols.ts plaited/main/b-element.ts
+bunx @plaited/development-skills lsp-symbols src/utils/parser.ts
 ```
 
 #### lsp-references
 Find all references to a symbol.
 
 ```bash
-bun scripts/lsp-references.ts <file> <line> <char>
+bunx @plaited/development-skills lsp-refs <file> <line> <char>
 ```
 
 **Example:**
 ```bash
-bun scripts/lsp-references.ts plaited/main/b-element.ts 139 13
+bunx @plaited/development-skills lsp-refs src/utils/parser.ts 42 10
 ```
 
 #### lsp-find
 Search for symbols across the workspace.
 
 ```bash
-bun scripts/lsp-find.ts <query> [context-file]
+bunx @plaited/development-skills lsp-find <query> [context-file]
 ```
 
 **Arguments:**
@@ -115,8 +128,8 @@ bun scripts/lsp-find.ts <query> [context-file]
 
 **Example:**
 ```bash
-bun scripts/lsp-find.ts bElement
-bun scripts/lsp-find.ts useTemplate plaited/main/use-template.ts
+bunx @plaited/development-skills lsp-find parseConfig
+bunx @plaited/development-skills lsp-find validateInput src/lib/validator.ts
 ```
 
 ### Batch Script
@@ -125,7 +138,7 @@ bun scripts/lsp-find.ts useTemplate plaited/main/use-template.ts
 Perform multiple analyses in a single session for efficiency.
 
 ```bash
-bun scripts/lsp-analyze.ts <file> [options]
+bunx @plaited/development-skills lsp-analyze <file> [options]
 ```
 
 **Options:**
@@ -138,13 +151,13 @@ bun scripts/lsp-analyze.ts <file> [options]
 **Examples:**
 ```bash
 # Get file overview
-bun scripts/lsp-analyze.ts plaited/main/b-element.ts --all
+bunx @plaited/development-skills lsp-analyze src/utils/parser.ts --all
 
 # Check multiple positions
-bun scripts/lsp-analyze.ts plaited/main/b-element.ts --hover 50:10 --hover 139:13
+bunx @plaited/development-skills lsp-analyze src/utils/parser.ts --hover 50:10 --hover 75:5
 
 # Before refactoring: find all references
-bun scripts/lsp-analyze.ts plaited/main/b-element.ts --refs 139:13
+bunx @plaited/development-skills lsp-analyze src/utils/parser.ts --refs 42:10
 ```
 
 ## Common Workflows
@@ -153,17 +166,17 @@ bun scripts/lsp-analyze.ts plaited/main/b-element.ts --refs 139:13
 
 ```bash
 # 1. Get exports overview
-bun scripts/lsp-analyze.ts path/to/file.ts --exports
+bunx @plaited/development-skills lsp-analyze path/to/file.ts --exports
 
 # 2. For specific type info, hover on interesting symbols
-bun scripts/lsp-hover.ts path/to/file.ts <line> <char>
+bunx @plaited/development-skills lsp-hover path/to/file.ts <line> <char>
 ```
 
 ### Before Modifying an Export
 
 ```bash
 # 1. Find all references first
-bun scripts/lsp-references.ts path/to/file.ts <line> <char>
+bunx @plaited/development-skills lsp-refs path/to/file.ts <line> <char>
 
 # 2. Check what depends on it
 # Review the output to understand impact
@@ -173,15 +186,15 @@ bun scripts/lsp-references.ts path/to/file.ts <line> <char>
 
 ```bash
 # Search for similar implementations
-bun scripts/lsp-find.ts createStyles
-bun scripts/lsp-find.ts bElement
+bunx @plaited/development-skills lsp-find handleRequest
+bunx @plaited/development-skills lsp-find parseConfig
 ```
 
 ### Pre-Implementation Verification
 
 ```bash
 # Before writing code that uses an API, verify its signature
-bun scripts/lsp-hover.ts path/to/api.ts <line> <char>
+bunx @plaited/development-skills lsp-hover path/to/api.ts <line> <char>
 ```
 
 ## Output Format
@@ -193,7 +206,7 @@ All scripts output JSON to stdout. Errors go to stderr.
 {
   "contents": {
     "kind": "markdown",
-    "value": "```typescript\nconst bElement: ...\n```"
+    "value": "```typescript\nconst parseConfig: (options: Options) => Config\n```"
   },
   "range": { "start": {...}, "end": {...} }
 }
@@ -231,17 +244,6 @@ Each script invocation:
 
 For multiple queries on the same file, use `lsp-analyze` to batch operations in a single session.
 
-## Plaited-Specific Verification
-
-See [lsp-verification.md](references/lsp-verification.md) for Plaited framework type verification patterns:
-- When to use LSP for Plaited APIs (bElement, createStyles, bProgram)
-- Example workflow for verifying BProgramArgs, callbacks, and helper methods
-- Critical files to verify (b-element.types.ts, css.types.ts, behavioral.types.ts)
-- Integration with code generation workflow
-
 ## Related Skills
 
-- **plaited-standards**: Code conventions and development standards
-- **plaited-behavioral-core**: Behavioral programming patterns
-- **plaited-ui-patterns**: Templates, bElements, and styling
 - **code-documentation**: TSDoc standards for documentation

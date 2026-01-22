@@ -1,7 +1,7 @@
 {
   "name": "commit-helper",
-  "repo": "cockroachdb/cockroach",
+  "repo": "nodnarbnitram/claude-code-extensions",
   "path": ".claude/skills/commit-helper/SKILL.md",
-  "source": "github.com/cockroachdb/cockroach",
-  "downloaded_at": "2026-01-14T03:31:46.760084Z"
+  "source": "github.com/nodnarbnitram/claude-code-extensions",
+  "downloaded_at": "2026-01-22T02:20:20.550911Z"
 }

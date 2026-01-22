@@ -1,285 +1,584 @@
 ---
 name: refactoring
-description: Use when restructuring code without changing behavior - extract method, extract class, rename, move, inline, introduce parameter object. Triggers on keywords like "extract", "rename", "move method", "inline", "restructure", "decompose".
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Task, TodoWrite
-infer: true
+description: Use when restructuring code to improve quality without changing external behavior. Emphasizes safety through tests and incremental changes.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Grep
+  - Glob
 ---
 
-# Code Refactoring
+# Refactoring Skill
 
-Expert code restructuring agent for EasyPlatform. Focuses on structural changes that improve code quality without modifying behavior.
+Improve code structure and quality while preserving behavior.
 
-## Refactoring Catalog
+## Core Principle
 
-### Extract Patterns
+**Tests are your safety net.** Never refactor without tests.
 
-| Pattern                | When to Use                         | Platform Example                          |
-| ---------------------- | ----------------------------------- | ----------------------------------------- |
-| **Extract Method**     | Long method, duplicated code        | Move logic to private method              |
-| **Extract Class**      | Class has multiple responsibilities | Create Helper, Service, or Strategy class |
-| **Extract Interface**  | Need abstraction for testing/DI     | Create `I{ClassName}` interface           |
-| **Extract Expression** | Complex inline expression           | Move to Entity static expression          |
-| **Extract Validator**  | Repeated validation logic           | Create validator extension method         |
+## The Refactoring Cycle
 
-### Move Patterns
+1. **Ensure tests exist and pass**
+2. **Make ONE small change**
+3. **Run tests** (must still pass)
+4. **Commit** (keep changes isolated)
+5. **Repeat**
 
-| Pattern               | When to Use                       | Platform Example                         |
-| --------------------- | --------------------------------- | ---------------------------------------- |
-| **Move Method**       | Method belongs to different class | Move from Handler to Helper/Entity       |
-| **Move to Extension** | Reusable repository logic         | Create `{Entity}RepositoryExtensions`    |
-| **Move to DTO**       | Mapping logic in handler          | Use `PlatformEntityDto.MapToEntity()`    |
-| **Move to Entity**    | Business logic in handler         | Add instance method or static expression |
+**Each step must be reversible.** If tests fail, revert and try smaller change.
 
-### Simplify Patterns
+## Pre-Refactoring Checklist
 
-| Pattern                     | When to Use                  | Platform Example                   |
-| --------------------------- | ---------------------------- | ---------------------------------- |
-| **Inline Variable**         | Temporary variable used once | Remove intermediate variable       |
-| **Inline Method**           | Method body is obvious       | Replace call with body             |
-| **Replace Conditional**     | Complex if/switch            | Use Strategy pattern or expression |
-| **Introduce Parameter Obj** | Method has many parameters   | Create Command/Query DTO           |
+**STOP if any of these are false:**
 
-## Workflow
+- [ ] Tests exist for code being refactored
+- [ ] All tests currently pass
+- [ ] Understand what code does
+- [ ] External behavior will remain unchanged
+- [ ] Have time to do this properly (not rushing)
 
-### Phase 1: Analysis
+**If no tests exist:**
 
-1. **Identify Target**: Locate code to refactor
-2. **Map Dependencies**: Find all usages with Grep
-3. **Assess Impact**: List affected files and tests
-4. **Verify Tests**: Ensure test coverage exists
+1. Add tests first
+2. Verify tests pass
+3. THEN refactor
 
-### Phase 2: Plan
+## When to Refactor
 
-Document refactoring plan:
+### Code Smells That Suggest Refactoring
 
-```markdown
-## Refactoring Plan
+**Readability issues:**
 
-**Target**: [file:line_number]
-**Type**: [Extract Method | Move to Extension | etc.]
-**Reason**: [Why this refactoring improves code]
+- Long functions (> 50 lines)
+- Deep nesting (> 3 levels)
+- Unclear naming
+- Magic numbers
+- Complex conditionals
 
-### Changes
+**Maintainability issues:**
 
-1. [ ] Create/modify [file]
-2. [ ] Update usages in [files]
-3. [ ] Run tests
+- Duplication (same code in multiple places)
+- God classes (too many responsibilities)
+- Feature envy (method uses another class more than its own)
+- Data clumps (same groups of parameters passed around)
 
-### Risks
+**Complexity issues:**
 
-- [Potential issues]
-```
+- Cyclomatic complexity > 10
+- Too many dependencies
+- Tightly coupled code
+- Difficult to test
 
-### Phase 3: Execute
+### When NOT to Refactor
 
-```csharp
-// BEFORE: Logic in handler
-protected override async Task<Result> HandleAsync(Command req, CancellationToken ct)
-{
-    var isValid = entity.Status == Status.Active &&
-                  entity.User?.IsActive == true &&
-                  !entity.IsDeleted;
-    if (!isValid) throw new Exception();
-}
+- **No tests exist** (add tests first)
+- **Under deadline pressure** (defer to later)
+- **Code works and is readable** (don't over-engineer)
+- **Changing external behavior** (that's not refactoring, that's a feature/fix)
+- **Right before release** (too risky)
 
-// AFTER: Extracted to entity static expression
-// In Entity.cs
-public static Expression<Func<Entity, bool>> IsActiveExpr()
-    => e => e.Status == Status.Active &&
-            e.User != null && e.User.IsActive &&
-            !e.IsDeleted;
+## Classic Refactorings
 
-// In Handler
-var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct)
-    .EnsureFound("Entity not active");
-```
+### Extract Function
 
-### Phase 4: Verify
-
-1. Run affected tests
-2. Verify no behavior change
-3. Check code compiles
-4. Review for consistency
-
-## Platform-Specific Refactorings
-
-### Handler to Helper
-
-```csharp
-// BEFORE: Reused logic in multiple handlers
-var employee = await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
-    ?? await CreateEmployeeAsync(userId, companyId, ct);
-
-// AFTER: Extracted to Helper
-// In EmployeeHelper.cs
-public async Task<Employee> GetOrCreateEmployeeAsync(string userId, string companyId, CancellationToken ct)
-{
-    return await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
-        ?? await CreateEmployeeAsync(userId, companyId, ct);
-}
-```
-
-### Handler to Repository Extension
-
-```csharp
-// BEFORE: Query logic in handler
-var employees = await repo.GetAllAsync(
-    e => e.CompanyId == companyId && e.Status == Status.Active && e.DepartmentIds.Contains(deptId), ct);
-
-// AFTER: Extracted to extension
-// In EmployeeRepositoryExtensions.cs
-public static async Task<List<Employee>> GetActiveByDepartmentAsync(
-    this IPlatformQueryableRootRepository<Employee> repo, string companyId, string deptId, CancellationToken ct)
-{
-    return await repo.GetAllAsync(
-        Employee.OfCompanyExpr(companyId)
-            .AndAlso(Employee.IsActiveExpr())
-            .AndAlso(e => e.DepartmentIds.Contains(deptId)), ct);
-}
-```
-
-### Mapping to DTO
-
-```csharp
-// BEFORE: Mapping in handler
-var config = new AuthConfig
-{
-    ClientId = req.Dto.ClientId,
-    Secret = encryptService.Encrypt(req.Dto.Secret)
-};
-
-// AFTER: DTO owns mapping
-// In AuthConfigDto.cs : PlatformDto<AuthConfig>
-public override AuthConfig MapToObject() => new AuthConfig
-{
-    ClientId = ClientId,
-    Secret = Secret  // Handler applies encryption
-};
-
-// In Handler
-var config = req.Dto.MapToObject()
-    .With(c => c.Secret = encryptService.Encrypt(c.Secret));
-```
-
-## Safety Checklist
-
-Before any refactoring:
-
-- [ ] Searched all usages (static + dynamic)?
-- [ ] Test coverage exists?
-- [ ] Documented in todo list?
-- [ ] Changes are incremental?
-- [ ] No behavior change verified?
-
-## Code Responsibility Refactoring (Priority Check)
-
-**Before any refactoring, verify logic is in the LOWEST appropriate layer:**
-
-```
-Entity/Model (Lowest)  →  Service  →  Component/Handler (Highest)
-```
-
-| Wrong Location | Move To           | Example                                     |
-| -------------- | ----------------- | ------------------------------------------- |
-| Component      | Entity/Model      | Dropdown options, display helpers, defaults |
-| Component      | Service (Factory) | Command building, data transformation       |
-| Handler        | Entity            | Business rules, static expressions          |
-| Handler        | Repository Ext    | Reusable query patterns                     |
+**Problem:** Function does too many things
 
 ```typescript
-// Frontend: Component → Entity refactoring
-// BEFORE: Logic in component (causes duplication)
-readonly statusTypes = [{ value: 1, label: 'Active' }, { value: 2, label: 'Inactive' }];
-getStatusClass(config) { return !config.isEnabled ? 'disabled' : 'active'; }
+// Before: Long function doing multiple things
+function processOrder(order: Order) {
+  // Validate order
+  if (!order.items || order.items.length === 0) {
+    throw new Error('Empty order')
+  }
+  if (!order.customer || !order.customer.email) {
+    throw new Error('Invalid customer')
+  }
 
-// AFTER: Logic in entity (enables reuse)
-readonly statusTypes = EntityConfiguration.getStatusTypeOptions();
-getStatusClass(config) { return config.getStatusCssClass(); }
-```
+  // Calculate totals
+  let subtotal = 0
+  for (const item of order.items) {
+    subtotal += item.price * item.quantity
+  }
+  const tax = subtotal * 0.08
+  const shipping = subtotal > 50 ? 0 : 9.99
+  const total = subtotal + tax + shipping
 
-## Component HTML Template Standard (BEM Classes)
-
-**All UI elements in component templates MUST have BEM classes, even without styling needs.** This makes HTML self-documenting like OOP class hierarchy.
-
-```html
-<!-- ✅ CORRECT: All elements have BEM classes -->
-<div class="settings-panel">
-    <div class="settings-panel__header">
-        <h2 class="settings-panel__title">Settings</h2>
-    </div>
-    <div class="settings-panel__body">
-        <div class="settings-panel__section">
-            <label class="settings-panel__label">Option</label>
-            <input class="settings-panel__input" formControlName="option" />
-        </div>
-    </div>
-</div>
-
-<!-- ❌ WRONG: Missing BEM classes -->
-<div class="settings-panel">
-    <div>
-        <h2>Settings</h2>
-    </div>
-    <div>
-        <div>
-            <label>Option</label>
-            <input formControlName="option" />
-        </div>
-    </div>
-</div>
-```
-
-**Refactoring Action**: When refactoring components, ensure all HTML elements have proper BEM classes.
-
-## Component SCSS Standard
-
-Always style both the **host element** (Angular selector) and the **main wrapper class**:
-
-```scss
-@import '~assets/scss/variables';
-
-// Host element styling - ensures Angular element is a proper block container
-my-component {
-    display: flex;
-    flex-direction: column;
+  // Save to database
+  return database.save({
+    ...order,
+    subtotal,
+    tax,
+    shipping,
+    total
+  })
 }
 
-// Main wrapper class with full styling
-.my-component {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex-grow: 1;
+// After: Extracted into focused functions
+function processOrder(order: Order) {
+  validateOrder(order)
+  const totals = calculateTotals(order)
+  return saveOrder(order, totals)
+}
 
-    &__header {
-        // BEM child elements...
-    }
+function validateOrder(order: Order): void {
+  if (!order.items || order.items.length === 0) {
+    throw new Error('Empty order')
+  }
+  if (!order.customer || !order.customer.email) {
+    throw new Error('Invalid customer')
+  }
+}
 
-    &__content {
-        flex: 1;
-        overflow-y: auto;
-    }
+function calculateTotals(order: Order) {
+  const subtotal = order.items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  )
+  const tax = subtotal * 0.08
+  const shipping = subtotal > 50 ? 0 : 9.99
+  const total = subtotal + tax + shipping
+
+  return { subtotal, tax, shipping, total }
+}
+
+function saveOrder(order: Order, totals: Totals) {
+  return database.save({ ...order, ...totals })
 }
 ```
 
-**Why both?**
+**Benefits:** Each function has single responsibility, easier to test, easier to understand
 
-- **Host element**: Makes the Angular element a real layout element (not an unknown element without display)
-- **Main class**: Contains the full styling, matches the wrapper div in HTML
+### Extract Variable
 
-```csharp
-// Backend: Handler → Entity refactoring
-// BEFORE: Logic in handler
-var isValid = entity.Status == Status.Active && entity.User?.IsActive == true;
+**Problem:** Complex expression that's hard to understand
 
-// AFTER: Logic in entity
-var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct);
+```typescript
+// Before: Dense, hard to parse
+if (user.age >= 18 && user.country === 'US' && !user.banned && user.verified) {
+  // ...
+}
+
+// After: Intent is clear
+const isAdult = user.age >= 18
+const isUSResident = user.country === 'US'
+const hasGoodStanding = !user.banned && user.verified
+const canPurchase = isAdult && isUSResident && hasGoodStanding
+
+if (canPurchase) {
+  // ...
+}
 ```
 
-## Anti-Patterns
+**Benefits:** Self-documenting, easier to debug, easier to modify
 
-- **Big Bang Refactoring**: Make small, incremental changes
-- **Refactoring Without Tests**: Ensure coverage first
-- **Mixing Refactoring with Features**: Do one or the other
-- **Breaking Public APIs**: Maintain backward compatibility
-- **Logic in Wrong Layer**: Leads to duplicated code - move to lowest appropriate layer
+### Inline Function/Variable
+
+**Problem:** Unnecessary indirection that doesn't add clarity
+
+```typescript
+// Before: Over-abstraction
+function getTotal(order: Order) {
+  return calculateTotalAmount(order)
+}
+
+function calculateTotalAmount(order: Order) {
+  return order.subtotal + order.tax
+}
+
+// After: Inline the unnecessary layer
+function getTotal(order: Order) {
+  return order.subtotal + order.tax
+}
+```
+
+**When to inline:** Abstraction doesn't add value, makes code harder to follow
+
+### Rename
+
+**Problem:** Unclear or misleading names
+
+```typescript
+// Before: Unclear
+function proc(d: any) {
+  const r = d.x * d.y
+  return r
+}
+
+// After: Self-explanatory
+function calculateArea(dimensions: Dimensions) {
+  const area = dimensions.width * dimensions.height
+  return area
+}
+```
+
+**Benefits:** Code is self-documenting, no need to guess what variables mean
+
+### Replace Magic Number with Named Constant
+
+**Problem:** Unexplained numbers in code
+
+```typescript
+// Before: What's 0.08? What's 9.99?
+const tax = subtotal * 0.08
+const shipping = subtotal > 50 ? 0 : 9.99
+
+// After: Clear meaning
+const TAX_RATE = 0.08
+const FREE_SHIPPING_THRESHOLD = 50
+const STANDARD_SHIPPING_COST = 9.99
+
+const tax = subtotal * TAX_RATE
+const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST
+```
+
+### Remove Duplication
+
+**Problem:** Same code in multiple places
+
+```typescript
+// Before: Duplication
+function formatUserName(user: User) {
+  return `${user.firstName} ${user.lastName}`.trim()
+}
+
+function formatAdminName(admin: Admin) {
+  return `${admin.firstName} ${admin.lastName}`.trim()
+}
+
+function formatAuthorName(author: Author) {
+  return `${author.firstName} ${author.lastName}`.trim()
+}
+
+// After: One implementation
+function formatFullName(person: { firstName: string; lastName: string }) {
+  return `${person.firstName} ${person.lastName}`.trim()
+}
+
+// Usage
+formatFullName(user)
+formatFullName(admin)
+formatFullName(author)
+```
+
+### Simplify Conditional
+
+**Problem:** Complex nested if/else
+
+```typescript
+// Before: Nested conditionals
+function getShippingCost(order: Order) {
+  if (order.total > 100) {
+    return 0
+  } else {
+    if (order.items.length > 5) {
+      return 5.99
+    } else {
+      if (order.weight > 10) {
+        return 15.99
+      } else {
+        return 9.99
+      }
+    }
+  }
+}
+
+// After: Early returns, flat structure
+function getShippingCost(order: Order) {
+  if (order.total > 100) return 0
+  if (order.items.length > 5) return 5.99
+  if (order.weight > 10) return 15.99
+  return 9.99
+}
+
+// Or: Look-up table
+const SHIPPING_RULES = [
+  { condition: (o: Order) => o.total > 100, cost: 0 },
+  { condition: (o: Order) => o.items.length > 5, cost: 5.99 },
+  { condition: (o: Order) => o.weight > 10, cost: 15.99 },
+]
+
+function getShippingCost(order: Order) {
+  const rule = SHIPPING_RULES.find(r => r.condition(order))
+  return rule?.cost ?? 9.99
+}
+```
+
+### Replace Conditional with Polymorphism
+
+**Problem:** Type checks scattered throughout code
+
+```typescript
+// Before: Type checking everywhere
+function calculatePrice(item: Item) {
+  if (item.type === 'book') {
+    return item.basePrice * 0.9  // 10% discount
+  } else if (item.type === 'electronics') {
+    return item.basePrice * 1.15  // 15% markup
+  } else if (item.type === 'clothing') {
+    return item.basePrice
+  }
+}
+
+// After: Polymorphism
+interface Item {
+  calculatePrice(): number
+}
+
+class Book implements Item {
+  calculatePrice() {
+    return this.basePrice * 0.9
+  }
+}
+
+class Electronics implements Item {
+  calculatePrice() {
+    return this.basePrice * 1.15
+  }
+}
+
+class Clothing implements Item {
+  calculatePrice() {
+    return this.basePrice
+  }
+}
+
+// Usage: No type checking needed
+const price = item.calculatePrice()
+```
+
+### Split Function
+
+**Problem:** Function tries to do too many things
+
+```typescript
+// Before: Does validation, calculation, and saving
+function processPayment(payment: Payment) {
+  // Validation
+  if (!payment.amount || payment.amount <= 0) {
+    throw new Error('Invalid amount')
+  }
+  if (!payment.method) {
+    throw new Error('Payment method required')
+  }
+
+  // Calculation
+  const fee = payment.amount * 0.029 + 0.30
+  const total = payment.amount + fee
+
+  // Persistence
+  const record = database.save({
+    amount: payment.amount,
+    fee,
+    total,
+    method: payment.method,
+    timestamp: Date.now()
+  })
+
+  // Notification
+  notificationService.send({
+    user: payment.user,
+    message: `Payment of $${total} processed`
+  })
+
+  return record
+}
+
+// After: Separate concerns
+function processPayment(payment: Payment) {
+  validatePayment(payment)
+  const totals = calculatePaymentTotals(payment)
+  const record = savePayment(payment, totals)
+  notifyPaymentProcessed(payment.user, totals.total)
+  return record
+}
+```
+
+## Refactoring Workflow
+
+### Step-by-Step Process
+
+```bash
+# 1. Ensure tests pass
+npm test
+# ✅ All tests passing
+
+# 2. Make ONE refactoring change
+# Example: Extract function
+
+# 3. Run tests immediately
+npm test
+# ✅ Still passing
+
+# 4. Commit with descriptive message
+git add .
+git commit -m "refactor: extract validateOrder function"
+
+# 5. Repeat for next refactoring
+# Make another small change, test, commit
+```
+
+### If Tests Fail After Refactoring
+
+```bash
+# Tests failed after refactoring
+
+# Option 1: Revert and try smaller change
+git reset --hard HEAD
+# Make smaller, safer change
+
+# Option 2: Debug and fix
+# Find what broke
+# Fix it
+# Run tests again
+```
+
+## Refactoring Strategies
+
+### The Boy Scout Rule
+
+**"Leave code better than you found it"**
+
+When touching code for any reason:
+
+1. Fix obvious issues you see
+2. Improve naming
+3. Extract complex expressions
+4. Add missing tests
+5. Remove commented code
+
+**Small improvements accumulate**
+
+### Preparatory Refactoring
+
+**Before adding feature, refactor to make it easy**
+
+```
+1. Need to add feature
+2. Current code structure makes it hard
+3. Refactor first to make space
+4. Then add feature in clean code
+```
+
+**Quote:** "Make the change easy, then make the easy change"
+
+### Opportunistic Refactoring
+
+**Fix things you notice while working**
+
+- Fixing bug? Clean up surrounding code
+- Adding feature? Improve structure
+- Reading code? Fix confusing names
+
+### Planned Refactoring
+
+**Dedicated time to improve code health**
+
+- Tech debt tickets
+- Refactoring sprints
+- Clean-up sessions
+
+## Refactoring Safety Checklist
+
+**Before every change:**
+
+- [ ] Tests exist
+- [ ] Tests pass
+- [ ] Understand what code does
+
+**After every change:**
+
+- [ ] Tests still pass
+- [ ] No functionality changed
+- [ ] Code is clearer
+- [ ] Ready to commit
+
+**If tests fail:**
+
+- [ ] Understand why
+- [ ] Fix or revert
+- [ ] Never commit broken tests
+
+## Integration with Other Skills
+
+Apply these skills during refactoring:
+
+- **boy-scout-rule** - Leave code better than found
+- **simplicity-principles** - KISS, YAGNI, simple is better
+- **solid-principles** - Single Responsibility, etc.
+- **structural-design-principles** - Composition, encapsulation
+- **test-driven-development** - Add tests if missing
+- **proof-of-work** - Verify tests still pass
+- **code-reviewer** - Review refactored code
+
+## Common Refactoring Pitfalls
+
+### ❌ Refactoring Without Tests
+
+**Risk:** Change behavior without noticing
+
+**Solution:** Add tests first, then refactor
+
+### ❌ Too Many Changes at Once
+
+**Risk:** Hard to debug if something breaks
+
+**Solution:** One refactoring at a time, commit frequently
+
+### ❌ Changing Behavior
+
+**Risk:** It's not refactoring if behavior changes
+
+**Solution:** Tests must still pass, functionality unchanged
+
+### ❌ Over-Engineering
+
+**Risk:** More complex after "refactoring"
+
+**Solution:** Simpler is better, don't add unnecessary abstraction
+
+### ❌ Refactoring Under Pressure
+
+**Risk:** Mistakes due to rushing
+
+**Solution:** Defer to when you have time to do it right
+
+## Measuring Refactoring Success
+
+**Good refactoring results in:**
+
+- ✅ Easier to understand
+- ✅ Easier to modify
+- ✅ Easier to test
+- ✅ Fewer lines of code (usually)
+- ✅ Lower complexity
+- ✅ Same or better performance
+- ✅ All tests still pass
+
+**If any test fails, it wasn't successful refactoring**
+
+## Tools
+
+**Automated refactoring tools:**
+
+- IDE refactoring commands (safe)
+- Rename variable/function (safe)
+- Extract method (safe)
+- Move file (safe)
+
+**Manual refactoring:**
+
+- Make small changes
+- Test frequently
+- Commit after each change
+- Use version control as safety net
+
+## Remember
+
+1. **Tests first** - No refactoring without tests
+2. **Small steps** - One change at a time
+3. **Test after each step** - Must stay green
+4. **Commit frequently** - Each safe change gets a commit
+5. **Behavior unchanged** - If behavior changes, it's not refactoring
+
+**Refactoring is about improving structure without changing what the code does.**

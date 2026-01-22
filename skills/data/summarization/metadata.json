@@ -1,10 +1,7 @@
 {
   "name": "summarization",
-  "description": "Condenses long documents, conversation logs, or transcripts into concise summaries. Supports retrieval from memory/files, multiple output formats (bullet points, paragraphs, executive summary), and cu",
-  "repo": "Wesley1600/ClaudeCodeFrameWork",
-  "category": "data",
-  "tags": [
-    "summarization"
-  ],
-  "stars": 0
+  "repo": "jwynia/agent-skills",
+  "path": "skills/writing/revision/summarization/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-21T03:40:40.950766Z"
 }

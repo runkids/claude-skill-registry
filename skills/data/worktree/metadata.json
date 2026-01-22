@@ -1,11 +1,7 @@
 {
   "name": "worktree",
-  "description": "Manages git worktrees for parallel development. Creates isolated working directories for tickets/branches, lists active worktrees, and cleans up after merging. Use when starting work on a ticket or cl",
-  "repo": "josh-gree/my-claude-skills",
-  "category": "development",
-  "tags": [
-    "worktree"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "tbroadley/dotfiles",
+  "path": "claude/skills/worktree/SKILL.md",
+  "source": "github.com/tbroadley/dotfiles",
+  "downloaded_at": "2026-01-22T03:05:02.308918Z"
 }

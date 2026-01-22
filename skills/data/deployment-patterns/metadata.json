@@ -1,12 +1,7 @@
 {
   "name": "deployment-patterns",
-  "description": "Deploy projects to Vercel, Railway, or Docker with platform-specific best practices. Use when deploying applications, configuring deployment settings, debugging deployment failures, or setting up CI/C",
-  "repo": "ScientiaCapital/scientia-superpowers",
-  "category": "devops",
-  "tags": [
-    "deployment",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "AmnadTaowsoam/cerebratechai-claude-skills",
+  "path": "69-platform-engineering-lite/deployment-patterns/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
+  "downloaded_at": "2026-01-19T02:22:05.012996Z"
 }

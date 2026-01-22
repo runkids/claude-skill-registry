@@ -1,11 +1,7 @@
 {
   "name": "work",
-  "description": "Manage work items and tasks using the work todo system. Use when creating, updating, listing, or tracking work items with dependencies. (user)",
-  "repo": "whilp/dotfiles",
-  "category": "productivity",
-  "tags": [
-    "work"
-  ],
-  "stars": 9,
-  "source": "local"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/work/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:06.664141Z"
 }

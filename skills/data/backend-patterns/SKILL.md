@@ -1,359 +1,296 @@
 ---
 name: backend-patterns
-description: Expert knowledge in API design, authentication, caching, and backend best practices. Use for backend development tasks.
-allowed-tools: Read, Write, Edit, Glob, Grep
+description: |
+  Backend architecture patterns, API design, database optimization, and server-side best practices.
+  Use when building APIs, services, or server-side functionality.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# Backend Patterns Skill
-
-Modern backend patterns and best practices for building scalable APIs.
+# Backend Development Patterns
 
 ## API Design Patterns
 
-### RESTful Conventions
-```
-GET    /api/v1/users           # List users
-GET    /api/v1/users/:id       # Get user
-POST   /api/v1/users           # Create user
-PUT    /api/v1/users/:id       # Replace user
-PATCH  /api/v1/users/:id       # Update user
-DELETE /api/v1/users/:id       # Delete user
+### RESTful API Structure
 
-# Nested resources
-GET    /api/v1/users/:id/posts
-POST   /api/v1/users/:id/posts
-
-# Actions as resources
-POST   /api/v1/auth/login
-POST   /api/v1/auth/logout
-POST   /api/v1/passwords/reset
-```
-
-### Response Format
 ```typescript
-// Success response
-interface SuccessResponse<T> {
-  success: true;
-  data: T;
-  meta?: {
-    page: number;
-    perPage: number;
-    total: number;
-    totalPages: number;
-  };
+GET    /api/markets              # List resources
+GET    /api/markets/:id          # Get single resource
+POST   /api/markets              # Create resource
+PUT    /api/markets/:id          # Replace resource
+PATCH  /api/markets/:id          # Update resource
+DELETE /api/markets/:id          # Delete resource
+
+// Query parameters for filtering
+GET /api/markets?status=active&sort=volume&limit=20&offset=0
+```
+
+### Repository Pattern
+
+```typescript
+interface MarketRepository {
+  findAll(filters?: MarketFilters): Promise<Market[]>
+  findById(id: string): Promise<Market | null>
+  create(data: CreateMarketDto): Promise<Market>
+  update(id: string, data: UpdateMarketDto): Promise<Market>
+  delete(id: string): Promise<void>
 }
 
-// Error response
-interface ErrorResponse {
-  success: false;
-  error: {
-    code: string;
-    message: string;
-    details?: Array<{
-      field: string;
-      message: string;
-    }>;
-  };
+class SupabaseMarketRepository implements MarketRepository {
+  async findAll(filters?: MarketFilters): Promise<Market[]> {
+    let query = supabase.from('markets').select('*')
+
+    if (filters?.status) {
+      query = query.eq('status', filters.status)
+    }
+
+    const { data, error } = await query
+    if (error) throw new Error(error.message)
+    return data
+  }
 }
 ```
 
-### Status Codes
-| Code | Meaning | Usage |
-|------|---------|-------|
-| 200 | OK | Successful GET, PUT, PATCH |
-| 201 | Created | Successful POST |
-| 204 | No Content | Successful DELETE |
-| 400 | Bad Request | Validation error |
-| 401 | Unauthorized | Missing/invalid auth |
-| 403 | Forbidden | No permission |
-| 404 | Not Found | Resource doesn't exist |
-| 409 | Conflict | Duplicate resource |
-| 422 | Unprocessable | Business logic error |
-| 500 | Server Error | Unexpected error |
+### Service Layer Pattern
 
-## Authentication Patterns
-
-### JWT Flow
 ```typescript
-// Login - generate tokens
-async function login(email: string, password: string) {
-  const user = await db.users.findByEmail(email);
-  if (!user || !await verifyPassword(password, user.password)) {
-    throw new HTTPException(401, { message: 'Invalid credentials' });
+class MarketService {
+  constructor(private marketRepo: MarketRepository) {}
+
+  async searchMarkets(query: string, limit: number = 10): Promise<Market[]> {
+    const embedding = await generateEmbedding(query)
+    const results = await this.vectorSearch(embedding, limit)
+    const markets = await this.marketRepo.findByIds(results.map(r => r.id))
+    return markets
+  }
+}
+```
+
+## Database Patterns
+
+### Query Optimization
+
+```typescript
+// GOOD: Select only needed columns
+const { data } = await supabase
+  .from('markets')
+  .select('id, name, status, volume')
+  .eq('status', 'active')
+  .order('volume', { ascending: false })
+  .limit(10)
+
+// BAD: Select everything
+const { data } = await supabase
+  .from('markets')
+  .select('*')
+```
+
+### N+1 Query Prevention
+
+```typescript
+// BAD: N+1 query problem
+const markets = await getMarkets()
+for (const market of markets) {
+  market.creator = await getUser(market.creator_id)  // N queries
+}
+
+// GOOD: Batch fetch
+const markets = await getMarkets()
+const creatorIds = markets.map(m => m.creator_id)
+const creators = await getUsers(creatorIds)  // 1 query
+const creatorMap = new Map(creators.map(c => [c.id, c]))
+
+markets.forEach(market => {
+  market.creator = creatorMap.get(market.creator_id)
+})
+```
+
+## Caching Strategies
+
+### Redis Caching Layer
+
+```typescript
+async function getMarketWithCache(id: string): Promise<Market> {
+  const cacheKey = `market:${id}`
+
+  // Try cache
+  const cached = await redis.get(cacheKey)
+  if (cached) return JSON.parse(cached)
+
+  // Cache miss - fetch from DB
+  const market = await db.markets.findUnique({ where: { id } })
+
+  if (!market) throw new Error('Market not found')
+
+  // Update cache (5 minutes)
+  await redis.setex(cacheKey, 300, JSON.stringify(market))
+
+  return market
+}
+```
+
+## Error Handling Patterns
+
+### Centralized Error Handler
+
+```typescript
+class ApiError extends Error {
+  constructor(
+    public statusCode: number,
+    public message: string
+  ) {
+    super(message)
+  }
+}
+
+export function errorHandler(error: unknown): Response {
+  if (error instanceof ApiError) {
+    return NextResponse.json({
+      success: false,
+      error: error.message
+    }, { status: error.statusCode })
   }
 
-  const accessToken = await generateAccessToken(user);
-  const refreshToken = await generateRefreshToken(user);
+  console.error('Unexpected error:', error)
 
-  // Store refresh token
-  await db.refreshTokens.create({
-    userId: user.id,
-    token: refreshToken,
-    expiresAt: addDays(new Date(), 7),
-  });
-
-  return { accessToken, refreshToken, user };
-}
-
-// Token generation
-async function generateAccessToken(user: User) {
-  return jwt.sign(
-    { sub: user.id, email: user.email, role: user.role },
-    process.env.JWT_SECRET,
-    { expiresIn: '15m' }
-  );
-}
-
-// Token refresh
-async function refreshAccessToken(refreshToken: string) {
-  const stored = await db.refreshTokens.findByToken(refreshToken);
-  if (!stored || stored.expiresAt < new Date()) {
-    throw new HTTPException(401, { message: 'Invalid refresh token' });
-  }
-
-  const user = await db.users.findById(stored.userId);
-  return generateAccessToken(user);
+  return NextResponse.json({
+    success: false,
+    error: 'Internal server error'
+  }, { status: 500 })
 }
 ```
 
-### Auth Middleware
-```typescript
-export async function authMiddleware(c: Context, next: Next) {
-  const authHeader = c.req.header('Authorization');
+### Retry with Exponential Backoff
 
-  if (!authHeader?.startsWith('Bearer ')) {
-    throw new HTTPException(401, { message: 'Missing token' });
+```typescript
+async function fetchWithRetry<T>(
+  fn: () => Promise<T>,
+  maxRetries = 3
+): Promise<T> {
+  let lastError: Error
+
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error as Error
+
+      if (i < maxRetries - 1) {
+        const delay = Math.pow(2, i) * 1000  // 1s, 2s, 4s
+        await new Promise(resolve => setTimeout(resolve, delay))
+      }
+    }
   }
 
-  const token = authHeader.slice(7);
+  throw lastError!
+}
+```
+
+## Authentication & Authorization
+
+### JWT Token Validation
+
+```typescript
+export async function requireAuth(request: Request) {
+  const token = request.headers.get('authorization')?.replace('Bearer ', '')
+
+  if (!token) {
+    throw new ApiError(401, 'Missing authorization token')
+  }
 
   try {
-    const payload = await jwt.verify(token, process.env.JWT_SECRET);
-    c.set('userId', payload.sub);
-    c.set('userRole', payload.role);
-    await next();
+    const payload = jwt.verify(token, process.env.JWT_SECRET!)
+    return payload
   } catch {
-    throw new HTTPException(401, { message: 'Invalid token' });
+    throw new ApiError(401, 'Invalid token')
   }
-}
-
-// Role-based authorization
-export function requireRole(...roles: string[]) {
-  return async (c: Context, next: Next) => {
-    const userRole = c.get('userRole');
-    if (!roles.includes(userRole)) {
-      throw new HTTPException(403, { message: 'Forbidden' });
-    }
-    await next();
-  };
 }
 ```
 
-## Validation Patterns
+### Role-Based Access Control
 
-### Zod Schemas
 ```typescript
-import { z } from 'zod';
+type Permission = 'read' | 'write' | 'delete' | 'admin'
 
-// User schemas
-export const createUserSchema = z.object({
-  email: z.string().email('Invalid email'),
-  name: z.string().min(2).max(100),
-  password: z.string()
-    .min(8, 'Password must be at least 8 characters')
-    .regex(/[A-Z]/, 'Must contain uppercase')
-    .regex(/[0-9]/, 'Must contain number'),
-});
-
-export const updateUserSchema = createUserSchema.partial();
-
-// Query params
-export const paginationSchema = z.object({
-  page: z.coerce.number().min(1).default(1),
-  perPage: z.coerce.number().min(1).max(100).default(20),
-  sort: z.enum(['createdAt', 'name']).default('createdAt'),
-  order: z.enum(['asc', 'desc']).default('desc'),
-});
-
-// Using with Hono
-app.post('/users', zValidator('json', createUserSchema), async (c) => {
-  const data = c.req.valid('json');
-  // data is fully typed
-});
-```
-
-## Error Handling
-
-### Central Error Handler
-```typescript
-export function errorHandler(err: Error, c: Context) {
-  console.error('Error:', err);
-
-  // HTTP exceptions
-  if (err instanceof HTTPException) {
-    return c.json({
-      success: false,
-      error: { code: 'HTTP_ERROR', message: err.message },
-    }, err.status);
-  }
-
-  // Validation errors
-  if (err instanceof ZodError) {
-    return c.json({
-      success: false,
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Invalid input',
-        details: err.errors.map(e => ({
-          field: e.path.join('.'),
-          message: e.message,
-        })),
-      },
-    }, 400);
-  }
-
-  // Database errors
-  if (err.code === '23505') { // Unique violation
-    return c.json({
-      success: false,
-      error: { code: 'CONFLICT', message: 'Resource already exists' },
-    }, 409);
-  }
-
-  // Unknown errors
-  return c.json({
-    success: false,
-    error: { code: 'INTERNAL_ERROR', message: 'Something went wrong' },
-  }, 500);
-}
-```
-
-## Caching Patterns
-
-### Redis Caching
-```typescript
-import { Redis } from 'ioredis';
-
-const redis = new Redis(process.env.REDIS_URL);
-
-// Cache-aside pattern
-async function getUserById(id: string): Promise<User> {
-  const cacheKey = `user:${id}`;
-
-  // Try cache first
-  const cached = await redis.get(cacheKey);
-  if (cached) {
-    return JSON.parse(cached);
-  }
-
-  // Fetch from database
-  const user = await db.users.findById(id);
-  if (!user) throw new HTTPException(404);
-
-  // Cache for 5 minutes
-  await redis.setex(cacheKey, 300, JSON.stringify(user));
-
-  return user;
+const rolePermissions: Record<string, Permission[]> = {
+  admin: ['read', 'write', 'delete', 'admin'],
+  moderator: ['read', 'write', 'delete'],
+  user: ['read', 'write']
 }
 
-// Invalidate on update
-async function updateUser(id: string, data: UpdateUserInput) {
-  const user = await db.users.update(id, data);
-  await redis.del(`user:${id}`);
-  return user;
+export function hasPermission(user: User, permission: Permission): boolean {
+  return rolePermissions[user.role].includes(permission)
 }
 ```
 
 ## Rate Limiting
 
 ```typescript
-import { rateLimiter } from 'hono-rate-limiter';
+class RateLimiter {
+  private requests = new Map<string, number[]>()
 
-// Apply rate limiting
-app.use(
-  '/api/*',
-  rateLimiter({
-    windowMs: 60 * 1000, // 1 minute
-    limit: 100, // 100 requests per minute
-    keyGenerator: (c) => c.get('userId') || c.req.header('x-forwarded-for'),
-  })
-);
+  async checkLimit(
+    identifier: string,
+    maxRequests: number,
+    windowMs: number
+  ): Promise<boolean> {
+    const now = Date.now()
+    const requests = this.requests.get(identifier) || []
 
-// Stricter limits for auth endpoints
-app.use(
-  '/api/auth/*',
-  rateLimiter({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    limit: 5, // 5 attempts
-  })
-);
-```
+    const recentRequests = requests.filter(time => now - time < windowMs)
 
-## Database Patterns
-
-### Repository Pattern
-```typescript
-class UserRepository {
-  async findById(id: string): Promise<User | null> {
-    return db.query.users.findFirst({
-      where: eq(users.id, id),
-    });
-  }
-
-  async findByEmail(email: string): Promise<User | null> {
-    return db.query.users.findFirst({
-      where: eq(users.email, email),
-    });
-  }
-
-  async create(data: CreateUserInput): Promise<User> {
-    const [user] = await db.insert(users).values(data).returning();
-    return user;
-  }
-
-  async update(id: string, data: UpdateUserInput): Promise<User> {
-    const [user] = await db
-      .update(users)
-      .set({ ...data, updatedAt: new Date() })
-      .where(eq(users.id, id))
-      .returning();
-    return user;
-  }
-
-  async delete(id: string): Promise<void> {
-    await db.delete(users).where(eq(users.id, id));
-  }
-}
-```
-
-### Transaction Pattern
-```typescript
-async function createOrder(userId: string, items: OrderItem[]) {
-  return db.transaction(async (tx) => {
-    // Create order
-    const [order] = await tx
-      .insert(orders)
-      .values({ userId, status: 'pending' })
-      .returning();
-
-    // Create order items
-    await tx.insert(orderItems).values(
-      items.map(item => ({
-        orderId: order.id,
-        productId: item.productId,
-        quantity: item.quantity,
-      }))
-    );
-
-    // Update inventory
-    for (const item of items) {
-      await tx
-        .update(products)
-        .set({ stock: sql`stock - ${item.quantity}` })
-        .where(eq(products.id, item.productId));
+    if (recentRequests.length >= maxRequests) {
+      return false  // Rate limit exceeded
     }
 
-    return order;
-  });
+    recentRequests.push(now)
+    this.requests.set(identifier, recentRequests)
+
+    return true
+  }
 }
 ```
+
+## Logging
+
+```typescript
+interface LogContext {
+  userId?: string
+  requestId?: string
+  [key: string]: unknown
+}
+
+class Logger {
+  log(level: 'info' | 'warn' | 'error', message: string, context?: LogContext) {
+    console.log(JSON.stringify({
+      timestamp: new Date().toISOString(),
+      level,
+      message,
+      ...context
+    }))
+  }
+
+  info(message: string, context?: LogContext) {
+    this.log('info', message, context)
+  }
+
+  error(message: string, error: Error, context?: LogContext) {
+    this.log('error', message, {
+      ...context,
+      error: error.message,
+      stack: error.stack
+    })
+  }
+}
+```
+
+## Checklist
+
+- [ ] API follows RESTful conventions
+- [ ] Repository pattern for data access
+- [ ] Service layer for business logic
+- [ ] Proper error handling with error classes
+- [ ] Caching for expensive queries
+- [ ] Rate limiting on public endpoints
+- [ ] Authentication on protected routes
+- [ ] Structured logging
+- [ ] Input validation with Zod

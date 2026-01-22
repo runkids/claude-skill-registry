@@ -1,7 +1,7 @@
 {
   "name": "codex-cli-bridge",
-  "repo": "alirezarezvani/claude-code-skill-factory",
+  "repo": "thinmintdev/claude-cooker",
   "path": "generated-skills/codex-cli-bridge/SKILL.md",
-  "source": "github.com/alirezarezvani/claude-code-skill-factory",
-  "downloaded_at": "2026-01-14T03:52:53.416230Z"
+  "source": "github.com/thinmintdev/claude-cooker",
+  "downloaded_at": "2026-01-22T04:11:56.041140Z"
 }

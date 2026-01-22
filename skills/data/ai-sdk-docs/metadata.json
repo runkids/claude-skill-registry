@@ -1,12 +1,7 @@
 {
   "name": "ai-sdk-docs",
-  "description": "Query and manage local Vercel AI SDK documentation mirror (271 docs across 24 sections). Search AI SDK UI hooks, streaming, providers, core functions, and React Server Components. Use when implementin",
-  "repo": "Girolino/rs-news",
-  "category": "documents",
-  "tags": [
-    "sdk",
-    "docs"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "malob/nix-config",
+  "path": "configs/claude/plugins/ai-sdk/skills/ai-sdk-docs/SKILL.md",
+  "source": "github.com/malob/nix-config",
+  "downloaded_at": "2026-01-22T03:28:52.452802Z"
 }

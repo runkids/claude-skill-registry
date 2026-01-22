@@ -1,11 +1,7 @@
 {
   "name": "github-analysis",
-  "description": "Systematically analyze GitHub tickets with proper local reproduction. Automatically substitutes production URLs with local DDEV hosts, ensures database sync, downloads missing assets, and reproduces i",
-  "repo": "ProxiBlue/claude-skills",
-  "category": "data",
-  "tags": [
-    "github",
-    "analysis"
-  ],
-  "stars": 4
+  "repo": "dglowacki/mega-agent-v2",
+  "path": ".claude/skills/github-analysis/SKILL.md",
+  "source": "github.com/dglowacki/mega-agent-v2",
+  "downloaded_at": "2026-01-22T01:51:31.455735Z"
 }

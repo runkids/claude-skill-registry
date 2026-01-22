@@ -1,7 +1,7 @@
 {
   "name": "confidence-check",
-  "repo": "swcstudio/superggc-toolkit",
-  "path": "plugins/superclaude/skills/confidence-check/SKILL.md",
-  "source": "github.com/swcstudio/superggc-toolkit",
-  "downloaded_at": "2026-01-14T03:09:15.627675Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/confidence-check/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:42.839000Z"
 }

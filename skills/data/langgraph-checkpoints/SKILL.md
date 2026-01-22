@@ -3,18 +3,14 @@ name: langgraph-checkpoints
 description: LangGraph checkpointing and persistence. Use when implementing fault-tolerant workflows, resuming interrupted executions, debugging with state history, or avoiding re-running expensive operations.
 context: fork
 agent: workflow-architect
+version: 1.0.0
+author: SkillForge
+user-invocable: false
 ---
 
 # LangGraph Checkpointing
 
 Persist workflow state for recovery and debugging.
-
-## When to Use
-
-- Fault-tolerant workflows
-- Resume after crashes
-- Debug state at each step
-- Avoid re-running expensive LLM calls
 
 ## Checkpointer Options
 

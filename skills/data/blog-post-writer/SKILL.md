@@ -1,78 +1,194 @@
 ---
-name: Blog Post Writer
-slug: blog-post-writer
-description: Create engaging, SEO-optimized blog posts for any industry or topic
-category: writing
-complexity: simple
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "write blog post"
-  - "create blog"
-  - "blog article"
-  - "write article"
-tags:
-  - blogging
-  - content-marketing
-  - seo
-  - article-writing
+name: blog-post-writer
+description: Transform brain dumps into polished blog posts in Nick Nisi's voice. Use when the user wants to write a blog post with scattered ideas, talking points, and conclusions that need organization into a cohesive narrative with Nick's conversational, authentic, and thoughtful tone.
 ---
 
-# Blog Post Writer
+# Nick Nisi Blog Writer
 
-Transform ideas into compelling blog posts that engage readers and drive traffic. This skill helps you craft well-structured, SEO-friendly articles with attention-grabbing headlines, smooth narrative flow, and clear calls-to-action.
+Transform unstructured brain dumps into polished blog posts that sound like Nick Nisi.
 
-Whether you're creating thought leadership content, how-to guides, listicles, or industry commentary, this skill ensures your blog posts are readable, valuable, and optimized for search engines. It handles research, outlining, drafting, and polishing to deliver publication-ready content.
+## Process
 
-Perfect for content marketers, business owners, freelance writers, and anyone who needs to produce consistent, high-quality blog content that resonates with their audience.
+### 1. Receive the Brain Dump
 
-## Core Workflows
+Accept whatever the user provides:
+- Scattered thoughts and ideas
+- Technical points to cover
+- Code examples or commands
+- Conclusions or takeaways
+- Links to reference
+- Random observations
 
-### Workflow 1: Full Blog Post Creation
-1. **Topic Discovery** - Clarify the subject, target audience, and goals
-2. **Research & Outline** - Gather information, identify key points, create structure
-3. **Headline Generation** - Create 5-10 compelling headline options
-4. **Draft Writing** - Write engaging introduction, body sections, and conclusion
-5. **SEO Optimization** - Add meta description, optimize for keywords, improve readability
-6. **Call-to-Action** - Craft relevant CTA that aligns with content goals
-7. **Final Polish** - Review for clarity, flow, grammar, and tone consistency
+Don't require organization. The mess is the input.
 
-### Workflow 2: Blog Post Enhancement
-1. **Content Audit** - Review existing draft for strengths and weaknesses
-2. **Structure Improvement** - Reorganize sections for better flow
-3. **Voice & Tone Refinement** - Align writing style with brand guidelines
-4. **SEO Enhancement** - Improve keyword placement, add internal links, optimize headers
-5. **Readability Boost** - Simplify complex sentences, add bullet points, improve scanning
+### 2. Read Voice and Tone
 
-### Workflow 3: Series Planning
-1. **Theme Definition** - Establish overarching topic and goals
-2. **Content Pillars** - Identify 5-7 related subtopics
-3. **Post Sequencing** - Create logical order for maximum impact
-4. **Interlinking Strategy** - Plan how posts will reference each other
-5. **Production Schedule** - Set realistic publishing timeline
+Load `references/voice-tone.md` to understand Nick's writing style.
 
-## Quick Reference
+Key characteristics:
+- Conversational yet substantive
+- Vulnerable and authentic
+- Journey-based narrative
+- Mix of short and long sentences
+- Specific examples and real details
+- Self-aware humor
 
-| Action | Command/Trigger |
-|--------|-----------------|
-| Write full blog post | "Write a blog post about [topic]" |
-| Generate headlines | "Create headlines for [topic]" |
-| Optimize existing post | "Improve SEO for this blog post" |
-| Create outline | "Outline a blog post about [topic]" |
-| Write introduction | "Write intro for [topic]" |
-| Add meta description | "Create meta description for this post" |
-| Suggest CTAs | "What CTA should I use for [topic]?" |
-| Plan blog series | "Plan a 5-part series on [topic]" |
+### 3. Check for Story Potential
 
-## Best Practices
+Read `references/story-circle.md` to understand the narrative framework.
 
-- **Hook early** - First 2-3 sentences must grab attention and promise value
-- **Use subheadings** - Break content into scannable sections with descriptive H2/H3 tags
-- **Write conversationally** - Use "you" and "we" to create connection with readers
-- **Show, don't just tell** - Include examples, stories, and case studies
-- **Optimize for featured snippets** - Answer key questions clearly in 40-60 words
-- **Keep paragraphs short** - 2-4 sentences maximum for online readability
-- **Add visuals** - Suggest image placements, infographic opportunities, screenshots
-- **Link strategically** - Include 2-3 internal links and 1-2 authoritative external sources
-- **End with action** - Every post should guide readers to a clear next step
-- **Match search intent** - Align content format with what searchers actually want
+Determine if the content fits a story structure:
+- Is there a journey from one understanding to another?
+- Can you identify a problem and resolution?
+- Does it follow: comfort → disruption → return changed?
+
+Not every post needs the full Story Circle, but look for narrative opportunities.
+
+### 4. Organize Content
+
+Structure the material into sections:
+
+**Common structures:**
+- Problem/experience → Journey → Results → Lessons
+- Setup → Challenge → Discovery → Application
+- Philosophy → How-to → Reflection
+- Current state → Past → Learning → Future
+
+Choose the structure that fits the content.
+
+### 5. Write in Nick's Voice
+
+Apply voice characteristics:
+
+**Opening:**
+- Hook with current position or recent event
+- Set up tension or question
+- Be direct and honest
+
+**Body:**
+- Vary paragraph length
+- Use short paragraphs for emphasis
+- Include specific details (tool names, commands, numbers)
+- Show vulnerability where appropriate
+- Use inline code formatting naturally
+- Break up text with headers
+
+**Technical content:**
+- Assume reader knowledge but explain when needed
+- Show actual commands and examples
+- Be honest about limitations
+- Use casual tool references
+
+**Tone modulation:**
+- Technical sections: clear, instructional
+- Personal sections: vulnerable, reflective
+- Be conversational throughout
+
+**Ending:**
+- Tie back to opening
+- Forward-looking perspective
+- Actionable advice
+- Optimistic or thought-provoking
+
+### 6. Review and Refine
+
+Check the post:
+
+- Does it sound conversational?
+- Is there a clear narrative arc?
+- Are technical details specific and accurate?
+- Does it show vulnerability appropriately?
+- Are paragraphs varied in length?
+- Is humor self-aware, not forced?
+- Does it end with momentum?
+
+Show the post to the user for feedback and iterate.
+
+## Voice Guidelines
+
+### Do:
+- Write like talking to a peer over coffee
+- Admit uncertainty or being wrong
+- Use specific examples with details
+- Vary sentence and paragraph length
+- Include inline code naturally
+- Show the journey, not just the destination
+- Use humor sparingly and self-aware
+- End with forward momentum
+
+### Don't:
+- Use corporate or marketing speak
+- Pretend to have all answers
+- Be preachy or condescending
+- Over-explain basic concepts
+- Force humor or emojis
+- Hide mistakes or uncertainty
+- Write without specific examples
+
+## Example Patterns
+
+### Opening hooks:
+```markdown
+"AI is going to replace developers."
+
+I must have heard that phrase a hundred times in the last year.
+```
+
+```markdown
+I've been thinking a lot about how we use AI in our daily work.
+```
+
+### Emphasis through structure:
+```markdown
+Then something clicked.
+
+I watched it use rg to search through codebases, just like I would.
+```
+
+### Vulnerability:
+```markdown
+I won't lie – joining Meta was intimidating.
+```
+
+### Technical details:
+```markdown
+I watched it use `rg` to search through codebases, just like I would. 
+It ran `npm test` to verify its changes weren't breaking anything.
+```
+
+### Conclusions:
+```markdown
+You're not being replaced; you're being amplified.
+```
+
+## Bundled Resources
+
+### References
+
+- `references/voice-tone.md` - Complete voice and tone guide. Read this first to capture Nick's style.
+- `references/story-circle.md` - Story Circle narrative framework. Check if content fits a story structure.
+
+## Workflow Example
+
+User provides brain dump:
+```
+thoughts on using cursor vs claude code
+- cursor is in IDE, feels familiar
+- but claude code is in terminal, my natural environment
+- tried cursor first, felt weird leaving vim
+- claude code met me where I was
+- not about which is better, about workflow fit
+- some devs love IDE integration
+- I need terminal access
+- conclusion: use what fits YOUR workflow
+```
+
+Process:
+1. Read voice-tone.md
+2. Check story-circle.md - yes, there's a journey here
+3. Identify structure: Current tools → Trying Cursor → Finding Claude Code → Realization
+4. Write opening hook about tool debates
+5. Show vulnerability about trying new things
+6. Include specific terminal commands naturally
+7. Conclude with "meet yourself where you are" message
+8. Review for conversational tone and specific details

@@ -1,13 +1,7 @@
 {
   "name": "chronicle-protocol-v5-log",
-  "description": "Log events using Chronicle Protocol v5 structured format.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "chronicle",
-    "protocol",
-    "log"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/chronicle-protocol-v5-log/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:46.477341Z"
 }

@@ -1,14 +1,7 @@
 {
   "name": "developing-claude-code-plugins",
-  "description": "Use when working on Claude Code plugins (creating, modifying, testing, releasing, or maintaining) - provides streamlined workflows, patterns, and examples for the complete plugin lifecycle",
-  "repo": "obra/superpowers-developing-for-claude-code",
-  "category": "development",
-  "tags": [
-    "developing",
-    "claude",
-    "code",
-    "plugins"
-  ],
-  "stars": 47,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": "plugins/installed/superpowers-developing-for-claude-code/skills/developing-claude-code-plugins/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-22T03:35:33.541367Z"
 }

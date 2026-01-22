@@ -1,13 +1,7 @@
 {
   "name": "responsive-web-design",
-  "description": "Create responsive layouts using CSS Grid, Flexbox, media queries, and mobile-first design. Use when building adaptive interfaces that work across all devices.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "responsive",
-    "web",
-    "design"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/responsive-web-design/skills/responsive-web-design/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:10.515924Z"
 }

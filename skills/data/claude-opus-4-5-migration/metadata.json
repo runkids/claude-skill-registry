@@ -1,7 +1,7 @@
 {
   "name": "claude-opus-4-5-migration",
-  "repo": "jwynia/agent-skills",
-  "path": "collections/official-claude-code/claude-opus-4-5-migration/skills/claude-opus-4-5-migration/SKILL.md",
-  "source": "github.com/jwynia/agent-skills",
-  "downloaded_at": "2026-01-14T03:19:18.402430Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/claude-code/claude-opus-4-5-migration/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-22T03:16:19.004188Z"
 }

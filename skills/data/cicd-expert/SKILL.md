@@ -1,790 +1,254 @@
 ---
 name: cicd-expert
-description: "Elite CI/CD pipeline engineer specializing in GitHub Actions, GitLab CI, Jenkins automation, secure deployment strategies, and supply chain security. Expert in building efficient, secure pipelines with proper testing gates, artifact management, and ArgoCD/GitOps patterns. Use when designing pipelines, implementing security gates, or troubleshooting CI/CD issues."
-model: sonnet
+version: 1.0.0
+description: Expert-level CI/CD with GitHub Actions, Jenkins, deployment pipelines, and automation
+category: devops
+tags: [cicd, github-actions, jenkins, gitlab-ci, deployment, automation, pipeline]
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash(git:*, docker:*, kubectl:*)
 ---
 
-# CI/CD Pipeline Expert
+# CI/CD Expert
 
-## 1. Overview
+Expert guidance for Continuous Integration and Continuous Deployment, including GitHub Actions, Jenkins, GitLab CI, deployment strategies, and automation best practices.
 
-You are an elite CI/CD pipeline engineer with deep expertise in:
+## Core Concepts
 
-- **GitHub Actions**: Workflows, reusable actions, matrix builds, caching strategies, self-hosted runners
-- **GitLab CI**: Pipeline configuration, DAG pipelines, parent-child pipelines, dynamic child pipelines
-- **Jenkins**: Declarative/scripted pipelines, shared libraries, distributed builds
-- **Security**: SAST/DAST integration, secrets management, supply chain security, artifact signing
-- **Deployment Strategies**: Blue/green, canary, rolling updates, GitOps with ArgoCD
-- **Artifact Management**: Docker registries, package repositories, SBOM generation
-- **Optimization**: Caching, parallel execution, build matrix, incremental builds
-- **Observability**: Pipeline metrics, failure analysis, build time optimization
+### CI/CD Fundamentals
+- Continuous Integration (CI)
+- Continuous Delivery vs Deployment
+- Build automation
+- Test automation
+- Artifact management
+- Deployment strategies (blue-green, canary, rolling)
 
-You build pipelines that are:
-- **Secure**: Security gates at every stage, secrets properly managed, least privilege access
-- **Efficient**: Optimized for speed with caching, parallelization, and smart triggers
-- **Reliable**: Proper error handling, retry logic, reproducible builds
-- **Maintainable**: DRY principles, reusable components, clear documentation
+### Pipeline Design
+- Pipeline stages and jobs
+- Parallel execution
+- Dependencies and artifacts
+- Caching strategies
+- Matrix builds
+- Conditional execution
 
-**RISK LEVEL: HIGH** - CI/CD pipelines have access to source code, secrets, and production infrastructure. A compromised pipeline can lead to supply chain attacks, leaked credentials, or unauthorized deployments.
+### Security
+- Secret management
+- Dependency scanning
+- SAST/DAST
+- Container scanning
+- Supply chain security
+- SBOM generation
 
----
+## GitHub Actions
 
-## 2. Core Principles
-
-1. **TDD First** - Write pipeline tests before implementation. Validate workflow syntax, test job outputs, and verify security gates work correctly before deploying pipelines.
-
-2. **Performance Aware** - Optimize for speed with caching, parallelization, and conditional execution. Every minute saved in CI/CD compounds across all developers.
-
-3. **Security by Default** - Embed security gates at every stage. Use least privilege, OIDC authentication, and artifact signing.
-
-4. **Fail Fast** - Detect issues early with proper ordering: lint → security scan → test → build → deploy.
-
-5. **Reproducible** - Pipelines must produce identical results given identical inputs. Pin versions, use lockfiles, and avoid external state.
-
----
-
-## 3. Implementation Workflow (TDD)
-
-### Step 1: Write Failing Test First
-
-Before creating or modifying a pipeline, write tests that validate expected behavior:
-
+### Workflow Basics
 ```yaml
-# .github/workflows/test-pipeline.yml
-name: Test Pipeline Configuration
-
-on: [push]
-
-jobs:
-  validate-workflow:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Validate workflow syntax
-        run: |
-          # Install actionlint for GitHub Actions validation
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
-
-      - name: Test workflow outputs
-        run: |
-          # Verify expected outputs exist
-          grep -q "outputs:" .github/workflows/ci-cd.yml || exit 1
-          echo "Output definitions found"
-
-  test-security-gates:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Verify security scans are required
-        run: |
-          # Check that security jobs are dependencies for deploy
-          grep -A 10 "deploy:" .github/workflows/ci-cd.yml | grep -q "needs:.*security" || {
-            echo "ERROR: Deploy must depend on security jobs"
-            exit 1
-          }
-
-      - name: Verify permissions are minimal
-        run: |
-          # Check for explicit permissions block
-          grep -q "^permissions:" .github/workflows/ci-cd.yml || {
-            echo "ERROR: Workflow must have explicit permissions"
-            exit 1
-          }
-```
-
-### Step 2: Implement Minimum to Pass
-
-Create the pipeline with just enough configuration to pass the tests:
-
-```yaml
-# .github/workflows/ci-cd.yml
-name: CI/CD Pipeline
-
-permissions:
-  contents: read
-  security-events: write
+# .github/workflows/ci.yml
+name: CI
 
 on:
   push:
-    branches: [main]
-
-jobs:
-  security:
-    runs-on: ubuntu-latest
-    outputs:
-      scan-result: ${{ steps.scan.outputs.result }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: scan
-        run: echo "result=passed" >> $GITHUB_OUTPUT
-
-  deploy:
-    needs: [security]  # Satisfies test requirement
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Deploying..."
-```
-
-### Step 3: Refactor Following Patterns
-
-Expand the pipeline with full implementation while keeping tests passing:
-
-```yaml
-# Add caching, matrix testing, artifact signing, etc.
-# Run tests after each addition to ensure compliance
-```
-
-### Step 4: Run Full Verification
-
-```bash
-# Validate all workflows
-actionlint
-
-# Test workflow locally with act
-act -n  # Dry run to validate
-
-# Run the test pipeline
-gh workflow run test-pipeline.yml
-
-# Verify security compliance
-gh api repos/{owner}/{repo}/actions/permissions
-```
-
----
-
-## 4. Performance Patterns
-
-### Pattern 1: Dependency Caching
-
-```yaml
-# BAD: No caching - reinstalls every time
-- name: Install dependencies
-  run: npm install
-
-# GOOD: Cache with hash-based keys
-- name: Cache npm dependencies
-  uses: actions/cache@v3
-  with:
-    path: ~/.npm
-    key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-    restore-keys: |
-      ${{ runner.os }}-npm-
-
-- name: Install dependencies
-  run: npm ci
-```
-
-### Pattern 2: Parallel Job Execution
-
-```yaml
-# BAD: Sequential jobs
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-  test:
-    needs: lint  # Waits for lint
-  security:
-    needs: test  # Waits for test
-
-# GOOD: Independent jobs run in parallel
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-  test:
-    runs-on: ubuntu-latest  # Parallel with lint
-  security:
-    runs-on: ubuntu-latest  # Parallel with lint and test
-  build:
-    needs: [lint, test, security]  # Only build waits
-```
-
-### Pattern 3: Artifact Optimization
-
-```yaml
-# BAD: Upload entire node_modules
-- uses: actions/upload-artifact@v4
-  with:
-    name: build
-    path: .  # Includes node_modules!
-
-# GOOD: Upload only build outputs with compression
-- uses: actions/upload-artifact@v4
-  with:
-    name: build
-    path: dist/
-    retention-days: 7
-    compression-level: 9
-```
-
-### Pattern 4: Incremental Builds
-
-```yaml
-# BAD: Full rebuild every time
-- name: Build
-  run: npm run build
-
-# GOOD: Cache build outputs
-- name: Cache build
-  uses: actions/cache@v3
-  with:
-    path: |
-      dist
-      .next/cache
-      node_modules/.cache
-    key: ${{ runner.os }}-build-${{ hashFiles('src/**') }}
-
-- name: Build
-  run: npm run build
-```
-
-### Pattern 5: Conditional Workflows
-
-```yaml
-# BAD: Run everything on every change
-on: [push]
-jobs:
-  test-frontend:
-    runs-on: ubuntu-latest
-  test-backend:
-    runs-on: ubuntu-latest
-
-# GOOD: Path-filtered triggers
-on:
-  push:
-    paths:
-      - 'src/frontend/**'
-      - 'src/backend/**'
-
-jobs:
-  detect-changes:
-    outputs:
-      frontend: ${{ steps.filter.outputs.frontend }}
-      backend: ${{ steps.filter.outputs.backend }}
-    steps:
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            frontend:
-              - 'src/frontend/**'
-            backend:
-              - 'src/backend/**'
-
-  test-frontend:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.frontend == 'true'
-    runs-on: ubuntu-latest
-
-  test-backend:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.backend == 'true'
-    runs-on: ubuntu-latest
-```
-
-### Pattern 6: Docker Layer Caching
-
-```yaml
-# BAD: No layer caching
-- uses: docker/build-push-action@v5
-  with:
-    context: .
-    push: true
-
-# GOOD: GitHub Actions cache for layers
-- uses: docker/build-push-action@v5
-  with:
-    context: .
-    push: true
-    cache-from: type=gha
-    cache-to: type=gha,mode=max
-```
-
----
-
-## 5. Core Responsibilities
-
-### 1. Pipeline Architecture Design
-
-You will design scalable pipeline architectures:
-- Implement proper separation of concerns (build, test, security, deploy stages)
-- Use reusable workflows and shared libraries for DRY principles
-- Design for parallelization to minimize total execution time
-- Implement proper dependency management between jobs
-- Configure appropriate triggers (push, PR, scheduled, manual)
-- Set up branch protection rules and required status checks
-
-### 2. Security Integration
-
-You will embed security throughout the pipeline:
-- Run SAST (Semgrep, CodeQL, SonarQube) on every PR
-- Execute SCA (Snyk, Dependabot) for dependency vulnerabilities
-- Scan container images (Trivy, Grype) before deployment
-- Implement secrets scanning (Gitleaks, TruffleHog) in pre-commit hooks
-- Use OIDC/Workload Identity instead of static credentials
-- Sign artifacts with Sigstore/Cosign for supply chain integrity
-
-### 3. Build Optimization
-
-You will optimize pipeline performance:
-- Implement intelligent caching (dependencies, build artifacts, Docker layers)
-- Use matrix strategies for parallel test execution
-- Configure incremental builds when possible
-- Optimize Docker builds with multi-stage patterns
-- Use build caching services (BuildKit, Kaniko)
-- Profile and eliminate bottlenecks in build times
-
-### 4. Deployment Automation
-
-You will implement safe deployment strategies:
-- Blue/green deployments for zero-downtime updates
-- Canary deployments with progressive traffic shifting
-- Rolling updates with proper health checks
-- GitOps patterns with ArgoCD or Flux
-- Automated rollback on failure detection
-- Environment-specific configurations with proper isolation
-
-### 5. Observability and Debugging
-
-You will ensure pipeline visibility:
-- Implement structured logging in all pipeline stages
-- Track key metrics (build time, success rate, deployment frequency)
-- Set up alerts for pipeline failures
-- Create dashboards for build performance trends
-- Implement proper error reporting and notifications
-- Maintain audit trails for compliance
-
----
-
-## 4. Top 7 Pipeline Patterns
-
-### Pattern 1: Secure Multi-Stage GitHub Actions Pipeline
-
-```yaml
-# .github/workflows/ci-cd.yml
-name: CI/CD Pipeline
-
-on:
-  pull_request:
     branches: [main, develop]
-  push:
+  pull_request:
     branches: [main]
+  workflow_dispatch:
 
-permissions:
-  contents: read
-  security-events: write
-  id-token: write  # For OIDC
+env:
+  NODE_VERSION: '20'
+  DOCKER_REGISTRY: ghcr.io
 
 jobs:
-  # Stage 1: Code Quality & Security
-  code-quality:
+  test:
+    name: Test
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18, 20, 21]
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for better analysis
+          fetch-depth: 0  # Full history for SonarCloud
 
-      - name: Run Semgrep SAST
-        uses: semgrep/semgrep-action@v1
-        with:
-          config: p/security-audit
-
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-  # Stage 2: Dependency Scanning
-  dependency-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Dependency Review
-        uses: actions/dependency-review-action@v4
-        with:
-          fail-on-severity: high
-
-      - name: Snyk Security Scan
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-  # Stage 3: Build & Test
-  build:
-    runs-on: ubuntu-latest
-    needs: [code-quality, dependency-check]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests with coverage
-        run: npm run test:coverage
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test -- --coverage
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
-
-      - name: Build application
-        run: npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist/
-          retention-days: 7
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage-final.json
 
-  # Stage 4: Container Build & Scan
-  container:
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    needs: build
-    outputs:
-      image-digest: ${{ steps.build.outputs.digest }}
+    needs: test
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
+      - uses: actions/setup-node@v4
         with:
-          name: dist
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
           path: dist/
+          retention-days: 7
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
 
-      - name: Login to Container Registry (OIDC)
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Build and push Docker image
-        id: build
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ghcr.io/${{ github.repository }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Scan image with Trivy
+      - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ghcr.io/${{ github.repository }}:${{ github.sha }}
+          scan-type: 'fs'
+          scan-ref: '.'
           format: 'sarif'
           output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
 
       - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: 'trivy-results.sarif'
 
-  # Stage 5: Sign Artifacts
-  sign:
-    runs-on: ubuntu-latest
-    needs: container
-    permissions:
-      packages: write
-      id-token: write
-    steps:
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@v3
-
-      - name: Sign container image
-        run: |
-          cosign sign --yes \
-            ghcr.io/${{ github.repository }}@${{ needs.container.outputs.image-digest }}
-
-  # Stage 6: Deploy to Staging
-  deploy-staging:
-    runs-on: ubuntu-latest
-    needs: sign
-    if: github.ref == 'refs/heads/main'
-    environment: staging
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl set image deployment/myapp \
-            myapp=ghcr.io/${{ github.repository }}:${{ github.sha }} \
-            --namespace=staging
-
-      - name: Wait for rollout
-        run: |
-          kubectl rollout status deployment/myapp \
-            --namespace=staging \
-            --timeout=5m
-
-      - name: Run smoke tests
-        run: npm run test:smoke -- --env=staging
-
-  # Stage 7: Deploy to Production
-  deploy-production:
-    runs-on: ubuntu-latest
-    needs: deploy-staging
-    if: github.ref == 'refs/heads/main'
-    environment: production
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy via ArgoCD
-        run: |
-          argocd app set myapp \
-            --parameter image.tag=${{ github.sha }}
-          argocd app sync myapp --prune
-          argocd app wait myapp --health --timeout 600
+      - name: Run npm audit
+        run: npm audit --audit-level=high
 ```
 
-**Key Features**:
-- ✅ Security scans at multiple stages (SAST, SCA, container scanning)
-- ✅ Proper dependency management with artifact passing
-- ✅ OIDC authentication (no static secrets)
-- ✅ Layer caching for Docker builds
-- ✅ Artifact signing with Cosign
-- ✅ Environment-specific deployments with approvals
-
-**📚 For more pipeline examples** (GitLab CI, Jenkins, matrix builds, monorepo patterns):
-- See [`references/pipeline-examples.md`](/home/user/ai-coding/new-skills/cicd-expert/references/pipeline-examples.md)
-
----
-
-### Pattern 2: Reusable Workflow for Microservices
-
+### Docker Build and Push
 ```yaml
-# .github/workflows/reusable-service-build.yml
-name: Reusable Service Build
+# .github/workflows/docker.yml
+name: Docker Build and Push
 
 on:
-  workflow_call:
-    inputs:
-      service-name:
-        required: true
-        type: string
-      node-version:
-        required: false
-        type: string
-        default: '20'
-      run-e2e-tests:
-        required: false
-        type: boolean
-        default: false
-    secrets:
-      SONAR_TOKEN:
-        required: true
-      NPM_TOKEN:
-        required: false
+  push:
+    branches: [main]
+    tags: ['v*']
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-test-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node-version }}
-          cache: 'npm'
-          cache-dependency-path: services/${{ inputs.service-name }}/package-lock.json
-
-      - name: Install dependencies
-        working-directory: services/${{ inputs.service-name }}
-        run: npm ci
-
-      - name: Run unit tests
-        working-directory: services/${{ inputs.service-name }}
-        run: npm run test:unit
-
-      - name: Run integration tests
-        if: inputs.run-e2e-tests
-        working-directory: services/${{ inputs.service-name }}
-        run: npm run test:integration
-
-      - name: Build service
-        working-directory: services/${{ inputs.service-name }}
-        run: npm run build
-
-      - name: SonarQube Analysis
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: services/${{ inputs.service-name }}
-
-# Usage in caller workflow:
-# jobs:
-#   build-auth-service:
-#     uses: ./.github/workflows/reusable-service-build.yml
-#     with:
-#       service-name: auth-service
-#       run-e2e-tests: true
-#     secrets:
-#       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-```
-
----
-
-### Pattern 3: Smart Caching Strategy
-
-```yaml
-name: Optimized Build with Caching
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      # Cache npm dependencies
-      - name: Cache npm modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      # Cache build outputs
-      - name: Cache build
-        uses: actions/cache@v3
-        with:
-          path: |
-            dist
-            .next/cache
-          key: ${{ runner.os }}-build-${{ hashFiles('src/**') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
-
-      # Cache Docker layers
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
+
+      - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: false
+          platforms: linux/amd64,linux/arm64
 ```
 
----
-
-### Pattern 4: Matrix Testing Across Multiple Environments
-
+### Deployment Workflow
 ```yaml
-name: Matrix Testing
-
-jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [18, 20, 21]
-        exclude:
-          # Don't test Node 18 on macOS
-          - os: macos-latest
-            node-version: 18
-      fail-fast: false  # Continue testing other combinations on failure
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
-
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          flags: ${{ matrix.os }}-node${{ matrix.node-version }}
-```
-
----
-
-### Pattern 5: Conditional Deployment with Manual Approval
-
-```yaml
-name: Production Deployment
+# .github/workflows/deploy.yml
+name: Deploy to Production
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  push:
+    tags: ['v*']
+  workflow_dispatch:
     inputs:
       environment:
-        description: 'Target environment'
+        description: 'Environment to deploy to'
         required: true
         type: choice
         options:
           - staging
           - production
-      version:
-        description: 'Version to deploy'
-        required: true
-        type: string
 
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate inputs
-        run: |
-          if [[ ! "${{ inputs.version }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Invalid version format. Expected: vX.Y.Z"
-            exit 1
-          fi
-
   deploy:
-    needs: validate
+    name: Deploy to ${{ inputs.environment || 'production' }}
     runs-on: ubuntu-latest
     environment:
-      name: ${{ inputs.environment }}
-      url: https://${{ inputs.environment }}.example.com
+      name: ${{ inputs.environment || 'production' }}
+      url: https://${{ inputs.environment || 'production' }}.example.com
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          ref: ${{ inputs.version }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-      - name: Deploy to ${{ inputs.environment }}
+      - name: Deploy to ECS
         run: |
-          echo "Deploying ${{ inputs.version }} to ${{ inputs.environment }}"
-          kubectl set image deployment/myapp \
-            myapp=ghcr.io/${{ github.repository }}:${{ inputs.version }} \
-            --namespace=${{ inputs.environment }}
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER }} \
+            --service ${{ secrets.ECS_SERVICE }} \
+            --force-new-deployment
 
-      - name: Verify deployment
+      - name: Wait for deployment
         run: |
-          kubectl rollout status deployment/myapp \
-            --namespace=${{ inputs.environment }} \
-            --timeout=10m
-
-      - name: Run health checks
-        run: |
-          curl -f https://${{ inputs.environment }}.example.com/health || exit 1
+          aws ecs wait services-stable \
+            --cluster ${{ secrets.ECS_CLUSTER }} \
+            --services ${{ secrets.ECS_SERVICE }}
 
       - name: Notify Slack
         uses: slackapi/slack-github-action@v1
@@ -792,480 +256,592 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK }}
           payload: |
             {
-              "text": "✅ Deployed ${{ inputs.version }} to ${{ inputs.environment }}",
-              "username": "GitHub Actions"
+              "text": "Deployment to ${{ inputs.environment || 'production' }} successful!",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "✅ *Deployment Successful*\n*Environment:* ${{ inputs.environment || 'production' }}\n*Version:* ${{ github.ref_name }}"
+                  }
+                }
+              ]
             }
 ```
 
----
-
-### Pattern 6: Monorepo with Path-Based Triggers
-
+### Reusable Workflows
 ```yaml
-name: Monorepo CI
+# .github/workflows/reusable-test.yml
+name: Reusable Test Workflow
 
 on:
-  pull_request:
-    paths:
-      - 'services/**'
-      - 'packages/**'
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+      working-directory:
+        required: false
+        type: string
+        default: '.'
+    secrets:
+      codecov-token:
+        required: true
 
 jobs:
-  detect-changes:
+  test:
     runs-on: ubuntu-latest
-    outputs:
-      auth-service: ${{ steps.filter.outputs.auth-service }}
-      payment-service: ${{ steps.filter.outputs.payment-service }}
-      shared-lib: ${{ steps.filter.outputs.shared-lib }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
     steps:
       - uses: actions/checkout@v4
-
-      - uses: dorny/paths-filter@v2
-        id: filter
+      - uses: actions/setup-node@v4
         with:
-          filters: |
-            auth-service:
-              - 'services/auth-service/**'
-            payment-service:
-              - 'services/payment-service/**'
-            shared-lib:
-              - 'packages/shared-lib/**'
+          node-version: ${{ inputs.node-version }}
+          cache: 'npm'
+          cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
 
-  build-auth-service:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.auth-service == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build auth service
-        working-directory: services/auth-service
-        run: npm ci && npm run build
+      - run: npm ci
+      - run: npm test -- --coverage
 
-  build-payment-service:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.payment-service == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build payment service
-        working-directory: services/payment-service
-        run: npm ci && npm run build
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.codecov-token }}
 
-  build-shared-lib:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.shared-lib == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build shared library
-        working-directory: packages/shared-lib
-        run: npm ci && npm run build && npm run test
-```
-
----
-
-### Pattern 7: Self-Hosted Runner with Dynamic Scaling
-
-```yaml
-name: Self-Hosted Build
-
+# Usage in another workflow
 jobs:
-  build-large-project:
-    runs-on: [self-hosted, linux, x64, high-memory]
-    timeout-minutes: 120
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Clean workspace
-        run: |
-          docker system prune -af
-          rm -rf node_modules dist
-
-      - name: Build with Docker
-        run: |
-          docker build \
-            --cache-from ghcr.io/${{ github.repository }}:buildcache \
-            --build-arg BUILDKIT_INLINE_CACHE=1 \
-            -t myapp:${{ github.sha }} .
-
-      - name: Run tests in container
-        run: |
-          docker run --rm \
-            -v $PWD:/app \
-            myapp:${{ github.sha }} \
-            npm test
-
-      - name: Cleanup
-        if: always()
-        run: |
-          docker rmi myapp:${{ github.sha }} || true
+  test-backend:
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      node-version: '20'
+      working-directory: './backend'
+    secrets:
+      codecov-token: ${{ secrets.CODECOV_TOKEN }}
 ```
 
----
-
-## 5. Security & Supply Chain
-
-### 5.1 Top 3 Security Concerns
-
-#### 1. Secrets Exposure in Pipelines
-
-**Risk**: Secrets leaked in logs, environment variables, or committed to repositories.
-
-**Mitigation**:
+### Composite Actions
 ```yaml
-# ✅ GOOD: Use OIDC for cloud authentication
-- name: Configure AWS Credentials
-  uses: aws-actions/configure-aws-credentials@v4
-  with:
-    role-to-assume: arn:aws:iam::123456789012:role/GitHubActions
-    aws-region: us-east-1
+# .github/actions/setup-project/action.yml
+name: 'Setup Project'
+description: 'Setup Node.js and install dependencies'
 
-# ✅ GOOD: Mask secrets in logs
-- name: Use secret safely
+inputs:
+  node-version:
+    description: 'Node.js version'
+    required: false
+    default: '20'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+
+    - name: Cache build
+      uses: actions/cache@v3
+      with:
+        path: |
+          dist
+          .next/cache
+        key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+
+# Usage
+steps:
+  - uses: actions/checkout@v4
+  - uses: ./.github/actions/setup-project
+    with:
+      node-version: '20'
+```
+
+## Jenkins
+
+### Declarative Pipeline
+```groovy
+// Jenkinsfile
+pipeline {
+    agent {
+        docker {
+            image 'node:20-alpine'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
+
+    environment {
+        NODE_ENV = 'production'
+        DOCKER_REGISTRY = 'ghcr.io'
+        IMAGE_NAME = "${env.DOCKER_REGISTRY}/${env.GIT_ORG}/${env.GIT_REPO}"
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timeout(time: 1, unit: 'HOURS')
+        timestamps()
+        disableConcurrentBuilds()
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                script {
+                    env.GIT_COMMIT_SHORT = sh(
+                        returnStdout: true,
+                        script: 'git rev-parse --short HEAD'
+                    ).trim()
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                sh 'npm run lint'
+            }
+        }
+
+        stage('Test') {
+            parallel {
+                stage('Unit Tests') {
+                    steps {
+                        sh 'npm run test:unit -- --coverage'
+                    }
+                    post {
+                        always {
+                            junit 'test-results/unit/*.xml'
+                            publishHTML([
+                                reportDir: 'coverage',
+                                reportFiles: 'index.html',
+                                reportName: 'Coverage Report'
+                            ])
+                        }
+                    }
+                }
+
+                stage('Integration Tests') {
+                    steps {
+                        sh 'npm run test:integration'
+                    }
+                    post {
+                        always {
+                            junit 'test-results/integration/*.xml'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+                archiveArtifacts artifacts: 'dist/**/*', fingerprint: true
+            }
+        }
+
+        stage('Docker Build') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    docker.build("${env.IMAGE_NAME}:${env.GIT_COMMIT_SHORT}")
+                }
+            }
+        }
+
+        stage('Security Scan') {
+            parallel {
+                stage('Dependency Check') {
+                    steps {
+                        sh 'npm audit --audit-level=high'
+                    }
+                }
+
+                stage('Container Scan') {
+                    when {
+                        branch 'main'
+                    }
+                    steps {
+                        sh """
+                            trivy image \
+                                --severity HIGH,CRITICAL \
+                                --exit-code 1 \
+                                ${env.IMAGE_NAME}:${env.GIT_COMMIT_SHORT}
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Push Image') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    docker.withRegistry("https://${env.DOCKER_REGISTRY}", 'docker-credentials') {
+                        docker.image("${env.IMAGE_NAME}:${env.GIT_COMMIT_SHORT}").push()
+                        docker.image("${env.IMAGE_NAME}:${env.GIT_COMMIT_SHORT}").push('latest')
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    kubernetesDeploy(
+                        configs: 'k8s/staging/*.yaml',
+                        kubeconfigId: 'kubeconfig-staging'
+                    )
+                }
+            }
+        }
+
+        stage('Smoke Tests') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh 'npm run test:smoke -- --env=staging'
+            }
+        }
+
+        stage('Deploy to Production') {
+            when {
+                branch 'main'
+            }
+            input {
+                message 'Deploy to production?'
+                ok 'Deploy'
+            }
+            steps {
+                script {
+                    kubernetesDeploy(
+                        configs: 'k8s/production/*.yaml',
+                        kubeconfigId: 'kubeconfig-production'
+                    )
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            slackSend(
+                color: 'good',
+                message: "Build succeeded: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+            )
+        }
+        failure {
+            slackSend(
+                color: 'danger',
+                message: "Build failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+            )
+        }
+    }
+}
+```
+
+### Shared Library
+```groovy
+// vars/deployToKubernetes.groovy
+def call(Map config) {
+    def namespace = config.namespace
+    def deployment = config.deployment
+    def image = config.image
+
+    sh """
+        kubectl set image deployment/${deployment} \
+            ${deployment}=${image} \
+            -n ${namespace}
+
+        kubectl rollout status deployment/${deployment} \
+            -n ${namespace} \
+            --timeout=5m
+    """
+}
+
+// Usage in Jenkinsfile
+@Library('shared-library') _
+
+pipeline {
+    stages {
+        stage('Deploy') {
+            steps {
+                deployToKubernetes(
+                    namespace: 'production',
+                    deployment: 'web-app',
+                    image: "${IMAGE_NAME}:${GIT_COMMIT_SHORT}"
+                )
+            }
+        }
+    }
+}
+```
+
+## GitLab CI
+
+```yaml
+# .gitlab-ci.yml
+stages:
+  - build
+  - test
+  - security
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
+default:
+  image: node:20-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+      - .npm/
+
+build:
+  stage: build
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+
+test:unit:
+  stage: test
+  needs: [build]
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npm run test:unit -- --coverage
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  artifacts:
+    reports:
+      junit: test-results/unit/*.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+
+test:integration:
+  stage: test
+  needs: [build]
+  services:
+    - postgres:15
+    - redis:7
+  variables:
+    POSTGRES_DB: testdb
+    POSTGRES_USER: testuser
+    POSTGRES_PASSWORD: testpass
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npm run test:integration
+  artifacts:
+    reports:
+      junit: test-results/integration/*.xml
+
+security:sast:
+  stage: security
+  image: returntocorp/semgrep
+  script:
+    - semgrep --config=auto --json --output=sast-report.json .
+  artifacts:
+    reports:
+      sast: sast-report.json
+
+security:dependency:
+  stage: security
+  script:
+    - npm audit --audit-level=high
+  allow_failure: true
+
+docker:build:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - main
+    - tags
+
+deploy:staging:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  environment:
+    name: staging
+    url: https://staging.example.com
+  script:
+    - kubectl config use-context $KUBE_CONTEXT_STAGING
+    - kubectl set image deployment/web-app web-app=$IMAGE_TAG -n staging
+    - kubectl rollout status deployment/web-app -n staging --timeout=5m
+  only:
+    - main
+
+deploy:production:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  environment:
+    name: production
+    url: https://example.com
+  script:
+    - kubectl config use-context $KUBE_CONTEXT_PRODUCTION
+    - kubectl set image deployment/web-app web-app=$IMAGE_TAG -n production
+    - kubectl rollout status deployment/web-app -n production --timeout=5m
+  when: manual
+  only:
+    - tags
+```
+
+## Deployment Strategies
+
+### Blue-Green Deployment
+```yaml
+# GitHub Actions
+- name: Blue-Green Deployment
   run: |
-    echo "::add-mask::${{ secrets.API_KEY }}"
-    echo "API_KEY is set"  # Never echo the actual value
+    # Deploy to green environment
+    kubectl apply -f k8s/green/
+    kubectl rollout status deployment/app-green -n production
 
-# ❌ BAD: Exposing secrets
-- run: echo "API_KEY=${{ secrets.API_KEY }}"  # Will appear in logs!
+    # Run smoke tests
+    npm run test:smoke -- --env=green
+
+    # Switch traffic to green
+    kubectl patch service app -n production -p '{"spec":{"selector":{"version":"green"}}}'
+
+    # Keep blue for rollback
+    echo "Blue environment kept for rollback"
 ```
 
-#### 2. Supply Chain Attacks via Compromised Actions
-
-**Risk**: Third-party GitHub Actions could be malicious or compromised.
-
-**Mitigation**:
+### Canary Deployment
 ```yaml
-# ✅ GOOD: Pin actions to SHA
-- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
-
-# ✅ GOOD: Restrict to specific organization
-permissions:
-  actions: read
-  contents: read
-
-# ❌ BAD: Using latest tag
-- uses: some-org/action@main  # Can change anytime!
-```
-
-#### 3. Insufficient Pipeline Isolation
-
-**Risk**: Jobs accessing resources from other projects or environments.
-
-**Mitigation**:
-```yaml
-# ✅ GOOD: Minimal permissions
-permissions:
-  contents: read
-  packages: write
-
-# ✅ GOOD: Environment-specific secrets
-jobs:
-  deploy-prod:
-    environment: production  # Separate secret scope
-    steps:
-      - name: Deploy
-        run: deploy.sh
-        env:
-          API_KEY: ${{ secrets.PROD_API_KEY }}  # Only available in prod environment
-```
-
-**📚 For comprehensive security guidance** (SAST/DAST integration, secrets management, artifact signing):
-- See [`references/security-gates.md`](/home/user/ai-coding/new-skills/cicd-expert/references/security-gates.md)
-
----
-
-### 5.2 OWASP CI/CD Top 10 Risk Mapping
-
-| Risk ID | Category | Impact | Mitigation |
-|---------|----------|--------|------------|
-| CICD-SEC-1 | Insufficient Flow Control | Critical | Branch protection, required reviews, status checks |
-| CICD-SEC-2 | Inadequate Identity & Access | Critical | OIDC, least privilege, short-lived tokens |
-| CICD-SEC-3 | Dependency Chain Abuse | High | SCA scanning, dependency pinning, SBOM |
-| CICD-SEC-4 | Poisoned Pipeline Execution | Critical | Separate build/deploy, validate inputs |
-| CICD-SEC-5 | Insufficient PBAC | High | Environment protection, manual approvals |
-| CICD-SEC-6 | Insufficient Credential Hygiene | Critical | Secrets scanning, rotation, vault integration |
-| CICD-SEC-7 | Insecure System Configuration | High | Harden runners, network isolation |
-| CICD-SEC-8 | Ungoverned Usage | Medium | Policy as code, compliance gates |
-| CICD-SEC-9 | Improper Artifact Integrity | High | Sign artifacts, verify provenance |
-| CICD-SEC-10 | Insufficient Logging | Medium | Structured logs, audit trails, SIEM integration |
-
-**📚 For detailed OWASP CI/CD security implementation**:
-- See [`references/security-gates.md#owasp-cicd-security`](/home/user/ai-coding/new-skills/cicd-expert/references/security-gates.md)
-
----
-
-## 8. Common Mistakes and Anti-Patterns
-
-### Mistake 1: Overly Permissive Workflow Permissions
-
-```yaml
-# ❌ BAD: Default permissions too broad
-name: CI
-on: [push]
-# Inherits write permissions to everything!
-
-# ✅ GOOD: Explicit minimal permissions
-permissions:
-  contents: read
-  pull-requests: write
-```
-
----
-
-### Mistake 2: Not Using Dependency Caching
-
-```yaml
-# ❌ BAD: Reinstalls dependencies every time
-- run: npm install
-
-# ✅ GOOD: Cache dependencies
-- uses: actions/setup-node@v4
-  with:
-    cache: 'npm'
-- run: npm ci
-```
-
----
-
-### Mistake 3: Hardcoded Environment Values
-
-```yaml
-# ❌ BAD: Hardcoded values
-- name: Deploy
-  run: kubectl apply -f k8s/
-  env:
-    DATABASE_URL: postgresql://prod-db:5432/mydb
-
-# ✅ GOOD: Use secrets and environment-specific configs
-- name: Deploy
-  run: kubectl apply -f k8s/overlays/${{ inputs.environment }}
-  env:
-    DATABASE_URL: ${{ secrets.DATABASE_URL }}
-```
-
----
-
-### Mistake 4: No Timeout Configuration
-
-```yaml
-# ❌ BAD: Job can run forever
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - run: npm run build
-
-# ✅ GOOD: Set reasonable timeouts
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - run: npm run build
-```
-
----
-
-### Mistake 5: Deploying Without Health Checks
-
-```yaml
-# ❌ BAD: Deploy and hope it works
-- name: Deploy
-  run: kubectl apply -f deployment.yml
-
-# ✅ GOOD: Verify deployment health
-- name: Deploy
-  run: kubectl apply -f deployment.yml
-
-- name: Wait for rollout
-  run: kubectl rollout status deployment/myapp --timeout=5m
-
-- name: Health check
+# Deploy canary (10% traffic)
+- name: Deploy Canary
   run: |
-    for i in {1..30}; do
-      if curl -f https://api.example.com/health; then
-        echo "Health check passed"
-        exit 0
-      fi
-      sleep 10
-    done
-    echo "Health check failed"
-    exit 1
+    kubectl apply -f k8s/canary/
+    kubectl set image deployment/app-canary app=$IMAGE_TAG -n production
+
+    # Monitor metrics
+    sleep 300
+
+    # Check error rate
+    ERROR_RATE=$(curl -s "$PROMETHEUS_URL/api/v1/query?query=error_rate" | jq -r '.data.result[0].value[1]')
+
+    if (( $(echo "$ERROR_RATE < 0.01" | bc -l) )); then
+      # Promote canary to stable
+      kubectl set image deployment/app-stable app=$IMAGE_TAG -n production
+      kubectl scale deployment/app-canary --replicas=0 -n production
+    else
+      # Rollback canary
+      kubectl scale deployment/app-canary --replicas=0 -n production
+      exit 1
+    fi
 ```
 
----
-
-### Mistake 6: Not Using Artifact Attestation
-
+### Rolling Deployment
 ```yaml
-# ❌ BAD: No provenance tracking
-- name: Build Docker image
-  run: docker build -t myapp:latest .
-
-# ✅ GOOD: Generate attestation
-- name: Build and attest
-  uses: docker/build-push-action@v5
-  with:
-    context: .
-    push: true
-    tags: myapp:latest
-    provenance: true
-    sbom: true
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2        # Max 2 pods above desired count
+      maxUnavailable: 1  # Max 1 pod unavailable during update
+  template:
+    spec:
+      containers:
+      - name: app
+        image: myapp:v2
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
 ```
 
----
+## Best Practices
 
-### Mistake 7: Exposing Secrets in Pull Request Builds
+### Pipeline Design
+- Keep pipelines fast (< 10 minutes for CI)
+- Fail fast on errors
+- Run tests in parallel
+- Cache dependencies
+- Use matrix builds for multiple versions
+- Separate CI and CD pipelines
+- Make pipelines idempotent
 
-```yaml
-# ❌ BAD: Secrets available to PRs from forks
-on: pull_request
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - run: deploy.sh
-        env:
-          AWS_SECRET: ${{ secrets.AWS_SECRET }}  # Exposed to fork PRs!
+### Security
+- Scan dependencies for vulnerabilities
+- Scan container images
+- Use least privilege for credentials
+- Rotate secrets regularly
+- Sign commits and artifacts
+- Use private registries
+- Implement SBOM generation
 
-# ✅ GOOD: Restrict secrets to specific events
-on:
-  pull_request:
-  push:
-    branches: [main]
+### Artifact Management
+- Use semantic versioning
+- Tag images with git SHA
+- Store artifacts in registries
+- Implement retention policies
+- Generate build manifests
+- Track provenance
 
-jobs:
-  deploy:
-    if: github.event_name == 'push'  # Only on push to main
-    runs-on: ubuntu-latest
-    steps:
-      - run: deploy.sh
-        env:
-          AWS_SECRET: ${{ secrets.AWS_SECRET }}
-```
+### Monitoring & Observability
+- Track build success rate
+- Monitor pipeline duration
+- Alert on failures
+- Log all deployments
+- Track deployment frequency
+- Measure lead time and MTTR
 
----
+## Anti-Patterns to Avoid
 
-### Mistake 8: Ignoring Failed Steps
+❌ **No automated tests**: Deployments without tests are risky
+❌ **Manual deployments**: Automate all deployments
+❌ **Shared credentials**: Use role-based access
+❌ **No rollback strategy**: Always have a rollback plan
+❌ **Long-running pipelines**: Keep pipelines fast
+❌ **Environment drift**: Use IaC for all environments
+❌ **No monitoring**: Track deployment health
+❌ **Direct production access**: Deploy through pipelines only
 
-```yaml
-# ❌ BAD: Continue on error without handling
-- name: Run tests
-  run: npm test
-  continue-on-error: true
+## Resources
 
-# ✅ GOOD: Handle failures explicitly
-- name: Run tests
-  id: tests
-  run: npm test
-  continue-on-error: true
-
-- name: Report test failure
-  if: steps.tests.outcome == 'failure'
-  run: |
-    echo "Tests failed! Creating GitHub issue..."
-    gh issue create --title "Tests failing in ${{ github.sha }}" --body "Check logs"
-```
-
----
-
-## 13. Pre-Implementation Checklist
-
-### Phase 1: Before Writing Code
-
-- [ ] **Write pipeline tests first** - Create workflow that validates expected behavior
-- [ ] **Define security requirements** - List required scans (SAST, SCA, container)
-- [ ] **Plan job dependencies** - Map which jobs can run in parallel
-- [ ] **Identify caching opportunities** - Dependencies, build outputs, Docker layers
-- [ ] **Check existing patterns** - Review reusable workflows in organization
-- [ ] **Verify credentials strategy** - Prefer OIDC over static secrets
-
-### Phase 2: During Implementation
-
-- [ ] **Set explicit permissions** - Never use default write-all permissions
-- [ ] **Pin action versions to SHA** - No `@main` or `@latest` tags
-- [ ] **Configure timeouts** - Default 360 minutes is too long
-- [ ] **Implement caching** - Dependencies, build artifacts, Docker layers
-- [ ] **Add security gates** - SAST/SCA must block deployment
-- [ ] **Use path filters** - Only run jobs affected by changes
-- [ ] **Add health checks** - Verify deployment succeeded
-- [ ] **Implement rollback** - Automated recovery on failure
-- [ ] **Sign artifacts** - Use Sigstore/Cosign for provenance
-- [ ] **Generate SBOM** - Document all dependencies
-
-### Phase 3: Before Committing
-
-- [ ] **Run actionlint** - Validate workflow syntax
-- [ ] **Test with act** - Dry run locally before push
-- [ ] **Verify secrets are masked** - No exposure in logs
-- [ ] **Check branch protection** - Required reviews and status checks
-- [ ] **Review permissions** - Minimal necessary access
-- [ ] **Test in non-production** - Staging environment first
-- [ ] **Document pipeline** - Update runbooks and README
-- [ ] **Set up alerts** - Notify on failures
-
-### Quick Reference
-
-**Pipeline Design**:
-- Use OIDC/Workload Identity instead of static credentials
-- Pin all third-party actions to commit SHA
-- Configure environment protection rules for production
-
-**Security Gates**:
-- Run SAST/SCA/container scanning before allowing merge
-- Scan for secrets in commits and fail pipeline if found
-- Verify artifact signatures before deployment
-
-**Performance**:
-- Cache dependencies and build outputs
-- Use matrix builds for parallel execution
-- Use path filters for monorepo builds
-
-**Observability**:
-- Implement structured logging in all stages
-- Track metrics: build time, success rate, MTTR
-- Integrate with incident management
-
----
-
-## 14. Summary
-
-You are an elite CI/CD pipeline engineer responsible for building secure, efficient, and reliable automation. Your mission is to enable fast, safe deployments while maintaining security and compliance.
-
-**Core Competencies**:
-- **Pipeline Architecture**: Multi-stage workflows, reusable components, optimized execution
-- **Security Integration**: SAST/DAST/SCA, secrets management, artifact signing, supply chain security
-- **Deployment Strategies**: Blue/green, canary, GitOps, automated rollback
-- **Performance Optimization**: Caching, parallelization, incremental builds
-- **Observability**: Metrics, logging, alerting, incident response
-
-**Security Principles**:
-1. **Least Privilege**: Minimal permissions for workflows and service accounts
-2. **Defense in Depth**: Multiple security gates throughout pipeline
-3. **Immutable Artifacts**: Tagged, signed, and verified artifacts
-4. **Audit Everything**: Complete audit trails for compliance
-5. **Fail Securely**: Proper error handling, no secret exposure
-6. **Zero Trust**: Verify every stage, assume breach
-
-**Best Practices**:
-- Pin dependencies and actions to specific versions
-- Use OIDC instead of static credentials
-- Implement proper caching for performance
-- Set timeouts and resource limits
-- Require reviews and approvals for critical changes
-- Test pipelines in non-production environments first
-- Monitor and alert on pipeline health
-- Document pipeline behavior and dependencies
-
-**Deliverables**:
-- Secure, efficient CI/CD pipelines
-- Automated security scanning and gates
-- Comprehensive deployment strategies
-- Pipeline metrics and observability
-- Documentation and runbooks
-- Incident response procedures
-
-**Risk Awareness**: CI/CD pipelines are high-value targets for attackers. A compromised pipeline can lead to supply chain attacks, credential theft, or unauthorized production access. Every security control must be implemented correctly.
-
-Your expertise enables teams to deploy frequently and confidently, knowing that security and quality gates protect production.
+- GitHub Actions: https://docs.github.com/en/actions
+- Jenkins: https://www.jenkins.io/doc/
+- GitLab CI: https://docs.gitlab.com/ee/ci/
+- Argo CD: https://argo-cd.readthedocs.io/
+- Tekton: https://tekton.dev/docs/

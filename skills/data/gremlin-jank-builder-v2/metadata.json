@@ -1,12 +1,7 @@
 {
   "name": "gremlin-jank-builder-v2",
-  "description": "Use this skill when creating next-generation autopoietic Claude skills with enhanced Git-brain integration, adaptive error healing, and emergent pattern recognition. Self-improved version that learned",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "data",
-  "tags": [
-    "gremlin",
-    "jank",
-    "builder"
-  ],
-  "stars": 0
+  "path": ".claude/skills/gremlin-jank-builder-v2/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:27.316480Z"
 }

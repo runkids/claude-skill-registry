@@ -1,12 +1,7 @@
 {
   "name": "cl-asdf-system",
-  "description": "ASDFシステム定義のベストプラクティス。.asdファイル作成・編集時に使用",
   "repo": "cxxxr/.claude",
-  "category": "development",
-  "tags": [
-    "asdf",
-    "system"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cl-asdf-system/SKILL.md",
+  "source": "github.com/cxxxr/.claude",
+  "downloaded_at": "2026-01-22T03:14:21.887252Z"
 }

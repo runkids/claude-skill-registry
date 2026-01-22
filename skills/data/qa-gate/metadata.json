@@ -1,7 +1,7 @@
 {
   "name": "qa-gate",
-  "repo": "resolve-io/.prism",
-  "path": "plugins/prism-devtools/skills/qa-gate/SKILL.md",
-  "source": "github.com/resolve-io/.prism",
-  "downloaded_at": "2026-01-14T03:09:55.293875Z"
+  "repo": "michael-menard/monorepo",
+  "path": ".claude/skills/qa-gate/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-22T03:44:04.387000Z"
 }

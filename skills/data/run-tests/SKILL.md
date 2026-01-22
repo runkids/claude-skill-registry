@@ -1,177 +1,227 @@
 ---
 name: run-tests
-description: Run the test suite and identify new tests needed for recent code changes. Use when verifying changes work correctly or when asked to run tests.
+description: Execute tests with coverage analysis using bmad-commands, identify coverage gaps, and suggest missing tests. This skill should be used for test execution and quality validation.
+acceptance:
+  - tests_executed: "All matching tests successfully executed"
+  - coverage_generated: "Coverage report generated successfully"
+  - gaps_identified: "Coverage gaps analyzed and categorized"
+  - suggestions_provided: "Missing test suggestions provided (if gaps exist)"
+inputs:
+  scope:
+    type: string
+    required: true
+    description: "Test scope: task_id, file_path, or '--all'"
+    validation: "Must be valid task ID, file path, or '--all'"
+  coverage:
+    type: boolean
+    required: false
+    description: "Generate coverage report"
+    default: true
+  framework:
+    type: string
+    required: false
+    description: "Test framework (auto-detect or explicit: jest, pytest, junit, gtest, cargo, go)"
+    default: "auto"
+outputs:
+  tests_passed:
+    type: boolean
+    description: "Whether all tests passed"
+  total_tests:
+    type: number
+    description: "Total number of tests executed"
+  passed_tests:
+    type: number
+    description: "Number of tests that passed"
+  failed_tests:
+    type: number
+    description: "Number of tests that failed"
+  coverage_percent:
+    type: number
+    description: "Overall test coverage percentage"
+  coverage_gaps:
+    type: array
+    description: "List of identified coverage gaps with criticality"
+telemetry:
+  emit: "skill.run-tests.completed"
+  track:
+    - scope
+    - framework
+    - total_tests
+    - passed_tests
+    - failed_tests
+    - coverage_percent
+    - duration_ms
+    - gaps_count
 ---
 
-# Run Tests
+# Run Tests Skill
 
-<role>
-You are a **QA automation assistant** that runs tests, analyzes coverage gaps, and recommends new tests for recent code changes.
-</role>
+## Purpose
 
-<purpose>
-Run the existing test suite and analyze recent code changes to identify what new tests should be written to maintain coverage.
-</purpose>
+Execute tests, generate coverage reports, analyze coverage gaps, and suggest missing tests to improve code quality and test completeness.
 
-<when_to_activate>
-Activate when the user:
-- Says "run tests", "/run-tests", "test", "verify"
-- Asks to verify recent changes
-- Wants to know what tests are needed for new code
-- Asks about test coverage for recent updates
+**Core Capabilities:**
+- Test execution via bmad-commands
+- Coverage report generation and analysis
+- Gap identification with criticality assessment
+- Missing test suggestions with concrete examples
 
-**Trigger phrases:** "run tests", "test", "verify", "check coverage", "what tests"
-</when_to_activate>
+## Prerequisites
 
-## Execution Steps
+- Test framework configured (Jest, Pytest, JUnit, Google Test, Cargo, Go Test, or any custom framework)
+- Tests written for the code being tested
+- bmad-commands skill available at `.claude/skills/bmad-commands/`
+- Project dependencies installed
 
-### Step 1: Run Existing Tests
-
-```bash
-npm run test
-```
-
-Report results:
-- Number of tests passed/failed
-- Any failing test details
-- Test duration
-
-### Step 2: Identify Recent Changes
-
-Check git status and recent commits:
-
-```bash
-git diff --name-only HEAD~5
-git diff --cached --name-only
-git status --porcelain
-```
-
-Focus on:
-- Modified `.tsx` and `.ts` files in `src/`
-- New components or features
-- Changes to existing components
-
-### Step 3: Analyze Test Coverage Gaps
-
-For each changed file, determine if tests exist:
-
-| Source File | Test File Location |
-|-------------|-------------------|
-| `src/components/sections/*.tsx` | `src/tests/design-system/components.test.tsx` |
-| `src/components/case-study/*.tsx` | `src/tests/case-study/case-study.test.tsx` |
-| `src/components/Blog.tsx` | `src/tests/blog/blog-ux-features.test.tsx` |
-| `src/lib/*.ts` | `src/tests/validation/content-validation.test.ts` |
-| Navigation changes | `src/tests/navigation/navigation.test.tsx` |
-| Mobile-specific | `src/tests/mobile/mobile.test.tsx` |
-| Theme/CSS changes | `src/tests/design-system/css-variables.test.ts` |
-
-### Step 4: Recommend New Tests
-
-For each uncovered change, suggest specific tests following the project patterns:
-
-**Test Pattern Template:**
-```tsx
-import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from '../../context/ThemeContext';
-import { VariantProvider } from '../../context/VariantContext';
-import { profile } from '../../lib/content';
-
-const TestWrapper = ({ children }: { children: React.ReactNode }) => (
-    <VariantProvider profile={profile}>
-        <ThemeProvider>{children}</ThemeProvider>
-    </VariantProvider>
-);
-
-describe('[ComponentName]', () => {
-    it('should [expected behavior]', () => {
-        render(
-            <TestWrapper>
-                <ComponentName {...props} />
-            </TestWrapper>
-        );
-
-        expect(/* assertion */).toBe(/* expected */);
-    });
-});
-```
-
-## Output Format
-
-```
-## Test Results
-
-**Status**: ✅ All passing | ❌ X failures
-**Tests**: X passed, X failed, X total
-**Duration**: Xs
-
-### Failures (if any)
-- `test name`: error message
+**Framework Support:**
+- **Auto-detection:** Automatically detects Jest, Pytest, JUnit, GTest, Cargo, Go Test
+- **Explicit:** Specify framework with `--framework <name>`
+- **Custom:** Add custom frameworks via `.claude/config.yaml` (see bmad-commands/FRAMEWORK-EXTENSION-GUIDE.md)
 
 ---
 
-## Recent Changes Analyzed
+## Workflow
 
-| File | Change Type | Has Tests |
-|------|-------------|-----------|
-| src/components/sections/ExperienceSection.tsx | Modified | ✅ Partial |
+### Step 0: Determine Test Scope
+
+**Action:** Parse input and identify which tests to run.
+
+**Scope Types:** Task-based (extract keywords → pattern → find tests), File-based (find corresponding test file), All tests (run all **/*.test.*)
+
+**See:** `references/templates.md#step-0-scope-determination-templates` for complete examples
 
 ---
 
-## Recommended New Tests
+### Step 1: Execute Tests
 
-### 1. [Test Name]
-**File**: `src/tests/[path]/[file].test.tsx`
-**Covers**: [what it tests]
+**Action:** Use bmad-commands to run tests.
 
-```tsx
-[test code suggestion]
-```
+**Execute:** `python .claude/skills/bmad-commands/scripts/run_tests.py --path . --framework auto --output json`
 
-### 2. ...
-```
+**Parse Response:** Extract success, outputs (passed, total_tests, coverage_percent, failures), telemetry, errors
 
-## Test Categories
+**If tests fail:** Report failed tests with details, suggest fixes, do not proceed with coverage analysis
 
-### Component Tests
-- Render without crashing
-- Uses CSS variables (not hardcoded colors)
-- Correct props handling
-- User interactions (clicks, hovers)
-- Accessibility attributes
+**See:** `references/templates.md#step-1-test-execution-templates` for complete response formats and error handling
 
-### Integration Tests
-- Data flows correctly from content files
-- Links render with correct URLs
-- Conditional rendering works
+---
 
-### Responsive Tests
-- Mobile layout differences
-- Tablet breakpoints
-- Desktop behavior
+### Step 2: Generate Coverage Report
 
-## Common Test Assertions
+**Action:** Parse coverage data and generate reports.
 
-```tsx
-// Element exists
-expect(screen.getByText('text')).toBeInTheDocument();
+**Coverage Metrics:** Statements, Branches, Functions, Lines (each with covered/total/percent)
 
-// Has attribute
-expect(element).toHaveAttribute('href', 'url');
+**Generate Report:** Parse coverage JSON, create text table, check thresholds (≥80% for each metric)
 
-// CSS variable usage
-expect(element?.style.color).toContain('var(--color-');
+**See:** `references/templates.md#step-2-coverage-report-templates` for complete formats and threshold checking
 
-// Link behavior
-expect(link).toHaveAttribute('target', '_blank');
-expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-```
+---
 
-## File Locations
+### Step 3: Analyze Coverage Gaps
 
-| Purpose | Path |
-|---------|------|
-| Run tests | `npm run test` |
-| Watch mode | `npm run test:watch` |
-| Design system only | `npm run test:design-system` |
-| Test config | `vitest.config.ts` (if exists) or `vite.config.ts` |
-| Test setup | `src/tests/setup.ts` (if exists) |
+**Action:** Identify uncovered code and categorize by criticality.
+
+**Gap Categories:** Error Handling (High), Edge Cases (Medium), Rare Branches (Low)
+
+**Criticality Levels:**
+- **Critical:** Security, payments, data deletion, auth (Must Test)
+- **High:** Error handling, business logic, state transitions (Should Test)
+- **Medium:** Logging, non-critical errors, minor edge cases (Nice to Test)
+- **Low:** Debug code, dev-only code, trivial getters (Optional)
+
+**See:** `references/templates.md#step-3-gap-analysis-templates` for complete examples and assessment criteria
+
+---
+
+### Step 4: Suggest Missing Tests
+
+**Action:** Generate concrete test suggestions for coverage gaps.
+
+**For each gap:** File/line, criticality, reason, concrete test example
+
+**Prioritization:** Focus on HIGH (3-5 suggestions), then MEDIUM (2-3), LOW optional
+
+**See:** `references/templates.md#step-4-test-suggestion-templates` for complete suggestion formats with test code
+
+---
+
+### Step 5: Present Summary
+
+**Action:** Provide comprehensive test execution summary.
+
+**Summary Includes:**
+- Scope, framework, duration, test results (passed/failed/total)
+- Coverage report with thresholds (statements, branches, functions, lines)
+- Coverage gaps categorized by priority (CRITICAL/HIGH/MEDIUM/LOW)
+- Test suggestions with estimated time and coverage gain
+- Next steps and recommendations
+
+**See:** `references/templates.md#step-5-complete-summary-templates` for formatted output examples
+
+---
+
+## Output
+
+Return structured JSON with test results, coverage data, gaps array (file, lines, criticality, category), test suggestions, and telemetry
+
+**See:** `references/templates.md#complete-json-output-format` for full structure
+
+---
+
+## Error Handling
+
+**No tests found:** Verify test files exist, check scope pattern | **Tests failing:** Report failures with details, suggest fixes | **Coverage below threshold:** Identify gaps, suggest missing tests | **Framework not configured:** Verify installation and configuration
+
+**See:** `references/templates.md#error-templates` for complete error messages and solutions
+
+---
+
+## Common Scenarios
+
+**Tests passing + good coverage (≥80%):** Report success, highlight optional improvements | **Tests passing + low coverage (<80%):** Identify critical gaps, suggest HIGH priority tests | **Tests failing:** Report failures, suggest fixes, do not proceed with coverage analysis
+
+---
+
+## Best Practices
+
+Run tests frequently | Prioritize quality over coverage % | Test what matters (business logic, errors, edge cases) | Keep tests fast (mock dependencies) | Use meaningful test names
+
+**See:** `references/best-practices.md` for detailed testing best practices
+
+---
+
+## Routing Guidance
+
+**Use this skill when:**
+- Need to execute tests for implemented code
+- Need coverage analysis
+- Want to identify test gaps
+- Need to validate implementation quality
+
+**Always use after:**
+- Feature implementation (`implement-feature`)
+- Bug fixes (`fix-bug`)
+- Code refactoring (`refactor-code`)
+
+**Before:**
+- Creating pull requests
+- Deploying to production
+- Code reviews
+
+---
+
+## Reference Files
+
+Detailed documentation in `references/`:
+
+- **templates.md**: All output formats, complete examples, JSON structures, CI/CD integration
+- **test-execution-guide.md**: Test configuration and execution details
+- **coverage-analysis-guide.md**: Coverage parsing and threshold checking
+- **gap-analysis-guide.md**: Analyzing uncovered code and categorization
+- **test-suggestions.md**: Missing test suggestion templates
+- **best-practices.md**: Testing and coverage best practices
+
+---
+
+*Part of BMAD Enhanced Development Suite*

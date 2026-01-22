@@ -1,7 +1,7 @@
 {
   "name": "llm-evaluation",
-  "repo": "camoneart/claude-code",
-  "path": "skills/llm-evaluation/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:36:59.673179Z"
+  "repo": "apassuello/multimodal_insight_engine",
+  "path": ".claude/skills/llm-evaluation/SKILL.md",
+  "source": "github.com/apassuello/multimodal_insight_engine",
+  "downloaded_at": "2026-01-22T04:12:15.116974Z"
 }

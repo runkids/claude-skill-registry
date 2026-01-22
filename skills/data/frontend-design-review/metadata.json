@@ -1,9 +1,7 @@
 {
   "name": "frontend-design-review",
-  "description": "Design principles and review methodology for UI/UX work. Use when building new interfaces, reviewing visual changes, or validating design quality. Contains best practices for visual polish, accessibil",
-  "repo": "petbrains/mvp-builder",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "DauQuangThanh/hanoi-rainbow",
+  "path": "skills/frontend-design-review/SKILL.md",
+  "source": "github.com/DauQuangThanh/hanoi-rainbow",
+  "downloaded_at": "2026-01-22T02:21:59.059556Z"
 }

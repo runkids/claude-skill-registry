@@ -1,303 +1,307 @@
 ---
 name: skill-builder
-description: Create new Claude Code agent skills. Automatically analyzes requirements and generates complete skill with proper structure, triggers, and tools. Use when you want to "create a skill", "build a new skill", "make a skill for", or automate repetitive tasks.
-allowed-tools: Read, Write, Glob, Bash
+description: Create new Claude Code skills with proper SKILL.md format, frontmatter, and best practices. Use when building, scaffolding, or generating a new skill for Claude Code.
+allowed-tools: Read, Write, Glob, Grep, Bash
+metadata:
+  author: mineflayer-bedrock
+  version: "1.0"
 ---
 
-# Skill Builder
+# Claude Code Skill Builder
 
-Autonomously create new Claude Code agent skills with intelligent analysis and generation.
+Create well-structured Claude Code skills that follow best practices and the Agent Skills specification.
 
-## When to Activate
+## Quick Start
 
-- "create a skill for...", "build a new skill"
-- "make a skill that...", "I need a skill to..."
-- "generate a skill for..."
+1. **Choose skill location**: Project (`.claude/skills/`) or Personal (`~/.claude/skills/`)
+2. **Create directory**: `{location}/{skill-name}/`
+3. **Generate SKILL.md** using template below
+4. **Add supporting files** (scripts, references, assets) as needed
+5. **Test the skill** by asking Claude to perform matching tasks
 
-## Autonomous Creation Process
+## SKILL.md Template
 
-### Step 1: Analyze User Request
-
-**Automatically infer from the request:**
-
-1. **Task Type Detection**:
-   - Review/Check → Code Review Skill (Read, Grep, Glob)
-   - Generate/Create → Code Generator (Read, Write, Glob)
-   - Analyze/Report → Analyzer (Read, Grep, Glob, Bash)
-   - Refactor/Improve → Refactoring Assistant (Read, Write, Grep, Glob)
-   - Test → Test Assistant (Read, Write, Bash)
-   - Document → Documentation Generator (Read, Write, Glob)
-
-2. **Skill Name Derivation**:
-   - Extract key technology/concept from request
-   - Format: `[technology]-[action]` (e.g., "check iOS performance" → `ios-performance-check`)
-   - Keep lowercase with hyphens, max 64 chars
-
-3. **Trigger Keywords Extraction**:
-   - Parse user's language for natural phrases
-   - Add common variations and synonyms
-   - Include file type mentions if applicable
-
-4. **Tool Requirements**:
-   - Read-only tasks → `Read, Grep, Glob`
-   - Generation tasks → `Read, Write, Glob`
-   - Command/build tasks → `Read, Write, Bash`
-   - Complex workflows → No restrictions
-
-5. **Output Format Selection**:
-   - Review/Check → Report with issues and fixes
-   - Generate → File creation confirmation with examples
-   - Analyze → Metrics report with visualizations
-   - Refactor → Proposal with before/after
-   - Test → Test results and coverage report
-   - Document → Generated documentation preview
-
-### Step 2: Smart Question Strategy
-
-**Only ask if truly ambiguous:**
-- Multiple valid approaches? → Ask which approach
-- Unclear scope? → Ask for scope clarification
-- Critical choices? → Ask for user preference
-
-**Never ask if inferable:**
-- Skill name → Auto-generate from request
-- Basic tools → Auto-select based on task type
-- Common triggers → Auto-generate from context
-- Output format → Auto-select based on skill type
-
-### Step 3: Auto-Generate Skill Structure
-
-**Automatically create complete skill with:**
-
-#### Auto-Generated Skill Name
-Format: `[technology]-[action]`
-Examples:
-- "check iOS naming" → `ios-naming-check`
-- "generate React component" → `react-component-generator`
-- "analyze dependencies" → `dependency-analyzer`
-
-#### Auto-Generated Description
-Template:
-```
-[Verb] [what] [context]. [Specifics]. Use when [trigger1], [trigger2], "[quoted phrases]", or [patterns].
-```
-
-Auto-include:
-- Specific action extracted from request
-- What it checks/generates/analyzes
-- Trigger phrases derived from user's language
-- File types if mentioned
-- Natural language variations
-
-#### Auto-Selected Tools
-Based on detected task type:
-- Review/Check → `Read, Grep, Glob`
-- Generate → `Read, Write, Glob`
-- Analyze with commands → `Read, Grep, Glob, Bash`
-- Refactor → `Read, Write, Grep, Glob`
-- Test with execution → `Read, Write, Bash`
-
-#### Auto-Generated Content Structure
-
-Select appropriate template based on task type (from templates.md):
-- Code Review → Template 1
-- Code Generator → Template 2
-- Analyzer/Reporter → Template 3
-- Refactoring Assistant → Template 4
-- Test Assistant → Template 5
-- Documentation Generator → Template 6
-
-Populate template with:
-- Auto-generated name, description, tools
-- Task-specific process steps
-- Relevant output format
-- Examples from similar skills (from examples.md)
-
-### Step 4: Generate and Validate
-
-**Auto-create directory structure:**
-```bash
-mkdir -p .claude/skills/[auto-generated-name]
-```
-
-**Auto-generate files:**
-
-1. **`SKILL.md`** (Required, Concise)
-   - Frontmatter (name, description, allowed-tools)
-   - When to Activate (trigger phrases)
-   - Process steps (core workflow)
-   - Output format (template structure)
-   - Keep under 150 lines - core instructions only!
-
-2. **`templates.md`** (Optional, for code/structure templates)
-   - Code templates
-   - File structure templates
-   - Boilerplate examples
-   - Use when skill generates code or files
-
-3. **`examples.md`** (Optional, for detailed examples)
-   - Real-world usage examples
-   - Before/after code samples
-   - Complex scenarios
-   - Use when skill needs detailed guidance
-
-4. **`standards.md`** (Optional, for rules/guidelines)
-   - Coding standards
-   - Naming conventions
-   - Best practices
-   - Reference documentation
-   - Use when skill enforces specific rules
-
-**Separation principle:**
-- SKILL.md = Concise instructions (what to do, how to do it)
-- Separate files = Supporting details (templates, examples, references)
-
-**Auto-validate:**
-- ✓ Valid YAML frontmatter with `---` delimiters
-- ✓ Name lowercase with hyphens
-- ✓ Description specific with quoted triggers
-- ✓ Tools appropriate for task type
-- ✓ Process steps clear and actionable
-- ✓ SKILL.md concise (under 150 lines)
-- ✓ Extra content moved to separate files
-
-### Step 5: Present and Test
-
-**Show user:**
-```markdown
-✅ Created skill: [name]
-
-📁 Location: `.claude/skills/[name]/SKILL.md`
-
-🎯 Try these phrases:
-- "[trigger phrase 1]"
-- "[trigger phrase 2]"
-- "[trigger phrase 3]"
-
-📖 Description: [generated description]
-```
-
-## Quick Reference: Task Types
-
-| Type | Tools | Output | Example Name |
-|------|-------|--------|--------------|
-| Review | Read, Grep, Glob | Issues report | `security-review` |
-| Generator | Read, Write, Glob | New files | `component-generator` |
-| Analyzer | Read, Grep, Glob, Bash | Metrics report | `dependency-analyzer` |
-| Refactor | Read, Write, Grep, Glob | Modified files | `extract-method` |
-| Test | Read, Write, Bash | Test results | `test-runner` |
-| Document | Read, Write, Glob | Documentation | `api-docs-generator` |
-
-## Auto-Generation Examples
-
-### Example 1: User says "create a skill to check TODO comments"
-**Auto-analysis:**
-- Task type: Review (check/find)
-- Name: `todo-finder`
-- Tools: `Read, Grep, Glob`
-- Triggers: "find todos", "check todos", "show todos", "list fixmes"
-- Output: Report organized by priority
-
-**Action:** Auto-generate complete skill, create files, show confirmation
-
-### Example 2: User says "I need to generate React components"
-**Auto-analysis:**
-- Task type: Generator (create/generate)
-- Name: `react-component-generator`
-- Tools: `Read, Write, Glob`
-- Triggers: "create component", "generate component", "new component"
-- Output: Component files with tests
-
-**Action:** Auto-generate complete skill, create files, show confirmation
-
-### Example 3: User says "make a skill for iOS performance issues"
-**Auto-analysis:**
-- Task type: Analyzer (check performance)
-- Name: `ios-performance-check`
-- Tools: `Read, Grep, Glob, Bash`
-- Triggers: "check performance", "performance issues", "slow code"
-- Output: Performance report with fixes
-
-**Action:** Auto-generate complete skill, create files, show confirmation
-
-## Standard Workflow
-
-When user requests a skill:
-
-1. **Analyze** request → Detect task type, extract key concepts
-2. **Generate** skill name, description, triggers automatically
-3. **Select** appropriate template and tools
-4. **Create** `.claude/skills/[name]/SKILL.md` with complete content
-5. **Validate** frontmatter, structure, triggers
-6. **Present** summary with test phrases
-
-**No questions asked unless truly ambiguous!**
-
-## Creation Output Format
-
-After auto-generating skill, show:
+Create file at: `{location}/{skill-name}/SKILL.md`
 
 ```markdown
-✅ Skill Created: [name]
-
-📁 Files created:
-  - `.claude/skills/[name]/SKILL.md` (core instructions)
-  - `.claude/skills/[name]/templates.md` (if applicable)
-  - `.claude/skills/[name]/examples.md` (if applicable)
-  - `.claude/skills/[name]/standards.md` (if applicable)
-
-🔧 Type: [task-type]
-🛠️  Tools: [tool-list]
-📄 Lines: [line-count] (SKILL.md is concise!)
-
-🎯 Test with these phrases:
-- "[natural trigger 1]"
-- "[natural trigger 2]"
-- "[natural trigger 3]"
-
-📖 Full description:
-[Generated description with all triggers]
-
-✅ Ready to use! Try one of the test phrases above.
-```
-
-## Internal References
-
-Use these for generation (don't show to user):
-- **templates.md**: 6 skill templates for different task types
-- **examples.md**: 5 complete real-world examples
-- **Official documentation**: https://code.claude.com/docs/en/skills
-
-## Key Principles
-
-1. **Be autonomous**: Infer everything possible from the user's request
-2. **Ask minimally**: Only ask if genuinely ambiguous (approach, scope, critical choices)
-3. **Generate completely**: Create full SKILL.md with all sections
-4. **Validate automatically**: Check frontmatter, structure, triggers before presenting
-5. **Present clearly**: Show what was created and how to test it
-
-## Important Rules
-
-### Auto-Generation
-- **Auto-generate** skill name from request (lowercase-with-hyphens)
-- **Auto-detect** task type to select template and tools
-- **Auto-extract** trigger phrases from user's language
-- **Auto-create** description with specific triggers in quotes
-- **Auto-select** appropriate tools based on task type
-
-### Quality Standards
-- **No generic names**: Always use specific technology/action names
-- **No vague descriptions**: Always include specific triggers and file types
-- **Valid YAML**: Always use `---` delimiters and proper frontmatter format
-  - `allowed-tools` must be comma-separated (e.g., `Read, Write, Glob`) not array format
-
-### File Organization
-- **SKILL.md must be concise**: Under 150 lines, core instructions only
-- **Separate templates**: Move code templates to `templates.md`
-- **Separate examples**: Move detailed examples to `examples.md`
-- **Separate standards**: Move rules/guidelines to `standards.md`
-- **Clear separation**: Instructions in SKILL.md, details in other files
-
+---
+name: your-skill-name
+description: Clear description of what this skill does (max 200 chars). Include trigger keywords users would naturally say.
+allowed-tools: Read, Write, Glob, Grep, Bash
+metadata:
+  author: your-name
+  version: "1.0"
 ---
 
-**Ready for autonomous skill generation!** Just tell me what skill you need.
+# Your Skill Name
+
+Brief overview of the skill's purpose.
+
+## When to use
+
+- Trigger condition 1
+- Trigger condition 2
+- Trigger condition 3
+
+## When NOT to use
+
+- Exclusion condition 1
+- Exclusion condition 2
+
+## Instructions
+
+Step-by-step guidance for completing the workflow:
+
+1. **First step**: Description
+2. **Second step**: Description
+3. **Third step**: Description
+
+## Examples
+
+### Example 1: [Scenario Name]
+
+**Input**: User says "..."
+
+**Output**: Claude does...
+
+## Common mistakes to avoid
+
+- Mistake 1 and how to prevent it
+- Mistake 2 and how to prevent it
+
+## References
+
+| Resource | Location |
+|----------|----------|
+| Documentation | `references/docs.md` |
+| API Reference | `references/api.md` |
+```
+
+## Frontmatter Reference
+
+### Required Fields
+
+| Field | Constraints | Purpose |
+|-------|-------------|---------|
+| `name` | Max 64 chars, lowercase, hyphens only | Unique identifier (must match directory name) |
+| `description` | Max 200 chars, non-empty | **Critical** - Claude uses this to decide when to invoke |
+
+### Optional Fields
+
+| Field | Purpose | Example |
+|-------|---------|---------|
+| `license` | License type | `Apache-2.0`, `MIT` |
+| `allowed-tools` | Pre-approved tools | `Read, Write, Glob, Grep, Bash` |
+| `compatibility` | Environment requirements | `node >= 18, unix` |
+| `metadata` | Custom key-value pairs | `author: name`, `version: "1.0"` |
+
+## Directory Structure
+
+```
+skill-name/
+├── SKILL.md           # Required - Core instructions (<500 lines)
+├── scripts/           # Optional - Executable code (Python/Bash)
+│   └── helper.py
+├── references/        # Optional - Documentation loaded into context
+│   ├── api.md
+│   └── schema.md
+└── assets/            # Optional - Templates, config files
+    └── template.json
+```
+
+### File Purposes
+
+| Folder | Purpose | Loading |
+|--------|---------|---------|
+| `SKILL.md` | Core instructions | Always (when skill activates) |
+| `scripts/` | Repeatable automation | Executed on demand |
+| `references/` | Extended documentation | Read into context on demand |
+| `assets/` | Templates and resources | Used for output generation |
+
+## Writing Effective Descriptions
+
+The description is **critical** - it determines whether Claude activates your skill.
+
+### Good Description Pattern
+
+```
+[What it does] + [When to use it with trigger keywords]
+```
+
+### Examples
+
+**Good:**
+```yaml
+description: Extract text and tables from PDF files, fill forms, merge documents. Use when working with PDFs, forms, or document extraction.
+```
+
+**Good:**
+```yaml
+description: Generate TypeScript API clients from OpenAPI specs. Use when creating SDK, API wrapper, or client code from swagger/openapi files.
+```
+
+**Bad:**
+```yaml
+description: Helps with PDFs.
+```
+
+**Bad:**
+```yaml
+description: A utility for API work.
+```
+
+## Best Practices
+
+### Keep SKILL.md Concise
+
+- Target under 500 lines (~5,000 tokens)
+- Move detailed documentation to `references/`
+- Use tables and bullet points over prose
+
+### Define Clear Boundaries
+
+Always include both:
+- **When to use**: Positive triggers
+- **When NOT to use**: Negative boundaries to prevent over-activation
+
+### Use Relative Paths
+
+Reference files using paths relative to skill root:
+- `scripts/extract.py`
+- `references/api-docs.md`
+- `assets/template.html`
+
+### Security
+
+- Never hardcode secrets, API keys, or passwords
+- Audit scripts from untrusted sources
+- Use environment variables for sensitive config
+
+## Skill vs MCP Server
+
+| Feature | Skills | MCP Servers |
+|---------|--------|-------------|
+| Purpose | **How** to do something | **Access** to something |
+| Contains | Instructions, templates | Tools, resources |
+| Loading | On-demand (progressive) | Upfront |
+| Best for | Workflows, standards | Data access, APIs |
+
+A skill can orchestrate multiple MCP servers. Use skills for workflow logic and MCP for connectivity.
+
+## Testing Checklist
+
+1. [ ] Directory name matches `name` in frontmatter
+2. [ ] Description includes trigger keywords
+3. [ ] SKILL.md under 500 lines
+4. [ ] All file references use relative paths
+5. [ ] When/When NOT sections are clear
+6. [ ] Examples demonstrate expected behavior
+7. [ ] Restart Claude Code to load new skill
+8. [ ] Test with natural language matching description
+
+## Example: Complete Skill
+
+### code-review Skill
+
+```markdown
+---
+name: code-review
+description: Review code for bugs, security issues, and best practices. Use when reviewing PRs, checking code quality, or auditing implementations.
+allowed-tools: Read, Glob, Grep
+metadata:
+  author: team
+  version: "1.0"
+---
+
+# Code Review
+
+Systematic code review following team standards.
+
+## When to use
+
+- Reviewing pull requests
+- Checking code before commit
+- Auditing security-sensitive code
+- Evaluating code quality
+
+## When NOT to use
+
+- Simple typo fixes (just fix them)
+- Understanding code (use exploration instead)
+- Writing new code (use appropriate coding skill)
+
+## Review Checklist
+
+### Security
+- [ ] No hardcoded secrets
+- [ ] Input validation present
+- [ ] SQL injection prevention
+- [ ] XSS prevention
+
+### Code Quality
+- [ ] Functions under 50 lines
+- [ ] Clear naming conventions
+- [ ] Error handling present
+- [ ] No dead code
+
+### Testing
+- [ ] Unit tests for new functions
+- [ ] Edge cases covered
+- [ ] Integration tests if needed
+
+## Output Format
+
+Provide findings as:
+
+| Severity | File:Line | Issue | Suggestion |
+|----------|-----------|-------|------------|
+| High | src/auth.ts:42 | Hardcoded API key | Use env variable |
+| Medium | src/user.ts:15 | Missing null check | Add optional chaining |
+```
+
+## Documentation Links
+
+| Resource | URL |
+|----------|-----|
+| Skills Overview | https://code.claude.com/docs/en/skills |
+| Creating Skills | https://support.claude.com/en/articles/12512198 |
+| Agent Skills Spec | https://github.com/anthropics/skills/blob/main/agent_skills_spec.md |
+| Template Skill | https://github.com/anthropics/skills/tree/main/template-skill |
+| Best Practices | https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills |
+
+## Common Patterns
+
+### Workflow Skill
+
+For multi-step processes:
+```markdown
+## Workflow
+
+1. **Gather**: Collect required information
+2. **Validate**: Check prerequisites
+3. **Execute**: Perform main action
+4. **Verify**: Confirm success
+```
+
+### Template Skill
+
+For generating files:
+```markdown
+## Template Usage
+
+1. Copy template from `assets/template.ext`
+2. Replace placeholders: `{{name}}`, `{{date}}`
+3. Save to destination
+```
+
+### Integration Skill
+
+For connecting services:
+```markdown
+## Integration Steps
+
+1. Check MCP server is connected
+2. Authenticate if needed
+3. Call required endpoints
+4. Transform response
+```

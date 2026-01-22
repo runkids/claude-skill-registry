@@ -46,7 +46,23 @@ Determine the content:
 uv run python scripts/highlights.py add "Title Here" "Description of what's interesting, max 280 chars." --type new-article --link "[[article-name]]"
 ```
 
-### 4. Verify Addition
+### 4. Post to Twitter (Optional)
+
+If Twitter is configured (credentials in `.env`), add the `--tweet` flag:
+
+```bash
+uv run python scripts/highlights.py add "Title" "Description" --type new-article --link "[[article]]" --tweet
+```
+
+To test formatting without posting:
+
+```bash
+uv run python scripts/highlights.py add "Title" "Description" --type new-article --link "[[article]]" --tweet --dry-run
+```
+
+**Note:** Twitter posting is optional. If credentials aren't configured, the highlight is added and a warning is logged. Twitter failures never block highlight creation.
+
+### 5. Verify Addition
 
 The CLI will confirm success or report rate limiting.
 
@@ -56,7 +72,7 @@ The CLI will confirm success or report rate limiting.
 - Genuinely interesting to a general audience
 - Understandable without deep context
 - Engaging enough to click through
-- Connected to the site's philosophical mission
+- Connected to The Unfinishable Map's philosophical mission
 
 **Skip these (not highlight-worthy):**
 - Routine maintenance (validate-all, check-links)

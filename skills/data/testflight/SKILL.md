@@ -1,264 +1,363 @@
 ---
 name: testflight
-description: TestFlight and App Store distribution guide. Use when preparing app for TestFlight, creating production builds, or submitting to App Store Connect.
+description: Build and upload visionOS/iOS/macOS apps to TestFlight via App Store Connect API. Handles archive, export, and upload workflow with rsync bug workaround. Use when deploying to TestFlight or App Store Connect.
 ---
 
-# TestFlight & App Store Distribution
+# TestFlight Upload Skill
 
-## Prerequisites
+Build, export, and upload visionOS/iOS/macOS apps to TestFlight using App Store Connect API.
 
-- Apple Developer Program membership ($99/year)
-- Xcode installed
-- EAS CLI installed: `npm install -g eas-cli`
-- Expo account: `eas login`
-
-## Build Profiles (eas.json)
-
-```json
-{
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal",
-      "ios": {
-        "simulator": false
-      }
-    },
-    "production": {
-      "ios": {
-        "buildConfiguration": "Release"
-      }
-    }
-  },
-  "submit": {
-    "production": {
-      "ios": {
-        "appleId": "your-apple-id@example.com",
-        "ascAppId": "your-app-store-connect-app-id"
-      }
-    }
-  }
-}
-```
-
-## Environment Variables for Production
+## Quick Start
 
 ```bash
-# mobile/.env.production
-EXPO_PUBLIC_SIGNALING_SERVER_URL=https://webrtc-signaling-xxxx.onrender.com
+# Full build + upload for internal testing (default)
+~/.pi/agent/skills/testflight/upload.sh <project_name> <scheme_name>
+
+# Full build + upload for App Store submission
+~/.pi/agent/skills/testflight/upload.sh <project_name> <scheme_name> --appstore
+
+# Upload existing IPA only (skip archive/export)
+~/.pi/agent/skills/testflight/upload.sh --upload-only <scheme_name>
 ```
 
-## Build Commands
+### Examples
 
 ```bash
-cd mobile
+# Internal testing only (default) - works in TestFlight, NOT selectable for App Store
+~/.pi/agent/skills/testflight/upload.sh PfizerOutdoCancer PfizerOutdoCancer
 
-# Configure EAS (first time)
-eas build:configure
+# App Store distribution - works in TestFlight AND selectable for App Store submission
+~/.pi/agent/skills/testflight/upload.sh PfizerOutdoCancer PfizerOutdoCancer --appstore
 
-# Development build (for testing)
-eas build --platform ios --profile development
+# Upload only - if IPA/PKG already exists at ~/Desktop/<scheme>_Export/
+~/.pi/agent/skills/testflight/upload.sh --upload-only PfizerOutdoCancer
 
-# Preview build (internal distribution)
-eas build --platform ios --profile preview
-
-# Production build (App Store)
-eas build --platform ios --profile production
-
-# Submit to App Store Connect
-eas submit --platform ios --latest
+# macOS app (Media Server) - run from repo root, not subdirectory!
+cd /path/to/groovetech-media-server
+~/.pi/agent/skills/testflight/upload.sh GrooveTechMediaServer "GrooveTech Media Server" --appstore macos
 ```
 
-## TestFlight Distribution Steps
+Credentials are auto-loaded from `~/.config/testflight/credentials.env`.
 
-1. **Create Production Build**
+## Distribution Modes
+
+| Mode | Flag | TestFlight | App Store Submission |
+|------|------|------------|---------------------|
+| Internal Only | (default) | ✅ Works | ❌ NOT selectable |
+| App Store | `--appstore` | ✅ Works | ✅ Selectable |
+
+**Use Internal Only (default)** for regular testing - faster iteration, no review needed.
+
+**Use `--appstore`** when you're ready to submit to the App Store - build will be selectable in the "Build" section of your App Store version.
+
+## ⚠️ Timeout Warning for Large Apps
+
+**Upload of large IPAs (1GB+) takes 15-30 minutes.** This exceeds typical agent command timeouts.
+
+**Recommended workflow for large apps:**
+
+1. Run full script via agent (archive + export will complete):
    ```bash
-   eas build --platform ios --profile production
+   ~/.pi/agent/skills/testflight/upload.sh PfizerOutdoCancer PfizerOutdoCancer
+   ```
+   (Let it timeout on upload step - IPA is already created)
+
+2. Complete upload manually in terminal:
+   ```bash
+   ~/.pi/agent/skills/testflight/upload.sh --upload-only PfizerOutdoCancer
    ```
 
-2. **Submit to App Store Connect**
-   ```bash
-   eas submit --platform ios
-   ```
+The `--upload-only` flag skips rebuild and directly uploads the existing IPA from `~/Desktop/<scheme>_Export/`.
 
-3. **Configure in App Store Connect**
-   - Go to https://appstoreconnect.apple.com
-   - Select app → TestFlight tab
-   - Wait for build processing (5-30 minutes)
-   - Add test information if required
+## Important: The Correct Upload Workflow
 
-4. **Add Testers**
-   - Internal testers: Up to 100 (Apple Developer team members)
-   - External testers: Up to 10,000 (requires brief review)
+**DO NOT upload archives directly.** The workflow is:
 
-5. **Tester Installation**
-   - Testers receive email invitation
-   - Install TestFlight app from App Store
-   - Open invitation link → Install app
+1. **Archive** → Build `.xcarchive`
+2. **Export** → Convert to `.ipa` with App Store signing
+3. **Upload** → Send `.ipa` to App Store Connect
 
-## App Store Submission Checklist
+The export step is critical because:
+- Re-signs the app for App Store distribution
+- Creates proper IPA structure with Payload directory
+- Works around macOS rsync bug (set `uploadSymbols=false`)
 
-- [ ] App icons (all required sizes)
-- [ ] Screenshots for required device sizes
-- [ ] App description and keywords
-- [ ] Privacy policy URL
-- [ ] Support URL
-- [ ] Age rating questionnaire
-- [ ] Export compliance information
-- [ ] Production environment variables set
+## Credentials
 
-## Common Issues
+**Location:** `~/.config/testflight/credentials.env`
 
-| Issue | Solution |
-|-------|----------|
-| Build fails with signing error | Check Apple Developer certificates in Xcode |
-| "Missing compliance" | Complete export compliance in App Store Connect |
-| Build stuck in processing | Wait up to 30 minutes, or rebuild |
-| TestFlight invite not received | Check spam folder, verify email address |
-
-## EAS Build Troubleshooting
-
-### npm workspaces との競合
-
-**問題**: `npm ci can only install packages when your package.json and package-lock.json are in sync`
-
-**原因**: npm workspacesを使用しているモノレポ構成では、子ディレクトリ（mobile/）に独立したpackage-lock.jsonが生成されない。EAS Buildは`npm ci`を使用するため、package-lock.jsonが必要。
-
-**解決方法**:
-```json
-// root package.json - mobile を workspaces から除外
-{
-  "workspaces": [
-    "web",
-    "server"
-    // "mobile" を削除
-  ]
-}
-```
-
-その後、mobile/ で独立した package-lock.json を生成:
 ```bash
-cd mobile
-rm -rf node_modules package-lock.json
-npm install
+TESTFLIGHT_API_KEY_ID="KPQ86W6JWV"
+TESTFLIGHT_ISSUER_ID="69a6de8c-f4be-47e3-e053-5b8c7c11a4d1"
+TESTFLIGHT_TEAM_ID="UTK59YE75G"
 ```
 
-### ⚠️ TestFlight アプリが起動直後にクラッシュする（最重要）
+**API Key files:** `~/.appstoreconnect/private_keys/AuthKey_<KEY_ID>.p8`
 
-**症状**: EAS Build は成功、App Store Connect に提出成功、TestFlight からインストール成功、しかしアプリを開くと即座にクラッシュ。
+## The Three Steps (Manual)
 
-**原因**: Expo SDK 54 と互換性のない依存関係バージョンを使用している。
+### Step 1: Build Archive
 
-**確認方法**:
 ```bash
-npx expo install --check
+xcodebuild -project YourApp.xcodeproj \
+  -scheme YourApp \
+  archive \
+  -archivePath ~/Desktop/YourApp.xcarchive \
+  -destination 'generic/platform=visionOS'
 ```
 
-**解決方法**: 以下のバージョンに厳密に合わせる:
-```json
-{
-  "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-native-gesture-handler": "~2.28.0",
-    "react-native-safe-area-context": "~5.6.0",
-    "react-native-screens": "~4.16.0"
-  }
-}
+**Success:** `** ARCHIVE SUCCEEDED **`
+
+### Step 2: Export to IPA
+
+Create `ExportOptions.plist` (**uploadSymbols must be false** for rsync bug):
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>compileBitcode</key>
+    <false/>
+    <key>destination</key>
+    <string>export</string>
+    <key>method</key>
+    <string>app-store</string>
+    <key>signingStyle</key>
+    <string>automatic</string>
+    <key>stripSwiftSymbols</key>
+    <true/>
+    <key>teamID</key>
+    <string>UTK59YE75G</string>
+    <key>testFlightInternalTestingOnly</key>
+    <true/>
+    <key>uploadSymbols</key>
+    <false/>
+</dict>
+</plist>
 ```
 
-**注意**: `react@19.2.1` など推奨より新しいバージョンを使うと、開発ビルドでは動作するが**本番ビルドでクラッシュ**する。
+> **Note:** Set `testFlightInternalTestingOnly` to `true` for internal testing only (build won't be selectable for App Store). Remove this key or set to `false` for App Store submission builds.
 
-バージョン修正後:
 ```bash
-rm -rf node_modules package-lock.json
-npm install
-eas build --platform ios --profile production
+xcodebuild -exportArchive \
+  -archivePath ~/Desktop/YourApp.xcarchive \
+  -exportOptionsPlist ~/Desktop/ExportOptions.plist \
+  -exportPath ~/Desktop/YourApp_Export \
+  -allowProvisioningUpdates
 ```
 
-### expo-router のピア依存関係
+**Success:** `** EXPORT SUCCEEDED **`
 
-**問題**: `Unable to find a specification for RNScreens depended upon by ExpoHead`
+### Step 3: Upload IPA
 
-**原因**: expo-router は react-native-screens などのピア依存関係を必要とするが、明示的にインストールされていない。
-
-**解決方法**: mobile/package.json に以下を追加:
-```json
-{
-  "dependencies": {
-    "react-native-gesture-handler": "~2.28.0",
-    "react-native-safe-area-context": "~5.6.0",
-    "react-native-screens": "~4.16.0"
-  }
-}
-```
-
-### Xcode 16 / iOS SDK 26 互換性
-
-**問題**: `no member named 'move' in namespace 'std'` (RNSScreenStackHeaderConfig.mm)
-
-**原因**: react-native-screens の古いバージョンは Xcode 16 / iOS SDK 26 と互換性がない。
-
-**解決方法**: react-native-screens を ~4.16.0 以上にアップグレード:
 ```bash
-npx expo install react-native-screens
+xcrun altool --upload-package ~/Desktop/YourApp_Export/YourApp.ipa \
+  --type visionos \
+  --apiKey KPQ86W6JWV \
+  --apiIssuer 69a6de8c-f4be-47e3-e053-5b8c7c11a4d1
 ```
 
-### 推奨 eas.json 設定
+**Success:** `No errors uploading`
 
-```json
-{
-  "build": {
-    "production": {
-      "env": {
-        "EXPO_PUBLIC_SIGNALING_SERVER_URL": "https://your-server.com",
-        "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
-      },
-      "node": "22.12.0"
-    }
-  },
-  "submit": {
-    "production": {
-      "ios": {
-        "appleId": "your-apple-id@example.com",
-        "appleTeamId": "YOUR_TEAM_ID"
-      }
-    }
-  }
-}
+## Common Errors
+
+### "IPA is invalid. It does not include a Payload directory"
+
+**Cause:** Tried to upload `.xcarchive` instead of exported `.ipa`
+
+**Fix:** Run the export step first. Never upload archives directly.
+
+### rsync Error During Export
+
+```
+error: exportArchive Copy failed
+rsync: --extended-attributes: unknown option
 ```
 
-### ビルド成功のためのチェックリスト
+**Cause:** macOS ships with ancient rsync (2006)
 
-- [ ] `npx expo install --check` でバージョン互換性を確認
-- [ ] react が 19.1.0（19.2.x はクラッシュの原因）
-- [ ] mobile が npm workspaces から除外されている
-- [ ] mobile/ に独立した package-lock.json がある
-- [ ] expo-router のピア依存関係がインストールされている
-- [ ] eas.json に appleTeamId が設定されている
-- [ ] Info.plist に必要な権限が設定されている（下記参照）
+**Fix:** Set `uploadSymbols` to `false` in ExportOptions.plist
 
-### Info.plist の必須権限（App Store 提出用）
+### CFBundleVersion Mismatch
 
-```json
-// app.json の ios.infoPlist
-{
-  "NSMicrophoneUsageDescription": "音声通話のためにマイクを使用します",
-  "NSSpeechRecognitionUsageDescription": "音声を文字に変換するために使用します",
-  "NSPhotoLibraryUsageDescription": "プロフィール画像の設定に使用します",
-  "NSCameraUsageDescription": "ビデオ通話のためにカメラを使用します",
-  "ITSAppUsesNonExemptEncryption": false
-}
+**Cause:** Extension build number doesn't match main app
+
+**Fix:** Update extension build number in Xcode to match main app
+
+### API Key Not Found
+
+**Fix:** Copy `.p8` file to `~/.appstoreconnect/private_keys/AuthKey_<KEY_ID>.p8`
+
+### RPBroadcastProcessMode Not Specified (Broadcast Extension)
+
+```
+Invalid Info.plist value. The value for the key 'RPBroadcastProcessMode' 
+in bundle YourApp.app/PlugIns/Extension.appex is invalid.
+The key was not specified.
 ```
 
-**注意**: これらがないと App Store Connect が自動拒否 (ITMS-90683) します。
+**Cause:** `RPBroadcastProcessMode` is in wrong location in extension Info.plist
 
-## Important Notes
+**Fix:** The key MUST be a direct child of `NSExtension` dict (not at top level, not inside `NSExtensionAttributes`):
 
-- TestFlight builds expire after 90 days
-- Each new build requires incrementing version or build number
-- External testers require Apple review (usually 24-48 hours)
-- Keep production signaling server running on Render
+```xml
+<key>NSExtension</key>
+<dict>
+    <key>NSExtensionPointIdentifier</key>
+    <string>com.apple.broadcast-services-upload</string>
+    <key>NSExtensionPrincipalClass</key>
+    <string>$(PRODUCT_MODULE_NAME).SampleHandler</string>
+    <key>RPBroadcastProcessMode</key>
+    <string>RPBroadcastProcessModeSampleBuffer</string>
+</dict>
+```
+
+### Invalid Bundle Type (screen-capture entitlement)
+
+```
+Invalid bundle type. The com.apple.developer.screen-capture.include-passthrough 
+entitlement is not valid for bundles of type XPC!.
+```
+
+**Cause:** `com.apple.developer.screen-capture.include-passthrough` is in the main app
+
+**Fix:** Remove from main app `.entitlements`. This entitlement is ONLY valid in broadcast extensions.
+
+### Missing NSEnterpriseMCAMUsageDescription
+
+**Cause:** App uses enterprise camera APIs without privacy description
+
+**Fix:** Add to main app Info.plist:
+```xml
+<key>NSEnterpriseMCAMUsageDescription</key>
+<string>This app uses main camera access for enterprise features.</string>
+```
+
+### Missing BGTaskSchedulerPermittedIdentifiers
+
+**Cause:** App has `processing` background mode but no task identifiers
+
+**Fix:** Add to main app Info.plist:
+```xml
+<key>BGTaskSchedulerPermittedIdentifiers</key>
+<array>
+    <string>com.yourcompany.app.background-refresh</string>
+</array>
+```
+
+## Platform Types
+
+| Platform | `--type` value | Destination | Package |
+|----------|----------------|-------------|---------|
+| visionOS | `visionos` | `generic/platform=visionOS` | `.ipa` |
+| iOS | `ios` | `generic/platform=iOS` | `.ipa` |
+| macOS | `macos` | `platform=macOS` | `.pkg` |
+
+## macOS Apps (Media Server)
+
+Media Server has a special setup - it uses a **workspace** at the repo root, not a project file in a subdirectory.
+
+### Why It's Different
+
+- Uses `GrooveTechMediaServer.xcworkspace` (not `.xcodeproj`)
+- Workspace lives at repo root (not in a subdirectory)
+- Needs local `build/DerivedData` for proper SPM package resolution
+- Exports `.pkg` instead of `.ipa`
+
+### How to Upload Media Server
+
+```bash
+# 1. Navigate to repo ROOT (not the subdirectory!)
+cd "/path/to/groovetech-media-server"
+
+# 2. Run upload with workspace name, scheme, and macos platform
+~/.pi/agent/skills/testflight/upload.sh GrooveTechMediaServer "GrooveTech Media Server" --appstore macos
+```
+
+**Common mistake:** Running from `groovetech-media-server/GrooveTech Media Server/` subdirectory - this will fail because the workspace is at the parent level.
+
+### What the Script Does for macOS
+
+1. Detects workspace and uses `-workspace` flag
+2. Uses `platform=macOS` destination (not `generic/platform=macOS`)
+3. Sets `-derivedDataPath ./build/DerivedData` for correct SPM resolution
+4. Looks for `.pkg` output instead of `.ipa`
+
+## Post-Upload
+
+1. Wait 10-15 minutes for Apple processing
+2. Check: https://appstoreconnect.apple.com/apps
+3. Go to your app → TestFlight tab
+4. Add testers (internal = immediate, external = beta review required)
+
+---
+
+## Enterprise Delivery (for IT re-signing)
+
+When a client needs to re-sign the app with their enterprise certificate (e.g., for internal app stores/MDM), provide the `.xcarchive` with a README.
+
+### Create Delivery Package
+
+```bash
+~/.pi/agent/skills/testflight/create-delivery.sh \
+  ~/Desktop/MyApp.xcarchive \
+  "App Name" \
+  "1.0" \
+  "42" \
+  "com.company.bundleid" \
+  "visionOS (Apple Vision Pro)" \
+  "Description of the app"
+```
+
+This creates: `~/Desktop/App_Name_Delivery_v1.0_Build42/`
+- `MyApp.xcarchive`
+- `README.md` (re-signing instructions)
+
+### GrooveTech Apps Reference
+
+| App | Bundle ID | Platform | Project | Scheme |
+|-----|-----------|----------|---------|--------|
+| Outdo Cancer | `com.groovejones.PfizerOutdoCancer` | visionOS | PfizerOutdoCancerV2.xcodeproj | PfizerOutdoCancer |
+| GMP | `com.groovetech.media-player` | visionOS | groovetech-media-player.xcodeproj | groovetech-media-player |
+| Media Server | `com.groovetech.media-server` | macOS | GrooveTechMediaServer.xcworkspace | GrooveTech Media Server |
+| Orchestrator | `com.groovejones.orchestrator` | iOS | orchestrator.xcodeproj | orchestrator |
+
+### Querying TestFlight Builds
+
+Check current build numbers on App Store Connect:
+
+```bash
+source ~/.config/testflight/credentials.env
+export TESTFLIGHT_API_KEY_ID TESTFLIGHT_ISSUER_ID
+
+# Use node to query API (requires JWT signing)
+# App IDs: GMP=6757438008, MS=6757471795, Orchestrator=6754814714, Pfizer=6737364780
+```
+
+See session history for full API query example.
+
+## Session History (for agents)
+
+**To find the original sessions where this workflow was developed and tested:**
+
+```bash
+# Search for TestFlight upload sessions
+cass search "upload-to-testflight-complete" --robot --limit 10 --days 365
+
+# Key sessions:
+# - Claude debug file with failed archive upload + successful IPA workflow:
+#   ~/.claude/debug/a8d1679e-6d2f-4e2c-b4a9-7379c4181945.txt
+#
+# - Git commit that added the scripts (Oct 22, 2025):
+#   git show e4cccf46 --stat
+#
+# - Git commit that updated guide after successful upload (Oct 31, 2025):
+#   git show d4f0674c
+```
+
+**Key learnings from sessions:**
+1. Direct archive upload (`--upload-app`) FAILS with "IPA is invalid. It does not include a Payload directory"
+2. Must export to IPA first with `uploadSymbols=false` (rsync bug workaround)
+3. Then upload IPA with `--upload-package`
+4. Successful upload: Version 1.2 (67) on Oct 31, 2025 at 4:45 PM

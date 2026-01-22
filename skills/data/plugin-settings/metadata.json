@@ -1,7 +1,7 @@
 {
   "name": "plugin-settings",
-  "repo": "jwynia/agent-skills",
-  "path": "collections/official-claude-code/plugin-dev/skills/plugin-settings/SKILL.md",
-  "source": "github.com/jwynia/agent-skills",
-  "downloaded_at": "2026-01-14T03:19:18.039354Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/plugin-settings/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:42.207862Z"
 }

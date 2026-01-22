@@ -123,6 +123,7 @@ try await updateRequest.processRequest(mvvmEnv: mvvmEnv)
 | HTTP Method | Determined by `action.httpMethod` (ShowRequest=GET, CreateRequest=POST, etc.) |
 | Request Body | `RequestBody` type, automatically JSON encoded via `requestBody?.toJSONData()` |
 | Response Body | `ResponseBody` type, automatically JSON decoded into `responseBody` |
+| Error Response | `ResponseError` type, automatically decoded when response can't decode as `ResponseBody` |
 | Validation | `RequestBody: ValidatableModel` for write operations |
 | Body Size Limits | `RequestBody.maxBodySize` for large uploads (files, images) |
 | Type Safety | Compiler enforces correct types throughout |
@@ -218,6 +219,20 @@ public final class {Action}Request: {Protocol}, @unchecked Sendable {
 ```
 
 ### Step 4: Generate Controller
+
+**Controller action = Protocol name (minus "Request")**
+
+| Protocol | Action | HTTP Method |
+|----------|--------|-------------|
+| `ShowRequest` | `.show` | GET |
+| `ViewModelRequest` | `.show` | GET |
+| `CreateRequest` | `.create` | POST |
+| `UpdateRequest` | `.update` | PATCH |
+| `DeleteRequest` | `.delete` | DELETE |
+| `DestroyRequest` | `.destroy` | DELETE |
+| Custom request | Whatever fits your semantics | Depends on action |
+
+The pattern is mechanical: `UpdateRequest` → `.update`. `CreateRequest` → `.create`. Just match the names.
 
 ```swift
 // {Action}Controller.swift
@@ -363,6 +378,181 @@ public typealias ResponseBody = EmptyBody
 
 ---
 
+## ResponseError - Typed Error Handling
+
+Each `ServerRequest` can define a custom `ResponseError` type for structured error responses from the server.
+
+### How It Works
+
+When processing a response:
+1. Framework tries to decode as `ResponseBody`
+2. If that fails, tries to decode as `ResponseError`
+3. If `ResponseError` decode succeeds, that error is thrown
+4. Client catches with try/catch at the call site
+
+### When to Use Custom ResponseError
+
+**Use custom `ResponseError` when:**
+- Operation has known failure modes (validation, quota, permissions)
+- Server returns structured error details (field names, error codes)
+- Client needs to take specific action based on error type
+- You want field-level validation error display
+
+**Use `EmptyError` (default) when:**
+- Operation rarely fails
+- Failures are exceptional (network down, server crash)
+- No structured error response expected
+- You only need success/failure, not why
+
+### Pattern 1: Errors with Associated Values
+
+For errors that need dynamic data in their messages, use `LocalizableSubstitutions`:
+
+```swift
+public struct CreateIdeaError: ServerRequestError {
+    public let code: ErrorCode
+    public let message: LocalizableSubstitutions
+
+    public enum ErrorCode: Codable {
+        case duplicateContent
+        case quotaExceeded(requestedSize: Int, maximumSize: Int)
+        case invalidCategory(category: String)
+
+        var message: LocalizableSubstitutions {
+            switch self {
+            case .duplicateContent:
+                .init(
+                    baseString: .localized(for: Self.self, parentType: CreateIdeaError.self, propertyName: "duplicateContent"),
+                    substitutions: [:]
+                )
+            case .quotaExceeded(let requestedSize, let maximumSize):
+                .init(
+                    baseString: .localized(for: Self.self, parentType: CreateIdeaError.self, propertyName: "quotaExceeded"),
+                    substitutions: [
+                        "requestedSize": LocalizableInt(value: requestedSize),
+                        "maximumSize": LocalizableInt(value: maximumSize)
+                    ]
+                )
+            case .invalidCategory(let category):
+                .init(
+                    baseString: .localized(for: Self.self, parentType: CreateIdeaError.self, propertyName: "invalidCategory"),
+                    substitutions: [
+                        "category": LocalizableString.constant(category)
+                    ]
+                )
+            }
+        }
+    }
+
+    public init(code: ErrorCode) {
+        self.code = code
+        self.message = code.message  // Required to localize properly via Codable
+    }
+}
+```
+
+```yaml
+en:
+  CreateIdeaError:
+    ErrorCode:
+      duplicateContent: "The requested content is a duplicate of an existing idea."
+      quotaExceeded: "The requested content size %{requestedSize} exceeds the maximum allowed size %{maximumSize}."
+      invalidCategory: "The category %{category} is not valid."
+```
+
+### Pattern 2: Simple Errors (String-Based Codes)
+
+For simpler errors without associated values, use a `String` raw value enum:
+
+```swift
+public struct SimpleError: ServerRequestError {
+    public let code: ErrorCode
+    public let message: LocalizableString
+
+    public enum ErrorCode: String, Codable, Sendable {
+        case serverFailed
+        case applicationFailed
+
+        var message: LocalizableString {
+            .localized(for: Self.self, parentType: SimpleError.self, propertyName: rawValue)
+        }
+    }
+
+    public init(code: ErrorCode) {
+        self.code = code
+        self.message = code.message  // Required to localize properly via Codable
+    }
+}
+```
+
+```yaml
+en:
+  SimpleError:
+    ErrorCode:
+      serverFailed: "The server failed"
+      applicationFailed: "The application failed"
+```
+
+### Client Error Handling
+
+The primary pattern is try/catch at the call site:
+
+```swift
+do {
+    try await request.processRequest(mvvmEnv: mvvmEnv)
+} catch let error as CreateIdeaError {
+    switch error.code {
+    case .duplicateContent:
+        showDuplicateWarning(message: error.message)
+    case .quotaExceeded(let requestedSize, let maximumSize):
+        showQuotaError(requested: requestedSize, maximum: maximumSize, message: error.message)
+    case .invalidCategory(let category):
+        highlightInvalidCategory(category, message: error.message)
+    }
+} catch {
+    showGenericError(error)
+}
+```
+
+### Built-in ValidationError
+
+FOSMVVM provides `ValidationError` for field-level validation failures:
+
+```swift
+// In controller - use Validations to collect errors
+let validations = Validations()
+
+if requestBody.email.isEmpty {
+    validations.validations.append(.init(
+        status: .error,
+        fieldId: "email",
+        message: .localized(for: CreateUserRequest.self, propertyName: "emailRequired")
+    ))
+}
+
+// Throw if any errors
+if let error = validations.validationError {
+    throw error
+}
+```
+
+```swift
+// Client catches ValidationError
+catch let error as ValidationError {
+    for validation in error.validations {
+        for message in validation.messages {
+            for fieldId in message.fieldIds {
+                formFields[fieldId]?.showError(message.message)
+            }
+        }
+    }
+}
+```
+
+> **Architecture context:** See [ServerRequestError - Typed Error Responses](../../docs/FOSMVVMArchitecture.md#serverrequesterror---typed-error-responses) for full details.
+
+---
+
 ## Collaboration Protocol
 
 1. **Clarify the operation** - What are we doing?
@@ -374,9 +564,31 @@ public typealias ResponseBody = EmptyBody
 
 ---
 
+## Testing ServerRequests
+
+**Always test via `ServerRequest.processRequest(mvvmEnv:)` - never via manual HTTP.**
+
+See [fosmvvm-serverrequest-test-generator](../fosmvvm-serverrequest-test-generator/SKILL.md) for complete testing guidance.
+
+```swift
+// ✅ RIGHT - tests the actual client code path
+let request = Update{Entity}Request(
+    query: .init(entityId: id),
+    requestBody: .init(name: "New Name")
+)
+try await request.processRequest(mvvmEnv: testMvvmEnv)
+#expect(request.responseBody?.viewModel.name == "New Name")
+
+// ❌ WRONG - manual HTTP bypasses version negotiation
+try await app.sendRequest(.PATCH, "/entity/\(id)", body: json)
+```
+
+---
+
 ## See Also
 
 - [FOSMVVMArchitecture.md](../../docs/FOSMVVMArchitecture.md) - Full architecture, especially "Core Principle: ServerRequest Is THE Way"
+- [fosmvvm-serverrequest-test-generator](../fosmvvm-serverrequest-test-generator/SKILL.md) - For testing ServerRequest types
 - [fosmvvm-viewmodel-generator](../fosmvvm-viewmodel-generator/SKILL.md) - For ViewModels returned by requests
 - [fosmvvm-fields-generator](../fosmvvm-fields-generator/SKILL.md) - For ValidatableModel in RequestBody
 - [fosmvvm-leaf-view-generator](../fosmvvm-leaf-view-generator/SKILL.md) - For Leaf templates that render ViewModels
@@ -393,3 +605,6 @@ public typealias ResponseBody = EmptyBody
 | 2.1 | 2025-12-27 | MVVMEnvironment is THE configuration holder for all clients (CLI, iOS, macOS, etc.) - not raw baseURL/headers. DRY principle enforcement. |
 | 2.2 | 2025-12-27 | Added shared module pattern - SystemVersion.currentApplicationVersion from shared module, reference to FOSMVVMArchitecture.md |
 | 2.3 | 2025-12-27 | Added `ServerRequestBodySize` for large upload body size limits (`maxBodySize` on RequestBody) |
+| 2.4 | 2026-01-08 | Added controller action mapping table, testing section with reference to test generator skill |
+| 2.5 | 2026-01-08 | Simplified action mapping: "action = protocol name minus Request". Removed drama, just state the pattern. |
+| 2.6 | 2026-01-09 | Added ResponseError section with two patterns: associated values (LocalizableSubstitutions) and simple string codes (LocalizableString). Added YAML examples and built-in ValidationError usage. |

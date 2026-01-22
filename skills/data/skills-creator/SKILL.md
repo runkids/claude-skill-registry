@@ -1,36 +1,150 @@
 ---
 name: skills-creator
-description: Creates and maintains Agent Skills with effective triggers and progressive disclosure. Use when user requests to create a skill, generate a SKILL.md, build custom capabilities, or mentions "create skill", "new skill", or "skill configuration".
+description: 最高品質のSkillを設計・生成するメタスキル。新しいSkillが欲しい、繰り返し作業を自動化したい、ベストプラクティスに準拠したSkillを作りたいときに使う。
 ---
 
-**Goal**: Create well-structured Agent Skills following best practices for discoverability, conciseness, and progressive disclosure.
+## 目的
 
-**IMPORTANT**: Skills configuration should be concise and high-level. Only include context Claude does not already know.
+ユーザーの曖昧な要求から、実用的で再利用可能なSkillを設計・生成する。
+「こんなことができるSkillが欲しい」を、高品質なSKILL.mdに変換する。
 
-## Workflow
+## トリガー語
 
-1. Read references: `skills-docs.md` and `best-practices.md` in `.claude/skills/skills-creator/references/`
-2. Analyze requirements and determine freedom level
-3. Create SKILL.md using template from `.claude/skills/skills-creator/templates/template.md`
-4. Add resources(reference files, scripts, etc.) alongside the SKILL.md file only if necessary. Use folder to organize resources.
-5. Save to `.claude/skills/[skill-name]/SKILL.md` and report completion
+- 「Skillを作って」
+- 「新しいSkillを作成」
+- 「〇〇ができるSkillが欲しい」
+- 「Skills Creator」
 
-## Rules
+---
 
-- Only add context Claude doesn't already know
-- Keep references one level deep from SKILL.md
-- Provide one default approach, avoid offering multiple options
-- Use forward slashes in file paths (no Windows-style paths)
-- Match freedom level to task fragility (high freedom for flexible tasks, low for critical operations)
+## 入力で最初に聞くこと
 
-## Acceptance Criteria
+| # | 質問 | 目的 |
+|---|------|------|
+| 1 | **何を実現したいですか？** | ゴール・課題を把握 |
+| 2 | **誰が使いますか？** | トーン・専門度を調整 |
+| 3 | **どんな成果物が欲しい？** | 出力形式を決定 |
 
-- Skill saved to `.claude/skills/[skill-name]/SKILL.md`
-- Name valid (max 64 chars, lowercase letters/numbers/hyphens only)
-- Description valid (max 1024 chars, third person, no "I" or "you")
-- Description includes what skill does AND when to use it
-- SKILL.md body under 500 lines
-- Consistent terminology throughout
-- No duplicate or conflicting skills exist
-- No time-sensitive information included
-- Name defined using gerund form (e.g., `processing-pdfs`, `analyzing-data`)
+**任意**: 参考資料、品質基準、利用頻度
+
+---
+
+## 手順（4フェーズ）
+
+### Phase 1: 要件分析
+1. ゴールを「〇〇が△△できるようになる」形式で明確化
+2. スコープ定義（やること / やらないこと）
+3. カテゴリ判定
+
+| カテゴリ | 判定基準 |
+|----------|----------|
+| `business/` | ビジネス文書・経営判断 |
+| `pm/` | プロジェクト管理・リスク |
+| `engineering/` | 開発・実装・技術設計 |
+| `meta/` | Skill生成・自動化基盤 |
+
+### Phase 2: 設計
+1. **入力設計**: 必須3〜5項目 → [入力設計ガイド](./REFERENCE.md#3-入力設計のベストプラクティス)
+2. **手順設計**: 3〜7ステップ → [手順設計ガイド](./REFERENCE.md#4-手順設計のベストプラクティス)
+3. **成果物設計**: 主成果物 + 副成果物 → [成果物設計ガイド](./REFERENCE.md#5-成果物設計のベストプラクティス)
+4. **検証設計**: 完了条件3〜5項目 → [検証設計ガイド](./REFERENCE.md#6-検証設計のベストプラクティス)
+
+### Phase 3: 生成
+1. [SKILL.mdテンプレート](#skillmdテンプレート)に従って生成
+2. トリガー語を3〜5個設計 → [トリガー語ガイド](./REFERENCE.md#2-トリガー語の設計ガイド)
+3. ディレクトリ作成: `.agent/skills/<category>/<skill-name>/`
+
+### Phase 4: 統合
+1. [registry.md](../../registry.md)更新
+2. 関連Skill/Workflowとの連携確認
+3. 動作確認
+
+---
+
+## SKILL.mdテンプレート
+
+```markdown
+---
+name: <skill-name>
+description: <1行説明>
+---
+
+## 目的
+<2-3文で目的を説明>
+
+## トリガー語
+- 「<トリガー1>」
+- 「<トリガー2>」
+
+## 入力で最初に聞くこと
+1. <質問1>（<なぜ必要か>）
+2. <質問2>（<なぜ必要か>）
+
+## 手順
+### Step 1: <ステップ名>
+- <アクション>
+
+## 成果物
+| 成果物 | 内容 |
+|--------|------|
+| <成果物1> | <説明> |
+
+## 検証（完了条件）
+- [ ] <条件1>
+
+## 参照
+- Workflow: <関連Workflow>
+```
+
+---
+
+## 品質基準
+
+### 必須（全て満たすこと）
+- [ ] 各ステップが具体的で実行可能
+- [ ] SKILL.mdだけで実行できる
+- [ ] 完了条件が客観的に判定可能
+- [ ] **500行以下**である
+
+### 禁止事項
+- ❌ 曖昧な指示（「適宜」の多用）
+- ❌ 検証不能な完了条件
+- ❌ 深いネスト参照（2階層以上）
+
+→ 詳細は [REFERENCE.md#8-品質チェックリスト](./REFERENCE.md#8-品質チェックリスト)
+
+---
+
+## 成果物
+
+| 成果物 | 必須 | 内容 |
+|--------|:----:|------|
+| SKILL.md | ◯ | Skill定義（500行以下） |
+| REFERENCE.md | △ | 詳細説明（100行超の場合） |
+| registry.md更新 | ◯ | 対応表・一覧への追記 |
+
+---
+
+## 検証（完了条件）
+
+- [ ] SKILL.mdが保存されている
+- [ ] SKILL.mdが500行以下
+- [ ] トリガー語が3つ以上
+- [ ] 手順が3〜7ステップ
+- [ ] registry.mdに登録済み
+
+---
+
+## 困ったときは
+
+→ [PATTERNS.md](./PATTERNS.md) - よくあるパターンと対処法
+
+---
+
+## 参照ドキュメント
+
+| ドキュメント | 内容 | いつ読むか |
+|--------------|------|-----------|
+| [REFERENCE.md](./REFERENCE.md) | 設計原則・ベストプラクティス | 詳細設計時 |
+| [PATTERNS.md](./PATTERNS.md) | よくあるパターン集 | 困ったとき |
+| [registry.md](../../registry.md) | 既存Skills一覧 | 重複確認時 |

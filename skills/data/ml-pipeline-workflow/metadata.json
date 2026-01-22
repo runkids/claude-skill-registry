@@ -1,7 +1,7 @@
 {
   "name": "ml-pipeline-workflow",
-  "repo": "camoneart/claude-code",
-  "path": "skills/ml-pipeline-workflow/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:37:02.075739Z"
+  "repo": "apassuello/multimodal_insight_engine",
+  "path": ".claude/skills/ml-pipeline-workflow/SKILL.md",
+  "source": "github.com/apassuello/multimodal_insight_engine",
+  "downloaded_at": "2026-01-22T04:12:15.361053Z"
 }

@@ -42,3 +42,19 @@ This skill contains company-specific knowledge and procedures for professional e
 - "Create a project plan for this commissioning study"
 - "Draft a client email about project delays"
 - "Prepare a proposal for energy modeling services"
+
+
+## Saving Next Steps
+
+When work-documentation work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "work-documentation" \
+  --content "## Priority Tasks
+1. Document project procedures in company wiki
+2. Update engineering calculation standards
+3. Create proposal template for new service offering"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

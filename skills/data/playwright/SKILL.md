@@ -1,326 +1,533 @@
 ---
 name: playwright
-description: >
-  Playwright E2E testing patterns.
-  Trigger: When writing Playwright E2E tests (Page Object Model, selectors, MCP exploration workflow). For Prowler-specific UI conventions under ui/tests, also use prowler-test-ui.
-license: Apache-2.0
-metadata:
-  author: prowler-cloud
-  version: "1.0"
-  scope: [root, ui]
-  auto_invoke: "Writing Playwright E2E tests"
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
+description: Tests web applications with Playwright including E2E tests, locators, assertions, and visual testing. Use when writing end-to-end tests, testing across browsers, automating user flows, or debugging test failures.
 ---
 
-## MCP Workflow (MANDATORY If Available)
+# Playwright
 
-**⚠️ If you have Playwright MCP tools, ALWAYS use them BEFORE creating any test:**
+Cross-browser end-to-end testing framework with auto-wait and powerful debugging.
 
-1. **Navigate** to target page
-2. **Take snapshot** to see page structure and elements
-3. **Interact** with forms/elements to verify exact user flow
-4. **Take screenshots** to document expected states
-5. **Verify page transitions** through complete flow (loading, success, error)
-6. **Document actual selectors** from snapshots (use real refs and labels)
-7. **Only after exploring** create test code with verified selectors
+## Quick Start
 
-**If MCP NOT available:** Proceed with test creation based on docs and code analysis.
-
-**Why This Matters:**
-- ✅ Precise tests - exact steps needed, no assumptions
-- ✅ Accurate selectors - real DOM structure, not imagined
-- ✅ Real flow validation - verify journey actually works
-- ✅ Avoid over-engineering - minimal tests for what exists
-- ✅ Prevent flaky tests - real exploration = stable tests
-- ❌ Never assume how UI "should" work
-
-## File Structure
-
-```
-tests/
-├── base-page.ts              # Parent class for ALL pages
-├── helpers.ts                # Shared utilities
-└── {page-name}/
-    ├── {page-name}-page.ts   # Page Object Model
-    ├── {page-name}.spec.ts   # ALL tests here (NO separate files!)
-    └── {page-name}.md        # Test documentation
+**Install:**
+```bash
+npm init playwright@latest
 ```
 
-**File Naming:**
-- ✅ `sign-up.spec.ts` (all sign-up tests)
-- ✅ `sign-up-page.ts` (page object)
-- ✅ `sign-up.md` (documentation)
-- ❌ `sign-up-critical-path.spec.ts` (WRONG - no separate files)
-- ❌ `sign-up-validation.spec.ts` (WRONG)
+This creates:
+- `playwright.config.ts` - Configuration
+- `tests/` - Test directory
+- `tests-examples/` - Example tests
 
-## Selector Priority (REQUIRED)
+**Run tests:**
+```bash
+npx playwright test
+npx playwright test --ui          # UI mode
+npx playwright test --headed      # See browser
+npx playwright show-report        # View report
+```
+
+## Configuration
 
 ```typescript
-// 1. BEST - getByRole for interactive elements
-this.submitButton = page.getByRole("button", { name: "Submit" });
-this.navLink = page.getByRole("link", { name: "Dashboard" });
+// playwright.config.ts
+import { defineConfig, devices } from '@playwright/test';
 
-// 2. BEST - getByLabel for form controls
-this.emailInput = page.getByLabel("Email");
-this.passwordInput = page.getByLabel("Password");
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: 'html',
 
-// 3. SPARINGLY - getByText for static content only
-this.errorMessage = page.getByText("Invalid credentials");
-this.pageTitle = page.getByText("Welcome");
+  use: {
+    baseURL: 'http://localhost:3000',
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'on-first-retry',
+  },
 
-// 4. LAST RESORT - getByTestId when above fail
-this.customWidget = page.getByTestId("date-picker");
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 12'] },
+    },
+  ],
 
-// ❌ AVOID fragile selectors
-this.button = page.locator(".btn-primary");  // NO
-this.input = page.locator("#email");         // NO
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
+});
 ```
 
-## Scope Detection (ASK IF AMBIGUOUS)
+## Test Structure
 
-| User Says | Action |
-|-----------|--------|
-| "a test", "one test", "new test", "add test" | Create ONE test() in existing spec |
-| "comprehensive tests", "all tests", "test suite", "generate tests" | Create full suite |
-
-**Examples:**
-- "Create a test for user sign-up" → ONE test only
-- "Generate E2E tests for login page" → Full suite
-- "Add a test to verify form validation" → ONE test to existing spec
-
-## Page Object Pattern
+### Basic Test
 
 ```typescript
-import { Page, Locator, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-// BasePage - ALL pages extend this
-export class BasePage {
-  constructor(protected page: Page) {}
+test('has title', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle(/My App/);
+});
 
-  async goto(path: string): Promise<void> {
-    await this.page.goto(path);
-    await this.page.waitForLoadState("networkidle");
-  }
+test('navigates to about', async ({ page }) => {
+  await page.goto('/');
+  await page.click('text=About');
+  await expect(page).toHaveURL('/about');
+});
+```
 
-  // Common methods go here (see Refactoring Guidelines)
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');
-  }
+### Test Groups
 
-  async verifyNotificationMessage(message: string): Promise<void> {
-    const notification = this.page.locator('[role="status"]');
-    await expect(notification).toContainText(message);
-  }
-}
+```typescript
+import { test, expect } from '@playwright/test';
 
-// Page-specific implementation
-export interface LoginData {
-  email: string;
-  password: string;
-}
+test.describe('Authentication', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/login');
+  });
 
-export class LoginPage extends BasePage {
+  test('shows login form', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();
+  });
+
+  test('logs in with valid credentials', async ({ page }) => {
+    await page.getByLabel('Email').fill('user@example.com');
+    await page.getByLabel('Password').fill('password123');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    await expect(page).toHaveURL('/dashboard');
+  });
+
+  test('shows error with invalid credentials', async ({ page }) => {
+    await page.getByLabel('Email').fill('wrong@example.com');
+    await page.getByLabel('Password').fill('wrongpass');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    await expect(page.getByText('Invalid credentials')).toBeVisible();
+  });
+});
+```
+
+## Locators
+
+### Recommended Locators
+
+```typescript
+// By role (best for accessibility)
+page.getByRole('button', { name: 'Submit' });
+page.getByRole('heading', { name: 'Welcome' });
+page.getByRole('link', { name: 'Home' });
+page.getByRole('textbox', { name: 'Email' });
+page.getByRole('checkbox', { name: 'Remember me' });
+
+// By label
+page.getByLabel('Email');
+page.getByLabel('Password');
+
+// By placeholder
+page.getByPlaceholder('Enter your email');
+
+// By text
+page.getByText('Welcome to our app');
+page.getByText(/welcome/i); // Case-insensitive
+
+// By alt text
+page.getByAltText('Company logo');
+
+// By title
+page.getByTitle('Close');
+
+// By test ID
+page.getByTestId('submit-button');
+```
+
+### CSS and XPath
+
+```typescript
+// CSS selector
+page.locator('.submit-button');
+page.locator('#email-input');
+page.locator('[data-cy="login-form"]');
+
+// XPath
+page.locator('//button[text()="Submit"]');
+```
+
+### Filtering and Chaining
+
+```typescript
+// Filter by text
+page.getByRole('listitem').filter({ hasText: 'Product 1' });
+
+// Filter by child locator
+page.getByRole('listitem').filter({
+  has: page.getByRole('button', { name: 'Add to cart' }),
+});
+
+// Chain locators
+page.getByRole('article').getByRole('button', { name: 'Read more' });
+
+// Nth element
+page.getByRole('listitem').nth(0);
+page.getByRole('listitem').first();
+page.getByRole('listitem').last();
+```
+
+## Actions
+
+### Click
+
+```typescript
+await page.getByRole('button', { name: 'Submit' }).click();
+await page.getByRole('link').click({ button: 'right' }); // Right click
+await page.getByRole('button').dblclick(); // Double click
+await page.getByRole('button').click({ force: true }); // Force click
+```
+
+### Fill and Type
+
+```typescript
+// Fill (clears first)
+await page.getByLabel('Email').fill('user@example.com');
+
+// Type (key by key)
+await page.getByLabel('Search').type('playwright');
+
+// Press key
+await page.getByLabel('Search').press('Enter');
+
+// Clear
+await page.getByLabel('Email').clear();
+```
+
+### Select
+
+```typescript
+// Select option
+await page.getByLabel('Country').selectOption('usa');
+await page.getByLabel('Country').selectOption({ label: 'United States' });
+
+// Multi-select
+await page.getByLabel('Colors').selectOption(['red', 'blue']);
+```
+
+### Check and Uncheck
+
+```typescript
+await page.getByLabel('Accept terms').check();
+await page.getByLabel('Newsletter').uncheck();
+
+// Toggle
+await page.getByLabel('Dark mode').setChecked(true);
+```
+
+### Drag and Drop
+
+```typescript
+await page.getByTestId('source').dragTo(page.getByTestId('target'));
+```
+
+### File Upload
+
+```typescript
+await page.getByLabel('Upload file').setInputFiles('path/to/file.pdf');
+await page.getByLabel('Upload files').setInputFiles([
+  'file1.pdf',
+  'file2.pdf',
+]);
+```
+
+## Assertions
+
+### Element Assertions
+
+```typescript
+// Visibility
+await expect(page.getByRole('button')).toBeVisible();
+await expect(page.getByRole('button')).toBeHidden();
+
+// Enabled/Disabled
+await expect(page.getByRole('button')).toBeEnabled();
+await expect(page.getByRole('button')).toBeDisabled();
+
+// Checked
+await expect(page.getByRole('checkbox')).toBeChecked();
+await expect(page.getByRole('checkbox')).not.toBeChecked();
+
+// Text content
+await expect(page.getByRole('heading')).toHaveText('Welcome');
+await expect(page.getByRole('heading')).toContainText('Welcome');
+
+// Value
+await expect(page.getByLabel('Email')).toHaveValue('user@example.com');
+
+// Attribute
+await expect(page.getByRole('link')).toHaveAttribute('href', '/about');
+
+// Class
+await expect(page.getByRole('button')).toHaveClass(/primary/);
+
+// Count
+await expect(page.getByRole('listitem')).toHaveCount(5);
+```
+
+### Page Assertions
+
+```typescript
+await expect(page).toHaveTitle('My App');
+await expect(page).toHaveTitle(/My App/);
+await expect(page).toHaveURL('/dashboard');
+await expect(page).toHaveURL(/dashboard/);
+```
+
+### Response Assertions
+
+```typescript
+const response = await page.goto('/');
+expect(response?.status()).toBe(200);
+```
+
+## Waiting
+
+### Auto-Wait
+
+Playwright auto-waits for elements to be actionable. Manual waits:
+
+```typescript
+// Wait for element
+await page.getByRole('button').waitFor();
+await page.getByRole('button').waitFor({ state: 'hidden' });
+
+// Wait for URL
+await page.waitForURL('/dashboard');
+await page.waitForURL(/dashboard/);
+
+// Wait for response
+await page.waitForResponse('/api/users');
+await page.waitForResponse((response) =>
+  response.url().includes('/api') && response.status() === 200
+);
+
+// Wait for request
+await page.waitForRequest('/api/users');
+
+// Wait for load state
+await page.waitForLoadState('networkidle');
+
+// Custom timeout
+await page.getByRole('button').click({ timeout: 10000 });
+```
+
+## Page Objects
+
+```typescript
+// pages/LoginPage.ts
+import { Page, Locator, expect } from '@playwright/test';
+
+export class LoginPage {
+  readonly page: Page;
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
   readonly submitButton: Locator;
+  readonly errorMessage: Locator;
 
   constructor(page: Page) {
-    super(page);
-    this.emailInput = page.getByLabel("Email");
-    this.passwordInput = page.getByLabel("Password");
-    this.submitButton = page.getByRole("button", { name: "Sign in" });
+    this.page = page;
+    this.emailInput = page.getByLabel('Email');
+    this.passwordInput = page.getByLabel('Password');
+    this.submitButton = page.getByRole('button', { name: 'Login' });
+    this.errorMessage = page.getByRole('alert');
   }
 
-  async goto(): Promise<void> {
-    await super.goto("/login");
+  async goto() {
+    await this.page.goto('/login');
   }
 
-  async login(data: LoginData): Promise<void> {
-    await this.emailInput.fill(data.email);
-    await this.passwordInput.fill(data.password);
+  async login(email: string, password: string) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
     await this.submitButton.click();
   }
 
-  async verifyCriticalOutcome(): Promise<void> {
-    await expect(this.page).toHaveURL("/dashboard");
-  }
-}
-```
-
-## Page Object Reuse (CRITICAL)
-
-**Always check existing page objects before creating new ones!**
-
-```typescript
-// ✅ GOOD: Reuse existing page objects
-import { SignInPage } from "../sign-in/sign-in-page";
-import { HomePage } from "../home/home-page";
-
-test("User can sign up and login", async ({ page }) => {
-  const signUpPage = new SignUpPage(page);
-  const signInPage = new SignInPage(page);  // REUSE
-  const homePage = new HomePage(page);      // REUSE
-
-  await signUpPage.signUp(userData);
-  await homePage.verifyPageLoaded();  // REUSE method
-  await homePage.signOut();           // REUSE method
-  await signInPage.login(credentials); // REUSE method
-});
-
-// ❌ BAD: Recreating existing functionality
-export class SignUpPage extends BasePage {
-  async logout() { /* ... */ }  // ❌ HomePage already has this
-  async login() { /* ... */ }   // ❌ SignInPage already has this
-}
-```
-
-**Guidelines:**
-- Check `tests/` for existing page objects first
-- Import and reuse existing pages
-- Create page objects only when page doesn't exist
-- If test requires multiple pages, ensure all page objects exist (create if needed)
-
-## Refactoring Guidelines
-
-### Move to `BasePage` when:
-- ✅ Navigation helpers used by multiple pages (`waitForPageLoad()`, `getCurrentUrl()`)
-- ✅ Common UI interactions (notifications, modals, theme toggles)
-- ✅ Verification patterns repeated across pages (`isVisible()`, `waitForVisible()`)
-- ✅ Error handling that applies to all pages
-- ✅ Screenshot utilities for debugging
-
-### Move to `helpers.ts` when:
-- ✅ Test data generation (`generateUniqueEmail()`, `generateTestUser()`)
-- ✅ Setup/teardown utilities (`createTestUser()`, `cleanupTestData()`)
-- ✅ Custom assertions (`expectNotificationToContain()`)
-- ✅ API helpers for test setup (`seedDatabase()`, `resetState()`)
-- ✅ Time utilities (`waitForCondition()`, `retryAction()`)
-
-**Before (BAD):**
-```typescript
-// Repeated in multiple page objects
-export class SignUpPage extends BasePage {
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');
-  }
-}
-export class SignInPage extends BasePage {
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');  // DUPLICATED!
-  }
-}
-```
-
-**After (GOOD):**
-```typescript
-// BasePage - shared across all pages
-export class BasePage {
-  async waitForNotification(): Promise<void> {
-    await this.page.waitForSelector('[role="status"]');
+  async expectError(message: string) {
+    await expect(this.errorMessage).toHaveText(message);
   }
 }
 
-// helpers.ts - data generation
-export function generateUniqueEmail(): string {
-  return `test.${Date.now()}@example.com`;
-}
+// tests/login.spec.ts
+import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
 
-export function generateTestUser() {
-  return {
-    name: "Test User",
-    email: generateUniqueEmail(),
-    password: "TestPassword123!",
-  };
-}
-```
+test('login with valid credentials', async ({ page }) => {
+  const loginPage = new LoginPage(page);
 
-## Test Pattern with Tags
+  await loginPage.goto();
+  await loginPage.login('user@example.com', 'password123');
 
-```typescript
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "./login-page";
-
-test.describe("Login", () => {
-  test("User can login successfully",
-    { tag: ["@critical", "@e2e", "@login", "@LOGIN-E2E-001"] },
-    async ({ page }) => {
-      const loginPage = new LoginPage(page);
-
-      await loginPage.goto();
-      await loginPage.login({ email: "user@test.com", password: "pass123" });
-
-      await expect(page).toHaveURL("/dashboard");
-    }
-  );
+  await expect(page).toHaveURL('/dashboard');
 });
 ```
 
-**Tag Categories:**
-- Priority: `@critical`, `@high`, `@medium`, `@low`
-- Type: `@e2e`
-- Feature: `@signup`, `@signin`, `@dashboard`
-- Test ID: `@SIGNUP-E2E-001`, `@LOGIN-E2E-002`
+## Fixtures
 
-## Test Documentation Format ({page-name}.md)
+```typescript
+// fixtures.ts
+import { test as base } from '@playwright/test';
+import { LoginPage } from './pages/LoginPage';
+import { DashboardPage } from './pages/DashboardPage';
 
-```markdown
-### E2E Tests: {Feature Name}
+type MyFixtures = {
+  loginPage: LoginPage;
+  dashboardPage: DashboardPage;
+  authenticatedPage: Page;
+};
 
-**Suite ID:** `{SUITE-ID}`
-**Feature:** {Feature description}
+export const test = base.extend<MyFixtures>({
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
+  },
 
----
+  dashboardPage: async ({ page }, use) => {
+    await use(new DashboardPage(page));
+  },
 
-## Test Case: `{TEST-ID}` - {Test case title}
+  authenticatedPage: async ({ page }, use) => {
+    // Login before test
+    await page.goto('/login');
+    await page.getByLabel('Email').fill('user@example.com');
+    await page.getByLabel('Password').fill('password');
+    await page.getByRole('button', { name: 'Login' }).click();
+    await page.waitForURL('/dashboard');
 
-**Priority:** `{critical|high|medium|low}`
+    await use(page);
+  },
+});
 
-**Tags:**
-- type → @e2e
-- feature → @{feature-name}
+export { expect } from '@playwright/test';
 
-**Description/Objective:** {Brief description}
+// tests/dashboard.spec.ts
+import { test, expect } from '../fixtures';
 
-**Preconditions:**
-- {Prerequisites for test to run}
-- {Required data or state}
-
-### Flow Steps:
-1. {Step 1}
-2. {Step 2}
-3. {Step 3}
-
-### Expected Result:
-- {Expected outcome 1}
-- {Expected outcome 2}
-
-### Key verification points:
-- {Assertion 1}
-- {Assertion 2}
-
-### Notes:
-- {Additional considerations}
+test('shows user info', async ({ authenticatedPage }) => {
+  await expect(authenticatedPage.getByText('Welcome')).toBeVisible();
+});
 ```
 
-**Documentation Rules:**
-- ❌ NO general test running instructions
-- ❌ NO file structure explanations
-- ❌ NO code examples or tutorials
-- ❌ NO troubleshooting sections
-- ✅ Focus ONLY on specific test case
-- ✅ Keep under 60 lines when possible
+## API Testing
 
-## Commands
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('API: create user', async ({ request }) => {
+  const response = await request.post('/api/users', {
+    data: {
+      name: 'John Doe',
+      email: 'john@example.com',
+    },
+  });
+
+  expect(response.ok()).toBeTruthy();
+
+  const user = await response.json();
+  expect(user.name).toBe('John Doe');
+});
+
+test('API: get users', async ({ request }) => {
+  const response = await request.get('/api/users');
+  expect(response.ok()).toBeTruthy();
+
+  const users = await response.json();
+  expect(users.length).toBeGreaterThan(0);
+});
+```
+
+## Visual Testing
+
+```typescript
+test('screenshot comparison', async ({ page }) => {
+  await page.goto('/');
+
+  // Full page
+  await expect(page).toHaveScreenshot('homepage.png');
+
+  // Element
+  await expect(page.getByRole('navigation')).toHaveScreenshot('nav.png');
+
+  // With options
+  await expect(page).toHaveScreenshot('homepage.png', {
+    maxDiffPixels: 100,
+    threshold: 0.2,
+  });
+});
+```
+
+## Debugging
 
 ```bash
-npx playwright test                    # Run all
-npx playwright test --grep "login"     # Filter by name
-npx playwright test --ui               # Interactive UI
-npx playwright test --debug            # Debug mode
-npx playwright test tests/login/       # Run specific folder
+# Debug mode
+npx playwright test --debug
+
+# UI mode
+npx playwright test --ui
+
+# Headed mode
+npx playwright test --headed
+
+# Trace viewer
+npx playwright show-trace trace.zip
 ```
 
-## Prowler-Specific Patterns
+```typescript
+// Pause in test
+await page.pause();
 
-For Prowler UI E2E testing with authentication setup, environment variables, and test IDs, see:
-- **Documentation**: [references/prowler-e2e.md](references/prowler-e2e.md)
+// Console log
+console.log(await page.content());
+console.log(await page.getByRole('heading').textContent());
+```
+
+## Best Practices
+
+1. **Use role locators** - Most reliable and accessible
+2. **Add test IDs sparingly** - Only when roles don't work
+3. **Use page objects** - Reusable, maintainable
+4. **Avoid hardcoded waits** - Use auto-wait
+5. **Run in CI** - Catch regressions early
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Using sleep/wait | Use auto-wait or waitFor |
+| Fragile selectors | Use role-based locators |
+| No assertions | Always verify outcomes |
+| Tests depend on order | Make tests independent |
+| Hardcoded data | Use fixtures |
+
+## Reference Files
+
+- [references/locators.md](references/locators.md) - Locator strategies
+- [references/fixtures.md](references/fixtures.md) - Advanced fixtures
+- [references/ci.md](references/ci.md) - CI configuration

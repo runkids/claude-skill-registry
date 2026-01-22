@@ -1,9 +1,7 @@
 {
   "name": "langgraph-checkpoints",
-  "description": "LangGraph checkpointing and persistence. Use when implementing fault-tolerant workflows, resuming interrupted executions, debugging with state history, or avoiding re-running expensive operations.",
   "repo": "yonatangross/skillforge-claude-plugin",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/langgraph-checkpoints/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-22T01:25:13.126852Z"
 }

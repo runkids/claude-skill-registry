@@ -1,279 +1,266 @@
 ---
 name: project-architecture
-description: This skill should be used when the user asks about "namespaces", "singleton", "TileManager", "GameManager", "TokenManager", "InputManager", "data flow", "class responsibilities", "layers", "folder structure", "code organization", "design patterns", "ScriptableObject", "databases", or discusses Zero-Day Attack codebase architecture and patterns.
-version: 0.2.0
+description: Understand the Orient monorepo architecture for making technical decisions. Use this skill when onboarding, adding new features, modifying services, or evaluating design choices. Covers packages, bots, agents, MCP servers, mini-apps, and Docker deployment.
 ---
 
-# Zero-Day Attack Project Architecture
+# Orient Architecture
 
-Expert knowledge of the Zero-Day Attack Unity codebase structure, design patterns, and architectural decisions.
+## System Overview
 
-## Design Principles
+Orient is a **pnpm monorepo** implementing an AI-powered project management system. The architecture features a **multi-MCP-server pattern** with pluggable bot frontends (Slack, WhatsApp) connected to a shared AI/Agent infrastructure.
 
-### 1. Separation of Concerns
-
-The codebase organizes into distinct layers:
-
-| Layer      | Location              | Purpose                                      |
-| ---------- | --------------------- | -------------------------------------------- |
-| **Data**   | `Core/Data/`          | Immutable data structures, ScriptableObjects |
-| **State**  | `Core/State/`         | Mutable runtime game state                   |
-| **Logic**  | `Core/GameManager.cs` | Game rules, orchestration                    |
-| **View**   | `View/`               | Visual representation, Unity components      |
-| **Input**  | `Input/`              | Board SDK abstraction                        |
-| **Config** | `Config/`             | Static layout constants                      |
-
-### 2. Board SDK Isolation
-
-Only `InputManager.cs` imports `Board.Input` namespace. This:
-
-- Prevents SDK types leaking throughout codebase
-- Enables testing without hardware
-- Centralizes coordinate conversion
-
-### 3. Singleton Managers
-
-Core systems use singleton pattern with `Instance` property:
-
-```csharp
-GameManager.Instance   // Game state and logic
-TileManager.Instance   // Tile spawning, positioning
-TokenManager.Instance  // Token spawning, input handling
-InputManager.Instance  // Board SDK event broadcasting
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              Messaging Frontends                             │
+│   ┌─────────────────┐                         ┌─────────────────┐           │
+│   │  WhatsApp Bot   │                         │   Slack Bot     │           │
+│   │ (@orient/bot-wp)│                         │ (@orient/bot-sl)│           │
+│   └────────┬────────┘                         └────────┬────────┘           │
+│            └──────────────────┬────────────────────────┘                     │
+│                               ▼                                              │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                      Agent Registry                                  │   │
+│   │   (@orient/agents) - Context resolution, tool permissions, skills   │   │
+│   └──────────────────────────────┬──────────────────────────────────────┘   │
+│                                  ▼                                           │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                   OpenCode Server (AI Processing)                    │   │
+│   │    ├── coding-server  (MCP for dev tasks)                           │   │
+│   │    ├── assistant-server (MCP for JIRA, Slack, Messaging, Calendar)  │   │
+│   │    └── core-server (MCP for skills, system, agents)                 │   │
+│   └──────────────────────────────┬──────────────────────────────────────┘   │
+│                                  ▼                                           │
+│   ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐               │
+│   │   PostgreSQL    │ │ Object Storage  │ │ External APIs   │               │
+│   │ (Drizzle ORM)   │ │ (MinIO / R2)    │ │ (JIRA, Google)  │               │
+│   └─────────────────┘ └─────────────────┘ └─────────────────┘               │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 4. ScriptableObject Databases
+## Monorepo Structure
 
-Game data stored in ScriptableObjects:
-
-- `TileDatabase` - 25 tile definitions with sprites and paths
-- `TokenDatabase` - 6 token definitions with sprites and glyph IDs
-
-## Namespace Organization
-
-| Namespace                   | Purpose                            |
-| --------------------------- | ---------------------------------- |
-| `ZeroDayAttack.Config`      | Layout constants (`LayoutConfig`)  |
-| `ZeroDayAttack.Core`        | Game orchestration (`GameManager`) |
-| `ZeroDayAttack.Core.Data`   | Data structures, enums, databases  |
-| `ZeroDayAttack.Core.State`  | Runtime state classes              |
-| `ZeroDayAttack.View`        | Visual components, managers        |
-| `ZeroDayAttack.Input`       | Board SDK wrapper                  |
-| `ZeroDayAttack.Diagnostics` | Debug utilities                    |
-| `ZeroDayAttack.Editor`      | Editor-only tools                  |
-
-### Namespace Rules
-
-When creating new scripts:
-
-- Place in appropriate namespace based on responsibility
-- Use full namespace declaration: `namespace ZeroDayAttack.View { }`
-- Editor scripts: `ZeroDayAttack.Editor`
-- Test scripts: Match the namespace being tested
-
-## Folder Structure
-
-```text
-Assets/Scripts/
-├── Config/
-│   └── LayoutConfig.cs              # Static layout constants
-│
-├── Core/
-│   ├── GameManager.cs               # Game orchestrator singleton
-│   ├── Data/                        # Immutable data structures
-│   │   ├── Enums.cs                 # EdgeNode, PathColor, Player, etc.
-│   │   ├── PathSegment.cs           # Path connection between nodes
-│   │   ├── TileData.cs              # Tile definition
-│   │   ├── TileDatabase.cs          # ScriptableObject: all tiles
-│   │   ├── TokenData.cs             # Token definition
-│   │   └── TokenDatabase.cs         # ScriptableObject: all tokens
-│   └── State/                       # Mutable runtime state
-│       ├── BoardState.cs            # Grid, reserves, deck
-│       ├── GameState.cs             # Phase, current player
-│       └── TokenState.cs            # Token position, ownership
-│
-├── View/                            # Visual components
-│   ├── TileManager.cs               # Singleton: tile spawning
-│   ├── TileView.cs                  # Individual tile visual
-│   ├── TokenManager.cs              # Singleton: token spawning
-│   ├── TokenView.cs                 # Individual token visual
-│   ├── BackgroundRenderer.cs        # Board background
-│   ├── CameraController.cs          # Camera setup
-│   └── GridOverlayRenderer.cs       # Grid lines with glow
-│
-├── Input/
-│   └── InputManager.cs              # Board SDK wrapper (ONLY Board.Input)
-│
-├── Diagnostics/
-│   └── SceneDiagnostic.cs           # Runtime debug
-│
-└── Editor/
-    ├── TileParser.cs                # Menu: ZeroDayAttack > Parse Tiles
-    └── TokenParser.cs               # Menu: ZeroDayAttack > Parse Tokens
+```
+orient/
+├── packages/
+│   ├── agents/                # Agent registry, prompts, skills, permissions
+│   ├── apps/                  # Mini-apps system (manifests, edit sessions)
+│   ├── mcp-servers/           # MCP server types and configs
+│   ├── mcp-tools/             # MCP tool definitions and registry
+│   ├── core/                  # Shared utilities, config, logging, types
+│   ├── database/              # Drizzle ORM schemas (PostgreSQL)
+│   ├── database-services/     # DB service implementations
+│   ├── integrations/          # External integrations (JIRA, GitHub, Google)
+│   ├── bot-whatsapp/          # WhatsApp bot (Baileys)
+│   ├── bot-slack/             # Slack bot (Bolt)
+│   ├── api-gateway/           # REST API, webhooks, schedulers
+│   ├── dashboard/             # React admin dashboard
+│   └── test-utils/            # Test factories, mocks
+├── src/                       # ⚠️ DEPRECATED - Do not write new code here
+├── apps/                      # Standalone mini-apps (e.g., meeting-scheduler)
+├── data/                      # Seeds, migrations
+├── docker/                    # Docker configs and compose files
+├── tests/                     # Cross-package tests (e2e, integration)
+├── skills/                    # Global skill definitions
+└── pnpm-workspace.yaml
 ```
 
-## Class Responsibilities
+## Package Descriptions
 
-### Core Layer
+| Package                     | Status        | Description                                                                |
+| --------------------------- | ------------- | -------------------------------------------------------------------------- |
+| `@orient/core`              | ✅ Stable     | Config loading, logging (`winston`), base types                            |
+| `@orient/database`          | ✅ Stable     | Drizzle ORM schemas, PostgreSQL client                                     |
+| `@orient/database-services` | ✅ Stable     | `MessageDatabase`, `SlackDatabase`, `SchedulerDatabase`, `WebhookDatabase` |
+| `@orient/agents`            | ✅ Stable     | Agent registry, skills service, prompts, tool permissions                  |
+| `@orient/apps`              | ✅ Stable     | Mini-apps manifests, types, validation, edit sessions                      |
+| `@orient/mcp-servers`       | 🚧 Types Only | MCP server type definitions (impl in `src/mcp-servers/`)                   |
+| `@orient/mcp-tools`         | ✅ Stable     | MCP tool registry & definitions                                            |
+| `@orient/integrations`      | ✅ Stable     | JIRA, GitHub, Google (Sheets, Slides, Gmail, Calendar)                     |
+| `@orient/bot-whatsapp`      | ✅ Stable     | WhatsApp bot using Baileys                                                 |
+| `@orient/bot-slack`         | ✅ Stable     | Slack bot using Bolt                                                       |
+| `@orient/api-gateway`       | ✅ Stable     | REST API, webhooks                                                         |
+| `@orient/dashboard`         | ✅ Stable     | Admin dashboard (React + Express)                                          |
+| `@orient/test-utils`        | ✅ Stable     | Test factories, mocks, DB helpers                                          |
 
-| Class         | Responsibility                                                        |
-| ------------- | --------------------------------------------------------------------- |
-| `GameManager` | Initialize game, manage phases, orchestrate state. No direct visuals. |
-| `GameState`   | Hold `BoardState`, `TokenState[]`, current player, phase, actions     |
-| `BoardState`  | 5×5 grid (`TileData[,]`), reserves, deck, discard                     |
-| `TokenState`  | Token identity, position (tile, node), physical tracking              |
+## Multi-MCP-Server Architecture
 
-### Data Layer
+Orient implements three specialized MCP servers, replacing the legacy monolithic server:
 
-| Class           | Responsibility                                             |
-| --------------- | ---------------------------------------------------------- |
-| `TileData`      | Define tile: ID, sprite, segments, rotation, grid position |
-| `TokenData`     | Define token: ID, sprite, owner, type, glyph ID            |
-| `PathSegment`   | Connect two `EdgeNode` values with `PathColor`             |
-| `TileDatabase`  | ScriptableObject with `List<TileData>`                     |
-| `TokenDatabase` | ScriptableObject with 6 token slots                        |
+| Server               | Purpose              | Key Tools                                                        |
+| -------------------- | -------------------- | ---------------------------------------------------------------- |
+| **coding-server**    | Development tasks    | `ai_first_slides_*`, `ai_first_create_app`, Agent tools          |
+| **assistant-server** | Full PM capabilities | All JIRA tools, Slack/WhatsApp, Google (Calendar, Gmail), Sheets |
+| **core-server**      | System & skills      | `ai_first_list_skills`, `ai_first_health_check`, Agent tools     |
 
-### View Layer
+All servers share the `discover_tools` tool for dynamic capability discovery.
 
-| Class                 | Responsibility                                             |
-| --------------------- | ---------------------------------------------------------- |
-| `TileManager`         | Spawn tiles, grid-to-world conversion, hold `TileDatabase` |
-| `TokenManager`        | Spawn tokens, handle glyph events, snap to nodes           |
-| `TileView`            | MonoBehaviour on tile GameObjects, manage sprite           |
-| `TokenView`           | MonoBehaviour on token GameObjects, manage position        |
-| `BackgroundRenderer`  | Render board background                                    |
-| `GridOverlayRenderer` | Draw 5×5 grid with glow effect                             |
-| `CameraController`    | Configure orthographic camera                              |
+**CLI Usage:**
 
-### Input Layer
-
-| Class          | Responsibility                                        |
-| -------------- | ----------------------------------------------------- |
-| `InputManager` | Poll `BoardInput`, fire events, coordinate conversion |
-
-## Data Flow
-
-```text
-Board Hardware (touch/glyph)
-         │
-         ▼
-    InputManager ← Only Board.Input import
-         │
-    ┌────┴────┐
-    ▼         ▼
-TokenManager  (Future: Tile touch)
-    │
-    ▼
-GameManager ← Game logic decisions
-    │
-┌───┴───┐
-▼       ▼
-GameState  TileManager
-BoardState (spawn tiles)
-TokenState
+```bash
+# Start specific server
+npm run start:mcp:coding
+npm run start:mcp:assistant
+npm run start:mcp:core
 ```
 
-## Scene Hierarchy
+## Agent Registry
 
-```text
-GameplayScene
-├── MainCamera [CameraController]
-├── GlobalLight2D
-├── GameManager [GameManager]
-├── TileManager [TileManager]
-├── TokenManager [TokenManager]
-├── InputManager [InputManager]
-├── BackgroundRenderer [BackgroundRenderer]
-├── GridOverlayRenderer [GridOverlayRenderer]
-├── Tiles (spawned at runtime)
-└── Tokens (spawned at runtime)
+Agents are managed via the **Dashboard UI** and stored in PostgreSQL. The `@orient/agents` package provides the runtime.
+
+```
+┌─────────────────────────────────────────┐
+│           Dashboard UI                  │
+│   (Agents Tab - CRUD operations)        │
+└────────────────────┬────────────────────┘
+                     ▼
+┌─────────────────────────────────────────┐
+│         Agent Registry                  │
+│  - Context resolution (platform, chat)  │
+│  - Skills assignment                    │
+│  - Tool allow/ask/deny patterns         │
+└────────────────────┬────────────────────┘
+                     ▼
+┌─────────────────────────────────────────┐
+│        PostgreSQL Tables                │
+│   agents | agent_skills | agent_tools   │
+│   context_rules                         │
+└─────────────────────────────────────────┘
 ```
 
-## Coordinate Systems
+### Default Agents
 
-### Grid Coordinates
+| Agent          | Description                                          |
+| -------------- | ---------------------------------------------------- |
+| `pm-assistant` | Primary agent for JIRA, meetings, project management |
+| `communicator` | Slack/WhatsApp messaging with proper formatting      |
+| `scheduler`    | Calendar management, reminders                       |
+| `explorer`     | Fast codebase exploration, documentation lookup      |
+| `app-builder`  | Create Mini-Apps via PR workflow                     |
+| `onboarder`    | Guides new users through setup                       |
 
-- Origin: (0, 0) = bottom-left of 5×5 grid
-- Range: (0, 0) to (4, 4)
-- Center tile: (2, 2)
+### Agent Mentions
 
-### World Coordinates
+In Slack or WhatsApp, prefix message with `@agent-id` to override default agent:
 
-- Origin: (0, 0) = screen center = grid center
-- Grid spans: -5.0 to +5.0 in X and Y
-- Tile size: 2.0 world units
-
-### Conversion
-
-```csharp
-// Grid to World (via LayoutConfig)
-float x = LayoutConfig.GridLeft + (gridX * LayoutConfig.TileSize) + (LayoutConfig.TileSize / 2f);
-float y = LayoutConfig.GridBottom + (gridY * LayoutConfig.TileSize) + (LayoutConfig.TileSize / 2f);
+```
+@explorer find the auth config
 ```
 
-## Key Patterns
+## Mini-Apps System (`@orient/apps`)
 
-### Creating New Managers
+Allows generating small React apps via AI prompts, managed through Git worktrees.
 
-Follow singleton pattern:
+**Key Tools:**
 
-```csharp
-public class NewManager : MonoBehaviour
-{
-    public static NewManager Instance { get; private set; }
+- `ai_first_create_app` - Generate a new app from a prompt
+- `ai_first_list_apps` - List existing apps
+- `ai_first_get_app` - Get app details
+- `ai_first_update_app` - Update an existing app
+- `ai_first_share_app` - Generate a shareable link
 
-    void Awake()
-    {
-        if (Instance != null) { Destroy(gameObject); return; }
-        Instance = this;
-    }
-}
+**Edit Session Flow:**
+
+1. Create Git worktree for isolated development
+2. Scaffold app or load existing
+3. Create OpenCode session
+4. Send prompt to AI for code generation
+5. Auto-commit changes
+6. Build app (`npm install && npm run build`)
+7. Track commit history for rollback
+
+> **Note**: This feature is under active development. See `TODO.md`.
+
+## Data Flow (Incoming Message)
+
+```
+1. Message received (WhatsApp/Slack)
+        │
+        ├── Check permission (read_only, read_write, ignored)
+        │   └── ignored: Drop message
+        │   └── read_only: Store message, don't respond
+        │   └── read_write: Store message, process
+        │
+        ▼
+2. Resolve Agent (AgentRegistry → context rules → default)
+        │
+        ▼
+3. Send to OpenCode server (MCP) for AI processing
+        │
+        ▼
+4. OpenCode uses MCP tools (JIRA, Slides, etc.)
+        │
+        ▼
+5. Return response to user
+        │
+        ▼
+6. Store outgoing message in PostgreSQL
 ```
 
-### Creating New Data Types
+## Docker Deployment
 
-For immutable data in `Core/Data/`:
+Uses per-package Dockerfiles with multi-stage builds.
 
-```csharp
-namespace ZeroDayAttack.Core.Data
-{
-    [System.Serializable]
-    public class NewData
-    {
-        public string Id;
-        // Serialized fields...
-    }
-}
+```bash
+# Local Development (v2 compose)
+docker compose -f docker/docker-compose.v2.yml -f docker/docker-compose.local.yml up -d
+
+# Production
+USE_V2_COMPOSE=1 ./deploy-server.sh deploy
+# Or manually:
+docker compose -f docker/docker-compose.v2.yml \
+  -f docker/docker-compose.prod.yml \
+  -f docker/docker-compose.r2.yml up -d
 ```
 
-### Creating New View Components
+## Key CLI Commands
 
-For visual components in `View/`:
+```bash
+# Development
+npm run dev:slack           # Run Slack bot in dev mode
+npm run dev:whatsapp        # Run WhatsApp bot in dev mode
+npm run dev:mcp             # Run coding MCP server in dev mode
+npm run dev:infra           # Start Docker infrastructure (Postgres, etc.)
 
-```csharp
-namespace ZeroDayAttack.View
-{
-    public class NewView : MonoBehaviour
-    {
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        // View logic...
-    }
-}
+# Database
+npm run db:migrate          # Run migrations
+npm run db:seed:all         # Seed all data
+npm run agents:seed         # Seed default agents
+
+# Testing
+npm run test                # Run all tests
+npm run test:e2e            # Run E2E tests
+npm run test:unit           # Run unit tests only
+npm run test:docker:build   # Test Docker builds
+
+# Build
+npm run build               # TypeScript compile
+npm run build:all           # Build packages + root + dashboard
 ```
 
-## Additional Resources
+## Architectural Decisions
 
-### Reference Files
+### When to Create a New Package
 
-For comprehensive architecture details:
+**Create a new package when:**
 
-- **Documentation/ARCHITECTURE-ANALYSIS.md** - Full architecture documentation
-- **Documentation/DIGITIZATION-ANALYSIS.md** - Data structures, algorithms
+- Functionality is distinct and reusable across the system
+- Has its own lifecycle (startup/shutdown)
+- Could be published as a standalone npm package
 
-### Key Files
+**Extend existing package when:**
 
-When modifying architecture, review:
+- Functionality is tightly coupled to existing code
+- Only used in one context
 
-- `LayoutConfig.cs` - All layout constants
-- `GameManager.cs` - Game orchestration
-- `TileManager.cs` - Tile coordinate conversion
+### Adding New Features
+
+1. **New Agent**: Add via Dashboard UI, seed via `data/seeds/agents.ts`
+2. **New MCP Tool**: Add to `packages/mcp-tools/` or `src/tools/`
+3. **New Integration**: Add to `@orient/integrations`
+4. **New Bot Platform**: Follow `bot-whatsapp` / `bot-slack` pattern
+
+### Database Schema Patterns
+
+- Use platform-specific tables: `messages` / `slack_messages`
+- PostgreSQL for structured data, Object Storage for media
+- Drizzle ORM for type-safe queries

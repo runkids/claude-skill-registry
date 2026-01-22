@@ -1,432 +1,450 @@
 ---
 name: work
-description: Manage work items and tasks using the work todo system. Use when creating, updating, listing, or tracking work items with dependencies. (user)
+description: Execute work plans efficiently while maintaining quality and shipping complete features. Use when implementing a plan, working through a todo list, or executing a specification. Focuses on finishing features, not perfecting process.
 ---
 
-# work todo system
+# Work Skill
 
-Manage work items stored as `Work{}` callback-based lua files in `~/*/*/work/`.
+Execute plans efficiently. Ship complete features.
 
-## Data structure
+## When to Use
 
-Work items are stored in individual lua files using the `Work{}` callback pattern:
+- Implementing a plan from `plans/` directory
+- Working through a specification or issue
+- Executing a todo list
+- Building a feature from start to finish
 
-```lua
-Work{
-  id = "01KBB8VWCGH1CMSNDGNXD54F2J",  -- ULID (time-ordered, globally unique)
-  title = "implement feature",
-  created = "2025-11-30",              -- YYYY-MM-DD
-  completed = "2025-11-30T14:30:00",   -- ISO 8601 timestamp (optional, present when done)
-  due = "2025-12-15",                  -- absolute date (YYYY-MM-DD) or relative (-Xd, -Xw)
-  description = "optional details",    -- optional
-  blocks = {                           -- optional: IDs this item BLOCKS (dependents)
-    "01KBB8VWCGH1CMSNDGNXD54F2K"      -- these items cannot start until this completes
-  },
-  log = {                              -- optional timestamp-message pairs
-    ["2025-11-30T10:30:00"] = "started investigation",
-    ["2025-11-30T14:15:00"] = "found root cause"
-  }
-}
+## Core Philosophy
+
+**Ship complete features.** A finished feature that ships beats a perfect feature that doesn't.
+
+- Get clarification once at the start, then execute
+- Follow existing patterns—don't reinvent
+- Test as you go, not at the end
+- Quality is built in, not bolted on
+
+---
+
+## Workflow Overview
+
+```
+Plan/Spec Input
+       │
+       ▼
+┌──────────────────┐
+│  1. CLARIFY      │ ← Ask questions NOW, not later
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  2. SETUP        │ ← Branch, environment, task list
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  3. EXECUTE      │ ← Implement, test continuously
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  4. QUALITY      │ ← Lint, review, verify
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│  5. SHIP         │ ← Commit, PR, done
+└────────┬─────────┘
+         │
+         ▼
+    Feature Live ✅
 ```
 
-Each item is stored in `~/*/*/work/{id}.lua`.
+---
 
-### Dependency model: blocks field
+## Phase 1: Clarify
 
-**CRITICAL: The `blocks` field lists what this item blocks (what waits on this item).**
+**Do not skip this phase.** Better to ask questions now than build the wrong thing.
 
-The `blocks` field specifies IDs that cannot start until THIS item completes:
+### Read the Plan Completely
 
-- If item Y has `blocks = [Z]`, then Y blocks Z (Z waits for Y)
-- Y must complete before Z can start
-- Y is a "prerequisite" or "blocker" of Z
+```bash
+# Read the plan file
+cat plans/<plan-file>.md
 
-**Example hierarchy:**
-
-``` lua
-Work{id = "X", title = "code", blocks = ["Y"]}      -- X blocks Y (Y waits for X)
-Work{id = "Y", title = "test", blocks = ["Z"]}      -- Y blocks Z (Z waits for Y)
-Work{id = "Z", title = "deploy"}                    -- Z has no blocks field
+# Check for referenced files
+# Load any files mentioned in "Files to Create/Modify"
 ```
 
-Execution order: X → Y → Z
+### Ask Clarifying Questions
 
-**Common terminology:**
+If anything is unclear or ambiguous:
 
-- "Y blocks Z" = Y has `blocks = [Z]` = Z waits for Y to complete
-- "Z is blocked by Y" = Y has Z in its blocks field = Z cannot start until Y completes
-- "Y is a blocker" = Y has items in its blocks field that wait on it
+1. List your questions
+2. Wait for answers
+3. Only then proceed
 
-### Due dates
+Common clarifications needed:
+- Unclear acceptance criteria
+- Missing technical details
+- Ambiguous requirements
+- Conflicting constraints
 
-Due dates can be specified in two ways:
+### Get Approval to Proceed
 
-1. **Absolute dates**: `"2025-12-15"` (YYYY-MM-DD format)
-2. **Relative dates**: `"-1d"` or `"-4w"` (days or weeks before dependent items)
+```markdown
+## Ready to Start
 
-Relative dates are computed based on the earliest due date among all items that transitively depend on (block on) the current item. For example:
+**Plan**: [plan title]
+**Scope**: [X files to create/modify]
+**Estimated work**: [small/medium/large]
 
-- Item A has `due = "2025-12-15"`
-- Item B blocks on A with `due = "-1d"` → resolves to `2025-12-14`
-- Item C blocks on B with `due = "-2d"` → resolves to `2025-12-12` (2 days before A's date)
+**My understanding**:
+- [Key point 1]
+- [Key point 2]
 
-Warnings are shown if:
+**Questions** (if any):
+- [Question 1]
 
-- A relative due date has no dependent items
-- No dependent items have due dates set
-
-Supported units:
-
-- `d` - days
-- `w` - weeks (7 days)
-
-## Global flags
-
-All commands support the `--json` flag for machine-readable output:
-
-``` bash
-bin/work --json <command> [args...]
+Ready to proceed?
 ```
 
-JSON output format:
+---
 
-- `add`: returns the created item
-- `list`: returns array of all items
-- `show`: returns the item
-- `done`: returns the updated item
-- `update`: returns the updated item
-- `rm`: returns the removed item
-- `blocked`: returns array of blocked items with `unresolved_blocks` field
-- `ready`: returns array of ready (unblocked) items
-- `log`: returns object with `id`, `timestamp`, and `message`
+## Phase 2: Setup
 
-## Commands
+### Branch Strategy
 
-### add
+**Option A: Direct branch** (simple, single-track work)
 
-Create new work item:
+```bash
+# Ensure clean state
+git status
+git checkout main && git pull origin main
 
-``` bash
-bin/work add "task title"
-bin/work add "task title" due=2025-12-15
-bin/work add "task title" due=-1d description="details" priority=5
-bin/work add "task title" blocks=FK0FHM,21S2FX  # supports 6-char suffix IDs
+# Create feature branch
+git checkout -b feat/<feature-name>
 ```
 
-Accepts optional field=value arguments:
+**Option B: Worktree** (parallel work, complex features)
 
-- `due=YYYY-MM-DD` or `due=-Xd` - Set due date (absolute or relative)
-- `description="text"` - Add description
-- `priority=N` - Set priority (numeric)
-- `blocks=id1,id2` - Set blocking dependencies (IDs that THIS item will block)
-
-Returns the generated ULID on stdout. Short IDs (both prefixes and suffixes) are supported in the blocks argument.
-
-**IMPORTANT:** When adding an item with blocking relationships:
-
-- The `blocks` parameter in `add` specifies what THIS new item will block
-- To make an existing item block the new item, update the existing item's `blocks` field instead
-- Example: To create item B that is blocked by existing item A:
-  ``` bash
-  # Create B first
-  id_b=$(bin/work add "task B")
-  # Then update A to block B
-  bin/work update {id_a} blocks={id_b}
-  ```
-
-### list
-
-Show all work items with status:
-
-``` bash
-bin/work list
+```bash
+# Create isolated worktree
+git worktree add .worktrees/<feature-name> -b feat/<feature-name>
+cd .worktrees/<feature-name>
 ```
 
-Output format:
+### Create Task List
 
-    ◉ K0FHM: completed task
-    ○ W8NAE: pending task
-    ○ 4F2K: blocked task (blocks: W8NAE)
+Break the plan into actionable tasks:
 
-Items are sorted by creation time (ULID order). IDs are displayed as the last 6 characters of the ULID (suffix) for better uniqueness, since ULIDs have more entropy at the end.
+```markdown
+## Tasks
 
-### tree
-
-Show work items as a dependency tree:
-
-``` bash
-bin/work tree
+- [ ] Create `path/to/new/file.ext`
+- [ ] Modify `path/to/existing.ext` - add X
+- [ ] Write tests for X
+- [ ] Update documentation
+- [ ] Manual testing
 ```
 
-Output format:
+Track progress by checking off tasks as you complete them.
 
-    ○ FK0FHM +13w  2026 ATR
-        ○ 21S2FX  +3d  self-review
-            ○ JRV0BB  +3d  request feedback
-                ○ W8NAEP  +1d  identify feedbackers
-        ○ MCFMG3 +12d  peer feedback
+### Verify Environment
 
-Displays items in dependency hierarchy with indentation, showing:
+```bash
+# Dependencies installed?
+# For Node: npm install / pnpm install
+# For Ruby: bundle install
+# For Python: pip install -r requirements.txt
 
-- Status marker (○ for incomplete, ◉ for completed)
-- 6-character suffix ID
-- Relative due date if present (e.g., +3d, +13w)
-- Task title
+# Can you build/run?
+# Project-specific build command
 
-Root items (no dependencies) are shown at the top level, with dependent items indented beneath them. Items are sorted by due date (ascending), priority (descending), and creation time (ascending) at each level.
-
-### show
-
-Display detailed information about a work item:
-
-``` bash
-bin/work show {id}
-bin/work show FK0FHM  # 6-char suffix ID
-bin/work show 01KBBAH  # prefix also works
+# Tests passing before you start?
+# Project-specific test command
 ```
 
-Shows: id, title, created date, completed timestamp (if present), due date (with resolution for relative dates), description (if present), blocking dependencies, and log entries.
+---
 
-**Note:** All commands accept short IDs (6+ characters). The system matches both prefixes and suffixes, preferring suffixes since they're displayed in `list` and `tree`. If ambiguous, the command will error and show matching IDs.
+## Phase 3: Execute
 
-### done
+### The Implementation Loop
 
-Mark work item as complete:
-
-``` bash
-bin/work done {id}
+```
+while tasks remain:
+    1. Pick next task
+    2. Find similar patterns in codebase
+    3. Implement following those patterns
+    4. Write/update tests
+    5. Run tests
+    6. Fix any failures immediately
+    7. Mark task complete
+    8. Commit if logical checkpoint
 ```
 
-Sets the completed field to the current timestamp (ISO 8601 format) in the item's lua file.
+### Finding Patterns
 
-### update
+Before implementing anything new, find existing examples:
 
-Modify work item fields:
+```bash
+# Find similar implementations
+rg "class.*Service" --type ruby -l
+rg "interface.*Props" --type ts -l
+rg "def.*\(" --type python -l
 
-``` bash
-bin/work update {id} field=value...
-bin/work update {id} description="new description"
-bin/work update {id} blocks=id1,id2,id3  # set what THIS item blocks
-bin/work update {id} due=2025-12-15
-bin/work update {id} due=-1d
-bin/work update {id} priority=5
+# Look at how similar features are structured
+ls app/services/ app/controllers/ src/components/
+
+# Check imports/dependencies in similar files
+head -30 path/to/similar/file.ext
 ```
 
-To remove a field, use an empty value:
+**Follow existing patterns exactly.** Match:
+- Naming conventions
+- File organization
+- Code style
+- Error handling patterns
+- Test structure
 
-``` bash
-bin/work update {id} field=
-bin/work update {id} completed=    # unmark as done
-bin/work update {id} description=  # remove description
-bin/work update {id} due=          # remove due date
+### Test Continuously
+
+**Run tests after each significant change.** Don't wait until the end.
+
+```bash
+# Run relevant tests (project-specific)
+# Rails: bin/rails test test/path/to/test.rb
+# Jest: npm test -- path/to/test
+# Pytest: pytest path/to/test.py
+
+# Run full suite less frequently
+# Only after completing a major piece
 ```
 
-Any optional field can be removed by setting it to an empty value.
+If tests fail:
+1. **Stop immediately**
+2. Fix the failure
+3. Verify fix works
+4. Then continue
 
-**IMPORTANT:** When updating blocking relationships:
+### Commit Checkpoints
 
-- `blocks=id1,id2` sets what THIS item blocks (items that wait on THIS item)
-- To make item A block item B: update A with `blocks=B` (not the other way around)
-- The item specified in the update command is the blocker, values are what it blocks
+Commit at logical checkpoints:
 
-### rm
+```bash
+# Stage changes
+git add -A
 
-Remove work item:
+# Review what you're committing
+git status
+git diff --staged
 
-``` bash
-bin/work rm {id}
+# Commit with conventional message
+git commit -m "feat(scope): description
+
+- Detail 1
+- Detail 2"
 ```
 
-Deletes the item's lua file from the work data directory.
+Good commit points:
+- Completed a task from the list
+- Got a test passing
+- Finished a logical unit of work
+- Before making a risky change
 
-### blocked
+---
 
-List items blocked by incomplete dependencies:
+## Phase 4: Quality Check
 
-``` bash
-bin/work blocked
+Before considering the work "done":
+
+### Run All Checks
+
+```bash
+# Linting (project-specific)
+# Rails: rubocop
+# Node: npm run lint
+# Python: ruff check .
+
+# Type checking (if applicable)
+# TypeScript: npx tsc --noEmit
+# Python: mypy .
+
+# Full test suite
+# Project-specific test command
+
+# Build (catches runtime issues)
+# Project-specific build command
 ```
 
-Shows only items with `blocks` fields containing IDs without a `completed` timestamp.
+### Self-Review
 
-### ready
+Quick self-review checklist:
 
-Show next ready (unblocked) items:
+```bash
+# Check for debug code
+rg "console\.log|debugger|binding\.pry|print\(" $(git diff main --name-only)
 
-``` bash
-bin/work ready                # default: 5 items, sorted by schedule
-bin/work ready --limit=10     # show up to 10 items
-bin/work ready --shuffle      # randomize order (sorts by reversed ID)
-bin/work --json ready         # JSON output
+# Check for TODOs you added
+rg "TODO|FIXME" $(git diff main --name-only)
+
+# Check diff size
+git diff main --stat
 ```
 
-Returns incomplete items that have no incomplete prerequisites (not waiting on anything). These are the items that can be started immediately.
+### Verify Acceptance Criteria
 
-**Sorting:**
+Go through each acceptance criterion from the plan:
 
-- Default: due date (ascending), priority (descending), created date (ascending)
-- `--shuffle`: sorts by reversed ID for pseudo-random order (entropy is at end of ULID)
+```markdown
+## Acceptance Criteria Verification
 
-**Options:**
-
-- `--limit=N`: maximum number of items to show (default: 5)
-- `--shuffle`: randomize the order instead of scheduling sort
-
-**Output format:**
-
-    W8NAEP  +1d  send email
-    3MCZQM  +3w  code review [p10]
-    1MHKK2  +3w  documentation [p10]
-
-Shows: 6-char suffix ID, relative due date (if set), title, and priority (if non-zero).
-
-### log
-
-Append a timestamped message to a work item's log:
-
-``` bash
-bin/work log id={id} <message>
+- [x] Criterion 1 - verified by [how]
+- [x] Criterion 2 - verified by [how]
+- [ ] Criterion 3 - **NOT MET** - [what's missing]
 ```
 
-Automatically generates an ISO 8601 timestamp (YYYY-MM-DDTHH:MM:SS) and appends the message to the item's log field. If the log field doesn't exist, it will be created.
+If any criterion is not met, go back to Phase 3.
 
-## Library
+---
 
-The work system uses a three-layer architecture:
+## Phase 5: Ship
 
-### lib/work/data.lua - Data layer
+### Final Commit
 
-Handles storage, validation, and I/O operations:
+```bash
+# Stage everything
+git add -A
 
-**Functions:**
+# Final review
+git status
+git diff --staged | head -100
 
-- `load_all(dir)` - Load all work items from directory
-- `load_file(path, kinds)` - Load lua file with Work{} callbacks
-- `save(item, dir)` - Save item with validation and atomic write
-- `delete(item)` - Remove item file
-- `get(id)` - Retrieve item by full ID
-- `get_all()` - Return all items sorted by created date
-- `get_by_file(source)` - Get items from specific file
-- `validate(item)` - Validate item schema
-- `clean(item)` - Remove internal fields (\_meta, \_computed)
-- `resolve_id(short_id)` - Resolve short ID to full ID
-- `generate_id()` - Generate new ULID
-- `write(item, callback_name)` - Serialize item to Work{} format
-- `render(data, opts)` - Render data structure to lua format
+# Commit
+git commit -m "feat(scope): complete <feature>
 
-**Validation:**
+- Implements <what>
+- Adds tests for <what>
+- Updates <what>
 
-- Required fields: `id`, `title`
-- Optional fields: `created`, `completed`, `due`, `description`, `priority`, `blocks`, `log`
-- Collision detection for duplicate IDs
-- Metadata tracking via `_meta.source` and `_meta.kind`
-- Atomic writes with signal handling for cleanup
-
-### lib/work/process.lua - Processing layer
-
-Handles business logic, enrichment, and dependencies:
-
-**Functions:**
-
-- `enrich(item)` - Add \_computed fields to item
-- `enrich_all(items)` - Enrich array of items
-- `resolve_due_date(item)` - Resolve absolute/relative/inferred due dates
-- `date_relative_to_today(date_str)` - Format date as "+3w", "-2d"
-- `get_blocked_items()` - Items with unresolved blocking dependencies
-- `get_ready_items()` - Items with no incomplete prerequisites
-- `validate_blocks(item_id, blocks)` - Check for cycles and self-blocking
-- `sort_by_schedule(items)` - Sort by due (asc), priority (desc), created (asc)
-- `build_tree(items)` - Build dependency tree with roots and children
-
-**Enrichment:**
-Items are enriched with `_computed` fields:
-
-- `short_id` - Last 6 chars of ID
-- `resolved_due` - Actual date after resolution
-- `relative_due` - Human-readable ("+3w", "-2d")
-- `is_blocked` - Boolean status
-- `unresolved_blocks` - Incomplete dependencies
-- `dependent_count` - Items depending on this one
-
-### lib/work/render.lua - Presentation layer
-
-Handles formatting and display:
-
-**Functions:**
-
-- `list(items, opts)` - List format output
-- `tree(tree_data, opts)` - Tree format with hierarchy
-- `detail(item, opts)` - Detailed item view
-- `ready(items, opts)` - Ready items format
-- `blocked(items, opts)` - Blocked items format
-- `json(data)` - JSON output
-- Component functions: `status_mark()`, `short_id()`, `due_display()`, `priority_badge()`, `blocks_info()`
-
-### ULID generation
-
-IDs use ULID (Universally Unique Lexicographically Sortable Identifier):
-
-``` lua
-local ulid = require("ulid")
-local id = ulid.generate()  -- "01KBB8VWCGH1CMSNDGNXD54F2J"
+Closes #<issue-number>"
 ```
 
-- 26 characters (Crockford Base32)
-- Time-ordered: first 10 chars = millisecond timestamp
-- Globally unique: last 16 chars = random
-- Lexicographically sortable
+### Push and Create PR
 
-ULID library location: `~/.local/lib/lua/ulid.lua`
+```bash
+# Push branch
+git push -u origin feat/<feature-name>
 
-## Workflow patterns
+# Create PR
+gh pr create --title "feat: <title>" --body "## Summary
+<what this does>
 
-### Basic task tracking
+## Changes
+- <change 1>
+- <change 2>
 
-``` bash
-bin/work add "implement auth"
-bin/work add "write tests"
-bin/work add "deploy to staging"
-bin/work list
-bin/work done {auth-id}
+## Testing
+- <how tested>
+
+## Checklist
+- [x] Tests pass
+- [x] Linting passes
+- [x] Acceptance criteria met
+- [x] Self-reviewed"
 ```
 
-### Dependencies
+### Clean Up
 
-``` bash
-# Create items with dependencies
-# Note: blocks lists what this item BLOCKS (what waits on this item)
-id1=$(bin/work add "research database options" blocks=$id2)  # id1 blocks id2
-id2=$(bin/work add "implement database layer" blocks=$id3)   # id2 blocks id3
-id3=$(bin/work add "write tests")                            # id3 has no dependents
+If using worktree:
 
-bin/work blocked  # shows id2 (blocked by id1) and id3 (blocked by id2)
-bin/work ready    # shows id1 only (nothing blocks it)
+```bash
+# Return to main repo
+cd ..
 
-bin/work done $id1
-bin/work blocked  # shows id3 (still blocked by id2)
-bin/work ready    # shows id2 (id1 is now complete)
-
-bin/work done $id2
-bin/work blocked  # now empty
-bin/work ready    # shows id3 (all blockers complete)
+# After PR is merged:
+git worktree remove .worktrees/<feature-name>
+git branch -d feat/<feature-name>
 ```
 
-### Adding details
+If using beads:
 
-``` bash
-bin/work update {id} description="Use PostgreSQL with connection pooling"
-bin/work show {id}
+```bash
+# Close the bead
+bd close <bead-id> --reason "Merged in PR #X"
 ```
 
-## Implementation notes
+---
 
-- Work items are stored in `~/*/*/work/` (discovered via glob pattern)
-- Library uses three-layer architecture in `~/.local/lib/lua/work/`:
-  - `data.lua` - Storage and validation
-  - `process.lua` - Business logic and enrichment
-  - `render.lua` - Formatting and display
-- ULID library is global (`~/.local/lib/lua/ulid.lua`)
-- Each work item is a separate file for version control friendliness
-- Uses `Work{}` callback pattern for data definition
-- Commands follow Load → Process → Render pattern
-- Enrichment pattern computes derived fields once, renders many times
+## Handling Problems
+
+### Blocked by Unclear Requirements
+
+1. Stop implementation
+2. Document what's unclear
+3. Ask for clarification
+4. Wait for answer before continuing
+
+### Tests Keep Failing
+
+1. Stop and understand why
+2. Check if you broke existing functionality
+3. Check if your understanding is wrong
+4. If stuck after 2 attempts, ask for help
+
+### Scope Creep
+
+If you notice the work is bigger than planned:
+
+1. Finish the current task
+2. Stop and report:
+   - What's complete
+   - What's remaining
+   - What's larger than expected
+3. Get guidance on whether to continue or split
+
+### Stuck on Implementation
+
+1. Re-read the plan for hints
+2. Search codebase for similar patterns
+3. Check framework documentation
+4. If still stuck after 15 minutes, ask
+
+---
+
+## Quality Principles
+
+### Do
+
+- ✅ Follow existing patterns
+- ✅ Test as you go
+- ✅ Commit at checkpoints
+- ✅ Ask questions early
+- ✅ Ship complete features
+
+### Don't
+
+- ❌ Refactor unrelated code
+- ❌ Add features not in the plan
+- ❌ Skip tests to save time
+- ❌ Guess at unclear requirements
+- ❌ Leave work 80% done
+
+---
+
+## Checklist Before Calling Done
+
+```markdown
+## Completion Checklist
+
+- [ ] All tasks from plan completed
+- [ ] All acceptance criteria verified
+- [ ] Tests written and passing
+- [ ] Linting passes
+- [ ] No debug code left
+- [ ] Self-reviewed the diff
+- [ ] Committed with good messages
+- [ ] PR created with description
+- [ ] Ready for review
+```
+
+Only when all boxes are checked is the work **done**.

@@ -1,7 +1,7 @@
 {
   "name": "review-pr",
-  "repo": "fusupo/escapement",
-  "path": "skills/review-pr/SKILL.md",
-  "source": "github.com/fusupo/escapement",
-  "downloaded_at": "2026-01-14T03:23:44.646319Z"
+  "repo": "sasamuku/dotfiles",
+  "path": ".claude/skills/review-pr/SKILL.md",
+  "source": "github.com/sasamuku/dotfiles",
+  "downloaded_at": "2026-01-22T02:57:33.701170Z"
 }

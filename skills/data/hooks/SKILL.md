@@ -1,29 +1,66 @@
+# hooks - Claude Code Hooks
+
+Claude Code の Hook 作成・管理ガイド。
+
 ---
-name: hooks
-description: How to create and configure hooks in Claude Code for automated validation, transformations, and lifecycle event handling. Use when user asks about hooks, event automation, pre/post tool execution, session management, or automated workflows. Ignore when the user types in /hooks and simply allow the slash command to execute.
+
+## 概要
+
+Hooks はツール実行の前後に自動で実行されるスクリプト。
+
+| タイプ | タイミング | 用途 |
+|--------|-----------|------|
+| PreToolUse | ツール実行**前** | 検証、危険操作ブロック |
+| PostToolUse | ツール実行**後** | 提案、ログ記録 |
+| Stop | 会話終了時 | クリーンアップ |
+
 ---
 
-# Claude Code Hooks
+## Hook 作成
 
-## Overview
+### 1. スクリプト作成
 
-Claude Code hooks are automated scripts that execute at specific lifecycle events, enabling validation, transformation, and control over tool execution and session management.
+```bash
+#!/bin/bash
+# .claude/hooks/my-hook.sh
 
-## Configuration Structure
+# 環境変数
+# TOOL_NAME: ツール名 (Write, Edit, Bash, etc.)
+# TOOL_INPUT: JSON形式の入力パラメータ
 
-Hooks are configured in settings files (`~/.claude/settings.json`, `.claude/settings.json`, or `.claude/settings.local.json`) using this pattern:
+# 終了コード
+# 0: 成功（許可）
+# 1: 警告（許可、メッセージ表示）
+# 2: ブロック（実行を停止）
+
+# 例: 危険なコマンドをブロック
+if echo "$TOOL_INPUT" | grep -q "rm -rf /"; then
+  echo "🚫 危険なコマンドをブロックしました" >&2
+  exit 2
+fi
+
+exit 0
+```
+
+### 2. 実行権限付与
+
+```bash
+chmod +x .claude/hooks/my-hook.sh
+```
+
+### 3. 設定ファイルに登録
 
 ```json
+// .claude/settings.local.json
 {
   "hooks": {
-    "EventName": [
+    "PreToolUse": [
       {
-        "matcher": "ToolPattern",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "your-command-here",
-            "timeout": 60
+            "command": "/path/to/project/.claude/hooks/my-hook.sh"
           }
         ]
       }
@@ -32,160 +69,134 @@ Hooks are configured in settings files (`~/.claude/settings.json`, `.claude/sett
 }
 ```
 
-**Key features:**
-- Matchers use case-sensitive patterns (regex supported)
-- Use `*` or empty string to match all tools
-- Optional timeout configuration (default: 60 seconds)
-- `$CLAUDE_PROJECT_DIR` environment variable available for project-relative paths
+---
 
-## Hook Events
+## 実用的な Hook 例
 
-### PreToolUse & PostToolUse
-Executes before/after tool operations. Supports matchers for:
-- Task, Bash, Glob, Grep, Read, Edit, Write, WebFetch, WebSearch
+### PreToolUse: 危険操作ブロック
 
-### UserPromptSubmit
-Runs when the user submits a prompt, before Claude processes it, enabling context injection and prompt validation.
-
-### Notification
-Triggers when Claude requests permissions or waits for input.
-
-### Stop & SubagentStop
-Executes when agents complete responses.
-
-### SessionStart
-Useful for loading in development context like existing issues or recent changes to your codebase, installing dependencies, or setting up environment variables.
-
-**Environment persistence:**
-Use `CLAUDE_ENV_FILE` to persist variables across bash commands:
 ```bash
-echo 'export NODE_ENV=production' >> "$CLAUDE_ENV_FILE"
+#!/bin/bash
+# validate-dangerous-ops.sh
+
+case "$TOOL_NAME" in
+  "Bash")
+    COMMAND=$(echo "$TOOL_INPUT" | jq -r '.command // empty')
+
+    # force push をブロック
+    if echo "$COMMAND" | grep -qE 'git push.*(--force|-f).*(main|master)'; then
+      echo "🚫 main/master への force push は禁止です" >&2
+      exit 2
+    fi
+    ;;
+
+  "Write"|"Edit")
+    FILE_PATH=$(echo "$TOOL_INPUT" | jq -r '.file_path // empty')
+
+    # .env ファイル編集を警告
+    if echo "$FILE_PATH" | grep -qE '\.env'; then
+      echo "⚠️ 環境変数ファイルを編集しようとしています" >&2
+      exit 1  # 警告のみ
+    fi
+    ;;
+esac
+
+exit 0
 ```
 
-### SessionEnd
-Runs during session cleanup with `reason` field (clear, logout, prompt_input_exit, other).
+### PostToolUse: コミット後の提案
 
-### PreCompact
-Executes before context compaction with matchers: `manual` or `auto`.
+```bash
+#!/bin/bash
+# suggest-after-commit.sh
 
-## Hook Input/Output
+# git commit 後のみ発火
+if ! echo "$TOOL_INPUT" | grep -q "git commit"; then
+  exit 0
+fi
 
-**Input delivered via stdin as JSON containing:**
-- session_id, transcript_path, cwd, permission_mode
-- hook_event_name and event-specific fields
+# 変更ファイルをチェック
+CHANGED=$(git diff-tree --no-commit-id --name-only -r HEAD 2>/dev/null)
 
-**Output methods:**
+if echo "$CHANGED" | grep -q "schema"; then
+  echo "" >&2
+  echo "💡 スキーマが変更されました" >&2
+  echo "   マイグレーションファイルの作成を検討してください" >&2
+  exit 1
+fi
 
-1. **Exit codes:**
-   - 0: Success (stdout shown in transcript mode)
-   - 2: Blocking error (stderr fed back to Claude)
-   - Other: Non-blocking error
-
-2. **JSON output** for advanced control:
-```json
-{
-  "continue": true,
-  "stopReason": "message",
-  "suppressOutput": true,
-  "systemMessage": "warning"
-}
+exit 0
 ```
 
-## Decision Control Examples
+### Stop: セッション終了時クリーンアップ
 
-**PreToolUse:** Allow, deny, or ask for tool execution with optional input modification:
+```bash
+#!/bin/bash
+# cleanup-on-stop.sh
+
+# マージ済みブランチの確認
+MERGED=$(git branch --merged main | grep -v main | grep -v '\*')
+
+if [ -n "$MERGED" ]; then
+  echo "" >&2
+  echo "🧹 マージ済みブランチがあります:" >&2
+  echo "$MERGED" >&2
+  echo "   削除を検討してください: git branch -d <branch>" >&2
+  exit 1
+fi
+
+exit 0
+```
+
+---
+
+## 設定構造
+
 ```json
 {
-  "hookSpecificOutput": {
-    "permissionDecision": "allow",
-    "permissionDecisionReason": "Auto-approved",
-    "updatedInput": {"field": "value"}
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",  // 正規表現でマッチ
+        "hooks": [
+          { "type": "command", "command": "/path/to/hook.sh" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          { "type": "command", "command": "/path/to/hook.sh" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "/path/to/hook.sh" }
+        ]
+      }
+    ]
   }
 }
 ```
 
-**PostToolUse:** Provide feedback or block:
-```json
-{
-  "decision": "block",
-  "reason": "Explanation"
-}
+---
+
+## デバッグ
+
+```bash
+# 直接実行してテスト
+TOOL_NAME="Bash" TOOL_INPUT='{"command":"git push --force main"}' ./my-hook.sh
+echo $?  # 終了コード確認
 ```
 
-**UserPromptSubmit:** Block prompts or add context:
-```json
-{
-  "decision": "block",
-  "reason": "Security violation"
-}
-```
+---
 
-**Stop/SubagentStop:** Prevent completion:
-```json
-{
-  "decision": "block",
-  "reason": "Must continue with..."
-}
-```
+## ベストプラクティス
 
-## MCP Tool Integration
-
-MCP tools follow pattern: `mcp__<server>__<tool>`
-
-Configure with regex matchers:
-```json
-{
-  "matcher": "mcp__memory__.*",
-  "hooks": [{"type": "command", "command": "validate.py"}]
-}
-```
-
-## Practical Examples
-
-**Bash validation (exit code):**
-Detect non-preferred commands and reject them with exit code 2.
-
-**UserPromptSubmit context injection (exit code 0):**
-Add current time or project context via stdout; Claude sees this automatically.
-
-**PreToolUse approval (JSON):**
-Auto-approve documentation file reads while maintaining security audit trails.
-
-## Common Use Cases
-
-- **Notifications**: Customize input/permission alerts
-- **Automatic formatting**: Run `prettier` on TypeScript, `gofmt` on Go files after edits
-- **Logging**: Track executed commands for compliance
-- **Feedback**: Automated codebase convention validation
-- **Custom permissions**: Block production/sensitive file modifications
-
-## Execution Details
-
-- **Timeout:** 60 seconds default, configurable per command
-- **Parallelization:** All matching hooks run simultaneously
-- **Deduplication:** Identical commands execute once
-- **Environment:** Runs in current directory with Claude's environment
-
-## Security Considerations
-
-**Critical warning:** Claude Code hooks execute arbitrary shell commands on your system automatically. By using hooks, you acknowledge that:
-- You are solely responsible for the commands you configure
-- Hooks can modify, delete, or access any files your user account can access
-- Malicious or poorly written hooks can cause data loss or system damage
-
-**Best practices:**
-- Validate and sanitize inputs
-- Always quote shell variables (`"$VAR"`)
-- Block path traversal attempts
-- Use absolute paths
-- Avoid sensitive files (.env, .git, credentials)
-
-Configuration snapshots prevent mid-session modifications from affecting behavior.
-
-## Debugging
-
-Use `claude --debug` for hook execution details showing matched patterns, command execution, status codes, and output. Progress messages display in transcript mode (Ctrl-R).
-
-## Configuration via Slash Command
-
-Use the `/hooks` slash command to configure hooks interactively and save to either user settings (all projects) or project-specific settings.
+1. **非ブロッキング**: 長時間処理は避ける
+2. **stderr に出力**: stdout ではなく stderr に出力
+3. **提案のみ**: 自動実行せず、人間に判断を委ねる
+4. **jq でパース**: JSON パースには jq を使用
+5. **フェイルセーフ**: jq がない場合は許可（exit 0）

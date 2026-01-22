@@ -1,11 +1,7 @@
 {
   "name": "task-analyzer",
-  "description": "Performs metacognitive task analysis and skill selection. Use when determining task complexity, selecting appropriate skills, or estimating work scale. Returns skills with confidence scores and metada",
-  "repo": "shinpr/claude-code-workflows",
-  "category": "data",
-  "tags": [
-    "task",
-    "analyzer"
-  ],
-  "stars": 44
+  "repo": "Tahir-yamin/dev-engineering-playbook",
+  "path": "workflows/shinpr/skills/task-analyzer/SKILL.md",
+  "source": "github.com/Tahir-yamin/dev-engineering-playbook",
+  "downloaded_at": "2026-01-22T03:41:40.864910Z"
 }

@@ -1,28 +1,62 @@
 ---
 name: TanStack Start
 description: |
-  Build full-stack React apps with TanStack Start on Cloudflare Workers. Type-safe routing, server functions, SSR/streaming, D1/KV/R2 integration.
+  Build full-stack React applications with TanStack Start on Cloudflare Workers. Type-safe routing, server functions, SSR/streaming, and seamless D1/KV/R2 integration.
 
-  Use when building full-stack React apps with SSR, or migrating from Next.js. RC status - monitor #5734 before production.
-user-invocable: true
+  Use when: building full-stack React apps, need SSR with Cloudflare Workers, want type-safe server functions, or migrating from Next.js.
+
+  RC status - v1.0 stable pending. Monitor tanstack/router#5734 (memory leak) before production use.
+license: MIT
 allowed-tools: [Bash, Read, Write, Edit]
+metadata:
+  version: 0.9.0
+  author: Jeremy Dawes | Jezweb
+  last-verified: 2025-11-18
+  production-tested: false
+  status: draft
+  package: "@tanstack/react-start"
+  current_version: "1.136.9"
+  keywords:
+    - tanstack start
+    - tanstack react start
+    - tanstack router
+    - full-stack react
+    - ssr
+    - server-side rendering
+    - cloudflare workers
+    - cloudflare vite plugin
+    - server functions
+    - api routes
+    - type-safe server
+    - react framework
+    - next.js alternative
+    - vite
+    - vinxi
+    - nitro
+    - server components
+    - streaming ssr
+    - hydration
+    - file-based routing
+    - react server functions
+    - cloudflare d1
+    - cloudflare kv
+    - cloudflare r2
+    - workers assets
 ---
 
 # TanStack Start Skill [DRAFT - NOT READY]
 
-⚠️ **Status: Release Candidate - Ready for Production Testing**
+⚠️ **Status: Release Candidate - Monitoring for Stability**
 
 This skill is prepared but NOT published. Waiting for:
-- ⏸️ v1.0 stable release (currently RC v1.146.3 as of 2026-01-09)
-- ✅ GitHub #5734 resolved (memory leak with TanStack Form - **FIXED** Jan 5, 2026)
-- ⏸️ Final RC stabilization period
+- ⏸️ v1.0 stable release (currently RC v1.136.9 as of 2025-11-18)
+- ❌ GitHub #5734 resolved (memory leak with TanStack Form - OPEN as of 2025-11-02)
+- ⏸️ Critical bugs stabilization period
 - ⏸️ Template/reference content creation
 
-**Current Package:** `@tanstack/react-start@1.146.3` (Jan 2026)
+**Current Package:** `@tanstack/react-start@1.136.9` (Nov 18, 2025)
 
-**OK FOR PRODUCTION TESTING** - RC status, memory leak issue resolved
-
-**Issue #5734 Resolution** (Jan 5, 2026): Memory leak with TanStack Form was fixed in form/start latest versions. The issue that caused server crashes every ~30 min on pages with forms is now resolved. Update to latest versions of both @tanstack/react-start and @tanstack/form.
+**DO NOT USE IN PRODUCTION YET** - RC status, active memory leak issue
 
 ---
 
@@ -67,7 +101,6 @@ npm create cloudflare@latest -- --framework=tanstack-start
 
 ---
 
-**Last Updated:** 2026-01-09
+**Last Updated:** 2025-11-18
 **RC Announced:** September 22, 2025
-**Expected Stable:** Final RC feedback period (issue #5734 resolved)
-**Monitoring:** Issue #5734 closed (Jan 5, 2026). Memory leak fixed in latest form/start versions.
+**Expected Stable:** Pending issue #5734 resolution + final RC feedback

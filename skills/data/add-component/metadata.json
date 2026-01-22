@@ -1,12 +1,7 @@
 {
   "name": "add-component",
-  "description": "Add a new component following Next.js 15 and shadcn/ui best practices",
-  "repo": "gregsantos/nexturbo",
-  "category": "design",
-  "tags": [
-    "add",
-    "component"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "WhatIfWeDigDeeper/claude-template",
+  "path": ".claude/skills/add-component/SKILL.md",
+  "source": "github.com/WhatIfWeDigDeeper/claude-template",
+  "downloaded_at": "2026-01-22T02:11:44.820584Z"
 }

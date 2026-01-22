@@ -1,1015 +1,486 @@
 ---
 name: python-venv-manager
-description: Python virtual environment management, dependency handling, and project setup automation.
+description: Python 虚拟环境自动化管理工具。当项目需要创建或管理 Python 虚拟环境（.venv）时使用此技能：检测现有环境、创建新环境、生成 requirements.txt、安装依赖包、配置 Git 忽略规则。
 ---
 
-# Python Virtual Environment Manager Skill
+# Python 虚拟环境管理器
 
-Python virtual environment management, dependency handling, and project setup automation.
+## 概述
 
-## Instructions
+自动化 Python 虚拟环境（.venv）的创建、管理和依赖安装，确保项目依赖隔离和开发环境的可重现性。
 
-You are a Python environment and dependency expert. When invoked:
+## 使用场景
 
-1. **Virtual Environment Management**:
-   - Create and configure virtual environments
-   - Manage Python versions with pyenv
-   - Set up isolated development environments
-   - Handle multiple Python versions per project
-   - Configure environment activation scripts
+- **新项目初始化** - 为全新 Python 项目设置虚拟环境
+- **现有项目环境化** - 为没有虚拟环境的项目添加依赖隔离
+- **依赖管理** - 自动生成和维护 requirements.txt
+- **环境健康检查** - 验证虚拟环境状态和完整性
+- **团队协作** - 确保所有开发者使用相同的环境配置
 
-2. **Dependency Management**:
-   - Generate and manage requirements.txt
-   - Use modern tools (pip-tools, poetry, pipenv)
-   - Lock dependencies with hashes
-   - Handle dev vs production dependencies
-   - Resolve dependency conflicts
+## 快速开始
 
-3. **Project Setup**:
-   - Initialize new Python projects
-   - Configure project structure
-   - Set up testing frameworks
-   - Configure linting and formatting
-   - Create reproducible environments
+### 一键初始化（推荐）
 
-4. **Troubleshooting**:
-   - Fix import errors
-   - Resolve version conflicts
-   - Debug installation issues
-   - Handle platform-specific dependencies
-   - Clean corrupted environments
-
-5. **Best Practices**: Provide guidance on Python packaging, versioning, and environment isolation
-
-## Virtual Environment Tools Comparison
-
-### venv (Built-in)
-```bash
-# Pros: Built-in, no installation needed
-# Cons: Basic features, manual workflow
-
-# Create environment
-python3 -m venv venv
-
-# Activate (Linux/Mac)
-source venv/bin/activate
-
-# Activate (Windows)
-venv\Scripts\activate
-
-# Deactivate
-deactivate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### virtualenv (Enhanced)
-```bash
-# Pros: More features, faster than venv
-# Cons: Requires installation
-
-# Install
-pip install virtualenv
-
-# Create with specific Python version
-virtualenv -p python3.11 venv
-
-# Create with system site-packages
-virtualenv --system-site-packages venv
-```
-
-### Poetry (Modern, Recommended)
-```bash
-# Pros: Dependency resolution, packaging, publishing
-# Cons: Learning curve
-
-# Install
-curl -sSL https://install.python-poetry.org | python3 -
-
-# Create new project
-poetry new my-project
-
-# Initialize existing project
-poetry init
-
-# Add dependencies
-poetry add requests
-poetry add --group dev pytest
-
-# Install dependencies
-poetry install
-
-# Run commands in virtual environment
-poetry run python script.py
-poetry run pytest
-
-# Activate shell
-poetry shell
-
-# Update dependencies
-poetry update
-
-# Show dependency tree
-poetry show --tree
-```
-
-### Pipenv
-```bash
-# Pros: Automatic venv, Pipfile format
-# Cons: Slower than alternatives
-
-# Install
-pip install pipenv
-
-# Install dependencies
-pipenv install requests
-
-# Install dev dependencies
-pipenv install --dev pytest
-
-# Activate environment
-pipenv shell
-
-# Run command
-pipenv run python script.py
-
-# Generate requirements.txt
-pipenv requirements > requirements.txt
-```
-
-### pyenv (Python Version Manager)
-```bash
-# Install multiple Python versions
-# Manage Python versions per project
-
-# Install
-curl https://pyenv.run | bash
-
-# Install Python version
-pyenv install 3.11.5
-pyenv install 3.12.0
-
-# List available versions
-pyenv install --list
-
-# Set global version
-pyenv global 3.11.5
-
-# Set local version (per directory)
-pyenv local 3.11.5
-
-# List installed versions
-pyenv versions
-
-# Show current version
-pyenv version
-```
-
-## Usage Examples
-
-```
-@python-venv-manager
-@python-venv-manager --setup-project
-@python-venv-manager --create-venv
-@python-venv-manager --poetry
-@python-venv-manager --fix-dependencies
-@python-venv-manager --migrate-to-poetry
-```
-
-## Project Setup Workflows
-
-### Basic Project with venv
-```bash
-# Create project directory
-mkdir my-project
-cd my-project
-
-# Create virtual environment
-python3 -m venv venv
-
-# Activate environment
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate  # Windows
-
-# Upgrade pip
-pip install --upgrade pip
-
-# Install dependencies
-pip install requests pytest black flake8
-
-# Freeze dependencies
-pip freeze > requirements.txt
-
-# Create .gitignore
-cat > .gitignore << EOF
-venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-.pytest_cache/
-.coverage
-htmlcov/
-.env
-.venv
-EOF
-```
-
-### Modern Project with Poetry
-```bash
-# Create new project with structure
-poetry new my-project
-cd my-project
-
-# Project structure created:
-# my-project/
-# ├── pyproject.toml
-# ├── README.md
-# ├── my_project/
-# │   └── __init__.py
-# └── tests/
-#     └── __init__.py
-
-# Add dependencies
-poetry add requests httpx pydantic
-poetry add --group dev pytest pytest-cov black flake8 mypy
-
-# Install dependencies
-poetry install
-
-# Configure pyproject.toml
-cat >> pyproject.toml << EOF
-
-[tool.black]
-line-length = 88
-target-version = ['py311']
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = "test_*.py"
-
-[tool.mypy]
-python_version = "3.11"
-warn_return_any = true
-warn_unused_configs = true
-EOF
-```
-
-### Initialize Existing Project
-```bash
-# Navigate to project
-cd existing-project
-
-# Initialize poetry
-poetry init
-
-# Follow interactive prompts, then add dependencies
-poetry add $(cat requirements.txt)
-
-# Add dev dependencies
-poetry add --group dev pytest black flake8
-
-# Create virtual environment
-poetry install
-
-# Verify installation
-poetry run python -c "import requests; print(requests.__version__)"
-```
-
-## Dependency Management
-
-### requirements.txt Best Practices
-```bash
-# Basic requirements.txt
-requests==2.31.0
-django==4.2.7
-celery==5.3.4
-
-# With hashes for security (pip-tools)
-pip-compile --generate-hashes requirements.in
-
-# Separate files
-requirements/
-├── base.txt          # Common dependencies
-├── development.txt   # Dev dependencies
-├── production.txt    # Production dependencies
-└── testing.txt       # Test dependencies
-
-# development.txt
--r base.txt
-pytest==7.4.3
-black==23.11.0
-flake8==6.1.0
-
-# Install from specific file
-pip install -r requirements/development.txt
-```
-
-### Using pip-tools (Recommended)
-```bash
-# Install pip-tools
-pip install pip-tools
-
-# Create requirements.in
-cat > requirements.in << EOF
-django>=4.2,<5.0
-requests
-celery[redis]
-EOF
-
-# Compile to requirements.txt with pinned versions
-pip-compile requirements.in
-
-# Install from compiled requirements
-pip-sync requirements.txt
-
-# Update dependencies
-pip-compile --upgrade requirements.in
-
-# Compile with hashes for security
-pip-compile --generate-hashes requirements.in
-```
-
-### Poetry Dependency Management
-```bash
-# Add dependency with version constraint
-poetry add "django>=4.2,<5.0"
-
-# Add with specific version
-poetry add django@4.2.7
-
-# Add from git
-poetry add git+https://github.com/user/repo.git
-
-# Add from local path
-poetry add --editable ./local-package
-
-# Add with extras
-poetry add "celery[redis,auth]"
-
-# Update specific package
-poetry update django
-
-# Update all packages
-poetry update
-
-# Show outdated packages
-poetry show --outdated
-
-# Remove package
-poetry remove requests
-
-# Export to requirements.txt
-poetry export -f requirements.txt --output requirements.txt
-poetry export --without-hashes -f requirements.txt --output requirements.txt
-```
-
-### Development vs Production Dependencies
-```bash
-# Poetry approach
-[tool.poetry.dependencies]
-python = "^3.11"
-django = "^4.2"
-requests = "^2.31"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4"
-black = "^23.11"
-flake8 = "^6.1"
-
-# Install without dev dependencies
-poetry install --without dev
-
-# Install only specific groups
-poetry install --only dev
-
-# pip-tools approach
-# requirements.in (production)
-django>=4.2
-requests
-
-# requirements-dev.in (development)
--r requirements.in
-pytest>=7.4
-black>=23.11
-flake8>=6.1
-
-# Compile both
-pip-compile requirements.in
-pip-compile requirements-dev.in
-```
-
-## Python Version Management
-
-### Using pyenv
-```bash
-# Install pyenv
-curl https://pyenv.run | bash
-
-# Add to shell configuration (.bashrc, .zshrc)
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-# Install Python versions
-pyenv install 3.11.5
-pyenv install 3.12.0
-
-# Set global version
-pyenv global 3.11.5
-
-# Set local version (creates .python-version file)
-pyenv local 3.11.5
-
-# Create virtual environment with specific version
-pyenv virtualenv 3.11.5 my-project-env
-
-# Activate virtual environment
-pyenv activate my-project-env
-
-# Deactivate
-pyenv deactivate
-
-# List virtual environments
-pyenv virtualenvs
-
-# Delete virtual environment
-pyenv uninstall my-project-env
-```
-
-### Using pyenv with Poetry
-```bash
-# Set local Python version
-pyenv local 3.11.5
-
-# Initialize Poetry project
-poetry init
-
-# Poetry will use pyenv's Python version
-poetry env use python
-
-# Or specify version explicitly
-poetry env use 3.11
-
-# List Poetry environments
-poetry env list
-
-# Remove environment
-poetry env remove python3.11
-
-# Show environment info
-poetry env info
-```
-
-## Project Structure Best Practices
-
-### Small Project
-```
-my-project/
-├── .gitignore
-├── README.md
-├── requirements.txt
-├── setup.py  (optional)
-├── my_module.py
-└── tests/
-    ├── __init__.py
-    └── test_my_module.py
-```
-
-### Medium Project
-```
-my-project/
-├── .gitignore
-├── README.md
-├── pyproject.toml
-├── setup.py
-├── requirements/
-│   ├── base.txt
-│   ├── development.txt
-│   └── production.txt
-├── src/
-│   └── my_package/
-│       ├── __init__.py
-│       ├── core.py
-│       ├── utils.py
-│       └── models.py
-├── tests/
-│   ├── __init__.py
-│   ├── conftest.py
-│   └── test_core.py
-└── docs/
-    └── index.md
-```
-
-### Large Project with Poetry
-```
-my-project/
-├── .gitignore
-├── .python-version
-├── README.md
-├── pyproject.toml
-├── poetry.lock
-├── src/
-│   └── my_package/
-│       ├── __init__.py
-│       ├── core/
-│       │   ├── __init__.py
-│       │   └── engine.py
-│       ├── api/
-│       │   ├── __init__.py
-│       │   └── routes.py
-│       └── utils/
-│           ├── __init__.py
-│           └── helpers.py
-├── tests/
-│   ├── __init__.py
-│   ├── conftest.py
-│   ├── unit/
-│   │   └── test_core.py
-│   └── integration/
-│       └── test_api.py
-├── docs/
-│   ├── conf.py
-│   └── index.rst
-└── scripts/
-    └── setup_dev.sh
-```
-
-## Common Issues & Solutions
-
-### Issue: ModuleNotFoundError
-```bash
-# Check if virtual environment is activated
-which python  # Should point to venv/bin/python
-
-# Verify package is installed
-pip list | grep package-name
-
-# Reinstall package
-pip install --force-reinstall package-name
-
-# Check Python path
-python -c "import sys; print('\n'.join(sys.path))"
-
-# Fix: Activate virtual environment
-source venv/bin/activate
-
-# Fix: Install in editable mode for local development
-pip install -e .
-```
-
-### Issue: Dependency Conflicts
-```bash
-# Check for conflicts
-pip check
-
-# Show dependency tree
-pip install pipdeptree
-pipdeptree
-
-# Using Poetry (better conflict resolution)
-poetry add package-name
-# Poetry will resolve conflicts automatically
-
-# Force specific version
-pip install "package==1.2.3"
-
-# Use pip-tools to resolve
-pip-compile --resolver=backtracking requirements.in
-```
-
-### Issue: Multiple Python Versions Confusion
-```bash
-# Check current Python version
-python --version
-which python
-
-# Use specific version explicitly
-python3.11 -m venv venv
-
-# With pyenv
-pyenv versions  # List installed versions
-pyenv which python  # Show current python path
-
-# Set specific version for project
-pyenv local 3.11.5
-```
-
-### Issue: Corrupted Virtual Environment
-```bash
-# Delete and recreate
-rm -rf venv/
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-# With Poetry
-poetry env remove python3.11
-poetry install
-```
-
-### Issue: SSL Certificate Errors
-```bash
-# Temporary workaround (NOT for production)
-pip install --trusted-host pypi.org --trusted-host pypi.python.org package-name
-
-# Better solution: Update certificates
-pip install --upgrade certifi
-
-# macOS specific
-/Applications/Python\ 3.11/Install\ Certificates.command
-```
-
-### Issue: Permission Denied
-```bash
-# Don't use sudo with pip in virtual environment!
-# Recreate venv with proper permissions
-
-# Fix ownership
-chown -R $USER:$USER venv/
-
-# Use user install only if not in venv
-pip install --user package-name
-```
-
-## Environment Variables and Configuration
-
-### .env Files
-```bash
-# Install python-decouple or python-dotenv
-poetry add python-dotenv
-
-# Create .env file
-cat > .env << EOF
-DEBUG=True
-SECRET_KEY=your-secret-key
-DATABASE_URL=postgresql://user:pass@localhost/db
-REDIS_URL=redis://localhost:6379
-EOF
-
-# Load in Python
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-SECRET_KEY = os.getenv('SECRET_KEY')
-DATABASE_URL = os.getenv('DATABASE_URL')
-```
-
-### Environment-Specific Settings
-```python
-# config.py
-import os
-from pathlib import Path
-
-class Config:
-    BASE_DIR = Path(__file__).parent
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    DEBUG = False
-    TESTING = False
-
-class DevelopmentConfig(Config):
-    DEBUG = True
-    DATABASE_URL = 'sqlite:///dev.db'
-
-class ProductionConfig(Config):
-    DATABASE_URL = os.getenv('DATABASE_URL')
-
-class TestingConfig(Config):
-    TESTING = True
-    DATABASE_URL = 'sqlite:///test.db'
-
-# Select config based on environment
-config = {
-    'development': DevelopmentConfig,
-    'production': ProductionConfig,
-    'testing': TestingConfig,
-    'default': DevelopmentConfig
-}
-
-def get_config():
-    env = os.getenv('FLASK_ENV', 'default')
-    return config[env]()
-```
-
-## Testing Setup
-
-### pytest Configuration
-```bash
-# Install pytest
-poetry add --group dev pytest pytest-cov pytest-mock
-
-# pyproject.toml
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = "test_*.py"
-python_classes = "Test*"
-python_functions = "test_*"
-addopts = "-v --tb=short --strict-markers"
-
-# Run tests
-poetry run pytest
-
-# With coverage
-poetry run pytest --cov=src --cov-report=html
-
-# Run specific test
-poetry run pytest tests/test_core.py::test_function_name
-```
-
-## Code Quality Tools
-
-### Formatting and Linting
-```bash
-# Install tools
-poetry add --group dev black isort flake8 mypy pylint
-
-# pyproject.toml configuration
-[tool.black]
-line-length = 88
-target-version = ['py311']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.venv
-  | build
-  | dist
-)/
-'''
-
-[tool.isort]
-profile = "black"
-line_length = 88
-
-[tool.mypy]
-python_version = "3.11"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-
-# Run formatting
-poetry run black .
-poetry run isort .
-
-# Run linting
-poetry run flake8 src/
-poetry run mypy src/
-poetry run pylint src/
-```
-
-### Pre-commit Hooks
-```bash
-# Install pre-commit
-poetry add --group dev pre-commit
-
-# Create .pre-commit-config.yaml
-cat > .pre-commit-config.yaml << EOF
-repos:
-  - repo: https://github.com/psf/black
-    rev: 23.11.0
-    hooks:
-      - id: black
-        language_version: python3.11
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: ["--profile", "black"]
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
-    hooks:
-      - id: flake8
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.7.0
-    hooks:
-      - id: mypy
-        additional_dependencies: [types-requests]
-EOF
-
-# Install hooks
-poetry run pre-commit install
-
-# Run manually
-poetry run pre-commit run --all-files
-```
-
-## Migration Scripts
-
-### Migrate from requirements.txt to Poetry
-```bash
-# Script: migrate_to_poetry.sh
-#!/bin/bash
-
-echo "Migrating to Poetry..."
-
-# Backup current setup
-cp requirements.txt requirements.txt.backup
-
-# Initialize Poetry
-poetry init --no-interaction
-
-# Add dependencies from requirements.txt
-cat requirements.txt | grep -v "^#" | grep -v "^$" | while read package; do
-    # Remove version specifiers for initial add
-    pkg_name=$(echo $package | cut -d'=' -f1 | cut -d'>' -f1 | cut -d'<' -f1)
-    poetry add "$pkg_name"
-done
-
-# Install dependencies
-poetry install
-
-echo "Migration complete. Check pyproject.toml"
-echo "Original requirements.txt backed up to requirements.txt.backup"
-```
-
-### Convert between formats
-```bash
-# Poetry to requirements.txt
-poetry export -f requirements.txt --output requirements.txt --without-hashes
-
-# requirements.txt to Poetry
-cat requirements.txt | xargs poetry add
-
-# Pipenv to requirements.txt
-pipenv requirements > requirements.txt
-
-# Pipenv to Poetry
-poetry add $(pipenv requirements | sed 's/==/=/g')
-```
-
-## Docker Integration
-
-### Dockerfile with Virtual Environment
-```dockerfile
-FROM python:3.11-slim
-
-WORKDIR /app
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy dependency files
-COPY requirements.txt .
-
-# Create virtual environment and install dependencies
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy application
-COPY . .
-
-# Run as non-root
-RUN useradd -m -u 1001 appuser && \
-    chown -R appuser:appuser /app
-USER appuser
-
-CMD ["python", "app.py"]
-```
-
-### Dockerfile with Poetry
-```dockerfile
-FROM python:3.11-slim as builder
-
-WORKDIR /app
-
-# Install Poetry
-RUN pip install poetry==1.7.0
-
-# Configure Poetry
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
-
-# Copy dependency files
-COPY pyproject.toml poetry.lock ./
-
-# Install dependencies
-RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
-
-# Runtime stage
-FROM python:3.11-slim as runtime
-
-WORKDIR /app
-
-# Copy virtual environment from builder
-ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
-COPY --from=builder /app/.venv ${VIRTUAL_ENV}
-
-# Copy application
-COPY . .
-
-# Run as non-root
-RUN useradd -m -u 1001 appuser && \
-    chown -R appuser:appuser /app
-USER appuser
-
-CMD ["python", "app.py"]
-```
-
-## Best Practices Summary
-
-### Virtual Environment
-- Always use virtual environments (never install globally)
-- One virtual environment per project
-- Keep venv/ out of version control (.gitignore)
-- Document Python version requirements (.python-version)
-- Use pyenv for managing multiple Python versions
-
-### Dependency Management
-- Pin exact versions in production (no ~, ^)
-- Use pip-tools or Poetry for dependency resolution
-- Separate dev and production dependencies
-- Use lock files (poetry.lock, requirements.txt with hashes)
-- Regularly update dependencies for security
-- Document why specific versions are pinned
-
-### Project Structure
-- Use src/ layout for packages
-- Keep tests separate from source
-- Include comprehensive .gitignore
-- Add README.md with setup instructions
-- Use pyproject.toml for modern projects
-
-### Security
-- Never commit .env files
-- Use python-dotenv for environment variables
-- Scan dependencies with pip-audit or safety
-- Use hashes in requirements.txt
-- Keep dependencies minimal
-- Update regularly for security patches
-
-### Development Workflow
-- Use pre-commit hooks for code quality
-- Configure formatters (black, isort)
-- Use type hints and mypy
-- Write tests with pytest
-- Document setup steps in README
-
-## Quick Reference Commands
+对于全新项目，执行完整流程：
 
 ```bash
-# venv basics
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-pip freeze > requirements.txt
+# 1. 检查虚拟环境状态
+python3 .claude/skills/python-venv-manager/scripts/check_venv.py
 
-# Poetry basics
-poetry new project
-poetry init
-poetry add package
-poetry install
-poetry shell
-poetry run python script.py
+# 2. 创建虚拟环境
+python3 .claude/skills/python-venv-manager/scripts/create_venv.py
 
-# pyenv basics
-pyenv install 3.11.5
-pyenv local 3.11.5
-pyenv virtualenv 3.11.5 myenv
+# 3. 生成 requirements.txt（如果不存在）
+python3 .claude/skills/python-venv-manager/scripts/generate_requirements.py
 
-# pip-tools basics
-pip-compile requirements.in
-pip-sync requirements.txt
-pip-compile --upgrade
+# 4. 安装依赖
+python3 .claude/skills/python-venv-manager/scripts/install_deps.py
 
-# Common tasks
-pip list --outdated
-pip check
-poetry show --outdated
-poetry update
+# 5. 更新 .gitignore
+python3 .claude/skills/python-venv-manager/scripts/update_gitignore.py
 ```
 
-## Notes
+### 分步执行
 
-- Prefer Poetry or pip-tools over manual requirements.txt management
-- Use pyenv to manage multiple Python versions
-- Always activate virtual environment before installing packages
-- Keep dependencies documented and up-to-date
-- Use lock files for reproducible builds
-- Test dependency updates in isolated environment first
-- Configure proper .gitignore to exclude virtual environments
-- Use type hints and static analysis tools (mypy)
-- Set up CI/CD to verify dependency installation
-- Regular security audits of dependencies
+根据项目实际情况选择需要的步骤。
+
+## 工作流程
+
+### 场景 1：全新项目
+
+```
+开始
+  ↓
+1. 检查是否已有虚拟环境
+   [check_venv.py]
+   ├─ 已存在 → 显示状态，询问是否继续
+   └─ 不存在 → 继续
+       ↓
+2. 创建虚拟环境
+   [create_venv.py]
+   使用系统默认 python3
+       ↓
+3. 生成 requirements.txt
+   [generate_requirements.py]
+   ├─ 扫描所有 .py 文件
+   ├─ 提取 import 语句
+   ├─ 过滤标准库和本地模块
+   └─ 生成 requirements.txt
+       ↓
+4. 审查 requirements.txt
+   人工检查生成的依赖列表
+   ├─ 调整版本要求
+   └─ 添加遗漏的包
+       ↓
+5. 安装依赖
+   [install_deps.py]
+   ├─ 升级 pip
+   └─ 安装 requirements.txt 中的包
+       ↓
+6. 配置 Git
+   [update_gitignore.py]
+   添加 .venv/ 到 .gitignore
+       ↓
+完成
+```
+
+### 场景 2：现有项目（有 requirements.txt）
+
+```
+开始
+  ↓
+1. 检查虚拟环境
+   [check_venv.py]
+       ↓
+2. 创建虚拟环境
+   [create_venv.py]
+       ↓
+3. 安装依赖
+   [install_deps.py]
+   使用现有 requirements.txt
+       ↓
+4. 配置 Git
+   [update_gitignore.py]
+       ↓
+完成
+```
+
+### 场景 3：现有项目（无 requirements.txt）
+
+```
+开始
+  ↓
+1. 检查虚拟环境
+   [check_venv.py]
+       ↓
+2. 生成 requirements.txt
+   [generate_requirements.py]
+   从代码分析生成
+       ↓
+3. 审查 requirements.txt
+   人工检查和调整
+       ↓
+4. 创建虚拟环境
+   [create_venv.py]
+       ↓
+5. 安装依赖
+   [install_deps.py]
+       ↓
+6. 配置 Git
+   [update_gitignore.py]
+       ↓
+完成
+```
+
+## 脚本说明
+
+### check_venv.py - 虚拟环境检查器
+
+检查项目根目录是否存在有效的 .venv 虚拟环境。
+
+**功能**：
+- 检查 .venv 目录是否存在
+- 验证虚拟环境完整性（激活脚本、Python 解释器）
+- 显示虚拟环境的 Python 版本
+- 报告 pip 可用性
+
+**返回值**：
+- `0` - 虚拟环境存在且有效
+- `1` - 虚拟环境不存在
+- `2` - 虚拟环境存在但无效
+
+**用法**：
+```bash
+python3 .claude/skills/python-venv-manager/scripts/check_venv.py
+```
+
+**自动化程度**：100% 脚本自动化，无需大模型介入
+
+---
+
+### create_venv.py - 虚拟环境创建器
+
+创建 .venv 虚拟环境。
+
+**功能**：
+- 使用系统默认 python3 或指定 Python 版本创建虚拟环境
+- 检测并处理已存在的虚拟环境（交互模式）
+- 显示激活命令提示
+
+**参数**：
+- `python_path` - 可选的 Python 解释器路径
+
+**用法**：
+```bash
+# 使用系统默认 python3
+python3 .claude/skills/python-venv-manager/scripts/create_venv.py
+
+# 使用指定 Python 版本
+python3 .claude/skills/python-venv-manager/scripts/create_venv.py python3.11
+```
+
+**自动化程度**：100% 脚本自动化，无需大模型介入
+
+---
+
+### generate_requirements.py - 依赖生成器
+
+分析项目代码生成 requirements.txt。
+
+**功能**：
+- 扫描项目中所有 .py 文件（排除虚拟环境和缓存目录）
+- 使用 AST 解析提取所有 import 语句
+- 过滤 Python 标准库（包含 Python 3.8-3.14 完整列表）
+- 过滤本地模块导入
+- 处理常见包别名映射（如 yaml → pyyaml）
+- 生成使用宽松版本的 requirements.txt
+- 检测可疑导入（动态导入、条件性依赖）
+- 提示人工检查特殊情况
+
+**用法**：
+```bash
+python3 .claude/skills/python-venv-manager/scripts/generate_requirements.py
+```
+
+**输出**：
+- requirements.txt 文件
+- 特殊情况报告（需要人工检查）
+
+**包别名处理**：
+- `yaml` → `pyyaml`
+- `PIL` → `pillow`
+- `cv2` → `opencv-python`
+- `bs4` → `beautifulsoup4`
+- `sklearn` → `scikit-learn`
+
+**自动化程度**：80% 脚本 + 20% 大模型辅助
+
+**大模型介入点**：
+- 分析检测到的可疑导入
+- 判断动态导入是否为必需依赖
+- 判断条件性依赖是否必需
+- 优化版本策略（哪些包需要固定版本）
+- 建议是否拆分 requirements-dev.txt
+
+---
+
+### install_deps.py - 依赖安装器
+
+安装 requirements.txt 中的依赖到虚拟环境。
+
+**功能**：
+- 验证虚拟环境和 requirements.txt 存在性
+- 升级 pip 到最新版本
+- 安装 requirements.txt 中的所有包
+- 显示已安装的包列表
+
+**用法**：
+```bash
+python3 .claude/skills/python-venv-manager/scripts/install_deps.py
+```
+
+**自动化程度**：100% 脚本自动化，无需大模型介入
+
+---
+
+### update_gitignore.py - Git 忽略规则更新器
+
+更新 .gitignore 文件，确保 .venv 被忽略。
+
+**功能**：
+- 如果 .gitignore 不存在，创建它
+- 检查是否已包含 .venv 规则
+- 仅在缺失时添加 .venv 规则
+- 保留现有 .gitignore 内容
+
+**用法**：
+```bash
+python3 .claude/skills/python-venv-manager/scripts/update_gitignore.py
+```
+
+**自动化程度**：100% 脚本自动化，无需大模型介入
+
+## 最佳实践
+
+### 虚拟环境命名
+
+**推荐**：`.venv`（现代标准，PEP 405）
+
+### requirements.txt 版本策略
+
+**开发环境**（宽松版本）：
+```txt
+package>=1.0.0
+```
+
+**生产环境**（固定版本）：
+```txt
+package>=1.2.0,<2.0.0
+```
+
+**多文件管理**：
+- `requirements.txt` - 生产依赖
+- `requirements-dev.txt` - 开发依赖
+- `requirements.lock` - 精确锁定（由 pip-compile 生成）
+
+### 工作流程建议
+
+**新项目**：
+1. 创建虚拟环境
+2. 安装依赖
+3. 生成 requirements.txt
+4. 配置 .gitignore
+5. 提交到 Git
+
+**克隆项目**：
+1. 创建虚拟环境
+2. 安装依赖（使用现有 requirements.txt）
+3. 验证环境
+
+## 故障排除
+
+### 虚拟环境激活失败
+
+**症状**：运行激活命令后提示符没有变化
+
+**解决方案**：
+```bash
+# 检查虚拟环境是否存在
+ls -la .venv/bin/
+
+# 验证 Python 可用
+.venv/bin/python --version
+
+# 重新创建虚拟环境
+rm -rf .venv
+python3 -m venv .venv
+```
+
+### requirements.txt 生成不准确
+
+**症状**：遗漏某些包或包含不必要的包
+
+**解决方案**：
+```bash
+# 1. 查看可疑导入报告
+python3 generate_requirements.py
+
+# 2. 人工检查生成的 requirements.txt
+cat requirements.txt
+
+# 3. 手动调整：
+#    - 添加遗漏的包
+#    - 删除不必要的包
+#    - 调整版本要求
+```
+
+### 依赖安装失败
+
+**症状**：pip install 报错
+
+**解决方案**：
+```bash
+# 1. 升级 pip
+.venv/bin/pip install --upgrade pip
+
+# 2. 清理 pip 缓存
+pip cache purge
+
+# 3. 使用国内镜像源
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 4. 逐个安装，找出冲突包
+pip install package1
+pip install package2
+```
+
+### Python 版本不兼容
+
+**症状**：某些包需要特定 Python 版本
+
+**解决方案**：
+```bash
+# 1. 检查当前 Python 版本
+python3 --version
+
+# 2. 使用特定 Python 版本创建虚拟环境
+python3.11 -m venv .venv
+
+# 3. 或使用 pyenv 管理多版本
+pyenv install 3.11.0
+pyenv local 3.11.0
+python3 -m venv .venv
+```
+
+## 资源
+
+### scripts/ 目录
+
+包含 5 个可执行脚本：
+
+1. **check_venv.py** - 虚拟环境检查器（约 70 行）
+2. **create_venv.py** - 虚拟环境创建器（约 100 行）
+3. **generate_requirements.py** - 依赖生成器（约 250 行）
+4. **install_deps.py** - 依赖安装器（约 120 行）
+5. **update_gitignore.py** - Git 忽略规则更新器（约 60 行）
+
+所有脚本：
+- 使用 Python 3.8+ 语法
+- 包含完整的中文注释
+- 提供详细的错误处理
+- 跨平台支持（Windows/macOS/Linux）
+- 可以独立执行或在大模型指导下执行
+
+### references/ 目录
+
+包含详细的参考资料：
+
+1. **best_practices.md**
+   - 虚拟环境的重要性
+   - 命名规范
+   - 版本固定策略
+   - .gitignore 最佳实践
+   - 跨平台兼容性
+   - 常见问题和解决方案
+
+2. **common_packages.md**
+   - 常用开发工具包（black, pytest, mypy 等）
+   - Web 框架包（django, flask, fastapi）
+   - 数据科学包（numpy, pandas, scipy）
+   - 网络工具包（requests, httpx, beautifulsoup4）
+   - 包别名映射表
+
+## 示例用法
+
+### 示例 1：新项目快速启动
+
+```bash
+# 克隆项目后
+git clone https://github.com/user/project.git
+cd project
+
+# 一键设置环境
+python3 .claude/skills/python-venv-manager/scripts/check_venv.py
+python3 .claude/skills/python-venv-manager/scripts/create_venv.py
+python3 .claude/skills/python-venv-manager/scripts/generate_requirements.py
+# 编辑 requirements.txt（如需要）
+python3 .claude/skills/python-venv-manager/scripts/install_deps.py
+python3 .claude/skills/python-venv-manager/scripts/update_gitignore.py
+
+# 开始工作
+source .venv/bin/activate
+python main.py
+```
+
+### 示例 2：检测到的可疑导入
+
+当 `generate_requirements.py` 检测到特殊情况时：
+
+```bash
+$ python3 generate_requirements.py
+
+⚠️  检测到 2 个需要人工检查的情况：
+   - src/utils.py (行 45): 可能的条件性导入
+   - src/config.py: 使用动态导入 importlib.import_module
+
+💡 提示：某些动态导入或条件性依赖可能需要手动添加到 requirements.txt
+```
+
+**大模型分析**：
+- 查看这些文件的具体代码
+- 判断动态导入的包是否为必需依赖
+- 提供优化建议（如添加到 requirements-opt.txt 作为可选依赖）
+
+### 示例 3：版本策略优化
+
+脚本生成的 requirements.txt 使用默认的 `>=1.0.0` 版本要求。
+
+**大模型建议**：
+```
+"检测到数据科学包：numpy, pandas"
+"建议固定 numpy 版本：numpy>=1.20.0,<2.0.0"
+"检测到开发工具：pytest, black"
+"建议创建 requirements-dev.txt 包含开发工具"
+```
+
+## 技术规格
+
+- **Python 版本**：3.8+（使用系统默认 python3）
+- **虚拟环境**：.venv（标准 venv 模块）
+- **依赖文件**：requirements.txt
+- **跨平台**：Windows, macOS, Linux
+- **标准库**：包含 Python 3.8-3.14 完整列表
+
+## 注意事项
+
+1. **动态导入**：`importlib.import_module()` 等动态导入无法通过 AST 解析检测，需要手动添加
+2. **条件性依赖**：try/except 块中的导入可能是可选依赖，需要人工判断
+3. **本地模块**：相对导入（如 `from .utils import helper`）会被正确过滤
+4. **版本兼容性**：生成的 requirements.txt 使用宽松版本，生产环境建议固定版本
+5. **Git 安全**：确保 .venv 在 .gitignore 中，不要提交虚拟环境到版本控制
+
+## 相关资源
+
+- [PEP 405 -- Python Virtual Environments](https://www.python.org/dev/peps/pep-0405/)
+- [Python venv 文档](https://docs.python.org/3/library/venv.html)
+- [pip 用户指南](https://pip.pypa.io/en/stable/user_guide/)

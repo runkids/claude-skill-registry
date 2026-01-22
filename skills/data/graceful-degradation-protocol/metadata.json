@@ -1,12 +1,7 @@
 {
   "name": "graceful-degradation-protocol",
-  "description": "Execute graceful degradation when system constraints exceeded.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "data",
-  "tags": [
-    "graceful",
-    "degradation",
-    "protocol"
-  ],
-  "stars": 1
+  "path": "skills/graceful-degradation-protocol/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:52.930148Z"
 }

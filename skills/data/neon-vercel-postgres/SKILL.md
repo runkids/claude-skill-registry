@@ -1,18 +1,18 @@
 ---
 name: neon-vercel-postgres
 description: |
-  Set up serverless Postgres with Neon or Vercel Postgres for Cloudflare Workers/Edge. Includes connection pooling, git-like branching, and Drizzle ORM integration.
+  Set up serverless Postgres with Neon or Vercel Postgres for Cloudflare Workers/Edge. Includes connection pooling, git-like branching for preview environments, and Drizzle/Prisma integration.
 
-  Use when: setting up edge Postgres, troubleshooting "TCP not supported", connection pool exhausted, or SSL config errors.
-user-invocable: true
+  Use when: setting up edge Postgres, configuring database branching, or troubleshooting "TCP not supported", connection pool exhausted, SSL config (sslmode=require), or Prisma edge compatibility.
+license: MIT
 ---
 
 # Neon & Vercel Serverless Postgres
 
 **Status**: Production Ready
-**Last Updated**: 2026-01-09
+**Last Updated**: 2025-10-29
 **Dependencies**: None
-**Latest Versions**: `@neondatabase/serverless@1.0.2`, `@vercel/postgres@0.10.0`, `drizzle-orm@0.45.1`, `drizzle-kit@0.31.8`, `neonctl@2.19.0`
+**Latest Versions**: `@neondatabase/serverless@1.0.2`, `@vercel/postgres@0.10.0`, `drizzle-orm@0.44.7`, `neonctl@2.16.1`
 
 ---
 
@@ -119,11 +119,11 @@ npm install @vercel/postgres
 
 **With ORM**:
 ```bash
-# Drizzle ORM (recommended for edge compatibility)
-npm install drizzle-orm@0.45.1 @neondatabase/serverless@1.0.2
-npm install -D drizzle-kit@0.31.8
+# Drizzle ORM (recommended)
+npm install drizzle-orm @neondatabase/serverless
+npm install -D drizzle-kit
 
-# Prisma (Node.js only)
+# Prisma (alternative)
 npm install prisma @prisma/client @prisma/adapter-neon @neondatabase/serverless
 ```
 
@@ -148,16 +148,18 @@ npm install prisma @prisma/client @prisma/adapter-neon @neondatabase/serverless
 2. Vercel automatically creates a Neon database
 3. Run `vercel env pull` to get environment variables locally
 
-**Option C: Neon CLI** (neonctl@2.19.0)
+**Option C: Neon CLI** (neonctl)
 ```bash
 # Install CLI
-npm install -g neonctl@2.19.0
+npm install -g neonctl
 
 # Authenticate
 neonctl auth
 
-# Create project and get connection string
+# Create project
 neonctl projects create --name my-app
+
+# Get connection string
 neonctl connection-string main
 ```
 
@@ -288,24 +290,53 @@ npx prisma migrate dev --name init
 
 ### Step 5: Query Patterns
 
-**CRITICAL - Template Tag Syntax Required:**
+**Simple Queries (Neon Direct):**
 ```typescript
-// ✅ Correct: Template tag syntax (prevents SQL injection)
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL!);
+
+// SELECT
 const users = await sql`SELECT * FROM users WHERE email = ${email}`;
 
-// ❌ Wrong: String concatenation (SQL injection risk)
-const users = await sql('SELECT * FROM users WHERE email = ' + email);
+// INSERT
+const newUser = await sql`
+  INSERT INTO users (name, email)
+  VALUES (${name}, ${email})
+  RETURNING *
+`;
+
+// UPDATE
+await sql`UPDATE users SET name = ${newName} WHERE id = ${id}`;
+
+// DELETE
+await sql`DELETE FROM users WHERE id = ${id}`;
 ```
 
-**Neon Transaction API (Unique Features):**
+**Simple Queries (Vercel Postgres):**
 ```typescript
-// Automatic transaction (array of queries)
+import { sql } from '@vercel/postgres';
+
+// SELECT
+const { rows } = await sql`SELECT * FROM users WHERE email = ${email}`;
+
+// INSERT
+const { rows: newUser } = await sql`
+  INSERT INTO users (name, email)
+  VALUES (${name}, ${email})
+  RETURNING *
+`;
+```
+
+**Transactions (Neon Direct):**
+```typescript
+// Automatic transaction
 const results = await sql.transaction([
   sql`INSERT INTO users (name) VALUES (${name})`,
   sql`UPDATE accounts SET balance = balance - ${amount} WHERE id = ${accountId}`
 ]);
 
-// Manual transaction with callback (for complex logic)
+// Manual transaction (for complex logic)
 const result = await sql.transaction(async (sql) => {
   const [user] = await sql`INSERT INTO users (name) VALUES (${name}) RETURNING id`;
   await sql`INSERT INTO profiles (user_id) VALUES (${user.id})`;
@@ -313,17 +344,55 @@ const result = await sql.transaction(async (sql) => {
 });
 ```
 
-**Vercel Postgres Transactions:**
-- Must use `sql.connect()` + manual `BEGIN`/`COMMIT`/`ROLLBACK`
-- Always call `client.release()` in `finally` block (prevents connection leaks)
-
-**Drizzle Transactions:**
+**Transactions (Vercel Postgres):**
 ```typescript
+import { sql } from '@vercel/postgres';
+
+const client = await sql.connect();
+try {
+  await client.sql`BEGIN`;
+  const { rows } = await client.sql`INSERT INTO users (name) VALUES (${name}) RETURNING id`;
+  await client.sql`INSERT INTO profiles (user_id) VALUES (${rows[0].id})`;
+  await client.sql`COMMIT`;
+} catch (e) {
+  await client.sql`ROLLBACK`;
+  throw e;
+} finally {
+  client.release();
+}
+```
+
+**Drizzle ORM Queries:**
+```typescript
+import { db } from './db';
+import { users } from './db/schema';
+import { eq } from 'drizzle-orm';
+
+// SELECT
+const allUsers = await db.select().from(users);
+const user = await db.select().from(users).where(eq(users.email, email));
+
+// INSERT
+const newUser = await db.insert(users).values({ name, email }).returning();
+
+// UPDATE
+await db.update(users).set({ name: newName }).where(eq(users.id, id));
+
+// DELETE
+await db.delete(users).where(eq(users.id, id));
+
+// Transactions
 await db.transaction(async (tx) => {
   await tx.insert(users).values({ name, email });
   await tx.insert(profiles).values({ userId: user.id });
 });
 ```
+
+**Key Points:**
+- Always use template tag syntax (`` sql`...` ``) for SQL injection protection
+- Transactions are atomic (all succeed or all fail)
+- Release connections after use (Vercel Postgres manual transactions)
+- Drizzle is fully type-safe and edge-compatible
 
 ---
 
@@ -412,22 +481,51 @@ curl https://your-app.workers.dev/api/users
 
 ---
 
-## Critical Rules (Neon/Vercel-Specific)
+## Critical Rules
 
-**✅ MUST DO:**
-- Use **pooled connection strings** (`-pooler.` in hostname) for serverless
-- Include **`?sslmode=require`** in connection strings
-- Use **template tag syntax** (`` sql`...` ``) to prevent SQL injection
-- Call **`client.release()`** in `finally` block (Vercel Postgres transactions only)
-- Use **Drizzle for Cloudflare Workers** (Prisma requires Node.js runtime)
-- Use **`POSTGRES_URL`** for queries, **`POSTGRES_PRISMA_URL`** for Prisma migrations
+### Always Do
 
-**❌ NEVER DO:**
-- Use non-pooled connections or `POSTGRES_URL_NON_POOLING` in serverless
-- Concatenate SQL strings (use template tags only)
-- Omit `sslmode=require` (connections will fail)
-- Use Prisma in Cloudflare Workers (V8 isolates don't support it)
-- Run migrations from edge functions (use Node.js environment)
+✅ **Use pooled connection strings** for serverless environments (`-pooler.` in hostname)
+
+✅ **Use template tag syntax** for queries (`` sql`SELECT * FROM users` ``) to prevent SQL injection
+
+✅ **Include `sslmode=require`** in connection strings
+
+✅ **Release connections** after transactions (Vercel Postgres manual transactions)
+
+✅ **Use Drizzle ORM** for edge-compatible TypeScript ORM (not Prisma in Cloudflare Workers)
+
+✅ **Set connection string as environment variable** (never hardcode)
+
+✅ **Use Neon branching** for preview environments and testing
+
+✅ **Monitor connection pool usage** in Neon dashboard
+
+✅ **Handle errors** with try/catch blocks and rollback transactions on failure
+
+✅ **Use RETURNING` clause for INSERT/UPDATE** to get created/updated data in one query
+
+### Never Do
+
+❌ **Never use non-pooled connections** in serverless functions (will exhaust connection pool)
+
+❌ **Never concatenate SQL strings** (`'SELECT * FROM users WHERE id = ' + id`) - SQL injection risk
+
+❌ **Never omit `sslmode=require`** - connections will fail or be insecure
+
+❌ **Never forget to `client.release()`** in manual Vercel Postgres transactions - connection leak
+
+❌ **Never use Prisma in Cloudflare Workers** - requires Node.js runtime (use Drizzle instead)
+
+❌ **Never hardcode connection strings** - use environment variables
+
+❌ **Never run migrations from edge functions** - use Node.js environment or Neon console
+
+❌ **Never commit `.env` files** - add to `.gitignore`
+
+❌ **Never use `POSTGRES_URL_NON_POOLING`** in serverless functions - defeats pooling
+
+❌ **Never exceed connection limits** - monitor usage and upgrade plan if needed
 
 ---
 
@@ -558,7 +656,7 @@ This skill prevents **15 documented issues**:
     "drizzle-orm": "^0.44.7"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.7"
+    "drizzle-kit": "^0.31.0"
   },
   "scripts": {
     "db:generate": "drizzle-kit generate",
@@ -596,32 +694,103 @@ export default defineConfig({
 ### Pattern 1: Cloudflare Worker with Neon
 
 ```typescript
+// src/index.ts
 import { neon } from '@neondatabase/serverless';
 
-interface Env { DATABASE_URL: string; }
+interface Env {
+  DATABASE_URL: string;
+}
 
 export default {
   async fetch(request: Request, env: Env) {
     const sql = neon(env.DATABASE_URL);
-    const users = await sql`SELECT * FROM users`;
-    return Response.json(users);
+
+    // Parse request
+    const url = new URL(request.url);
+
+    if (url.pathname === '/api/users' && request.method === 'GET') {
+      const users = await sql`SELECT id, name, email FROM users`;
+      return Response.json(users);
+    }
+
+    if (url.pathname === '/api/users' && request.method === 'POST') {
+      const { name, email } = await request.json();
+      const [user] = await sql`
+        INSERT INTO users (name, email)
+        VALUES (${name}, ${email})
+        RETURNING *
+      `;
+      return Response.json(user, { status: 201 });
+    }
+
+    return new Response('Not Found', { status: 404 });
   }
 };
 ```
 
-### Pattern 2: Vercel Postgres with Next.js
+**When to use**: Cloudflare Workers deployment with Postgres database
+
+---
+
+### Pattern 2: Next.js Server Action with Vercel Postgres
 
 ```typescript
+// app/actions/users.ts
 'use server';
+
 import { sql } from '@vercel/postgres';
+import { revalidatePath } from 'next/cache';
 
 export async function getUsers() {
-  const { rows } = await sql`SELECT * FROM users`;
+  const { rows } = await sql`SELECT id, name, email FROM users ORDER BY created_at DESC`;
   return rows;
+}
+
+export async function createUser(formData: FormData) {
+  const name = formData.get('name') as string;
+  const email = formData.get('email') as string;
+
+  const { rows } = await sql`
+    INSERT INTO users (name, email)
+    VALUES (${name}, ${email})
+    RETURNING *
+  `;
+
+  revalidatePath('/users');
+  return rows[0];
+}
+
+export async function deleteUser(id: number) {
+  await sql`DELETE FROM users WHERE id = ${id}`;
+  revalidatePath('/users');
 }
 ```
 
-### Pattern 3: Drizzle ORM Setup
+**When to use**: Next.js Server Actions with Vercel Postgres
+
+---
+
+### Pattern 3: Drizzle ORM with Type Safety
+
+```typescript
+// db/schema.ts
+import { pgTable, serial, text, timestamp, integer } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  createdAt: timestamp('created_at').defaultNow()
+});
+
+export const posts = pgTable('posts', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id),
+  title: text('title').notNull(),
+  content: text('content'),
+  createdAt: timestamp('created_at').defaultNow()
+});
+```
 
 ```typescript
 // db/index.ts
@@ -631,19 +800,73 @@ import * as schema from './schema';
 
 const sql = neon(process.env.DATABASE_URL!);
 export const db = drizzle(sql, { schema });
-
-// Usage: Type-safe queries with JOINs
-const postsWithAuthors = await db
-  .select({ postId: posts.id, authorName: users.name })
-  .from(posts)
-  .leftJoin(users, eq(posts.userId, users.id));
 ```
+
+```typescript
+// app/api/posts/route.ts
+import { db } from '@/db';
+import { posts, users } from '@/db/schema';
+import { eq } from 'drizzle-orm';
+
+export async function GET() {
+  // Type-safe query with joins
+  const postsWithAuthors = await db
+    .select({
+      postId: posts.id,
+      title: posts.title,
+      content: posts.content,
+      authorName: users.name
+    })
+    .from(posts)
+    .leftJoin(users, eq(posts.userId, users.id));
+
+  return Response.json(postsWithAuthors);
+}
+```
+
+**When to use**: Need type-safe queries, complex joins, edge-compatible ORM
 
 ---
 
-### Pattern 4: Neon Automatic Transactions
+### Pattern 4: Database Transactions
 
-See Step 5 for Neon's unique transaction API (array syntax or callback syntax)
+```typescript
+// Neon Direct - Automatic Transaction
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL!);
+
+const result = await sql.transaction(async (tx) => {
+  // Deduct from sender
+  const [sender] = await tx`
+    UPDATE accounts
+    SET balance = balance - ${amount}
+    WHERE id = ${senderId} AND balance >= ${amount}
+    RETURNING *
+  `;
+
+  if (!sender) {
+    throw new Error('Insufficient funds');
+  }
+
+  // Add to recipient
+  await tx`
+    UPDATE accounts
+    SET balance = balance + ${amount}
+    WHERE id = ${recipientId}
+  `;
+
+  // Log transaction
+  await tx`
+    INSERT INTO transfers (from_id, to_id, amount)
+    VALUES (${senderId}, ${recipientId}, ${amount})
+  `;
+
+  return sender;
+});
+```
+
+**When to use**: Multiple related database operations that must all succeed or all fail
 
 ---
 
@@ -732,49 +955,199 @@ npx tsx scripts/test-connection.ts
 
 ## Advanced Topics
 
-### Database Branching (Neon-Specific Feature)
+### Database Branching Workflows
 
-Neon provides git-like database branching:
+Neon's branching feature allows git-like workflows for databases:
 
+**Branch Types:**
+- **Main branch**: Production database
+- **Dev branch**: Long-lived development database
+- **PR branches**: Ephemeral branches for preview deployments
+- **Test branches**: Isolated testing environments
+
+**Branch Creation:**
 ```bash
-# Create branch from main
+# Create from main
 neonctl branches create --name dev --parent main
 
-# Create from point-in-time (PITR restore)
-neonctl branches create --name restore --parent main --timestamp "2025-10-28T10:00:00Z"
+# Create from specific point in time (PITR)
+neonctl branches create --name restore-point --parent main --timestamp "2025-10-28T10:00:00Z"
 
-# Get connection string for branch
+# Create from another branch
+neonctl branches create --name feature --parent dev
+```
+
+**Branch Management:**
+```bash
+# List branches
+neonctl branches list
+
+# Get connection string
 neonctl connection-string dev
 
 # Delete branch
 neonctl branches delete feature
+
+# Reset branch to match parent
+neonctl branches reset dev --parent main
 ```
 
-**Key Features:**
-- **Copy-on-write**: Branch creation is instant (no data copying)
+**Use Cases:**
 - **Preview deployments**: Create branch per PR, delete on merge
-- **Point-in-time restore**: Restore to specific timestamp (7-day retention on free tier)
-- **Compute sharing**: Branches share compute limits (free tier) or independent compute (paid plans)
+- **Testing**: Create branch, run tests, delete
+- **Debugging**: Create branch from production at specific timestamp
+- **Development**: Separate dev/staging/prod branches
+
+**CRITICAL:**
+- Branches share compute limits on free tier
+- Each branch can have independent compute settings (paid plans)
+- Data changes are copy-on-write (instant, no copying)
+- Retention period applies to all branches
 
 ---
 
-### Performance & Security Notes
+### Connection Pooling Deep Dive
 
-**Connection Pool Monitoring:**
-- Check usage in Neon dashboard (connection limit: 100 free tier, ~10,000 with pooling)
-- Set alerts for >80% usage
-- Use pooled connection strings to avoid "connection pool exhausted" errors
+**How Pooling Works:**
+1. Client requests a connection
+2. Pooler assigns an existing idle connection or creates new one
+3. Client uses connection for query
+4. Connection returns to pool (reusable)
 
-**Query Optimization:**
-- Use indexes for frequently queried columns
-- Avoid N+1 queries (use JOINs or Drizzle relations)
-- Use Drizzle prepared statements for repeated queries
+**Pooled vs Non-Pooled:**
 
-**Security:**
-- Never hardcode connection strings (use environment variables)
-- Template tag syntax prevents SQL injection
-- Use Row-Level Security (RLS) for multi-tenant apps
-- Validate input with Zod before queries
+| Feature | Pooled (`-pooler.`) | Non-Pooled |
+|---------|---------------------|------------|
+| **Use Case** | Serverless, edge functions | Long-running servers |
+| **Max Connections** | ~10,000 (shared) | ~100 (per database) |
+| **Connection Reuse** | Yes | No |
+| **Latency** | +1-2ms overhead | Direct |
+| **Idle Timeout** | 60s | Configurable |
+
+**When Connection Pool Fills:**
+```
+Error: connection pool exhausted
+```
+
+**Solutions:**
+1. Use pooled connection string (most common fix)
+2. Upgrade to higher tier (more connection slots)
+3. Optimize queries (reduce connection time)
+4. Implement connection retry logic
+5. Use read replicas (distribute load)
+
+**Monitoring:**
+- Check connection usage in Neon dashboard
+- Set up alerts for >80% usage
+- Monitor query duration (long queries hold connections)
+
+---
+
+### Optimizing Query Performance
+
+**Use EXPLAIN ANALYZE:**
+```typescript
+const result = await sql`
+  EXPLAIN ANALYZE
+  SELECT * FROM users WHERE email = ${email}
+`;
+```
+
+**Create Indexes:**
+```typescript
+await sql`CREATE INDEX idx_users_email ON users(email)`;
+await sql`CREATE INDEX idx_posts_user_id ON posts(user_id)`;
+```
+
+**Use Drizzle Indexes:**
+```typescript
+import { pgTable, serial, text, index } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  email: text('email').notNull().unique()
+}, (table) => ({
+  emailIdx: index('email_idx').on(table.email)
+}));
+```
+
+**Batch Queries:**
+```typescript
+// ❌ Bad: N+1 queries
+for (const user of users) {
+  const posts = await sql`SELECT * FROM posts WHERE user_id = ${user.id}`;
+}
+
+// ✅ Good: Single query with JOIN
+const postsWithUsers = await sql`
+  SELECT users.*, posts.*
+  FROM users
+  LEFT JOIN posts ON posts.user_id = users.id
+`;
+```
+
+**Use Prepared Statements (Drizzle):**
+```typescript
+const getUserByEmail = db.select().from(users).where(eq(users.email, sql.placeholder('email'))).prepare('get_user_by_email');
+
+// Reuse prepared statement
+const user1 = await getUserByEmail.execute({ email: 'alice@example.com' });
+const user2 = await getUserByEmail.execute({ email: 'bob@example.com' });
+```
+
+---
+
+### Security Best Practices
+
+**1. Never Expose Connection Strings**
+```typescript
+// ❌ Bad
+const sql = neon('postgresql://user:pass@host/db');
+
+// ✅ Good
+const sql = neon(process.env.DATABASE_URL!);
+```
+
+**2. Use Row-Level Security (RLS)**
+```sql
+-- Enable RLS
+ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
+
+-- Create policy
+CREATE POLICY "Users can only see their own posts"
+  ON posts
+  FOR SELECT
+  USING (user_id = current_user_id());
+```
+
+**3. Validate Input**
+```typescript
+// ✅ Validate before query
+const emailSchema = z.string().email();
+const email = emailSchema.parse(input.email);
+
+const user = await sql`SELECT * FROM users WHERE email = ${email}`;
+```
+
+**4. Limit Query Results**
+```typescript
+// ✅ Always paginate
+const page = Math.max(1, parseInt(request.query.page));
+const limit = 50;
+const offset = (page - 1) * limit;
+
+const users = await sql`
+  SELECT * FROM users
+  ORDER BY created_at DESC
+  LIMIT ${limit} OFFSET ${offset}
+`;
+```
+
+**5. Use Read-Only Roles for Analytics**
+```sql
+CREATE ROLE readonly;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly;
+```
 
 ---
 
@@ -786,10 +1159,10 @@ neonctl branches delete feature
 
 **Optional**:
 - `drizzle-orm@^0.44.7` - TypeScript ORM (edge-compatible, recommended)
-- `drizzle-kit@^0.31.7` - Drizzle schema migrations and introspection
+- `drizzle-kit@^0.31.0` - Drizzle schema migrations and introspection
 - `@prisma/client@^6.10.0` - Prisma ORM (Node.js only, not edge-compatible)
 - `@prisma/adapter-neon@^6.10.0` - Prisma adapter for Neon serverless
-- `neonctl@^2.19.0` - Neon CLI for database management
+- `neonctl@^2.16.1` - Neon CLI for database management
 - `zod@^3.24.0` - Schema validation for input sanitization
 
 ---
@@ -808,18 +1181,18 @@ neonctl branches delete feature
 
 ---
 
-## Package Versions (Verified 2026-01-09)
+## Package Versions (Verified 2025-10-29)
 
 ```json
 {
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
     "@vercel/postgres": "^0.10.0",
-    "drizzle-orm": "^0.45.1"
+    "drizzle-orm": "^0.44.7"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.8",
-    "neonctl": "^2.19.0"
+    "drizzle-kit": "^0.31.0",
+    "neonctl": "^2.16.1"
   }
 }
 ```

@@ -1,305 +1,111 @@
 ---
 name: interview
-description: |
-  This skill conducts discovery conversations to understand user intent and agree on approach before taking action. It should be used when the user explicitly calls /interview, asks for recommendations, needs brainstorming, wants to clarify, or when the request could be misunderstood. Prevents building the wrong thing by uncovering WHY behind WHAT.
+description: >
+  Use when user says "interview me about", "help me clarify", "stress-test my idea",
+  "let's explore this concept", "deep dive into", "probe my assumptions",
+  or needs structured questioning to refine and articulate their thinking.
+argument-hint: [topic] - optional topic to interview about
 ---
 
-# Interview Skill
+# Interview
 
-Prevent building the wrong thing. Discover user's intent (WHY), validate assumptions, and agree on approach (WHAT) before taking action.
+You are a thinking partner conducting an in-depth interview. Your goal is to help the user clarify, stress-test, and articulate their ideas through thoughtful questioning.
 
-## What This Skill Does
+## Initialization
 
-- Discovers INTENT behind surface requests (WHY they want it)
-- Surfaces and validates AI's assumptions before acting
-- Explores solution options informed by intent
-- Reaches mutual agreement on both problem and solution
-- Works for any context: software, documents, brainstorming, automation
+**Determine the interview topic:**
 
-## What This Skill Does NOT Do
+1. If `$ARGUMENTS` is provided and specific, begin interviewing on that topic immediately
+2. If `$ARGUMENTS` is vague (e.g., "my idea", "this thing"), ask one clarifying question to scope it
+3. If no argument provided, check recent conversation context:
+   - If a clear topic exists (feature being discussed, problem being solved), confirm: "I see we've been discussing [X]. Should I interview you about that, or something else?"
+   - If no clear context, ask what they'd like to explore
 
-- Follow rigid scripts
-- Skip to implementation without understanding
-- Accept surface requests without exploring intent
-- Make assumptions without validating them
+## Domain Calibration
 
----
+| Domain | Approach |
+|--------|----------|
+| Technical/coding | Moderate depth—focus on requirements, edge cases, architectural decisions. Don't over-probe implementation details. |
+| Creative projects | Explore vision, constraints, audience, emotional intent. More breadth to map the creative space. |
+| Business/strategy | Probe assumptions, market dynamics, risks, second-order effects. Challenge more. |
+| Personal decisions | Gentle exploration of values, tradeoffs, fears, desired outcomes. Less adversarial. |
+| Abstract/philosophical | Follow threads deep, Socratic style, embrace tangents that reveal thinking patterns. |
 
-## Core Problem This Skill Solves
+## Interview Conduct
 
-**AI builds the wrong thing because it:**
-1. Takes surface requests literally without understanding intent
-2. Makes hidden assumptions it never validates
-3. Proceeds without confirming alignment
+**Question style:**
+- Ask 2-3 related questions per round using AskUserQuestion tool
+- Skip obvious questions the user would state unprompted
+- Probe hidden assumptions and edge cases
+- Occasionally play devil's advocate—argue the opposite position to stress-test ideas
+- When answers seem contradictory, ask gentle follow-ups that surface the tension without labeling it a "contradiction"
 
-**This skill ensures:**
-1. Intent (WHY) is discovered, not just request (WHAT)
-2. Assumptions are surfaced and validated
-3. Both problem and solution are agreed before proceeding
+**Adaptive depth:**
+- Start broad to map the territory
+- Go deeper when hitting something rich, unclear, or emotionally charged
+- Move on once a thread is adequately captured
+- Don't exhaustively probe every angle—match depth to importance
 
----
+**Question types to rotate:**
+- "What happens if...?" (edge cases)
+- "Why this approach over...?" (alternatives)
+- "What would make this fail?" (risks)
+- "Who else has tried this?" (prior art)
+- "What are you not saying?" (hidden concerns)
+- "If you had to cut one thing, what goes?" (priorities)
+- "What would [skeptic/expert/user] say about this?" (perspectives)
 
-## The WHY + WHAT Model
+## Completion
 
-```
-Surface WHAT → Discover WHY → Surface Assumptions →
-Informed WHAT → Agree on Both → Proceed
-```
+**Detect saturation:**
+- Same themes recurring without new substance
+- User giving shorter, more certain answers
+- Core tensions have been surfaced and addressed
 
-| Phase | Purpose | Example |
-|-------|---------|---------|
-| **Surface WHAT** | Capture initial request | "Add dark mode" |
-| **Discover WHY** | Uncover intent/problem | "Eye strain for night workers" |
-| **Surface Assumptions** | Expose AI's hidden assumptions | "Assuming web app, not mobile" |
-| **Informed WHAT** | Solution options based on WHY | "Dark mode + auto-brightness + schedule" |
-| **Agree on Both** | Confirm problem AND solution | "Solving eye strain via dark mode with auto-switch" |
+**Propose closure with synthesis:**
 
----
+When ready to conclude (either user signals or saturation detected):
+1. Summarize the key themes that emerged
+2. Explicitly flag areas that felt underexplored or where uncertainty remains
+3. Ask: "Does this capture it? Anything missing before I write the document?"
 
-## When to Trigger
+## Output Document
 
-| Trigger | Example |
-|---------|---------|
-| Explicit invocation | `/interview`, "let's clarify" |
-| Request could be misunderstood | Ambiguous, complex, or multi-part requests |
-| Recommendations needed | "What should I use for..." |
-| Brainstorming | "Help me think through..." |
-| High-stakes work | Where wrong output wastes significant effort |
+**File location:**
+- Technical/coding topics → `./[topic-slug]-spec.md` (project root)
+- Personal/general topics → `~/interviews/[topic-slug].md`
 
-**Don't over-trigger**: Simple, clear requests don't need full discovery.
+**Document naming:**
 
----
+Let the content guide the framing:
+- Technical features → "spec" or "requirements"
+- Creative projects → "brief" or "vision"
+- Business/strategy → "decision doc" or "analysis"
+- Personal → "reflection" or "exploration"
 
-## Discovery Flow
+**Document structure (hybrid format):**
 
-### Before Starting
+```markdown
+# [Title]
 
-Gather available context before asking questions:
+## Overview
+[2-3 sentence synthesis of the core idea/decision]
 
-| Source | Gather |
-|--------|--------|
-| **Conversation** | User's stated request, prior context |
-| **Available Context** | Information already shared in session |
-| **Skill References** | Question patterns from `references/` |
+## Key Themes
+[Organized sections distilling the main threads, with key quotes preserved verbatim where they capture something essential]
 
-### 1. Surface WHAT
+## Decisions & Positions
+[Clear statements of what was decided or concluded]
 
-Capture the initial request clearly.
+## Open Questions
+[Areas that remain unclear, need more thought, or were flagged as uncertain during the interview]
 
-```
-"Let me make sure I understand - you're asking for [X]?"
-```
-
-### 2. Discover WHY
-
-**This is the critical step most AI skips.**
-
-Go beyond WHAT to understand WHY:
-
-| Ask | To Discover |
-|-----|-------------|
-| "What problem does this solve?" | The real need |
-| "Why now?" | Urgency and context |
-| "What happens if we don't do this?" | Stakes and priority |
-| "Who benefits and how?" | Users and value |
-| "What led to this request?" | Background and triggers |
-
-**Techniques for WHY:**
-
-**Laddering** - Dig into abstract goals:
-```
-"Dark mode" → "Why?" → "Eye strain" → "Why an issue?" → "Night shift workers"
+## Constraints & Boundaries
+[What this explicitly is NOT, limitations acknowledged]
 ```
 
-**5 Whys** - Uncover root need:
-```
-"Export feature" → Why? → "Share reports" → Why? → "Stakeholder reviews" → Root need
-```
+Do NOT include the raw Q&A transcript. Weave the user's words into the synthesis as quotes where they're particularly apt.
 
-**Structuring Clarifications**:
+## Begin
 
-When presenting multiple questions, distinguish must-know from nice-to-know:
-
-```
-## Required Clarifications
-1. [Critical question - blocks progress]
-2. [Critical question - affects core approach]
-
-## Optional Clarifications (if relevant)
-3. [Nice-to-know - can assume reasonable default]
-
-Note: Keep to 1-4 questions per round. Build on answers.
-```
-
-### 3. Surface Assumptions
-
-**This prevents "builds wrong thing."**
-
-AI always makes assumptions. Surface them explicitly:
-
-```
-"I'm assuming:
-- This is for [platform/context]
-- Users are [type]
-- We need to support [X] but not [Y]
-- [Other assumption]
-
-Are these correct?"
-```
-
-**Common hidden assumptions:**
-- Technology/platform
-- User expertise level
-- Scale/performance needs
-- Integration requirements
-- What's in vs out of scope
-
-### 4. Informed WHAT
-
-Now that WHY is clear, explore WHAT options:
-
-```
-"Given that you need [WHY], we could:
-1. [Option A] - [trade-off]
-2. [Option B] - [trade-off]
-3. [Option C] - [trade-off]
-
-Which fits your intent best?"
-```
-
-**Key**: Options should address the WHY, not just the surface WHAT.
-
-### 5. Agree on Both
-
-Confirm understanding of BOTH problem and solution:
-
-```
-## Understanding
-
-**Problem (WHY)**: [What we're solving and why it matters]
-
-**Solution (WHAT)**: [What we'll build/do]
-
-**Key decisions**:
-- [Decision 1]
-- [Decision 2]
-
-**Not included**: [Explicit scope boundaries]
-
-Does this capture it correctly?
-```
-
-**Only proceed after explicit confirmation.**
-
----
-
-## Depth Check
-
-How do you know understanding is deep enough?
-
-### Surface Understanding (NOT enough)
-- Can repeat what user asked for
-- Know the immediate request
-- Haven't explored why
-
-### Deep Understanding (ENOUGH)
-- [ ] Know WHY they want it, not just WHAT
-- [ ] Know what problem it solves
-- [ ] Assumptions are surfaced and validated
-- [ ] Know who benefits and how
-- [ ] Know what's explicitly out of scope
-- [ ] Could explain it to someone else accurately
-- [ ] User confirmed understanding is correct
-
-**Test**: If you proceeded now and built something, would user say "yes, that's what I meant" or "no, you misunderstood"?
-
----
-
-## Assumption Categories
-
-Surface assumptions in these areas:
-
-| Category | Example Assumptions |
-|----------|---------------------|
-| **Context** | Platform, environment, existing systems |
-| **Users** | Who they are, expertise level, needs |
-| **Scale** | Volume, performance requirements |
-| **Scope** | What's included vs excluded |
-| **Quality** | Standards, constraints, requirements |
-| **Timeline** | Urgency, phases, dependencies |
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | What Happens | Fix |
-|--------------|--------------|-----|
-| Skip WHY | Build wrong solution | Always ask why before how |
-| Hidden assumptions | Surprise misalignment | Surface and validate explicitly |
-| Accept surface request | Miss real need | Dig deeper with laddering/5 whys |
-| Proceed without confirm | Waste effort | Get explicit "yes, proceed" |
-| Over-question simple requests | Annoy user | Match depth to complexity |
-
----
-
-## Tool Adaptation
-
-Use whatever tools are available:
-
-| Goal | Approach |
-|------|----------|
-| Ask questions | Interactive tools if available, otherwise conversation |
-| Research context | Web search if needed and available |
-| Present options | Structured choices if available |
-
-The skill describes WHAT to do. The agent uses available tools.
-
----
-
-## Output: Understanding Summary
-
-Match formality to situation:
-
-**Quick** (simple requests):
-```
-Got it: [WHAT] to solve [WHY]
-Proceeding with [approach]. Confirm?
-```
-
-**Standard** (most cases):
-```
-## Understanding
-
-**Problem (WHY)**: [Intent and problem being solved]
-**Solution (WHAT)**: [What we'll do]
-**Key points**: [Important details]
-**Not included**: [Scope boundaries]
-
-Ready to proceed?
-```
-
-**Detailed** (complex work):
-See `references/summary-templates.md`
-
----
-
-## Quick Reference
-
-```
-1. Surface WHAT → "You're asking for X?"
-2. Discover WHY → "What problem does this solve?"
-3. Surface assumptions → "I'm assuming A, B, C - correct?"
-4. Informed WHAT → "Given WHY, we could do X, Y, or Z"
-5. Confirm both → "So we're solving [WHY] by doing [WHAT]?"
-6. Proceed → Only after explicit confirmation
-```
-
----
-
-## Reference Files
-
-| File | Purpose |
-|------|---------|
-| `references/question-patterns.md` | Techniques for discovering WHY and surfacing assumptions |
-| `references/anti-patterns.md` | Common mistakes that lead to building wrong thing |
-| `references/summary-templates.md` | Output formats for different situations |
+Start the interview now based on the initialization rules above. Use AskUserQuestion tool for all questions.

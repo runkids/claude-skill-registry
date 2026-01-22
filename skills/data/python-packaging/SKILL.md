@@ -1,238 +1,501 @@
 ---
 name: python-packaging
-description: Create and publish distributable scientific Python packages following Scientific Python community best practices with pyproject.toml, src layout, and Hatchling. Use when building Python libraries, publishing to PyPI, structuring research software, creating command-line tools, or preparing packages for distribution. Ideal for package metadata configuration, dependency management, and automated publishing workflows.
+description: Automatically applies when configuring Python project packaging. Ensures proper pyproject.toml setup, project layout, build configuration, metadata, and distribution best practices.
+category: python
 ---
 
-# Scientific Python Packaging
+# Python Packaging Patterns
 
-A comprehensive guide to creating, structuring, and distributing Python packages for scientific computing, following the [Scientific Python Community guidelines](https://learn.scientific-python.org/development/guides/packaging-simple/). This skill focuses on modern packaging standards using `pyproject.toml`, PEP 621 metadata, and the Hatchling build backend.
+When packaging Python projects, follow these patterns for modern, maintainable package configuration.
 
-## Quick Decision Tree
+**Trigger Keywords**: pyproject.toml, packaging, setup.py, build, distribution, package, publish, PyPI, wheel, sdist, project structure
 
-**Package Structure Selection:**
-```
-START
-  ├─ Pure Python scientific package (most common) → Pattern 1 (src/ layout)
-  ├─ Need data files with package → Pattern 2 (data/ subdirectory)
-  ├─ CLI tool → Pattern 5 (add [project.scripts])
-  └─ Complex multi-feature package → Pattern 3 (full-featured)
+**Agent Integration**: Used by `backend-architect`, `devops-engineer`, `python-engineer`
+
+## ✅ Correct Pattern: pyproject.toml Setup
+
+```toml
+# pyproject.toml - Modern Python packaging
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "A short description of your package"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+maintainers = [
+    {name = "Maintainer Name", email = "maintainer@example.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+keywords = ["example", "package", "keywords"]
+requires-python = ">=3.11"
+
+# Core dependencies
+dependencies = [
+    "fastapi>=0.109.0",
+    "pydantic>=2.5.0",
+    "sqlalchemy>=2.0.0",
+    "httpx>=0.26.0",
+]
+
+# Optional dependencies (extras)
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=24.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+]
+docs = [
+    "sphinx>=7.2.0",
+    "sphinx-rtd-theme>=2.0.0",
+]
+all = [
+    "mypackage[dev,docs]",
+]
+
+[project.urls]
+Homepage = "https://github.com/username/mypackage"
+Documentation = "https://mypackage.readthedocs.io"
+Repository = "https://github.com/username/mypackage.git"
+Issues = "https://github.com/username/mypackage/issues"
+Changelog = "https://github.com/username/mypackage/blob/main/CHANGELOG.md"
+
+[project.scripts]
+# Entry points for CLI commands
+mypackage-cli = "mypackage.cli:main"
+
+# Tool configurations
+[tool.setuptools]
+# Package discovery
+packages = ["mypackage", "mypackage.submodule"]
+
+[tool.setuptools.package-data]
+mypackage = ["py.typed", "*.json", "templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--cov=mypackage",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py311", "py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = []
+exclude = [
+    ".git",
+    ".venv",
+    "build",
+    "dist",
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
 ```
 
-**Build Backend Choice:**
+## Project Structure
+
 ```
-START → Use Hatchling (recommended for scientific Python)
-  ├─ Need VCS versioning? → Add hatch-vcs plugin
-  ├─ Simple manual versioning? → version = "X.Y.Z" in pyproject.toml
-  └─ Dynamic from __init__.py? → [tool.hatch.version] path
+mypackage/
+├── pyproject.toml          # Project configuration
+├── README.md               # Project documentation
+├── LICENSE                 # License file
+├── CHANGELOG.md            # Version history
+├── .gitignore              # Git ignore patterns
+│
+├── src/                    # Source code (src layout)
+│   └── mypackage/
+│       ├── __init__.py     # Package init
+│       ├── __main__.py     # Entry point for -m
+│       ├── py.typed        # PEP 561 marker
+│       ├── core.py
+│       ├── models.py
+│       └── utils/
+│           ├── __init__.py
+│           └── helpers.py
+│
+├── tests/                  # Test suite
+│   ├── __init__.py
+│   ├── conftest.py        # Pytest fixtures
+│   ├── test_core.py
+│   └── test_models.py
+│
+├── docs/                   # Documentation
+│   ├── conf.py
+│   ├── index.rst
+│   └── api.rst
+│
+└── scripts/                # Utility scripts
+    └── setup_dev.sh
 ```
 
-**Dependency Management:**
-```
-START
-  ├─ Runtime dependencies → [project] dependencies
-  ├─ Optional features → [project.optional-dependencies]
-  ├─ Development tools → [dependency-groups] (PEP 735)
-  └─ Version constraints → Use >= for minimum, avoid upper caps
+## Package Init
+
+```python
+# src/mypackage/__init__.py
+"""
+MyPackage - A Python package for doing things.
+
+This package provides tools for X, Y, and Z.
+"""
+
+from mypackage.core import MainClass, main_function
+from mypackage.models import Model1, Model2
+
+# Version
+__version__ = "0.1.0"
+
+# Public API
+__all__ = [
+    "MainClass",
+    "main_function",
+    "Model1",
+    "Model2",
+]
+
+
+# Convenience imports for common use cases
+def quick_start():
+    """Quick start helper for new users."""
+    return MainClass()
 ```
 
-**Publishing Workflow:**
-```
-1. Build: python -m build
-2. Check: twine check dist/*
-3. Test: twine upload --repository testpypi dist/*
-4. Verify: pip install --index-url https://test.pypi.org/simple/ pkg
-5. Publish: twine upload dist/*
+## CLI Entry Point
+
+```python
+# src/mypackage/__main__.py
+"""
+Entry point for python -m mypackage.
+"""
+from mypackage.cli import main
+
+if __name__ == "__main__":
+    main()
+
+
+# src/mypackage/cli.py
+"""Command-line interface."""
+import argparse
+import sys
+from typing import List, Optional
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    """
+    Main CLI entry point.
+
+    Args:
+        argv: Command-line arguments (defaults to sys.argv)
+
+    Returns:
+        Exit code (0 for success, non-zero for error)
+    """
+    parser = argparse.ArgumentParser(
+        prog="mypackage",
+        description="MyPackage CLI tool",
+    )
+
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}"
+    )
+
+    parser.add_argument(
+        "--verbose",
+        "-v",
+        action="store_true",
+        help="Enable verbose output"
+    )
+
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+    # Add subcommands
+    init_parser = subparsers.add_parser("init", help="Initialize project")
+    init_parser.add_argument("path", help="Project path")
+
+    run_parser = subparsers.add_parser("run", help="Run the application")
+    run_parser.add_argument("--config", help="Config file path")
+
+    # Parse arguments
+    args = parser.parse_args(argv)
+
+    # Execute command
+    if args.command == "init":
+        return init_command(args)
+    elif args.command == "run":
+        return run_command(args)
+    else:
+        parser.print_help()
+        return 1
+
+
+def init_command(args) -> int:
+    """Handle init command."""
+    print(f"Initializing project at {args.path}")
+    return 0
+
+
+def run_command(args) -> int:
+    """Handle run command."""
+    print("Running application")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
 ```
 
-**Common Task Quick Reference:**
+## Type Hints for Distribution
+
+```python
+# src/mypackage/py.typed
+# This file signals that the package supports type hints (PEP 561)
+# Leave empty or add configuration if needed
+```
+
+## Version Management
+
+```python
+# src/mypackage/_version.py
+"""Version information."""
+
+__version__ = "0.1.0"
+__version_info__ = tuple(int(i) for i in __version__.split("."))
+
+
+# src/mypackage/__init__.py
+from mypackage._version import __version__, __version_info__
+
+__all__ = ["__version__", "__version_info__"]
+```
+
+## Build and Distribution
+
 ```bash
-# Setup new package
-mkdir -p my-pkg/src/my_pkg && cd my-pkg
-# Create pyproject.toml with [build-system] and [project] sections
-
-# Development install
-pip install -e . --group dev
-
-# Build distributions
+# Build package
 python -m build
 
-# Test installation
-pip install dist/*.whl
+# This creates:
+# dist/mypackage-0.1.0-py3-none-any.whl  (wheel)
+# dist/mypackage-0.1.0.tar.gz            (source distribution)
 
-# Publish
-twine upload dist/*
+# Test installation locally
+pip install dist/mypackage-0.1.0-py3-none-any.whl
+
+# Upload to PyPI
+python -m twine upload dist/*
+
+# Upload to Test PyPI first
+python -m twine upload --repository testpypi dist/*
 ```
 
-## When to Use This Skill
-
-- Creating scientific Python libraries for distribution
-- Building research software packages with proper structure
-- Publishing scientific packages to PyPI
-- Setting up reproducible scientific Python projects
-- Creating installable packages with scientific dependencies
-- Implementing command-line tools for scientific workflows
-- Following community standards for scientific Python development
-- Preparing packages for peer review and publication
-
-## Core Concepts
-
-### 1. Modern Build Systems
-
-Python packages now use standardized build systems instead of classic `setup.py`:
-
-- **PEP 621**: Standardized project metadata in `pyproject.toml`
-- **PEP 517/518**: Build system independence
-- **Build backend**: Hatchling
-- **No classic files**: No `setup.py`, `setup.cfg`, or `MANIFEST.in`
-
-### 2. Build Backend: Hatchling
-
-- **Hatchling**: Excellent balance of speed, configurability, and extendability
-- Modern, standards-compliant build backend
-- Automatic package discovery in `src/` layout
-- VCS-aware file inclusion for SDists
-- Extensible through plugins
-
-### 3. Package Structure
-
-- **src/ layout**: Required for proper isolation (prevents importing uninstalled code)
-- **Automatic discovery**: Hatchling auto-detects packages in `src/`
-- **Standard structure**: Consistent organization for testing and documentation
-
-### 4. Scientific Python Standards
-
-- **Dependency management**: Careful version constraints
-- **Python version support**: Minimum version without upper caps
-- **Development dependencies**: Use dependency-groups (PEP 735)
-- **Documentation**: Include README, LICENSE, and docs folder
-- **Testing**: Dedicated tests folder
-
-## Quick Start
-
-### Minimal Scientific Package Structure
+## Manifest for Non-Python Files
 
 ```
-my-sci-package/
-├── pyproject.toml
-├── README.md
-├── LICENSE
-├── src/
-│   └── my_sci_package/
-│       ├── __init__.py
-│       ├── analysis.py
-│       └── utils.py
-├── tests/
-│   ├── test_analysis.py
-│   └── test_utils.py
-└── docs/
-    └── index.md
+# MANIFEST.in - Include additional files in source distribution
+include README.md
+include LICENSE
+include CHANGELOG.md
+include pyproject.toml
+
+recursive-include src/mypackage *.json
+recursive-include src/mypackage *.yaml
+recursive-include src/mypackage/templates *.html
+recursive-include tests *.py
+
+global-exclude __pycache__
+global-exclude *.py[co]
 ```
 
-See [assets/pyproject-minimal.toml](assets/pyproject-minimal.toml) for a complete minimal `pyproject.toml` template.
+## Development Installation
 
-## Package Structure Patterns
+```bash
+# Install in editable mode with dev dependencies
+pip install -e ".[dev]"
 
-See [references/PATTERNS.md](references/PATTERNS.md) for detailed package structure patterns including:
-- Pure Python scientific package (recommended)
-- Scientific package with data files
-- Versioning strategies
-- Building and publishing workflows
-- Testing installation
+# Or with all optional dependencies
+pip install -e ".[all]"
 
-## Project Metadata
-
-See [references/METADATA.md](references/METADATA.md) for detailed information on:
-- License configuration (SPDX format)
-- Python version requirements
-- Dependency management
-- Classifiers
-- Optional dependencies (extras)
-- Development dependencies (dependency groups)
-
-## Command-Line Interface
-
-For CLI tool implementation, see [scripts/cli-example.py](scripts/cli-example.py) for a complete example using Click.
-
-**Register in pyproject.toml:**
-```toml
-[project.scripts]
-sci-analyze = "my_sci_package.cli:main"
+# This allows you to edit code without reinstalling
 ```
 
-## File Templates
+## GitHub Actions for Publishing
 
-Ready-to-use templates are available in the `assets/` directory:
+```yaml
+# .github/workflows/publish.yml
+name: Publish to PyPI
 
-- **[assets/.gitignore](assets/.gitignore)** - `.gitignore` for scientific Python packages
-- **[assets/pyproject-minimal.toml](assets/pyproject-minimal.toml)** - Minimal `pyproject.toml` template
-- **[assets/pyproject-full-featured.toml](assets/pyproject-full-featured.toml)** - Full-featured `pyproject.toml` with all options
-- **[assets/README-template.md](assets/README-template.md)** - README template for scientific packages
-- **[assets/sphinx-conf.py](assets/sphinx-conf.py)** - Sphinx documentation configuration
-- **[assets/github-actions-publish.yml](assets/github-actions-publish.yml)** - GitHub Actions workflow for publishing
+on:
+  release:
+    types: [published]
 
-## Documentation
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
 
-### NumPy-style Docstrings
+    steps:
+      - uses: actions/checkout@v4
 
-See [references/DOCSTRINGS.md](references/DOCSTRINGS.md) for examples of NumPy-style docstrings and documentation best practices.
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
 
-## Checklist for Publishing Scientific Packages
+      - name: Install dependencies
+        run: |
+          pip install build twine
 
-- [ ] Code is tested with pytest (>90% coverage recommended)
-- [ ] Documentation is complete (README, docstrings, Sphinx docs)
-- [ ] Version number follows semantic versioning
-- [ ] CHANGELOG.md or NEWS.md updated
-- [ ] LICENSE file included with appropriate license
-- [ ] pyproject.toml has complete metadata
-- [ ] Package uses src/ layout
-- [ ] Package builds without errors (`python -m build`)
-- [ ] SDist contents verified (`tar -tvf dist/*.tar.gz`)
-- [ ] Installation tested in clean environment
-- [ ] CLI tools work if applicable
-- [ ] All classifiers are appropriate
-- [ ] Python version constraint is correct (no upper bound)
-- [ ] Dependencies have appropriate version constraints
-- [ ] Repository is linked in project.urls
-- [ ] Tested on TestPyPI first
-- [ ] GitHub release created (if using)
-- [ ] Documentation published (ReadTheDocs, GitHub Pages)
-- [ ] Citation information included (CITATION.cff or README)
+      - name: Build package
+        run: python -m build
 
-## Best Practices for Scientific Python Packages
+      - name: Check distribution
+        run: twine check dist/*
 
-1. **Use src/ layout** - Prevents importing uninstalled code, ensures proper testing
-2. **Use pyproject.toml** - Modern standard, tool-independent configuration
-3. **Use Hatchling** - Modern, fast, and configurable build backend
-4. **No classic files** - Avoid setup.py, setup.cfg, MANIFEST.in
-5. **Version constraints** - Minimum versions for dependencies, no upper cap for Python
-6. **Test SDist contents** - Always verify what files are included/excluded
-7. **Use TestPyPI** - Always test publishing before going to production
-8. **Document thoroughly** - README, docstrings, Sphinx documentation
-9. **Include LICENSE** - Use SPDX identifiers, choose appropriate scientific license
-10. **Use dependency-groups** - For development dependencies (PEP 735)
-11. **Semantic versioning** - Clear versioning strategy
-12. **Automate CI/CD** - GitHub Actions for testing and publishing
-13. **Type hints** - Include py.typed marker for typed packages
-14. **Citation information** - Make it easy for users to cite your work
-15. **Community standards** - Follow Scientific Python guidelines
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: twine upload dist/*
+```
 
-## Common Issues and Solutions
+## ❌ Anti-Patterns
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
-- Import errors in tests
-- Missing files in distribution
-- Dependency conflicts
-- Python version incompatibility
+```python
+# ❌ Using setup.py instead of pyproject.toml
+# setup.py is legacy, use pyproject.toml
 
-## Resources
+# ❌ No version pinning in dependencies
+dependencies = ["fastapi"]  # Which version?
 
-- **Scientific Python Development Guide**: https://learn.scientific-python.org/development/
-- **Simple Packaging Guide**: https://learn.scientific-python.org/development/guides/packaging-simple/
-- **Python Packaging Guide**: https://packaging.python.org/
-- **PyPI**: https://pypi.org/
-- **TestPyPI**: https://test.pypi.org/
-- **Hatchling documentation**: https://hatch.pypa.io/latest/
-- **build**: https://pypa-build.readthedocs.io/
-- **twine**: https://twine.readthedocs.io/
-- **Scientific Python Cookie**: https://github.com/scientific-python/cookie
-- **NumPy documentation style**: https://numpydoc.readthedocs.io/
+# ✅ Better: Pin compatible versions
+dependencies = ["fastapi>=0.109.0,<1.0.0"]
+
+
+# ❌ Flat package structure
+mypackage.py  # Single file, hard to scale
+
+# ✅ Better: Proper package structure
+src/mypackage/__init__.py
+
+
+# ❌ No py.typed marker
+# Users can't benefit from type hints
+
+# ✅ Better: Include py.typed
+src/mypackage/py.typed
+
+
+# ❌ Not specifying python_requires
+# Package might be installed on incompatible Python
+
+# ✅ Better: Specify Python version
+requires-python = ">=3.11"
+
+
+# ❌ No optional dependencies
+dependencies = ["pytest", "sphinx"]  # Forces install!
+
+# ✅ Better: Use optional-dependencies
+[project.optional-dependencies]
+dev = ["pytest"]
+docs = ["sphinx"]
+```
+
+## Best Practices Checklist
+
+- ✅ Use pyproject.toml for configuration
+- ✅ Use src/ layout for packages
+- ✅ Include py.typed for type hints
+- ✅ Specify Python version requirement
+- ✅ Pin dependency versions
+- ✅ Use optional-dependencies for extras
+- ✅ Include README, LICENSE, CHANGELOG
+- ✅ Define entry points for CLI tools
+- ✅ Configure tools in pyproject.toml
+- ✅ Test package installation locally
+- ✅ Use build and twine for publishing
+- ✅ Automate publishing with CI/CD
+
+## Auto-Apply
+
+When creating Python packages:
+1. Use pyproject.toml for all configuration
+2. Use src/package_name/ layout
+3. Include py.typed marker
+4. Define optional-dependencies for dev/docs
+5. Pin dependency versions
+6. Include README and LICENSE
+7. Define CLI entry points if needed
+8. Configure testing and linting tools
+
+## Related Skills
+
+- `dependency-management` - For managing dependencies
+- `type-safety` - For type hints
+- `pytest-patterns` - For testing
+- `git-workflow-standards` - For releases
+- `docs-style` - For documentation

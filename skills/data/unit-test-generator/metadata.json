@@ -1,7 +1,7 @@
 {
   "name": "unit-test-generator",
-  "repo": "chaserbreitenbach/claude-skills-and-agents",
-  "path": "skills/testing/unit-test-generator/SKILL.md",
-  "source": "github.com/chaserbreitenbach/claude-skills-and-agents",
-  "downloaded_at": "2026-01-14T02:13:18.167348Z"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/unit-test-generator/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-22T02:13:40.224897Z"
 }

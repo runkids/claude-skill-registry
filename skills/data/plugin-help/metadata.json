@@ -1,8 +1,7 @@
 {
   "name": "plugin-help",
-  "repo": "wasp-lang/claude-plugins",
-  "category": "data",
-  "description": "Shows the Wasp plugin's available features, commands, and skills.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:18.145230Z"
+  "repo": "hereinthehive/gotrino-inclusion",
+  "path": "skills/plugin-help/SKILL.md",
+  "source": "github.com/hereinthehive/gotrino-inclusion",
+  "downloaded_at": "2026-01-22T03:02:52.709758Z"
 }

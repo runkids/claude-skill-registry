@@ -39,12 +39,12 @@ Before any changes, create a versioned copy:
 # Get current date for filename
 node -e "console.log(new Date().toISOString().split('T')[0])"
 
-# Copy model with versioning (example for project SECC)
-cp existing_model.osm SECC_2025-12-03_v1.osm
+# Copy model with versioning (example for project Example-RecCenter)
+cp existing_model.osm Example-RecCenter_2025-12-03_v1.osm
 ```
 
 **Naming Convention**: `{projectname}_{YYYY-MM-DD}_v{X}.osm`
-- `projectname`: Project identifier (e.g., SECC, MVCC, Wintrust)
+- `projectname`: Project identifier (e.g., Example-RecCenter, Example-Office)
 - `YYYY-MM-DD`: Today's date
 - `vX`: Version number for that day (v1, v2, v3, etc.)
 
@@ -68,7 +68,7 @@ Create a JSON workflow file to define the simulation:
 **Basic OSW Template** (`workflow.osw`):
 ```json
 {
-  "seed_file": "SECC_2025-12-03_v1.osm",
+  "seed_file": "Example-RecCenter_2025-12-03_v1.osm",
   "weather_file": "USA_CO_Fort_Collins.epw",
   "steps": []
 }
@@ -77,7 +77,7 @@ Create a JSON workflow file to define the simulation:
 **OSW with Measures**:
 ```json
 {
-  "seed_file": "SECC_2025-12-03_v1.osm",
+  "seed_file": "Example-RecCenter_2025-12-03_v1.osm",
   "weather_file": "USA_CO_Fort_Collins.epw",
   "steps": [
     {
@@ -97,7 +97,7 @@ Use Node.js to generate OSW files programmatically:
 import { writeFile } from 'fs/promises';
 
 const workflow = {
-  seed_file: "SECC_2025-12-03_v1.osm",
+  seed_file: "Example-RecCenter_2025-12-03_v1.osm",
   weather_file: "USA_CO_Fort_Collins.epw",
   steps: []
 };
@@ -141,7 +141,7 @@ Add measures to the `steps` array in your OSW file:
 
 ```json
 {
-  "seed_file": "SECC_2025-12-03_v1.osm",
+  "seed_file": "Example-RecCenter_2025-12-03_v1.osm",
   "weather_file": "USA_CO_Fort_Collins.epw",
   "steps": [
     {
@@ -166,7 +166,7 @@ C:\openstudio-3.10.0\bin\openstudio.exe run --measures_only --workflow workflow.
 If you need to see what arguments a measure accepts:
 
 ```bash
-C:\openstudio-3.10.0\bin\openstudio.exe measure --compute_arguments SECC_2025-12-03_v1.osm measures/SetThermostatSchedules/
+C:\openstudio-3.10.0\bin\openstudio.exe measure --compute_arguments Example-RecCenter_2025-12-03_v1.osm measures/SetThermostatSchedules/
 ```
 
 ## 6. Run Simulation
@@ -382,6 +382,41 @@ C:\openstudio-3.10.0\bin\openstudio.exe measure --update measures/MeasureName/
 - Need to create reusable measure for repeated operations
 - Provide: Desired functionality, model context, argument requirements
 
+## Context Awareness
+
+This skill integrates with work-command-center session tracking:
+
+**Check Active Context:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js status
+```
+
+Returns: Project name, project number, duration, and deliverables context
+
+**Log Activity Checkpoints:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js checkpoint \
+  --activity "running-openstudio-models: Simulation completed successfully, annual EUI: 42.3 kBtu/sf"
+```
+
+**Signal Completion (called by WCC after skill returns):**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js skill-complete \
+  --skill-name "running-openstudio-models" \
+  --summary "Simulation successful. EUI: 42.3 kBtu/sf. Model saved as v2.osm." \
+  --outcome "success"
+```
+
+**Benefits:**
+
+- WCC tracks time spent in this skill
+- Session logs include skill work breakdown
+- Context visible across skill transitions
+- Deliverables auto-update from skill outcomes
+
 # Reference Resources
 
 ## Official Documentation
@@ -398,3 +433,19 @@ C:\openstudio-3.10.0\bin\openstudio.exe measure --update measures/MeasureName/
 - **NREL GitHub**: https://github.com/NREL/ (official measures and tools)
 
 See `./openstudio-cli-reference.md` for detailed CLI command syntax and examples.
+
+
+## Saving Next Steps
+
+When running-openstudio-models work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "running-openstudio-models" \
+  --content "## Priority Tasks
+1. Run simulation with updated HVAC measures
+2. Validate results and check for severe errors
+3. Extract EUI and utility costs from eplusout.sql"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

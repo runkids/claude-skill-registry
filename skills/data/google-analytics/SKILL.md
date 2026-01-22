@@ -1,238 +1,153 @@
 ---
 name: google-analytics
-description: GA4 analytics for Next.js, React, and React Native (Firebase). Covers setup, page views, custom events, e-commerce tracking, and event design. Use when implementing user behavior analytics.
+description: Analyze Google Analytics data, review website performance metrics, identify traffic patterns, and suggest data-driven improvements. Use when the user asks about analytics, website metrics, traffic analysis, conversion rates, user behavior, or performance optimization.
 ---
 
-# Analytics with GA4
+# Google Analytics Analysis
 
-## Quick Reference
+Analyze website performance using Google Analytics data to provide actionable insights and improvement recommendations.
 
-| Platform | Library | Page Views |
-|----------|---------|------------|
-| Next.js | @next/third-parties | Auto |
-| React | react-ga4 | Manual (router) |
-| React Native | @react-native-firebase/analytics | Manual |
+## Quick Start
 
----
+### 1. Setup Authentication
 
-## What to Track (Minimum Funnel)
-
-```
-[Landing] → [Key Page] → [Pre-conversion] → [Conversion]
-```
-
-| Business | Pre-conversion | Conversion |
-|----------|----------------|------------|
-| SaaS | `click_signup`, `start_trial` | `sign_up`, `purchase` |
-| E-commerce | `add_to_cart`, `begin_checkout` | `purchase` |
-| Content | `click_subscribe` | `subscribe` |
-
-**Mark conversions**: GA4 Admin → Events → Toggle "Mark as conversion"
-
----
-
-## Next.js Setup
+This Skill requires Google Analytics API credentials. Set up environment variables:
 
 ```bash
-npm install @next/third-parties
+export GOOGLE_ANALYTICS_PROPERTY_ID="your-property-id"
+export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account-key.json"
 ```
 
-```tsx
-// app/layout.tsx
-import { GoogleAnalytics } from "@next/third-parties/google";
+Or create a `.env` file in your project root:
 
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-      {process.env.NODE_ENV === "production" && (
-        <GoogleAnalytics gaId="G-XXXXXXXXXX" />
-      )}
-    </html>
-  );
-}
+```env
+GOOGLE_ANALYTICS_PROPERTY_ID=123456789
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account-key.json
 ```
 
-```tsx
-// Event tracking
-"use client";
-import { sendGAEvent } from "@next/third-parties/google";
+**Never commit credentials to version control.** The service account JSON file should be stored securely outside your repository.
 
-<button onClick={() => sendGAEvent("event", "sign_up", { method: "email" })}>
-  Sign Up
-</button>
-```
-
-**GTM alternative:**
-```tsx
-import { GoogleTagManager } from "@next/third-parties/google";
-<GoogleTagManager gtmId="GTM-XXXXXXX" />
-```
-
----
-
-## React Setup
+### 2. Install Required Packages
 
 ```bash
-npm install react-ga4
+# Option 1: Install from requirements file (recommended)
+pip install -r cli-tool/components/skills/analytics/google-analytics/requirements.txt
+
+# Option 2: Install individually
+pip install google-analytics-data python-dotenv pandas
 ```
 
-```tsx
-// main.tsx
-import ReactGA from "react-ga4";
-ReactGA.initialize("G-XXXXXXXXXX");
+### 3. Analyze Your Project
 
-// Page tracking with router
-import { useLocation } from "react-router-dom";
-function usePageTracking() {
-  const location = useLocation();
-  useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: location.pathname });
-  }, [location]);
-}
+Once configured, I can:
+- Review current traffic and user behavior metrics
+- Identify top-performing and underperforming pages
+- Analyze traffic sources and conversion funnels
+- Compare performance across time periods
+- Suggest data-driven improvements
 
-// Event
-ReactGA.event("sign_up", { method: "email" });
-```
+## How to Use
 
----
+Ask me questions like:
+- "Review our Google Analytics performance for the last 30 days"
+- "What are our top traffic sources?"
+- "Which pages have the highest bounce rates?"
+- "Analyze user engagement and suggest improvements"
+- "Compare this month's performance to last month"
 
-## React Native Setup (Firebase)
+## Analysis Workflow
 
+When you ask me to analyze Google Analytics data, I will:
+
+1. **Connect to the API** using the helper script
+2. **Fetch relevant metrics** based on your question
+3. **Analyze the data** looking for:
+   - Traffic trends and patterns
+   - User behavior insights
+   - Performance bottlenecks
+   - Conversion opportunities
+4. **Provide recommendations** with:
+   - Specific improvement suggestions
+   - Priority level (high/medium/low)
+   - Expected impact
+   - Implementation guidance
+
+## Common Metrics
+
+For detailed metric definitions and dimensions, see [REFERENCE.md](REFERENCE.md).
+
+### Traffic Metrics
+- Sessions, Users, New Users
+- Page views, Screens per Session
+- Average Session Duration
+
+### Engagement Metrics
+- Bounce Rate, Engagement Rate
+- Event Count, Conversions
+- Scroll Depth, Click-through Rate
+
+### Acquisition Metrics
+- Traffic Source/Medium
+- Campaign Performance
+- Channel Grouping
+
+### Conversion Metrics
+- Goal Completions
+- E-commerce Transactions
+- Conversion Rate by Source
+
+## Analysis Examples
+
+For complete analysis patterns and use cases, see [EXAMPLES.md](EXAMPLES.md).
+
+## Scripts
+
+The Skill includes utility scripts for API interaction:
+
+### Fetch Current Performance
 ```bash
-yarn add @react-native-firebase/app @react-native-firebase/analytics
-cd ios && pod install
+python scripts/ga_client.py --days 30 --metrics sessions,users,bounceRate
 ```
 
-```typescript
-import analytics from "@react-native-firebase/analytics";
-
-// Screen view
-await analytics().logScreenView({ screen_name: "HomeScreen" });
-
-// Events
-await analytics().logSignUp({ method: "email" });
-await analytics().logEvent("add_to_cart", { item_id: "SKU123", price: 29.99 });
+### Analyze and Generate Report
+```bash
+python scripts/analyze.py --period last-30-days --compare previous-period
 ```
 
-**GDPR (disable auto-collection):**
-```json
-// firebase.json
-{ "react-native": { "analytics_auto_collection_enabled": false } }
-```
-```typescript
-// After consent
-await analytics().setAnalyticsCollectionEnabled(true);
-```
+The scripts handle API authentication, data fetching, and basic analysis. I'll interpret the results and provide actionable recommendations.
 
----
+## Troubleshooting
 
-## Event Design
+**Authentication Error**: Verify that:
+- `GOOGLE_APPLICATION_CREDENTIALS` points to a valid service account JSON file
+- The service account has "Viewer" access to your GA4 property
+- `GOOGLE_ANALYTICS_PROPERTY_ID` matches your GA4 property ID (not the measurement ID)
 
-### Naming: snake_case
+**No Data Returned**: Check that:
+- The property ID is correct (find it in GA4 Admin > Property Settings)
+- The date range contains data
+- The service account has been granted access in GA4
 
-```typescript
-// ✅ Good
-sendGAEvent("event", "add_to_cart", { item_id: "SKU123" });
-// ❌ Bad
-sendGAEvent("event", "AddToCart", { itemId: "SKU123" });
+**Import Errors**: Install required packages:
+```bash
+pip install google-analytics-data python-dotenv pandas
 ```
 
-### Event Taxonomy
+## Security Notes
 
-```typescript
-// lib/analytics.ts
-import { sendGAEvent } from "@next/third-parties/google";
+- **Never hardcode** API credentials or property IDs in code
+- Store service account JSON files **outside** version control
+- Use environment variables or `.env` files for configuration
+- Add `.env` and credential files to `.gitignore`
+- Rotate service account keys periodically
+- Use least-privilege access (Viewer role only)
 
-export const Analytics = {
-  signUp: (method: string) => sendGAEvent("event", "sign_up", { method }),
-  login: (method: string) => sendGAEvent("event", "login", { method }),
-  search: (term: string) => sendGAEvent("event", "search", { search_term: term }),
-  
-  viewItem: (item: Item) => sendGAEvent("event", "view_item", {
-    currency: "USD", value: item.price,
-    items: [{ item_id: item.id, item_name: item.name, price: item.price }],
-  }),
-  
-  addToCart: (item: Item, qty: number) => sendGAEvent("event", "add_to_cart", {
-    currency: "USD", value: item.price * qty,
-    items: [{ item_id: item.id, item_name: item.name, price: item.price, quantity: qty }],
-  }),
-  
-  purchase: (txId: string, value: number, items: Item[]) => sendGAEvent("event", "purchase", {
-    transaction_id: txId, value, currency: "USD",
-    items: items.map(i => ({ item_id: i.id, item_name: i.name, price: i.price })),
-  }),
-};
-```
+## Data Privacy
 
----
+This Skill accesses aggregated analytics data only. It does not:
+- Access personally identifiable information (PII)
+- Store analytics data persistently
+- Share data with external services
+- Modify your Google Analytics configuration
 
-## E-commerce Flow
-
-```typescript
-// 1. View → 2. Add to cart → 3. Begin checkout → 4. Purchase
-sendGAEvent("event", "view_item", { value: 29.99, items: [...] });
-sendGAEvent("event", "add_to_cart", { value: 29.99, items: [...] });
-sendGAEvent("event", "begin_checkout", { value: 29.99, items: [...] });
-sendGAEvent("event", "purchase", { transaction_id: "T123", value: 32.99, items: [...] });
-```
-
----
-
-## User Tracking
-
-```typescript
-// User ID (after login)
-window.gtag("config", "G-XXXXXXXXXX", { user_id: "USER_123" });
-
-// User properties
-sendGAEvent("set", "user_properties", { subscription_tier: "premium" });
-
-// React Native
-analytics().setUserId("USER_123");
-analytics().setUserProperties({ subscription_tier: "premium" });
-```
-
----
-
-## Debug
-
-```typescript
-// Enable debug mode
-window.gtag("config", "G-XXXXXXXXXX", { debug_mode: true });
-```
-
-**GA4 DebugView**: Admin → DebugView
-**Chrome**: Install "Google Analytics Debugger" extension
-
-**React Native:**
-- iOS: Add `-FIRDebugEnabled` in Xcode scheme
-- Android: `adb shell setprop debug.firebase.analytics.app <package>`
-
----
-
-## Consent Mode
-
-```typescript
-// Default deny
-window.gtag("consent", "default", { analytics_storage: "denied" });
-
-// After consent
-window.gtag("consent", "update", { analytics_storage: "granted" });
-```
-
----
-
-## Checklist
-
-```
-□ Install SDK for platform
-□ Configure measurement ID
-□ Verify page views tracking
-□ Define events (snake_case)
-□ Set up conversion events
-□ Test with DebugView
-□ Disable in development
-□ Implement consent (if GDPR)
-```
+All data is processed locally and used only to generate recommendations during the conversation.

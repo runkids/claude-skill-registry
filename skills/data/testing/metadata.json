@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "path": ".github/agents/app-starter/agents-context/skills/testing/SKILL.md",
-  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "downloaded_at": "2026-01-14T04:00:39.295552Z"
+  "repo": "zoonk/zoonk",
+  "path": ".claude/skills/testing/SKILL.md",
+  "source": "github.com/zoonk/zoonk",
+  "downloaded_at": "2026-01-22T04:16:38.066551Z"
 }

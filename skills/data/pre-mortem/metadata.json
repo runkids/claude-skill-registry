@@ -1,8 +1,7 @@
 {
   "name": "pre-mortem",
-  "repo": "NickCrew/claude-cortex",
-  "category": "data",
-  "description": "Imagine failure first to surface guardrails and feature mitigations.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:36.123278Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/pre-mortem/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-22T04:17:14.127988Z"
 }

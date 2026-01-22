@@ -1,11 +1,7 @@
 {
   "name": "hypothesis",
-  "description": "Use Hypothesis for property-based testing to automatically generate comprehensive test cases, find edge cases, and write more robust tests with minimal example shrinking. Includes Polars parametric te",
-  "repo": "anam-org/metaxy",
-  "category": "testing",
-  "tags": [
-    "hypothesis"
-  ],
-  "stars": 18,
-  "source": "local"
+  "repo": "product-on-purpose/pm-skills",
+  "path": "skills/define/hypothesis/SKILL.md",
+  "source": "github.com/product-on-purpose/pm-skills",
+  "downloaded_at": "2026-01-22T02:42:44.853029Z"
 }

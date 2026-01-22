@@ -1,7 +1,7 @@
 {
   "name": "event-sourcing",
-  "repo": "aj-geddes/useful-ai-prompts",
+  "repo": "yonatangross/skillforge-claude-plugin",
   "path": "skills/event-sourcing/SKILL.md",
-  "source": "github.com/aj-geddes/useful-ai-prompts",
-  "downloaded_at": "2026-01-14T03:31:05.153549Z"
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-22T01:25:10.786197Z"
 }

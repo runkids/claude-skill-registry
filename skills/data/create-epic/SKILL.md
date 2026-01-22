@@ -1,120 +1,243 @@
-﻿---
-name: create-epic
-description: Use when creating new Epic documents. Groups related user stories, includes risk analysis, integration points, and story breakdown with PROBE estimation.
-version: 1.0.0
 ---
-# <!-- Powered by PRISMâ„¢ System -->
+name: create-epic
+description: Creates Epics following the T-Minus-15 process template. Epics are large bodies of work containing multiple Features. Includes comprehensive metadata for background, objectives, hypothesis, analysis, and delivery strategy sections.
+allowed-tools: Read, Grep, Glob, Bash, Task, WebFetch, Write, Edit
+---
 
-# Create Epic Task
+# Create Epic Skill (T-Minus-15)
 
-## Purpose
+You are an expert Product Manager creating Epics following the **T-Minus-15 process template**. Epics are large bodies of work that contain multiple Features and represent significant business initiatives.
 
-To create a new Epic document that groups related user stories into a cohesive unit of work. Epics represent large features or initiatives that deliver significant business value and typically span multiple sprints. This task ensures epics are properly structured with clear goals, risk analysis, integration points, and a well-defined story breakdown.
+## T-Minus-15 Epic Metadata
 
-## SEQUENTIAL Task Execution (Do not proceed until current Task is complete)
+### General Section
 
-### 0. Load Core Configuration
+| Field | Description | Guidance |
+|-------|-------------|----------|
+| **Title** | Short, descriptive name | Include phase/version if applicable |
+| **State** | Workflow status | New, Funnel, Validation, Proposing, Pending, Scheduled, Implementing |
+| **Epic Type** | Category | Epic, Initiative, Theme |
+| **Owner** | Responsible person | Product Manager or Business Owner |
+| **Area** | Business area/product line | Hierarchical path (e.g., "Company > Division > Product") |
+| **Start Date** | Planned start | When work begins |
+| **Target End Date** | Expected completion | Delivery target |
 
-- Load `../core-config.yaml` (relative to tasks folder) if it exists
-- Extract key configurations: `epicLocation`, `devStoryLocation`, `prd.*`, `architecture.*`
-- If config doesn't exist, use defaults: `docs/epics/` for epics, `docs/stories/` for stories
+### Background & Objective Section
 
-### 1. Gather Epic Information
+| Field | Word Count | Description |
+|-------|------------|-------------|
+| **Background** | 50-200 words | Context for delivery teams and sponsors. Why does this Epic exist? What problem does it solve? |
+| **Objective** | 50-200 words | Concise primary goal statement. What will be achieved? |
 
-#### 1.1 Identify Epic Source
+### Epic Hypothesis Section
 
-- Check if epic is derived from an existing PRD (reference `docs/prd.md` or sharded PRD location)
-- If from PRD: Extract epic details from the Epic List section
-- If new epic: Gather information through elicitation
+| Field | Word Count | Description |
+|-------|------------|-------------|
+| **Value Statement** | 30-200 words | Elevator pitch using format: FOR [target] WHO [need] THE [solution] IS A [category] THAT [benefit] |
+| **Business Outcome Hypothesis** | 30-200 words | How success will be measured. What business outcomes are expected? |
+| **Leading Indicators** | 30-200 words | Tangible, measurable indicators that predict success before outcomes are realized |
+| **Non-Functional Requirements** | 30-200 words | System operational characteristics: performance, security, reliability, availability, scalability |
 
-#### 1.2 Elicit Epic Details
+### Analysis Section
 
-If creating a new epic (not from PRD), gather:
+| Field | Word Count | Description |
+|-------|------------|-------------|
+| **Impact: Products, Programs, Services** | 30-200 words | What existing solutions may be affected? |
+| **Impacted Users and Markets** | 30-200 words | Who will be affected? What markets? |
+| **Return** | 30-200 words | Financial or other benefits expected |
+| **Anticipated Business Impact** | 50-200 words | Expected effects on operations, revenue, reputation |
 
-- **Epic Title**: Clear, concise name describing the initiative
-- **Business Value**: What value does this epic deliver?
-- **Target Project/System**: Which codebase or system does this affect?
-- **Priority**: High/Medium/Low
-- **Dependencies**: External dependencies or prerequisites
-- **Constraints**: Time, technical, or resource constraints
+### Delivery Strategy Section
 
-### 2. Analyze Current State (For Migration/Upgrade Epics)
+| Field | Word Count | Description |
+|-------|------------|-------------|
+| **Funnel Entry Date** | Date | When Epic entered the pipeline |
+| **In/Out-house** | Choice | Internal development or external/vendor |
+| **Innovation Start-up** | 25-200 words | Hypothesis about user outcomes. What do we believe will happen? |
+| **Pre-requisites** | 50-200 words | Essential requirements from customer, dependencies |
+| **Incremental Implementation Strategy** | 50-200 words | How will Epic be delivered in stages? |
+| **Sequence and Dependencies** | 50-200 words | Order of implementation, what depends on what |
+| **Milestones or Checkpoints** | 100-300 words | Key milestones, governance checkpoints, review gates |
+| **Other Notes** | 0-300 words | Additional information, risks, constraints |
 
-If the epic involves migration or upgrade work:
+### Approval Section
 
-- Scan target project for current versions and configurations
-- Identify breaking changes and compatibility issues
-- Document current state vs. target state
-- List affected files and components
+| Field | Description |
+|-------|-------------|
+| **Sponsors** | Key stakeholders and financial backers |
+| **Go or No-Go** | Final approval decision |
+| **Approved By** | Who authorized |
+| **Approved Date** | When approved |
 
-### 3. Risk Analysis
+## Epic Description Template
 
-Assess and document risks:
+```markdown
+## Background
+[50-200 words: Context for why this Epic exists. What business problem does it solve? What is the current state?]
 
-- **Technical Risks**: Complexity, unknowns, new technologies
-- **Integration Risks**: Dependencies on external systems or teams
-- **Timeline Risks**: Factors that could cause delays
-- **Mitigation Strategies**: How each risk will be addressed
+## Objective
+[50-200 words: What will be achieved when this Epic is complete? What is the primary goal?]
 
-### 4. Define Integration Points
+---
 
-Document how this epic integrates with:
+## Epic Hypothesis
 
-- Existing system components
-- External APIs or services
-- Other epics or ongoing work
-- CI/CD pipelines and deployment processes
+### Value Statement
+FOR [target users/customers]
+WHO [have this need/problem]
+THE [solution name]
+IS A [category/type of solution]
+THAT [key benefit/value proposition]
+UNLIKE [current alternatives]
+OUR SOLUTION [key differentiator]
 
-### 5. Story Decomposition
+### Business Outcome Hypothesis
+[30-200 words: How will we measure success? What business outcomes do we expect?]
 
-Break the epic into user stories following these principles:
+### Leading Indicators
+[30-200 words: What early signals will tell us we're on track?]
+- [Indicator 1]
+- [Indicator 2]
+- [Indicator 3]
 
-- Each story delivers a vertical slice of functionality
-- Stories are sized for completion in 1-2 days (2-8 story points)
-- Stories follow logical sequence (no forward dependencies)
-- Include acceptance criteria for each story
-- Apply PROBE estimation to each story
+### Non-Functional Requirements
+[30-200 words: Performance, security, reliability, scalability requirements]
+- **Performance:** [Requirements]
+- **Security:** [Requirements]
+- **Reliability:** [Requirements]
+- **Scalability:** [Requirements]
 
-#### 5.1 Story Sizing Guidelines
+---
 
-| Size | Points | Typical Duration | Description |
-|------|--------|------------------|-------------|
-| XS | 1 | 1-2 hours | Trivial change, single file |
-| S | 2 | 2-4 hours | Small change, few files |
-| M | 3 | 4-8 hours | Moderate complexity |
-| L | 5 | 1-2 days | Significant work |
-| XL | 8 | 2-3 days | Complex, consider splitting |
+## Analysis
 
-### 6. Populate Epic Template
+### Impact: Products, Programs, Services
+[30-200 words: What existing systems/products will be affected?]
 
-Create the epic document using `epic-tmpl.yaml`:
+### Impacted Users and Markets
+[30-200 words: Who will use this? What markets?]
 
-- Fill in all metadata fields
-- Document goals and success criteria
-- Include risk analysis results
-- Add integration points
-- List all stories with summaries
-- Create dependency graph if stories have prerequisites
+### Return
+[30-200 words: Expected financial or strategic benefits]
 
-### 7. Create Story Files (Optional)
+### Anticipated Business Impact
+[50-200 words: How will this affect business operations?]
 
-If requested, create individual story files:
+---
 
-- Use `story-tmpl.yaml` as the template
-- Place in `{devStoryLocation}/{epic-id}/` subdirectory
-- Include cross-references to parent epic
-- Apply PROBE estimation to each story
+## Delivery Strategy
 
-### 8. Epic Completion and Review
+### Pre-requisites
+[50-200 words: What must be in place before work can begin?]
+- [ ] [Pre-requisite 1]
+- [ ] [Pre-requisite 2]
 
-- Review all sections for completeness
-- Verify story sequencing is logical
-- Ensure total story points align with epic complexity
-- Generate summary for user including:
-  - Epic location: `{epicLocation}/{epic-id}.md`
-  - Total stories: count
-  - Total story points: sum
-  - Estimated duration range
-  - Key risks identified
-  - Recommended execution order
+### Incremental Implementation Strategy
+[50-200 words: How will this be delivered in phases?]
+1. **Phase 1:** [Description]
+2. **Phase 2:** [Description]
+3. **Phase 3:** [Description]
 
+### Sequence and Dependencies
+[50-200 words: What order must things happen?]
+
+### Milestones or Checkpoints
+[100-300 words: Key review points]
+| Milestone | Description | Target Date |
+|-----------|-------------|-------------|
+| [M1] | [Description] | [Date] |
+| [M2] | [Description] | [Date] |
+
+---
+
+## Features
+
+| ID | Feature Name | Type | MoSCoW | Description |
+|----|--------------|------|--------|-------------|
+| F1 | [Name] | Feature/Enabler | Must/Should/Could | [Brief description] |
+| F2 | [Name] | Feature/Enabler | Must/Should/Could | [Brief description] |
+
+---
+
+## Risks and Issues
+
+| ID | Type | Description | Impact | Mitigation |
+|----|------|-------------|--------|------------|
+| R1 | Risk | [Description] | High/Med/Low | [Mitigation strategy] |
+| I1 | Issue | [Description] | High/Med/Low | [Resolution plan] |
+```
+
+## Example: BOM App Phase 2 Epic
+
+```markdown
+## Background
+Medite Smartply manufacturing requires efficient Bill of Materials management for their wood panel products. The existing Power App has served Phase 1 needs but requires migration to React for improved performance, maintainability, and developer experience. The current app handles Master Panel, Cut to Size, Tongue & Groove, and Coating BOMs with complex calculated fields.
+
+## Objective
+Rebuild the existing Power App as a modern React application with identical functionality and visual appearance. The new app must match all existing calculations exactly, integrate with the same SQL database and SysPro ERP, and provide a foundation for future enhancements.
+
+---
+
+## Epic Hypothesis
+
+### Value Statement
+FOR manufacturing engineers
+WHO need efficient BOM management with accurate calculations
+THE React BOM App
+IS A modern web application
+THAT provides responsive UI, real-time calculated fields, and SysPro integration
+UNLIKE the current Power App
+OUR SOLUTION offers improved performance, easier maintenance, and better developer experience
+
+### Business Outcome Hypothesis
+Success will be measured by: (1) Zero calculation discrepancies vs Power App, (2) Page load times under 2 seconds, (3) User adoption rate >90% within 30 days, (4) Reduced maintenance overhead for IT team.
+
+### Leading Indicators
+- Development velocity tracking (story points per sprint)
+- Test coverage >80% for calculation engine
+- User feedback during UAT sessions
+- Performance benchmarks during development
+
+### Non-Functional Requirements
+- **Performance:** Page loads <2s, calculations <100ms
+- **Security:** Azure AD authentication, role-based access
+- **Reliability:** 99.9% uptime during business hours
+- **Browser Support:** Chrome, Edge, Firefox (latest 2 versions)
+
+---
+
+## Features
+
+| ID | Feature Name | Type | MoSCoW |
+|----|--------------|------|--------|
+| F1 | Enabler: Project Setup & Architecture | Enabler | Must Have |
+| F2 | Enabler: Database Integration | Enabler | Must Have |
+| F3 | Enabler: Calculated Fields Engine | Enabler | Must Have |
+| F4 | React App - Home Screen | Feature | Must Have |
+| F5 | React App - Master Panel CRUD | Feature | Must Have |
+| F6 | React App - Cut to Size CRUD | Feature | Must Have |
+| F7 | React App - Tongue & Groove CRUD | Feature | Must Have |
+| F8 | React App - Coating CRUD | Feature | Must Have |
+```
+
+## Workflow
+
+1. **Define the business problem** - What are we solving?
+2. **Write Background** - Context for the Epic (50-200 words)
+3. **Write Objective** - Primary goal (50-200 words)
+4. **Craft Value Statement** - Elevator pitch in standard format
+5. **Define success measures** - Business outcomes and leading indicators
+6. **Specify NFRs** - Performance, security, reliability
+7. **Analyze impact** - Products, users, markets affected
+8. **Plan delivery** - Phases, sequence, milestones
+9. **List Features** - Break Epic into Features
+10. **Identify Risks** - What could go wrong?
+
+## Tips
+
+- **Epics are big** - If it's less than 3-4 Features, it might just be a Feature
+- **Time-bound** - Epics should have target dates
+- **Measurable outcomes** - Define how you'll know it succeeded
+- **Phase appropriately** - Break large Epics into MVP + increments
+- **Features not tasks** - Epics contain Features, not Tasks or User Stories directly
+- **Stakeholder alignment** - Sponsors section ensures accountability

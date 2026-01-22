@@ -1,7 +1,7 @@
 {
   "name": "project-scaffolding",
-  "repo": "AutumnsGrove/GroveEngine",
-  "path": ".claude/skills/project-scaffolding/SKILL.md",
-  "source": "github.com/AutumnsGrove/GroveEngine",
-  "downloaded_at": "2026-01-14T02:31:55.083049Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": "plugins/claude-code-templating-plugin/skills/project-scaffolding/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-22T03:56:15.361619Z"
 }

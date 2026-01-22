@@ -1,12 +1,7 @@
 {
   "name": "jc-baseline-v2-1-eval",
-  "description": "Execute Joseph Cognitive Baseline v2.1 evaluation protocol.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "baseline",
-    "eval"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/jc-baseline-v2-1-eval/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:47.165815Z"
 }

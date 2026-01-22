@@ -1,498 +1,349 @@
 ---
 name: review-spec
-description: Review specifications for soundness, completeness, and implementability - validates structure, identifies ambiguities, checks for gaps before implementation
+description: This skill should be used when the user wants to review a technical specification document, especially multi-file specs with appendices. It checks for consistency, completeness, clarity, and identifies opportunities for simplification and removal of unnecessary complexity.
 ---
 
-# Reviewing Specifications for Soundness
+# Review Spec
 
 ## Overview
 
-Validate specification quality before implementation begins.
+This skill provides a comprehensive review methodology for technical specifications, particularly those with main documents and multiple appendices. It emphasizes finding opportunities to simplify and remove over-engineered features, while also checking for consistency, completeness, and clarity.
 
-A poor spec leads to confusion, rework, and spec/code drift. A sound spec enables smooth implementation.
+## When to Use This Skill
 
-This skill checks: completeness, clarity, implementability, and testability.
+Use this skill when:
+- User asks to "review the spec" or "review my specification"
+- User has a complex spec with multiple files or appendices
+- User wants feedback on spec organization or scope
+- User asks about simplifications or what to remove
+- User wants to identify over-engineered features
+- User is planning an MVP and needs scope reduction advice
 
-## When to Use
+## Review Process
 
-- After spec creation (before implementation)
-- Before generating implementation plan
-- When spec seems unclear or incomplete
-- Periodically for important specs
+**Efficiency tip**: Read multiple files in parallel when possible to speed up the review.
 
-## Prerequisites
+Follow this workflow in order for comprehensive spec review:
 
-Ensure spec-kit is initialized:
+### Step 1: Read the Complete Spec
 
-{Skill: spec-kit}
+Read all files systematically:
+1. Main specification document (usually SPEC.md or README.md)
+2. All appendices in order (A, B, C, etc.)
+3. Any supporting documents (guiding principles, setup docs)
 
-If spec-kit prompts for restart, pause this workflow and resume after restart.
+While reading, note:
+- Overall scope and complexity
+- Phase/milestone structure
+- Dependencies between sections
+- Repeated concepts or information
 
-## Review Dimensions
+### Step 2: Assess Scope and Complexity
 
-### 1. Completeness
-- All sections filled
-- No TBD or placeholder text
-- All requirements defined
-- Success criteria specified
+**Critical for MVP planning:**
 
-### 2. Clarity
-- No ambiguous language
-- Concrete, specific requirements
-- Edge cases explicitly defined
-- Error handling specified
+1. **Identify the core value proposition**
+   - What is the one essential thing this project must do?
+   - What's the 80% use case?
 
-### 3. Implementability
-- Can generate implementation plan
-- Dependencies identified
-- Constraints realistic
-- Scope manageable
+2. **Categorize features by necessity**
+   - **Must have (Phase 1)**: Core functionality without which the project is useless
+   - **Should have (Phase 2)**: Important but can be added after MVP
+   - **Nice to have (Phase 3+)**: Optional enhancements
+   - **Over-engineered**: Sophisticated features that may never be needed
 
-### 4. Testability
-- Success criteria measurable
-- Requirements verifiable
-- Acceptance criteria clear
+3. **Calculate implementation time**
+   - Estimate weeks/months for current scope
+   - Compare to typical MVP timelines (4-8 weeks)
+   - Flag if scope seems too large
 
-## The Process
+4. **Look for separate products disguised as features**
+   - Example: A "helper" class that's as complex as the main system
+   - Example: "Self-improving" systems that require ML/learning infrastructure
+   - Example: "Advanced" features that double the implementation time
 
-### 1. Load and Read Spec
+**Red flags for over-scoping:**
+- Multiple "phases" extending beyond Phase 2-3
+- Features marked "Phase 4" or "Phase 5"
+- Entire appendices dedicated to optional features
+- "Bootstrap → Learning → Optimization" evolution paths
+- Features that require their own testing strategy
+- "Future Extensions" sections longer than core spec
 
-```bash
-cat specs/features/[feature-name].md
-```
+### Step 3: Check for Consistency
 
-Read thoroughly, take notes on issues.
+Review consistency across all documents:
 
-### 2. Check Structure
+**Terminology consistency:**
+- Are concepts named consistently? (e.g., "config" vs "configuration")
+- Are technical terms used correctly throughout?
+- Are abbreviations defined before use?
 
-**Required sections (should exist):**
-- [ ] Purpose/Overview
-- [ ] Functional Requirements
-- [ ] Success Criteria
-- [ ] Error Handling
+**Design decision consistency:**
+- Do appendices follow design principles stated in main spec?
+- Are similar problems solved in similar ways?
+- Are there conflicting approaches to the same problem?
 
-**Recommended sections:**
-- [ ] Non-Functional Requirements
-- [ ] Edge Cases
-- [ ] Dependencies
-- [ ] Constraints
-- [ ] Out of Scope
+**Status consistency:**
+- Do status markers (✅, 🚧, ❌) mean the same thing everywhere?
+- Are phase assignments consistent? (Something can't be both Phase 1 and Phase 3)
+- Are TODOs tracked correctly?
 
-**If sections missing:**
-- Note which ones
-- Assess if truly needed for this spec
-- Recommend additions
+**Data format consistency:**
+- Are examples consistent with specifications?
+- Do code samples match the described API?
+- Are file formats consistent across examples?
 
-### 3. Review Completeness
+### Step 4: Check for Completeness
 
-**For each section, check:**
+Verify all references and requirements are complete:
 
-**Purpose:**
-- [ ] Clearly states why feature exists
-- [ ] Describes problem being solved
-- [ ] Avoids implementation details
+**Cross-references:**
+- Do all "See Appendix X" links point to existing sections?
+- Are all referenced files present?
+- Do internal links work correctly?
 
-**Functional Requirements:**
-- [ ] Numbered/listed clearly
-- [ ] Each requirement is specific
-- [ ] No "TBD" or placeholders
-- [ ] All aspects covered
+**TODOs and incomplete sections:**
+- Are there any TODO markers or 🚧 sections?
+- Are placeholders filled in?
+- Are all promised sections actually written?
 
-**Success Criteria:**
-- [ ] Measurable outcomes defined
-- [ ] Clear completion indicators
-- [ ] Testable assertions
+**Missing critical sections:**
+- Error handling strategy
+- Installation/setup instructions
+- Real-world usage examples
+- Version compatibility information
+- Testing strategy (if complex project)
 
-**Error Handling:**
-- [ ] All error cases identified
-- [ ] Handling approach specified
-- [ ] Error messages/codes defined
+**Appendices index:**
+- Is there an index of appendices?
+- Are all appendices listed?
+- Are statuses accurate (✅ Complete vs 🚧 TODO)?
 
-**Edge Cases:**
-- [ ] Boundary conditions listed
-- [ ] Expected behavior specified
-- [ ] Not marked as "TBD"
+### Step 5: Assess Clarity and Usability
 
-### 4. Check for Ambiguities
+Evaluate whether the spec is clear and usable:
 
-**Red flag words/phrases:**
-- "should" (vs "must")
-- "might", "could", "probably"
-- "fast", "slow" (without metrics)
-- "user-friendly" (vague)
-- "handle appropriately" (non-specific)
-- "etc." (incomplete list)
-- "similar to..." (unclear)
+**Structure and organization:**
+- Is the table of contents helpful?
+- Are sections logically ordered?
+- Is nesting depth appropriate (not too deep)?
+- Are related concepts grouped together?
 
-**For each ambiguity:**
-- Identify the vague requirement
-- Note what's unclear
-- Suggest specific alternative
+**Examples and illustrations:**
+- Are there enough code examples?
+- Do examples demonstrate actual use cases, not just API calls?
+- Are examples realistic (not toy examples)?
+- Are there before/after examples for modifications?
 
-### 5. Validate Implementability
+**Complexity and readability:**
+- Is the language appropriate for the audience?
+- Are complex concepts explained well?
+- Is there too much jargon?
+- Are sentences and paragraphs reasonably short?
 
-**Ask:**
-- Can I generate an implementation plan from this?
-- Are file locations/components identifiable?
-- Are dependencies clear?
-- Is scope reasonable?
+**Actionability:**
+- Can implementers start coding from this spec?
+- Are APIs specified with enough detail (parameters, return values, errors)?
+- Are edge cases documented?
+- Are validation rules clear?
 
-**Check for:**
-- Unknown dependencies
-- Unrealistic constraints
-- Scope too large
-- Conflicting requirements
+### Step 6: Identify Simplifications
 
-### 6. Assess Testability
+**This is critical - actively look for ways to simplify:**
 
-**For each requirement:**
-- How will this be tested?
-- Is the outcome verifiable?
-- Can success be measured?
+**Over-specified features:**
+- Features with >500 lines of specification may be over-designed
+- Multiple "phases" of a single feature suggest complexity
+- "Advanced" or "Enhanced" versions of features can often wait
 
-**For success criteria:**
-- Are they specific enough to test?
-- Can they be automated?
-- Are they objective (not subjective)?
+**Premature optimization:**
+- "Self-improving" or "learning" systems before MVP
+- Complex heuristics and algorithms before proving core value
+- Performance optimizations before performance problems exist
+- Extensibility mechanisms before knowing what needs extending
 
-### 7. Check Against Constitution
+**Gold plating:**
+- Multiple strategies/modes for the same operation
+- Extensive configuration options
+- Plug-in architectures before second plugin needed
+- Abstraction layers for single implementation
 
-**If constitution exists:**
+**Feature creep:**
+- Features that serve edge cases (< 10% of users)
+- "It would be nice if..." features
+- Features that duplicate existing tools
+- Features that solve hypothetical future problems
 
-```bash
-cat specs/constitution.md
-```
+**Simplification opportunities by pattern:**
+1. **Multiple convenience methods/wrappers**: Start with 3-5 essential ones, add more based on usage
+2. **Phased feature rollouts**: Just basic version for MVP, add enhanced versions later
+3. **Multiple initialization/loading paths**: Start with 1-2 primary paths, add more if users request
+4. **Helper/utility classes**: Defer sophisticated helpers until core is proven
+5. **Configuration options**: Start with one good default, add options later
+6. **Export/output formats**: Support one format well, add others based on demand
 
-**Validate:**
-- Does spec follow project principles?
-- Are patterns consistent?
-- Does error handling match standards?
-- Are architectural decisions aligned?
+### Step 7: Identify Removals
 
-**Note any violations with reasoning.**
+**Be aggressive - what can be completely removed or deferred?**
 
-### 8. Generate Review Report
+**Defer to Phase 3+ or remove entirely:**
+- Entire appendices about optional features
+- "Helper" systems that are separate products
+- Advanced optimization features
+- Batch/automation utilities (users can write scripts)
+- Integration with external systems (unless core value)
+- Extensive logging/profiling/monitoring
+- Plugin architectures
+- Configuration migration tools
 
-**Report structure:**
+**Remove from specification (even if implementing later):**
+- "Future Extensions" sections that are speculative
+- "Phase 4" and "Phase 5" content
+- Features marked "optional" or "nice to have"
+- Alternatives and rejected approaches (move to ADR document)
+- Implementation notes that belong in code comments
+
+**Ask these questions:**
+- Can users achieve this with existing features or simple workarounds?
+- Is this solving a real problem or a hypothetical one?
+- Would 90% of users be satisfied without this?
+- Can this be added in a 1-week sprint after MVP ships?
+- Is this duplicating what another tool does well?
+- Does this feature require more code than the rest of the system combined?
+
+### Step 8: Check Technical Correctness
+
+Validate the technical design:
+
+**API design:**
+- Are method signatures sensible?
+- Are return types appropriate?
+- Is error handling well-defined?
+- Are side effects documented?
+
+**Data structures:**
+- Are data formats appropriate for the use case?
+- Are there serialization/deserialization concerns?
+- Are size limits considered?
+- Is backward compatibility addressed?
+
+**Algorithms and logic:**
+- Are algorithms correctly described?
+- Are edge cases handled?
+- Are there performance concerns?
+- Are there correctness concerns?
+
+**Dependencies and compatibility:**
+- Are dependencies clearly listed?
+- Are version requirements specified?
+- Are there potential conflicts?
+- Is platform compatibility addressed?
+
+### Step 9: Generate Review Report
+
+Provide a structured review report with these sections:
+
+**1. Executive Summary**
+- Overall assessment (good/needs work/over-scoped)
+- Key metrics: estimated implementation time, number of features, scope
+- Top 3 recommendations
+
+**2. Scope Analysis**
+- Current scope estimate (weeks/months)
+- Core value proposition identified
+- Recommended Phase 1 scope
+- Features to defer or remove
+
+**3. Critical Issues** (if any)
+- Missing required sections
+- Technical correctness problems
+- Inconsistencies
+- Blocking issues
+
+**4. Simplification Opportunities** (prioritized)
+- Specific features to simplify
+- Appendices to trim or remove
+- Methods/classes to defer
+- Estimated time savings
+
+**5. Organization Improvements**
+- Structural changes recommended
+- Missing sections to add
+- Redundant sections to merge
+
+**6. Detailed Findings**
+- Consistency issues found
+- Completeness gaps
+- Clarity problems
+- Technical issues
+
+**7. Specific Recommendations**
+- For each major issue, provide:
+  - Current state
+  - Problem description
+  - Recommended change
+  - Rationale
+  - Estimated impact (time saved, complexity reduced)
+
+## Common Anti-Patterns to Flag
+
+Watch for these over-engineering patterns:
+- **The Kitchen Sink**: Trying to solve every possible problem with multiple modes/strategies
+- **The Future-Proof Fortress**: Extensive abstractions for hypothetical future needs
+- **The Nested Doll**: Features containing features, >3 phase levels for single capabilities
+- **The Self-Improving Mirage**: ML/learning systems, complex heuristics as "nice to have"
+- **The Premature Enterprise**: Logging, monitoring, profiling, A/B testing in MVP
+
+## Example Review Output
 
 ```markdown
-# Spec Review: [Feature Name]
+# Spec Review: [Project Name]
 
-**Spec:** specs/features/[feature].md
-**Date:** YYYY-MM-DD
-**Reviewer:** Claude (sdd:review-spec)
+## Executive Summary
+**Status**: Over-scoped for MVP (estimated 3-6 months → recommend 4-8 weeks)
+**Core Value**: [One sentence describing essential functionality]
+**Key Issue**: [Major blocking issue or over-engineering concern]
 
-## Overall Assessment
+**Top 3 Recommendations:**
+1. [Specific recommendation] - [estimated time savings]
+2. [Specific recommendation] - [estimated time savings]
+3. [Specific recommendation] - [estimated time savings]
 
-**Status:** ✅ SOUND / ⚠️ NEEDS WORK / ❌ MAJOR ISSUES
+## Scope Analysis
+Current: ~[N] lines spec, [X] months implementation
+Recommended Phase 1: ~[N] lines spec, [X] weeks implementation
 
-**Summary:** [1-2 sentence overall assessment]
+**Core value**: [Essential functionality that must work]
+**Defer to Phase 3+**: [Complex features to build after MVP]
 
-## Completeness: [Score/5]
-
-### Structure
-- [✓/✗] All required sections present
-- [✓/✗] Recommended sections included
-- [✓/✗] No placeholder text
-
-### Coverage
-- [✓/✗] All functional requirements defined
-- [✓/✗] Error cases identified
-- [✓/✗] Edge cases covered
-- [✓/✗] Success criteria specified
-
-**Issues:**
-- [List any completeness issues]
-
-## Clarity: [Score/5]
-
-### Language Quality
-- [✓/✗] No ambiguous language
-- [✓/✗] Requirements are specific
-- [✓/✗] No vague terms
-
-**Ambiguities Found:**
-1. [Quote ambiguous text]
-   - Issue: [What's unclear]
-   - Suggestion: [Specific alternative]
-
-## Implementability: [Score/5]
-
-### Plan Generation
-- [✓/✗] Can generate implementation plan
-- [✓/✗] Dependencies identified
-- [✓/✗] Constraints realistic
-- [✓/✗] Scope manageable
-
-**Issues:**
-- [List any implementability issues]
-
-## Testability: [Score/5]
-
-### Verification
-- [✓/✗] Success criteria measurable
-- [✓/✗] Requirements verifiable
-- [✓/✗] Acceptance criteria clear
-
-**Issues:**
-- [List any testability issues]
-
-## Constitution Alignment
-
-[If constitution exists]
-
-- [✓/✗] Follows project principles
-- [✓/✗] Patterns consistent
-- [✓/✗] Error handling aligned
-
-**Violations:**
-- [List any violations]
-
-## Recommendations
-
-### Critical (Must Fix Before Implementation)
-- [ ] [Critical issue 1]
-- [ ] [Critical issue 2]
-
-### Important (Should Fix)
-- [ ] [Important issue 1]
-
-### Optional (Nice to Have)
-- [ ] [Optional improvement 1]
-
-## Conclusion
-
-[Final assessment and recommendation]
-
-**Ready for implementation:** Yes / No / After fixes
-
-**Next steps:**
-[What should be done]
+[Continue with detailed sections...]
 ```
 
-### 9. Make Recommendation
+### Step 10: Engage User with Guided Questions
 
-**If sound (minor issues only):**
-- ✅ Ready for implementation
-- Proceed with `sdd:implement`
+**After presenting the review report, ask questions to help the user learn and make informed design decisions.**
 
-**If needs work (important issues):**
-- ⚠️ Fix issues before implementing
-- Update spec, re-review
+Ask questions one at a time around these themes:
+- **Core value**: What's the one essential thing? What's the 80% use case?
+- **Scope reality**: Timeline constraints? What to cut by 50%? Risk tolerance?
+- **User context**: Their environment? Current workflow pain points? Existing tool patterns?
+- **Technical constraints**: Why this complexity? What are simpler alternatives?
+- **Trade-offs**: What do you lose/gain by simplifying? Acceptable workarounds?
+- **Decision-making**: What resonates most? Smallest change, biggest impact?
+- **Next steps**: Revised Phase 1 scope? What moves to Phase 2?
 
-**If major issues:**
-- ❌ Not ready for implementation
-- Significant rework needed
-- May need re-brainstorming
+Select 4-8 most relevant questions based on major issues found. Ask specific questions referencing actual features from their spec.
 
-## Review Checklist
+## Notes
 
-Use TodoWrite to track:
+- **Be constructive**: Always explain WHY something should change
+- **Be specific**: Identify exact sections, line numbers, features
+- **Be practical**: Consider implementation time and complexity
+- **Be user-focused**: What delivers value to users fastest?
+- **Be honest**: If scope is too large, say so clearly
+- **Be Socratic**: Use questions to help users discover insights themselves
+- **Be patient**: Give users time to think and respond to questions
+- **Be adaptive**: Adjust questions based on their answers and needs
 
-- [ ] Load and read spec thoroughly
-- [ ] Check structure (all sections present)
-- [ ] Review completeness (no TBD, all covered)
-- [ ] Identify ambiguities (vague language)
-- [ ] Validate implementability (can plan from this)
-- [ ] Assess testability (can verify requirements)
-- [ ] Check constitution alignment (if exists)
-- [ ] Generate review report
-- [ ] Make recommendation (ready/needs work/major issues)
-
-## Example: Sound Spec
-
-```
-# Spec Review: User Profile Update API
-
-**Spec:** specs/features/user-profile-api.md
-**Status:** ✅ SOUND
-
-## Overall Assessment
-
-Specification is well-written, complete, and ready for implementation.
-Minor suggestions for improvement but no blocking issues.
-
-## Completeness: 5/5
-
-✓ All required sections present
-✓ All functional requirements clearly defined (6 requirements)
-✓ All error cases identified (4 cases)
-✓ All edge cases covered (3 cases)
-✓ Success criteria specified and measurable
-
-## Clarity: 4.5/5
-
-✓ Requirements are specific and unambiguous
-✓ Error handling clearly defined
-⚠️ One minor ambiguity (see below)
-
-**Ambiguities Found:**
-1. "Response should be fast"
-   - Issue: "Fast" is subjective
-   - Suggestion: Specify "Response time < 200ms" or remove
-
-## Implementability: 5/5
-
-✓ Can generate detailed implementation plan
-✓ All dependencies identified (JWT auth, database)
-✓ Constraints are realistic
-✓ Scope is manageable (single endpoint)
-
-## Testability: 5/5
-
-✓ All success criteria measurable
-✓ Each requirement verifiable through tests
-✓ Clear acceptance criteria
-
-## Constitution Alignment
-
-✓ Follows RESTful conventions (from constitution)
-✓ Error handling matches project patterns
-✓ Auth requirements aligned with standards
-
-## Recommendations
-
-### Important (Should Fix)
-- [ ] Clarify "fast" response requirement (specify < 200ms or remove)
-
-### Optional
-- [ ] Consider adding rate limiting requirement
-- [ ] Specify audit logging if required by project
-
-## Conclusion
-
-Excellent spec, ready for implementation after minor clarification on
-performance requirement.
-
-**Ready for implementation:** Yes (after performance clarification)
-
-**Next steps:** Clarify "fast" requirement, then proceed to sdd:implement
-```
-
-## Example: Needs Work
-
-```
-# Spec Review: Real-time Notifications
-
-**Spec:** specs/features/real-time-notifications.md
-**Status:** ⚠️ NEEDS WORK
-
-## Overall Assessment
-
-Specification has good foundation but several important gaps that will
-cause confusion during implementation.
-
-## Completeness: 3/5
-
-✓ Purpose clearly stated
-✗ Non-functional requirements missing
-✗ Error handling incomplete
-⚠️ Edge cases partially defined
-
-**Issues:**
-- No specification of real-time latency requirements
-- Database storage requirements unclear
-- Error recovery not defined
-- Scalability requirements missing
-
-## Clarity: 3/5
-
-**Ambiguities Found:**
-1. "Notifications should appear in real-time"
-   - Issue: "Real-time" undefined (< 100ms? < 1s? < 5s?)
-   - Suggestion: Specify exact latency requirement
-
-2. "Handle notification delivery failures appropriately"
-   - Issue: "Appropriately" is non-specific
-   - Suggestion: Define retry logic, fallback, user notification
-
-3. "Support many users"
-   - Issue: "Many" is vague
-   - Suggestion: Specify target (100? 1000? 10000?)
-
-## Implementability: 2/5
-
-✗ Cannot generate complete implementation plan
-✗ Technology stack not specified (WebSocket? SSE? Polling?)
-✗ Storage mechanism unclear
-
-**Issues:**
-- Is this WebSocket or polling? Spec doesn't say
-- Where are notifications stored? For how long?
-- What happens when user offline?
-- No mention of infrastructure requirements
-
-## Testability: 3/5
-
-⚠️ Some criteria measurable, others vague
-
-**Issues:**
-- "Users receive notifications quickly" - not measurable
-- "System handles failures" - no specific test criteria
-
-## Recommendations
-
-### Critical (Must Fix Before Implementation)
-- [ ] Define exact real-time latency requirement (< Xms)
-- [ ] Specify technology (WebSocket vs polling vs SSE)
-- [ ] Define notification storage (where, how long)
-- [ ] Specify error handling and retry logic
-- [ ] Define scalability target (number of users)
-
-### Important (Should Fix)
-- [ ] Add detailed error cases
-- [ ] Specify offline handling
-- [ ] Define notification expiration
-- [ ] Add infrastructure requirements
-
-## Conclusion
-
-Spec has good intent but lacks critical technical details needed for
-implementation. Requires significant expansion before coding can begin.
-
-**Ready for implementation:** No
-
-**Next steps:**
-1. Address all critical issues
-2. Re-review spec
-3. Then proceed to implementation
-```
-
-## Quality Standards
-
-**A sound spec has:**
-- All sections complete
-- No ambiguous language
-- Specific, measurable requirements
-- Identified dependencies
-- Realistic constraints
-- Clear error handling
-- Defined edge cases
-- Testable success criteria
-
-**A poor spec has:**
-- Missing sections
-- Vague language
-- Unmeasurable requirements
-- Unknown dependencies
-- Unrealistic constraints
-- Unclear error handling
-- Ignored edge cases
-- Subjective criteria
-
-## Remember
-
-**Reviewing specs saves time in implementation.**
-
-- 1 hour reviewing spec saves 10 hours debugging
-- Ambiguities caught early prevent rework
-- Complete specs enable smooth TDD
-- Sound specs reduce spec/code drift
-
-**Be thorough but not pedantic:**
-- Flag real issues, not nitpicks
-- Focus on what blocks implementation
-- Suggest specific improvements
-- Balance perfection with pragmatism
-
-**The goal is implementability, not perfection.**
+The goal is to help create specifications that lead to successful, timely implementations that deliver real value to users - and to help users learn to think critically about scope and design decisions themselves.

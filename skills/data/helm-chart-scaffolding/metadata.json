@@ -1,7 +1,7 @@
 {
   "name": "helm-chart-scaffolding",
-  "repo": "camoneart/claude-code",
-  "path": "skills/helm-chart-scaffolding/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:37:02.402475Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/kubernetes-operations/skills/helm-chart-scaffolding/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:12.943692Z"
 }

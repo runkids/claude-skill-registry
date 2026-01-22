@@ -1,8 +1,7 @@
 {
   "name": "ea-learning",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Explain enterprise architecture concepts in practical terms. Use when learning about TOGAF, Zachman, ADRs, or any EA terminology.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:02.777251Z"
+  "path": "plugins/enterprise-architecture/skills/ea-learning/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-22T01:58:50.898784Z"
 }

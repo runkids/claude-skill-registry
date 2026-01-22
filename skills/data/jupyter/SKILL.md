@@ -46,11 +46,19 @@ nb.py show notebook.ipynb
 nb.py show notebook.ipynb -c 0,2-4      # specific cells
 nb.py show notebook.ipynb -o            # include outputs
 nb.py show notebook.ipynb --output-only # outputs only
+nb.py show notebook.ipynb -o --save-images ./images/  # save images to dir
 
 # Execute cells
 nb.py execute notebook.ipynb            # all cells, show output
 nb.py execute notebook.ipynb -i         # save outputs back to file
 nb.py execute notebook.ipynb -c 0,2-4   # specific cells
+nb.py execute notebook.ipynb --save-images ./outputs/  # save images
+
+# Search cells
+nb.py grep "import pandas" notebook.ipynb      # find cells with pattern
+nb.py grep -i "def.*function" notebook.ipynb   # case-insensitive regex
+nb.py grep -C "pattern" notebook.ipynb         # show full cell context
+nb.py grep --cells-only "pattern" notebook.ipynb  # just cell indices
 
 # Validate (lightweight - only needs nbformat)
 validate.py notebook.ipynb
@@ -108,10 +116,12 @@ nb.py clear notebook.ipynb
 | Task | Tool |
 |------|------|
 | Read notebook structure | `nb.py inspect` |
-| Read cell contents | `nb.py show` or `Read` tool |
+| Read cell contents | `nb.py show` or `read` tool |
 | Edit cells | `NotebookEdit` tool |
 | Execute cells | `nb.py execute` |
 | View outputs | `nb.py show -o` or `--output-only` |
+| Search cells | `nb.py grep` |
+| Extract images | `nb.py show -o --save-images DIR` |
 | Validate syntax | `validate.py` (fast) or `nb.py validate` |
 | Convert formats | `nb.py convert` |
 

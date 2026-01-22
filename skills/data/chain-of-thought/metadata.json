@@ -1,12 +1,7 @@
 {
   "name": "chain-of-thought",
-  "description": "Step-by-step reasoning patterns for complex problem solving",
-  "repo": "pluginagentmarketplace/custom-plugin-prompt-engineering",
-  "category": "data",
-  "tags": [
-    "chain",
-    "thought"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/chain-of-thought/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-22T01:26:17.358090Z"
 }

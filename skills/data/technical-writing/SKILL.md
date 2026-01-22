@@ -1,533 +1,380 @@
 ---
-name: technical-writing
-description: Technical writing expert for API documentation, README files, tutorials, changelog management, and developer documentation. Covers style guides, information architecture, versioning docs, OpenAPI/Swagger, and documentation-as-code. Activates for technical writing, API docs, README, changelog, tutorial writing, documentation, technical communication, style guide, OpenAPI, Swagger, developer docs.
+name: arcanea-technical-writing
+description: Technical writing excellence - documentation, API references, tutorials, and guides that users actually understand. Clear, accurate, useful.
+version: 1.0.0
+author: Arcanea
+tags: [technical-writing, documentation, api-docs, tutorials, guides, industry]
+triggers:
+  - technical writing
+  - documentation
+  - api docs
+  - tutorial
+  - readme
+  - user guide
 ---
 
-# Technical Writing Skill
+# Technical Writing Mastery
 
-**Self-contained technical documentation expertise for ANY user project.**
-
-Expert in developer-focused documentation: READMEs, API references, tutorials, and changelogs.
+> *"The best documentation is invisible. Users find what they need, understand it immediately, and get back to work."*
 
 ---
 
-## Core Documentation Types
+## The Technical Writing Philosophy
 
-### 1. README Files
+```
+DOCUMENTATION IS NOT:
+✗ Proof that you built something
+✗ A formality to check off
+✗ Something to write after shipping
 
-**Essential Structure**:
+DOCUMENTATION IS:
+✓ Part of the product
+✓ User experience in text form
+✓ Force multiplier for adoption
+✓ Investment that pays dividends
+```
+
+---
+
+## The Four Types of Documentation
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║                    DOCUMENTATION TYPES                             ║
+║              (Each serves different needs)                         ║
+╠═══════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║   TUTORIALS      │ Learning-oriented    │ "Let me show you"       ║
+║   HOW-TO GUIDES  │ Problem-oriented     │ "How to do X"           ║
+║   REFERENCE      │ Information-oriented │ "Technical specs"        ║
+║   EXPLANATION    │ Understanding-oriented│ "Why it works"         ║
+║                                                                    ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+### Tutorials (Learning)
+
+```
+PURPOSE: Teach newcomers through doing
+STRUCTURE: Step-by-step journey
+OUTCOME: User completes something real
+
+CHARACTERISTICS:
+• Hand-holding is appropriate
+• Focus on accomplishment, not completeness
+• Explain the "why" as you go
+• End with something that works
+```
+
+### How-To Guides (Problem Solving)
+
+```
+PURPOSE: Help users accomplish specific tasks
+STRUCTURE: Step-by-step instructions
+OUTCOME: User solves their problem
+
+CHARACTERISTICS:
+• Assumes basic knowledge
+• Focused on single goal
+• Practical, not educational
+• Skips unnecessary context
+```
+
+### Reference (Information)
+
+```
+PURPOSE: Describe the machinery
+STRUCTURE: Systematic, complete
+OUTCOME: User finds technical details
+
+CHARACTERISTICS:
+• Consistent format
+• Complete and accurate
+• No tutorial content
+• Code examples for each item
+```
+
+### Explanation (Understanding)
+
+```
+PURPOSE: Clarify and illuminate
+STRUCTURE: Discursive, connecting
+OUTCOME: User understands deeply
+
+CHARACTERISTICS:
+• Discusses alternatives
+• Explains reasoning
+• Provides context
+• Answers "why?"
+```
+
+---
+
+## Writing Principles
+
+### Clarity Over Cleverness
+
+```
+BAD:  "Leverage the paradigm-shifting capabilities..."
+GOOD: "Use X to do Y."
+
+BAD:  "The system utilizes..."
+GOOD: "The system uses..."
+
+BAD:  "It should be noted that..."
+GOOD: Just say the thing.
+```
+
+### Active Voice
+
+```
+PASSIVE: "The file is created by the system."
+ACTIVE:  "The system creates the file."
+
+PASSIVE: "The configuration should be updated."
+ACTIVE:  "Update the configuration."
+```
+
+### Present Tense
+
+```
+PAST:    "This function returned..."
+PRESENT: "This function returns..."
+
+FUTURE:  "This will create..."
+PRESENT: "This creates..."
+```
+
+### Direct Address
+
+```
+IMPERSONAL: "One might want to..."
+DIRECT:     "You might want to..."
+
+IMPERSONAL: "The user should..."
+DIRECT:     "You should..."
+```
+
+---
+
+## Structure Patterns
+
+### The README Template
+
 ```markdown
 # Project Name
 
-One-sentence description.
+One-sentence description of what this does.
 
-## Features
-- Key feature 1
-- Key feature 2
+## Quick Start
+
+The absolute minimum to get running.
 
 ## Installation
+
 ```bash
 npm install project-name
 ```
 
-## Quick Start
-```javascript
-import { ProjectName } from 'project-name';
-const instance = new ProjectName();
-```
+## Basic Usage
 
-## Usage
-[Basic example]
+```javascript
+import { thing } from 'project-name';
+thing.doSomething();
+```
 
 ## API Reference
-[Link or inline reference]
+
+Link to full docs.
 
 ## Contributing
-[Link to CONTRIBUTING.md]
+
+How to contribute.
 
 ## License
-MIT
+
+MIT (or whatever)
 ```
 
-**Best Practices**:
-- Lead with value (what problem solved?)
-- Code examples > long explanations
-- Progressive disclosure (quick start → advanced)
-- Keep updated with code
+### The API Reference Template
 
-### 2. API Documentation
-
-**Function/Method Documentation**:
-```typescript
-/**
- * Compress image with quality settings
- *
- * @param {string} input - Path to input image
- * @param {CompressOptions} options - Compression options
- * @param {number} options.quality - Quality 0-100 (default: 80)
- * @param {string} options.format - Output format: jpeg|png|webp
- *
- * @returns {Promise<CompressResult>} Compression result with saved bytes
- *
- * @example
- * const result = await compress('photo.jpg', { quality: 90 });
- * console.log(`Saved ${result.savedBytes} bytes`);
- */
-```
-
-**REST API Documentation**:
 ```markdown
-### POST /api/users
+## functionName(param1, param2)
 
-Create a new user.
+Brief description of what it does.
 
-**Request**:
-```json
-{
-  "email": "user@example.com",
-  "name": "John Doe"
-}
+### Parameters
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| param1 | string | Yes | What this is |
+| param2 | number | No | What this is |
+
+### Returns
+
+`Type` - Description of return value
+
+### Example
+
+```javascript
+const result = functionName('hello', 42);
+console.log(result); // Expected output
 ```
 
-**Response** (201 Created):
-```json
-{
-  "id": "uuid",
-  "email": "user@example.com",
-  "name": "John Doe",
-  "created": "2025-11-24T12:00:00Z"
-}
+### Errors
+
+| Error | When |
+|-------|------|
+| InvalidParam | When param1 is empty |
 ```
 
-**Errors**:
-- 400: Invalid email format
-- 409: Email already exists
-```
+### The Tutorial Template
 
-### 3. Tutorials
-
-**Structure**:
 ```markdown
-# Tutorial: Build X in 10 Minutes
+# Tutorial: [What You'll Build]
 
-**You'll learn**:
-- How to set up X
-- Core concepts
-- Build a working example
+By the end of this tutorial, you will have [concrete outcome].
 
-**Prerequisites**:
-- Node.js 18+
-- Basic JavaScript knowledge
+## Prerequisites
 
-## Step 1: Setup
+- What you need to know
+- What you need installed
 
-```bash
-npm create vite@latest my-project
-cd my-project
-npm install
+## Step 1: [First Action]
+
+Brief explanation of what we're doing and why.
+
+```code
+Actual code to run
 ```
 
-## Step 2: Create Component
+You should see [expected result].
 
-[Code with explanation]
+## Step 2: [Next Action]
 
-## Step 3: Test It
+[Continue pattern...]
 
-[How to run and verify]
+## What You've Learned
+
+- Point 1
+- Point 2
 
 ## Next Steps
 
-- Advanced feature 1
-- Advanced feature 2
-- Link to API docs
+Where to go from here.
 ```
-
-**Best Practices**:
-- State prerequisites up front
-- Break into small, testable steps
-- Show expected output at each step
-- Link to related docs
-
-### 4. Changelogs
-
-**Keep a Changelog Format** (keepachangelog.com):
-```markdown
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-### Added
-- New feature X for Y use case
-
-### Changed
-- Improved performance of Z by 40%
-
-### Fixed
-- Critical bug in authentication (CVE-2024-1234)
-
-## [1.2.0] - 2025-11-24
-
-### Added
-- Real-time notifications via WebSocket
-- Export to PDF functionality
-
-### Changed
-- Updated dependencies (React 19)
-
-### Deprecated
-- `oldMethod()` - use `newMethod()` instead
-
-### Removed
-- Legacy API v1 endpoints
-
-### Fixed
-- Memory leak in image processing
-- CORS issue with production domain
-
-### Security
-- Fixed SQL injection vulnerability (CVE-2025-5678)
-
-## [1.1.0] - 2025-11-01
-
-[Previous release notes]
-```
-
-**Categories**:
-- **Added**: New features
-- **Changed**: Changes in existing functionality
-- **Deprecated**: Soon-to-be removed features
-- **Removed**: Now removed features
-- **Fixed**: Bug fixes
-- **Security**: Vulnerability fixes
 
 ---
 
-## Style Guide Essentials
+## Common Mistakes
 
-### Voice & Tone
+### Mistake: Assuming Knowledge
 
-**Active Voice** (preferred):
-- ✅ "The function returns an array"
-- ❌ "An array is returned by the function"
+```
+BAD:
+"Configure the webhook endpoint."
 
-**Present Tense** (preferred):
-- ✅ "The API validates input"
-- ❌ "The API will validate input"
+GOOD:
+"Configure the webhook endpoint. Webhooks are HTTP callbacks
+that notify your server when events occur. To set one up..."
+```
 
-**Second Person** (for tutorials):
-- ✅ "You can configure the timeout"
-- ❌ "Users can configure the timeout"
+### Mistake: Missing Examples
 
-### Clarity Rules
+```
+BAD:
+"The format parameter accepts a string."
 
-**Be Specific**:
-- ✅ "Set timeout to 5000ms"
-- ❌ "Set a reasonable timeout"
+GOOD:
+"The format parameter accepts a string.
 
-**Avoid Jargon** (or explain it):
-- ✅ "Idempotent (can be called multiple times safely)"
-- ❌ "The endpoint is idempotent"
-
-**Short Sentences**:
-- ✅ "Install the package. Then import it."
-- ❌ "After installing the package, you need to import it into your project."
-
-### Code Examples
-
-**Show Complete Examples**:
+Example:
 ```javascript
-// ✅ GOOD - Complete, runnable
-import { connect } from 'database';
-
-const db = await connect({
-  host: 'localhost',
-  port: 5432
-});
-
-const users = await db.query('SELECT * FROM users');
-console.log(users);
+const result = format('date', 'YYYY-MM-DD');
+// Returns: '2024-01-15'
+```"
 ```
 
-```javascript
-// ❌ BAD - Incomplete
-db.query('SELECT * FROM users');
+### Mistake: Outdated Code
+
+```
+BAD:
+Code examples that don't work with current version.
+
+GOOD:
+Version-tagged examples that are tested in CI.
 ```
 
-**Include Error Handling**:
-```javascript
-// ✅ GOOD
-try {
-  const result = await processImage('photo.jpg');
-  console.log('Success:', result);
-} catch (error) {
-  console.error('Failed to process image:', error.message);
-}
+### Mistake: Wall of Text
+
 ```
+BAD:
+Long paragraphs with no visual breaks.
 
----
-
-## Documentation Structure
-
-### Information Architecture
-
-**Organize by User Journey**:
-```
-docs/
-├── getting-started/
-│   ├── installation.md
-│   ├── quick-start.md
-│   └── first-project.md
-├── guides/
-│   ├── authentication.md
-│   ├── deployment.md
-│   └── troubleshooting.md
-├── api-reference/
-│   ├── client.md
-│   ├── server.md
-│   └── types.md
-└── examples/
-    ├── basic-crud.md
-    ├── real-time-updates.md
-    └── advanced-queries.md
-```
-
-**Progressive Disclosure**:
-1. **Getting Started**: Quickest path to value
-2. **Guides**: Task-oriented how-tos
-3. **API Reference**: Complete technical reference
-4. **Examples**: Real-world patterns
-
-### Navigation Best Practices
-
-**Clear Hierarchy**:
-- Use consistent heading levels (H1 → H2 → H3)
-- Don't skip heading levels
-- One H1 per page
-
-**Cross-Linking**:
-- Link to related docs
-- Link to prerequisites
-- Link to next steps
-
-**Table of Contents** (for long pages):
-```markdown
-## Table of Contents
-
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-  - [Basic Example](#basic-example)
-  - [Advanced Example](#advanced-example)
-- [API Reference](#api-reference)
+GOOD:
+• Short paragraphs
+• Bullet points
+• Code blocks
+• Headers for scanning
 ```
 
 ---
 
-## OpenAPI / Swagger
+## Maintenance
 
-### OpenAPI 3.0 Template
+### Keep Docs Current
 
-```yaml
-openapi: 3.0.0
-info:
-  title: User API
-  version: 1.0.0
-  description: User management API
+```
+□ Docs updated with every feature change
+□ Code examples tested automatically
+□ Broken link checks automated
+□ Version numbers accurate
+□ Deprecation notices added
+```
 
-servers:
-  - url: https://api.example.com/v1
+### Gather Feedback
 
-paths:
-  /users:
-    get:
-      summary: List all users
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
-
-    post:
-      summary: Create user
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUser'
-      responses:
-        '201':
-          description: User created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-
-components:
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-
-    CreateUser:
-      type: object
-      required:
-        - email
-        - name
-      properties:
-        email:
-          type: string
-          format: email
-        name:
-          type: string
+```
+• Track which pages have high bounce rates
+• Monitor support questions (they reveal gaps)
+• Include "Was this helpful?" feedback
+• Watch for confusion patterns
 ```
 
 ---
 
-## Documentation Maintenance
+## Quick Reference
 
-### Versioning Strategy
+### Writing Checklist
 
-**Version docs alongside code**:
 ```
-docs/
-├── v1.0/
-│   ├── api.md
-│   └── guides.md
-├── v2.0/
-│   ├── api.md
-│   ├── guides.md
-│   └── migration.md
-└── latest/ → symlink to v2.0/
-```
-
-**Migration Guides**:
-```markdown
-# Migrating from v1 to v2
-
-## Breaking Changes
-
-### Authentication
-
-**v1**:
-```javascript
-const api = new API({ token: 'abc123' });
+□ Used active voice
+□ Used present tense
+□ Addressed reader directly ("you")
+□ Included working code examples
+□ Tested all code examples
+□ Added error handling examples
+□ Linked to related topics
+□ Formatted for scanning
+□ Reviewed for accuracy
 ```
 
-**v2**:
-```javascript
-const api = new API({
-  auth: { bearer: 'abc123' }
-});
+### Tone Guidelines
+
 ```
+BE:
+• Friendly but professional
+• Confident but not arrogant
+• Concise but complete
+• Helpful but not patronizing
 
-### What Changed
-- `token` parameter renamed to `auth.bearer`
-- Supports multiple auth methods now
-
-### Migration Steps
-
-1. Update API initialization
-2. Test authentication flow
-3. Update error handling (new error codes)
-```
-
-### Keep Docs Fresh
-
-**Automation**:
-- Generate API docs from code (JSDoc, TypeDoc, OpenAPI)
-- Auto-update version numbers in docs
-- CI/CD checks for broken links
-
-**Review Checklist**:
-- [ ] Code examples run without errors
-- [ ] All links work (no 404s)
-- [ ] Version numbers match package.json
-- [ ] Screenshots show current UI
-- [ ] Deprecation warnings added for old features
-
----
-
-## Common Pitfalls
-
-**❌ Avoid**:
-- Outdated examples (don't run)
-- Missing prerequisites
-- Incomplete code snippets
-- Vague error messages ("something went wrong")
-- Over-explaining obvious things
-- Using future tense ("will do X")
-
-**✅ Do**:
-- Test all code examples
-- State prerequisites up front
-- Show complete, runnable code
-- Specific error messages with fixes
-- Respect reader's intelligence
-- Use present tense
-
----
-
-## Quick Reference Templates
-
-### Function Documentation
-```javascript
-/**
- * Brief description
- *
- * @param {Type} paramName - Description
- * @returns {Type} Description
- * @throws {ErrorType} When/why
- * @example
- * functionName(arg);
- */
-```
-
-### CLI Command Documentation
-```markdown
-### command [options]
-
-Description of what command does.
-
-**Options**:
-- `-f, --flag`: Description (default: value)
-- `-o, --option <value>`: Description
-
-**Examples**:
-```bash
-command --flag --option=value
-```
-```
-
-### Error Documentation
-```markdown
-### Error: ECONNREFUSED
-
-**Cause**: Cannot connect to database
-
-**Solutions**:
-1. Check database is running: `docker ps`
-2. Verify connection string in `.env`
-3. Check firewall allows port 5432
+AVOID:
+• Jargon without explanation
+• Humor that might not translate
+• Assumptions about user knowledge
+• Passive-aggressive language
 ```
 
 ---
 
-**This skill is self-contained and works in ANY user project.**
+*"Documentation is a love letter to your future users. Write it with care."*

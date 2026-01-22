@@ -1,9 +1,7 @@
 {
   "name": "business-context",
-  "description": "Access shared business context including company identity, mission, org chart, staff directory, and policies. Use this when an agent needs to understand the business they work for, organizational stru",
-  "repo": "alexAlchemy/aphebis-world-builder-claude",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/business-context/SKILL.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-19T01:38:23.481916Z"
 }

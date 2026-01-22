@@ -22,7 +22,7 @@ All investigation, analysis, and implementation work flows through specialized s
 
 ### First Action Rule
 
-**Every new task begins with requirement-analyzer.**
+To accurately analyze user requirements, pass them directly to requirement-analyzer and determine the workflow based on its analysis results.
 
 ## Decision Flow When Receiving Tasks
 
@@ -86,7 +86,8 @@ Assign work based on each subagent's responsibilities:
 
 ## Explicit Stop Points
 
-Autonomous execution MUST stop and wait for user input at these points:
+Autonomous execution MUST stop and wait for user input at these points.
+**Use AskUserQuestion to present confirmations and questions.**
 
 | Phase | Stop Point | User Action Required |
 |-------|------------|---------------------|
@@ -129,13 +130,14 @@ Call subagents using the Task tool:
 
 ## Structured Response Specification
 
-Each subagent responds in JSON format:
-- **task-executor**: status, filesModified, testsAdded, readyForQualityCheck
-- **quality-fixer**: status, checksPerformed, fixesApplied, approved
-- **document-reviewer**: status, reviewsPerformed, issues, recommendations, approvalReady
-- **design-sync**: sync_status, total_conflicts, conflicts (severity, type, source_file, target_file)
-- **integration-test-reviewer**: status (approved/needs_revision/blocked), qualityIssues, requiredFixes, verdict
-- **acceptance-test-generator**: status, generatedFiles, budgetUsage
+Subagents respond in JSON format. Key fields for orchestrator decisions:
+- **requirement-analyzer**: scale, confidence, adrRequired, scopeDependencies, questions
+- **task-executor**: status (escalation_needed/blocked/completed), testsAdded
+- **quality-fixer**: approved (true/false)
+- **document-reviewer**: approvalReady (true/false)
+- **design-sync**: sync_status (synced/conflicts_found)
+- **integration-test-reviewer**: status (approved/needs_revision/blocked), requiredFixes
+- **acceptance-test-generator**: status, generatedFiles
 
 
 ## Handling Requirement Changes
@@ -174,33 +176,34 @@ Criteria for timing when to call each agent:
 When receiving new features or change requests, start with requirement-analyzer.
 According to scale determination:
 
-### Large Scale (6+ Files)
-1. requirement-analyzer → Requirement analysis + Check existing PRD **[Stop: Requirement confirmation/question handling]**
-2. prd-creator → PRD creation (update if existing, new creation with thorough investigation if not)
+### Large Scale (6+ Files) - 11 Steps
+
+1. requirement-analyzer → Requirement analysis + Check existing PRD **[Stop]**
+2. prd-creator → PRD creation
 3. document-reviewer → PRD review **[Stop: PRD Approval]**
-4. technical-designer → ADR creation (if architecture changes, new technology, or data flow changes)
+4. technical-designer → ADR creation (if architecture/technology/data flow changes)
 5. document-reviewer → ADR review (if ADR created) **[Stop: ADR Approval]**
 6. technical-designer → Design Doc creation
 7. document-reviewer → Design Doc review
-8. design-sync → Design Doc consistency verification **[Stop: Design Doc Approval]**
-9. acceptance-test-generator → Integration and E2E test skeleton generation
-   → Orchestrator: Verify generation, then pass information to work-planner (*1)
-10. work-planner → Work plan creation (including integration and E2E test information) **[Stop: Batch approval for entire implementation phase]**
-11. **Start autonomous execution mode**: task-decomposer → Execute all tasks → Completion report
+8. design-sync → Consistency verification **[Stop: Design Doc Approval]**
+9. acceptance-test-generator → Test skeleton generation, pass to work-planner (*1)
+10. work-planner → Work plan creation **[Stop: Batch approval]**
+11. task-decomposer → Autonomous execution → Completion report
 
-### Medium Scale (3-5 Files)
-1. requirement-analyzer → Requirement analysis **[Stop: Requirement confirmation/question handling]**
+### Medium Scale (3-5 Files) - 7 Steps
+
+1. requirement-analyzer → Requirement analysis **[Stop]**
 2. technical-designer → Design Doc creation
 3. document-reviewer → Design Doc review
-4. design-sync → Design Doc consistency verification **[Stop: Design Doc Approval]**
-5. acceptance-test-generator → Integration and E2E test skeleton generation
-   → Orchestrator: Verify generation, then pass information to work-planner (*1)
-6. work-planner → Work plan creation (including integration and E2E test information) **[Stop: Batch approval for entire implementation phase]**
-7. **Start autonomous execution mode**: task-decomposer → Execute all tasks → Completion report
+4. design-sync → Consistency verification **[Stop: Design Doc Approval]**
+5. acceptance-test-generator → Test skeleton generation, pass to work-planner (*1)
+6. work-planner → Work plan creation **[Stop: Batch approval]**
+7. task-decomposer → Autonomous execution → Completion report
 
-### Small Scale (1-2 Files)
-1. Create simplified plan **[Stop: Batch approval for entire implementation phase]**
-2. **Start autonomous execution mode**: Direct implementation → Completion report
+### Small Scale (1-2 Files) - 2 Steps
+
+1. Create simplified plan **[Stop: Batch approval]**
+2. Direct implementation → Completion report
 
 ## Autonomous Execution Mode
 
@@ -232,8 +235,13 @@ graph TD
     AUTO --> TD[task-decomposer: Task decomposition]
     TD --> LOOP[Task execution loop]
     LOOP --> TE[task-executor: Implementation]
-    TE --> QF[quality-fixer: Quality check and fixes]
-    QF --> COMMIT[Orchestrator: Execute git commit]
+    TE --> ESCJUDGE{Escalation judgment}
+    ESCJUDGE -->|escalation_needed/blocked| USERESC[Escalate to user]
+    ESCJUDGE -->|testsAdded has int/e2e| ITR[integration-test-reviewer]
+    ESCJUDGE -->|No issues| QF
+    ITR -->|needs_revision| TE
+    ITR -->|approved| QF
+    QF[quality-fixer: Quality check and fixes] --> COMMIT[Orchestrator: Execute git commit]
     COMMIT --> CHECK{Any remaining tasks?}
     CHECK -->|Yes| LOOP
     CHECK -->|No| REPORT[Completion report]
@@ -244,10 +252,6 @@ graph TD
     REQCHECK -->|No change| TE
     REQCHECK -->|Change| STOP[Stop autonomous execution]
     STOP --> RA[Re-analyze with requirement-analyzer]
-
-    TE --> ERROR{Critical error?}
-    ERROR -->|None| QF
-    ERROR -->|Yes| ESC[Escalation]
 ```
 
 ### Conditions for Stopping Autonomous Execution
@@ -273,10 +277,16 @@ Stop autonomous execution and escalate to user in the following cases:
 **Per-task cycle**:
 ```
 1. task-executor → Implementation
-2. Escalation judgment → Check task-executor status
+2. Escalation judgment/Follow-up → Check task-executor status
 3. quality-fixer → Quality check and fixes
 4. git commit → Execute with Bash (on approved: true)
 ```
+
+**Step 2 Execution Details**:
+- `status: escalation_needed` or `status: blocked` → Escalate to user
+- `testsAdded` contains `*.int.test.ts` or `*.e2e.test.ts` → Execute **integration-test-reviewer**
+  - If verdict is `needs_revision` → Return to task-executor with `requiredFixes`
+  - If verdict is `approved` → Proceed to quality-fixer
 
 **Commit trigger**: quality-fixer returns `approved: true`
 

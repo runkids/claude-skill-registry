@@ -1,7 +1,7 @@
 {
   "name": "saga-orchestration",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/backend-development/skills/saga-orchestration/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:29.378139Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/backend-development/skills/saga-orchestration/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-22T03:51:06.440804Z"
 }

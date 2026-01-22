@@ -1,9 +1,9 @@
 ---
 name: claude-api
 description: |
-  Build with Claude Messages API using structured outputs for guaranteed JSON schema validation. Covers prompt caching (90% savings), streaming SSE, tool use, and model deprecations. Prevents 12 documented errors.
+  Build with Claude Messages API using structured outputs for guaranteed JSON schema validation. Covers prompt caching (90% savings), streaming SSE, tool use, and model deprecations. Prevents 16 documented errors.
 
-  Use when: building chatbots/agents, troubleshooting rate_limit_error, prompt caching issues, or streaming SSE parsing errors.
+  Use when: building chatbots/agents, troubleshooting rate_limit_error, prompt caching issues, streaming SSE parsing errors, MCP timeout issues, or structured output hallucinations.
 user-invocable: true
 ---
 
@@ -21,7 +21,9 @@ user-invocable: true
 
 ### 1. Structured Outputs (v0.69.0, Nov 14, 2025) - CRITICAL ⭐
 
-**Guaranteed JSON schema conformance** - Claude's responses strictly follow your JSON schema with two modes:
+**Guaranteed JSON schema conformance** - Claude's responses strictly follow your JSON schema with two modes.
+
+**⚠️ ACCURACY CAVEAT**: Structured outputs guarantee format compliance, NOT accuracy. Models can still hallucinate—you get "perfectly formatted incorrect answers." Always validate semantic correctness (see below).
 
 **JSON Outputs (`output_format`)** - For data extraction and formatting:
 ```typescript
@@ -86,7 +88,7 @@ const message = await anthropic.messages.create({
 
 **Requirements:**
 - **Beta header**: `structured-outputs-2025-11-13` (via `betas` array)
-- **Models**: Claude Sonnet 4.5, Claude Opus 4.1 only
+- **Models**: Claude Opus 4.5, Claude Sonnet 4.5, Claude Opus 4 (best models only)
 - **SDK**: v0.69.0+ required
 
 **Limitations:**
@@ -96,11 +98,60 @@ const message = await anthropic.messages.create({
 - ❌ Incompatible with citations and message prefilling
 - ⚠️ Grammar compilation adds latency on first request (cached 24hrs)
 
+**Performance Characteristics:**
+- **First request**: +200-500ms latency for grammar compilation
+- **Subsequent requests**: Normal latency (grammar cached for 24 hours)
+- **Cache sharing**: Only with IDENTICAL schemas (small changes = recompilation)
+
+**Pre-warming critical schemas:**
+```typescript
+// Pre-compile schemas during server startup
+const warmupMessage = await anthropic.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 10,
+  messages: [{ role: 'user', content: 'warmup' }],
+  betas: ['structured-outputs-2025-11-13'],
+  output_format: {
+    type: 'json_schema',
+    json_schema: YOUR_CRITICAL_SCHEMA
+  }
+});
+// Later requests use cached grammar
+```
+
+**Semantic Validation (CRITICAL):**
+```typescript
+const message = await anthropic.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  messages: [{ role: 'user', content: 'Extract contact: John Doe' }],
+  betas: ['structured-outputs-2025-11-13'],
+  output_format: {
+    type: 'json_schema',
+    json_schema: contactSchema
+  }
+});
+
+const contact = JSON.parse(message.content[0].text);
+
+// ✅ Format is guaranteed valid
+// ❌ Content may be hallucinated
+
+// ALWAYS validate semantic correctness
+if (!isValidEmail(contact.email)) {
+  throw new Error('Hallucinated email detected');
+}
+if (contact.age < 0 || contact.age > 120) {
+  throw new Error('Implausible age value');
+}
+```
+
 **When to Use:**
 - Data extraction from unstructured text
 - API response formatting
 - Agentic workflows requiring validated tool inputs
 - Eliminating JSON parse errors
+
+**⚠️ SDK v0.71.1+ Deprecation**: Direct `.parsed` property access is deprecated. Check SDK docs for updated API.
 
 ### 2. Model Changes (Oct 2025) - BREAKING
 
@@ -108,13 +159,16 @@ const message = await anthropic.messages.create({
 - ❌ Claude 3.5 Sonnet (all versions)
 - ❌ Claude 3.7 Sonnet - DEPRECATED (Oct 28, 2025)
 
-**Active Models (Nov 2025):**
+**Active Models (Jan 2026):**
 
 | Model | ID | Context | Best For | Cost (per MTok) |
 |-------|-----|---------|----------|-----------------|
+| **Claude Opus 4.5** | claude-opus-4-5-20251101 | 200k | Flagship - best reasoning, coding, agents | $5/$25 (in/out) |
 | **Claude Sonnet 4.5** | claude-sonnet-4-5-20250929 | 200k | Balanced performance | $3/$15 (in/out) |
-| **Claude Opus 4** | claude-opus-4-20250514 | 200k | Highest capability | $15/$75 |
-| **Claude Haiku 4.5** | claude-3-5-haiku-20241022 | 200k | Near-frontier, fast | $1/$5 |
+| **Claude Opus 4** | claude-opus-4-20250514 | 200k | High capability | $15/$75 |
+| **Claude Haiku 4.5** | claude-haiku-4-5-20250929 | 200k | Near-frontier, fast | $1/$5 |
+
+**Note**: Claude 3.x models (3.5 Sonnet, 3.7 Sonnet, etc.) are deprecated. Use Claude 4.x+ models.
 
 ### 3. Context Management (Oct 28, 2025)
 
@@ -203,6 +257,8 @@ console.log('Cache writes:', message.usage.cache_creation_input_tokens);
 - 5-minute TTL (refreshes on each use)
 - Cache shared only with IDENTICAL content
 
+**⚠️ AWS Bedrock Limitation**: Prompt caching does NOT work for Claude 4 family on AWS Bedrock (works for Claude 3.7 Sonnet only). Use direct Anthropic API for Claude 4 caching support. ([GitHub Issue #1347](https://github.com/anthropics/claude-code/issues/1347))
+
 ---
 
 ## Tool Use (Function Calling)
@@ -274,6 +330,23 @@ try {
 }
 ```
 
+**Content Sanitization** - Handle Unicode edge cases:
+```typescript
+// U+2028 (LINE SEPARATOR) and U+2029 (PARAGRAPH SEPARATOR) cause JSON parse failures
+function sanitizeToolResult(content: string): string {
+  return content
+    .replace(/\u2028/g, '\n') // LINE SEPARATOR → newline
+    .replace(/\u2029/g, '\n'); // PARAGRAPH SEPARATOR → newline
+}
+
+const toolResult = {
+  type: 'tool_result',
+  tool_use_id: block.id,
+  content: sanitizeToolResult(result) // Sanitize before sending
+};
+```
+([GitHub Issue #882](https://github.com/anthropics/anthropic-sdk-typescript/issues/882))
+
 ---
 
 ## Vision (Image Understanding)
@@ -300,6 +373,7 @@ if (!validFormats.includes(mimeType)) {
 **⚠️ Model Compatibility:**
 - ❌ Claude 3.7 Sonnet - DEPRECATED (Oct 28, 2025)
 - ❌ Claude 3.5 Sonnet - RETIRED (not supported)
+- ✅ Claude Opus 4.5 - Extended thinking supported (flagship)
 - ✅ Claude Sonnet 4.5 - Extended thinking supported
 - ✅ Claude Opus 4 - Extended thinking supported
 
@@ -372,7 +446,7 @@ async function makeRequestWithRetry(
 
 ## Known Issues Prevention
 
-This skill prevents **12** documented issues:
+This skill prevents **16** documented issues:
 
 ### Issue #1: Rate Limit 429 Errors Without Backoff
 **Error**: `429 Too Many Requests: Number of request tokens has exceeded your per-minute rate limit`
@@ -426,7 +500,7 @@ This skill prevents **12** documented issues:
 **Error**: No thinking blocks in response
 **Source**: Model capabilities
 **Why It Happens**: Using retired/deprecated models (3.5/3.7 Sonnet)
-**Prevention**: Only use extended thinking with Claude Sonnet 4.5 or Claude Opus 4
+**Prevention**: Only use extended thinking with Claude Opus 4.5, Claude Sonnet 4.5, or Claude Opus 4
 
 ### Issue #10: API Key Exposure in Client Code
 **Error**: CORS errors, security vulnerability
@@ -445,6 +519,115 @@ This skill prevents **12** documented issues:
 **Source**: Beta API requirements
 **Why It Happens**: Missing `anthropic-beta` header
 **Prevention**: Include `anthropic-beta: message-batches-2024-09-24` header
+
+### Issue #13: Stream Errors Not Catchable with .withResponse() (Fixed in v0.71.2)
+**Error**: Unhandled promise rejection when using `messages.stream().withResponse()`
+**Source**: [GitHub Issue #856](https://github.com/anthropics/anthropic-sdk-typescript/issues/856)
+**Why It Happens**: SDK internal error handling prevented user catch blocks from working (pre-v0.71.2)
+**Prevention**: Upgrade to v0.71.2+ or use event listeners instead
+
+**Fixed in v0.71.2+**:
+```typescript
+try {
+  const stream = await anthropic.messages.stream({
+    model: 'claude-sonnet-4-5-20250929',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: 'Hello' }]
+  }).withResponse();
+} catch (error) {
+  // Now properly catchable in v0.71.2+
+  console.error('Stream error:', error);
+}
+```
+
+**Workaround for pre-v0.71.2**:
+```typescript
+const stream = anthropic.messages.stream({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello' }]
+});
+
+stream.on('error', (error) => {
+  console.error('Stream error:', error);
+});
+```
+
+### Issue #14: MCP Tool Connections Cause 2-Minute Timeout
+**Error**: `Connection error` / `499 Client disconnected` after ~121 seconds
+**Source**: [GitHub Issue #842](https://github.com/anthropics/anthropic-sdk-typescript/issues/842)
+**Why It Happens**: MCP server connection management conflicts with long-running requests, even when MCP tools are not actively used
+**Prevention**: Use direct toolRunner instead of MCP for requests >2 minutes
+
+**Symptoms**:
+- Request works fine without MCP
+- Fails at exactly ~121 seconds with MCP registered
+- Dashboard shows: "Client disconnected (code 499)"
+- Multiple users confirmed across streaming and non-streaming
+
+**Workaround**:
+```typescript
+// Don't use MCP for long requests
+const message = await anthropic.beta.messages.toolRunner({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 4096,
+  messages: [{ role: 'user', content: 'Long task >2 min' }],
+  tools: [customTools] // Direct tool definitions, not MCP
+});
+```
+
+**Note**: This is a known limitation with no official fix. Consider architecture changes if long-running requests with tools are required.
+
+### Issue #15: Structured Outputs Hallucination Risk
+**Error**: Valid JSON format but incorrect/hallucinated content
+**Source**: [Structured Outputs Docs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+**Why It Happens**: Structured outputs guarantee format compliance, NOT accuracy
+**Prevention**: Always validate semantic correctness, not just format
+
+```typescript
+const message = await anthropic.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  messages: [{ role: 'user', content: 'Extract contact: John Doe' }],
+  betas: ['structured-outputs-2025-11-13'],
+  output_format: {
+    type: 'json_schema',
+    json_schema: contactSchema
+  }
+});
+
+const contact = JSON.parse(message.content[0].text);
+
+// ✅ Format is guaranteed valid
+// ❌ Content may be hallucinated
+
+// CRITICAL: Validate semantic correctness
+if (!isValidEmail(contact.email)) {
+  throw new Error('Hallucinated email detected');
+}
+if (contact.age < 0 || contact.age > 120) {
+  throw new Error('Implausible age value');
+}
+```
+
+### Issue #16: U+2028 Line Separator in Tool Results (Community-sourced)
+**Error**: JSON parsing failures or silent errors when tool results contain U+2028
+**Source**: [GitHub Issue #882](https://github.com/anthropics/anthropic-sdk-typescript/issues/882)
+**Why It Happens**: U+2028 is valid in JSON but not in JavaScript string literals
+**Prevention**: Sanitize tool results before passing to SDK
+
+```typescript
+function sanitizeToolResult(content: string): string {
+  return content
+    .replace(/\u2028/g, '\n') // LINE SEPARATOR → newline
+    .replace(/\u2029/g, '\n'); // PARAGRAPH SEPARATOR → newline
+}
+
+const toolResult = {
+  type: 'tool_result',
+  tool_use_id: block.id,
+  content: sanitizeToolResult(result)
+};
+```
 
 ---
 
@@ -487,9 +670,9 @@ This skill prevents **12** documented issues:
 - **With skill**: ~4,200 tokens (knowledge gaps + error prevention + critical patterns)
 - **Savings**: ~48% (~3,800 tokens)
 
-**Errors prevented**: 12 documented issues with exact solutions
-**Key value**: Structured outputs (v0.69.0+), model deprecations (Oct 2025), prompt caching edge cases, streaming error patterns, rate limit retry logic
+**Errors prevented**: 16 documented issues with exact solutions
+**Key value**: Structured outputs (v0.69.0+), model deprecations (Oct 2025), prompt caching edge cases, streaming error patterns, rate limit retry logic, MCP timeout workarounds, hallucination validation
 
 ---
 
-**Last verified**: 2026-01-09 | **Skill version**: 2.0.1 | **Changes**: Updated SDK version to 0.71.2
+**Last verified**: 2026-01-20 | **Skill version**: 2.2.0 | **Changes**: Added 4 new issues from community research: streaming error handling (fixed in v0.71.2), MCP timeout workaround, structured outputs hallucination validation, U+2028 sanitization; expanded structured outputs section with performance characteristics and accuracy caveats; added AWS Bedrock caching limitation

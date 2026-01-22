@@ -1,7 +1,7 @@
 {
   "name": "clinical-reports",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/clinical-reports/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-14T02:23:45.884923Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/clinical/clinical-reports/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:12.524569Z"
 }

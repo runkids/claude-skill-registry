@@ -1,7 +1,7 @@
 {
   "name": "slash-command-builder",
-  "repo": "NangoHQ/ai-ide-prompts",
-  "path": ".claude/skills/slash-command-builder-skill/.claude/skills/slash-command-builder/SKILL.md",
-  "source": "github.com/NangoHQ/ai-ide-prompts",
-  "downloaded_at": "2026-01-14T01:48:14.128426Z"
+  "repo": "pr-pm/prpm",
+  "path": ".claude/skills/slash-command-builder/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-22T04:04:40.164270Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "django-expert",
-  "repo": "Jeffallan/claude-skills",
-  "path": "skills/django-expert/SKILL.md",
-  "source": "github.com/Jeffallan/claude-skills",
-  "downloaded_at": "2026-01-14T02:36:36.399324Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/frameworks/django-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-22T04:02:13.965966Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "aws-cdk-development",
-  "repo": "zxkane/aws-skills",
-  "path": "plugins/aws-cdk/skills/aws-cdk-development/SKILL.md",
-  "source": "github.com/zxkane/aws-skills",
-  "downloaded_at": "2026-01-14T03:28:03.972711Z"
+  "repo": "CommandCodeAI/agent-skills",
+  "path": "skills/aws-cdk-development/SKILL.md",
+  "source": "github.com/CommandCodeAI/agent-skills",
+  "downloaded_at": "2026-01-22T03:56:48.908101Z"
 }

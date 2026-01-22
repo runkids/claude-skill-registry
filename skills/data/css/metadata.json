@@ -1,11 +1,7 @@
 {
   "name": "css",
-  "description": "Use when writing CSS for Discourse core, themes, or plugins - handles BEM class naming, modifiers with double dashes, block__element structure, and is-/has- state prefixes",
-  "repo": "discourse/skills",
-  "category": "design",
-  "tags": [
-    "css"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jaredlander/freshbooks-speed",
+  "path": ".claude/skills/css/SKILL.md",
+  "source": "github.com/jaredlander/freshbooks-speed",
+  "downloaded_at": "2026-01-22T00:56:58.416947Z"
 }

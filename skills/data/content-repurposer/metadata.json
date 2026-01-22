@@ -1,12 +1,7 @@
 {
   "name": "content-repurposer",
-  "description": "Master skill that transforms ANY content into 8+ formats: slides, infographic, video script, podcast, social posts, email series, flashcards, quiz, one-pager, interactive game.",
-  "repo": "OneWave-AI/claude-skills",
-  "category": "marketing",
-  "tags": [
-    "content",
-    "repurposer"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/content-creator-workflow/.claude/skills/content-repurposer/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-22T03:29:22.010105Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "api-designer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/api-designer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:16.299767Z"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/api-designer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-22T04:14:01.811156Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "python-packaging",
-  "repo": "robertpelloni/aios",
-  "path": "agents/rse-agents/plugins/skills/python-packaging/SKILL.md",
-  "source": "github.com/robertpelloni/aios",
-  "downloaded_at": "2026-01-14T03:45:50.279616Z"
+  "repo": "ricardoroche/ricardos-claude-code",
+  "path": ".claude/skills/python-packaging/SKILL.md",
+  "source": "github.com/ricardoroche/ricardos-claude-code",
+  "downloaded_at": "2026-01-22T04:06:47.066562Z"
 }

@@ -58,6 +58,9 @@ Pattern Matching (Regex)
 | `rm -rf` (non-temp paths) | Recursive file deletion |
 | `git stash drop` | Permanently deletes stashed changes |
 | `git stash clear` | Deletes ALL stashed changes |
+| `git commit --no-verify` | Bypasses pre-commit and commit-msg hooks |
+| `git commit -n` | Same as --no-verify |
+| `git push --no-verify` | Bypasses pre-push hooks |
 
 ## Commands Explicitly Allowed
 
@@ -77,15 +80,29 @@ Pattern Matching (Regex)
 ### Quick Start
 
 ```bash
-# Build terraphim-agent
-cd /path/to/terraphim-ai
-cargo build -p terraphim_agent --release
+# Install terraphim-agent from GitHub releases (latest version)
+# macOS ARM64 (Apple Silicon)
+gh release download --repo terraphim/terraphim-ai \
+  --pattern "terraphim-agent-aarch64-apple-darwin" --dir /tmp
+chmod +x /tmp/terraphim-agent-aarch64-apple-darwin
+mv /tmp/terraphim-agent-aarch64-apple-darwin ~/.cargo/bin/terraphim-agent
+
+# macOS x86_64 (Intel)
+# gh release download --repo terraphim/terraphim-ai \
+#   --pattern "terraphim-agent-x86_64-apple-darwin" --dir /tmp
+
+# Linux x86_64
+# gh release download --repo terraphim/terraphim-ai \
+#   --pattern "terraphim-agent-x86_64-unknown-linux-gnu" --dir /tmp
+
+# Note: crates.io version (cargo install terraphim_agent) is outdated (v1.0.0)
+# and missing the guard command. Use GitHub releases for latest features.
 
 # Test guard command
-echo "git checkout -- file.txt" | ./target/release/terraphim-agent guard --json
+echo "git checkout -- file.txt" | terraphim-agent guard --json
 # Output: {"decision":"block","reason":"git checkout -- discards...","command":"..."}
 
-echo "git checkout -b new-branch" | ./target/release/terraphim-agent guard --json
+echo "git checkout -b new-branch" | terraphim-agent guard --json
 # Output: {"decision":"allow","command":"git checkout -b new-branch"}
 ```
 

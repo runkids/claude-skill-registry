@@ -1,14 +1,7 @@
 {
   "name": "internal-red-team-audit",
-  "description": "Execute internal red team security audits to identify protocol vulnerabilities and alignment risks.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "security",
-  "tags": [
-    "internal",
-    "red",
-    "team",
-    "audit"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/internal-red-team-audit/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-21T03:29:06.056526Z"
 }

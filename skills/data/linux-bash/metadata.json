@@ -1,7 +1,7 @@
 {
   "name": "linux-bash",
-  "repo": "oriolrius/nifi-cluster",
+  "repo": "oriolrius/pki-manager-web",
   "path": ".claude/skills/linux-bash/SKILL.md",
-  "source": "github.com/oriolrius/nifi-cluster",
-  "downloaded_at": "2026-01-14T04:01:40.037111Z"
+  "source": "github.com/oriolrius/pki-manager-web",
+  "downloaded_at": "2026-01-22T03:52:18.852575Z"
 }

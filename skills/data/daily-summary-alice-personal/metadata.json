@@ -1,8 +1,7 @@
 {
   "name": "daily-summary-alice-personal",
   "repo": "ZachBeta/claude-as-coach",
-  "category": "data",
-  "description": "Alice's couch-to-5K personal extensions with running metrics and training data.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:25.676026Z"
+  "path": "examples/alice-the-athlete/skills/daily-summary-alice-personal/SKILL.md",
+  "source": "github.com/ZachBeta/claude-as-coach",
+  "downloaded_at": "2026-01-21T01:12:44.836401Z"
 }

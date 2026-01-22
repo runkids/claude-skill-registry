@@ -1,71 +1,94 @@
 ---
 name: github-pr
-description: Fetch, preview, merge, and test GitHub PRs locally. Great for trying upstream PRs before they're merged.
-homepage: https://cli.github.com
-metadata:
-  clawdhub:
-    emoji: "🔀"
-    requires:
-      bins: ["gh", "git"]
+description: Create and manage pull requests
 ---
 
-# GitHub PR Tool
+# GitHub Pull Request Skill
 
-Fetch and merge GitHub pull requests into your local branch. Perfect for:
-- Trying upstream PRs before they're merged
-- Incorporating features from open PRs into your fork
-- Testing PR compatibility locally
+Create pull requests with proper descriptions and link to issues.
 
-## Prerequisites
+> **See also**: [Shared Conventions](../shared/CONVENTIONS.md) | [Safety Guidelines](../shared/SAFETY.md)
 
-- `gh` CLI authenticated (`gh auth login`)
-- Git repository with remotes configured
+## Purpose
+
+Create well-documented pull requests that are easy to review.
 
 ## Commands
 
-### Preview a PR
 ```bash
-github-pr preview <owner/repo> <pr-number>
-```
-Shows PR title, author, status, files changed, CI status, and recent comments.
-
-### Fetch PR branch locally
-```bash
-github-pr fetch <owner/repo> <pr-number> [--branch <name>]
-```
-Fetches the PR head into a local branch (default: `pr/<number>`).
-
-### Merge PR into current branch
-```bash
-github-pr merge <owner/repo> <pr-number> [--no-install]
-```
-Fetches and merges the PR. Optionally runs install after merge.
-
-### Full test cycle
-```bash
-github-pr test <owner/repo> <pr-number>
-```
-Fetches, merges, installs dependencies, and runs build + tests.
-
-## Examples
-
-```bash
-# Preview MS Teams PR from clawdbot
-github-pr preview clawdbot/clawdbot 404
-
-# Fetch it locally
-github-pr fetch clawdbot/clawdbot 404
-
-# Merge into your current branch
-github-pr merge clawdbot/clawdbot 404
-
-# Or do the full test cycle
-github-pr test clawdbot/clawdbot 404
+gh pr create
+gh pr create --title "<title>" --body "<body>"
+gh pr create --draft
+gh pr view <number>
+gh pr list
+gh pr checks <number>
 ```
 
-## Notes
+## PR Title Format
 
-- PRs are fetched from the `upstream` remote by default
-- Use `--remote <name>` to specify a different remote
-- Merge conflicts must be resolved manually
-- The `test` command auto-detects package manager (npm/pnpm/yarn/bun)
+Include issue number in title:
+```
+[#123] Fix login validation bug
+[#456] Add user authentication
+```
+
+## PR Body Template
+
+```markdown
+## Summary
+
+<!-- Brief description of the changes -->
+
+## Related Issue
+
+Closes #<issue-number>
+
+## Changes Made
+
+- Change 1
+- Change 2
+
+## Testing
+
+- [ ] Unit tests pass
+- [ ] Manual testing completed
+
+## Checklist
+
+- [ ] Code follows project conventions
+- [ ] Self-review completed
+```
+
+## Workflow
+
+1. **Verify branch is ready**
+   ```bash
+   git status
+   git log origin/main..HEAD --oneline
+   ```
+
+2. **Push latest changes**
+   ```bash
+   git push
+   ```
+
+3. **Create PR**
+   ```bash
+   gh pr create --title "[#123] Fix login bug" --body "## Summary
+   Fixes validation issue in login form.
+
+   Closes #123"
+   ```
+
+4. **Verify PR created**
+   ```bash
+   gh pr view
+   ```
+
+## Policies
+
+- PR title must include issue number
+- PR body must reference the issue with "Closes #X" or "Fixes #X"
+- Ensure all commits are pushed before creating PR
+- Use draft PRs for work-in-progress
+- Never push directly to main/master

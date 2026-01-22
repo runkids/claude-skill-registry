@@ -1,7 +1,7 @@
 {
   "name": "gamma-rate-limits",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "plugins/saas-packs/gamma-pack/skills/gamma-rate-limits/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-14T02:49:08.015586Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/plugins/saas-packs/gamma-pack/gamma-rate-limits/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-22T03:16:22.699798Z"
 }

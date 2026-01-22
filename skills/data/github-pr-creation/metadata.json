@@ -1,9 +1,7 @@
 {
   "name": "github-pr-creation",
-  "description": "Creates GitHub Pull Requests with automated validation and task tracking. Use when user wants to create PR, open pull request, submit for review, or check if ready for PR. Analyzes commits, validates ",
-  "repo": "fvadicamo/dev-agent-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "buenhyden/hy-home.service-1",
+  "path": "agents_settings/agent/skills/github-pr-creation/SKILL.md",
+  "source": "github.com/buenhyden/hy-home.service-1",
+  "downloaded_at": "2026-01-20T02:53:50.429050Z"
 }

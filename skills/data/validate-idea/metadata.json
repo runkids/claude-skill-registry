@@ -1,12 +1,7 @@
 {
   "name": "validate-idea",
-  "description": "Evaluate a single idea and decide to accept or reject it. Used internally by /validate-ideas or when the user mentions a specific idea number.",
-  "repo": "jmlweb/tooling",
-  "category": "devops",
-  "tags": [
-    "validate",
-    "idea"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "TaylorHuston/local-life-manager",
+  "path": ".claude/skills/validate-idea/SKILL.md",
+  "source": "github.com/TaylorHuston/local-life-manager",
+  "downloaded_at": "2026-01-22T02:22:12.602802Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "youtube-processor",
-  "description": "Process YouTube videos into summarized Obsidian notes. Use when given a YouTube URL to summarize, extract insights, or turn videos into notes. Triggers on \"summarize this video\", \"process this YouTube",
-  "repo": "Eddale/powerhouse-lab",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/content-creator-workflow/.claude/skills/youtube-processor/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-22T03:29:21.466846Z"
 }

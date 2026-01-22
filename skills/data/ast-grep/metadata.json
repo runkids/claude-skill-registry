@@ -1,7 +1,7 @@
 {
   "name": "ast-grep",
-  "repo": "OutlineDriven/odin-codex-plugin",
+  "repo": "OutlineDriven/odin-claude-plugin",
   "path": "skills/ast-grep/SKILL.md",
-  "source": "github.com/OutlineDriven/odin-codex-plugin",
-  "downloaded_at": "2026-01-14T03:48:53.739862Z"
+  "source": "github.com/OutlineDriven/odin-claude-plugin",
+  "downloaded_at": "2026-01-22T04:16:07.265325Z"
 }

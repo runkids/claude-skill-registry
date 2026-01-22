@@ -1,7 +1,7 @@
 {
   "name": "rust",
-  "repo": "sdn0303/claude-code-template",
-  "path": ".claude/skills/rust/SKILL.md",
-  "source": "github.com/sdn0303/claude-code-template",
-  "downloaded_at": "2026-01-14T03:38:19.259263Z"
+  "repo": "cosmix/loom",
+  "path": "skills/rust/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-22T02:42:51.492689Z"
 }

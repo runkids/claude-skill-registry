@@ -1,55 +1,125 @@
 ---
 name: quality
-description: Quality skill for the ikigai project
+description: "Comprehensive code quality assessment in spaces/[project]/. Use before commits, merges, or releases to ensure consistent quality."
+model: claude-sonnet-4-20250514
+allowed-tools: Read, Glob, Grep, Bash, Task
 ---
 
-# Quality
+# /quality
 
-## Description
-Testing and quality requirements for development phase. Focus on high coverage.
+Comprehensive quality assessment of code using multi-agent analysis.
 
-## Pre-Commit Requirements
-
-Before creating commits:
-
-1. `make fmt` - Format code
-2. `make check` - All tests pass
-3. `make lint` - Complexity/file size checks pass
-
-## Test Execution
-
-**By Default**: Tests run in parallel, with 24 parallel tests on this machine.
-- `MAKE_JOBS=24` - up to 24 concurrent tests
-
-**When you need clear debug output** (serialize execution):
-```bash
-PARALLEL=0 MAKE_JOBS=1 make check
-```
-
-**Best practice**: Test individual files during development, run full suite before commits.
-
-Example:
-```bash
-make build/tests/unit/array/basic_test && ./build/tests/unit/array/basic_test
-```
-
-## Build Modes
+## Usage
 
 ```bash
-make BUILD={debug|release|sanitize|tsan|coverage}
+/quality yourbench                  # Full assessment
+/quality yourbench --focus security # Security-focused
+/quality coordinatr --focus testing # Test coverage focus
 ```
 
-- `debug` - Development builds with symbols
-- `release` - Optimized production builds
-- `sanitize` - Address and undefined behavior sanitizers
-- `tsan` - Thread sanitizer
-- `coverage` - Code coverage analysis
+## Focus Areas
 
-## Development Phase Focus
+| Flag | Analysis | Agent |
+|------|----------|-------|
+| (none) | All dimensions | All specialists |
+| `--focus security` | OWASP, vulnerabilities | security-auditor |
+| `--focus performance` | Bottlenecks, N+1 | performance-optimizer |
+| `--focus testing` | Coverage, test quality | test-engineer |
+| `--focus code` | Maintainability | code-reviewer |
 
-- Aim for high test coverage of new code
-- Test the happy path and obvious error cases
-- Coverage gaps will be closed in a dedicated coverage phase
-- Don't let coverage metrics slow down feature development
+## Execution Flow
 
-**CRITICAL**: Never run multiple `make` commands simultaneously. Different targets use incompatible compiler flags and will corrupt the build.
+### 1. Locate Project
+
+```bash
+ls spaces/[project]/
+```
+
+### 2. Run Automated Checks
+
+```bash
+cd spaces/[project]
+npm test -- --coverage
+npm run lint
+npm run type-check  # if TypeScript
+```
+
+### 3. Agent Analysis
+
+Coordinate specialists via Task tool:
+- **code-reviewer**: Complexity, best practices
+- **security-auditor**: OWASP Top 10
+- **performance-optimizer**: N+1 queries, bottlenecks
+- **test-engineer**: Coverage, test quality
+
+### 4. Generate Report
+
+```markdown
+## Quality Assessment: [project]
+
+**Overall Score: XX/100** [status]
+
+### Code Quality: XX/100
+- Issues found
+- Recommendations
+
+### Security: XX/100
+- Critical/High/Medium issues
+- Recommendations
+
+### Performance: XX/100
+- Bottlenecks identified
+- Recommendations
+
+### Testing: XX/100
+- Coverage percentage
+- Untested areas
+
+### Priority Actions
+1. **CRITICAL**: [action]
+2. **HIGH**: [action]
+3. **MEDIUM**: [action]
+```
+
+## Scoring
+
+| Score | Status | Meaning |
+|-------|--------|---------|
+| 90-100 | Excellent | Ship it |
+| 80-89 | Good | Minor improvements |
+| 70-79 | Acceptable | Address soon |
+| 60-69 | Concerning | Fix before merge |
+| <60 | Critical | Must fix |
+
+## Quality Dimensions
+
+### Code Quality
+- Cyclomatic complexity
+- Code duplication
+- SOLID principles
+- Dead code detection
+
+### Security
+- OWASP Top 10
+- Auth/authz patterns
+- Input validation
+- Secrets in code
+
+### Performance
+- N+1 query detection
+- Inefficient algorithms
+- Bundle size
+- Caching opportunities
+
+### Testing
+- Line/branch coverage
+- Test quality
+- Edge case coverage
+- Integration test gaps
+
+## When to Use
+
+- Before major release
+- Onboarding to new codebase
+- Periodic health checks
+- Before refactoring

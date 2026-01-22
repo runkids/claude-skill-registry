@@ -1,91 +1,197 @@
 ---
+description: Imported skill citations from openai
 name: citations
-description: Proactively include clickable links when referencing entities (persons, conversations, messages). Makes responses actionable.
+signature: fc81043a5220a350ec17d818c43814f0a5fd466c6cbaaf732fc487d21833a5a6
+source: /a0/tmp/skills_research/openai/skills/.curated/notion-research-documentation/reference/citations.md
 ---
 
-# Citations Skill
+# Citation Styles
 
-## Purpose
+## Basic Page Citation
 
-When arsenal references persons, conversations, or messages, include clickable links so users can quickly navigate to the relevant data.
+Always cite sources using Notion page mentions:
 
-## Base URL
-
-`https://admin.prod.cncorp.io`
-
-## URL Patterns
-
-| Entity | Pattern | Example |
-|--------|---------|---------|
-| Person | `/persons/{person_id}` | `/persons/123` |
-| Conversation | `/conversations/{conversation_id}` | `/conversations/456` |
-| Conversation Messages | `/conversations/{conversation_id}/messages` | `/conversations/456/messages` |
-| Messages (time-filtered) | `/conversations/{id}/messages?start={iso}&end={iso}` | `?start=2025-01-01T00:00:00Z&end=2025-01-02T00:00:00Z` |
-| Jump to Message | `/conversations/{id}/messages?messageId={message_id}` | `?messageId=789` |
-
-## Query Parameters (Messages)
-
-- `start` - ISO-8601 datetime, filter messages after this time
-- `end` - ISO-8601 datetime, filter messages before this time
-- `messageId` - Jump to specific message (auto-sets ±1 day window)
-
-## When to Cite
-
-**ALWAYS include citations when:**
-- Mentioning a person by ID or name (if ID is known)
-- Referencing a conversation
-- Discussing specific messages or timeframes
-- Returning data from sql-reader that includes these entities
-- Debugging or investigating user issues
-
-**Citation is MANDATORY, not optional.** If you know an entity ID, link it.
-
-## Citation Format
-
-**Inline (preferred for single entities):**
-```
-Person John Smith ([view](https://admin.prod.cncorp.io/persons/123)) has 3 active conversations.
+```markdown
+<mention-page url="https://notion.so/workspace/Page-Title-uuid">Page Title</mention-page>
 ```
 
-**Standalone (for navigation):**
-```
-[View conversation in Admin](https://admin.prod.cncorp.io/conversations/456)
+The URL must be provided. The title is optional but improves readability:
+
+```markdown
+<mention-page url="https://notion.so/workspace/Page-Title-uuid"/>
 ```
 
-**Timeframe debugging:**
-```
-[View messages from 2-3 PM](https://admin.prod.cncorp.io/conversations/456/messages?start=2025-01-15T14:00:00Z&end=2025-01-15T15:00:00Z)
+## Inline Citations
+
+Cite immediately after referenced information:
+
+```markdown
+The Q4 revenue increased by 23% quarter-over-quarter (<mention-page url="...">Q4 Financial Report</mention-page>).
 ```
 
-**Jump to specific message:**
-```
-The problematic message ([view](https://admin.prod.cncorp.io/conversations/456/messages?messageId=789)) was sent at 2:34 PM.
+## Multiple Sources
+
+When information comes from multiple sources:
+
+```markdown
+Customer satisfaction has improved across all metrics (<mention-page url="...">Q3 Survey Results</mention-page>, <mention-page url="...">Support Analysis</mention-page>).
 ```
 
-## Examples
+## Section-Level Citations
 
-### SQL Query Result
-When sql-reader returns:
-```
-person_id: 123, name: "John Smith", conversation_id: 456
-```
+For longer sections derived from one source:
 
-Response should include:
-```
-Found John Smith ([view](https://admin.prod.cncorp.io/persons/123)) in conversation ([view](https://admin.prod.cncorp.io/conversations/456)).
-```
+```markdown
+### Engineering Priorities
 
-### Debugging a User Issue
-```
-The user reported missing messages around 3 PM yesterday.
+According to the <mention-page url="...">Engineering Roadmap 2025</mention-page>:
 
-[View messages from 2-4 PM](https://admin.prod.cncorp.io/conversations/456/messages?start=2025-01-15T14:00:00Z&end=2025-01-15T16:00:00Z)
-
-I found the issue in message ID 789 ([view](https://admin.prod.cncorp.io/conversations/456/messages?messageId=789)).
+- Focus on API scalability
+- Improve developer experience
+- Migrate to microservices architecture
 ```
 
-### Langfuse Trace Investigation
-When referencing a conversation from a trace:
+## Sources Section
+
+Always include a "Sources" section at document end:
+
+```markdown
+## Sources
+
+- <mention-page url="...">Strategic Plan 2025</mention-page>
+- <mention-page url="...">Market Analysis Report</mention-page>
+- <mention-page url="...">Competitor Research: Q3</mention-page>
+- <mention-page url="...">Customer Interview Notes</mention-page>
 ```
-Trace abc123 processed conversation 456 ([view](https://admin.prod.cncorp.io/conversations/456/messages)).
+
+Group by category for long lists:
+
+```markdown
+## Sources
+
+### Primary Sources
+- <mention-page url="...">Official Roadmap</mention-page>
+- <mention-page url="...">Strategy Document</mention-page>
+
+### Supporting Research
+- <mention-page url="...">Market Trends</mention-page>
+- <mention-page url="...">Customer Feedback</mention-page>
+
+### Background Context
+- <mention-page url="...">Historical Analysis</mention-page>
 ```
+
+## Quoting Content
+
+When quoting directly from source:
+
+```markdown
+The product team noted: "We need to prioritize mobile experience improvements" (<mention-page url="...">Product Meeting Notes</mention-page>).
+```
+
+For block quotes:
+
+```markdown
+> We need to prioritize mobile experience improvements to meet our Q4 goals. This includes performance optimization and UI refresh.
+>
+> — <mention-page url="...">Product Meeting Notes - Oct 2025</mention-page>
+```
+
+## Data Citations
+
+When presenting data, cite the source:
+
+```markdown
+| Metric | Q3 | Q4 | Change |
+|--------|----|----|--------|
+| Revenue | $2.3M | $2.8M | +21.7% |
+| Users | 12.4K | 15.1K | +21.8% |
+
+Source: <mention-page url="...">Financial Dashboard</mention-page>
+```
+
+## Database Citations
+
+When referencing database content:
+
+```markdown
+Based on analysis of the <mention-database url="...">Projects Database</mention-database>, 67% of projects are on track.
+```
+
+## User Citations
+
+When attributing information to specific people:
+
+```markdown
+<mention-user url="...">Sarah Chen</mention-user> noted in <mention-page url="...">Architecture Review</mention-page> that the microservices migration is ahead of schedule.
+```
+
+## Citation Frequency
+
+**Over-citing** (every sentence):
+```markdown
+The revenue increased (<mention-page url="...">Report</mention-page>). 
+Costs decreased (<mention-page url="...">Report</mention-page>). 
+Margin improved (<mention-page url="...">Report</mention-page>).
+```
+
+**Under-citing** (no attribution):
+```markdown
+The revenue increased, costs decreased, and margin improved.
+```
+
+**Right balance** (grouped citation):
+```markdown
+The revenue increased, costs decreased, and margin improved (<mention-page url="...">Q4 Financial Report</mention-page>).
+```
+
+## Outdated Information
+
+Note when source information might be outdated:
+
+```markdown
+The original API design (<mention-page url="...">API Spec v1</mention-page>, last updated January 2024) has been superseded by the new architecture in <mention-page url="...">API Spec v2</mention-page>.
+```
+
+## Cross-References
+
+Link to related research documents:
+
+```markdown
+## Related Research
+
+This research builds on previous findings:
+- <mention-page url="...">Market Analysis - Q2 2025</mention-page>
+- <mention-page url="...">Competitor Landscape Review</mention-page>
+
+For implementation details, see:
+- <mention-page url="...">Technical Implementation Guide</mention-page>
+```
+
+## Citation Validation
+
+Before finalizing research:
+
+✓ Every key claim has a source citation
+✓ All page mentions have valid URLs
+✓ Sources section includes all cited pages
+✓ Outdated sources are noted as such
+✓ Direct quotes are clearly marked
+✓ Data sources are attributed
+
+## Citation Style Consistency
+
+Choose one citation style and use throughout:
+
+**Inline style** (lightweight):
+```markdown
+Revenue grew 23% (Financial Report). Customer count increased 18% (Metrics Dashboard).
+```
+
+**Formal style** (full mentions):
+```markdown
+Revenue grew 23% (<mention-page url="...">Q4 Financial Report</mention-page>). Customer count increased 18% (<mention-page url="...">Metrics Dashboard</mention-page>).
+```
+
+**Recommend formal style** for most research documentation as it provides clickable navigation.
+

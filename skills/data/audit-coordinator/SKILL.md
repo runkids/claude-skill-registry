@@ -2,7 +2,7 @@
 name: audit-coordinator
 description: Orchestrates comprehensive audits of Claude Code customizations using specialized auditors. Use when auditing multiple components, asking about naming/organization best practices, or needing thorough validation before deployment.
 allowed-tools: [Read, Glob, Grep, Bash, Skill, Task]
-model: claude-sonnet-4-5-20250929
+# model: inherit
 ---
 
 ## Reference Files
@@ -20,12 +20,12 @@ model: claude-sonnet-4-5-20250929
 
 ### Shared References (Used by All Authoring Skills)
 
-- [naming-conventions.md](../../references/customization/naming-conventions.md) - Patterns for agents, commands, skills, hooks, and output-styles
-- [frontmatter-requirements.md](../../references/customization/frontmatter-requirements.md) - Complete YAML specification for each component type
-- [when-to-use-what.md](../../references/customization/when-to-use-what.md) - Decision guide for choosing agents vs skills vs commands vs output-styles
-- [file-organization.md](../../references/customization/file-organization.md) - Directory structure and layout best practices
-- [hook-events.md](../../references/customization/hook-events.md) - Hook event types and timing reference
-- [customization-examples.md](../../references/customization/customization-examples.md) - Real-world examples across all component types
+- [naming-conventions.md](../../references/naming-conventions.md) - Patterns for agents, commands, skills, hooks, and output-styles
+- [frontmatter-requirements.md](../../references/frontmatter-requirements.md) - Complete YAML specification for each component type
+- [when-to-use-what.md](../../references/when-to-use-what.md) - Decision guide for choosing agents vs skills vs commands vs output-styles
+- [file-organization.md](../../references/file-organization.md) - Directory structure and layout best practices
+- [hook-events.md](../../references/hook-events.md) - Hook event types and timing reference
+- [customization-examples.md](../../references/customization-examples.md) - Real-world examples across all component types
 
 ---
 
@@ -263,7 +263,7 @@ Consolidate recommendations by priority and provide next steps.
 
 ### Pattern: Single Skill Audit
 
-**User Query**: "Audit my audit-bash skill"
+**User Query**: "Audit my hook-audit skill"
 
 **Workflow**:
 
@@ -415,7 +415,7 @@ When different auditors assign different priorities:
 **Audit a skill**:
 
 ```text
-User: "Audit my audit-bash skill"
+User: "Audit my hook-audit skill"
 Assistant: [Invokes audit-skill, evaluator; compiles report]
 ```
 

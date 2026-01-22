@@ -1,429 +1,251 @@
 ---
 name: test-runner
-description: MANDATORY skill for running tests and lint after EVERY code change. Focuses on adherence to just commands and running tests in parallel. If tests fail, use test-fixer skill.
+description: "Test runner checkpoint for conductor gates. Detects test framework (jest, pytest, cargo test, go test, etc.), runs tests, and captures output. Returns structured result with pass/fail status and failed test details."
+user-invocable: true
 ---
 
-# Test Runner - MANDATORY WORKFLOW
+# Test Runner Checkpoint
 
-╔══════════════════════════════════════════════════════════════════════════╗
-║  🚨 BANNED PHRASE: "All tests pass"                                     ║
-║                                                                          ║
-║  You CANNOT say "all tests pass" unless you:                            ║
-║  1. Run `.claude/skills/test-runner/scripts/run_tests_parallel.sh`     ║
-║  2. Check ALL log files (mocked + e2e-live + smoke)                     ║
-║  3. Verify ZERO failures across all suites                              ║
-║                                                                          ║
-║  `just test-all-mocked` = "quick tests pass" (NOT "all tests pass")    ║
-╚══════════════════════════════════════════════════════════════════════════╝
+Test execution checkpoint that auto-detects the project's test framework and runs tests.
 
-## 📊 Claim Language Must Match Command
+## What This Skill Does
 
-**Your claim MUST match what you actually ran:**
+1. Detects test framework from project files
+2. Runs appropriate test command
+3. Parses test output for results
+4. Writes result to checkpoint file
 
-| Command Run | ✅ Allowed Claims | ❌ BANNED Claims |
-|-------------|-------------------|------------------|
-| `just test-unit` | "unit tests pass" | "tests pass", "all tests pass" |
-| `just test-integration` | "integration tests pass" | "tests pass", "all tests pass" |
-| `just test-all-mocked` | "quick tests pass", "mocked tests pass" | "tests pass", "all tests pass" |
-| `run_tests_parallel.sh` + verified logs | "all tests pass" | - |
+## Workflow
 
-**Examples:**
+### Step 1: Detect Test Framework
 
-❌ WRONG: "I ran `just test-all-mocked`, all tests pass"
-✅ RIGHT: "Quick tests pass (483 unit + 198 integration + 49 e2e_mocked)"
-
-❌ WRONG: "Tests are passing" (after only running mocked tests)
-✅ RIGHT: "Mocked tests pass (730 tests)"
-
-❌ WRONG: "All tests pass" (without running parallel script)
-✅ RIGHT: *Runs parallel script* → *Checks logs* → "All tests pass"
-
-**The phrase "all tests" is RESERVED for the full parallel suite. No exceptions.**
-
-## 🚨 CRITICAL FOR TEST WRITING
-
-- **BEFORE writing tests** → Use test-writer skill (MANDATORY - analyzes code type, dependencies, contract)
-- **AFTER writing tests** → Invoke pytest-test-reviewer agent (validates patterns)
-- **YOU CANNOT WRITE TESTS WITHOUT test-writer SKILL** - No exceptions, no shortcuts, every test, every time
-
-## 🔥 CRITICAL: This Skill Is Not Optional
-
-**After EVERY code change, you MUST follow this workflow.**
-
-No exceptions. No shortcuts. No "it's a small change" excuses.
-
-## ⚠️ FUNDAMENTAL HYGIENE: Only Commit Code That Passes Tests
-
-**CRITICAL WORKFLOW PRINCIPLE:**
-
-We only commit code that passes tests. This means:
-
-**If tests fail after your changes → YOUR changes broke them (until proven otherwise)**
-
-### The Stash/Pop Verification Protocol
-
-**NEVER claim test failures are "unrelated" or "pre-existing" without proof.**
-
-**To verify a failure is truly unrelated:**
-```bash
-# 1. Remove your changes temporarily
-git stash
-
-# 2. Run the failing test suite
-just test-all-mocked         # Or whichever suite failed
-
-# 3. Observe the result:
-# - If tests PASS → YOUR changes broke them (fix your code)
-# - If tests FAIL → pre-existing issue (rare on main/merge base)
-
-# 4. Restore your changes
-git stash pop
-```
-
-**Why This Matters:**
-- Tests on `main` branch ALWAYS pass (CI enforces this)
-- Tests at your merge base ALWAYS pass (they passed to get into main)
-- Therefore: test failures after your changes = your changes broke them
-- The stash/pop protocol is the ONLY way to prove otherwise
-
-**DO NOT:**
-- ❌ Assume failures are unrelated
-- ❌ Say "that test was already broken"
-- ❌ Claim "it's just a flaky test" without verification
-- ❌ Skip investigation because "it's not my area"
-
-**ALWAYS:**
-- ✅ Stash changes first
-- ✅ Verify tests pass without your changes
-- ✅ Only then claim pre-existing issue (if true)
-- ✅ Otherwise: use test-fixer skill to diagnose and fix
-
-**If tests fail after your changes:**
-- DO NOT guess at fixes
-- DO NOT investigate manually
-- ✅ **Use the test-fixer skill** - it will systematically investigate, identify root cause, and iterate on fixes until tests pass
-
-## ⚠️ Always Use `just` Commands
-
-**Direct `pytest` is removed from blocklist** - but ALWAYS prefer `just` commands which handle Docker, migrations, and environment setup.
-
-Pass pytest args in quotes: `just test-unit "path/to/test.py::test_name -vv"`
-
-## MANDATORY WORKFLOW: Every Code Change
-
-**After making ANY code change:**
-
-### Step 0: ALWAYS Run Lint-and-Fix (Auto-fix + Type Checking)
-```bash
-cd api && just lint-and-fix
-```
-
-**This command:**
-1. Auto-fixes formatting/lint issues (runs `just ruff` internally)
-2. Verifies all issues are resolved
-3. Runs mypy type checking
-
-**YOU MUST:**
-- ✅ Run this command and see the output
-- ✅ Verify output shows "✅ All linting checks passed!"
-- ✅ If failures occur: Fix them IMMEDIATELY before continuing
-- ✅ NEVER skip this step, even for "tiny" changes
-
-**NEVER say "linting passed" unless you:**
-- Actually ran the command
-- Saw the actual output
-- Confirmed it shows success
-
-### Step 1: ALWAYS Run Quick Tests (Development Cycle)
-```bash
-cd api && just test-all-mocked
-```
-
-**⚠️ CRITICAL: This is NOT all tests! This is for rapid development iteration.**
-
-**YOU MUST:**
-- ✅ Run this command and see the output
-- ✅ Verify output shows "X passed in Y.Ys" or similar success message
-- ✅ If failures occur: Fix them IMMEDIATELY before continuing
-- ✅ Read the actual test output - don't assume
-
-**This runs ONLY:**
-- Unit tests (SQLite + FakeRedis)
-- Integration tests (SQLite + FakeRedis)
-- E2E mocked tests (PostgreSQL + Redis + mock APIs)
-
-**This DOES NOT run:**
-- ❌ E2E live tests (real OpenAI/Langfuse APIs)
-- ❌ Smoke tests (full Docker stack)
-
-**Takes ~20 seconds. Use for rapid iteration.**
-
-### Step 2: ALWAYS Run ALL Tests Before Saying "All Tests Pass"
-```bash
-.claude/skills/test-runner/scripts/run_tests_parallel.sh
-```
-
-**🚨 CRITICAL: You can NEVER say "all tests pass" or "tests are passing" without running THIS command.**
-
-**This command runs EVERYTHING:**
-- ✅ All mocked tests (unit + integration + e2e_mocked)
-- ✅ E2E live tests (real OpenAI/Langfuse APIs)
-- ✅ Smoke tests (full Docker stack)
-
-**After running, CHECK THE RESULTS:**
-```bash
-# Check for any failures
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-mocked_*.log
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-e2e-live_*.log
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-smoke_*.log
-
-# View summary
-for log in api/tmp/test-logs/test-*_*.log; do
-  echo "=== $(basename $log) ==="
-  grep -E "passed|failed" "$log" | tail -1
-done
-```
-
-**Takes ~5 minutes. MANDATORY before saying "all tests pass".**
-
-## Primary Commands (Reference)
-
-### Frequent: Mocked Tests (~20s)
-```bash
-cd api && just test-all-mocked
-```
-Runs unit + integration + e2e_mocked in parallel. No real APIs. Use frequently during development.
-
-### Exhaustive: All Suites in Parallel (~5 mins)
-```bash
-.claude/skills/test-runner/scripts/run_tests_parallel.sh
-```
-Runs ALL suites in background (mocked, e2e-live, smoke). Logs to `api/tmp/test-logs/`.
-
-**Check results after completion:**
-```bash
-# Check for failures
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-mocked_*.log | tail -20
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-e2e-live_*.log | tail -20
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-smoke_*.log | tail -20
-
-# Summary
-for log in api/tmp/test-logs/test-*_*.log; do
-  echo "=== $(basename $log) ==="
-  grep -E "passed|failed" "$log" | tail -1
-done
-```
-
-## 🚨 VIOLATIONS: What NOT To Do
-
-**These are VIOLATIONS of this skill:**
-
-❌ **CRITICAL: Claiming test failures are "unrelated" to your changes**
-- WRONG: "The smoke test failure is unrelated to our changes"
-- WRONG: "That test was already failing"
-- WRONG: "This failure is just a flaky test"
-- RIGHT: **Use test-fixer skill to systematically investigate and fix**
-
-**FUNDAMENTAL RULE: Tests ALWAYS pass on main/merge base. If a test fails after your changes, YOUR changes broke it.**
-
-**When tests fail:**
-- ✅ **Use test-fixer skill** - it will investigate, identify root cause, and iterate on fixes
-- ❌ DO NOT manually investigate
-- ❌ DO NOT guess at fixes
-- ❌ DO NOT claim "unrelated" without proof
-
-**NEVER assume. ALWAYS use test-fixer skill.**
-
-❌ **CRITICAL: Saying "all tests pass" without running the full suite**
-- WRONG: "I ran `just test-all-mocked`, all tests pass"
-- WRONG: "Tests are passing" (after only running mocked tests)
-- WRONG: "All tests pass" (without running the parallel script)
-- RIGHT: *Runs `.claude/skills/test-runner/scripts/run_tests_parallel.sh`* → *Checks all logs* → "All tests pass"
-
-**The phrase "all tests" requires THE FULL SUITE.**
-- `just test-all-mocked` = "quick tests pass" or "mocked tests pass"
-- Parallel script = "all tests pass"
-
-❌ **Claiming tests pass without showing output (LYING)**
-- WRONG: "all 464 tests passed" (WHERE is the pytest output?)
-- WRONG: "just ran them and tests pass" (WHERE is the output?)
-- WRONG: "I fixed the bug, tests should pass"
-- WRONG: "Yes - want me to run them again?" (DEFLECTION)
-- RIGHT: *Runs `just test-all-mocked` and shows "===== X passed in Y.YYs ====="*
-
-**🚨 THE RULE: If you can't see "X passed in Y.YYs" in your context, you're lying about tests passing.**
-
-❌ **Skipping linting "because it's a small change"**
-- WRONG: "It's just 3 lines, lint isn't needed"
-- RIGHT: *Runs `just lint-and-fix` ALWAYS, regardless of change size*
-
-❌ **Assuming tests pass without verification**
-- WRONG: "The change is simple, tests will pass"
-- RIGHT: *Runs tests and confirms actual output shows success*
-
-❌ **Not reading the actual test output**
-- WRONG: "Command completed, so tests passed"
-- RIGHT: *Reads output, sees "15 passed in 18.2s"*
-
-❌ **Batching multiple changes before testing**
-- WRONG: *Makes 5 changes, then tests once*
-- RIGHT: *Make change → test → make change → test*
-
-## ⚡ When to Use This Skill
-
-**ALWAYS. Use this skill:**
-- After EVERY code modification
-- After ANY file edit
-- After fixing ANY bug
-- After adding ANY feature
-- After refactoring ANYTHING
-
-**The only acceptable time to skip this skill:**
-- Never. There is no acceptable time.
-
-## Development Workflow
-
-### Simple Changes (Quick Iteration)
-1. Make change
-2. Run `just lint-and-fix` (auto-fix + type checking)
-3. Run `just test-all-mocked` (quick tests)
-4. **DONE for iteration** (but cannot say "all tests pass" yet)
-
-### Before Marking Task Complete
-1. Run `.claude/skills/test-runner/scripts/run_tests_parallel.sh`
-2. Check all logs for failures
-3. **ONLY NOW** can you say "all tests pass"
-
-### Complex Changes (Multiple Files/Features)
-1. Make a logical change
-2. **Stage it:** `git add <files>`
-3. Run `just lint-and-fix`
-4. Run `just test-all-mocked`
-5. Repeat steps 1-4 for each logical chunk
-6. **At the end, MANDATORY:** Run `.claude/skills/test-runner/scripts/run_tests_parallel.sh`
-7. Check all logs
-8. **ONLY NOW** can you say "all tests pass"
-
-This workflow ensures you catch issues early and don't accumulate breaking changes.
-
-**Remember:**
-- **Quick iteration:** lint → test-all-mocked (Steps 0-1)
-- **Task complete:** Run parallel script, check logs (Step 2)
-- **Never say "all tests pass" without Step 2**
-
-## Individual Test Suites
+Check for test framework indicators:
 
 ```bash
-# Unit tests (SQLite, FakeRedis) - fastest, run most frequently
-cd api && just test-unit
+# Node.js projects
+ls package.json 2>/dev/null && cat package.json | grep -E '"test"|"jest"|"vitest"|"mocha"'
 
-# Integration tests (SQLite, FakeRedis)
-cd api && just test-integration
+# Python projects
+ls pytest.ini pyproject.toml setup.py requirements.txt 2>/dev/null
 
-# E2E mocked (PostgreSQL, Redis, mock APIs)
-cd api && just test-e2e
+# Rust projects
+ls Cargo.toml 2>/dev/null
 
-# E2E live (real OpenAI/Langfuse)
-cd api && just test-e2e-live
+# Go projects
+ls go.mod 2>/dev/null
 
-# Smoke tests (full stack with Docker)
-cd api && just test-smoke
+# General
+ls Makefile 2>/dev/null && grep -E "^test:" Makefile
 ```
 
-## Running Specific Tests
+**Framework Detection Priority:**
+
+| Indicator | Framework | Command |
+|-----------|-----------|---------|
+| `package.json` with "test" script | npm | `npm test` |
+| `package.json` with vitest | vitest | `npm test` or `npx vitest` |
+| `package.json` with jest | jest | `npm test` or `npx jest` |
+| `pytest.ini` or `conftest.py` | pytest | `pytest` |
+| `pyproject.toml` with pytest | pytest | `pytest` |
+| `Cargo.toml` | cargo | `cargo test` |
+| `go.mod` | go | `go test ./...` |
+| `Makefile` with test target | make | `make test` |
+
+### Step 2: Run Tests
+
+Execute the detected test command and capture output:
 
 ```bash
-# Specific test: just test-unit "path/to/test.py::test_name -vv"
-# Keyword filter: just test-unit "-k test_message"
-# With markers: just test-e2e "-m 'not slow'"
+# Example for npm
+npm test 2>&1 | tee /tmp/test-output.txt
+TEST_EXIT_CODE=${PIPESTATUS[0]}
+echo "Exit code: $TEST_EXIT_CODE"
+
+# Example for pytest
+pytest --tb=short 2>&1 | tee /tmp/test-output.txt
+TEST_EXIT_CODE=${PIPESTATUS[0]}
+
+# Example for cargo
+cargo test 2>&1 | tee /tmp/test-output.txt
+TEST_EXIT_CODE=${PIPESTATUS[0]}
 ```
 
-## When to Use
+### Step 3: Parse Test Output
 
-- **ALWAYS:** Run `just lint-and-fix` → `just test-all-mocked` after every code change
-- User asks to run tests
-- Validating code changes
-- After modifying code
-- Debugging test failures
+Extract test results from output. Common patterns:
 
-**Every change (Steps 0-1):**
-- Run `just lint-and-fix` (auto-fix + type checking)
-- Run `just test-all-mocked` (quick tests)
+**Jest/Vitest:**
+```
+Tests:       3 failed, 12 passed, 15 total
+```
 
-**Before saying "all tests pass" (Step 2):**
-- Run `.claude/skills/test-runner/scripts/run_tests_parallel.sh`
-- Check all logs for failures
-- Verify ALL suites passed
+**Pytest:**
+```
+====== 2 failed, 10 passed in 1.23s ======
+```
 
-**Terminology:**
-- "Quick tests pass" = `just test-all-mocked` passed
-- "Mocked tests pass" = `just test-all-mocked` passed
-- "All tests pass" = parallel script passed (ONLY after running it)
+**Cargo:**
+```
+test result: FAILED. 8 passed; 2 failed; 0 ignored
+```
 
-## Interpreting Results
+**Go:**
+```
+FAIL    mypackage       0.123s
+```
 
-**Success:** `====== X passed in Y.Ys ======`
-**Failure:** `FAILED tests/path/test.py::test_name - AssertionError`
+### Step 4: Create Structured Result
 
-## Troubleshooting
+```json
+{
+  "checkpoint": "test-runner",
+  "timestamp": "2026-01-19T12:00:00Z",
+  "passed": false,
+  "framework": "jest",
+  "command": "npm test",
+  "exit_code": 1,
+  "summary_line": "Tests: 2 failed, 15 passed, 17 total",
+  "failed_tests": [
+    {
+      "name": "UserService.login should validate credentials",
+      "file": "src/services/user.test.ts",
+      "error": "Expected 200 but got 401"
+    }
+  ],
+  "stats": {
+    "total": 17,
+    "passed": 15,
+    "failed": 2,
+    "skipped": 0
+  },
+  "output": "[truncated test output...]"
+}
+```
+
+**Result Fields:**
+- `passed`: true if all tests pass (exit code 0)
+- `framework`: detected test framework
+- `command`: exact command that was run
+- `exit_code`: process exit code
+- `failed_tests`: array of `{name, file?, error?}` for each failure
+- `stats`: test count statistics
+- `output`: raw output (truncated if very long)
+
+### Step 5: Write Checkpoint File
 
 ```bash
-# Smoke test failures - check Docker logs
-docker compose logs --since 15m | grep -iE -B 10 -A 10 "error|fail|exception"
-
-# Kill hung tests
-pkill -f pytest
-
-# Docker not running (smoke tests)
-docker compose up -d
+mkdir -p .checkpoints
+cat > .checkpoints/test-runner.json << 'EOF'
+{
+  "checkpoint": "test-runner",
+  ...
+}
+EOF
 ```
 
-## Quick Reference
+## Decision Criteria
+
+**Pass if:**
+- All tests pass (exit code 0)
+- Test output shows 0 failures
+
+**Fail if:**
+- Any test fails
+- Tests fail to run (syntax error, missing deps)
+- Test command not found
+
+## Special Cases
+
+### No Tests Found
+
+If no test framework detected:
+
+```json
+{
+  "passed": true,
+  "framework": "none",
+  "summary": "No test framework detected - skipping"
+}
+```
+
+This counts as pass (can't fail tests that don't exist).
+
+### Tests Timeout
+
+Set reasonable timeout (5 minutes default):
 
 ```bash
-# 🔥 Step 0: ALWAYS run lint-and-fix (auto-fix + type checking)
-cd api && just lint-and-fix
-
-# 🔥 Step 1: ALWAYS run quick tests (development)
-cd api && just test-all-mocked
-# ^ This is NOT "all tests" - only say "quick tests pass" or "mocked tests pass"
-
-# 🔥 Step 2: Run ALL tests before saying "all tests pass" (MANDATORY before task complete)
-.claude/skills/test-runner/scripts/run_tests_parallel.sh
-
-# Check results (MUST do this before saying "all tests pass")
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-mocked_*.log
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-e2e-live_*.log
-grep -E "failed|ERROR|FAILED" api/tmp/test-logs/test-smoke_*.log
-
-# View summary
-for log in api/tmp/test-logs/test-*_*.log; do
-  echo "=== $(basename $log) ==="
-  grep -E "passed|failed" "$log" | tail -1
-done
-
-# Monitor parallel tests while running
-tail -f api/tmp/test-logs/test-*.log
-
-# 🚨 REMEMBER:
-# - Steps 0-1 = quick iteration (DO NOT say "all tests pass")
-# - Step 2 = full validation (ONLY NOW can say "all tests pass")
+timeout 300 npm test 2>&1 | tee /tmp/test-output.txt
 ```
 
----
+If timeout:
+```json
+{
+  "passed": false,
+  "error": "Tests timed out after 300 seconds"
+}
+```
 
-## 🔐 Before Responding About Test Results
+### Flaky Tests
 
-**You ran tests. Now before you respond to the user:**
+If tests fail intermittently, note in output but still fail:
+```json
+{
+  "passed": false,
+  "note": "This test may be flaky - consider retry"
+}
+```
 
-1. ✅ Did you use correct claim language? (check table above)
-2. ✅ Did you show actual test output?
-3. ✅ Are you about to say "all tests pass"? → Did you run parallel script?
+## Example Usage
 
-**CRITICAL: Get manager approval before responding.**
+When invoked as `/test-runner`:
 
-Your response about test results MUST include: `✅ approve_7f3d8a2e********`
+```
+Running Test Runner checkpoint...
 
-Get the full approval token from `.claude/skills/manager-review/SKILL.md`
+Detecting test framework...
+Found package.json with "test" script using Jest.
 
-**Common Mistake #1 in the manager's table is claiming "all tests pass" after only running mocked tests. The manager WILL catch this and reject your response.**
+Running: npm test
+[test output streams...]
+
+Parsing results...
+Tests: 2 failed, 15 passed, 17 total
+
+Failed tests:
+1. UserService.login should validate credentials
+   File: src/services/user.test.ts
+   Error: Expected 200 but got 401
+
+2. API.fetchData should handle timeout
+   File: src/api/fetch.test.ts
+   Error: Timeout exceeded
+
+Result:
+{
+  "passed": false,
+  "framework": "jest",
+  "failed_tests": [...],
+  "stats": {"total": 17, "passed": 15, "failed": 2}
+}
+
+Checkpoint result written to .checkpoints/test-runner.json
+```
+
+## Framework-Specific Notes
+
+### Jest/Vitest
+- Use `--json` flag for machine-readable output if parsing is complex
+- `npx jest --json --outputFile=/tmp/jest-results.json`
+
+### Pytest
+- Use `--tb=short` for concise tracebacks
+- `pytest --json-report --json-report-file=/tmp/pytest.json` if plugin available
+
+### Cargo
+- `cargo test -- --format=json` for JSON output (nightly)
+- Standard output parsing works for stable
+
+### Go
+- `go test -json ./...` for JSON output
+- Parse per-line JSON for test events

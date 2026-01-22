@@ -1,300 +1,402 @@
 ---
 name: ux-feedback-patterns
-description: |
-  User feedback patterns for interactions - loading states, success/error messages,
-  form validation, empty states. Ensures users understand system state and next steps.
-
-  Use when implementing user-facing state changes and interactions:
-  - Form submissions with validation feedback, success/error messages
-  - Async operations needing loading indicators (API calls, data fetching)
-  - Error handling flows with clear recovery paths and retry options
-  - Empty state designs with helpful messaging (no data, no results)
-  - User mentions "form", "loading", "error", "validation", "async", "API call"
-
-  Keywords: loading, success, error, form, validation, async, feedback, toast, empty state
-
-  Focus on WHEN to show feedback, WHAT type (toast/inline/modal), HOW LONG (timing).
+description: User feedback patterns including success/error messages, loading states, confirmations, and progress indicators. Use when implementing notifications, toasts, or status updates. (project)
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
-# UX Feedback Patterns
+# UX Feedback Patterns Skill
 
-## Purpose
-Ensure users never wonder "What's happening?" or "Did that work?" through clear, consistent feedback patterns.
+User feedback mechanisms for communicating state changes, success, errors, and progress. This skill covers visual, auditory, and haptic feedback patterns.
 
----
+## Related Skills
 
-## Core Principle
+- **`material-symbols-v3`**: Icon names for status indicators (`check_circle`, `error`, `warning`)
+- **`ux-iconography`**: Icon + text patterns for feedback
+- **`ux-animation-motion`**: Anime.js animations for feedback effects
 
-**Users must receive feedback for EVERY interaction.**
+## Feedback Types
 
-Every user action needs feedback in one or more states:
-1. Loading/Processing
-2. Success
-3. Error
-4. Empty
+### 1. Inline Feedback
 
----
+Immediate feedback near the action:
+
+```html
+<button>Save</button>
+<span class="inline-feedback" role="status" aria-live="polite">
+  Saved successfully
+</span>
+```
+
+```css
+.inline-feedback {
+  font-size: var(--step--1);
+  color: var(--color-success);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.inline-feedback.visible {
+  opacity: 1;
+}
+```
+
+### 2. Toast Notifications
+
+Non-blocking temporary messages as a web component:
+
+```javascript
+class ToastContainer extends HTMLElement {
+  #container;  // Direct reference - NO querySelector
+
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+
+    // Build and store direct reference
+    this.#container = document.createElement('div');
+    this.#container.className = 'toast-container';
+    this.#container.setAttribute('part', 'container');
+
+    this.shadowRoot.appendChild(this.#container);
+  }
+
+  show(message, type = 'info', duration = 3000) {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('part', 'toast');
+    toast.textContent = message;
+
+    this.#container.appendChild(toast);  // Direct reference
+
+    // Auto-dismiss
+    setTimeout(() => {
+      toast.classList.add('exiting');
+      toast.addEventListener('animationend', () => toast.remove());
+    }, duration);
+  }
+}
+
+customElements.define('toast-container', ToastContainer);
+```
+
+```css
+.toast {
+  padding: var(--space-s) var(--space-m);
+  background: var(--theme-surface-variant);
+  border-radius: var(--space-2xs);
+  animation: slideIn 0.2s ease;
+}
+
+.toast-success {
+  border-left: 4px solid var(--color-success);
+}
+
+.toast-error {
+  border-left: 4px solid var(--color-error);
+}
+
+.toast.exiting {
+  animation: slideOut 0.2s ease forwards;
+}
+```
+
+### 3. Confirmation Dialogs
+
+For destructive or important actions:
+
+```html
+<dialog class="confirm-dialog">
+  <h2>Confirm Action</h2>
+  <p>Are you sure you want to proceed?</p>
+  <div class="dialog-actions">
+    <button class="btn-secondary">Cancel</button>
+    <button class="btn-danger">Delete</button>
+  </div>
+</dialog>
+```
+
+### 4. Progress Indicators
+
+For long-running operations:
+
+```html
+<!-- Determinate progress -->
+<progress value="60" max="100" aria-label="Upload progress">60%</progress>
+
+<!-- Indeterminate/spinner -->
+<div class="spinner" role="status" aria-label="Loading">
+  <span class="sr-only">Loading...</span>
+</div>
+```
+
+## Success Feedback
+
+### Visual Patterns
+
+```css
+/* Success color */
+.success {
+  color: var(--color-success);
+}
+
+/* Success icon - use Material Symbol */
+/* <span class="icon" aria-hidden="true">check_circle</span> */
+.icon-success {
+  color: var(--color-success);
+}
+
+/* Success border */
+.input-success {
+  border-color: var(--color-success);
+}
+```
+
+### Animation
+
+```javascript
+import { successBounce, glow } from '../../utils/animations.js';
+
+// On successful action
+successBounce(element);
+glow(element, { color: 'rgba(74, 222, 128, 0.6)' });
+```
+
+### Announcements
+
+```javascript
+announce(message) {
+  // For screen readers
+  this.#announcer.textContent = '';
+  requestAnimationFrame(() => {
+    this.#announcer.textContent = message;
+  });
+}
+
+// Usage
+this.announce('Word completed! 3 points earned.');
+```
+
+## Error Feedback
+
+### Visual Patterns
+
+```css
+/* Error color */
+.error {
+  color: var(--color-error);
+}
+
+/* Error state */
+[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+/* Error message */
+.error-message {
+  color: var(--color-error);
+  font-size: var(--step--1);
+}
+```
+
+### Shake Animation
+
+```javascript
+import { shake } from '../../utils/animations.js';
+
+// On validation failure
+shake(inputContainer, { intensity: 6 });
+```
+
+### Error Message Structure
+
+```html
+<div class="field">
+  <input aria-invalid="true" aria-describedby="error-1">
+  <span id="error-1" class="error-message" role="alert">
+    Please enter a valid email address
+  </span>
+</div>
+```
 
 ## Loading States
 
-### When to Show Loading
-
-**Timing thresholds (adjust to your context):**
-- **< 100ms**: Perceived as instant, no feedback needed
-- **100-300ms**: Optional subtle indicator
-- **300ms-1s**: Show spinner or skeleton
-- **1-5s**: Spinner + explanatory text
-- **5-10s**: Progress bar with percentage
-- **10s+**: Progress bar + explanation + cancel option
-
-### Loading Patterns
-
-**Button Loading:**
-- Disable button to prevent double-submission
-- Show spinner inside button or change text
-- Keep button in place (don't shift layout)
-
-**Content Loading:**
-- Prefer skeleton screens over spinners
-- Match skeleton structure to actual content
-- Maintain layout space (prevent content jump)
-
-**Progress Indicators:**
-- Use for file uploads, large operations
-- Show percentage when determinable
-- Provide cancel option for long operations
-
----
-
-## Success States
-
-### When to Show Success
-
-**Always show for:**
-- Form submissions
-- Data mutations (create, update, delete)
-- File uploads
-- Account changes
-
-**Skip for:**
-- Very quick actions (near-instant completion)
-- Continuous interactions (likes, toggles) - use optimistic updates
-- Actions where feedback is inherent in result
-
-### Success Patterns
-
-**Toast Notifications:**
-- Auto-dismiss after 3-5 seconds
-- Position: top-right or top-center (consistent)
-- Specific message, not generic "Success"
-
-**Inline Messages:**
-- For form submissions: show below form
-- Less intrusive than toasts
-- Can stay visible longer
-
-**Visual Confirmation:**
-- Button state change (e.g., "Save" → "Saved ✓")
-- Brief color change (green tint)
-- Return to normal after 2-3 seconds
-
----
-
-## Error States
-
-### Error Message Principles
-
-**Be Specific:**
-- ❌ "Error occurred"
-- ✅ "Email already exists. Try logging in instead."
-
-**Be Helpful:**
-- Explain what happened
-- Suggest what to do next
-- Provide recovery action when possible
-
-**Be Human:**
-- Natural language, avoid technical jargon
-- Don't blame user
-- Empathetic tone for serious errors
-
-**Severity Levels:**
-- **Critical**: System failure, data loss - modal, manual dismiss
-- **High**: Form validation, API errors - prominent, actionable
-- **Medium**: Warnings, non-blocking - dismissible notices
-- **Low**: Helper text, suggestions - subtle, informative
-
-### Error Patterns
-
-**Form Field Errors:**
-- Show inline, next to/below field
-- Trigger on blur (not every keystroke)
-- Include error icon for visibility
-- Keep visible until corrected
-
-**Global Errors:**
-- Prominent alert at top or modal
-- Include error icon and title
-- Explain what failed and why
-- Provide action: Retry, Contact support, Learn more
-- Manual dismiss (don't auto-hide critical errors)
-
-**Error Recovery:**
-- Always provide a path forward
-- "Try Again" button for transient errors
-- Link to help/support for persistent issues
-- Save user's work when possible
-
----
-
-## Empty States
-
-### Never Show Blank Screens
-
-**Empty state must include:**
-1. **Icon/Illustration**: Visual context
-2. **Title**: "No [items] yet"
-3. **Description**: Brief explanation
-4. **Action** (when possible): CTA to create first item
-
-### Empty State Types
-
-**First-Time Empty:**
-- Welcoming, encouraging tone
-- Clear next step to get started
-
-**Search No Results:**
-- Acknowledge the query
-- Suggest alternatives (check spelling, try different terms)
-- Provide way to clear/modify search
-
-**Filtered Empty:**
-- Explain filters are active
-- Show way to clear filters
-
----
-
-## Interaction Patterns
-
-### Form Validation
-
-**Validation Timing:**
-- On blur: Validate individual field
-- On submit: Validate entire form
-- On change: Only for real-time feedback (password strength, username availability)
-
-**Success Indicators:**
-- Optional: show checkmark for valid fields
-- Only after field touched
-- Subtle, not distracting
-
-### Button States
-
-**Required states:**
-- Default: Normal appearance
-- Hover: Visual feedback
-- Active/Pressed: Depressed appearance
-- Loading: Spinner + disabled
-- Disabled: Grayed out + tooltip/explanation
-- Success: Brief confirmation (2-3s)
-
-### Optimistic Updates
-
-**Pattern:** Update UI immediately, rollback on error
-
-**Best for:**
-- Fast, reliable operations (likes, favorites)
-- Low-stakes actions
-- When instant feedback improves perceived performance
-
-**How it works:**
-1. Update UI immediately (assume success)
-2. Send API request
-3. If success: nothing (already updated)
-4. If error: rollback + show error
-
-**When NOT to use:**
-- Destructive actions (delete)
-- Complex validations
-- Critical operations (payments)
-
-### Destructive Actions
-
-**Always confirm before:**
-- Deleting items
-- Permanent changes
-- Bulk actions
-
-**Confirmation pattern:**
-- Modal dialog with clear title
-- Explain consequences: "This cannot be undone"
-- Primary action labeled clearly ("Delete", not "Yes")
-- Use danger color (red) for destructive button
-- Provide "Cancel" as escape hatch
-
----
-
-## Best Practices
-
-### Timing
-- Feedback should feel immediate (instant perceived response)
-- Success messages: auto-dismiss after 3-5 seconds
-- Error messages: manual dismiss or longer timeout
-- Loading threshold: Show indicators after ~300ms
-
-### Tone
-- Be specific, not vague
-- Be helpful, suggest next steps
-- Be human, avoid technical jargon
-- Don't blame user
-
-### Accessibility
-- Use ARIA live regions for dynamic messages
-- Associate errors with form fields
-- Provide text alternatives for visual indicators
-- Don't rely on color alone
-
-### Consistency
-- Same pattern for same action across app
-- Predictable feedback locations
-- Consistent timing and animations
-- Unified messaging tone
-
----
-
-## Common Mistakes
-
-1. **Silent failures** - Action fails with no feedback
-2. **Vague errors** - "Error" tells nothing useful
-3. **No loading state** - User clicks repeatedly
-4. **Blank screens** - Empty state without explanation
-5. **Disabled without reason** - No tooltip explaining why
-6. **Flickering loaders** - Show only for operations with noticeable delay
-7. **Success overload** - Toast for every tiny action
-8. **Technical error codes** - Show user-friendly messages
-9. **No recovery path** - Error with no next step
-10. **Blocking entire UI** - Use local loading when possible
-
----
-
-## Validation Checklist
-
-For every interactive feature:
-- [ ] Loading state for async operations with noticeable delay
-- [ ] Success feedback (toast, inline, or visual confirmation)
-- [ ] Error messages specific and actionable
-- [ ] Empty states have helpful messaging + action
-- [ ] Optimistic updates rollback on failure
-- [ ] Destructive actions require confirmation
-- [ ] All feedback is accessible (ARIA, alt text)
-- [ ] States are visually distinct and clear
-- [ ] No silent failures
-- [ ] Consistent patterns across application
-
----
-
-## Key Takeaway
-
-**Never leave users guessing.** Clear, timely feedback is the difference between a frustrating experience and a delightful one.
-
-Timing guidelines are based on UX research but should be adjusted to your context. When in doubt, over-communicate rather than under-communicate.
+### Button Loading
+
+```css
+.button[aria-busy="true"] {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.button[aria-busy="true"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+```
+
+### Skeleton Loading
+
+```css
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--theme-surface-variant) 25%,
+    var(--theme-surface) 50%,
+    var(--theme-surface-variant) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--space-2xs);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+```
+
+### Page Loading
+
+```html
+<div class="loading-overlay" role="status">
+  <div class="spinner"></div>
+  <span class="sr-only">Loading game...</span>
+</div>
+```
+
+## Progress Indicators
+
+### Linear Progress
+
+```css
+.progress-bar {
+  height: 4px;
+  background: var(--theme-outline-variant);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--theme-primary);
+  transition: width 0.3s ease;
+}
+```
+
+### Step Progress
+
+```html
+<ol class="steps" aria-label="Progress">
+  <li data-status="complete" aria-current="false">Step 1</li>
+  <li data-status="current" aria-current="step">Step 2</li>
+  <li data-status="pending" aria-current="false">Step 3</li>
+</ol>
+```
+
+```css
+.steps [data-status="complete"] {
+  color: var(--color-success);
+}
+
+.steps [data-status="current"] {
+  color: var(--theme-primary);
+  font-weight: 600;
+}
+
+.steps [data-status="pending"] {
+  color: var(--theme-on-surface-variant);
+}
+```
+
+### Circular Progress
+
+```css
+.progress-circle {
+  --progress: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--theme-primary) calc(var(--progress) * 1%),
+    var(--theme-outline-variant) 0
+  );
+}
+```
+
+## Live Regions
+
+### Status Updates
+
+```html
+<div role="status" aria-live="polite" aria-atomic="true">
+  Score: 42 points
+</div>
+```
+
+### Alerts
+
+```html
+<div role="alert" aria-live="assertive">
+  Session expired. Please log in again.
+</div>
+```
+
+### Implementation
+
+```javascript
+class Announcer {
+  #region;
+
+  constructor() {
+    this.#region = document.createElement('div');
+    this.#region.setAttribute('role', 'status');
+    this.#region.setAttribute('aria-live', 'polite');
+    this.#region.setAttribute('aria-atomic', 'true');
+    this.#region.className = 'sr-only';
+    document.body.appendChild(this.#region);
+  }
+
+  announce(message, priority = 'polite') {
+    this.#region.setAttribute('aria-live', priority);
+    this.#region.textContent = '';
+    requestAnimationFrame(() => {
+      this.#region.textContent = message;
+    });
+  }
+}
+```
+
+## Timing Guidelines
+
+| Feedback Type | Duration | Use Case |
+|---------------|----------|----------|
+| Micro-animation | 100-200ms | Button press, toggle |
+| State transition | 200-300ms | Page change, modal |
+| Toast display | 3-5 seconds | Success message |
+| Error display | Until dismissed | Validation error |
+| Loading indicator | Immediate | Any async operation |
+
+## Accessibility Checklist
+
+- [ ] Success/error announced to screen readers
+- [ ] Focus moved to relevant element after action
+- [ ] Loading states communicated with `aria-busy`
+- [ ] Progress communicated with proper ARIA
+- [ ] Animations respect `prefers-reduced-motion`
+- [ ] Color is not the only indicator of state
+- [ ] Error messages are associated with inputs

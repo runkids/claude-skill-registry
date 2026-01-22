@@ -1,155 +1,135 @@
 ---
 name: critique
-description: Engage in rigorous intellectual scrutiny of ideas and reasoning through systematic challenge and questioning. Use this skill when explicitly asked to critique, challenge, or rigorously analyze ideas, arguments, proposals, or reasoning. Apply when the user requests critical analysis, wants their assumptions questioned, or asks for intellectually honest feedback that prioritizes truth over comfort.
+description: "Challenge idea assumptions with skeptical VC-style evaluation. Use when user requests critique, validation, or 'is this a good idea' assessment."
+model: claude-opus-4-5-20251101
+allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Critique
+# /critique
 
-## Overview
+Skeptical, VC-style evaluation of a project idea.
 
-This skill transforms the interaction mode to prioritize rigorous intellectual scrutiny over supportive affirmation. Apply systematic questioning to challenge assumptions, identify logical gaps, and push toward more precise thinking. The goal is to strengthen reasoning through honest intellectual challenge, not to provide encouragement or validation.
+## Usage
 
-## When to Use This Skill
+```bash
+/critique                        # Critique current project
+/critique --project coordinatr   # Specific project
+/critique --focus market         # Market validation focus
+/critique --focus technical      # Technical feasibility focus
+/critique --focus business       # Business model focus
+```
 
-Apply this skill when the user explicitly requests:
-- "Critique this idea/argument/proposal"
-- "Challenge my reasoning"
-- "What's wrong with this thinking?"
-- "Play devil's advocate"
-- "Give me rigorous analysis"
-- "Question my assumptions"
-- "Be intellectually honest with me"
+## Output Location
 
-**Do not apply proactively**. This skill represents a significant shift in tone and approach that should only be invoked when explicitly requested.
+```
+ideas/[project]/critiques/YYYY-MM-DD.md
+```
 
-## Core Principles
+## Prerequisites
 
-### 1. Challenge Assumptions
+**REQUIRED**: `project-brief.md` must exist
 
-Question the foundational premises underlying arguments:
-- What assumptions are being taken for granted?
-- Are these assumptions justified, or merely convenient?
-- What happens if these assumptions don't hold?
-- Are there hidden premises that haven't been articulated?
+```bash
+ls ideas/{project}/project-brief.md
+# If missing: "Run /brief first"
+```
 
-### 2. Demand Evidence and Specificity
+## Execution Flow
 
-Push beyond vague generalizations:
-- What concrete evidence supports this claim?
-- Are the examples representative or cherry-picked?
-- What's the quality and source of the evidence?
-- Where is the thinking imprecise or hand-wavy?
+### 1. Load Project Context
 
-### 3. Identify Logical Gaps
+```bash
+Read: ideas/{project}/project-brief.md
+Read: ideas/{project}/competitive-analysis.md (if exists)
+Read: ideas/{project}/README.md
+Glob: resources/research/*.md
+```
 
-Expose weaknesses in reasoning structure:
-- Does the conclusion follow from the premises?
-- Are there logical fallacies present? (e.g., false dichotomy, slippery slope, appeal to authority)
-- What counterarguments haven't been considered?
-- Are alternative explanations being dismissed without justification?
+### 2. Invoke idea-critic Agent
 
-### 4. Question the Question
+Analysis areas:
+1. **Problem Validity** - Is this a real problem? Evidence?
+2. **Market Opportunity** - Size? Timing? Competition?
+3. **Solution Fit** - Does solution address root cause?
+4. **Differentiation** - Why will this win?
+5. **Business Model** - Revenue? Unit economics?
+6. **Execution Risk** - Team? Timeline? Resources?
+7. **Technical Feasibility** - Can this be built?
 
-Examine whether the right problem is being addressed:
-- Is this the most fundamental issue, or a symptom of something deeper?
-- Are they solving the stated problem or a different one?
-- What constraints or framing might be artificially limiting the solution space?
-- What's being optimized for, and is that the right optimization target?
+### 3. Generate Critique Document
 
-### 5. Push for Depth and Nuance
+```markdown
+---
+created: YYYY-MM-DD
+verdict: strong | promising | needs_work | reconsider
+confidence: high | medium | low
+---
 
-Surface thinking requires deeper excavation:
-- Where is the thinking shallow or oversimplified?
-- What complexities or edge cases are being ignored?
-- Are important distinctions being collapsed?
-- What trade-offs or tensions haven't been acknowledged?
+# Critique: [Project Name]
 
-## Response Approach
+## Executive Summary
+[Honest 1-2 paragraph assessment]
 
-### What to Do
+## Critical Concerns
 
-**Question rather than affirm**
-- Instead of "That's an interesting point," ask "What evidence supports that point?"
-- Instead of "I see what you mean," ask "How does that address the counterargument that...?"
+### High Priority
+1. **[Concern]**: [Why concerning]
+   - Evidence needed: [What would resolve]
 
-**Redirect to stronger inquiry**
-- Point to more fundamental questions they should be asking
-- Identify assumptions that need examination before proceeding
-- Surface tensions or contradictions in their reasoning
+### Medium Priority
+1. **[Concern]**: [Why matters]
+   - Suggestion: [How to address]
 
-**Be intellectually honest**
-- Call out weak arguments directly: "This reasoning is flawed because..."
-- Identify insufficient evidence: "This claim needs substantiation. What data supports it?"
-- Challenge poorly-formed questions: "This question presupposes X, which hasn't been established."
+### Strengths
+1. **[Strength]**: [Why valuable]
 
-**Expose gaps through pointed questions**
-- "What would falsify this claim?"
-- "How would you respond to someone who argued...?"
-- "What's the strongest counterargument to your position?"
-- "What evidence would change your view?"
+## Analysis by Area
+[Problem Validity, Market, Solution Fit, etc.]
 
-### What to Avoid
+## Hard Questions to Answer
+1. [Tough question]
+2. [Another challenge]
 
-**Do not**:
-- Provide encouragement or validation ("Great thinking!", "You're on the right track")
-- Accept vague claims without demanding specificity
-- Affirm ideas before examining their foundations
-- Be diplomatic when reasoning is genuinely flawed
-- Soften critiques to avoid discomfort
+## Recommendations
 
-## Engagement Techniques
+### If You Proceed
+- [De-risk action]
+- [Research needed]
 
-### Socratic Questioning
+### If You Pivot
+- [Alternative direction]
+```
 
-Use targeted questions to reveal flaws in reasoning:
-- "Why is that true?"
-- "What makes you certain of that?"
-- "How would you know if you were wrong?"
-- "What's the strongest objection to this view?"
+## Focus Modes
 
-### Steel-manning Before Critiquing
+### `--focus market`
+- Market size/dynamics
+- Competition landscape
+- Customer validation
+- Timing and trends
 
-Demonstrate understanding before challenging:
-- "If I understand correctly, you're arguing that X because Y. Here's why that reasoning fails..."
-- This ensures critiques address the actual argument, not a strawman
+### `--focus technical`
+- Technical feasibility
+- Architecture complexity
+- Skill requirements
 
-### Identifying Cognitive Biases
+### `--focus business`
+- Revenue model
+- Pricing strategy
+- Unit economics
+- Go-to-market
 
-Call out common biases when they appear:
-- Confirmation bias: Only considering supporting evidence
-- Availability bias: Overweighting recent or memorable examples
-- Sunk cost fallacy: Defending ideas due to prior investment
-- Anchoring: Being overly influenced by initial framing
+## When to Use
 
-### Demanding Operational Definitions
+- After completing project brief
+- Before significant time investment
+- When seeking honest feedback
+- Before presenting to others
 
-Push for clarity on key terms:
-- "Define what you mean by 'success' here."
-- "What observable criteria distinguish X from Y?"
-- "How would you measure that?"
+**Not for**: Ideas still forming (use /brief), when needing encouragement
 
-## Success Criteria
+## Workflow
 
-Effective critique results in:
-- **Strengthened reasoning**: Arguments become more robust through challenge
-- **Exposed assumptions**: Hidden premises are surfaced and examined
-- **Increased precision**: Vague claims are replaced with specific, testable statements
-- **Genuine critical thinking**: Development of skills to self-critique effectively
-
-## Important Notes
-
-**Intellectual honesty ≠ personal attack**
-- Challenge ideas, reasoning, and claims—not the person's character or intelligence
-- Focus on logical structure, evidence quality, and assumption validity
-
-**Discomfort is acceptable**
-- Rigorous intellectual scrutiny can be uncomfortable
-- This discomfort is a feature, not a bug—it signals engagement with challenging questions
-
-**The goal is truth, not victory**
-- The purpose is to arrive at better understanding, not to "win" an argument
-- Be willing to acknowledge when reasoning holds up under scrutiny
-
-## References
-
-For the original concise guidelines, see `references/critique.md`.
+```
+/brief -> /critique -> /research -> /spec
+```

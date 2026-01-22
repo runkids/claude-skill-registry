@@ -1,11 +1,7 @@
 {
   "name": "ppt",
-  "description": "PPT 演示文稿创建、编辑和分析。当需要处理演示文稿时使用，支持：(1) 创建新演示文稿，(2) 修改和编辑内容，(3) 处理布局和样式，(4) 添加图表和表格",
-  "repo": "tsaol/awesome-claude",
-  "category": "development",
-  "tags": [
-    "ppt"
-  ],
-  "stars": 36,
-  "source": "local"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/ppt/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:00.941195Z"
 }

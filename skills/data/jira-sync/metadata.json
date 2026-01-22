@@ -1,7 +1,7 @@
 {
   "name": "jira-sync",
-  "repo": "anton-abyzov/specweave",
-  "path": "plugins/specweave-jira/skills/jira-sync/SKILL.md",
-  "source": "github.com/anton-abyzov/specweave",
-  "downloaded_at": "2026-01-14T03:26:40.050022Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": ".claude/skills/jira-sync/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-22T03:56:19.987456Z"
 }

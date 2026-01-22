@@ -1,7 +1,7 @@
 {
   "name": "database",
-  "repo": "SylphxAI/flow",
-  "path": "packages/flow/assets/skills/database/SKILL.md",
-  "source": "github.com/SylphxAI/flow",
-  "downloaded_at": "2026-01-14T03:51:24.540026Z"
+  "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "path": ".claude/skills/database/SKILL.md",
+  "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "downloaded_at": "2026-01-22T04:10:34.992541Z"
 }

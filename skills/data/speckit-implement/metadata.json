@@ -1,9 +1,7 @@
 {
   "name": "speckit-implement",
-  "description": "Execute the implementation plan by processing and executing all tasks defined in tasks.md",
-  "repo": "dceoy/gh-actions-for-devops",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "dceoy/speckit-agent-skills",
+  "path": "skills/speckit-implement/SKILL.md",
+  "source": "github.com/dceoy/speckit-agent-skills",
+  "downloaded_at": "2026-01-22T02:10:10.696673Z"
 }

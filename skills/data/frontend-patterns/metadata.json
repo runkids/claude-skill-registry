@@ -1,7 +1,7 @@
 {
   "name": "frontend-patterns",
-  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
+  "repo": "bybren-llc/safe-agentic-workflow",
   "path": ".claude/skills/frontend-patterns/SKILL.md",
-  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
-  "downloaded_at": "2026-01-14T02:13:29.100408Z"
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-22T03:11:03.838020Z"
 }

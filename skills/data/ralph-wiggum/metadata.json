@@ -1,9 +1,7 @@
 {
   "name": "ralph-wiggum",
-  "description": "Implements the Ralph Wiggum autonomous iteration technique with deliberate context management. Use when building greenfield projects, iterating on well-defined tasks, or when continuous autonomous dev",
-  "repo": "agrimsingh/ralph-wiggum-cursor",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jkitchin/skillz",
+  "path": "skills/development/ralph-wiggum/SKILL.md",
+  "source": "github.com/jkitchin/skillz",
+  "downloaded_at": "2026-01-22T01:09:22.885736Z"
 }

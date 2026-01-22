@@ -1,7 +1,7 @@
 {
   "name": "pubchem-database",
-  "repo": "x-cmd/skill",
-  "path": "data/k-dense-ai/pubchem-database/SKILL.md",
-  "source": "github.com/x-cmd/skill",
-  "downloaded_at": "2026-01-14T02:45:42.369056Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/chemistry/pubchem-database/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:02.305611Z"
 }

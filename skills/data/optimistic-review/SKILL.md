@@ -27,7 +27,7 @@ Otherwise, review all non-draft content in:
 
 ### 2. Multi-Perspective Strength Analysis
 
-Review the content from perspectives of philosophers who would be sympathetic to or aligned with the site's tenets. For each, adopt their worldview and identify what resonates.
+Review the content from perspectives of philosophers who would be sympathetic to or aligned with The Unfinishable Map's tenets. For each, adopt their worldview and identify what resonates.
 
 #### Supportive Personas
 
@@ -110,7 +110,7 @@ Identify opportunities for:
 
 ### 4. Generate Report
 
-Create a report at `obsidian/workflow/reviews/optimistic-YYYY-MM-DD.md`:
+Create a report at `obsidian/reviews/optimistic-YYYY-MM-DD.md`:
 
 ```markdown
 ---

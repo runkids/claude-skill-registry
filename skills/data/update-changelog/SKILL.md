@@ -1,79 +1,105 @@
 ---
 name: update-changelog
-description: Updates notes/changelog.md based on git history. Use when user says "update changelog", "changelog entry", "release version", "release X.Y.Z", or runs /update-changelog.
+description:
+  Orchestrate complete changelog workflow. Invoke `init-changelog` (if
+  needed), `edit-changelog`, and `cleanup-changelog` skills in sequence.
+  Use when the user or agent needs to update the changelog.
 ---
 
-# Update Changelog
+# Update changelog
 
-Analyze git history since last changelog update and draft entries for `notes/changelog.md`.
+**`GOAL`**: orchestrate the complete changelog update workflow by
+invoking `init-changelog`, `edit-changelog`, and `cleanup-changelog`
+skills in sequence.
 
-## Quick Start
+**`WHEN`**: use when the user requests to update the changelog or when
+the agent needs to ensure the changelog reflects the latest commits.
 
-```bash
-git log -1 --format="%H" -- notes/changelog.md  # baseline
-git log <hash>..HEAD --oneline --no-merges       # commits
-git diff <hash>..HEAD --name-only                # files
-```
+## Purpose
 
-Draft entries → get approval → add to `[Latest additions]` section.
+This skill provides a single entry point for changelog management:
 
-## What to Include
+- Initializes `CHANGELOG.md` structure if missing (via `init-changelog`
+  skill)
+- Updates changelog from git commits (via `edit-changelog` skill)
+- Cleans up formatting and removes empty sections (via
+  `cleanup-changelog` skill)
+- Handles dependencies and conditional logic intelligently
 
-**User-facing:**
-- New commands, features, UI changes
-- Bug fixes users would notice
-- Tool/integration improvements
+## Prerequisites
 
-**Major technical:**
-- Architecture changes
-- New integrations or services
-- Performance improvements
-- Security updates
+- Requires an initialized Git repository
+- Conventional commit format for user-facing changes (`feat:`, `fix:`,
+  etc.)
 
-**Exclude:**
-- CLAUDE.md, README.md, CONTRIBUTION.md
-- Minor refactoring, code cleanup
-- Dev tooling config (ruff, mypy)
-- Test-only changes, skills
+## Workflow
 
-## Entry Format
+Follow these steps in sequence:
 
-```markdown
-**Added:**
-• Feature (what it does for users)
+### Step 1: Check for `CHANGELOG.md`
 
-**Changed:**
-• Improvement description
-```
+- Check if `CHANGELOG.md` exists in the repository root.
+- If missing: Invoke the `init-changelog` skill to create it.
+  - Verify the output status (`SUCCESS`, `WARN`, or `ERROR`).
+  - If `ERROR`: Stop and report the error to the user.
+  - If `SUCCESS` or `WARN`: Continue to Step 2.
+- If exists: Continue directly to Step 2.
 
-## Style Guide
+### Step 2: Update from git commits
 
-**Length:** 1-2 lines max. If longer, split or simplify.
+- Invoke the `edit-changelog` skill to update from git commits.
+- Capture the status from the first line of output (`SUCCESS`, `WARN`,
+  or `ERROR`).
+- Handle the status:
+  - If `ERROR`: Stop and report the error to the user.
+  - If `WARN` (no new commits): Report to user that changelog already
+    reflects latest commits. Skip Step 3 and proceed to Step 4.
+  - If `SUCCESS` (changes made): Continue to Step 3.
 
-**Patterns:**
-- Feature: `Feature name: what it does for users`
-- Command: `/command to do X`
-- Rename: `Renamed /old → /new`
-- Tech context: `(optional detail)` at end
+### Step 3: Cleanup formatting (conditional)
 
-**Start with:**
-- Noun (feature name)
-- Verb (Support, Improve)
-- Command (`/name`)
+- Only run this step if `edit-changelog` reported `SUCCESS`.
+- Invoke the `cleanup-changelog` skill to clean up formatting.
+- This step runs: `fix-markdown` → `remove-empty-headers.sh` →
+  `fix-markdown`
 
-**Avoid:**
-- "Added support for..." → just "Support for..."
-- Implementation-only descriptions
-- Entries over 2 lines
+### Step 4: Report completion
 
-**Bullets:** Always use `•` (not `-`)
+- Communicate a summary to the user indicating:
+  - What actions the skill performed
+  - Whether the changelog received updates
+  - Any warnings or errors encountered during the process
+- **`DONE`**
 
-## Release Version
+## Behavior
 
-When user says "release X.Y.Z":
+**Smart initialization:**
 
-1. Move `[Latest additions]` content to new `**[X.Y.Z] - YYYY-MM-DD**` section
-2. Update version in:
-   - `pyproject.toml`
-   - `letta_bot/__init__.py`
-3. Leave `[Latest additions]` empty with `**Added:**` and `**Changed:**` placeholders
+- Automatically invokes `init-changelog` if `CHANGELOG.md` does not
+  exist
+- Skips initialization if `CHANGELOG.md` already exists
+
+**Conditional cleanup:**
+
+- Only runs `cleanup-changelog` if `edit-changelog` made changes
+  (`SUCCESS` status)
+- Skips cleanup if the update requires no changes (`WARN` status)
+
+**Error handling:**
+
+- Stops immediately on `ERROR` from any sub-skill
+- Reports errors to the user
+
+## Output
+
+**Files created/modified:**
+
+- `CHANGELOG.md` - Created (if missing) or updated with new entries
+- `.last-aggregated-commit` - Created (if missing) or updated to `HEAD`
+
+**Status communication:**
+
+- Reports initialization status when invoking `init-changelog`
+- Reports update status from `edit-changelog`
+- Reports cleanup status when invoking `cleanup-changelog`
+- Provides final summary of all actions taken

@@ -47,3 +47,19 @@ This skill provides comprehensive guidance for building commissioning and retro-
 - "Generate test procedures for VAV box verification"
 - "Calculate energy savings from this ECM implementation"
 - "Track and manage commissioning issues list"
+
+
+## Saving Next Steps
+
+When commissioning-reports work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "commissioning-reports" \
+  --content "## Priority Tasks
+1. Complete functional testing protocol
+2. Document MBCx findings and recommendations
+3. Generate commissioning report deliverable"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

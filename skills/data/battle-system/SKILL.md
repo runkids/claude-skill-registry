@@ -1,49 +1,38 @@
 ---
 name: battle-system
-description: バトルシステムの設計と実装ガイド。バトル関連の変更時に参照。
+description: Implement classic turn-based battle scene (top HUD + bottom commands)
+compatibility: opencode
 ---
+# Skill: Turn-based battle system
 
-# Battle System
+## Objective
+Implement a minimal but correct classic JRPG battle loop:
+- show battle scene with pre-rendered background
+- show party/enemy status in a top HUD
+- allow selecting a command for the current actor
+- execute a single turn and advance
 
-## 構成
+## Steps
 
-```
-BattleService（エントリーポイント）
-    ↓
-BattleTurnEngine（ターン処理）
-    ↓
-BattleContext（戦闘状態コンテナ）
-```
+1) Create battle scene
+- `game/scenes/battle/BattleScene.tscn`
+  - background renderer
+  - battler sprite anchors (party and enemy)
+  - BattleHUD (top)
+  - CommandMenu (bottom)
 
-## ファイル構成
+2) Implement battle state machine
+- `game/scripts/battle/battle_controller.gd`
+  - states: Start, CommandSelect, ResolveTurn, End
 
-BattleTurnEngineは責務ごとに拡張ファイルに分割:
+3) Data models (minimal)
+- CharacterData, EnemyData, SkillData, ItemData
 
-| ファイル | 責務 |
-|---------|------|
-| `BattleTurnEngine.swift` | エントリーポイント |
-| `+TurnLoop.swift` | ターンループ制御 |
-| `+PhysicalAttack.swift` | 物理攻撃 |
-| `+Magic.swift` | 魔法攻撃・回復 |
-| `+Damage.swift` | ダメージ計算 |
-| `+StatusEffects.swift` | 状態異常 |
-| `+Reactions.swift` | 反撃・パリィ |
-| `+Targeting.swift` | ターゲット選択 |
-| `+TurnEnd.swift` | ターン終了処理 |
-| `+Logging.swift` | ログ出力 |
+4) Integration
+- Exploration encounter triggers transition to BattleScene
+- On battle end, return to exploration at a defined spawn
 
-## 設計方針
-
-### BattleContext
-
-戦闘ごとに独立したインスタンスを生成。並行実行でも安全。
-
-- 参照データ（不変）: マスターデータへの参照
-- 戦闘状態（可変）: プレイヤー、敵、ターン数など
-
-### 新機能追加時のルール
-
-1. **状態はBattleContextに持たせる** - 静的変数禁止
-2. **乱数はcontext.randomを使う** - 再現性確保
-3. **ログはcontext.appendAction()で記録**
-4. **関連処理は適切な拡張ファイルに追加**
+## Verification
+- Can win a battle and return to exploration
+- UI updates HP correctly
+- Deterministic outcomes when seeded

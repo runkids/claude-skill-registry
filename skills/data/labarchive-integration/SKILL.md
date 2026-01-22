@@ -1,9 +1,19 @@
 ---
 name: labarchive-integration
+display_name: Labarchive Integration
 description: Electronic lab notebook API integration. Access notebooks, manage entries/attachments, backup notebooks, integrate with Protocols.io/Jupyter/REDCap, for programmatic ELN workflows.
+version: 1.0.0
+author: K-Dense Inc.
 license: Unknown
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["lab-automation", "integration", "workflow"]
+category: lab-automation
+allowed_tools: ["code_execute", "web_search", "read_url"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 5
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # LabArchives Integration

@@ -1,9 +1,7 @@
 {
   "name": "agent-developing-agents",
-  "description": "AI agent development standards including frontmatter structure, naming conventions, tool access patterns, model selection, and Bash-only file operations for .claude/ folders",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/agent-developing-agents/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:13.006628Z"
 }

@@ -1,284 +1,475 @@
 ---
 name: python-standards
-description: Python coding standards, conventions, and best practices. Use when writing, reviewing, or testing Python code.
+type: knowledge
+description: Python code quality standards (PEP 8, type hints, docstrings). Use when writing Python code.
+keywords: python, pep8, type hints, docstrings, black, isort, formatting
+auto_activate: true
 ---
 
-# Python Coding Standards
+# Python Standards Skill
 
-## New Project Preferences
+Python code quality standards for [PROJECT_NAME] project.
 
-When starting new Python projects, prefer:
+## When This Activates
 
-- **uv** for package/environment management (fast, modern alternative to pip/venv)
-- **FastAPI** for web APIs
-- **Pydantic** for data validation and serialization
+- Writing Python code
+- Code formatting
+- Type hints
+- Docstrings
+- Keywords: "python", "format", "type", "docstring"
 
-## Style Guide
-
-Follow PEP 8 with these project-specific additions:
+## Code Style (PEP 8 + Black)
 
 ### Formatting
-- Line length: 88 characters (Black default)
-- Use Black for formatting, isort for imports
-- Use double quotes for strings (Black default)
 
-### Naming Conventions
-```python
-# Modules and packages: lowercase_with_underscores
-user_service.py
+- **Line length**: 100 characters (black --line-length=100)
+- **Indentation**: 4 spaces (no tabs)
+- **Quotes**: Double quotes preferred
+- **Imports**: Sorted with isort
 
-# Classes: PascalCase
-class UserService:
-    pass
+### Running Formatters
 
-# Functions and variables: snake_case
-def get_user_by_id(user_id: int) -> User:
-    active_users = []
+```bash
+# Black
+black --line-length=100 src/ tests/
 
-# Constants: SCREAMING_SNAKE_CASE
-MAX_RETRY_ATTEMPTS = 3
-DEFAULT_TIMEOUT_SECONDS = 30
+# isort
+isort --profile=black --line-length=100 src/ tests/
 
-# Private: single leading underscore
-def _internal_helper():
-    pass
-
-# "Private" (name mangling): double leading underscore (rare)
-class Base:
-    def __private_method(self):
-        pass
+# Combined (automatic via hooks)
+black src/ && isort src/
 ```
 
-### Imports
+## Type Hints (Required)
+
+### Function Signatures
+
 ```python
-# Order: stdlib, third-party, local (isort handles this)
-import os
-import sys
 from pathlib import Path
+from typing import Optional, List, Dict, Union, Tuple
 
-import requests
-from pydantic import BaseModel
 
-from app.models import User
-from app.services import UserService
+def process_file(
+    input_path: Path,
+    output_path: Optional[Path] = None,
+    *,
+    max_lines: int = 1000,
+    validate: bool = True
+) -> Dict[str, any]:
+    """Process file with type hints on all parameters and return."""
+    pass
 ```
 
-## Type Hints
-
-Always use type hints for function signatures:
+### Generic Types
 
 ```python
-from typing import Optional, List, Dict, Any, Union
-from collections.abc import Sequence, Mapping
+from typing import List, Dict, Set, Tuple, Optional, Union
 
-def process_users(
-    users: List[User],
-    filter_active: bool = True,
-    metadata: Optional[Dict[str, Any]] = None,
-) -> List[ProcessedUser]:
-    """Process a list of users with optional filtering."""
-    ...
+# Collections
+items: List[str] = ["a", "b", "c"]
+mapping: Dict[str, int] = {"a": 1, "b": 2}
+unique: Set[int] = {1, 2, 3}
+pair: Tuple[str, int] = ("key", 42)
 
-# Use | for unions (Python 3.10+)
-def get_value(key: str) -> str | None:
-    ...
+# Optional (can be None)
+maybe_value: Optional[str] = None
+
+# Union (multiple types)
+flexible: Union[str, int] = "text"
 ```
 
-## Docstrings
-
-Use Google-style docstrings:
+### Class Type Hints
 
 ```python
-def fetch_user(user_id: int, include_deleted: bool = False) -> User:
-    """Fetch a user by their ID.
+from dataclasses import dataclass
+from typing import ClassVar
+
+
+@dataclass
+class APIConfig:
+    """API configuration with type hints."""
+
+    base_url: str
+    api_key: str
+    timeout: int = 30
+    max_retries: int = 3
+    enable_cache: bool = True
+
+    # Class variable
+    DEFAULT_TIMEOUT: ClassVar[int] = 30
+```
+
+## Docstrings (Google Style)
+
+### Function Docstrings
+
+```python
+def process_data(
+    data: List[Dict],
+    *,
+    batch_size: int = 32,
+    validate: bool = True
+) -> ProcessResult:
+    """Process data with validation and batching.
+
+    This function processes input data in batches with optional
+    validation. It handles errors gracefully and provides detailed results.
 
     Args:
-        user_id: The unique identifier of the user.
-        include_deleted: Whether to include soft-deleted users.
+        data: Input data as list of dicts with 'id' and 'content' keys
+        batch_size: Number of items to process per batch (default: 32)
+        validate: Whether to validate input data (default: True)
 
     Returns:
-        The User object if found.
+        ProcessResult containing processed items, errors, and metrics
 
     Raises:
-        UserNotFoundError: If no user exists with the given ID.
-        DatabaseConnectionError: If the database is unavailable.
+        ValueError: If data is empty or invalid format
+        ValidationError: If validation fails
+
+    Example:
+        >>> data = [{"id": 1, "content": "text"}]
+        >>> result = process_data(data, batch_size=10)
+        >>> print(result.success_count)
+        1
     """
-    ...
+    pass
+```
+
+### Class Docstrings
+
+```python
+class DataProcessor:
+    """Data processing orchestrator for batch operations.
+
+    This class handles the complete data processing workflow including
+    validation, transformation, batching, and error handling.
+
+    Args:
+        config: Processing configuration
+        batch_size: Number of items per batch
+        validate: Whether to validate input data
+
+    Attributes:
+        config: Processing configuration
+        batch_size: Configured batch size
+        metrics: Processing metrics tracker
+
+    Example:
+        >>> processor = DataProcessor(config, batch_size=100)
+        >>> result = processor.process(input_data)
+        >>> processor.save("results.json")
+    """
+
+    def __init__(
+        self,
+        config: APIConfig,
+        device: str = "gpu"
+    ):
+        self.model_name = model_name
+        self.config = config
+        self.device = device
 ```
 
 ## Error Handling
 
-```python
-# Be specific with exceptions
-try:
-    user = await fetch_user(user_id)
-except UserNotFoundError:
-    logger.warning(f"User {user_id} not found")
-    raise HTTPException(status_code=404, detail="User not found")
-except DatabaseConnectionError as e:
-    logger.error(f"Database error: {e}")
-    raise HTTPException(status_code=503, detail="Service unavailable")
-
-# Create custom exceptions for domain errors
-class UserNotFoundError(Exception):
-    """Raised when a user cannot be found."""
-    def __init__(self, user_id: int):
-        self.user_id = user_id
-        super().__init__(f"User with ID {user_id} not found")
-```
-
-## Classes and Data
+### Helpful Error Messages
 
 ```python
-# Prefer dataclasses for simple data containers
-from dataclasses import dataclass, field
-from datetime import datetime
-
-@dataclass
-class User:
-    id: int
-    email: str
-    name: str
-    created_at: datetime = field(default_factory=datetime.utcnow)
-    is_active: bool = True
-
-# Use Pydantic for validation and serialization
-from pydantic import BaseModel, EmailStr, validator
-
-class UserCreate(BaseModel):
-    email: EmailStr
-    name: str
-
-    @validator('name')
-    def name_must_not_be_empty(cls, v):
-        if not v.strip():
-            raise ValueError('Name cannot be empty')
-        return v.strip()
-```
-
-## Async Code
-
-```python
-# Use async/await consistently
-async def get_user_with_posts(user_id: int) -> UserWithPosts:
-    async with get_db_session() as session:
-        user = await session.get(User, user_id)
-        posts = await session.execute(
-            select(Post).where(Post.user_id == user_id)
+# ✅ GOOD: Context + Expected + Docs
+def load_config(path: Path) -> Dict:
+    """Load configuration file."""
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Config file not found: {path}\n"
+            f"Expected YAML file with keys: model, data, training\n"
+            f"See example: docs/examples/config.yaml\n"
+            f"See guide: docs/guides/configuration.md"
         )
-        return UserWithPosts(user=user, posts=posts.scalars().all())
 
-# Use asyncio.gather for concurrent operations
-async def fetch_all_data(user_id: int) -> tuple[User, list[Post], Settings]:
-    user, posts, settings = await asyncio.gather(
-        fetch_user(user_id),
-        fetch_posts(user_id),
-        fetch_settings(user_id),
-    )
-    return user, posts, settings
+    try:
+        with open(path) as f:
+            return yaml.safe_load(f)
+    except yaml.YAMLError as e:
+        raise ValueError(
+            f"Invalid YAML in config file: {path}\n"
+            f"Error: {e}\n"
+            f"See guide: docs/guides/configuration.md"
+        )
+
+
+# ❌ BAD: Generic error
+def load_config(path):
+    if not path.exists():
+        raise FileNotFoundError("File not found")
 ```
 
-## Testing
+### Custom Exceptions
 
 ```python
-# Use pytest with fixtures
-import pytest
-from unittest.mock import Mock, patch, AsyncMock
+class AppError(Exception):
+    """Base exception for application."""
+    pass
 
-@pytest.fixture
-def mock_user():
-    return User(id=1, email="test@example.com", name="Test User")
 
-@pytest.fixture
-def mock_db_session():
-    with patch('app.database.get_session') as mock:
-        yield mock
+class ConfigError(AppError):
+    """Configuration error."""
+    pass
 
-# Async tests
-@pytest.mark.asyncio
-async def test_fetch_user(mock_db_session, mock_user):
-    mock_db_session.return_value.get = AsyncMock(return_value=mock_user)
 
-    result = await fetch_user(1)
+class ValidationError(AppError):
+    """Validation error."""
+    pass
 
-    assert result.id == 1
-    assert result.email == "test@example.com"
 
-# Parameterized tests
-@pytest.mark.parametrize("input,expected", [
-    ("hello", "HELLO"),
-    ("World", "WORLD"),
-    ("", ""),
-])
-def test_uppercase(input, expected):
-    assert uppercase(input) == expected
+# Usage
+def validate_config(config: Dict) -> None:
+    """Validate configuration."""
+    required = ["database", "api_key", "settings"]
+    missing = [k for k in required if k not in config]
+
+    if missing:
+        raise ConfigError(
+            f"Missing required config keys: {missing}\n"
+            f"Required: {required}\n"
+            f"See: docs/guides/configuration.md"
+        )
 ```
 
-## Project Commands
+## Code Organization
 
-Check `.claude/commands.md` for project-specific commands. Common Python commands:
+### Imports Order (isort)
 
-```bash
-# Virtual environment
-python -m venv venv
-source venv/bin/activate  # or `venv\Scripts\activate` on Windows
-
-# Dependencies
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-
-# Formatting
-black .
-isort .
-
-# Linting
-ruff check .
-mypy .
-
-# Testing
-pytest
-pytest --cov=app --cov-report=html
-pytest -x -v  # stop on first failure, verbose
-```
-
-## Common Patterns
-
-### Context Managers
 ```python
-from contextlib import contextmanager, asynccontextmanager
+# 1. Standard library
+import os
+import sys
+from pathlib import Path
+
+# 2. Third-party
+import [framework].core as mx
+import numpy as np
+from anthropic import Anthropic
+
+# 3. Local
+from [project_name].core.trainer import Trainer
+from [project_name].utils.config import load_config
+```
+
+### Function/Class Organization
+
+```python
+class Model:
+    """Model class."""
+
+    # 1. Class variables
+    DEFAULT_LR = 1e-4
+
+    # 2. __init__
+    def __init__(self, name: str):
+        self.name = name
+
+    # 3. Public methods
+    def train(self, data: List) -> None:
+        """Public training method."""
+        pass
+
+    # 4. Private methods
+    def _prepare_data(self, data: List) -> List:
+        """Private helper method."""
+        pass
+
+    # 5. Properties
+    @property
+    def num_parameters(self) -> int:
+        """Number of trainable parameters."""
+        return sum(p.size for p in self.parameters())
+```
+
+## Naming Conventions
+
+```python
+# Classes: PascalCase
+class ModelTrainer:
+    pass
+
+# Functions/variables: snake_case
+def train_model():
+    training_data = []
+
+# Constants: UPPER_SNAKE_CASE
+MAX_SEQUENCE_LENGTH = 2048
+DEFAULT_LEARNING_RATE = 1e-4
+
+# Private: _leading_underscore
+def _internal_helper():
+    pass
+
+_internal_cache = {}
+```
+
+## Best Practices
+
+### Use Keyword-Only Arguments
+
+```python
+# ✅ GOOD: Clear, prevents positional errors
+def train(
+    data: List,
+    *,
+    learning_rate: float = 1e-4,
+    batch_size: int = 32
+):
+    pass
+
+# Must use: train(data, learning_rate=1e-3)
+
+
+# ❌ BAD: Easy to mix up arguments
+def train(data, learning_rate=1e-4, batch_size=32):
+    pass
+```
+
+### Use Pathlib
+
+```python
+from pathlib import Path
+
+# ✅ GOOD: Pathlib
+config_path = Path("config.yaml")
+if config_path.exists():
+    content = config_path.read_text()
+
+# ❌ BAD: String paths
+import os
+if os.path.exists("config.yaml"):
+    with open("config.yaml") as f:
+        content = f.read()
+```
+
+### Use Context Managers
+
+```python
+# ✅ GOOD: Automatic cleanup
+with open(path) as f:
+    data = f.read()
+
+# ✅ GOOD: Custom context manager
+from contextlib import contextmanager
 
 @contextmanager
-def temporary_file(suffix: str = ".tmp"):
-    path = Path(tempfile.mktemp(suffix=suffix))
+def training_context():
+    """Setup/teardown for training."""
+    setup_training()
     try:
-        yield path
+        yield
     finally:
-        path.unlink(missing_ok=True)
-
-@asynccontextmanager
-async def get_db_connection():
-    conn = await create_connection()
-    try:
-        yield conn
-    finally:
-        await conn.close()
+        cleanup_training()
 ```
 
-### Logging
+### Use Dataclasses
+
 ```python
-import logging
+from dataclasses import dataclass, field
+from typing import List
 
-logger = logging.getLogger(__name__)
 
-def process_order(order_id: int) -> None:
-    logger.info(f"Processing order {order_id}")
-    try:
-        # ... processing
-        logger.debug(f"Order {order_id} validated")
-    except ValidationError as e:
-        logger.warning(f"Order {order_id} validation failed: {e}")
-        raise
-    except Exception as e:
-        logger.exception(f"Unexpected error processing order {order_id}")
-        raise
+@dataclass
+class Config:
+    """Configuration with dataclass."""
+
+    model_name: str
+    learning_rate: float = 1e-4
+    epochs: int = 3
+    tags: List[str] = field(default_factory=list)
+
+    def __post_init__(self):
+        """Validate after initialization."""
+        if self.learning_rate <= 0:
+            raise ValueError("Learning rate must be positive")
+
+
+# Usage
+config = Config(model_name="model", tags=["test"])
 ```
+
+## Code Quality Checks
+
+### Flake8 (Linting)
+
+```bash
+flake8 src/ --max-line-length=100
+```
+
+### MyPy (Type Checking)
+
+```bash
+mypy src/[project_name]/
+```
+
+### Coverage
+
+```bash
+pytest --cov=src/[project_name] --cov-fail-under=80
+```
+
+## File Organization
+
+```
+src/[project_name]/
+├── __init__.py              # Package init
+├── core/                    # Core functionality
+│   ├── __init__.py
+│   ├── trainer.py
+│   └── model.py
+├── backends/                # Backend implementations
+│   ├── __init__.py
+│   ├── mlx_backend.py
+│   └── pytorch_backend.py
+├── cli/                     # CLI tools
+│   ├── __init__.py
+│   └── main.py
+└── utils/                   # Utilities
+    ├── __init__.py
+    ├── config.py
+    └── logging.py
+```
+
+## Anti-Patterns to Avoid
+
+```python
+# ❌ BAD: No type hints
+def process(data, config):
+    pass
+
+# ❌ BAD: No docstring
+def train_model(data, lr=1e-4):
+    pass
+
+# ❌ BAD: Unclear names
+def proc(d, c):
+    x = d['k']
+    return x
+
+# ❌ BAD: Mutable default argument
+def add_item(items=[]):
+    items.append("new")
+    return items
+
+# ❌ BAD: Generic exception
+try:
+    process()
+except:
+    pass
+```
+
+## Key Takeaways
+
+1. **Type hints** - Required on all public functions
+2. **Docstrings** - Google style, with examples
+3. **Black formatting** - 100 char line length
+4. **isort imports** - Sorted and organized
+5. **Helpful errors** - Context + expected + docs link
+6. **Pathlib** - Use Path not string paths
+7. **Keyword args** - Use \* for clarity
+8. **Dataclasses** - For configuration objects

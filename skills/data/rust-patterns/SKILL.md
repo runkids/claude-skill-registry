@@ -1,97 +1,210 @@
 ---
 name: rust-patterns
-description: Rust idioms, patterns, and gotchas to write better Rust code
-allowed-tools:
-  - Read
-  - Grep
-  - Edit
-  - Write
+description: Rust backend patterns including Axum, Tokio, error handling with anyhow/thiserror, and tracing.
+agents: [rex]
+triggers: [rust, axum, tokio, cargo, clippy]
 ---
 
-# Rust Patterns
+# Rust Backend Patterns
 
-Practical patterns and pitfalls for writing idiomatic, testable Rust.
+Production Rust patterns for backend services using Axum, Tokio, and the broader Rust ecosystem.
 
-## Tooling
+## Core Stack
 
-| Context | Do | Why |
-|---------|-----|-----|
-| Running cargo commands | Read `.cargo/config.toml` for aliases | Projects often define custom aliases for common workflows |
-| CI pipeline | `fmt --check` → `clippy -D warnings` → `nextest run` → `doc` | Standard pre-commit checks in order |
-| Bypassing clippy lint | `#[expect(lint, reason = "...")]` or comment above `#[allow(...)]` | Documents why the lint doesn't apply; reviewable justification |
-| Running tests | Check for `.config/nextest.toml`; use `cargo nextest run` if present | Faster parallel execution than `cargo test` |
+| Component | Library | Purpose |
+|-----------|---------|---------|
+| Language | Rust (Edition 2021+) | Systems programming |
+| Build | Cargo | Package management and build |
+| Linting | Clippy pedantic | Code quality |
+| Formatting | rustfmt | Code formatting |
+| Async | Tokio | Async runtime |
+| Error Handling | anyhow + thiserror | Application/library errors |
+| Serialization | Serde | JSON/YAML/etc |
+| Logging | tracing | Structured logging |
+| HTTP | Axum | Web framework |
 
-## Error Handling
+## Context7 Library IDs
 
-| Instead of | Use | Why |
-|------------|-----|-----|
-| `.unwrap()` | `.expect("reason")` or `?` with context | Panics hide bugs; expect documents assumptions; `?` propagates properly |
-| Single error message | `MessagePair { external, internal }` | Prevents leaking sensitive info to clients; keeps detail for logs |
-| Library errors as strings | `thiserror` enums for domain errors | Pattern matching for retry logic, client feedback |
-| Bare `?` propagation | `.context()` / `.with_context(|| format!(...))` | Adds high-level context to low-level errors |
-| `Result<T, Error>` everywhere | Type aliases like `CreateResult<T>`, `DeleteResult` | Self-documenting API signatures |
-| Retrying all errors uniformly | Classify: `BackoffError::Transient(e)` vs `Permanent(e)` | Transient = backoff retry, permanent = fail fast |
-| Monolithic error enum | Nested `Result<Result<T, LocalErr>, FatalErr>` | Separates recoverable failures from system-halting errors |
+Query these libraries for current best practices:
 
-## Async & Tokio
+- **Tokio**: `/websites/rs_tokio_tokio`
+- **Serde**: `/websites/serde_rs`
+- **Anyhow**: `/dtolnay/anyhow`
+- **Thiserror**: `/dtolnay/thiserror`
+- **Tracing**: `/tokio-rs/tracing`
+- **Clippy**: `/rust-lang/rust-clippy`
+- **Axum**: `/tokio-rs/axum`
 
-| Pattern | Example | Gotcha |
-|---------|---------|--------|
-| Explicit runtime ownership | Pass `Handle` explicitly; `#[tokio::main]` only at entry point | Don't assume runtime exists; don't spawn from arbitrary code |
-| Select-based event loop | `select!` returns typed `Action` enum; `loop { apply(select().await) }` | Keep select branches thin; complex logic inside can be cancelled |
-| Prevent futurelock | Use channels or `tokio::spawn` for lock-holding futures in `select!` | `select!` stops polling losers; stopped future holding lock = deadlock |
-| Channel selection | `mpsc` bounded (backpressure), `oneshot` (request-reply), `watch` (broadcast latest) | Avoid unbounded `mpsc` except sync-to-async bridge |
+## Execution Rules
 
-## Type Safety
+1. **Clippy pedantic always.** Run with `-W clippy::pedantic`
+2. **No unwrap in production.** Use `?` or proper error handling
+3. **Type safety.** Leverage Rust's type system fully
+4. **Documentation.** Doc comments on all public items
+5. **Tests.** Unit tests alongside code, integration tests in `tests/`
 
-| Pattern | Instead of | Use | Why |
-|---------|------------|-----|-----|
-| Newtype wrappers | `fn process(job_id: u64, session_id: Uuid)` | `struct JobId(pub u64);` + `fn process(job: JobId, session: SessionId)` | Compiler prevents mixing up IDs of same underlying type |
-| Validated newtypes | `pub` fields with invariants | Private fields + `new() -> Result` + custom `Deserialize` | Invariants enforced at construction; can't bypass via deserialization |
-| Enum state machines | Flat struct with `Option` fields | Enum variants with embedded state-specific data | Invalid states unrepresentable; each state knows its data |
-| Validated transitions | `set_state(new)` with no checks | `assert!(valid_transition(old, new))` | Fail fast on invalid transitions; bugs don't propagate |
-| `Cow` for flexibility | `String` or `&'static str` separately | `Cow<'static, str>` | Accepts both static and owned; avoids allocation for constants |
-| `Arc` for sharing | `Rc` or cloning data | `Arc<T>` | Clone+Send shared ownership across threads |
-| `Box` for dyn | Stack allocation of trait objects | `Box<dyn Trait>` | Single-owner dynamic dispatch; heap when size unknown |
-| `Arc::clone` | `arc.clone()` | `Arc::clone(&arc)` | Makes intent explicit: cheap ref count bump, not deep clone |
+## Error Handling Patterns
 
-## Trait Design
+### Application Errors with anyhow
 
-| Guideline | Example | Why |
-|-----------|---------|-----|
-| Dependency abstraction | `trait Clock`, `trait Network` with real + sim impls | Swap behavior for deterministic tests; enables simulation without mocks |
-| Type witness traits | `trait SagaType { type Ctx; type Params; }` instead of `<Ctx, Params, Output, Error>` | Bundle related types via associated types; avoids parameter explosion |
-| Consistent API derives | `#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]` | Predictable capabilities for API types |
-| Adjacent enum tagging | `#[serde(tag = "type", content = "value")]` or `#[serde(tag = "type")]` | Clear JSON: `{"type": "V4", "value": {...}}` vs flat `{"type": "Create", "name": "foo"}` |
+```rust
+use anyhow::{Context, Result};
 
-## Testing & Structure
+fn do_thing() -> Result<()> {
+    let data = fetch_data()
+        .context("failed to fetch data")?;
+    process(data)
+        .context("failed to process")?;
+    Ok(())
+}
+```
 
-| Pattern | Description | Benefit |
-|---------|-------------|---------|
-| Short functions (10-30 lines) | Decompose into well-named helpers when logic grows | Readable, testable, easier to reason about |
-| Semantic suffixes | `_impl` (trait delegation), `_inner` (non-generic core), `for_` (factory), `from_`/`to_` (conversion) | Clear intent; `_inner` enables manual outlining for faster compiles |
-| Closures vs functions | Closures for one-off logic; named functions for reuse or testing | `.map_err(ActionError::action_failed)` over long inline closures |
-| OpContext/RequestContext | Bundle `log`, `authn`, `authz` into single context with `authorize()`, `child()` | Consistent logging, auth, tracing; avoids parameter explosion |
-| Simulated implementations | Full alternative impls (e.g., `sp-sim/`) instead of mock frameworks | Exercises real code paths; catches integration bugs mocks miss |
-| `#[instrument]` macro | Add `#[tracing::instrument]` to functions when using tracing | Automatic span creation with function args; simplifies observability |
-| Sans-IO | Logic accepts/returns bytes; caller handles I/O | Testable, framework-agnostic; see [sans-io.readthedocs.io](https://sans-io.readthedocs.io) |
+### Library Errors with thiserror
 
-## Database Patterns
+```rust
+use thiserror::Error;
 
-| Pattern | Description | Why |
-|---------|-------------|-----|
-| Soft deletes | `time_deleted TIMESTAMPTZ` column (NULL = live) | Audit trails + name reuse after deletion |
-| Keyset pagination | `ResultsPage { next_page: Option<String>, items }` + `WHERE name > last_seen` | Scales with data size; OFFSET scans skipped rows |
+#[derive(Error, Debug)]
+pub enum ServiceError {
+    #[error("user not found: {id}")]
+    UserNotFound { id: String },
+    
+    #[error("validation failed: {0}")]
+    Validation(String),
+    
+    #[error(transparent)]
+    Database(#[from] sqlx::Error),
+}
+```
 
-## Project Organization
+## Async Patterns with Tokio
 
-| Pattern | Description | Benefit |
-|---------|-------------|---------|
-| Workspace by change frequency | Separate crates for stable (types, utils) vs volatile (app logic) code | Incremental builds; stable crates rarely recompile |
-| Re-export from crate root | `pub use error::HttpError;` in lib.rs | Users write `use crate::HttpError` not `use crate::error::HttpError` |
+### Basic Async
 
-## Unsafe Code
+```rust
+use tokio::time::{sleep, Duration};
 
-| Rule | Example | Why |
-|------|---------|-----|
-| SAFETY comments | `// SAFETY: pointer is valid because...` before every `unsafe` block | Documents invariants; required by clippy `undocumented_unsafe_blocks` |
+async fn poll_until_ready() -> Result<Data> {
+    loop {
+        if let Some(data) = check_status().await? {
+            return Ok(data);
+        }
+        sleep(Duration::from_secs(1)).await;
+    }
+}
+```
+
+### Concurrent Operations
+
+```rust
+use tokio::try_join;
+
+async fn fetch_all() -> Result<(User, Posts)> {
+    let (user, posts) = try_join!(
+        fetch_user(),
+        fetch_posts()
+    )?;
+    Ok((user, posts))
+}
+```
+
+### Channels for Coordination
+
+```rust
+use tokio::sync::mpsc;
+
+async fn worker(mut rx: mpsc::Receiver<Job>) {
+    while let Some(job) = rx.recv().await {
+        process(job).await;
+    }
+}
+```
+
+## Structured Logging with tracing
+
+```rust
+use tracing::{info, warn, instrument, span, Level};
+
+#[instrument(skip(secret))]
+fn process_request(id: &str, secret: &str) {
+    info!(request_id = %id, "processing request");
+}
+
+// Manual spans
+fn complex_operation() {
+    let span = span!(Level::INFO, "complex_op");
+    let _enter = span.enter();
+    
+    info!("starting operation");
+    // ... work ...
+    info!("completed operation");
+}
+```
+
+## Axum Web Framework
+
+### Basic Route Setup
+
+```rust
+use axum::{Router, routing::{get, post}, extract::State, Json};
+
+async fn create_app(db: Database) -> Router {
+    Router::new()
+        .route("/health", get(health_check))
+        .route("/users", post(create_user))
+        .with_state(AppState { db })
+}
+
+async fn health_check() -> &'static str {
+    "ok"
+}
+
+async fn create_user(
+    State(state): State<AppState>,
+    Json(req): Json<CreateUserRequest>,
+) -> Result<Json<User>, AppError> {
+    let user = state.db.create_user(req).await?;
+    Ok(Json(user))
+}
+```
+
+### Custom Error Type for Axum
+
+```rust
+use axum::{response::IntoResponse, http::StatusCode};
+
+struct AppError(anyhow::Error);
+
+impl IntoResponse for AppError {
+    fn into_response(self) -> axum::response::Response {
+        (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            format!("Something went wrong: {}", self.0),
+        ).into_response()
+    }
+}
+
+impl<E> From<E> for AppError where E: Into<anyhow::Error> {
+    fn from(err: E) -> Self {
+        Self(err.into())
+    }
+}
+```
+
+## Validation Commands
+
+```bash
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --all-features -- -D warnings -W clippy::pedantic
+cargo test --workspace --all-features
+cargo build --release
+```
+
+## Guidelines
+
+- Use `tracing` for logging, never `println!`
+- Handle errors with `anyhow` context
+- Keep functions small and focused
+- Write doc comments on all public items
+- Prefer `?` over explicit match for error propagation
+- Use `#[must_use]` on functions returning values

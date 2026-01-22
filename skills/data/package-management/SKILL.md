@@ -1,210 +1,91 @@
 ---
-name: Managing Packages
-description: Package management using pnpm and corepack with packageManager field in package.json. Use when installing dependencies, upgrading packages, troubleshooting package manager issues, working with pnpm commands, npm install, or when the user mentions pnpm, corepack, package installation, dependency updates, or packageManager field.
+name: package-management
+description: Package configuration, dependencies, workspace references, and CDK version management. Use when creating packages or managing dependencies.
 ---
 
 # Package Management
 
-## Overview
+## Package.json Requirements
 
-This project uses **pnpm** as the package manager, with **corepack** to manage pnpm versions automatically.
-
-## Corepack Integration
-
-### How It Works
-
-- **pnpm version** is specified in `package.json` under the `packageManager` field
-- **corepack** automatically uses the exact version specified
-- No need to manually install pnpm - corepack handles it
-
-### Example from package.json
+When creating or modifying subpackages:
 
 ```json
 {
-  "packageManager": "pnpm@9.1.0"
+    "name": "@cdk-constructs/{package-name}",
+    "version": "0.1.0",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
+    "files": ["dist"],
+    "dependencies": {
+        "@cdk-constructs/cdk": "*",
+        "@cdk-constructs/aws": "*"
+    },
+    "peerDependencies": {
+        "aws-cdk-lib": "^2.225.0",
+        "constructs": "^10.0.0"
+    },
+    "devDependencies": {
+        "aws-cdk-lib": "2.225.0",
+        "constructs": "10.4.2"
+    }
 }
 ```
 
-When you run `pnpm` commands, corepack ensures version 9.1.0 is used.
+**Key Points:**
 
-## Common Commands
+- Use `"@cdk-constructs/*": "*"` to reference workspace packages
+- `peerDependencies` and `devDependencies` must match the root package's CDK version
+- `main` and `types` point to `dist/src/` (TypeScript compiles from `src/`)
 
-### Installing Dependencies
+## Inter-Package Dependencies
 
-```bash
-pnpm install
+Some packages depend on others:
+
+- `@cdk-constructs/codeartifact` depends on `@cdk-constructs/aws`
+- `@cdk-constructs/cloudwatch` depends on both `@cdk-constructs/cdk` and `@cdk-constructs/api-gateway`
+
+When adding cross-package dependencies:
+
+1. Add them to `dependencies` in `package.json`
+2. Ensure proper build order in `tsconfig.build.json`
+3. Verify no circular dependencies are created
+
+## CDK Version Management
+
+### Version Synchronization
+
+All packages must use the same `aws-cdk-lib` version. The current version is defined in the root `package.json`.
+
+### Updating CDK Version
+
+When updating CDK version, modify these files:
+
+1. Root `package.json`: `version`, `devDependencies.aws-cdk-lib`, `devDependencies.aws-cdk`, `peerDependencies.aws-cdk-lib`
+2. Each `packages/*/package.json`: `peerDependencies.aws-cdk-lib`, `devDependencies.aws-cdk-lib`
+
+## Workspace Dependencies
+
+### Using Workspace References
+
+Packages reference each other using `"*"` in dependencies:
+
+```json
+{
+    "dependencies": {
+        "@cdk-constructs/aws": "*",
+        "@cdk-constructs/cdk": "*"
+    }
+}
 ```
 
-This installs all dependencies from `package.json` using the version specified in the `packageManager` field.
+The `"*"` tells npm to use the workspace version, preventing circular dependencies.
 
-### Adding New Dependencies
+### Postinstall Script
 
-```bash
-# Production dependency
-pnpm add <package-name>
+The `postinstall` script removes nested `node_modules` to prevent circular dependencies:
 
-# Development dependency
-pnpm add -D <package-name>
+```json
+"postinstall": "rm -rf node_modules/@cdk-constructs/*/node_modules"
 ```
 
-### Upgrading pnpm
-
-To upgrade pnpm to the latest version:
-
-```bash
-corepack use pnpm@latest
-```
-
-This command:
-
-1. Updates to the latest pnpm version
-2. Automatically updates `package.json`'s `packageManager` field
-3. Ensures the team uses the same version
-
-### Upgrading to Specific pnpm Version
-
-```bash
-corepack use pnpm@9.5.0
-```
-
-## Troubleshooting
-
-### Signature Verification Errors
-
-If you encounter signature verification errors when running pnpm commands:
-
-```bash
-npm install -g corepack@latest
-```
-
-This updates corepack itself, which can resolve verification issues.
-
-### pnpm Command Not Found
-
-If `pnpm` is not recognized:
-
-1. Enable corepack (if not already enabled):
-
-   ```bash
-   corepack enable
-   ```
-
-2. Install the project's pnpm version:
-   ```bash
-   corepack install
-   ```
-
-### Wrong pnpm Version
-
-If the wrong pnpm version is being used:
-
-1. Check the version specified in `package.json`:
-
-   ```json
-   {
-     "packageManager": "pnpm@X.Y.Z"
-   }
-   ```
-
-2. Ensure corepack is enabled:
-
-   ```bash
-   corepack enable
-   ```
-
-3. Re-run your command - corepack should download the correct version
-
-## Best Practices
-
-1. **Never install pnpm globally** - Let corepack manage it
-2. **Use `corepack use pnpm@latest`** to upgrade, not manual installation
-3. **Commit `package.json` changes** when upgrading pnpm (the `packageManager` field)
-4. **Don't mix package managers** - Always use pnpm, never npm or yarn
-
-## Why Corepack?
-
-### Benefits
-
-- **Version consistency** - Everyone uses the same pnpm version
-- **No manual installation** - Corepack handles pnpm installation
-- **Automatic switching** - Different projects can use different pnpm versions
-- **Lockfile compatibility** - Ensures `pnpm-lock.yaml` is compatible
-
-### How It's Different from Manual Installation
-
-**With corepack (this project):**
-
-```bash
-# Just run pnpm - corepack handles the rest
-pnpm install
-```
-
-**Without corepack:**
-
-```bash
-# Manual installation needed
-npm install -g pnpm@9.1.0
-pnpm install
-```
-
-## Integration with CI/CD
-
-In CI/CD environments, ensure corepack is enabled:
-
-```bash
-# Enable corepack first
-corepack enable
-
-# Then run pnpm commands
-pnpm install
-pnpm build
-```
-
-Most modern CI environments (GitHub Actions, etc.) have corepack pre-installed.
-
-## Common Workflows
-
-### First-time Setup
-
-```bash
-# 1. Enable corepack (if needed)
-corepack enable
-
-# 2. Install dependencies
-pnpm install
-
-# 3. Start development
-pnpm dev
-```
-
-### Upgrading All Dependencies
-
-```bash
-# Update all dependencies to latest versions
-pnpm update --latest
-
-# Or use interactive mode
-pnpm update --interactive --latest
-```
-
-### Checking Outdated Packages
-
-```bash
-pnpm outdated
-```
-
-### Deduplicate Dependencies
-
-```bash
-pnpm dedupe
-```
-
-This removes duplicate packages from `pnpm-lock.yaml`, reducing installation size.
-
-## Key Reminders
-
-- ✅ Use `corepack use pnpm@latest` to upgrade pnpm
-- ✅ Commit `package.json` changes when pnpm version changes
-- ✅ Enable corepack before using pnpm
-- ❌ Don't install pnpm globally with npm
-- ❌ Don't manually edit the `packageManager` field
+This ensures all packages use the workspace root's `node_modules`.

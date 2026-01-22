@@ -1,231 +1,59 @@
 ---
-name: expo-expert
-description: Comprehensive Expo expert with access to complete official documentation covering React Native development, EAS Build, EAS Submit, EAS Update, Expo Router, Expo Modules API, configuration, deployment, and all platform features. Invoke when user mentions Expo, React Native, EAS, Expo Router, mobile app development, iOS/Android development, or cross-platform development.
-allowed-tools: Read, Grep, Glob
-model: sonnet
+name: expo-llm-docs
+description: Fetch Expo documentation via llms.txt for up-to-date React Native development references
+agents: [tap, blaze]
+triggers: [expo, expo router, eas build, eas update, expo sdk, development build]
+llm_docs_url: https://docs.expo.dev/llms.txt
 ---
 
-# Expo Integration Expert
+# Expo LLM Documentation
 
-## Purpose
-
-Provide expert guidance on Expo and React Native development, covering the complete Expo ecosystem including EAS services, Expo Router, modules, configuration, and deployment workflows.
+Expo provides extensive LLM-optimized documentation at `https://docs.expo.dev/llms.txt`.
 
 ## When to Use
 
-Auto-invoke when users mention:
-- Expo or React Native development
-- EAS Build, EAS Submit, EAS Update
-- Expo Router navigation
-- Mobile app development (iOS/Android)
-- Expo CLI or development workflow
-- Expo Modules API or native modules
-- App deployment and distribution
-- Cross-platform development
-- expo-* packages or APIs
+Fetch this documentation when:
+- Setting up a new Expo project or development build
+- Configuring Expo Router for navigation
+- Working with EAS Build, Submit, or Update
+- Using Expo SDK modules (Camera, Location, Notifications, etc.)
+- Creating native modules with Expo Modules API
+- Deploying to app stores or using internal distribution
 
-## Knowledge Base
+## Key Topics Covered
 
-Complete Expo documentation stored in `.claude/skills/frontend/expo/docs/docs_expo_dev/`
+- **Get Started**: Project creation, environment setup, development builds
+- **Expo Router**: File-based routing, layouts, navigation patterns, modals
+- **EAS Services**: Build, Submit, Update, Metadata, Hosting, Workflows
+- **SDK Modules**: Camera, FileSystem, Notifications, SQLite, Video, Audio
+- **Native Development**: Config plugins, Expo Modules API, Swift/Kotlin
+- **Deployment**: App stores, OTA updates, code signing, rollouts
 
-Coverage includes:
-- Getting started and core concepts
-- EAS Build (cloud builds for iOS/Android)
-- EAS Submit (app store submissions)
-- EAS Update (over-the-air updates)
-- Expo Router (file-based routing)
-- Expo Modules API (native module development)
-- Configuration (app.json, eas.json, config plugins)
-- Development workflow and debugging
-- Deployment strategies
-- Platform-specific features (iOS/Android)
-- Bare workflow and brownfield integration
-- Account management and billing
-
-## Process
-
-When a user asks about Expo:
-
-1. **Identify the Topic**
-   - Determine the specific Expo feature or concept
-   - Examples: EAS Build, Expo Router, configuration, deployment, native modules
-
-2. **Search Documentation**
-   ```
-   Use Grep to search: Grep "keyword" .claude/skills/frontend/expo/docs/
-   ```
-
-   Common search patterns:
-   - EAS Build: `Grep "eas build" .claude/skills/frontend/expo/docs/ -i`
-   - Expo Router: `Grep "router" .claude/skills/frontend/expo/docs/ -i`
-   - Configuration: `Grep "app.json|eas.json" .claude/skills/frontend/expo/docs/`
-   - Native modules: `Grep "expo modules" .claude/skills/frontend/expo/docs/ -i`
-
-3. **Read Relevant Documentation**
-   ```
-   Use Read to load specific files found in search
-   Read .claude/skills/frontend/expo/docs/docs_expo_dev/[filename].md
-   ```
-
-4. **Provide Structured Answer**
-
-   Format responses with:
-   - **Overview**: Brief explanation of the concept
-   - **Setup/Configuration**: Required configuration or setup steps
-   - **Code Examples**: Practical implementation examples
-   - **Best Practices**: Recommendations and common patterns
-   - **Common Issues**: Known gotchas or troubleshooting tips
-   - **Related Topics**: Links to related Expo features
-   - **Source**: Reference the documentation file used
-
-## Example Workflows
-
-### EAS Build Questions
-```
-User: "How do I set up EAS Build for my Expo app?"
-
-1. Search: Grep "eas build" .claude/skills/frontend/expo/docs/ -i
-2. Read: build_introduction.md, build_setup.md
-3. Answer with setup steps, configuration, and examples
-```
-
-### Expo Router Questions
-```
-User: "How does file-based routing work in Expo Router?"
-
-1. Search: Grep "router|routing" .claude/skills/frontend/expo/docs/ -i
-2. Read: Router documentation files
-3. Explain routing patterns, file structure, navigation
-```
-
-### Configuration Questions
-```
-User: "What are config plugins in Expo?"
-
-1. Search: Grep "config plugin" .claude/skills/frontend/expo/docs/ -i
-2. Read: config-plugins_introduction.md, related files
-3. Explain plugins, usage, development, examples
-```
-
-### Deployment Questions
-```
-User: "How do I submit my Expo app to the App Store?"
-
-1. Search: Grep "submit|app store" .claude/skills/frontend/expo/docs/ -i
-2. Read: deploy documentation, EAS Submit guides
-3. Provide submission workflow, requirements, automation
-```
-
-## Response Format
-
-Always structure responses as:
-
-```markdown
-## [Topic Name]
-
-[Brief overview paragraph]
-
-### Setup
-
-[Configuration steps, installation, prerequisites]
-
-### Implementation
+## Quick Reference
 
 ```typescript
-// Code examples with comments
+// Fetch Expo docs via Firecrawl
+const docs = await firecrawl.scrape({
+  url: "https://docs.expo.dev/llms.txt",
+  formats: ["markdown"]
+});
 ```
 
-### Key Points
+## Popular SDK Modules
 
-- Important concept 1
-- Important concept 2
-- Important concept 3
+| Module | Description |
+|--------|-------------|
+| `expo-router` | File-based routing |
+| `expo-camera` | Camera access |
+| `expo-notifications` | Push notifications |
+| `expo-location` | Geolocation |
+| `expo-sqlite` | SQLite database |
+| `expo-secure-store` | Encrypted storage |
+| `expo-file-system` | File operations |
+| `expo-image` | Performant images |
 
-### Common Issues
+## Related Skills
 
-- Issue and solution
-- Gotcha and workaround
-
-### Related
-
-- Related feature or concept
-- Link to additional documentation
-
-**Source:** `.claude/skills/frontend/expo/docs/docs_expo_dev/[filename].md`
-```
-
-## Important Notes
-
-- Always search documentation first before answering
-- Reference specific documentation files in responses
-- Provide practical, working code examples
-- Explain platform-specific differences (iOS vs Android)
-- Mention EAS services when relevant (Build, Submit, Update)
-- Include configuration examples when applicable
-- Highlight breaking changes or version-specific features
-- Use TypeScript examples by default
-- Consider bare workflow users when relevant
-
-## Coverage Areas
-
-**Development Workflow**
-- Expo CLI and development tools
-- Hot reloading and fast refresh
-- Debugging tools and strategies
-- Development builds
-
-**EAS Services**
-- EAS Build (cloud builds)
-- EAS Submit (app store automation)
-- EAS Update (OTA updates)
-- EAS Metadata (store listings)
-
-**Navigation & Routing**
-- Expo Router file-based routing
-- Navigation patterns
-- Deep linking
-- Authentication flows
-
-**Native Integration**
-- Expo Modules API
-- Config plugins
-- Native code integration
-- Bare workflow
-
-**Configuration**
-- app.json / app.config.js
-- eas.json
-- Config plugins
-- Environment variables
-
-**Deployment**
-- App store submission
-- Internal distribution
-- TestFlight and Google Play
-- CI/CD integration
-
-**Platform Features**
-- Push notifications
-- File system
-- Camera and media
-- Location services
-- Authentication
-- Analytics
-
-## Do Not
-
-- Provide outdated information (check doc version/date)
-- Make assumptions about user's Expo SDK version
-- Recommend deprecated approaches
-- Provide React Native CLI solutions when Expo has a better way
-- Ignore platform-specific requirements
-
-## Always
-
-- Search documentation before answering
-- Provide working code examples
-- Reference source documentation
-- Mention version requirements if relevant
-- Consider both managed and bare workflows
-- Link related Expo features
-- Highlight EAS service integration opportunities
+- `react-native-llm-docs` - React Native core documentation
+- `better-auth-expo` - Better Auth for Expo
+- `expo-patterns` - Expo development patterns

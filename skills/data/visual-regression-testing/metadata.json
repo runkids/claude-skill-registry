@@ -1,13 +1,7 @@
 {
   "name": "visual-regression-testing",
-  "description": "Detect unintended visual changes in UI by comparing screenshots across versions. Use for visual regression, screenshot diff, Percy, Chromatic, UI testing, and visual validation.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "visual",
-    "regression",
-    "testing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "flight505/storybook-assistant",
+  "path": "skills/visual-regression-testing/SKILL.md",
+  "source": "github.com/flight505/storybook-assistant",
+  "downloaded_at": "2026-01-19T03:34:51.317154Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "git-commit",
-  "repo": "lwpk110/sprout-chat",
+  "repo": "medride/claude-code-research",
   "path": ".claude/skills/git-commit/SKILL.md",
-  "source": "github.com/lwpk110/sprout-chat",
-  "downloaded_at": "2026-01-14T03:56:20.784992Z"
+  "source": "github.com/medride/claude-code-research",
+  "downloaded_at": "2026-01-22T04:02:33.037963Z"
 }

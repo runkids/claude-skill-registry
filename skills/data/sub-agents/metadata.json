@@ -1,7 +1,7 @@
 {
   "name": "sub-agents",
-  "repo": "reggiechan74/claude-plugins",
-  "path": "plugins/claude-code-metaskill/skills/sub-agents/SKILL.md",
-  "source": "github.com/reggiechan74/claude-plugins",
-  "downloaded_at": "2026-01-14T03:58:21.321021Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/sub-agents/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-22T03:23:54.179878Z"
 }

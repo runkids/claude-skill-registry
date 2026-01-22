@@ -1,9 +1,7 @@
 {
   "name": "cursor",
-  "description": "Control Cursor AI code editor via CLI. Open files, folders, diffs, and manage extensions.",
-  "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/cursor/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:08.019215Z"
 }

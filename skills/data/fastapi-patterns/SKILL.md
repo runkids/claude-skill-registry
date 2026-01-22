@@ -1,62 +1,508 @@
 ---
 name: fastapi-patterns
-description: Advanced FastAPI patterns including hierarchical dependency injection, background task management, and type-safe dependency annotation. Triggers: fastapi, dependency-injection, background-tasks, annotated-dependency, permission-chain.
+description: Automatically applies when creating FastAPI endpoints, routers, and API structures. Enforces best practices for endpoint definitions, dependency injection, error handling, and documentation.
 ---
 
-# FastAPI Advanced Patterns
+# FastAPI Endpoint Pattern Enforcer
 
-## Overview
-FastAPI leverages Python's type hints and async capabilities to provide a robust framework for building APIs. Its core strength lies in its Dependency Injection system, which allows for clean, reusable, and hierarchical code structure.
+When building APIs with FastAPI, follow these patterns for consistent, well-documented, and maintainable endpoints.
 
-## When to Use
-- **Shared Logic**: When multiple endpoints need the same authentication, database session, or pagination logic.
-- **Offloading I/O**: When a request triggers a slow operation (like sending an email) that shouldn't block the user response.
-- **Complex Security**: When you need multi-level permission checks (e.g., User -> Active User -> Admin).
+## ✅ Correct Pattern
 
-## Decision Tree
-1. Do you need the same logic in 3+ endpoints? 
-   - YES: Create a reusable Dependency.
-2. Does an operation take more than 50ms and doesn't return data to the user? 
-   - YES: Use `BackgroundTasks`.
-3. Do you want full IDE autocompletion for injected values? 
-   - YES: Use `Annotated[Type, Depends(func)]` syntax.
+```python
+from fastapi import APIRouter, Depends, HTTPException, status, Query
+from pydantic import BaseModel
+from typing import Optional
 
-## Workflows
+router = APIRouter(prefix="/api/v1/users", tags=["users"])
 
-### 1. Implementing Reusable Shared Logic
-1. Define a dependency function that extracts common parameters (e.g., pagination or auth).
-2. Create a type alias using `Annotated[Type, Depends(dependency_function)]`.
-3. Inject this alias into multiple path operation functions to access the shared logic results.
 
-### 2. Offloading Tasks to the Background
-1. Define a standard Python function for the slow task (e.g., sending an email).
-2. Include `background_tasks: BackgroundTasks` as a parameter in the API endpoint.
-3. Call `background_tasks.add_task(task_function, *args)` inside the endpoint.
-4. Return a response immediately to the user while the task runs in the background.
+class UserCreate(BaseModel):
+    """Request model for user creation."""
+    email: str
+    name: str
+    age: Optional[int] = None
 
-### 3. Hierarchical Permission Checks
-1. Create a base dependency for `get_current_user`.
-2. Create a sub-dependency `get_active_user` that depends on `get_current_user`.
-3. Create a final `get_admin_user` that depends on `get_active_user`.
-4. FastAPI will execute the chain in order and stop if any dependency raises an HTTPException.
 
-## Non-Obvious Insights
-- **Dependency Tree Resolution**: FastAPI resolves a full tree of dependencies automatically; if three different dependencies all require the same database session, FastAPI can be configured to call the session creator only once per request.
-- **Annotated is Best Practice**: Using `Annotated` keeps your code DRY (Don't Repeat Yourself) and ensures that static analysis tools understand exactly what type is being injected.
-- **Flexible Background Tasks**: `BackgroundTasks` can be declared anywhere in the dependency chain, not just in the final endpoint function.
+class UserResponse(BaseModel):
+    """Response model for user endpoints."""
+    id: str
+    email: str
+    name: str
+    created_at: str
 
-## Evidence
-- "Dependency Injection means... that there is a way for your code to declare things that it requires to work and use." - [FastAPI Docs](https://fastapi.tiangolo.com/tutorial/dependencies/)
-- "BackgroundTasks is useful for operations that need to happen after a request... client doesn't really have to be waiting." - [FastAPI Docs](https://fastapi.tiangolo.com/tutorial/background-tasks/)
-- "Annotated dependencies... type information will be preserved, which means your editor will keep providing autocompletion." - [FastAPI Docs](https://fastapi.tiangolo.com/tutorial/dependencies/)
 
-## Scripts
-- `scripts/fastapi-patterns_tool.py`: Example of Dependency Injection and Background Tasks.
-- `scripts/fastapi-patterns_tool.js`: (Simulated) Pattern comparison for Node.js middleware.
+@router.post(
+    "/",
+    response_model=UserResponse,
+    status_code=status.HTTP_201_CREATED,
+    summary="Create a new user",
+    responses={
+        201: {"description": "User created successfully"},
+        409: {"description": "Email already registered"},
+        422: {"description": "Validation error"}
+    }
+)
+async def create_user(
+    user: UserCreate,
+    current_user: User = Depends(get_current_user),
+    user_service: UserService = Depends()
+) -> UserResponse:
+    """
+    Create a new user account.
 
-## Dependencies
-- `fastapi`
-- `pydantic`
+    - **email**: Valid email address
+    - **name**: User's full name
+    - **age**: Optional user age
+    """
+    try:
+        return await user_service.create(user)
+    except DuplicateEmailError:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Email already registered"
+        )
+```
+
+## Router Organization
+
+```python
+from fastapi import APIRouter
+
+# Organize endpoints by resource
+users_router = APIRouter(prefix="/api/v1/users", tags=["users"])
+products_router = APIRouter(prefix="/api/v1/products", tags=["products"])
+orders_router = APIRouter(prefix="/api/v1/orders", tags=["orders"])
+
+# Register routers in main app
+app = FastAPI()
+app.include_router(users_router)
+app.include_router(products_router)
+app.include_router(orders_router)
+```
+
+## Dependency Injection
+
+```python
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from typing import Annotated
+
+security = HTTPBearer()
+
+
+async def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+) -> User:
+    """Extract and validate current user from token."""
+    token = credentials.credentials
+    user = await verify_token(token)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials"
+        )
+    return user
+
+
+async def get_admin_user(
+    current_user: User = Depends(get_current_user)
+) -> User:
+    """Verify user has admin privileges."""
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin privileges required"
+        )
+    return current_user
+
+
+# Use in endpoints
+@router.get("/admin-only")
+async def admin_endpoint(
+    admin: User = Depends(get_admin_user)
+) -> dict:
+    """Admin-only endpoint."""
+    return {"message": "Admin access granted"}
+```
+
+## Request Validation
+
+```python
+from fastapi import Query, Path, Body
+from pydantic import Field
+
+@router.get("/users")
+async def list_users(
+    page: int = Query(1, ge=1, description="Page number"),
+    page_size: int = Query(10, ge=1, le=100, description="Items per page"),
+    search: Optional[str] = Query(None, min_length=1, max_length=100),
+    sort_by: str = Query("created_at", regex="^(name|email|created_at)$")
+) -> list[UserResponse]:
+    """List users with pagination and filtering."""
+    return await user_service.list(
+        page=page,
+        page_size=page_size,
+        search=search,
+        sort_by=sort_by
+    )
+
+
+@router.get("/users/{user_id}")
+async def get_user(
+    user_id: str = Path(..., min_length=1, description="User ID")
+) -> UserResponse:
+    """Get user by ID."""
+    user = await user_service.get(user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User {user_id} not found"
+        )
+    return user
+
+
+@router.patch("/users/{user_id}")
+async def update_user(
+    user_id: str = Path(...),
+    update: dict = Body(..., example={"name": "New Name"})
+) -> UserResponse:
+    """Partially update user."""
+    return await user_service.update(user_id, update)
+```
+
+## Error Handling
+
+```python
+from fastapi import HTTPException, status
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+
+# Service layer exceptions
+class ServiceError(Exception):
+    """Base service exception."""
+    pass
+
+
+class NotFoundError(ServiceError):
+    """Resource not found."""
+    pass
+
+
+class DuplicateError(ServiceError):
+    """Duplicate resource."""
+    pass
+
+
+# Convert service exceptions to HTTP exceptions
+@router.post("/users")
+async def create_user(user: UserCreate) -> UserResponse:
+    """Create user with proper error handling."""
+    try:
+        return await user_service.create(user)
+    except DuplicateError as e:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(e)
+        )
+    except ServiceError as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error"
+        )
+
+
+# Global exception handlers
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    """Handle validation errors."""
+    return JSONResponse(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        content={
+            "detail": "Validation error",
+            "errors": exc.errors()
+        }
+    )
+
+
+@app.exception_handler(ServiceError)
+async def service_exception_handler(request, exc):
+    """Handle service errors."""
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content={"detail": "Internal server error"}
+    )
+```
+
+## Response Models
+
+```python
+from pydantic import BaseModel
+from typing import Generic, TypeVar, List
+
+T = TypeVar('T')
+
+
+class PaginatedResponse(BaseModel, Generic[T]):
+    """Generic paginated response."""
+    items: List[T]
+    total: int
+    page: int
+    page_size: int
+    has_next: bool
+
+
+class SuccessResponse(BaseModel):
+    """Generic success response."""
+    message: str
+    data: Optional[dict] = None
+
+
+class ErrorResponse(BaseModel):
+    """Error response model."""
+    detail: str
+    code: Optional[str] = None
+
+
+@router.get(
+    "/users",
+    response_model=PaginatedResponse[UserResponse]
+)
+async def list_users(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(10, ge=1, le=100)
+) -> PaginatedResponse[UserResponse]:
+    """List users with pagination."""
+    users, total = await user_service.list_paginated(page, page_size)
+    return PaginatedResponse(
+        items=users,
+        total=total,
+        page=page,
+        page_size=page_size,
+        has_next=total > page * page_size
+    )
+```
+
+## Async Operations
+
+```python
+import httpx
+from fastapi import BackgroundTasks
+
+
+async def fetch_external_data(user_id: str) -> dict:
+    """Fetch data from external service."""
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"https://api.example.com/users/{user_id}")
+        response.raise_for_status()
+        return response.json()
+
+
+async def send_email(email: str, subject: str, body: str):
+    """Send email asynchronously."""
+    # Email sending logic
+    pass
+
+
+@router.post("/users/{user_id}/notify")
+async def notify_user(
+    user_id: str,
+    background_tasks: BackgroundTasks
+) -> SuccessResponse:
+    """Notify user via email in background."""
+    user = await user_service.get(user_id)
+
+    # Add task to background
+    background_tasks.add_task(
+        send_email,
+        email=user.email,
+        subject="Notification",
+        body="You have a new notification"
+    )
+
+    return SuccessResponse(message="Notification scheduled")
+```
+
+## OpenAPI Documentation
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI(
+    title="My API",
+    description="Comprehensive API for user management",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json"
+)
+
+
+@router.post(
+    "/users",
+    summary="Create user",
+    description="Create a new user with email and name",
+    response_description="Created user object",
+    tags=["users"],
+    responses={
+        201: {
+            "description": "User created",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "id": "usr_123",
+                        "email": "user@example.com",
+                        "name": "John Doe"
+                    }
+                }
+            }
+        },
+        409: {"description": "Email already exists"}
+    }
+)
+async def create_user(user: UserCreate) -> UserResponse:
+    """
+    Create a new user.
+
+    Parameters:
+    - **email**: User email address (required)
+    - **name**: User full name (required)
+    """
+    return await user_service.create(user)
+```
+
+## Middleware
+
+```python
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+import time
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://example.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+# Compression
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+
+
+# Custom middleware
+class TimingMiddleware(BaseHTTPMiddleware):
+    """Log request timing."""
+
+    async def dispatch(self, request, call_next):
+        start_time = time.time()
+        response = await call_next(request)
+        duration = time.time() - start_time
+        response.headers["X-Process-Time"] = str(duration)
+        return response
+
+
+app.add_middleware(TimingMiddleware)
+```
+
+## ❌ Anti-Patterns
+
+```python
+# ❌ No type hints
+@app.get("/users")
+async def get_users():  # Missing return type and parameter types
+    pass
+
+# ✅ Better: full type hints
+@app.get("/users")
+async def get_users(
+    page: int = Query(1)
+) -> list[UserResponse]:
+    pass
+
+
+# ❌ No response model
+@app.get("/users")
+async def get_users() -> dict:  # Returns dict (no validation)
+    return {"users": [...]}
+
+# ✅ Better: use Pydantic response model
+@app.get("/users", response_model=list[UserResponse])
+async def get_users() -> list[UserResponse]:
+    return await user_service.list()
+
+
+# ❌ Generic exception handling
+@app.post("/users")
+async def create_user(user: UserCreate):
+    try:
+        return await user_service.create(user)
+    except Exception:  # Too broad!
+        raise HTTPException(500, "Error")
+
+# ✅ Better: specific exception handling
+@app.post("/users")
+async def create_user(user: UserCreate):
+    try:
+        return await user_service.create(user)
+    except DuplicateError as e:
+        raise HTTPException(409, str(e))
+    except ValidationError as e:
+        raise HTTPException(422, str(e))
+
+
+# ❌ Blocking I/O in async endpoint
+@app.get("/data")
+async def get_data():
+    data = requests.get("https://api.example.com")  # Blocking!
+    return data.json()
+
+# ✅ Better: use async HTTP client
+@app.get("/data")
+async def get_data():
+    async with httpx.AsyncClient() as client:
+        response = await client.get("https://api.example.com")
+        return response.json()
+```
+
+## Best Practices Checklist
+
+- ✅ Use `APIRouter` for organizing endpoints
+- ✅ Define Pydantic models for requests and responses
+- ✅ Add `response_model` to all endpoints
+- ✅ Use appropriate HTTP status codes
+- ✅ Document endpoints with docstrings
+- ✅ Handle service exceptions and convert to HTTP exceptions
+- ✅ Use dependency injection with `Depends()`
+- ✅ Add validation to query/path/body parameters
+- ✅ Use async/await for all I/O operations
+- ✅ Add OpenAPI documentation
+- ✅ Use background tasks for long-running operations
+- ✅ Implement proper error responses
+
+## Auto-Apply
+
+When creating FastAPI endpoints:
+1. Define request/response Pydantic models
+2. Use `APIRouter` with prefix and tags
+3. Add type hints to all parameters
+4. Specify `response_model` and `status_code`
+5. Document with docstring
+6. Handle exceptions properly
+7. Use `Depends()` for authentication and services
 
 ## References
-- [references/README.md](references/README.md)
+
+For comprehensive examples, see:
+- [Python Patterns Guide](../../../docs/python-patterns.md#fastapi-endpoints)
+- [Pydantic Models Skill](../pydantic-models/SKILL.md)
+- [Async/Await Patterns Skill](../async-await-checker/SKILL.md)
+
+## Related Skills
+
+- pydantic-models - For request/response models
+- async-await-checker - For async endpoint patterns
+- structured-errors - For error handling
+- docstring-format - For endpoint documentation

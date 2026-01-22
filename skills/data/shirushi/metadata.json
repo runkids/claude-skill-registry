@@ -1,11 +1,7 @@
 {
   "name": "shirushi",
-  "description": "Document ID management for Git repositories. Validates, assigns, and tracks immutable doc_ids across Markdown/YAML files. Use when working with doc_id, document IDs, \"@see docid\" references, document ",
-  "repo": "CAPHTECH/shirushi",
-  "category": "documents",
-  "tags": [
-    "shirushi"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/caphtech/shirushi/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-22T01:49:34.083354Z"
 }

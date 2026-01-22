@@ -1,192 +1,163 @@
 ---
-name: "Frontend Excellence"
-description: "Design systems, component libraries, responsive UI/UX, accessibility. Build premium interfaces that enterprise clients expect."
-enabled: true
+name: frontend-excellence
+description: Create distinctive, production-grade frontend interfaces that avoid generic AI aesthetics. Use when building web UIs, React components, landing pages, dashboards, or styling any web interface. Provides design thinking process, color palettes, typography treatments, and anti-patterns to avoid.
 ---
 
-# FRONTEND EXCELLENCE SKILL
-## Premium UI/UX Architecture for Enterprise SaaS
+# Frontend Excellence
 
-### 🎨 DESIGN SYSTEM PHILOSOPHY
+Create distinctive, memorable frontend interfaces that avoid "AI slop" aesthetics. Every interface should feel genuinely designed for its context.
 
-**Rhino Brand Colors**
-- Primary: Teal (#208090) - Trust, professionalism, energy
-- Secondary: Slate Gray (#2F3F48) - Stability, data-driven
-- Accent: Deep Red (#C01530) - Urgency, attention, risk highlighting
-- Neutral: Cool Grays (#F5F5F5, #E0E0E0, #999999)
-- Status: Green (success #22C55E), Amber (warning #F59E0B), Red (error #EF4444)
+## Design Thinking Process
 
-**Typography Hierarchy**
-- H1 (32px): Page titles, major sections
-- H2 (24px): Section headers
-- H3 (18px): Subsection headers
-- H4 (16px): Component labels
-- Body (14px): Primary content
-- Caption (12px): Metadata, timestamps, help text
-- Monospace (13px): Code, calculations, financial values
+Before coding, commit to a BOLD aesthetic direction:
 
-**Spacing System** (8px grid)
-- xs: 4px (tight spacing)
-- sm: 8px (default gap)
-- md: 16px (section spacing)
-- lg: 24px (major separation)
-- xl: 32px (layout sections)
+| Question | Purpose |
+|----------|---------|
+| **Purpose** | What problem does this interface solve? Who uses it? |
+| **Tone** | Pick an extreme: brutalist, maximalist, retro-futuristic, organic, luxury, playful, editorial, art deco, soft pastel, industrial |
+| **Constraints** | Framework requirements, performance, accessibility |
+| **Differentiation** | What's the ONE thing someone will remember? |
 
-### 🔧 CORE COMPONENTS
+**Key insight:** Bold maximalism and refined minimalism both work. The key is intentionality, not intensity.
 
-**Form Components**
-- Text Input: Single line, validation states, placeholder text
-- Textarea: Multi-line with char count, min/max
-- Select Dropdown: Native + custom with search
-- Checkbox: Single and grouped options
-- Radio: Mutually exclusive selection
-- Toggle Switch: On/off states with labels
-- Date Picker: Calendar interface, range selection
-- Number Input: Increment/decrement, min/max, precision
-- File Upload: Drag-drop, file type validation
+## Anti-Patterns (AI Slop)
 
-**Data Display**
-- Table: Sortable columns, pagination, row selection, sticky header
-- Card: Container with padding, borders, shadow on hover
-- Modal: Center dialog, backdrop overlay, focus trap
-- Tooltip: Hover-triggered help text
-- Badge: Status indicators, counts, labels
-- Progress Bar: Linear progress with percentage
-- Alert: Error, warning, success, info messages
+### ❌ Never Use
 
-**Navigation**
-- Navbar: Logo, menu items, user dropdown, search
-- Sidebar: Collapsible navigation, active state highlighting
-- Breadcrumbs: Path navigation with links
-- Tabs: Horizontal tab navigation
-- Pagination: Previous/next, page numbers, jump to page
+**Typography:**
+- Inter, Roboto, Arial, system fonts
+- Space Grotesk (overused "good" choice)
+- Default font stacks without character
 
-**Financial/Data Specific**
-- Number Display: Formatted currency ($M, thousands separator)
-- Percentage Display: With trend indicators (up/down arrows)
-- Chart Container: Responsive chart wrapper with legend
-- Data Row: Key-value pair with units
-- Comparison Widget: Side-by-side metric comparison
+**Color:**
+- Purple gradients on white backgrounds
+- Evenly-distributed, timid palettes
+- Default framework colors
 
-### ✨ MICRO-INTERACTIONS & ANIMATIONS
+**Layout:**
+- Excessive centered elements
+- Predictable symmetric layouts
+- Cookie-cutter component patterns
+- Uniform rounded corners everywhere
 
-**Transitions**
-- Button hover: Subtle background color shift (150ms ease)
-- Link hover: Color change + underline fade in
-- Form focus: Border color change + shadow glow
-- Modal entrance: Fade in + slight scale up
-- List item: Slide in on first load
+## What to Do Instead
 
-**Loading States**
-- Skeleton screens: Placeholder shapes while loading
-- Progress indicators: Circular spinner for indeterminate
-- Percentage progress: Bar for determinate loads
-- Pulsing animation: Breathing effect on loading states
+### Typography
 
-**Feedback**
-- Toast notifications: Bottom-right corner, auto-dismiss
-- Loading cursor: Visual feedback during processing
-- Disabled state: 50% opacity, cursor-not-allowed
-- Error state: Red border, icon, help text
+| Technique | Description |
+|-----------|-------------|
+| **Extreme contrast** | 72pt headlines vs 11pt body |
+| **All-caps headers** | With wide letter spacing |
+| **Monospace for data** | Technical content, stats, code |
+| **Display + body pairing** | Distinctive display font with refined body font |
+| **Outlined text** | For emphasis on bold backgrounds |
 
-### 📱 RESPONSIVE DESIGN
+### Color & Theme
 
-**Breakpoints**
-- Mobile: < 640px (single column, stacked layout)
-- Tablet: 640px - 1024px (two columns, flexible sidebar)
-- Desktop: > 1024px (three columns, full navigation)
+Choose from or adapt these palettes:
 
-**Mobile Optimizations**
-- Touch targets: Minimum 44px × 44px
-- Simplified forms: Fewer fields per screen
-- Bottom sheet modals: Easier thumb reach
-- Vertical scrolling: Avoid horizontal where possible
-- Font sizes: 16px+ for readable mobile
-
-### ♿ ACCESSIBILITY (WCAG 2.1 AA)
-
-**Color & Contrast**
-- Text contrast: 4.5:1 for normal text, 3:1 for large text
-- Don't rely on color alone: Use icons + text
-- Color blindness: Avoid red-green only distinction
-
-**Keyboard Navigation**
-- Tab order: Logical left-to-right, top-to-bottom
-- Focus indicators: Visible 2px outline around focused element
-- Escape key: Closes modals, dropdowns
-- Enter key: Submits forms, triggers actions
-
-**Screen Readers**
-- Semantic HTML: Use <button>, <nav>, <article>, not <div>
-- ARIA labels: aria-label for icon buttons
-- ARIA live regions: aria-live="polite" for dynamic content
-- Form labels: <label> with proper for= attribute
-- Link text: Descriptive "Edit Project" not "Click here"
-
-**Motion & Animation**
-- prefers-reduced-motion: Respect user's system setting
-- No autoplaying videos: User control always
-- Blinking/flashing: Avoid, or < 3 Hz if necessary
-
-### 🎯 STATE MANAGEMENT PATTERNS
-
-**React Component Structure**
+**Professional:**
 ```
-App
-├── Layout
-│   ├── Navbar
-│   ├── Sidebar
-│   └── MainContent
-│       ├── Dashboard
-│       ├── ProjectList
-│       └── DetailView
-└── Modals
-    ├── CreateProject
-    └── EditMetadata
+Classic Blue:      #1C2833 #2E4053 #AAB7B8 #F4F6F6
+Black & Gold:      #BF9A4A #000000 #F4F6F6
+Charcoal & Red:    #292929 #E33737 #CCCBCB
 ```
 
-**Data Flow**
-- Global state: Redux/Zustand for user, auth, app settings
-- Page state: Local component state for UI toggles
-- Server state: React Query for API data caching
-- Form state: React Hook Form for form management
-
-**Context Usage**
-- ThemeContext: Dark/light mode provider
-- AuthContext: User, permissions, authentication
-- NotificationContext: Toast alerts, messages
-
-### 🚀 PERFORMANCE OPTIMIZATION
-
-**Rendering**
-- Code splitting: Lazy load routes with React.lazy()
-- Memoization: React.memo() for expensive components
-- useMemo: Cache derived calculations
-- useCallback: Stable function references
-
-**Loading**
-- Lighthouse: Target 90+ score
-- First Contentful Paint (FCP): < 1.5s
-- Largest Contentful Paint (LCP): < 2.5s
-- Cumulative Layout Shift (CLS): < 0.1
-
-**Bundle Size**
-- Tree shaking: Remove unused code
-- Image optimization: WebP format, responsive sizes
-- CSS purging: Remove unused styles (Tailwind)
-- Code splitting: Separate vendor bundles
-
-### 🎭 DARK/LIGHT MODE
-
-**Theme Implementation**
-- CSS variables: --color-bg, --color-text, --color-border
-- Context provider: ThemeContext wraps app
-- LocalStorage persistence: Remember user preference
-- System preference detection: prefers-color-scheme media query
-- Smooth transition: 200ms fade between themes
-
-**Color Mapping**
-- Light mode: Light backgrounds, dark text
-- Dark mode: Dark backgrounds, light text
-- Both: Same semantic colors, different hex values
+**Warm:**
 ```
+Teal & Coral:      #5EA8A7 #277884 #FE4447 #FFFFFF
+Warm Blush:        #A49393 #EED6D3 #E8B4B8 #FAF7F2
+Sage & Terracotta: #87A96B #E07A5F #F4F1DE #2C2C2C
+```
+
+**Bold:**
+```
+Bold Red:          #C0392B #E74C3C #F39C12 #2ECC71
+Vibrant Orange:    #F96D00 #F2F2F2 #222831
+Pink & Purple:     #F8275B #FF574A #FF737D #3D2F68
+```
+
+**Cool:**
+```
+Deep Purple:       #B165FB #181B24 #40695B #FFFFFF
+Forest Green:      #191A19 #4E9F3D #1E5128 #FFFFFF
+Cream & Forest:    #FFE1C7 #40695B #FCFCFC
+```
+
+**Use dominant colors with sharp accents** - this outperforms timid, evenly-distributed palettes.
+
+### Spatial Composition
+
+| Pattern | Description |
+|---------|-------------|
+| **Asymmetry** | Unequal column widths (30/70, 40/60, 25/75) |
+| **Overlap** | Elements breaking boundaries, layered depth |
+| **Diagonal flow** | Angled section dividers, rotated elements |
+| **Grid-breaking** | Strategic elements that escape the grid |
+| **Negative space** | Generous breathing room OR controlled density |
+
+### Visual Details
+
+**Geometric:**
+- Diagonal section dividers instead of horizontal
+- Rotated text headers at 90° or 270°
+- Circular/hexagonal frames for images
+- Triangular accent shapes in corners
+
+**Borders & Frames:**
+- Thick single-color borders (10-20pt) on one side only
+- Double-line borders with contrasting colors
+- Corner brackets instead of full frames
+- L-shaped borders (top+left or bottom+right)
+- Underline accents beneath headers (3-5pt thick)
+
+**Backgrounds:**
+- Solid color blocks occupying 40-60% of slide/page
+- Gradient fills (vertical or diagonal only)
+- Split backgrounds (two colors, diagonal or vertical)
+- Edge-to-edge color bands
+- Noise textures, grain overlays
+
+### Motion & Animation
+
+**Prioritize high-impact moments:**
+
+1. **Page load** - Staggered reveals using `animation-delay`
+2. **Scroll triggers** - Elements entering viewport
+3. **Hover states** - Surprising transformations
+
+One well-orchestrated page load creates more delight than scattered micro-interactions.
+
+**CSS-first for HTML, Motion library for React.**
+
+## Implementation Rules
+
+### Match Complexity to Vision
+
+- **Maximalist designs** → Elaborate code with extensive animations and effects
+- **Minimalist designs** → Restraint, precision, careful spacing and typography
+
+Elegance comes from executing the vision well.
+
+### Consistency
+
+- Use CSS variables for colors: `--color-primary`, `--color-accent`
+- Establish spacing scale: 4px, 8px, 16px, 24px, 32px, 48px, 64px
+- Repeat visual patterns across components
+
+### Accessibility
+
+- Ensure sufficient contrast (WCAG AA minimum)
+- Don't rely on color alone for meaning
+- Maintain readable font sizes (16px body minimum)
+- Test with keyboard navigation
+
+## Craftsmanship Standard
+
+Create work that appears:
+- **Meticulously crafted** - Every detail intentional
+- **Product of deep expertise** - Professional-level execution
+- **Painstakingly refined** - No rough edges
+- **Master-level implementation** - Could be shown as portfolio work
+
+The final result should look like it took countless hours by someone at the absolute top of their field.

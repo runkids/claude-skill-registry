@@ -1,9 +1,7 @@
 {
   "name": "docs-applying-content-quality",
-  "description": "Universal markdown content quality standards for active voice, heading hierarchy, accessibility compliance (alt text, WCAG AA contrast, screen reader support), and professional formatting. Essential f",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/docs-applying-content-quality/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:17.772766Z"
 }

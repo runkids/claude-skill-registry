@@ -1,14 +1,7 @@
 {
   "name": "cross-session-integrity-check",
-  "description": "Verify integrity of context and behavioral calibration across session boundaries.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "cross",
-    "session",
-    "integrity",
-    "check"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cross-session-integrity-check/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:48.027716Z"
 }

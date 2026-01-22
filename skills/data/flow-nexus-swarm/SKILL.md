@@ -49,12 +49,14 @@ mcp__flow-nexus__swarm_init({
 ```
 
 **Topology Guide:**
+
 - **Hierarchical**: Tree structure with coordinator nodes (best for complex projects)
 - **Mesh**: Peer-to-peer collaboration (best for research and analysis)
 - **Ring**: Circular coordination (best for sequential workflows)
 - **Star**: Centralized hub (best for simple delegation)
 
 **Strategy Guide:**
+
 - **Balanced**: Equal distribution of workload across agents
 - **Specialized**: Agents focus on specific expertise areas
 - **Adaptive**: Dynamic adjustment based on task complexity
@@ -72,6 +74,7 @@ mcp__flow-nexus__agent_spawn({
 ```
 
 **Agent Types:**
+
 - **Researcher**: Information gathering, web search, analysis
 - **Coder**: Code generation, refactoring, implementation
 - **Analyst**: Data analysis, pattern recognition, insights
@@ -92,6 +95,7 @@ mcp__flow-nexus__task_orchestrate({
 ```
 
 **Execution Strategies:**
+
 - **Parallel**: Maximum concurrency for independent subtasks
 - **Sequential**: Step-by-step execution with dependencies
 - **Adaptive**: AI-powered strategy selection based on task analysis
@@ -160,6 +164,7 @@ mcp__flow-nexus__workflow_create({
 ```
 
 **Workflow Features:**
+
 - **Dependency Management**: Define step dependencies with `depends_on`
 - **Parallel Execution**: Set `parallel: true` for concurrent steps
 - **Event Triggers**: GitHub events, schedules, manual triggers
@@ -183,6 +188,7 @@ mcp__flow-nexus__workflow_execute({
 ```
 
 **Execution Modes:**
+
 - **Sync (async: false)**: Immediate execution, wait for completion
 - **Async (async: true)**: Message queue processing, non-blocking
 
@@ -224,6 +230,7 @@ mcp__flow-nexus__workflow_agent_assign({
 ```
 
 **Vector Similarity Matching:**
+
 - Analyzes task requirements and agent capabilities
 - Finds optimal agent based on past performance
 - Considers workload and availability
@@ -376,18 +383,21 @@ mcp__flow-nexus__swarm_templates_list({
 **Available Template Categories:**
 
 **Quickstart Templates:**
+
 - `full-stack-dev`: Complete web development swarm
 - `research-team`: Research and analysis swarm
 - `code-review`: Automated code review swarm
 - `data-pipeline`: ETL and data processing
 
 **Specialized Templates:**
+
 - `ml-development`: Machine learning project swarm
 - `mobile-dev`: Mobile app development
 - `devops-automation`: Infrastructure and deployment
 - `security-audit`: Security analysis and testing
 
 **Enterprise Templates:**
+
 - `enterprise-migration`: Large-scale system migration
 - `multi-repo-sync`: Multi-repository coordination
 - `compliance-review`: Regulatory compliance workflows
@@ -559,26 +569,31 @@ npx claude-flow@alpha hooks post-task --task-id "swarm-execution"
 ## Common Use Cases
 
 ### 1. Multi-Repo Development
+
 - Coordinate development across multiple repositories
 - Synchronized testing and deployment
 - Cross-repo dependency management
 
 ### 2. Research Projects
+
 - Distributed information gathering
 - Parallel analysis of different data sources
 - Collaborative synthesis and reporting
 
 ### 3. DevOps Automation
+
 - Infrastructure as Code deployment
 - Multi-environment testing
 - Automated rollback and recovery
 
 ### 4. Code Quality Workflows
+
 - Automated code review
 - Security scanning
 - Performance benchmarking
 
 ### 5. Data Processing
+
 - Large-scale ETL pipelines
 - Real-time data transformation
 - Data validation and quality checks
@@ -601,9 +616,9 @@ claude mcp add flow-nexus npx flow-nexus@latest mcp start
 
 ## Support & Resources
 
-- **Platform**: https://flow-nexus.ruv.io
-- **Documentation**: https://github.com/ruvnet/flow-nexus
-- **Issues**: https://github.com/ruvnet/flow-nexus/issues
+- **Platform**: <https://flow-nexus.ruv.io>
+- **Documentation**: <https://github.com/ruvnet/flow-nexus>
+- **Issues**: <https://github.com/ruvnet/flow-nexus/issues>
 
 ---
 

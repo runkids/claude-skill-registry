@@ -1,7 +1,7 @@
 {
   "name": "diagram-generator",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".cursor/skills/diagram-generator/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-01-14T03:17:12.226890Z"
+  "repo": "ninehills/skills",
+  "path": "skills/diagram-generator/SKILL.md",
+  "source": "github.com/ninehills/skills",
+  "downloaded_at": "2026-01-22T04:16:27.204861Z"
 }

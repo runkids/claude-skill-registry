@@ -1,316 +1,528 @@
 ---
 name: flutter-development
-description: Build beautiful cross-platform mobile apps with Flutter and Dart. Covers widgets, state management with Provider/BLoC, navigation, API integration, and material design.
+description: Cross-platform development with Flutter and Dart for iOS, Android, Web, Desktop, and embedded. Use when building Flutter apps, implementing Material/Cupertino design, or optimizing Dart code.
 ---
 
 # Flutter Development
 
-## Overview
+Build beautiful, natively compiled applications for mobile, web, desktop, and embedded from a single codebase.
 
-Create high-performance, visually stunning mobile applications using Flutter with Dart language. Master widget composition, state management patterns, navigation, and API integration.
+## Supported Platforms
 
-## When to Use
+| Platform | Status | Notes                   |
+| -------- | ------ | ----------------------- |
+| iOS      | Stable | Full native performance |
+| Android  | Stable | Full native performance |
+| Web      | Stable | PWA support             |
+| macOS    | Stable | Native desktop          |
+| Windows  | Stable | Native desktop          |
+| Linux    | Stable | Native desktop          |
 
-- Building iOS and Android apps with native performance
-- Designing custom UIs with Flutter's widget system
-- Implementing complex animations and visual effects
-- Rapid app development with hot reload
-- Creating consistent UX across platforms
+---
 
-## Instructions
+## Project Structure
 
-### 1. **Project Structure & Navigation**
+```
+my_app/
+├── lib/
+│   ├── main.dart
+│   ├── app.dart
+│   ├── features/
+│   │   ├── home/
+│   │   │   ├── home_screen.dart
+│   │   │   ├── home_controller.dart
+│   │   │   └── widgets/
+│   │   └── settings/
+│   ├── core/
+│   │   ├── theme/
+│   │   ├── utils/
+│   │   └── constants/
+│   └── shared/
+│       ├── models/
+│       ├── services/
+│       └── widgets/
+├── test/
+├── pubspec.yaml
+└── analysis_options.yaml
+```
+
+---
+
+## Basic Structure
+
+### Main Entry
 
 ```dart
-// pubspec.yaml
-name: my_flutter_app
-version: 1.0.0
-
-dependencies:
-  flutter:
-    sdk: flutter
-  provider: ^6.0.0
-  http: ^1.1.0
-  go_router: ^12.0.0
-
-// main.dart with GoRouter navigation
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter App',
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      routerConfig: _router,
+    return MaterialApp(
+      title: 'My App',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+```
+
+### Stateless Widget
+
+```dart
+class GreetingCard extends StatelessWidget {
+  const GreetingCard({
+    super.key,
+    required this.name,
+  });
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          'Hello, $name!',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
+  }
+}
+```
+
+### Stateful Widget
+
+```dart
+class Counter extends StatefulWidget {
+  const Counter({super.key});
+
+  @override
+  State<Counter> createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int _count = 0;
+
+  void _increment() {
+    setState(() {
+      _count++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Count: $_count',
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: _increment,
+          child: const Text('Increment'),
+        ),
+      ],
+    );
+  }
+}
+```
+
+---
+
+## State Management
+
+### Riverpod (Recommended)
+
+```dart
+// Provider definition
+final counterProvider = StateNotifierProvider<CounterNotifier, int>((ref) {
+  return CounterNotifier();
+});
+
+class CounterNotifier extends StateNotifier<int> {
+  CounterNotifier() : super(0);
+
+  void increment() => state++;
+  void decrement() => state--;
+}
+
+// Usage in widget
+class CounterScreen extends ConsumerWidget {
+  const CounterScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final count = ref.watch(counterProvider);
+
+    return Scaffold(
+      body: Center(
+        child: Text('Count: $count'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(counterProvider.notifier).increment(),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
 
-final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
+// Async provider
+final itemsProvider = FutureProvider<List<Item>>((ref) async {
+  final repository = ref.watch(repositoryProvider);
+  return repository.fetchItems();
+});
+```
+
+### BLoC Pattern
+
+```dart
+// Events
+abstract class CounterEvent {}
+class IncrementPressed extends CounterEvent {}
+class DecrementPressed extends CounterEvent {}
+
+// State
+class CounterState {
+  final int count;
+  const CounterState(this.count);
+}
+
+// BLoC
+class CounterBloc extends Bloc<CounterEvent, CounterState> {
+  CounterBloc() : super(const CounterState(0)) {
+    on<IncrementPressed>((event, emit) {
+      emit(CounterState(state.count + 1));
+    });
+    on<DecrementPressed>((event, emit) {
+      emit(CounterState(state.count - 1));
+    });
+  }
+}
+
+// Usage
+BlocBuilder<CounterBloc, CounterState>(
+  builder: (context, state) {
+    return Text('Count: ${state.count}');
+  },
+)
+```
+
+---
+
+## Navigation
+
+### GoRouter (Recommended)
+
+```dart
+final router = GoRouter(
+  initialLocation: '/',
+  routes: [
     GoRoute(
       path: '/',
       builder: (context, state) => const HomeScreen(),
       routes: [
         GoRoute(
           path: 'details/:id',
-          builder: (context, state) => DetailsScreen(
-            itemId: state.pathParameters['id']!
-          ),
+          builder: (context, state) {
+            final id = state.pathParameters['id']!;
+            return DetailsScreen(id: id);
+          },
         ),
       ],
     ),
     GoRoute(
-      path: '/profile',
-      builder: (context, state) => const ProfileScreen(),
+      path: '/settings',
+      builder: (context, state) => const SettingsScreen(),
     ),
   ],
 );
+
+// Usage
+MaterialApp.router(
+  routerConfig: router,
+)
+
+// Navigate
+context.go('/details/123');
+context.push('/settings');
+context.pop();
 ```
 
-### 2. **State Management with Provider**
+---
+
+## Common Widgets
+
+### Lists
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-class User {
-  final String id;
-  final String name;
-  final String email;
-
-  User({required this.id, required this.name, required this.email});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
+ListView.builder(
+  itemCount: items.length,
+  itemBuilder: (context, index) {
+    final item = items[index];
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage(item.imageUrl),
+      ),
+      title: Text(item.title),
+      subtitle: Text(item.subtitle),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () => context.push('/details/${item.id}'),
     );
-  }
-}
-
-class UserProvider extends ChangeNotifier {
-  User? _user;
-  bool _isLoading = false;
-  String? _error;
-
-  User? get user => _user;
-  bool get isLoading => _isLoading;
-  String? get error => _error;
-
-  Future<void> fetchUser(String userId) async {
-    _isLoading = true;
-    _error = null;
-    notifyListeners();
-
-    try {
-      final response = await http.get(
-        Uri.parse('https://api.example.com/users/$userId'),
-        headers: {'Content-Type': 'application/json'},
-      );
-
-      if (response.statusCode == 200) {
-        _user = User.fromJson(jsonDecode(response.body));
-      } else {
-        _error = 'Failed to fetch user';
-      }
-    } catch (e) {
-      _error = 'Error: ${e.toString()}';
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
-
-  void logout() {
-    _user = null;
-    notifyListeners();
-  }
-}
-
-class ItemsProvider extends ChangeNotifier {
-  List<Map<String, dynamic>> _items = [];
-
-  List<Map<String, dynamic>> get items => _items;
-
-  Future<void> fetchItems() async {
-    try {
-      final response = await http.get(
-        Uri.parse('https://api.example.com/items'),
-      );
-
-      if (response.statusCode == 200) {
-        _items = List<Map<String, dynamic>>.from(
-          jsonDecode(response.body) as List
-        );
-        notifyListeners();
-      }
-    } catch (e) {
-      print('Error fetching items: $e');
-    }
-  }
-}
+  },
+)
 ```
 
-### 3. **Screens with Provider Integration**
+### Forms
 
 ```dart
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      Provider.of<ItemsProvider>(context, listen: false).fetchItems();
-    });
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      // Process login
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home Feed')),
-      body: Consumer<ItemsProvider>(
-        builder: (context, itemsProvider, child) {
-          if (itemsProvider.items.isEmpty) {
-            return const Center(child: Text('No items found'));
-          }
-          return ListView.builder(
-            itemCount: itemsProvider.items.length,
-            itemBuilder: (context, index) {
-              final item = itemsProvider.items[index];
-              return ItemCard(item: item);
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _emailController,
+            decoration: const InputDecoration(
+              labelText: 'Email',
+              prefixIcon: Icon(Icons.email),
+            ),
+            keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              if (value == null || !value.contains('@')) {
+                return 'Enter a valid email';
+              }
+              return null;
             },
-          );
-        },
-      ),
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  final Map<String, dynamic> item;
-
-  const ItemCard({required this.item, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8),
-      child: ListTile(
-        title: Text(item['title'] ?? 'Untitled'),
-        subtitle: Text(item['description'] ?? ''),
-        trailing: const Icon(Icons.arrow_forward),
-        onTap: () => context.go('/details/${item['id']}'),
-      ),
-    );
-  }
-}
-
-class DetailsScreen extends StatelessWidget {
-  final String itemId;
-
-  const DetailsScreen({required this.itemId, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Details')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Item ID: $itemId', style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => context.pop(),
-              child: const Text('Go Back'),
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: _passwordController,
+            decoration: const InputDecoration(
+              labelText: 'Password',
+              prefixIcon: Icon(Icons.lock),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: Consumer<UserProvider>(
-        builder: (context, userProvider, child) {
-          if (userProvider.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (userProvider.error != null) {
-            return Center(child: Text('Error: ${userProvider.error}'));
-          }
-          final user = userProvider.user;
-          if (user == null) {
-            return const Center(child: Text('No user data'));
-          }
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Name: ${user.name}', style: const TextStyle(fontSize: 18)),
-                Text('Email: ${user.email}', style: const TextStyle(fontSize: 16)),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () => userProvider.logout(),
-                  child: const Text('Logout'),
-                ),
-              ],
-            ),
-          );
-        },
+            obscureText: true,
+            validator: (value) {
+              if (value == null || value.length < 6) {
+                return 'Password must be at least 6 characters';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: _submit,
+            child: const Text('Login'),
+          ),
+        ],
       ),
     );
   }
 }
 ```
+
+---
+
+## Networking
+
+### Dio HTTP Client
+
+```dart
+class ApiService {
+  final Dio _dio;
+
+  ApiService() : _dio = Dio(BaseOptions(
+    baseUrl: 'https://api.example.com',
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+  )) {
+    _dio.interceptors.add(LogInterceptor());
+  }
+
+  Future<List<Item>> getItems() async {
+    try {
+      final response = await _dio.get('/items');
+      return (response.data as List)
+          .map((json) => Item.fromJson(json))
+          .toList();
+    } on DioException catch (e) {
+      throw ApiException(e.message ?? 'Unknown error');
+    }
+  }
+}
+```
+
+---
+
+## Local Storage
+
+### Hive (Recommended)
+
+```dart
+// Model
+@HiveType(typeId: 0)
+class Item extends HiveObject {
+  @HiveField(0)
+  late String id;
+
+  @HiveField(1)
+  late String name;
+}
+
+// Setup
+await Hive.initFlutter();
+Hive.registerAdapter(ItemAdapter());
+await Hive.openBox<Item>('items');
+
+// Usage
+final box = Hive.box<Item>('items');
+await box.put('key', item);
+final item = box.get('key');
+```
+
+### SharedPreferences
+
+```dart
+final prefs = await SharedPreferences.getInstance();
+await prefs.setString('token', 'abc123');
+final token = prefs.getString('token');
+```
+
+---
+
+## Platform-Specific Code
+
+```dart
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+Widget build(BuildContext context) {
+  if (kIsWeb) {
+    return WebLayout();
+  } else if (Platform.isIOS) {
+    return CupertinoLayout();
+  } else if (Platform.isAndroid) {
+    return MaterialLayout();
+  } else if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
+    return DesktopLayout();
+  }
+  return DefaultLayout();
+}
+```
+
+---
+
+## Testing
+
+### Widget Tests
+
+```dart
+testWidgets('Counter increments', (tester) async {
+  await tester.pumpWidget(const MaterialApp(home: Counter()));
+
+  expect(find.text('Count: 0'), findsOneWidget);
+
+  await tester.tap(find.byIcon(Icons.add));
+  await tester.pump();
+
+  expect(find.text('Count: 1'), findsOneWidget);
+});
+```
+
+### Unit Tests
+
+```dart
+test('Item fromJson parses correctly', () {
+  final json = {'id': '1', 'name': 'Test'};
+  final item = Item.fromJson(json);
+
+  expect(item.id, '1');
+  expect(item.name, 'Test');
+});
+```
+
+---
+
+## Performance
+
+### Best Practices
+
+```dart
+// Use const constructors
+const SizedBox(height: 16)
+
+// Avoid rebuilds with const
+const MyStaticWidget()
+
+// Use ListView.builder for long lists
+ListView.builder(
+  itemCount: items.length,
+  itemBuilder: (context, index) => ItemWidget(items[index]),
+)
+
+// Cache images
+CachedNetworkImage(
+  imageUrl: url,
+  placeholder: (context, url) => const CircularProgressIndicator(),
+)
+```
+
+---
 
 ## Best Practices
 
-### ✅ DO
-- Use widgets for every UI element
-- Implement proper state management
-- Use const constructors where possible
-- Dispose resources in state lifecycle
-- Test on multiple device sizes
-- Use meaningful widget names
-- Implement error handling
-- Use responsive design patterns
-- Test on both iOS and Android
-- Document custom widgets
+### DO:
 
-### ❌ DON'T
-- Build entire screens in build() method
-- Use setState for complex state logic
-- Make network calls in build()
-- Ignore platform differences
-- Create overly nested widget trees
-- Hardcode strings
-- Ignore performance warnings
-- Skip testing
-- Forget to handle edge cases
-- Deploy without thorough testing
+- Use const constructors everywhere possible
+- Split widgets into smaller components
+- Use Riverpod or BLoC for state
+- Follow Flutter naming conventions
+- Write widget tests
+
+### DON'T:
+
+- Put logic in build methods
+- Create god widgets
+- Use setState for complex state
+- Ignore null safety
+- Skip code generation setup

@@ -1,150 +1,100 @@
 ---
-name: craft-coder-help
+name: mvp-help
 description: |
-  Help and documentation for Craft-Coder plugin.
-  Use when: user asks about available skills, commands, or how to use this plugin.
-  Triggers: "help", "what can you do", "craft help", "как пользоваться".
+  Help and documentation for Idea to MVP plugin.
+  Use when: user asks about building MVPs, vibe coding, or available commands.
+  Triggers: "help", "what can you do", "mvp help", "how to build".
 ---
 
-# Craft-Coder: Pair Programming with a Senior Dev
+# Idea to MVP Help
 
-Master your craft through guided development, decision explanations, and TDD workflow.
+Vibe coding: describe your idea, get a deployed MVP.
 
-## Philosophy
+## How It Works
 
-**vibe-coder:** "Describe what you want" → [magic] → "Done!"
-
-**craft-coder:** "Let's design together" → [dialogue] → "Here's why"
-
-We explain WHAT we're doing and WHY.
+```
+You: "I want an app for tracking expenses"
+     ↓
+Claude: Asks clarifying questions
+     ↓
+Claude: Builds everything (hidden complexity)
+     ↓
+You: "✅ Done! [Preview] [Deploy]"
+```
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `/craft {project}` | Guided project creation with explanations |
-| `/craft {project} --learn` | Learning mode (detailed explanations) |
-| `/craft {project} --fast` | Fast mode (minimal dialogue) |
-| `/why` | Explain the last decision |
-| `/why stack` | Why this technology stack? |
-| `/why architecture` | Why this project structure? |
+| `/mvp:brainstorm` | Refine idea with Socratic dialogue |
+| `/mvp:idea` | Start from scratch with simple questions |
+| `/mvp:build` | Create the app (full pipeline) |
+| `/mvp:add` | Add feature to existing app |
+| `/mvp:preview` | Show current state |
+| `/mvp:deploy` | Publish to production |
+
+## Skills (Hidden Pipeline)
+
+These work automatically behind the scenes:
+
+| Phase | Skills |
+|-------|--------|
+| Ideation | brainstorming, idea-validation |
+| Planning | stack-selector, db-designer |
+| Building | ui-generator, api-generator, feature-builder |
+| Quality | test-driven-development, auto-testing, security-check |
+| Polish | frontend-design, theme-factory, code-review-auto |
+| Deploy | deploy-automation, verification-gate |
 
 ## Quick Start
 
-### Start a new project
+### Have an idea?
 ```
-/craft notes-app
+/mvp:idea
 ```
-5-step guided process:
-1. Requirements gathering
-2. Architecture design (with rationale)
-3. Stack selection (with tradeoffs)
-4. Project initialization
-5. First feature implementation
+Answer simple questions, get an app.
 
-### Understand decisions
+### Want to explore first?
 ```
-/why
+/mvp:brainstorm
 ```
-Explains the most recent architectural decision.
+Refine your idea before building.
 
+### Ready to build?
 ```
-/why stack
+/mvp:build
 ```
-Shows why we chose this technology stack, what alternatives were considered, and trade-offs accepted.
+Full pipeline: design → code → test → deploy.
 
-## Skills by Category
+## No Technical Jargon
 
-### Backend
-| Skill | Description |
-|-------|-------------|
-| `backend-core` | API design, authentication, security, databases |
-| `backend-python` | FastAPI, Django, SQLAlchemy, async patterns |
-| `backend-nodejs` | Express, NestJS, Prisma, TypeScript backend |
-| `backend-rust` | Axum, Actix, SQLx, performance-critical services |
+You never need to know:
+- What framework to use
+- How to structure code
+- What tests to write
+- How to deploy
 
-### Frontend
-| Skill | Description |
-|-------|-------------|
-| `frontend-react` | React 18+, hooks, state management, performance |
-| `frontend-design` | Distinctive UI avoiding "AI slop" aesthetics |
-| `theme-factory` | Color palettes, typography, design systems |
+Just describe what you want. We handle the rest.
 
-### Quality & Testing
-| Skill | Description |
-|-------|-------------|
-| `code-review` | PR review workflow, technical feedback |
-| `testing-core` | Unit, integration, e2e testing strategies |
-| `test-driven-development` | TDD cycle: red → green → refactor |
-| `testing-anti-patterns` | Common testing mistakes to avoid |
+## Troubleshooting
 
-### Debugging
-| Skill | Description |
-|-------|-------------|
-| `systematic-debugging` | Methodical bug investigation |
-| `root-cause-tracing` | Find the actual source of issues |
-| `defense-in-depth` | Prevent bugs from reaching production |
+### Плагин не обновляется после `/plugin`
 
-### Documentation
-| Skill | Description |
-|-------|-------------|
-| `decision-logger` | Log architectural decisions (ADR format) |
+Если после обновления плагина (`/plugin` → Update) изменения не применяются:
 
-## Modes
+```bash
+# Удалить кэш плагина
+rm -rf ~/.claude/plugins/cache/vibe-coder
 
-### Learning Mode (`--learn`)
-- Detailed explanations for every decision
-- "Why?" sections included
-- Links to learning resources
-- Best for juniors and those learning new tech
-
-### Fast Mode (`--fast`)
-- Skip explanations
-- Use sensible defaults
-- Minimal questions
-- Best for experienced devs who want speed
-
-### Balanced Mode (default)
-- Key decisions explained briefly
-- `/why` available for details
-- Good speed/understanding balance
-- Best for most developers
-
-## Decision Records
-
-All architectural decisions are logged to `docs/DECISIONS.md` in ADR format.
-
-Example:
-```markdown
-## ADR-001: Use Rust + Axum
-
-**Context:** Need fast API with single binary deployment
-
-**Decision:** Rust with Axum framework
-
-**Why:** Meets <50ms requirement, compiles to single binary
-
-**Alternatives:** Go (less type safety), Node (not single binary)
+# Затем заново
+/plugin
+# → vibe-coder → Update
 ```
 
-## vs vibe-coder
+После этого перезапустить Claude Code.
 
-| Aspect | vibe-coder | craft-coder |
-|--------|------------|-------------|
-| Decisions | Automatic | Explained |
-| Errors | Auto-fix | Dialogue + options |
-| Learning | Hidden | Built-in |
-| Control | Minimal | Full |
-| Speed | Maximum | Balanced |
-| Audience | Makers | Developers |
+### Команды не работают
 
-Choose **craft-coder** when you want to:
-- Understand architectural decisions
-- Learn best practices
-- Have control over technology choices
-- Document decisions for your team
-
-Choose **vibe-coder** when you want:
-- Fastest path to MVP
-- No technical decisions
-- Just describe and ship
+1. Проверить что плагин установлен: `/plugin` → должен показать vibe-coder
+2. Перезапустить Claude Code после установки/обновления
+3. Если всё ещё не работает — удалить кэш (см. выше)

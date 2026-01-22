@@ -1,281 +1,164 @@
 ---
 name: shadcn
-description: This skill should be used when the user asks to "add a component", "use shadcn", "install Button", "create Dialog", "add Form", "use DataTable", "implement dark mode toggle", "use cn utility", or discusses UI components, component libraries, or accessible components. Always use the latest shadcn/ui version and modern patterns.
+displayName: shadcn/ui
+description: shadcn/ui component library patterns
 version: 1.0.0
 ---
 
-# shadcn/ui Development
+# shadcn/ui Development Guidelines
 
-This skill provides guidance for building interfaces with shadcn/ui, focusing on **always using the latest version** and modern patterns.
+Best practices for using shadcn/ui components with Tailwind CSS and Radix UI primitives.
 
-> **Philosophy:** Copy and own your components. Use the `new-york` style. Leverage Radix UI primitives for accessibility.
+## Core Principles
 
-## Quick Reference
-
-| Feature | Modern Approach | Legacy (Avoid) |
-|---------|----------------|----------------|
-| Style | `new-york` | `default` (deprecated) |
-| Toast | `sonner` | `toast` component |
-| Animation | CSS/tw-animate-css | `tailwindcss-animate` |
-| forwardRef | Direct `ref` prop (React 19) | `forwardRef` wrapper |
+1. **Copy, Don't Install**: Components are copied to your project, not installed as dependencies
+2. **Customizable**: Modify components directly in your codebase
+3. **Accessible**: Built on Radix UI primitives with ARIA support
+4. **Type-Safe**: Full TypeScript support
+5. **Composable**: Build complex UIs from simple primitives
 
 ## Installation
 
-### Initialize in Next.js
+### Initial Setup
 
 ```bash
 npx shadcn@latest init
 ```
-
-Configuration prompts:
-- Style: **new-york** (recommended)
-- Base color: neutral, slate, zinc, gray, or stone
-- CSS variables: **Yes** (recommended)
 
 ### Add Components
 
 ```bash
 # Add individual components
 npx shadcn@latest add button
-npx shadcn@latest add card dialog form input
+npx shadcn@latest add form
+npx shadcn@latest add dialog
 
-# Add multiple components
-npx shadcn@latest add button card dialog form input label textarea
+# Add multiple
+npx shadcn@latest add button card dialog
 ```
 
-## The cn() Utility
+### Troubleshooting
 
-Merge Tailwind classes conditionally:
+#### npm Cache Errors (ENOTEMPTY)
 
-```tsx
-import { cn } from "@/lib/utils"
+If `npx shadcn@latest add` fails with npm cache errors like `ENOTEMPTY` or `syscall rename`:
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'destructive' | 'outline'
-  size?: 'sm' | 'md' | 'lg'
-}
-
-export function Button({
-  className,
-  variant = 'default',
-  size = 'md',
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      className={cn(
-        // Base styles
-        "inline-flex items-center justify-center rounded-md font-medium transition-colors",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        "disabled:pointer-events-none disabled:opacity-50",
-
-        // Variants
-        variant === 'default' && "bg-primary text-primary-foreground hover:bg-primary/90",
-        variant === 'destructive' && "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        variant === 'outline' && "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-
-        // Sizes
-        size === 'sm' && "h-8 px-3 text-xs",
-        size === 'md' && "h-10 px-4 text-sm",
-        size === 'lg' && "h-12 px-6 text-base",
-
-        // Custom classes
-        className
-      )}
-      {...props}
-    />
-  )
-}
+**Solution 1: Clear npm cache**
+```bash
+npm cache clean --force
+npx shadcn@latest add table
 ```
 
-## Core Components
+**Solution 2: Use pnpm (recommended)**
+```bash
+pnpm dlx shadcn@latest add table
+```
 
-### Button
+**Solution 3: Use yarn**
+```bash
+yarn dlx shadcn@latest add table
+```
 
-```tsx
-import { Button } from "@/components/ui/button"
+**Solution 4: Manual component installation**
+
+Visit the [shadcn/ui documentation](https://ui.shadcn.com/docs/components) for the specific component and copy the code directly into your project.
+
+## Component Usage
+
+### Button & Card
+
+```typescript
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 // Variants
 <Button>Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>
 <Button variant="destructive">Destructive</Button>
+<Button variant="outline">Outline</Button>
 
-// Sizes
-<Button size="sm">Small</Button>
-<Button size="default">Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon"><IconSearch /></Button>
-
-// States
-<Button disabled>Disabled</Button>
-<Button asChild>
-  <Link href="/about">As Link</Link>
-</Button>
-```
-
-### Card
-
-```tsx
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
+// Card
 <Card>
   <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card description goes here</CardDescription>
+    <CardTitle>{post.title}</CardTitle>
+    <CardDescription>{post.author}</CardDescription>
   </CardHeader>
   <CardContent>
-    <p>Card content</p>
+    <p>{post.excerpt}</p>
   </CardContent>
-  <CardFooter>
-    <Button>Action</Button>
-  </CardFooter>
 </Card>
 ```
 
 ### Dialog
 
-```tsx
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog"
+```typescript
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
-<Dialog>
-  <DialogTrigger asChild>
-    <Button>Open Dialog</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone.
-      </DialogDescription>
-    </DialogHeader>
-    <div className="py-4">
-      Dialog body content
-    </div>
-    <DialogFooter>
-      <DialogClose asChild>
-        <Button variant="outline">Cancel</Button>
-      </DialogClose>
-      <Button>Confirm</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+export function CreatePostDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Create Post</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Create New Post</DialogTitle>
+          <DialogDescription>
+            Fill in the details below to create a new post.
+          </DialogDescription>
+        </DialogHeader>
+        <PostForm />
+      </DialogContent>
+    </Dialog>
+  );
+}
 ```
 
-### Input & Label
+## Forms
 
-```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+### Basic Form with react-hook-form
 
-<div className="grid gap-2">
-  <Label htmlFor="email">Email</Label>
-  <Input
-    id="email"
-    type="email"
-    placeholder="you@example.com"
-  />
-</div>
-```
+```typescript
+'use client';
 
-### Select
-
-```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
-<Select>
-  <SelectTrigger className="w-[200px]">
-    <SelectValue placeholder="Select option" />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="option1">Option 1</SelectItem>
-    <SelectItem value="option2">Option 2</SelectItem>
-    <SelectItem value="option3">Option 3</SelectItem>
-  </SelectContent>
-</Select>
-```
-
-## Form Handling
-
-### With React Hook Form + Zod
-
-```tsx
-'use client'
-
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 const formSchema = z.object({
-  username: z.string().min(2, "Username must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-})
+  title: z.string().min(1, 'Title is required'),
+  content: z.string().min(10, 'Content must be at least 10 characters')
+});
 
-type FormValues = z.infer<typeof formSchema>
-
-export function ProfileForm() {
-  const form = useForm<FormValues>({
+export function PostForm() {
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      email: "",
-    },
-  })
+      title: '',
+      content: ''
+    }
+  });
 
-  function onSubmit(values: FormValues) {
-    console.log(values)
-  }
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="username"
+          name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="johndoe" {...field} />
+                <Input placeholder="Post title" {...field} />
               </FormControl>
-              <FormDescription>
-                Your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -283,291 +166,353 @@ export function ProfileForm() {
 
         <FormField
           control={form.control}
-          name="email"
+          name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Content</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="john@example.com" {...field} />
+                <Textarea placeholder="Write your post..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Create Post</Button>
       </form>
     </Form>
-  )
+  );
 }
 ```
 
-### With Server Actions
+### Select Field
 
-```tsx
-'use client'
+```typescript
+<FormField
+  control={form.control}
+  name="category"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Category</FormLabel>
+      <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <FormControl>
+          <SelectTrigger>
+            <SelectValue placeholder="Select a category" />
+          </SelectTrigger>
+        </FormControl>
+        <SelectContent>
+          <SelectItem value="tech">Technology</SelectItem>
+          <SelectItem value="design">Design</SelectItem>
+          <SelectItem value="business">Business</SelectItem>
+        </SelectContent>
+      </Select>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+```
 
-import { useActionState } from 'react'
-import { createUser } from './actions'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+## Data Display
 
-export function SignupForm() {
-  const [state, formAction, isPending] = useActionState(createUser, {
-    error: null
-  })
+### Table
+
+```typescript
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+
+export function PostsTable({ posts }: { posts: Post[] }) {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Title</TableHead>
+          <TableHead>Author</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead className="text-right">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {posts.map((post) => (
+          <TableRow key={post.id}>
+            <TableCell className="font-medium">{post.title}</TableCell>
+            <TableCell>{post.author.name}</TableCell>
+            <TableCell>
+              <Badge variant={post.published ? 'default' : 'secondary'}>
+                {post.published ? 'Published' : 'Draft'}
+              </Badge>
+            </TableCell>
+            <TableCell className="text-right">
+              <Button variant="ghost" size="sm">Edit</Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+```
+
+## Navigation
+
+### Badge & Dropdown Menu
+
+```typescript
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+
+export function UserMenu() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost">
+          <User className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Log out</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+```
+
+### Tabs
+
+```typescript
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+export function PostTabs() {
+  return (
+    <Tabs defaultValue="published">
+      <TabsList>
+        <TabsTrigger value="published">Published</TabsTrigger>
+        <TabsTrigger value="drafts">Drafts</TabsTrigger>
+        <TabsTrigger value="archived">Archived</TabsTrigger>
+      </TabsList>
+      <TabsContent value="published">
+        <PublishedPosts />
+      </TabsContent>
+      <TabsContent value="drafts">
+        <DraftPosts />
+      </TabsContent>
+      <TabsContent value="archived">
+        <ArchivedPosts />
+      </TabsContent>
+    </Tabs>
+  );
+}
+```
+
+## Feedback
+
+### Toast
+
+```typescript
+'use client';
+
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+
+export function ToastExample() {
+  const { toast } = useToast();
 
   return (
-    <form action={formAction} className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          disabled={isPending}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          disabled={isPending}
-        />
-      </div>
-
-      {state.error && (
-        <p className="text-sm text-destructive">{state.error}</p>
-      )}
-
-      <Button type="submit" disabled={isPending}>
-        {isPending ? 'Creating...' : 'Create Account'}
-      </Button>
-    </form>
-  )
+    <Button
+      onClick={() => {
+        toast({
+          title: 'Post created',
+          description: 'Your post has been published successfully.'
+        });
+      }}
+    >
+      Create Post
+    </Button>
+  );
 }
+
+// With variant
+toast({
+  variant: 'destructive',
+  title: 'Error',
+  description: 'Failed to create post. Please try again.'
+});
 ```
 
-## Dark Mode
+### Alert
 
-### Theme Provider Setup
+```typescript
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 
-```tsx
-// components/theme-provider.tsx
-'use client'
-
-import * as React from 'react'
-import { ThemeProvider as NextThemesProvider } from 'next-themes'
-
-export function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
-}
-```
-
-```tsx
-// app/layout.tsx
-import { ThemeProvider } from "@/components/theme-provider"
-
-export default function RootLayout({ children }) {
+export function AlertExample() {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  )
+    <Alert variant="destructive">
+      <AlertCircle className="h-4 w-4" />
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        Your session has expired. Please log in again.
+      </AlertDescription>
+    </Alert>
+  );
 }
 ```
 
-### Theme Toggle
+## Loading States
 
-```tsx
-'use client'
+### Skeleton
 
-import { useTheme } from 'next-themes'
-import { Button } from "@/components/ui/button"
-import { Moon, Sun } from "lucide-react"
+```typescript
+import { Skeleton } from '@/components/ui/skeleton';
+
+export function PostCardSkeleton() {
+  return (
+    <div className="flex flex-col space-y-3">
+      <Skeleton className="h-[125px] w-full rounded-xl" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    </div>
+  );
+}
+```
+
+## Customization
+
+### Modifying Components
+
+Components are in your codebase - edit them directly:
+
+```typescript
+// components/ui/button.tsx
+export const buttonVariants = cva(
+  "inline-flex items-center justify-center...",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        // Add custom variant
+        brand: "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+      }
+    }
+  }
+);
+```
+
+### Using Custom Variant
+
+```typescript
+<Button variant="brand">Custom Brand Button</Button>
+```
+
+## Theming
+
+### CSS Variables (OKLCH Format)
+
+shadcn/ui now uses OKLCH color format for better color accuracy and perceptual uniformity:
+
+```css
+/* app/globals.css */
+@layer base {
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    /* ... */
+  }
+
+  .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --primary: oklch(0.598 0.15 264);
+    --primary-foreground: oklch(0.205 0 0);
+    /* ... */
+  }
+}
+```
+
+### Dark Mode
+
+```typescript
+// components/theme-toggle.tsx
+'use client';
+
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { Button } from '@/components/ui/button';
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { setTheme, theme } = useTheme();
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
       <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
     </Button>
-  )
+  );
 }
 ```
 
-## Toast Notifications (Sonner)
+## Composition Patterns
 
-```tsx
-// app/layout.tsx
-import { Toaster } from "@/components/ui/sonner"
+### Combining Components
 
-export default function RootLayout({ children }) {
+```typescript
+export function CreatePostCard() {
   return (
-    <html>
-      <body>
-        {children}
-        <Toaster />
-      </body>
-    </html>
-  )
+    <Card>
+      <CardHeader>
+        <CardTitle>Create Post</CardTitle>
+        <CardDescription>Share your thoughts with the world</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <PostForm />
+      </CardContent>
+      <CardFooter className="flex justify-between">
+        <Button variant="outline">Save Draft</Button>
+        <Button>Publish</Button>
+      </CardFooter>
+    </Card>
+  );
 }
 ```
 
-```tsx
-// In components
-import { toast } from "sonner"
+### Modal with Form
 
-function MyComponent() {
-  return (
-    <Button
-      onClick={() => {
-        toast.success("Success!", {
-          description: "Your changes have been saved."
-        })
-      }}
-    >
-      Save
-    </Button>
-  )
-}
-
-// Other toast types
-toast("Default toast")
-toast.success("Success message")
-toast.error("Error message")
-toast.warning("Warning message")
-toast.info("Info message")
-toast.loading("Loading...")
-
-// With action
-toast("Event created", {
-  action: {
-    label: "Undo",
-    onClick: () => console.log("Undo")
-  }
-})
-
-// Promise-based
-toast.promise(saveData(), {
-  loading: "Saving...",
-  success: "Saved!",
-  error: "Error saving"
-})
-```
-
-## Common Patterns
-
-### Responsive Sheet/Dialog
-
-```tsx
-'use client'
-
-import { useMediaQuery } from "@/hooks/use-media-query"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
-
-interface ResponsiveModalProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  title: string
-  children: React.ReactNode
-}
-
-export function ResponsiveModal({
-  open,
-  onOpenChange,
-  title,
-  children
-}: ResponsiveModalProps) {
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-
-  if (isDesktop) {
-    return (
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-          </DialogHeader>
-          {children}
-        </DialogContent>
-      </Dialog>
-    )
-  }
+```typescript
+export function CreatePostModal() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom">
-        <SheetHeader>
-          <SheetTitle>{title}</SheetTitle>
-        </SheetHeader>
-        {children}
-      </SheetContent>
-    </Sheet>
-  )
-}
-```
-
-### Loading Button
-
-```tsx
-import { Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-
-interface LoadingButtonProps extends React.ComponentProps<typeof Button> {
-  loading?: boolean
-}
-
-export function LoadingButton({
-  children,
-  loading,
-  disabled,
-  ...props
-}: LoadingButtonProps) {
-  return (
-    <Button disabled={loading || disabled} {...props}>
-      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-      {children}
-    </Button>
-  )
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button>New Post</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>Create Post</DialogTitle>
+        </DialogHeader>
+        <PostForm onSuccess={() => setOpen(false)} />
+      </DialogContent>
+    </Dialog>
+  );
 }
 ```
 
 ## Additional Resources
 
-For detailed patterns, see reference files:
-- **`references/components.md`** - Full component catalog
-- **`references/theming.md`** - Theme customization
+For detailed information, see:
+- [Component Catalog](resources/component-catalog.md)
+- [Form Patterns](resources/form-patterns.md)
+- [Theming Guide](resources/theming.md)

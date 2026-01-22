@@ -1,188 +1,333 @@
 ---
 name: db-migration
-description: Create Supabase database migrations. Use when user says "add table", "create migration", "update schema", "add column", "database change", or asks to modify the database.
+description: Database migration and schema management skill for Fixlify. Automatically activates when discussing database changes, schema modifications, RLS policies, indexes, or Supabase migrations. Ensures safe, reversible database changes.
+version: 1.0.0
+author: Fixlify Team
+tags: [database, migration, supabase, postgresql, rls, schema]
 ---
 
 # Database Migration Skill
 
-Creates and manages Supabase PostgreSQL migrations for the Frontera Platform.
+You are a senior database architect specializing in PostgreSQL and Supabase migrations for Fixlify.
 
-## When to Use
+## Supabase Project Info
 
-Activate when user requests:
-- "add table"
-- "create migration"
-- "update schema"
-- "add column"
-- "database change"
+- **Project ID**: mqppvcrlvsgrsqelglod
+- **Database**: PostgreSQL 15
+- **Region**: Default Supabase region
 
-## Existing Schema Reference
+## Migration File Structure
 
-Key tables (from CLAUDE.md):
+```
+supabase/
+├── migrations/
+│   ├── 20260101000000_initial_schema.sql
+│   ├── 20260102000000_add_clients_table.sql
+│   └── 20260103000000_add_jobs_rls.sql
+├── functions/
+└── config.toml
+```
 
-| Table | Purpose |
-|-------|---------|
-| `clients` | Organization profiles (linked to Clerk org) |
-| `client_onboarding` | Onboarding applications |
-| `conversations` | Strategy Coach chat sessions |
-| `conversation_messages` | Individual chat messages |
-| `strategic_outputs` | Generated strategy documents |
+## Migration Naming Convention
 
-## Migration Process
+```
+YYYYMMDDHHMMSS_descriptive_name.sql
 
-### 1. Create Migration File
+Examples:
+20260110000001_add_client_tags.sql
+20260110000002_create_inventory_table.sql
+20260110000003_add_job_status_index.sql
+```
 
-Location: `supabase/migrations/`
+## Creating Migrations
 
-Naming: `{timestamp}_{description}.sql`
+### CLI Method
+```bash
+# Create empty migration
+supabase migration new add_feature_name
 
-Example: `20260102150000_add_documents_table.sql`
+# Generate from local changes
+supabase db diff -f migration_name
 
-### 2. Standard Table Pattern
+# Squash migrations (dev only)
+supabase migration squash
+```
+
+### Migration Template
 
 ```sql
--- Create table with standard columns
-CREATE TABLE IF NOT EXISTS public.{table_name} (
+-- Migration: YYYYMMDDHHMMSS_description
+-- Author: [name]
+-- Description: [what this migration does]
+--
+-- Dependencies: [list any required previous migrations]
+-- Rollback: [SQL to undo this migration]
+
+-- ============================================
+-- UP MIGRATION
+-- ============================================
+
+-- 1. Create tables
+CREATE TABLE IF NOT EXISTS table_name (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  clerk_org_id TEXT NOT NULL,
-
-  -- Feature-specific columns
-  name TEXT NOT NULL,
-  description TEXT,
-  status TEXT DEFAULT 'draft',
-  metadata JSONB DEFAULT '{}',
-
-  -- Standard timestamps
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Add index on org_id for multi-tenant queries
-CREATE INDEX IF NOT EXISTS idx_{table_name}_clerk_org_id
-  ON public.{table_name}(clerk_org_id);
+-- 2. Create indexes
+CREATE INDEX IF NOT EXISTS idx_table_name_org
+ON table_name(organization_id);
 
--- Enable RLS
-ALTER TABLE public.{table_name} ENABLE ROW LEVEL SECURITY;
+-- 3. Enable RLS
+ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;
 
--- RLS Policy: Users can only access their org's data
-CREATE POLICY "{table_name}_org_isolation" ON public.{table_name}
-  FOR ALL
-  USING (clerk_org_id = current_setting('app.current_org_id', true));
+-- 4. Create RLS policies
+CREATE POLICY "org_isolation_select" ON table_name
+  FOR SELECT USING (
+    organization_id = (
+      SELECT organization_id FROM profiles WHERE id = auth.uid()
+    )
+  );
 
--- Updated_at trigger
-CREATE OR REPLACE FUNCTION update_{table_name}_updated_at()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_at = NOW();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+CREATE POLICY "org_isolation_insert" ON table_name
+  FOR INSERT WITH CHECK (
+    organization_id = (
+      SELECT organization_id FROM profiles WHERE id = auth.uid()
+    )
+  );
 
-CREATE TRIGGER {table_name}_updated_at
-  BEFORE UPDATE ON public.{table_name}
+CREATE POLICY "org_isolation_update" ON table_name
+  FOR UPDATE USING (
+    organization_id = (
+      SELECT organization_id FROM profiles WHERE id = auth.uid()
+    )
+  );
+
+CREATE POLICY "org_isolation_delete" ON table_name
+  FOR DELETE USING (
+    organization_id = (
+      SELECT organization_id FROM profiles WHERE id = auth.uid()
+    )
+  );
+
+-- 5. Create triggers
+CREATE TRIGGER update_table_name_updated_at
+  BEFORE UPDATE ON table_name
   FOR EACH ROW
-  EXECUTE FUNCTION update_{table_name}_updated_at();
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- ============================================
+-- ROLLBACK (keep commented, use if needed)
+-- ============================================
+-- DROP POLICY IF EXISTS "org_isolation_delete" ON table_name;
+-- DROP POLICY IF EXISTS "org_isolation_update" ON table_name;
+-- DROP POLICY IF EXISTS "org_isolation_insert" ON table_name;
+-- DROP POLICY IF EXISTS "org_isolation_select" ON table_name;
+-- DROP TABLE IF EXISTS table_name;
 ```
 
-### 3. Add Column Pattern
+## RLS Policy Patterns
 
+### Organization Isolation (Most Common)
 ```sql
--- Add new column
-ALTER TABLE public.{table_name}
-  ADD COLUMN IF NOT EXISTS {column_name} {TYPE} {CONSTRAINTS};
-
--- Add index if needed for queries
-CREATE INDEX IF NOT EXISTS idx_{table_name}_{column_name}
-  ON public.{table_name}({column_name});
+CREATE POLICY "org_isolation" ON table_name
+  FOR ALL USING (
+    organization_id = (
+      SELECT organization_id FROM profiles WHERE id = auth.uid()
+    )
+  );
 ```
 
-### 4. Foreign Key Pattern
-
+### Owner Only Access
 ```sql
--- Add foreign key to existing table
-ALTER TABLE public.{child_table}
-  ADD COLUMN IF NOT EXISTS {parent}_id UUID REFERENCES public.{parent_table}(id) ON DELETE CASCADE;
-
-CREATE INDEX IF NOT EXISTS idx_{child_table}_{parent}_id
-  ON public.{child_table}({parent}_id);
+CREATE POLICY "owner_only" ON table_name
+  FOR ALL USING (
+    user_id = auth.uid()
+  );
 ```
 
-### 5. JSONB Column Pattern
-
-For flexible/evolving data:
-
+### Public Read, Owner Write
 ```sql
--- Add JSONB column with default
-ALTER TABLE public.{table_name}
-  ADD COLUMN IF NOT EXISTS {column_name} JSONB DEFAULT '{}';
+CREATE POLICY "public_read" ON table_name
+  FOR SELECT USING (true);
 
--- Add GIN index for JSONB queries
-CREATE INDEX IF NOT EXISTS idx_{table_name}_{column_name}_gin
-  ON public.{table_name} USING GIN ({column_name});
+CREATE POLICY "owner_write" ON table_name
+  FOR INSERT WITH CHECK (user_id = auth.uid());
+
+CREATE POLICY "owner_update" ON table_name
+  FOR UPDATE USING (user_id = auth.uid());
 ```
 
-## Update TypeScript Types
+### Role-Based Access
+```sql
+CREATE POLICY "admin_full_access" ON table_name
+  FOR ALL USING (
+    EXISTS (
+      SELECT 1 FROM profiles
+      WHERE id = auth.uid()
+      AND role IN ('admin', 'owner')
+    )
+  );
 
-After creating migration, update `src/types/database.ts`:
-
-```typescript
-export interface {TableName} {
-  id: string;
-  clerk_org_id: string;
-  name: string;
-  description: string | null;
-  status: 'draft' | 'active' | 'archived';
-  metadata: Record<string, unknown>;
-  created_at: string;
-  updated_at: string;
-}
-
-// Add to Database interface
-export interface Database {
-  public: {
-    Tables: {
-      // ... existing tables
-      {table_name}: {
-        Row: {TableName};
-        Insert: Omit<{TableName}, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<{TableName}, 'id'>>;
-      };
-    };
-  };
-}
+CREATE POLICY "member_read" ON table_name
+  FOR SELECT USING (
+    organization_id = (
+      SELECT organization_id FROM profiles WHERE id = auth.uid()
+    )
+  );
 ```
 
 ## Common Patterns
 
-### Status Enum
+### Adding Columns (Safe)
 ```sql
-CREATE TYPE {feature}_status AS ENUM ('draft', 'active', 'completed', 'archived');
+-- Add nullable column (safe, no lock)
+ALTER TABLE table_name
+ADD COLUMN IF NOT EXISTS new_column TEXT;
+
+-- Add with default (safe in PG 11+)
+ALTER TABLE table_name
+ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'active';
 ```
 
-### Soft Delete
+### Adding Columns (Requires Migration Strategy)
 ```sql
-ALTER TABLE public.{table_name}
-  ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ;
+-- Adding NOT NULL column to existing table
+-- Step 1: Add nullable
+ALTER TABLE table_name ADD COLUMN new_col TEXT;
 
-CREATE INDEX IF NOT EXISTS idx_{table_name}_deleted_at
-  ON public.{table_name}(deleted_at)
-  WHERE deleted_at IS NULL;
+-- Step 2: Backfill data
+UPDATE table_name SET new_col = 'default_value' WHERE new_col IS NULL;
+
+-- Step 3: Add constraint
+ALTER TABLE table_name ALTER COLUMN new_col SET NOT NULL;
 ```
 
-### Conversation Reference
+### Creating Indexes (Safe)
 ```sql
--- Link to conversations table
-ALTER TABLE public.{table_name}
-  ADD COLUMN IF NOT EXISTS conversation_id UUID
-  REFERENCES public.conversations(id) ON DELETE CASCADE;
+-- Concurrent index (doesn't lock table)
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_name
+ON table_name(column_name);
 ```
 
-## Apply Migration
+### Enum Types
+```sql
+-- Create enum
+CREATE TYPE job_status AS ENUM ('pending', 'in_progress', 'completed', 'cancelled');
 
+-- Add value to existing enum
+ALTER TYPE job_status ADD VALUE IF NOT EXISTS 'on_hold';
+```
+
+## Testing Migrations
+
+### Local Testing
 ```bash
-# Using Supabase CLI
-supabase db push
+# Reset local database and run all migrations
+supabase db reset
 
-# Or apply directly
-psql $DATABASE_URL -f supabase/migrations/{migration_file}.sql
+# Check migration status
+supabase migration list
+
+# Run specific migration
+supabase db push
 ```
+
+### Validation Queries
+```sql
+-- Check table exists
+SELECT EXISTS (
+  SELECT FROM information_schema.tables
+  WHERE table_name = 'table_name'
+);
+
+-- Check column exists
+SELECT EXISTS (
+  SELECT FROM information_schema.columns
+  WHERE table_name = 'table_name'
+  AND column_name = 'column_name'
+);
+
+-- Check RLS is enabled
+SELECT relname, relrowsecurity
+FROM pg_class
+WHERE relname = 'table_name';
+
+-- List policies
+SELECT * FROM pg_policies WHERE tablename = 'table_name';
+```
+
+## Dangerous Operations (Require Extra Care)
+
+### Column Removal
+```sql
+-- DANGER: Data loss! Always backup first
+-- Step 1: Remove from code
+-- Step 2: Deploy code changes
+-- Step 3: Wait for stable deployment
+-- Step 4: Then drop column
+
+ALTER TABLE table_name DROP COLUMN IF EXISTS old_column;
+```
+
+### Table Removal
+```sql
+-- DANGER: Irreversible! Create backup first
+-- Check for foreign key dependencies
+
+SELECT
+  tc.table_name,
+  kcu.column_name,
+  ccu.table_name AS foreign_table_name
+FROM information_schema.table_constraints AS tc
+JOIN information_schema.key_column_usage AS kcu
+  ON tc.constraint_name = kcu.constraint_name
+JOIN information_schema.constraint_column_usage AS ccu
+  ON ccu.constraint_name = tc.constraint_name
+WHERE tc.constraint_type = 'FOREIGN KEY'
+  AND ccu.table_name = 'table_to_drop';
+```
+
+### Type Changes
+```sql
+-- Changing column type (may require data migration)
+ALTER TABLE table_name
+ALTER COLUMN column_name TYPE new_type
+USING column_name::new_type;
+```
+
+## Performance Considerations
+
+### Index Strategy
+```sql
+-- Single column (most common)
+CREATE INDEX idx_jobs_status ON jobs(status);
+
+-- Composite (query pattern specific)
+CREATE INDEX idx_jobs_org_status ON jobs(organization_id, status);
+
+-- Partial (for filtered queries)
+CREATE INDEX idx_jobs_active ON jobs(organization_id)
+WHERE status = 'active';
+
+-- GIN for arrays/JSONB
+CREATE INDEX idx_jobs_tags ON jobs USING GIN(tags);
+```
+
+### Query Performance Check
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM jobs
+WHERE organization_id = 'uuid' AND status = 'active';
+```
+
+## Checklist Before Deploying Migration
+
+- [ ] Migration tested locally with `supabase db reset`
+- [ ] RLS policies added for new tables
+- [ ] Indexes created for foreign keys and common queries
+- [ ] No breaking changes to existing data
+- [ ] Rollback SQL documented
+- [ ] TypeScript types updated (run `supabase gen types typescript`)
+- [ ] Code changes deployed before destructive migrations

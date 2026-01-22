@@ -1,209 +1,159 @@
+# git-worktree - Git Worktree 操作
+
+複数ブランチを同時に作業するための Git worktree 管理。
+
 ---
-name: git-worktree
-description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification
+
+## 概要
+
+Git worktree を使うと、1つのリポジトリから複数の作業ディレクトリを作成できる。
+
+**メリット**:
+- ブランチ切り替えなしで複数機能を並行開発
+- PRレビュー中に別作業が可能
+- 本番ホットフィックスと開発を同時進行
+
 ---
 
-# Using Git Worktrees
+## 基本コマンド
 
-## Overview
-
-Git worktrees create isolated workspaces sharing the same repository, allowing work on multiple branches simultaneously without switching.
-
-**Core principle:** Systematic directory selection + safety verification = reliable isolation.
-
-**Announce at start:** "I'm using the using-git-worktrees skill to set up an isolated workspace."
-
-## Directory Selection Process
-
-Follow this priority order:
-
-### 1. Check Existing Directories
+### Worktree 作成
 
 ```bash
-# Check in priority order
-ls -d .worktrees 2>/dev/null     # Preferred (hidden)
-ls -d worktrees 2>/dev/null      # Alternative
+# 新規ブランチで作成
+git worktree add ../project-feature-x feature-x
+
+# 既存ブランチで作成
+git worktree add ../project-hotfix hotfix/urgent-fix
+
+# リモートブランチをチェックアウト
+git worktree add ../project-review origin/feature-y
 ```
 
-**If found:** Use that directory. If both exist, `.worktrees` wins.
-
-### 2. Check CLAUDE.md
+### Worktree 一覧
 
 ```bash
-grep -i "worktree.*directory" CLAUDE.md 2>/dev/null
+git worktree list
 ```
 
-**If preference specified:** Use it without asking.
-
-### 3. Ask User
-
-If no directory exists and no CLAUDE.md preference:
-
+出力例:
 ```
-No worktree directory found. Where should I create worktrees?
-
-1. .worktrees/ (project-local, hidden)
-2. ~/.config/superpowers/worktrees/<project-name>/ (global location)
-
-Which would you prefer?
+/path/to/project          abc1234 [main]
+/path/to/project-feature  def5678 [feature-x]
+/path/to/project-hotfix   ghi9012 [hotfix/urgent-fix]
 ```
 
-## Safety Verification
-
-### For Project-Local Directories (.worktrees or worktrees)
-
-**MUST verify .gitignore before creating worktree:**
+### Worktree 削除
 
 ```bash
-# Check if directory pattern in .gitignore
-grep -q "^\.worktrees/$" .gitignore || grep -q "^worktrees/$" .gitignore
+# 作業ディレクトリを削除
+rm -rf ../project-feature-x
+
+# Git から登録解除
+git worktree prune
 ```
 
-**If NOT in .gitignore:**
+または一括:
+```bash
+git worktree remove ../project-feature-x
+```
 
-Per Jesse's rule "Fix broken things immediately":
-1. Add appropriate line to .gitignore
-2. Commit the change
-3. Proceed with worktree creation
+---
 
-**Why critical:** Prevents accidentally committing worktree contents to repository.
+## ワークフロー例
 
-### For Global Directory (~/.config/superpowers/worktrees)
-
-No .gitignore verification needed - outside project entirely.
-
-## Creation Steps
-
-### 1. Detect Project Name
+### 1. 機能開発中にホットフィックス
 
 ```bash
-project=$(basename "$(git rev-parse --show-toplevel)")
+# 現在: feature-x ブランチで開発中
+# 緊急: 本番バグ発生
+
+# ホットフィックス用 worktree 作成
+git worktree add ../project-hotfix -b hotfix/login-fix main
+
+# ホットフィックス作業
+cd ../project-hotfix
+# ... 修正 ...
+git commit -m "fix: resolve login issue"
+git push origin hotfix/login-fix
+
+# 元の作業に戻る
+cd ../project
+# feature-x の作業を継続
 ```
 
-### 2. Create Worktree
+### 2. PRレビュー
 
 ```bash
-# Determine full path
-case $LOCATION in
-  .worktrees|worktrees)
-    path="$LOCATION/$BRANCH_NAME"
-    ;;
-  ~/.config/superpowers/worktrees/*)
-    path="$HOME/.config/superpowers/worktrees/$project/$BRANCH_NAME"
-    ;;
-esac
+# レビュー対象のブランチを worktree で開く
+git fetch origin
+git worktree add ../project-review origin/feature-y
 
-# Create worktree with new branch
-git worktree add "$path" -b "$BRANCH_NAME"
-cd "$path"
+# レビュー
+cd ../project-review
+npm install
+npm run dev
+
+# レビュー完了後
+cd ../project
+git worktree remove ../project-review
 ```
 
-### 3. Run Project Setup
+---
 
-Auto-detect and run appropriate setup:
+## ベストプラクティス
+
+### ディレクトリ命名
+
+```
+project/              # メイン (main)
+project-feature-x/    # 機能開発
+project-hotfix/       # ホットフィックス
+project-review/       # PRレビュー
+```
+
+### 定期クリーンアップ
 
 ```bash
-# Node.js
-if [ -f package.json ]; then pnpm install; fi
+# 不要な worktree を確認
+git worktree list
 
-# Rust
-if [ -f Cargo.toml ]; then cargo build; fi
+# マージ済みブランチの worktree を削除
+git worktree remove ../project-merged-feature
 
-# Python
-if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-if [ -f pyproject.toml ]; then poetry install; fi
-
-# Go
-if [ -f go.mod ]; then go mod download; fi
+# 孤立した worktree を整理
+git worktree prune
 ```
 
-### 4. Verify Clean Baseline
+### 注意点
 
-Run tests to ensure worktree starts clean:
+1. **同じブランチを複数 worktree で開けない**
+2. **node_modules は各 worktree で別途インストール必要**
+3. **.env ファイルもコピーが必要**
+
+---
+
+## トラブルシューティング
+
+### "already checked out" エラー
 
 ```bash
-# Examples - use project-appropriate command
-pnpm test
-cargo test
-pytest
-go test ./...
+# 別の worktree で使用中のブランチ
+git worktree list  # どこで使われているか確認
 ```
 
-**If tests fail:** Report failures, ask whether to proceed or investigate.
+### 孤立した worktree
 
-**If tests pass:** Report ready.
-
-### 5. Report Location
-
-```
-Worktree ready at <full-path>
-Tests passing (<N> tests, 0 failures)
-Ready to implement <feature-name>
+```bash
+# ディレクトリを手動削除した場合
+git worktree prune
 ```
 
-## Quick Reference
+### ブランチ削除時
 
-| Situation | Action |
-|-----------|--------|
-| `.worktrees/` exists | Use it (verify .gitignore) |
-| `worktrees/` exists | Use it (verify .gitignore) |
-| Both exist | Use `.worktrees/` |
-| Neither exists | Check CLAUDE.md → Ask user |
-| Directory not in .gitignore | Add it immediately + commit |
-| Tests fail during baseline | Report failures + ask |
-| No package.json/Cargo.toml | Skip dependency install |
-
-## Common Mistakes
-
-**Skipping .gitignore verification**
-- **Problem:** Worktree contents get tracked, pollute git status
-- **Fix:** Always grep .gitignore before creating project-local worktree
-
-**Assuming directory location**
-- **Problem:** Creates inconsistency, violates project conventions
-- **Fix:** Follow priority: existing > CLAUDE.md > ask
-
-**Proceeding with failing tests**
-- **Problem:** Can't distinguish new bugs from pre-existing issues
-- **Fix:** Report failures, get explicit permission to proceed
-
-**Hardcoding setup commands**
-- **Problem:** Breaks on projects using different tools
-- **Fix:** Auto-detect from project files (package.json, etc.)
-
-## Example Workflow
-
+```bash
+# worktree で使用中のブランチは削除できない
+# 先に worktree を削除する
+git worktree remove ../project-feature
+git branch -d feature
 ```
-You: I'm using the using-git-worktrees skill to set up an isolated workspace.
-
-[Check .worktrees/ - exists]
-[Verify .gitignore - contains .worktrees/]
-[Create worktree: git worktree add .worktrees/auth -b feature/auth]
-[Run npm install]
-[Run npm test - 47 passing]
-
-Worktree ready at /Users/jesse/myproject/.worktrees/auth
-Tests passing (47 tests, 0 failures)
-Ready to implement auth feature
-```
-
-## Red Flags
-
-**Never:**
-- Create worktree without .gitignore verification (project-local)
-- Skip baseline test verification
-- Proceed with failing tests without asking
-- Assume directory location when ambiguous
-- Skip CLAUDE.md check
-
-**Always:**
-- Follow directory priority: existing > CLAUDE.md > ask
-- Verify .gitignore for project-local
-- Auto-detect and run project setup
-- Verify clean test baseline
-
-## Integration
-
-**Called by:**
-- **brainstorming** (Phase 4) - REQUIRED when design is approved and implementation follows
-- Any skill needing isolated workspace

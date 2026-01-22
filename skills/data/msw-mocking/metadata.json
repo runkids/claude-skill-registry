@@ -1,9 +1,7 @@
 {
   "name": "msw-mocking",
-  "description": "Mock Service Worker (MSW) for API mocking. Use when testing frontend components with network mocking, simulating API errors, or creating deterministic API responses in tests.",
   "repo": "yonatangross/skillforge-claude-plugin",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/msw-mocking/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-20T01:38:57.966006Z"
 }

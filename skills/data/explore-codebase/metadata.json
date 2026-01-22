@@ -1,12 +1,7 @@
 {
   "name": "explore-codebase",
-  "description": "Autonomously explore unfamiliar codebases using Julie's code intelligence. Use semantic search, symbol navigation, and call path tracing to understand architecture without reading entire files. Activa",
-  "repo": "anortham/julie",
-  "category": "development",
-  "tags": [
-    "explore",
-    "codebase"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "doodledood/claude-code-plugins",
+  "path": "claude-plugins/vibe-workflow/skills/explore-codebase/SKILL.md",
+  "source": "github.com/doodledood/claude-code-plugins",
+  "downloaded_at": "2026-01-22T02:39:49.892854Z"
 }

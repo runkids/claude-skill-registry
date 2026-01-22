@@ -1,7 +1,7 @@
 {
   "name": "torch_geometric",
-  "repo": "x-cmd/skill",
-  "path": "data/k-dense-ai/torch_geometric/SKILL.md",
-  "source": "github.com/x-cmd/skill",
-  "downloaded_at": "2026-01-14T02:45:42.068360Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/data-science/torch_geometric/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:03.946584Z"
 }

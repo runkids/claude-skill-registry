@@ -1,7 +1,7 @@
 {
   "name": "qa-expert",
-  "repo": "Charon-Fan/agent-playbook",
-  "path": "skills/qa-expert/SKILL.md",
-  "source": "github.com/Charon-Fan/agent-playbook",
-  "downloaded_at": "2026-01-14T01:45:07.165579Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/qa/qa-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-22T04:02:10.650465Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "typescript-configuration",
-  "repo": "metasaver/metasaver-marketplace",
-  "path": "plugins/metasaver-core/skills/config/workspace/typescript-configuration/SKILL.md",
-  "source": "github.com/metasaver/metasaver-marketplace",
-  "downloaded_at": "2026-01-14T01:43:55.493141Z"
+  "repo": "zerobias-org/module",
+  "path": ".claude/skills/typescript-configuration/SKILL.md",
+  "source": "github.com/zerobias-org/module",
+  "downloaded_at": "2026-01-21T01:50:59.275196Z"
 }

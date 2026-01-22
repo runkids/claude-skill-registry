@@ -55,7 +55,7 @@ This skill provides specialized knowledge for building energy analysis and optim
 
 **Location:** `scripts/npv_analysis_email_generator.py`
 
-**Documentation:** [`docs/TOOL_SECC_NPV_Email_Generator.md`](../../docs/TOOL_SECC_NPV_Email_Generator.md)
+**Documentation:** [`docs/TOOL_NPV_Email_Generator.md`](../../docs/TOOL_NPV_Email_Generator.md)
 
 **When to Use:**
 - Comparing energy efficiency measure costs vs. savings over lifecycle
@@ -90,3 +90,18 @@ This skill provides specialized knowledge for building energy analysis and optim
 - "Compare lifecycle costs of GSHP vs. conventional HVAC"
 - "Generate NPV summary for LEED cost-benefit analysis"
 - "Create stakeholder report showing first cost vs. 25-year savings"
+
+## Saving Next Steps
+
+When energy-efficiency work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "energy-efficiency" \
+  --content "## Priority Tasks
+1. Complete ASHRAE 90.1 compliance analysis
+2. Generate NPV summary for efficiency measures
+3. Finalize energy model QA/QC"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

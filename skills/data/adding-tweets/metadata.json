@@ -1,8 +1,7 @@
 {
   "name": "adding-tweets",
   "repo": "alexanderop/second-brain-nuxt",
-  "category": "data",
-  "description": "Add tweets to the Second Brain. Use when the user provides a Twitter/X URL and pasted tweet content, asking to \"add a tweet\", \"save this tweet\", or \"capture this tweet\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:38.914007Z"
+  "path": ".claude/skills/adding-tweets/SKILL.md",
+  "source": "github.com/alexanderop/second-brain-nuxt",
+  "downloaded_at": "2026-01-22T01:45:15.294265Z"
 }

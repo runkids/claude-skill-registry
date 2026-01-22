@@ -1,11 +1,7 @@
 {
   "name": "skills-sync",
-  "description": "Manage and synchronize AI agent skills from local SKILL.md files and remote Git repositories, generating Cursor rules with Agent Skills specification XML. This skill should be used when users need to ",
   "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "category": "data",
-  "tags": [
-    "skills",
-    "sync"
-  ],
-  "stars": 23
+  "path": ".claude/skills/skills-sync/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-22T01:53:19.982753Z"
 }

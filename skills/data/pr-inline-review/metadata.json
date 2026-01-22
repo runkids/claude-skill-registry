@@ -1,7 +1,7 @@
 {
   "name": "pr-inline-review",
   "repo": "stacklok/toolhive",
-  "path": ".claude/skills/pr-inline-review/skill.md",
+  "path": ".claude/skills/pr-inline-review/SKILL.md",
   "source": "github.com/stacklok/toolhive",
-  "downloaded_at": "2026-01-14T03:35:02.358471Z"
+  "downloaded_at": "2026-01-22T03:57:30.067898Z"
 }

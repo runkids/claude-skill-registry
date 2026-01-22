@@ -1,7 +1,7 @@
 {
   "name": "technical-writer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/technical-writer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:16.555226Z"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/technical-writer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-22T04:14:04.629680Z"
 }

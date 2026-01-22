@@ -1,7 +1,7 @@
 {
   "name": "aws-agentic-ai",
-  "repo": "zxkane/aws-skills",
-  "path": "plugins/aws-agentic-ai/skills/aws-agentic-ai/SKILL.md",
-  "source": "github.com/zxkane/aws-skills",
-  "downloaded_at": "2026-01-14T03:28:04.158845Z"
+  "repo": "CommandCodeAI/agent-skills",
+  "path": "skills/aws-agentic-ai/SKILL.md",
+  "source": "github.com/CommandCodeAI/agent-skills",
+  "downloaded_at": "2026-01-22T03:56:46.739935Z"
 }

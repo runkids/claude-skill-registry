@@ -1,7 +1,7 @@
 {
   "name": "session-logger",
-  "repo": "Charon-Fan/agent-playbook",
-  "path": "skills/session-logger/SKILL.md",
-  "source": "github.com/Charon-Fan/agent-playbook",
-  "downloaded_at": "2026-01-14T01:45:07.712255Z"
+  "repo": "munlucky/code-cafe-manager",
+  "path": ".claude/skills/session-logger/SKILL.md",
+  "source": "github.com/munlucky/code-cafe-manager",
+  "downloaded_at": "2026-01-22T03:51:00.267956Z"
 }

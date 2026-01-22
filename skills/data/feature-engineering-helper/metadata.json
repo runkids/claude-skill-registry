@@ -1,8 +1,7 @@
 {
   "name": "feature-engineering-helper",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Feature Engineering Helper - Auto-activating skill for ML Training.Triggers on: feature engineering helper, feature engineering helperPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:11.451238Z"
+  "path": "skills/07-ml-training/feature-engineering-helper/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-22T01:55:42.861978Z"
 }

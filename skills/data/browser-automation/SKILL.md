@@ -1,314 +1,259 @@
 ---
 name: browser-automation
-description: Non-testing browser automation - web scraping, form filling, screenshot capture, PDF generation, workflow automation. For TESTING with Playwright, use e2e-playwright skill instead. Activates for web scraping, form automation, screenshot, PDF, headless browser, Puppeteer, Selenium, automation scripts, data extraction.
+description: Local Python-based browser automation toolkit using Playwright. Provides command-line tools for navigating, interacting with, and testing web applications. Supports clicking, typing, hovering, screenshots, content extraction, and JavaScript execution. Use this skill when you need to automate browser interactions, test web applications, or extract data from web pages.
+license: ISC
 ---
 
 # Browser Automation Skill
 
-Expert in browser automation using Playwright, Puppeteer, and Selenium. Specializes in UI testing, web scraping, form automation, and automated workflows.
+This skill provides local browser automation capabilities using Python and Playwright. All browser automation is performed locally via CLI commands.
 
-## Expertise Areas
+## When to Use This Skill
 
-### 1. Playwright Automation
-- **Browser Control**: Launch, navigate, interact with pages
-- **Element Selection**: CSS selectors, XPath, text-based, data-testid
-- **Actions**: Click, fill, select, hover, drag-and-drop
-- **Waiting Strategies**: waitForSelector, waitForNavigation, waitForTimeout
-- **Network Interception**: Mock APIs, block resources, modify requests
-- **Screenshots & Videos**: Full page, element-specific, video recording
+Use this skill when you need to:
+- Automate interactions with web pages (clicking, typing, navigating)
+- Test web application functionality
+- Extract content or data from web pages
+- Take screenshots of web pages
+- Execute custom JavaScript in browser context
+- Hover over elements to trigger UI states
 
-### 2. Testing Frameworks
-- **End-to-End Testing**: Playwright Test, Cypress-like workflows
-- **Visual Regression**: Screenshot comparison, pixel diff analysis
-- **Accessibility Testing**: ARIA validation, keyboard navigation
-- **Performance Testing**: Page load times, Core Web Vitals
-- **Mobile Testing**: Emulate devices, touch gestures
+## Prerequisites
 
-### 3. Web Scraping
-- **Data Extraction**: Parse HTML, extract structured data
-- **Pagination**: Navigate through multi-page results
-- **Dynamic Content**: Handle lazy loading, infinite scroll
-- **Authentication**: Login flows, session management
-- **Rate Limiting**: Throttle requests, respect robots.txt
+Before using this skill, ensure Playwright is installed:
 
-### 4. Form Automation
-- **Input Fields**: Text, email, password, number inputs
-- **Selections**: Dropdowns, radio buttons, checkboxes
-- **File Uploads**: Single and multiple file uploads
-- **Date Pickers**: Custom date widgets
-- **Multi-Step Forms**: Wizard-style form flows
-
-## Code Examples
-
-### Basic Page Navigation
-```typescript
-import { chromium } from 'playwright';
-
-const browser = await chromium.launch({ headless: true });
-const page = await browser.newPage();
-await page.goto('https://example.com', { waitUntil: 'networkidle' });
-await page.screenshot({ path: 'screenshot.png', fullPage: true });
-await browser.close();
+```bash
+pip install playwright
+playwright install chromium
 ```
 
-### Form Automation with Validation
-```typescript
-// Fill and submit form
-await page.fill('input[name="email"]', 'test@example.com');
-await page.fill('input[name="password"]', 'SecurePass123!');
-await page.click('button[type="submit"]');
+## Available Tools
 
-// Wait for success message
-const success = await page.waitForSelector('.success-message', { timeout: 5000 });
-const message = await success.textContent();
-console.log('Success:', message);
+All tools are implemented as subcommands in `assets/skills/browser-automation/scripts/browser_tools.py`. Each command is stateless - it launches a new browser instance, performs the action, and closes the browser.
+
+### browser_navigate
+
+Navigate to a URL and wait for the page to load.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_navigate <url>
 ```
 
-### Data Extraction from Multiple Pages
-```typescript
-const products = [];
-let page = 1;
-
-while (page <= 10) {
-  await browser.goto(`https://example.com/products?page=${page}`);
-
-  const items = await browser.$$eval('.product-item', (elements) =>
-    elements.map((el) => ({
-      title: el.querySelector('.title')?.textContent,
-      price: el.querySelector('.price')?.textContent,
-      image: el.querySelector('img')?.src,
-    }))
-  );
-
-  products.push(...items);
-  page++;
-}
+**Example:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_navigate https://example.com
 ```
 
-### Network Interception
-```typescript
-await page.route('**/api/analytics', (route) => route.abort());
-await page.route('**/api/user', (route) =>
-  route.fulfill({
-    status: 200,
-    body: JSON.stringify({ id: 1, name: 'Test User' }),
-  })
-);
+### browser_click
+
+Click an element on a page using a CSS selector or text match.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click <url> <selector> [--text TEXT]
 ```
 
-### Visual Regression Testing
-```typescript
-import { expect } from '@playwright/test';
+**Parameters:**
+- `url`: URL to navigate to
+- `selector`: CSS selector for the element (optional if using --text)
+- `--text`: (Optional) Text to match instead of using selector
 
-// Capture baseline
-await page.screenshot({ path: 'baseline.png' });
+**Examples:**
+```bash
+# Click by selector
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click https://example.com "#submit-button"
 
-// After changes, compare
-const screenshot = await page.screenshot();
-expect(screenshot).toMatchSnapshot('homepage.png');
+# Click by text
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click https://example.com "button" --text "Submit"
 ```
 
-## Selector Strategies
+### browser_type
 
-### 1. CSS Selectors (Preferred)
-```typescript
-// ID selector (most reliable)
-await page.click('#submit-button');
+Type text into an input field, with optional form submission.
 
-// Data attribute (best practice)
-await page.click('[data-testid="login-button"]');
-
-// Class selector
-await page.click('.btn-primary');
-
-// Combined selector
-await page.click('button.submit[type="submit"]');
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type <url> <selector> <text> [--submit]
 ```
 
-### 2. XPath (When CSS isn't enough)
-```typescript
-// Text-based selection
-await page.click('//button[contains(text(), "Submit")]');
+**Parameters:**
+- `url`: URL to navigate to
+- `selector`: CSS selector for the input field
+- `text`: Text to type
+- `--submit`: (Optional) Press Enter after typing
 
-// Complex hierarchy
-await page.click('//div[@class="form"]//input[@name="email"]');
+**Examples:**
+```bash
+# Type into field
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com "#email" "user@example.com"
+
+# Type and submit
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com "#search" "query" --submit
 ```
 
-### 3. Playwright-Specific
-```typescript
-// Text-based
-await page.getByText('Submit').click();
+### browser_screenshot
 
-// Role-based (accessibility)
-await page.getByRole('button', { name: 'Submit' }).click();
+Capture a screenshot of the current page.
 
-// Label-based
-await page.getByLabel('Email address').fill('test@example.com');
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot <url> <path> [--full_page]
+```
 
-// Placeholder-based
-await page.getByPlaceholder('Enter your email').fill('test@example.com');
+**Parameters:**
+- `url`: URL to navigate to
+- `path`: Output file path for the screenshot
+- `--full_page`: (Optional) Capture the entire scrollable page
+
+**Examples:**
+```bash
+# Viewport screenshot
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/screenshot.png
+
+# Full page screenshot
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/full.png --full_page
+```
+
+### browser_get_content
+
+Extract text or HTML content from the page or a specific element.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content <url> [--selector SELECTOR] [--html]
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `--selector`: (Optional) CSS selector, defaults to 'body'
+- `--html`: (Optional) Return HTML instead of text
+
+**Examples:**
+```bash
+# Get all page text
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com
+
+# Get specific element text
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com --selector "#main-content"
+
+# Get HTML
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com --selector "article" --html
+```
+
+### browser_hover
+
+Hover over an element to trigger hover states or tooltips.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_hover <url> <selector>
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `selector`: CSS selector for the element
+
+**Example:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_hover https://example.com ".menu-item"
+```
+
+### browser_evaluate
+
+Execute custom JavaScript code in the browser context.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate <url> <script>
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `script`: JavaScript code to execute
+
+**Examples:**
+```bash
+# Get page title
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate https://example.com "document.title"
+
+# Get element count
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate https://example.com "document.querySelectorAll('button').length"
+
+# Manipulate DOM
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate https://example.com "document.body.style.backgroundColor = 'red'"
 ```
 
 ## Best Practices
 
-### 1. Use Stable Selectors
-❌ **Bad**: `.css-4j6h2k-button` (auto-generated class)
-✅ **Good**: `[data-testid="submit-button"]`
+1. **Always use full URLs**: Include the protocol (http:// or https://)
+2. **Wait for content**: The tool automatically waits for 'networkidle' state before actions
+3. **Use robust selectors**: Prefer ID selectors (#id) or specific CSS classes over generic tags
+4. **Error handling**: All commands exit with non-zero status on failure and print errors to stderr
+5. **Headless mode**: All operations run in headless Chromium by default for efficiency
+6. **Stateless design**: Each command runs independently with its own browser instance
 
-### 2. Add Explicit Waits
-❌ **Bad**: `await page.waitForTimeout(3000);`
-✅ **Good**: `await page.waitForSelector('.results', { state: 'visible' });`
+## Common Patterns
 
-### 3. Handle Errors Gracefully
-```typescript
-try {
-  await page.click('button', { timeout: 5000 });
-} catch (error) {
-  await page.screenshot({ path: 'error.png' });
-  console.error('Click failed:', error.message);
-  throw error;
-}
+### Form Automation
+```bash
+# Fill out a multi-field form
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com/form "#name" "John Doe"
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com/form "#email" "john@example.com"
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click https://example.com/form "#submit"
 ```
 
-### 4. Clean Up Resources
-```typescript
-try {
-  // automation code
-} finally {
-  await browser.close();
-}
+### Content Extraction
+```bash
+# Extract and save page content
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com --selector "article" > article.txt
 ```
 
-### 5. Use Page Object Model (POM)
-```typescript
-class LoginPage {
-  constructor(private page: Page) {}
+### Visual Verification
+```bash
+# Capture page state
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/page.png
 
-  async login(email: string, password: string) {
-    await this.page.fill('[data-testid="email"]', email);
-    await this.page.fill('[data-testid="password"]', password);
-    await this.page.click('[data-testid="submit"]');
-  }
-
-  async isLoggedIn() {
-    return this.page.locator('[data-testid="dashboard"]').isVisible();
-  }
-}
+# Capture full scrollable page
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/full.png --full_page
 ```
 
-## Common Pitfalls
-
-### 1. Race Conditions
-```typescript
-// ❌ Race condition
-await page.click('button');
-const text = await page.textContent('.result'); // May fail!
-
-// ✅ Wait for element
-await page.click('button');
-await page.waitForSelector('.result');
-const text = await page.textContent('.result');
+### Testing Interactive UI
+```bash
+# Test hover states
+python assets/skills/browser-automation/scripts/browser_tools.py browser_hover https://example.com ".dropdown-trigger"
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/hover-state.png
 ```
 
-### 2. Stale Element References
-```typescript
-// ❌ Element may become stale
-const element = await page.$('button');
-await page.reload();
-await element.click(); // Error: element detached from DOM
+## Architecture
 
-// ✅ Re-query after page changes
-await page.reload();
-await page.click('button');
-```
+- **Stateless design**: Each command launches a new browser instance
+- **No persistent sessions**: Browser closes after each operation
+- **Local execution**: All automation runs locally, no remote servers required
+- **Simple I/O**: Results printed to stdout, errors to stderr
+- **Timeout handling**: Configurable timeouts for navigation and element operations
 
-### 3. Timing Issues with Dynamic Content
-```typescript
-// ❌ Assumes immediate load
-await page.goto('https://example.com');
-await page.click('.dynamic-content'); // May fail!
+## Troubleshooting
 
-// ✅ Wait for dynamic content
-await page.goto('https://example.com');
-await page.waitForLoadState('networkidle');
-await page.click('.dynamic-content');
-```
+If you encounter issues:
 
-## Debugging Tools
+1. **Install Playwright browsers**: Run `playwright install chromium`
+2. **Check Python version**: Requires Python 3.8+
+3. **Verify URL accessibility**: Ensure the target URL is reachable
+4. **Inspect selectors**: Use browser DevTools to verify CSS selectors
+5. **Check for JavaScript errors**: Use browser_evaluate to check console logs
 
-### 1. Headful Mode
-```typescript
-const browser = await chromium.launch({ headless: false, slowMo: 100 });
-```
+## Advanced Usage
 
-### 2. Screenshot on Failure
-```typescript
-test.afterEach(async ({ page }, testInfo) => {
-  if (testInfo.status !== 'passed') {
-    await page.screenshot({ path: `failure-${testInfo.title}.png` });
-  }
-});
-```
-
-### 3. Trace Recording
-```typescript
-await context.tracing.start({ screenshots: true, snapshots: true });
-await page.goto('https://example.com');
-// ... automation steps
-await context.tracing.stop({ path: 'trace.zip' });
-```
-
-### 4. Console Logs
-```typescript
-page.on('console', (msg) => console.log('Browser log:', msg.text()));
-```
-
-## Performance Optimization
-
-### 1. Block Unnecessary Resources
-```typescript
-await page.route('**/*.{png,jpg,jpeg,gif,svg,css}', (route) => route.abort());
-```
-
-### 2. Reuse Browser Contexts
-```typescript
-const context = await browser.newContext();
-const page1 = await context.newPage();
-const page2 = await context.newPage();
-// Share cookies, storage, etc.
-```
-
-### 3. Parallel Execution
-```typescript
-await Promise.all([
-  page1.goto('https://example.com/page1'),
-  page2.goto('https://example.com/page2'),
-  page3.goto('https://example.com/page3'),
-]);
-```
-
-## Activation Keywords
-
-Ask me about:
-- "How do I automate browser testing with Playwright?"
-- "Web scraping with Playwright/Puppeteer"
-- "Screenshot automation and visual regression"
-- "Form filling automation"
-- "Element selection strategies"
-- "Handling dynamic content in web automation"
-- "Best practices for UI testing"
-- "Debugging Playwright tests"
+For more complex automation scenarios that require maintaining state across multiple actions, see the examples directory or consider using Playwright directly in a Python script.
 
 ## Related Skills
 
-- **E2E Testing**: `e2e-playwright` skill
-- **Frontend Development**: `frontend` skill for understanding DOM structure
-- **API Testing**: `api-testing` skill for mocking network requests
+- **webapp-testing**: For testing local web applications with server management
+- **web-artifacts-builder**: For creating web-based UI artifacts
 
-## Tools & Frameworks
+## Reference
 
-- **Playwright**: Modern browser automation (recommended)
-- **Puppeteer**: Chrome/Chromium-specific automation
-- **Selenium**: Legacy cross-browser automation
-- **Playwright Test**: Full testing framework
-- **Cypress**: Alternative E2E testing framework
+- Browser tools source: `scripts/browser_tools.py`
+- Playwright Documentation: https://playwright.dev/python/
+- Examples: `examples/`

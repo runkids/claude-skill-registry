@@ -1,94 +1,125 @@
 ---
 name: council
-description: Gather design feedback from AI consultants (Gemini and Codex). Use for architecture decisions, design review, or when you want multiple expert perspectives on SENTINEL development. (project)
-allowed-tools: Bash, Read, Glob, Grep
-user-invocable: true
-proactive: true
+description: Council Chamber orchestration with Memory Bridge. Single session, multiple personas, structured deliberation.
+metadata: {"clawdbot":{"emoji":"🏛️","requires":{"bins":["sqlite3"]},"features":{"memory_bridge":true,"chamber_pattern":true}}}
 ---
 
-<!-- PROACTIVE USE: Invoke /council without being asked when:
-  - Facing architectural decisions with multiple valid approaches
-  - Uncertain about implementation strategy
-  - Making changes that affect multiple subsystems
-  - Design tradeoffs need external perspective
--->
+# Council - Chamber Orchestration Pattern
 
-# The Council
+Instead of spawning separate agent silos, create a **Council Chamber** where multiple expert personas deliberate in a single session with cross-pollination and unified transcript.
 
-Invoke external AI consultants for design feedback on SENTINEL.
+## Prerequisites
 
-## Consultants
+- SQLite3 (member database)
+- Graphiti service (Memory Bridge)
+- Clawdbot gateway (sessions_spawn)
 
-| Model | Strength | Best For |
-|-------|----------|----------|
-| **Gemini** | Big-picture thinking, design patterns | Architecture, conceptual clarity |
-| **Codex** | Technical depth, implementation focus | Code quality, practical constraints |
+## Setup
 
-## How to Run
-
-When the user invokes `/council`, gather context and consult both AIs:
-
-### Step 1: Prepare Context
-
-Read the project brief and any relevant files the user mentions:
-```
-C:\dev\SENTINEL\SENTINEL_PROJECT_BRIEF.md
-```
-
-### Step 2: Consult Gemini
-
-Run non-interactively with the user's question + context:
+Initialize council database:
 ```bash
-gemini "You are reviewing SENTINEL, a tactical TTRPG with an AI Game Master.
-
-<context>
-[Insert project brief or relevant code]
-</context>
-
-<question>
-[User's design question]
-</question>
-
-Provide focused feedback on design patterns, architecture, or the specific question asked. Be concise."
+bash command:"{baseDir}/init-db.sh"
 ```
 
-### Step 3: Consult Codex
+## 🏛️ The Chamber Pattern
 
-Run non-interactively:
+**Traditional Approach** (Silos):
+- Spawn 3 separate agents
+- Each analyzes independently
+- No cross-pollination
+- Fragmented output
+
+**Chamber Approach** (Meeting Room):
+- Single agent session
+- Moderates multiple personas
+- Structured turn-taking
+- Unified deliberation transcript
+
+## Tools
+
+### council_chamber
+Start a Council Chamber session (recommended).
+
+**Usage:**
 ```bash
-codex exec "You are reviewing SENTINEL, a tactical TTRPG with an AI Game Master.
+bash command:"
+TOPIC='YOUR_TOPIC'
+MEMBERS='architect,analyst,security'
 
-<context>
-[Insert project brief or relevant code]
-</context>
-
-<question>
-[User's design question]
-</question>
-
-Provide focused feedback on implementation, code quality, or the specific question asked. Be concise."
+{baseDir}/references/chamber-orchestrator.sh \"\$TOPIC\" \"\$MEMBERS\"
+"
 ```
 
-### Step 4: Synthesize
+**What it does**:
+1. Fetches Graphiti context (Memory Bridge)
+2. Loads member personas from database
+3. Constructs chamber task with turn structure
+4. Creates session record
+5. Outputs task for sessions_spawn
 
-Present both perspectives, noting:
-- Where they agree (strong signal)
-- Where they differ (worth investigating)
-- Actionable recommendations
+### council_list_members
+List all registered members.
 
-## Example Usage
+**Usage:**
+```bash
+bash command:"sqlite3 -header -column ~/.clawdbot/council.db 'SELECT id, name, role FROM council_members'"
+```
 
-User: `/council` Should we use SQLite instead of JSON for campaign persistence?
+### council_add_member
+Register new member.
 
-Then:
-1. Read `SENTINEL_PROJECT_BRIEF.md` and `src/state/schema.py`
-2. Ask Gemini about data model evolution and query patterns
-3. Ask Codex about migration complexity and performance
-4. Synthesize into recommendation
+**Usage:**
+```bash
+bash command:"
+sqlite3 ~/.clawdbot/council.db \"
+INSERT INTO council_members (id, name, role, system_message, expertise)
+VALUES ('MEMBER_ID', 'NAME', 'ROLE', 'SYSTEM_MESSAGE', 'EXPERTISE');
+\""
+```
 
-## Tips
+## Chamber Session Structure
 
-- Keep prompts focused on one question at a time
-- Include relevant code snippets, not entire files
-- The consultants don't have project context — you must provide it
-- Use when genuinely uncertain, not for validation
+**3-Turn Deliberation**:
+
+1. **Turn 1: Initial Analysis**
+   - Each persona provides their perspective
+   - Distinct voices maintained
+
+2. **Turn 2: Cross-Pollination**
+   - Members critique each other's points
+   - Real-time responses
+   - Healthy debate
+
+3. **Turn 3: Synthesis**
+   - Find common ground
+   - Resolve disagreements
+   - Executive Summary for user
+
+## Default Members
+
+| ID | Name | Role |
+|----|------|------|
+| architect | System Architect | Technical Design |
+| analyst | Technical Analyst | Research & Analysis |
+| security | Security Officer | Risk Assessment |
+| designer | UX Designer | User Experience |
+| strategist | Business Strategist | ROI & Strategy |
+
+## Example
+
+```bash
+# User: "Start council on Salesforce integration"
+council_chamber topic:"Salesforce Integration" members:"architect,strategist"
+
+# Output:
+# 🏛️ Convening Council Chamber...
+# 🧠 Memory Bridge: [Retrieved 10 facts about Salesforce]
+# 👥 Loaded 2 personas
+# ✅ Chamber Task ready for sessions_spawn
+```
+
+**Benefits**:
+- ✅ Cross-pollination (members respond to each other)
+- ✅ Single transcript (one .jsonl file)
+- ✅ Shared context (Memory Bridge loaded once)
+- ✅ Structured output (3-turn deliberation)

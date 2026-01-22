@@ -1,7 +1,7 @@
 ---
 name: codex-review-code
 description: Review implementation quality and regression risks via claude-delegator (Code Reviewer expert). Use after implementation for complex tasks, refactors, or API changes.
-
+context: fork
 ---
 
 # Codex Code Review (via claude-delegator)
@@ -13,20 +13,18 @@ description: Review implementation quality and regression risks via claude-deleg
 - Before merging significant changes
 
 ## Procedure
-1. Read the expert prompt file: `${CLAUDE_PLUGIN_ROOT}/prompts/code-reviewer.md`
-2. Summarize change scope, changed files, and key behaviors
-3. Capture the context.md path (default: `{tasksRoot}/{feature-name}/context.md`) and read relevant code
-4. Build delegation prompt using 7-section format
-5. **Try Codex first**:
-   - Call `mcp__codex__codex` with Code Reviewer expert
-   - If successful, proceed to step 7
-6. **Fallback to Claude** (if Codex unavailable):
+1. Summarize change scope, changed files, and key behaviors
+2. Capture the context.md path (default: `{tasksRoot}/{feature-name}/context.md`) and read relevant code
+3. Build delegation prompt using the 7-section format below
+4. **Try Codex first**:
+   - Call `mcp__codex__codex` (include Code Reviewer instructions in developer-instructions)
+   - If successful, proceed to step 6
+5. **Fallback to Claude** (if Codex unavailable):
    - Error conditions: "quota exceeded", "rate limit", "API error", "unavailable"
-   - Claude directly performs the code review using the same 7-section prompt
-   - Apply the code-reviewer.md expert instructions as Claude's own guidelines
+   - Claude directly performs code review following the Code Reviewer guidelines below
    - Add note: `"codex-fallback: Claude performed review directly"`
-7. Record critical issues, warnings, and suggestions
-8. **Per `.claude/docs/guidelines/document-memory-policy.md`**: Store full review in `archives/review-v{n}.md`, keep only short summary in `context.md`
+6. Record critical issues, warnings, and suggestions
+7. **Per `.claude/docs/guidelines/document-memory-policy.md`**: Store full review in `archives/review-v{n}.md`, keep only short summary in `context.md`
 
 ## Delegation Format
 
@@ -51,6 +49,17 @@ CONSTRAINTS:
 
 MUST DO:
 - Prioritize: Correctness → Security → Performance → Maintainability
+- **Security Checks (CRITICAL)**:
+  * Hardcoded credentials (API keys, passwords, tokens)
+  * SQL injection risks (string concatenation in queries)
+  * XSS vulnerabilities (unescaped user input)
+  * Missing input validation
+- **Code Quality (HIGH)**:
+  * Long functions (>50 lines)
+  * Long files (>800 lines)
+  * Deep nesting (>4 levels)
+  * Missing error handling (try/catch)
+  * console.log statements
 - Focus on issues that matter, not style nitpicks
 - Check logic/flow errors and edge cases
 - Validate type safety and error handling
@@ -63,6 +72,12 @@ MUST NOT DO:
 
 OUTPUT FORMAT:
 Summary → Critical issues → Warnings → Recommendations → Verdict (APPROVE/REJECT)
+
+## Approval Criteria
+
+- ✅ **APPROVE**: No CRITICAL/HIGH issues
+- ⚠️ **WARNING**: MEDIUM issues only (can merge with caution)
+- ❌ **REJECT**: CRITICAL/HIGH issues found
 ```
 
 ## Tool Call
@@ -93,4 +108,47 @@ mcp__codex__codex({
 ```yaml
 notes:
   - "codex-review: [APPROVE/REJECT], critical=[count], warnings=[count]"
+```
+
+## Review-Fix Loop (Auto-Fix Mode)
+
+### Workflow
+
+1. **Run codex-review-code**
+2. **Analyze result:**
+   - `APPROVE` → Proceed to next step
+   - `REJECT (CRITICAL/HIGH issues)` → Enter Auto-Fix Loop
+3. **Auto-Fix Loop:**
+   - Re-invoke with `sandbox: "workspace-write"`
+   - Include fix instructions in prompt
+   - Run verification after fix
+4. **Loop limit:** Max 2 retries
+5. **After 2 failures:** Request user confirmation
+
+### Configuration
+
+```yaml
+reviewFixLoop:
+  enabled: true
+  maxRetries: 2
+  fixableIssues:
+    - console.log statements
+    - missing error handling
+    - type errors
+    - simple security issues (hardcoded strings)
+  nonFixableIssues:
+    - architectural changes
+    - breaking API changes
+    - complex security vulnerabilities
+```
+
+### Auto-Fix Prompt Addition
+
+When entering fix mode, add to prompt:
+```
+Fix the following issues and verify the changes:
+1. [Issue description from review]
+2. [Issue description from review]
+
+After fixing, run verification to confirm the issues are resolved.
 ```

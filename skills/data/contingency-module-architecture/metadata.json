@@ -1,12 +1,7 @@
 {
   "name": "contingency-module-architecture",
-  "description": "Design contingency module architectures for failure scenarios.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "data",
-  "tags": [
-    "contingency",
-    "module",
-    "architecture"
-  ],
-  "stars": 1
+  "path": "skills/contingency-module-architecture/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:45.684172Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "review-spec",
-  "repo": "rhuss/cc-superpowers-sdd",
-  "path": "skills/review-spec/SKILL.md",
-  "source": "github.com/rhuss/cc-superpowers-sdd",
-  "downloaded_at": "2026-01-14T02:15:41.294984Z"
+  "repo": "msalganik/torchtune_config_writer",
+  "path": ".claude/skills/review-spec/SKILL.md",
+  "source": "github.com/msalganik/torchtune_config_writer",
+  "downloaded_at": "2026-01-22T03:37:53.366846Z"
 }

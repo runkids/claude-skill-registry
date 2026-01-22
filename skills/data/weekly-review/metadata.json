@@ -1,12 +1,7 @@
 {
   "name": "weekly-review",
-  "description": "Conduct User's weekly review when he says \"weekly review\", \"week in review\", or \"end of week review\". Synthesizes the week's progress, analyzes what worked/didn't, updates project priorities, and plan",
-  "repo": "kcwoodfield/LifeOS-OSS",
-  "category": "development",
-  "tags": [
-    "weekly",
-    "review"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "TaylorHuston/local-life-manager",
+  "path": ".claude/skills/weekly-review/SKILL.md",
+  "source": "github.com/TaylorHuston/local-life-manager",
+  "downloaded_at": "2026-01-22T02:22:13.987455Z"
 }

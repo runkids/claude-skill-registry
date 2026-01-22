@@ -16,7 +16,8 @@ Generate AntV Infographic syntax output from user content, following the rules i
 3. Select a template that matches the structure (sequence/list/compare/hierarchy/chart).
 4. Compose the syntax using `references/prompt.md` as the formatting baseline.
 5. Preserve hard constraints in every output:
-   - Output is a single `plain` code block; no extra text.
+   - Output is a single `infographic` markdown code block; no extra text.
    - First line is `infographic <template-name>`.
-   - Use two-space indentation; key/value pairs are `key value`; arrays use `-`.
-   - Compare templates (`compare-*`) must have exactly two root nodes with children.
+
+- Use two-space indentation; key/value pairs are `key value`; arrays use `-`.
+- Compare templates (`compare-*`) must have exactly two root nodes with children.

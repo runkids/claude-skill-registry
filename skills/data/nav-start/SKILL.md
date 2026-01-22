@@ -1,13 +1,13 @@
 ---
 name: nav-start
-description: Load Navigator documentation navigator when starting development session, resuming work, or beginning new feature. Use when user mentions starting work, beginning session, resuming after break, or checking project status.
+description: Load SuperNavigator (OS + App layers) documentation when starting development session. Loads Navigator context + injects using-superpowers App layer. Use when user mentions starting work, beginning session, or checking project status.
 allowed-tools: Read, Bash
-version: 1.0.0
+version: 6.0.0
 ---
 
-# Navigator Navigator Skill
+# SuperNavigator Session Start Skill
 
-Load the Navigator documentation navigator to start your development session with optimized context.
+Load the SuperNavigator documentation to start your development session with both OS Layer (Navigator context management) and App Layer (Superpowers workflows) enabled.
 
 ## When to Invoke
 
@@ -119,6 +119,61 @@ Parse:
 - `project_management`: Which PM tool (linear, github, jira, none)
 - `task_prefix`: Task ID format (TASK, GH, LIN, etc.)
 - `team_chat`: Team notifications (slack, discord, none)
+- `tom_features`: ToM configuration (if present, v5.0.0+)
+
+### Step 5.5: Load User Profile (ToM - Bilateral Modeling) [EXECUTE]
+
+**IMPORTANT**: This step MUST be executed, not just documented.
+
+**Check if user profile exists**:
+```bash
+if [ -f ".agent/.user-profile.json" ]; then
+  echo "📋 User profile found"
+else
+  echo "No user profile. Using defaults."
+fi
+```
+
+**If profile exists, READ IT NOW**:
+```
+Read(
+  file_path: ".agent/.user-profile.json"
+)
+```
+
+**After reading, APPLY these preferences for the session**:
+
+1. **Verbosity** (`preferences.communication.verbosity`):
+   - `concise`: Keep responses brief, code-first
+   - `balanced`: Normal explanations (default)
+   - `detailed`: Thorough explanations with context
+
+2. **Confirmation threshold** (`preferences.communication.confirmation_threshold`):
+   - `always`: Show verification checkpoints for all skills
+   - `high-stakes`: Only for backend-endpoint, database-migration, frontend-component (default)
+   - `never`: Skip verification checkpoints
+
+3. **Frameworks** (`preferences.technical.preferred_frameworks`):
+   - Remember for code generation suggestions
+   - E.g., ["react", "express"] → prefer these in examples
+
+4. **Corrections** (`corrections[]`):
+   - Review recent patterns to avoid repeating mistakes
+   - E.g., "REST endpoints use plural nouns" → apply immediately
+
+**Display profile summary in session output**:
+```
+🧠 Theory of Mind: Active
+   Profile: Loaded ({corrections_count} corrections, {goals_count} goals)
+   Verbosity: {verbosity}
+   Checkpoints: {confirmation_threshold}
+```
+
+**If profile doesn't exist**:
+```
+🧠 Theory of Mind: Active (no profile yet)
+   Say "save my preferences" to create one
+```
 
 ### Step 6: Check PM Tool for Assigned Tasks
 
@@ -162,6 +217,39 @@ This script:
 - Cost tracking for ROI measurement
 - Official API (won't break on updates)
 
+### Step 7.5: Enable App Layer (Superpowers Workflows)
+
+**SuperNavigator Integration**: Inject using-superpowers skill context to enable App layer workflows.
+
+```
+Read(
+  file_path: "skills/app-layer/advanced/using-superpowers/SKILL.md"
+)
+```
+
+This enables:
+- Brainstorming skill for design
+- TDD workflows
+- Systematic debugging
+- Code review patterns
+- Parallel development with subagents
+
+**App Layer Status**:
+```
+✅ App Layer (Superpowers): Enabled
+   - Design: brainstorming, writing-plans
+   - Development: test-driven-development, using-git-worktrees, executing-plans
+   - Quality: requesting-code-review, receiving-code-review, systematic-debugging
+   - Parallel: dispatching-parallel-agents, subagent-driven-development
+   - Advanced: verification-before-completion, finishing-a-development-branch, writing-skills
+```
+
+**Integration enabled**:
+- Implicit triggers at workflow boundaries
+- Auto-save markers before brainstorming
+- Auto-update nav-tasks from writing-plans
+- Auto-compact at 85% context usage
+
 ### Step 8: Display Session Summary
 
 Show this formatted summary:
@@ -169,13 +257,17 @@ Show this formatted summary:
 ```
 ╔══════════════════════════════════════════════════════╗
 ║                                                      ║
-║  🚀 Navigator Session Started                             ║
+║  🚀 SuperNavigator Session Started                   ║
 ║                                                      ║
 ╚══════════════════════════════════════════════════════╝
 
 📖 Documentation Navigator: Loaded
 🎯 Project Management: [PM tool or "Manual"]
 ✅ Token Optimization: Active
+🧠 Theory of Mind: [Profile status from Step 5.5]
+⚡ OS Layer (Navigator): Enabled
+✨ App Layer (Superpowers): Enabled
+🔗 Implicit Integration: Active
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

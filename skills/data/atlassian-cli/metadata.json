@@ -1,12 +1,7 @@
 {
   "name": "atlassian-cli",
-  "description": "Execute Atlassian CLI (acli) commands for Jira work items, projects, sprints, boards, and organization administration. Use when the user wants to manage Jira issues, projects, sprints, or perform Atla",
-  "repo": "doug-skinner/acli-claude-skill",
-  "category": "productivity",
-  "tags": [
-    "atlassian",
-    "cli"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "leweii/atlassian-cli",
+  "path": "SKILL.md",
+  "source": "github.com/leweii/atlassian-cli",
+  "downloaded_at": "2026-01-22T03:19:46.808785Z"
 }

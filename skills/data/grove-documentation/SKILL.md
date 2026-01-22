@@ -50,6 +50,46 @@ Mix short sentences with longer ones. Vary your rhythm. Read it aloud—if it so
 
 ---
 
+## User Identity Terminology
+
+Grove uses specific terms for community members. **Always use these in user-facing text.**
+
+| Term | Who | Context |
+|------|-----|---------|
+| **Wanderer** | Everyone | Default greeting, anonymous visitors, all users |
+| **Rooted** / **the Rooted** | Subscribers | Those who've planted their tree, paid users |
+| **Pathfinder** | Trusted guides | Appointed community helpers |
+| **Wayfinder** | Autumn (singular) | The grove keeper |
+
+### Key Rules
+
+- **Never use "user" or "member"** in user-facing text. Use "Wanderer" instead.
+- **Never use "subscriber"** in user-facing text. Use "Rooted" or "the Rooted".
+- **Personal emails** (day-1, day-3, etc.) should use `{{name}}`, not "Wanderer".
+- **Generic greetings** (welcome pages, UI) should use "Wanderer".
+
+### Examples
+
+**Good:**
+- "Welcome, Wanderer."
+- "Thanks for staying rooted with us."
+- "Ask a Pathfinder. They'll show you the way."
+
+**Avoid:**
+- "Welcome, user."
+- "Thanks for being a subscriber."
+- "Contact an administrator."
+
+### The Symmetry
+
+Wanderer → Wayfinder reflects the journey:
+- Wanderers *seek* the way (exploring, finding paths)
+- The Wayfinder *shows* the way (guiding, creating paths)
+
+See `docs/grove-user-identity.md` for full documentation.
+
+---
+
 ## Strict Avoidances
 
 These patterns make text sound like AI wrote it. Avoid them completely.
@@ -331,6 +371,23 @@ When **grove-ui-design** or **walking-through-the-grove** need written content, 
 2. Activate `grove-documentation` for voice guidance
 3. Write the content following these principles
 4. Return to design/naming work
+
+### When to Use museum-documentation Instead
+
+This skill (grove-documentation) is for **quick, functional text**: help articles, error messages, tooltips, onboarding copy. Content that's read in passing.
+
+Use **museum-documentation** when you need **narrative, explorable documentation**:
+
+| Use grove-documentation | Use museum-documentation |
+|------------------------|-------------------------|
+| Help center articles | Knowledge base "how it works" |
+| Tooltips and labels | Codebase guided tours |
+| Error messages | System architecture explains |
+| Onboarding flows | Technical deep-dives for curious Wanderers |
+| Quick-reference guides | Exhibit-style documentation |
+
+If the reader should **skim and act**, use this skill.
+If the reader should **explore and understand**, use museum-documentation.
 
 ---
 

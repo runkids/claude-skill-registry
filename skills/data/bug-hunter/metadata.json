@@ -1,7 +1,7 @@
 {
   "name": "bug-hunter",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/bug-hunter/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:14.143364Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/bug-hunter/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-22T04:03:31.260412Z"
 }

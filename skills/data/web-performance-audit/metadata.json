@@ -1,7 +1,7 @@
 {
   "name": "web-performance-audit",
-  "repo": "Hieubkav/wincellarCloneBackend",
-  "path": ".claude/skills/optimize/web-performance-audit/SKILL.md",
-  "source": "github.com/Hieubkav/wincellarCloneBackend",
-  "downloaded_at": "2026-01-14T01:35:19.560757Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/web-performance-audit/skills/web-performance-audit/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:06.771578Z"
 }

@@ -1,265 +1,132 @@
 ---
 name: worktree
-description: Manages git worktrees for parallel development. Creates isolated working directories for tickets/branches, lists active worktrees, and cleans up after merging. Use when starting work on a ticket or cleaning up completed work.
+description: This skill should be used when the user asks to "create a worktree", "add a worktree", "set up a worktree", mentions "git worktree", or wants to work on multiple branches simultaneously.
 user-invocable: true
-allowed-tools: Bash, AskUserQuestion
 ---
 
-# Worktree Management
+# Create Git Worktree
 
-## Purpose
+This skill creates git worktrees in a standardized location with proper DVC configuration.
 
-Manage git worktrees to enable parallel development. Worktrees let you work on multiple branches simultaneously without stashing or switching — each branch gets its own directory.
+## When to Use
 
-## Concepts
+Use this skill when the user:
+- Asks to create a new git worktree
+- Wants to work on multiple branches simultaneously
+- Mentions "git worktree add" or similar
 
-### What is a worktree?
+## Worktree Location
 
-A worktree is a linked working directory that shares the same `.git` repository. You can have multiple worktrees, each checked out to a different branch.
-
-### Directory structure
-
-Worktrees are created in a `.worktrees/` directory alongside the main repo:
-
+All worktrees are created under `.worktrees/` in the repository root:
 ```
-~/projects/
-  my-project/                         <- main worktree (on main branch)
-  .worktrees/
-    my-project-42-feature/            <- linked worktree
-    my-project-57-bugfix/             <- linked worktree
-```
-
-All worktrees share the same git history but have independent working directories.
-
-### Naming convention
-
-Worktree directories follow the pattern:
-```
-<repo-name>-<branch-name>
+repo/
+├── .worktrees/
+│   ├── feature-branch-1/
+│   └── feature-branch-2/
+├── src/
+└── ...
 ```
 
-Example: If the repo is `api-service` and branch is `42-rate-limiting`:
+## Instructions
+
+### 1. Determine the Repository Root
+
+Find the git repository root:
+```bash
+git rev-parse --show-toplevel
 ```
-../.worktrees/api-service-42-rate-limiting/
+
+### 2. Create the Worktrees Directory
+
+Ensure the `.worktrees` directory exists:
+```bash
+mkdir -p "$(git rev-parse --show-toplevel)/.worktrees"
 ```
 
-## Commands
+### 3. Create the Worktree
 
-### Create a worktree
+Create the worktree with the specified branch:
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+git worktree add "$REPO_ROOT/.worktrees/<branch-name>" <branch-name>
+```
 
-**Usage:** `/worktree create [branch-name]`
+If creating a new branch:
+```bash
+git worktree add -b <new-branch-name> "$REPO_ROOT/.worktrees/<new-branch-name>"
+```
 
-Creates a new worktree for the specified branch. If the branch doesn't exist, creates it from origin/main.
+### 4. Copy .env File
 
-#### Workflow
-
-1. **Verify environment**
-   ```bash
-   git remote -v
-   git fetch origin
-   ```
-   Ensure we have a remote and fresh refs.
-
-2. **Determine repo name**
-   ```bash
-   basename $(git rev-parse --show-toplevel)
-   ```
-
-3. **Ensure .worktrees directory exists**
-   ```bash
-   mkdir -p ../.worktrees
-   ```
-
-4. **Check branch doesn't already exist as worktree**
-   ```bash
-   git worktree list
-   ```
-   If branch already has a worktree, report its location instead.
-
-5. **Create the worktree**
-
-   If branch exists remotely:
-   ```bash
-   git worktree add ../.worktrees/<repo>-<branch> <branch>
-   ```
-
-   If branch is new:
-   ```bash
-   git worktree add ../.worktrees/<repo>-<branch> -b <branch> origin/main
-   ```
-
-6. **Report the path**
-   Tell the user:
-   - Full path to the new worktree
-   - How to navigate there: `cd ../.worktrees/<worktree-dir>`
-   - Remind them to return to main repo when done
-
-### List worktrees
-
-**Usage:** `/worktree list`
-
-Shows all active worktrees for this repository.
+Copy `.env` from the project root to the worktree so environment variables are available:
 
 ```bash
-git worktree list
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+WORKTREE_PATH="$REPO_ROOT/.worktrees/<branch-name>"
+
+# Copy .env if it exists
+[ -f "$REPO_ROOT/.env" ] && cp "$REPO_ROOT/.env" "$WORKTREE_PATH/"
 ```
 
-Output shows:
-- Path to each worktree
-- Current commit
-- Branch name
+### 5. Handle DVC Configuration (if applicable)
 
-### Clean up a worktree
+Check if the repository uses DVC by looking for `.dvc/` directory:
+```bash
+if [ -d "$(git rev-parse --show-toplevel)/.dvc" ]; then
+    echo "DVC detected"
+fi
+```
 
-**Usage:** `/worktree clean [worktree-path-or-branch]`
+If DVC is present and `.dvc/config.local` exists, copy and update it:
 
-Removes a worktree after work is complete (typically after PR is merged).
+1. Copy the local config:
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+WORKTREE_PATH="$REPO_ROOT/.worktrees/<branch-name>"
+cp "$REPO_ROOT/.dvc/config.local" "$WORKTREE_PATH/.dvc/config.local"
+```
 
-#### Workflow
+2. Update the cache directory to point to the main repo's cache:
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+WORKTREE_PATH="$REPO_ROOT/.worktrees/<branch-name>"
+cat > "$WORKTREE_PATH/.dvc/config.local" << EOF
+[cache]
+    dir = $REPO_ROOT/.dvc/cache
+EOF
+```
 
-1. **List current worktrees**
-   ```bash
-   git worktree list
-   ```
+Note: If the original `.dvc/config.local` contains other settings beyond cache configuration, preserve those settings and only update/add the cache dir setting.
 
-2. **Identify which to remove**
-   User provides path or branch name. If ambiguous, ask.
+## Complete Example
 
-3. **Check for uncommitted changes**
-   ```bash
-   cd <worktree-path>
-   git status --porcelain
-   ```
-
-   **If changes exist:** STOP and warn user. Ask if they want to:
-   - Commit the changes first
-   - Discard changes and proceed (requires `--force`)
-   - Cancel
-
-4. **Check if branch is merged**
-   ```bash
-   git branch --merged main | grep <branch-name>
-   ```
-
-   If not merged, warn user but allow proceeding if they confirm.
-
-5. **Remove the worktree**
-   ```bash
-   git worktree remove <worktree-path>
-   ```
-
-   Or with force if user confirmed:
-   ```bash
-   git worktree remove --force <worktree-path>
-   ```
-
-6. **Optionally delete the branch**
-   Ask user if they also want to delete the branch:
-   ```bash
-   git branch -d <branch-name>
-   ```
-
-7. **Report success**
-   Confirm removal and list remaining worktrees.
-
-### Clean up all merged worktrees
-
-**Usage:** `/worktree clean-merged`
-
-Removes all worktrees whose branches have been merged to main.
-
-#### Workflow
-
-1. **List worktrees**
-   ```bash
-   git worktree list
-   ```
-
-2. **For each non-main worktree, check if merged**
-   ```bash
-   git branch --merged main
-   ```
-
-3. **Show user what will be removed**
-   List the merged worktrees and ask for confirmation.
-
-4. **Remove each confirmed worktree**
-   ```bash
-   git worktree remove <path>
-   git branch -d <branch>
-   ```
-
-5. **Report results**
-   Show what was removed and what remains.
-
-## Safety Rules
-
-1. **Never force-remove without explicit user confirmation**
-2. **Always check for uncommitted changes before removal**
-3. **Warn if branch is not merged before removal**
-4. **Never delete main/master worktree**
-5. **Never delete branches that aren't fully merged without user confirmation**
-
-## Common Patterns
-
-### Starting work on a ticket
+Creating a worktree for branch `feature/new-api`:
 
 ```bash
-# From main repo
-/worktree create 42-add-rate-limiting
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+BRANCH_NAME="feature/new-api"
+WORKTREE_DIR="$REPO_ROOT/.worktrees/$BRANCH_NAME"
 
-# Output:
-# Created worktree at /Users/you/projects/.worktrees/api-service-42-add-rate-limiting
-# Navigate there with: cd ../.worktrees/api-service-42-add-rate-limiting
+mkdir -p "$REPO_ROOT/.worktrees"
+git worktree add "$WORKTREE_DIR" "$BRANCH_NAME"
+
+# Copy .env if it exists
+[ -f "$REPO_ROOT/.env" ] && cp "$REPO_ROOT/.env" "$WORKTREE_DIR/"
+
+if [ -f "$REPO_ROOT/.dvc/config.local" ]; then
+    mkdir -p "$WORKTREE_DIR/.dvc"
+    cat > "$WORKTREE_DIR/.dvc/config.local" << EOF
+[cache]
+    dir = $REPO_ROOT/.dvc/cache
+EOF
+fi
+
+echo "Worktree created at: $WORKTREE_DIR"
 ```
 
-### Checking what you're working on
+## Notes
 
-```bash
-/worktree list
-
-# Output:
-# /Users/you/projects/api-service                                    abc1234 [main]
-# /Users/you/projects/.worktrees/api-service-42-add-rate-limiting    def5678 [42-add-rate-limiting]
-```
-
-### After PR is merged
-
-```bash
-/worktree clean 42-add-rate-limiting
-
-# Output:
-# Removed worktree: /Users/you/projects/.worktrees/api-service-42-add-rate-limiting
-# Deleted branch: 42-add-rate-limiting
-#
-# Remaining worktrees:
-# /Users/you/projects/api-service  abc1234 [main]
-```
-
-## Troubleshooting
-
-### "fatal: '<path>' is already checked out"
-The branch is already checked out in another worktree. Use `/worktree list` to find it.
-
-### "worktree is dirty"
-There are uncommitted changes. Commit or stash them before removing.
-
-### Branch not found
-Ensure you've fetched: `git fetch origin`. If it's a new branch, use the create command which will create it from main.
-
-## Checklist
-
-### Creating
-- [ ] Fetch latest from origin
-- [ ] Ensure ../.worktrees directory exists
-- [ ] Verify branch doesn't already have a worktree
-- [ ] Create worktree with correct naming convention
-- [ ] Report path and navigation instructions
-
-### Cleaning
-- [ ] Check for uncommitted changes
-- [ ] Check if branch is merged
-- [ ] Get user confirmation if needed
-- [ ] Remove worktree
-- [ ] Optionally delete branch
-- [ ] Report remaining worktrees
+- Worktree names typically match branch names, with slashes replaced by the filesystem
+- The `.worktrees/` directory should be added to `.gitignore` if not already
+- Use `git worktree list` to see all worktrees
+- Use `git worktree remove <path>` to remove a worktree

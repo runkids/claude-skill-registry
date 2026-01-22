@@ -1,12 +1,7 @@
 {
   "name": "hook-audit",
-  "description": "Comprehensive audit of Claude Code hooks for correctness, safety, and performance. Use when reviewing, validating, or debugging hooks, checking JSON stdin handling, verifying exit codes (0=allow, 2=bl",
   "repo": "philoserf/claude-code-setup",
-  "category": "development",
-  "tags": [
-    "hook",
-    "audit"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/hook-audit/SKILL.md",
+  "source": "github.com/philoserf/claude-code-setup",
+  "downloaded_at": "2026-01-22T01:30:34.169075Z"
 }

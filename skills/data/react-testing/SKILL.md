@@ -1,300 +1,500 @@
 ---
 name: react-testing
-description: React testing with Vitest, React Testing Library, and MSW. Focuses on user-centric testing, component isolation, and API mocking. Use when writing tests for React components, hooks, or debugging test failures in frontend code.
+description: Testing patterns for React with Jest and React Testing Library. Use when writing tests, mocking modules, testing Zustand stores, or debugging test failures in React web applications.
 ---
 
-# React Testing
+# React Testing (Web)
 
-Testing patterns for React 19 + TypeScript projects with Vitest.
+## Problem Statement
 
-## When to Use
+React testing requires understanding component rendering, user interactions, and async state management. This skill covers Jest with React Testing Library patterns for web applications.
 
-- Writing component tests
-- Testing custom hooks
-- Mocking API calls with MSW
-- Debugging test failures
-- Improving frontend test coverage
+---
 
-## MCP Workflow
+## Pattern: Zustand Store Testing
+
+**Problem:** Store state persists between tests, causing flaky tests.
 
 ```typescript
-# 1. Find existing test patterns
-serena.search_for_pattern("describe|it|test", relative_path="src/", paths_include_glob="**/*.test.{ts,tsx}")
+import { useAppStore } from '@/stores/appStore';
 
-# 2. Check test utilities
-serena.get_symbols_overview(relative_path="src/test/")
+const initialState = {
+  items: [],
+  loading: false,
+  error: null,
+};
 
-# 3. Find component test patterns
-jetbrains.search_in_files_by_text("render(", fileMask="*.test.tsx")
-
-# 4. React Testing Library docs
-context7.get-library-docs("/testing-library/react-testing-library", "queries")
-```
-
-## Testing Principles
-
-1. **Test user behavior**, not implementation
-2. **Query by accessibility**: `getByRole` > `getByTestId`
-3. **Avoid testing internal state** directly
-4. **Mock at boundaries**: API calls, not internal functions
-
-## Query Priority
-
-| Priority | Query | Use When |
-|----------|-------|----------|
-| 1 | `getByRole` | Interactive elements (button, input) |
-| 2 | `getByLabelText` | Form fields |
-| 3 | `getByPlaceholderText` | Input with placeholder |
-| 4 | `getByText` | Non-interactive text |
-| 5 | `getByTestId` | Last resort |
-
-## Component Test Patterns
-
-### Basic Component Test
-
-```typescript
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { UserCard } from './UserCard';
-
-describe('UserCard', () => {
-  it('should display user name', () => {
-    render(<UserCard user={{ id: '1', name: 'Alice' }} />);
-
-    expect(screen.getByRole('heading')).toHaveTextContent('Alice');
-  });
-
-  it('should call onSelect when clicked', async () => {
-    const user = userEvent.setup();
-    const handleSelect = vi.fn();
-
-    render(
-      <UserCard
-        user={{ id: '1', name: 'Alice' }}
-        onSelect={handleSelect}
-      />
-    );
-
-    await user.click(screen.getByRole('button', { name: /select/i }));
-
-    expect(handleSelect).toHaveBeenCalledWith('1');
-  });
-});
-```
-
-### Async Component Test
-
-```typescript
-import { render, screen, waitFor } from '@testing-library/react';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { UserList } from './UserList';
-
-describe('UserList', () => {
-  it('should show loading then data', async () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <UserList />
-      </QueryClientProvider>
-    );
-
-    // Loading state
-    expect(screen.getByRole('progressbar')).toBeInTheDocument();
-
-    // Wait for data
-    await waitFor(() => {
-      expect(screen.getByRole('list')).toBeInTheDocument();
-    });
-
-    expect(screen.getAllByRole('listitem')).toHaveLength(3);
-  });
-});
-```
-
-## Custom Hook Testing
-
-```typescript
-import { renderHook, waitFor } from '@testing-library/react';
-import { useDebounce } from './useDebounce';
-
-describe('useDebounce', () => {
+describe('App Store', () => {
+  // Reset store before each test
   beforeEach(() => {
-    vi.useFakeTimers();
+    useAppStore.setState(initialState, true); // true = replace entire state
   });
 
-  afterEach(() => {
-    vi.useRealTimers();
+  it('adds item to store', async () => {
+    const store = useAppStore.getState();
+
+    await store.addItem({ id: '1', name: 'Test' });
+
+    expect(useAppStore.getState().items).toHaveLength(1);
   });
 
-  it('should debounce value changes', async () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'initial' } }
-    );
+  it('handles loading state', async () => {
+    const store = useAppStore.getState();
 
-    expect(result.current).toBe('initial');
+    const loadPromise = store.fetchItems();
+    expect(useAppStore.getState().loading).toBe(true);
 
-    rerender({ value: 'updated' });
-    expect(result.current).toBe('initial'); // Not updated yet
-
-    vi.advanceTimersByTime(500);
-    await waitFor(() => {
-      expect(result.current).toBe('updated');
-    });
+    await loadPromise;
+    expect(useAppStore.getState().loading).toBe(false);
   });
 });
 ```
 
-## MSW API Mocking
+**Key points:**
+- Use `setState(initialState, true)` to replace (not merge) state
+- Get fresh state with `getState()` after async operations
+- Don't rely on component re-renders in store tests
 
-### Setup
+---
 
-```typescript
-// src/test/mocks/handlers.ts
-import { http, HttpResponse } from 'msw';
+## Pattern: Async Store Operations
 
-export const handlers = [
-  http.get('/api/users', () => {
-    return HttpResponse.json([
-      { id: '1', name: 'Alice' },
-      { id: '2', name: 'Bob' },
-    ]);
-  }),
-
-  http.post('/api/users', async ({ request }) => {
-    const body = await request.json();
-    return HttpResponse.json({ id: '3', ...body }, { status: 201 });
-  }),
-
-  http.get('/api/users/:id', ({ params }) => {
-    return HttpResponse.json({ id: params.id, name: 'User' });
-  }),
-];
-```
-
-### Test Setup
+**Problem:** Testing async Zustand actions with proper waiting.
 
 ```typescript
-// src/test/setup.ts
-import { beforeAll, afterEach, afterAll } from 'vitest';
-import { setupServer } from 'msw/node';
-import { handlers } from './mocks/handlers';
+import { act, waitFor } from '@testing-library/react';
 
-export const server = setupServer(...handlers);
+it('loads data correctly', async () => {
+  const store = useAppStore.getState();
 
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-```
+  // Wrap async store operations in act
+  await act(async () => {
+    await store.loadData('123');
+  });
 
-### Override Handler in Test
-
-```typescript
-import { server } from '@/test/setup';
-import { http, HttpResponse } from 'msw';
-
-it('should handle API error', async () => {
-  server.use(
-    http.get('/api/users', () => {
-      return HttpResponse.json({ error: 'Server error' }, { status: 500 });
-    })
-  );
-
-  render(<UserList />);
-
+  // Verify state after async completes
   await waitFor(() => {
-    expect(screen.getByText(/error/i)).toBeInTheDocument();
+    const state = useAppStore.getState();
+    expect(Object.keys(state.data).length).toBeGreaterThan(0);
+  });
+});
+
+// For complex flows, verify each step
+it('completes multi-step flow', async () => {
+  const store = useAppStore.getState();
+
+  // Step 1
+  await act(async () => {
+    await store.loadItems();
+  });
+  expect(useAppStore.getState().items).toBeDefined();
+
+  // Step 2
+  await act(async () => {
+    await store.processItems();
+  });
+  expect(useAppStore.getState().processed).toBe(true);
+});
+```
+
+---
+
+## Pattern: Component Testing
+
+```typescript
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+describe('ItemCard', () => {
+  const mockItem = {
+    id: '1',
+    title: 'Test Item',
+    price: 99.99,
+  };
+
+  it('displays item data', () => {
+    render(<ItemCard item={mockItem} />);
+
+    expect(screen.getByText('Test Item')).toBeInTheDocument();
+    expect(screen.getByText('$99.99')).toBeInTheDocument();
+  });
+
+  it('calls onClick when clicked', async () => {
+    const user = userEvent.setup();
+    const onClick = jest.fn();
+
+    render(<ItemCard item={mockItem} onClick={onClick} />);
+
+    await user.click(screen.getByRole('button'));
+
+    expect(onClick).toHaveBeenCalledWith(mockItem.id);
+  });
+
+  it('shows loading state', () => {
+    render(<ItemCard item={mockItem} loading />);
+
+    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
   });
 });
 ```
 
-## Testing Patterns for TanStack Query
+---
+
+## Pattern: React Query Testing
+
+**Problem:** Components using React Query need QueryClientProvider.
 
 ```typescript
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { render, screen, waitFor } from '@testing-library/react';
 
 function createTestQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        retry: false,        // Don't retry in tests
-        gcTime: Infinity,    // Keep cache during test
+        retry: false,
+        gcTime: 0,
       },
     },
   });
 }
 
-function wrapper({ children }: { children: React.ReactNode }) {
-  const client = createTestQueryClient();
-  return (
-    <QueryClientProvider client={client}>
-      {children}
+function renderWithQuery(ui: React.ReactElement) {
+  const queryClient = createTestQueryClient();
+  return render(
+    <QueryClientProvider client={queryClient}>
+      {ui}
     </QueryClientProvider>
   );
 }
 
-// Usage
-render(<UserList />, { wrapper });
-```
+// Usage in tests
+it('fetches and displays data', async () => {
+  renderWithQuery(<UserProfile userId="123" />);
 
-## Anti-Patterns
+  // Shows loading initially
+  expect(screen.getByText('Loading...')).toBeInTheDocument();
 
-| Pattern | Problem | Solution |
-|---------|---------|----------|
-| `getByTestId` for buttons | Tests implementation | Use `getByRole('button')` |
-| Testing state directly | Brittle | Test rendered output |
-| `fireEvent` for clicks | Doesn't match user | Use `userEvent` |
-| Mocking child components | Over-isolation | Render real children |
-| `await waitFor(() => {})` empty | Flaky | Wait for specific element |
-| Testing third-party libs | Wasted effort | Trust libraries work |
-
-## TDD Workflow for React
-
-### 1. RED: Write Failing Test
-
-```typescript
-it('should show error when name is empty', async () => {
-  const user = userEvent.setup();
-  render(<CreateUserForm />);
-
-  await user.click(screen.getByRole('button', { name: /submit/i }));
-
-  expect(screen.getByRole('alert')).toHaveTextContent('Name is required');
+  // Wait for data
+  await waitFor(() => {
+    expect(screen.getByText('John Doe')).toBeInTheDocument();
+  });
 });
 ```
 
-### 2. GREEN: Implement
+---
+
+## Pattern: Custom Hook Testing
 
 ```typescript
-export function CreateUserForm() {
-  const [error, setError] = useState<string | null>(null);
+import { renderHook, act, waitFor } from '@testing-library/react';
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    if (!form.name.value) {
-      setError('Name is required');
-      return;
-    }
-  };
+describe('useAuth', () => {
+  it('signs in user', async () => {
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider, // If hook needs context
+    });
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <input name="name" />
-      {error && <div role="alert">{error}</div>}
-      <button type="submit">Submit</button>
-    </form>
-  );
-}
+    await act(async () => {
+      await result.current.signIn('test@example.com', 'password');
+    });
+
+    expect(result.current.user).toBeDefined();
+    expect(result.current.isAuthenticated).toBe(true);
+  });
+
+  it('handles sign in error', async () => {
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider,
+    });
+
+    await act(async () => {
+      try {
+        await result.current.signIn('invalid@example.com', 'wrong');
+      } catch (e) {
+        // Expected
+      }
+    });
+
+    expect(result.current.error).toBe('Invalid credentials');
+  });
+});
+
+// Hook with Zustand
+describe('useUserData', () => {
+  beforeEach(() => {
+    useUserStore.setState(initialState, true);
+  });
+
+  it('returns current user data', () => {
+    // Pre-populate store
+    useUserStore.setState({ user: { id: '1', name: 'Test' } });
+
+    const { result } = renderHook(() => useUserData());
+
+    expect(result.current.user.name).toBe('Test');
+  });
+});
 ```
 
-### 3. REFACTOR: Improve accessibility, extract validation
+---
 
-## Quality Checklist
+## Pattern: Mocking API Calls
 
-- [ ] Tests query by role/label, not testId
-- [ ] `userEvent` used instead of `fireEvent`
-- [ ] Async operations use `waitFor`
-- [ ] MSW for API mocking (not `vi.mock`)
-- [ ] Loading/error states tested
-- [ ] No testing of implementation details
-- [ ] Test names describe user behavior
+```typescript
+// Mock fetch globally
+global.fetch = jest.fn();
+
+beforeEach(() => {
+  (fetch as jest.Mock).mockClear();
+});
+
+it('fetches user data', async () => {
+  (fetch as jest.Mock).mockResolvedValueOnce({
+    ok: true,
+    json: async () => ({ id: '1', name: 'John' }),
+  });
+
+  render(<UserProfile userId="1" />);
+
+  await waitFor(() => {
+    expect(screen.getByText('John')).toBeInTheDocument();
+  });
+
+  expect(fetch).toHaveBeenCalledWith('/api/users/1');
+});
+
+// Mock specific module
+jest.mock('@/api/users', () => ({
+  getUser: jest.fn(),
+  updateUser: jest.fn(),
+}));
+
+import { getUser, updateUser } from '@/api/users';
+
+it('loads and updates user', async () => {
+  (getUser as jest.Mock).mockResolvedValue({ id: '1', name: 'John' });
+  (updateUser as jest.Mock).mockResolvedValue({ id: '1', name: 'Jane' });
+
+  // Test component that uses these
+});
+```
+
+---
+
+## Pattern: Router Testing
+
+```typescript
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+
+function renderWithRouter(ui: React.ReactElement, { route = '/' } = {}) {
+  return render(
+    <MemoryRouter initialEntries={[route]}>
+      {ui}
+    </MemoryRouter>
+  );
+}
+
+// Test navigation
+it('navigates to profile on button click', async () => {
+  const user = userEvent.setup();
+
+  renderWithRouter(
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+    </Routes>
+  );
+
+  await user.click(screen.getByText('Go to Profile'));
+
+  expect(screen.getByText('Profile Page')).toBeInTheDocument();
+});
+
+// Test with route params
+it('displays user from route params', async () => {
+  renderWithRouter(
+    <Routes>
+      <Route path="/users/:id" element={<UserPage />} />
+    </Routes>,
+    { route: '/users/123' }
+  );
+
+  await waitFor(() => {
+    expect(screen.getByText('User 123')).toBeInTheDocument();
+  });
+});
+```
+
+---
+
+## Pattern: Form Testing
+
+```typescript
+import userEvent from '@testing-library/user-event';
+
+describe('LoginForm', () => {
+  it('submits form with entered data', async () => {
+    const user = userEvent.setup();
+    const onSubmit = jest.fn();
+
+    render(<LoginForm onSubmit={onSubmit} />);
+
+    await user.type(screen.getByLabelText('Email'), 'test@example.com');
+    await user.type(screen.getByLabelText('Password'), 'password123');
+    await user.click(screen.getByRole('button', { name: 'Sign In' }));
+
+    expect(onSubmit).toHaveBeenCalledWith({
+      email: 'test@example.com',
+      password: 'password123',
+    });
+  });
+
+  it('shows validation errors', async () => {
+    const user = userEvent.setup();
+
+    render(<LoginForm onSubmit={jest.fn()} />);
+
+    // Submit without filling form
+    await user.click(screen.getByRole('button', { name: 'Sign In' }));
+
+    expect(screen.getByText('Email is required')).toBeInTheDocument();
+    expect(screen.getByText('Password is required')).toBeInTheDocument();
+  });
+
+  it('disables submit while loading', async () => {
+    render(<LoginForm onSubmit={jest.fn()} loading />);
+
+    expect(screen.getByRole('button', { name: 'Sign In' })).toBeDisabled();
+  });
+});
+```
+
+---
+
+## Pattern: Avoiding act() Warnings
+
+**Problem:** "Warning: An update inside a test was not wrapped in act(...)"
+
+```typescript
+// WRONG - state update happens after test
+it('loads data', () => {
+  render(<DataComponent />);
+  // Component fetches data async, updates state after test ends
+});
+
+// CORRECT - wait for async completion
+it('loads data', async () => {
+  render(<DataComponent />);
+
+  // Wait for loading to complete
+  await waitFor(() => {
+    expect(screen.getByText('Data loaded')).toBeInTheDocument();
+  });
+});
+
+// CORRECT - use findBy* (has built-in waitFor)
+it('loads data', async () => {
+  render(<DataComponent />);
+
+  const element = await screen.findByText('Data loaded');
+  expect(element).toBeInTheDocument();
+});
+```
+
+---
+
+## Pattern: Snapshot Testing
+
+**When to use:**
+- UI components with stable structure
+- Design system components
+- Components where visual regression matters
+
+**When to avoid:**
+- Components with dynamic content
+- Components that change frequently
+- Large component trees (brittle)
+
+```typescript
+// Good snapshot candidate - stable UI component
+it('renders correctly', () => {
+  const { container } = render(<Button variant="primary">Submit</Button>);
+  expect(container).toMatchSnapshot();
+});
+
+// Bad snapshot candidate - dynamic content
+it('renders user list', () => {
+  // Don't snapshot - list content varies
+  // Instead, test specific behaviors
+});
+```
+
+---
+
+## Pattern: Testing Context Providers
+
+```typescript
+// Create a wrapper with all providers
+function AllProviders({ children }: { children: React.ReactNode }) {
+  const queryClient = createTestQueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+}
+
+function renderWithProviders(ui: React.ReactElement) {
+  return render(ui, { wrapper: AllProviders });
+}
+
+// Use in tests
+it('renders with all context', () => {
+  renderWithProviders(<Dashboard />);
+  // Component has access to all providers
+});
+```
+
+---
+
+## Test Commands
+
+```bash
+npm test                      # Run all tests
+npm test -- --watch           # Watch mode
+npm test -- --coverage        # Coverage report
+npm test -- Button            # Run specific test file
+npm test -- --updateSnapshot  # Update snapshots
+npm test -- --runInBand       # Run tests serially (debugging)
+```
+
+---
+
+## Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| "Cannot find module" | Check jest moduleNameMapper config |
+| act() warning | Wrap state updates in act(), use waitFor/findBy |
+| Store state bleeding | Add beforeEach with setState reset |
+| Async test timeout | Increase timeout or check for hanging promises |
+| Mock not working | Verify mock path matches import path exactly |
+| Query not found | Use findBy* for async content, check accessibility |
+
+---
+
+## Recommended File Structure
+
+```
+__tests__/
+  utils/
+    test-utils.tsx         # Custom render with providers
+    query-test-utils.tsx   # QueryClient wrapper
+jest.setup.js              # Global mocks and setup
+jest.config.js             # Jest configuration
+```

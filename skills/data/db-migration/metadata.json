@@ -1,8 +1,7 @@
 {
   "name": "db-migration",
-  "repo": "deeksmith-cpu/Frontera-Platform",
-  "category": "data",
-  "description": "Create Supabase database migrations. Use when user says \"add table\", \"create migration\", \"update schema\", \"add column\", \"database change\", or asks to modify the database.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:34.439824Z"
+  "repo": "fixlifyapp/Fixlify-Main",
+  "path": ".claude/skills/db-migration/SKILL.md",
+  "source": "github.com/fixlifyapp/Fixlify-Main",
+  "downloaded_at": "2026-01-21T03:12:29.334453Z"
 }

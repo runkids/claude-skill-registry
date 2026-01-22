@@ -1,7 +1,7 @@
 {
   "name": "mcp-debug",
-  "repo": "carmentacollective/carmenta",
-  "path": ".claude/skills/mcp-debug/SKILL.md",
-  "source": "github.com/carmentacollective/carmenta",
-  "downloaded_at": "2026-01-14T01:20:51.969801Z"
+  "repo": "TechNickAI/ai-coding-config",
+  "path": "plugins/core/skills/mcp-debug/SKILL.md",
+  "source": "github.com/TechNickAI/ai-coding-config",
+  "downloaded_at": "2026-01-22T03:34:07.357317Z"
 }

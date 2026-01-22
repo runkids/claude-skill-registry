@@ -1,11 +1,7 @@
 {
   "name": "langgraph",
-  "description": "Expert guidance for building stateful, multi-actor AI agents with LangGraph - graphs, nodes, edges, state management, and agent architectures.",
   "repo": "htooayelwinict/claude-config",
-  "category": "development",
-  "tags": [
-    "langgraph"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/langgraph/SKILL.md",
+  "source": "github.com/htooayelwinict/claude-config",
+  "downloaded_at": "2026-01-19T04:20:10.277623Z"
 }

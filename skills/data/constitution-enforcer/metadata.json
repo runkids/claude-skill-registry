@@ -1,7 +1,7 @@
 {
   "name": "constitution-enforcer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/constitution-enforcer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:15.303502Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/constitution-enforcer/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-22T04:03:32.419734Z"
 }

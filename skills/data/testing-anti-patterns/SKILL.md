@@ -1,768 +1,484 @@
 ---
-name: testing-anti-patterns
-description: "Use to avoid critical testing mistakes. Five Iron Laws: Never test mock behavior, Never add test-only methods, Never mock without understanding, Always integration test, Always test error paths."
+name: Testing-Anti-Patterns
+description: Use when writing or changing tests, adding mocks, or tempted to add test-only methods to production code - prevents testing mock behavior, production pollution with test-only methods, and mocking without understanding dependencies
 ---
 
 # Testing Anti-Patterns
 
-## Core Principle
+## Overview
 
-Avoid the five critical testing mistakes that undermine test value and create false confidence.
+Tests must verify real behavior, not mock behavior. Mocks are a means to isolate, not the thing being tested.
 
-## When to Use This Skill
+**Core principle:** Test what the code does, not what the mocks do.
 
-- Writing new tests
-- Reviewing test code
-- Debugging failing tests
-- Test suite feels fragile
-- Tests pass but bugs still occur
-- Refactoring breaks many tests
-- Unsure how to test something
+**Following strict TDD prevents these anti-patterns.**
 
-## The Five Iron Laws
-
-### 1. NEVER TEST MOCK BEHAVIOR
-
-**If your test only verifies mock interactions, it tests nothing.**
-
-```php
-// ❌ BAD: Testing the mock, not the system
-public function test_user_service_calls_repository()
-{
-    $mockRepo = $this->createMock(UserRepository::class);
-    $mockRepo->expects($this->once())
-             ->method('save')
-             ->with($this->isInstanceOf(User::class));
-
-    $service = new UserService($mockRepo);
-    $service->createUser(['name' => 'John']);
-
-    // This test passes if mock is called
-    // But does the system actually work? Unknown!
-}
-
-// ✅ GOOD: Test actual behavior
-public function test_user_service_creates_user()
-{
-    $service = new UserService(new UserRepository());
-    $user = $service->createUser(['name' => 'John']);
-
-    $this->assertDatabaseHas('users', ['name' => 'John']);
-    $this->assertEquals('John', $user->name);
-    // Tests actual system behavior, not mocks
-}
-```
-
-### 2. NEVER ADD TEST-ONLY METHODS
-
-**If code only exists for testing, your test is wrong.**
-
-```php
-// ❌ BAD: Test-only method
-class UserService
-{
-    private $repository;
-
-    public function __construct(UserRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    // This method ONLY exists for testing!
-    public function getRepositoryForTesting()
-    {
-        return $this->repository;
-    }
-}
-
-public function test_user_service_uses_repository()
-{
-    $service = new UserService($repo);
-    $this->assertSame($repo, $service->getRepositoryForTesting());
-    // Testing implementation, not behavior
-}
-
-// ✅ GOOD: Test observable behavior
-public function test_user_service_saves_user()
-{
-    $service = new UserService(new UserRepository());
-    $user = $service->createUser(['name' => 'John']);
-
-    // Test through public API, not internals
-    $this->assertTrue($user->exists);
-}
-```
-
-### 3. NEVER MOCK WITHOUT UNDERSTANDING
-
-**If you don't understand what you're mocking, your test is worthless.**
-
-```php
-// ❌ BAD: Mocking without understanding
-public function test_payment_processing()
-{
-    // What does StripeClient actually do? Unknown!
-    $mockStripe = $this->createMock(StripeClient::class);
-    $mockStripe->method('charge')->willReturn(true);
-
-    $service = new PaymentService($mockStripe);
-    $result = $service->processPayment($order);
-
-    $this->assertTrue($result);
-    // But does this match real Stripe behavior? Unknown!
-}
-
-// ✅ GOOD: Understand what you're mocking
-public function test_payment_processing()
-{
-    // I understand Stripe returns PaymentIntent object
-    // with specific structure and states
-    $mockStripe = $this->createMock(StripeClient::class);
-    $mockStripe->method('charge')
-               ->willReturn(new PaymentIntent([
-                   'id' => 'pi_123',
-                   'status' => 'succeeded',
-                   'amount' => 1000,
-               ]));
-
-    $service = new PaymentService($mockStripe);
-    $result = $service->processPayment($order);
-
-    // Test that we handle PaymentIntent correctly
-    $this->assertEquals('pi_123', $result->transaction_id);
-    $this->assertEquals('succeeded', $result->status);
-}
-```
-
-### 4. INTEGRATION TESTS ARE NOT AN AFTERTHOUGHT
-
-**Integration tests should be written ALONGSIDE unit tests.**
-
-```php
-// ❌ BAD: Only unit tests
-// unit/UserServiceTest.php
-public function test_create_user()
-{
-    $mockRepo = $this->createMock(UserRepository::class);
-    $service = new UserService($mockRepo);
-    // ... test with mocks only
-}
-
-// Seems fine, but does the REAL system work?
-// Does UserService work with REAL UserRepository?
-// Does UserRepository work with REAL database?
-// Unknown until production!
-
-// ✅ GOOD: Unit AND integration tests
-// unit/UserServiceTest.php
-public function test_user_creation_logic()
-{
-    $mockRepo = $this->createMock(UserRepository::class);
-    $mockRepo->method('save')->willReturn(true);
-
-    $service = new UserService($mockRepo);
-    $user = $service->createUser(['name' => 'John']);
-
-    $this->assertEquals('John', $user->name);
-}
-
-// integration/UserServiceIntegrationTest.php
-public function test_user_creation_with_real_database()
-{
-    $repo = new UserRepository();
-    $service = new UserService($repo);
-
-    $user = $service->createUser(['name' => 'John']);
-
-    // Tests entire stack
-    $this->assertDatabaseHas('users', ['name' => 'John']);
-    $found = User::where('name', 'John')->first();
-    $this->assertNotNull($found);
-}
-```
-
-### 5. ALWAYS TEST ERROR PATHS
-
-**The happy path is 10% of your code. The other 90% is error handling.**
-
-```php
-// ❌ BAD: Only testing success
-public function test_user_registration()
-{
-    $response = $this->postJson('/api/register', [
-        'email' => 'john@example.com',
-        'password' => 'secret123',
-    ]);
-
-    $response->assertStatus(200);
-    // What about validation errors?
-    // What about duplicate emails?
-    // What about database failures?
-}
-
-// ✅ GOOD: Test happy path AND error paths
-public function test_user_registration_success()
-{
-    $response = $this->postJson('/api/register', [
-        'email' => 'john@example.com',
-        'password' => 'secret123',
-    ]);
-
-    $response->assertStatus(200);
-}
-
-public function test_registration_requires_email()
-{
-    $response = $this->postJson('/api/register', [
-        'password' => 'secret123',
-    ]);
-
-    $response->assertStatus(422)
-             ->assertJsonValidationErrors('email');
-}
-
-public function test_registration_rejects_duplicate_email()
-{
-    User::factory()->create(['email' => 'john@example.com']);
-
-    $response = $this->postJson('/api/register', [
-        'email' => 'john@example.com',
-        'password' => 'secret123',
-    ]);
-
-    $response->assertStatus(422)
-             ->assertJsonValidationErrors('email');
-}
-
-public function test_registration_handles_database_failure()
-{
-    // Simulate database down
-    DB::shouldReceive('transaction')
-      ->andThrow(new QueryException());
-
-    $response = $this->postJson('/api/register', [
-        'email' => 'john@example.com',
-        'password' => 'secret123',
-    ]);
-
-    $response->assertStatus(500);
-}
-```
-
-## The Four Major Anti-Patterns
-
-### Anti-Pattern 1: Testing Mocks Instead of Behavior
+## The Iron Laws
 
 ```
-What it looks like:
-- Tests verify mock method calls
-- Tests check mock expectations
-- No assertions on actual behavior
-- Tests pass but code doesn't work
-
-Why it happens:
-- Misunderstanding of mocking purpose
-- Following bad examples
-- Cargo cult testing
-- Not understanding what to test
-
-The fix:
-1. Mock only external dependencies
-2. Assert on observable behavior
-3. Verify actual outcomes
-4. Test through public API
-
-Example:
-```php
-// ❌ TESTS MOCK
-public function test_email_is_sent()
-{
-    $mockMailer = $this->createMock(Mailer::class);
-    $mockMailer->expects($this->once())
-               ->method('send');
-
-    $service = new NotificationService($mockMailer);
-    $service->notifyUser($user);
-
-    // Test passes if mock.send() was called
-    // But was email actually sent? Unknown!
-}
-
-// ✅ TESTS BEHAVIOR
-public function test_email_is_sent()
-{
-    Mail::fake();
-
-    $service = new NotificationService();
-    $service->notifyUser($user);
-
-    Mail::assertSent(NotificationEmail::class, function ($mail) use ($user) {
-        return $mail->hasTo($user->email);
-    });
-    // Tests that email was actually sent
-}
-```
+1. NEVER test mock behavior
+2. NEVER add test-only functions to production namespaces
+3. NEVER mock without understanding dependencies
 ```
 
-### Anti-Pattern 2: Test-Only Methods and Properties
+## Anti-Pattern 1: Testing Mock Behavior
 
-```
-What it looks like:
-- Methods named "...ForTesting()"
-- Public methods only used by tests
-- Properties made public for testing
-- Protected changed to public for tests
+**The violation:**
 
-Why it happens:
-- Can't figure out how to test properly
-- Testing implementation instead of behavior
-- Not using dependency injection
-- Over-mocking
-
-The fix:
-1. Test through public API only
-2. If you can't test it, redesign it
-3. Use proper dependency injection
-4. Test behavior, not implementation
-
-Example:
-```php
-// ❌ TEST-ONLY METHOD
-class OrderProcessor
-{
-    private $validator;
-
-    // This method ONLY for testing!
-    public function getValidatorForTesting()
-    {
-        return $this->validator;
-    }
-}
-
-public function test_processor_has_validator()
-{
-    $processor = new OrderProcessor();
-    $this->assertInstanceOf(
-        Validator::class,
-        $processor->getValidatorForTesting()
-    );
-}
-
-// ✅ TEST BEHAVIOR
-class OrderProcessor
-{
-    private $validator;
-
-    public function process(Order $order): bool
-    {
-        if (!$this->validator->isValid($order)) {
-            return false;
-        }
-        // ... process order
-        return true;
-    }
-}
-
-public function test_processor_rejects_invalid_order()
-{
-    $processor = new OrderProcessor();
-    $invalidOrder = new Order(['total' => -100]);
-
-    $result = $processor->process($invalidOrder);
-
-    $this->assertFalse($result);
-    // Tests validation through behavior, not internals
-}
-```
+```clojure
+;; BAD: Testing that the mock was called, not that the behavior is correct
+(deftest processes-order-test
+  (with-redefs [db/save-order (fn [_] nil)]
+    (process-order {:id 1 :items ["a"]})
+    ;; Only verifies mock was called - tells us nothing about real behavior
+    (is (= 1 @call-count))))
 ```
 
-### Anti-Pattern 3: Incomplete or Incorrect Mocks
+**Why this is wrong:**
 
-```
-What it looks like:
-- Mock returns wrong data types
-- Mock behavior doesn't match real object
-- Mock is missing key behaviors
-- Tests pass but production fails
+- You're verifying the mock works, not that the function works
+- Test passes when mock is present, fails when it's not
+- Tells you nothing about real behavior
 
-Why it happens:
-- Don't understand the mocked dependency
-- Copy/paste mock setup
-- Mock created before understanding real behavior
-- No integration tests to catch mismatches
+**Your human partner's correction:** "Are we testing the behavior of a mock?"
 
-The fix:
-1. Understand what you're mocking FIRST
-2. Make mock behavior match reality
-3. Write integration tests alongside unit tests
-4. Consider using real object instead
+**The fix:**
 
-Example:
-```php
-// ❌ INCORRECT MOCK
-public function test_api_client_handles_response()
-{
-    $mockClient = $this->createMock(HttpClient::class);
-    $mockClient->method('get')->willReturn([
-        'data' => 'something'
-    ]);
-    // Real API returns Response object, not array!
+```clojure
+;; GOOD: Test the actual outcome, not the mock
+(deftest processes-order-test
+  (with-redefs [db/save-order (fn [order] (swap! test-db conj order))]
+    (let [order {:id 1 :items ["a" "b"]}]
+      (process-order order)
+      ;; Test the real behavior: order was processed correctly
+      (is (= 1 (count @test-db)))
+      (is (= order (first @test-db))))))
 
-    $service = new ApiService($mockClient);
-    $result = $service->fetchData();
-
-    // Test passes but production will fail!
-}
-
-// ✅ CORRECT MOCK
-public function test_api_client_handles_response()
-{
-    // I understand HttpClient returns Response object
-    $mockResponse = new Response(200, [], json_encode([
-        'data' => 'something'
-    ]));
-
-    $mockClient = $this->createMock(HttpClient::class);
-    $mockClient->method('get')->willReturn($mockResponse);
-    // Mock matches real behavior
-
-    $service = new ApiService($mockClient);
-    $result = $service->fetchData();
-
-    $this->assertEquals('something', $result);
-}
-
-// ✅ EVEN BETTER: Integration test too
-public function test_api_service_with_real_client()
-{
-    // Use real HTTP client with test endpoint
-    $client = new HttpClient();
-    $service = new ApiService($client);
-
-    $result = $service->fetchData();
-
-    // Tests with real HTTP client
-    $this->assertNotNull($result);
-}
-```
+;; OR better: use a test database fixture instead of mocking
+(deftest processes-order-test
+  (let [order {:id 1 :items ["a" "b"]}]
+    (process-order order)
+    (is (= order (db/get-order *test-db* 1)))))
 ```
 
-### Anti-Pattern 4: Integration Testing as Afterthought
+### Gate Function
 
 ```
-What it looks like:
-- Only unit tests with mocks
-- Integration tests added "later" (never)
-- No end-to-end tests
-- Bugs found in production
+BEFORE asserting on any mock:
+  Ask: "Am I testing real behavior or just mock existence?"
 
-Why it happens:
-- "Unit tests are enough" mentality
-- Integration tests seen as slower/harder
-- Prioritizing coverage over confidence
-- Not understanding test pyramid
+  IF testing mock existence:
+    STOP - Delete the assertion or use real implementation
 
-The fix:
-1. Write integration tests alongside unit tests
-2. Test full stack for critical paths
-3. Use test-driven-development for both
-4. Balance unit and integration tests
-
-Example:
-```php
-// ❌ ONLY UNIT TESTS
-class OrderServiceTest extends TestCase
-{
-    public function test_creates_order()
-    {
-        $mockRepo = $this->createMock(OrderRepository::class);
-        $mockPayment = $this->createMock(PaymentService::class);
-        $mockInventory = $this->createMock(InventoryService::class);
-
-        $service = new OrderService($mockRepo, $mockPayment, $mockInventory);
-        $order = $service->createOrder($items);
-
-        // Everything mocked, does real system work? Unknown!
-    }
-}
-
-// ✅ UNIT AND INTEGRATION TESTS
-// unit/OrderServiceTest.php
-class OrderServiceTest extends TestCase
-{
-    public function test_order_creation_logic()
-    {
-        // Mock external dependencies only
-        $mockPayment = $this->createMock(PaymentService::class);
-        $mockPayment->method('charge')->willReturn(true);
-
-        $service = new OrderService(
-            new OrderRepository(),
-            $mockPayment,
-            new InventoryService()
-        );
-
-        $order = $service->createOrder($items);
-
-        $this->assertNotNull($order->id);
-        $this->assertEquals('pending', $order->status);
-    }
-}
-
-// integration/OrderServiceIntegrationTest.php
-class OrderServiceIntegrationTest extends TestCase
-{
-    public function test_full_order_flow()
-    {
-        // No mocks, test entire stack
-        $service = new OrderService(
-            new OrderRepository(),
-            new PaymentService(),
-            new InventoryService()
-        );
-
-        $order = $service->createOrder($items);
-
-        // Verify database
-        $this->assertDatabaseHas('orders', ['id' => $order->id]);
-
-        // Verify inventory reduced
-        $this->assertDatabaseHas('inventory', [
-            'product_id' => $items[0]->id,
-            'quantity' => $originalQuantity - $items[0]->quantity
-        ]);
-
-        // Verify payment recorded
-        $this->assertDatabaseHas('payments', [
-            'order_id' => $order->id,
-            'status' => 'completed'
-        ]);
-
-        // Tests REAL system integration
-    }
-}
-```
+  Test real behavior instead
 ```
 
-## Recognizing Anti-Patterns in the Wild
+## Anti-Pattern 2: Test-Only Functions in Production
 
-### Red Flag 1: High Mock-to-Assertion Ratio
+**The violation:**
 
-```php
-// 🚩 RED FLAG
-public function test_something()
-{
-    // 20 lines of mock setup
-    $mock1->expects($this->once())->method('foo');
-    $mock2->expects($this->once())->method('bar');
-    $mock3->expects($this->once())->method('baz');
-    // ... 17 more lines ...
+```clojure
+;; BAD: reset-state! only used in tests
+(ns myapp.session)
 
-    $service->doSomething();
+(defonce ^:private state (atom {}))
 
-    // 1 assertion
-    $this->assertTrue(true);
+(defn create-session [user-id]
+  (swap! state assoc user-id {:created (System/currentTimeMillis)}))
 
-    // Ratio: 20:1 mock:assertion
-    // Probably testing mocks, not behavior!
-}
+;; This function exists only for tests!
+(defn reset-state!
+  "Resets internal state. FOR TESTING ONLY."
+  []
+  (reset! state {}))
 ```
 
-### Red Flag 2: Tests Break on Refactoring
+**Why this is wrong:**
 
-```php
-// 🚩 RED FLAG
-public function test_user_service()
-{
-    $mockRepo = $this->createMock(UserRepository::class);
-    $mockRepo->expects($this->once())->method('save');
+- Production namespace polluted with test-only code
+- Dangerous if accidentally called in production
+- Violates separation of concerns
+- The comment "FOR TESTING ONLY" is a code smell
 
-    $service = new UserService($mockRepo);
-    $service->createUser(['name' => 'John']);
-}
+**The fix:**
 
-// Refactor: Rename save() to persist()
-class UserRepository
-{
-    public function persist(User $user) { } // Renamed!
-}
+```clojure
+;; GOOD: Production code has no test-only functions
+(ns myapp.session)
 
-// Test breaks! Even though behavior unchanged
-// This indicates testing implementation, not behavior
+(defonce ^:private state (atom {}))
+
+(defn create-session [user-id]
+  (swap! state assoc user-id {:created (System/currentTimeMillis)}))
+
+;; In test namespace - use fixture for cleanup
+(ns myapp.session-test
+  (:require [clojure.test :refer [deftest is use-fixtures]]
+            [myapp.session :as session]))
+
+;; Access internal state via var for testing only
+(defn reset-session-state-fixture [f]
+  (reset! @#'session/state {})
+  (f)
+  (reset! @#'session/state {}))
+
+(use-fixtures :each reset-session-state-fixture)
 ```
 
-### Red Flag 3: Test Names Don't Describe Behavior
+### Gate Function
 
-```php
-// 🚩 RED FLAGS
-public function test_calls_repository() { }
-public function test_uses_correct_method() { }
-public function test_mocks_are_called() { }
+```
+BEFORE adding any function to production namespace:
+  Ask: "Is this only used by tests?"
 
-// These describe implementation, not behavior!
+  IF yes:
+    STOP - Don't add it
+    Put it in test namespace or test utilities instead
 
-// ✅ GOOD
-public function test_creates_user_in_database() { }
-public function test_rejects_invalid_email() { }
-public function test_sends_welcome_email() { }
+  Ask: "Does this namespace own this resource's lifecycle?"
 
-// These describe observable behavior
+  IF no:
+    STOP - Wrong namespace for this function
 ```
 
-### Red Flag 4: Can't Run Tests Independently
+## Anti-Pattern 3: Mocking Without Understanding
 
-```php
-// 🚩 RED FLAG
-public function test_step_1_creates_user()
-{
-    $this->user = User::create(['name' => 'John']);
-    $this->assertNotNull($this->user->id);
-}
+**The violation:**
 
-public function test_step_2_updates_user()
-{
-    // Depends on test_step_1 running first!
-    $this->user->update(['name' => 'Jane']);
-    $this->assertEquals('Jane', $this->user->name);
-}
-
-// Tests must be independent!
-// This is test pollution
+```clojure
+;; BAD: Mock breaks test logic
+(deftest detects-duplicate-server-test
+  ;; Mock prevents config write that test depends on!
+  (with-redefs [config/save-server (fn [_] nil)]
+    (add-server {:name "server1" :url "http://localhost"})
+    ;; This should throw duplicate error - but config was never saved!
+    (is (thrown? Exception
+                 (add-server {:name "server1" :url "http://localhost"})))))
 ```
 
-## How to Fix Anti-Patterns
+**Why this is wrong:**
 
-### Fix 1: Convert Mock Tests to Behavior Tests
+- Mocked function had side effect test depended on (writing config)
+- Over-mocking to "be safe" breaks actual behavior
+- Test passes for wrong reason or fails mysteriously
 
-```php
-// BEFORE: Testing mocks
-public function test_notification_sent()
-{
-    $mockMailer->expects($this->once())->method('send');
-    $service->notifyUser($user);
-}
+**The fix:**
 
-// AFTER: Testing behavior
-public function test_notification_sent()
-{
-    Mail::fake();
-    $service->notifyUser($user);
-    Mail::assertSent(NotificationEmail::class);
-}
+```clojure
+;; GOOD: Mock at correct level - only the slow/external operation
+(deftest detects-duplicate-server-test
+  ;; Only mock the actual network call, preserve config behavior
+  (with-redefs [http/connect (fn [_] {:status :connected})]
+    (add-server {:name "server1" :url "http://localhost"})
+    ;; Config was written, duplicate detection works
+    (is (thrown? Exception
+                 (add-server {:name "server1" :url "http://localhost"})))))
 ```
 
-### Fix 2: Remove Test-Only Methods
+### Gate Function
 
-```php
-// BEFORE: Test-only method
-class Service
-{
-    private $dep;
-    public function getDepForTesting() { return $this->dep; }
-}
+```
+BEFORE mocking any function:
+  STOP - Don't mock yet
 
-// AFTER: Test through behavior
-class Service
-{
-    private $dep;
-    // No test-only methods
+  1. Ask: "What side effects does the real function have?"
+  2. Ask: "Does this test depend on any of those side effects?"
+  3. Ask: "Do I fully understand what this test needs?"
 
-    public function process() {
-        return $this->dep->doSomething();
-    }
-}
+  IF depends on side effects:
+    Mock at lower level (the actual slow/external operation)
+    OR use test doubles that preserve necessary behavior
+    NOT the high-level function the test depends on
 
-// Test the process() result, not internal dep
+  IF unsure what test depends on:
+    Run test with real implementation FIRST
+    Observe what actually needs to happen
+    THEN add minimal mocking at the right level
+
+  Red flags:
+    - "I'll mock this to be safe"
+    - "This might be slow, better mock it"
+    - Mocking without understanding the dependency chain
 ```
 
-### Fix 3: Add Integration Tests
+## Anti-Pattern 4: Incomplete Mocks
 
-```php
-// BEFORE: Only unit tests with mocks
-public function test_with_mocks()
-{
-    $mockDb = $this->createMock(Database::class);
-    // ... test with mocks only
-}
+**The violation:**
 
-// AFTER: Add integration test
-public function test_with_real_database()
-{
-    // Use real database
-    $service = new Service(new Database());
-    $result = $service->process();
-    $this->assertDatabaseHas('results', ['data' => $result]);
-}
+```clojure
+;; BAD: Partial mock - only fields you think you need
+(deftest processes-api-response-test
+  (with-redefs [api/fetch-user (fn [_] {:id 123 :name "Alice"})]
+    ;; Later: breaks when code accesses (:email response) or (:metadata response)
+    (is (= "Alice" (:name (process-user-response 123))))))
 ```
 
-### Fix 4: Test Error Paths
+**Why this is wrong:**
 
-```php
-// BEFORE: Only happy path
-public function test_success_case() { }
+- **Partial mocks hide structural assumptions** - You only mocked fields you know about
+- **Downstream code may depend on fields you didn't include** - Silent nil failures
+- **Tests pass but integration fails** - Mock incomplete, real API complete
+- **False confidence** - Test proves nothing about real behavior
 
-// AFTER: Happy path AND error paths
-public function test_success_case() { }
-public function test_validation_errors() { }
-public function test_database_failure() { }
-public function test_network_timeout() { }
-public function test_invalid_input() { }
+**The Iron Rule:** Mock the COMPLETE data structure as it exists in reality, not just fields your immediate test uses.
+
+**The fix:**
+
+```clojure
+;; GOOD: Mirror real API response completely
+(def mock-user-response
+  {:id 123
+   :name "Alice"
+   :email "alice@example.com"
+   :metadata {:request-id "req-789"
+              :timestamp 1234567890}
+   :permissions #{:read :write}})
+
+(deftest processes-api-response-test
+  (with-redefs [api/fetch-user (fn [_] mock-user-response)]
+    (let [result (process-user-response 123)]
+      (is (= "Alice" (:name result)))
+      (is (some? (:metadata result))))))
 ```
 
-## Integration with Skills
+### Gate Function
 
-**Use with:**
-- `test-driven-development` - Avoid anti-patterns from start
-- `code-review` - Catch anti-patterns in review
-- `systematic-debugging` - Debug test issues
+```
+BEFORE creating mock data:
+  Check: "What fields does the real data structure contain?"
 
-**Prevents:**
-- False confidence from bad tests
-- Tests that pass but code fails
-- Brittle tests that break on refactoring
+  Actions:
+    1. Examine actual API response/data from docs or REPL
+    2. Include ALL fields system might consume downstream
+    3. Verify mock matches real data schema completely
 
-## Checklist
+  Critical:
+    If you're creating a mock, you must understand the ENTIRE structure
+    Partial mocks fail silently when code depends on omitted fields
 
-When writing tests:
-- [ ] Not testing mock behavior
-- [ ] No test-only methods
-- [ ] Understand what I'm mocking
-- [ ] Have integration tests
-- [ ] Test error paths
-- [ ] Test describes behavior
-- [ ] Test is independent
-- [ ] Refactoring won't break test
+  If uncertain: Include all documented fields
+```
 
-When reviewing tests:
-- [ ] Check mock-to-assertion ratio
-- [ ] Look for test-only methods
-- [ ] Verify integration tests exist
-- [ ] Check error path coverage
-- [ ] Ensure tests describe behavior
+## Anti-Pattern 5: Misusing with-redefs vs binding
 
-## Authority
+**The violation:**
 
-**This skill is based on:**
-- "Growing Object-Oriented Software, Guided by Tests" (Freeman & Pryce)
-- Martin Fowler's testing patterns
-- Research on test effectiveness
-- Professional testing practices
+```clojure
+;; BAD: Using with-redefs for dynamic vars
+(def ^:dynamic *config* {:env :prod})
 
-**Research**: Studies show proper testing reduces bugs by 40-80%, but anti-patterns reduce effectiveness to near zero.
+(deftest config-test
+  ;; with-redefs on dynamic var - affects all threads, not scoped properly
+  (with-redefs [*config* {:env :test}]
+    (is (= :test (:env *config*)))))
+```
 
-**Social Proof**: All mature engineering teams avoid these anti-patterns.
+**Why this is wrong:**
 
-## Your Commitment
+- `with-redefs` modifies the var root, affecting all threads
+- Not thread-safe for dynamic vars
+- `binding` exists specifically for this purpose
 
-When writing tests:
-- [ ] I will not test mock behavior
-- [ ] I will not add test-only methods
-- [ ] I will understand what I mock
-- [ ] I will write integration tests
-- [ ] I will test error paths
-- [ ] I will test behavior, not implementation
-- [ ] I will keep tests independent
+**The fix:**
 
----
+```clojure
+;; GOOD: Use binding for dynamic vars
+(def ^:dynamic *config* {:env :prod})
 
-**Bottom Line**: Five Iron Laws prevent bad tests. Don't test mocks. Don't add test-only methods. Understand mocks. Write integration tests. Test error paths. Follow these, and your tests will actually protect you.
+(deftest config-test
+  (binding [*config* {:env :test}]
+    (is (= :test (:env *config*)))))
+
+;; GOOD: Use with-redefs for regular functions
+(deftest api-test
+  (with-redefs [http/get (fn [_] {:status 200 :body "ok"})]
+    (is (= 200 (:status (fetch-data))))))
+```
+
+### Gate Function
+
+```
+BEFORE choosing mock mechanism:
+  Ask: "Is this a dynamic var (^:dynamic)?"
+
+  IF yes:
+    Use binding - thread-local, properly scoped
+
+  IF no (regular var/function):
+    Use with-redefs - temporarily replaces root binding
+```
+
+## Anti-Pattern 6: Integration Tests as Afterthought
+
+**The violation:**
+
+```
+Implementation complete
+No tests written
+"Ready for testing"
+```
+
+**Why this is wrong:**
+
+- Testing is part of implementation, not optional follow-up
+- TDD would have caught this
+- Can't claim complete without tests
+
+**The fix:**
+
+```
+TDD cycle:
+1. Write failing test
+2. Implement to pass
+3. Refactor
+4. THEN claim complete
+```
+
+## Anti-Pattern 7: Fragmented Assertions
+
+**The violation:**
+
+```clojure
+;; BAD: Picking apart the result piece by piece
+(deftest user-creation-test
+  (let [result (sut/create-user {:name "Alice" :email "alice@example.com"})]
+    (is (= "Alice" (:name result)))
+    (is (= "alice@example.com" (:email result)))
+    (is (uuid? (:id result)))
+    (is (inst? (:created-at result)))
+    (is (= :active (:status result)))))
+```
+
+**Why this is wrong:**
+
+- **Obscures the actual data shape** - Can't see at a glance what the function returns
+- **Harder to maintain** - Adding a field means adding another assertion
+- **Poor failure messages** - "expected: Alice, actual: Bob" tells you less than a full diff
+- **Verbose and noisy** - Five lines of assertions when one would do
+- **Easy to miss fields** - You might forget to assert on important keys
+
+**The fix:**
+
+```clojure
+;; GOOD: Single assertion on the whole structure
+(deftest user-creation-test
+  (let [result (sut/create-user {:name "Alice" :email "alice@example.com"})]
+    (is (= {:name "Alice"
+            :email "alice@example.com"
+            :id (:id result)              ; capture generated values
+            :created-at (:created-at result)
+            :status :active}
+           result))))
+```
+
+**For generated/dynamic values:**
+
+```clojure
+;; GOOD: Use select-keys when you can't predict all fields
+(deftest user-creation-test
+  (let [result (sut/create-user {:name "Alice" :email "alice@example.com"})]
+    ;; Assert on known fields
+    (is (= {:name "Alice"
+            :email "alice@example.com"
+            :status :active}
+           (select-keys result [:name :email :status])))
+    ;; Separately verify generated fields exist and have correct type
+    (is (uuid? (:id result)))
+    (is (inst? (:created-at result)))))
+```
+
+### Gate Function
+
+```
+BEFORE writing multiple (is (= ...)) assertions on the same result:
+  Ask: "Could this be a single data comparison?"
+
+  IF yes:
+    Write one (is (= {...expected...} result))
+    Use select-keys if you need to ignore some fields
+    Only use separate assertions for type checks on generated values
+
+  Benefits:
+    - Shows complete expected shape in one place
+    - Test failure diff shows exactly what's different
+    - Easier to update when data shape changes
+```
+
+## When Mocks Become Too Complex
+
+**Warning signs:**
+
+- Mock setup longer than test logic
+- Using `with-redefs` on 5+ functions
+- Mocks missing behavior real functions have
+- Test breaks when mock changes
+
+**Your human partner's question:** "Do we need to be using a mock here?"
+
+**Consider:** Integration tests with real components (using fixtures) often simpler than complex mocks
+
+```clojure
+;; BAD: Complex mock setup
+(deftest complex-workflow-test
+  (with-redefs [db/query (fn [_] [...])
+                cache/get (fn [_] nil)
+                cache/set (fn [_ _] nil)
+                api/fetch (fn [_] {...})
+                metrics/record (fn [_] nil)]
+    ;; Test logic buried under mocks
+    ...))
+
+;; GOOD: Use test fixtures with real (or test) implementations
+(use-fixtures :each db-fixture cache-fixture)
+
+(deftest complex-workflow-test
+  ;; Only mock external API
+  (with-redefs [api/fetch (fn [_] mock-api-response)]
+    (let [result (complex-workflow {:id 1})]
+      (is (= :success (:status result)))
+      ;; Verify real db state
+      (is (some? (db/get-by-id *test-db* 1))))))
+```
+
+## TDD Prevents These Anti-Patterns
+
+**Why TDD helps:**
+
+1. **Write test first** - Forces you to think about what you're actually testing
+2. **Watch it fail** - Confirms test tests real behavior, not mocks
+3. **Minimal implementation** - No test-only functions creep in
+4. **Real dependencies** - You see what the test actually needs before mocking
+
+**If you're testing mock behavior, you violated TDD** - you added mocks without watching test fail against real code first.
+
+## Quick Reference
+
+| Anti-Pattern                    | Fix                                           |
+| ------------------------------- | --------------------------------------------- |
+| Assert on mock calls            | Test real behavior or outcomes                |
+| Test-only fns in production     | Move to test namespace/utilities              |
+| Mock without understanding      | Understand dependencies first, mock minimally |
+| Incomplete mock data            | Mirror real data structure completely         |
+| with-redefs on dynamic vars     | Use binding instead                           |
+| Tests as afterthought           | TDD - tests first                             |
+| Over-complex mocks              | Consider integration tests with fixtures      |
+| Fragmented assertions           | Single `(is (= {...} result))` comparison     |
+
+## Red Flags
+
+- Test only verifies mock was called
+- Functions only called in test files
+- Mock setup is >50% of test
+- Test fails when you remove mock
+- Can't explain why mock is needed
+- Mocking "just to be safe"
+- Using `with-redefs` on `^:dynamic` vars
+- Multiple `(is (= x (:key result)))` on same result
+
+## The Bottom Line
+
+**Mocks are tools to isolate, not things to test.**
+
+If TDD reveals you're testing mock behavior, you've gone wrong.
+
+Fix: Test real behavior or question why you're mocking at all.

@@ -1,12 +1,7 @@
 {
   "name": "internationalization-i18n",
-  "description": "Implement internationalization (i18n) and localization including message extraction, translation catalogs, pluralization rules, date/time/number formatting, RTL language support, and i18n libraries li",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "internationalization",
-    "i18n"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/internationalization-i18n/skills/internationalization-i18n/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:07.049531Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "monorepo-management",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/developer-essentials/skills/monorepo-management/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:30.828892Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/skills/monorepo-management/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:09.639525Z"
 }

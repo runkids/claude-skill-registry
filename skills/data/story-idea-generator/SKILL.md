@@ -5,8 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
 ---
 
 # Story Idea Generator: Generative Skill
@@ -406,3 +404,52 @@ Genre is not a label applied after writing. It's the foundation that shapes ever
 - What plot events? The ones that deliver the emotional payoff.
 
 Start with what readers should feel. Everything else follows from that.
+
+## Anti-Patterns
+
+### 1. Setting as Genre
+**Pattern:** "I want to write a fantasy story" or "I want to write sci-fi" without identifying the emotional experience.
+**Why it fails:** Setting is where it happens; genre is what readers feel. A "fantasy story" could be wonder, horror, mystery, thriller, or drama. Without the emotional core, all decisions become arbitrary.
+**Fix:** Push past the setting label: "What do you want readers to feel?" Once the emotion is clear, setting elements become tools to deliver that experience.
+
+### 2. Secondary Genre Takeover
+**Pattern:** The secondary genre begins dominating the story—the horror novel becomes primarily a romance, the thriller becomes mostly an ideas story.
+**Why it fails:** Readers came for the primary genre's emotional experience. When secondary takes over, they feel bait-and-switched. The story loses its emotional coherence.
+**Fix:** Secondary gets at most 30% of focus. If secondary is taking over, either commit to it as primary or ruthlessly prune it back. Time-box secondary genre moments.
+
+### 3. Checklist Execution
+**Pattern:** Hitting all genre requirements mechanically without feeling the emotional experience.
+**Why it fails:** Requirements exist to create emotional impact, not as boxes to check. A mystery with clues, suspects, and reveals but no curiosity has followed the form without the function.
+**Fix:** Evaluate by feeling, not checkbox. Read your scenes and ask: "Does this make me feel [the genre emotion]?" If not, the elements aren't working regardless of technical presence.
+
+### 4. Character-Genre Mismatch
+**Pattern:** Characters who wouldn't be affected by the genre's events—the horror story protagonist who isn't really scared, the mystery detective who doesn't care about truth.
+**Why it fails:** Readers experience genre through characters. If characters don't feel the emotion, neither do readers. Flat character response flattens genre impact.
+**Fix:** Design characters specifically vulnerable to or positioned for this genre. The horror protagonist must have something to fear. The mystery character must need to know.
+
+### 5. Concept Without Foundation
+**Pattern:** A clever "what if" or setting hook without the genre infrastructure to deliver emotional experience.
+**Why it fails:** Concepts are starting points, not stories. "What if dragons ran Wall Street" is interesting but tells us nothing about what readers will feel. Without genre foundation, concepts remain exercises.
+**Fix:** After the concept, immediately ask: what emotion? Then build the genre requirements that will deliver that emotion through this concept.
+
+## Integration
+
+### Inbound (feeds into this skill)
+| Skill | What it provides |
+|-------|------------------|
+| brainstorming | Raw idea generation before genre filtering |
+| research | Domain knowledge for setting specifics |
+
+### Outbound (this skill enables)
+| Skill | What this provides |
+|-------|-------------|
+| cliche-transcendence | Genre-aligned concepts ready for originality checking |
+| character-arc | Characters positioned for genre-specific transformation |
+| worldbuilding | Settings designed to serve genre requirements |
+| outline-collaborator | Genre-first concepts ready for structural development |
+
+### Complementary
+| Skill | Relationship |
+|-------|--------------|
+| genre-conventions | Story-idea-generator selects genre; genre-conventions provides detailed requirements for each |
+| story-sense | Story-idea-generator creates State 1 concepts; story-sense diagnoses what's missing |

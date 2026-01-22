@@ -54,11 +54,11 @@ Example: "I don't have information about inputs yet. Based on similar Phase 3 pr
 Before proceeding from elicitation, verify:
 
 ```
-□ Phase identified
-□ Purpose stated
-□ Inputs defined (or default confirmed)
-□ Outputs defined (or default confirmed)
-□ Elicited context logged as observation
+[ ] Phase identified
+[ ] Purpose stated
+[ ] Inputs defined (or default confirmed)
+[ ] Outputs defined (or default confirmed)
+[ ] Elicited context logged as observation
 ```
 
 ### Information Composition Elicitation
@@ -144,4 +144,100 @@ If the user cannot answer or indicates uncertainty:
 
 ---
 
-*Part of the AI-Augmented SDLC Framework dialogue system*
+## Phase 1 (Initiation) Specific Elicitation
+
+Phase 1 has **75% tacit information composition**. Standard elicitation patterns need adaptation.
+
+### Key Differences from Later Phases
+
+| Aspect | Later Phases | Phase 1 |
+|--------|--------------|---------|
+| Information source | Documents, code, systems | Stakeholder minds |
+| Capture urgency | Can revisit documents | Must capture now or lose |
+| AI role | Can lead elicitation | Facilitates human articulation |
+| Validation | Check against formal specs | Probe for unstated assumptions |
+
+### Phase 1 Elicitation Questions
+
+#### Opportunity/Problem Framing
+
+| Question | Why Important |
+|----------|---------------|
+| "What triggered this initiative?" | Captures origin story before it's forgotten |
+| "What problem are you solving?" | Distinguishes problem from solution |
+| "Why now? What changed?" | Surfaces temporal context |
+| "What would happen if we did nothing?" | Tests problem significance |
+| "What other ways could this problem be framed?" | Explores alternatives |
+
+#### Stakeholder Mapping
+
+| Question | Why Important |
+|----------|---------------|
+| "Who requested this?" | Identifies primary stakeholder |
+| "Who must approve?" | Identifies decision authority |
+| "Who will be affected but isn't at the table?" | Surfaces hidden stakeholders |
+| "Who might resist? Why?" | Surfaces political dynamics |
+| "Whose expertise is essential?" | Identifies knowledge holders |
+
+#### Rationale Capture (Critical)
+
+These questions preserve tacit knowledge:
+
+| Question | Captures |
+|----------|----------|
+| "Why do you think that?" | Reasoning behind positions |
+| "What alternatives did you consider?" | Negative knowledge |
+| "What assumptions are we making?" | Embedded constraints |
+| "What would change your mind?" | Decision criteria |
+| "What have we tried before?" | Historical context |
+
+### Capture Window Awareness
+
+Phase 1 insights are **highly perishable**. When a significant insight emerges:
+
+1. **Log it immediately** using dialogue-log-observation
+2. **Confirm you captured it correctly** with the human
+3. **Note if there's more context** you should probe for
+
+Do not wait until the end of a conversation to capture Phase 1 observations.
+
+### Example: Phase 1 AskUserQuestion
+
+```
+question: "What problem is this initiative trying to solve?"
+header: "Problem"
+options:
+  - label: "Clear and documented"
+    description: "Problem statement exists; I can point you to it"
+  - label: "Clear but undocumented"
+    description: "We know the problem but haven't written it down"
+  - label: "Still being defined"
+    description: "We're not sure yet; exploring options"
+  - label: "Multiple competing framings"
+    description: "Different stakeholders see it differently"
+```
+
+If "Still being defined" or "Multiple competing framings", switch to Facilitator mode:
+- Help structure the exploration
+- Surface different perspectives
+- Document alternative framings as they emerge
+- Avoid premature convergence
+
+### Phase 1 Process Suggestions
+
+When Phase 1 work is substantial, consider offering structured processes:
+
+| User Need | Suggest Process | Default Mode |
+|-----------|-----------------|--------------|
+| "I have an idea/opportunity" | PROC-1.1 Opportunity Identification | QUICK |
+| "Need to align stakeholders" | PROC-1.2 Stakeholder Alignment | QUICK |
+| "Problem isn't clear" | PROC-1.3 Problem Framing | QUICK |
+| "Need to justify investment" | PROC-1.4 Business Case | QUICK |
+
+Offer these lightly: "Would you like to work through this systematically? I can guide you through a structured process that typically takes about 15 minutes."
+
+If complexity emerges during elicitation, suggest upgrading to FULL mode.
+
+---
+
+*Part of the Dialogue Framework*

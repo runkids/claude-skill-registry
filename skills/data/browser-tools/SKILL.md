@@ -21,9 +21,11 @@ npm install
 ```bash
 {baseDir}/browser-start.js              # Fresh profile
 {baseDir}/browser-start.js --profile    # Copy user's profile (cookies, logins)
+{baseDir}/browser-start.js --proxy-server http://127.0.0.1:7897  # Use proxy server
+{baseDir}/browser-start.js --proxy-server http://127.0.0.1:7897 --proxy-bypass-list "localhost,127.0.0.1"  # Proxy with bypass list
 ```
 
-Launch Chrome with remote debugging on `:9222`. Use `--profile` to preserve user's authentication state.
+Launch Chrome with remote debugging on `:9222`. Use `--profile` to preserve user's authentication state. Use `--proxy-server` to route all traffic through a proxy server. Use `--proxy-bypass-list` to specify comma-separated hosts that should bypass the proxy.
 
 ## Navigate
 

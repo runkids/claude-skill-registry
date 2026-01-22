@@ -1,7 +1,7 @@
 {
   "name": "tdd-strict",
-  "repo": "mgreenly/ikigai",
-  "path": ".claude/library/tdd-strict/SKILL.md",
-  "source": "github.com/mgreenly/ikigai",
-  "downloaded_at": "2026-01-14T03:06:58.623825Z"
+  "repo": "freitasp1/claude-code-skills",
+  "path": "skills/tdd-strict/SKILL.md",
+  "source": "github.com/freitasp1/claude-code-skills",
+  "downloaded_at": "2026-01-22T01:08:21.179579Z"
 }

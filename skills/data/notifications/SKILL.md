@@ -1,95 +1,160 @@
 ---
-name: notifications
-description: System for alerting the user when attention is needed. Use when you need to get the user's attention for questions, approvals, or when stuck.
+name: Notifications
+description: Push notifications and in-app alerts
 ---
 
-# Notification System
+# Notifications
 
-Automatasaurus includes a notification system to alert the user when their attention is needed.
+## Setup
 
-## Automatic Notifications
+```typescript
+import * as Notifications from 'expo-notifications';
 
-The system automatically sends notifications on stop based on context:
-- **Questions**: When Claude asks a question and waits for input
-- **Approvals**: When approval is needed to proceed
-- **Stuck**: When an agent encounters an issue
-- **Complete**: When all work is done
-
-## Explicit Notification Request
-
-When you need to explicitly alert the user, use:
-
-```bash
-.claude/hooks/request-attention.sh <type> "<message>"
+// Configure handler
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 ```
 
-### Notification Types
+## Request Permissions
 
-| Type | When to Use | Sound |
-|------|-------------|-------|
-| `question` | You have a question that needs answering | Submarine |
-| `approval` | You need approval before proceeding | Submarine |
-| `stuck` | You've encountered an issue you can't resolve | Basso (alert) |
-| `complete` | All assigned work is finished | Hero (success) |
-| `info` | General notification | Glass |
-| `error` | An error occurred | Basso (alert) |
-
-### Examples
-
-```bash
-# Question needs answering
-.claude/hooks/request-attention.sh question "Should I use PostgreSQL or MySQL for this project?"
-
-# Approval needed
-.claude/hooks/request-attention.sh approval "PR #42 is ready for review"
-
-# Got stuck
-.claude/hooks/request-attention.sh stuck "Cannot access the GitHub API - authentication failed"
-
-# Work complete
-.claude/hooks/request-attention.sh complete "All 5 user stories have been implemented and tested"
-
-# Error occurred
-.claude/hooks/request-attention.sh error "Build failed with 3 errors"
+```typescript
+async function requestPermissions() {
+  const { status } = await Notifications.requestPermissionsAsync();
+  return status === 'granted';
+}
 ```
 
-## When to Notify
+## Local Notifications
 
-### Always Notify For:
-- Questions that block progress
-- Security-related approvals
-- When you've been stuck for more than one attempt
-- Completion of significant milestones
-- Errors that require human intervention
+```typescript
+// Schedule immediate notification
+await Notifications.scheduleNotificationAsync({
+  content: {
+    title: 'New Chapter',
+    body: 'Manga X has a new chapter!',
+    data: { mangaId: '123', type: 'new_chapter' },
+  },
+  trigger: null, // Immediate
+});
 
-### Don't Notify For:
-- Minor progress updates
-- Self-recoverable errors
-- Questions you can answer from context
+// Schedule delayed notification
+await Notifications.scheduleNotificationAsync({
+  content: {
+    title: 'Reminder',
+    body: 'Continue reading...',
+  },
+  trigger: { seconds: 3600 }, // 1 hour
+});
 
-## Configuration
-
-Notifications can be configured via environment variables:
-
-```bash
-# Disable sound
-AUTOMATASAURUS_SOUND=false
-
-# Custom log location
-AUTOMATASAURUS_LOG=/path/to/custom.log
+// Cancel all
+await Notifications.cancelAllScheduledNotificationsAsync();
 ```
 
-## Platform Support
+## Notification Listeners
 
-- **macOS**: Native notifications with sound
-- **Linux**: Uses `notify-send` if available
-- **Windows**: PowerShell message box
+```typescript
+useEffect(() => {
+  // Notification received while app is open
+  const receivedSub = Notifications.addNotificationReceivedListener(
+    (notification) => {
+      console.log('Received:', notification);
+    }
+  );
 
-## Logging
+  // User tapped notification
+  const responseSub = Notifications.addNotificationResponseReceivedListener(
+    (response) => {
+      const data = response.notification.request.content.data;
+      if (data.type === 'new_chapter') {
+        navigation.navigate('MangaDetail', { mangaId: data.mangaId });
+      }
+    }
+  );
 
-All notifications are logged to `$AUTOMATASAURUS_LOG` (default: `/tmp/automatasaurus.log`):
-
+  return () => {
+    receivedSub.remove();
+    responseSub.remove();
+  };
+}, []);
 ```
-[2025-01-02 14:30:45] [question] Automatasaurus: Which database should we use?
-[2025-01-02 14:35:12] [complete] Automatasaurus: Feature implementation complete
+
+## Notification Service
+
+```typescript
+// services/notificationService.ts
+import * as Notifications from 'expo-notifications';
+
+export const notificationService = {
+  async notifyNewChapter(manga: Manga, chapter: Chapter) {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: manga.title,
+        body: `Chapter ${chapter.chapNum} is available`,
+        data: { mangaId: manga.id, chapterId: chapter.id },
+      },
+      trigger: null,
+    });
+  },
+
+  async notifyDownloadComplete(manga: Manga, chapterCount: number) {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Download Complete',
+        body: `${manga.title} - ${chapterCount} chapters`,
+        data: { mangaId: manga.id, type: 'download' },
+      },
+      trigger: null,
+    });
+  },
+};
+```
+
+## Progress Notifications (Android)
+
+```typescript
+// For download progress, use BackgroundService notifications
+import BackgroundService from 'react-native-background-actions';
+
+await BackgroundService.updateNotification({
+  taskTitle: 'Downloading',
+  taskDesc: `${current}/${total} pages`,
+  progressBar: { max: total, value: current },
+});
+```
+
+## Badge Count
+
+```typescript
+// Set badge
+await Notifications.setBadgeCountAsync(5);
+
+// Clear badge
+await Notifications.setBadgeCountAsync(0);
+
+// Get badge
+const count = await Notifications.getBadgeCountAsync();
+```
+
+## App Config
+
+```json
+// app.json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#FA6432"
+        }
+      ]
+    ]
+  }
+}
 ```

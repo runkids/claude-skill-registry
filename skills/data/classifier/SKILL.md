@@ -1,150 +1,81 @@
 ---
-name: classifier
-description: Classify code, documents, and data into categories. Use for code categorization, content classification, and data organization.
-allowed-tools: read, write, grep, glob
-version: 1.0
-best_practices:
-  - Use clear category definitions
-  - Provide training examples
-  - Validate classifications
-  - Track classification accuracy
-error_handling: graceful
-streaming: supported
+name: task-classifier
+description: Analyzes task descriptions and classifies them into categories for agent selection
+version: 1.0.0
+tags: [classification, agent-selection, automation]
 ---
 
-# Classifier Skill
+# Task Classifier Skill
 
-## Identity
-
-Classifier - Categorizes code, documents, and data into predefined categories using classification patterns.
-
-## Capabilities
-
-- **Code Classification**: Categorize code files by type, purpose, or pattern
-- **Document Classification**: Classify documents by topic, type, or purpose
-- **Data Classification**: Organize data into categories
-- **Multi-Label Classification**: Assign multiple categories when appropriate
+Analyzes task descriptions using keyword matching to suggest appropriate agent specializations.
 
 ## Usage
 
-### Code Classification
-
-**When to Use**:
-
-- Organizing codebase by functionality
-- Identifying code patterns
-- Categorizing components
-- Code review organization
-
-**How to Invoke**:
-
-```
-"Classify all files in src/components by functionality"
-"Categorize API routes by resource type"
-"Organize code files by architectural layer"
+```bash
+./.claude/skills/task-classifier/classify-task.sh "Task description"
 ```
 
-**What It Does**:
+## Classification Categories
 
-- Analyzes code files
-- Assigns categories based on patterns
-- Returns classification results
-- Validates classifications
+| Category | Keywords | Use Case |
+|----------|----------|----------|
+| **frontend** | ui, ux, react, component, css, styling, layout, responsive, interface | UI/UX development |
+| **backend** | api, endpoint, server, database, rest, graphql, service, authentication | Server-side development |
+| **devops** | docker, kubernetes, ci/cd, deployment, infrastructure, container, pipeline | Infrastructure work |
+| **testing** | test, qa, validation, coverage, integration, unit, e2e | Quality assurance |
+| **security** | security, auth, encryption, vulnerability, audit, penetration | Security work |
+| **data** | database, sql, migration, schema, data, model, entity | Data modeling |
+| **performance** | performance, optimization, speed, cache, memory, cpu | Performance tuning |
+| **general** | (default) | General development |
 
-### Document Classification
+## Output Format
 
-**When to Use**:
+Comma-separated list of classifications:
 
-- Organizing documentation
-- Categorizing content
-- Topic classification
-- Content management
-
-**How to Invoke**:
-
-```
-"Classify documentation files by topic"
-"Categorize markdown files by purpose"
-"Organize documents by category"
+```bash
+$ classify-task.sh "Create a React dashboard with API integration"
+frontend,backend,testing
 ```
 
-## Classification Patterns
+## Integration with Agent Selector
 
-### Code Categories
+This skill is typically used with `cfn-agent-selector` to determine which agents to spawn:
 
-- **Component Types**: React components, API routes, utilities
-- **Architectural Layers**: Presentation, business logic, data access
-- **Functionality**: Authentication, payment, reporting
-- **Patterns**: MVC, Repository, Factory
-
-### Document Categories
-
-- **Topics**: Technical, business, user-facing
-- **Types**: API docs, guides, tutorials
-- **Purposes**: Reference, how-to, explanation
-
-## Best Practices
-
-1. **Clear Categories**: Define categories explicitly
-2. **Training Examples**: Provide examples for each category
-3. **Validation**: Review and validate classifications
-4. **Accuracy Tracking**: Monitor classification accuracy
-5. **Iteration**: Refine categories based on results
-
-## Integration
-
-### With Database Architect
-
-Classifier can categorize database schemas:
-
-- Table types (entities, relationships, lookup)
-- Schema patterns (normalized, denormalized)
-- Data domains (user, product, order)
-
-### With Code Reviewer
-
-Classifier helps organize code reviews:
-
-- Review categories
-- Priority classification
-- Pattern identification
+```bash
+CLASSIFICATION=$(classify-task.sh "$TASK_DESCRIPTION")
+AGENTS=$(select-agents.sh --classification "$CLASSIFICATION" --mode standard)
+```
 
 ## Examples
 
-### Example 1: Code Classification
+```bash
+# Frontend task
+$ classify-task.sh "Build responsive navigation component"
+frontend
 
-```
-User: "Classify all files in src/ by functionality"
+# Full-stack task
+$ classify-task.sh "Create REST API with React admin panel"
+frontend,backend
 
-Classifier:
-1. Analyzes all files in src/
-2. Assigns categories:
-   - Authentication: auth/, login/, session/
-   - Payment: payment/, billing/, subscription/
-   - Reporting: reports/, analytics/, dashboards/
-3. Returns classification results
-```
+# DevOps task
+$ classify-task.sh "Setup CI/CD pipeline with Docker"
+devops
 
-### Example 2: Document Classification
-
-```
-User: "Classify documentation by topic"
-
-Classifier:
-1. Analyzes documentation files
-2. Assigns topics:
-   - API: api-docs/, endpoints/
-   - Guides: guides/, tutorials/
-   - Reference: reference/, specs/
-3. Returns classification
+# Security audit
+$ classify-task.sh "Perform security audit and fix vulnerabilities"
+security
 ```
 
-## Related Skills
+## Implementation Details
 
-- **text-to-sql**: Convert natural language to SQL queries
-- **code-reviewer**: Review classified code
-- **database-architect**: Use classifications for schema design
+- Uses `grep -E` for case-insensitive pattern matching
+- Returns multiple classifications if multiple keywords match
+- Falls back to "general" if no specific keywords detected
+- Stateless execution (no persistent state)
+- Exit code 0 on success, 1 on error
 
-## Related Documentation
+## Used By
 
-- [Classification Patterns](../docs/CLASSIFICATION_PATTERNS.md) - Comprehensive guide
+- `cfn-v3-coordinator` - For automatic agent selection
+- `cfn-agent-selector` - As input for agent mapping
+- CFN Loop orchestration - For task-specific agent spawning

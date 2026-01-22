@@ -1,7 +1,7 @@
 {
   "name": "coding-tutor",
-  "repo": "jayteealao/htbase",
-  "path": ".claude/skills/coding-tutor/SKILL.md",
-  "source": "github.com/jayteealao/htbase",
-  "downloaded_at": "2026-01-14T02:24:35.194814Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/coding-tutor/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:38.862254Z"
 }

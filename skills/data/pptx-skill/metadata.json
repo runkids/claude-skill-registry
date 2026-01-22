@@ -1,11 +1,7 @@
 {
   "name": "pptx-skill",
-  "description": "HTML 슬라이드를 PowerPoint(PPTX) 파일로 변환. PPTX 생성, 편집, 썸네일 생성이 필요할 때 사용.",
-  "repo": "uxjoseph/ppt_team_agent",
-  "category": "data",
-  "tags": [
-    "pptx",
-    "skill"
-  ],
-  "stars": 15
+  "repo": "404kidwiz/claude-supercode-skills",
+  "path": "pptx-skill/SKILL.md",
+  "source": "github.com/404kidwiz/claude-supercode-skills",
+  "downloaded_at": "2026-01-22T02:04:10.767081Z"
 }

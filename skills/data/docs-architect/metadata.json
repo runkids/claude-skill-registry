@@ -1,12 +1,7 @@
 {
   "name": "docs-architect",
-  "description": "Technical documentation architect that creates comprehensive technical documentation (both short-form guides and long-form manuals) with architecture diagrams, design rationale, and implementation gui",
-  "repo": "amo-tech-ai/skybox-gamehub",
-  "category": "design",
-  "tags": [
-    "docs",
-    "architect"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rmyndharis/antigravity-skills",
+  "path": "skills/docs-architect/SKILL.md",
+  "source": "github.com/rmyndharis/antigravity-skills",
+  "downloaded_at": "2026-01-22T01:43:07.407299Z"
 }

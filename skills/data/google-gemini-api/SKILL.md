@@ -1,17 +1,29 @@
 ---
 name: google-gemini-api
 description: |
-  Integrate Gemini API with @google/genai SDK (NOT deprecated @google/generative-ai). Text generation, multimodal (images/video/audio/PDFs), function calling, thinking mode, streaming. 1M input tokens.
+  Complete guide for Google Gemini API using the CORRECT current SDK (@google/genai v1.27+, NOT the
+  deprecated @google/generative-ai). Covers text generation, multimodal inputs (text + images + video +
+  audio + PDFs), function calling, thinking mode, streaming, and system instructions with accurate 2025
+  model information (Gemini 2.5 Pro/Flash/Flash-Lite with 1M input tokens, NOT 2M).
 
-  Use when: Gemini integration, multimodal AI, reasoning with thinking mode. Troubleshoot: SDK deprecation, model not found, context window, function calling errors.
-user-invocable: true
+  Use when: integrating Gemini API, implementing multimodal AI applications, using thinking mode for
+  complex reasoning, function calling with parallel execution, streaming responses, deploying to
+  Cloudflare Workers, building chat applications, or encountering SDK deprecation warnings, context window
+  errors, model not found errors, function calling failures, or multimodal format errors.
+
+  Keywords: gemini api, @google/genai, gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash-lite,
+  multimodal gemini, thinking mode, google ai, genai sdk, function calling gemini, streaming gemini,
+  gemini vision, gemini video, gemini audio, gemini pdf, system instructions, multi-turn chat,
+  DEPRECATED @google/generative-ai, gemini context window, gemini models 2025, gemini 1m tokens,
+  gemini tool use, parallel function calling, compositional function calling
+license: MIT
 ---
 
 # Google Gemini API - Complete Guide
 
-**Version**: Phase 2 Complete + Gemini 3 ✅
-**Package**: @google/genai@1.35.0 (⚠️ NOT @google/generative-ai)
-**Last Updated**: 2026-01-09
+**Version**: Phase 2 Complete ✅
+**Package**: @google/genai@1.27.0 (⚠️ NOT @google/generative-ai)
+**Last Updated**: 2025-10-25
 
 ---
 
@@ -81,7 +93,7 @@ This skill uses the **correct current SDK** and provides a complete migration gu
 
 **CORRECT SDK:**
 ```bash
-npm install @google/genai@1.34.0
+npm install @google/genai@1.27.0
 ```
 
 **❌ WRONG (DEPRECATED):**
@@ -140,27 +152,7 @@ console.log(data.candidates[0].content.parts[0].text);
 
 ## Current Models (2025)
 
-### Gemini 3 Series (December 2025)
-
-#### gemini-3-flash
-- **Context**: 1,048,576 input tokens / 65,536 output tokens
-- **Status**: 🆕 Generally Available (December 2025)
-- **Description**: Google's fastest and most efficient Gemini 3 model for production workloads
-- **Best for**: High-throughput applications, low-latency responses, cost-sensitive production
-- **Features**: Enhanced multimodal, function calling, streaming, thinking mode
-- **Benchmark Performance**: Matches gemini-2.5-pro quality at gemini-2.5-flash speed/cost
-- **Recommended for**: Production use cases requiring speed + quality balance
-
-#### gemini-3-pro-preview
-- **Context**: TBD (documentation pending)
-- **Status**: Preview release (November 18, 2025)
-- **Description**: Google's newest and most intelligent AI model with state-of-the-art reasoning
-- **Best for**: Most complex reasoning tasks, advanced multimodal understanding, benchmark-critical applications
-- **Features**: Enhanced multimodal (text, image, video, audio, PDF), function calling, streaming
-- **Benchmark Performance**: Outperforms Gemini 2.5 Pro on every major AI benchmark
-- **⚠️ Preview**: Use for evaluation. Consider gemini-3-flash or gemini-2.5-pro for production
-
-### Gemini 2.5 Series (General Availability - Stable)
+### Gemini 2.5 Series (General Availability)
 
 #### gemini-2.5-pro
 - **Context**: 1,048,576 input tokens / 65,536 output tokens
@@ -185,22 +177,20 @@ console.log(data.candidates[0].content.parts[0].text);
 
 ### Model Feature Matrix
 
-| Feature | 3-Flash | 3-Pro (Preview) | 2.5-Pro | 2.5-Flash | 2.5-Flash-Lite |
-|---------|---------|-----------------|---------|-----------|----------------|
-| Thinking Mode | ✅ Default ON | TBD | ✅ Default ON | ✅ Default ON | ✅ Default ON |
-| Function Calling | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Multimodal | ✅ Enhanced | ✅ Enhanced | ✅ | ✅ | ✅ |
-| Streaming | ✅ | ✅ | ✅ | ✅ | ✅ |
-| System Instructions | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Context Window | 1,048,576 in | TBD | 1,048,576 in | 1,048,576 in | 1,048,576 in |
-| Output Tokens | 65,536 max | TBD | 65,536 max | 65,536 max | 65,536 max |
-| Status | **GA** | Preview | Stable | Stable | Stable |
+| Feature | Pro | Flash | Flash-Lite |
+|---------|-----|-------|------------|
+| Thinking Mode | ✅ Default ON | ✅ Default ON | ✅ Default ON |
+| Function Calling | ✅ | ✅ | ✅ |
+| Multimodal | ✅ | ✅ | ✅ |
+| Streaming | ✅ | ✅ | ✅ |
+| System Instructions | ✅ | ✅ | ✅ |
+| Context Window | 1,048,576 in | 1,048,576 in | 1,048,576 in |
+| Output Tokens | 65,536 max | 65,536 max | 65,536 max |
 
 ### ⚠️ Context Window Correction
 
-**ACCURATE (Gemini 2.5)**: Gemini 2.5 models support **1,048,576 input tokens** (NOT 2M!)
+**ACCURATE**: Gemini 2.5 models support **1,048,576 input tokens** (NOT 2M!)
 **OUTDATED**: Only Gemini 1.5 Pro (previous generation) had 2M token context window
-**GEMINI 3**: Context window specifications pending official documentation
 
 **Common mistake**: Claiming Gemini 2.5 has 2M tokens. It doesn't. This skill prevents this error.
 
@@ -973,31 +963,11 @@ const response = await fetch(
 );
 ```
 
-### Configure Thinking Level (SDK) - New in v1.30.0
-
-```typescript
-const response = await ai.models.generateContent({
-  model: 'gemini-2.5-flash',
-  contents: 'Solve this complex problem: ...',
-  config: {
-    thinkingConfig: {
-      thinkingLevel: 'MEDIUM' // 'LOW' | 'MEDIUM' | 'HIGH'
-    }
-  }
-});
-```
-
-**Thinking Levels:**
-- `LOW`: Minimal internal reasoning (faster, lower quality)
-- `MEDIUM`: Balanced reasoning (default)
-- `HIGH`: Maximum reasoning depth (slower, higher quality)
-
 **Key Points:**
 - Thinking mode is **always enabled** on Gemini 2.5 models (cannot be disabled)
 - Higher thinking budgets allow more internal reasoning (may increase latency)
-- `thinkingLevel` provides simpler control than `thinkingBudget` (new in v1.30.0)
 - Default budget varies by model (usually sufficient for most tasks)
-- Only increase budget/level for very complex reasoning tasks
+- Only increase budget for very complex reasoning tasks
 
 ---
 
@@ -1552,7 +1522,7 @@ Grounding connects the model to real-time web information, reducing hallucinatio
 - **Verifiable**: Citations allow fact-checking
 - **Up-to-date**: Not limited to model's training cutoff
 
-### Grounding Options
+### Two Grounding APIs
 
 #### 1. Google Search (`googleSearch`) - Recommended for Gemini 2.5
 
@@ -1567,25 +1537,7 @@ const groundingTool = {
 - Automatic search when needed
 - Available on all Gemini 2.5 models
 
-#### 2. FileSearch - New in v1.29.0 (Preview)
-
-```typescript
-const fileSearchTool = {
-  fileSearch: {
-    fileSearchStoreId: 'store-id-here' // Created via FileSearchStore APIs
-  }
-};
-```
-
-**Features:**
-- Search through your own document collections
-- Upload and index custom knowledge bases
-- Alternative to web search for proprietary data
-- Preview feature (requires FileSearchStore setup)
-
-**Note**: See [FileSearch documentation](https://github.com/googleapis/js-genai) for store creation and management.
-
-#### 3. Google Search Retrieval (`googleSearchRetrieval`) - Legacy (Gemini 1.5)
+#### 2. Google Search Retrieval (`googleSearchRetrieval`) - Legacy (Gemini 1.5)
 
 ```typescript
 const retrievalTool = {
@@ -1665,7 +1617,7 @@ import { GoogleGenAI, DynamicRetrievalConfigMode } from '@google/genai';
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const response = await ai.models.generateContent({
-  model: 'gemini-2.5-flash',
+  model: 'gemini-1.5-flash',
   contents: 'Who won the euro 2024?',
   config: {
     tools: [
@@ -2117,7 +2069,7 @@ const response = await chat.sendMessage(message);
 
 ### Installation
 ```bash
-npm install @google/genai@1.34.0
+npm install @google/genai@1.27.0
 ```
 
 ### Environment
@@ -2125,10 +2077,9 @@ npm install @google/genai@1.34.0
 export GEMINI_API_KEY="..."
 ```
 
-### Models (2025-2026)
-- `gemini-3-flash` (1,048,576 in / 65,536 out) - **NEW** Best speed+quality balance
+### Models (2025)
 - `gemini-2.5-pro` (1,048,576 in / 65,536 out) - Best for complex reasoning
-- `gemini-2.5-flash` (1,048,576 in / 65,536 out) - Proven price-performance balance
+- `gemini-2.5-flash` (1,048,576 in / 65,536 out) - Best price-performance balance
 - `gemini-2.5-flash-lite` (1,048,576 in / 65,536 out) - Fastest, most cost-effective
 
 ### Basic Generation
@@ -2169,6 +2120,6 @@ config: {
 
 ---
 
-**Last Updated**: 2026-01-03
-**Production Validated**: All features tested with @google/genai@1.34.0
+**Last Updated**: 2025-10-25
+**Production Validated**: All features tested with @google/genai@1.27.0
 **Phase**: 2 Complete ✅ (All Core + Advanced Features)

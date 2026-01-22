@@ -1,10 +1,19 @@
 ---
 name: clinical-reports
+display_name: Clinical Reports
 description: Write comprehensive clinical reports including case reports (CARE guidelines), diagnostic reports (radiology/pathology/lab), clinical trial reports (ICH-E3, SAE, CSR), and patient documentation (SOAP, H&P, discharge summaries). Full support with templates, regulatory compliance (HIPAA, FDA, ICH-GCP), and validation tools.
-allowed-tools: [Read, Write, Edit, Bash]
+version: 1.0.0
+author: K-Dense Inc.
 license: MIT License
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["clinical", "medical", "healthcare"]
+category: clinical
+allowed_tools: ["code_execute", "create_document"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 9
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # Clinical Report Writing

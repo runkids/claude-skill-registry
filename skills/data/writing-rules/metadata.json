@@ -1,7 +1,7 @@
 {
   "name": "writing-rules",
-  "repo": "jwynia/agent-skills",
-  "path": "collections/official-claude-code/hookify/skills/writing-rules/SKILL.md",
-  "source": "github.com/jwynia/agent-skills",
-  "downloaded_at": "2026-01-14T03:19:18.907846Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/productivity/writing-rules/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-22T03:18:29.711410Z"
 }

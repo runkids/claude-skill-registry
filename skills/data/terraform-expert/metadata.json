@@ -1,7 +1,7 @@
 {
   "name": "terraform-expert",
-  "repo": "timequity/plugins",
-  "path": "craft-coder/infra/terraform-expert/SKILL.md",
-  "source": "github.com/timequity/plugins",
-  "downloaded_at": "2026-01-14T03:41:23.207681Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/devops/terraform-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-22T04:02:07.319152Z"
 }

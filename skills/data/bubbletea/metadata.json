@@ -1,7 +1,7 @@
 {
   "name": "bubbletea",
-  "repo": "GGPrompts/my-gg-plugins",
-  "path": "plugins/bubbletea/skills/bubbletea/SKILL.md",
-  "source": "github.com/GGPrompts/my-gg-plugins",
-  "downloaded_at": "2026-01-14T03:00:42.077981Z"
+  "repo": "GGPrompts/my-plugins",
+  "path": "plugins/specialized/bubbletea/skills/bubbletea/SKILL.md",
+  "source": "github.com/GGPrompts/my-plugins",
+  "downloaded_at": "2026-01-22T03:22:55.346781Z"
 }

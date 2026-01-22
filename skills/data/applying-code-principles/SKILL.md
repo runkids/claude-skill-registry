@@ -4,64 +4,40 @@ description: >
   Fundamental software principles - SOLID, DRY, Occam's Razor, Miller's Law, YAGNI, Readable Code.
   Triggers: 原則, シンプル, 複雑, アーキテクチャ, リファクタリング, 保守性, コード品質,
   design pattern, best practice, clean code
-allowed-tools: Read, Grep, Glob
+allowed-tools: [Read, Grep, Glob]
 user-invocable: false
 ---
 
-# Code Principles
+# コード原則
 
-Claude knows all principles. This file defines project-specific thresholds and priority.
+## 優先順序
 
-## Priority Order
+| 優先度 | 原則           | 適用場面                         |
+| ------ | -------------- | -------------------------------- |
+| 1      | 安全第一       | セキュリティ、データ整合性       |
+| 2      | YAGNI          | 不要なものは作らない             |
+| 3      | オッカムの剃刀 | 最もシンプルな解決               |
+| 4      | SOLID          | 複雑なシステム向け               |
+| 5      | DRY            | 重複排除（明確性を犠牲にしない） |
+| 6      | ミラーの法則   | 7±2の認知限界を尊重              |
 
-When principles conflict:
+## クイックチェック
 
-1. **Safety First** - Security, data integrity
-2. **YAGNI** - Don't build what you don't need
-3. **Occam's Razor** - Simplest solution
-4. **SOLID** - For complex systems
-5. **DRY** - Eliminate duplication (not at cost of clarity)
-6. **Miller's Law** - Respect 7±2 cognitive limit
+**CLAUDE.md → 開発チェック** を参照（常にロード、単一の情報源）。
 
-## Quick Decision Questions
+## 閾値
 
-- "Is there a simpler way?" (Occam's Razor)
-- "Understandable in <1 min?" (Miller's Law)
-- "Duplicating knowledge?" (DRY)
-- "Needed now?" (YAGNI)
-- "Single reason to change?" (SOLID/SRP)
+| 対象           | 理想 | 最大 | 限界 |
+| -------------- | ---- | ---- | ---- |
+| 関数引数       | 3    | 5    | 7    |
+| クラスメソッド | 5    | 7    | 9    |
+| 条件分岐       | 3    | 5    | 7    |
 
-## Thresholds
+## ルール
 
-### Miller's Law
-
-| Target        | Ideal | Max | Limit |
-| ------------- | ----- | --- | ----- |
-| Function args | 3     | 5   | 7     |
-| Class methods | 5     | 7   | 9     |
-| Conditionals  | 3     | 5   | 7     |
-
-### DRY
-
-- **Rule of Three**: Abstract on 3rd duplication
-
-### SOLID
-
-- Create interface only when 2nd implementation appears
-- No single-implementation interfaces
-
-### YAGNI
-
-Before adding, confirm:
-
-1. Problem exists now? → No = don't build
-2. Failed in production? → No = no error handling yet
-3. User requested? → No = no feature yet
-4. Measured evidence? → No = no optimization yet
-
-### Readable Code
-
-**"Code should be written to minimize the time it would take for someone else to understand it"**
-— Dustin Boswell & Trevor Foucher
-
-Test: "Would a new team member understand this in < 1 minute?"
+| 原則   | ルール                                      |
+| ------ | ------------------------------------------- |
+| DRY    | 3回目の重複で抽象化（3回ルール）            |
+| SOLID  | 2番目の実装が現れたときのみインターフェース |
+| YAGNI  | 問題が今存在する場合のみ作る                |
+| 可読性 | 新しいチームメンバーが1分以内に理解できる   |

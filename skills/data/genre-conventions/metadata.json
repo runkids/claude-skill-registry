@@ -1,9 +1,7 @@
 {
   "name": "genre-conventions",
-  "description": "Diagnose genre problems and generate genre-specific elements. Use when genre promise is unclear, when elements feel misplaced, when secondary genres compete with primary, or when you need genre-specif",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/craft/genre-conventions/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:21.118938Z"
 }

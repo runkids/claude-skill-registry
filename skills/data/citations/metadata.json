@@ -1,7 +1,7 @@
 {
   "name": "citations",
-  "repo": "cncorp/arsenal",
-  "path": "dot-claude/skills/citations/SKILL.md",
-  "source": "github.com/cncorp/arsenal",
-  "downloaded_at": "2026-01-14T04:01:20.146729Z"
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/openai/citations/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-22T01:15:00.476490Z"
 }

@@ -1,12 +1,12 @@
 ---
 name: gh-discussions-answerer
 description: Find and answer unanswered GitHub discussions. Activate when user wants to contribute to open source discussions, help answer GitHub questions, or find discussions to answer. Delegates all work to subagents.
-allowed-tools: [Task]
+allowed-tools: [task]
 ---
 
 # GitHub Discussions Answerer
 
-All work delegated to `general-purpose` subagents.
+All work delegated to `general` subagents.
 
 ## Constraints
 
@@ -24,7 +24,7 @@ All work delegated to `general-purpose` subagents.
 Search for unanswered discussions via GitHub API:
 
 ```
-Task(subagent_type="general-purpose", model="haiku", prompt="
+task(subagent_type="general", description="Search unanswered discussions", prompt="
 Run these searches to find unanswered discussions. Calculate dates from today.
 
 SEARCH 1 - Last 30 days, Q&A with no replies:
@@ -74,7 +74,7 @@ Return exactly 15 candidates: [repo#number] title - category
 Launch analyses for ALL candidates in parallel (one subagent per candidate):
 
 ```
-Task(subagent_type="general-purpose", prompt="
+task(subagent_type="general", description="Analyze discussion", prompt="
 Analyze [repo]#[number]: [title]
 
 READ-ONLY: Only use GET/query operations. Do NOT post, create, or mutate anything.
@@ -105,7 +105,7 @@ Return VERIFIED: [1-2 sentence answer with actionable fix] OR DISCARD: [reason]
 Post ALL verified answers in parallel (one subagent per answer):
 
 ```
-Task(subagent_type="general-purpose", model="haiku", prompt="
+task(subagent_type="general", description="Post discussion answer", prompt="
 Post answer for [repo]#[number]:
 
 1. Get discussion ID:

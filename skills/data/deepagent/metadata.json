@@ -1,11 +1,7 @@
 {
   "name": "deepagent",
-  "description": "Expert guidance for DeepAgents framework - simplified agent creation with tool integration for LangChain/LangGraph workflows.",
   "repo": "htooayelwinict/claude-config",
-  "category": "testing",
-  "tags": [
-    "deepagent"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/deepagent/SKILL.md",
+  "source": "github.com/htooayelwinict/claude-config",
+  "downloaded_at": "2026-01-19T04:20:10.431889Z"
 }

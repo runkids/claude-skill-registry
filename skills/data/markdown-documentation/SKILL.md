@@ -1,637 +1,377 @@
 ---
 name: markdown-documentation
-description: Master markdown formatting, GitHub Flavored Markdown, README files, and documentation formatting. Use when writing markdown docs, READMEs, or formatting documentation.
+description: Use when writing technical documentation, READMEs, or project documentation in markdown. Covers structure, conventions, and best practices.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Grep
+  - Glob
 ---
 
 # Markdown Documentation
 
-## Overview
+Best practices for writing effective technical documentation in markdown.
 
-Master markdown syntax and best practices for creating well-formatted, readable documentation using standard Markdown and GitHub Flavored Markdown (GFM).
+## README Structure
 
-## When to Use
-
-- README files
-- Documentation pages
-- GitHub/GitLab wikis
-- Blog posts
-- Technical writing
-- Project documentation
-- Comment formatting
-
-## Markdown Syntax Reference
-
-### Headers
-
-```markdown
-# H1 Header
-## H2 Header
-### H3 Header
-#### H4 Header
-##### H5 Header
-###### H6 Header
-
-Alternative H1
-==============
-
-Alternative H2
---------------
-```
-
-### Text Formatting
-
-```markdown
-**Bold text**
-__Also bold__
-
-*Italic text*
-_Also italic_
-
-***Bold and italic***
-___Also bold and italic___
-
-~~Strikethrough~~
-
-`Inline code`
-
-> Blockquote
-> Multiple lines
-> in blockquote
-
----
-Horizontal rule (also ___ or ***)
-```
-
-### Lists
-
-```markdown
-Unordered list:
-- Item 1
-- Item 2
-  - Nested item 2.1
-  - Nested item 2.2
-- Item 3
-
-Using asterisks:
-* Item 1
-* Item 2
-
-Using plus:
-+ Item 1
-+ Item 2
-
-Ordered list:
-1. First item
-2. Second item
-   1. Nested item 2.1
-   2. Nested item 2.2
-3. Third item
-
-Task list (GitHub Flavored Markdown):
-- [x] Completed task
-- [ ] Incomplete task
-- [ ] Another task
-```
-
-### Links and Images
-
-```markdown
-[Link text](https://example.com)
-[Link with title](https://example.com "Link title")
-
-Reference-style link:
-[Link text][reference]
-[reference]: https://example.com
-
-Automatic link:
-<https://example.com>
-<email@example.com>
-
-![Alt text](image.png)
-![Alt text](image.png "Image title")
-
-Reference-style image:
-![Alt text][image-ref]
-[image-ref]: image.png
-```
-
-### Code Blocks
-
-````markdown
-Inline code: `const x = 5;`
-
-Code block with language:
-```javascript
-function hello(name) {
-  console.log(`Hello, ${name}!`);
-}
-```
-
-```python
-def hello(name):
-    print(f"Hello, {name}!")
-```
-
-```bash
-npm install
-npm start
-```
-
-Indented code block (4 spaces):
-    const x = 5;
-    console.log(x);
-````
-
-### Tables
-
-```markdown
-Simple table:
-| Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
-| Row 1    | Data     | Data     |
-| Row 2    | Data     | Data     |
-
-Aligned columns:
-| Left | Center | Right |
-|:-----|:------:|------:|
-| Left | Center | Right |
-| Text | Text   | Text  |
-
-Minimal table:
-Column 1 | Column 2
----------|----------
-Data     | Data
-Data     | Data
-```
-
-### Extended Syntax (GitHub Flavored Markdown)
-
-```markdown
-Footnotes:
-Here's a sentence with a footnote[^1].
-
-[^1]: This is the footnote.
-
-Definition list:
-Term
-: Definition
-
-Emoji:
-:smile: :rocket: :heart:
-:+1: :-1: :eyes:
-
-Automatic URL linking:
-https://github.com
-
-Task lists in issues:
-- [x] #739
-- [ ] https://github.com/octo-org/repo/issues/1
-- [ ] Add tests
-
-Mentioning users and teams:
-@username
-@org/team-name
-
-Referencing issues and PRs:
-#123
-GH-123
-username/repo#123
-```
-
-## README Template
+### Minimal README
 
 ```markdown
 # Project Name
 
-Brief description of what this project does and who it's for.
+Brief description of what this project does.
 
-[![Build Status](https://img.shields.io/github/workflow/status/user/repo/CI)](https://github.com/user/repo/actions)
-[![License](https://img.shields.io/github/license/user/repo)](LICENSE)
-[![Version](https://img.shields.io/npm/v/package-name)](https://www.npmjs.com/package/package-name)
+## Installation
 
-## Table of Contents
+Instructions to install.
 
-- [Features](#features)
-- [Demo](#demo)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Reference](#api-reference)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+## Usage
+
+Basic usage example.
+
+## License
+
+MIT
+```
+
+### Comprehensive README
+
+```markdown
+# Project Name
+
+![Build Status](badge-url)
+![Version](badge-url)
+
+One-paragraph description of the project.
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
-
-## Demo
-
-![Demo GIF](demo.gif)
-
-Try it live: [https://demo.example.com](https://demo.example.com)
+- Feature one
+- Feature two
+- Feature three
 
 ## Installation
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- Requirement 1
+- Requirement 2
 
-### Install via npm
+### Steps
 
-```bash
-npm install package-name
-```
-
-### Install via yarn
-
-```bash
-yarn add package-name
-```
-
-### From source
-
-```bash
-git clone https://github.com/user/repo.git
-cd repo
-npm install
-npm run build
-```
+Instructions...
 
 ## Usage
 
-Basic usage example:
+### Basic Example
 
-```javascript
-import { Package } from 'package-name';
-
-const instance = new Package({
-  option1: 'value1',
-  option2: 'value2'
-});
-
-instance.doSomething();
-```
+Code example...
 
 ### Advanced Usage
 
-More complex example:
-
-```javascript
-const result = await instance.advancedMethod({
-  param1: 'value',
-  param2: 123
-});
-
-console.log(result);
-```
-
-## API Reference
-
-### `Class.method(param1, param2)`
-
-Description of what this method does.
-
-**Parameters:**
-- `param1` (string): Description of param1
-- `param2` (number): Description of param2
-
-**Returns:** Description of return value
-
-**Example:**
-```javascript
-const result = instance.method('value', 42);
-```
+More examples...
 
 ## Configuration
 
-Create a `.configrc` file:
+Configuration options...
 
-```json
-{
-  "setting1": "value1",
-  "setting2": true,
-  "setting3": {
-    "nested": "value"
-  }
-}
-```
+## API Reference
+
+API documentation...
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and development process.
-
-## Testing
-
-```bash
-# Run all tests
-npm test
-
-# Run with coverage
-npm run test:coverage
-
-# Run in watch mode
-npm run test:watch
-```
-
-## Deployment
-
-```bash
-# Build for production
-npm run build
-
-# Deploy
-npm run deploy
-```
-
-## Built With
-
-- [Framework 1](https://example.com) - Description
-- [Library 2](https://example.com) - Description
-- [Tool 3](https://example.com) - Description
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For available versions, see the [tags on this repository](https://github.com/user/repo/tags).
-
-## Authors
-
-- **Your Name** - *Initial work* - [YourUsername](https://github.com/YourUsername)
-
-See also the list of [contributors](https://github.com/user/repo/contributors) who participated in this project.
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
-
-## Support
-
-- Documentation: [https://docs.example.com](https://docs.example.com)
-- Issues: [GitHub Issues](https://github.com/user/repo/issues)
-- Discussions: [GitHub Discussions](https://github.com/user/repo/discussions)
-- Email: support@example.com
-
-## Roadmap
-
-- [x] Feature 1
-- [x] Feature 2
-- [ ] Feature 3
-- [ ] Feature 4
-
-See the [open issues](https://github.com/user/repo/issues) for a full list of proposed features.
-
-## FAQ
-
-### Question 1?
-
-Answer to question 1.
-
-### Question 2?
-
-Answer to question 2.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+MIT License - see [LICENSE](LICENSE)
 ```
 
-## Documentation Best Practices
+## Document Organization
 
-### File Structure
+### File Naming
 
 ```
 docs/
-├── README.md
-├── CONTRIBUTING.md
-├── CHANGELOG.md
-├── LICENSE
-├── CODE_OF_CONDUCT.md
-├── SECURITY.md
-├── guides/
-│   ├── getting-started.md
-│   ├── installation.md
-│   └── configuration.md
+├── README.md           # Entry point
+├── CONTRIBUTING.md     # Contribution guidelines
+├── CHANGELOG.md        # Version history
+├── CODE_OF_CONDUCT.md  # Community guidelines
+├── getting-started.md  # Onboarding guide
 ├── api/
-│   ├── authentication.md
-│   ├── endpoints.md
-│   └── errors.md
-└── examples/
-    ├── basic-usage.md
-    └── advanced-usage.md
+│   ├── README.md       # API overview
+│   └── endpoints.md    # Endpoint reference
+└── guides/
+    ├── installation.md
+    └── configuration.md
 ```
 
 ### Linking Between Documents
 
 ```markdown
-Link to another doc:
-[Installation Guide](guides/installation.md)
+See the [installation guide](./guides/installation.md) for details.
 
-Link to section in current doc:
-[See Configuration](#configuration)
-
-Link to section in another doc:
-[API Authentication](api/authentication.md#oauth2)
-
-Link to external resource:
-[GitHub Markdown Guide](https://guides.github.com/features/mastering-markdown/)
+For API reference, check [endpoints](./api/endpoints.md#authentication).
 ```
 
-### Using Anchors
+## Writing Style
+
+### Be Concise
 
 ```markdown
-Create custom anchors:
+<!-- Bad -->
+In order to install the application, you will need to run the following command.
 
-<a name="custom-anchor"></a>
-## Section Title
-
-Link to it:
-[Jump to section](#custom-anchor)
+<!-- Good -->
+Install the application:
 ```
 
-### Collapsible Sections
+### Use Active Voice
 
 ```markdown
-<details>
-<summary>Click to expand</summary>
+<!-- Bad -->
+The configuration file should be created in the home directory.
 
-Hidden content goes here.
-
-- Can include lists
-- Code blocks
-- Images
-
-```javascript
-const code = 'works too';
+<!-- Good -->
+Create the configuration file in your home directory.
 ```
 
-</details>
+### Address the Reader
+
+```markdown
+<!-- Bad -->
+Users can configure the timeout setting.
+
+<!-- Good -->
+You can configure the timeout setting.
 ```
 
-### Syntax Highlighting
+## Code Documentation
 
-````markdown
-Common languages:
-```javascript
-```typescript
-```python
+### Inline Code vs Code Blocks
+
+```markdown
+Use `npm install` to install dependencies.
+
+For multiple commands, use a code block:
+
 ```bash
-```java
-```go
-```rust
-```sql
-```json
-```yaml
-```html
-```css
-```dockerfile
-```graphql
-```markdown
-````
-
-### Badges
-
-```markdown
-![Build Status](https://img.shields.io/github/workflow/status/user/repo/CI)
-![Coverage](https://img.shields.io/codecov/c/github/user/repo)
-![Version](https://img.shields.io/npm/v/package-name)
-![License](https://img.shields.io/github/license/user/repo)
-![Downloads](https://img.shields.io/npm/dm/package-name)
-![Stars](https://img.shields.io/github/stars/user/repo?style=social)
+npm install
+npm run build
+npm start
 ```
 
-### Alerts and Callouts
+```
+
+### Command Examples
+
+Show both command and output:
+
+```bash
+$ npm --version
+10.2.0
+```
+
+### Configuration Examples
+
+Always show complete, valid examples:
+
+Create `config.json`:
+
+```json
+{
+  "port": 3000,
+  "debug": true,
+  "database": {
+    "host": "localhost",
+    "name": "myapp"
+  }
+}
+```
+
+## Admonitions and Callouts
+
+### GitHub-Style Alerts
 
 ```markdown
-> **Note**
-> This is a note
-
-> **Warning**
-> This is a warning
-
-> **Important**
-> This is important information
-
-GitHub-style alerts (GFM):
 > [!NOTE]
-> Useful information
+> Useful information that users should know.
 
 > [!TIP]
-> Helpful advice
+> Helpful advice for doing things better.
 
 > [!IMPORTANT]
-> Key information
+> Key information users need to know.
 
 > [!WARNING]
-> Critical content
+> Urgent info that needs immediate attention.
 
 > [!CAUTION]
-> Negative potential consequences
+> Advises about risks or negative outcomes.
 ```
 
-### Mermaid Diagrams
+### Custom Callouts (Emoji-Based)
+
+```markdown
+⚠️ **Warning**: This action cannot be undone.
+
+💡 **Tip**: Use environment variables for sensitive data.
+
+📝 **Note**: This feature requires version 2.0+.
+```
+
+## API Documentation
+
+### Endpoint Documentation
+
+#### Create User
+
+Creates a new user account.
+
+**Request:** `POST /api/users`
+
+**Headers:**
+
+| Header | Value | Required |
+|--------|-------|:--------:|
+| Content-Type | application/json | ✅ |
+| Authorization | Bearer {token} | ✅ |
+
+**Body:**
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+**Response (201):**
+
+```json
+{
+  "id": "abc123",
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+**Error (400):**
+
+```json
+{
+  "error": "Invalid email format"
+}
+```
+
+### Function Documentation
+
+#### `parseConfig(path, options?)`
+
+Parses a configuration file.
+
+**Parameters:**
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| path | string | — | Path to config file |
+| options.strict | boolean | false | Throw on unknown keys |
+| options.env | boolean | true | Expand environment variables |
+
+**Returns:** `Config` - Parsed configuration object
+
+**Throws:**
+
+- `FileNotFoundError` - Config file doesn't exist
+- `ParseError` - Invalid JSON/YAML syntax
+
+**Example:**
+
+```javascript
+const config = parseConfig('./config.json', { strict: true });
+```
+
+## Changelogs
+
+### Keep a Changelog Format
+
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+### Added
+- New feature X
+
+### Changed
+- Updated dependency Y
+
+## [1.2.0] - 2024-01-15
+
+### Added
+- Feature A
+- Feature B
+
+### Fixed
+- Bug in feature C
+
+### Deprecated
+- Old API endpoint
+
+## [1.1.0] - 2024-01-01
+
+### Added
+- Initial release
+```
+
+## Diagrams
+
+### Mermaid (GitHub Supported)
 
 ````markdown
 ```mermaid
-graph TD
+graph LR
     A[Start] --> B{Decision}
-    B -->|Yes| C[Do Something]
-    B -->|No| D[Do Something Else]
+    B -->|Yes| C[Action 1]
+    B -->|No| D[Action 2]
     C --> E[End]
     D --> E
 ```
+````
 
-```mermaid
-sequenceDiagram
-    participant A as Alice
-    participant B as Bob
-    A->>B: Hello Bob!
-    B->>A: Hello Alice!
+### ASCII Diagrams
+
+````markdown
+```
+┌─────────┐     ┌─────────┐     ┌─────────┐
+│ Client  │────▶│ Server  │────▶│Database │
+└─────────┘     └─────────┘     └─────────┘
 ```
 ````
 
-## Markdown Tools
-
-### Linters
-
-```bash
-# markdownlint
-npm install -g markdownlint-cli
-markdownlint '**/*.md'
-
-# Configuration: .markdownlint.json
-{
-  "default": true,
-  "MD013": false,
-  "MD033": false
-}
-```
-
-### Formatters
-
-```bash
-# prettier
-npm install -g prettier
-prettier --write '**/*.md'
-
-# Configuration: .prettierrc
-{
-  "proseWrap": "always",
-  "printWidth": 80
-}
-```
-
-### Preview
-
-```bash
-# grip - GitHub README preview
-pip install grip
-grip README.md
-# Open http://localhost:6419
-```
-
 ## Best Practices
 
-### ✅ DO
-- Use descriptive link text
-- Include table of contents for long documents
-- Add alt text to images
-- Use code blocks with language specification
-- Keep lines under 80-100 characters
-- Use relative links for internal docs
-- Add badges for build status, coverage, etc.
-- Include examples and screenshots
-- Use semantic line breaks
-- Test all links regularly
+1. **Start with why**: Explain what the project does and why it exists
+2. **Show, don't tell**: Provide working code examples
+3. **Keep it current**: Update docs when code changes
+4. **Test examples**: Ensure code samples actually work
+5. **Use consistent terminology**: Define terms and use them consistently
+6. **Provide context**: Link to prerequisites and related docs
+7. **Consider your audience**: Write for your users' skill level
+8. **Include troubleshooting**: Document common errors and solutions
 
-### ❌ DON'T
-- Use "click here" as link text
-- Forget alt text on images
-- Mix HTML and Markdown unnecessarily
-- Use absolute paths for local files
-- Create walls of text without breaks
-- Skip language specification in code blocks
-- Use images for text content (accessibility)
+## Common Documentation Files
 
-## Resources
-
-- [GitHub Markdown Guide](https://guides.github.com/features/mastering-markdown/)
-- [CommonMark Spec](https://commonmark.org/)
-- [Markdown Guide](https://www.markdownguide.org/)
-- [GitHub Flavored Markdown Spec](https://github.github.com/gfm/)
-- [Awesome README](https://github.com/matiassingers/awesome-readme)
+| File | Purpose |
+|------|---------|
+| README.md | Project overview and quick start |
+| CONTRIBUTING.md | How to contribute |
+| CHANGELOG.md | Version history |
+| LICENSE | Legal terms |
+| CODE_OF_CONDUCT.md | Community guidelines |
+| SECURITY.md | Security policy |
+| SUPPORT.md | How to get help |

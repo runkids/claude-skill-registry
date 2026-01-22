@@ -1,10 +1,7 @@
 {
   "name": "dialogue",
-  "description": "Crée le dialogue intérieur et la réflexion profonde pour l'Acte V d'un épisode NEW TEMPS X. Utilise ce Skill quand tu dois créer une réflexion intime, un dialogue intérieur, ou une méditation sur les ",
-  "repo": "nmarchand73/new_tempsx",
-  "category": "data",
-  "tags": [
-    "dialogue"
-  ],
-  "stars": 0
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/character/dialogue/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-21T03:40:40.886047Z"
 }

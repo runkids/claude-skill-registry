@@ -1,9 +1,6 @@
 ---
 name: ship-learn-next
 description: Transform learning content (like YouTube transcripts, articles, tutorials) into actionable implementation plans using the Ship-Learn-Next framework. Use when user wants to turn advice, lessons, or educational content into concrete action steps, reps, or a learning quest.
-allowed-tools:
-  - Read
-  - Write
 ---
 
 # Ship-Learn-Next Action Planner
@@ -161,12 +158,12 @@ For each rep, reference the source material:
 
 ## What NOT to Do
 
--  Don't create a study plan (create a SHIP plan)
--  Don't list all resources to read/watch (pick minimal resources for current rep)
--  Don't make perfect the enemy of shipped
--  Don't let them plan forever without starting
--  Don't accept vague goals ("learn X" → "ship Y by Z date")
--  Don't overwhelm with the full journey (focus on rep 1)
+- ❌ Don't create a study plan (create a SHIP plan)
+- ❌ Don't list all resources to read/watch (pick minimal resources for current rep)
+- ❌ Don't make perfect the enemy of shipped
+- ❌ Don't let them plan forever without starting
+- ❌ Don't accept vague goals ("learn X" → "ship Y by Z date")
+- ❌ Don't overwhelm with the full journey (focus on rep 1)
 
 ## Key Phrases to Use
 
@@ -272,14 +269,14 @@ Answer these questions:
 ## Success Metrics
 
 A good Ship-Learn-Next plan has:
--  Specific, shippable rep 1 (completable in 1-7 days)
--  Clear success criteria (user knows when they're done)
--  Concrete artifacts (something real to show)
--  Direct connection to source content
--  Progression path for reps 2-5
--  Emphasis on action over consumption
--  Honest reflection built in
--  Small enough to start today, big enough to learn
+- ✅ Specific, shippable rep 1 (completable in 1-7 days)
+- ✅ Clear success criteria (user knows when they're done)
+- ✅ Concrete artifacts (something real to show)
+- ✅ Direct connection to source content
+- ✅ Progression path for reps 2-5
+- ✅ Emphasis on action over consumption
+- ✅ Honest reflection built in
+- ✅ Small enough to start today, big enough to learn
 
 ## Saving the Plan
 
@@ -314,7 +311,7 @@ Examples:
 ## After Creating the Plan
 
 **Display to user**:
-1. Show them you've saved the plan: " Saved to: [filename]"
+1. Show them you've saved the plan: "✓ Saved to: [filename]"
 2. Give a brief overview of the quest
 3. Highlight Rep 1 (what's due this week)
 

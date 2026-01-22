@@ -1,286 +1,386 @@
 ---
-name: PDF Generator
-slug: pdf-generator
-description: Create and manipulate professional PDF documents with formatting, images, and metadata
-category: document-creation
-complexity: complex
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "create pdf"
-  - "generate pdf document"
-  - "convert to pdf"
-  - "pdf from markdown"
-  - "make a pdf"
-tags:
-  - pdf
-  - documents
-  - conversion
-  - formatting
+name: pdf-generator
+description: "Create and manipulate PDF files programmatically. Use when the user needs to generate PDFs, fill PDF forms, extract PDF content, add watermarks/overlays, or merge documents. Supports both template-based generation (form filling, overlays) and from-scratch creation. Keywords: PDF, document, form, fillable, merge, watermark, extract, text, report."
+license: MIT
+compatibility: Requires Deno with --allow-read, --allow-write permissions
+metadata:
+  author: agent-skills
+  version: "1.0"
 ---
 
 # PDF Generator
 
-The PDF Generator skill enables creation of professional PDF documents from various sources including Markdown, HTML, plain text, and structured data. It handles formatting, images, metadata, watermarks, and multi-page layouts. This skill leverages Node.js libraries like `puppeteer`, `pdfkit`, or `jsPDF` for comprehensive PDF generation capabilities.
+## When to Use This Skill
 
-Whether you need to convert documentation to PDF, generate reports with charts, create printable forms, or produce client deliverables, this skill provides the tools and workflows to create publication-quality PDFs programmatically.
+Use this skill when:
+- Creating PDF documents programmatically from data or specifications
+- Filling PDF forms with dynamic data
+- Adding watermarks, stamps, or overlays to existing PDFs
+- Extracting text and metadata from PDF files
+- Merging multiple PDFs into one document
+- Analyzing PDF structure and form fields
 
-## Core Workflows
+Do NOT use this skill when:
+- User wants to open/view PDFs (use native PDF viewer)
+- Complex page layout with flowing text is needed (consider HTML-to-PDF tools)
+- Working with password-protected PDFs (limited support)
+- OCR is needed for scanned documents
 
-### Workflow 1: Convert Markdown to PDF
-**Purpose:** Transform Markdown files into formatted PDF documents with styling
+## Prerequisites
 
-**Steps:**
-1. Read the source Markdown file
-2. Parse Markdown to HTML using a library like `marked`
-3. Apply CSS styling for professional appearance
-4. Use Puppeteer to render HTML as PDF with proper page breaks
-5. Add metadata (title, author, creation date)
-6. Save to specified output path
+- Deno installed (https://deno.land/)
+- Input PDF files for template-based operations
+- JSON specification for scratch generation
 
-**Implementation:**
-```javascript
-const puppeteer = require('puppeteer');
-const marked = require('marked');
-const fs = require('fs');
+## Quick Start
 
-async function markdownToPdf(mdPath, outputPath, options = {}) {
-  const markdown = fs.readFileSync(mdPath, 'utf8');
-  const html = marked.parse(markdown);
+### Two Modes of Operation
 
-  const styledHtml = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        body { font-family: 'Helvetica', sans-serif; margin: 40px; line-height: 1.6; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        h2 { color: #34495e; margin-top: 30px; }
-        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
-        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
-        blockquote { border-left: 4px solid #3498db; padding-left: 20px; color: #7f8c8d; }
-      </style>
-    </head>
-    <body>${html}</body>
-    </html>
-  `;
+1. **Template Mode**: Modify existing PDF templates
+   - Fill form fields (text, checkbox, dropdown)
+   - Add overlays (text, images, shapes)
+   - Merge and combine PDFs
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setContent(styledHtml);
-  await page.pdf({
-    path: outputPath,
-    format: 'A4',
-    margin: { top: '20mm', right: '20mm', bottom: '20mm', left: '20mm' },
-    printBackground: true,
-    ...options
-  });
-  await browser.close();
-}
-```
+2. **Scratch Mode**: Create PDFs from nothing using JSON specifications
 
-### Workflow 2: Generate Multi-Page PDF Report
-**Purpose:** Create structured reports with headers, footers, page numbers, and sections
+## Instructions
 
-**Steps:**
-1. Define report structure (cover page, TOC, sections, appendix)
-2. Create PDFKit document instance
-3. Add cover page with title, logo, date
-4. Generate table of contents with page references
-5. Add sections with consistent formatting
-6. Include headers and footers on each page
-7. Add page numbers and finalize
+### Mode 1: Template-Based Generation
 
-**Implementation:**
-```javascript
-const PDFDocument = require('pdfkit');
-const fs = require('fs');
+#### Step 1a: Analyze the Template
 
-function generateReport(data, outputPath) {
-  const doc = new PDFDocument({
-    size: 'A4',
-    margins: { top: 50, bottom: 50, left: 50, right: 50 }
-  });
+Extract form fields and structure from an existing PDF:
 
-  const stream = fs.createWriteStream(outputPath);
-  doc.pipe(stream);
-
-  // Cover page
-  doc.fontSize(28)
-     .text(data.title, { align: 'center' })
-     .moveDown(2)
-     .fontSize(14)
-     .text(`Generated: ${new Date().toLocaleDateString()}`, { align: 'center' });
-
-  doc.addPage();
-
-  // Table of contents
-  doc.fontSize(20).text('Table of Contents', { underline: true });
-  doc.moveDown();
-  data.sections.forEach((section, idx) => {
-    doc.fontSize(12)
-       .fillColor('blue')
-       .text(`${idx + 1}. ${section.title}`, { link: `#section${idx}` })
-       .fillColor('black');
-  });
-
-  // Sections
-  data.sections.forEach((section, idx) => {
-    doc.addPage();
-    doc.fontSize(18)
-       .fillColor('black')
-       .text(section.title, { destination: `section${idx}` });
-    doc.moveDown();
-    doc.fontSize(11).text(section.content, { align: 'justify' });
-  });
-
-  // Add page numbers
-  const pages = doc.bufferedPageRange();
-  for (let i = 0; i < pages.count; i++) {
-    doc.switchToPage(i);
-    doc.fontSize(10)
-       .text(`Page ${i + 1} of ${pages.count}`,
-             50, doc.page.height - 50,
-             { align: 'center' });
-  }
-
-  doc.end();
-}
-```
-
-### Workflow 3: Batch Convert HTML to PDF
-**Purpose:** Convert multiple HTML files to PDFs in a single operation
-
-**Steps:**
-1. Scan directory for HTML files or accept file list
-2. Set up Puppeteer browser instance (reuse for efficiency)
-3. For each HTML file:
-   - Load HTML content
-   - Apply standard styling
-   - Render to PDF with consistent settings
-   - Save with corresponding filename
-4. Close browser and report results
-
-### Workflow 4: Add Watermark to Existing PDF
-**Purpose:** Apply text or image watermarks to PDF documents
-
-**Steps:**
-1. Load existing PDF using pdf-lib
-2. Get all pages
-3. For each page:
-   - Draw watermark text (diagonal, semi-transparent)
-   - OR overlay watermark image
-4. Save modified PDF
-5. Preserve original metadata
-
-**Implementation:**
-```javascript
-const { PDFDocument, rgb, degrees } = require('pdf-lib');
-const fs = require('fs');
-
-async function addWatermark(inputPath, outputPath, watermarkText) {
-  const existingPdfBytes = fs.readFileSync(inputPath);
-  const pdfDoc = await PDFDocument.load(existingPdfBytes);
-  const pages = pdfDoc.getPages();
-
-  pages.forEach(page => {
-    const { width, height } = page.getSize();
-    page.drawText(watermarkText, {
-      x: width / 2 - 100,
-      y: height / 2,
-      size: 48,
-      color: rgb(0.75, 0.75, 0.75),
-      opacity: 0.3,
-      rotate: degrees(-45)
-    });
-  });
-
-  const pdfBytes = await pdfDoc.save();
-  fs.writeFileSync(outputPath, pdfBytes);
-}
-```
-
-### Workflow 5: Merge Multiple PDFs
-**Purpose:** Combine multiple PDF documents into a single file
-
-**Steps:**
-1. Create new PDF document
-2. Load each source PDF
-3. Copy all pages from each source
-4. Append to new document
-5. Save merged PDF with combined metadata
-
-## Quick Reference
-
-| Action | Command/Trigger |
-|--------|-----------------|
-| Convert Markdown to PDF | "convert [file.md] to pdf" |
-| Generate report from data | "create pdf report from [data]" |
-| Batch convert HTML | "convert all html files to pdf" |
-| Add watermark | "add watermark [text] to [file.pdf]" |
-| Merge PDFs | "merge [file1.pdf] and [file2.pdf]" |
-| Extract pages | "extract pages 1-5 from [file.pdf]" |
-| Compress PDF | "compress [file.pdf]" |
-| Add metadata | "set pdf metadata for [file.pdf]" |
-
-## Best Practices
-
-- **Page Sizing:** Always specify format ('A4', 'Letter') and orientation for consistency
-- **Margins:** Use minimum 15mm margins for printability
-- **Fonts:** Embed fonts or use standard PDF fonts (Helvetica, Times, Courier) for compatibility
-- **Images:** Compress images before embedding to reduce file size
-- **File Size:** Monitor PDF size; use compression for files over 5MB
-- **Accessibility:** Include document structure tags for screen readers when possible
-- **Metadata:** Always set title, author, and creation date metadata
-- **Page Breaks:** Use CSS `page-break-before` or `page-break-after` for controlled pagination
-- **Testing:** Test PDFs in multiple viewers (Adobe, Preview, browsers)
-- **Security:** Offer password protection and permission settings for sensitive documents
-- **Validation:** Verify PDF/A compliance if archival quality is required
-- **Batch Operations:** Reuse browser instances when converting multiple files
-
-## Common Patterns
-
-**Documentation Export:**
-```javascript
-// Convert project README to PDF with styling
-await markdownToPdf('./README.md', './docs/README.pdf', {
-  headerTemplate: '<div style="font-size:10px; text-align:center;">Project Documentation</div>',
-  footerTemplate: '<div style="font-size:10px; text-align:center;">Page <span class="pageNumber"></span></div>',
-  displayHeaderFooter: true
-});
-```
-
-**Invoice Generation:**
-```javascript
-// Create PDF invoice from template
-const doc = new PDFDocument();
-doc.pipe(fs.createWriteStream('invoice.pdf'));
-doc.fontSize(20).text('INVOICE', { align: 'center' });
-doc.fontSize(12).text(`Invoice #: ${invoiceNumber}`);
-doc.text(`Date: ${date}`);
-// ... add line items, totals, etc.
-doc.end();
-```
-
-## Dependencies
-
-Install required packages:
 ```bash
-npm install puppeteer pdfkit pdf-lib marked
+deno run --allow-read scripts/analyze-template.ts form-template.pdf > inventory.json
 ```
 
-## Error Handling
+**Output** (inventory.json):
+```json
+{
+  "filename": "form-template.pdf",
+  "pageCount": 2,
+  "title": "Application Form",
+  "author": "Company Inc",
+  "pages": [
+    { "pageNumber": 1, "width": 612, "height": 792, "text": "..." }
+  ],
+  "formFields": [
+    { "name": "FullName", "type": "text", "value": "" },
+    { "name": "Email", "type": "text", "value": "" },
+    { "name": "AgreeToTerms", "type": "checkbox", "value": false }
+  ],
+  "placeholders": [
+    { "tag": "{{DATE}}", "location": "page 1", "pageNumber": 1 }
+  ],
+  "hasFormFields": true
+}
+```
 
-- **File Not Found:** Verify source file paths before processing
-- **Memory Issues:** For large PDFs, use streaming and chunk processing
-- **Font Errors:** Fallback to standard fonts if custom fonts fail to load
-- **Rendering Timeout:** Increase Puppeteer timeout for complex pages
-- **Permissions:** Handle read/write permission errors gracefully
+#### Step 1b: Create Fill Specification
 
-## Performance Tips
+Create `form-data.json`:
+```json
+{
+  "formFields": [
+    { "name": "FullName", "value": "John Smith" },
+    { "name": "Email", "value": "john@example.com" },
+    { "name": "AgreeToTerms", "value": true }
+  ],
+  "flattenForm": true
+}
+```
 
-- Reuse Puppeteer browser instances for batch operations
-- Use PDF compression for files with many images
-- Cache rendered HTML for repeated conversions
-- Process large PDFs page-by-page rather than loading entirely into memory
-- Use worker threads for parallel PDF generation
+#### Step 1c: Generate Filled PDF
+
+```bash
+deno run --allow-read --allow-write scripts/generate-from-template.ts \
+  form-template.pdf form-data.json filled-form.pdf
+```
+
+### Adding Overlays (Watermarks, Stamps)
+
+Create `watermark-spec.json`:
+```json
+{
+  "overlays": [
+    {
+      "type": "text",
+      "page": 1,
+      "x": 200,
+      "y": 400,
+      "text": "CONFIDENTIAL",
+      "fontSize": 48,
+      "color": { "r": 1, "g": 0, "b": 0 },
+      "rotate": 45
+    },
+    {
+      "type": "image",
+      "page": 1,
+      "x": 450,
+      "y": 700,
+      "path": "logo.png",
+      "width": 100,
+      "height": 50
+    }
+  ]
+}
+```
+
+### Merging PDFs
+
+Create `merge-spec.json`:
+```json
+{
+  "prependPdfs": [
+    { "path": "cover-page.pdf" }
+  ],
+  "appendPdfs": [
+    { "path": "appendix-a.pdf", "pages": [1, 2, 3] },
+    { "path": "appendix-b.pdf" }
+  ],
+  "excludePages": [5, 6]
+}
+```
+
+### Mode 2: From-Scratch Generation
+
+#### Step 2a: Create Specification
+
+Create `spec.json`:
+```json
+{
+  "title": "Quarterly Report",
+  "author": "Finance Team",
+  "pages": [
+    {
+      "size": "A4",
+      "elements": [
+        {
+          "type": "text",
+          "x": 50,
+          "y": 750,
+          "text": "Q4 2024 Financial Report",
+          "fontSize": 28,
+          "font": "HelveticaBold",
+          "color": { "r": 0, "g": 0, "b": 0.5 }
+        },
+        {
+          "type": "line",
+          "startX": 50,
+          "startY": 740,
+          "endX": 550,
+          "endY": 740,
+          "thickness": 2
+        },
+        {
+          "type": "text",
+          "x": 50,
+          "y": 700,
+          "text": "Executive Summary",
+          "fontSize": 18,
+          "font": "HelveticaBold"
+        },
+        {
+          "type": "text",
+          "x": 50,
+          "y": 670,
+          "text": "This quarter showed strong growth across all divisions...",
+          "fontSize": 12,
+          "maxWidth": 500,
+          "lineHeight": 16
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Step 2b: Generate PDF
+
+```bash
+deno run --allow-read --allow-write scripts/generate-scratch.ts spec.json output.pdf
+```
+
+## Examples
+
+### Example 1: Fill Application Form
+
+**Scenario**: Automatically fill a job application form.
+
+```bash
+# 1. Analyze form to find field names
+deno run --allow-read scripts/analyze-template.ts application.pdf --pretty
+
+# 2. Create form-data.json with applicant info
+# 3. Generate filled form
+deno run --allow-read --allow-write scripts/generate-from-template.ts \
+  application.pdf form-data.json john-smith-application.pdf
+```
+
+### Example 2: Add Approval Stamp
+
+**Scenario**: Add an "APPROVED" stamp to a document.
+
+**stamp-spec.json**:
+```json
+{
+  "overlays": [
+    {
+      "type": "rectangle",
+      "page": 1,
+      "x": 400,
+      "y": 700,
+      "width": 150,
+      "height": 50,
+      "color": { "r": 0.9, "g": 1, "b": 0.9 }
+    },
+    {
+      "type": "text",
+      "page": 1,
+      "x": 410,
+      "y": 720,
+      "text": "APPROVED",
+      "fontSize": 20,
+      "font": "HelveticaBold",
+      "color": { "r": 0, "g": 0.5, "b": 0 }
+    },
+    {
+      "type": "text",
+      "page": 1,
+      "x": 410,
+      "y": 705,
+      "text": "2024-12-15",
+      "fontSize": 10
+    }
+  ]
+}
+```
+
+### Example 3: Create Report with Table
+
+**Scenario**: Generate a simple report with a data table.
+
+**report-spec.json**:
+```json
+{
+  "title": "Sales Report",
+  "pages": [{
+    "size": "Letter",
+    "elements": [
+      {
+        "type": "text",
+        "x": 72,
+        "y": 720,
+        "text": "Monthly Sales Report",
+        "fontSize": 24,
+        "font": "HelveticaBold"
+      },
+      {
+        "type": "table",
+        "x": 72,
+        "y": 680,
+        "rows": [
+          ["Product", "Units", "Revenue"],
+          ["Widget A", "150", "$15,000"],
+          ["Widget B", "75", "$11,250"],
+          ["Widget C", "200", "$8,000"]
+        ],
+        "columnWidths": [150, 80, 100],
+        "rowHeight": 25,
+        "headerBackground": { "r": 0.9, "g": 0.9, "b": 0.9 }
+      }
+    ]
+  }]
+}
+```
+
+## Script Reference
+
+| Script | Purpose | Permissions |
+|--------|---------|-------------|
+| `analyze-template.ts` | Extract text, metadata, form fields from PDF | `--allow-read` |
+| `generate-from-template.ts` | Fill forms, add overlays, merge PDFs | `--allow-read --allow-write` |
+| `generate-scratch.ts` | Create PDF from JSON specification | `--allow-read --allow-write` |
+
+## Element Types (Scratch Mode)
+
+| Type | Description | Key Options |
+|------|-------------|-------------|
+| `text` | Text content | `x`, `y`, `text`, `fontSize`, `font`, `color`, `rotate` |
+| `image` | PNG/JPEG images | `x`, `y`, `path`, `width`, `height`, `opacity` |
+| `rectangle` | Filled/outlined rectangles | `x`, `y`, `width`, `height`, `color`, `borderColor` |
+| `line` | Straight lines | `startX`, `startY`, `endX`, `endY`, `thickness` |
+| `circle` | Filled/outlined circles | `x`, `y`, `radius`, `color`, `borderColor` |
+| `table` | Basic table layout | `x`, `y`, `rows`, `columnWidths`, `rowHeight` |
+
+## Available Fonts
+
+- `Helvetica` (default)
+- `HelveticaBold`
+- `HelveticaOblique`
+- `TimesRoman`
+- `TimesBold`
+- `Courier`
+- `CourierBold`
+
+## Page Sizes
+
+- `A4` (595.28 x 841.89 points)
+- `Letter` (612 x 792 points)
+- `Legal` (612 x 1008 points)
+- Custom: `[width, height]` in points
+
+## Common Issues and Solutions
+
+### Issue: Form fields not found
+
+**Symptoms**: Error saying field name doesn't exist.
+
+**Solution**:
+1. Run `analyze-template.ts` to get exact field names
+2. Field names are case-sensitive
+3. Some PDFs have non-fillable text that looks like form fields
+
+### Issue: Text positioning is off
+
+**Symptoms**: Text appears in wrong location.
+
+**Solution**:
+- PDF coordinates start from bottom-left (0,0)
+- Y increases upward, X increases rightward
+- Use `analyze-template.ts` to see page dimensions
+
+### Issue: Images not appearing
+
+**Symptoms**: Image overlay not visible.
+
+**Solution**:
+1. Check file path is relative to spec.json location
+2. Verify image is PNG or JPEG format
+3. Ensure coordinates are within page bounds
+
+### Issue: Merged PDF has wrong page order
+
+**Symptoms**: Pages appear in unexpected order.
+
+**Solution**:
+- `prependPdfs` add pages before template
+- `appendPdfs` add pages after template
+- Use `pages` array to select specific pages: `[1, 3, 5]`
+
+## Limitations
+
+- **No built-in table layout**: Tables require manual column width specification
+- **Standard fonts only**: Custom font embedding not supported in scratch mode
+- **No flowing text**: Text doesn't automatically wrap to next page
+- **Limited form field creation**: Can fill existing forms, not create new fields
+- **No encryption**: Cannot create password-protected PDFs
+- **Basic graphics**: No gradients, patterns, or complex paths
+- **Text extraction**: May not work perfectly on all PDFs (depends on PDF structure)
+
+## Related Skills
+
+- **pptx-generator**: For creating PowerPoint presentations
+- **docx-generator**: For creating Word documents
+- **xlsx-generator**: For creating Excel spreadsheets

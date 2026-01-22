@@ -1,255 +1,182 @@
 ---
 name: troubleshoot
-description: Read-only diagnostics and troubleshooting for SignalRoom. Use when debugging issues, checking system health, analyzing logs, or verifying connections. This skill restricts modifications to prevent accidental changes during investigation.
-allowed-tools: Read, Grep, Glob, Bash
+description: "Systematic debugging with 5-step loop for issues in spaces/[project]/. Use when encountering bugs, test failures, or unexpected behavior."
+model: claude-sonnet-4-20250514
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Troubleshooting & Diagnostics
+# /troubleshoot
 
-## Quick Health Checks
+Systematic debugging using a 5-step loop: Research → Hypothesize → Implement → Test → Document.
 
-### 1. Fly.io Worker Status
-
-```bash
-fly status
-fly logs --app signalroom-worker
-```
-
-### 2. Temporal Connection
+## Usage
 
 ```bash
-python scripts/test_temporal_connection.py
+/troubleshoot yourbench "tests failing after auth changes"
+/troubleshoot yourbench 001       # Debug in context of issue
+/troubleshoot coordinatr          # General debugging session
 ```
 
-### 3. Supabase Connection
+## The 5-Step Loop
+
+```
+┌─────────────────────────────────────────────┐
+│                                             │
+│  1. Research → 2. Hypothesize → 3. Implement│
+│       ↑                              ↓      │
+│       │                              │      │
+│       └──────── 5. Document ← 4. Test ──────│
+│                     │                       │
+│                     ↓                       │
+│              (if not fixed, repeat)         │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
+## Step Details
+
+### Step 1: Research
+
+**Before guessing, understand:**
 
 ```bash
-python -c "
-from signalroom.common import settings
-print(f'Host: {settings.supabase_db_host}')
-print(f'Port: {settings.supabase_db_port}')
-print(f'User: {settings.supabase_db_user}')
-"
+# Check existing research
+Glob: resources/research/*.md
+Glob: ideas/[project]/notes/research/*.md
+
+# Search for similar issues in codebase
+Grep: spaces/[project]/ for error message
+
+# Check library docs via Context7
+# WebSearch for error messages, known issues
 ```
 
-### 4. Recent Pipeline Runs
+Spawn research-specialist agent for:
+- Unfamiliar error messages
+- Library/framework behavior
+- Best practices for the pattern
 
-```sql
-SELECT load_id, schema_name, status, inserted_at
-FROM s3_exports._dlt_loads
-ORDER BY inserted_at DESC LIMIT 5;
+### Step 2: Hypothesize
+
+**Form ONE hypothesis:**
+
+```markdown
+Hypothesis: Query fires before auth state is set
+
+Evidence:
+- isLoading is true when query executes
+- Error occurs only on initial load
+- Works after manual refresh
+
+Debug Plan:
+1. Add console.log before query
+2. Check auth state timing
+3. Verify order of operations
 ```
 
-## Common Error Patterns
+**Only one hypothesis at a time.** Multiple theories = confusion.
 
-### Database Errors
+### Step 3: Implement
 
-| Error | Cause | Check |
-|-------|-------|-------|
-| "password authentication failed" | Wrong user format | User should be `postgres.{project_ref}` |
-| "connection refused" | Wrong host/port | Pooler: port 6543, Direct: port 5432 |
-| "too many connections" | Connection leak | Use pooler, check for unclosed connections |
-| "relation does not exist" | Table not created | Check schema name, run pipeline first |
+**Apply fix + add debugging:**
 
-### Temporal Errors
+```typescript
+// Add liberal debug logging
+console.log('[Auth] State before query:', authState);
+console.log('[Query] Executing with user:', user?.id);
 
-| Error | Cause | Check |
-|-------|-------|-------|
-| "No worker available" | Worker not running | `fly status`, `fly logs` |
-| "Activity timed out" | Pipeline too slow | Check activity duration, add heartbeats |
-| "RestrictedWorkflowAccessError" | Sandbox blocking imports | Use `UnsandboxedWorkflowRunner` |
-| "asyncio.run() cannot be called" | Nested event loop | Use `await` directly in activities |
-
-### Pipeline Errors
-
-| Error | Cause | Check |
-|-------|-------|-------|
-| "Unknown source" | Source not registered | Check `SOURCES` dict in runner.py |
-| "Primary key violation" | Duplicate data with merge | Check source data, primary key definition |
-| "Column type mismatch" | Schema evolution conflict | Check dlt schema, may need table drop |
-
-## Log Analysis
-
-### Fly.io Logs
-
-```bash
-# Recent logs
-fly logs
-
-# Follow logs
-fly logs -f
-
-# Filter by level
-fly logs | grep -i error
-```
-
-### Local Worker Logs
-
-```bash
-make logs-worker
-```
-
-### Structured Log Fields
-
-```json
-{
-  "event": "pipeline_completed",
-  "source": "everflow",
-  "load_id": "1705312345",
-  "row_counts": {"daily_stats": 523}
+// Implement the fix
+if (!authState.isReady) {
+  console.log('[Query] Waiting for auth...');
+  return;
 }
 ```
 
-Search by event:
-```bash
-fly logs | grep "pipeline_failed"
-fly logs | grep "activity_failed"
-```
+### Step 4: Test
 
-## Verification Commands
-
-### Verify Environment
+**Validate the fix:**
 
 ```bash
-# Check required env vars are set
-python -c "
-from signalroom.common import settings
-required = ['supabase_db_host', 'supabase_db_password', 'temporal_address']
-for var in required:
-    val = getattr(settings, var, None)
-    status = '✓' if val else '✗'
-    print(f'{status} {var}')
-"
+cd spaces/[project]
+
+# Run specific tests
+npm test -- --grep "auth"
+
+# Run full suite
+npm test
+
+# Manual verification if needed
+npm run dev
 ```
 
-### Verify Imports
+**NEVER claim "fixed" without tests passing.**
+
+### Step 5: Document
+
+**Update WORKLOG with findings:**
+
+```markdown
+## YYYY-MM-DD - Troubleshooting Loop 1
+
+**Hypothesis**: Query fires before auth state is set
+
+**Debug findings**:
+- isLoading was true when query executed
+- Auth state not propagating to component
+- Race condition between auth init and query
+
+**Implementation**: Added auth state check before query
+
+**Result**: ✓ Fixed - 47/47 tests passing
+
+**Gotcha**: Auth state needs explicit ready check, not just truthy
+```
+
+### If Not Fixed
+
+1. **Rollback changes**: `git checkout -- .`
+2. **Document what you learned**
+3. **Return to Step 1** with new information
+
+## Execution Modes
+
+### Mode 1: During TASK Implementation
 
 ```bash
-python -c "from signalroom.workers.main import main; print('OK')"
+/troubleshoot yourbench 001 "tests failing"
 ```
 
-### Verify Temporal Activities
+1. Read: TASK.md, PLAN.md, WORKLOG.md for context
+2. Execute 5-step loop
+3. Document in issue's WORKLOG.md
+4. Continue with `/implement` when fixed
+
+### Mode 2: Standalone Debugging
 
 ```bash
-python -c "
-from signalroom.temporal.activities import run_pipeline_activity
-print('Activities import OK')
-"
+/troubleshoot yourbench "login broken on Safari"
 ```
 
-### Verify dlt Sources
+1. Investigate without issue context
+2. Document findings
+3. Suggest creating BUG issue if significant
 
-```bash
-python -c "
-from signalroom.pipelines.runner import SOURCES
-print('Registered sources:', list(SOURCES.keys()))
-"
+## Key Rules
+
+1. **Research BEFORE guessing**
+2. **ONE hypothesis at a time**
+3. **Liberal debug logging** - `console.log('[Component] State:', data)`
+4. **NEVER claim "fixed"** without tests passing
+5. **Rollback on failure** before next attempt
+6. **Document everything** for future reference
+
+## Workflow
+
+```
+/implement → (issue occurs) → /troubleshoot → /worklog → /implement
 ```
 
-## Database Diagnostics
-
-### Check Table Exists
-
-```sql
-SELECT table_schema, table_name
-FROM information_schema.tables
-WHERE table_name = 'daily_stats';
-```
-
-### Check Recent Data
-
-```sql
--- Everflow
-SELECT date, COUNT(*) as rows
-FROM everflow.daily_stats
-GROUP BY date ORDER BY date DESC LIMIT 7;
-
--- Redtrack
-SELECT date, COUNT(*) as rows
-FROM redtrack.daily_spend
-GROUP BY date ORDER BY date DESC LIMIT 7;
-```
-
-### Check dlt Load History
-
-```sql
-SELECT
-    load_id,
-    inserted_at,
-    status
-FROM everflow._dlt_loads
-ORDER BY inserted_at DESC LIMIT 10;
-```
-
-## Temporal UI Diagnostics
-
-**URL**: https://cloud.temporal.io/namespaces/signalroom-713.nzg5u/workflows
-
-### Check Workflow Status
-
-1. Open workflow by ID
-2. Look at "Event History"
-3. Find failed activity
-4. Expand to see error details
-
-### Check Pending Activities
-
-1. Go to workflow detail
-2. Look for "Pending Activities" section
-3. Check if worker is processing
-
-## Network Diagnostics
-
-### DNS Resolution
-
-```bash
-nslookup aws-0-us-east-1.pooler.supabase.com
-nslookup ap-northeast-1.aws.api.temporal.io
-```
-
-### Port Connectivity
-
-```bash
-nc -zv aws-0-us-east-1.pooler.supabase.com 6543
-```
-
-## Recovery Procedures
-
-### Restart Fly.io Worker
-
-```bash
-fly apps restart signalroom-worker
-```
-
-### Clear Stuck Pipeline State
-
-```bash
-dlt pipeline {pipeline_name} drop-pending-packages
-```
-
-### Revert Recent Changes
-
-```bash
-git log --oneline -5
-git revert <commit>
-```
-
-## When to Escalate
-
-If you cannot resolve after:
-1. Checking logs for specific error
-2. Verifying connections
-3. Testing locally
-4. Reviewing recent changes
-
-Document findings and escalate with:
-- Exact error message
-- Relevant log snippets
-- What you've tried
-- Timeline of when it started
-
-## References
-
-- **API Reference**: `docs/API_REFERENCE.md` — Live docs, auth, request/response examples
-- **Source Details**: `docs/SOURCES.md` — Schema, queries, implementation notes
-- **Data Patterns**: `docs/DATA_ORGANIZATION.md` — Client data structure
+**After fixing:**
+- Add WORKLOG entry with findings
+- Continue implementation
+- Or create BUG issue if recurring problem

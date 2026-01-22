@@ -1,24 +1,42 @@
 ---
-name: workflow
-description: Standard workflow for implementing features with specs and planning documents. Use when starting a new feature, planning implementation, or working on any non-trivial task.
+name: example-workflow
+description: Use when demonstrating plugin workflow features - shows how skills can guide multi-step processes
 ---
 
-# Standard Workflow
+# Example Workflow Skill
 
-1. First think through the problem, read the codebase for relevant files, and write a plan to specs/[timestamp] [feature-name].md where [timestamp] is the timestamp in YYYYMMDDThhmmss format and [feature-name] is the name of the feature.
-2. The plan should have a list of todo items that you can check off as you complete them
-3. Before you begin working, check in with me and I will verify the plan.
-4. Then, begin working on the todo items, marking them as complete as you go.
-5. Please every step of the way just give me a high level explanation of what changes you made
-6. Make every task and code change you do as simple as possible. We want to avoid making any massive or complex changes. Every change should impact as little code as possible. Everything is about simplicity.
-7. Finally, add a review section to the .md file with a summary of the changes you made and any other relevant information.
+## Overview
 
-# Spec Placement
+This skill demonstrates how to create a workflow-based skill that guides Claude through a multi-step process. It serves as a reference implementation for plugin developers.
 
-Specs always live at the root level of their scope (not inside `docs/`):
+## When to Use
 
-- **`/specs/`** - Cross-cutting features, architecture decisions, general tooling
-- **`/apps/[app]/specs/`** - Features specific to one app only
-- **`/packages/[pkg]/specs/`** - Package-specific implementation details
+This is an example skill for learning purposes. In a real plugin, you would:
+- Use when specific conditions match the skill's domain
+- Provide clear triggering criteria
+- Guide through complex multi-step workflows
 
-When in doubt, use `/specs/`. Move to app/package-specific only if the spec truly belongs there.
+## Example Workflow
+
+When invoked, this skill would guide through these steps:
+
+1. **Gather requirements** - Ask clarifying questions
+2. **Plan approach** - Create a structured plan using TodoWrite
+3. **Execute systematically** - Follow the plan step-by-step
+4. **Verify results** - Confirm the outcome matches requirements
+
+## Integration with Other Components
+
+This skill demonstrates how skills can:
+- Reference bundled documentation in `references/`
+- Call executable scripts in `scripts/`
+- Use MCP server tools provided by the plugin
+- Trigger or respond to plugin hooks
+
+## For Plugin Developers
+
+Key points this example demonstrates:
+- Clear YAML frontmatter with name and description
+- Structured workflow with numbered steps
+- Integration points with other plugin components
+- Documentation of when/how to use the skill

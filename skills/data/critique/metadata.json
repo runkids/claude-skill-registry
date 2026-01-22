@@ -1,11 +1,7 @@
 {
   "name": "critique",
-  "description": "Generate critical analyses of Univrs.io ecosystem releases. Use when critiquing DOL, VUDO, Spirit, ENR, CryptoSaint, learn.univrs.io, or vudo.univrs.io changes. Invoked via /critique to ask \"Who benef",
-  "repo": "ardeshir/krzy",
-  "category": "data",
-  "tags": [
-    "critique"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "TaylorHuston/local-life-manager",
+  "path": ".claude/skills/critique/SKILL.md",
+  "source": "github.com/TaylorHuston/local-life-manager",
+  "downloaded_at": "2026-01-22T02:22:12.983361Z"
 }

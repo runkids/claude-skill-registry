@@ -274,3 +274,19 @@ Action:
 - [./manufacturer-domains.md](./manufacturer-domains.md) - Verified manufacturer domain allowlist
 - [./spec-sheet-template.md](./spec-sheet-template.md) - Specification extraction template
 - [./security-guidelines.md](./security-guidelines.md) - Complete security protocol
+
+
+## Saving Next Steps
+
+When hvac-specifications work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "hvac-specifications" \
+  --content "## Priority Tasks
+1. Look up equipment specs for AHU-01
+2. Compile spec sheets for submittal review
+3. Verify electrical requirements match drawings"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

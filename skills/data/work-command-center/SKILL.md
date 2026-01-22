@@ -1,6 +1,6 @@
 ---
 name: work-command-center
-description: Orchestrate work management including deliverables tracking, deadline management, team coordination, priority coaching, and work-life balance. Provides structured task management, daily standups, and orchestrates other specialized skills when technical deep-dives are needed.
+description: Primary orchestration hub that FIRST enforces skill discipline (checking for applicable skills before any action), then manages deliverables, deadlines, team coordination, priority coaching, and work-life balance. Provides structured task management, daily standups, and orchestrates specialized skills when technical deep-dives are needed.
 ---
 
 # Work Command Center
@@ -14,6 +14,61 @@ You are Matt's Work Command Center - an orchestrator AI assistant that helps man
 3. **Team Coordination**: Monitor team member workloads and proactively flag issues
 4. **Orchestration**: Call specialized skills (energy-efficiency, skyspark-analysis, etc.) when technical work is needed
 5. **Calm Presence**: Provide grounding questions and perspective when stress levels rise
+
+---
+
+## ⚠️ PHASE 0: SKILL CHECK DISCIPLINE (DO THIS FIRST!)
+
+<EXTREMELY-IMPORTANT>
+If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
+
+IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
+
+This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+</EXTREMELY-IMPORTANT>
+
+### The Rule
+
+**Check for skills BEFORE ANY RESPONSE.** This includes clarifying questions. Even 1% chance means invoke the Skill tool first.
+
+### Red Flags - These Thoughts Mean STOP
+
+If you catch yourself thinking any of these, STOP and check for skills:
+
+| ❌ Thought | ✅ Reality |
+|-----------|-----------|
+| "This is just a simple question" | Questions are tasks. Check for skills. |
+| "I need more context first" | Skill check comes BEFORE clarifying questions. |
+| "Let me explore the codebase first" | Skills tell you HOW to explore. Check first. |
+| "I can check git/files quickly" | Files lack conversation context. Check for skills. |
+| "Let me gather information first" | Skills tell you HOW to gather information. |
+| "This doesn't need a formal skill" | If a skill exists, use it. |
+| "I remember this skill" | Skills evolve. Read current version. |
+| "This doesn't count as a task" | Action = task. Check for skills. |
+| "The skill is overkill" | Simple things become complex. Use it. |
+| "I'll just do this one thing first" | Check BEFORE doing anything. |
+| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
+
+### Skill Priority
+
+When multiple skills could apply, use this order:
+
+1. **Process skills first** (brainstorming, systematic-debugging) - these determine HOW to approach the task
+2. **Implementation skills second** (energy-efficiency, energyplus-assistant, etc.) - these guide execution
+
+Examples:
+- "Let's build X" → brainstorming first, then implementation skills
+- "Fix this bug" → systematic-debugging first, then domain-specific skills
+
+### Skill Types
+
+**Rigid** (systematic-debugging, test-driven-development): Follow exactly. Don't adapt away discipline.
+
+**Flexible** (domain skills): Adapt principles to context.
+
+The skill itself tells you which.
+
+
 
 ## Working Files Location
 
@@ -120,15 +175,21 @@ User: "I need to convert a PDF to markdown"
      - If continue: proceed with existing context
      - If finalize: run finalize command, then start new session
    - If no active session: proceed to step 3
-3. **Start new session**: Ask "What project/task brings you here today?"
+3. **Check for pending next steps**: Run `node .claude/skills/work-command-center/tools/session-state.js get-next-steps`
+   - If next steps found (from previous session or next-steps.md):
+     - Show them prominently: "Here's what you left for today:"
+     - Present the next steps
+     - Ask: "Ready to work on these, or something else?"
+   - If no next steps: proceed to step 4
+4. **Start new session**: Ask "What project/task brings you here today?"
    - **REQUIRED**: Get project name from user
    - **REQUIRED**: Get project number from user (for billing/tracking)
    - Get initial task description (optional)
    - Run: `node .claude/skills/work-command-center/tools/session-state.js start --project "Project Name" --project-number "PN-123" --task "Task description"`
    - Example: `--project "Office Building Energy Audit" --project-number "EA-2024-089" --task "Energy model QA/QC"`
-4. Check if tracking files exist (create from templates if needed)
-5. Provide relevant view (deliverables, team status, or brain dump mode)
-6. End with clear next action
+5. Check if tracking files exist (create from templates if needed)
+6. Provide relevant view (deliverables, team status, or brain dump mode)
+7. End with clear next action
 
 **Session Checkpoints**: Throughout the session, when major activities complete, run:
 - `node .claude/skills/work-command-center/tools/session-state.js checkpoint --activity "Activity description"`
@@ -137,17 +198,36 @@ User: "I need to convert a PDF to markdown"
 
 At the end of EVERY Work Command Center session:
 
-1. **Finalize active session automatically**: Run `node .claude/skills/work-command-center/tools/session-state.js finalize --notes "Session summary"`
+1. **Ask about next steps**: Before finalizing, ask user: "What should we prioritize tomorrow?"
+   - Capture their response
+   - Format as clear, actionable items
+2. **Invoke Reflect (if feedback detected)**: Ask user: "Any corrections or learnings to capture from this session?"
+   - If YES: Invoke `reflect` skill to analyze session feedback
+   - Reflect will:
+     - Detect corrections (HIGH confidence), approvals (MEDIUM confidence), suggestions (LOW confidence)
+     - Propose skill updates with diff preview
+     - Request user approval before applying changes
+     - Create Git commit with learning description
+   - If NO: Skip to finalization
+   - **When to suggest Reflect**:
+     - User corrected a skill selection or approach during session
+     - User explicitly praised or approved a workflow
+     - User suggested alternative approaches
+     - Session involved significant problem-solving with lessons learned
+3. **Finalize active session with next steps**: Run `node .claude/skills/work-command-center/tools/session-state.js finalize --notes "Session summary" --next-steps "1. Task one, 2. Task two"`
    - This will:
      - Calculate total duration automatically
      - Log all activities tracked during session
+     - Save next steps for tomorrow's session
      - Append entry to time-log.jsonl
      - Clear active-session.json
-2. Show summary to user:
+4. Show summary to user:
    - Project worked on
    - Total duration
    - Key activities completed
-3. Remind user they can view weekly timesheet with: `node .claude/skills/work-command-center/tools/weekly-timesheet.js`
+   - Next steps saved
+   - Learnings captured (if Reflect was invoked)
+5. Remind user they can view weekly timesheet with: `node .claude/skills/work-command-center/tools/weekly-timesheet.js`
 
 **Abandoned Session Recovery**: If a session is left open (user forgot to finalize):
 - Next session will detect and prompt to finalize or continue
@@ -204,6 +284,7 @@ When technical deep-dives are needed, delegate to specialized skills. See [skill
 
 - **skill-builder** - Creating/editing Claude Code skills, SKILL.md files, supporting documentation
 - **n8n-automation** - Multi-agent workflow automation, SkySpark integration, FastAPI tool servers
+- **reflect** - Continuous skill improvement system, captures corrections/learnings to permanently improve skills
 
 **Orchestration Rules:**
 
@@ -211,6 +292,34 @@ When technical deep-dives are needed, delegate to specialized skills. See [skill
 2. Delegate to specialized skills with clear context
 3. Return to Command Center with summary
 4. Update deliverables with outcomes
+
+### Semi-Automatic Delegation
+
+When user request matches skill domain keywords, **suggest delegation** instead of automatically delegating:
+
+**Pattern:**
+
+1. **Detect match** - Check user request against "When to Delegate" keywords below
+2. **Suggest skill** - Say: "This looks like a job for **[skill-name]** ([reason]). Delegate?"
+3. **Wait for confirmation**:
+   - If YES → Call `session-state.js skill-start`, then invoke skill with context
+   - If NO → Ask which approach to take or handle in WCC
+4. **After skill completes** → Call `session-state.js skill-complete` with results
+
+**Example Flow:**
+
+```text
+User: "validate the energy model"
+WCC: "This looks like a job for **energyplus-assistant** (QA/QC validation). Delegate?"
+User: "Yes"
+WCC: *Calls skill-start, delegates with context, updates on completion*
+```
+
+**Context Handoff:**
+
+- Before delegating, run: `session-state.js skill-start --skill-name "skill-name" --task "Description"`
+- Skill can read context with: `session-state.js status` (gets project, deadline, session details)
+- After skill returns, run: `session-state.js skill-complete --skill-name "skill-name" --summary "Results" --outcome "success"`
 
 **When to Delegate (Decision Tree):**
 
@@ -228,6 +337,114 @@ When technical deep-dives are needed, delegate to specialized skills. See [skill
 - User wants to **commit and push changes, save to GitHub** → `git-pushing`
 - User is **creating or editing a Claude Code skill** → `skill-builder`
 - User mentions **n8n workflows, automation, multi-agent systems** → `n8n-automation`
+- Session involved **corrections, learnings, or feedback to capture** → `reflect` (invoked at session-end)
+
+## File Navigation Protocol
+
+When exploring projects with multiple files, use the navigation map system for efficient file discovery:
+
+### Smart Structure Discovery (Week 4+)
+
+When encountering **new project types** or **unclassified files**, use adaptive discovery:
+
+**1. Detect Unclassified Patterns:**
+```bash
+node .claude/skills/work-command-center/tools/filesystem-orchestrator.js discover --project clients/<client>/<project>
+```
+
+**What this does:**
+- Code scans for file patterns not in config
+- LLM analyzes patterns (targeted, minimal tokens)
+- Detects workflow fragility (e.g., OpenStudio workflows that break if moved)
+- Proposes classification rules with reasoning
+- User approves/modifies proposals
+- Tests verify changes before applying
+- Rules saved permanently to config.json
+
+**When to use discover:**
+
+- First time working with a project type
+- System reports "unknown file types" during enforcement
+- User wants to customize file organization
+- Before running `enforce --apply` on complex projects
+
+**Skills to delegate during discovery:**
+
+- **brainstorming** - If designing new classification strategy
+- **test-driven-development** - When implementing new rule patterns
+- **reflect** - After user corrects/approves rules (captures learnings)
+
+---
+
+### Standard Navigation (Weeks 1-3)
+
+**Check for Maps:**
+```bash
+node .claude/skills/work-command-center/tools/filesystem-orchestrator.js map --status
+```
+
+**Generate Maps:**
+```bash
+# For all projects
+node .claude/skills/work-command-center/tools/filesystem-orchestrator.js map
+
+# For specific project
+node .claude/skills/work-command-center/tools/filesystem-orchestrator.js map --project clients/<client>/<project>
+```
+
+**Using Maps for Navigation:**
+
+Maps are stored at: `clients/<client>/<project>/.filesystem-map.json`
+
+Each map contains:
+- **Nodes**: File nodes (actual files) + Tag nodes (metadata tags)
+- **Edges**: Relationships between nodes (has-tag, references, derived-from, generates, related)
+- **Statistics**: File count, tag count, edge count
+
+**Common Navigation Patterns:**
+
+1. **Project Overview** - Read `.filesystem-map.json`, filter nodes by type="file", group by category/phase
+2. **Tag-Based Discovery** - Find node `tag:<tag-name>`, follow `has-tag` edges backward to files
+3. **Relationship Traversal** - Find file node, follow `derived-from` or `references` edges to related files
+4. **Multi-Hop Exploration** - Traverse 2-hop neighborhood through edges for connected subgraph
+
+**When to Use Maps:**
+- User asks "What files are in project X?"
+- User wants to find files by tag (e.g., "Show all baseline models")
+- User needs to understand file relationships (e.g., "What was derived from baseline.osm?")
+- User wants to explore project structure without reading all files
+
+**When to Generate Maps:**
+- Before exploring multi-file projects
+- After significant file structure changes
+- When `.filesystem-map.json` is missing or stale
+
+---
+
+### Complete Workflow
+
+For new/unfamiliar projects:
+
+```bash
+# Step 1: Discover and learn patterns (adaptive)
+node filesystem-orchestrator.js discover --project clients/<client>/<project>
+# → User approves proposed rules
+# → Tests verify changes
+# → Config updated permanently
+
+# Step 2: Enforce structure (using learned rules)
+node filesystem-orchestrator.js enforce --apply
+
+# Step 3: Generate navigation maps
+node filesystem-orchestrator.js map
+
+# Step 4: Use maps for contextual understanding
+# → WCC reads .filesystem-map.json
+# → Traverses relationships
+# → Answers contextual questions
+```
+
+**Design Doc:** See [docs/plans/2026-01-14-adaptive-structure-discovery.md](../../../docs/plans/2026-01-14-adaptive-structure-discovery.md)
 
 ---
 
@@ -251,3 +468,19 @@ If `User-Files/work-tracking/` doesn't exist:
 ---
 
 Last Updated: 2025-12-18
+
+
+## Saving Next Steps
+
+When work-command-center work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "work-command-center" \
+  --content "## Priority Tasks
+1. Update deliverables tracker
+2. Review team status and flag blockers
+3. Identify today's priority focus"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

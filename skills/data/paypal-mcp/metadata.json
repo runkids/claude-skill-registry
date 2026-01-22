@@ -1,9 +1,7 @@
 {
   "name": "paypal-mcp",
-  "description": "PayPal MCP server integration for invoices, payments, subscriptions, disputes, and transaction reporting via @paypal/mcp.",
   "repo": "plurigrid/asi",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/paypal-mcp/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-19T04:21:42.142612Z"
 }

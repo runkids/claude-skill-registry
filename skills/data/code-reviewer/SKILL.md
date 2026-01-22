@@ -1,209 +1,69 @@
 ---
 name: code-reviewer
-description: Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Use when reviewing pull requests, providing code feedback, identifying issues, or ensuring code quality standards.
+description: Structured code review output format for the reviewer agent. Provides APPROVED/ISSUES format with file:line references. Use when: reviewing code changes, code quality checks, architecture compliance checks, approving code for merge, identifying critical/major/minor issues.
 ---
 
 # Code Reviewer
 
-Complete toolkit for code reviewer with modern tools and best practices.
+Structured format for code reviews.
 
-## Quick Start
+## Output Format
 
-### Main Capabilities
+### If APPROVED
 
-This skill provides three core capabilities through automated scripts:
+```markdown
+## APPROVED
 
-```bash
-# Script 1: Pr Analyzer
-python scripts/pr_analyzer.py [options]
+**Summary**: Brief description of what was reviewed
 
-# Script 2: Code Quality Checker
-python scripts/code_quality_checker.py [options]
+**Quality**: Good | Excellent
+**Tests**: Adequate | Comprehensive
+**Security**: No issues found
 
-# Script 3: Review Report Generator
-python scripts/review_report_generator.py [options]
+Proceed to QA phase.
 ```
 
-## Core Capabilities
+### If ISSUES Found
 
-### 1. Pr Analyzer
+```markdown
+## ISSUES
 
-Automated tool for pr analyzer tasks.
+### Critical (Must Fix)
+1. **src/file.py:123** - Issue description
+   - **Why**: Explanation
+   - **Fix**: Suggested solution
 
-**Features:**
-- Automated scaffolding
-- Best practices built-in
-- Configurable templates
-- Quality checks
+### Major (Should Fix)
+2. **src/file.py:456** - Issue description
 
-**Usage:**
-```bash
-python scripts/pr_analyzer.py <project-path> [options]
+### Minor (Consider)
+3. **src/file.py:789** - Issue description
 ```
 
-### 2. Code Quality Checker
-
-Comprehensive analysis and optimization tool.
-
-**Features:**
-- Deep analysis
-- Performance metrics
-- Recommendations
-- Automated fixes
-
-**Usage:**
-```bash
-python scripts/code_quality_checker.py <target-path> [--verbose]
-```
-
-### 3. Review Report Generator
-
-Advanced tooling for specialized tasks.
-
-**Features:**
-- Expert-level automation
-- Custom configurations
-- Integration ready
-- Production-grade output
-
-**Usage:**
-```bash
-python scripts/review_report_generator.py [arguments] [options]
-```
-
-## Reference Documentation
-
-### Code Review Checklist
-
-Comprehensive guide available in `references/code_review_checklist.md`:
-
-- Detailed patterns and practices
-- Code examples
-- Best practices
-- Anti-patterns to avoid
-- Real-world scenarios
-
-### Coding Standards
-
-Complete workflow documentation in `references/coding_standards.md`:
-
-- Step-by-step processes
-- Optimization strategies
-- Tool integrations
-- Performance tuning
-- Troubleshooting guide
-
-### Common Antipatterns
-
-Technical reference guide in `references/common_antipatterns.md`:
-
-- Technology stack details
-- Configuration examples
-- Integration patterns
-- Security considerations
-- Scalability guidelines
-
-## Tech Stack
-
-**Languages:** TypeScript, JavaScript, Python, Go, Swift, Kotlin
-**Frontend:** React, Next.js, React Native, Flutter
-**Backend:** Node.js, Express, GraphQL, REST APIs
-**Database:** PostgreSQL, Prisma, NeonDB, Supabase
-**DevOps:** Docker, Kubernetes, Terraform, GitHub Actions, CircleCI
-**Cloud:** AWS, GCP, Azure
-
-## Development Workflow
-
-### 1. Setup and Configuration
-
-```bash
-# Install dependencies
-npm install
-# or
-pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-```
-
-### 2. Run Quality Checks
-
-```bash
-# Use the analyzer script
-python scripts/code_quality_checker.py .
-
-# Review recommendations
-# Apply fixes
-```
-
-### 3. Implement Best Practices
-
-Follow the patterns and practices documented in:
-- `references/code_review_checklist.md`
-- `references/coding_standards.md`
-- `references/common_antipatterns.md`
-
-## Best Practices Summary
+## Review Checklist
 
 ### Code Quality
-- Follow established patterns
-- Write comprehensive tests
-- Document decisions
-- Review regularly
+- Readable, self-documenting code
+- Small, single-responsibility functions (<50 lines)
+- No placeholder code (TODO, pass, ...)
+- Proper error handling with loguru logging
+- Complete type hints on all functions
 
-### Performance
-- Measure before optimizing
-- Use appropriate caching
-- Optimize critical paths
-- Monitor in production
+### Architecture Compliance
+- Follows Clean DDD layers
+- Dependencies flow inward
+- Domain layer has NO external dependencies
+- Nodes have logic + visual wrappers separate
 
-### Security
-- Validate all inputs
-- Use parameterized queries
-- Implement proper authentication
-- Keep dependencies updated
+### Async Patterns
+- All Playwright operations are async
+- Consistent async/await usage
+- No blocking calls in async functions
 
-### Maintainability
-- Write clear code
-- Use consistent naming
-- Add helpful comments
-- Keep it simple
+## Severity Definitions
 
-## Common Commands
-
-```bash
-# Development
-npm run dev
-npm run build
-npm run test
-npm run lint
-
-# Analysis
-python scripts/code_quality_checker.py .
-python scripts/review_report_generator.py --analyze
-
-# Deployment
-docker build -t app:latest .
-docker-compose up -d
-kubectl apply -f k8s/
-```
-
-## Troubleshooting
-
-### Common Issues
-
-Check the comprehensive troubleshooting section in `references/common_antipatterns.md`.
-
-### Getting Help
-
-- Review reference documentation
-- Check script output messages
-- Consult tech stack documentation
-- Review error logs
-
-## Resources
-
-- Pattern Reference: `references/code_review_checklist.md`
-- Workflow Guide: `references/coding_standards.md`
-- Technical Guide: `references/common_antipatterns.md`
-- Tool Scripts: `scripts/` directory
+| Severity | Definition | Action |
+|----------|------------|--------|
+| Critical | Breaks functionality, security vulnerability | Must fix |
+| Major | Reduces maintainability, missing tests | Should fix |
+| Minor | Style, naming improvements | Consider |

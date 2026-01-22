@@ -1,7 +1,7 @@
 {
   "name": "classifier",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/classifier/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-01-14T03:17:11.835147Z"
+  "repo": "masharratt/claude-flow-novice",
+  "path": ".claude/skills/cfn-task-intelligence/lib/classifier/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-22T01:43:00.831342Z"
 }

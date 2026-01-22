@@ -1,7 +1,7 @@
 {
   "name": "google-drive",
-  "repo": "arlenagreer/claude_configuration_docs",
-  "path": "skills/google-drive/SKILL.md",
-  "source": "github.com/arlenagreer/claude_configuration_docs",
-  "downloaded_at": "2026-01-14T02:29:30.561695Z"
+  "repo": "tbroadley/dotfiles",
+  "path": "claude/skills/google-drive/SKILL.md",
+  "source": "github.com/tbroadley/dotfiles",
+  "downloaded_at": "2026-01-22T03:05:01.551202Z"
 }

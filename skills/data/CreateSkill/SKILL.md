@@ -1,7 +1,6 @@
 ---
-name: createSkill
-description: Atlas skill for creating and validating skills. USE WHEN create skill, new skill, skill structure, canonicalize. SkillSearch('createskill') for docs.
-context: fork
+name: CreateSkill
+description: Create and validate skills. USE WHEN create skill, new skill, skill structure, canonicalize. SkillSearch('createskill') for docs.
 ---
 
 # CreateSkill

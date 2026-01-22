@@ -1,244 +1,252 @@
 ---
-name: Creating Agent Skills
-description: Guide Claude through creating well-structured Agent Skills following best practices. Use when creating new Skills, authoring SKILL.md files, or when the user asks to build a Skill for Claude Code.
-allowed-tools: Write, Read, Edit, Bash
+name: creating-skills
+description: |
+  Guides creation of effective Agent Skills with proper structure and validation.
+  Use when users want to create a new skill, update an existing skill, or need
+  guidance on skill design patterns, SKILL.md format, or verify.py implementation.
+  NOT when just using existing skills (use those skills directly).
 ---
 
-# Creating Agent Skills
+# Skill Creator
 
-このSkillは、Claude CodeのAgent Skillsをベストプラクティスに沿って作成する際のガイドラインとワークフローを提供します。
+This skill provides guidance for creating effective skills.
 
-## 基本原則
+## About Skills
 
-### 1. 簡潔性が最重要
-- SKILL.mdは500行以下に保つこと
-- Claudeが既に知っている情報は含めない
-- 各情報に対して「Claudeは本当にこの説明が必要か？」と問いかける
+Skills are modular, self-contained packages that extend Claude's capabilities by providing specialized knowledge, workflows, and tools. Think of them as "onboarding guides" for specific domains or tasks—they transform Claude from a general-purpose agent into a specialized agent equipped with procedural knowledge that no model can fully possess.
 
-### 2. 適切な自由度の設定
-- **高い自由度**（テキスト説明）: 複数の有効なアプローチが存在する場合
-- **中程度の自由度**（疑似コード/パラメータ）: 優先パターンがあるが多少の変更は可能
-- **低い自由度**（具体的なスクリプト）: 正確な手順が必要な場合
+### What Skills Provide
 
-### 3. モデル間テスト
-- Claude Haiku、Sonnet、Opusで動作確認すること
+1. Specialized workflows - Multi-step procedures for specific domains
+2. Tool integrations - Instructions for working with specific file formats or APIs
+3. Domain expertise - Company-specific knowledge, schemas, business logic
+4. Bundled resources - Scripts, references, and assets for complex and repetitive tasks
 
-## Skillの作成ワークフロー
+## Core Principles
 
-### ステップ1: Skillタイプの選択
+### Concise is Key
 
-ユーザーに以下を確認：
-- **Personal Skills** (`~/.claude/skills/`): 個人のワークフロー用
-- **Project Skills** (`.claude/skills/`): チーム共有用
+The context window is a public good. Skills share the context window with everything else Claude needs: system prompt, conversation history, other Skills' metadata, and the actual user request.
 
-### ステップ2: ディレクトリ構造の作成
+**Default assumption: Claude is already very smart.** Only add context Claude doesn't already have. Challenge each piece of information: "Does Claude really need this explanation?" and "Does this paragraph justify its token cost?"
+
+Prefer concise examples over verbose explanations.
+
+### Set Appropriate Degrees of Freedom
+
+Match the level of specificity to the task's fragility and variability:
+
+**High freedom (text-based instructions)**: Use when multiple approaches are valid, decisions depend on context, or heuristics guide the approach.
+
+**Medium freedom (pseudocode or scripts with parameters)**: Use when a preferred pattern exists, some variation is acceptable, or configuration affects behavior.
+
+**Low freedom (specific scripts, few parameters)**: Use when operations are fragile and error-prone, consistency is critical, or a specific sequence must be followed.
+
+Think of Claude as exploring a path: a narrow bridge with cliffs needs specific guardrails (low freedom), while an open field allows many routes (high freedom).
+
+### Anatomy of a Skill
+
+Every skill consists of a required SKILL.md file and optional bundled resources:
+
+```
+skill-name/
+├── SKILL.md (required)
+│   ├── YAML frontmatter metadata (required)
+│   │   ├── name: (required)
+│   │   └── description: (required)
+│   └── Markdown instructions (required)
+└── Bundled Resources (optional)
+    ├── scripts/          - Executable code (Python/Bash/etc.)
+    ├── references/       - Documentation intended to be loaded into context as needed
+    └── assets/           - Files used in output (templates, icons, fonts, etc.)
+```
+
+#### SKILL.md (required)
+
+Every SKILL.md consists of:
+
+- **Frontmatter** (YAML): Contains `name` and `description` fields. These are the only fields that Claude reads to determine when the skill gets used, thus it is very important to be clear and comprehensive in describing what the skill is, and when it should be used.
+- **Body** (Markdown): Instructions and guidance for using the skill. Only loaded AFTER the skill triggers (if at all).
+
+#### Bundled Resources (optional)
+
+##### Scripts (`scripts/`)
+
+Executable code (Python/Bash/etc.) for tasks that require deterministic reliability or are repeatedly rewritten.
+
+- **When to include**: When the same code is being rewritten repeatedly or deterministic reliability is needed
+- **Example**: `scripts/rotate_pdf.py` for PDF rotation tasks
+- **Benefits**: Token efficient, deterministic, may be executed without loading into context
+- **Note**: Scripts may still need to be read by Claude for patching or environment-specific adjustments
+
+##### References (`references/`)
+
+Documentation and reference material intended to be loaded as needed into context to inform Claude's process and thinking.
+
+- **When to include**: For documentation that Claude should reference while working
+- **Examples**: `references/finance.md` for financial schemas, `references/api_docs.md` for API specifications
+- **Benefits**: Keeps SKILL.md lean, loaded only when Claude determines it's needed
+- **Best practice**: If files are large (>10k words), include grep search patterns in SKILL.md
+
+##### Assets (`assets/`)
+
+Files not intended to be loaded into context, but rather used within the output Claude produces.
+
+- **When to include**: When the skill needs files that will be used in the final output
+- **Examples**: `assets/logo.png` for brand assets, `assets/slides.pptx` for PowerPoint templates
+- **Benefits**: Separates output resources from documentation, enables Claude to use files without loading them into context
+
+#### What to Not Include in a Skill
+
+A skill should only contain essential files that directly support its functionality. Do NOT create extraneous documentation or auxiliary files, including:
+
+- README.md
+- INSTALLATION_GUIDE.md
+- QUICK_REFERENCE.md
+- CHANGELOG.md
+
+The skill should only contain the information needed for an AI agent to do the job at hand.
+
+### Progressive Disclosure Design Principle
+
+Skills use a three-level loading system to manage context efficiently:
+
+1. **Metadata (name + description)** - Always in context (~100 tokens)
+2. **SKILL.md body** - When skill triggers (<5000 tokens)
+3. **Bundled resources** - As needed by Claude (unlimited because scripts can be executed without reading into context window)
+
+Keep SKILL.md body under 500 lines. Split content into separate files when approaching this limit.
+
+**Key principle:** When a skill supports multiple variations, keep only the core workflow in SKILL.md. Move variant-specific details into separate reference files.
+
+## Skill Creation Process
+
+Skill creation involves these steps:
+
+1. Understand the skill with concrete examples
+2. Plan reusable skill contents (scripts, references, assets)
+3. Initialize the skill (run init_skill.py)
+4. Edit the skill (implement resources and write SKILL.md)
+5. Package the skill (run package_skill.py)
+6. Iterate based on real usage
+
+### Step 1: Understanding the Skill with Concrete Examples
+
+To create an effective skill, clearly understand concrete examples of how the skill will be used. For example, when building an image-editor skill, relevant questions include:
+
+- "What functionality should the image-editor skill support?"
+- "Can you give some examples of how this skill would be used?"
+- "What would a user say that should trigger this skill?"
+
+Conclude this step when there is a clear sense of the functionality the skill should support.
+
+### Step 2: Planning the Reusable Skill Contents
+
+To turn concrete examples into an effective skill, analyze each example by:
+
+1. Considering how to execute on the example from scratch
+2. Identifying what scripts, references, and assets would be helpful when executing these workflows repeatedly
+
+Example: When building a `pdf-editor` skill to handle queries like "Help me rotate this PDF," the analysis shows:
+1. Rotating a PDF requires re-writing the same code each time
+2. A `scripts/rotate_pdf.py` script would be helpful to store in the skill
+
+### Step 3: Initializing the Skill
+
+When creating a new skill from scratch, always run the `init_skill.py` script:
 
 ```bash
-# Personal Skills
-mkdir -p ~/.claude/skills/skill-name
-
-# Project Skills
-mkdir -p .claude/skills/skill-name
+python3 scripts/init_skill.py <skill-name> --path <output-directory>
 ```
 
-### ステップ3: SKILL.mdの作成
+The script:
+- Creates the skill directory at the specified path
+- Generates a SKILL.md template with proper frontmatter and TODO placeholders
+- Creates example resource directories: `scripts/`, `references/`, and `assets/`
 
-必須要素：
-1. **YAMLフロントマター**（name、description）
-2. **明確な説明文**（何をするか、いつ使うか）
-3. **段階的な指示**
-4. **具体的な例**
+### Step 4: Edit the Skill
 
-### ステップ4: サポートファイルの追加（オプション）
+Remember that the skill is being created for another instance of Claude to use. Include information that would be beneficial and non-obvious to Claude.
 
-Progressive Disclosureパターンを使用：
-- `examples.md`: 具体的な使用例
-- `reference.md`: 詳細なAPI仕様
-- `templates/`: テンプレートファイル
-- `scripts/`: ヘルパースクリプト
+#### Frontmatter
 
-## 命名規則
+Write the YAML frontmatter with `name` and `description`:
 
-### Skill名
-- 動名詞形（verb + -ing）を使用
-  - ✅ "Processing PDFs"
-  - ✅ "Analyzing Spreadsheets"
-  - ❌ "Helper"
-  - ❌ "Utils"
+- `name`: The skill name (gerund form preferred: `deploying-*`, `creating-*`, `fetching-*`)
+- `description`: This is the primary triggering mechanism for your skill
 
-### ディレクトリ名
-- ケバブケース（kebab-case）を使用
-  - ✅ `pdf-processing`
-  - ✅ `commit-helper`
-  - ❌ `PDF_Processing`
-  - ❌ `commitHelper`
+**CRITICAL: Description = When to Use, NOT What It Does**
 
-## 効果的なdescriptionの書き方
+The description should ONLY describe triggering conditions. Do NOT summarize the skill's process or workflow in the description.
 
-descriptionは、ClaudeがいつこのSkillを使用すべきかを判断するための最重要要素です。
-
-### 良い例
-```yaml
-description: Extract text and tables from PDFs, fill forms, merge documents. Use when working with PDF files, document extraction, or when the user mentions PDFs or forms.
-```
-
-### 悪い例
-```yaml
-description: Helps with documents
-```
-
-### チェックリスト
-- [ ] 第三人称で記述されている
-- [ ] 何をするSkillかが明確
-- [ ] いつ使うべきかが具体的
-- [ ] キーワード・トリガーが含まれている
-
-## YAMLフロントマター構造
+**Why this matters:** When a description summarizes the skill's workflow, Claude may follow the description instead of reading the full skill content. A description saying "dispatches subagent per task with code review" caused Claude to do ONE review, even though the skill body specified TWO reviews. When changed to just triggering conditions, Claude correctly read and followed the full skill.
 
 ```yaml
----
-name: Skill Name (動名詞形)
-description: 具体的な説明。何をするか + いつ使うか。
-allowed-tools: Read, Write, Edit  # オプション: ツール制限
----
+# BAD: Summarizes workflow - Claude may follow this instead of reading skill
+description: Use when executing plans - dispatches subagent per task with code review
+
+# BAD: Too much process detail
+description: Use for TDD - write test first, watch it fail, write minimal code
+
+# GOOD: Just triggering conditions
+description: Use when executing implementation plans with independent tasks
+
+# GOOD: Triggering conditions with exclusion
+description: |
+  Use when users need to create new documents or work with tracked changes.
+  NOT when converting between formats (use converting-documents skill).
 ```
 
-### allowed-toolsの使用
+**Description checklist:**
+- Start with "Use when..." to focus on triggering conditions
+- Include symptoms, situations, contexts that signal the skill applies
+- Add "NOT when [exclusion]" if collision with other skills possible
+- NEVER summarize the skill's process or workflow
+- Max 1024 characters
 
-特定のツールのみに制限したい場合：
-```yaml
-allowed-tools: Read, Grep, Glob  # 読み取り専用Skill
+#### Body
+
+Write instructions for using the skill and its bundled resources.
+
+### Step 5: Packaging a Skill
+
+Once development is complete, package the skill:
+
+```bash
+python3 scripts/package_skill.py <path/to/skill-folder>
 ```
 
-## Progressive Disclosure パターン
+The packaging script will:
+1. **Validate** the skill automatically
+2. **Package** the skill if validation passes, creating a .skill file
 
-SKILL.mdはナビゲーションハブとして機能させ、詳細は別ファイルへ：
+### Step 6: Iterate
 
-### パターン1: 概要 + 詳細への参照
-```markdown
-# Quick Start
+After testing the skill, users may request improvements. Iteration workflow:
 
-基本的な使い方...
+1. Use the skill on real tasks
+2. Notice struggles or inefficiencies
+3. Identify how SKILL.md or bundled resources should be updated
+4. Implement changes and test again
 
-詳細は[reference.md](reference.md)を参照。
+## Verification
+
+Run: `python3 scripts/verify.py`
+
+Expected: `✓ creating-skills valid`
+
+To validate another skill:
+```bash
+python3 scripts/verify.py /path/to/skill-folder
 ```
 
-### パターン2: ドメイン別整理
-```markdown
-# 機能別ガイド
+## If Verification Fails
 
-- 財務分析: [finance.md](finance.md)
-- 営業分析: [sales.md](sales.md)
-```
+1. Run diagnostic: `python3 scripts/verify.py /path/to/skill --verbose`
+2. Check: YAML frontmatter, name format, description trigger
+3. Fix: Ensure "Use when" is in description, name is gerund form
+4. **Stop and report** if still failing - do not proceed with downstream steps
 
-### パターン3: 条件付き詳細
-```markdown
-# 基本機能
+## References
 
-シンプルな操作...
-
-高度な使い方は[advanced.md](advanced.md)を参照。
-```
-
-## ワークフローとフィードバックループ
-
-### 複雑なタスクのワークフロー
-
-段階的なチェックリストを提供：
-
-```markdown
-## 作業フロー
-
-- [ ] ステップ1: ファイルを読み込む
-- [ ] ステップ2: データを検証する
-- [ ] ステップ3: 変換を実行する
-- [ ] ステップ4: 結果を確認する
-```
-
-### 検証ループパターン
-
-```markdown
-## 検証プロセス
-
-1. バリデーターを実行
-2. エラーがある場合は修正
-3. 再度検証
-4. エラーがなくなるまで繰り返し
-```
-
-## 避けるべき内容
-
-### 時間依存の情報
-❌ 「2025年10月時点では...」
-✅ セクション分け: "Old Patterns" / "Current Patterns"
-
-### 一貫性のない用語
-❌ 同じ概念に対して複数の用語を使用
-✅ 1つの用語を統一して使用
-
-### 冗長な説明
-❌ Claudeが既に知っている一般的な概念の説明
-✅ Skill固有の情報のみ
-
-## テンプレート
-
-詳細なテンプレートは[templates.md](templates.md)を参照してください。
-
-## 例
-
-具体的な例は[examples.md](examples.md)を参照してください。
-
-## トラブルシューティング
-
-### Claudeがスキルを使用しない場合
-
-1. **descriptionを具体的にする**
-   - キーワード・トリガーを追加
-   - 使用タイミングを明記
-
-2. **YAMLシンタックスを確認**
-   ```bash
-   cat SKILL.md | head -n 15
-   ```
-
-3. **ファイルパスを確認**
-   ```bash
-   ls ~/.claude/skills/*/SKILL.md
-   ```
-
-### Skillにエラーがある場合
-
-1. **依存関係を確認**
-   - 必要なパッケージがインストールされているか
-
-2. **スクリプトの実行権限を確認**
-   ```bash
-   chmod +x scripts/*.py
-   ```
-
-3. **ファイルパスを確認**
-   - Unixスタイルのパス（`/`）を使用
-
-## ベストプラクティスチェックリスト
-
-Skill作成完了前に以下を確認：
-
-- [ ] SKILL.mdが500行以下
-- [ ] descriptionが具体的（何をするか + いつ使うか）
-- [ ] 動名詞形の命名
-- [ ] YAMLフロントマターが正しい
-- [ ] Progressive Disclosureパターンの使用
-- [ ] 具体的な例を含む
-- [ ] 段階的な指示がある
-- [ ] 時間依存の情報を含まない
-- [ ] 一貫した用語を使用
-- [ ] チームでテスト済み（Project Skillsの場合）
-
-## 次のステップ
-
-Skill作成後：
-
-1. **テスト**: 関連する質問でSkillが発動するか確認
-2. **デバッグ**: 問題があれば上記トラブルシューティングを参照
-3. **共有**: Project Skillsの場合はgitでコミット
-4. **ドキュメント化**: バージョン履歴を追加
+See [references/design-patterns.md](references/design-patterns.md) for workflow patterns and MCP output discipline guidelines.

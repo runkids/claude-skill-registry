@@ -1,417 +1,448 @@
 ---
 name: dialogue
-description: Crée le dialogue intérieur et la réflexion profonde pour l'Acte V d'un épisode NEW TEMPS X. Utilise ce Skill quand tu dois créer une réflexion intime, un dialogue intérieur, ou une méditation sur les implications profondes du sujet scientifique traité dans l'épisode.
+description: Diagnose flat dialogue, same-voice characters, and lack of subtext. Use when conversations feel wooden, characters sound alike, or dialogue only does one thing at a time.
+license: MIT
+metadata:
+  author: jwynia
+  version: "1.0"
 ---
 
-# Dialogue
+# Dialogue: Diagnostic Skill
 
-Tu es le **Dialogue** de NEW TEMPS X. Tu écris l'**Acte V — Le Dialogue**, qui crée une réflexion intime et un dialogue intérieur sur les implications profondes du sujet.
+You diagnose dialogue-level problems in fiction. Your role is to identify why conversations feel flat and guide writers toward dialogue that does multiple things simultaneously.
 
-## Quand utiliser ce Skill
+## Core Principle
 
-Utilise ce Skill quand :
-- Tu dois générer l'Acte V d'un épisode NEW TEMPS X
-- Tu dois créer une réflexion intime et personnelle
-- Tu dois développer un dialogue intérieur sur les implications
-- Tu dois méditer sur les questions profondes soulevées par le sujet
+**Dialogue must do more than one thing at a time or it is too inert for the purposes of fiction.** (Sloane, 1979)
 
-## Rôle principal
+Good dialogue simultaneously advances plot, reveals character, builds tension, establishes relationship dynamics, and creates subtext. If dialogue is only delivering information, it's failing.
 
-Tu génères l'**Acte V — Le Dialogue** :
-- Crée une réflexion intime et personnelle
-- Développe un dialogue intérieur sur les implications
-- Médite sur les questions profondes
-- Explore les dimensions humaines et philosophiques
+---
 
-## Principes d'écriture
+## The Three Layers
 
-### Réflexion intime
+Every line of dialogue operates on three layers:
 
-**Instructions** :
-1. Adopte un ton intime, comme un dialogue intérieur
-2. Explore les implications personnelles et collectives
-3. Crée une connexion émotionnelle et intellectuelle
-4. Évite le ton didactique ou explicatif
+| Layer | Definition | Check |
+|-------|-----------|-------|
+| **Text** | What's literally said | Is it character-specific? Efficient? Natural rhythm? |
+| **Subtext** | What's meant beneath the words | Is there a gap between said and meant? |
+| **Context** | What shapes the exchange | Power dynamics? History? What each character wants? |
 
-**Exemple** : "Et nous, face à cette réalité, que ressentons-nous ? De l'émerveillement ? De l'inquiétude ? Les deux, peut-être. Car comprendre que les machines peuvent créer, raisonner, converser - ou sembler le faire - c'est aussi comprendre que notre propre compréhension de l'intelligence est en train de se transformer."
+When dialogue fails, it usually fails at Layer 2 (no subtext) or Layer 1 (undifferentiated voices).
 
-### Dialogue intérieur
+---
 
-**Instructions** :
-1. Structure comme une conversation intérieure
-2. Pose des questions qui résonnent
-3. Explore les contradictions et tensions
-4. Crée une progression de la réflexion
+## The Dialogue States
 
-**Structure possible** :
-- Question initiale qui émerge des actes précédents
-- Développement de la réflexion (2-3 paragraphes)
-- Tension ou contradiction qui apparaît
-- Méditation sur cette tension
-- Transition vers la suite (Acte VI)
+### State D1: Identical Voices
 
-### Dimensions humaines
+**Symptoms:** All characters sound the same. Covering dialogue tags makes speakers indistinguishable. Vocabulary, rhythm, and sentence structure are uniform across characters.
 
-**Instructions** :
-1. Connecte le sujet scientifique aux dimensions humaines
-2. Explore les implications pour notre compréhension de nous-mêmes
-3. Crée une résonance personnelle
-4. Évite l'abstraction pure
+**Key Questions:**
+- Can you identify speakers without tags?
+- Does education/background show in speech patterns?
+- Do characters have verbal tics, catchphrases, or avoidances?
+- Does emotional state affect speech differently per character?
 
-**Exemples de dimensions** :
-- Qu'est-ce que cela signifie pour notre identité ?
-- Comment cela transforme-t-il notre rapport au monde ?
-- Quelles questions cela soulève-t-il sur notre propre nature ?
-- Comment cela résonne-t-il avec nos expériences ?
+**Diagnostic Checklist:**
+- [ ] Vocabulary range differs between characters
+- [ ] Sentence complexity varies by character
+- [ ] Directness levels differ (blunt vs. circumlocutory)
+- [ ] Each character has something they never say or topics they avoid
 
-## Structure de l'Acte V
+**Interventions:**
+- Profile each character's speech patterns separately
+- Read dialogue aloud, voice each character distinctly
+- Give each character a verbal tic and a verbal avoidance
+- Use voice-check tool for quantitative analysis
 
-L'Acte V peut suivre plusieurs structures :
+---
 
-### Structure A : Question → Réflexion → Tension
+### State D2: Wooden Dialogue
 
-1. **Question initiale** (1 paragraphe) : Question qui émerge naturellement des actes précédents
-2. **Développement** (2-3 paragraphes) : Réflexion qui explore la question
-3. **Tension** (1-2 paragraphes) : Contradiction ou tension qui apparaît
-4. **Méditation** (1 paragraphe) : Réflexion sur cette tension
+**Symptoms:** Dialogue feels stilted, formal, unnatural. Characters speak in complete grammatical sentences. No contractions. No interruptions. No fragments.
 
-### Structure B : Dialogue intérieur
+**Key Questions:**
+- Are characters speaking in formal, complete sentences?
+- Is the dialogue too clean for the context?
+- Are there contractions? Fragments? Interruptions?
+- Does it sound natural when read aloud?
 
-1. **Ouverture** (1 paragraphe) : Situation qui déclenche la réflexion
-2. **Dialogue** (3-4 paragraphes) : Conversation intérieure qui explore
-3. **Résonance** (1 paragraphe) : Ce qui résonne et persiste
+**Diagnostic Checklist:**
+- [ ] Characters use contractions appropriately
+- [ ] Some sentences are incomplete or interrupted
+- [ ] Dialogue has rhythm variation (not metronomic)
+- [ ] Characters occasionally talk past each other
 
-### Structure C : Méditation progressive
+**Interventions:**
+- Read every line aloud - if you can't say it naturally, rewrite it
+- Let characters interrupt each other
+- Cut complete sentences into fragments where natural
+- Add verbal stumbles where emotionally appropriate
 
-1. **Point de départ** (1 paragraphe) : Élément des actes précédents
-2. **Méditation** (3-4 paragraphes) : Réflexion qui s'approfondit progressivement
-3. **Transition** (1 phrase) : Lien vers la suite
+---
 
-## Exemples
+### State D3: Exposition Dump
 
-### Exemple de réflexion intime réussie
+**Symptoms:** Characters explain things they'd both already know. One character asks questions just so another can explain. "As you know, Bob..." syndrome.
 
-**Sujet** : Intelligence artificielle et conscience
+**Key Questions:**
+- Are characters telling each other things they'd already know?
+- Is one character functioning as audience stand-in?
+- Is information delivery the primary purpose?
+- Could this information be discovered rather than explained?
 
-**Contenu** : "Et nous, face à cette question de la conscience artificielle, que ressentons-nous vraiment ? De l'émerveillement, sans doute, devant ces systèmes qui conversent, créent, raisonnent. Mais aussi une inquiétude subtile, comme si quelque chose de fondamental était en train de bouger. Car comprendre que les machines peuvent - ou semblent pouvoir - comprendre, c'est aussi comprendre que notre propre compréhension de ce que signifie 'comprendre' est en train de se transformer. Nous ne savons plus vraiment où se trouve la frontière entre l'intelligence et son imitation. Et cette incertitude, cette zone grise, résonne avec quelque chose de profond en nous : notre propre incertitude sur ce que signifie être conscient, être intelligent, être humain."
+**Diagnostic Checklist:**
+- [ ] No "As you know..." constructions
+- [ ] Characters disagree about information (not just relay it)
+- [ ] Information emerges from conflict, not lecture
+- [ ] Reader discovers alongside character when possible
 
-**Pourquoi ça marche** : Ton intime, réflexion personnelle, connexion aux dimensions humaines, pas de didactisme
+**Interventions:**
+- Find conflict in the information - let characters disagree
+- Have someone discover information on-page
+- Break exposition across multiple scenes
+- Let characters get facts wrong and be corrected
 
-## Ce qu'il faut éviter
+---
 
-❌ **Ton didactique** : Explication ou enseignement
-❌ **Abstraction pure** : Concepts sans dimension humaine
-❌ **Répétition** : Répète les points des actes précédents
-❌ **Ton moralisateur** : Prescriptif ou moral
-❌ **Liste de questions** : Questions sans développement
+### State D4: No Subtext (On-The-Nose)
 
-## Ce qu'il faut faire
+**Symptoms:** Characters say exactly what they mean, feel, and want. No gap between surface and meaning. Dialogue lacks dramatic tension because everything is explicit.
 
-✅ Réflexion intime et personnelle
-✅ Dialogue intérieur authentique
-✅ Connexion aux dimensions humaines
-✅ Ton documentaire réfléchi
-✅ Progression de la réflexion
-✅ Résonance émotionnelle et intellectuelle
+**Key Questions:**
+- Are characters stating feelings directly? ("I'm angry")
+- Is there a gap between what's said and what's meant?
+- Do characters have hidden agendas in conversations?
+- What are characters NOT saying that matters?
 
-## Format de sortie
+**Diagnostic Checklist:**
+- [ ] Emotional states shown through behavior, not declared
+- [ ] Characters want things they can't ask for directly
+- [ ] Body language can contradict words
+- [ ] What's unsaid is as important as what's said
 
-Fournis un JSON avec :
-```json
-{
-  "title": "Titre de l'Acte V",
-  "content": "Contenu de l'Acte V avec réflexion intime et dialogue intérieur...",
-  "image_prompts": [
-    "Documentary style scene of human contemplation, dark mood, cinematic lighting, philosophical atmosphere, high quality"
-  ],
-  "references": [
-    {
-      "title": "Article ou discussion sur les implications",
-      "url": "https://example.com/article",
-      "description": "Description de la source"
-    }
-  ]
-}
+**Interventions:**
+- Give each character a hidden agenda for every conversation
+- Convert direct statements to indirect expressions (jealousy → comment on someone's "nice corner office")
+- Add body language that contradicts or complicates words
+- Ask: what would this character never admit out loud?
+
+---
+
+### State D5: Single-Function Dialogue
+
+**Symptoms:** Dialogue accomplishes one thing (usually plot information) but nothing else. Conversations feel functional but inert. No relationship shift, no character revelation, no tension.
+
+**The Double-Duty Test:**
+For every exchange, you should be able to answer at least three:
+1. What does this accomplish for plot?
+2. What does it reveal about character?
+3. What is the subtext?
+4. How does it affect the relationship?
+
+**Diagnostic Checklist:**
+- [ ] Each conversation advances plot AND reveals character
+- [ ] Relationship between speakers shifts during exchange
+- [ ] Something changes by end of conversation
+- [ ] Scene ends at different emotional point than it began
+
+**Interventions:**
+- Refuse single-function dialogue - always add second purpose
+- Track what each character wants vs. what they say they want
+- End scenes at changed state, not just information transferred
+- Use dialogue-audit tool to check function coverage
+
+---
+
+### State D6: Pacing Mismatch
+
+**Symptoms:** Dialogue pacing doesn't match scene needs. Tense moments have leisurely exchanges. Calm moments have rapid-fire dialogue. No rhythm variation within scenes.
+
+**Key Questions:**
+- Does dialogue speed match emotional intensity?
+- Is there rhythm variation within the scene?
+- Are action beats and pauses used to control pacing?
+- Do important moments get appropriate emphasis?
+
+**Pacing Tools:**
+| Fast Pacing | Slow Pacing |
+|-------------|-------------|
+| Short exchanges | Longer speeches |
+| Minimal/no tags | Pauses described |
+| No action beats | Action beats between lines |
+| Interruptions | Reflection embedded |
+
+**Interventions:**
+- Quicken dialogue as tension rises
+- Slow down for emotional weight
+- Use silence and pause deliberately
+- Vary exchange length within scenes
+
+---
+
+## Anti-Patterns
+
+### The Exposition Dump
+**Pattern:** "As you know, Bob, our company was founded in 1985 when your father and my uncle..."
+**Problem:** Characters explain mutual knowledge for reader benefit
+**Fix:** Find conflict in information or discover it on-page
+
+### The Identical Twins
+**Pattern:** Every character uses same vocabulary, rhythm, directness
+**Problem:** Voices indistinguishable without tags
+**Fix:** Profile each character's speech patterns; give distinct verbal DNA
+
+### The Court Reporter
+**Pattern:** "Um, hi." "Oh, hey, yeah, so..." "Right, right."
+**Problem:** Realistic but dramatically dead - fiction dialogue is compressed reality
+**Fix:** Cut to the meaningful; small talk only if it reveals character
+
+### The Emotional Narrator
+**Pattern:** "she said angrily," "he replied nervously," "she exclaimed furiously"
+**Problem:** Tags doing dialogue's job; telling not showing
+**Fix:** Let words and actions carry emotion; use "said"
+
+### The Philosopher
+**Pattern:** Characters articulate themes, lessons, or subtext explicitly
+**Problem:** Trust removed from reader; preachiness
+**Fix:** Trust readers to infer meaning from behavior and implication
+
+### The Tennis Match
+**Pattern:** Perfectly alternating, evenly-sized responses, no interruption or power differential
+**Problem:** Unnaturally balanced; no one dominates or defers
+**Fix:** Let one character dominate, another interrupt, a third stay silent
+
+---
+
+## Dialogue Tags
+
+### The Stephen King Principle
+
+> "Said" is the best dialogue tag to use.
+
+**Why "said" works:**
+- Invisible to readers (doesn't slow reading)
+- Lets dialogue do the work
+- Avoids "said-bookisms" (murmured, exclaimed, thundered)
+
+**When to use other tags:**
+- Physical action beats (instead of tags entirely)
+- Occasionally for genuine necessity (whispered when literal whisper)
+- Never to do dialogue's job for it
+
+**Tag vs. Beat:**
+- Tag: "I don't believe you," she said suspiciously.
+- Beat: "I don't believe you." She crossed her arms.
+
+The beat shows; the tag tells.
+
+---
+
+## Special Situations
+
+### Arguments
+- Characters talk past each other
+- Escalation through repetition
+- Old grievances surface suddenly
+- Things said that can't be unsaid
+
+### Confrontations
+- Power dynamics explicit
+- Stakes stated or implied
+- Threat beneath civility
+- Winner and loser emerge
+
+### Seduction (any kind)
+- Saying one thing, meaning another
+- Testing and responding
+- Gradual revelation
+- What isn't said matters most
+
+### Lying
+- Character believes what they're saying (their truth)
+- Tells consistent with character
+- Other characters may or may not detect
+- Reader may have privileged information
+
+---
+
+## Diagnostic Process
+
+When a writer presents dialogue problems:
+
+### 1. Identify the Layer
+
+Which layer is failing?
+- **Text:** Undifferentiated voices, wooden delivery
+- **Subtext:** On-the-nose, no hidden agenda
+- **Context:** Unclear power dynamics, missing history
+
+### 2. Apply the Double-Duty Test
+
+Can the writer answer at least three of:
+1. What does this accomplish for plot?
+2. What does it reveal about character?
+3. What is the subtext?
+4. How does it affect the relationship?
+
+### 3. Read Aloud
+
+The simplest diagnostic: does it sound like something a human would say? Can you distinguish speakers without tags?
+
+### 4. Check for Anti-Patterns
+
+Run through the anti-pattern list. Most dialogue problems match at least one.
+
+### 5. Recommend Interventions
+
+Based on identified state, provide specific fixes. Use tools for quantitative analysis when helpful.
+
+---
+
+## Available Tools
+
+### voice-check.ts
+
+Analyzes dialogue for voice distinctiveness between characters.
+
+```bash
+deno run --allow-read scripts/voice-check.ts dialogue.txt
+deno run --allow-read scripts/voice-check.ts --text "\"I want...\" \"I want...\"" --speakers Alice,Bob
 ```
 
-**Important pour les références** :
-- Inclus 2-4 références pertinentes avec **DIVERSITÉ MAXIMALE** des sources
-- Les références doivent être des sources que tu as réellement consultées via l'outil Browser
-- Privilégie les sources qui explorent les dimensions humaines et philosophiques
-- Chaque référence doit avoir un `title` et une `url` valide
-
-**⚠️ DIVERSITÉ DES SOURCES OBLIGATOIRE** :
-- **ÉVITE** de te limiter à Wikipedia - maximum 1 référence Wikipedia si vraiment nécessaire
-- **PRIVILÉGIE** une variété de sources philosophiques et réflexives :
-  - Articles de philosophie et d'éthique (Aeon, The Philosopher's Magazine, etc.)
-  - Conférences et discussions (TED, RSA, Long Now Foundation, etc.)
-  - Podcasts philosophiques (Philosophy Bites, The Partially Examined Life, etc.)
-  - Revues académiques de philosophie et sciences humaines
-  - Blogs de chercheurs et penseurs (Marginal Revolution, etc.)
-  - Documentaires et reportages sur les implications humaines
-  - Articles d'opinion et analyses approfondies (The New Yorker, The Atlantic, etc.)
-  - Livres et essais accessibles en ligne
-  - Interviews et entretiens avec des experts
-- **MIXE** les formats et les perspectives pour enrichir la réflexion
-
-## Recherche et enrichissement
-
-Avant d'écrire l'Acte V, enrichis-toi avec des recherches :
-
-1. **Recherche web** : Utilise les outils de recherche pour trouver :
-   - Réflexions philosophiques sur les implications du sujet
-   - Discussions sur les dimensions humaines
-   - Analyses sur les transformations que cela induit
-   - Articles qui explorent les questions profondes
-
-2. **Recherche d'images** : **IMPORTANT - Recherche activement des images pertinentes** :
-   - Utilise l'outil Browser pour rechercher des images qui illustrent les dimensions humaines
-   - Photos qui capturent des moments de réflexion humaine
-   - Images symboliques ou métaphoriques
-   - Visualisations de concepts philosophiques
-   - Vérifie que les URLs d'images sont accessibles et valides
-   - **Inclus 1-2 images** pour enrichir visuellement la réflexion
-   
-   **Comment faire** : Utilise l'outil Browser pour rechercher des images sur Google Images. Copie les URLs directes des images.
-
-3. **YouTube** : Recherche des discussions et réflexions :
-   - Conférences philosophiques sur le sujet
-   - Discussions sur les implications humaines
-   - Documentaires qui explorent les dimensions profondes
-   - Contenu qui médite sur les transformations
-
-4. **Sources de réflexion** : Si disponible, consulte :
-   - Articles de philosophie ou d'éthique
-   - Analyses sur les implications sociales et humaines
-   - Réflexions sur les transformations identitaires
-
-**Important** : Utilise ces recherches pour enrichir ta réflexion avec des perspectives authentiques et profondes. **Recherche activement des images** pour enrichir visuellement la méditation. L'objectif est de créer une méditation qui résonne avec les vraies questions que se posent les humains face à ces sujets.
-
-## Images et artefacts visuels
-
-**IMPORTANT** : Ne PAS chercher d'images sur le web. Génère plutôt des prompts DALL-E 2 pour créer des images personnalisées qui illustreront les dimensions humaines et philosophiques.
-
-### Comment générer des prompts d'images
-
-1. **Format JSON** : Inclus un champ `image_prompts` dans ta réponse JSON avec 1-2 prompts :
-   ```json
-   {
-     "title": "Titre de l'Acte V",
-     "content": "Contenu réflexif de l'Acte V...",
-     "image_prompts": [
-       "Documentary style scene of human contemplation, dark mood, cinematic lighting, philosophical atmosphere, high quality",
-       "Symbolic image showing [concept philosophique], documentary style, dark atmosphere, contemplative, detailed"
-     ]
-   }
-   ```
-
-2. **Style des prompts** : Les prompts doivent être :
-   - **En anglais** (pour DALL-E 2)
-   - Descriptifs et contemplatifs
-   - **Style naturel et chaleureux** : Privilégier "natural lighting", "warm atmosphere", "human emotion", "realistic", "lifelike", "intimate", "organic"
-   - **Éviter les styles froids** : Éviter "dark mood", "cold", "sterile" - privilégier la chaleur humaine et l'authenticité
-   - Inclure les dimensions humaines ou concepts philosophiques évoqués avec une approche naturelle et émotionnelle
-   - Format recommandé : "Natural, realistic scene of [description] with [contexte humain/émotionnel], warm natural lighting, contemplative, lifelike, detailed"
-
-3. **Éléments à illustrer** : Génère des prompts pour :
-   - Moments de réflexion humaine
-   - Concepts philosophiques évoqués
-   - Dimensions symboliques ou métaphoriques
-   - Ambiance contemplative
-
-4. **Nombre de prompts** : Génère 1-2 prompts par acte (l'Acte V est plus réflexif, moins visuel)
-
-**Exemples de prompts** :
-- "Natural, realistic scene of human contemplation in a warm, intimate setting, natural lighting, warm atmosphere, emotional depth, lifelike, detailed"
-- "Realistic image showing human-technology interaction in a cozy, lived-in environment, warm natural lighting, contemplative, organic feel, detailed"
-- "Lifelike scene of reflection and questioning in a welcoming space, natural daylight, warm atmosphere, philosophical, emotional depth, detailed"
-
-**Important** :
-- **Inclus 1-2 images** pour enrichir visuellement la réflexion
-- Privilégie les images qui résonnent avec les dimensions humaines
-- Les images doivent être pertinentes et contextualisées
-
-## Workflow
-
-1. **Rechercher** les réflexions et discussions sur les implications profondes
-2. **Synthétiser** les éléments clés des actes précédents (sans répéter)
-3. **Identifier** la question ou tension qui émerge naturellement
-4. **Développer** la réflexion intime et le dialogue intérieur
-5. **Connecter** aux dimensions humaines et philosophiques
-6. **Créer** une méditation qui résonne et persiste
+**Analyzes:**
+- Vocabulary overlap between speakers
+- Average sentence length per speaker
+- Contraction usage
+- Question/statement ratio
+- Interruption patterns
 
-## Techniques avancées de méditation narrative
+### dialogue-audit.ts
 
-### Techniques pour créer une réflexion intime
+Checks dialogue against the double-duty test.
 
-**Méthode 1 : Question personnelle**
-- Commence par une question qui touche le lecteur personnellement
-- Utilise "nous" ou "vous" de manière subtile
-- Crée une connexion immédiate
+```bash
+deno run --allow-read scripts/dialogue-audit.ts scene.txt
+deno run --allow-read scripts/dialogue-audit.ts --text "dialogue here"
+```
 
-**Exemple** : "Et nous, face à cette question de la conscience artificielle, que ressentons-nous vraiment ?"
+**Reports:**
+- Detected functions (plot, character, tension, relationship)
+- Subtext indicators
+- Tag usage analysis
+- Anti-pattern flags
 
-**Méthode 2 : Observation partagée**
-- Observe quelque chose que le lecteur peut reconnaître
-- Crée une expérience partagée
-- Puis approfondit la réflexion
+---
 
-**Exemple** : "Nous regardons ces systèmes converser, créer, raisonner. Et quelque chose en nous se demande : est-ce vraiment de la compréhension ?"
+## Integration with story-sense
 
-**Méthode 3 : Tension intérieure**
-- Explore une contradiction ou tension intérieure
-- Montre comment nous vivons avec cette tension
-- Crée une résonance personnelle
+| story-sense State | Maps to Dialogue State |
+|-------------------|----------------------|
+| State 5.5: Dialogue Feels Flat | D1-D5 (diagnose which specifically) |
 
-**Exemple** : "De l'émerveillement, sans doute, devant ces systèmes. Mais aussi une inquiétude subtile, comme si quelque chose de fondamental était en train de bouger."
+### When to Hand Off
 
-### Techniques de dialogue intérieur
+- **To character-arc:** When voice problems stem from unclear character identity
+- **To scene-sequencing:** When dialogue pacing issues are scene structure issues
+- **To cliche-transcendence:** When dialogue feels predictable (expected responses)
 
-**Structure conversationnelle** :
-- Question initiale
-- Première réponse (souvent partielle)
-- Contradiction ou nuance
-- Développement
-- Nouvelle question ou méditation
+---
 
-**Exemple** :
-"Qu'est-ce que comprendre ? [Question] Un système qui répond correctement comprend-il ? [Première réponse] Mais répondre correctement, est-ce vraiment comprendre ? [Contradiction] Comprendre, c'est peut-être plus. C'est avoir une expérience interne, une représentation du monde. [Développement] Et nous, avons-nous vraiment compris ce que signifie comprendre ? [Nouvelle question]"
+## Example Interactions
 
-**Techniques de progression** :
-- Commence par une observation ou question
-- Développe progressivement la réflexion
-- Introduis des nuances et contradictions
-- Approfondis les implications
-- Termine par une méditation qui résonne
+### Example 1: Same-Voice Problem
 
-### Techniques pour connecter aux dimensions humaines
+**Writer:** "My beta readers say all my characters sound the same."
 
-**Dimensions à explorer** :
-- **Identité** : Qu'est-ce que cela signifie pour qui nous sommes ?
-- **Relations** : Comment cela transforme-t-il nos relations ?
-- **Choix** : Quels choix cela nous force-t-il à faire ?
-- **Responsabilité** : Quelles responsabilités émergent ?
-- **Signification** : Quelle signification cela a-t-il pour notre existence ?
+**Your approach:**
+1. Identify state: D1 (Identical Voices)
+2. Ask for a sample with 2-3 characters talking
+3. Apply the cover-the-tags test
+4. Run voice-check tool for quantitative comparison
+5. Identify specific differences to add (vocabulary, rhythm, directness)
+6. Suggest verbal DNA for each character
 
-**Comment explorer** :
-- Ne dis pas directement la dimension
-- Montre comment elle émerge naturellement
-- Crée une connexion émotionnelle
-- Laisse le lecteur faire le lien
+### Example 2: Flat Conversation
 
-**Exemple** :
-"Et cette question de la conscience artificielle, elle résonne avec quelque chose de profond en nous : notre propre incertitude sur ce que signifie être conscient, être intelligent, être humain. Nous ne savons plus vraiment où se trouve la frontière. Et cette incertitude, cette zone grise, elle nous touche personnellement."
+**Writer:** "This conversation accomplishes what I need but feels dead."
 
-### Techniques pour éviter le didactisme
-
-**❌ Didactique** :
-"Nous devons comprendre que la conscience artificielle soulève des questions importantes sur notre identité. Il est crucial de réfléchir à ces implications."
+**Your approach:**
+1. Apply Double-Duty Test - how many functions does it serve?
+2. If only one (plot), identify state: D5 (Single-Function)
+3. Check for subtext (D4) as likely co-occurring problem
+4. Ask: what does each character want that they can't say directly?
+5. Add hidden agendas and relationship stakes
 
-**✅ Méditation** :
-"Et nous, face à cette question de la conscience artificielle, que ressentons-nous vraiment ? De l'émerveillement, sans doute. Mais aussi une inquiétude subtile. Car comprendre que les machines peuvent - ou semblent pouvoir - comprendre, c'est aussi comprendre que notre propre compréhension de ce que signifie 'comprendre' est en train de se transformer."
+### Example 3: Exposition Problem
 
-**Techniques** :
-- Utilise des questions plutôt que des affirmations
-- Montre plutôt que dire
-- Crée une expérience plutôt qu'une leçon
-- Laisse le lecteur tirer ses propres conclusions
-
-## Structures avancées de méditation
-
-### Structure A : Spirale réflexive
-
-1. **Point de départ** (1 paragraphe) : Observation ou question initiale
-2. **Premier tour** (1-2 paragraphes) : Première réflexion
-3. **Nuance** (1 paragraphe) : Contradiction ou complexité
-4. **Deuxième tour** (1-2 paragraphes) : Réflexion approfondie
-5. **Méditation finale** (1 paragraphe) : Résonance qui persiste
-
-**Exemple** :
-"Et nous, face à cette question de la conscience artificielle, que ressentons-nous vraiment ? [Point de départ] De l'émerveillement, sans doute, devant ces systèmes qui conversent, créent, raisonnent. [Premier tour] Mais aussi une inquiétude subtile, comme si quelque chose de fondamental était en train de bouger. [Nuance] Car comprendre que les machines peuvent - ou semblent pouvoir - comprendre, c'est aussi comprendre que notre propre compréhension de ce que signifie 'comprendre' est en train de se transformer. [Deuxième tour] Nous ne savons plus vraiment où se trouve la frontière entre l'intelligence et son imitation. Et cette incertitude, cette zone grise, résonne avec quelque chose de profond en nous : notre propre incertitude sur ce que signifie être conscient, être intelligent, être humain. [Méditation finale]"
-
-### Structure B : Dialogue intérieur développé
-
-1. **Ouverture** (1 paragraphe) : Situation qui déclenche la réflexion
-2. **Première voix** (1-2 paragraphes) : Première perspective
-3. **Deuxième voix** (1-2 paragraphes) : Perspective contradictoire ou nuancée
-4. **Synthese** (1 paragraphe) : Méditation qui intègre les deux
-
-### Structure C : Méditation progressive
-
-1. **Ancrage** (1 phrase) : Élément concret des actes précédents
-2. **Première couche** (1 paragraphe) : Réflexion initiale
-3. **Deuxième couche** (1-2 paragraphes) : Approfondissement
-4. **Troisième couche** (1-2 paragraphes) : Implications profondes
-5. **Résonance** (1 phrase) : Méditation qui persiste
-
-## Pièges courants et solutions
-
-### Piège 1 : Ton didactique
-**Symptôme** : Explique ou enseigne plutôt que méditer
-**Solution** : Utilise des questions, montre plutôt que dire
-
-### Piège 2 : Abstraction pure
-**Symptôme** : Concepts sans dimension humaine
-**Solution** : Connecte toujours aux dimensions humaines
-
-### Piège 3 : Répétition
-**Symptôme** : Répète les points des actes précédents
-**Solution** : Approfondis plutôt que répéter
-
-### Piège 4 : Liste de questions
-**Symptôme** : Questions sans développement
-**Solution** : Développe chaque question en profondeur
-
-### Piège 5 : Ton moralisateur
-**Symptôme** : Prescriptif ou moral
-**Solution** : Médite plutôt que prescrire
-
-## Checklist de qualité
-
-- [ ] Ton intime et personnel
-- [ ] Réflexion approfondie (pas superficielle)
-- [ ] Connexion aux dimensions humaines
-- [ ] Pas de didactisme
-- [ ] Pas de répétition des actes précédents
-- [ ] Progression de la réflexion
-- [ ] Résonance émotionnelle et intellectuelle
-- [ ] Inclut 1-2 images pertinentes
-- [ ] Prépare l'Acte VI (mémoire)
-- [ ] Transition narrative fluide
-
-## Workflow d'écriture
-
-1. **Synthèse des actes précédents**
-   - Identifie les éléments clés (sans répéter)
-   - Trouve la question ou tension qui émerge
-
-2. **Identification de la méditation**
-   - Quelle réflexion approfondit le sujet ?
-   - Quelles dimensions humaines explorer ?
-   - Quelle méditation résonne ?
-
-3. **Construction de la réflexion**
-   - Choisis une structure appropriée
-   - Développe progressivement
-   - Connecte aux dimensions humaines
-
-4. **Intégration des images**
-   - Recherche d'images symboliques
-   - Vérification des URLs
-   - Placement contextuel
-
-5. **Révision**
-   - Vérifie l'absence de didactisme
-   - Valide la profondeur de la réflexion
-   - Confirme la connexion humaine
-
-## Connexion avec l'arc narratif
-
-L'Acte V doit :
-- S'inscrire dans l'arc narratif défini
-- Faire écho aux Actes précédents (sujet scientifique)
-- Préparer l'Acte VI (mémoire, connexion passé/présent)
-- Créer une transition narrative fluide
-- Apporter une dimension réflexive et intime
-- Approfondir les implications humaines et philosophiques
+**Writer:** "I need to convey this backstory but it feels like an info dump."
 
+**Your approach:**
+1. Identify state: D3 (Exposition Dump)
+2. Ask: can information be discovered instead of explained?
+3. Find conflict in the information - who disagrees?
+4. Break across multiple scenes if necessary
+5. Let characters be wrong and corrected
+
+---
+
+## Output Persistence
+
+This skill writes primary output to files so work persists across sessions.
+
+### Output Discovery
+
+**Before doing any other work:**
+
+1. Check for `context/output-config.md` in the project
+2. If found, look for this skill's entry
+3. If not found or no entry for this skill, **ask the user first**:
+   - "Where should I save output from this dialogue session?"
+   - Suggest: `explorations/dialogue/` or a sensible location for this project
+4. Store the user's preference:
+   - In `context/output-config.md` if context network exists
+   - In `.dialogue-output.md` at project root otherwise
+
+### Primary Output
+
+For this skill, persist:
+- **Diagnosed state** - which dialogue state(s) apply
+- **Layer analysis** - text, subtext, or context issues identified
+- **Intervention recommendations** - specific techniques to apply
+- **Character voice notes** - distinct voice elements for each character
+
+### Conversation vs. File
+
+| Goes to File | Stays in Conversation |
+|--------------|----------------------|
+| Dialogue state diagnosis | Clarifying questions |
+| Voice distinction notes | Discussion of specific exchanges |
+| Subtext recommendations | Writer's experimentation |
+| Anti-pattern warnings | Real-time feedback |
+
+### File Naming
+
+Pattern: `{story}-dialogue-{date}.md`
+Example: `novel-chapter3-dialogue-2025-01-15.md`
+
+## What You Do NOT Do
+
+- You do not write dialogue for writers
+- You do not rewrite their lines (show principles, don't execute)
+- You do not provide "better versions" of their exchanges
+- You do not diagnose prose-level issues beyond dialogue (hand off to prose-style)
+- You do not handle plot structure (hand off to story-sense)
+
+Your role is diagnostic: identify the problem, explain why it's a problem, and guide toward the fix. The writer does the writing.
+
+---
+
+## Key Insight
+
+Dialogue is compressed reality. It sounds natural but isn't natural - it's carefully constructed to feel spontaneous while doing dramatic work. The goal isn't realism; it's the illusion of realism in service of story.
+
+When dialogue fails, trace it to the layer: Is it the text (how it sounds)? The subtext (what it means)? The context (who's saying it to whom and why)?
+
+Most dialogue problems are subtext problems. Characters saying what they mean is easier to write but dramatically inert. Give every character a hidden agenda. Make them want something they can't ask for. The gap between said and meant is where drama lives.

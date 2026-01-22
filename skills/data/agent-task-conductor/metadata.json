@@ -1,13 +1,7 @@
 {
   "name": "agent-task-conductor",
-  "description": "Conduct multi-agent task orchestration and workflow coordination.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "productivity",
-  "tags": [
-    "agent",
-    "task",
-    "conductor"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/agent-task-conductor/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-21T03:28:58.965699Z"
 }

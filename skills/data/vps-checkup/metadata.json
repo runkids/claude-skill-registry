@@ -1,12 +1,7 @@
 {
   "name": "vps-checkup",
-  "description": "SSH into an Ubuntu VPS (Docker) for a read-only health/security/update report (UFW + fail2ban) and propose fixes; apply updates/restarts only with explicit confirmation. Use when the user wants a read",
-  "repo": "jMerta/codex-skills",
-  "category": "devops",
-  "tags": [
-    "vps",
-    "checkup"
-  ],
-  "stars": 90,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lancenunes/codex-skills",
+  "path": "vps-checkup/SKILL.md",
+  "source": "github.com/lancenunes/codex-skills",
+  "downloaded_at": "2026-01-22T01:08:11.028579Z"
 }

@@ -31,11 +31,11 @@ The verification checks for:
 Review the logs directly:
 
 ```bash
-# Count recent decisions with a specific context/tag
-grep -c "context.*<process-identifier>" .dialogue/logs/decisions.yaml
+# Count decisions with a specific context/tag (per-file structure)
+grep -l "<process-identifier>" ${CLAUDE_PROJECT_DIR}/.dialogue/logs/decisions/*.yaml | wc -l
 
-# Count recent observations with a specific context/tag
-grep -c "context.*<process-identifier>" .dialogue/logs/observations.yaml
+# Count observations with a specific context/tag (per-file structure)
+grep -l "<process-identifier>" ${CLAUDE_PROJECT_DIR}/.dialogue/logs/observations/*.yaml | wc -l
 ```
 
 ### Option 2: Script-Based Verification
@@ -43,7 +43,7 @@ grep -c "context.*<process-identifier>" .dialogue/logs/observations.yaml
 Execute the verification script:
 
 ```bash
-.claude/skills/dialogue-verify-logging-compliance/scripts/verify-logging.sh <process-identifier> <min-decisions> <min-observations>
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-verify-logging-compliance/scripts/verify-logging.sh <process-identifier> <min-decisions> <min-observations>
 ```
 
 #### Parameters
@@ -57,7 +57,7 @@ Execute the verification script:
 #### Example
 
 ```bash
-.claude/skills/dialogue-verify-logging-compliance/scripts/verify-logging.sh "Process Architect v2 simulation" 5 2
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-verify-logging-compliance/scripts/verify-logging.sh "Process Architect v2 simulation" 5 2
 ```
 
 ## Output
@@ -99,4 +99,4 @@ Step X: Verify Logging Compliance
 
 ---
 
-*Part of the AI-Augmented SDLC Framework dialogue system*
+*Part of the Dialogue Framework*

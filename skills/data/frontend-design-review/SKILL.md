@@ -1,172 +1,336 @@
 ---
 name: frontend-design-review
-description: Design principles and review methodology for UI/UX work. Use when building new interfaces, reviewing visual changes, or validating design quality. Contains best practices for visual polish, accessibility (WCAG 2.1 AA), responsive design, component standards, and interaction patterns. Works both as a development guide and a review checklist. Produces structured reports with prioritized findings.
+description: Conducts comprehensive frontend design reviews covering UI/UX design quality, design system validation, accessibility compliance, responsive design patterns, component library architecture, and visual design consistency. Evaluates design specifications, Figma/Sketch files, design tokens, interaction patterns, and user experience flows. Identifies usability issues, accessibility violations, design system deviations, and provides actionable recommendations for improvement. Produces detailed design review reports with severity-rated findings, visual examples, and implementation guidelines. Use when reviewing frontend designs, validating design systems, ensuring accessibility compliance, evaluating component libraries, assessing responsive designs, or when users mention design review, UI/UX review, Figma review, design system validation, accessibility audit, or frontend design quality.
 ---
 
-# Design Review
+# Frontend Design Review
 
-Design principles and quality standards for building and reviewing user interfaces.
+## Overview
 
-## When to Use
+This skill provides expert guidance for conducting thorough frontend design reviews, covering UI/UX design quality, design system consistency, accessibility compliance, and responsive design patterns. The skill helps identify design issues early in the development lifecycle, ensuring designs meet quality standards, accessibility requirements, and business objectives before implementation.
 
-**During Development:**
-- Building new UI components or pages
-- Implementing design system elements
-- Adding interactive features
-- Working on responsive layouts
+## Core Capabilities
 
-**During Review:**
-- Evaluating PRs with visual changes
-- Validating accessibility compliance
-- Checking design system consistency
-- Final QA before release
+## 1. UI/UX Design Quality Review
 
-## Core Principles
+- Visual design assessment (typography, color, spacing, layout, visual hierarchy)
+- User experience evaluation (flows, interactions, navigation, usability)
+- Design consistency verification across screens and journeys
+- Brand alignment and visual identity validation
+- Cognitive load analysis
 
-### Users First
-Every design decision should serve user needs. Prioritize clarity over cleverness, and optimize for the most common workflows. When in doubt, choose the option that reduces user effort.
+### 2. Design System Validation
 
-### Meticulous Craft
-Small details compound into overall quality. Consistent spacing, aligned elements, and polished interactions signal care and build trust. Sweat the details that users feel but may not consciously notice.
+- Component library review (design, variants, states, reusability)
+- Design tokens validation (colors, typography, spacing)
+- Pattern library assessment for consistency
+- Documentation quality evaluation
+- Design system governance assessment
 
-### Simplicity & Clarity
-Remove everything that doesn't serve a purpose. Each element should earn its place on screen. Labels and instructions should be unambiguous — if users need to think about what something means, simplify it.
+### 3. Accessibility Compliance
 
-### Speed & Performance
-Perceived performance is part of design. Optimize for fast initial load, instant feedback on interactions, and smooth animations. Slow UI feels broken regardless of visual quality.
+- WCAG 2.1 AA compliance verification
+- Color contrast validation (4.5:1 text, 3:1 UI components)
+- Keyboard navigation and focus management
+- Screen reader support validation
+- Accessible interaction patterns review
 
-### Consistency
-Maintain uniform patterns across the entire product. Same actions should look and behave the same way everywhere. Consistency reduces cognitive load and makes interfaces predictable.
+### 4. Responsive Design Review
 
-### Accessibility
-Design for the full spectrum of users. This includes sufficient color contrast, keyboard navigation, screen reader support, and respecting motion preferences. Accessibility is not optional polish — it's core quality.
+- Breakpoint strategy evaluation
+- Mobile-first approach assessment
+- Touch target sizing verification (44x44px minimum)
+- Content adaptation across viewports
+- Performance considerations
 
-## Design Foundations
+### 5. Component Architecture Assessment
 
-### Color
-Build a systematic palette rather than picking colors ad-hoc. Include a neutral scale for text and backgrounds, a primary brand color used strategically, and semantic colors for feedback states (success, error, warning, info). Every color combination should meet WCAG AA contrast requirements. Plan for dark mode from the start.
+- Component hierarchy and composition patterns
+- Reusability and flexibility evaluation
+- State management review (default, hover, active, disabled, error, loading)
+- Component variants and customization patterns
+- Component documentation quality
 
-### Typography
-Choose a clean, legible typeface and establish a clear hierarchy. Define distinct sizes for headings, body text, and captions using a consistent scale. Limit font weights to maintain visual coherence. Generous line height improves readability, especially for body text.
+## Workflow
 
-### Spacing
-Use a consistent spacing scale based on a base unit. Apply the same spacing values throughout the interface for padding, margins, and gaps. Consistent spacing creates rhythm and makes layouts feel intentional rather than arbitrary.
+### Phase 1: Pre-Review Preparation
 
-### Shape
-Define a small set of border radius values and apply them consistently. Sharper corners typically feel more professional; rounder corners feel friendlier. Match the radius to the element's size and purpose.
+**1. Gather Design Assets**
 
-## Component Standards
+- Collect Figma/Sketch files, design specifications, mockups
+- Obtain design system documentation and component library
+- Review brand guidelines and style guides
+- Gather user research findings and personas
 
-### Interactive States
-Every interactive element needs clear visual states: default, hover, active, focus, and disabled. Focus states are critical for keyboard users — they must be clearly visible. Disabled states should look inactive but remain readable.
+**2. Understand Context**
 
-### Buttons
-Establish a clear hierarchy: primary for main actions, secondary for alternatives, tertiary/ghost for less prominent options. Destructive actions deserve distinct styling. Include consistent icon placement and sizing. Button text should describe the action ("Save Changes" not "Submit").
+- Review project requirements and business objectives
+- Understand target users and use cases
+- Identify key user journeys and critical flows
+- Note technical constraints and platform requirements
 
-### Form Elements
-Labels should be visible and associated with inputs — don't rely on placeholders alone. Provide helper text for complex fields and clear error messages that explain how to fix problems. Group related fields logically and indicate required vs optional clearly.
+**3. Define Review Scope**
 
-### Cards & Containers
-Use cards to group related content and create visual separation. Maintain consistent internal padding and spacing. Cards can have subtle shadows or borders to establish hierarchy, but avoid over-decorating.
+- Identify screens/flows to review
+- Determine review depth (high-level vs. detailed)
+- Set priorities based on importance
+- Establish timeline and deliverables
 
-### Data Display
-Tables need clear headers, consistent alignment (left for text, right for numbers), and adequate row spacing. Consider how tables will handle empty states, loading, and many rows. Provide sorting and filtering for large datasets.
+### Phase 2: Conduct Design Review
 
-### Feedback & Status
-Use badges, tags, and indicators consistently. Color-code status information (but don't rely on color alone). Loading states should appear quickly — use skeleton screens for page loads and spinners for discrete actions. Success and error feedback should be immediate and clear.
+**Step 1: Visual Design Review**
 
-## Layout & Hierarchy
+- Assess typography (font selection, type scale, line heights, consistency)
+- Evaluate color system (palette, contrast, semantic usage, tokens)
+- Review spacing and layout (grid system, whitespace, alignment)
+- Check visual hierarchy (size, color, position, emphasis)
+- Validate iconography (style, size, clarity, consistency)
+- Assess imagery and media (quality, aspect ratios, optimization)
 
-### Visual Hierarchy
-Guide attention through size, weight, color, and position. The most important content should be immediately obvious. Use typography scale and spacing to create clear relationships between elements.
+**Step 2: Design System Compliance**
 
-### White Space
-Generous negative space improves comprehension and reduces cognitive load. Cramped interfaces feel overwhelming. White space is not wasted space — it's a tool for creating focus and breathing room.
+- Verify component usage matches design system
+- Check for design token usage (no hard-coded values)
+- Identify deviations from established patterns
+- Validate component variants and states
+- Review custom components vs. system components
 
-### Grid & Alignment
-Use a consistent grid system for layout structure. Align elements deliberately — misalignment is visually jarring even when subtle. Responsive grids should adapt gracefully across breakpoints.
+**Step 3: Accessibility Audit**
 
-### Responsive Behavior
-Design for multiple viewport sizes. Establish breakpoints (typically mobile, tablet, desktop) and define how layouts adapt at each. Touch targets should be adequately sized on mobile. Avoid horizontal scrolling.
+- Test color contrast ratios for all text and UI elements
+- Verify keyboard navigation and tab order
+- Check focus indicators visibility and clarity
+- Validate ARIA labels and semantic structure
+- Review alternative text for images
+- Assess form label associations
+- Test interactive element accessibility
 
-## Accessibility Standards
+**Step 4: Responsive Design Evaluation**
 
-### Keyboard Navigation
-All interactive elements must be reachable and operable via keyboard. Tab order should follow logical reading order. Focus must never become trapped. Provide skip links for navigation-heavy pages.
+- Review breakpoint strategy (mobile, tablet, desktop)
+- Check content adaptation at different viewports
+- Verify touch target sizes on mobile
+- Assess navigation patterns for mobile
+- Review image responsiveness and optimization
+- Validate typography scaling across devices
 
-### Focus Indicators
-Focus states must be clearly visible — the default browser outline is often insufficient. Design custom focus styles that are obvious against all backgrounds. Never remove focus indicators without replacement.
+**Step 5: Component Architecture Analysis**
 
-### Color & Contrast
-Text must meet minimum contrast ratios against backgrounds (4.5:1 for normal text, 3:1 for large text). Don't convey information through color alone — pair with icons, text, or patterns. Test with color blindness simulators.
+- Evaluate component organization and hierarchy
+- Review component reusability and composition
+- Check component state coverage
+- Assess variant design and flexibility
+- Validate component props and customization
 
-### Semantic Structure
-Use proper heading hierarchy (h1 → h2 → h3). Choose semantic HTML elements over generic divs. Form inputs need associated labels. Images need meaningful alt text (or empty alt for decorative images).
+**Step 6: User Experience Assessment**
 
-### Motion
-Respect `prefers-reduced-motion` for users who are sensitive to animation. Provide alternatives for motion-dependent interactions. Avoid flashing or rapidly changing content.
+- Analyze user flows and task completion paths
+- Evaluate navigation structure and findability
+- Check interaction patterns and feedback
+- Assess error states and error handling
+- Review empty states and loading states
+- Validate form design and validation patterns
 
-## Common Patterns
+### Phase 3: Document Findings
 
-### Content Moderation Interfaces
-When displaying items for review, make status immediately visible through consistent indicators. Group primary actions together and make them easy to reach. Support efficient workflows with bulk operations and keyboard shortcuts. For high-volume work, minimize visual noise to reduce fatigue.
+**1. Categorize Issues by Severity**
 
-### Data-Heavy Interfaces
-Prioritize scannability with clear alignment, adequate spacing, and visual groupings. Provide filtering and search for large collections. Support different view modes if useful (table vs cards). Loading and empty states need thoughtful design, not just afterthought placeholders.
+- **Critical**: Blocking issues, must fix before launch
+- **High**: Significant usability/accessibility issues
+- **Medium**: Issues with workarounds, should fix soon
+- **Low**: Minor polish, nice-to-haves
 
-### Settings & Configuration
-Group related options logically and label everything clearly. Progressive disclosure keeps simple cases simple while allowing access to advanced options. Provide sensible defaults. Confirm destructive changes. Give feedback when settings are saved.
+**2. Create Detailed Findings Report**
+See [design-review-report-template.md](references/design-review-report-template.md) for comprehensive report structure
 
-## Review Process
+Include:
 
-### Live Environment First
-Always assess the actual interface before reviewing code. Experience the user flow, test interactions, and feel the performance. Static code review misses issues that are obvious in use.
+- Executive summary with key statistics
+- Review scope documentation
+- Findings by category with specific examples
+- Severity-rated issue list
+- Positive observations (what's working well)
+- Actionable recommendations with priorities
+- Action items with owners and timelines
 
-### Systematic Evaluation
-Work through the interface methodically rather than spot-checking. Cover the primary user flow, then edge cases. Test at multiple viewport sizes. Check keyboard navigation end-to-end.
+**3. Provide Visual Examples**
 
-### Evidence-Based Feedback
-Capture screenshots for visual issues. Be specific about what's wrong and where. Describe problems in terms of user impact, not just aesthetic preference.
+- Screenshot issues with annotations
+- Show before/after for recommendations
+- Include contrast ratio measurements
+- Document component state issues visually
 
-## Issue Prioritization
+### Phase 4: Collaborate on Solutions
 
-### Blocker
-Prevents core functionality or causes significant accessibility barriers. Must fix before release. Examples: broken interactions, keyboard traps, missing form labels, illegible text contrast.
+**1. Prioritize Fixes**
 
-### High Priority
-Significant quality issues that affect user experience but don't block functionality. Should fix before merge. Examples: confusing layouts, missing loading states, inconsistent patterns, poor mobile experience.
+- Separate must-fix from nice-to-have
+- Consider implementation effort
+- Balance user impact with development cost
 
-### Medium Priority
-Improvements that would enhance quality but aren't urgent. Good for follow-up. Examples: animation polish, minor spacing inconsistencies, suboptimal information hierarchy.
+**2. Create Action Plan**
 
-### Nitpick
-Minor aesthetic preferences or edge cases. Optional to address. Examples: subjective color tweaks, rare edge case handling, micro-copy improvements.
+- Assign owners (design team vs. development team)
+- Set realistic timelines
+- Schedule follow-up review
 
-## Report Structure
+**3. Document Decisions**
 
-When documenting review findings, organize by priority:
+- Record accepted risks or trade-offs
+- Note items deferred to future work
+- Update design system if patterns change
 
-```
-## Summary
-Brief overall assessment — what works well and key concerns.
+## Severity Level Guidelines
 
-## Blockers
-Critical issues requiring immediate attention.
+**Critical (Blocking)**
 
-## High Priority
-Significant issues to address before merge.
+- Violates WCAG AA requirements (legal risk)
+- Completely blocks core user tasks
+- Causes data loss or security issues
+- Severely damages brand or user trust
 
-## Suggestions
-Medium priority improvements for consideration.
+**High Priority**
 
-## Nitpicks
-Minor observations, prefix with "Nit:" to signal low priority.
-```
+- Significantly degrades user experience
+- Impacts large number of users
+- Creates major accessibility barriers
+- Inconsistent with design system causing confusion
 
-Lead with what's working well. Frame issues as problems to solve, not mistakes made. Focus on user impact rather than prescribing specific technical solutions — the implementer often knows the codebase better.
+**Medium Priority**
 
-## Integration Notes
+- Negatively impacts experience but has workarounds
+- Affects subset of users
+- Minor accessibility issues (WCAG AAA)
+- Design inconsistencies that are noticeable
 
-This skill focuses on design principles and review methodology. For automated browser testing (screenshots, viewport testing, interaction verification), use the **frontend-playwright** skill which provides Playwright MCP tooling.
+**Low Priority**
 
-Adapt specific implementation details (CSS approach, component library, token values) to match the project's existing stack and conventions.
+- Polish and optimization items
+- Edge case issues
+- Minor visual refinements
+- Nice-to-have enhancements
+
+## Accessibility Quick Reference
+
+**WCAG 2.1 AA Requirements:**
+
+- Color contrast: 4.5:1 for normal text, 3:1 for large text (18pt+ or 14pt+ bold)
+- UI component contrast: 3:1 minimum
+- Keyboard accessible: All functionality available via keyboard
+- Focus visible: Clear focus indicators on interactive elements
+- Text alternatives: All images have appropriate alt text
+- Form labels: All inputs have associated labels
+- Semantic HTML: Proper heading hierarchy and landmarks
+- Touch targets: 44x44 CSS pixels minimum
+
+**Testing Tools:**
+
+- Color contrast: WebAIM Contrast Checker, Stark plugin
+- Keyboard nav: Manual testing with Tab/Shift+Tab
+- Screen reader: Test with VoiceOver (Mac), NVDA (Windows)
+
+## Design System Review Checklist
+
+**Component Usage:**
+
+- [ ] All components sourced from design system
+- [ ] No one-off custom variations without justification
+- [ ] Component variants used appropriately
+- [ ] All component states designed (default, hover, active, disabled, error, loading)
+
+**Design Tokens:**
+
+- [ ] Colors use token references (not hex values)
+- [ ] Typography uses token references (not hard-coded sizes)
+- [ ] Spacing uses token references (8px grid system)
+- [ ] Shadows and effects use token references
+
+**Patterns:**
+
+- [ ] Navigation patterns consistent with system
+- [ ] Form patterns follow system conventions
+- [ ] Modal/dialog patterns match system
+- [ ] Empty states use system patterns
+- [ ] Error handling follows system patterns
+
+## Reference Files
+
+**Load these references based on specific review needs:**
+
+- **[best-practices-for-design-reviews.md](references/best-practices-for-design-reviews.md)** - Review methodology, tools, and techniques for effective design reviews
+
+- **[common-design-issues-to-watch-for.md](references/common-design-issues-to-watch-for.md)** - Frequently encountered design problems and red flags to identify during reviews
+
+- **[design-review-process.md](references/design-review-process.md)** - Comprehensive step-by-step process with detailed checklists for each review phase
+
+- **[design-system-patterns.md](references/design-system-patterns.md)** - Design system validation criteria, component patterns, and token usage guidelines
+
+- **[responsive-design-patterns.md](references/responsive-design-patterns.md)** - Breakpoint strategies, mobile-first patterns, and responsive design best practices
+
+- **[accessibility-guidelines.md](references/accessibility-guidelines.md)** - Detailed WCAG 2.1 AA compliance guidelines, testing procedures, and accessibility patterns
+
+- **[severity-levels.md](references/severity-levels.md)** - Detailed severity level definitions and criteria for categorizing design issues
+
+- **[design-review-report-template.md](references/design-review-report-template.md)** - Complete report template with all sections for documenting review findings
+
+## Example Review Flow
+
+**Scenario**: Reviewing a new checkout flow design in Figma
+
+1. **Preparation** (30 min)
+   - Review checkout requirements and success metrics
+   - Identify 5 screens in checkout flow
+   - Gather payment compliance requirements
+   - Review design system component library
+
+2. **Visual Design Review** (45 min)
+   - Check typography consistency across all 5 screens
+   - Verify color contrast on CTA buttons (found 2 issues)
+   - Validate spacing follows 8px grid
+   - Review visual hierarchy on payment screen
+
+3. **Accessibility Audit** (60 min)
+   - Test color contrast: 3 text elements fail (4.2:1, need 4.5:1)
+   - Check keyboard flow: Tab order jumps incorrectly on screen 3
+   - Verify ARIA labels: Payment input missing label association
+   - Review error states: Error messages lack semantic markup
+
+4. **Responsive Review** (30 min)
+   - Check mobile breakpoint: Form inputs too small (38px height)
+   - Verify tablet layout: Good adaptation
+   - Test content reflow: Success
+
+5. **Design System Check** (20 min)
+   - Found custom button variant not in system
+   - Spacing uses hard-coded values instead of tokens
+   - Form patterns match system conventions ✅
+
+6. **Document Findings** (45 min)
+   - 3 Critical issues: Contrast failures, touch target sizes
+   - 5 High issues: Keyboard navigation, missing labels
+   - 4 Medium issues: Design token usage, custom components
+   - Create report using template with visual examples
+
+7. **Deliverables**
+   - Design review report with 12 findings
+   - Annotated Figma comments on specific issues
+   - Prioritized action items with owners
+   - Schedule follow-up review in 1 week
+
+**Total Time**: ~3.5 hours for comprehensive review
+
+## Tips for Effective Reviews
+
+**Be Specific**: Don't say "improve contrast". Say "Body text on blue background has 3.8:1 contrast, needs 4.5:1. Darken text to #1a1a1a or lighten background."
+
+**Show Examples**: Include screenshots with annotations. Show the issue and suggest visual fixes.
+
+**Prioritize**: Clearly separate must-fix from nice-to-have. Focus on user impact.
+
+**Provide Context**: Explain why an issue matters. "This contrast failure affects 8% of users with low vision."
+
+**Be Constructive**: Acknowledge what works well. Balance criticism with recognition.
+
+**Collaborate**: Review findings with designers before finalizing. Get their input on solutions.
+
+**Follow Up**: Schedule re-review to verify fixes. Track issues to completion.

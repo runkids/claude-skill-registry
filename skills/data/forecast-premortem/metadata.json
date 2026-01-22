@@ -1,12 +1,7 @@
 {
   "name": "forecast-premortem",
-  "description": "Use to stress-test predictions by assuming they failed and working backward to identify why. Invoke when confidence is high (>80% or <20%), need to identify tail risks and unknown unknowns, or want to",
-  "repo": "lyndonkl/claude",
-  "category": "testing",
-  "tags": [
-    "forecast",
-    "premortem"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/product-manager-workflow/.claude/skills/forecast-premortem/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-22T03:29:21.779796Z"
 }

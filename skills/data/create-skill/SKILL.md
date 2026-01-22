@@ -1,137 +1,81 @@
 ---
 name: create-skill
-description: Guide for creating new skills in Kai's personal AI infrastructure. Use when user wants to create, update, or structure a new skill that extends capabilities with specialized knowledge, workflows, or tool integrations. Follows both Anthropic skill standards and PAI-specific patterns.
+description: Create a new agent skill following the Agent Skills specification. Use this when the user asks to create a new skill or update an existing one to match the standard.
 ---
 
-# Create Skill - Skill Creation Framework
+# Create Skill
 
-## When to Activate This Skill
-- "Create a new skill for X"
-- "Build a skill that does Y"
-- "Add a skill for Z"
-- "Update/improve existing skill"
-- "Structure a skill properly"
-- User wants to extend Kai's capabilities
+## When to use this skill
 
-## Core Skill Creation Workflow
+Use this skill when the user wants to create a new agent skill or explicitly asks to "create a skill". This skill provides the standard procedure and specification for creating high-quality, compliant agent skills.
 
-### Step 1: Understand the Purpose
-Ask these questions:
-- **What does this skill do?** (Clear, specific purpose)
-- **When should it activate?** (Trigger conditions)
-- **What tools/commands does it use?** (Dependencies)
-- **Is it simple or complex?** (Determines structure)
+## Prerequisite: Understand the Goal
 
-### Step 2: Choose Skill Type
+1.  **Identify the Skill Name**:
+    - must be 1-64 characters.
+    - only lowercase alphanumeric (a-z, 0-9) and hyphens (-).
+    - cannot start or end with a hyphen.
+    - cannot have consecutive hyphens (`--`).
+2.  **Identify the Purpose**: Understand what task the skill is solving to write a good description.
 
-**Simple Skill** (SKILL.md only):
-- Single focused capability
-- Minimal dependencies
-- Quick reference suffices
-- Examples: fabric-patterns, youtube-extraction
+## Step 1: Create Directory Structure
 
-**Complex Skill** (SKILL.md + CLAUDE.md + supporting files):
-- Multi-step workflows
-- Extensive context needed
-- Multiple sub-components
-- Examples: development, website, consulting
+Create a new directory with the exact name of the skill.
 
-### Step 3: Create Directory Structure
-
-```bash
-# Simple skill
-${PAI_DIR}/skills/[skill-name]/
-└── SKILL.md
-
-# Complex skill
-${PAI_DIR}/skills/[skill-name]/
-├── SKILL.md           # Quick reference
-├── CLAUDE.md          # Full context
-└── [subdirectories]/  # Supporting resources
+```
+<skill-name>/
+  ├── SKILL.md  (Required)
+  ├── scripts/  (Optional: executable code)
+  ├── references/ (Optional: docs, forms)
+  └── assets/   (Optional: templates, images)
 ```
 
-### Step 4: Write SKILL.md (Required)
+## Step 2: Create SKILL.md
 
-Use this structure:
-```markdown
+The `SKILL.md` file is the core of the skill. It MUST strictly follow this format:
+
+### Frontmatter
+
+The file must start with a YAML frontmatter block:
+
+```yaml
 ---
-name: skill-name
-description: Clear description of what skill does and when to use it. Should match activation triggers.
+name: <skill-name>
+description: <text description of what the skill does and when to use it>
+# Optional fields:
+# license: <license type>
+# compatibility: <system requirements>
+# metadata:
+#   author: <name>
+#   version: "1.0"
 ---
-
-# Skill Name
-
-## When to Activate This Skill
-- Trigger condition 1
-- Trigger condition 2
-- User phrase examples
-
-## [Main Content Sections]
-- Core workflow
-- Key commands
-- Examples
-- Best practices
-
-## Supplementary Resources
-For detailed context: `read ${PAI_DIR}/skills/[skill-name]/CLAUDE.md`
 ```
 
-### Step 5: Write CLAUDE.md (If Complex)
+**Critical Rules:**
 
-Include:
-- Comprehensive methodology
-- Detailed workflows
-- Component documentation
-- Advanced usage patterns
-- Integration instructions
-- Troubleshooting guides
+- `name` in frontmatter MUST match the directory name.
+- `description` should include keywords to help agents find the skill (1-1024 chars).
 
-### Step 6: Add to Global Context
+### Body
 
-Update `${PAI_DIR}/global/KAI.md` available_skills section to include the new skill so it shows up in the system prompt.
+The body should be standard Markdown containing:
 
-### Step 7: Test the Skill
+- **Header**: `# Title of Capability`
+- **When to use**: A section explaining the specific scenarios where this skill is applicable.
+- **Instructions**: Step-by-step procedures the agent should follow.
+  - Be prescriptive and clear.
+  - Reference scripts or assets using relative paths (e.g., `scripts/my-script.py`).
 
-1. Trigger it with natural language
-2. Verify it loads correctly
-3. Check all references work
-4. Validate against examples
+## Step 3: Populate Optional Directories (If needed)
 
-## Skill Naming Conventions
+- **scripts/**: For code that needs to be executed (e.g., Python scripts). Ensure they are self-contained.
+- **references/**: For static knowledge, cheat sheets, or lookup tables.
+- **assets/**: For templates the agent should copy or use.
 
-- **Lowercase with hyphens**: `create-skill`, `web-scraping`
-- **Descriptive, not generic**: `fabric-patterns` not `text-processing`
-- **Action or domain focused**: `ai-image-generation`, `chrome-devtools`
+## Validation
 
-## Description Best Practices
+After creating the files, ensure:
 
-Your description should:
-- Clearly state what the skill does
-- Include trigger phrases (e.g., "USE WHEN user says...")
-- Mention key tools/methods used
-- Be concise but complete (1-3 sentences)
-
-**Good examples:**
-- "Multi-source comprehensive research using perplexity-researcher, claude-researcher, and gemini-researcher agents. Launches up to 10 parallel research agents for fast results. USE WHEN user says 'do research', 'research X', 'find information about'..."
-- "Chrome DevTools MCP for web application debugging, visual testing, and browser automation. The ONLY acceptable way to debug web apps - NEVER use curl, fetch, or wget."
-
-## Templates Available
-
-- `simple-skill-template.md` - For straightforward capabilities
-- `complex-skill-template.md` - For multi-component skills
-- `skill-with-agents-template.md` - For skills using sub-agents
-
-## Supplementary Resources
-
-For complete guide with examples: `read ${PAI_DIR}/skills/create-skill/CLAUDE.md`
-For templates: `ls ${PAI_DIR}/skills/create-skill/templates/`
-
-## Key Principles
-
-1. **Progressive disclosure**: SKILL.md = quick reference, CLAUDE.md = deep dive
-2. **Clear activation triggers**: User should know when skill applies
-3. **Executable instructions**: Imperative/infinitive form (verb-first)
-4. **Context inheritance**: Skills inherit global context automatically
-5. **No duplication**: Reference global context, don't duplicate it
-6. **Self-contained**: Skill should work independently
-7. **Discoverable**: Description enables Kai to match user intent
+1.  The directory name and `name` field match exactly.
+2.  The YAML frontmatter is valid.
+3.  The description clearly explains _when_ to use the skill.

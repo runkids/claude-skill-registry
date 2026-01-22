@@ -1,7 +1,7 @@
 {
   "name": "stable-baselines3",
-  "repo": "sanand0/scientific-research",
-  "path": ".claude/skills/stable-baselines3/SKILL.md",
-  "source": "github.com/sanand0/scientific-research",
-  "downloaded_at": "2026-01-14T02:31:10.283258Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/data-science/stable-baselines3/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:08.140529Z"
 }

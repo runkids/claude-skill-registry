@@ -1,8 +1,7 @@
 {
   "name": "infographic-syntax-creator",
-  "repo": "antvis/Infographic",
-  "category": "data",
-  "description": "Generate AntV Infographic syntax outputs. Use when asked to turn user content into the Infographic DSL (template selection, data structuring, theme), or to output `infographic <template>` plain syntax",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:41.931394Z"
+  "repo": "ThinkInAIXYZ/deepchat",
+  "path": "resources/skills/infographic-syntax-creator/SKILL.md",
+  "source": "github.com/ThinkInAIXYZ/deepchat",
+  "downloaded_at": "2026-01-22T00:57:51.509497Z"
 }

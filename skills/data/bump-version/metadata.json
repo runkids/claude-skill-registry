@@ -1,12 +1,7 @@
 {
   "name": "bump-version",
-  "description": "This skill should be used when the user wants to bump the version number in the workspace. It updates versions across all pyproject.toml files (root, tde, and tda packages) and the CHANGELOG.md to kee",
-  "repo": "NikiforovAll/dotnet-format-agent",
-  "category": "data",
-  "tags": [
-    "bump",
-    "version"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ROBOTIS-GIT/zenoh_ros2_sdk",
+  "path": ".claude/skills/bump-version/SKILL.md",
+  "source": "github.com/ROBOTIS-GIT/zenoh_ros2_sdk",
+  "downloaded_at": "2026-01-22T03:29:55.253791Z"
 }

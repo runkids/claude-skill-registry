@@ -1,7 +1,7 @@
 {
   "name": "setup",
-  "repo": "cuioss/plan-marshall",
-  "path": "marketplace/bundles/pm-requirements/skills/setup/SKILL.md",
-  "source": "github.com/cuioss/plan-marshall",
-  "downloaded_at": "2026-01-14T03:33:22.052462Z"
+  "repo": "fcakyon/claude-codex-settings",
+  "path": "plugins/paper-search-tools/skills/setup/SKILL.md",
+  "source": "github.com/fcakyon/claude-codex-settings",
+  "downloaded_at": "2026-01-22T03:06:13.920415Z"
 }

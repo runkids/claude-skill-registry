@@ -1,7 +1,7 @@
 {
   "name": "skill-development",
-  "repo": "dwmkerr/claude-toolkit",
-  "path": "plugins/toolkit/skills/skill-development/SKILL.md",
-  "source": "github.com/dwmkerr/claude-toolkit",
-  "downloaded_at": "2026-01-14T04:08:34.059621Z"
+  "repo": "OshanKHZ/cc-swiss-knife",
+  "path": "plugins/claude-code-forge/skills/skill-development/SKILL.md",
+  "source": "github.com/OshanKHZ/cc-swiss-knife",
+  "downloaded_at": "2026-01-22T04:07:55.948627Z"
 }

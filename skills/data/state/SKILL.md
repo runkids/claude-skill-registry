@@ -1,120 +1,243 @@
 ---
+description: Imported skill state from langchain
 name: state
-description: このワークスペースの state.md 管理、playbook 運用の専門知識。state.md の更新、focus の切り替え、done_criteria の判定、CRITIQUE の実行時に使用する。
+signature: 42ae2e4632a0e8f384a8b978b4d9d69d7cdb98b069bb76d974c91c511388807c
+source: /a0/tmp/skills_research/langchain/libs/deepagents/deepagents/backends/state.py
 ---
 
-# Workspace Management Skill
+"""StateBackend: Store files in LangGraph agent state (ephemeral)."""
 
-このワークスペース固有の管理知識を提供します。
+from typing import TYPE_CHECKING
 
-## state.md の構造
+from deepagents.backends.protocol import (
+    BackendProtocol,
+    EditResult,
+    FileDownloadResponse,
+    FileInfo,
+    FileUploadResponse,
+    GrepMatch,
+    WriteResult,
+)
+from deepagents.backends.utils import (
+    _glob_search_files,
+    create_file_data,
+    file_data_to_string,
+    format_read_response,
+    grep_matches_from_files,
+    perform_string_replacement,
+    update_file_data,
+)
 
-```yaml
-# 必須セクション
-focus:
-  current: <focus-value>    # setup | product | plan-template
-  project: plan/project.md  # プロジェクト計画ファイル
+if TYPE_CHECKING:
+    from langchain.tools import ToolRuntime
 
-playbook:
-  active: <playbook-path>   # 現在の playbook パス
-  branch: <branch-name>     # playbook に紐づくブランチ
 
-goal:
-  milestone: <milestone-id> # 現在のマイルストーン
-  phase: <phase-id>         # 現在のフェーズ
-  done_criteria:            # 達成条件（テストとして扱う）
-    - criteria1
-    - criteria2
+class StateBackend(BackendProtocol):
+    """Backend that stores files in agent state (ephemeral).
 
-session:
-  last_start: <timestamp>   # セッション開始時刻
-  last_clear: <timestamp>   # 最後の /clear 実行時刻
+    Uses LangGraph's state management and checkpointing. Files persist within
+    a conversation thread but not across threads. State is automatically
+    checkpointed after each agent step.
 
-config:
-  security: admin           # セキュリティレベル
-  toolstack: A              # A: Claude Code only | B: +Codex | C: +Codex+CodeRabbit
-```
+    Special handling: Since LangGraph state must be updated via Command objects
+    (not direct mutation), operations return Command objects instead of None.
+    This is indicated by the uses_state=True flag.
+    """
 
-## focus の有効値と編集権限
+    def __init__(self, runtime: "ToolRuntime"):
+        """Initialize StateBackend with runtime."""
+        self.runtime = runtime
 
-| focus.current | 用途 | main での Edit/Write |
-|---------------|------|---------------------|
-| setup | 新規ユーザーのセットアップ | 許可 |
-| product | 新規ユーザーのプロダクト開発 | 許可 |
-| plan-template | テンプレート編集 | 許可 |
-| thanks4claudecode | ワークスペース作業 | ブロック（ブランチ必須）|
-| workspace | 一般的なワークスペース作業 | ブロック（ブランチ必須）|
+    def ls_info(self, path: str) -> list[FileInfo]:
+        """List files and directories in the specified directory (non-recursive).
 
-**常に編集可能**: state.md, README.md
+        Args:
+            path: Absolute path to directory.
 
-## CRITIQUE の実行方法
+        Returns:
+            List of FileInfo-like dicts for files and directories directly in the directory.
+            Directories have a trailing / in their path and is_dir=True.
+        """
+        files = self.runtime.state.get("files", {})
+        infos: list[FileInfo] = []
+        subdirs: set[str] = set()
 
-done と判定する前に必ず実行:
+        # Normalize path to have trailing slash for proper prefix matching
+        normalized_path = path if path.endswith("/") else path + "/"
 
-```
-[CRITIQUE]
-done_criteria 達成の証拠:
-  - {criteria}: {PASS|FAIL} - {具体的な証拠}
-playbook 自体の妥当性: {問題なし|修正が必要}
-成果物の動作確認: {確認済み|未確認}
-判定: {PASS|FAIL}
-```
+        for k, fd in files.items():
+            # Check if file is in the specified directory or a subdirectory
+            if not k.startswith(normalized_path):
+                continue
 
-## state.md 更新のルール
+            # Get the relative path after the directory
+            relative = k[len(normalized_path) :]
 
-1. phase 完了時は state.md の goal.phase を次の phase に更新
-2. playbook 完了時は playbook.active を null または次の playbook に更新
-3. done_criteria を満たしたら証拠と共に記録
+            # If relative path contains '/', it's in a subdirectory
+            if "/" in relative:
+                # Extract the immediate subdirectory name
+                subdir_name = relative.split("/")[0]
+                subdirs.add(normalized_path + subdir_name + "/")
+                continue
 
-## playbook 必須ルール
+            # This is a file directly in the current directory
+            size = len("\n".join(fd.get("content", [])))
+            infos.append(
+                {
+                    "path": k,
+                    "is_dir": False,
+                    "size": int(size),
+                    "modified_at": fd.get("modified_at", ""),
+                }
+            )
 
-```yaml
-条件:
-  playbook.active: null
+        # Add directories to the results
+        for subdir in sorted(subdirs):
+            infos.append(
+                {
+                    "path": subdir,
+                    "is_dir": True,
+                    "size": 0,
+                    "modified_at": "",
+                }
+            )
 
-対応:
-  1. 作業開始禁止
-  2. まず playbook を作成
+        infos.sort(key=lambda x: x.get("path", ""))
+        return infos
 
-手順:
-  1. plan/template/playbook-format.md を読む
-  2. ユーザーにヒアリング:
-     - 何を作るか（ゴール）
-     - 完了条件は何か（done_criteria）
-     - フェーズ分割
-  3. plan/playbook-{name}.md を作成
-  4. state.md の playbook.active を更新
-  5. 作業開始
+    def read(
+        self,
+        file_path: str,
+        offset: int = 0,
+        limit: int = 2000,
+    ) -> str:
+        """Read file content with line numbers.
 
-なぜ必須か:
-  - playbook なし = done_criteria なし = 完了判定不可能
-  - 「計画なしで作業 → 自己報酬詐欺」の防止
-```
+        Args:
+            file_path: Absolute file path.
+            offset: Line offset to start reading from (0-indexed).
+            limit: Maximum number of lines to read.
 
-## playbook 作成テンプレート
+        Returns:
+            Formatted file content with line numbers, or error message.
+        """
+        files = self.runtime.state.get("files", {})
+        file_data = files.get(file_path)
 
-```yaml
-# plan/playbook-{name}.md
+        if file_data is None:
+            return f"Error: File '{file_path}' not found"
 
-## meta
-project: {プロジェクト名}
-branch: {ブランチ名}
-created: {今日の日付}
-derives_from: {project.milestone の ID}
+        return format_read_response(file_data, offset, limit)
 
-## goal
-summary: {1行の目標}
-done_when:
-  - {最終完了条件1}
-  - {最終完了条件2}
+    def write(
+        self,
+        file_path: str,
+        content: str,
+    ) -> WriteResult:
+        """Create a new file with content.
+        Returns WriteResult with files_update to update LangGraph state.
+        """
+        files = self.runtime.state.get("files", {})
 
-## phases
-- id: p1
-  name: {フェーズ名}
-  goal: {このフェーズの目標}
-  executor: claudecode
-  done_criteria:
-    - {完了条件1}
-    - {完了条件2}
-  status: pending
-```
+        if file_path in files:
+            return WriteResult(error=f"Cannot write to {file_path} because it already exists. Read and then make an edit, or write to a new path.")
+
+        new_file_data = create_file_data(content)
+        return WriteResult(path=file_path, files_update={file_path: new_file_data})
+
+    def edit(
+        self,
+        file_path: str,
+        old_string: str,
+        new_string: str,
+        replace_all: bool = False,
+    ) -> EditResult:
+        """Edit a file by replacing string occurrences.
+        Returns EditResult with files_update and occurrences.
+        """
+        files = self.runtime.state.get("files", {})
+        file_data = files.get(file_path)
+
+        if file_data is None:
+            return EditResult(error=f"Error: File '{file_path}' not found")
+
+        content = file_data_to_string(file_data)
+        result = perform_string_replacement(content, old_string, new_string, replace_all)
+
+        if isinstance(result, str):
+            return EditResult(error=result)
+
+        new_content, occurrences = result
+        new_file_data = update_file_data(file_data, new_content)
+        return EditResult(path=file_path, files_update={file_path: new_file_data}, occurrences=int(occurrences))
+
+    def grep_raw(
+        self,
+        pattern: str,
+        path: str = "/",
+        glob: str | None = None,
+    ) -> list[GrepMatch] | str:
+        files = self.runtime.state.get("files", {})
+        return grep_matches_from_files(files, pattern, path, glob)
+
+    def glob_info(self, pattern: str, path: str = "/") -> list[FileInfo]:
+        """Get FileInfo for files matching glob pattern."""
+        files = self.runtime.state.get("files", {})
+        result = _glob_search_files(files, pattern, path)
+        if result == "No files found":
+            return []
+        paths = result.split("\n")
+        infos: list[FileInfo] = []
+        for p in paths:
+            fd = files.get(p)
+            size = len("\n".join(fd.get("content", []))) if fd else 0
+            infos.append(
+                {
+                    "path": p,
+                    "is_dir": False,
+                    "size": int(size),
+                    "modified_at": fd.get("modified_at", "") if fd else "",
+                }
+            )
+        return infos
+
+    def upload_files(self, files: list[tuple[str, bytes]]) -> list[FileUploadResponse]:
+        """Upload multiple files to state.
+
+        Args:
+            files: List of (path, content) tuples to upload
+
+        Returns:
+            List of FileUploadResponse objects, one per input file
+        """
+        raise NotImplementedError(
+            "StateBackend does not support upload_files yet. You can upload files "
+            "directly by passing them in invoke if you're storing files in the memory."
+        )
+
+    def download_files(self, paths: list[str]) -> list[FileDownloadResponse]:
+        """Download multiple files from state.
+
+        Args:
+            paths: List of file paths to download
+
+        Returns:
+            List of FileDownloadResponse objects, one per input path
+        """
+        state_files = self.runtime.state.get("files", {})
+        responses: list[FileDownloadResponse] = []
+
+        for path in paths:
+            file_data = state_files.get(path)
+
+            if file_data is None:
+                responses.append(FileDownloadResponse(path=path, content=None, error="file_not_found"))
+                continue
+
+            # Convert file data to bytes
+            content_str = file_data_to_string(file_data)
+            content_bytes = content_str.encode("utf-8")
+
+            responses.append(FileDownloadResponse(path=path, content=content_bytes, error=None))
+
+        return responses

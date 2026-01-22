@@ -1,66 +1,88 @@
 ---
 name: plugin-help
-description: Shows the Wasp plugin's available features, commands, and skills.
+description: Show available commands and explain how to use the Gotrino inclusion plugin.
+allowed-tools: Read, Glob
+user-invocable: true
 ---
 
-1. run the [check-wasp-init hook](../../hooks/check-wasp-init.js) using the Bash tool with `node` command to see if Wasp knowledge has been initialized.
-2. let the user know if the Wasp plugin has been initialized or not.
-3. if the Wasp plugin has not been initialized, let the user know they should take care of this first by running `/wasp:init`:
+# Plugin Help
+
+Show available commands and explain how to use the Gotrino inclusion plugin.
+
+## Output
+
 ```markdown
-⚠️
-The Wasp plugin hasn't been initialized for the current project.
-Run `/wasp:init` to get the plugin's full functionality.
-```
-4. display the [Wasp Plugin for Claude Code](#wasp-plugin-for-claude-code) section to the user exactly as it is below.
+# Gotrino - Inclusion Plugin
 
---- --- 🐝 🐝 🐝 --- ---
-
-# 🐝 Wasp Plugin for Claude Code
-
-## What This Plugin Does
-
-This plugin makes Claude Code work better with Wasp by:
-
-1. **Using the right documentation** — Automatically fetches the correct Wasp docs for your project's version
-2. **Avoiding common mistakes** — Provides Wasp-specific tips, patterns, and best practices so Claude doesn't hallucinate or use outdated approaches
-3. **Guided workflows** — Skills and commands so Claude can walk you through setting up Wasp's batteries-included features (auth, email, database, styling) and deploying
-4. **Full debugging visibility** — Start managed databases, dev servers, and connect browser console access so Claude has full development and debugging visibility across the entire stack
-
-The result: Claude actually understands Wasp instead of guessing.
-
+Tools to help you write more inclusive code.
 
 ## Quick Reference
 
-Slash Commands:
-`/wasp:init` - Initialize plugin for your project
-`/wasp:expert-advice` - Get advice on improvements from a Wasp expert
-`/wasp:help` - Show this guide
+### Fast Checks (run anytime)
+| Command | What it does |
+|---------|--------------|
+| `/guardian [path]` | Quick inclusion gut-check (lightweight) |
+| `/language-check [path]` | Scan for non-inclusive language |
+| `/names-check [path]` | Check name diversity in examples |
+| `/i18n-check [path]` | Find internationalization issues |
 
-Skills:
-`add-feature` - Add Wasp's built-in features (auth, email, database, styling)
-`deploying-app` - Guided deployment to Railway or Fly.io
-`start-dev-server` - Start dev environment with full debugging visibility (db -> server -> browser console)
+### Deeper Analysis
+| Command | What it does |
+|---------|--------------|
+| `/examples-audit [path]` | Analyze mock data for cultural assumptions |
+| `/inclusion-audit [path]` | Comprehensive inclusion review |
+| `/test-assumption [path]` | Identify hidden assumptions about users |
 
-## 💬 Example Prompts
+### Utilities
+| Command | What it does |
+|---------|--------------|
+| `/inclusive-names` | Generate diverse name suggestions |
+| `/explain [path]` | Create decision record in `decisions/` |
+| `/impact [path]` | Analyze change impact before making it |
 
-- *"Add Google authentication to my app"*
-- *"Help me add ShadCN UI to my app"*
-- *"Migrate the database from SQLite to PostgreSQL and start it for me"*
-- *"Set up email sending with SendGrid"*
-- *"Solve the errors in the browser using the Chrome DevTools MCP server"*
-- *"Why isn't my recurring job working?"*
-- *"Deploy my app to Railway"*
+### Setup
+| Command | What it does |
+|---------|--------------|
+| `/teach-charter` | Configure plugin for your project |
 
+## Typical Workflow
 
-## 📖 Documentation Access
+**Starting a new project:**
+1. Run `/teach-charter` to set up your `.inclusion-config.md`
+2. Define your scope (US-only? Global? etc.)
+3. Set priorities for your team
 
-The plugin ensures Claude detects your project's Wasp version and references the correct documentation:
+**During development:**
+- Run `/guardian` after generating forms, UI, or examples
+- Chain it: "create the signup form, then /guardian it"
+- Run focused checks (`/language-check`, `/names-check`) as needed
 
-- **Latest:** `https://wasp.sh/llms.txt`
-- **Versioned:** `https://wasp.sh/llms-{version}.txt` (e.g., `llms-0.15.txt`)
+**Before shipping:**
+- Run `/inclusion-audit` for comprehensive review
+- Run `/test-assumption` on user-facing flows
 
+## Configuration
 
-## 🫂 Community & Contribute
+Your settings are stored in `.inclusion-config.md`:
 
-Join the [Wasp Discord](https://discord.gg/rzdnErX) for help and web dev discussion.
-Submit issues, feedback, or PRs: [Wasp Claude Code Plugins](https://github.com/wasp-lang/claude-plugins)
+- **Scope decisions**: What's in/out of scope (e.g., i18n for US-only products)
+- **Acknowledged findings**: Issues you've reviewed and accepted
+- **Priorities**: What matters most for your project
+- **Decisions location**: Where `/explain` saves decision records (default: `decisions/`)
+
+Run `/teach-charter` to create or update this file.
+
+## Philosophy
+
+This plugin isn't a linter. It's a **second pair of eyes** that asks:
+
+> "Who might this exclude? What assumptions are baked in?"
+
+It won't catch everything, and not everything it catches needs fixing. Use judgment. The goal is code that welcomes more users, not compliance with rules.
+```
+
+## Process
+
+1. Output the help text above
+2. If `.inclusion-config.md` exists, note: "Config loaded. Run `/teach-charter` to view or update."
+3. If no config exists, note: "No config found. Run `/teach-charter` to set up your project."

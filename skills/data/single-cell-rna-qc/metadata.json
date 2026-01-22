@@ -1,13 +1,7 @@
 {
   "name": "single-cell-rna-qc",
-  "description": "Performs quality control on single-cell RNA-seq data (.h5ad or .h5 files) using scverse best practices with MAD-based filtering and comprehensive visualizations. Use when users request QC analysis, fi",
-  "repo": "anthropics/life-sciences",
-  "category": "data",
-  "tags": [
-    "single",
-    "cell",
-    "rna"
-  ],
-  "stars": 102,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mdbabumiamssm/LLMs-Universal-Life-Science-and-Clinical-Skills-",
+  "path": "Skills/External_Collections/life-sciences_Claudeai-main/single-cell-rna-qc/SKILL.md",
+  "source": "github.com/mdbabumiamssm/LLMs-Universal-Life-Science-and-Clinical-Skills-",
+  "downloaded_at": "2026-01-21T01:53:28.843011Z"
 }

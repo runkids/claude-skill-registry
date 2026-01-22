@@ -1,7 +1,7 @@
 {
   "name": "scientific-slides",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/scientific-slides/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-14T02:44:48.507016Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/writing/scientific-slides/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:10.036630Z"
 }

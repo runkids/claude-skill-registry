@@ -1,91 +1,157 @@
 ---
-name: Project Memory
-description: This skill should be used when the user asks about "project memory", "persistent context", "guidance files", ".studio files", "session persistence", "direction files", "context between sessions", or discusses maintaining project context across Claude sessions. Provides framework for persistent project guidance.
-version: 1.0.0
+name: project-memory
+description: Persist context across sessions using external memory files
 ---
 
-# Project Memory
+# Project Memory Skill
 
-Maintain project context across sessions through structured files in `.studio/`.
+Maintain persistent context across Claude Code sessions using external files as memory.
 
-## Why It Matters
+## Memory System Overview
 
-Claude sessions are stateless. Without persistent documentation:
-- Direction decisions lost
-- Style choices must be re-explained
-- Architecture patterns forgotten
+Since Claude's context resets between sessions, we use files to persist important information:
 
-## Directory Structure
+| File | Purpose | Update Frequency |
+|------|---------|------------------|
+| `docs/status.md` | Current work status | Every session |
+| `docs/tech-debt.md` | Known technical debt | When identified |
+| `docs/decisions/*.md` | Architecture decisions | When made |
 
+## Session Start Protocol
+
+When starting a new session:
+
+1. **Read status file**
+   ```bash
+   cat docs/status.md
+   ```
+
+2. **Check git state**
+   ```bash
+   git log --oneline -10
+   git status
+   ```
+
+3. **Review recent decisions**
+   ```bash
+   ls -la docs/decisions/ | tail -5
+   ```
+
+4. **Summarize context** before proceeding with new work
+
+## Session End Protocol
+
+Before ending a session:
+
+1. **Summarize work done**
+2. **Update status.md** with:
+   - What was accomplished
+   - What's in progress
+   - Any blockers
+   - Context for next session
+3. **Document any decisions** in `docs/decisions/`
+4. **Commit changes** with descriptive message
+
+## Status File Format
+
+```markdown
+# Project Status
+
+## Last Updated
+[Timestamp]
+
+## Current Focus
+[Main area of work]
+
+## In Progress
+- [ ] [Task 1] - [status notes]
+- [ ] [Task 2] - [status notes]
+
+## Completed Recently
+- [x] [Completed task]
+
+## Blockers
+- [Blocker description] - [what's needed]
+
+## Decisions Made
+- [Decision]: [rationale]
+
+## Context for Next Session
+- [Important point 1]
+- [Important point 2]
+- [Where to pick up]
 ```
-project/
-├── .studio/
-│   ├── creative-direction.md        # Vision and pillars
-│   ├── art-direction.md             # Visual style
-│   ├── sound-direction.md           # Audio direction
-│   ├── tech-direction.md            # Technical constraints
-│   ├── visual-style.md              # Detailed visual specs
-│   ├── sonic-identity.md            # Audio style specs
-│   ├── project-status.md            # Work state
-│   ├── architecture/                # ADRs
-│   │   ├── decisions.md
-│   │   └── 001-*.md
-│   ├── characters/                  # Character specs
-│   ├── mechanics/                   # Mechanic specs
-│   ├── assets/                      # Asset specs
-│   ├── animations/                  # Motion descriptions
-│   ├── music/                       # Music specs
-│   ├── sfx/                         # SFX specs
-│   └── analysis/                    # Analysis reports
-└── ...
+
+## Decision Record Format
+
+Create `docs/decisions/YYYY-MM-DD-topic.md`:
+
+```markdown
+# [Number]. [Title]
+
+## Status
+[Proposed | Accepted | Deprecated]
+
+## Context
+[Why this decision is needed]
+
+## Decision
+[What we decided]
+
+## Consequences
+[What this means going forward]
 ```
 
-All `.studio/` files are committed and shared with the team.
+## Technical Debt Tracking
 
-## Creative Direction File Format
+Add to `docs/tech-debt.md` when noticing debt:
 
-```yaml
----
-art_style: dark-fantasy-painterly
-color_palette: desaturated-warm
-sonic_identity: organic-ambient
-architecture: ecs-with-rollback
-determinism: required
-file_size_limit: 300
-creative_pillars:
-  - atmospheric-dread
-  - meaningful-choices
----
+```markdown
+## [Priority Level]
 
-# Project Vision
-[Experience promise]
-
-# Art Direction Notes
-- 2024-01-15: Established dark fantasy palette
-
-# Sound Direction Notes
-- 2024-01-16: Organic textures over synthetic
-
-# Tech Direction Notes
-- 2024-01-15: Using fixed-point math
+| Item | Location | Description | Added |
+|------|----------|-------------|-------|
+| [Name] | [file:line] | [Description] | [Date] |
 ```
 
-## Session Workflow
+## Git as Memory
 
-**Start:** Check `.studio/` files, load context
-**During:** Ensure consistency with previous decisions, update if new
-**End:** Update project-status.md, document new decisions
+Git history serves as additional memory:
 
-## File Size Limits
+- **Commit messages** should explain why, not just what
+- **Branch names** should describe the work
+- **PR descriptions** capture context
 
-| File | Target | Max |
-|------|--------|-----|
-| creative-direction.md | 200 | 500 |
-| project-status.md | 50 | 100 |
-| Individual ADRs | 100 | 200 |
+### Useful Git Commands for Context
 
-When files grow: archive old decisions, keep recent, link to archives.
+```bash
+# Recent activity
+git log --oneline -20
 
-## References
+# What changed in a file
+git log -p --follow -- path/to/file
 
-- **`references/file-templates.md`** - Copy-paste templates
+# Search commits for keywords
+git log --grep="keyword"
+
+# Changes in current branch
+git log main..HEAD --oneline
+```
+
+## Context Handoff Checklist
+
+Before handing off to another session or team member:
+
+- [ ] `docs/status.md` is current
+- [ ] Uncommitted work is either committed or described
+- [ ] Decisions are documented
+- [ ] Blockers are noted
+- [ ] Next steps are clear
+
+## Best Practices
+
+1. **Update frequently** - Don't wait until the end
+2. **Be specific** - "Fixed auth" < "Fixed JWT expiry handling in refresh flow"
+3. **Include blockers** - They're easy to forget
+4. **Link to files** - "See src/auth/jwt.ts:45" for context
+5. **Keep it scannable** - Use lists and headers

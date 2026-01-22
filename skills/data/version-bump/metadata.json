@@ -1,7 +1,7 @@
 {
   "name": "version-bump",
-  "repo": "rust-works/omni-dev",
+  "repo": "firstloophq/nomendex",
   "path": ".claude/skills/version-bump/SKILL.md",
-  "source": "github.com/rust-works/omni-dev",
-  "downloaded_at": "2026-01-14T02:52:02.651740Z"
+  "source": "github.com/firstloophq/nomendex",
+  "downloaded_at": "2026-01-22T02:06:09.369263Z"
 }

@@ -1,344 +1,382 @@
 ---
 name: postgresql-expert
-description: |
-  Expert PostgreSQL database guidance using Bun.sql client. Provides comprehensive patterns
-  for queries, schema design, JSON/JSONB operations, full-text search, indexing, PL/pgSQL,
-  pgvector, and performance optimization. Use when working with PostgreSQL databases,
-  writing SQL queries, optimizing performance, designing schemas, or implementing database
-  features. Complements bun-expert skill for Bun.sql integration.
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob
+version: 1.0.0
+description: Expert-level PostgreSQL database administration, advanced queries, performance tuning, and production operations
+category: data
+author: PCL Team
+license: Apache-2.0
+tags:
+  - postgresql
+  - postgres
+  - database
+  - sql
+  - performance
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash(psql:*, pg_dump:*, pg_restore:*, createdb:*, dropdb:*)
+  - Glob
+  - Grep
+requirements:
+  postgresql: ">=15.0"
 ---
 
-# PostgreSQL Expert Skill
+# PostgreSQL Expert
 
-Expert guidance for PostgreSQL development using Bun's native SQL client. This skill provides comprehensive patterns for all PostgreSQL features while integrating seamlessly with Bun.sql.
+You are an expert in PostgreSQL with deep knowledge of advanced queries, indexing, performance tuning, replication, and database administration. You design and manage production PostgreSQL databases that are performant, reliable, and scalable.
 
-> **Prerequisite**: This skill works alongside the `bun-expert` skill. For Bun-specific patterns (runtime, bundler, package management), refer to that skill.
+## Core Expertise
 
-## Bun.sql PostgreSQL Integration
+### Advanced Data Types
 
-### Connection Setup
-
-```typescript
-import { sql, SQL } from "bun";
-
-// Environment-based (recommended) - uses POSTGRES_URL, DATABASE_URL, or PG* vars
-const db = sql;
-
-// Explicit connection with options
-const db = new SQL({
-  hostname: "localhost",
-  port: 5432,
-  database: "myapp",
-  username: "dbuser",
-  password: "secretpass",
-
-  // Connection pool settings
-  max: 20,              // Maximum connections (default: 10)
-  idleTimeout: 30,      // Close idle connections after 30s
-  maxLifetime: 3600,    // Max connection lifetime in seconds
-  connectionTimeout: 30, // Connection timeout
-
-  // SSL/TLS
-  tls: true,            // or { rejectUnauthorized: true, ca: "..." }
-
-  // BigInt handling
-  bigint: true,         // Return large numbers as BigInt
-
-  // Prepared statements
-  prepare: true,        // Enable named prepared statements (default)
-});
-
-// Dynamic passwords (AWS RDS IAM, etc.)
-const db = new SQL(url, {
-  password: async () => await signer.getAuthToken(),
-});
-```
-
-### Tagged Template Queries
-
-```typescript
-// All interpolated values are safely parameterized
-const users = await sql`
-  SELECT * FROM users
-  WHERE status = ${status}
-  AND created_at > ${date}
-`;
-
-// Object insertion helper
-const [user] = await sql`
-  INSERT INTO users ${sql({ name, email, role })}
-  RETURNING *
-`;
-
-// Bulk insert
-await sql`INSERT INTO users ${sql(usersArray)}`;
-
-// Pick specific columns
-await sql`INSERT INTO users ${sql(userData, "name", "email")}`;
-
-// Dynamic updates
-await sql`UPDATE users SET ${sql(updates)} WHERE id = ${id}`;
-
-// WHERE IN queries
-await sql`SELECT * FROM users WHERE id IN ${sql([1, 2, 3])}`;
-
-// PostgreSQL arrays
-await sql`INSERT INTO tags (items) VALUES (${sql.array(["a", "b", "c"])})`;
-await sql`SELECT * FROM products WHERE id = ANY(${sql.array(ids)})`;
-
-// Conditional query fragments
-const filter = showActive ? sql`AND active = true` : sql``;
-await sql`SELECT * FROM users WHERE 1=1 ${filter}`;
-```
-
-### Transactions
-
-```typescript
-// Auto-commit/rollback transaction
-await sql.begin(async (tx) => {
-  const [user] = await tx`INSERT INTO users (name) VALUES (${"Alice"}) RETURNING *`;
-  await tx`INSERT INTO accounts (user_id) VALUES (${user.id})`;
-  // Auto-commits on success, auto-rollbacks on error
-});
-
-// Transaction with options
-await sql.begin("read write", async (tx) => {
-  // Transaction body
-});
-
-// Savepoints (nested transactions)
-await sql.begin(async (tx) => {
-  await tx`INSERT INTO users (name) VALUES (${"Alice"})`;
-
-  await tx.savepoint(async (sp) => {
-    await sp`UPDATE users SET status = 'pending'`;
-    if (shouldRollback) throw new Error("Rollback savepoint");
-  });
-
-  // Continues even if savepoint rolled back
-  await tx`INSERT INTO audit_log (action) VALUES ('user_created')`;
-});
-
-// Reserved connections
-const reserved = await sql.reserve();
-try {
-  await reserved`SELECT * FROM locked_table FOR UPDATE`;
-} finally {
-  reserved.release();
-}
-
-// Using Symbol.dispose (auto-release)
-{
-  using conn = await sql.reserve();
-  await conn`SELECT 1`;
-} // Auto-released
-```
-
-### Error Handling
-
-```typescript
-import { SQL } from "bun";
-
-try {
-  await sql`INSERT INTO users (email) VALUES (${email})`;
-} catch (error) {
-  if (error instanceof SQL.PostgresError) {
-    switch (error.code) {
-      case "23505": // unique_violation
-        throw new ConflictError(`Email already exists: ${error.detail}`);
-      case "23503": // foreign_key_violation
-        throw new NotFoundError(`Referenced record not found`);
-      case "23514": // check_violation
-        throw new ValidationError(`Check constraint failed: ${error.constraint}`);
-      default:
-        console.error({
-          code: error.code,
-          message: error.message,
-          detail: error.detail,
-          hint: error.hint,
-          table: error.table,
-          column: error.column,
-          constraint: error.constraint,
-        });
-        throw error;
-    }
-  }
-  throw error;
-}
-```
-
-### Type Mapping (PostgreSQL ↔ JavaScript)
-
-| PostgreSQL | JavaScript | Notes |
-|------------|------------|-------|
-| `INTEGER`, `SMALLINT` | `number` | Within safe integer range |
-| `BIGINT` | `string` or `BigInt` | `BigInt` if `bigint: true` option |
-| `NUMERIC`, `DECIMAL` | `string` | Preserves precision |
-| `REAL`, `DOUBLE PRECISION` | `number` | |
-| `BOOLEAN` | `boolean` | |
-| `TEXT`, `VARCHAR`, `CHAR` | `string` | |
-| `DATE`, `TIMESTAMP`, `TIMESTAMPTZ` | `Date` | JavaScript Date object |
-| `JSON`, `JSONB` | `object` or `array` | Auto-parsed |
-| `BYTEA` | `Buffer` | Binary data |
-| `UUID` | `string` | |
-| `ARRAY` | `Array` | Automatic conversion |
-| `INTERVAL` | `string` | PostgreSQL interval format |
-
----
-
-## Core SQL Patterns
-
-### SELECT with All Clauses
-
+**JSON and JSONB:**
 ```sql
--- Full SELECT syntax
-SELECT DISTINCT ON (customer_id)
-    o.id,
-    o.order_date,
-    c.name AS customer_name,
-    SUM(oi.quantity * oi.price) AS total
-FROM orders o
-JOIN customers c ON c.id = o.customer_id
-LEFT JOIN order_items oi ON oi.order_id = o.id
-WHERE o.status = 'completed'
-    AND o.order_date >= NOW() - INTERVAL '30 days'
-GROUP BY o.id, o.order_date, c.name
-HAVING SUM(oi.quantity * oi.price) > 100
-ORDER BY customer_id, order_date DESC
-LIMIT 10 OFFSET 0
-FOR UPDATE SKIP LOCKED;
+-- Create table with JSONB
+CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
+    event_type VARCHAR(50),
+    data JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert JSON data
+INSERT INTO events (event_type, data) VALUES
+    ('user_signup', '{"email": "alice@example.com", "referrer": "google"}'),
+    ('purchase', '{"product_id": 123, "amount": 99.99, "currency": "USD"}');
+
+-- Query JSON
+SELECT * FROM events WHERE data->>'email' = 'alice@example.com';
+SELECT * FROM events WHERE data->'amount' > '50';
+SELECT * FROM events WHERE data @> '{"currency": "USD"}';
+
+-- Extract JSON values
+SELECT
+    event_type,
+    data->>'email' as email,
+    (data->>'amount')::NUMERIC as amount
+FROM events;
+
+-- JSON operators
+-- -> get JSON object field
+-- ->> get JSON object field as text
+-- #> get JSON object at path
+-- #>> get JSON object at path as text
+-- @> contains
+-- <@ is contained by
+-- ? has key
+-- ?| has any keys
+-- ?& has all keys
+
+-- Update JSON
+UPDATE events
+SET data = jsonb_set(data, '{verified}', 'true')
+WHERE event_type = 'user_signup';
+
+-- Remove JSON key
+UPDATE events
+SET data = data - 'temp_field'
+WHERE id = 1;
+
+-- JSON aggregation
+SELECT
+    event_type,
+    jsonb_agg(data) as all_events
+FROM events
+GROUP BY event_type;
 ```
 
-```typescript
-// Bun.sql implementation
-const orders = await sql`
-  SELECT DISTINCT ON (customer_id)
-    o.id,
-    o.order_date,
-    c.name AS customer_name,
-    SUM(oi.quantity * oi.price) AS total
-  FROM orders o
-  JOIN customers c ON c.id = o.customer_id
-  LEFT JOIN order_items oi ON oi.order_id = o.id
-  WHERE o.status = ${status}
-    AND o.order_date >= NOW() - INTERVAL '30 days'
-  GROUP BY o.id, o.order_date, c.name
-  HAVING SUM(oi.quantity * oi.price) > ${minTotal}
-  ORDER BY customer_id, order_date DESC
-  LIMIT ${limit} OFFSET ${offset}
-`;
+**Arrays:**
+```sql
+-- Array columns
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    tags TEXT[],
+    scores INTEGER[]
+);
+
+-- Insert arrays
+INSERT INTO users (name, tags, scores) VALUES
+    ('Alice', ARRAY['admin', 'developer'], ARRAY[95, 87, 92]),
+    ('Bob', ARRAY['user', 'viewer'], ARRAY[78, 85]);
+
+-- Query arrays
+SELECT * FROM users WHERE 'admin' = ANY(tags);
+SELECT * FROM users WHERE tags @> ARRAY['developer'];
+SELECT * FROM users WHERE tags && ARRAY['admin', 'moderator']; -- Overlaps
+
+-- Array functions
+SELECT
+    name,
+    array_length(tags, 1) as tag_count,
+    array_agg(unnest(scores)) as all_scores
+FROM users
+GROUP BY name;
+
+-- Unnest array
+SELECT
+    name,
+    unnest(tags) as tag
+FROM users;
 ```
 
-### UPSERT (INSERT ON CONFLICT)
+**UUID:**
+```sql
+-- Enable UUID extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-```typescript
-// Upsert single record
-const [product] = await sql`
-  INSERT INTO products (sku, name, price, quantity)
-  VALUES (${sku}, ${name}, ${price}, ${quantity})
-  ON CONFLICT (sku) DO UPDATE SET
-    name = EXCLUDED.name,
-    price = EXCLUDED.price,
-    quantity = products.quantity + EXCLUDED.quantity,
-    updated_at = NOW()
-  RETURNING *
-`;
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-// Bulk upsert
-await sql`
-  INSERT INTO inventory ${sql(items)}
-  ON CONFLICT (product_id, warehouse_id) DO UPDATE SET
-    quantity = EXCLUDED.quantity,
-    updated_at = NOW()
-`;
+-- Insert with UUID
+INSERT INTO users (email) VALUES ('alice@example.com');
 
-// Upsert with condition
-await sql`
-  INSERT INTO prices (product_id, price, effective_date)
-  VALUES (${productId}, ${price}, ${date})
-  ON CONFLICT (product_id)
-  WHERE effective_date < ${date}
-  DO UPDATE SET price = EXCLUDED.price, effective_date = EXCLUDED.effective_date
-`;
+-- Query by UUID
+SELECT * FROM users WHERE id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
 ```
 
-### UPDATE with FROM and RETURNING
+**Range Types:**
+```sql
+-- Integer range
+CREATE TABLE reservations (
+    id SERIAL PRIMARY KEY,
+    room_id INTEGER,
+    dates DATERANGE NOT NULL,
+    EXCLUDE USING GIST (room_id WITH =, dates WITH &&)
+);
 
-```typescript
-// Update with join
-const updated = await sql`
-  UPDATE orders o
-  SET
-    status = 'shipped',
-    shipped_at = NOW(),
-    shipped_by = ${userId}
-  FROM shipments s
-  WHERE s.order_id = o.id
-    AND s.status = 'ready'
-  RETURNING o.id, o.status, o.shipped_at
-`;
+-- Insert ranges
+INSERT INTO reservations (room_id, dates) VALUES
+    (101, '[2024-01-01,2024-01-05)');
 
-// Update with subquery
-await sql`
-  UPDATE employees
-  SET salary = (
-    SELECT AVG(salary) * 1.1
-    FROM employees e2
-    WHERE e2.department_id = employees.department_id
-  )
-  WHERE performance_rating > 4
-`;
+-- Query ranges
+SELECT * FROM reservations
+WHERE dates @> '2024-01-03'::DATE;
+
+SELECT * FROM reservations
+WHERE dates && '[2024-01-02,2024-01-06)'::DATERANGE;
 ```
 
-### DELETE with USING
+### Full-Text Search
 
-```typescript
-// Delete with join
-const deleted = await sql`
-  DELETE FROM order_items oi
-  USING orders o
-  WHERE oi.order_id = o.id
-    AND o.status = 'cancelled'
-    AND o.cancelled_at < NOW() - INTERVAL '90 days'
-  RETURNING oi.id, oi.order_id
-`;
+**tsvector and tsquery:**
+```sql
+-- Create table with full-text search
+CREATE TABLE articles (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    content TEXT,
+    search_vector tsvector
+);
+
+-- Generate tsvector
+UPDATE articles
+SET search_vector =
+    setweight(to_tsvector('english', COALESCE(title, '')), 'A') ||
+    setweight(to_tsvector('english', COALESCE(content, '')), 'B');
+
+-- Trigger to automatically update search_vector
+CREATE FUNCTION articles_search_trigger() RETURNS TRIGGER AS $$
+BEGIN
+    NEW.search_vector :=
+        setweight(to_tsvector('english', COALESCE(NEW.title, '')), 'A') ||
+        setweight(to_tsvector('english', COALESCE(NEW.content, '')), 'B');
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER articles_search_update
+BEFORE INSERT OR UPDATE ON articles
+FOR EACH ROW EXECUTE FUNCTION articles_search_trigger();
+
+-- Create GIN index for search
+CREATE INDEX articles_search_idx ON articles USING GIN(search_vector);
+
+-- Search queries
+SELECT * FROM articles
+WHERE search_vector @@ to_tsquery('english', 'postgresql & performance');
+
+SELECT * FROM articles
+WHERE search_vector @@ to_tsquery('english', 'database | sql');
+
+-- Ranked search results
+SELECT
+    id,
+    title,
+    ts_rank(search_vector, query) AS rank
+FROM articles, to_tsquery('english', 'postgresql & optimization') query
+WHERE search_vector @@ query
+ORDER BY rank DESC;
+
+-- Highlighted search results
+SELECT
+    id,
+    title,
+    ts_headline('english', content, query) as highlighted
+FROM articles, to_tsquery('english', 'postgresql') query
+WHERE search_vector @@ query;
 ```
 
-### Common Table Expressions (CTEs)
+### Advanced Indexes
 
-```typescript
-// Basic CTE
-const topCustomers = await sql`
-  WITH customer_totals AS (
+**Index Types:**
+```sql
+-- B-tree (default, for =, <, <=, >, >=)
+CREATE INDEX idx_users_email ON users(email);
+
+-- Hash (for = only, faster but fewer features)
+CREATE INDEX idx_users_email_hash ON users USING HASH(email);
+
+-- GIN (for full-text search, JSONB, arrays)
+CREATE INDEX idx_events_data ON events USING GIN(data);
+CREATE INDEX idx_users_tags ON users USING GIN(tags);
+
+-- GiST (for geometric data, full-text search)
+CREATE INDEX idx_locations ON locations USING GIST(coordinates);
+
+-- BRIN (for large tables with natural ordering)
+CREATE INDEX idx_logs_created ON logs USING BRIN(created_at);
+
+-- Partial indexes (filtered)
+CREATE INDEX idx_active_users ON users(email)
+WHERE is_active = true AND deleted_at IS NULL;
+
+-- Expression indexes
+CREATE INDEX idx_users_lower_email ON users(LOWER(email));
+
+-- Multi-column indexes
+CREATE INDEX idx_orders_user_date ON orders(user_id, created_at DESC);
+
+-- Covering indexes (INCLUDE clause)
+CREATE INDEX idx_users_email_covering ON users(email)
+INCLUDE (name, created_at);
+
+-- Unique indexes
+CREATE UNIQUE INDEX idx_users_email_unique ON users(email);
+
+-- Concurrent index creation (no table lock)
+CREATE INDEX CONCURRENTLY idx_users_name ON users(name);
+```
+
+**Index Management:**
+```sql
+-- List indexes
+SELECT
+    schemaname,
+    tablename,
+    indexname,
+    indexdef
+FROM pg_indexes
+WHERE tablename = 'users';
+
+-- Index size
+SELECT
+    indexname,
+    pg_size_pretty(pg_relation_size(indexname::regclass)) as size
+FROM pg_indexes
+WHERE tablename = 'users';
+
+-- Unused indexes
+SELECT
+    schemaname || '.' || tablename AS table,
+    indexname AS index,
+    pg_size_pretty(pg_relation_size(i.indexrelid)) AS index_size,
+    idx_scan as index_scans
+FROM pg_stat_user_indexes ui
+JOIN pg_index i ON ui.indexrelid = i.indexrelid
+WHERE NOT indisunique
+    AND idx_scan < 50
+    AND pg_relation_size(i.indexrelid) > 5 * 8192
+ORDER BY pg_relation_size(i.indexrelid) DESC;
+
+-- Rebuild index
+REINDEX INDEX idx_users_email;
+REINDEX TABLE users;
+
+-- Drop index
+DROP INDEX idx_users_email;
+DROP INDEX CONCURRENTLY idx_users_email; -- Without table lock
+```
+
+### Advanced Queries
+
+**Window Functions:**
+```sql
+-- Running total
+SELECT
+    order_date,
+    amount,
+    SUM(amount) OVER (ORDER BY order_date) as running_total
+FROM orders;
+
+-- Moving average
+SELECT
+    date,
+    value,
+    AVG(value) OVER (
+        ORDER BY date
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) as moving_avg_7_days
+FROM metrics;
+
+-- Row number within partition
+SELECT
+    user_id,
+    order_date,
+    amount,
+    ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY order_date DESC) as rn
+FROM orders;
+
+-- Get most recent order per user
+SELECT * FROM (
     SELECT
-      customer_id,
-      SUM(amount) AS total_spent,
-      COUNT(*) AS order_count
+        *,
+        ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at DESC) as rn
     FROM orders
-    WHERE created_at >= NOW() - INTERVAL '1 year'
-    GROUP BY customer_id
-  )
-  SELECT
-    c.name,
-    c.email,
-    ct.total_spent,
-    ct.order_count
-  FROM customer_totals ct
-  JOIN customers c ON c.id = ct.customer_id
-  WHERE ct.total_spent > ${threshold}
-  ORDER BY ct.total_spent DESC
-`;
+) ranked
+WHERE rn = 1;
 
-// Recursive CTE (hierarchical data)
-const orgChart = await sql`
-  WITH RECURSIVE org_tree AS (
-    -- Base case: root nodes
+-- Rank and dense_rank
+SELECT
+    name,
+    score,
+    RANK() OVER (ORDER BY score DESC) as rank,
+    DENSE_RANK() OVER (ORDER BY score DESC) as dense_rank,
+    PERCENT_RANK() OVER (ORDER BY score) as percentile
+FROM students;
+
+-- LAG and LEAD
+SELECT
+    date,
+    value,
+    LAG(value) OVER (ORDER BY date) as previous_value,
+    LEAD(value) OVER (ORDER BY date) as next_value,
+    value - LAG(value) OVER (ORDER BY date) as change
+FROM metrics;
+
+-- NTILE (divide into buckets)
+SELECT
+    name,
+    salary,
+    NTILE(4) OVER (ORDER BY salary DESC) as quartile
+FROM employees;
+```
+
+**Recursive CTEs:**
+```sql
+-- Employee hierarchy
+WITH RECURSIVE employee_tree AS (
+    -- Base case: top-level employees
     SELECT
-      id, name, manager_id,
-      1 AS level,
-      ARRAY[id] AS path,
-      name AS full_path
+        id,
+        name,
+        manager_id,
+        1 as level,
+        name::TEXT as path
     FROM employees
     WHERE manager_id IS NULL
 
@@ -346,1090 +384,392 @@ const orgChart = await sql`
 
     -- Recursive case
     SELECT
-      e.id, e.name, e.manager_id,
-      t.level + 1,
-      t.path || e.id,
-      t.full_path || ' > ' || e.name
+        e.id,
+        e.name,
+        e.manager_id,
+        et.level + 1,
+        et.path || ' -> ' || e.name
     FROM employees e
-    JOIN org_tree t ON e.manager_id = t.id
-    WHERE NOT e.id = ANY(t.path)  -- Cycle detection
-  )
-  SELECT * FROM org_tree
-  ORDER BY path
-`;
+    INNER JOIN employee_tree et ON e.manager_id = et.id
+)
+SELECT * FROM employee_tree
+ORDER BY path;
 
-// CTE for modifying data
-await sql`
-  WITH deleted_orders AS (
-    DELETE FROM orders
-    WHERE status = 'cancelled' AND created_at < NOW() - INTERVAL '1 year'
-    RETURNING *
-  )
-  INSERT INTO archived_orders
-  SELECT * FROM deleted_orders
-`;
+-- Calculate factorial
+WITH RECURSIVE factorial(n, fact) AS (
+    SELECT 1, 1
+    UNION ALL
+    SELECT n + 1, fact * (n + 1)
+    FROM factorial
+    WHERE n < 10
+)
+SELECT * FROM factorial;
+
+-- Generate series alternative
+WITH RECURSIVE numbers(n) AS (
+    SELECT 1
+    UNION ALL
+    SELECT n + 1 FROM numbers WHERE n < 100
+)
+SELECT * FROM numbers;
 ```
 
-### Window Functions
-
-```typescript
-// Ranking functions
-const rankedProducts = await sql`
-  SELECT
-    category,
-    name,
-    price,
-    ROW_NUMBER() OVER (PARTITION BY category ORDER BY price DESC) AS row_num,
-    RANK() OVER (PARTITION BY category ORDER BY price DESC) AS rank,
-    DENSE_RANK() OVER (PARTITION BY category ORDER BY price DESC) AS dense_rank,
-    PERCENT_RANK() OVER (PARTITION BY category ORDER BY price DESC) AS pct_rank
-  FROM products
-  WHERE active = true
-`;
-
-// LAG/LEAD for time-series analysis
-const salesTrend = await sql`
-  SELECT
-    date,
-    revenue,
-    LAG(revenue, 1) OVER (ORDER BY date) AS prev_day,
-    LEAD(revenue, 1) OVER (ORDER BY date) AS next_day,
-    revenue - LAG(revenue, 1) OVER (ORDER BY date) AS daily_change,
-    SUM(revenue) OVER (ORDER BY date) AS running_total,
-    AVG(revenue) OVER (
-      ORDER BY date
-      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
-    ) AS moving_avg_7day
-  FROM daily_sales
-  WHERE date >= ${startDate}
-`;
-
-// FIRST_VALUE, LAST_VALUE, NTH_VALUE
-const categoryStats = await sql`
-  SELECT DISTINCT
-    category,
-    FIRST_VALUE(name) OVER w AS cheapest,
-    LAST_VALUE(name) OVER w AS most_expensive,
-    NTH_VALUE(name, 2) OVER w AS second_cheapest
-  FROM products
-  WINDOW w AS (
-    PARTITION BY category
-    ORDER BY price
-    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
-  )
-`;
-```
-
-### GROUPING SETS, CUBE, ROLLUP
-
-```typescript
-// Multi-dimensional aggregation
-const salesReport = await sql`
-  SELECT
-    COALESCE(region, 'All Regions') AS region,
-    COALESCE(category, 'All Categories') AS category,
-    COALESCE(TO_CHAR(sale_date, 'YYYY-MM'), 'All Months') AS month,
-    SUM(amount) AS total_sales,
-    COUNT(*) AS transaction_count,
-    GROUPING(region, category, sale_date) AS grouping_level
-  FROM sales
-  WHERE sale_date >= ${startDate}
-  GROUP BY CUBE (region, category, DATE_TRUNC('month', sale_date))
-  ORDER BY
-    GROUPING(region) DESC,
-    GROUPING(category) DESC,
-    region, category, month
-`;
-
-// ROLLUP for hierarchical totals
-const hierarchicalReport = await sql`
-  SELECT
-    year,
-    quarter,
-    month,
-    SUM(revenue) AS total_revenue
-  FROM sales
-  GROUP BY ROLLUP (year, quarter, month)
-  ORDER BY year, quarter, month
-`;
-```
-
-### Lateral Joins
-
-```typescript
-// Get top N items per category
-const topPerCategory = await sql`
-  SELECT c.name AS category, p.*
-  FROM categories c
-  CROSS JOIN LATERAL (
-    SELECT id, name, price
-    FROM products
-    WHERE category_id = c.id
-    ORDER BY sales_count DESC
-    LIMIT 3
-  ) p
-`;
-
-// Correlated subquery as lateral join
-const userActivity = await sql`
-  SELECT
-    u.id,
-    u.name,
-    recent.order_count,
-    recent.total_spent
-  FROM users u
-  LEFT JOIN LATERAL (
-    SELECT
-      COUNT(*) AS order_count,
-      COALESCE(SUM(amount), 0) AS total_spent
-    FROM orders o
-    WHERE o.user_id = u.id
-      AND o.created_at > NOW() - INTERVAL '30 days'
-  ) recent ON true
-  WHERE u.active = true
-`;
-```
-
----
-
-## JSON/JSONB Operations
-
-### Extraction and Querying
-
-```typescript
-// JSON extraction
-const users = await sql`
-  SELECT
-    id,
-    data->>'name' AS name,                    -- Text extraction
-    data->'address'->>'city' AS city,         -- Nested text
-    data->'address'->'coordinates' AS coords, -- JSON value
-    data#>>'{contacts,0,email}' AS primary_email,  -- Path extraction
-    data->'tags'->0 AS first_tag              -- Array index
-  FROM users
-  WHERE data->>'status' = ${status}
-`;
-
-// JSONB containment queries (uses GIN index)
-const products = await sql`
-  SELECT * FROM products
-  WHERE metadata @> ${sql({ category: "electronics", inStock: true })}
-`;
-
-// Key existence
-const withEmail = await sql`
-  SELECT * FROM users WHERE data ? 'email'
-`;
-
-// Any/all keys exist
-const withContact = await sql`
-  SELECT * FROM users
-  WHERE data ?| ARRAY['email', 'phone']  -- Any of these
-`;
-
-const complete = await sql`
-  SELECT * FROM users
-  WHERE data ?& ARRAY['email', 'phone', 'address']  -- All of these
-`;
-```
-
-### JSON Path Queries
-
-```typescript
-// JSON path existence
-const filtered = await sql`
-  SELECT * FROM products
-  WHERE data @? '$.tags[*] ? (@ == "sale")'
-`;
-
-// JSON path query functions
-const extracted = await sql`
-  SELECT
-    id,
-    jsonb_path_query_array(data, '$.items[*].price') AS all_prices,
-    jsonb_path_query_first(data, '$.items[0].name') AS first_item
-  FROM orders
-  WHERE jsonb_path_exists(data, '$.items[*] ? (@.quantity > 10)')
-`;
-
-// JSON path with variables
-const expensiveItems = await sql`
-  SELECT jsonb_path_query(
-    data,
-    '$.items[*] ? (@.price > $min_price)',
-    ${sql({ min_price: 100 })}
-  ) AS expensive_items
-  FROM orders
-`;
-```
-
-### JSON Modification
-
-```typescript
-// Update nested value
-await sql`
-  UPDATE users
-  SET data = jsonb_set(
-    data,
-    '{address,city}',
-    ${sql(JSON.stringify(newCity))}::jsonb
-  )
-  WHERE id = ${userId}
-`;
-
-// Add to array
-await sql`
-  UPDATE products
-  SET data = jsonb_insert(
-    data,
-    '{tags,0}',
-    ${sql(JSON.stringify(newTag))}::jsonb
-  )
-  WHERE id = ${productId}
-`;
-
-// Concatenate/merge objects
-await sql`
-  UPDATE users
-  SET data = data || ${sql({ lastLogin: new Date().toISOString() })}::jsonb
-  WHERE id = ${userId}
-`;
-
-// Remove key
-await sql`
-  UPDATE users
-  SET data = data - 'temporaryField'
-  WHERE data ? 'temporaryField'
-`;
-
-// Remove at path
-await sql`
-  UPDATE users
-  SET data = data #- '{address,apartment}'
-  WHERE id = ${userId}
-`;
-```
-
-### JSON Aggregation
-
-```typescript
-// Build JSON from query results
-const orderWithItems = await sql`
-  SELECT
-    o.id,
-    o.created_at,
-    json_build_object(
-      'id', c.id,
-      'name', c.name,
-      'email', c.email
-    ) AS customer,
-    json_agg(
-      json_build_object(
-        'product', p.name,
-        'quantity', oi.quantity,
-        'price', oi.price
-      ) ORDER BY p.name
-    ) AS items,
-    json_object_agg(p.sku, oi.quantity) AS quantities_by_sku
-  FROM orders o
-  JOIN customers c ON c.id = o.customer_id
-  JOIN order_items oi ON oi.order_id = o.id
-  JOIN products p ON p.id = oi.product_id
-  WHERE o.id = ${orderId}
-  GROUP BY o.id, c.id
-`;
-
-// Expand JSON to rows
-const expandedItems = await sql`
-  SELECT
-    o.id,
-    item->>'name' AS item_name,
-    (item->>'price')::numeric AS item_price
-  FROM orders o,
-  jsonb_array_elements(o.data->'items') AS item
-  WHERE o.status = 'pending'
-`;
-
-// JSON to record
-const structured = await sql`
-  SELECT *
-  FROM jsonb_to_record(${sql(jsonData)}::jsonb)
-  AS x(name text, age int, email text)
-`;
-```
-
-For complete JSON/JSONB reference, see [references/json-operations.md](references/json-operations.md).
-
----
-
-## Full-Text Search
-
-### Basic Full-Text Search
-
-```typescript
-// Simple search
-const results = await sql`
-  SELECT
-    id,
-    title,
-    ts_headline('english', body, query, 'StartSel=<mark>, StopSel=</mark>') AS snippet,
-    ts_rank(search_vector, query) AS rank
-  FROM articles,
-    to_tsquery('english', ${searchTerms}) AS query
-  WHERE search_vector @@ query
-  ORDER BY rank DESC
-  LIMIT ${limit}
-`;
-
-// Phrase search
-const phraseResults = await sql`
-  SELECT * FROM articles
-  WHERE search_vector @@ phraseto_tsquery('english', ${phrase})
-`;
-
-// Web search syntax (supports OR, quotes, -)
-const webSearch = await sql`
-  SELECT * FROM articles
-  WHERE search_vector @@ websearch_to_tsquery('english', ${userQuery})
-`;
-```
-
-### Weighted Search
-
-```typescript
-// Create weighted search vector
-await sql`
-  UPDATE articles SET search_vector =
-    setweight(to_tsvector('english', COALESCE(title, '')), 'A') ||
-    setweight(to_tsvector('english', COALESCE(subtitle, '')), 'B') ||
-    setweight(to_tsvector('english', COALESCE(abstract, '')), 'C') ||
-    setweight(to_tsvector('english', COALESCE(body, '')), 'D')
-`;
-
-// Search with custom weights
-const weighted = await sql`
-  SELECT
-    id, title,
-    ts_rank(search_vector, query, 1) AS rank  -- 1 = normalize by document length
-  FROM articles, to_tsquery('english', ${terms}) AS query
-  WHERE search_vector @@ query
-  ORDER BY rank DESC
-`;
-```
-
-### Full-Text Search Indexes
-
-```typescript
-// GIN index for full-text search
-await sql`
-  CREATE INDEX articles_search_idx ON articles USING GIN (search_vector)
-`;
-
-// Expression-based index
-await sql`
-  CREATE INDEX articles_title_search_idx
-  ON articles
-  USING GIN (to_tsvector('english', title))
-`;
-
-// Combined with other columns
-await sql`
-  CREATE INDEX articles_search_idx
-  ON articles
-  USING GIN (search_vector)
-  WHERE status = 'published'
-`;
-```
-
-### Trigger for Auto-Updating Search Vector
-
+**Lateral Joins:**
 ```sql
--- Create trigger function
-CREATE OR REPLACE FUNCTION articles_search_vector_update()
-RETURNS trigger AS $$
-BEGIN
-  NEW.search_vector :=
-    setweight(to_tsvector('english', COALESCE(NEW.title, '')), 'A') ||
-    setweight(to_tsvector('english', COALESCE(NEW.subtitle, '')), 'B') ||
-    setweight(to_tsvector('english', COALESCE(NEW.body, '')), 'D');
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+-- Get top 3 orders per user
+SELECT
+    u.name,
+    o.order_date,
+    o.total
+FROM users u
+CROSS JOIN LATERAL (
+    SELECT order_date, total
+    FROM orders
+    WHERE user_id = u.id
+    ORDER BY order_date DESC
+    LIMIT 3
+) o;
 
--- Create trigger
-CREATE TRIGGER articles_search_vector_trigger
-  BEFORE INSERT OR UPDATE OF title, subtitle, body ON articles
-  FOR EACH ROW
-  EXECUTE FUNCTION articles_search_vector_update();
-```
-
-For complete full-text search guide, see [references/full-text-search.md](references/full-text-search.md).
-
----
-
-## Indexing Strategies
-
-### Index Type Selection Guide
-
-| Use Case | Index Type | Example |
-|----------|------------|---------|
-| Equality/range queries | B-tree (default) | `WHERE status = 'active'` |
-| Equality only | Hash | `WHERE id = 123` |
-| Array containment | GIN | `WHERE tags @> ARRAY['sql']` |
-| JSONB queries | GIN | `WHERE data @> '{"key": "value"}'` |
-| Full-text search | GIN | `WHERE search_vector @@ query` |
-| Geometric/range types | GiST | `WHERE box @> point` |
-| Nearest neighbor | GiST | `ORDER BY location <-> point` |
-| Large sequential data | BRIN | `WHERE created_at > '2024-01-01'` |
-| Fuzzy text matching | GIN + pg_trgm | `WHERE name % 'Jon'` |
-| Vector similarity | HNSW/IVFFlat | `ORDER BY embedding <-> vector` |
-
-### Creating Indexes
-
-```typescript
-// B-tree (default) - equality and range
-await sql`CREATE INDEX orders_customer_id_idx ON orders (customer_id)`;
-await sql`CREATE INDEX orders_date_idx ON orders (created_at DESC)`;
-
-// Multi-column index
-await sql`CREATE INDEX orders_customer_date_idx ON orders (customer_id, created_at DESC)`;
-
-// Partial index (filtered)
-await sql`CREATE INDEX orders_pending_idx ON orders (created_at) WHERE status = 'pending'`;
-
-// Expression index
-await sql`CREATE INDEX users_email_lower_idx ON users (LOWER(email))`;
-
-// GIN for arrays
-await sql`CREATE INDEX products_tags_idx ON products USING GIN (tags)`;
-
-// GIN for JSONB
-await sql`CREATE INDEX users_data_idx ON users USING GIN (data)`;
-await sql`CREATE INDEX users_data_path_idx ON users USING GIN (data jsonb_path_ops)`;
-
-// GiST for geometric/range
-await sql`CREATE INDEX locations_point_idx ON locations USING GiST (coordinates)`;
-
-// BRIN for large sequential tables
-await sql`CREATE INDEX logs_created_idx ON logs USING BRIN (created_at) WITH (pages_per_range = 128)`;
-
-// Covering index (include columns for index-only scans)
-await sql`
-  CREATE INDEX orders_customer_covering_idx
-  ON orders (customer_id)
-  INCLUDE (order_date, total_amount)
-`;
-
-// Concurrent index creation (no blocking)
-await sql`CREATE INDEX CONCURRENTLY users_email_idx ON users (email)`;
-```
-
-### Fuzzy Text Matching (pg_trgm)
-
-```typescript
-// Enable extension
-await sql`CREATE EXTENSION IF NOT EXISTS pg_trgm`;
-
-// Create trigram index
-await sql`CREATE INDEX users_name_trgm_idx ON users USING GIN (name gin_trgm_ops)`;
-
-// Similarity search
-const similar = await sql`
-  SELECT name, similarity(name, ${searchTerm}) AS sim
-  FROM users
-  WHERE name % ${searchTerm}
-  ORDER BY sim DESC
-  LIMIT 10
-`;
-
-// ILIKE with index support
-const matches = await sql`
-  SELECT * FROM products
-  WHERE name ILIKE ${`%${searchTerm}%`}
-`;
-```
-
-For complete indexing guide, see [references/indexing-strategies.md](references/indexing-strategies.md).
-
----
-
-## pgvector - Vector Similarity Search
-
-### Setup
-
-```typescript
-await sql`CREATE EXTENSION IF NOT EXISTS vector`;
-
-// Create table with vector column
-await sql`
-  CREATE TABLE documents (
-    id SERIAL PRIMARY KEY,
-    content TEXT NOT NULL,
-    embedding vector(1536),  -- OpenAI embedding dimension
-    metadata JSONB DEFAULT '{}'
-  )
-`;
-```
-
-### Storing and Querying Vectors
-
-```typescript
-// Insert with embedding
-await sql`
-  INSERT INTO documents (content, embedding, metadata)
-  VALUES (
-    ${content},
-    ${sql.array(embeddingArray)}::vector,
-    ${sql({ source: "upload", category })}
-  )
-`;
-
-// Similarity search (L2 distance)
-const similar = await sql`
-  SELECT
-    id,
-    content,
-    embedding <-> ${sql.array(queryEmbedding)}::vector AS distance
-  FROM documents
-  ORDER BY embedding <-> ${sql.array(queryEmbedding)}::vector
-  LIMIT ${k}
-`;
-
-// Cosine similarity
-const cosineSimilar = await sql`
-  SELECT
-    id,
-    content,
-    1 - (embedding <=> ${sql.array(queryEmbedding)}::vector) AS similarity
-  FROM documents
-  ORDER BY embedding <=> ${sql.array(queryEmbedding)}::vector
-  LIMIT ${k}
-`;
-
-// Inner product (for normalized vectors)
-const innerProduct = await sql`
-  SELECT id, content
-  FROM documents
-  ORDER BY embedding <#> ${sql.array(queryEmbedding)}::vector
-  LIMIT ${k}
-`;
-
-// Filtered similarity search
-const filtered = await sql`
-  SELECT id, content
-  FROM documents
-  WHERE metadata @> ${sql({ category: "technical" })}
-  ORDER BY embedding <-> ${sql.array(queryEmbedding)}::vector
-  LIMIT ${k}
-`;
-```
-
-### Vector Indexes
-
-```typescript
-// HNSW index (better query performance, can build before data)
-await sql`
-  CREATE INDEX documents_embedding_hnsw_idx
-  ON documents
-  USING hnsw (embedding vector_l2_ops)
-  WITH (m = 16, ef_construction = 64)
-`;
-
-// IVFFlat index (build after data loaded)
-await sql`
-  CREATE INDEX documents_embedding_ivfflat_idx
-  ON documents
-  USING ivfflat (embedding vector_l2_ops)
-  WITH (lists = 100)
-`;
-
-// Cosine distance index
-await sql`
-  CREATE INDEX documents_embedding_cosine_idx
-  ON documents
-  USING hnsw (embedding vector_cosine_ops)
-`;
-
-// Set search parameters for better recall
-await sql`SET ivfflat.probes = 10`;
-await sql`SET hnsw.ef_search = 100`;
-```
-
-For complete pgvector guide, see [references/pgvector-guide.md](references/pgvector-guide.md).
-
----
-
-## PL/pgSQL Functions and Triggers
-
-### Function Examples
-
-```typescript
-// Create function
-await sql`
-  CREATE OR REPLACE FUNCTION calculate_order_total(order_id INTEGER)
-  RETURNS NUMERIC AS $$
-  DECLARE
-    total NUMERIC := 0;
-  BEGIN
-    SELECT COALESCE(SUM(quantity * unit_price), 0)
-    INTO total
-    FROM order_items
-    WHERE order_id = calculate_order_total.order_id;
-
-    RETURN total;
-  END;
-  $$ LANGUAGE plpgsql STABLE;
-`;
-
-// Table-returning function
-await sql`
-  CREATE OR REPLACE FUNCTION get_customer_orders(
-    p_customer_id INTEGER,
-    p_limit INTEGER DEFAULT 10
-  )
-  RETURNS TABLE(
-    order_id INTEGER,
-    order_date TIMESTAMP,
-    total NUMERIC,
-    item_count BIGINT
-  ) AS $$
-  BEGIN
-    RETURN QUERY
+-- Complex aggregations
+SELECT
+    u.name,
+    stats.order_count,
+    stats.total_spent,
+    stats.avg_order
+FROM users u
+LEFT JOIN LATERAL (
     SELECT
-      o.id,
-      o.created_at,
-      SUM(oi.quantity * oi.unit_price),
-      COUNT(oi.id)
-    FROM orders o
-    JOIN order_items oi ON oi.order_id = o.id
-    WHERE o.customer_id = p_customer_id
-    GROUP BY o.id
-    ORDER BY o.created_at DESC
-    LIMIT p_limit;
-  END;
-  $$ LANGUAGE plpgsql STABLE;
-`;
-
-// Call from Bun.sql
-const orders = await sql`SELECT * FROM get_customer_orders(${customerId}, ${10})`;
+        COUNT(*) as order_count,
+        SUM(total) as total_spent,
+        AVG(total) as avg_order
+    FROM orders
+    WHERE user_id = u.id
+) stats ON true;
 ```
 
-### Trigger Examples
+### Performance Optimization
 
-```typescript
-// Audit trigger
-await sql`
-  CREATE OR REPLACE FUNCTION audit_trigger_func()
-  RETURNS TRIGGER AS $$
-  BEGIN
-    IF TG_OP = 'DELETE' THEN
-      INSERT INTO audit_log (table_name, operation, old_data, changed_by, changed_at)
-      VALUES (TG_TABLE_NAME, 'D', row_to_json(OLD), current_user, NOW());
-      RETURN OLD;
-    ELSIF TG_OP = 'UPDATE' THEN
-      INSERT INTO audit_log (table_name, operation, old_data, new_data, changed_by, changed_at)
-      VALUES (TG_TABLE_NAME, 'U', row_to_json(OLD), row_to_json(NEW), current_user, NOW());
-      RETURN NEW;
-    ELSIF TG_OP = 'INSERT' THEN
-      INSERT INTO audit_log (table_name, operation, new_data, changed_by, changed_at)
-      VALUES (TG_TABLE_NAME, 'I', row_to_json(NEW), current_user, NOW());
-      RETURN NEW;
-    END IF;
-    RETURN NULL;
-  END;
-  $$ LANGUAGE plpgsql;
-`;
+**EXPLAIN and ANALYZE:**
+```sql
+-- See query plan
+EXPLAIN SELECT * FROM users WHERE email = 'alice@example.com';
 
-// Auto-update timestamps trigger
-await sql`
-  CREATE OR REPLACE FUNCTION update_timestamps()
-  RETURNS TRIGGER AS $$
-  BEGIN
-    NEW.updated_at := NOW();
-    IF TG_OP = 'INSERT' THEN
-      NEW.created_at := NOW();
-    END IF;
-    RETURN NEW;
-  END;
-  $$ LANGUAGE plpgsql;
+-- See actual execution
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'alice@example.com';
 
-  CREATE TRIGGER set_timestamps
-    BEFORE INSERT OR UPDATE ON orders
-    FOR EACH ROW
-    EXECUTE FUNCTION update_timestamps();
-`;
+-- More details
+EXPLAIN (ANALYZE, BUFFERS, VERBOSE)
+SELECT u.name, COUNT(o.id)
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name;
 
-// Validation trigger
-await sql`
-  CREATE OR REPLACE FUNCTION validate_order()
-  RETURNS TRIGGER AS $$
-  BEGIN
-    IF NEW.quantity <= 0 THEN
-      RAISE EXCEPTION 'Quantity must be positive';
-    END IF;
-    IF NEW.unit_price < 0 THEN
-      RAISE EXCEPTION 'Price cannot be negative';
-    END IF;
-    RETURN NEW;
-  END;
-  $$ LANGUAGE plpgsql;
-`;
+-- Look for:
+-- - Seq Scan (bad for large tables)
+-- - Index Scan (good)
+-- - High cost values
+-- - Slow execution time
+-- - Large buffer reads
 ```
 
-For complete PL/pgSQL reference, see [references/plpgsql-reference.md](references/plpgsql-reference.md).
+**Query Optimization:**
+```sql
+-- Use indexes
+CREATE INDEX idx_users_email ON users(email);
 
----
+-- Avoid SELECT *
+-- Bad
+SELECT * FROM users;
 
-## Performance Optimization
+-- Good
+SELECT id, name, email FROM users;
 
-### EXPLAIN ANALYZE
+-- Use LIMIT
+SELECT id, name FROM users ORDER BY created_at DESC LIMIT 10;
 
-```typescript
-// Get execution plan with actual timing
-const plan = await sql`
-  EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)
-  SELECT * FROM orders o
-  JOIN customers c ON c.id = o.customer_id
-  WHERE o.created_at > NOW() - INTERVAL '30 days'
-`;
+-- Avoid functions on indexed columns in WHERE
+-- Bad (index not used)
+SELECT * FROM users WHERE UPPER(email) = 'ALICE@EXAMPLE.COM';
 
-// Interpretation guide in the result
-console.log("Key metrics to analyze:");
-console.log("- Seq Scan on large tables (consider indexes)");
-console.log("- High actual rows vs estimated rows (run ANALYZE)");
-console.log("- Buffers read >> hit (I/O bottleneck)");
-console.log("- Nested Loop with high rows (consider Hash/Merge Join)");
+-- Good (index used)
+SELECT * FROM users WHERE email = 'alice@example.com';
+
+-- Or use expression index
+CREATE INDEX idx_users_email_upper ON users(UPPER(email));
+
+-- Use EXISTS instead of COUNT
+-- Bad
+SELECT * FROM users WHERE (SELECT COUNT(*) FROM orders WHERE user_id = users.id) > 0;
+
+-- Good
+SELECT * FROM users WHERE EXISTS (SELECT 1 FROM orders WHERE user_id = users.id);
+
+-- Partition large tables
+CREATE TABLE orders_2024_01 PARTITION OF orders
+FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
+
+-- Use appropriate JOIN type
+-- INNER JOIN when both sides must match
+-- LEFT JOIN when left side is needed regardless
+-- Avoid RIGHT JOIN (use LEFT JOIN instead)
 ```
 
-### Query Optimization Patterns
-
-```typescript
-// Use EXISTS instead of IN for large subqueries
-// Bad:
-await sql`SELECT * FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE active)`;
-// Good:
-await sql`SELECT * FROM orders o WHERE EXISTS (SELECT 1 FROM customers c WHERE c.id = o.customer_id AND c.active)`;
-
-// Use LIMIT early in CTEs when possible
-await sql`
-  WITH recent_orders AS (
-    SELECT * FROM orders
-    WHERE created_at > NOW() - INTERVAL '1 day'
-    LIMIT 1000  -- Early limit
-  )
-  SELECT * FROM recent_orders WHERE status = 'pending'
-`;
-
-// Batch operations for better performance
-await sql.begin(async (tx) => {
-  // Process in batches
-  for (let i = 0; i < items.length; i += 1000) {
-    const batch = items.slice(i, i + 1000);
-    await tx`INSERT INTO products ${tx(batch)}`;
-  }
-});
+**Connection Pooling:**
+```sql
+-- Use connection pooler like PgBouncer
+-- Configure in application:
+DATABASE_URL=postgresql://user:pass@pgbouncer:6432/mydb?pool_timeout=10&pool_size=20
 ```
 
-### Statistics and Maintenance
+### Transactions and Locking
 
-```typescript
-// Update statistics
-await sql`ANALYZE orders`;
-await sql`ANALYZE VERBOSE orders`;
+**Transaction Isolation Levels:**
+```sql
+-- Read Committed (default)
+BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
-// Vacuum table
-await sql`VACUUM orders`;
-await sql`VACUUM (ANALYZE, VERBOSE) orders`;
+-- Repeatable Read
+BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 
-// Check table bloat
-const bloatCheck = await sql`
-  SELECT
-    relname,
-    n_live_tup,
-    n_dead_tup,
-    round(n_dead_tup::numeric / NULLIF(n_live_tup, 0) * 100, 2) AS dead_pct,
-    last_vacuum,
-    last_autovacuum
-  FROM pg_stat_user_tables
-  ORDER BY n_dead_tup DESC
-  LIMIT 10
-`;
+-- Serializable
+BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 
-// Check index usage
-const indexUsage = await sql`
-  SELECT
+-- Example
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+COMMIT;
+```
+
+**Locking:**
+```sql
+-- Row-level locks
+SELECT * FROM users WHERE id = 1 FOR UPDATE; -- Exclusive lock
+SELECT * FROM users WHERE id = 1 FOR SHARE;  -- Shared lock
+
+-- Skip locked rows (useful for queues)
+SELECT * FROM jobs
+WHERE status = 'pending'
+ORDER BY created_at
+FOR UPDATE SKIP LOCKED
+LIMIT 10;
+
+-- Table-level locks
+LOCK TABLE users IN EXCLUSIVE MODE;
+
+-- Advisory locks (application-level)
+SELECT pg_advisory_lock(123);
+-- Do work
+SELECT pg_advisory_unlock(123);
+
+-- Check locks
+SELECT
+    pid,
+    usename,
+    pg_blocking_pids(pid) as blocked_by,
+    query
+FROM pg_stat_activity
+WHERE cardinality(pg_blocking_pids(pid)) > 0;
+```
+
+### Database Administration
+
+**Backup and Restore:**
+```bash
+# Full database backup
+pg_dump -U postgres -d mydb -F c -f mydb_backup.dump
+
+# Restore
+pg_restore -U postgres -d mydb_restored -F c mydb_backup.dump
+
+# Backup single table
+pg_dump -U postgres -d mydb -t users -F c -f users_backup.dump
+
+# Plain SQL backup
+pg_dump -U postgres -d mydb -f mydb_backup.sql
+
+# Backup all databases
+pg_dumpall -U postgres -f all_databases.sql
+
+# Continuous archiving (point-in-time recovery)
+# In postgresql.conf:
+wal_level = replica
+archive_mode = on
+archive_command = 'cp %p /path/to/archive/%f'
+```
+
+**Vacuum and Analyze:**
+```sql
+-- Manual vacuum
+VACUUM users;
+VACUUM FULL users; -- Reclaim space (locks table)
+VACUUM ANALYZE users; -- Vacuum and update statistics
+
+-- Analyze (update statistics)
+ANALYZE users;
+
+-- Autovacuum settings (postgresql.conf)
+autovacuum = on
+autovacuum_max_workers = 3
+autovacuum_naptime = 1min
+
+-- Check bloat
+SELECT
     schemaname,
     tablename,
-    indexname,
-    idx_scan,
-    idx_tup_read,
-    idx_tup_fetch
-  FROM pg_stat_user_indexes
-  ORDER BY idx_scan
-  LIMIT 20
-`;
+    pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) as size,
+    pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename) - pg_relation_size(schemaname||'.'||tablename)) as bloat
+FROM pg_tables
+WHERE schemaname = 'public'
+ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 ```
 
-For complete performance guide, see [references/performance-optimization.md](references/performance-optimization.md).
+**Monitoring:**
+```sql
+-- Current connections
+SELECT
+    datname,
+    count(*) as connections
+FROM pg_stat_activity
+GROUP BY datname;
 
----
+-- Long-running queries
+SELECT
+    pid,
+    now() - query_start as duration,
+    query,
+    state
+FROM pg_stat_activity
+WHERE state = 'active'
+    AND now() - query_start > interval '5 minutes'
+ORDER BY duration DESC;
 
-## Row-Level Security (RLS)
+-- Kill query
+SELECT pg_cancel_backend(12345); -- Send SIGINT
+SELECT pg_terminate_backend(12345); -- Send SIGTERM
 
-```typescript
-// Enable RLS
-await sql`ALTER TABLE documents ENABLE ROW LEVEL SECURITY`;
+-- Database size
+SELECT
+    datname,
+    pg_size_pretty(pg_database_size(datname)) as size
+FROM pg_database
+ORDER BY pg_database_size(datname) DESC;
 
-// Create policies
-await sql`
-  CREATE POLICY documents_owner_policy ON documents
-    FOR ALL
-    USING (owner_id = current_setting('app.current_user_id')::INTEGER)
-    WITH CHECK (owner_id = current_setting('app.current_user_id')::INTEGER)
-`;
+-- Table sizes
+SELECT
+    schemaname,
+    tablename,
+    pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) as total_size,
+    pg_size_pretty(pg_relation_size(schemaname||'.'||tablename)) as table_size,
+    pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename) - pg_relation_size(schemaname||'.'||tablename)) as indexes_size
+FROM pg_tables
+WHERE schemaname = 'public'
+ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC
+LIMIT 20;
 
-// Set user context before queries
-await sql`SET app.current_user_id = ${userId}`;
-const userDocs = await sql`SELECT * FROM documents`; // Only sees owned docs
-
-// Create tenant isolation policy
-await sql`
-  CREATE POLICY tenant_isolation ON data
-    FOR ALL
-    USING (tenant_id = current_setting('app.tenant_id')::UUID)
-`;
-
-// Admin bypass policy
-await sql`
-  CREATE POLICY admin_all_access ON documents
-    FOR ALL
-    TO admin_role
-    USING (true)
-`;
+-- Cache hit ratio
+SELECT
+    sum(heap_blks_read) as heap_read,
+    sum(heap_blks_hit) as heap_hit,
+    sum(heap_blks_hit) / nullif(sum(heap_blks_hit) + sum(heap_blks_read), 0) as ratio
+FROM pg_statio_user_tables;
 ```
 
-For complete security patterns, see [references/security-patterns.md](references/security-patterns.md).
+**Replication:**
+```sql
+-- Primary server (postgresql.conf)
+wal_level = replica
+max_wal_senders = 10
+wal_keep_size = 1GB
 
----
+-- Create replication user
+CREATE ROLE replicator WITH REPLICATION LOGIN PASSWORD 'password';
 
-## Migration Patterns
+-- Replica server (recovery.conf or postgresql.auto.conf)
+primary_conninfo = 'host=primary.example.com port=5432 user=replicator password=password'
+hot_standby = on
 
-### Migration Template
+-- Check replication status (on primary)
+SELECT
+    client_addr,
+    state,
+    sent_lsn,
+    write_lsn,
+    flush_lsn,
+    replay_lsn,
+    sync_state
+FROM pg_stat_replication;
 
-```typescript
-// migrations/001_initial_schema.ts
-import { sql } from "bun";
-
-export async function up() {
-  await sql.begin(async (tx) => {
-    await tx`
-      CREATE TABLE users (
-        id SERIAL PRIMARY KEY,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        name VARCHAR(255) NOT NULL,
-        password_hash VARCHAR(255) NOT NULL,
-        created_at TIMESTAMPTZ DEFAULT NOW(),
-        updated_at TIMESTAMPTZ DEFAULT NOW()
-      )
-    `;
-
-    await tx`CREATE INDEX users_email_idx ON users (email)`;
-
-    await tx`
-      INSERT INTO schema_migrations (version, applied_at)
-      VALUES ('001_initial_schema', NOW())
-    `;
-  });
-}
-
-export async function down() {
-  await sql.begin(async (tx) => {
-    await tx`DROP TABLE IF EXISTS users CASCADE`;
-    await tx`DELETE FROM schema_migrations WHERE version = '001_initial_schema'`;
-  });
-}
+-- Replication lag
+SELECT
+    now() - pg_last_xact_replay_timestamp() AS replication_lag;
 ```
 
-### Migration Runner
+## Best Practices
 
-```typescript
-// migrate.ts
-import { sql } from "bun";
-
-async function migrate() {
-  // Create migrations table if not exists
-  await sql`
-    CREATE TABLE IF NOT EXISTS schema_migrations (
-      version VARCHAR(255) PRIMARY KEY,
-      applied_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-
-  // Get applied migrations
-  const applied = await sql`SELECT version FROM schema_migrations`;
-  const appliedVersions = new Set(applied.map(r => r.version));
-
-  // Get pending migrations
-  const glob = new Bun.Glob("./migrations/*.ts");
-  const files = Array.from(glob.scanSync(".")).sort();
-
-  for (const file of files) {
-    const version = file.match(/(\d+_[a-z_]+)/)?.[1];
-    if (version && !appliedVersions.has(version)) {
-      console.log(`Applying migration: ${version}`);
-      const migration = await import(`./${file}`);
-      await migration.up();
-      console.log(`Applied: ${version}`);
-    }
-  }
-}
+### 1. Use Proper Data Types
+```sql
+-- Use specific types
+-- Bad: VARCHAR(255) for everything
+-- Good: Use appropriate types
+email VARCHAR(255)
+age INTEGER
+price NUMERIC(10,2)
+is_active BOOLEAN
+created_at TIMESTAMP WITH TIME ZONE
 ```
 
----
-
-## Testing Patterns
-
-```typescript
-// test/db.test.ts
-import { describe, test, expect, beforeAll, afterAll, beforeEach } from "bun:test";
-import { SQL } from "bun";
-
-const testDb = new SQL({
-  database: "myapp_test",
-  // ... other config
-});
-
-describe("User Repository", () => {
-  beforeAll(async () => {
-    // Run migrations
-    await testDb`CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      email VARCHAR(255) UNIQUE,
-      name VARCHAR(255)
-    )`;
-  });
-
-  beforeEach(async () => {
-    // Clean up before each test
-    await testDb`TRUNCATE users RESTART IDENTITY CASCADE`;
-  });
-
-  afterAll(async () => {
-    await testDb.close();
-  });
-
-  test("creates a user", async () => {
-    const [user] = await testDb`
-      INSERT INTO users (email, name)
-      VALUES ('test@example.com', 'Test User')
-      RETURNING *
-    `;
-
-    expect(user.id).toBe(1);
-    expect(user.email).toBe("test@example.com");
-  });
-
-  test("enforces unique email", async () => {
-    await testDb`INSERT INTO users (email, name) VALUES ('test@example.com', 'User 1')`;
-
-    expect(async () => {
-      await testDb`INSERT INTO users (email, name) VALUES ('test@example.com', 'User 2')`;
-    }).toThrow();
-  });
-
-  test("transactions rollback on error", async () => {
-    try {
-      await testDb.begin(async (tx) => {
-        await tx`INSERT INTO users (email, name) VALUES ('a@example.com', 'A')`;
-        throw new Error("Intentional rollback");
-      });
-    } catch {}
-
-    const [{ count }] = await testDb`SELECT COUNT(*) FROM users`;
-    expect(count).toBe("0");
-  });
-});
+### 2. Add Constraints
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    age INTEGER CHECK (age >= 0 AND age <= 150),
+    status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'banned'))
+);
 ```
 
----
+### 3. Use Transactions
+```sql
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;
+```
 
-## Common Anti-Patterns to Avoid
+### 4. Index Appropriately
+```sql
+-- Index foreign keys
+CREATE INDEX idx_orders_user_id ON orders(user_id);
 
-1. **N+1 Queries**: Use JOINs or batch queries instead of loops
-2. **SELECT ***: Only select needed columns, especially with JSONB
-3. **Missing indexes on foreign keys**: Always index FK columns
-4. **OFFSET pagination on large tables**: Use keyset/cursor pagination
-5. **Not using prepared statements**: Bun.sql handles this automatically
-6. **Ignoring EXPLAIN output**: Always analyze slow queries
-7. **Large transactions**: Keep transactions short to avoid lock contention
-8. **Not vacuuming**: Ensure autovacuum is enabled and tuned
+-- Index columns used in WHERE, JOIN, ORDER BY
+CREATE INDEX idx_users_created_at ON users(created_at);
 
----
+-- Don't over-index (slows writes)
+```
 
-## Quick Reference
+### 5. Regular Maintenance
+```sql
+-- Schedule regular VACUUM ANALYZE
+-- Monitor slow queries
+-- Check for bloat
+-- Update statistics
+```
 
-### Essential PostgreSQL Error Codes
+## Approach
 
-| Code | Name | Description |
-|------|------|-------------|
-| 23505 | unique_violation | Duplicate key value |
-| 23503 | foreign_key_violation | FK constraint failed |
-| 23502 | not_null_violation | NULL in non-null column |
-| 23514 | check_violation | Check constraint failed |
-| 42P01 | undefined_table | Table doesn't exist |
-| 42703 | undefined_column | Column doesn't exist |
-| 57014 | query_canceled | Query was cancelled |
-| 40001 | serialization_failure | Transaction conflict |
-| 40P01 | deadlock_detected | Deadlock occurred |
+When working with PostgreSQL:
 
-### Connection Environment Variables
+1. **Design Schema Carefully**: Normalize, use constraints, plan indexes
+2. **Use EXPLAIN ANALYZE**: Understand query performance
+3. **Monitor Production**: Track slow queries, connection counts
+4. **Backup Regularly**: Automated backups with point-in-time recovery
+5. **Use Connection Pooling**: PgBouncer for better resource usage
+6. **Leverage PostgreSQL Features**: JSONB, full-text search, arrays
+7. **Set Up Replication**: High availability and read scaling
+8. **Regular Maintenance**: VACUUM, ANALYZE, reindex
 
-| Variable | Description |
-|----------|-------------|
-| `POSTGRES_URL` | Primary connection URL |
-| `DATABASE_URL` | Alternative URL |
-| `PGHOST` | Database host |
-| `PGPORT` | Database port (default: 5432) |
-| `PGUSER` | Database user |
-| `PGPASSWORD` | Database password |
-| `PGDATABASE` | Database name |
-| `PGSSLMODE` | SSL mode (disable/prefer/require/verify-full) |
-
----
-
-## Related Documentation
-
-| Document | Description |
-|----------|-------------|
-| [references/sql-patterns.md](references/sql-patterns.md) | Complete SQL syntax reference |
-| [references/json-operations.md](references/json-operations.md) | JSONB operators and functions |
-| [references/full-text-search.md](references/full-text-search.md) | FTS configuration guide |
-| [references/indexing-strategies.md](references/indexing-strategies.md) | Index selection guide |
-| [references/plpgsql-reference.md](references/plpgsql-reference.md) | PL/pgSQL complete reference |
-| [references/pgvector-guide.md](references/pgvector-guide.md) | Vector search patterns |
-| [references/performance-optimization.md](references/performance-optimization.md) | Query tuning guide |
-| [references/security-patterns.md](references/security-patterns.md) | RLS and permissions |
-
----
-
-## Sub-Agents
-
-| Agent | Use When |
-|-------|----------|
-| **pg-query** | Writing complex SQL queries, CTEs, window functions, JSON operations |
-| **pg-schema** | Designing schemas, creating tables, defining constraints, planning migrations |
-| **pg-performance** | Optimizing slow queries, analyzing EXPLAIN output, tuning configuration |
-
----
-
-## When This Skill Activates
-
-This skill automatically activates when:
-- Working with `Bun.sql` or PostgreSQL
-- Writing SQL queries or designing schemas
-- Implementing full-text search
-- Working with JSON/JSONB data
-- Using pgvector for similarity search
-- Writing PL/pgSQL functions or triggers
-- Optimizing database performance
-- Implementing Row-Level Security
+Always design PostgreSQL databases that are performant, reliable, and maintainable at scale.

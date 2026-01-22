@@ -1,93 +1,138 @@
 ---
 name: validate-idea
-description: Evaluate a single idea and decide to accept or reject it. Used internally by /validate-ideas or when the user mentions a specific idea number.
+description: "Validate idea/project structure, documentation completeness, and readiness for next phase"
+model: claude-haiku-4-5-20251001
+allowed-tools: Read, Glob, Grep
 ---
 
-# Validate Idea
+# /validate-idea
 
-Evaluate a pending idea and decide whether to accept or reject it.
+Comprehensive validation of an idea's documentation structure and readiness.
 
-## Instructions
-
-When validating idea #N:
-
-### Step 1 - Fetch the Idea
+## Usage
 
 ```bash
-gh issue view N --repo jmlweb/tooling --json number,title,body,labels
+/validate-idea coordinatr       # Validate specific idea
+/validate-idea yourbench        # Check another project
 ```
 
-Verify it has the `idea:pending` label. If not, inform user.
+## Validation Checklist
 
-### Step 2 - Analyze the Idea
+### Required Files (Minimum Viable Idea)
 
-Evaluate against project context:
+| File | Required | Purpose |
+|------|----------|---------|
+| **README.md** | Yes | Status, overview, progress |
+| **project-brief.md** | Yes | Vision, problem, audience, solution |
 
-1. Read relevant files:
-   - `README.md`, `AGENTS.md` for project goals
-   - Existing packages and their purpose
+### Recommended Files (Phase-Dependent)
 
-2. Check for duplicates:
-   - Search existing issues for similar concepts
-   - Check if functionality already exists in codebase
+| File/Directory | When Needed | Purpose |
+|----------------|-------------|---------|
+| **critique.md** | Before planning | Risk assessment |
+| **competitive-analysis.md** | Before MVP | Market positioning |
+| **specs/** | Defining features | Technical specifications |
+| **docs/adrs/** | Major tech decisions | Architecture Decision Records |
+| **issues/** | In development | Work tracking |
 
-3. Assess feasibility:
-   - Technical complexity
-   - Dependencies required
-   - Integration with existing architecture
+## Phase-Aware Validation
 
-### Step 3 - Estimate Effort and Impact
+**Concept Phase:**
+- README + project-brief.md sufficient
+- critique.md optional (recommend before planning)
 
-**Effort levels:**
+**Planning Phase:**
+- Should have critique.md
+- Should have specs/ OR features/
 
-| Level  | Time     | Scope                            |
-| ------ | -------- | -------------------------------- |
-| Low    | <2 hours | Single file, minimal testing     |
-| Medium | 2-8 hrs  | Multiple files, moderate testing |
-| High   | >8 hours | Significant changes, extensive   |
+**Development/Implementation Phase:**
+- Must have specs/ (at least one)
+- Must have issues/ with PLAN.md files
+- Should have docs/adrs/ if major decisions made
 
-**Impact levels:**
+## Execution Flow
 
-| Level  | Description                              |
-| ------ | ---------------------------------------- |
-| Low    | Nice to have, minimal user benefit       |
-| Medium | Noticeable improvement, moderate benefit |
-| High   | Game changer, significant benefit        |
-
-### Step 4 - Apply Decision
-
-**If ACCEPTED:**
-
+### 1. Locate Project
 ```bash
-gh issue edit N --repo jmlweb/tooling \
-  --remove-label "idea:pending" \
-  --add-label "idea:accepted,effort:medium,impact:high"
-
-gh issue comment N --repo jmlweb/tooling --body "## Validation: ACCEPTED
-
-**Effort:** [level] | **Impact:** [level]
-
-**Reasoning:** [Why accepted]
-
-*Ready for /feed-backlog*"
+ls ideas/[project-name]/
 ```
 
-**If REJECTED:**
+### 2. Check Required Files
+- README.md: Has status, last updated date, progress
+- project-brief.md: Vision, problem, audience, solution complete
 
-```bash
-gh issue edit N --repo jmlweb/tooling \
-  --remove-label "idea:pending" \
-  --add-label "idea:rejected"
+### 3. Check Recommended Files (Phase-Aware)
+Based on project phase in README.
 
-gh issue comment N --repo jmlweb/tooling --body "## Validation: REJECTED
+### 4. Verify Consistency
+- README status matches CLAUDE.md
+- Brief aligns with README description
+- Specs reference features
+- Issues link to specs
 
-**Reason:** [Why rejected]"
+### 5. Suggest Next Steps
 
-gh issue close N --repo jmlweb/tooling
+| Current State | Suggested Next Step |
+|---------------|---------------------|
+| Just README | Run `/brief` |
+| Has brief | Run `/critique` |
+| Has critique | Run `/research` |
+| Has research | Run `/spec` |
+| Has specs | Run `/plan` + `/issue` |
+
+## Validation Report
+
+```markdown
+# Validation Report: [Project Name]
+
+## Status
+- Current phase: [Concept / Planning / Development]
+- Documentation completeness: X/Y files
+
+## Required Files
+✅ README.md - Complete
+✅ project-brief.md - Complete
+
+## Recommended Files
+⚠️  critique.md - Missing (run /critique)
+✅ specs/SPEC-001.md - Present
+
+## Issues Found
+1. README last updated is stale
+2. Status mismatch with CLAUDE.md
+
+## Recommendations
+1. Update README last updated
+2. Run /critique before specs
+
+## Readiness Assessment
+- Ready for specs: ⚠️ After fixing issues
+- Ready for implementation: ❌ No specs yet
+- Overall health: 7/10
 ```
 
-## Decision Guidelines
+## Readiness Criteria
 
-**Accept when:** High impact + low effort, aligns with goals, solves pain point
+### Ready for /spec
+- project-brief.md complete
+- critique.md present
+- Key research done
 
-**Reject when:** Low ROI, out of scope, duplicates, infeasible
+### Ready for /plan + /implement
+- At least one spec complete
+- Acceptance criteria clear
+- Technical decisions made
+
+## When to Use
+
+- Before starting spec work
+- After long pause in project
+- Monthly project health checks
+- Before presenting to stakeholders
+- When unsure what to do next
+
+## Integration
+
+```
+/validate-idea → Fix issues → /validate-idea again → /spec or /plan
+```

@@ -1,7 +1,7 @@
 {
   "name": "image-optimization",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "path": "skills/image-optimization/SKILL.md",
-  "source": "github.com/aj-geddes/useful-ai-prompts",
-  "downloaded_at": "2026-01-14T03:31:11.558696Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/image-optimization/skills/image-optimization/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:07.851220Z"
 }

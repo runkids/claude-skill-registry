@@ -1,9 +1,7 @@
 {
   "name": "summarizing-topic",
-  "description": "Synthesize knowledge on a topic from multiple notes. Use when asked \"what do I know about X\", \"summarize topic\", \"synthesize notes on\", or \"overview of\".",
   "repo": "alexanderop/second-brain-nuxt",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/summarizing-topic/SKILL.md",
+  "source": "github.com/alexanderop/second-brain-nuxt",
+  "downloaded_at": "2026-01-22T01:45:16.435957Z"
 }

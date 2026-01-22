@@ -1,553 +1,212 @@
 ---
+description: Imported skill forms from anthropic
 name: forms
-description: HTML5 forms, Constraint Validation API, accessible form patterns, and modern input types
-sasmp_version: "1.3.0"
-bonded_agent: html-expert
-bond_type: PRIMARY_BOND
-version: "2.0.0"
-
-# Skill Metadata
-category: forms
-complexity: intermediate
-dependencies:
-  - html-basics
-  - accessibility
-
-# Parameter Validation
-parameters:
-  form_type:
-    type: string
-    required: true
-    enum: [contact, login, registration, search, checkout, survey, multi-step]
-  validation_mode:
-    type: string
-    default: "html5"
-    enum: [html5, javascript, hybrid]
-  accessibility_level:
-    type: string
-    default: "AA"
-    enum: ["A", "AA", "AAA"]
-
-# Retry Configuration
-retry:
-  max_attempts: 3
-  backoff_ms: [1000, 2000, 4000]
-  retryable_errors: [VALIDATION_ERROR, PARSE_ERROR]
+signature: 0ab10e9095deb1c1f9f79eb04254589f55c1d16e095cb53191e03f9fc3184449
+source: /a0/tmp/skills_research/anthropic/skills/pdf/forms.md
 ---
 
-# Forms Skill
+**CRITICAL: You MUST complete these steps in order. Do not skip ahead to writing code.**
 
-Production-grade HTML5 forms with Constraint Validation API and accessible patterns.
+If you need to fill out a PDF form, first check to see if the PDF has fillable form fields. Run this script from this file's directory:
+ `python scripts/check_fillable_fields <file.pdf>`, and depending on the result go to either the "Fillable fields" or "Non-fillable fields" and follow those instructions.
 
-## 🎯 Purpose
-
-Provide atomic, single-responsibility operations for:
-- Form structure and layout
-- Input types and validation
-- Constraint Validation API usage
-- Accessible form patterns
-- Error handling and display
-- Multi-step form logic
-
----
-
-## 📥 Input Schema
-
-```typescript
-interface FormsInput {
-  operation: 'create' | 'validate' | 'pattern' | 'convert';
-  form_type: FormType;
-  fields?: FieldDefinition[];
-  options?: {
-    validation_mode: 'html5' | 'javascript' | 'hybrid';
-    accessibility_level: 'A' | 'AA' | 'AAA';
-    autocomplete: boolean;
-    novalidate: boolean;
-  };
-}
-
-type FormType =
-  | 'contact'       // Name, email, message
-  | 'login'         // Email/username, password
-  | 'registration'  // Full user signup
-  | 'search'        // Search input
-  | 'checkout'      // Payment form
-  | 'survey'        // Questions, ratings
-  | 'multi-step';   // Wizard-style form
-
-interface FieldDefinition {
-  name: string;
-  type: InputType;
-  label: string;
-  required?: boolean;
-  pattern?: string;
-  validation?: ValidationRule[];
-}
+# Fillable fields
+If the PDF has fillable form fields:
+- Run this script from this file's directory: `python scripts/extract_form_field_info.py <input.pdf> <field_info.json>`. It will create a JSON file with a list of fields in this format:
 ```
-
-## 📤 Output Schema
-
-```typescript
-interface FormsOutput {
-  success: boolean;
-  markup: string;
-  validation_script?: string;
-  accessibility_score: number;
-  issues: FormIssue[];
-}
-```
-
----
-
-## 🛠️ Core Patterns
-
-### 1. Input Types Reference
-
-| Type | Purpose | Validation | Keyboard |
-|------|---------|------------|----------|
-| `text` | Generic text | pattern | text |
-| `email` | Email address | Built-in email | email |
-| `password` | Passwords | pattern | text |
-| `tel` | Phone numbers | pattern | tel |
-| `url` | URLs | Built-in URL | url |
-| `number` | Numeric values | min/max/step | numeric |
-| `date` | Date picker | min/max | date |
-| `time` | Time picker | min/max/step | time |
-| `datetime-local` | Date + time | min/max | datetime |
-| `search` | Search queries | None | search |
-| `color` | Color picker | None | - |
-| `range` | Slider | min/max/step | - |
-| `file` | File upload | accept | - |
-
-### 2. Complete Form Template
-
-```html
-<form id="contact-form"
-      action="/api/contact"
-      method="POST"
-      novalidate
-      aria-labelledby="form-title">
-
-  <h2 id="form-title">Contact Us</h2>
-
-  <!-- Error Summary (initially hidden) -->
-  <div id="error-summary"
-       role="alert"
-       aria-live="polite"
-       hidden>
-    <h3>Please fix the following errors:</h3>
-    <ul id="error-list"></ul>
-  </div>
-
-  <!-- Name Field -->
-  <div class="field">
-    <label for="name">
-      Full Name
-      <span class="required" aria-hidden="true">*</span>
-    </label>
-    <input type="text"
-           id="name"
-           name="name"
-           required
-           aria-required="true"
-           autocomplete="name"
-           aria-describedby="name-hint">
-    <p id="name-hint" class="hint">Enter your full name</p>
-    <p id="name-error" class="error" aria-live="polite"></p>
-  </div>
-
-  <!-- Email Field -->
-  <div class="field">
-    <label for="email">
-      Email
-      <span class="required" aria-hidden="true">*</span>
-    </label>
-    <input type="email"
-           id="email"
-           name="email"
-           required
-           aria-required="true"
-           autocomplete="email"
-           aria-describedby="email-hint email-error">
-    <p id="email-hint" class="hint">We'll never share your email</p>
-    <p id="email-error" class="error" aria-live="polite"></p>
-  </div>
-
-  <!-- Message Field -->
-  <div class="field">
-    <label for="message">
-      Message
-      <span class="required" aria-hidden="true">*</span>
-    </label>
-    <textarea id="message"
-              name="message"
-              rows="5"
-              required
-              aria-required="true"
-              minlength="10"
-              maxlength="1000"
-              aria-describedby="message-hint message-count"></textarea>
-    <p id="message-hint" class="hint">10-1000 characters</p>
-    <p id="message-count" class="hint" aria-live="polite">0/1000</p>
-    <p id="message-error" class="error" aria-live="polite"></p>
-  </div>
-
-  <button type="submit">Send Message</button>
-</form>
-```
-
-### 3. Constraint Validation API
-
-```javascript
-const form = document.getElementById('contact-form');
-const inputs = form.querySelectorAll('input, textarea, select');
-
-// Disable browser default validation UI
-form.setAttribute('novalidate', '');
-
-// Validate on submit
-form.addEventListener('submit', (e) => {
-  if (!validateForm()) {
-    e.preventDefault();
-    showErrorSummary();
-    focusFirstError();
+[
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "rect": ([left, bottom, right, top] bounding box in PDF coordinates, y=0 is the bottom of the page),
+    "type": ("text", "checkbox", "radio_group", or "choice"),
+  },
+  // Checkboxes have "checked_value" and "unchecked_value" properties:
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "type": "checkbox",
+    "checked_value": (Set the field to this value to check the checkbox),
+    "unchecked_value": (Set the field to this value to uncheck the checkbox),
+  },
+  // Radio groups have a "radio_options" list with the possible choices.
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "type": "radio_group",
+    "radio_options": [
+      {
+        "value": (set the field to this value to select this radio option),
+        "rect": (bounding box for the radio button for this option)
+      },
+      // Other radio options
+    ]
+  },
+  // Multiple choice fields have a "choice_options" list with the possible choices:
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "type": "choice",
+    "choice_options": [
+      {
+        "value": (set the field to this value to select this option),
+        "text": (display text of the option)
+      },
+      // Other choice options
+    ],
   }
-});
+]
+```
+- Convert the PDF to PNGs (one image for each page) with this script (run from this file's directory):
+`python scripts/convert_pdf_to_images.py <file.pdf> <output_directory>`
+Then analyze the images to determine the purpose of each form field (make sure to convert the bounding box PDF coordinates to image coordinates).
+- Create a `field_values.json` file in this format with the values to be entered for each field:
+```
+[
+  {
+    "field_id": "last_name", // Must match the field_id from `extract_form_field_info.py`
+    "description": "The user's last name",
+    "page": 1, // Must match the "page" value in field_info.json
+    "value": "Simpson"
+  },
+  {
+    "field_id": "Checkbox12",
+    "description": "Checkbox to be checked if the user is 18 or over",
+    "page": 1,
+    "value": "/On" // If this is a checkbox, use its "checked_value" value to check it. If it's a radio button group, use one of the "value" values in "radio_options".
+  },
+  // more fields
+]
+```
+- Run the `fill_fillable_fields.py` script from this file's directory to create a filled-in PDF:
+`python scripts/fill_fillable_fields.py <input pdf> <field_values.json> <output pdf>`
+This script will verify that the field IDs and values you provide are valid; if it prints error messages, correct the appropriate fields and try again.
 
-// Validate on blur for immediate feedback
-inputs.forEach(input => {
-  input.addEventListener('blur', () => validateField(input));
-  input.addEventListener('input', () => {
-    if (input.classList.contains('invalid')) {
-      validateField(input);
+# Non-fillable fields
+If the PDF doesn't have fillable form fields, you'll need to visually determine where the data should be added and create text annotations. Follow the below steps *exactly*. You MUST perform all of these steps to ensure that the the form is accurately completed. Details for each step are below.
+- Convert the PDF to PNG images and determine field bounding boxes.
+- Create a JSON file with field information and validation images showing the bounding boxes.
+- Validate the the bounding boxes.
+- Use the bounding boxes to fill in the form.
+
+## Step 1: Visual Analysis (REQUIRED)
+- Convert the PDF to PNG images. Run this script from this file's directory:
+`python scripts/convert_pdf_to_images.py <file.pdf> <output_directory>`
+The script will create a PNG image for each page in the PDF.
+- Carefully examine each PNG image and identify all form fields and areas where the user should enter data. For each form field where the user should enter text, determine bounding boxes for both the form field label, and the area where the user should enter text. The label and entry bounding boxes MUST NOT INTERSECT; the text entry box should only include the area where data should be entered. Usually this area will be immediately to the side, above, or below its label. Entry bounding boxes must be tall and wide enough to contain their text.
+
+These are some examples of form structures that you might see:
+
+*Label inside box*
+```
+┌────────────────────────┐
+│ Name:                  │
+└────────────────────────┘
+```
+The input area should be to the right of the "Name" label and extend to the edge of the box.
+
+*Label before line*
+```
+Email: _______________________
+```
+The input area should be above the line and include its entire width.
+
+*Label under line*
+```
+_________________________
+Name
+```
+The input area should be above the line and include the entire width of the line. This is common for signature and date fields.
+
+*Label above line*
+```
+Please enter any special requests:
+________________________________________________
+```
+The input area should extend from the bottom of the label to the line, and should include the entire width of the line.
+
+*Checkboxes*
+```
+Are you a US citizen? Yes □  No □
+```
+For checkboxes:
+- Look for small square boxes (□) - these are the actual checkboxes to target. They may be to the left or right of their labels.
+- Distinguish between label text ("Yes", "No") and the clickable checkbox squares.
+- The entry bounding box should cover ONLY the small square, not the text label.
+
+### Step 2: Create fields.json and validation images (REQUIRED)
+- Create a file named `fields.json` with information for the form fields and bounding boxes in this format:
+```
+{
+  "pages": [
+    {
+      "page_number": 1,
+      "image_width": (first page image width in pixels),
+      "image_height": (first page image height in pixels),
+    },
+    {
+      "page_number": 2,
+      "image_width": (second page image width in pixels),
+      "image_height": (second page image height in pixels),
     }
-  });
-});
-
-function validateForm() {
-  let isValid = true;
-  inputs.forEach(input => {
-    if (!validateField(input)) {
-      isValid = false;
+    // additional pages
+  ],
+  "form_fields": [
+    // Example for a text field.
+    {
+      "page_number": 1,
+      "description": "The user's last name should be entered here",
+      // Bounding boxes are [left, top, right, bottom]. The bounding boxes for the label and text entry should not overlap.
+      "field_label": "Last name",
+      "label_bounding_box": [30, 125, 95, 142],
+      "entry_bounding_box": [100, 125, 280, 142],
+      "entry_text": {
+        "text": "Johnson", // This text will be added as an annotation at the entry_bounding_box location
+        "font_size": 14, // optional, defaults to 14
+        "font_color": "000000", // optional, RRGGBB format, defaults to 000000 (black)
+      }
+    },
+    // Example for a checkbox. TARGET THE SQUARE for the entry bounding box, NOT THE TEXT
+    {
+      "page_number": 2,
+      "description": "Checkbox that should be checked if the user is over 18",
+      "entry_bounding_box": [140, 525, 155, 540],  // Small box over checkbox square
+      "field_label": "Yes",
+      "label_bounding_box": [100, 525, 132, 540],  // Box containing "Yes" text
+      // Use "X" to check a checkbox.
+      "entry_text": {
+        "text": "X",
+      }
     }
-  });
-  return isValid;
-}
-
-function validateField(input) {
-  const errorEl = document.getElementById(`${input.id}-error`);
-
-  // Check validity using Constraint Validation API
-  if (!input.checkValidity()) {
-    const message = getErrorMessage(input);
-    showError(input, errorEl, message);
-    return false;
-  }
-
-  clearError(input, errorEl);
-  return true;
-}
-
-function getErrorMessage(input) {
-  const validity = input.validity;
-
-  if (validity.valueMissing) {
-    return `${input.labels[0].textContent} is required`;
-  }
-  if (validity.typeMismatch) {
-    return `Please enter a valid ${input.type}`;
-  }
-  if (validity.patternMismatch) {
-    return input.dataset.patternError || 'Please match the requested format';
-  }
-  if (validity.tooShort) {
-    return `Must be at least ${input.minLength} characters`;
-  }
-  if (validity.tooLong) {
-    return `Must be no more than ${input.maxLength} characters`;
-  }
-  if (validity.rangeUnderflow) {
-    return `Must be at least ${input.min}`;
-  }
-  if (validity.rangeOverflow) {
-    return `Must be no more than ${input.max}`;
-  }
-
-  return input.validationMessage;
-}
-
-function showError(input, errorEl, message) {
-  input.classList.add('invalid');
-  input.setAttribute('aria-invalid', 'true');
-  input.setAttribute('aria-errormessage', errorEl.id);
-  errorEl.textContent = message;
-  errorEl.hidden = false;
-}
-
-function clearError(input, errorEl) {
-  input.classList.remove('invalid');
-  input.removeAttribute('aria-invalid');
-  input.removeAttribute('aria-errormessage');
-  errorEl.textContent = '';
-  errorEl.hidden = true;
-}
-
-function focusFirstError() {
-  const firstError = form.querySelector('.invalid');
-  if (firstError) {
-    firstError.focus();
-  }
+    // additional form field entries
+  ]
 }
 ```
 
----
+Create validation images by running this script from this file's directory for each page:
+`python scripts/create_validation_image.py <page_number> <path_to_fields.json> <input_image_path> <output_image_path>
 
-## ⚠️ Error Handling
+The validation images will have red rectangles where text should be entered, and blue rectangles covering label text.
 
-### Error Codes
+### Step 3: Validate Bounding Boxes (REQUIRED)
+#### Automated intersection check
+- Verify that none of bounding boxes intersect and that the entry bounding boxes are tall enough by checking the fields.json file with the `check_bounding_boxes.py` script (run from this file's directory):
+`python scripts/check_bounding_boxes.py <JSON file>`
 
-| Code | Description | Recovery |
-|------|-------------|----------|
-| `FORM001` | Missing form label | Add aria-labelledby or aria-label |
-| `FORM002` | Input without label | Add `<label>` element |
-| `FORM003` | Invalid pattern regex | Fix regex syntax |
-| `FORM004` | Missing required indicator | Add visual + aria indicator |
-| `FORM005` | No error message element | Add aria-live region |
-| `FORM006` | Autocomplete missing | Add autocomplete attribute |
-| `FORM007` | Submit without action | Add form action |
-| `FORM008` | Fieldset without legend | Add legend element |
+If there are errors, reanalyze the relevant fields, adjust the bounding boxes, and iterate until there are no remaining errors. Remember: label (blue) bounding boxes should contain text labels, entry (red) boxes should not.
 
-### ValidityState Properties
+#### Manual image inspection
+**CRITICAL: Do not proceed without visually inspecting validation images**
+- Red rectangles must ONLY cover input areas
+- Red rectangles MUST NOT contain any text
+- Blue rectangles should contain label text
+- For checkboxes:
+  - Red rectangle MUST be centered on the checkbox square
+  - Blue rectangle should cover the text label for the checkbox
 
-| Property | True When |
-|----------|-----------|
-| `valid` | All constraints satisfied |
-| `valueMissing` | Required field is empty |
-| `typeMismatch` | Value doesn't match type (email, url) |
-| `patternMismatch` | Value doesn't match pattern |
-| `tooLong` | Value exceeds maxlength |
-| `tooShort` | Value below minlength |
-| `rangeUnderflow` | Value below min |
-| `rangeOverflow` | Value above max |
-| `stepMismatch` | Value doesn't match step |
-| `badInput` | Browser can't convert input |
-| `customError` | setCustomValidity() called |
+- If any rectangles look wrong, fix fields.json, regenerate the validation images, and verify again. Repeat this process until the bounding boxes are fully accurate.
 
----
 
-## 🔍 Troubleshooting
-
-### Problem: Form not validating
-
-```
-Debug Checklist:
-□ novalidate attribute set?
-□ JavaScript calling checkValidity()?
-□ Required attribute on mandatory fields?
-□ Pattern regex valid?
-□ Type attribute correct?
-□ Min/max values valid?
-```
-
-### Problem: Errors not announced
-
-```
-Debug Checklist:
-□ Error container has role="alert"?
-□ aria-live="polite" or "assertive" set?
-□ Error linked via aria-errormessage?
-□ aria-invalid="true" on field?
-□ Error content actually changing?
-```
-
-### Problem: Autocomplete not working
-
-```
-Debug Checklist:
-□ autocomplete attribute present?
-□ Correct autocomplete value?
-□ Input has name attribute?
-□ Form has action?
-□ Browser autocomplete enabled?
-```
-
-### Autocomplete Values
-
-| Value | Purpose |
-|-------|---------|
-| `name` | Full name |
-| `given-name` | First name |
-| `family-name` | Last name |
-| `email` | Email address |
-| `tel` | Phone number |
-| `street-address` | Street address |
-| `postal-code` | ZIP/Postal code |
-| `country` | Country |
-| `cc-number` | Credit card number |
-| `cc-exp` | Card expiration |
-| `cc-csc` | Security code |
-| `username` | Username |
-| `current-password` | Current password |
-| `new-password` | New password |
-
----
-
-## 📊 Form Types
-
-### Login Form
-
-```html
-<form action="/login" method="POST" aria-labelledby="login-title">
-  <h2 id="login-title">Sign In</h2>
-
-  <div class="field">
-    <label for="username">Email or Username</label>
-    <input type="text"
-           id="username"
-           name="username"
-           required
-           autocomplete="username"
-           autofocus>
-  </div>
-
-  <div class="field">
-    <label for="password">Password</label>
-    <input type="password"
-           id="password"
-           name="password"
-           required
-           autocomplete="current-password"
-           minlength="8">
-    <a href="/forgot-password">Forgot password?</a>
-  </div>
-
-  <label class="checkbox">
-    <input type="checkbox" name="remember" value="1">
-    Remember me
-  </label>
-
-  <button type="submit">Sign In</button>
-
-  <p>Don't have an account? <a href="/register">Sign up</a></p>
-</form>
-```
-
-### Search Form
-
-```html
-<form role="search"
-      action="/search"
-      method="GET"
-      aria-label="Site search">
-  <label for="search-input" class="visually-hidden">
-    Search
-  </label>
-  <input type="search"
-         id="search-input"
-         name="q"
-         placeholder="Search..."
-         autocomplete="off"
-         aria-describedby="search-hint">
-  <button type="submit" aria-label="Submit search">
-    <svg aria-hidden="true">...</svg>
-  </button>
-  <p id="search-hint" class="visually-hidden">
-    Enter keywords to search
-  </p>
-</form>
-```
-
-### Multi-Step Form
-
-```html
-<form id="wizard" aria-labelledby="wizard-title">
-  <h2 id="wizard-title">Registration</h2>
-
-  <!-- Progress indicator -->
-  <nav aria-label="Registration progress">
-    <ol>
-      <li aria-current="step">
-        <span class="step-number">1</span>
-        <span class="step-label">Account</span>
-      </li>
-      <li>
-        <span class="step-number">2</span>
-        <span class="step-label">Profile</span>
-      </li>
-      <li>
-        <span class="step-number">3</span>
-        <span class="step-label">Confirm</span>
-      </li>
-    </ol>
-  </nav>
-
-  <!-- Step 1: Account -->
-  <fieldset id="step-1" class="step active">
-    <legend>Account Information</legend>
-    <div class="field">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-    </div>
-    <div class="field">
-      <label for="password">Password</label>
-      <input type="password"
-             id="password"
-             name="password"
-             required
-             minlength="8"
-             autocomplete="new-password">
-    </div>
-    <button type="button" onclick="nextStep(1)">Next</button>
-  </fieldset>
-
-  <!-- Step 2: Profile (hidden initially) -->
-  <fieldset id="step-2" class="step" hidden>
-    <legend>Profile Information</legend>
-    <!-- fields -->
-    <button type="button" onclick="prevStep(2)">Back</button>
-    <button type="button" onclick="nextStep(2)">Next</button>
-  </fieldset>
-
-  <!-- Step 3: Confirm (hidden initially) -->
-  <fieldset id="step-3" class="step" hidden>
-    <legend>Confirm Details</legend>
-    <!-- summary -->
-    <button type="button" onclick="prevStep(3)">Back</button>
-    <button type="submit">Create Account</button>
-  </fieldset>
-</form>
-```
-
----
-
-## 📋 Usage Examples
-
-```yaml
-# Create contact form
-skill: forms
-operation: create
-form_type: contact
-options:
-  validation_mode: hybrid
-  accessibility_level: "AA"
-  autocomplete: true
-
-# Validate form markup
-skill: forms
-operation: validate
-markup: "<form>...</form>"
-
-# Get login form pattern
-skill: forms
-operation: pattern
-form_type: login
-```
-
----
-
-## 🔗 References
-
-- [MDN Form Validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
-- [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
-- [HTML Autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
-- [WCAG Forms](https://www.w3.org/WAI/tutorials/forms/)
+### Step 4: Add annotations to the PDF
+Run this script from this file's directory to create a filled-out PDF using the information in fields.json:
+`python scripts/fill_pdf_form_with_annotations.py <input_pdf_path> <path_to_fields.json> <output_pdf_path>

@@ -1,615 +1,234 @@
 ---
 name: presentation-generator
-description: Google Slides presentation creation for PM deliverables. Use when creating presentations from PRDs, pitching ideas, stakeholder updates, or product roadmaps. Triggers on "presentation", "slides", "pitch deck", "stakeholder meeting", "Google Slides".
-allowed-tools: Read, Write, Edit
-model: inherit
+description: Generate interactive HTML presentations with neobrutalism styling, ASCII art decorations, and Agency brand colors. Outputs HTML (interactive with navigation), PNG (individual slides via Playwright), and PDF. References brand-agency skill for colors and typography. Use when creating presentations, slide decks, pitch materials, or visual summaries.
 ---
 
-# Presentation Generator Skill - PM Presentation Creation
+# Presentation Generator
 
-This Skill helps create compelling Google Slides presentations from PM documents for stakeholder meetings, product pitches, and roadmap reviews.
+## Overview
 
-## When to Use This Skill
+Create stunning presentations in neobrutalism style with Agency brand colors. Generate interactive HTML presentations with smooth scrolling navigation, export individual slides as PNG, or create PDF documents.
 
-Use this Skill when you need to:
-- Create product pitch decks from idea validation
-- Present PRDs to stakeholders
-- Build roadmap presentations
-- Prepare sprint reviews or demos
-- Generate executive updates
-- Create customer-facing presentations
+**Output formats:**
+- **HTML** - Interactive presentation with navigation dots, keyboard support, smooth scrolling
+- **PNG** - Individual slide images via Playwright (1920x1080)
+- **PDF** - Multi-page document via Playwright
 
-## Core Process
+## Quick Start
 
-### Step 1: Input Analysis
+### 1. Create presentation from JSON/YAML content
 
-**Required Inputs:**
-- Source document (PRD, User Stories, Idea Report)
-- Presentation type (pitch, review, update, roadmap)
-- Target audience (executives, team, customers, investors)
-- Time limit (5min, 15min, 30min, 1hr)
-
-**Determine Slide Count:**
-- 5 min presentation: 5-7 slides
-- 15 min presentation: 10-12 slides
-- 30 min presentation: 15-20 slides
-- 1 hour presentation: 25-30 slides
-
-### Step 2: Presentation Templates
-
-#### Product Pitch Deck (Idea → Stakeholders)
-
-**Slide Structure (12 slides, 15-20 minutes):**
-
-1. **Cover Slide**
-   - Product name (large, bold)
-   - Tagline (one-line value prop)
-   - Presenter name & date
-   - Company logo
-
-2. **Problem Slide**
-   - Title: "The Problem"
-   - 3 key pain points (bullet points)
-   - Customer quote or stat
-   - Visuals: Icon or photo representing problem
-
-3. **Solution Slide**
-   - Title: "Our Solution"
-   - Core solution (2-3 sentences)
-   - Key differentiation
-   - Visual: Product screenshot or mockup
-
-4. **How It Works**
-   - Title: "How It Works"
-   - 3-4 step process with icons
-   - Simple, visual flow
-   - Minimal text
-
-5. **Market Opportunity**
-   - Title: "Market Opportunity"
-   - TAM/SAM/SOM (visual chart)
-   - Market growth trends
-   - Key stats (large numbers)
-
-6. **Competition**
-   - Title: "Competitive Landscape"
-   - 2x2 matrix or comparison table
-   - "Our unique advantage" callout
-   - Positioning statement
-
-7. **Target Customer**
-   - Title: "Who It's For"
-   - Primary persona (name, photo, quote)
-   - Demographics & behaviors
-   - Jobs-to-be-Done
-
-8. **Business Model**
-   - Title: "Business Model"
-   - Revenue streams
-   - Pricing strategy
-   - Unit economics (LTV, CAC)
-
-9. **Product Roadmap**
-   - Title: "Roadmap"
-   - Now-Next-Later timeline
-   - Key milestones
-   - MVP features highlighted
-
-10. **Go-to-Market**
-    - Title: "Go-to-Market Strategy"
-    - Launch plan (phases)
-    - Marketing channels
-    - Success metrics
-
-11. **Team**
-    - Title: "The Team"
-    - Key team members (photos, titles)
-    - Relevant experience
-    - Advisors (if applicable)
-
-12. **Ask/Next Steps**
-    - Title: "Next Steps"
-    - Clear ask (approval, funding, resources)
-    - Timeline
-    - Contact information
-
-#### PRD Review Presentation (PRD → Stakeholders)
-
-**Slide Structure (15 slides, 30 minutes):**
-
-1. **Cover**
-   - Product/Feature name
-   - Version & date
-   - PM name
-
-2. **Agenda**
-   - Overview
-   - Goals & Success Metrics
-   - Features
-   - Timeline
-   - Q&A
-
-3. **Executive Summary**
-   - Problem statement
-   - Solution overview
-   - Expected impact
-
-4. **Goals & Objectives**
-   - Business goals
-   - User goals
-   - OKRs (table format)
-
-5. **Target Users**
-   - Primary persona
-   - Use cases
-   - Pain points addressed
-
-6. **Key Features (Overview)**
-   - Top 5 features (icons + descriptions)
-   - MVP scope highlighted
-
-7-11. **Feature Details** (1 slide per major feature)
-   - Feature name
-   - User value
-   - Acceptance criteria (key points)
-   - Mockup/wireframe
-
-12. **Technical Approach**
-   - High-level architecture
-   - Key integrations
-   - Technical dependencies
-
-13. **Success Metrics**
-   - KPIs table
-   - Target values
-   - How we'll measure
-
-14. **Timeline & Milestones**
-   - Gantt chart or timeline
-   - Key dates
-   - Dependencies
-
-15. **Next Steps & Q&A**
-   - Approval needed
-   - Open questions
-   - Contact for follow-up
-
-#### Sprint Review Presentation (User Stories → Team)
-
-**Slide Structure (8 slides, 15 minutes):**
-
-1. **Cover**
-   - Sprint number
-   - Date range
-   - Team name
-
-2. **Sprint Goal**
-   - What we committed to
-   - Why it matters
-
-3. **Completed Stories**
-   - List with checkmarks
-   - Story points completed
-   - Velocity
-
-4-6. **Demo Slides** (1 per major feature)
-   - Feature name
-   - Before/After screenshots
-   - Key functionality
-
-7. **Metrics**
-   - Sprint burndown chart
-   - Velocity trend
-   - Quality metrics (bugs, test coverage)
-
-8. **Retrospective & Next Sprint**
-   - What went well
-   - What to improve
-   - Next sprint preview
-
-#### Roadmap Presentation (Strategy → Stakeholders)
-
-**Slide Structure (10 slides, 20 minutes):**
-
-1. **Cover**
-   - Product name
-   - Roadmap period (Q1-Q4 2024)
-
-2. **Product Vision**
-   - Where we're going
-   - Strategic priorities
-
-3. **Now (Current Quarter)**
-   - Features in development
-   - Expected completion dates
-
-4. **Next (Next 1-2 Quarters)**
-   - Planned features
-   - Dependencies
-
-5. **Later (6+ Months)**
-   - Future vision
-   - Research & exploration
-
-6. **Themes**
-   - Theme 1: Customer onboarding
-   - Theme 2: Power user features
-   - Theme 3: Enterprise capabilities
-
-7. **Success Metrics**
-   - How we'll track progress
-   - Target KPIs per quarter
-
-8. **Resource Needs**
-   - Team capacity
-   - Hiring plans
-   - Budget requirements
-
-9. **Risks & Mitigations**
-   - Key risks
-   - Mitigation strategies
-
-10. **Q&A**
-    - Discussion
-    - Feedback welcome
-
-### Step 3: Slide Design Principles
-
-#### Visual Hierarchy
-- **Title:** 44pt, Bold
-- **Heading:** 32pt, Bold
-- **Body:** 20-24pt, Regular
-- **Captions:** 16pt, Light
-
-#### Color Scheme
-**Primary Palette:**
-- Primary: #1976D2 (Blue)
-- Secondary: #FFC107 (Amber)
-- Accent: #4CAF50 (Green)
-- Background: #FFFFFF (White)
-- Text: #212121 (Dark Gray)
-
-**Semantic Colors:**
-- Success: #4CAF50 (Green)
-- Warning: #FF9800 (Orange)
-- Error: #F44336 (Red)
-- Info: #2196F3 (Blue)
-
-#### Layout Rules
-- **6x6 Rule**: Max 6 bullets, max 6 words per bullet
-- **White Space**: 30-40% of slide should be empty
-- **Alignment**: Left-align text, center images
-- **Consistency**: Same font, colors, layout throughout
-
-#### Typography
-- **Headings**: Sans-serif (Roboto, Open Sans, Arial)
-- **Body**: Sans-serif
-- **Data**: Monospace for numbers (if tables)
-- **No more than 2 fonts** per presentation
-
-#### Imagery
-- **High Quality**: Min 1920x1080px
-- **Relevant**: Support the message
-- **Consistent Style**: Photos or illustrations, not mixed
-- **Icons**: Simple, one color, same style set
-
-### Step 4: Slide Content Guidelines
-
-#### Title Slides
-```
-[Large Product Name]
-[Tagline in smaller text]
-
-[Presenter Name]
-[Date]
-[Company Logo]
+```bash
+node scripts/generate-presentation.js --input content.json --output presentation.html
 ```
 
-#### Content Slides
-```
-[Slide Title]
+### 2. Export to PNG slides
 
-• [Key Point 1]
-  • Supporting detail (if needed)
-
-• [Key Point 2]
-
-• [Key Point 3]
-
-[Visual: Chart, Image, or Diagram]
+```bash
+node scripts/export-slides.js presentation.html --format png --output ./slides/
 ```
 
-#### Data Slides
-```
-[Slide Title]
+### 3. Export to PDF
 
-[Large Key Metric: 150K Users]
-↑ 35% from last quarter
-
-[Supporting Chart or Graph]
-
-Key Insight: [One-sentence takeaway]
+```bash
+node scripts/export-slides.js presentation.html --format pdf --output presentation.pdf
 ```
 
-#### Quote Slides
+## Brand Integration
+
+This skill references `brand-agency` for consistent styling:
+
+### Colors (from brand-agency)
+
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Primary (Orange) | `#e85d04` | Title slides, CTAs, accents |
+| Secondary (Yellow) | `#ffd60a` | Highlights, accent slides |
+| Accent (Blue) | `#3a86ff` | Info slides, links |
+| Success (Green) | `#38b000` | Positive content |
+| Error (Red) | `#d62828` | Warnings, emphasis |
+| Foreground | `#000000` | Text, borders |
+| Background | `#ffffff` | Light slides |
+
+### Typography
+
+- **Headings**: Geist ExtraBold (800)
+- **Body**: EB Garamond
+- **Code/ASCII**: Geist Mono
+
+## Slide Types
+
+### 1. Title Slide (`--title`)
+Full-screen title with subtitle, colored background (primary/secondary/accent/dark).
+
+### 2. Content Slide (`--content`)
+Heading + body text + optional bullet list.
+
+### 3. Two-Column Slide (`--two-col`)
+Split layout for comparisons, text + image, before/after.
+
+### 4. Code Slide (`--code`)
+Dark background, syntax-highlighted code block with title.
+
+### 5. Stats Slide (`--stats`)
+Big numbers with labels (e.g., "14 templates | 4 formats | 1 skill").
+
+### 6. Task Grid Slide (`--grid`)
+Grid of cards with numbers, titles, descriptions.
+
+### 7. ASCII Art Slide (`--ascii`)
+Decorative slide with ASCII box-drawing characters.
+
+### 8. Image Slide (`--image`)
+Full-bleed or contained image with optional caption.
+
+## ASCII Decorations
+
+Use ASCII box-drawing characters for tech aesthetic:
+
 ```
-"[Powerful customer quote or testimonial]"
+Frames:   ┌─────┐  ╔═════╗  ┏━━━━━┓
+          │     │  ║     ║  ┃     ┃
+          └─────┘  ╚═════╝  ┗━━━━━┛
 
-— [Name, Title]
-[Photo of person]
-```
+Lines:    ─ │ ═ ║ ━ ┃ ━━━ ───
 
-### Step 5: Presentation Types
+Arrows:   → ← ↑ ↓ ▶ ◀ ▲ ▼
 
-#### For Executives
-- Focus on business impact
-- Use large numbers and clear charts
-- Minimize technical details
-- Highlight ROI and risk mitigation
-- Keep slides simple and visual
-- Anticipate tough questions
+Shapes:   ● ○ ■ □ ▲ △ ★ ☆ ◆ ◇
 
-#### For Technical Teams
-- Include architecture diagrams
-- Show technical dependencies
-- Detail implementation approach
-- Discuss trade-offs
-- Be precise with requirements
-- Allow for deep Q&A
-
-#### For Customers
-- Focus on benefits, not features
-- Use real-world scenarios
-- Show product in action (screenshots, demo)
-- Include testimonials
-- Clear call-to-action
-- Avoid jargon
-
-#### For Investors
-- Market opportunity (TAM/SAM/SOM)
-- Traction and metrics
-- Competitive advantage
-- Team credentials
-- Financial projections
-- Clear ask (funding amount, use of funds)
-
-## Workaround (Until Google Drive MCP Available)
-
-**Current Approach:**
-
-### Generate Slide-by-Slide Markdown
-
-```markdown
----
-PRESENTATION METADATA:
-- Type: [Product Pitch | PRD Review | Sprint Review | Roadmap]
-- Title: [Presentation Title]
-- Audience: [Executives | Team | Customers | Investors]
-- Duration: [15 minutes]
-- Slide Count: [12 slides]
-- Date: [YYYY-MM-DD]
----
-
-# Slide 1: Cover
-
-**Layout:** Title Slide
-
-**Title:**
-[Product Name]
-
-**Subtitle:**
-[One-line value proposition]
-
-**Footer:**
-[Presenter Name] | [Date] | [Company]
-
-**Design Notes:**
-- Large, bold title (60pt)
-- Company logo top-right
-- Clean, minimal design
-
----
-
-# Slide 2: Problem
-
-**Layout:** Content with Icon
-
-**Title:**
-The Problem
-
-**Content:**
-• [Pain Point 1 - 6 words max]
-
-• [Pain Point 2 - 6 words max]
-
-• [Pain Point 3 - 6 words max]
-
-**Visual:**
-[Icon or image representing the problem]
-
-**Speaker Notes:**
-[Detailed explanation to elaborate during presentation]
-
----
-
-# Slide 3: Solution
-
-**Layout:** Content with Screenshot
-
-**Title:**
-Our Solution
-
-**Content:**
-[2-3 sentence description of core solution]
-
-**Key Differentiation:**
-• [Unique aspect 1]
-• [Unique aspect 2]
-
-**Visual:**
-[Product screenshot or mockup]
-
-**Speaker Notes:**
-[How this solves the problem, why it's better]
-
----
-
-[Continue for all slides...]
-
----
-
-## Conversion Instructions
-
-To create Google Slides from this content:
-
-**Option 1: Manual Creation**
-1. Open Google Slides
-2. Choose a template or start blank
-3. Create slides following the structure above
-4. Apply consistent formatting
-5. Add visuals as indicated
-
-**Option 2: Use Slides API (when MCP available)**
-1. Authenticate with Google Slides API
-2. Run automated script
-3. Review and adjust
-
-**Option 3: Export to PowerPoint**
-1. Create in PowerPoint first
-2. Import to Google Slides
-3. Adjust formatting
-
-## Design Checklist
-
-- [ ] Consistent fonts throughout (max 2 fonts)
-- [ ] Color scheme applied consistently
-- [ ] High-quality images (min 1920x1080)
-- [ ] Icons in consistent style
-- [ ] Text follows 6x6 rule
-- [ ] Adequate white space (30-40%)
-- [ ] Slide numbers added
-- [ ] Company branding applied
-- [ ] Speaker notes included
-- [ ] Spell-check completed
-- [ ] Accessibility checked (contrast, alt text)
+Blocks:   █ ▓ ▒ ░
 ```
 
-### Include Visual Guidance
+## Content Format
 
-For each slide, specify:
-- **Layout Type**: Title, Content, Two-Column, etc.
-- **Visual Element**: Chart type, icon, image description
-- **Color Emphasis**: Which elements should stand out
-- **Animation** (optional): Fade in, appear, none
+### JSON format:
 
-## Best Practices
-
-### Content
-✅ **Do:**
-- One main idea per slide
-- Use visuals to support, not decorate
-- Tell a story (problem → solution → impact)
-- Include concrete examples
-- End with clear call-to-action
-
-❌ **Don't:**
-- Overcrowd slides with text
-- Use bullet points as script
-- Include every detail from PRD
-- Use low-quality images
-- Forget speaker notes
-
-### Design
-✅ **Do:**
-- Use high contrast (dark text on light background)
-- Align elements consistently
-- Use brand colors
-- Keep it simple and clean
-- Test readability from distance
-
-❌ **Don't:**
-- Use more than 3 colors per slide
-- Mix too many fonts
-- Use distracting animations
-- Ignore white space
-- Sacrifice readability for style
-
-### Delivery
-✅ **Do:**
-- Practice timing (1-2 min per slide)
-- Prepare for questions
-- Have backup slides (appendix)
-- Test tech before presenting
-- Bring printouts as backup
-
-❌ **Don't:**
-- Read slides verbatim
-- Turn back to audience
-- Rush through data slides
-- Skip rehearsal
-- Forget to pause for questions
-
-## Output Template
-
-```markdown
-# [Presentation Title]
-
-**Metadata:**
-- Type: [Type]
-- Audience: [Audience]
-- Duration: [X minutes]
-- Slides: [Y slides]
-
----
-
-## Slide Outline
-
-1. Cover
-2. [Slide title]
-3. [Slide title]
-4. [Slide title]
-...
-N. Next Steps / Q&A
-
----
-
-## Slide-by-Slide Content
-
-[Detailed content for each slide as shown above]
-
----
-
-## Appendix (Backup Slides)
-
-[Additional slides for potential questions]
-
----
-
-## Speaker Notes
-
-[Overall presentation flow and key talking points]
+```json
+{
+  "title": "Presentation Title",
+  "footer": "Company / Date",
+  "slides": [
+    {
+      "type": "title",
+      "bg": "primary",
+      "title": "Main Title",
+      "subtitle": "Subtitle text"
+    },
+    {
+      "type": "content",
+      "title": "Section Title",
+      "body": "Introduction paragraph",
+      "bullets": ["Point 1", "Point 2", "Point 3"]
+    },
+    {
+      "type": "code",
+      "title": "Code Example",
+      "language": "javascript",
+      "code": "const x = 42;"
+    },
+    {
+      "type": "stats",
+      "items": [
+        {"value": "14", "label": "templates"},
+        {"value": "4", "label": "formats"},
+        {"value": "∞", "label": "possibilities"}
+      ]
+    }
+  ]
+}
 ```
 
-## Integration Points
+### YAML format:
 
-This Skill works with:
-- **idea-agent**: Creates pitch decks from idea validation
-- **prd-agent**: Creates PRD review presentations
-- **userstory-agent**: Creates sprint review presentations
-- **google-docs-writer**: Shares document formatting principles
+```yaml
+title: Presentation Title
+footer: Company / Date
+slides:
+  - type: title
+    bg: primary
+    title: Main Title
+    subtitle: Subtitle text
 
-## Success Criteria
+  - type: content
+    title: Section Title
+    body: Introduction paragraph
+    bullets:
+      - Point 1
+      - Point 2
+```
 
-Presentations should:
-- [ ] Tell a clear, compelling story
-- [ ] Be visually appealing and professional
-- [ ] Fit within time constraints
-- [ ] Engage the target audience
-- [ ] Drive desired action (approval, funding, buy-in)
-- [ ] Be accessible (readable, high contrast)
-- [ ] Include speaker notes for delivery
-- [ ] Have backup slides for Q&A
+## Interactive Features
 
----
+Generated HTML includes:
 
-Use this Skill to create persuasive, professional presentations that effectively communicate PM insights and drive stakeholder decisions.
+- **Navigation dots** - Fixed right sidebar with clickable dots
+- **Keyboard navigation** - Arrow keys, Page Up/Down, Home/End
+- **Smooth scrolling** - CSS scroll-snap and smooth behavior
+- **Intersection Observer** - Active slide highlighting
+- **Responsive** - Works on various screen sizes (optimized for 16:9)
+
+## Usage Examples
+
+### Create workshop summary:
+
+```bash
+# Generate from today's session
+node scripts/generate-presentation.js \
+  --title "Claude Code Lab — Day Summary" \
+  --footer "29.11.2025" \
+  --slides slides-content.json \
+  --output workshop-summary.html
+```
+
+### Quick presentation from markdown:
+
+```bash
+# Convert markdown outline to presentation
+node scripts/md-to-slides.js notes.md --output presentation.html
+```
+
+### Batch export:
+
+```bash
+# Export all slides as PNGs
+node scripts/export-slides.js presentation.html --format png --output ./export/
+
+# Result: slide-01.png, slide-02.png, etc.
+```
+
+## File Structure
+
+```
+presentation-generator/
+├── SKILL.md              # This file
+├── templates/
+│   ├── base.html         # Base HTML template
+│   ├── slides/           # Slide type partials
+│   │   ├── title.html
+│   │   ├── content.html
+│   │   ├── code.html
+│   │   ├── stats.html
+│   │   ├── two-col.html
+│   │   ├── grid.html
+│   │   └── ascii.html
+│   └── styles.css        # Neobrutalism styles
+├── scripts/
+│   ├── generate-presentation.js  # Main generator
+│   ├── export-slides.js          # PNG/PDF export
+│   └── md-to-slides.js           # Markdown converter
+└── output/               # Generated files
+```
+
+## Dependencies
+
+- Node.js 18+
+- Playwright (`npm install playwright`)
+
+## Tips
+
+1. **Use ASCII sparingly** - Great for tech/dev presentations, can feel dated otherwise
+2. **Stick to brand colors** - Don't mix custom colors, use the 5-color palette
+3. **Big text on title slides** - h1 should be 4-5rem minimum
+4. **One idea per slide** - Neobrutalism works best with focused content
+5. **Test interactivity** - Always preview HTML before exporting

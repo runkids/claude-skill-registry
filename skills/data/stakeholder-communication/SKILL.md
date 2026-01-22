@@ -1,339 +1,189 @@
 ---
 name: stakeholder-communication
-description: Adapting technical communication for different audiences - engineers, product managers, executives, and customers. Use when communicating across functions, translating technical concepts, presenting to leadership, or building shared understanding with non-technical stakeholders.
-allowed-tools: Read, Glob, Grep
+version: "2.0.0"
+description: Stakeholder management, executive communication, and organizational alignment for product leaders.
+sasmp_version: "1.3.0"
+bonded_agent: 07-leadership-stakeholder
+bond_type: PRIMARY_BOND
+parameters:
+  - name: audience_type
+    type: string
+    enum: [executive, board, cross_functional, team, external]
+    required: true
+  - name: communication_format
+    type: string
+    enum: [presentation, document, meeting, email]
+retry_logic:
+  max_attempts: 3
+  backoff: exponential
+logging:
+  level: info
+  hooks: [start, complete, error]
 ---
 
 # Stakeholder Communication Skill
 
-A framework for adapting technical communication to different audiences, ensuring your message lands effectively whether speaking with engineers, product managers, executives, or customers.
+Effectively communicate with stakeholders and manage expectations across the organization. Master executive communication and alignment.
 
-## When to Use This Skill
+## Executive Communication
 
-- Presenting technical decisions to non-technical stakeholders
-- Writing status updates for different audience levels
-- Translating complex technical concepts for business partners
-- Building alignment across engineering, product, and business teams
-- Communicating with executives (brevity, business impact)
-- Customer-facing technical communication
-- Cross-functional project coordination
+### BLUF Format (Bottom Line Up Front)
 
-## Core Framework: Audience-First Communication
+```
+BOTTOM LINE: [1 sentence - decision/news]
 
-### The Fundamental Question
+SITUATION: [2-3 sentences - context]
 
-Before any communication, ask: **"Who is my audience and what do they need?"**
+IMPLICATIONS: [2-3 sentences - why it matters]
 
-Different stakeholders have different:
-
-- **Knowledge levels:** Technical depth they can absorb
-- **Decision criteria:** What matters for their decisions
-- **Time constraints:** How much attention they can give
-- **Action orientation:** What they need to do with this information
-
-### The Four Audience Types
-
-| Audience | Primary Concern | Communication Style |
-| -------- | --------------- | ------------------- |
-| Engineers | How it works | Technical depth, implementation details |
-| Product Managers | What it does | Features, trade-offs, timeline impact |
-| Executives | Why it matters | Business impact, risks, decisions needed |
-| Customers | How it helps them | Benefits, reliability, trust |
-
-## Quick Adaptation Guide
-
-### For Engineers
-
-**Focus on:**
-
-- Technical architecture and design decisions
-- Implementation approach and trade-offs
-- Code quality, testing, and reliability
-- Performance characteristics and constraints
-
-**Avoid:**
-
-- Over-simplified explanations (they'll feel condescended to)
-- Hiding technical debt or known issues
-- Vague timelines without technical justification
-
-### For Product Managers
-
-**Focus on:**
-
-- Feature capabilities and limitations
-- Timeline and scope trade-offs
-- User impact and experience changes
-- Dependencies and risks to roadmap
-
-**Avoid:**
-
-- Deep implementation details (unless relevant to decisions)
-- Technical jargon without context
-- Binary answers when trade-offs exist
-
-### For Executives
-
-**Focus on:**
-
-- Business impact (revenue, cost, risk)
-- Decision points requiring their input
-- Progress against strategic objectives
-- Resource implications
-
-**Avoid:**
-
-- Technical details (unless specifically asked)
-- Problems without proposed solutions
-- Lengthy explanations (get to the point)
-
-### For Customers
-
-**Focus on:**
-
-- Benefits and value they receive
-- Reliability and trust signals
-- Clear, jargon-free explanations
-- What they need to do (if anything)
-
-**Avoid:**
-
-- Internal technical details
-- Blame or excuses
-- Uncertainty without reassurance
-
-## The Translation Principle
-
-**Technical → Business Translation:**
-
-| Technical Concept | Business Translation |
-| ----------------- | -------------------- |
-| "Refactoring the codebase" | "Improving system reliability and reducing future bugs" |
-| "Database migration" | "Upgrading our data infrastructure for better performance" |
-| "Technical debt" | "Accumulated shortcuts that slow new feature development" |
-| "API rate limiting" | "Protection against system overload" |
-| "Microservices architecture" | "Modular design that allows faster, independent updates" |
-
-**The Formula:**
-
-```text
-[Technical action] → [Business benefit] + [Risk if not done]
+NEXT STEPS: [Actions needed]
 ```
 
-Example:
+### Executive Summary Template
 
-- Technical: "We need to upgrade from .NET 6 to .NET 8"
-- Business: "Upgrading our framework ensures continued security support and enables 20% faster response times, avoiding security vulnerabilities when .NET 6 support ends in November"
+```
+TITLE: [Topic]
+DATE: [Date]
+OWNER: [Name]
 
-## Communication Patterns
+SUMMARY:
+[2-3 sentence overview]
 
-### The Executive Summary Pattern
+KEY METRICS:
+- Metric 1: [Current vs Target]
+- Metric 2: [Current vs Target]
 
-For any executive communication:
+DECISION NEEDED:
+[What you need from reader]
 
-1. **Bottom Line Up Front (BLUF):** Lead with the conclusion or ask
-2. **Context:** Minimal background needed to understand
-3. **Options/Recommendation:** What you suggest and why
-4. **Ask:** What you need from them
-
-**Template:**
-
-```markdown
-**Summary:** [One sentence: what this is about and what you need]
-
-**Context:** [2-3 sentences: why this matters now]
-
-**Recommendation:** [What you propose]
-
-**Ask:** [Specific decision or action needed]
-
-**Details:** [Available if they want to dig deeper]
+TIMELINE:
+[Key dates]
 ```
 
-### The Cross-Functional Update Pattern
+## Stakeholder Management
 
-For status updates that go to mixed audiences:
+### Stakeholder Matrix
 
-1. **Progress:** What's done (accomplishments, metrics)
-2. **Plans:** What's next (upcoming work, timeline)
-3. **Problems:** What's blocking (issues, risks, needs)
-
-**Template:**
-
-```markdown
-## [Project Name] Update - [Date]
-
-### Progress
-- [Accomplishment with metric or outcome]
-- [Accomplishment with metric or outcome]
-
-### Plans
-- [Upcoming work] - [Target date]
-- [Upcoming work] - [Target date]
-
-### Problems
-- [Issue]: [Impact] - [Proposed solution or ask]
+```
+           HIGH INFLUENCE
+                 │
+    MANAGE       │      ENGAGE
+    CLOSELY      │      ACTIVELY
+    (Weekly)     │      (Weekly)
+                 │
+LOW ─────────────┼───────────── HIGH
+INTEREST         │              INTEREST
+                 │
+    MONITOR      │      KEEP
+    ONLY         │      INFORMED
+    (Quarterly)  │      (Bi-weekly)
+                 │
+           LOW INFLUENCE
 ```
 
-### The Technical Decision Pattern
+### RACI Matrix
 
-For communicating technical decisions to non-technical stakeholders:
+| Task | Responsible | Accountable | Consulted | Informed |
+|------|-------------|-------------|-----------|----------|
+| Task 1 | Dev Lead | PM | Design | Eng Team |
+| Task 2 | PM | CEO | Sales | All |
 
-1. **Decision:** What we decided
-2. **Why:** Business rationale (not technical details)
-3. **Impact:** What changes for them
-4. **Timeline:** When it happens
+## Presentation Skills
 
-**Template:**
+### Presentation Structure (15 min)
 
-```markdown
-**Decision:** We're [decision].
-
-**Why:** This [business benefit] and [risk mitigation].
-
-**Impact:** [What they'll see/experience differently].
-
-**Timeline:** [When this takes effect].
+```
+1. Hook (1 min) - Why should they care?
+2. Context (2 min) - Background
+3. Problem (2 min) - What's wrong
+4. Solution (5 min) - What you propose
+5. Impact (3 min) - Benefits & metrics
+6. Ask (2 min) - What you need
 ```
 
-## Common Mistakes
+### Data Visualization Rules
 
-### Mistake 1: Same Message to All Audiences
+- One point per chart
+- Labels on chart, not legend
+- Highlight key data
+- Remove chart junk
+- Use consistent colors
 
-**Problem:** Sending identical communication to engineers and executives.
+## Written Communication
 
-**Fix:** Create layered communication:
+### Status Update Template
 
-- Executive summary for leadership
-- Detailed version for technical teams
-- Customer-facing version if applicable
+```
+PROJECT: [Name]
+STATUS: On Track / At Risk / Off Track
 
-### Mistake 2: Leading with Technical Details
+PROGRESS THIS WEEK:
+- [Completed item]
+- [Completed item]
 
-**Problem:** Starting with how something works before why it matters.
+NEXT WEEK:
+- [Planned item]
+- [Planned item]
 
-**Fix:** Always lead with business impact, then offer technical details for those who want them.
+BLOCKERS:
+- [Blocker + mitigation]
 
-### Mistake 3: Assuming Shared Context
-
-**Problem:** Using acronyms, project names, or references others don't know.
-
-**Fix:** Define terms, provide context, link to background information.
-
-### Mistake 4: All Problems, No Solutions
-
-**Problem:** Escalating issues without proposed solutions.
-
-**Fix:** Always bring options. "We have a problem" → "We have a problem. I recommend X because Y."
-
-### Mistake 5: Binary Answers to Complex Questions
-
-**Problem:** "Yes we can" or "No we can't" without nuance.
-
-**Fix:** "Yes, with these trade-offs" or "Not as asked, but here's what we could do."
-
-## References (Load When Needed)
-
-### Detailed Frameworks
-
-- **[Audience Adaptation Matrix](references/audience-adaptation-matrix.md)**: Complete communication tactics by audience type
-- **[Technical Translation](references/technical-translation.md)**: Simplifying jargon for non-technical audiences
-- **[Executive Communication](references/executive-communication.md)**: Business impact framing and brevity techniques
-- **[Cross-Functional Alignment](references/cross-functional-alignment.md)**: Building shared understanding across teams
-
-## Related Skills and Commands
-
-- `professional-communication` skill - General communication patterns
-- `difficult-conversations` skill - Challenging stakeholder discussions
-- `/soft-skills:adapt-communication` command - Transform content for audience
-
-## Example Scenarios
-
-### Scenario 1: Explaining a Delay to Executives
-
-```markdown
-**Situation:** Feature launch delayed 2 weeks due to unexpected technical complexity.
-
-**Bad:** "The API integration is taking longer because the third-party
-documentation was incorrect and we had to reverse-engineer their
-authentication flow, plus we discovered race conditions in our queue
-processing that required refactoring."
-
-**Good:** "Launch is moving to [date] - 2 weeks later than planned.
-The integration was more complex than estimated based on available
-documentation. We've de-risked the remaining work and are confident
-in the new date. Impact: [business impact]. No action needed from you
-unless you have questions."
+METRICS:
+- [KPI]: [Value vs Target]
 ```
 
-### Scenario 2: Technical Update for Mixed Audience
+### Decision Document
 
-```markdown
-**Situation:** Database migration completed successfully.
+```
+DECISION: [What we decided]
+DATE: [Date]
+PARTICIPANTS: [Who was involved]
 
-**For Engineers:**
-"Migration complete. 2.3M records transferred with zero data loss.
-Rollback scripts tested and available. New indexes improving query
-performance by 40% on high-traffic endpoints. Monitoring dashboard
-updated. On-call runbook in wiki."
+CONTEXT:
+[Why this decision was needed]
 
-**For Executives:**
-"Database upgrade complete. System is faster and more reliable.
-No customer impact during transition. Cost savings of $X/month
-from improved efficiency."
+OPTIONS CONSIDERED:
+1. [Option A] - Pros/Cons
+2. [Option B] - Pros/Cons
 
-**For Customers (if applicable):**
-"We've upgraded our systems to serve you better. You may notice
-faster load times. No action needed on your end."
+DECISION RATIONALE:
+[Why we chose this option]
+
+NEXT STEPS:
+- [Action] - Owner - Date
 ```
 
-### Scenario 3: Requesting Resources
+## Troubleshooting
 
-```markdown
-**Situation:** Need additional engineer for critical project.
+### Yaygın Hatalar & Çözümler
 
-**Bad:** "We're behind and need help."
+| Hata | Olası Sebep | Çözüm |
+|------|-------------|-------|
+| Stakeholder surprise | No early warning | Increase frequency |
+| Misalignment | Unclear communication | BLUF, document |
+| No decision | Too many stakeholders | RACI, single decider |
+| Resistance | Not included early | Early involvement |
 
-**Good:** "Request: 1 additional engineer for [project] through [date].
+### Debug Checklist
 
-Why: Current velocity puts us 3 weeks behind [strategic goal].
-Adding capacity now enables on-time delivery.
-
-Impact of not acting: [Specific business consequence].
-
-Recommendation: Temporarily reassign [name] from [lower-priority work].
-
-Cost: [Lower-priority work] delayed by [X weeks].
-
-Ask: Approve reassignment by [date] to maintain timeline."
+```
+[ ] RACI defined mi?
+[ ] Communication cadence set mi?
+[ ] Key stakeholders informed mi?
+[ ] Decisions documented mi?
+[ ] Follow-up scheduled mi?
 ```
 
-## Anti-Patterns to Avoid
+### Recovery Procedures
 
-### In Written Communication
+1. **Stakeholder Surprise** → 1:1 meeting, rebuild trust
+2. **Misalignment** → Alignment meeting, document
+3. **Decision Deadlock** → Escalate with recommendation
 
-- **Wall of text:** Break into scannable sections
-- **Buried lead:** Put the key point first
-- **Jargon soup:** Define terms or use plain language
-- **Missing ask:** Be clear about what you need
+## Learning Outcomes
 
-### In Verbal Communication
-
-- **Monologuing:** Pause for questions and reactions
-- **Defensive posture:** Be open to feedback
-- **Over-explaining:** Match depth to audience interest
-- **Vague commitments:** Be specific about next steps
-
-## Success Metrics
-
-Effective stakeholder communication achieves:
-
-- **Understanding:** They grasp what you're saying
-- **Alignment:** They agree on direction or know how to disagree
-- **Action:** They can take appropriate next steps
-- **Trust:** They feel informed and respected
-- **Efficiency:** Neither party's time was wasted
-
-## Version History
-
-- v1.0.0 (2025-12-23): Initial release with audience-first framework
+- Present effectively to executives
+- Manage stakeholder expectations
+- Write clear status updates
+- Build organizational alignment
+- Handle difficult conversations

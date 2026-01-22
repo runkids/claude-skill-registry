@@ -1,7 +1,7 @@
 {
   "name": "todoist",
-  "repo": "clawdbot/skills",
-  "path": "skills/mjrussell/todoist/SKILL.md",
-  "source": "github.com/clawdbot/skills",
-  "downloaded_at": "2026-01-14T03:02:27.914407Z"
+  "repo": "tbroadley/dotfiles",
+  "path": "claude/skills/todoist/SKILL.md",
+  "source": "github.com/tbroadley/dotfiles",
+  "downloaded_at": "2026-01-22T03:05:01.245769Z"
 }

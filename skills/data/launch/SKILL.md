@@ -1,353 +1,382 @@
 ---
-name: launch
-description: Go-to-market engine for ID8Labs. Transforms built products into successful launches through positioning, pricing, channel strategy, and tactical execution.
-version: 1.0.0
-mcps: [Perplexity, Firecrawl]
-subagents: []
-skills: [landing-page-designer]
+name: launch-gtm-execution
+version: "2.0.0"
+description: Master go-to-market strategy, launch planning and execution, sales enablement, and marketing campaigns. Execute successful product launches.
+sasmp_version: "1.3.0"
+bonded_agent: 05-launch-gtm
+bond_type: PRIMARY_BOND
+parameters:
+  - name: launch_date
+    type: string
+    format: date
+    required: true
+  - name: gtm_model
+    type: string
+    enum: [direct_sales, self_service, sales_dev, channel]
+retry_logic:
+  max_attempts: 3
+  backoff: exponential
+logging:
+  level: info
+  hooks: [start, complete, error]
 ---
 
-# ID8LAUNCH - Go-to-Market Engine
+# Launch & Go-To-Market Skill
 
-## Purpose
+Master the art of successful product launches. From GTM strategy through launch execution, learn to coordinate teams, build momentum, and achieve market success.
 
-Get your built product to market effectively. A great product with bad marketing dies. A good product with great marketing thrives.
+## Go-To-Market (GTM) Strategy
 
-**Philosophy:** Small launches, fast learning. One channel done well beats five done poorly.
+### GTM Framework Decision
 
----
+**1. Direct Sales Model**
+- Your team directly sells to customers
+- Best for: High ACV (>$10K), complex product
+- Sales cycle: 3-6 months
+- Team size: 1 AE per $500K-$1M ARR target
+- Examples: Salesforce, HubSpot, Workday
 
-## When to Use
+**Pros:**
+- Control over message
+- Deep customer relationships
+- Higher deal size possible
+- Custom solutions
 
-- Product is built and ready to ship
-- User needs go-to-market strategy
-- User asks "how do I launch this?"
-- User needs positioning help
-- User wants pricing guidance
-- User planning a Product Hunt launch
-- Project is in BUILDING or LAUNCHING state
+**Cons:**
+- Expensive ($200K+ per rep)
+- Slower to scale
+- Long sales cycles
+- Small addressable market needed for ROI
 
----
-
-## Commands
-
-### `/launch <project-slug>`
-
-Run full launch planning for a built project.
-
-**Process:**
-1. POSITIONING - Define how you're different
-2. PRICING - Set the right price point
-3. MESSAGING - Craft compelling copy
-4. CHANNELS - Choose where to launch
-5. SEQUENCE - Plan the launch timeline
-6. ASSETS - Create launch materials
-7. EXECUTE - Go live
-
-### `/launch positioning <product-description>`
-
-Get positioning and messaging guidance.
-
-### `/launch pricing <product-type>`
-
-Get pricing strategy recommendations.
-
-### `/launch ph` (Product Hunt)
-
-Get Product Hunt-specific launch playbook.
-
-### `/launch copy <product>`
-
-Generate launch copy and messaging.
+**Key Metrics:**
+- Sales Qualified Lead (SQL)
+- Close rate (typically 20-40%)
+- Sales cycle length
+- Customer Acquisition Cost (CAC)
 
 ---
 
-## Launch Philosophy
+**2. Self-Service / Freemium Model**
+- Customers discover and sign up themselves
+- Best for: Low ACV (<$1K), self-explanatory product
+- Sales cycle: Minutes to days
+- Team: Product + Marketing focused
 
-### The Solo Builder Advantage
+**Pros:**
+- Scales without sales team
+- Low CAC
+- Fast adoption
+- Land and expand opportunity
 
-| Advantage | How to Leverage |
-|-----------|-----------------|
-| **Speed** | Launch before competition even knows you exist |
-| **Authenticity** | Your personal story is compelling |
-| **Flexibility** | Pivot messaging instantly based on feedback |
-| **Direct access** | You can personally engage with every early user |
-| **No bureaucracy** | Make decisions in minutes, not meetings |
+**Cons:**
+- High churn risk
+- Need viral/network effects
+- Requires excellent product
+- Difficult to reach enterprise
 
-### Launch Reality Check
-
-**What works for solo builders:**
-- Small, focused launches
-- One channel mastered
-- Personal outreach
-- Community building
-- Content marketing
-
-**What doesn't work (at our scale):**
-- Massive PR campaigns
-- Multi-platform blitzes
-- Paid advertising (usually)
-- Enterprise sales motions
+**Key Metrics:**
+- Free-to-paid conversion (2-5% target)
+- Monthly Recurring Revenue (MRR)
+- Customer Lifetime Value (LTV)
+- CAC < 30% LTV
 
 ---
 
-## Process Detail
+**3. Sales Development (SMB)**
+- SDR/AE team for smaller deals
+- Best for: SMB market ($2K-$50K ACV)
+- Sales cycle: 1-3 months
+- Lower cost than enterprise sales
 
-### Phase 1: POSITIONING
+**Pros:**
+- Better ROI than enterprise sales
+- Faster sales cycles
+- Larger addressable market
+- Still personal touch
 
-**Answer these questions:**
+**Cons:**
+- Volume required
+- Lower margins
+- Churn challenges
 
-1. **What category are you in?**
-   - Existing category (compete on features/price)
-   - New subcategory (own a niche)
-   - New category (hardest, biggest upside)
+---
 
-2. **Who is your customer?**
-   - Be specific: "freelance designers" not "designers"
-   - Know their pain, language, hangouts
+**4. Channel/Partner Model**
+- Resellers, integrations, platforms
+- Best for: Reaching wide market cheaply
+- Examples: App stores, Zapier, AWS Marketplace
 
-3. **What's your key differentiator?**
-   - Only choose ONE (you can't be everything)
-   - Must be defensible and believable
+**Pros:**
+- Low CAC (partner pays)
+- Wide distribution
+- Established customer relationships
 
-4. **What's your positioning statement?**
+**Cons:**
+- Less control
+- Lower margins (revenue sharing)
+- Partner incentive alignment
+
+### GTM Positioning
+
+**Template:**
 
 ```
 For [target customer]
-Who [key pain point]
-[Product name] is a [category]
-That [key benefit]
-Unlike [main alternative]
-We [key differentiator]
+Who [customer problem]
+The [product name]
+Is [category]
+That [primary benefit]
+Unlike [alternative/competitor]
+We [unique differentiator]
 ```
 
-### Phase 2: PRICING
+**Messaging Hierarchy:**
+1. **Hero message** (one sentence)
+   - "Collaborate in real-time, anywhere"
+2. **Sub-message 1** (supporting feature)
+   - "Works offline, syncs when online"
+3. **Sub-message 2** (why it matters)
+   - "No more lost work"
+4. **Social proof**
+   - "Used by 100K teams"
 
-Use `frameworks/pricing-strategy.md` for detailed guidance.
+### Target Customer Profile (ICP)
 
-**Quick framework:**
+Define your ideal customer:
 
-| Pricing Model | Best For | Example |
-|---------------|----------|---------|
-| **Freemium** | Viral growth, network effects | Notion, Figma |
-| **Free trial** | High consideration purchases | SaaS tools |
-| **Paid only** | Serious buyers, premium positioning | Basecamp |
-| **Usage-based** | Variable value delivery | AWS, OpenAI |
-| **Lifetime deal** | Quick cash, launch momentum | AppSumo |
+**Company Characteristics:**
+- Company size: 50-500 employees
+- Industry: SaaS companies
+- Revenue: $10M-$100M ARR
+- Geography: US + EU
+- Growth stage: Growth stage
 
-**Solo builder defaults:**
-- Start with 2-3 tiers max
-- Include free tier if product has viral potential
-- Price based on value, not cost
-- You can always adjust later
+**Individual Buyer:**
+- Title: VP of Operations
+- Reports to: COO/CFO
+- Budget owner: Yes
+- Decision timeline: 90 days
 
-### Phase 3: MESSAGING
+**Why they'll buy:**
+- Main pain: 40% time on manual process
+- Impact: Save $500K/year
+- Decision criteria: ROI, ease of use, support
 
-**Core messages to create:**
+## Launch Planning (12-Week Timeline)
 
-1. **One-liner:** What it is in 10 words
-2. **Tagline:** The memorable phrase
-3. **Problem statement:** The pain you solve
-4. **Value proposition:** Why choose you
-5. **Social proof:** Evidence it works
-6. **Call to action:** What to do next
+### Weeks 1-4: Strategy & Preparation
 
-**Messaging formulas:**
+**Week 1-2: Launch Kickoff**
+- [ ] Define launch goals (# signups, NPS, revenue)
+- [ ] Identify target segments
+- [ ] Competitive positioning finalized
+- [ ] Go/no-go criteria defined
+- [ ] Launch date locked
+
+**Week 3-4: Content & Collateral**
+- [ ] Launch press release drafted
+- [ ] Product one-pagers created
+- [ ] Demo video script written
+- [ ] FAQ documentation started
+- [ ] Sales pitch refined
+
+### Weeks 5-8: Content Creation & Team Prep
+
+**Week 5-6: Marketing Preparation**
+- [ ] Website landing page built
+- [ ] Email campaign drafted
+- [ ] Social media content scheduled
+- [ ] Influencer outreach list built
+- [ ] PR/media contact list built
+
+**Week 7-8: Team Training**
+- [ ] Sales team training (2 days)
+- [ ] Customer success onboarding materials
+- [ ] Support team training
+- [ ] Executive briefing
+- [ ] Talking points finalized
+
+### Weeks 9-10: Beta & Feedback
+
+**Week 9-10: Beta Program**
+- [ ] 50-100 beta users selected
+- [ ] Beta feedback system set up
+- [ ] Daily feedback review
+- [ ] Bug fixes prioritized
+- [ ] Product stability achieved
+
+### Weeks 11-12: Final Launch Prep
+
+**Week 11: Final Preparations**
+- [ ] All content finalized and approved
+- [ ] Marketing assets tested
+- [ ] Sales collateral printed/digital ready
+- [ ] Support documentation complete
+- [ ] Systems and infrastructure scaling verified
+
+**Week 12: Launch Week Readiness**
+- [ ] Final product testing complete
+- [ ] Team communication plan reviewed
+- [ ] Monitoring and alerts configured
+- [ ] Support team on high alert
+- [ ] Celebration planned!
+
+## Launch Week Execution
+
+### Launch Day Schedule
+
+**6:00 AM - Team Standup**
+- Goals for the day
+- Potential issues
+- Communication channels
+
+**9:00 AM - LAUNCH**
+- Press release goes out
+- Email campaign sends
+- Social media posts
+- Website live
+- Sales team activated
+
+**9:00 AM - 5:00 PM: Monitoring**
+- Metrics dashboard live
+- Support team responding
+- Sales team following up
+- Marketing team posting
+- Exec team celebrating
+
+**5:00 PM - 9:00 PM: Close Monitoring**
+- Continued metric tracking
+- Issue response
+- Team updates hourly
+- Press/media engagement
+
+### Post-Launch Week (Days 2-7)
+
+**Day 2 (Friday):**
+- Performance review
+- Bug prioritization
+- Customer feedback analysis
+- Day 2 communication push
+
+**Day 3-5 (Weekend/Monday):**
+- 24/7 support coverage
+- Customer success outreach
+- High-priority fixes
+- Feedback pattern analysis
+
+**Day 6-7 (Tuesday/Wednesday):**
+- Retrospective planning
+- Performance vs goals review
+- Course correction planning
+- Team debrief
+
+## Sales Enablement
+
+### Sales One-Pager (2 pages)
+
+**Page 1:**
+- Product/company logo
+- One-line pitch
+- 3 key features/benefits
+- Comparison vs competitors
+- Pricing
+
+**Page 2:**
+- Customer testimonial/quote
+- Use case scenario
+- ROI calculator
+- Call to action
+- Contact info
+
+### Pitch Structure (3 minutes)
+
+1. **Hook** (15 sec)
+   - Current state: "Teams spend 40% time on manual sync"
+
+2. **Problem** (30 sec)
+   - Real impact: "Causes delays, errors, frustration"
+
+3. **Solution** (60 sec)
+   - How you solve: "We automate the sync process"
+   - Key benefit: "Save 5 hours/week per team member"
+
+4. **Social Proof** (15 sec)
+   - Used by: "100 teams across industries"
+   - Outcomes: "Avg 40% time savings"
+
+5. **Call to Action** (15 sec)
+   - Next step: "Let's run a quick 30-min POC with your team"
+
+### Objection Handling
+
+**Objection: "We're fine with current solution"**
+- Response: "I understand. What if we could cut your manual sync time in half? Worth 20 minutes to see how?"
+
+**Objection: "We don't have budget"**
+- Response: "What if this saves $50K in productivity? Would you make budget? Let's see if it applies to you."
+
+**Objection: "We need to evaluate competitors"**
+- Response: "Smart. Here's how we compare to X and Y. What's most important to you - speed, ease of use, or cost?"
+
+### Sales Process
+
+1. **Prospecting** - Outbound/inbound leads
+2. **Discovery Call** - Understand needs
+3. **Proposal/Demo** - Show solution
+4. **Negotiation** - Pricing/terms
+5. **Close** - Customer acquisition!
+
+## Launch Metrics
+
+**Acquisition Metrics:**
+- Sign-ups: [Target #]
+- Conversion rate: [Target %]
+- Cost per acquisition: [Budget]
+
+**Engagement Metrics:**
+- DAU (Daily Active Users)
+- Feature adoption rate
+- Time in app
+
+**Retention Metrics:**
+- Day 7/30 retention
+- Churn rate
+- NPS score
+
+**Business Metrics:**
+- MRR (Monthly Recurring Revenue)
+- ACV (Average Contract Value)
+- Payback period
+
+## Troubleshooting
+
+### Yaygın Hatalar & Çözümler
+
+| Hata | Olası Sebep | Çözüm |
+|------|-------------|-------|
+| Launch delay | Product not ready | Parallel tracks, beta extend |
+| Low buzz | Insufficient marketing | 4-week teaser campaign |
+| Sales not ready | Late enablement | Training week 6 |
+| Support overwhelmed | Under-staffed | Temp staff, extended hours |
+
+### Debug Checklist
 
 ```
-# Pain-Agitate-Solution
-Pain: [Problem they have]
-Agitate: [Make it worse - what happens if unsolved]
-Solution: [How you fix it]
-
-# Before-After-Bridge
-Before: [Their current state]
-After: [Their desired state]
-Bridge: [Your product connects them]
-
-# Feature-Advantage-Benefit
-Feature: [What it does]
-Advantage: [Why that's better]
-Benefit: [What they get]
+[ ] GTM model clearly defined mi?
+[ ] Target segments validated mi?
+[ ] Messaging tested mi?
+[ ] Sales team trained mi?
+[ ] Support docs ready mi?
+[ ] Rollback plan var mı?
+[ ] Monitoring configured mı?
 ```
 
-### Phase 4: CHANNELS
+### Recovery Procedures
 
-**Channel selection matrix:**
-
-| Channel | Effort | Time to Results | Best For |
-|---------|--------|-----------------|----------|
-| **Product Hunt** | Medium | Immediate | B2B SaaS, dev tools |
-| **Hacker News** | Low | Immediate | Technical products |
-| **Reddit** | Low-Medium | Days-weeks | Niche communities |
-| **Twitter/X** | Medium | Weeks-months | Builder audience |
-| **SEO/Content** | High | Months | Long-term growth |
-| **Email/Newsletter** | Medium | Days-weeks | Existing audience |
-| **Cold outreach** | High | Days-weeks | B2B, high ACV |
-
-**Solo builder recommendation:**
-1. Pick ONE primary channel
-2. Master it before adding others
-3. Go where your users already are
-
-### Phase 5: SEQUENCE
-
-Use `frameworks/launch-sequencing.md` for platform-specific playbooks.
-
-**Generic launch timeline:**
-
-| Timing | Activity |
-|--------|----------|
-| T-2 weeks | Finalize positioning, messaging |
-| T-1 week | Create all launch assets |
-| T-3 days | Seed community, notify supporters |
-| T-1 day | Final prep, queue posts |
-| Launch day | Execute, engage, monitor |
-| T+1 day | Follow up, gather feedback |
-| T+1 week | Analyze, iterate, sustain |
-
-### Phase 6: ASSETS
-
-**Minimum launch assets:**
-
-- [ ] Landing page (with clear CTA)
-- [ ] Product screenshots/demo
-- [ ] One-liner + tagline
-- [ ] Social post copy (2-3 variants)
-- [ ] Email announcement (for existing list)
-
-**Nice to have:**
-
-- [ ] Demo video (60-90 seconds)
-- [ ] Press kit
-- [ ] Detailed product walkthrough
-- [ ] Testimonials/social proof
-
-### Phase 7: EXECUTE
-
-**Launch day checklist:**
-
-Morning:
-- [ ] Final check of landing page
-- [ ] Verify sign-up flow works
-- [ ] Post to primary channel
-- [ ] Share to personal networks
-
-Throughout day:
-- [ ] Respond to every comment/question
-- [ ] Monitor for issues
-- [ ] Track key metrics
-- [ ] Share updates/momentum
-
-End of day:
-- [ ] Thank supporters
-- [ ] Note learnings
-- [ ] Plan follow-up
+1. **Launch Date Slip** → Communicate early, propose new date
+2. **Critical Bug** → Activate rollback procedure
+3. **Low Adoption** → Accelerate marketing, CS outreach
 
 ---
 
-## Framework References
-
-### Go-to-Market Strategy
-`frameworks/gtm-strategy.md` - Overall launch strategy
-
-### Positioning
-`frameworks/positioning.md` - How to position against competition
-
-### Launch Sequencing
-`frameworks/launch-sequencing.md` - Platform-specific playbooks
-
-### Pricing Strategy
-`frameworks/pricing-strategy.md` - Pricing models and psychology
-
-### PR & Outreach
-`frameworks/pr-outreach.md` - Press and influencer approach
-
----
-
-## Output Templates
-
-### Launch Plan
-`templates/launch-plan.md` - Comprehensive launch checklist
-
-### Landing Page Copy
-`templates/landing-page-copy.md` - Conversion-focused copy template
-
-### Press Kit
-`templates/press-kit.md` - Media kit for press outreach
-
----
-
-## Tool Integration
-
-### MCPs
-
-**Perplexity:**
-- Research competitor positioning
-- Find industry benchmarks
-- Discover audience hangouts
-
-**Firecrawl:**
-- Scrape competitor landing pages
-- Extract pricing information
-- Analyze messaging patterns
-
-### Skills
-
-**landing-page-designer:**
-- Generate landing page structure
-- Create conversion-focused copy
-- Design call-to-action sections
-
----
-
-## Handoff
-
-After completing launch planning:
-
-1. **Save outputs:**
-   - Launch plan → `docs/LAUNCH_PLAN.md` in project
-   - Copy → Landing page components
-   - Press kit → `docs/PRESS_KIT.md`
-
-2. **Log to tracker:**
-   ```
-   /tracker log {project-slug} "LAUNCH: Launch plan complete. Primary channel: {channel}. Launch date: {date}."
-   ```
-
-3. **Update state:**
-   ```
-   /tracker update {project-slug} LAUNCHING
-   ```
-
-4. **Next steps:**
-   - Execute launch plan
-   - After launch, transition to growth
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Why Bad | Do Instead |
-|--------------|---------|------------|
-| Launch everywhere | Spread too thin | Focus on ONE channel |
-| No positioning | Generic = forgettable | Define clear differentiator |
-| Price too low | Undervalues product | Price for value delivered |
-| Skip soft launch | Miss early feedback | Test with small group first |
-| Perfect before launch | Never ship | Good enough → iterate |
-| Ignore launch | Build and pray | Treat launch as a feature |
-
----
-
-## Quality Checks
-
-Before launching:
-
-- [ ] Positioning is clear and differentiated
-- [ ] Pricing matches value and audience
-- [ ] Landing page converts (test with friends)
-- [ ] Sign-up flow works perfectly
-- [ ] Primary channel is researched
-- [ ] Launch assets are ready
-- [ ] Timeline is realistic
-- [ ] You're ready to engage all day
+**Master launch execution and create market momentum!**

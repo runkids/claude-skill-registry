@@ -1,403 +1,346 @@
 ---
-name: ppt
-description: PPT 演示文稿创建、编辑和分析。当需要处理演示文稿时使用，支持：(1) 创建新演示文稿，(2) 修改和编辑内容，(3) 处理布局和样式，(4) 添加图表和表格
+name: ppt_generation
+display_name: PPT 生成
+description: 智能 PPT 生成能力，支持从研究报告一键生成演示文稿。基于 Marp Markdown 引擎，支持专业模板、数据图表、PDF 导出。适用于商业提案、项目汇报、产品介绍、培训课件、融资路演等场景。
+version: 1.0.0
+author: system
+tags: [ppt, presentation, slides, powerpoint, 演示, 幻灯片, marp, report, business, 商业, 汇报]
+allowed_tools: [generate_ppt_outline, fill_ppt_content, render_ppt, export_ppt]
+max_iterations: 15
+timeout: 300
+enabled: true
+match_threshold: 0.65
+priority: 8
 ---
 
-# PPT 演示文稿处理技能
+## 能力概述
 
-## 概述
+PPT 生成能力让你能够将研究报告或任意内容快速转化为专业的演示文稿。
 
-本技能提供完整的 PowerPoint 演示文稿处理能力，包括创建、编辑和分析 .pptx 文件。
+**核心特点**：
+- 一键生成：从 Deep Research 报告直接生成 PPT
+- 智能大纲：自动拆解内容为 10-15 页幻灯片
+- 专业模板：商务、科技、简约等多种风格
+- 图表支持：Mermaid 流程图、Chart.js 数据图表
+- 多格式导出：PDF、HTML、PPTX
 
-## 创建新演示文稿的推荐工作流程
+## 技术架构
 
-### 方法一：HTML to PPTX 工作流程（推荐 - 专业设计）
+### 生成方式：Template-Driven (MVP)
 
-这是创建专业演示文稿的最佳方法，提供完整的设计控制和视觉质量。
+基于 Marp (Markdown Presentation Ecosystem) 的模板驱动方案：
 
-#### 设计原则
-
-**关键要求 - 在编写代码前必须做：**
-1. **分析内容主题**：这个演示是关于什么的？什么行业、情绪或基调？
-2. **检查品牌要求**：如果用户提到公司/组织，考虑其品牌色彩和身份
-3. **匹配调色板**：选择反映主题的颜色
-4. **说明设计思路**：在编写代码前解释你的设计选择
-
-**设计要求：**
-- ✅ 在编写代码前说明基于内容的设计方法
-- ✅ 仅使用 Web 安全字体：Arial, Helvetica, Times New Roman, Georgia, Courier New, Verdana, Tahoma, Trebuchet MS, Impact
-- ✅ 通过大小、粗细和颜色创建清晰的视觉层次
-- ✅ 确保可读性：强对比度、适当大小的文本、清晰对齐
-- ✅ 保持一致：重复模式、间距和视觉语言
-
-#### 颜色调色板选择
-
-**创意选色建议：**
-- **超越默认**：什么颜色真正匹配这个主题？避免自动驾驶选择
-- **多角度考虑**：主题、行业、情绪、能量水平、目标受众、品牌身份
-- **大胆尝试**：医疗演示不一定用绿色，金融不一定用深蓝
-- **构建调色板**：选择 3-5 种协调的颜色（主色 + 辅助色 + 强调色）
-- **确保对比**：文本必须在背景上清晰可读
-
-**示例调色板（激发创意 - 选择一个、改编或创建自己的）：**
-
-1. **经典蓝** - 深蓝 (#1C2833), 石板灰 (#2E4053), 银色 (#AAB7B8), 浅灰 (#F4F6F6)
-2. **青绿珊瑚** - 青色 (#5EA8A7), 深青 (#277884), 珊瑚 (#FE4447), 白色 (#FFFFFF)
-3. **大胆红** - 红 (#C0392B), 鲜红 (#E74C3C), 橙 (#F39C12), 黄 (#F1C40F), 绿 (#2ECC71)
-4. **温暖腮红** - 淡紫 (#A49393), 腮红 (#EED6D3), 玫瑰 (#E8B4B8), 奶油 (#FAF7F2)
-5. **勃艮第奢华** - 勃艮第 (#5D1D2E), 深红 (#951233), 锈色 (#C15937), 金色 (#997929)
-6. **深紫翡翠** - 紫色 (#B165FB), 深蓝 (#181B24), 翡翠 (#40695B), 白色 (#FFFFFF)
-7. **奶油森林绿** - 奶油 (#FFE1C7), 森林绿 (#40695B), 白色 (#FCFCFC)
-8. **粉紫** - 粉红 (#F8275B), 珊瑚 (#FF574A), 玫瑰 (#FF737D), 紫色 (#3D2F68)
-9. **柠檬李子** - 柠檬绿 (#C5DE82), 李子 (#7C3A5F), 珊瑚 (#FD8C6E), 蓝灰 (#98ACB5)
-10. **黑金** - 金色 (#BF9A4A), 黑色 (#000000), 奶油 (#F4F6F6)
-11. **鼠尾草陶土** - 鼠尾草 (#87A96B), 陶土 (#E07A5F), 奶油 (#F4F1DE), 炭灰 (#2C2C2C)
-12. **炭灰红** - 炭灰 (#292929), 红 (#E33737), 浅灰 (#CCCBCB)
-13. **活力橙** - 橙色 (#F96D00), 浅灰 (#F2F2F2), 炭灰 (#222831)
-14. **森林绿** - 黑 (#191A19), 绿 (#4E9F3D), 深绿 (#1E5128), 白 (#FFFFFF)
-15. **复古彩虹** - 紫 (#722880), 粉 (#D72D51), 橙 (#EB5C18), 琥珀 (#F08800), 金 (#DEB600)
-16. **复古大地** - 芥末 (#E3B448), 鼠尾草 (#CBD18F), 森林绿 (#3A6B35), 奶油 (#F4F1DE)
-
-#### 视觉细节选项
-
-**几何图案：**
-- 对角分隔线代替水平线
-- 不对称列宽（30/70, 40/60, 25/75）
-- 90° 或 270° 旋转文本标题
-- 圆形/六边形图片框架
-- 三角形强调形状
-- 重叠形状增加深度
-
-**边框处理：**
-- 单侧粗边框（10-20pt）
-- 双线边框配对比色
-- 角括号代替完整框架
-- L 形边框（上+左 或 下+右）
-- 标题下划线（3-5pt 粗）
-
-**排版处理：**
-- 极端大小对比（72pt 标题 vs 11pt 正文）
-- 全大写标题 + 宽字母间距
-- 大号显示数字
-- 等宽字体（Courier New）用于数据/统计/技术内容
-- 窄字体（Arial Narrow）用于密集信息
-
-**图表数据样式：**
-- 单色图表 + 单一强调色突出关键数据
-- 横向条形图代替纵向
-- 点图代替条形图
-- 最少网格线或无网格线
-- 数据标签直接在元素上（无图例）
-- 超大数字显示关键指标
-
-**布局创新：**
-- 全出血图片 + 文本叠加
-- 侧边栏（20-30% 宽度）用于导航/上下文
-- 模块化网格系统（3×3, 4×4 块）
-- Z 型或 F 型内容流
-- 浮动文本框覆盖彩色形状
-- 杂志风格多栏布局
-
-**背景处理：**
-- 占据 40-60% 幻灯片的纯色块
-- 渐变填充（仅垂直或对角）
-- 分割背景（两种颜色，对角或垂直）
-- 边到边色带
-- 负空间作为设计元素
-
-#### 工作流程步骤
-
-1. **设计思考**
-   - 分析内容主题和目标受众
-   - 选择 3-5 种颜色的调色板
-   - 决定视觉风格（现代/专业/科技/创意）
-   - 向用户说明设计思路
-
-2. **创建 HTML 幻灯片**
-   - 为每张幻灯片创建 HTML 文件
-   - 使用标准尺寸（720pt × 405pt for 16:9）
-   - 使用 `<h1>`-`<h6>`, `<p>`, `<ul>`, `<ol>` 标签
-   - 应用 CSS 样式实现设计
-
-3. **生成 Node.js 转换脚本**
-   - 使用 PptxGenJS 库
-   - 读取 HTML 并转换为 PPTX
-   - 添加图表、表格等高级元素
-   - 保存 PPTX 文件
-
-4. **运行生成**
-   ```bash
-   node generate_presentation.js
-   ```
-
-#### 完整示例代码
-
-**HTML 幻灯片示例（slide1.html）：**
-```html
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    width: 720pt;
-    height: 405pt;
-    background: linear-gradient(135deg, #1C2833 0%, #2E4053 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-}
-h1 {
-    color: #F4F6F6;
-    font-size: 60pt;
-    font-weight: bold;
-    margin: 0;
-    text-align: center;
-}
-p {
-    color: #AAB7B8;
-    font-size: 24pt;
-    margin-top: 20pt;
-}
-</style>
-</head>
-<body>
-    <h1>演示标题</h1>
-    <p>副标题文字</p>
-</body>
-</html>
+```
+用户输入/报告 → 大纲生成 → 内容填充 → Marp 渲染 → 导出
 ```
 
-**Node.js 转换脚本示例：**
-```javascript
-const PptxGenJS = require('pptxgenjs');
-const fs = require('fs');
-const puppeteer = require('puppeteer');
+**选择理由**：
+- ✅ 布局一致性强
+- ✅ 完全可编辑（Markdown 源码）
+- ✅ PDF/HTML 导出完美兼容
+- ✅ 支持品牌定制（主题、颜色、字体）
+- ✅ 实现相对简单，适合 MVP
 
-async function createPresentation() {
-    const pptx = new PptxGenJS();
+## 工作流程
 
-    // 设置演示文稿属性
-    pptx.layout = '16x9';
-    pptx.author = 'Generated by Claude';
+### Phase 1: 内容分析
+分析输入内容，确定演示文稿结构：
+- 识别核心主题和关键点
+- 确定目标受众和演示时长
+- 规划幻灯片数量（默认 10-15 页）
 
-    // 为每个 HTML 文件创建幻灯片
-    const htmlFiles = ['slide1.html', 'slide2.html', 'slide3.html'];
+### Phase 2: 大纲生成
+生成结构化大纲：
+```yaml
+slides:
+  - type: title
+    title: "演示标题"
+    subtitle: "副标题/日期"
+  - type: toc
+    items: ["章节1", "章节2", ...]
+  - type: section
+    title: "章节标题"
+  - type: content
+    title: "页面标题"
+    points: ["要点1", "要点2", ...]
+  - type: data
+    title: "数据展示"
+    chart: { type: "bar", data: [...] }
+  - type: conclusion
+    points: ["结论1", "结论2", ...]
+```
 
-    for (const htmlFile of htmlFiles) {
-        const slide = pptx.addSlide();
+### Phase 3: 内容填充
+根据大纲填充每页内容：
+- 标题页：主标题、副标题、演讲者
+- 目录页：章节概览
+- 内容页：标题、要点、说明
+- 数据页：图表、表格
+- 总结页：结论、行动号召
 
-        // 读取 HTML 内容
-        const html = fs.readFileSync(htmlFile, 'utf8');
+### Phase 4: 样式应用
+应用视觉模板：
+- 主题选择（商务/科技/简约）
+- 配色方案
+- 字体搭配
+- 布局调整
 
-        // 使用 Puppeteer 渲染 HTML 为图片
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.setViewport({ width: 960, height: 540 });
-        await page.setContent(html);
-        const screenshot = await page.screenshot({ type: 'png' });
-        await browser.close();
+### Phase 5: 渲染导出
+生成最终文件：
+- HTML 预览
+- PDF 导出
+- Markdown 源码（可编辑）
 
-        // 将图片添加到幻灯片
-        slide.addImage({
-            data: `data:image/png;base64,${screenshot.toString('base64')}`,
-            x: 0,
-            y: 0,
-            w: '100%',
-            h: '100%'
-        });
+## 工具使用
+
+### generate_ppt_outline
+**用途**：生成 PPT 大纲
+
+**参数**：
+- `content`: 输入内容（研究报告、文本等）
+- `template_id`: 模板 ID（可选）
+- `slide_count`: 目标幻灯片数量（默认 12）
+- `style`: 风格偏好（business/tech/minimal）
+
+**返回**：
+```json
+{
+  "outline_id": "uuid",
+  "slides": [
+    {"type": "title", "title": "...", "subtitle": "..."},
+    ...
+  ],
+  "estimated_duration": "15分钟"
+}
+```
+
+### fill_ppt_content
+**用途**：填充幻灯片内容
+
+**参数**：
+- `outline_id`: 大纲 ID
+- `slide_index`: 幻灯片索引（可选，不填则填充所有）
+- `additional_context`: 额外上下文（可选）
+
+**返回**：
+```json
+{
+  "slides": [
+    {
+      "type": "content",
+      "title": "市场规模",
+      "content": "# 市场规模\n\n- 要点1\n- 要点2\n\n> 引用数据"
     }
-
-    // 保存演示文稿
-    await pptx.writeFile({ fileName: 'presentation.pptx' });
-    console.log('✅ 演示文稿创建成功！');
+  ]
 }
-
-createPresentation().catch(console.error);
 ```
 
-### 方法二：Python-PPTX 直接创建（快速原型）
+### render_ppt
+**用途**：渲染 PPT 为 HTML 预览
 
-适用于简单、快速的演示文稿创建。
+**参数**：
+- `outline_id`: 大纲 ID
+- `theme`: 主题名称（default/gaia/uncover）
+- `paginate`: 是否显示页码
 
-```python
-from pptx import Presentation
-from pptx.util import Inches, Pt
-from pptx.enum.text import PP_ALIGN
-from pptx.dml.color import RGBColor
-
-# 创建演示文稿
-prs = Presentation()
-
-# 添加标题幻灯片
-title_slide_layout = prs.slide_layouts[0]
-slide = prs.slides.add_slide(title_slide_layout)
-title = slide.shapes.title
-subtitle = slide.placeholders[1]
-title.text = "演示标题"
-subtitle.text = "副标题"
-
-# 添加内容幻灯片
-bullet_slide_layout = prs.slide_layouts[1]
-slide = prs.slides.add_slide(bullet_slide_layout)
-title_shape = slide.shapes.title
-body_shape = slide.placeholders[1]
-
-title_shape.text = "内容标题"
-text_frame = body_shape.text_frame
-text_frame.text = "第一个要点"
-
-# 添加更多要点
-p = text_frame.add_paragraph()
-p.text = "第二个要点"
-p.level = 0
-
-# 保存
-prs.save('presentation.pptx')
+**返回**：
+```json
+{
+  "html_url": "/preview/ppt/{id}.html",
+  "markdown_url": "/preview/ppt/{id}.md"
+}
 ```
 
-## 读取和分析内容
+### export_ppt
+**用途**：导出 PPT 文件
 
-### 文本提取
+**参数**：
+- `outline_id`: 大纲 ID
+- `format`: 导出格式（pdf/html/pptx）
+- `filename`: 输出文件名（可选）
 
-```bash
-# 使用 markitdown 转换为 markdown
-python -m markitdown presentation.pptx
+**返回**：
+```json
+{
+  "download_url": "/download/ppt/{filename}.pdf",
+  "file_size": "2.3MB"
+}
 ```
 
-### 访问原始 XML
+## 模板系统
 
-对于注释、演讲者备注、幻灯片布局等高级功能：
+### 内置模板
 
-```bash
-# 解压 pptx 文件
-unzip presentation.pptx -d unpacked/
+#### 1. 商业提案 (business_proposal)
+- 风格：专业、稳重
+- 配色：深蓝 + 金色
+- 适用：商务汇报、项目提案
+
+#### 2. 科技演示 (tech_showcase)
+- 风格：现代、科技感
+- 配色：深色背景 + 霓虹高亮
+- 适用：产品发布、技术分享
+
+#### 3. 简约报告 (minimal_report)
+- 风格：简洁、留白
+- 配色：黑白 + 单色强调
+- 适用：日常汇报、内部分享
+
+#### 4. 学术演讲 (academic)
+- 风格：严谨、学术
+- 配色：白底 + 深色文字
+- 适用：学术报告、论文答辩
+
+#### 5. 融资路演 (pitch_deck)
+- 风格：大气、有冲击力
+- 配色：品牌色 + 渐变
+- 适用：投资路演、商业计划
+
+### 自定义模板
+支持通过 CSS 自定义主题：
+```css
+/* Custom theme */
+section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #ffffff;
+}
+h1 { color: #e94560; }
 ```
 
-**关键文件结构：**
-- `ppt/presentation.xml` - 主演示元数据
-- `ppt/slides/slide{N}.xml` - 单个幻灯片内容
-- `ppt/notesSlides/notesSlide{N}.xml` - 演讲者备注
-- `ppt/slideLayouts/` - 布局模板
-- `ppt/theme/` - 主题和样式
-- `ppt/media/` - 图片和媒体文件
+## 图表支持
 
-## 常用布局索引
-
-python-pptx 的标准布局：
-
-- **0**: 标题幻灯片（Title Slide）
-- **1**: 标题和内容（Title and Content）
-- **2**: 节标题（Section Header）
-- **3**: 两栏内容（Two Content）
-- **4**: 比较（Comparison）
-- **5**: 仅标题（Title Only）
-- **6**: 空白（Blank）
-- **7**: 内容带标题（Content with Caption）
-- **8**: 图片带标题（Picture with Caption）
-
-## 添加图表
-
-```python
-from pptx import Presentation
-from pptx.chart.data import CategoryChartData
-from pptx.enum.chart import XL_CHART_TYPE
-from pptx.util import Inches
-
-prs = Presentation()
-slide = prs.slides.add_slide(prs.slide_layouts[5])
-
-# 定义图表数据
-chart_data = CategoryChartData()
-chart_data.categories = ['Q1', 'Q2', 'Q3', 'Q4']
-chart_data.add_series('销售额', (100, 120, 140, 160))
-
-# 添加图表
-x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4.5)
-chart = slide.shapes.add_chart(
-    XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
-).chart
-
-prs.save('chart_presentation.pptx')
+### Mermaid 图表
+支持流程图、时序图、甘特图等：
+```mermaid
+graph LR
+  A[需求分析] --> B[设计]
+  B --> C[开发]
+  C --> D[测试]
+  D --> E[部署]
 ```
 
-## 添加表格
-
-```python
-from pptx import Presentation
-from pptx.util import Inches
-
-prs = Presentation()
-slide = prs.slides.add_slide(prs.slide_layouts[5])
-
-# 添加表格（3行4列）
-table = slide.shapes.add_table(3, 4, Inches(2), Inches(2), Inches(6), Inches(2)).table
-
-# 填充表头
-table.cell(0, 0).text = '项目'
-table.cell(0, 1).text = 'Q1'
-table.cell(0, 2).text = 'Q2'
-table.cell(0, 3).text = 'Q3'
-
-# 填充数据
-table.cell(1, 0).text = '销售额'
-table.cell(1, 1).text = '100'
-
-prs.save('table_presentation.pptx')
+### Chart.js 数据图表
+支持柱状图、饼图、折线图等：
+```markdown
+<!-- chart: bar -->
+| 季度 | 销售额 |
+|------|--------|
+| Q1   | 100    |
+| Q2   | 150    |
+| Q3   | 200    |
+| Q4   | 250    |
 ```
-
-## 样式设置
-
-```python
-from pptx.util import Pt
-from pptx.dml.color import RGBColor
-
-# 字体样式
-run.font.name = 'Arial'
-run.font.size = Pt(16)
-run.font.bold = True
-run.font.color.rgb = RGBColor(255, 0, 0)  # 红色
-
-# 段落对齐
-paragraph.alignment = PP_ALIGN.CENTER
-
-# 段落间距
-paragraph.paragraph_format.space_before = Pt(12)
-paragraph.paragraph_format.space_after = Pt(12)
-paragraph.paragraph_format.line_spacing = 1.5
-```
-
-## 依赖安装
-
-```bash
-# Python 方法
-pip install python-pptx markitdown
-
-# HTML to PPTX 方法（推荐）
-npm install -g pptxgenjs puppeteer
-```
-
-## 快速参考
-
-| 任务 | Python | HTML to PPTX |
-|------|--------|--------------|
-| 设计灵活性 | 中等 | ✅ 高 |
-| 视觉质量 | 基础 | ✅ 专业 |
-| 学习曲线 | 简单 | 中等 |
-| 适用场景 | 快速原型 | ✅ 生产级演示 |
 
 ## 最佳实践
 
-1. **优先使用 HTML to PPTX** 方法用于重要演示
-2. **在编码前思考设计** - 分析主题、选择调色板
-3. **保持一致性** - 整个演示使用相同的颜色和字体
-4. **确保对比度** - 文本必须清晰可读
-5. **测试在不同设备** - 确保在投影仪上清晰
+### 1. 内容精简
+- 每页 3-5 个要点
+- 避免大段文字
+- 使用图表代替数字堆砌
 
-## 更多资源
+### 2. 视觉层次
+- 标题突出
+- 关键数据加粗
+- 使用颜色引导注意力
 
-- [PptxGenJS 官方文档](https://gitbrent.github.io/PptxGenJS/)
-- [python-pptx 官方文档](https://python-pptx.readthedocs.io/)
+### 3. 叙事逻辑
+- 开头吸引注意
+- 中间展开论述
+- 结尾总结行动
+
+### 4. 演示时长
+| 幻灯片数 | 预计时长 |
+|---------|---------|
+| 8-10 页 | 5 分钟  |
+| 12-15 页| 10-15 分钟|
+| 20-25 页| 20-30 分钟|
+
+## 输出格式
+
+### Markdown 源码（可编辑）
+```markdown
+---
+marp: true
+theme: default
+paginate: true
+---
+
+# 演示标题
+副标题 | 日期
+
+---
+
+## 第一章
+### 关键点
+
+- 要点 1
+- 要点 2
+- 要点 3
+
+---
+
+## 数据展示
+
+```mermaid
+pie title 市场份额
+  "产品A" : 40
+  "产品B" : 30
+  "其他" : 30
+```
+
+---
+
+## 结论
+
+1. 核心发现
+2. 行动建议
+3. 下一步计划
+```
+
+### PDF 导出
+- A4 横向（16:9）
+- 高清分辨率
+- 嵌入字体
+
+### HTML 导出
+- 响应式设计
+- 支持全屏演示
+- 键盘导航
+
+## 与 Deep Research 集成
+
+当用户完成 Deep Research 后，可一键生成 PPT：
+
+```
+研究报告 → 提取关键信息 → 生成大纲 → 填充内容 → 渲染导出
+```
+
+**自动提取**：
+- 摘要 → 标题页
+- 目录 → 目录页
+- 各章节 → 内容页
+- 数据表格 → 图表页
+- 结论 → 总结页
+- 参考文献 → 附录页
+
+## 注意事项
+
+1. **内容版权**
+   - 引用内容需标注来源
+   - 图片需有使用权
+   - 数据需注明出处
+
+2. **文件大小**
+   - PDF 通常 2-5MB
+   - 包含图片时可能更大
+   - 建议压缩后分享
+
+3. **兼容性**
+   - PDF 兼容所有平台
+   - PPTX 需要 PowerPoint 2016+
+   - HTML 需要现代浏览器
+
+4. **隐私保护**
+   - 敏感数据需脱敏
+   - 内部信息需标注密级
+   - 分享前检查内容

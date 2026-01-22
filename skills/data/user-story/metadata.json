@@ -1,9 +1,7 @@
 {
   "name": "user-story",
-  "description": "Creates well-structured user stories for software development and project management. Use when the user asks to write, create, or format a user story, or needs to document requirements, features, or t",
-  "repo": "timbuchinger/loadout",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "ryryo/dot-claude-dev",
+  "path": "docs/SAMPLE/dot-claude-dev/dotfiles/claude/skills/user-story/SKILL.md",
+  "source": "github.com/ryryo/dot-claude-dev",
+  "downloaded_at": "2026-01-22T03:36:28.630300Z"
 }

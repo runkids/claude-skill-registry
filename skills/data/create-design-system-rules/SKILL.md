@@ -53,9 +53,7 @@ Call the Figma MCP server's `create_design_system_rules` tool to get the foundat
 - `clientLanguages`: Comma-separated list of languages used in the project (e.g., "typescript,javascript", "python", "javascript")
 - `clientFrameworks`: Framework being used (e.g., "react", "vue", "svelte", "angular", "unknown")
 
-This tool returns guidance and a template for creating design system rules.
-
-Structure your design system rules following the template format provided in the tool's response.
+This tool returns guidance and a template for creating design system rules. Structure your design system rules following the template format provided in the tool's response.
 
 ### Step 2: Analyze the Codebase
 
@@ -452,6 +450,7 @@ When rules seem arbitrary, explain the reasoning:
 ### Issue: Claude isn't following the rules
 
 **Cause:** Rules may be too vague or not properly loaded into the IDE/MCP client.
+
 **Solution:**
 
 - Make rules more specific and actionable
@@ -462,6 +461,7 @@ When rules seem arbitrary, explain the reasoning:
 ### Issue: Rules conflict with each other
 
 **Cause:** Contradictory or overlapping rules.
+
 **Solution:**
 
 - Review all rules for conflicts
@@ -472,6 +472,7 @@ When rules seem arbitrary, explain the reasoning:
 ### Issue: Too many rules make Claude slow
 
 **Cause:** Excessive rules increase context size and processing time.
+
 **Solution:**
 
 - Focus on the 20% of rules that solve 80% of consistency issues
@@ -482,6 +483,7 @@ When rules seem arbitrary, explain the reasoning:
 ### Issue: Rules become outdated as project evolves
 
 **Cause:** Codebase changes but rules don't.
+
 **Solution:**
 
 - Schedule periodic rule reviews (monthly or quarterly)

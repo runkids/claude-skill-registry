@@ -5,14 +5,14 @@ description: Use when completing tasks, implementing major features, or before m
 
 # Requesting Code Review
 
-Dispatch superpowers:code-reviewer subagent to catch issues before they cascade.
+Review your work systematically before declaring it complete.
 
 **Core principle:** Review early, review often.
 
 ## When to Request Review
 
 **Mandatory:**
-- After each task in subagent-driven development
+- After each task in implementation
 - After completing major feature
 - Before merge to main
 
@@ -21,85 +21,67 @@ Dispatch superpowers:code-reviewer subagent to catch issues before they cascade.
 - Before refactoring (baseline check)
 - After fixing complex bug
 
-## How to Request
+## Self-Review Process
 
-**1. Get git SHAs:**
+### Step 1: Gather Context
+
 ```bash
-BASE_SHA=$(git rev-parse HEAD~1)  # or origin/main
-HEAD_SHA=$(git rev-parse HEAD)
+# What changed?
+git diff HEAD~1
+
+# What files?
+git diff --name-only HEAD~1
 ```
 
-**2. Dispatch code-reviewer subagent:**
+### Step 2: Spec Compliance Check
 
-Use Task tool with superpowers:code-reviewer type, fill template at `code-reviewer.md`
+- [ ] Does the implementation match requirements?
+- [ ] Are all acceptance criteria met?
+- [ ] Is the feature complete?
 
-**Placeholders:**
-- `{WHAT_WAS_IMPLEMENTED}` - What you just built
-- `{PLAN_OR_REQUIREMENTS}` - What it should do
-- `{BASE_SHA}` - Starting commit
-- `{HEAD_SHA}` - Ending commit
-- `{DESCRIPTION}` - Brief summary
+### Step 3: Code Quality Check
 
-**3. Act on feedback:**
-- Fix Critical issues immediately
-- Fix Important issues before proceeding
-- Note Minor issues for later
-- Push back if reviewer is wrong (with reasoning)
+- [ ] Is the code readable and well-named?
+- [ ] Is there any duplication to extract?
+- [ ] Are edge cases handled?
+- [ ] Are error messages helpful?
 
-## Example
+### Step 4: Test Quality Check
 
-```
-[Just completed Task 2: Add verification function]
+- [ ] Do tests cover the happy path?
+- [ ] Do tests cover edge cases?
+- [ ] Do tests cover error conditions?
+- [ ] Are tests readable and maintainable?
 
-You: Let me request code review before proceeding.
+### Step 5: Final Verification
 
-BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
-HEAD_SHA=$(git rev-parse HEAD)
+- [ ] All tests pass
+- [ ] No lint errors
+- [ ] No console errors/warnings
+- [ ] Changes committed with descriptive message
 
-[Dispatch superpowers:code-reviewer subagent]
-  WHAT_WAS_IMPLEMENTED: Verification and repair functions for conversation index
-  PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/deployment-plan.md
-  BASE_SHA: a7981ec
-  HEAD_SHA: 3df7661
-  DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
+## Issue Severity
 
-[Subagent returns]:
-  Strengths: Clean architecture, real tests
-  Issues:
-    Important: Missing progress indicators
-    Minor: Magic number (100) for reporting interval
-  Assessment: Ready to proceed
+| Severity | Action |
+|----------|--------|
+| **Critical** | Fix immediately, don't proceed |
+| **Important** | Fix before proceeding |
+| **Minor** | Note for later, can proceed |
 
-You: [Fix progress indicators]
-[Continue to Task 3]
-```
+## Common Mistakes
 
-## Integration with Workflows
+- Skipping review because "it's simple"
+- Ignoring critical issues
+- Proceeding with unfixed important issues
+- Not running tests before review
+- Reviewing only the happy path
 
-**Subagent-Driven Development:**
-- Review after EACH task
-- Catch issues before they compound
-- Fix before moving to next task
+## Integration
 
-**Executing Plans:**
-- Review after each batch (3 tasks)
-- Get feedback, apply, continue
+Use after:
+- Each task in `executing-plans`
+- Each task in `subagent-driven-development`
 
-**Ad-Hoc Development:**
-- Review before merge
-- Review when stuck
-
-## Red Flags
-
-**Never:**
-- Skip review because "it's simple"
-- Ignore Critical issues
-- Proceed with unfixed Important issues
-- Argue with valid technical feedback
-
-**If reviewer wrong:**
-- Push back with technical reasoning
-- Show code/tests that prove it works
-- Request clarification
-
-See template at: requesting-code-review/code-reviewer.md
+Before:
+- Creating pull request
+- Merging to main branch

@@ -1,11 +1,7 @@
 {
   "name": "supabase-cli",
-  "description": "Comprehensive guide for Supabase CLI usage covering database initialization, migrations, type generation, API key management, and direct query execution. Use this skill when working with Supabase loca",
-  "repo": "XIYO/zheon",
-  "category": "data",
-  "tags": [
-    "supabase",
-    "cli"
-  ],
-  "stars": 0
+  "repo": "adaptationio/Skrillz",
+  "path": "skills/supabase-cli/SKILL.md",
+  "source": "github.com/adaptationio/Skrillz",
+  "downloaded_at": "2026-01-22T03:07:09.486022Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "release-standards",
-  "description": "Semantic versioning and changelog formatting for software releases.Use when: preparing releases, updating version numbers, writing changelogs.Keywords: version, release, changelog, semver, major, mino",
-  "repo": "AsiaOstrich/universal-dev-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "AsiaOstrich/universal-dev-standards",
+  "path": "locales/zh-TW/skills/claude-code/release-standards/SKILL.md",
+  "source": "github.com/AsiaOstrich/universal-dev-standards",
+  "downloaded_at": "2026-01-22T02:27:03.488088Z"
 }

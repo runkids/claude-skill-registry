@@ -1,9 +1,7 @@
 {
   "name": "audit-performance",
-  "description": "Performance-focused audit that can run in background during implementation. Checks for inefficiencies, memory leaks, widget rebuilds. Injects P0 findings to main agent.",
-  "repo": "ferdiangunawan/rpi-stack",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jasonmichaelbell78-creator/sonash-v0",
+  "path": ".claude/skills/audit-performance/SKILL.md",
+  "source": "github.com/jasonmichaelbell78-creator/sonash-v0",
+  "downloaded_at": "2026-01-22T03:33:07.332118Z"
 }

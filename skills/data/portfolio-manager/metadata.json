@@ -1,12 +1,7 @@
 {
   "name": "portfolio-manager",
-  "description": "Comprehensive portfolio analysis using Alpaca MCP Server integration to fetch holdings and positions, then analyze asset allocation, risk metrics, individual stock positions, diversification, and gene",
-  "repo": "tradermonty/claude-trading-skills",
-  "category": "testing",
-  "tags": [
-    "portfolio",
-    "manager"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "stock-trader-workflow/.claude/skills/portfolio-manager/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:44.513708Z"
 }

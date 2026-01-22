@@ -1,7 +1,5 @@
 ---
-name: plan-creating-project-plans
 description: Comprehensive project planning standards for plans/ directory including folder structure (ideas.md, backlog/, in-progress/, done/), naming convention (YYYY-MM-DD__identifier/), file organization (README.md for small plans, multi-file for large), and Gherkin acceptance criteria. Essential for creating structured, executable project plans.
-allowed-tools: [Read, Write, Edit, Glob, Grep]
 ---
 
 # Creating Project Plans
@@ -230,13 +228,13 @@ After implementation steps, add validation:
 
 ## References
 
-**Primary Convention**: [Plans Organization Convention](../../../governance/conventions/project/plans-organization.md)
+**Primary Convention**: [Plans Organization Convention](../../../../governance/conventions/project/plans-organization.md)
 
 **Related Conventions**:
 
-- [Trunk Based Development](../../../governance/development/workflow/trunk-based-development.md) - Git workflow for plans
-- [Acceptance Criteria Convention](../../../governance/development/infra/acceptance-criteria.md) - Gherkin format details
-- [File Naming Convention](../../../governance/conventions/meta/file-naming.md) - Naming standards
+- [Trunk Based Development](../../../../governance/development/workflow/trunk-based-development.md) - Git workflow for plans
+- [Acceptance Criteria Convention](../../../../governance/development/infra/acceptance-criteria.md) - Gherkin format details
+- [File Naming Convention](../../../../governance/conventions/meta/file-naming.md) - Naming standards
 
 **Related Skills**:
 

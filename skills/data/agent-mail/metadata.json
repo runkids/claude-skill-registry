@@ -1,7 +1,7 @@
 {
   "name": "agent-mail",
-  "repo": "leegonzales/AISkills",
-  "path": "AgentMail/agent-mail/SKILL.md",
-  "source": "github.com/leegonzales/AISkills",
-  "downloaded_at": "2026-01-14T02:13:20.856011Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/agent-mail/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:10.964071Z"
 }

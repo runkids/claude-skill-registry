@@ -1,169 +1,141 @@
 ---
 name: prompt-engineer
-description: Prompt 工程最佳实践指南。当用户需要优化 AI 提示词、设计系统提示、提升 LLM 输出质量、或构建 AI 应用的提示策略时使用此技能。
+description: Optimize system prompts for Claude Code agents using proven prompt engineering patterns. Use when users request prompt improvement, optimization, or refinement for agent workflows, tool instructions, or system behaviors.
+license: MIT
+metadata:
+version: 1.0.0
+model: claude-sonnet-4-5
 ---
 
-# Prompt Engineer
+# Prompt Optimizer
 
-掌握与大语言模型高效沟通的艺术，设计出能够产生高质量、一致性输出的提示词。
+Optimizes system prompts by applying research-backed prompt engineering patterns. Human-in-the-loop phases: understand, plan, propose changes, receive approval, then integrate.
 
-## 核心原则
+## Purpose and Success Criteria
 
-1. **清晰具体**：明确说明你想要什么
-2. **提供上下文**：给模型足够的背景信息
-3. **结构化输出**：指定期望的输出格式
-4. **迭代优化**：持续测试和改进
+A well-optimized prompt achieves:
 
-## Prompt 结构模板
+1. **Behavioral clarity**: Agent knows exactly what to do in common cases and edge cases
+2. **Appropriate scope**: Complex tasks get decomposition; simple tasks don't trigger overthinking
+3. **Grounded changes**: Every modification traces to a specific pattern with documented impact
 
-### 基础结构
+Optimization is complete when:
 
-```
-[角色定义]
-你是一个{专业领域} 专家，擅长 {具体技能}。
+- Every change has explicit pattern attribution from the reference document
+- No section contradicts another section
+- The prompt matches its operating context (tool-use vs. conversational, token constraints)
+- Human has approved both section-level changes and full integration
 
-[任务描述]
-请帮我{具体任务}。
+## When to Use This Skill
 
-[上下文信息]
-背景：{相关背景}
-约束：{限制条件}
+Use when the user provides a prompt and wants it improved, refined, or reviewed for best practices.
 
-[输出要求]
-请以 {格式} 输出，包含 {具体要素}。
+Do NOT use for:
 
-[示例]（可选）
-输入：{示例输入}
-输出：{示例输出}
-```
+- Writing prompts from scratch (different skill)
+- Prompts that are already working well and user just wants validation
+- Non-prompt content (documentation, code, etc.)
 
-## 关键技巧
+## Required Resources
 
-### 1. 角色设定（Role Prompting）
+Before ANY analysis, read the appropriate pattern reference(s):
 
-```
-你是一位有10 年经验的高级后端工程师，专注于：
-- 分布式系统设计
-- 性能优化
-- 代码质量把控
+### Single-Turn Reference (Always Read)
 
-请以这个角色审查以下代码...
+```text
+Read references/prompt-engineering-single-turn.md
 ```
 
-### 2. 少样本学习（Few-shot Learning）
+Contains: Technique Selection Guide table, Quick Reference principles, domain-organized techniques with citations, Anti-Patterns section.
 
-```
-将用户反馈分类为：正面、负面、中性
+### Multi-Turn Reference (Conditional)
 
-示例1：
-输入："这个产品太棒了！"
-输出：正面
-
-示例2：
-输入："送货太慢了，很失望"
-输出：负面
-
-现在分类：
-输入："产品还行，价格有点贵"
-输出：
+```text
+Read references/prompt-engineering-multi-turn.md
 ```
 
-### 3. 思维链（Chain of Thought）
+**Read ONLY when the prompt involves:**
 
-```
-请一步步分析这个问题：
+- Multi-turn flows (iterative refinement, conversation chains)
+- Multi-agent / sub-agent orchestration
 
-1. 首先，理解问题的核心是什么
-2. 然后，列出可能的解决方案
-3. 接着，评估每个方案的优缺点
-4. 最后，给出推荐方案和理由
-```
+**Skip for:**
 
-### 4. 输出格式控制
+- Static system prompts executed in a single LLM call
+- Tool instructions or one-shot prompts
 
-```
-请以 JSON 格式返回，结构如下：
-{
-  "summary": "简要总结",
-  "key_points": ["要点1", "要点2"],
-  "recommendation": "建议",
-  "confidence": 0.0-1.0
-}
+### Workflow Reference
+
+```text
+Read references/workflow.md
 ```
 
-## System Prompt 设计
+Contains: Detailed Phase 0-4 workflows, visual card template, completion checkpoint.
 
-### 通用模板
+## Quick Process
 
-```
-## 角色
-你是 {角色名称}，{角色描述}。
-
-## 能力
-- {能力1}
-- {能力2}
-
-## 行为准则
-- {准则1}
-- {准则2}
-
-## 限制
-- 不要 {限制1}
-- 避免 {限制2}
-
-## 输出风格
-{风格描述}
-```
-
-### 代码助手示例
-
-```
-## 角色
-你是一个专业的编程助手。
-
-## 行为准则
-- 代码要有清晰的注释
-- 优先考虑可读性和可维护性
-- 主动指出潜在问题
-- 解释关键设计决策
-
-## 输出格式
-1. 先简要说明方案
-2. 提供完整代码
-3. 解释关键部分
-4. 列出注意事项
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. READ THE REFERENCE(S)                                        │
+│    - Always: references/prompt-engineering-single-turn.md       │
+│    - If multi-turn/multi-agent: also read multi-turn reference  │
+├─────────────────────────────────────────────────────────────────┤
+│ 2. UNDERSTAND THE PROMPT (Phase 1)                              │
+│    - Operating context (single-shot? tool-use? constraints?)    │
+│    - Current state (working? unclear? missing?)                 │
+│    - Document specific problems with quoted prompt text         │
+├─────────────────────────────────────────────────────────────────┤
+│ 3. PLAN WITH VISUAL CARDS (Phase 2)                             │
+│    - Present each change as a visual card with:                 │
+│      SCOPE → PROBLEM → TECHNIQUE → BEFORE/AFTER                 │
+│    - Quote trigger conditions from reference                    │
+│    - ⚠️  WAIT FOR USER APPROVAL before proceeding               │
+├─────────────────────────────────────────────────────────────────┤
+│ 4. EXECUTE APPROVED CHANGES (Phase 3)                           │
+│    - Apply the BEFORE → AFTER transformations                   │
+├─────────────────────────────────────────────────────────────────┤
+│ 5. INTEGRATE AND VERIFY QUALITY (Phase 4)                       │
+│    - Check cross-section coherence                              │
+│    - Final anti-pattern check                                   │
+│    - Present complete optimized prompt                          │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-## 常见问题与解决
+## Triage (Phase 0)
 
-| 问题 | 解决方案 |
-|------|----------|
-| 输出太长 | 添加字数限制："请在200字以内" |
-| 输出不一致 | 提供更多示例，明确格式要求 |
-| 理解偏差 | 分解任务，逐步确认 |
-| 幻觉问题 | 要求引用来源，添加"如不确定请说明" |
+**Simple prompts** (use lightweight process):
 
-## 高级技巧
+- Under 20 lines
+- Single clear purpose
+- No conditional logic
 
-### 1. 自我反思提示
+**Complex prompts** (use full process):
 
-```
-完成任务后，请：
-1. 检查是否满足所有要求
-2. 指出可能的改进点
-3. 评估置信度（1-10）
-```
+- Multiple sections serving different functions
+- Conditional behaviors or rule hierarchies
+- Tool orchestration or multi-step workflows
 
-### 2. 约束边界
+## Core Quality Principles
 
-```
-重要约束：
-- 只使用提供的信息
-- 不确定时明确说明
-- 不要编造数据或引用
-```
+1. **Quote before deciding**: Every technique selection must quote the reference's trigger condition.
+2. **Open verification questions**: Ask "What behavior will this produce?" not "Is this correct?"
+3. **Approval happens once, upfront**: The visual card format in Phase 2 shows full impact.
+4. **Preserve what works**: Optimization means improving problems, not rewriting everything.
 
-## 参考资源
+## Completion Checkpoint
 
-- Anthropic Prompt Engineering: https://docs.anthropic.com/claude/docs/prompt-engineering
-- OpenAI Best Practices: https://platform.openai.com/docs/guides/prompt-engineering
+Before presenting the final prompt, verify:
+
+- [ ] Phase 2 plan used visual card format with BEFORE/AFTER
+- [ ] Phase 2 plan quoted trigger conditions from reference
+- [ ] Phase 2 plan was approved by user before Phase 3
+- [ ] No technique applied without matching trigger condition
+- [ ] Stacking compatibility checked; no conflicts
+- [ ] Anti-patterns section consulted; none introduced
+- [ ] Emphasis markers used sparingly (≤3 highest-level)
+
+## References
+
+- [prompt-engineering-single-turn.md](references/prompt-engineering-single-turn.md) - Single-turn patterns
+- [prompt-engineering-multi-turn.md](references/prompt-engineering-multi-turn.md) - Multi-turn patterns
+- [workflow.md](references/workflow.md) - Detailed phase workflows and card template

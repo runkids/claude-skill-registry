@@ -84,6 +84,15 @@ Parse once. Solve both parts. Test each function independently.
 | n ≤ 1,000,000 | O(n log n) |
 | n > 1,000,000 | O(n) or O(log n) |
 
+## Research Tools
+
+```
+# gh search code for algorithm implementations
+gh search code "heapq.heappush" --language=python   # Dijkstra/priority queue
+gh search code "collections.deque" --language=python # BFS patterns
+gh search code "fn dijkstra" --language=rust
+```
+
 ## References
 
 - [algorithms.md](cookbook/algorithms.md) - Graph traversal, DP, cycle detection, search

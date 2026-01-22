@@ -1,7 +1,7 @@
 {
   "name": "releasenote",
-  "repo": "DataDog/dd-trace-py",
-  "path": ".claude/skills/releasenote/SKILL.md",
-  "source": "github.com/DataDog/dd-trace-py",
-  "downloaded_at": "2026-01-14T03:53:58.063088Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/releasenote/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:44.127230Z"
 }

@@ -2,7 +2,7 @@
 name: hook-audit
 description: Audits Claude Code hooks for correctness, safety, and performance. Use when reviewing, validating, or debugging hooks, checking exit codes, error handling, or learning hook best practices.
 allowed-tools: [Read, Grep, Glob, Bash]
-model: claude-haiku-4-5-20251001
+# model: haiku
 ---
 
 ## Reference Files
@@ -364,9 +364,7 @@ All hooks MUST use the correct shebang line for their language. Different sheban
 
 **All bash hooks MUST use**:
 
-```bash
-#!/bin/bash
-```
+`#!/bin/bash`
 
 **NOT**:
 
@@ -421,7 +419,6 @@ All hooks MUST use the correct shebang line for their language. Different sheban
 
 **Current hooks using `#!/usr/bin/env python3`** (all correct):
 
-- `validate-bash-commands.py`
 - `validate-config.py`
 - `validate-markdown.py`
 

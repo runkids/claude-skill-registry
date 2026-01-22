@@ -17,11 +17,24 @@ Takes any text and rewrites it to remove common AI writing patterns, making it s
 
 ## Instructions
 
-When given text to clean:
+Execute these steps NOW on the text provided:
 
-1. **Analyze** the text against the detection patterns below
-2. **Rewrite** to eliminate AI fingerprints while preserving meaning
-3. **Return only the final cleaned version** (no before/after comparison needed)
+1. **Scan** the text for patterns listed below
+2. **Rewrite** each flagged section using the suggested fixes
+3. **Output** the cleaned text immediately - no preamble, no explanation
+
+The input text is everything that preceded this skill's invocation. Process it now.
+
+---
+
+## When Called by Another Skill
+
+This skill is often invoked at the end of other skills (magic-model-review, bb-coaching-response, newsletter-coach, etc.).
+
+When invoked mid-workflow:
+1. The text to clean is the draft just generated
+2. Process it immediately
+3. Return the cleaned version for the calling skill to present
 
 ---
 
@@ -62,11 +75,11 @@ Replace excessive use of:
 - GOOD: "The company expanded while hiring additional staff and opening three regional offices."
 
 ### Section Summaries
-Never end paragraphs with "In summary," "In conclusion," "Overall" followed by a restatement.
+End paragraphs with forward-looking statements or the most important point.
 
-**Fix:** End with the most important or forward-looking information
-- BAD: "In summary, the research shows climate change affects migration patterns"
-- GOOD: "These migration shifts may accelerate as temperatures continue rising"
+**Pattern to replace:** "In summary," "In conclusion," "Overall" followed by restatement
+- REPLACE: "In summary, the research shows climate change affects migration patterns"
+- WITH: "These migration shifts may accelerate as temperatures continue rising"
 
 ---
 
@@ -95,19 +108,25 @@ Replace with varied punctuation (commas, parentheses, colons, or sentence breaks
 ## ANALYTICAL WRITING PATTERNS
 
 ### Superficial Analysis with -ing Phrases
-Don't attach vague analytical comments using present participles:
-- BAD: "The study found a 20% increase, highlighting the importance of early intervention"
-- GOOD: "The study found a 20% increase in recovery rates when treatment began within 48 hours"
+Replace analytical -ing phrases with specific outcomes.
+
+**Pattern to replace:** Vague present participle comments (highlighting, demonstrating, showcasing)
+- REPLACE: "The study found a 20% increase, highlighting the importance of early intervention"
+- WITH: "The study found a 20% increase in recovery rates when treatment began within 48 hours"
 
 ### Vague Attributions
-Never use weasel words without specific sources:
-- BAD: "Industry experts believe the trend will continue"
-- GOOD: "Tesla's Q3 report projects 25% growth in the electric vehicle sector"
+Attribute claims to specific sources with dates or numbers.
+
+**Pattern to replace:** "Industry experts," "many believe," "studies show" without citation
+- REPLACE: "Industry experts believe the trend will continue"
+- WITH: "Tesla's Q3 report projects 25% growth in the electric vehicle sector"
 
 ### False Ranges
-Don't use "from...to..." when not describing actual ranges:
-- BAD: "The menu features dishes from pasta to grilled meats"
-- GOOD: "The menu includes pasta dishes, grilled meats, and seasonal vegetables"
+Use specific lists instead of artificial "from X to Y" constructions.
+
+**Pattern to replace:** "from...to..." when not describing actual ranges
+- REPLACE: "The menu features dishes from pasta to grilled meats"
+- WITH: "The menu includes pasta dishes, grilled meats, and seasonal vegetables"
 
 ---
 
@@ -129,6 +148,54 @@ These patterns scream AI:
 
 ---
 
+## THROAT-CLEARING OPENERS - ELIMINATE ON SIGHT
+
+These opening gambits announce "AI wrote this":
+- "Here's the thing:"
+- "Let me be clear:"
+- "The uncomfortable truth is"
+- "Let that sink in."
+- Starting sentences with "So" or "Look,"
+- "In today's fast-paced world"
+- "In the realm of"
+
+**Fix:** Start with the actual point
+- BAD: "Here's the thing: most coaches struggle with content."
+- GOOD: "Most coaches struggle with content."
+
+---
+
+## EMPHASIS CRUTCHES - ELIMINATE ON SIGHT
+
+AI loves these dramatic punctuation patterns:
+- "That's it. That's the [noun]."
+- "And that's okay."
+- "Not because X. Because Y." (staccato variant)
+- "Ready to level up?"
+- "The best part?"
+- "And here's the kicker"
+- "Enter: [thing]"
+
+**Fix:** Let the content carry the weight
+- BAD: "That's it. That's the strategy."
+- GOOD: "The entire strategy fits in one sentence."
+
+---
+
+## DRAMATIC FRAGMENTATION - USE SPARINGLY
+
+AI overuses these for false drama:
+- One-sentence paragraphs (when not warranted)
+- Punchy one-liners at the end of every section
+- "X changed everything."
+- Short hook questions in isolation
+
+**Fix:** Vary paragraph length naturally. Reserve one-liners for genuine impact.
+- BAD: "Then I discovered AI agents.\n\nEverything changed."
+- GOOD: "Then I discovered AI agents, and the whole model shifted."
+
+---
+
 ## WORD SUBSTITUTIONS
 
 | AVOID | USE INSTEAD |
@@ -142,26 +209,44 @@ These patterns scream AI:
 | "prior to" | "before" |
 | "in order to" | "to" |
 | "serves to" | "helps" or omit entirely |
+| "delve" | "explore" or "examine" |
+| "navigate" | "work through" or "handle" |
+| "unpack" | "explain" or "break down" |
+| "tapestry" | "mix" or "combination" |
+| "realm" | "area" or "field" |
+| "embark" | "start" or "begin" |
+| "harness" | "use" or "apply" |
+| "illuminate" | "show" or "reveal" |
+| "pivotal" | "important" or "key" |
+| "robust" | "strong" or "solid" |
 
 ---
 
 ## STRUCTURAL PATTERNS
 
 ### Essay-like Organization
-Don't structure content like a five-paragraph essay with thesis statements and conclusions. Use inverted pyramid (important info first) or natural flow.
+Use inverted pyramid structure (important info first) or natural conversational flow.
+
+**Pattern to replace:** Five-paragraph essay structure with thesis statements and formal conclusions
 
 ### Rule-of-Three Overuse
-Don't constantly group things in threes:
-- BAD: "The platform is fast, reliable, and secure"
-- GOOD: "The platform processes requests in under 200ms with 99.9% uptime and bank-level encryption"
+Vary list lengths and replace generic adjectives with specific details.
+
+**Pattern to replace:** Constant groupings of three generic qualities
+- REPLACE: "The platform is fast, reliable, and secure"
+- WITH: "The platform processes requests in under 200ms with 99.9% uptime and bank-level encryption"
 
 ### Knowledge Disclaimers
-Never include "as of [date]," "based on available information," "while specific details are limited."
+Remove AI hedging phrases entirely - state facts directly.
+
+**Patterns to remove:** "as of [date]," "based on available information," "while specific details are limited"
 
 ### Chatbot Hedging
-Don't use excessive qualifying language:
-- BAD: "The data appears to suggest that users tend to prefer the new interface"
-- GOOD: "Users prefer the new interface by a 3:1 margin in testing"
+Use direct assertions backed by specific data.
+
+**Pattern to replace:** Excessive qualifiers (appears to, tends to, seems to, might)
+- REPLACE: "The data appears to suggest that users tend to prefer the new interface"
+- WITH: "Users prefer the new interface by a 3:1 margin in testing"
 
 ---
 
@@ -178,6 +263,9 @@ Before returning cleaned text, verify:
 8. Specific facts and figures rather than general statements
 9. Natural flow between paragraphs without formulaic transitions
 10. No direct contrast formulations ("This isn't X—it's Y")
+11. No throat-clearing openers ("Here's the thing", "Let me be clear")
+12. No emphasis crutches ("That's it. That's the [noun].")
+13. Varied paragraph lengths (not all one-sentence or all same length)
 
 ---
 
@@ -189,4 +277,6 @@ Return only the cleaned text. No preamble, no explanation of changes, no "Here's
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.2.0 | 2026-01-17 | Added throat-clearing, emphasis crutches, dramatic fragmentation; expanded word substitutions (+10 words); 13-point checklist |
+| 1.1.0 | 2026-01-15 | Directive instructions for immediate execution, positive framing, skill chaining section |
 | 1.0.0 | 2026-01-01 | Initial creation from Write with AI prompt |

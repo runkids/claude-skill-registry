@@ -1,400 +1,649 @@
-# 🎨 Skill: Figma Dev Mode Integration
-
-## 📋 Metadata
-
-| Atributo | Valor |
-|----------|-------|
-| **ID** | `figma-dev-mode` |
-| **Nivel** | 🟡 Intermedio |
-| **Versión** | 1.0.0 |
-| **Keywords** | `figma`, `design`, `assets`, `components`, `dev-mode`, `design-system` |
-| **Referencia** | [Figma MCP Server Guide](https://github.com/figma/mcp-server-guide/) |
-
-## 🔑 Keywords para Invocación
-
-Usa cualquiera de estos keywords en tus prompts para invocar este skill:
-
-- `figma`
-- `design`
-- `assets`
-- `components`
-- `dev-mode`
-- `design-system`
-- `@skill:figma`
-
-### Ejemplos de Prompts
-
-```
-Extrae los assets del diseño de Figma
-```
-
-```
-Implementa este componente según el diseño de Figma
-```
-
-```
-@skill:figma - Obtén los estilos y colores desde el archivo de diseño
-```
-
-## 📖 Descripción
-
-El Figma MCP Server permite a los agentes de IA acceder directamente a archivos de diseño de Figma, extraer assets, componentes, estilos y tokens de diseño. Esto facilita la conversión de diseños a código manteniendo fidelidad absoluta con el diseño original.
-
-### ✅ Cuándo Usar Este Skill
-
-- Necesitas convertir diseños de Figma a código
-- Quieres extraer assets (imágenes, SVGs, iconos)
-- Deseas implementar un design system desde Figma
-- Necesitas mantener sincronización entre diseño y código
-- Trabajas en un equipo con diseñadores que usan Figma
-
-### ❌ Cuándo NO Usar Este Skill
-
-- No tienes acceso a archivos de Figma
-- Los diseños no están en Figma
-- El proyecto no requiere fidelidad exacta con diseños
-
-## 🏗️ Configuración del Figma MCP Server
-
-### Prerrequisitos
-
-- Cuenta de Figma con acceso al archivo de diseño
-- Token de acceso personal de Figma
-- Cliente MCP compatible (Cursor, Claude Code, etc.)
-
-### Instalación
-
-#### 1. Obtener Token de Figma
-
-1. Ve a tu cuenta de Figma → Settings
-2. Ve a **Personal Access Tokens**
-3. Genera un nuevo token con permisos de lectura
-4. Guarda el token de forma segura
-
-#### 2. Configurar MCP Server
-
-El Figma MCP Server ya está configurado en el archivo `mcp.json` del proyecto.
-
-**⚠️ Importante:** Debes configurar tu token de Figma como variable de entorno:
-
-```bash
-# Linux/Mac - Agrega a ~/.bashrc o ~/.zshrc
-export FIGMA_TOKEN="tu-token-personal-de-figma"
-
-# Windows - PowerShell
-$env:FIGMA_TOKEN="tu-token-aqui"
-
-# Windows - Permanente
-[Environment]::SetEnvironmentVariable("FIGMA_TOKEN", "tu-token", "User")
-```
-
-**Configuración por IDE:**
-
-El proyecto usa un único archivo `mcp.json` en la raíz. Para configurar tu IDE específico:
-
-👉 **Ver [`../../docs/MCP_SETUP.md`](../../docs/MCP_SETUP.md)** para instrucciones detalladas de:
-- Cursor (ya configurado)
-- Cline, Windsurf, Gemini CLI, Firebase Studio, etc.
-
-#### 3. Verificar Instalación
-
-Reinicia tu cliente MCP y verifica que el servidor está activo:
-
-- **Cursor:** Abre el chat y pregunta "¿Está activo el servidor MCP de Figma?"
-- **Claude Code:** Usa el comando para listar servidores MCP
-
-## 🎯 Capacidades del Figma MCP Server
-
-### 1. Extracción de Assets
-
-El servidor puede servir imágenes y SVGs directamente desde Figma:
-
-```
-Prompt: "Extrae todos los iconos del archivo de Figma"
-```
-
-El agente obtendrá los assets con URLs localhost que puedes usar directamente.
-
-### 2. Obtención de Componentes
-
-Extrae información de componentes y sus propiedades:
-
-```
-Prompt: "Dame la estructura del componente Button del design system"
-```
-
-### 3. Tokens de Diseño
-
-Obtén colores, tipografías, espaciados y otros tokens:
-
-```
-Prompt: "Extrae todos los colores y crea un archivo de tema"
-```
-
-### 4. Especificaciones de Diseño
-
-Obtén medidas, espaciados, y especificaciones técnicas:
-
-```
-Prompt: "Dame las especificaciones del componente Card"
-```
-
-## 📝 Mejores Prácticas
-
-### 1. Uso de Assets
-
-**❌ Incorrecto:**
-```dart
-// NO uses placeholders si Figma proporciona el asset
-Icon(Icons.placeholder)
-```
-
-**✅ Correcto:**
-```dart
-// USA el asset directamente desde Figma
-Image.network('http://localhost:8080/asset/icon-home.svg')
-```
-
-### 2. Fidelidad al Diseño
-
-**Regla de oro:** Prioriza la fidelidad exacta al diseño de Figma.
-
-```
-Prompt guidelines:
-- "Implementa EXACTAMENTE como está en Figma"
-- "Usa los valores exactos del diseño, sin aproximaciones"
-- "Mantén todos los espaciados y medidas del diseño original"
-```
-
-### 3. Componentes del Design System
-
-Si tienes un design system en tu codebase:
-
-```
-Prompt: "Usa los componentes de /lib/design_system cuando sea posible.
-Si el componente no existe, créalo basándote en el diseño de Figma."
-```
-
-### 4. Tokens de Diseño
-
-Evita valores hardcodeados:
-
-**❌ Incorrecto:**
-```dart
-Container(
-  color: Color(0xFF2196F3), // Valor hardcodeado
-  padding: EdgeInsets.all(16),
-)
-```
-
-**✅ Correcto:**
-```dart
-Container(
-  color: AppColors.primary, // Token desde Figma
-  padding: AppSpacing.medium, // Token desde Figma
-)
-```
-
-### 5. Divide Selecciones Grandes
-
-Para archivos grandes de Figma:
-
-1. Extrae componentes individualmente (Card, Button, Header)
-2. Implementa sección por sección
-3. Combina al final
-
-Esto previene timeouts y errores por contexto muy grande.
-
-## 🔧 Configuración Recomendada
-
-### Reglas de Cursor (.cursor/rules.md)
-
-Crea reglas personalizadas para tu equipo:
-
-```markdown
 ---
-description: Figma MCP server rules
-globs:
-alwaysApply: true
+name: figma
+description: Integrate with Figma API for design automation and code generation. Use when extracting design tokens, generating React/CSS code from Figma components, syncing design systems, building Figma plugins, or automating design-to-code workflows. Triggers on Figma API, design tokens, Figma plugin, design-to-code, Figma export, Figma component, Dev Mode.
 ---
 
-## Reglas de Figma MCP Server
+# Figma API Integration
 
-- El servidor Figma MCP proporciona un endpoint de assets que puede servir imágenes y SVGs
-- IMPORTANTE: Si el servidor MCP de Figma retorna una fuente localhost para una imagen o SVG, usa esa fuente directamente
-- IMPORTANTE: NO importes/agregues nuevos paquetes de iconos, todos los assets deben venir del payload de Figma
-- IMPORTANTE: NO uses o crees placeholders si se proporciona una fuente localhost
+Extract design data, generate code from components, and automate design workflows with Figma's API.
 
-## Reglas de Calidad
+## Quick Start
 
-- IMPORTANTE: Siempre usa componentes de `/lib/design_system` cuando sea posible
-- Prioriza la fidelidad a Figma para coincidir exactamente con los diseños
-- Evita valores hardcodeados, usa tokens de diseño de Figma donde estén disponibles
-- Sigue los requisitos WCAG para accesibilidad
-- Agrega documentación a los componentes
-- Coloca componentes UI en `/lib/design_system`; evita estilos inline a menos que sea realmente necesario
+### Authentication
+```typescript
+const FIGMA_TOKEN = process.env.FIGMA_TOKEN;
+
+const headers = {
+  'X-Figma-Token': FIGMA_TOKEN
+};
+
+// Get file
+const response = await fetch(
+  `https://api.figma.com/v1/files/${FILE_KEY}`,
+  { headers }
+);
 ```
 
-### Variables de Entorno
-
-Crea un archivo `.env` (no lo commits):
-
-```env
-# Figma Configuration
-FIGMA_TOKEN=tu-token-personal-de-figma
-FIGMA_FILE_ID=id-del-archivo-de-figma
+### File Key & Node IDs
+```typescript
+// Extract from Figma URL: figma.com/file/FILE_KEY/Name?node-id=NODE_ID
+const figmaUrl = 'https://www.figma.com/file/abc123/MyDesign?node-id=1%3A2';
+const fileKey = figmaUrl.match(/file\/([^/]+)/)?.[1];  // abc123
+const nodeId = new URL(figmaUrl).searchParams.get('node-id');  // 1:2
 ```
 
-## 📊 Workflow Típico
+## Core API Endpoints
 
-### 1. Extraer Assets
+### Get File
+```typescript
+// Full file
+GET https://api.figma.com/v1/files/:file_key
 
-```
-Prompt: "Del archivo de Figma [URL], extrae todos los iconos y guárdalos en assets/icons/"
-```
+// Specific nodes (components)
+GET https://api.figma.com/v1/files/:file_key/nodes?ids=1:2,1:3
 
-### 2. Crear Tema
+// With geometry for SVG paths
+GET https://api.figma.com/v1/files/:file_key?geometry=paths
 
-```
-Prompt: "Extrae los colores del design system de Figma y crea un AppTheme en lib/config/theme/"
-```
-
-### 3. Implementar Componente
-
-```
-Prompt: "Implementa el componente ProductCard exactamente como está en Figma, usando el design system existente donde sea posible"
+// With plugin data
+GET https://api.figma.com/v1/files/:file_key?plugin_data=shared
 ```
 
-### 4. Crear Pantalla Completa
+### Get Components
+```typescript
+// Get all components in a file
+GET https://api.figma.com/v1/files/:file_key/components
 
-```
-Prompt: "Implementa la pantalla Home según el diseño de Figma. Divide en componentes reutilizables."
-```
+// Get component sets (variants)
+GET https://api.figma.com/v1/files/:file_key/component_sets
 
-## 🎨 Ejemplo: De Figma a Flutter
-
-### Paso 1: Extraer Tokens de Diseño
-
-```
-Prompt: "Extrae los colores, tipografías y espaciados del design system de Figma"
+// Get team's published components
+GET https://api.figma.com/v1/teams/:team_id/components
 ```
 
-Resultado esperado:
+### Export Images
+```typescript
+// Export nodes as images
+GET https://api.figma.com/v1/images/:file_key?ids=1:2,1:3&format=png&scale=2
 
-```dart
-// lib/config/theme/app_colors.dart
-class AppColors {
-  // Extraído desde Figma
-  static const primary = Color(0xFF2196F3);
-  static const secondary = Color(0xFFFFC107);
-  static const background = Color(0xFFF5F5F5);
-  // ...
-}
+// Export as SVG
+GET https://api.figma.com/v1/images/:file_key?ids=1:2&format=svg
 
-// lib/config/theme/app_spacing.dart
-class AppSpacing {
-  static const small = 8.0;
-  static const medium = 16.0;
-  static const large = 24.0;
+// Response
+{
+  "images": {
+    "1:2": "https://s3.amazonaws.com/...",
+    "1:3": "https://s3.amazonaws.com/..."
+  }
 }
 ```
 
-### Paso 2: Implementar Componente
+## Component Code Generation
 
-```
-Prompt: "Implementa el componente Button del design system de Figma con todas sus variantes"
-```
+### Figma Node to React Component
+```typescript
+interface FigmaNode {
+  id: string;
+  name: string;
+  type: string;
+  children?: FigmaNode[];
+  absoluteBoundingBox?: { x: number; y: number; width: number; height: number };
+  fills?: Fill[];
+  strokes?: Stroke[];
+  effects?: Effect[];
+  cornerRadius?: number;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
+  itemSpacing?: number;
+  layoutMode?: 'HORIZONTAL' | 'VERTICAL' | 'NONE';
+  primaryAxisAlignItems?: string;
+  counterAxisAlignItems?: string;
+  characters?: string;
+  style?: TextStyle;
+}
 
-Resultado esperado:
-
-```dart
-// lib/design_system/button.dart
-class AppButton extends StatelessWidget {
-  final String label;
-  final VoidCallback? onPressed;
-  final ButtonVariant variant;
+async function getComponentCode(fileKey: string, nodeId: string): Promise<string> {
+  const response = await fetch(
+    `https://api.figma.com/v1/files/${fileKey}/nodes?ids=${nodeId}`,
+    { headers: { 'X-Figma-Token': process.env.FIGMA_TOKEN! } }
+  );
+  const data = await response.json();
+  const node = data.nodes[nodeId].document;
   
-  const AppButton({
-    Key? key,
-    required this.label,
-    this.onPressed,
-    this.variant = ButtonVariant.primary,
-  }) : super(key: key);
+  return generateReactComponent(node);
+}
+
+function generateReactComponent(node: FigmaNode): string {
+  const componentName = toPascalCase(node.name);
+  const styles = extractStyles(node);
+  const children = node.children?.map(child => generateJSX(child)).join('\n') || '';
   
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: _getStyle(),
-      child: Text(label),
-    );
+  return `
+import React from 'react';
+
+export function ${componentName}() {
+  return (
+    <div style={${JSON.stringify(styles, null, 2)}}>
+      ${children}
+    </div>
+  );
+}
+`;
+}
+
+function extractStyles(node: FigmaNode): React.CSSProperties {
+  const styles: React.CSSProperties = {};
+  
+  // Dimensions
+  if (node.absoluteBoundingBox) {
+    styles.width = node.absoluteBoundingBox.width;
+    styles.height = node.absoluteBoundingBox.height;
   }
   
-  ButtonStyle _getStyle() {
-    switch (variant) {
-      case ButtonVariant.primary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.large,
-            vertical: AppSpacing.medium,
-          ),
-        );
-      case ButtonVariant.secondary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: AppColors.secondary,
-        );
+  // Background
+  if (node.fills?.length) {
+    const fill = node.fills.find(f => f.visible !== false && f.type === 'SOLID');
+    if (fill?.color) {
+      styles.backgroundColor = rgbaToHex(fill.color);
     }
   }
+  
+  // Border radius
+  if (node.cornerRadius) {
+    styles.borderRadius = node.cornerRadius;
+  }
+  
+  // Padding
+  if (node.paddingLeft) styles.paddingLeft = node.paddingLeft;
+  if (node.paddingRight) styles.paddingRight = node.paddingRight;
+  if (node.paddingTop) styles.paddingTop = node.paddingTop;
+  if (node.paddingBottom) styles.paddingBottom = node.paddingBottom;
+  
+  // Flexbox (Auto Layout)
+  if (node.layoutMode && node.layoutMode !== 'NONE') {
+    styles.display = 'flex';
+    styles.flexDirection = node.layoutMode === 'HORIZONTAL' ? 'row' : 'column';
+    styles.gap = node.itemSpacing;
+    
+    // Alignment
+    const alignMap: Record<string, string> = {
+      'MIN': 'flex-start',
+      'CENTER': 'center',
+      'MAX': 'flex-end',
+      'SPACE_BETWEEN': 'space-between',
+    };
+    if (node.primaryAxisAlignItems) {
+      styles.justifyContent = alignMap[node.primaryAxisAlignItems] || 'flex-start';
+    }
+    if (node.counterAxisAlignItems) {
+      styles.alignItems = alignMap[node.counterAxisAlignItems] || 'flex-start';
+    }
+  }
+  
+  return styles;
+}
+
+function generateJSX(node: FigmaNode): string {
+  const styles = extractStyles(node);
+  
+  if (node.type === 'TEXT') {
+    return `<span style={${JSON.stringify(styles)}}>${node.characters || ''}</span>`;
+  }
+  
+  if (node.type === 'VECTOR' || node.type === 'BOOLEAN_OPERATION') {
+    return `{/* Vector: ${node.name} - export as SVG */}`;
+  }
+  
+  const children = node.children?.map(child => generateJSX(child)).join('\n') || '';
+  return `<div style={${JSON.stringify(styles)}}>${children}</div>`;
 }
 ```
 
-## 🔍 Troubleshooting
-
-### Problema: No se conecta al servidor MCP
-
-**Solución:**
-1. Verifica que el token de Figma es válido
-2. Reinicia el cliente MCP
-3. Revisa los logs del servidor MCP
-
-### Problema: Assets no se cargan
-
-**Solución:**
-1. Verifica permisos del archivo de Figma
-2. Asegúrate de que el archivo está publicado o compartido
-3. Verifica la conexión a internet
-
-### Problema: Componente no coincide con diseño
-
-**Solución:**
-1. Divide la selección en partes más pequeñas
-2. Sé más específico en el prompt sobre qué debe coincidir
-3. Verifica que estás viendo la versión correcta en Figma
-
-## 📚 Recursos Adicionales
-
-- [Figma MCP Server GitHub](https://github.com/figma/mcp-server-guide/)
-- [Figma Dev Mode Documentation](https://help.figma.com/hc/en-us/articles/32132100833559)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-
-## 🔗 Integración con Otros Skills
-
-Este skill se combina bien con:
-
-- `flutter/mvvm` - Implementa componentes con patrón MVVM
-- `flutter/clean-architecture` - Crea componentes siguiendo Clean Architecture
-- `flutter/project-setup` - Configura tema y design system inicial
-- `cicd` - Automatiza la extracción de assets en el pipeline
-
-### Ejemplo de Combinación
-
+### Generate Tailwind CSS from Figma
+```typescript
+function figmaToTailwind(node: FigmaNode): string {
+  const classes: string[] = [];
+  
+  // Dimensions
+  if (node.absoluteBoundingBox) {
+    const { width, height } = node.absoluteBoundingBox;
+    classes.push(`w-[${Math.round(width)}px]`, `h-[${Math.round(height)}px]`);
+  }
+  
+  // Background color
+  if (node.fills?.length) {
+    const fill = node.fills.find(f => f.visible !== false && f.type === 'SOLID');
+    if (fill?.color) {
+      const hex = rgbaToHex(fill.color);
+      classes.push(`bg-[${hex}]`);
+    }
+  }
+  
+  // Border radius
+  if (node.cornerRadius) {
+    const radiusMap: Record<number, string> = {
+      4: 'rounded-sm', 6: 'rounded-md', 8: 'rounded-lg',
+      12: 'rounded-xl', 16: 'rounded-2xl', 9999: 'rounded-full'
+    };
+    classes.push(radiusMap[node.cornerRadius] || `rounded-[${node.cornerRadius}px]`);
+  }
+  
+  // Padding
+  if (node.paddingLeft === node.paddingRight && 
+      node.paddingTop === node.paddingBottom &&
+      node.paddingLeft === node.paddingTop) {
+    classes.push(`p-[${node.paddingLeft}px]`);
+  } else {
+    if (node.paddingLeft) classes.push(`pl-[${node.paddingLeft}px]`);
+    if (node.paddingRight) classes.push(`pr-[${node.paddingRight}px]`);
+    if (node.paddingTop) classes.push(`pt-[${node.paddingTop}px]`);
+    if (node.paddingBottom) classes.push(`pb-[${node.paddingBottom}px]`);
+  }
+  
+  // Flexbox
+  if (node.layoutMode && node.layoutMode !== 'NONE') {
+    classes.push('flex');
+    classes.push(node.layoutMode === 'HORIZONTAL' ? 'flex-row' : 'flex-col');
+    if (node.itemSpacing) classes.push(`gap-[${node.itemSpacing}px]`);
+    
+    const justifyMap: Record<string, string> = {
+      'MIN': 'justify-start', 'CENTER': 'justify-center',
+      'MAX': 'justify-end', 'SPACE_BETWEEN': 'justify-between'
+    };
+    const alignMap: Record<string, string> = {
+      'MIN': 'items-start', 'CENTER': 'items-center', 'MAX': 'items-end'
+    };
+    if (node.primaryAxisAlignItems) classes.push(justifyMap[node.primaryAxisAlignItems]);
+    if (node.counterAxisAlignItems) classes.push(alignMap[node.counterAxisAlignItems]);
+  }
+  
+  return classes.join(' ');
+}
 ```
-Prompt: "Usando figma, extrae el componente ProductCard e impleméntalo con mvvm para la app de e-commerce"
+
+### Extract All Components from File
+```typescript
+interface ComponentInfo {
+  key: string;
+  name: string;
+  description: string;
+  nodeId: string;
+  thumbnailUrl?: string;
+}
+
+async function getAllComponents(fileKey: string): Promise<ComponentInfo[]> {
+  const response = await fetch(
+    `https://api.figma.com/v1/files/${fileKey}/components`,
+    { headers: { 'X-Figma-Token': process.env.FIGMA_TOKEN! } }
+  );
+  const data = await response.json();
+  
+  return data.meta.components.map((comp: any) => ({
+    key: comp.key,
+    name: comp.name,
+    description: comp.description || '',
+    nodeId: comp.node_id,
+    thumbnailUrl: comp.thumbnail_url,
+  }));
+}
+
+// Generate code for all components
+async function generateAllComponentsCode(fileKey: string): Promise<Map<string, string>> {
+  const components = await getAllComponents(fileKey);
+  const codeMap = new Map<string, string>();
+  
+  for (const comp of components) {
+    const code = await getComponentCode(fileKey, comp.nodeId);
+    codeMap.set(comp.name, code);
+  }
+  
+  return codeMap;
+}
 ```
 
----
+## Design Token Extraction
 
-**Última actualización:** Diciembre 2025  
-**Versión:** 1.0.0
+### Extract Colors
+```typescript
+async function extractColors(fileKey: string) {
+  const file = await fetch(
+    `https://api.figma.com/v1/files/${fileKey}/styles`,
+    { headers }
+  ).then(r => r.json());
+  
+  const colors = {};
+  
+  for (const style of file.meta.styles) {
+    if (style.style_type === 'FILL') {
+      const nodeData = await getStyleNode(fileKey, style.node_id);
+      const fill = nodeData.fills[0];
+      
+      if (fill.type === 'SOLID') {
+        colors[style.name] = rgbaToHex(fill.color);
+      }
+    }
+  }
+  
+  return colors;
+}
 
+function rgbaToHex({ r, g, b, a = 1 }) {
+  const toHex = (n) => Math.round(n * 255).toString(16).padStart(2, '0');
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}${a < 1 ? toHex(a) : ''}`;
+}
+```
+
+### Extract Typography Tokens
+```typescript
+async function extractTypography(fileKey: string) {
+  const response = await fetch(
+    `https://api.figma.com/v1/files/${fileKey}/styles`,
+    { headers: { 'X-Figma-Token': process.env.FIGMA_TOKEN! } }
+  );
+  const data = await response.json();
+  
+  const typography: Record<string, any> = {};
+  
+  for (const style of data.meta.styles) {
+    if (style.style_type === 'TEXT') {
+      const nodeResponse = await fetch(
+        `https://api.figma.com/v1/files/${fileKey}/nodes?ids=${style.node_id}`,
+        { headers: { 'X-Figma-Token': process.env.FIGMA_TOKEN! } }
+      );
+      const nodeData = await nodeResponse.json();
+      const node = nodeData.nodes[style.node_id].document;
+      
+      typography[style.name] = {
+        fontFamily: node.style?.fontFamily,
+        fontWeight: node.style?.fontWeight,
+        fontSize: node.style?.fontSize,
+        lineHeight: node.style?.lineHeightPx,
+        letterSpacing: node.style?.letterSpacing,
+      };
+    }
+  }
+  
+  return typography;
+}
+```
+
+### Generate Complete Design Tokens
+```typescript
+interface DesignTokens {
+  colors: Record<string, string>;
+  typography: Record<string, any>;
+  spacing: Record<string, number>;
+  shadows: Record<string, string>;
+  radii: Record<string, number>;
+}
+
+async function generateDesignTokens(fileKey: string): Promise<DesignTokens> {
+  const [colors, typography] = await Promise.all([
+    extractColors(fileKey),
+    extractTypography(fileKey),
+  ]);
+  
+  return {
+    colors,
+    typography,
+    spacing: { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 },  // Extract from file
+    shadows: {},  // Extract from effect styles
+    radii: {},    // Extract from nodes
+  };
+}
+
+// Generate CSS Variables
+function tokensToCSSVariables(tokens: DesignTokens): string {
+  let css = ':root {\n';
+  
+  // Colors
+  for (const [name, value] of Object.entries(tokens.colors)) {
+    const cssName = name.toLowerCase().replace(/[\s/]+/g, '-');
+    css += `  --color-${cssName}: ${value};\n`;
+  }
+  
+  // Typography
+  for (const [name, style] of Object.entries(tokens.typography)) {
+    const cssName = name.toLowerCase().replace(/[\s/]+/g, '-');
+    css += `  --font-${cssName}-family: "${style.fontFamily}";\n`;
+    css += `  --font-${cssName}-size: ${style.fontSize}px;\n`;
+    css += `  --font-${cssName}-weight: ${style.fontWeight};\n`;
+    css += `  --font-${cssName}-line-height: ${style.lineHeight}px;\n`;
+  }
+  
+  css += '}\n';
+  return css;
+}
+
+// Generate Tailwind Config
+function tokensToTailwindConfig(tokens: DesignTokens): string {
+  const colors: Record<string, string> = {};
+  for (const [name, value] of Object.entries(tokens.colors)) {
+    const key = name.toLowerCase().replace(/[\s/]+/g, '-');
+    colors[key] = value;
+  }
+  
+  return `
+module.exports = {
+  theme: {
+    extend: {
+      colors: ${JSON.stringify(colors, null, 6)},
+      fontFamily: {
+        ${Object.entries(tokens.typography).map(([name, style]) => 
+          `'${name.toLowerCase()}': ['${style.fontFamily}', 'sans-serif']`
+        ).join(',\n        ')}
+      },
+    },
+  },
+};
+`;
+}
+```
+
+## Variables API (Design Tokens 2.0)
+
+```typescript
+// Get variables (requires enterprise/organization plan)
+GET https://api.figma.com/v1/files/:file_key/variables/local
+
+// Get variable collections
+GET https://api.figma.com/v1/files/:file_key/variables/local/collections
+
+// Response structure
+interface VariableCollection {
+  id: string;
+  name: string;
+  modes: { modeId: string; name: string }[];
+  variableIds: string[];
+}
+
+interface Variable {
+  id: string;
+  name: string;
+  resolvedType: 'BOOLEAN' | 'FLOAT' | 'STRING' | 'COLOR';
+  valuesByMode: Record<string, any>;
+}
+
+async function getVariables(fileKey: string) {
+  const response = await fetch(
+    `https://api.figma.com/v1/files/${fileKey}/variables/local`,
+    { headers: { 'X-Figma-Token': process.env.FIGMA_TOKEN! } }
+  );
+  return response.json();
+}
+```
+
+## Dev Mode Integration
+
+### Code Snippets from Dev Mode
+```typescript
+// Get Dev Resources (annotations, measurements)
+GET https://api.figma.com/v1/files/:file_key/dev_resources
+
+// Create Dev Resource
+POST https://api.figma.com/v1/dev_resources
+{
+  "dev_resource": {
+    "name": "React Component",
+    "url": "https://github.com/...",
+    "file_key": "abc123",
+    "node_id": "1:2"
+  }
+}
+```
+
+## Webhooks
+
+### Setup Webhook
+```typescript
+POST https://api.figma.com/v2/webhooks
+
+{
+  "event_type": "FILE_UPDATE",
+  "team_id": "123456",
+  "endpoint": "https://your-server.com/figma-webhook",
+  "passcode": "your-secret-passcode"
+}
+
+// Available events:
+// - FILE_UPDATE
+// - FILE_DELETE  
+// - FILE_VERSION_UPDATE
+// - LIBRARY_PUBLISH
+// - FILE_COMMENT
+```
+
+### Handle Webhook
+```typescript
+app.post('/figma-webhook', async (req, res) => {
+  const { passcode } = req.body;
+  
+  if (passcode !== process.env.FIGMA_WEBHOOK_SECRET) {
+    return res.status(401).send('Unauthorized');
+  }
+  
+  const { event_type, file_key, timestamp } = req.body;
+  
+  switch (event_type) {
+    case 'FILE_UPDATE':
+      await syncDesignTokens(file_key);
+      break;
+    case 'LIBRARY_PUBLISH':
+      await regenerateComponents(file_key);
+      break;
+    case 'FILE_COMMENT':
+      await notifyTeam(req.body);
+      break;
+  }
+  
+  res.status(200).send('OK');
+});
+```
+
+## Complete Design-to-Code Pipeline
+
+```typescript
+// Full pipeline: Figma file → React components + tokens
+async function figmaToCode(fileKey: string, outputDir: string) {
+  // 1. Get all components
+  const components = await getAllComponents(fileKey);
+  
+  // 2. Generate design tokens
+  const tokens = await generateDesignTokens(fileKey);
+  await fs.writeFile(
+    `${outputDir}/tokens.css`,
+    tokensToCSSVariables(tokens)
+  );
+  await fs.writeFile(
+    `${outputDir}/tailwind.config.js`,
+    tokensToTailwindConfig(tokens)
+  );
+  
+  // 3. Generate React components
+  for (const comp of components) {
+    const code = await getComponentCode(fileKey, comp.nodeId);
+    const fileName = toPascalCase(comp.name) + '.tsx';
+    await fs.writeFile(`${outputDir}/components/${fileName}`, code);
+  }
+  
+  // 4. Export icons as SVGs
+  const icons = components.filter(c => c.name.startsWith('Icon/'));
+  if (icons.length) {
+    const iconIds = icons.map(i => i.nodeId).join(',');
+    const svgResponse = await fetch(
+      `https://api.figma.com/v1/images/${fileKey}?ids=${iconIds}&format=svg`,
+      { headers: { 'X-Figma-Token': process.env.FIGMA_TOKEN! } }
+    );
+    const svgData = await svgResponse.json();
+    
+    for (const icon of icons) {
+      const svgUrl = svgData.images[icon.nodeId];
+      const svg = await fetch(svgUrl).then(r => r.text());
+      await fs.writeFile(`${outputDir}/icons/${icon.name}.svg`, svg);
+    }
+  }
+  
+  console.log(`Generated ${components.length} components and ${Object.keys(tokens.colors).length} color tokens`);
+}
+```
+
+## Figma Plugin Development
+
+### Plugin Manifest (manifest.json)
+```json
+{
+  "name": "My Figma Plugin",
+  "id": "123456789",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma", "figjam"],
+  "capabilities": ["codegen"],
+  "codegenLanguages": [
+    { "label": "React", "value": "react" },
+    { "label": "Vue", "value": "vue" }
+  ]
+}
+```
+
+### Plugin Code (code.ts)
+```typescript
+// Show UI
+figma.showUI(__html__, { width: 400, height: 500 });
+
+// Handle selection
+figma.on('selectionchange', () => {
+  const selection = figma.currentPage.selection;
+  figma.ui.postMessage({ type: 'selection', nodes: selection.map(nodeToJSON) });
+});
+
+// Handle messages from UI
+figma.ui.onmessage = async (msg) => {
+  if (msg.type === 'export-code') {
+    const node = figma.currentPage.selection[0];
+    const code = generateCode(node);
+    figma.ui.postMessage({ type: 'code-generated', code });
+  }
+};
+
+function nodeToJSON(node: SceneNode) {
+  return {
+    id: node.id,
+    name: node.name,
+    type: node.type,
+    width: node.width,
+    height: node.height,
+  };
+}
+```
+
+## Resources
+
+- **Figma API Docs**: https://www.figma.com/developers/api
+- **Figma REST API Reference**: https://www.figma.com/developers/api#intro
+- **Plugin API Docs**: https://www.figma.com/plugin-docs/
+- **Variables API**: https://www.figma.com/developers/api#variables
+- **Dev Mode**: https://www.figma.com/dev-mode/
+- **Figma Community Plugins**: https://www.figma.com/community/plugins

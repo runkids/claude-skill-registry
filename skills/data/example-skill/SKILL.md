@@ -1,24 +1,33 @@
 ---
 name: example-skill
-description: Example skill demonstrating the full skill directory structure with scripts, references, assets, and examples. Use when learning how to structure Codex skills.
+description: Example skill - replace with your skill's description and activation keywords
 ---
 
 # Example Skill
 
-This is a demonstration skill showing all possible subdirectories.
+This is an example skill. Replace this content with your own.
 
-## Quick Start
+## Overview
 
-1. Check `references/patterns.md` for detailed patterns
-2. Use `assets/component-template.tsx` as a starter
-3. Run `scripts/validate.sh` to check your code
-4. See `examples/good-example.tsx` for reference
+[Describe what this skill covers]
 
-## Structure
+## Key Concepts
 
-- `scripts/` - Executable automation scripts
-- `references/` - Detailed documentation
-- `assets/` - Templates and resources
-- `examples/` - Real code examples
+1. **Concept 1** - Description
+2. **Concept 2** - Description
+3. **Concept 3** - Description
 
+## Patterns
 
+### Pattern 1
+
+[Description and example]
+
+## Checklist
+
+- [ ] Verification step 1
+- [ ] Verification step 2
+
+---
+
+_Replace this template with your skill content_

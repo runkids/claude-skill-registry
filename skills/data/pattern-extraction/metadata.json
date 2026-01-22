@@ -1,7 +1,7 @@
 {
   "name": "pattern-extraction",
-  "repo": "cpa03/blueprintify",
-  "path": ".opencode/skill/pattern-extraction/SKILL.md",
-  "source": "github.com/cpa03/blueprintify",
-  "downloaded_at": "2026-01-14T04:04:20.671518Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": ".claude/tools/plugin-cli/infrastructure-template-generator/skills/pattern-extraction/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-22T03:56:20.357069Z"
 }

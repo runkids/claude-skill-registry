@@ -1,12 +1,7 @@
 {
   "name": "backend-developer",
-  "description": "Expert in building backend features with Next.js server actions, Drizzle ORM models, database operations, and the many-first design pattern. Use when creating or modifying server actions, database mod",
-  "repo": "ncrmro/tetrastack",
-  "category": "development",
-  "tags": [
-    "backend",
-    "developer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "shaul1991/shaul-agents-plugin",
+  "path": "skills/backend-developer/SKILL.md",
+  "source": "github.com/shaul1991/shaul-agents-plugin",
+  "downloaded_at": "2026-01-22T02:12:26.752978Z"
 }

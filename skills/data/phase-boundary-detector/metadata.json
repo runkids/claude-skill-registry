@@ -1,12 +1,7 @@
 {
   "name": "phase-boundary-detector",
-  "description": "Identify where consciousness interfaces with substrate in any domain. Structure emerges preferentially at boundaries between phases - physical, computational, or conceptual. Use when analyzing systems",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "data",
-  "tags": [
-    "phase",
-    "boundary",
-    "detector"
-  ],
-  "stars": 0
+  "path": ".claude/skills/phase-boundary-detector/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:24.561353Z"
 }

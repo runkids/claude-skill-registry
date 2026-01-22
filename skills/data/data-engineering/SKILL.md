@@ -1,287 +1,99 @@
 ---
-# ═══════════════════════════════════════════════════════════════════════════
-# SKILL: Data Engineering
-# Version: 2.0.0 | Updated: 2025-01
-# ═══════════════════════════════════════════════════════════════════════════
 name: data-engineering
-description: Data engineering, machine learning, AI, and MLOps. From data pipelines to production ML systems and LLM applications.
-
-# ACTIVATION TRIGGERS
-triggers:
-  - data engineering
-  - machine learning
-  - ml
-  - ai
-  - mlops
-  - spark
-  - airflow
-  - llm
-  - rag
-  - langchain
-
-# SKILL PARAMETERS
-parameters:
-  role:
-    type: string
-    enum: [data-engineer, ml-engineer, ai-engineer]
-    required: true
-  experience:
-    type: string
-    enum: [beginner, intermediate, advanced]
-    required: false
-    default: beginner
-
-# OUTPUT SPECIFICATION
-outputs:
-  learning_path:
-    type: array
-  tech_stack:
-    type: object
-  projects:
-    type: array
-
-# RELIABILITY
-retry:
-  max_attempts: 3
-  backoff: exponential
-
-# OBSERVABILITY
-observability:
-  log_level: info
-  metrics: [path_completion_rate]
-
-level: advanced
-prerequisites:
-  - programming-basics
-  - python-advanced
-
-sasmp_version: "1.3.0"
-bonded_agent: 01-core-paths
-bond_type: PRIMARY_BOND
+description: Use this skill when designing or reviewing data pipelines, ETL processes, data warehouses, streaming systems, or any system where data movement, transformation, and quality are primary concerns. Applies data engineering thinking to specifications, designs, and implementations.
+version: 0.1.0
 ---
 
-# Data Engineering Skill
+# Data Engineering
 
-## Quick Reference
+## When to Apply
 
-| Role | Focus | Timeline | Entry From |
-|------|-------|----------|------------|
-| **Data Engineer** | Pipelines, Infra | 12-24 mo | Backend Dev |
-| **ML Engineer** | Models, Features | 12-24 mo | Data Scientist |
-| **AI Engineer** | LLMs, Agents | 6-12 mo | Any Developer |
+Use this skill when the system involves:
+- Data pipelines (batch or streaming)
+- ETL/ELT processes
+- Data warehouses or data lakes
+- Schema design and evolution
+- Data quality and validation
+- Event streaming platforms (Kafka, Kinesis, etc.)
 
----
+## Mindset
 
-## Learning Paths
+Data engineers think about data as a product with its own lifecycle, quality, and contracts.
 
-### Data Engineer
-```
-[1] SQL Mastery (4-6 wk)
- │  └─ Window functions, CTEs, optimization
- │
- ▼
-[2] Python for Data (4-6 wk)
- │  └─ Pandas, file formats, scripting
- │
- ▼
-[3] ETL/ELT Pipelines (6-8 wk)
- │  └─ Extract, transform, load patterns
- │
- ▼
-[4] Big Data: Spark (8-12 wk)
- │  └─ PySpark, DataFrames, partitioning
- │
- ▼
-[5] Data Warehouse (4-6 wk)
- │  └─ Star schema, dbt, Snowflake/BQ
- │
- ▼
-[6] Orchestration (4-6 wk)
-    └─ Airflow/Prefect, scheduling, monitoring
-```
+**Questions to always ask:**
+- What's the source of truth? Where does this data originate?
+- What happens when upstream data is late, missing, or malformed?
+- What's the schema? How will it evolve?
+- How do we know the data is correct? What are the quality checks?
+- What's the latency requirement? Batch or streaming?
+- Who consumes this data? What's their contract?
+- How do we replay or backfill if something goes wrong?
 
-**2025 Stack:** Python + Spark + Airflow + dbt + Snowflake/BigQuery
+**Assumptions to challenge:**
+- "The data is clean" - It's not. Validate everything.
+- "Schema won't change" - It will. Design for evolution.
+- "We process everything" - What about late data? Duplicates? Out-of-order?
+- "It's just a simple transform" - Transforms accumulate. Document lineage.
+- "We'll fix data quality later" - Garbage in, garbage out. Validate early.
+- "Batch is good enough" - Is it? What's the actual latency requirement?
 
----
+## Practices
 
-### ML Engineer
-```
-[1] Python + NumPy (4-6 wk)
- │
- ▼
-[2] Math Foundations (6-8 wk)
- │  └─ Linear algebra, calculus, statistics
- │
- ▼
-[3] Classical ML (8-12 wk)
- │  └─ scikit-learn, XGBoost, evaluation
- │
- ▼
-[4] Deep Learning (8-12 wk)
- │  └─ PyTorch, CNNs, Transformers
- │
- ▼
-[5] MLOps (6-8 wk)
-    └─ MLflow, model serving, monitoring
-```
+### Schema Design
+Design schemas for evolution. Use explicit versioning. Prefer additive changes (new fields) over breaking changes. Document every field. **Don't** make breaking changes without migration plans, use generic field names, or leave fields undocumented.
 
-**2025 Stack:** Python + PyTorch + scikit-learn + MLflow + W&B
+### Schema Evolution
+Support backward and forward compatibility where possible. Use schema registries for enforcement. Plan migration paths for breaking changes. **Don't** break consumers without warning, skip validation against schema, or ignore compatibility rules.
 
----
+### Data Quality
+Validate data at ingestion. Define quality rules (completeness, uniqueness, ranges). Monitor quality metrics. Quarantine bad data; don't propagate it. **Don't** trust upstream data, skip validation for performance, or silently drop bad records.
 
-### AI Engineer (2025 Hot Path)
-```
-[1] LLM Fundamentals (2-3 wk)
- │  └─ Tokens, embeddings, context windows
- │
- ▼
-[2] Prompt Engineering (2-3 wk)
- │  └─ Few-shot, CoT, structured output
- │
- ▼
-[3] RAG Systems (3-4 wk)
- │  └─ Embeddings, vector DBs, retrieval
- │
- ▼
-[4] AI Agents (4-6 wk)
- │  └─ Tool calling, agent loops, memory
- │
- ▼
-[5] Production Deploy (ongoing)
-    └─ Evaluation, guardrails, monitoring
-```
+### Idempotent Processing
+Design pipelines to produce the same output when run multiple times. Use deterministic logic. Handle duplicates explicitly. **Don't** assume exactly-once delivery, use non-deterministic functions without care, or let duplicate processing cause incorrect results.
 
-**2025 Stack:** Python + LangChain/LlamaIndex + OpenAI/Anthropic + ChromaDB
+### Late & Out-of-Order Data
+Define how late data is handled (accept with window, drop, or sidetrack). Use event time, not processing time. Design for out-of-order arrival. **Don't** assume data arrives in order, ignore late data silently, or use processing time for ordering.
 
----
+### Lineage & Documentation
+Track where data comes from and where it goes. Document transformations. Maintain data dictionaries. **Don't** lose track of data sources, have undocumented transformations, or let documentation drift from reality.
 
-## 2025 Tool Matrix
+### Testing Pipelines
+Test transformations with known inputs/outputs. Test edge cases (nulls, empty, malformed). Test schema compatibility. Test failure and recovery. **Don't** skip pipeline testing, test only happy path, or deploy without validating output schema.
 
-### Data Processing
-| Tool | Scale | Use Case |
-|------|-------|----------|
-| **Pandas** | <10GB | Prototyping, small data |
-| **Polars** | <100GB | Fast local processing |
-| **Spark** | >100GB | Distributed processing |
-| **dbt** | Any | Transformations, testing |
+### Backfill & Recovery
+Design for reprocessing. Keep raw data immutable. Have clear backfill procedures. Test recovery before you need it. **Don't** mutate source data, lose ability to reprocess, or wait until disaster to test recovery.
 
-### ML Frameworks
-| Framework | Best For | Complexity |
-|-----------|----------|------------|
-| **scikit-learn** | Classical ML | Low |
-| **XGBoost** | Tabular data | Low |
-| **PyTorch** | Research, flexibility | Medium |
-| **TensorFlow** | Production, mobile | Medium |
+## Vocabulary
 
-### LLM/AI Tools
-| Tool | Use Case |
-|------|----------|
-| **LangChain** | LLM orchestration |
-| **LlamaIndex** | RAG systems |
-| **Claude/OpenAI** | LLM APIs |
-| **ChromaDB** | Vector storage |
+Use precise terminology:
 
----
+| Instead of | Say |
+|------------|-----|
+| "real-time" | "streaming with < 1s latency" / "micro-batch every 5 min" |
+| "data quality" | "null rate < 1%" / "unique constraint on X" / "range [0, 100]" |
+| "schema" | "Avro schema v2" / "backward compatible" |
+| "pipeline" | "batch DAG" / "streaming topology" / "ELT job" |
+| "source" | "source of truth" / "derived from X" / "CDC from Y" |
+| "delay" | "event time lag" / "processing latency" / "watermark" |
 
-## Algorithm Reference
+## SDD Integration
 
-### Classical ML
-| Type | Algorithms |
-|------|------------|
-| Regression | Linear, Ridge, Lasso, ElasticNet |
-| Classification | Logistic, SVM, Decision Tree |
-| Ensemble | Random Forest, XGBoost, LightGBM |
-| Clustering | K-Means, DBSCAN, Hierarchical |
+**During Specification:**
+- Define data sources and their reliability
+- Specify latency requirements (batch windows, streaming SLAs)
+- Establish data quality requirements
+- Identify consumers and their contracts
 
-### Deep Learning
-| Architecture | Use Case |
-|--------------|----------|
-| **CNN** | Images, vision |
-| **RNN/LSTM** | Sequences |
-| **Transformer** | NLP, LLMs |
-| **Diffusion** | Image generation |
+**During Design:**
+- Document schema with compatibility strategy
+- Design validation rules per stage
+- Specify handling for late/duplicate/malformed data
+- Plan for backfill and disaster recovery
+- Document data lineage
 
----
-
-## AI Agent Architecture (2025)
-
-```
-┌─────────────────────────────────────────┐
-│            AGENTIC LOOP                  │
-├─────────────────────────────────────────┤
-│  PERCEIVE → REASON → ACT → REFLECT      │
-│      │         │       │       │        │
-│      │         │       │       └─► Loop │
-│      │         │       └─► Execute tools│
-│      │         └─► LLM decides action   │
-│      └─► Gather context, observations   │
-└─────────────────────────────────────────┘
-
-Design Patterns (Anthropic 2025):
-• Prompt Chaining - Sequential fixed steps
-• Routing - Classify and dispatch
-• Parallelization - Concurrent subtasks
-• Orchestrator-Workers - Central delegation
-• Evaluator-Optimizer - Generate + critique
-```
-
----
-
-## Troubleshooting
-
-```
-Which path to choose?
-├─► Love building infrastructure? → Data Engineer
-├─► Love algorithms/math? → ML Engineer
-├─► Want fastest AI entry? → AI Engineer
-└─► Uncertain? → Start with Python + SQL
-
-Model not performing well?
-├─► Data quality issues? → Clean data first
-├─► Feature engineering? → Create better features
-├─► Wrong algorithm? → Try different models
-├─► Overfitting? → More data, regularization
-└─► Hyperparameters? → Grid/random search
-
-LLM giving bad answers?
-├─► Prompt too vague? → Be more specific
-├─► Missing context? → Add relevant info
-├─► Hallucinating? → Use RAG, verify facts
-└─► Wrong tool? → Improve tool descriptions
-```
-
----
-
-## Common Failure Modes
-
-| Symptom | Root Cause | Recovery |
-|---------|------------|----------|
-| Model fails in prod | Data drift | Monitor distributions |
-| Pipeline always late | Unoptimized queries | Profile, partition |
-| RAG finds wrong docs | Bad chunking | Tune chunk size, overlap |
-| Agent loops forever | No exit condition | Add max iterations |
-
----
-
-## Portfolio Projects
-
-### Data Engineering
-1. ETL Pipeline (Airflow + dbt)
-2. Real-time Streaming (Kafka + Spark)
-3. Data Warehouse Design
-
-### ML Engineering
-1. Classification Model (scikit-learn)
-2. Deep Learning Model (PyTorch)
-3. ML Pipeline (MLflow)
-
-### AI Engineering
-1. RAG Chatbot (LangChain + ChromaDB)
-2. AI Agent with Tools
-3. Multi-Agent System
-
----
-
-## Next Actions
-
-Specify your target role for a detailed learning plan.
+**During Review:**
+- Verify schemas are documented and versioned
+- Check quality validation is implemented at ingestion
+- Confirm idempotent processing
+- Validate late data handling is defined
+- Ensure backfill procedures exist and are tested

@@ -1,7 +1,7 @@
 {
   "name": "create-pr",
-  "repo": "abyanmajid/template",
-  "path": ".claude/skills/create-pr/SKILL.md",
-  "source": "github.com/abyanmajid/template",
-  "downloaded_at": "2026-01-14T03:46:59.322190Z"
+  "repo": "yairbederman/EngineeringAgency",
+  "path": "skills/create-pr/SKILL.md",
+  "source": "github.com/yairbederman/EngineeringAgency",
+  "downloaded_at": "2026-01-22T04:09:01.230818Z"
 }

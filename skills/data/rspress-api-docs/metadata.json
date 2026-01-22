@@ -1,9 +1,7 @@
 {
   "name": "rspress-api-docs",
-  "description": "Generate API documentation from TypeScript source code for RSPress. Use when documenting package APIs, extracting types from source code, or creating function/class reference pages.",
-  "repo": "savvy-web/developer-docs",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "spencerbeggs/claude-design-coordinator",
+  "path": ".claude/skills/rspress-api-docs/SKILL.md",
+  "source": "github.com/spencerbeggs/claude-design-coordinator",
+  "downloaded_at": "2026-01-22T02:41:53.413369Z"
 }

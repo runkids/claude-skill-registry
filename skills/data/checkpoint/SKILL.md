@@ -1,71 +1,58 @@
 ---
 name: checkpoint
-description: Save mid-session state for recovery without clearing context. Use after major milestones, before risky operations, or periodically during long sessions.
-allowed-tools: Read, Write
+description: Quick save of current session state for recovery after failures
 ---
 
-# Checkpoint
+# Session Checkpoint
 
-Save session state at key points to enable recovery without losing progress. Unlike /compact (clears context), checkpoint preserves everything.
+**Purpose:** Quickly save current state so you can recover after a session
+failure.
 
-## When to Use
+## Instructions
 
-- After completing significant work
-- Before attempting something risky
-- Every 30-45 minutes in long sessions
-- Before spawning multiple parallel agents
-- When user takes a break
+Update the Quick Recovery section at the top of SESSION_CONTEXT.md with:
 
-## Checkpoint Types
+1. **Current timestamp**
+2. **Branch name** (run `git rev-parse --abbrev-ref HEAD`)
+3. **Working on** - Brief description of current task
+4. **Files modified** - List files changed since last commit
+   (`git diff --name-only`)
+5. **Next step** - What to do next if session dies
+6. **Uncommitted work** - Yes/No
 
-| Type | Trigger | Depth |
-|------|---------|-------|
-| **Milestone** | Major work completed | Full |
-| **Periodic** | Time-based (30-45 min) | Standard |
-| **Pre-risk** | About to try uncertain operation | Full + rollback plan |
-| **Quick** | User stepping away | Minimal |
+## Quick Recovery Template
 
-## What Gets Saved
+Update SESSION_CONTEXT.md "Quick Recovery" section with this format:
 
-- Current objective and task in progress
-- Position in workflow (which steps complete)
-- Files changed and decisions made
-- Active agents and pending results
-- Docs loaded and key facts established
-
-## Process
-
-1. Determine checkpoint type (milestone/periodic/pre-risk/quick)
-2. Write to `.context/checkpoints/checkpoint-[timestamp].md`
-3. Update `.context/checkpoints/INDEX.md`
-4. Confirm to user and continue work
-
-## Output Location
-
-`.context/checkpoints/checkpoint-[timestamp].md`
-
-## Quick Checkpoint
-
-For rapid saves:
 ```markdown
-# Quick Checkpoint - [timestamp]
-**Task**: [current]
-**Position**: [where]
-**Next**: [next action]
-**Files**: [changed]
+## 🔄 Quick Recovery
+
+**Last Checkpoint**: YYYY-MM-DD HH:MM **Branch**: `branch-name-here` **Working
+On**: [brief task description] **Files Modified**: [list or "none"] **Next
+Step**: [what to do next] **Uncommitted Work**: yes/no
 ```
 
-## Comparison
+## Also Consider
 
-| Skill | When | Context | Purpose |
-|-------|------|---------|---------|
-| /checkpoint | Mid-session | Preserved | Recovery point |
-| /compact | Context saturated | Cleared | Continue working |
-| /handoff | Session ending | N/A | Pass to next session |
+- If uncommitted work exists, consider committing now:
 
-## Related
+  ```bash
+  git add -A && git commit -m "WIP: checkpoint before potential failure"
+  ```
 
-- Full checkpoint template: See [reference/full-template.md](reference/full-template.md)
-- Pre-risk template: See [reference/pre-risk-template.md](reference/pre-risk-template.md)
-- Recovery instructions: See [reference/recovery.md](reference/recovery.md)
-- To resume: `/session-start --checkpoint [timestamp]`
+- If working on risky operations, push the branch:
+  ```bash
+  git push -u origin $(git rev-parse --abbrev-ref HEAD)
+  ```
+
+## When to Use This Command
+
+- Before large file operations
+- Before complex multi-step tasks
+- When you notice session becoming slow
+- Periodically during long sessions (every 30-60 minutes)
+- Before any operation that previously caused failures
+
+---
+
+**Run this checkpoint now and update SESSION_CONTEXT.md.**

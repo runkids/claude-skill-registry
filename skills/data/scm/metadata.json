@@ -1,7 +1,7 @@
 {
   "name": "scm",
-  "repo": "mauromedda/agent-toolkit",
-  "path": "skills/scm/SKILL.md",
-  "source": "github.com/mauromedda/agent-toolkit",
-  "downloaded_at": "2026-01-14T03:39:05.311714Z"
+  "repo": "mgreenly/ikigai",
+  "path": ".claude/library/scm/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-19T04:08:20.203888Z"
 }

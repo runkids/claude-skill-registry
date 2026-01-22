@@ -1,8 +1,7 @@
 {
   "name": "test-plan",
-  "repo": "edwardmonteiro/Aiskillinpractice",
-  "category": "data",
-  "description": "Generate a detailed test plan covering scenarios, environments, data, and reporting for the release.",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:27.262696Z"
+  "repo": "HaRu-LLC/ai-pm_system_notebooklmuse",
+  "path": ".agent/skills/pm/planning/test-plan/SKILL.md",
+  "source": "github.com/HaRu-LLC/ai-pm_system_notebooklmuse",
+  "downloaded_at": "2026-01-22T01:39:47.001325Z"
 }

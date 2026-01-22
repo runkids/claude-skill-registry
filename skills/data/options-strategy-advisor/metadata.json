@@ -1,13 +1,7 @@
 {
   "name": "options-strategy-advisor",
-  "description": "Options trading strategy analysis and simulation tool. Provides theoretical pricing using Black-Scholes model, Greeks calculation, strategy P/L simulation, and risk management guidance. Use when user ",
-  "repo": "tradermonty/claude-trading-skills",
-  "category": "design",
-  "tags": [
-    "options",
-    "strategy",
-    "advisor"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "stock-trader-workflow/.claude/skills/options-strategy-advisor/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:48.400934Z"
 }

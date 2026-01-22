@@ -1,24 +1,30 @@
+# skills/meta/swarm-optimization-skill.md
 ---
-description: Audit skill for YAML compliance, pure XML structure, progressive disclosure, and best practices
-argument-hint: <skill-path>
+name: "Swarm Architecture & Prompt Engineering"
+description: "Principles for rewriting Agent Personas and Skill files to improve coordination and logic."
 ---
 
-<objective>
-Invoke the skill-auditor subagent to audit the skill at $ARGUMENTS for compliance with Agent Skills best practices.
+## Core Philosophy: "Code is Cheap, Context is King"
+To fix a behavioral bug, you rarely need to change the Python code first. You usually need to change the **Agent's Instructions**.
 
-This ensures skills follow proper structure (pure XML, required tags, progressive disclosure) and effectiveness patterns.
-</objective>
+## Debugging Agent Failure Modes
+1.  **Hallucination**: The agent tries to use a tool it doesn't have.
+    * *Fix*: Edit the `tools` list in `rules/X.md` OR restrict the instruction to available tools.
+2.  **Looping/Indecision**: The agent keeps asking for clarification.
+    * *Fix*: Add a "Default Action" protocol. (e.g., "If unsure, Default to Safe Mode").
+3.  **Lazy Execution**: The agent gives a summary instead of the code.
+    * *Fix*: Add a "Constraint": "You must output the full file content. No placeholders."
 
-<process>
-1. Invoke skill-auditor subagent
-2. Pass skill path: $ARGUMENTS
-3. Subagent will read updated best practices (including pure XML structure requirements)
-4. Subagent evaluates XML structure quality, required/conditional tags, anti-patterns
-5. Review detailed findings with file:line locations, compliance scores, and recommendations
-</process>
+## Role Optimization Strategies
+* **The "Separation of Concerns" Patch**:
+    * If an agent is overwhelmed, split their duties.
+    * *Example*: If `@Quant` is failing to log trades because it's too busy calculating signals, move the Logging duty to `@MLEng`.
+* **The "Explicit Handoff" Patch**:
+    * If agents are ignoring each other, hardcode the communication.
+    * *Example*: Update `@Frontend`: "You strictly listen to `ws://localhost:8000`. You do not calculate your own indicators."
 
-<success_criteria>
-- Subagent invoked successfully
-- Arguments passed correctly to subagent
-- Audit includes XML structure evaluation
-</success_criteria>
+## Prompt Refinement Patterns
+When rewriting `System Instructions` in agent files:
+* **Use Negatives Constraints**: "Do NOT use `time.sleep()`."
+* **Use Chain-of-Thought Triggers**: "Before answering, list 3 potential risks."
+* **Use Artifact Mandates**: "Your output must always be a JSON block."

@@ -1,994 +1,734 @@
-# 🏛️ Skill: Clean Architecture
-
-## 📋 Metadata
-
-| Atributo | Valor |
-|----------|-------|
-| **ID** | `flutter-clean-architecture` |
-| **Nivel** | 🔴 Avanzado |
-| **Versión** | 1.0.0 |
-| **Keywords** | `clean`, `clean-arch`, `clean-architecture`, `bloc`, `usecase`, `repository`, `ddd` |
-
-## 🔑 Keywords para Invocación
-
-Usa cualquiera de estos keywords en tus prompts para invocar este skill:
-
-- `clean`
-- `clean-arch`
-- `clean-architecture`
-- `bloc`
-- `usecase`
-- `repository-pattern`
-- `ddd` (Domain-Driven Design)
-- `@skill:clean-architecture`
-
-### Ejemplos de Prompts
-
-```
-Crea un módulo de autenticación usando clean-architecture
-```
-
-```
-Implementa clean-arch para un sistema de e-commerce con bloc
-```
-
-```
-@skill:clean-architecture - Genera feature de productos con repository-pattern
-```
-
-## 📖 Descripción
-
-**⚠️ IMPORTANTE:** Todos los comandos de este skill deben ejecutarse desde la **raíz del proyecto** (donde existe el directorio `mobile/`). El skill incluye verificaciones para asegurar que se está en el directorio correcto antes de ejecutar cualquier comando.
-
-Clean Architecture organiza el código en capas con dependencias unidireccionales, facilitando la independencia del framework, testabilidad y mantenibilidad a largo plazo. Ideal para aplicaciones enterprise y proyectos escalables.
-
-### ✅ Cuándo Usar Este Skill
-
-- Aplicaciones enterprise grandes y complejas
-- Proyectos que requieren máxima testabilidad
-- Equipos grandes con múltiples desarrolladores
-- Necesitas independencia del framework
-- Planeas mantener el proyecto por años
-- Requieres múltiples fuentes de datos (API, caché, etc.)
-
-### ❌ Cuándo NO Usar Este Skill
-
-- Prototipos rápidos o MVPs
-- Proyectos pequeños con lógica simple
-- Equipos sin experiencia en arquitecturas complejas
-- Deadlines muy ajustados
-
-## 🏗️ Estructura del Proyecto
-
-```
-lib/
-├── core/
-│   ├── error/
-│   │   ├── exceptions.dart          # Excepciones personalizadas
-│   │   └── failures.dart            # Failures para manejo de errores
-│   ├── usecases/
-│   │   └── usecase.dart             # Clase base para UseCases
-│   ├── network/
-│   │   └── network_info.dart        # Verificación de conectividad
-│   ├── utils/
-│   │   ├── constants.dart
-│   │   ├── validators.dart
-│   │   └── input_converter.dart
-│   └── theme/
-│       └── app_theme.dart
-│
-├── features/
-│   └── [feature_name]/              # ej: authentication, products
-│       │
-│       ├── data/                    # 💾 CAPA DE DATOS
-│       │   ├── datasources/
-│       │   │   ├── feature_remote_datasource.dart
-│       │   │   └── feature_local_datasource.dart
-│       │   ├── models/
-│       │   │   └── feature_model.dart
-│       │   └── repositories/
-│       │       └── feature_repository_impl.dart
-│       │
-│       ├── domain/                  # 🎯 CAPA DE DOMINIO
-│       │   ├── entities/
-│       │   │   └── feature_entity.dart
-│       │   ├── repositories/
-│       │   │   └── feature_repository.dart
-│       │   └── usecases/
-│       │       ├── get_feature.dart
-│       │       ├── create_feature.dart
-│       │       ├── update_feature.dart
-│       │       └── delete_feature.dart
-│       │
-│       └── presentation/            # 🎨 CAPA DE PRESENTACIÓN
-│           ├── bloc/
-│           │   ├── feature_bloc.dart
-│           │   ├── feature_event.dart
-│           │   └── feature_state.dart
-│           ├── pages/
-│           │   ├── feature_list_page.dart
-│           │   └── feature_detail_page.dart
-│           └── widgets/
-│               ├── feature_card.dart
-│               └── feature_form.dart
-│
-└── injection_container.dart         # 💉 Dependency Injection
-```
-
-## 🧩 Capas de la Arquitectura
-
-### 1. Domain Layer (Capa de Dominio) 🎯
-
-La capa más interna, contiene la lógica de negocio pura e independiente del framework.
-
-#### Entities (Entidades)
-
-```dart
-// domain/entities/user_entity.dart
-import 'package:equatable/equatable.dart';
-
-class UserEntity extends Equatable {
-  final String id;
-  final String name;
-  final String email;
-  final String? avatar;
-  final DateTime createdAt;
-  
-  const UserEntity({
-    required this.id,
-    required this.name,
-    required this.email,
-    this.avatar,
-    required this.createdAt,
-  });
-  
-  @override
-  List<Object?> get props => [id, name, email, avatar, createdAt];
-}
-```
-
-#### Repositories (Interfaces)
-
-```dart
-// domain/repositories/user_repository.dart
-import 'package:dartz/dartz.dart';
-import '../../core/error/failures.dart';
-import '../entities/user_entity.dart';
-
-abstract class UserRepository {
-  Future<Either<Failure, UserEntity>> getUser(String id);
-  Future<Either<Failure, List<UserEntity>>> getUsers();
-  Future<Either<Failure, UserEntity>> createUser(UserEntity user);
-  Future<Either<Failure, UserEntity>> updateUser(UserEntity user);
-  Future<Either<Failure, void>> deleteUser(String id);
-}
-```
-
-#### Use Cases (Casos de Uso)
-
-```dart
-// domain/usecases/get_user.dart
-import 'package:dartz/dartz.dart';
-import '../../core/error/failures.dart';
-import '../../core/usecases/usecase.dart';
-import '../entities/user_entity.dart';
-import '../repositories/user_repository.dart';
-
-class GetUser implements UseCase<UserEntity, String> {
-  final UserRepository repository;
-  
-  GetUser(this.repository);
-  
-  @override
-  Future<Either<Failure, UserEntity>> call(String userId) async {
-    return await repository.getUser(userId);
-  }
-}
-
-// core/usecases/usecase.dart
-import 'package:dartz/dartz.dart';
-import '../error/failures.dart';
-
-abstract class UseCase<Type, Params> {
-  Future<Either<Failure, Type>> call(Params params);
-}
-
-class NoParams {}
-```
-
-### 2. Data Layer (Capa de Datos) 💾
-
-Implementa las interfaces definidas en la capa de dominio.
-
-#### Models
-
-```dart
-// data/models/user_model.dart
-import '../../domain/entities/user_entity.dart';
-
-class UserModel extends UserEntity {
-  const UserModel({
-    required String id,
-    required String name,
-    required String email,
-    String? avatar,
-    required DateTime createdAt,
-  }) : super(
-          id: id,
-          name: name,
-          email: email,
-          avatar: avatar,
-          createdAt: createdAt,
-        );
-  
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      avatar: json['avatar'],
-      createdAt: DateTime.parse(json['createdAt']),
-    );
-  }
-  
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'avatar': avatar,
-      'createdAt': createdAt.toIso8601String(),
-    };
-  }
-  
-  factory UserModel.fromEntity(UserEntity entity) {
-    return UserModel(
-      id: entity.id,
-      name: entity.name,
-      email: entity.email,
-      avatar: entity.avatar,
-      createdAt: entity.createdAt,
-    );
-  }
-}
-```
-
-#### Data Sources
-
-```dart
-// data/datasources/user_remote_datasource.dart
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../../core/error/exceptions.dart';
-import '../models/user_model.dart';
-
-abstract class UserRemoteDataSource {
-  /// Calls the https://api.example.com/users/{id} endpoint.
-  ///
-  /// Throws a [ServerException] for all error codes.
-  Future<UserModel> getUser(String id);
-  Future<List<UserModel>> getUsers();
-  Future<UserModel> createUser(UserModel user);
-  Future<UserModel> updateUser(UserModel user);
-  Future<void> deleteUser(String id);
-}
-
-class UserRemoteDataSourceImpl implements UserRemoteDataSource {
-  final http.Client client;
-  final String baseUrl;
-  
-  UserRemoteDataSourceImpl({
-    required this.client,
-    required this.baseUrl,
-  });
-  
-  @override
-  Future<UserModel> getUser(String id) async {
-    final response = await client.get(
-      Uri.parse('$baseUrl/users/$id'),
-      headers: {'Content-Type': 'application/json'},
-    );
-    
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(json.decode(response.body));
-    } else {
-      throw ServerException();
-    }
-  }
-  
-  @override
-  Future<List<UserModel>> getUsers() async {
-    final response = await client.get(
-      Uri.parse('$baseUrl/users'),
-      headers: {'Content-Type': 'application/json'},
-    );
-    
-    if (response.statusCode == 200) {
-      final List<dynamic> jsonList = json.decode(response.body);
-      return jsonList.map((json) => UserModel.fromJson(json)).toList();
-    } else {
-      throw ServerException();
-    }
-  }
-  
-  @override
-  Future<UserModel> createUser(UserModel user) async {
-    final response = await client.post(
-      Uri.parse('$baseUrl/users'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(user.toJson()),
-    );
-    
-    if (response.statusCode == 201) {
-      return UserModel.fromJson(json.decode(response.body));
-    } else {
-      throw ServerException();
-    }
-  }
-  
-  @override
-  Future<UserModel> updateUser(UserModel user) async {
-    final response = await client.put(
-      Uri.parse('$baseUrl/users/${user.id}'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(user.toJson()),
-    );
-    
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(json.decode(response.body));
-    } else {
-      throw ServerException();
-    }
-  }
-  
-  @override
-  Future<void> deleteUser(String id) async {
-    final response = await client.delete(
-      Uri.parse('$baseUrl/users/$id'),
-    );
-    
-    if (response.statusCode != 204) {
-      throw ServerException();
-    }
-  }
-}
-
-// data/datasources/user_local_datasource.dart
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/error/exceptions.dart';
-import '../models/user_model.dart';
-
-abstract class UserLocalDataSource {
-  Future<UserModel> getCachedUser(String id);
-  Future<List<UserModel>> getCachedUsers();
-  Future<void> cacheUser(UserModel user);
-  Future<void> cacheUsers(List<UserModel> users);
-}
-
-class UserLocalDataSourceImpl implements UserLocalDataSource {
-  final SharedPreferences sharedPreferences;
-  
-  static const CACHED_USER = 'CACHED_USER_';
-  static const CACHED_USERS = 'CACHED_USERS';
-  
-  UserLocalDataSourceImpl({required this.sharedPreferences});
-  
-  @override
-  Future<UserModel> getCachedUser(String id) {
-    final jsonString = sharedPreferences.getString('$CACHED_USER$id');
-    if (jsonString != null) {
-      return Future.value(UserModel.fromJson(json.decode(jsonString)));
-    } else {
-      throw CacheException();
-    }
-  }
-  
-  @override
-  Future<List<UserModel>> getCachedUsers() {
-    final jsonString = sharedPreferences.getString(CACHED_USERS);
-    if (jsonString != null) {
-      final List<dynamic> jsonList = json.decode(jsonString);
-      return Future.value(
-        jsonList.map((json) => UserModel.fromJson(json)).toList(),
-      );
-    } else {
-      throw CacheException();
-    }
-  }
-  
-  @override
-  Future<void> cacheUser(UserModel user) {
-    return sharedPreferences.setString(
-      '$CACHED_USER${user.id}',
-      json.encode(user.toJson()),
-    );
-  }
-  
-  @override
-  Future<void> cacheUsers(List<UserModel> users) {
-    return sharedPreferences.setString(
-      CACHED_USERS,
-      json.encode(users.map((user) => user.toJson()).toList()),
-    );
-  }
-}
-```
-
-#### Repository Implementation
-
-```dart
-// data/repositories/user_repository_impl.dart
-import 'package:dartz/dartz.dart';
-import '../../core/error/exceptions.dart';
-import '../../core/error/failures.dart';
-import '../../core/network/network_info.dart';
-import '../../domain/entities/user_entity.dart';
-import '../../domain/repositories/user_repository.dart';
-import '../datasources/user_local_datasource.dart';
-import '../datasources/user_remote_datasource.dart';
-import '../models/user_model.dart';
-
-class UserRepositoryImpl implements UserRepository {
-  final UserRemoteDataSource remoteDataSource;
-  final UserLocalDataSource localDataSource;
-  final NetworkInfo networkInfo;
-  
-  UserRepositoryImpl({
-    required this.remoteDataSource,
-    required this.localDataSource,
-    required this.networkInfo,
-  });
-  
-  @override
-  Future<Either<Failure, UserEntity>> getUser(String id) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final user = await remoteDataSource.getUser(id);
-        await localDataSource.cacheUser(user);
-        return Right(user);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final user = await localDataSource.getCachedUser(id);
-        return Right(user);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
-  }
-  
-  @override
-  Future<Either<Failure, List<UserEntity>>> getUsers() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final users = await remoteDataSource.getUsers();
-        await localDataSource.cacheUsers(users);
-        return Right(users);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final users = await localDataSource.getCachedUsers();
-        return Right(users);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
-  }
-  
-  @override
-  Future<Either<Failure, UserEntity>> createUser(UserEntity user) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final userModel = UserModel.fromEntity(user);
-        final createdUser = await remoteDataSource.createUser(userModel);
-        return Right(createdUser);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(NetworkFailure());
-    }
-  }
-  
-  @override
-  Future<Either<Failure, UserEntity>> updateUser(UserEntity user) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final userModel = UserModel.fromEntity(user);
-        final updatedUser = await remoteDataSource.updateUser(userModel);
-        await localDataSource.cacheUser(updatedUser);
-        return Right(updatedUser);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(NetworkFailure());
-    }
-  }
-  
-  @override
-  Future<Either<Failure, void>> deleteUser(String id) async {
-    if (await networkInfo.isConnected) {
-      try {
-        await remoteDataSource.deleteUser(id);
-        return const Right(null);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(NetworkFailure());
-    }
-  }
-}
-```
-
-### 3. Presentation Layer (Capa de Presentación) 🎨
-
-Maneja la UI y la gestión de estado usando BLoC.
-
-#### BLoC Pattern
-
-```dart
-// presentation/bloc/user_event.dart
-import 'package:equatable/equatable.dart';
-import '../../domain/entities/user_entity.dart';
-
-abstract class UserEvent extends Equatable {
-  const UserEvent();
-  
-  @override
-  List<Object?> get props => [];
-}
-
-class GetUsersEvent extends UserEvent {}
-
-class GetUserEvent extends UserEvent {
-  final String userId;
-  
-  const GetUserEvent(this.userId);
-  
-  @override
-  List<Object> get props => [userId];
-}
-
-class CreateUserEvent extends UserEvent {
-  final UserEntity user;
-  
-  const CreateUserEvent(this.user);
-  
-  @override
-  List<Object> get props => [user];
-}
-
-class UpdateUserEvent extends UserEvent {
-  final UserEntity user;
-  
-  const UpdateUserEvent(this.user);
-  
-  @override
-  List<Object> get props => [user];
-}
-
-class DeleteUserEvent extends UserEvent {
-  final String userId;
-  
-  const DeleteUserEvent(this.userId);
-  
-  @override
-  List<Object> get props => [userId];
-}
-
-// presentation/bloc/user_state.dart
-import 'package:equatable/equatable.dart';
-import '../../domain/entities/user_entity.dart';
-
-abstract class UserState extends Equatable {
-  const UserState();
-  
-  @override
-  List<Object?> get props => [];
-}
-
-class UserInitial extends UserState {}
-
-class UserLoading extends UserState {}
-
-class UsersLoaded extends UserState {
-  final List<UserEntity> users;
-  
-  const UsersLoaded(this.users);
-  
-  @override
-  List<Object> get props => [users];
-}
-
-class UserLoaded extends UserState {
-  final UserEntity user;
-  
-  const UserLoaded(this.user);
-  
-  @override
-  List<Object> get props => [user];
-}
-
-class UserOperationSuccess extends UserState {
-  final String message;
-  
-  const UserOperationSuccess(this.message);
-  
-  @override
-  List<Object> get props => [message];
-}
-
-class UserError extends UserState {
-  final String message;
-  
-  const UserError(this.message);
-  
-  @override
-  List<Object> get props => [message];
-}
-
-// presentation/bloc/user_bloc.dart
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/get_user.dart';
-import '../../domain/usecases/get_users.dart';
-import '../../domain/usecases/create_user.dart';
-import '../../domain/usecases/update_user.dart';
-import '../../domain/usecases/delete_user.dart';
-import 'user_event.dart';
-import 'user_state.dart';
-
-class UserBloc extends Bloc<UserEvent, UserState> {
-  final GetUser getUser;
-  final GetUsers getUsers;
-  final CreateUser createUser;
-  final UpdateUser updateUser;
-  final DeleteUser deleteUser;
-  
-  UserBloc({
-    required this.getUser,
-    required this.getUsers,
-    required this.createUser,
-    required this.updateUser,
-    required this.deleteUser,
-  }) : super(UserInitial()) {
-    on<GetUsersEvent>(_onGetUsers);
-    on<GetUserEvent>(_onGetUser);
-    on<CreateUserEvent>(_onCreateUser);
-    on<UpdateUserEvent>(_onUpdateUser);
-    on<DeleteUserEvent>(_onDeleteUser);
-  }
-  
-  Future<void> _onGetUsers(
-    GetUsersEvent event,
-    Emitter<UserState> emit,
-  ) async {
-    emit(UserLoading());
-    
-    final result = await getUsers(NoParams());
-    
-    result.fold(
-      (failure) => emit(UserError(_mapFailureToMessage(failure))),
-      (users) => emit(UsersLoaded(users)),
-    );
-  }
-  
-  Future<void> _onGetUser(
-    GetUserEvent event,
-    Emitter<UserState> emit,
-  ) async {
-    emit(UserLoading());
-    
-    final result = await getUser(event.userId);
-    
-    result.fold(
-      (failure) => emit(UserError(_mapFailureToMessage(failure))),
-      (user) => emit(UserLoaded(user)),
-    );
-  }
-  
-  Future<void> _onCreateUser(
-    CreateUserEvent event,
-    Emitter<UserState> emit,
-  ) async {
-    emit(UserLoading());
-    
-    final result = await createUser(event.user);
-    
-    result.fold(
-      (failure) => emit(UserError(_mapFailureToMessage(failure))),
-      (_) => emit(const UserOperationSuccess('Usuario creado exitosamente')),
-    );
-  }
-  
-  Future<void> _onUpdateUser(
-    UpdateUserEvent event,
-    Emitter<UserState> emit,
-  ) async {
-    emit(UserLoading());
-    
-    final result = await updateUser(event.user);
-    
-    result.fold(
-      (failure) => emit(UserError(_mapFailureToMessage(failure))),
-      (_) => emit(const UserOperationSuccess('Usuario actualizado exitosamente')),
-    );
-  }
-  
-  Future<void> _onDeleteUser(
-    DeleteUserEvent event,
-    Emitter<UserState> emit,
-  ) async {
-    emit(UserLoading());
-    
-    final result = await deleteUser(event.userId);
-    
-    result.fold(
-      (failure) => emit(UserError(_mapFailureToMessage(failure))),
-      (_) => emit(const UserOperationSuccess('Usuario eliminado exitosamente')),
-    );
-  }
-  
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return 'Error del servidor. Por favor intenta de nuevo.';
-      case CacheFailure:
-        return 'Error al cargar datos locales.';
-      case NetworkFailure:
-        return 'Sin conexión a internet.';
-      default:
-        return 'Error inesperado. Por favor intenta de nuevo.';
-    }
-  }
-}
-```
-
-#### Pages
-
-```dart
-// presentation/pages/user_list_page.dart
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/user_bloc.dart';
-import '../bloc/user_event.dart';
-import '../bloc/user_state.dart';
-import '../widgets/user_card.dart';
-
-class UserListPage extends StatelessWidget {
-  const UserListPage({Key? key}) : super(key: key);
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Usuarios'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              context.read<UserBloc>().add(GetUsersEvent());
-            },
-          ),
-        ],
-      ),
-      body: BlocBuilder<UserBloc, UserState>(
-        builder: (context, state) {
-          if (state is UserInitial) {
-            // Cargar usuarios al iniciar
-            context.read<UserBloc>().add(GetUsersEvent());
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is UserLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is UsersLoaded) {
-            if (state.users.isEmpty) {
-              return const Center(
-                child: Text('No hay usuarios disponibles'),
-              );
-            }
-            return ListView.builder(
-              itemCount: state.users.length,
-              itemBuilder: (context, index) {
-                return UserCard(user: state.users[index]);
-              },
-            );
-          } else if (state is UserError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(state.message),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<UserBloc>().add(GetUsersEvent());
-                    },
-                    child: const Text('Reintentar'),
-                  ),
-                ],
-              ),
-            );
-          }
-          return Container();
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navegar a página de creación
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
-```
-
-## 💉 Dependency Injection
-
-```dart
-// injection_container.dart
-import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-final sl = GetIt.instance;
-
-Future<void> init() async {
-  //! Features - User
-  // Bloc
-  sl.registerFactory(
-    () => UserBloc(
-      getUser: sl(),
-      getUsers: sl(),
-      createUser: sl(),
-      updateUser: sl(),
-      deleteUser: sl(),
-    ),
-  );
-  
-  // Use cases
-  sl.registerLazySingleton(() => GetUser(sl()));
-  sl.registerLazySingleton(() => GetUsers(sl()));
-  sl.registerLazySingleton(() => CreateUser(sl()));
-  sl.registerLazySingleton(() => UpdateUser(sl()));
-  sl.registerLazySingleton(() => DeleteUser(sl()));
-  
-  // Repository
-  sl.registerLazySingleton<UserRepository>(
-    () => UserRepositoryImpl(
-      remoteDataSource: sl(),
-      localDataSource: sl(),
-      networkInfo: sl(),
-    ),
-  );
-  
-  // Data sources
-  sl.registerLazySingleton<UserRemoteDataSource>(
-    () => UserRemoteDataSourceImpl(
-      client: sl(),
-      baseUrl: 'https://api.example.com',
-    ),
-  );
-  
-  sl.registerLazySingleton<UserLocalDataSource>(
-    () => UserLocalDataSourceImpl(sharedPreferences: sl()),
-  );
-  
-  //! Core
-  sl.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(sl()),
-  );
-  
-  //! External
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
-}
-```
-
-## 📦 Dependencias Recomendadas
-
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  
-  # State Management
-  flutter_bloc: ^8.1.3
-  
-  # Dependency Injection
-  get_it: ^7.6.4
-  
-  # Functional Programming
-  dartz: ^0.10.1
-  
-  # Remote
-  http: ^1.1.0
-  
-  # Local Storage
-  shared_preferences: ^2.2.2
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  
-  # Network
-  internet_connection_checker: ^1.0.0+1
-  
-  # Utilities
-  equatable: ^2.0.5
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  mockito: ^5.4.4
-  mocktail: ^1.0.1
-  bloc_test: ^9.1.5
-  hive_generator: ^2.0.1
-  build_runner: ^2.4.6
-```
-
-## 📊 Flujo de Datos
-
-```
-┌──────────────┐
-│     User     │
-│  Interaction │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│ Presentation │
-│    (BLoC)    │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│   Domain     │
-│  (UseCase)   │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│     Data     │
-│ (Repository) │
-└──────┬───────┘
-       │
-       ├─────────────┬─────────────┐
-       ▼             ▼             ▼
-  ┌────────┐   ┌────────┐   ┌────────┐
-  │ Remote │   │ Local  │   │Network │
-  │  API   │   │ Cache  │   │  Info  │
-  └────────┘   └────────┘   └────────┘
-```
-
-## 🧪 Testing
-
-Ver documentación completa de testing en cada archivo del skill.
-
-## ✅ Principios SOLID
-
-1. **Single Responsibility:** Cada clase tiene una única responsabilidad
-2. **Open/Closed:** Abierto para extensión, cerrado para modificación
-3. **Liskov Substitution:** Las implementaciones pueden sustituir a las abstracciones
-4. **Interface Segregation:** Interfaces específicas en lugar de generales
-5. **Dependency Inversion:** Dependencia de abstracciones, no de implementaciones
-
-## 📚 Recursos Adicionales
-
-- [Clean Architecture Book](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164)
-- [Flutter BLoC Documentation](https://bloclibrary.dev/)
-- [GetIt Package](https://pub.dev/packages/get_it)
-- [Dartz Package](https://pub.dev/packages/dartz)
+---
+name: clean-architecture
+description: Clean Architecture and SOLID principles implementation including dependency injection, layer separation, domain-driven design, hexagonal architecture, and code quality patterns
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Task
+dependencies: []
+triggers:
+  - clean architecture
+  - solid principles
+  - dependency injection
+  - clean code
+  - hexagonal architecture
+  - domain driven design
+  - ddd
+  - layer architecture
+  - onion architecture
+  - code quality
+  - refactoring
+  - design patterns
+  - inversion of control
+  - ioc
+---
+
+# Clean Architecture Skill
+
+Comprehensive guide for implementing Clean Architecture, SOLID principles, and maintainable code structures.
+
+## When to Use This Skill
+
+Activate this skill when:
+- Designing new service architecture
+- Refactoring legacy code to clean architecture
+- Implementing dependency injection
+- Defining domain boundaries
+- Creating layer separation
+- Applying SOLID principles
+- Reviewing architectural decisions
+- Setting up project structure
 
 ---
 
-**Última actualización:** Diciembre 2025  
-**Versión:** 1.0.0
+## Clean Architecture Overview
 
+### The Dependency Rule
+
+**Dependencies must point inward.** Inner layers must not know about outer layers.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     EXTERNAL LAYER                           │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │                 INFRASTRUCTURE LAYER                     │ │
+│  │  ┌─────────────────────────────────────────────────────┐ │ │
+│  │  │               APPLICATION LAYER                      │ │ │
+│  │  │  ┌─────────────────────────────────────────────────┐ │ │ │
+│  │  │  │                DOMAIN LAYER                      │ │ │ │
+│  │  │  │         (Entities, Value Objects)                │ │ │ │
+│  │  │  └─────────────────────────────────────────────────┘ │ │ │
+│  │  │    (Use Cases, Application Services)                  │ │ │
+│  │  └─────────────────────────────────────────────────────┘ │ │
+│  │  (Repositories, External Services, ORM)                   │ │
+│  └─────────────────────────────────────────────────────────┘ │
+│  (Web Framework, Database, UI, External APIs)                 │
+└─────────────────────────────────────────────────────────────┘
+
+                Dependencies point INWARD →
+```
+
+---
+
+## Layer Definitions
+
+### 1. Domain Layer (Core)
+
+The heart of the application. Contains:
+- **Entities**: Business objects with identity
+- **Value Objects**: Immutable objects without identity
+- **Domain Events**: Events that occur in the domain
+- **Domain Services**: Stateless operations on domain objects
+- **Repository Interfaces**: Abstractions for data access
+
+```typescript
+// src/domain/entities/user.entity.ts
+export class User {
+  constructor(
+    public readonly id: UserId,
+    public email: Email,
+    public name: UserName,
+    private passwordHash: PasswordHash,
+    public readonly createdAt: Date
+  ) {}
+
+  changePassword(newPassword: Password, hasher: PasswordHasher): void {
+    this.passwordHash = hasher.hash(newPassword);
+  }
+
+  validatePassword(password: Password, hasher: PasswordHasher): boolean {
+    return hasher.verify(password, this.passwordHash);
+  }
+}
+
+// src/domain/value-objects/email.vo.ts
+export class Email {
+  private constructor(private readonly value: string) {}
+
+  static create(email: string): Email {
+    if (!this.isValid(email)) {
+      throw new InvalidEmailError(email);
+    }
+    return new Email(email.toLowerCase());
+  }
+
+  private static isValid(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  toString(): string {
+    return this.value;
+  }
+
+  equals(other: Email): boolean {
+    return this.value === other.value;
+  }
+}
+
+// src/domain/repository-interfaces/user.repository.ts
+export interface UserRepository {
+  findById(id: UserId): Promise<User | null>;
+  findByEmail(email: Email): Promise<User | null>;
+  save(user: User): Promise<void>;
+  delete(id: UserId): Promise<void>;
+}
+```
+
+### 2. Application Layer
+
+Orchestrates domain objects to perform use cases:
+- **Use Cases**: Single responsibility application operations
+- **Application Services**: Coordinate multiple use cases
+- **DTOs**: Data transfer objects for boundaries
+- **Ports**: Interfaces for external dependencies
+
+```typescript
+// src/application/use-cases/create-user.use-case.ts
+export interface CreateUserInput {
+  email: string;
+  name: string;
+  password: string;
+}
+
+export interface CreateUserOutput {
+  id: string;
+  email: string;
+  name: string;
+  createdAt: Date;
+}
+
+export class CreateUserUseCase {
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly passwordHasher: PasswordHasher,
+    private readonly eventEmitter: DomainEventEmitter
+  ) {}
+
+  async execute(input: CreateUserInput): Promise<CreateUserOutput> {
+    // Validate email uniqueness
+    const existingUser = await this.userRepository.findByEmail(
+      Email.create(input.email)
+    );
+    if (existingUser) {
+      throw new EmailAlreadyExistsError(input.email);
+    }
+
+    // Create domain entity
+    const user = new User(
+      UserId.generate(),
+      Email.create(input.email),
+      UserName.create(input.name),
+      this.passwordHasher.hash(Password.create(input.password)),
+      new Date()
+    );
+
+    // Persist
+    await this.userRepository.save(user);
+
+    // Emit domain event
+    this.eventEmitter.emit(new UserCreatedEvent(user));
+
+    // Return DTO
+    return {
+      id: user.id.toString(),
+      email: user.email.toString(),
+      name: user.name.toString(),
+      createdAt: user.createdAt
+    };
+  }
+}
+```
+
+### 3. Infrastructure Layer
+
+Implements interfaces defined in inner layers:
+- **Repository Implementations**: Database access
+- **External Service Adapters**: Third-party integrations
+- **ORM Configurations**: Database mappings
+- **Messaging**: Queue/event implementations
+
+```typescript
+// src/infrastructure/repositories/postgresql-user.repository.ts
+export class PostgreSQLUserRepository implements UserRepository {
+  constructor(private readonly db: Database) {}
+
+  async findById(id: UserId): Promise<User | null> {
+    const row = await this.db.query(
+      'SELECT * FROM users WHERE id = $1',
+      [id.toString()]
+    );
+    return row ? this.toDomain(row) : null;
+  }
+
+  async findByEmail(email: Email): Promise<User | null> {
+    const row = await this.db.query(
+      'SELECT * FROM users WHERE email = $1',
+      [email.toString()]
+    );
+    return row ? this.toDomain(row) : null;
+  }
+
+  async save(user: User): Promise<void> {
+    await this.db.query(
+      `INSERT INTO users (id, email, name, password_hash, created_at)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (id) DO UPDATE SET
+         email = $2, name = $3, password_hash = $4`,
+      [user.id.toString(), user.email.toString(), user.name.toString(),
+       user.passwordHash, user.createdAt]
+    );
+  }
+
+  private toDomain(row: UserRow): User {
+    return new User(
+      UserId.fromString(row.id),
+      Email.create(row.email),
+      UserName.create(row.name),
+      PasswordHash.fromString(row.password_hash),
+      row.created_at
+    );
+  }
+}
+```
+
+### 4. External/Presentation Layer
+
+Entry points to the application:
+- **Controllers**: HTTP request handlers
+- **CLI**: Command-line interfaces
+- **GraphQL Resolvers**: GraphQL handlers
+- **Message Handlers**: Queue consumers
+
+```typescript
+// src/presentation/http/controllers/user.controller.ts
+export class UserController {
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly getUserUseCase: GetUserUseCase
+  ) {}
+
+  async create(req: Request, res: Response): Promise<void> {
+    try {
+      const result = await this.createUserUseCase.execute({
+        email: req.body.email,
+        name: req.body.name,
+        password: req.body.password
+      });
+
+      res.status(201).json(result);
+    } catch (error) {
+      if (error instanceof EmailAlreadyExistsError) {
+        res.status(409).json({ error: error.message });
+      } else if (error instanceof ValidationError) {
+        res.status(400).json({ error: error.message });
+      } else {
+        throw error;
+      }
+    }
+  }
+}
+```
+
+---
+
+## Project Structure
+
+### Recommended Directory Structure
+
+```
+src/
+├── domain/                          # Domain Layer (Core)
+│   ├── entities/
+│   │   ├── user.entity.ts
+│   │   └── order.entity.ts
+│   ├── value-objects/
+│   │   ├── email.vo.ts
+│   │   ├── money.vo.ts
+│   │   └── user-id.vo.ts
+│   ├── events/
+│   │   ├── user-created.event.ts
+│   │   └── order-placed.event.ts
+│   ├── services/
+│   │   └── pricing.domain-service.ts
+│   ├── repositories/                 # Interfaces only!
+│   │   ├── user.repository.ts
+│   │   └── order.repository.ts
+│   └── errors/
+│       ├── domain-error.ts
+│       └── validation-error.ts
+│
+├── application/                      # Application Layer
+│   ├── use-cases/
+│   │   ├── user/
+│   │   │   ├── create-user.use-case.ts
+│   │   │   ├── get-user.use-case.ts
+│   │   │   └── update-user.use-case.ts
+│   │   └── order/
+│   │       ├── create-order.use-case.ts
+│   │       └── cancel-order.use-case.ts
+│   ├── services/
+│   │   └── notification.service.ts
+│   ├── ports/                        # Secondary ports
+│   │   ├── email.port.ts
+│   │   └── payment.port.ts
+│   └── dto/
+│       ├── user.dto.ts
+│       └── order.dto.ts
+│
+├── infrastructure/                   # Infrastructure Layer
+│   ├── repositories/
+│   │   ├── postgresql-user.repository.ts
+│   │   └── postgresql-order.repository.ts
+│   ├── adapters/
+│   │   ├── sendgrid-email.adapter.ts
+│   │   └── stripe-payment.adapter.ts
+│   ├── orm/
+│   │   ├── prisma/
+│   │   │   └── schema.prisma
+│   │   └── migrations/
+│   ├── messaging/
+│   │   ├── rabbitmq-publisher.ts
+│   │   └── rabbitmq-consumer.ts
+│   └── config/
+│       └── database.config.ts
+│
+├── presentation/                     # Presentation Layer
+│   ├── http/
+│   │   ├── controllers/
+│   │   │   ├── user.controller.ts
+│   │   │   └── order.controller.ts
+│   │   ├── middleware/
+│   │   │   ├── auth.middleware.ts
+│   │   │   └── error-handler.middleware.ts
+│   │   ├── routes/
+│   │   │   └── index.ts
+│   │   └── validators/
+│   │       └── user.validator.ts
+│   ├── graphql/
+│   │   ├── resolvers/
+│   │   └── schema/
+│   └── cli/
+│       └── commands/
+│
+├── shared/                           # Cross-cutting concerns
+│   ├── kernel/
+│   │   ├── result.ts
+│   │   └── either.ts
+│   └── utils/
+│       └── date.utils.ts
+│
+└── container/                        # Dependency Injection
+    ├── container.ts
+    └── providers/
+        ├── user.provider.ts
+        └── order.provider.ts
+```
+
+---
+
+## Dependency Injection
+
+### Container Setup
+
+```typescript
+// src/container/container.ts
+import { Container } from 'inversify';
+import { TYPES } from './types';
+
+// Domain
+import { UserRepository } from '@/domain/repositories/user.repository';
+
+// Application
+import { CreateUserUseCase } from '@/application/use-cases/user/create-user.use-case';
+
+// Infrastructure
+import { PostgreSQLUserRepository } from '@/infrastructure/repositories/postgresql-user.repository';
+
+// Presentation
+import { UserController } from '@/presentation/http/controllers/user.controller';
+
+const container = new Container();
+
+// Bind repositories (interface → implementation)
+container.bind<UserRepository>(TYPES.UserRepository)
+  .to(PostgreSQLUserRepository)
+  .inSingletonScope();
+
+// Bind use cases
+container.bind<CreateUserUseCase>(TYPES.CreateUserUseCase)
+  .to(CreateUserUseCase)
+  .inTransientScope();
+
+// Bind controllers
+container.bind<UserController>(TYPES.UserController)
+  .to(UserController)
+  .inTransientScope();
+
+export { container };
+```
+
+### Type Symbols
+
+```typescript
+// src/container/types.ts
+export const TYPES = {
+  // Repositories
+  UserRepository: Symbol.for('UserRepository'),
+  OrderRepository: Symbol.for('OrderRepository'),
+
+  // Use Cases
+  CreateUserUseCase: Symbol.for('CreateUserUseCase'),
+  GetUserUseCase: Symbol.for('GetUserUseCase'),
+
+  // Adapters
+  EmailAdapter: Symbol.for('EmailAdapter'),
+  PaymentAdapter: Symbol.for('PaymentAdapter'),
+
+  // Controllers
+  UserController: Symbol.for('UserController'),
+  OrderController: Symbol.for('OrderController'),
+};
+```
+
+---
+
+## SOLID in Clean Architecture
+
+### Single Responsibility
+
+Each layer has one responsibility:
+- Domain: Business rules
+- Application: Use case orchestration
+- Infrastructure: Technical concerns
+- Presentation: User interface
+
+### Open/Closed
+
+Add features by adding new use cases, not modifying existing ones:
+
+```typescript
+// Add new feature: UpdateUserUseCase
+// Don't modify: CreateUserUseCase
+export class UpdateUserUseCase { /* ... */ }
+```
+
+### Liskov Substitution
+
+Repository implementations are fully substitutable:
+
+```typescript
+// Both work with UserRepository interface
+const postgresRepo: UserRepository = new PostgreSQLUserRepository(db);
+const mongoRepo: UserRepository = new MongoUserRepository(client);
+const memoryRepo: UserRepository = new InMemoryUserRepository();
+```
+
+### Interface Segregation
+
+Small, focused interfaces:
+
+```typescript
+// BAD: Fat interface
+interface UserService {
+  create(data): User;
+  update(id, data): User;
+  delete(id): void;
+  sendEmail(id): void;
+  generateReport(id): Report;
+  exportToCSV(id): string;
+}
+
+// GOOD: Segregated
+interface UserCreator { create(data): User; }
+interface UserUpdater { update(id, data): User; }
+interface UserDeleter { delete(id): void; }
+interface UserEmailer { sendEmail(id): void; }
+```
+
+### Dependency Inversion
+
+All dependencies point to abstractions:
+
+```typescript
+// Application layer defines the port (interface)
+export interface EmailPort {
+  send(to: string, subject: string, body: string): Promise<void>;
+}
+
+// Infrastructure implements the adapter
+export class SendGridEmailAdapter implements EmailPort {
+  async send(to: string, subject: string, body: string): Promise<void> {
+    await this.sendgrid.send({ to, subject, text: body });
+  }
+}
+
+// Use case depends on abstraction, not implementation
+export class CreateUserUseCase {
+  constructor(private readonly emailPort: EmailPort) {}
+}
+```
+
+---
+
+## Testing Strategy
+
+### Unit Tests (Domain & Application)
+
+```typescript
+// Test domain logic without infrastructure
+describe('User', () => {
+  it('should validate password correctly', () => {
+    const hasher = new BCryptHasher();
+    const password = Password.create('SecureP@ss1');
+    const user = new User(
+      UserId.generate(),
+      Email.create('test@example.com'),
+      UserName.create('Test User'),
+      hasher.hash(password),
+      new Date()
+    );
+
+    expect(user.validatePassword(password, hasher)).toBe(true);
+    expect(user.validatePassword(Password.create('wrong'), hasher)).toBe(false);
+  });
+});
+
+// Test use cases with mock repositories
+describe('CreateUserUseCase', () => {
+  it('should create user successfully', async () => {
+    const mockRepo = {
+      findByEmail: jest.fn().mockResolvedValue(null),
+      save: jest.fn().mockResolvedValue(undefined)
+    };
+    const mockHasher = { hash: jest.fn().mockReturnValue('hashed') };
+    const mockEmitter = { emit: jest.fn() };
+
+    const useCase = new CreateUserUseCase(mockRepo, mockHasher, mockEmitter);
+
+    const result = await useCase.execute({
+      email: 'test@example.com',
+      name: 'Test User',
+      password: 'password123'
+    });
+
+    expect(result.email).toBe('test@example.com');
+    expect(mockRepo.save).toHaveBeenCalled();
+    expect(mockEmitter.emit).toHaveBeenCalled();
+  });
+});
+```
+
+### Integration Tests (Infrastructure)
+
+```typescript
+describe('PostgreSQLUserRepository', () => {
+  let repository: PostgreSQLUserRepository;
+  let db: Database;
+
+  beforeAll(async () => {
+    db = await createTestDatabase();
+    repository = new PostgreSQLUserRepository(db);
+  });
+
+  afterAll(async () => {
+    await db.close();
+  });
+
+  it('should save and retrieve user', async () => {
+    const user = createTestUser();
+
+    await repository.save(user);
+    const retrieved = await repository.findById(user.id);
+
+    expect(retrieved).not.toBeNull();
+    expect(retrieved.email.equals(user.email)).toBe(true);
+  });
+});
+```
+
+### E2E Tests (Full Stack)
+
+```typescript
+describe('User API', () => {
+  it('should create user via HTTP', async () => {
+    const response = await request(app)
+      .post('/api/users')
+      .send({
+        email: 'test@example.com',
+        name: 'Test User',
+        password: 'password123'
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.email).toBe('test@example.com');
+  });
+});
+```
+
+---
+
+## Anti-Patterns to Avoid
+
+### 1. Domain Logic in Controllers
+
+```typescript
+// BAD
+class UserController {
+  async create(req, res) {
+    // Business logic in controller!
+    if (await this.db.query('SELECT * FROM users WHERE email = $1', [req.body.email])) {
+      return res.status(409).json({ error: 'Email exists' });
+    }
+    const hash = await bcrypt.hash(req.body.password, 10);
+    await this.db.query('INSERT INTO users...');
+  }
+}
+
+// GOOD
+class UserController {
+  async create(req, res) {
+    const result = await this.createUserUseCase.execute(req.body);
+    res.status(201).json(result);
+  }
+}
+```
+
+### 2. Infrastructure in Domain
+
+```typescript
+// BAD
+class User {
+  async save() {
+    await prisma.user.create({ data: this }); // Infrastructure leak!
+  }
+}
+
+// GOOD
+class User {
+  // Pure domain logic, no infrastructure
+}
+
+// Repository handles persistence
+class UserRepository {
+  async save(user: User) {
+    await prisma.user.create({ data: user.toDTO() });
+  }
+}
+```
+
+### 3. Anemic Domain Model
+
+```typescript
+// BAD - No behavior, just data
+class User {
+  id: string;
+  email: string;
+  password: string;
+}
+
+class UserService {
+  changePassword(user: User, newPassword: string) {
+    user.password = hash(newPassword); // Logic outside entity
+  }
+}
+
+// GOOD - Rich domain model
+class User {
+  constructor(private readonly id: UserId, private passwordHash: PasswordHash) {}
+
+  changePassword(newPassword: Password, hasher: PasswordHasher): void {
+    if (!newPassword.isStrong()) {
+      throw new WeakPasswordError();
+    }
+    this.passwordHash = hasher.hash(newPassword);
+  }
+}
+```
+
+---
+
+## Migration Strategy
+
+### Legacy to Clean Architecture
+
+1. **Identify Boundaries**: Find domain concepts
+2. **Extract Entities**: Create domain objects
+3. **Define Interfaces**: Create repository interfaces
+4. **Implement Adapters**: Wrap existing data access
+5. **Create Use Cases**: Extract business logic
+6. **Refactor Controllers**: Delegate to use cases
+7. **Add DI Container**: Wire dependencies
+8. **Write Tests**: Cover each layer
+
+---
+
+## Related Resources
+
+- [Development Standards](../../docs/DEVELOPMENT-STANDARDS.md)
+- [Architecture Summary](../../docs/ARCHITECTURE-SUMMARY.md)
+- [Code Quality Enforcer Agent](../../agents/code-quality-enforcer.md)
+- [Robert C. Martin - Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)

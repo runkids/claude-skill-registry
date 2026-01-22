@@ -1,104 +1,141 @@
 ---
-name: visual-testing
-description: |
-  Design and implement visual regression testing for UI changes. Defines
-  screenshot coverage, rendering stabilization, baseline management, and CI
-  integration (e.g., Playwright screenshots, Percy/Chromatic). Use when
-  UI/styling/layout changes need protection against regressions, or when adding
-  screenshot-based tests to a web/WASM/desktop UI.
-license: Apache-2.0
+name: "visual-testing"
+description: "Run the app locally and take screenshots using Puppeteer to verify UI changes; use when validating demo pages, checking visual regressions, or capturing UI state for analysis"
+version: "1.0.0"
+last_updated: "2025-12-14"
 ---
 
 # Visual Testing
 
-## Overview
+Take screenshots of the running app to verify UI changes visually.
 
-You are a visual QA engineer. Prevent unintended UI changes by establishing
-repeatable visual baselines and diff-based tests.
+## When to Use This Skill
 
-## Inputs (Ask If Missing)
+Use this skill when:
+- Verifying visual changes to demo/showcase pages
+- Capturing screenshots for UI review
+- Debugging layout or styling issues
+- Testing demo component interactions
+- Checking cursor alignment in interactive demos
 
-- UI type: Web/WASM, component library, desktop (e.g., GPUI)
-- Existing test runner: Playwright/Cypress/Webdriver/Storybook/etc.
-- CI environment constraints: fonts, GPU/renderer, headless support
-- The specific UI changes (screens, components, states)
+## Quick Start
 
-## Core Principles
+```bash
+# Check dev server status
+./.claude/skills/visual-testing/scripts/visual-test.sh status
 
-1. **Determinism beats coverage**: a stable test is better than a broad flaky one.
-2. **Smallest stable surface**: snapshot components/states, not entire apps, when possible.
-3. **Interaction ≠ pixels**: keep e2e interaction assertions separate from pixel diffs.
-4. **Baselines are reviewed artifacts**: never update blindly.
+# Start dev server if needed
+./.claude/skills/visual-testing/scripts/visual-test.sh start
 
-## Workflow
+# Screenshot a demo slide with debug markers
+./.claude/skills/visual-testing/scripts/visual-test.sh demo cast-assignment --debug
 
-### 1) Select Visual Surfaces
-
-Prioritize:
-- Critical user flows and top-level pages
-- Components with frequent styling changes
-- Error/empty/loading states
-- Responsive breakpoints and themes (light/dark) if applicable
-
-### 2) Stabilize Rendering
-
-- Fixed viewport and device scale
-- Disable animations, transitions, blinking caret
-- Deterministic data (fixtures/mocks, seeded DB)
-- Stable fonts (bundle or ensure CI installs the same fonts)
-
-### 3) Implement Visual Tests
-
-Default choice for web/WASM UIs: **Playwright** (if present).
-
-Example snippet (adapt to repo conventions):
-
-```ts
-// @playwright/test
-await page.setViewportSize({ width: 1280, height: 720 });
-await page.goto("/settings");
-await expect(page.getByRole("main")).toHaveScreenshot("settings.png");
+# View the screenshot (Claude can read images)
+# Path: /tmp/ballee-screenshots/demo-cast-assignment-TIMESTAMP.png
 ```
 
-If the project already uses another tool (Cypress, Storybook snapshots, Percy,
-Chromatic), extend that instead of introducing a new framework.
+## Commands
 
-### 4) Baseline & Review Policy
+| Command | Description |
+|---------|-------------|
+| `status` | Check if dev server is running on port 3012 |
+| `start` | Start dev server in background |
+| `stop` | Stop dev server |
+| `screenshot <url>` | Take screenshot of any URL |
+| `demo [slide-id]` | Screenshot demo showcase (optional slide) |
+| `demo-all` | Screenshot all demo slides |
+| `list-slides` | List available demo slide IDs |
 
-- Store baselines in-repo (or via a review service) and review diffs in PRs.
-- Require explicit “baseline update” notes in the PR when changes are expected.
+## Options
 
-### 5) CI Integration
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--debug` | Add `?debug=true` to URL (shows target markers) | false |
+| `--viewport WxH` | Set viewport dimensions | 1200x900 |
+| `--name <name>` | Custom screenshot filename | auto-generated |
+| `--full-page` | Capture full scrollable height | false |
+| `--wait <ms>` | Extra wait time after page load | 2000 |
 
-- Run visual tests on PRs that touch UI code.
-- Upload diff artifacts on failure (screenshots, HTML report).
+## Demo Slide IDs
 
-## Visual Regression Plan Output
+| ID | Interactive Demo |
+|----|------------------|
+| `cast-assignment` | CastAssignmentDemo |
+| `contract-acceptance` | ContractAcceptanceDemo |
+| `event-creation` | EventCreationDemo |
+| `hire-order-view` | HireOrderViewDemo |
+| `invoice-download` | InvoiceDownloadDemo |
+| `invoice-validate` | InvoiceValidateDemo |
+| `reimbursement-upload` | ReimbursementUploadDemo |
 
-```markdown
-# Visual Regression Plan: {change}
+## Screenshot Output
 
-## Coverage
-- Pages/components:
-- States:
+Screenshots are saved to: `/tmp/ballee-screenshots/`
 
-## Determinism Controls
-- Viewport:
-- Animations:
-- Data:
-- Fonts:
+Naming pattern:
+- Demo: `demo-{slide-id}-{timestamp}.png`
+- Custom: `{custom-name}.png`
+- URL: `screenshot-{timestamp}.png`
 
-## Baseline Policy
-- Where stored:
-- When to update:
-- Review requirements:
+## Example Workflows
 
-## Execution
-- Local command:
-- CI job:
+### Verify Demo After Coordinate Changes
+
+```bash
+# 1. Ensure server is running
+./.claude/skills/visual-testing/scripts/visual-test.sh status
+
+# 2. Screenshot the changed slide with debug markers
+./.claude/skills/visual-testing/scripts/visual-test.sh demo cast-assignment --debug
+
+# 3. Read the screenshot to verify cursor alignment
+# Use Claude's Read tool on /tmp/ballee-screenshots/demo-cast-assignment-*.png
 ```
 
-## Constraints
+### Capture All Demo States
 
-- Avoid pixel diffs for highly dynamic surfaces unless you can stabilize them.
-- Do not introduce a new framework if one already exists; extend the current stack.
+```bash
+# Screenshot all demo slides for full review
+./.claude/skills/visual-testing/scripts/visual-test.sh demo-all --debug
+
+# Screenshots saved to /tmp/ballee-screenshots/
+```
+
+### Custom Page Screenshot
+
+```bash
+# Screenshot any page
+./.claude/skills/visual-testing/scripts/visual-test.sh screenshot \
+  http://localhost:3012/admin/events \
+  --name "admin-events" \
+  --viewport 1920x1080
+```
+
+## Troubleshooting
+
+### "Dev server not running"
+
+Start the dev server:
+```bash
+./.claude/skills/visual-testing/scripts/visual-test.sh start
+# Or manually: pnpm dev
+```
+
+### "Screenshot timeout"
+
+- Check the URL is correct
+- Ensure dev server is responding: `curl http://localhost:3012`
+- Try increasing wait time: `--wait 5000`
+
+### "Puppeteer not found"
+
+Puppeteer should be installed. If not:
+```bash
+cd apps/web && pnpm add -D puppeteer
+```
+
+## Related Files
+
+- Demo showcase: `apps/web/app/demo/fever/showcase/page.tsx`
+- Demo components: `apps/web/components/demo/interactive/demos/`
+- Interactive demo wrapper: `apps/web/components/demo/interactive/interactive-demo.tsx`

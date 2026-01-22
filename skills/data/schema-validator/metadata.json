@@ -1,8 +1,7 @@
 {
   "name": "schema-validator",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Schema Validator - Auto-activating skill for Data Pipelines.Triggers on: schema validator, schema validatorPart of the Data Pipelines skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:13.742145Z"
+  "path": "planned-skills/generated/11-data-pipelines/schema-validator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-20T01:16:01.202556Z"
 }

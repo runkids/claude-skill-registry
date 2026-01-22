@@ -1,8 +1,1698 @@
 {
   "category": "other",
-  "count": 1,
-  "updated_at": "2026-01-14T04:12:18.573774Z",
+  "count": 456,
+  "updated_at": "2026-01-22T04:19:06.035248Z",
   "skills": [
+    {
+      "name": " SKILL",
+      "description": "Use this skill whenever the user wants to create or restructure a Next.js app with my standard stack (TypeScript, App Router, Tailwind CSS, shadcn/ui, Vitest, and Playwright E2E tests). Prefer this sk",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "data/ SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": ".SKILL",
+      "description": "Validates GitBook markdown syntax, helps create properly formatted blocks, and ensures documentation quality",
+      "repo": "Lightprotocol/developer-content",
+      "path": "data/.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-agentic-skill",
+      "description": "Before diving into tool-calling patterns, structured outputs, and JSON accuracy metrics, you'll build the skill that will guide your learning throughout this chapter. This isn't just preparation—it's ",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-agentic-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-alignment-skill",
+      "description": "Create your model-alignment skill from TRL documentation before learning DPO theory",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-alignment-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-data-engineering-skill",
+      "description": "Create your LLMOps data engineering skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-data-engineering-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-evaluation-skill",
+      "description": "Create a reusable skill for evaluating fine-tuned models, benchmarking performance, and detecting quality regressions",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-evaluation-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-fine-tuning-skill",
+      "description": "Create your llmops-fine-tuner skill from Unsloth documentation before learning fine-tuning theory",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-fine-tuning-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-integration-skill",
+      "description": "Create your agent-integration skill from OpenAI SDK and LiteLLM documentation before learning framework integration",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-integration-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-livekit-skill",
+      "description": "Create your LiveKit Agents skill from official documentation, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-livekit-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-serving-skill",
+      "description": "Create your model-serving skill from Ollama documentation before learning deployment theory",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-serving-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-apps-sdk-skill",
+      "description": "Create your OpenAI Apps SDK skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-apps-sdk-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-chatkit-skill",
+      "description": "Create your ChatKit Server skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-chatkit-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-claude-agent-skill",
+      "description": "Create your Claude Agent SDK skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-claude-agent-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-cloud-security-skill",
+      "description": "Create your cloud security skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-cloud-security-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-dapr-skill",
+      "description": "Create your Dapr deployment skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-dapr-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-docker-skill",
+      "description": "Create your Docker deployment skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-docker-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-evals-skill",
+      "description": "Create your agent-evals skill from official documentation before learning evaluation concepts. This skill-first approach ensures you build production-ready evaluation capabilities grounded in authorit",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-evals-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-fastapi-skill",
+      "description": "Create your FastAPI skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-fastapi-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-gitops-skill",
+      "description": "Create your GitOps deployment skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-gitops-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-google-adk-skill",
+      "description": "Create your Google Agent Development Kit skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-google-adk-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-helm-skill",
+      "description": "Create your Helm chart skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-helm-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-kubernetes-skill",
+      "description": "Create your Kubernetes deployment skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-kubernetes-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-mcp-server-skill",
+      "description": "Create your MCP server building skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-mcp-server-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-observability-skill",
+      "description": "Create your observability and cost engineering skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-observability-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-operational-excellence-skill",
+      "description": "Create your operational excellence skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-operational-excellence-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-rag-skill",
+      "description": "Create your RAG skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-rag-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-build-your-testing-skill",
+      "description": "Create your agent-tdd skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-build-your-testing-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-extend-your-dapr-skill",
+      "description": "Extend your existing Dapr skill with actor and workflow patterns using official documentation",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-extend-your-dapr-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "00-finalize-llmops-skill",
+      "description": "Consolidate all Part 8 skills into a production-ready llmops-fine-tuner skill",
+      "repo": "panaversity/agentfactory",
+      "path": "data/00-finalize-llmops-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "04-build-mcp-wrapping-skill",
+      "description": "Create a production skill that wraps an MCP server with intelligent decision-making, result filtering, and error recovery. Learn to orchestrate code execution through specification-first design.",
+      "repo": "panaversity/agentfactory",
+      "path": "data/04-build-mcp-wrapping-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "06-build-script-execution-skill",
+      "description": "Create a skill that orchestrates the write-execute-analyze loop to autonomously process data. Learn to implement error recovery, iterate toward robust solutions, and test your skill across diverse inp",
+      "repo": "panaversity/agentfactory",
+      "path": "data/06-build-script-execution-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "07-build-decision-skill",
+      "description": "You've spent this chapter building mental models: the LLMOps lifecycle, training taxonomy, economic analysis, use case specification. All valuable knowledge—but knowledge fades. Six months from now, y",
+      "repo": "panaversity/agentfactory",
+      "path": "data/07-build-decision-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "07-docker-image-builder-skill",
+      "description": "Transform Docker knowledge from Lessons 1-6 into a reusable AI skill for consistent, production-ready containerization",
+      "repo": "panaversity/agentfactory",
+      "path": "data/07-docker-image-builder-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "10-finalize-dapr-skill",
+      "description": "Complete and test your dapr-deployment skill for production use, adding safety guardrails and validating coverage across all building blocks",
+      "repo": "panaversity/agentfactory",
+      "path": "data/10-finalize-dapr-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "10-how-to-master-the-practice-of-systematic-slow-reading-stage-two-skill",
+      "description": "На втором этапе необходимо осознанно практиковаться в систематическом",
+      "repo": "aisystant/Self-development",
+      "path": "data/10-how-to-master-the-practice-of-systematic-slow-reading-stage-two-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "11-how-to-master-the-practice-of-investing-and-time-management-the-second-stage-is-skill",
+      "description": "На втором этапе необходимо добиться систематичности в",
+      "repo": "aisystant/Self-development",
+      "path": "data/11-how-to-master-the-practice-of-investing-and-time-management-the-second-stage-is-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "11-how-to-master-the-practice-of-systematic-slow-reading-third-stage-skill",
+      "description": "Данная практика не особо сложная, поэтому попробуйте составить",
+      "repo": "aisystant/Self-development",
+      "path": "data/11-how-to-master-the-practice-of-systematic-slow-reading-third-stage-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "11-how-to-master-the-practice-of-thinking-through-verbalization-second-stage-skill",
+      "description": "На втором этапе необходимо осознанно практиковаться в мышлении",
+      "repo": "aisystant/Self-development",
+      "path": "data/11-how-to-master-the-practice-of-thinking-through-verbalization-second-stage-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "12-how-to-master-the-practice-of-investing-and-time-management-third-phase-skill",
+      "description": "На третьем этапе необходимо поднимать осознанность в реализации",
+      "repo": "aisystant/Self-development",
+      "path": "data/12-how-to-master-the-practice-of-investing-and-time-management-third-phase-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "12-how-to-master-the-practice-of-thinking-out-loud-third-stage-skill",
+      "description": "Данная практика не является особо сложной, поэтому попробуйте составить",
+      "repo": "aisystant/Self-development",
+      "path": "data/12-how-to-master-the-practice-of-thinking-out-loud-third-stage-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "12-how-to-master-the-practice-of-thinking-through-writing-second-stage-skill",
+      "description": "На втором этапе в части теории необходимо уделить внимание проработке",
+      "repo": "aisystant/Self-development",
+      "path": "data/12-how-to-master-the-practice-of-thinking-through-writing-second-stage-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "12.skill",
+      "description": "Skill: 12.skill",
+      "repo": "zhoubichuan/web-typescript",
+      "path": "data/12.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "13-how-to-master-the-planning-practice-second-stage-skill",
+      "description": "На втором этапе необходимо научиться осознанно управлять общим планом",
+      "repo": "aisystant/Self-development",
+      "path": "data/13-how-to-master-the-planning-practice-second-stage-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "15-building-kubernetes-deployment-skill",
+      "description": "You built your Kubernetes skill in Lesson 0 and refined it through Lessons 1-14. Now validate that it actually transfers to new projects.",
+      "repo": "panaversity/agentfactory",
+      "path": "data/15-building-kubernetes-deployment-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "15-how-to-master-the-practice-of-strategizing-second-stage-skill",
+      "description": "На втором этапе необходимо уделить внимание проработке принципов и работ",
+      "repo": "aisystant/Self-development",
+      "path": "data/15-how-to-master-the-practice-of-strategizing-second-stage-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "16-how-to-master-the-practice-of-strategizing-third-stage-skill",
+      "description": "На третьем этапе вы реализуете практику стратегирования легко и",
+      "repo": "aisystant/Self-development",
+      "path": "data/16-how-to-master-the-practice-of-strategizing-third-stage-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "18-building-gitops-deployment-skill",
+      "description": "Create a reusable skill with Persona, Questions, and Principles",
+      "repo": "panaversity/agentfactory",
+      "path": "data/18-building-gitops-deployment-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "1natsu172__dotfiles__claude__skills__git-analysis__SKILL",
+      "description": "Analyze git repository changes, branch differences, and commit history. Use when analyzing branches, comparing changes, examining commit history, or preparing for PR/commit operations.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/1natsu172__dotfiles__claude__skills__git-analysis__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "20-finalize-dapr-skill",
+      "description": "Complete your dapr-deployment skill with actor and workflow patterns, validate code generation, and document your Digital FTE component",
+      "repo": "panaversity/agentfactory",
+      "path": "data/20-finalize-dapr-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "2014-04-14-google-skill",
+      "description": "谷歌技巧",
+      "repo": "ansvver/your.github.io",
+      "path": "data/2014-04-14-google-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "2016-10-21-R-skill",
+      "description": "R　语言常用方法",
+      "repo": "yangfangs/yangfangs.github.io",
+      "path": "data/2016-10-21-R-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "2020-6-10-java-skill",
+      "description": "Java 语言积累",
+      "repo": "yangfangs/yangfangs.github.io",
+      "path": "data/2020-6-10-java-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "20251019_015158_overnight-dev_SKILL.md.bak",
+      "description": "Comprehensive autonomous development skill for running 6-8 hour overnight coding sessions with enforced test-driven development through Git hooks.\nActivates when: setting up overnight development, con",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "data/20251019_015158_overnight-dev_SKILL.md.bak",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "6-searchSkill",
+      "description": "日常开发中，总免不了遇到一些技术问题，查阅资料是必然的。那么为了节约时间，掌握一些游览器的查询技巧就是必不可少的。<!-- more -->",
+      "repo": "KimYangOfCat/kimyang.cn",
+      "path": "data/6-searchSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "9.3876.人物相关操作addskill",
+      "description": "addskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/9.3876.人物相关操作addskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "9.4008.人物相关操作delskill",
+      "description": "delskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/9.4008.人物相关操作delskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "9.4091.人物相关操作clearskill",
+      "description": "clearskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/9.4091.人物相关操作clearskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "9.4174.人物相关操作delnojobskill",
+      "description": "delnojobskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/9.4174.人物相关操作delnojobskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "AXEL-Skill",
+      "description": "Structure of skill definition files - role, capabilities, enforcement, registry",
+      "repo": "apiksdev/axel-core",
+      "path": "data/AXEL-Skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "AlexBaum-ai__NEURM__claude__skills__deep-thinker__SKILL",
+      "description": "Structured reasoning for complex problems using Sequential Thinking MCP. Break down problems into stages, track thought progression, identify connections, and generate insights. Use for architectural ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/AlexBaum-ai__NEURM__claude__skills__deep-thinker__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "AlexBaum-ai__NEURM__claude__skills__todo-sync__SKILL",
+      "description": "Synchronize sprint tasks with the TodoWrite tool to provide real-time visibility into task progress. Use when starting a sprint task (create todos), breaking down work (add sub-tasks), or completing w",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/AlexBaum-ai__NEURM__claude__skills__todo-sync__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "BroaderLevelSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/BroaderLevelSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "CONTENT-RESEARCH-WRITER-SKILL",
+      "description": "Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing proc",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/CONTENT-RESEARCH-WRITER-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Chapter 4 - Self-Awareness as a Foundational Skill",
+      "description": "![](https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781098151324/files/assets/lstheb04.png)",
+      "repo": "GeauxWeisbeck4/andrews-obisidan-garden-dell",
+      "path": "data/Chapter 4 - Self-Awareness as a Foundational Skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "CourseSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "iblai/iblai-python-sdk",
+      "path": "data/CourseSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "DesiredSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "iblai/iblai-python-sdk",
+      "path": "data/DesiredSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Dijnie__proposal__claude__skills__aesthetic__SKILL",
+      "description": "Create aesthetically beautiful interfaces following proven design principles. Use when building UI/UX, analyzing designs from inspiration sites, generating design images with ai-multimodal, implementi",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/Dijnie__proposal__claude__skills__aesthetic__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "EscoCommonSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/EscoCommonSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Fawwaz-2009__tally__claude__skills__drizzle-db__SKILL",
+      "description": "Query the project's database using Drizzle ORM. Use when the user asks about database contents, schema inspection, or data queries. Supports read-only mode for safety.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/Fawwaz-2009__tally__claude__skills__drizzle-db__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Get-AtwsResourceSkill",
+      "description": "This function get one or more ResourceSkill through the Autotask Web Services API.",
+      "repo": "ecitsolutions/Autotask",
+      "path": "data/Get-AtwsResourceSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Get-AtwsSkill",
+      "description": "This function get one or more Skill through the Autotask Web Services API.",
+      "repo": "ecitsolutions/Autotask",
+      "path": "data/Get-AtwsSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "GrupoUS__gpus__claude__skills__ai-data-analyst__SKILL",
+      "description": "Perform comprehensive data analysis, statistical modeling, and data visualization by writing and executing self-contained Python scripts. Use when you need to analyze datasets, perform statistical tes",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/GrupoUS__gpus__claude__skills__ai-data-analyst__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "H37kouya__dotfiles__claude__skills__skill-creator__SKILL",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/H37kouya__dotfiles__claude__skills__skill-creator__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "JobAdSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/JobAdSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Just-mpm__LideraAI__claude__skills__nextjs-pwa__SKILL",
+      "description": "Comprehensive guide for building Progressive Web Apps (PWA) with Next.js using modern 2025 approaches. Use when users need to implement PWA features in Next.js applications including installability, o",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/Just-mpm__LideraAI__claude__skills__nextjs-pwa__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "KABSD-TSK-0001_project-backlog-skill",
+      "description": "We want a local-first backlog system so the demo can show planning before coding",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "data/KABSD-TSK-0001_project-backlog-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "KABSD-TSK-0073_add-first-run-bootstrap-init-project-for-kano-agent-backlog-skill",
+      "description": "2026-01-06 12:00 [agent=codex-cli] Create/init backlog scaffold, default config, and optionally write agent guide files (AGENTS.md/CLAUDE.md) from templates.",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "data/KABSD-TSK-0073_add-first-run-bootstrap-init-project-for-kano-agent-backlog-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "KABSD-TSK-0145_add-prerequisite-install-script-for-python-deps-self-contained-skill",
+      "description": "The skill is script-heavy and evolving fast. When Python dependencies are missing, agents currently discover failures late (mid-command) and then waste tokens installing packages ad-hoc. This also red",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "data/KABSD-TSK-0145_add-prerequisite-install-script-for-python-deps-self-contained-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "KABSD-USR-0004_bootstrap-backlog-scaffold-and-tools-from-the-skill",
+      "description": "Setting up a new repo still requires manual folder creation and tool wrapper",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "data/KABSD-USR-0004_bootstrap-backlog-scaffold-and-tools-from-the-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "KABSD-USR-0011_enforce-agent-identity-in-skill",
+      "description": "To maintain the integrity of audit logs, we must ensure that agents use their real identities in worklogs, rather than blindly copying \"codex\" from templates.",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "data/KABSD-USR-0011_enforce-agent-identity-in-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "KCCS-EPIC-0001_kano-commit-convention-skill",
+      "description": "Standardizing commit messages is critical for traceability and automation in multi-agent/multi-developer projects.",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "data/KCCS-EPIC-0001_kano-commit-convention-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "KyleKing__vcr-tui__claude__skills__skill-sync__SKILL",
+      "description": "Syncs Claude Skills with other AI coding tools like Cursor, Copilot, and Codeium by creating cross-references and shared knowledge bases. Invoke when user wants to leverage skills across multiple tool",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/KyleKing__vcr-tui__claude__skills__skill-sync__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Lobbi-Docs__claude__claude__skills__streaming__SKILL",
+      "description": "Server-Sent Events (SSE) streaming for Claude API with support for text, tool use, and extended thinking. Activate for real-time responses, stream handling, and progressive output.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/Lobbi-Docs__claude__claude__skills__streaming__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "MatchJobAdEvidenceSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/MatchJobAdEvidenceSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "MatchResumeEvidenceSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/php_sdk",
+      "path": "data/MatchResumeEvidenceSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "MemberSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "sowderca/connectwise-ruby-sdk",
+      "path": "data/MemberSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Nikojuu__testi-kauppa__claude__skills__theme__SKILL",
+      "description": "Complete theming guide for the e-commerce storefront. Documents all styled components and provides instructions for applying new themes. Use when customizing store appearance, changing color schemes, ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/Nikojuu__testi-kauppa__claude__skills__theme__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "OptionalEscoOccupationSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/OptionalEscoOccupationSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "OptionalEscoSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/OptionalEscoSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "OptionalJobAdSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/OptionalJobAdSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "OptionalResumeSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/php_sdk",
+      "path": "data/OptionalResumeSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "PRD-002-skillmeat-cli-skill",
+      "description": "Claude Code skill enabling conversational artifact discovery, deployment, and collection management through natural language interface",
+      "repo": "miethe/skillmeat",
+      "path": "data/PRD-002-skillmeat-cli-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "PROJECT_BRIEF-office-skill",
+      "description": "Created: 2026-01-12",
+      "repo": "jezweb/claude-skills",
+      "path": "data/PROJECT_BRIEF-office-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "PaginatedSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "iblai/iblai-python-sdk",
+      "path": "data/PaginatedSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "REMOVE_SKILL",
+      "description": "> 目标：安全地移除一个 SKILL（推荐废弃而非直接删除）",
+      "repo": "tikazyq/agentic-spec-forge",
+      "path": "data/REMOVE_SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RENAME_SKILL",
+      "description": "> 目标：重命名一个 SKILL（目录名 + name 字段 + 索引）",
+      "repo": "tikazyq/agentic-spec-forge",
+      "path": "data/RENAME_SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ROOT-CAUSE-TRACING-SKILL",
+      "description": "Use when errors occur deep in execution and you need to trace back to find the original trigger - systematically traces bugs backward through call stack, adding instrumentation when needed, to identif",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/ROOT-CAUSE-TRACING-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ReportedSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "iblai/iblai-python-sdk",
+      "path": "data/ReportedSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ResumeSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/ResumeSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RomualdP__hoki__claude__skills__api-contracts__SKILL",
+      "description": "Génère des contrats API cohérents entre Frontend (Next.js) et Backend (NestJS) avec types synchronisés, validation standardisée et error handling uniforme. À utiliser lors de la création d'APIs, DTOs,",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/RomualdP__hoki__claude__skills__api-contracts__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RomualdP__hoki__claude__skills__atomic-component__SKILL",
+      "description": "Génère des composants React suivant l'Atomic Design avec décomposition maximale et pattern Smart/Dumb. MANDATORY pour tous composants. À utiliser lors de la création de composants, pages, ou quand l'u",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/RomualdP__hoki__claude__skills__atomic-component__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RomualdP__hoki__claude__skills__bug-finder__SKILL",
+      "description": "Méthodologie systématique pour identifier la cause d'un bug avant de le corriger. MANDATORY pour bug resolution. À utiliser lors de debugging, bug reports, ou quand l'utilisateur mentionne \"bug\", \"err",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/RomualdP__hoki__claude__skills__bug-finder__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RomualdP__hoki__claude__skills__ddd-testing__SKILL",
+      "description": "Standards de tests exhaustifs pour les bounded contexts DDD (Domain, Application, Integration). À utiliser lors de l'écriture de tests backend, tests unitaires, tests d'intégration, ou quand l'utilisa",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/RomualdP__hoki__claude__skills__ddd-testing__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RomualdP__hoki__claude__skills__mobile-first__SKILL",
+      "description": "Approche Mobile-First avec Tailwind CSS, breakpoints, et progressive enhancement. MANDATORY pour toutes les pages. À utiliser lors de responsive design, layouts, ou quand l'utilisateur mentionne \"mobi",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/RomualdP__hoki__claude__skills__mobile-first__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RomualdP__hoki__claude__skills__use-optimistic__SKILL",
+      "description": "Implémente useOptimistic pour instant UI updates avec VRAIE gestion du rollback. MANDATORY pour delete operations. À utiliser lors de mutations, deletes, ou quand l'utilisateur mentionne \"optimistic\",",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/RomualdP__hoki__claude__skills__use-optimistic__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RomualdP__hoki__claude__skills__zero-warnings__SKILL",
+      "description": "Applique la philosophie \"Broken Window\" avec zéro tolérance pour les warnings/errors ESLint et TypeScript. JAMAIS désactiver les règles, TOUJOURS corriger la cause racine. À utiliser lors de la correc",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/RomualdP__hoki__claude__skills__zero-warnings__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "RoutingSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "nmusco/platform-client-sdk-php",
+      "path": "data/RoutingSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
+      "repo": "KanTrun/KLelite_Web",
+      "path": "data/SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL-SHARING-SKILL",
+      "description": "Use when you've developed a broadly useful skill and want to contribute it upstream via pull request - guides process of branching, committing, pushing, and creating PR to contribute skills back to up",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/SKILL-SHARING-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.backup",
+      "description": "Expert in pyomo modelling in python",
+      "repo": "sverzijl/planning_latest",
+      "path": "data/SKILL.md.backup",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.backup_20260106",
+      "description": "Backend expert guidance for API/DB/Security/Architecture",
+      "repo": "ljchg12-hue/dotfiles",
+      "path": "data/SKILL.md.backup_20260106",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.bak",
+      "description": "Document codebase as-is with thoughts directory for historical context",
+      "repo": "namesreallyblank/Clorch",
+      "path": "data/SKILL.md.bak",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.bak_20260110212741",
+      "description": "Execute high-density analysis on complex ideas/tasks. Move from 'Vague' to 'Verified' by producing: constraints -> core modules -> facts vs assumptions -> ASCII flow maps (boundary + critical path) ->",
+      "repo": "pianzhu/my-claude-skills",
+      "path": "data/SKILL.md.bak_20260110212741",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.bash",
+      "description": "Async via cask, end turn immediately; use only when user explicitly delegates to Codex (ask/@codex/let codex/review); NOT for questions about Codex itself.",
+      "repo": "bfly123/claude_code_bridge",
+      "path": "data/SKILL.md.bash",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.jinja",
+      "description": "Apply task-specific templates to AI session plans using ai-update-plan. Use when starting a new task to load appropriate plan structure (feature, bugfix, refactor, documentation, security).",
+      "repo": "Atyantik/python-modern-template",
+      "path": "data/SKILL.md.jinja",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.powershell",
+      "description": "Async via oask, end turn immediately; use only when user explicitly delegates to OpenCode (ask/@opencode/let opencode/review); NOT for questions about OpenCode itself.",
+      "repo": "bfly123/claude_code_bridge",
+      "path": "data/SKILL.md.powershell",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.pre-hybrid-backup",
+      "description": "Performs comprehensive frontend quality assurance reviews using browser automation. Systematically tests UI elements, discovers and reports bugs to GitHub Issues, and provides improvement recommendati",
+      "repo": "arlenagreer/claude_configuration_docs",
+      "path": "data/SKILL.md.pre-hybrid-backup",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.template",
+      "description": "Claude can interact with {{SKILLNAME}} to help you manage and automate tasks. {{DESCRIPTION}}",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "data/SKILL.md.template",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.tmp.157752.1763608954130",
+      "description": "Cache expensive operations to avoid redundant work across workflow phases. Caches project docs (15min TTL), npm info (60min), grep results (30min), token counts (until file modified), web searches (15",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "data/SKILL.md.tmp.157752.1763608954130",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SKILL.md.tmpl",
+      "description": "> \"{{tagline}}\"",
+      "repo": "SimHacker/moollm",
+      "path": "data/SKILL.md.tmpl",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SUBAGENT-DRIVEN-DEVELOPMENT-SKILL",
+      "description": "Use when executing implementation plans with independent tasks in the current session - dispatches fresh subagent for each task with code review between tasks, enabling fast iteration with quality gat",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/SUBAGENT-DRIVEN-DEVELOPMENT-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Set-AtwsResourceSkill",
+      "description": "This function sets parameters on the ResourceSkill specified by the -InputObject parameter or pipeline through the use of the Autotask Web Services API.",
+      "repo": "ecitsolutions/Autotask",
+      "path": "data/Set-AtwsResourceSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SkILL",
+      "description": "A comprehensive guide to best practices in Swift 6+, covering architecture, concurrency, UI development, code style, dependencies, performance, and testing.",
+      "repo": "mosif16/codex-Skills",
+      "path": "data/SkILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SkillsResponsesSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/php_sdk",
+      "path": "data/SkillsResponsesSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SlimJobAdSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/php_sdk",
+      "path": "data/SlimJobAdSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "SlimSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "data/SlimSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "USING-GIT-WORKTREES-SKILL",
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/USING-GIT-WORKTREES-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "USING-SUPERPOWERS-SKILL",
+      "description": "Use when starting any conversation - establishes mandatory workflows for finding and using skills, including using Skill tool before announcing usage, following brainstorming before coding, and creati",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/USING-SUPERPOWERS-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "UserRoutingSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "nmusco/platform-client-sdk-php",
+      "path": "data/UserRoutingSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "UserSkill",
+      "description": "Name | Type | Description | Notes",
+      "repo": "iblai/iblai-python-sdk",
+      "path": "data/UserSkill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "V0-SKILL",
+      "description": "Automatically format code files using the appropriate formatter based on file type, providing clear feedback on changes made",
+      "repo": "DNYoussef/context-cascade",
+      "path": "data/V0-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "V1-SKILL",
+      "description": "Automatically format code files using the appropriate formatter based on file type, providing clear feedback on changes made",
+      "repo": "DNYoussef/context-cascade",
+      "path": "data/V1-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Yona544__AIskils__claude__skills__hook-factory__SKILL",
+      "description": "Generate production-ready Claude Code hooks with interactive Q&A, automated installation, and enhanced validation. Supports 10 templates across 7 event types for comprehensive workflow automation.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/Yona544__AIskils__claude__skills__hook-factory__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "Yona544__AIskils__claude__skills__prompt-factory__SKILL",
+      "description": "World-class prompt powerhouse that generates production-ready mega-prompts for any role, industry, and task through intelligent 7-question flow, 69 comprehensive presets across 15 professional domains",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/Yona544__AIskils__claude__skills__prompt-factory__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "_pre_SKILL",
+      "description": "Documentation for the htmx JavaScript library (attributes, events, headers, API, extensions, examples, migration guides, server examples). Use when you need accurate htmx syntax/behavior or to locate ",
+      "repo": "aiskillstore/marketplace",
+      "path": "data/_pre_SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "accessibility.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/accessibility.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "add-running-skill",
+      "description": "Skill: add-running-skill",
+      "repo": "Watson-Personal-Assistant/developer",
+      "path": "data/add-running-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "add-skill",
+      "description": "Generate project-specific Claude Code skills from codebase patterns or framework best practices",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "data/add-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "addskill",
+      "description": "addskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/addskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "advanced-tool-use.skill",
+      "description": "Context-efficient tool management via search, deferred loading, and programmatic calling",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/advanced-tool-use.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "aegntic__claudeism__claude__skills__cc-eco-techt__SKILL",
+      "description": "Claude Code Ecosystem Architect - Master skill for creating Claude Code ecosystem components (skills, commands, hooks, subagents, plugins)",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/aegntic__claudeism__claude__skills__cc-eco-techt__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "agent-communication-skill",
+      "description": "Comprehensive inter-agent messaging and coordination system providing protocol-based communication, shared context management, event broadcasting with subscriptions, automated handoff documentation, a",
+      "repo": "enuno/claude-command-and-control",
+      "path": "data/agent-communication-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "agent-creation.skill",
+      "description": "[!FIXED!]",
+      "repo": "plannededge/codebook",
+      "path": "data/agent-creation.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "agent-creator-enhanced-SKILL",
+      "description": "Creates specialized AI agents with optimized system prompts using the official 4-phase SOP methodology from Desktop .claude-flow, combined with evidence-based prompting techniques and Claude Agent SDK",
+      "repo": "DNYoussef/context-cascade",
+      "path": "data/agent-creator-enhanced-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ai-terminology.skill",
+      "description": "This skill ensures consistent, accurate usage of AI/ML terminology throughout the FTE+AI documentation, making content accessible to R&D audiences with varying AI expertise.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/ai-terminology.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "alps-asd__app-state-diagram__claude__skills__alps__SKILL",
+      "description": "Create, validate, and improve ALPS profiles. Generate from natural language descriptions, validate existing profiles, and get improvement suggestions.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/alps-asd__app-state-diagram__claude__skills__alps__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "amol-anand__demo__claude__skills__building-blocks__SKILL",
+      "description": "Guide for creating new AEM Edge Delivery blocks or modifying existing blocks. Use this skill whenever you are creating a new block from scratch or making significant changes to existing blocks that in",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/amol-anand__demo__claude__skills__building-blocks__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "analysis-skill",
+      "description": "Comprehensive analysis of [domain area].",
+      "repo": "ScientiaCapital/ai-development-cockpit",
+      "path": "data/analysis-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "analyze-skill",
+      "description": "Analyze skill complexity and get modularization recommendations",
+      "repo": "athola/claude-night-market",
+      "path": "data/analyze-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "api-development-skill",
+      "description": "Build REST APIs with proper error handling, status codes, request validation, response formatting, and rate limiting. Apply when creating API routes, handling errors, validating input, or designing AP",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/api-development-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "api-development.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/api-development.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "api-documentation.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/api-documentation.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "api-endpoint-guardian.SKILL",
+      "description": "Prevents API endpoint failures through systematic design validation and error handling review. Use when adding new endpoints, debugging API errors, implementing authentication, or preparing for produc",
+      "repo": "mkelam/PDFLab",
+      "path": "data/api-endpoint-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "api-integration.skill",
+      "description": "Generate Next.js App Router API routes with Zod validation and TypeScript types",
+      "repo": "mshafei721/Turbocat",
+      "path": "data/api-integration.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "asnar00__miso__claude__skills__make-skill__SKILL",
+      "description": "Create a new Claude Code skill with proper structure, YAML frontmatter, and documentation. Use when user asks to \"create a skill\", \"make a skill\", \"build a new skill\", or \"add a skill\".",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/asnar00__miso__claude__skills__make-skill__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "asnar00__miso__claude__skills__py-stop-local__SKILL",
+      "description": "Stop local Flask server running on port 8080. Kills process cleanly using lsof or PID file. Use when stopping local Python development server.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/asnar00__miso__claude__skills__py-stop-local__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "asnar00__miso__claude__skills__update-skill__skill",
+      "description": "Update an existing skill based on troubleshooting or improvements discovered during usage. Use when user asks to \"update a skill\", \"improve the skill\", \"fix the skill instructions\", or after resolving",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/asnar00__miso__claude__skills__update-skill__skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "assemble-skill",
+      "description": "Assemble complete skill file from frontmatter and processed template content",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "data/assemble-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "australian-context.skill",
+      "description": "Australian English defaults, regulations, locale settings",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/australian-context.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "authentication-authorization-guardian.SKILL",
+      "description": "Offensive authentication and authorization security enforcement. Triggered when implementing login/signup, reviewing JWT token handling, debugging session issues, implementing RBAC, or preparing auth ",
+      "repo": "mkelam/PDFLab",
+      "path": "data/authentication-authorization-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "aws-cloud-infrastructure-skill",
+      "description": "Deploy Node.js applications on AWS using EC2, RDS, and managed services with security best practices. Apply when setting up AWS infrastructure, configuring databases, managing security, or optimizing ",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/aws-cloud-infrastructure-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "backend-patterns.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/backend-patterns.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "background-job-guardian.SKILL",
+      "description": "Prevents background job failures in Bull/Redis queue systems. Use when implementing async workers, debugging stuck jobs, optimizing queue performance, or handling job failures. Covers job retry strate",
+      "repo": "mkelam/PDFLab",
+      "path": "data/background-job-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "bacoco__EvolveSkill__claude__skills__cortex__SKILL",
+      "description": "Automatic session tracking and memory system for Claude Code. Activates when working in git repositories to track file changes, commits, and session context. Creates .cortex_log.md (session history), ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/bacoco__EvolveSkill__claude__skills__cortex__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "bacoco__EvolveSkill__claude__skills__synapse__SKILL",
+      "description": "Pattern detection and automatic skill recommendation system. Activates when analyzing Cortex memory files, detecting recurring work patterns, or determining if new skills are needed. Analyzes .cortex_",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/bacoco__EvolveSkill__claude__skills__synapse__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "binggg__GALAXY-VORTEX__claude__skills__auth-web__SKILL",
+      "description": "Complete guide for CloudBase Auth v2 using Web SDK (@cloudbase/js-sdk@2.x) - all login flows, user management, captcha handling, and best practices in one file.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/binggg__GALAXY-VORTEX__claude__skills__auth-web__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "binggg__GALAXY-VORTEX__claude__skills__http-api__SKILL",
+      "description": "Use CloudBase HTTP API to access CloudBase platform features (database, authentication, cloud functions, cloud hosting, cloud storage, AI) via HTTP protocol from backends or scripts that are not using",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/binggg__GALAXY-VORTEX__claude__skills__http-api__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "blackpwnguin__Personal-AI__claude__skills__CORE__SKILL",
+      "description": "PAI (Personal AI Infrastructure) - Your AI system core. AUTO-LOADS at session start. USE WHEN any session begins OR user asks about PAI identity, response format, stack preferences, security protocols",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/blackpwnguin__Personal-AI__claude__skills__CORE__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "blue-ocean.skill",
+      "description": "Opportunity discovery and exploitation",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/blue-ocean.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
     {
       "name": "book-report",
       "description": "Comprehensive research and analysis of books with actionable insights, hidden gems, and personalized recommendations. Use when the user requests book research, book reports, book analysis, or says \"Re",
@@ -12,6 +1702,2866 @@
       "tags": [],
       "stars": 0,
       "source": "local"
+    },
+    {
+      "name": "bug-fixing.skill",
+      "description": "Systematic debugging and bug fixing with Australian user-friendly messages",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/bug-fixing.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "builder-skill",
+      "description": "Creates modular Skills for Claude Code extensions with Tier System, UV Script integration, and TOON-based progressive disclosure patterns.",
+      "repo": "rdmptv/AdbAutoPlayer",
+      "path": "data/builder-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "bulletproof-skill",
+      "description": "Harden skills against rationalization and bypass behaviors",
+      "repo": "athola/claude-night-market",
+      "path": "data/bulletproof-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "buttercupck__bcck_vault__claude__skills__fabric__SKILL",
+      "description": "Intelligent pattern selection for Fabric CLI. Automatically selects the right pattern from 242+ specialized prompts based on your intent - threat modeling, analysis, summarization, content creation, e",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/buttercupck__bcck_vault__claude__skills__fabric__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "canpok1__ai-feed__claude__skills__github__SKILL",
+      "description": "GitHub操作の統合スキル。issue作成、PR作成、レビュースレッド操作を提供。\n使用ケース:（1）issue作成、（2）PR作成（事前チェック統合）、\n（3）レビューコメント取得、（4）スレッド返信、（5）スレッド解決",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/canpok1__ai-feed__claude__skills__github__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "capabilities-based-skill",
+      "description": "Comprehensive capability suite for [domain/platform/system]. Multiple features and workflows that integrate together. Use when working with this platform or needing integrated capabilities.",
+      "repo": "adaptationio/Skrillz",
+      "path": "data/capabilities-based-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "carlheath__ogmios__claude__skills__engineering__SKILL",
+      "description": "Senior software engineering specialist for code implementation, debugging, and optimization.\n\n🚨 TIER 1 SKILL - AUTO-ACTIVATION REQUIRED 🚨\n\nMUST BE USED proactively when user requests involve:\n- Code i",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/carlheath__ogmios__claude__skills__engineering__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "change-management.skill",
+      "description": "Expertise in managing the human and organizational aspects of AI adoption, including stakeholder engagement, training, resistance management, and cultural transformation.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/change-management.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "changelog-maintenance.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/changelog-maintenance.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "cicd-pipeline.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/cicd-pipeline.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "claude-code-continuous-learning-skill",
+      "description": "Every Claude Code session starts fresh—no memory of past discoveries. The Continuous Learning Skill solves this by extracting non-obvious knowledge (debugging techniques, workarounds, project patterns",
+      "repo": "alexanderop/second-brain-nuxt",
+      "path": "data/claude-code-continuous-learning-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "claude-code-conversation-search-skill",
+      "description": "Yesterday I faced a bug but couldn't remember how I fixed it last time. Then I realized: Claude Code stores every conversation locally. Why not search through them?",
+      "repo": "alexanderop/second-brain-nuxt",
+      "path": "data/claude-code-conversation-search-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "clearskill",
+      "description": "clearskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/clearskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "cloudinary.skill",
+      "description": "Cloudinary media management with image upload, transformation, and optimization",
+      "repo": "mshafei721/Turbocat",
+      "path": "data/cloudinary.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "code-examples.skill",
+      "description": "This skill provides expertise in creating clear, accurate, and educational code examples for AI implementation guides in the FTE+AI project.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/code-examples.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "code-quality-SKILL",
+      "description": "- SRP: Single Responsibility Principle",
+      "repo": "homecity/langchain-forum",
+      "path": "data/code-quality-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "code-quality.skill",
+      "description": "[!FIXED!]",
+      "repo": "plannededge/codebook",
+      "path": "data/code-quality.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "code-review-SKILL",
+      "description": "1. Type-check: mypy . or npm run type-check",
+      "repo": "homecity/langchain-forum",
+      "path": "data/code-review-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "code-skill",
+      "description": "스크립트를 포함하는 스킬용",
+      "repo": "monicajeon28/GMcruise",
+      "path": "data/code-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "codebase-wiki-documentation-skill",
+      "description": "Act as a Codebase Documentation Specialist. You are an expert in generating detailed WIKI.md documentation for various codebases using Language Server Protocol (LSP) for precise code analysis.",
+      "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+      "path": "data/codebase-wiki-documentation-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "command_and_control_skill",
+      "description": "Skill: command_and_control_skill",
+      "repo": "Watson-Personal-Assistant/developer",
+      "path": "data/command_and_control_skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "commit-protocol-SKILL",
+      "description": "USERAPPROVED=yes git commit -m \"feat: Add hybrid search\"",
+      "repo": "homecity/langchain-forum",
+      "path": "data/commit-protocol-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "compliance-check.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/compliance-check.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "component-development.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/component-development.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "content-polish-skill",
+      "description": "Provides final polish and enhancement for blog content including SEO optimization and readability improvements",
+      "repo": "mickdarling/dollhouse-portfolio",
+      "path": "data/content-polish-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "cowwoc__styler__claude__skills__git-amend__SKILL",
+      "description": "Safely amend commits (HEAD or non-HEAD) with selective staging and safety checks",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/cowwoc__styler__claude__skills__git-amend__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "cowwoc__styler__claude__skills__git-merge-linear__SKILL",
+      "description": "Merge task branch to main with linear history and pre/post-merge verification",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/cowwoc__styler__claude__skills__git-merge-linear__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "cowwoc__styler__claude__skills__grep-and-read__SKILL",
+      "description": "Find and read multiple files in one operation (50-70% faster for exploration)",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/cowwoc__styler__claude__skills__grep-and-read__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "create-agent-command-skill",
+      "description": "エージェント、コマンド、スキルを統合的に作成する高度なメタコマンド。プロジェクト全体の一貫性を保ちながら、相互に連携する3つのコンポーネントを同時に設計・生成します。\n実行は専門エージェントに委譲します。\n\n🤖 起動エージェント:\n- `.claude/agents/skill-librarian.md`: スキル作成（知識基盤の構築）\n- `.claude/agents/meta-agent-d",
+      "repo": "daishiman/AIWorkflowOrchestrator",
+      "path": "data/create-agent-command-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "create-agent-skill",
+      "description": "Create or edit Claude Code skills with expert guidance on structure and best practices",
+      "repo": "RBozydar/rbw-claude-code",
+      "path": "data/create-agent-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "create-lang-conversion-skill",
+      "description": "Create a convert-X-Y skill for translating code between languages",
+      "repo": "aRustyDev/ai",
+      "path": "data/create-lang-conversion-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "create-micro-skill",
+      "description": "Single responsibility description",
+      "repo": "DNYoussef/context-cascade",
+      "path": "data/create-micro-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "create_custom_skill",
+      "description": "Skill: create_custom_skill",
+      "repo": "Watson-Personal-Assistant/developer",
+      "path": "data/create_custom_skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "create_ifttt_skill",
+      "description": "Skill: create_ifttt_skill",
+      "repo": "Watson-Personal-Assistant/developer",
+      "path": "data/create_ifttt_skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "data-desk-eco__media__claude__skills__kpler__SKILL",
+      "description": "Use when fetching oil/gas trade flow data from Kpler. Covers authentication, trade queries, flow aggregations, entity search, vessel positions, and company fleet data.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/data-desk-eco__media__claude__skills__kpler__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "data-operations-skill",
+      "description": "Generic CRUD operations for in-memory storage using a list of dictionaries with auto-generated IDs.",
+      "repo": "Osama-Raza/todo-cli-phase-1",
+      "path": "data/data-operations-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "data-sovereignty.skill",
+      "description": "Expertise in maintaining complete control over enterprise data in AI systems, ensuring data residency compliance, implementing privacy protections, and achieving regulatory compliance across jurisdict",
+      "repo": "mitkox/fteplusai",
+      "path": "data/data-sovereignty.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "data-visualization.skill",
+      "description": "Expertise in creating clear, impactful visualizations for metrics, comparisons, and trends in the FTE+AI documentation.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/data-visualization.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "database-design.skill",
+      "description": "Design database schemas using Drizzle ORM from natural language descriptions",
+      "repo": "mshafei721/Turbocat",
+      "path": "data/database-design.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "database-migration-guardian.SKILL",
+      "description": "Prevents database migration failures in Sequelize/MySQL environments. Use when adding new models, modifying schemas, creating indexes, or deploying database changes. Catches foreign key errors, index ",
+      "repo": "mkelam/PDFLab",
+      "path": "data/database-migration-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "davistroy__bpmn__claude__skills__bpmn-diagram__SKILL",
+      "description": "Converts BPMN 2.0 XML to PNG diagram images. Use when user provides BPMN XML content or file path and asks to visualize, render, or create a diagram from a BPMN process definition.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/davistroy__bpmn__claude__skills__bpmn-diagram__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "davistroy__bpmn__claude__skills__bpmn-to-pptx__SKILL",
+      "description": "Transform BPMN 2.0 process diagrams into professional, editable PowerPoint presentations. Features a 3-tier hierarchical layout with chevrons, rounded boxes, and square task boxes with detailed bullet",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/davistroy__bpmn__claude__skills__bpmn-to-pptx__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ddttom__allaboutv2__claude__skills__docs-search__SKILL",
+      "description": "Searches the aem.live documentation for information on AEM Edge Delivery Services features. Use this skill when you need more information about a feature, want guidance on how to implement a feature, ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/ddttom__allaboutv2__claude__skills__docs-search__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "debugging_a_skill",
+      "description": "Skill: debugging_a_skill",
+      "repo": "Watson-Personal-Assistant/developer",
+      "path": "data/debugging_a_skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "delnojobskill",
+      "description": "delnojobskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/delnojobskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "delskill",
+      "description": "delskill",
+      "repo": "jknzYxVYulxwuJZ/996",
+      "path": "data/delskill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "deployment.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/deployment.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "design-system.skill",
+      "description": "Locked design tokens, 2025-2026 aesthetic enforcement",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/design-system.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "design-tokens.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/design-tokens.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "development-workflow-SKILL",
+      "description": "MECE development workflow with 5-phase todo template for API development, type safety, and code quality enforcement. Auto-loads for all development tasks.",
+      "repo": "homecity/langchain-forum",
+      "path": "data/development-workflow-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "devkit-create-skill",
+      "description": "Create a new AIWG skill with AI-guided design",
+      "repo": "jmagly/ai-writing-guide",
+      "path": "data/devkit-create-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "devkit.verify-skill",
+      "description": "Validates a skill against DevKit standards (requirements, template, dependencies)",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "data/devkit.verify-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "djscruggs__TRYBE__claude__skills__prisma__SKILL",
+      "description": "Prisma ORM patterns including Prisma Client usage, queries, mutations, relations, transactions, and schema management. Use when working with Prisma database operations or schema definitions.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/djscruggs__TRYBE__claude__skills__prisma__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "docker-deployment-guardian.SKILL",
+      "description": "Offensive Docker deployment optimization and pre-flight validation. Triggered when reviewing Dockerfiles, docker-compose.yml, container configurations, or preparing for production deployments. Scans f",
+      "repo": "mkelam/PDFLab",
+      "path": "data/docker-deployment-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "document-structure.skill",
+      "description": "This skill provides expertise in organizing complex technical documentation with clear hierarchies, logical flow, and intuitive navigation for R&D audiences. It ensures documents are scannable, naviga",
+      "repo": "mitkox/fteplusai",
+      "path": "data/document-structure.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "domain-skill",
+      "description": "Use this template for domain-specific security testing (cryptographic testing, web security methodologies, etc.).",
+      "repo": "trailofbits/skills",
+      "path": "data/domain-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "dotCMS__core__claude__skills__cicd-diagnostics__SKILL",
+      "description": "Diagnoses DotCMS GitHub Actions failures (PR builds, merge queue, nightly, trunk). Analyzes failed tests, root causes, compares runs. Use for \"fails in GitHub\", \"merge queue failure\", \"PR build failed",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/dotCMS__core__claude__skills__cicd-diagnostics__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "e2e-testing-SKILL",
+      "description": "Test complete RAG pipeline: query → embedding → retrieval → reranking → generation → answer validation.",
+      "repo": "homecity/langchain-forum",
+      "path": "data/e2e-testing-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "edgeandnode__amp__claude__skills__code-check__SKILL",
+      "description": "Check and lint Rust/TypeScript code using justfile tasks (just check-crate, just clippy-crate). Use after code changes, when user mentions compilation, type checking, linting, clippy warnings, or need",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/edgeandnode__amp__claude__skills__code-check__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "edgeandnode__amp__claude__skills__code-format__SKILL",
+      "description": "Format Rust and TypeScript code using justfile tasks (just fmt-file, just fmt-rs, just fmt-ts). Use when user edits .rs/.ts files, mentions formatting, code style, rustfmt, prettier, cleanup, or befor",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/edgeandnode__amp__claude__skills__code-format__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "embedding-strategy-SKILL",
+      "description": "PROTECTED: Manage chunking strategies and embedding dimensions. Changes require user approval + full impact analysis.",
+      "repo": "homecity/langchain-forum",
+      "path": "data/embedding-strategy-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "environment-configuration-guardian.SKILL",
+      "description": "Validates environment-specific configurations across development, staging, and production environments. Prevents mismatched environment variables, localhost references in production, wrong API keys, a",
+      "repo": "mkelam/PDFLab",
+      "path": "data/environment-configuration-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "error-handling-skill",
+      "description": "Provides standardized error handling across the application with consistent formatting, logging, and user-friendly messages.",
+      "repo": "Osama-Raza/todo-cli-phase-1",
+      "path": "data/error-handling-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "error-handling.skill",
+      "description": "Error handling patterns with Australian user-friendly messages",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/error-handling.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "error-recovery-SKILL",
+      "description": "from tenacity import retry, stopafterattempt, waitexponential",
+      "repo": "homecity/langchain-forum",
+      "path": "data/error-recovery-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "eser__rules__claude__skills__eser-rules-manager__SKILL",
+      "description": "Manages practice rules. Use when user states a preference or approach, or asks to add/modify rules for coding, architecture, tooling, or best practices.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/eser__rules__claude__skills__eser-rules-manager__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "eser__stack__claude__skills__eser-rules-manager__SKILL",
+      "description": "Manages practice rules. Use when user states a preference or approach, or asks to add/modify rules for coding, architecture, tooling, or best practices.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/eser__stack__claude__skills__eser-rules-manager__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "example-generated-skill",
+      "description": "Generate boilerplate for new features following project conventions. Use when user says \"create feature\", \"add feature\", or \"new feature scaffolding\".",
+      "repo": "alekspetrov/navigator",
+      "path": "data/example-generated-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "executable_SKILL",
+      "description": "Use this skill to query your Google NotebookLM notebooks directly from Claude Code for source-grounded, citation-backed answers from Gemini. Browser automation, library management, persistent auth. Dr",
+      "repo": "samhvw8/dotfiles",
+      "path": "data/executable_SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "external-api-integration-guardian.SKILL",
+      "description": "Validates external API integrations before deployment. Prevents SDK method usage errors, API signature mismatches, wrong endpoint URLs, sandbox vs production mode issues, and breaking API changes. Use",
+      "repo": "mkelam/PDFLab",
+      "path": "data/external-api-integration-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "fastapi.skill",
+      "description": "FastAPI patterns for Australian-first API development",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/fastapi.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "feature-development.skill",
+      "description": "End-to-end workflow for developing features from spec to PR (Australian-enhanced)",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/feature-development.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "file-upload-processing-guardian.SKILL",
+      "description": "Offensive file upload and processing security and reliability enforcement. Triggered when implementing file uploads, reviewing Multer configuration, debugging upload failures, validating file types, o",
+      "repo": "mkelam/PDFLab",
+      "path": "data/file-upload-processing-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "financial-modeling.skill",
+      "description": "Expertise in creating accurate, transparent financial models for AI adoption ROI calculations, vendor cost comparisons, and budget planning for R&D leaders.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/financial-modeling.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "finos__morphir-dotnet__claude__skills__aot-guru__SKILL",
+      "description": "Specialized Native AOT, trimming, and optimization expert for morphir-dotnet. Expert in single-file trimmed executables, AOT compilation, size optimization, and guiding toward AOT-compatible features.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/finos__morphir-dotnet__claude__skills__aot-guru__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "finos__morphir-dotnet__claude__skills__qa-tester__SKILL",
+      "description": "Specialized QA testing for morphir-dotnet. Use when user asks to create test plans, run tests, validate packages, report bugs, perform regression testing, or verify PR completion. Triggers include \"te",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/finos__morphir-dotnet__claude__skills__qa-tester__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "fotescodev__portfolio__claude__skills__ultrathink__SKILL",
+      "description": "Elevates thinking for complex problems with intellectual honesty. Activates deep analysis while avoiding performative contrarianism. Use when facing decisions that deserve more than the first answer, ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/fotescodev__portfolio__claude__skills__ultrathink__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "foundation-first.skill",
+      "description": "Build on psychology, personas, journeys, emotions—BEFORE code (Australian-enhanced)",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/foundation-first.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "frontend-developer-skill",
+      "description": "You are an elite frontend development specialist with deep expertise in modern JavaScript frameworks, responsive design, and user interface implementation. Your mastery spans React, Vue, Angular, and ",
+      "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+      "path": "data/frontend-developer-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "frontend-patterns.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/frontend-patterns.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "full-stack-integration-guardian.SKILL",
+      "description": "Detects and prevents frontend-backend integration issues including API response handling, type mismatches, null safety, and data transformation errors. Triggered when implementing new API endpoints, d",
+      "repo": "mkelam/PDFLab",
+      "path": "data/full-stack-integration-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "fuzzer-skill",
+      "description": "Use this template for language-specific fuzzers (libFuzzer, AFL++, cargo-fuzz, etc.).",
+      "repo": "trailofbits/skills",
+      "path": "data/fuzzer-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gar-ai__mallorn__claude__skills__lint-service__SKILL",
+      "description": "Unified linting scripts for all services in the monorepo. Use when the user wants to lint code, check formatting, or run type checks.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/gar-ai__mallorn__claude__skills__lint-service__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "generate-convention-skill",
+      "description": "規約・ガイドラインからConvention Skillを生成する",
+      "repo": "RevTechStudio/rts-plugins",
+      "path": "data/generate-convention-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "generate-skill",
+      "description": "Generate new skill with SKILL.md structure and proper integration",
+      "repo": "rdmptv/AdbAutoPlayer",
+      "path": "data/generate-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "generate-workflow-skill",
+      "description": "作業フローからWorkflow Skillを生成する",
+      "repo": "RevTechStudio/rts-plugins",
+      "path": "data/generate-workflow-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "geo-australian.skill",
+      "description": "GEO optimization for Australian market",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/geo-australian.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gexijin__vibe__claude__skills__medical-research__SKILL",
+      "description": "Retrieves scientific papers from PubMed and creates plain-language research summaries. Use when users ask about medical research, scientific studies, clinical trials, disease treatments, or want to un",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/gexijin__vibe__claude__skills__medical-research__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "git-pushing-SKILL.md.diff",
+      "description": "Skill: git-pushing-SKILL.md.diff",
+      "repo": "mbcoalson/skills",
+      "path": "data/git-pushing-SKILL.md.diff",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "git-workflow-skill",
+      "description": "Enforces Conventional Commits, PR standards, merge conflict resolution, and branch management. Apply when committing code, opening PRs, resolving conflicts, managing branches, or handling Git operatio",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/git-workflow-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "git-workflow.skill",
+      "description": "[!FIXED!]",
+      "repo": "plannededge/codebook",
+      "path": "data/git-workflow.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "godiemp__math__claude__skills__mini-lessons__SKILL",
+      "description": "Create interactive mini-lessons for the PAES math curriculum. Use when the user wants to add a new lesson, create lesson content, or implement lesson steps.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/godiemp__math__claude__skills__mini-lessons__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "google-cloud-platform-skill",
+      "description": "Deploy Node.js applications on Google Cloud with Cloud Run, Cloud Firestore, and Google APIs. Implement OAuth2 authentication and manage service accounts. Apply when building serverless applications, ",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/google-cloud-platform-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gounthar__bazel-riscv__claude__skills__expo__skill",
+      "description": "Comprehensive Expo expert with access to complete official documentation covering React Native development, EAS Build, EAS Submit, EAS Update, Expo Router, Expo Modules API, configuration, deployment,",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/gounthar__bazel-riscv__claude__skills__expo__skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gounthar__bazel-riscv__claude__skills__ios__skill",
+      "description": "Expert on iOS development with Swift, UIKit, SwiftUI, Xcode, app architecture, platform features, and Apple ecosystem integration. Invoke when user mentions iOS, iPhone, iPad, Swift, SwiftUI, UIKit, X",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/gounthar__bazel-riscv__claude__skills__ios__skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gounthar__bazel-riscv__claude__skills__shopify__skill",
+      "description": "Comprehensive Shopify development expert with access to 24 official documentation files covering APIs (GraphQL Admin, Storefront, REST), app development, themes, Liquid, Hydrogen, checkout, extensions",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/gounthar__bazel-riscv__claude__skills__shopify__skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gounthar__bazel-riscv__claude__skills__stripe__skill",
+      "description": "Comprehensive Stripe API expert with access to 3,253 official documentation files covering all payment processing, billing, subscriptions, webhooks, Connect, Terminal, Radar, Identity, Tax, Climate, a",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/gounthar__bazel-riscv__claude__skills__stripe__skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gounthar__bazel-riscv__claude__skills__whop__skill",
+      "description": "Comprehensive Whop platform expert with access to 212 official documentation files covering memberships, payments, products, courses, experiences, forums, webhooks, and app development. Invoke when us",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/gounthar__bazel-riscv__claude__skills__whop__skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "gtm-planning.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/gtm-planning.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "haleyrc__stele__claude__skills__stele-release__SKILL",
+      "description": "Automate version bumping and release preparation for the stele CLI project. Use this skill when the user requests to create a new release, bump the version, or prepare release tags for stele. The skil",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/haleyrc__stele__claude__skills__stele-release__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "hardware-sizing.skill",
+      "description": "Expertise in calculating and specifying hardware requirements for local AI deployments, including GPU selection, server configuration, storage, and network planning based on workload characteristics a",
+      "repo": "mitkox/fteplusai",
+      "path": "data/hardware-sizing.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "huydepzai121__skill__claude__skills__pptx__SKILL",
+      "description": "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/huydepzai121__skill__claude__skills__pptx__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "iamwrm__try_typst__claude__skills__pdf-author__SKILL",
+      "description": "Generate professional PDF documents using Typst with proper Chinese font rendering (Source Han Serif/Sans) and syntax-highlighted code blocks that break across pages naturally. Includes visual validat",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/iamwrm__try_typst__claude__skills__pdf-author__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ilude__agent-spike__claude__skills__youtube-cache__SKILL",
+      "description": "YouTube video cache operations with Qdrant. Auto-checks cache when YouTube URLs detected. Provides semantic search, verification, ingestion, and archive access. Shows metadata by default, transcript o",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/ilude__agent-spike__claude__skills__youtube-cache__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "implement-skill",
+      "description": "| 項目     | 内容           |",
+      "repo": "daishiman/AIWorkflowOrchestrator",
+      "path": "data/implement-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "infrastructure.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/infrastructure.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "issue-management.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/issue-management.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "jimmc414__Kosmos__claude__skills__kosmos-xray__SKILL",
+      "description": "Specialized tools for analyzing the Kosmos codebase efficiently within limited context windows. Uses AST parsing to extract structural information (classes, methods, signatures) without loading implem",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/jimmc414__Kosmos__claude__skills__kosmos-xray__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "krafton-ai__KIRA__claude__skills__it-role-expert__SKILL",
+      "description": "Provides role-specific expertise for 26+ IT company positions. Use when responding from a specific role's perspective, providing role-based advice, or when specialized knowledge is needed for engineer",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/krafton-ai__KIRA__claude__skills__it-role-expert__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "kvnloo__evolve__claude__skills__create-plans__SKILL",
+      "description": "Create hierarchical project plans optimized for solo agentic development. Use when planning projects, phases, or tasks that Claude will execute. Produces Claude-executable plans with verification crit",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/kvnloo__evolve__claude__skills__create-plans__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "lagz0ne__diashort__claude__skills__c3-migrate__SKILL",
+      "description": "Use when upgrading .c3/ documentation to current skill version - reads VERSION, applies transforms from migrations/ directory in batches",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/lagz0ne__diashort__claude__skills__c3-migrate__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "langgraph.skill",
+      "description": "LangGraph workflow patterns for agent orchestration",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/langgraph.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "langsmith-testing-SKILL",
+      "description": "CRITICAL for RAG: Every RAG query MUST be traced in LangSmith for observability. Silent failures (bad retrieval, hallucinations) are only detectable through tracing.",
+      "repo": "homecity/langchain-forum",
+      "path": "data/langsmith-testing-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "lawless-m__Petty__claude__skills__Elasticsearch__SKILL",
+      "description": "Elasticsearch 5.2 operations using HTTP API - searching, indexing, bulk operations, scroll API, and alias management",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/lawless-m__Petty__claude__skills__Elasticsearch__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "legacy-skill",
+      "description": "旧版のdeployment-strategiesスキル概要。デプロイパターンとロールバック手順を中心に構成。\n\n旧リソース:\n- `.claude/skills/deployment-strategies/references/deployment-patterns.md`\n- `.claude/skills/deployment-strategies/assets/deployment-runb",
+      "repo": "daishiman/AIWorkflowOrchestrator",
+      "path": "data/legacy-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "legal-compliance.skill",
+      "description": "Expertise in legal considerations for AI vendor replacement initiatives, covering contract law, intellectual property, data processing agreements, licensing compliance, and vendor exit procedures. Thi",
+      "repo": "mitkox/fteplusai",
+      "path": "data/legal-compliance.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "lets_build_alexa_skill",
+      "description": "lets build an alexa skill",
+      "repo": "calvinsettachatgul/aws_associate_solutions_architect",
+      "path": "data/lets_build_alexa_skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "llm-integration-SKILL",
+      "description": "from langchainopenai import ChatOpenAI",
+      "repo": "homecity/langchain-forum",
+      "path": "data/llm-integration-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "load-frontend-skill",
+      "description": "Load frontend design skill from Anthropic",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "data/load-frontend-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "load-skill",
+      "description": "Load a skill's full content into context",
+      "repo": "mgd34msu/goodvibes-plugin",
+      "path": "data/load-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "local-ai-deployment.skill",
+      "description": "Expertise in deploying and configuring self-hosted LLM platforms for enterprise environments, ensuring data sovereignty, performance optimization, and production-grade reliability without external dep",
+      "repo": "mitkox/fteplusai",
+      "path": "data/local-ai-deployment.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mbcoalson__skills__claude__skills__writing-plans__SKILL",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mbcoalson__skills__claude__skills__writing-plans__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mehdic__CDC__claude__skills__codebase-analysis__SKILL",
+      "description": "Analyzes codebase to find similar features, reusable utilities, and architectural patterns",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mehdic__CDC__claude__skills__codebase-analysis__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mehdic__CDC__claude__skills__db-migration-check__SKILL",
+      "description": "Detect dangerous operations in database migrations before deployment",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mehdic__CDC__claude__skills__db-migration-check__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mehdic__CDC__claude__skills__lint-check__SKILL",
+      "description": "Run code quality linters when reviewing code. Checks style, complexity, and best practices. Supports Python (ruff), JavaScript (eslint), Go (golangci-lint), Ruby (rubocop), Java (Checkstyle/PMD). Use ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mehdic__CDC__claude__skills__lint-check__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mehdic__CDC__claude__skills__velocity-tracker__SKILL",
+      "description": "Track development velocity, cycle times, and identify trends for PM decision-making",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mehdic__CDC__claude__skills__velocity-tracker__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mepuka__crate__claude__skills__effect-index__SKILL",
+      "description": "Skill index and decision guide. Use to pick the right Effect Skill quickly and follow a minimal decision tree.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mepuka__crate__claude__skills__effect-index__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "messaging.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/messaging.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "metrics-analytics.skill",
+      "description": "Expertise in designing, implementing, and analyzing metrics frameworks for AI-augmented teams, focusing on productivity measurement, ROI validation, and continuous improvement through data-driven insi",
+      "repo": "mitkox/fteplusai",
+      "path": "data/metrics-analytics.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "microcopy.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/microcopy.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "miethe__ai-scratchpad__claude__skills__symbols__SKILL",
+      "description": "Token-efficient codebase navigation through intelligent symbol loading and querying. Use this skill when implementing new features (find existing patterns), exploring codebase structure, searching for",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/miethe__ai-scratchpad__claude__skills__symbols__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "miethe__skillmeat__claude__skills__planning__SKILL",
+      "description": "Generate and optimize PRDs, Implementation Plans, and Progress Tracking documents optimized as AI artifacts for development agents. Use when creating new feature plans, breaking down long planning doc",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/miethe__skillmeat__claude__skills__planning__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "miethe__skillmeat__claude__skills__skillmeat-cli__SKILL",
+      "description": "Manage Claude Code environments using natural language. Use this skill when:\n- User wants to add, deploy, or manage Claude Code artifacts (skills, commands, agents, MCP servers)\n- User asks about avai",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/miethe__skillmeat__claude__skills__skillmeat-cli__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "miethe__skillmeat__claude__skills__symbols__SKILL",
+      "description": "Token-efficient codebase navigation through intelligent symbol loading and querying. Use this skill when implementing new features (find existing patterns), exploring codebase structure, searching for",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/miethe__skillmeat__claude__skills__symbols__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "migration-management.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/migration-management.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "migrations.skill",
+      "description": "Database migration patterns with Australian compliance (Privacy Act 1988)",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/migrations.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "miketui__Fm__claude__skills__css-diagnostics__SKILL",
+      "description": "Analyze CSS coverage, identify unused rules, and detect stylesheet conflicts. Use after visual QA to optimize stylesheets before publication.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/miketui__Fm__claude__skills__css-diagnostics__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mikopbx__Core__claude__skills__api-client__SKILL",
+      "description": "Универсальный REST API клиент для MikoPBX с автоматической аутентификацией и выполнением запросов внутри Docker контейнеров. Использовать когда нужно тестировать API эндпоинты, выполнять CRUD операции",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mikopbx__Core__claude__skills__api-client__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mikopbx__Core__claude__skills__openapi-analyzer__SKILL",
+      "description": "Извлечение и анализ OpenAPI 3.1.0 спецификации из MikoPBX для валидации эндпоинтов. Использовать при проверке соответствия API, генерации тестов, проверке схем эндпоинтов или интеграции с навыками end",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mikopbx__Core__claude__skills__openapi-analyzer__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mikopbx__Core__claude__skills__translations__SKILL",
+      "description": "Управление многоязычными переводами на 29 языков с приоритетом русского языка. Использовать при добавлении новых переводов, переводе на все языки, проверке консистентности или удалении устаревших ключ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mikopbx__Core__claude__skills__translations__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "milestone-tracking.skill",
+      "description": "Expertise in tracking program milestones, deliverables, and dependencies throughout the 30-60-90 day vendor replacement program, ensuring visibility, accountability, and timely completion.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/milestone-tracking.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mlops-operations.skill",
+      "description": "Expertise in operating and maintaining production AI/ML systems, including deployment pipelines, monitoring, incident response, capacity management, and continuous improvement for local LLM infrastruc",
+      "repo": "mitkox/fteplusai",
+      "path": "data/mlops-operations.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mmbianco78__signalroom__claude__skills__kaizen__SKILL",
+      "description": "Continuous improvement methodology for SignalRoom. Use after incidents, when reviewing processes, or when looking for ways to prevent repeat problems. Implements structured retrospectives and improvem",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/mmbianco78__signalroom__claude__skills__kaizen__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mobile-test-skill",
+      "description": "移动端测试技能",
+      "repo": "naodeng/tester-awesome",
+      "path": "data/mobile-test-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "monitoring-logging-skill",
+      "description": "Implement CloudWatch monitoring, error tracking with Sentry, structured logging, and alert configuration. Apply when setting up monitoring, tracking errors, debugging production issues, or configuring",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/monitoring-logging-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "motion-performance-expert.SKILL",
+      "description": "Elite UX/UI motion design and animation performance optimization specialist. Use when users report animation issues like \"jank\", \"stuttering\", \"not smooth\", \"choppy\", \"laggy transitions\", or request h",
+      "repo": "mkelam/PDFLab",
+      "path": "data/motion-performance-expert.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "multi-agent-planner-skill",
+      "description": "Automated generation of MULTIAGENTPLAN.md files with comprehensive task decomposition, dependency analysis, agent role assignment, timeline estimation, and parallel execution grouping. This skill tran",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/multi-agent-planner-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "multicam__qara__claude__skills__art__SKILL",
+      "description": "Complete visual content system for PAI.\nTron-meets-Excalidraw aesthetic - dark backgrounds, neon accents, hand-drawn sketch style.\n",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/multicam__qara__claude__skills__art__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "multicam__qara__claude__skills__prompting__SKILL",
+      "description": "Prompt engineering standards and context engineering principles for AI agents based on Anthropic best practices. Covers clarity, structure, progressive discovery, and optimization for signal-to-noise ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/multicam__qara__claude__skills__prompting__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "mutation-testing-skill",
+      "description": "Mutation testing evaluates test effectiveness by introducing small intentional bugs (mutations) into code and checking whether tests fail. Tests that pass despite mutations are weak and need strengthe",
+      "repo": "alexanderop/second-brain-nuxt",
+      "path": "data/mutation-testing-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "nahisaho__musubi__claude__skills__orchestrator__SKILL",
+      "description": "Integrated orchestrator agent that manages and coordinates 25 specialized AI agents for Specification Driven Development\n\nTrigger terms: orchestrate, coordinate, multi-agent, workflow, execution plan,",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/nahisaho__musubi__claude__skills__orchestrator__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "nathanvale__vtm-cli__claude__skills__git-expert__SKILL",
+      "description": "Git domain expert.\n\nKnows about:\n- Status, Switch, Create Branch, Commit, Pull, Push, Log\n\nUse when:\n- User asks about git operations\n- Context needed before starting work\n- Reviewing git status\n- Man",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/nathanvale__vtm-cli__claude__skills__git-expert__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "neon-serverless-skill",
+      "description": "Configure serverless PostgreSQL databases on Neon with connection pooling, branching, and Edge Function integration. Apply when setting up serverless databases, connecting from Edge Functions, or mana",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/neon-serverless-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "nera0875__BUILDER__claude__skills__rules__SKILL",
+      "description": "Strict file creation rules. Loaded FIRST by orchestrator and all agents before any action. Prevents pollution with .md, .json, scripts. Only allows code files and .build/ docs.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/nera0875__BUILDER__claude__skills__rules__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "nextauth-authentication-skill",
+      "description": "Implement authentication with NextAuth.js v5, Google OAuth, credentials provider, session management, and protected routes. Apply when building auth flows, protecting routes, managing sessions, or imp",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/nextauth-authentication-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "nextjs-app-router-skill",
+      "description": "Build Next.js 15 applications using App Router, Server Components, Client Components, Server Actions, and streaming. Apply when creating pages, handling data fetching, implementing routes, or optimizi",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/nextjs-app-router-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "nextjs.skill",
+      "description": "Next.js 15 patterns with 2025-2026 design system and Australian context",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/nextjs.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "open-source-licensing.skill",
+      "description": "Expertise in navigating open-source licenses for AI models and tools, ensuring commercial compliance, managing license obligations, and mitigating intellectual property risks in enterprise AI deployme",
+      "repo": "mitkox/fteplusai",
+      "path": "data/open-source-licensing.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "openai-create-plan-skill",
+      "description": "Turn a user prompt into a single, actionable plan delivered in the final assistant message.",
+      "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+      "path": "data/openai-create-plan-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "opensesh__BRAND-OS__claude__skills__public__pptx__SKILL",
+      "description": "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/opensesh__BRAND-OS__claude__skills__public__pptx__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "orchestration.skill",
+      "description": "Master orchestrator routing to specialized agents - Australian-first",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/orchestration.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "parallel-executor-skill",
+      "description": "Orchestrates concurrent task execution across multiple Claude agents with intelligent work distribution, real-time progress synchronization, automated result collection and validation, and comprehensi",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "data/parallel-executor-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "payfast-integration.SKILL",
+      "description": "PayFast payment gateway integration specialist for FastAPI and Node.js. Use when debugging PayFast signature validation, ITN webhooks, sandbox-to-production migration, or implementing onsite/offsite/r",
+      "repo": "mkelam/PDFLab",
+      "path": "data/payfast-integration.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "payment-integration-sentinel.SKILL",
+      "description": "Prevents payment integration failures by validating PayFast, Stripe, and other payment provider configurations. Use when integrating payment APIs, debugging payment failures, experiencing signature mi",
+      "repo": "mkelam/PDFLab",
+      "path": "data/payment-integration-sentinel.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "performance-optimization-skill",
+      "description": "Optimize Next.js bundle size with code splitting, tree shaking, lazy loading, and build configuration. Apply when improving performance, reducing bundle size, analyzing dependencies, or optimizing loa",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/performance-optimization-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "playwright-e2e-testing-skill",
+      "description": "Build end-to-end tests with Playwright, Feature Object pattern, cross-browser testing, and visual regression. Apply when testing critical user flows, automating regression testing, or validating integ",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/playwright-e2e-testing-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "positioning.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/positioning.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "pr-pm__prpm__claude__skills__agent-builder__SKILL",
+      "description": "Use when creating, improving, or troubleshooting Claude Code subagents. Expert guidance on agent design, system prompts, tool access, model selection, and best practices for building specialized AI as",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/pr-pm__prpm__claude__skills__agent-builder__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "pr-pm__prpm__claude__skills__human-writing__SKILL",
+      "description": "Write content that sounds natural, conversational, and authentically human - avoiding AI-generated patterns, corporate speak, and generic phrasing",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/pr-pm__prpm__claude__skills__human-writing__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "pr-pm__prpm__claude__skills__prpm-development__SKILL",
+      "description": "Use when developing PRPM (Prompt Package Manager) - comprehensive knowledge base covering architecture, format conversion, package types, collections, quality standards, testing, and deployment",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/pr-pm__prpm__claude__skills__prpm-development__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "pr-pm__prpm__claude__skills__testing-prpm-cli__SKILL",
+      "description": "Use when testing PRPM CLI commands locally - provides build, environment setup, execution workflow, contract testing to verify documented behavior matches implementation, and comprehensive cross-forma",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/pr-pm__prpm__claude__skills__testing-prpm-cli__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "preview-skill",
+      "description": "Generate and display skill preview for user review before saving",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "data/preview-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "prisma-orm-skill",
+      "description": "Design database schemas, create migrations, manage data relationships, and sync with production using Prisma. Apply when designing database schemas, creating migrations, or defining data models.",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/prisma-orm-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "private_SKILL",
+      "description": "Universal project planning for non-technical projects. Domains: business, personal, creative, academic, organizational, events. Capabilities: goal setting, milestone planning, resource allocation, tim",
+      "repo": "samhvw8/dotfiles",
+      "path": "data/private_SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "production-deployment-guardian.SKILL",
+      "description": "Prevents production deployment failures through pre-deployment validation and environment-specific configuration checks. Use before ANY production deployment to catch CORS misconfigurations, trust pro",
+      "repo": "mkelam/PDFLab",
+      "path": "data/production-deployment-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "production-monitoring-guardian.SKILL",
+      "description": "Prevents production blind spots by establishing comprehensive monitoring, alerting, and observability. Use when deploying to production, experiencing unexplained downtime, debugging performance issues",
+      "repo": "mkelam/PDFLab",
+      "path": "data/production-monitoring-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "production-readiness.skill",
+      "description": "Expertise in preparing AI-augmented teams and solutions for enterprise production deployment, including scalability, reliability, monitoring, and operational excellence requirements.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/production-readiness.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "program-planning.skill",
+      "description": "Expertise in creating and executing vendor replacement programs using the proven 30-60-90 day framework, including milestone planning, resource allocation, dependency management, and phase gate govern",
+      "repo": "mitkox/fteplusai",
+      "path": "data/program-planning.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "project-context.skill",
+      "description": "NodeJS-Starter-V1 specific knowledge",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/project-context.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "project-setup.skill",
+      "description": "[!FIXED!]",
+      "repo": "plannededge/codebook",
+      "path": "data/project-setup.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "prompt-engineering-SKILL",
+      "description": "template = \"\"\"",
+      "repo": "homecity/langchain-forum",
+      "path": "data/prompt-engineering-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "pytorch__pytorch__claude__skills__skill-writer__SKILL",
+      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/pytorch__pytorch__claude__skills__skill-writer__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "quality-gates.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/quality-gates.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "quality-review.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/quality-review.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "rag-accuracy-SKILL",
+      "description": "Measure RAG answer quality through three core metrics: Faithfulness (accuracy to context), Relevance (retrieval quality), and Answer Quality (overall usefulness).",
+      "repo": "homecity/langchain-forum",
+      "path": "data/rag-accuracy-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ralph-wiggum.skill",
+      "description": "Autonomous task completion loop with PRD tracking and LLM memory",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/ralph-wiggum.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "rank-monitoring.skill",
+      "description": "Real-time ranking check procedures",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/rank-monitoring.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "react-nextjs-component-guardian.SKILL",
+      "description": "Offensive React/Next.js component quality enforcement. Triggered when creating components, reviewing client/server patterns, debugging hook dependencies, optimizing re-renders, or preparing frontend f",
+      "repo": "mkelam/PDFLab",
+      "path": "data/react-nextjs-component-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "reconfigure_skill",
+      "description": "Skill: reconfigure_skill",
+      "repo": "Watson-Personal-Assistant/developer",
+      "path": "data/reconfigure_skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "reference-guidelines-skill",
+      "description": "Reference guide and guidelines for [domain/system/standard]. Use when applying standards, following guidelines, or referencing specifications.",
+      "repo": "adaptationio/Skrillz",
+      "path": "data/reference-guidelines-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "refine-skill",
+      "description": "Implement user skill change requests with maximum precision optimization",
+      "repo": "shinpr/ai-coding-project-boilerplate",
+      "path": "data/refine-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "release-management.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/release-management.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "requirements-gathering.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/requirements-gathering.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "resume-session.SKILL",
+      "description": "Resume a previous session by reading pipeline state and presenting current status",
+      "repo": "Smith-Happens/xlightsfpptester",
+      "path": "data/resume-session.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "retrieval-patterns-SKILL",
+      "description": "from langchain.retrievers import EnsembleRetriever",
+      "repo": "homecity/langchain-forum",
+      "path": "data/retrieval-patterns-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "risk-assessment.skill",
+      "description": "Comprehensive expertise in identifying, analyzing, and mitigating risks associated with AI adoption for vendor replacement, covering security, compliance, business, and operational dimensions.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/risk-assessment.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "roadmap-planning.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/roadmap-planning.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "roderik__ai-rules__claude__skills__rr-system__SKILL",
+      "description": "Comprehensive system setup automation and tool reference for the rr- development environment. Provides automated installation scripts, AI configuration management, and modern CLI tools for macOS and L",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/roderik__ai-rules__claude__skills__rr-system__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "roundtrip-test-skill",
+      "description": "A test skill designed to validate the complete collection submission workflow roundtrip",
+      "repo": "mickdarling/dollhouse-portfolio",
+      "path": "data/roundtrip-test-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "router-skill",
+      "description": "<essentialprinciples>",
+      "repo": "jayteealao/Aperture",
+      "path": "data/router-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ruvnet__ruvector__claude__skills__skill-builder__SKILL",
+      "description": "Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, gene",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/ruvnet__ruvector__claude__skills__skill-builder__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ruvnet__ruvector__claude__skills__stream-chain__SKILL",
+      "description": "Stream-JSON chaining for multi-agent pipelines, data transformation, and sequential workflows",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/ruvnet__ruvector__claude__skills__stream-chain__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ruvnet__ruvector__claude__skills__swarm-advanced__SKILL",
+      "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/ruvnet__ruvector__claude__skills__swarm-advanced__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "rysweet__azlin__claude__skills__default-workflow__SKILL",
+      "description": "Development workflow for features, bugs, refactoring. Auto-activates for multi-file implementations.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/rysweet__azlin__claude__skills__default-workflow__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "rysweet__azlin__claude__skills__pm-architect__skill",
+      "description": "Expert project manager orchestrating backlog-curator, work-delegator, workstream-coordinator, and roadmap-strategist sub-skills. Coordinates complex software projects through delegation and strategic ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/rysweet__azlin__claude__skills__pm-architect__skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "sackio__unibrowse__claude__skills__browser__SKILL",
+      "description": "Browser automation using the browser MCP for web scraping, form filling, content extraction, and macro execution. Use when user asks to open websites, search pages, extract data, fill forms, or automa",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/sackio__unibrowse__claude__skills__browser__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "safe-skill",
+      "description": "A legitimate skill with no security issues",
+      "repo": "brucevanfdm/agent-skills-guard",
+      "path": "data/safe-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "schema-design.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/schema-design.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "search-dominance.skill",
+      "description": "Search market takeover strategy",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/search-dominance.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "security-review.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/security-review.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "self-learning-SKILL",
+      "description": "Automatic self-learning system that captures user feedback and updates project rules in real-time",
+      "repo": "homecity/langchain-forum",
+      "path": "data/self-learning-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "sendgrid.skill",
+      "description": "SendGrid email integration with templates and transactional email support",
+      "repo": "mshafei721/Turbocat",
+      "path": "data/sendgrid.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "seo-optimization-skill",
+      "description": "Implement Next.js SEO with metadata, structured data, sitemaps, Open Graph tags, and technical SEO. Apply when optimizing pages for search engines, adding social sharing, or improving discoverability.",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/seo-optimization-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "service-skill",
+      "description": "Brief 1-2 sentence overview of what this skill does.",
+      "repo": "ScientiaCapital/ai-development-cockpit",
+      "path": "data/service-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "simple-ways-student-can-improve-their-writing-skill",
+      "description": " Discover 11 simple yet powerful ways for students to improve their writing skills and become better writers. From sharing knowledge through writing to utilizing dictionaries and embracing authorship,",
+      "repo": "Mohammadjamiu/tahugo_updated",
+      "path": "data/simple-ways-student-can-improve-their-writing-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "skill-auto-load-SKILL",
+      "description": "Skills auto-load based on keywords and context:",
+      "repo": "homecity/langchain-forum",
+      "path": "data/skill-auto-load-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "skill.md.backup",
+      "description": "Execute approved sprint plans with test-driven development, continuous linting, progress tracking, and pause points. Use when user says \"execute sprint\", \"start sprint\", or wants to implement an appro",
+      "repo": "sunholo-data/stapledons_voyage",
+      "path": "data/skill.md.backup",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "skill.md.bak",
+      "description": "Update project changelog with uncommitted changes and create version releases with automatic commit and push",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "data/skill.md.bak",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "skills.SKILL",
+      "description": "List available skills and their activation methods",
+      "repo": "Smith-Happens/xlightsfpptester",
+      "path": "data/skills.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "sorryhyun__DiPeO__claude__skills__doc-lookup__SKILL",
+      "description": "Locate and retrieve specific documentation sections from DiPeO's docs/ by heading anchors or keywords. Returns minimal, targeted excerpts instead of full files. Use when you need precise documentation",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/sorryhyun__DiPeO__claude__skills__doc-lookup__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "stakeholder-management.skill",
+      "description": "Expertise in identifying, analyzing, engaging, and managing stakeholders throughout the vendor replacement program to ensure alignment, support, and successful outcomes.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/stakeholder-management.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "stripe.skill",
+      "description": "Complete Stripe payment integration with checkout, pricing, and subscription management",
+      "repo": "mshafei721/Turbocat",
+      "path": "data/stripe.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "suggest-skill",
+      "description": "Skill Name:",
+      "repo": "karanb192/awesome-claude-skills",
+      "path": "data/suggest-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "sunholo-data__ailang__claude__skills__use-ailang__SKILL",
+      "description": "Write and run AILANG code with correct syntax. Use when user asks to write AILANG programs, fix AILANG syntax errors, run AILANG code, or needs help with AILANG syntax. Includes version checking, synt",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/sunholo-data__ailang__claude__skills__use-ailang__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "supabase-setup.skill",
+      "description": "Configure Supabase database, authentication, storage, and realtime features via MCP",
+      "repo": "mshafei721/Turbocat",
+      "path": "data/supabase-setup.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "supabase.skill",
+      "description": "Supabase patterns with Australian context and Privacy Act 1988 compliance",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/supabase.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "sweep-through-your-contacts-with-speed-and-skill",
+      "description": "This Article Describes Sweep Through Your Contacts with Speed and Skill",
+      "repo": "techidaily/site-facebook-clips",
+      "path": "data/sweep-through-your-contacts-with-speed-and-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tailwind-design-system-skill",
+      "description": "Build consistent, accessible UI components with Tailwind CSS, shadcn/ui, and custom design tokens. Apply when styling components, creating design systems, implementing responsive layouts, or optimizin",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/tailwind-design-system-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "talmolab__sleap-io__claude__skills__coverage__SKILL",
+      "description": "Run test coverage analysis, identify missed and partial lines, and write tests to improve coverage. Use this when the user asks to check coverage, improve coverage, or write tests for uncovered code. ",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/talmolab__sleap-io__claude__skills__coverage__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "talmolab__sleap__claude__skills__qt-testing__SKILL",
+      "description": "Capture and visually inspect Qt GUI widgets using screenshots. Use when asked to verify GUI rendering, test widget appearance, check layouts, or visually inspect any PySide6/Qt component. Enables Clau",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/talmolab__sleap__claude__skills__qt-testing__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "task-based-skill",
+      "description": "Collection of independent tasks for [domain]. Use when performing specific operations in this domain.",
+      "repo": "adaptationio/Skrillz",
+      "path": "data/task-based-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "taste-skill",
+      "description": "To do any great work, you need two fundamental assets: taste and skill.",
+      "repo": "benthecoder/blog",
+      "path": "data/taste-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "technical-writing.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/technical-writing.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "technique-skill",
+      "description": "Use this template for cross-cutting techniques that apply to multiple tools (harness writing, coverage analysis, sanitizers, dictionaries, etc.).",
+      "repo": "trailofbits/skills",
+      "path": "data/technique-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "test-skill.mdc",
+      "description": "A test skill for E2E conversion testing",
+      "repo": "pr-pm/prpm",
+      "path": "data/test-skill.mdc",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tester-skill",
+      "description": "测试工程师所需技能",
+      "repo": "naodeng/tester-awesome",
+      "path": "data/tester-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "testing-strategy.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/testing-strategy.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tidyverse__dbplyr__claude__skills__create-skill__SKILL",
+      "description": "Guide for creating new Claude Code skills. Use when you need to create a new skill to package expertise or workflow into a reusable capability that Claude can automatically invoke.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/tidyverse__dbplyr__claude__skills__create-skill__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tntdev21__3d__claude__skills__frontend-design__SKILL",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications, OR when they provide screenshots/i",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/tntdev21__3d__claude__skills__frontend-design__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tobi__ac-tracer__claude__skills__csp-lua__SKILL",
+      "description": "CSP (Custom Shaders Patch) Lua API reference for Assetto Corsa modding. Use when working with ac.*, ui.*, render.*, physics.* APIs or any CSP Lua code.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/tobi__ac-tracer__claude__skills__csp-lua__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "toloka.client.skill.Skill",
+      "description": "toloka.client.skill.Skill | Source code",
+      "repo": "Toloka/docs",
+      "path": "data/toloka.client.skill.Skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tool-evaluation.skill",
+      "description": "Structured methodology for objectively evaluating, comparing, and selecting AI tools for vendor replacement initiatives, ensuring data-driven decisions.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/tool-evaluation.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tool-skill",
+      "description": "Use this template for static analysis tools (Semgrep, CodeQL), web tools (Burp Suite), and similar standalone tools.",
+      "repo": "trailofbits/skills",
+      "path": "data/tool-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "truth-finder.skill",
+      "description": "Fact verification, source validation, confidence scoring",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/truth-finder.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "tylermorganme__bgf__claude__skills__repo-init__SKILL",
+      "description": "This skill initializes the bgf project by cloning the two subproject git repositories (bgf-dawn Shopify theme and bgf_2024 informational website). Use when setting up the project on a new machine.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/tylermorganme__bgf__claude__skills__repo-init__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "typescript-build-guardian.SKILL",
+      "description": "Offensive TypeScript build pipeline optimization and validation. Triggered when reviewing tsconfig.json, TypeScript compilation errors, build performance issues, strict mode migration, module resoluti",
+      "repo": "mkelam/PDFLab",
+      "path": "data/typescript-build-guardian.SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "ui-component.skill",
+      "description": "Generate design-compliant React components using shadcn/ui primitives and design tokens",
+      "repo": "mshafei721/Turbocat",
+      "path": "data/ui-component.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "unit-testing-SKILL",
+      "description": "Test individual RAG components in isolation using mocking and dependency injection.",
+      "repo": "homecity/langchain-forum",
+      "path": "data/unit-testing-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "update-crate-skill",
+      "description": "Update a specific crate skill to latest version",
+      "repo": "ZhangHanDong/rust-skills",
+      "path": "data/update-crate-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "updated-in-2024-sweep-through-your-contacts-with-speed-and-skill",
+      "description": "This Article Describes [Updated] In 2024, Sweep Through Your Contacts with Speed and Skill",
+      "repo": "techidaily/site-facebook-clips",
+      "path": "data/updated-in-2024-sweep-through-your-contacts-with-speed-and-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "updated-sweep-through-your-contacts-with-speed-and-skill",
+      "description": "This Article Describes [Updated] Sweep Through Your Contacts with Speed and Skill",
+      "repo": "techidaily/site-facebook-clips",
+      "path": "data/updated-sweep-through-your-contacts-with-speed-and-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "usability-review.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/usability-review.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "user-content.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/user-content.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "user-flows.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/user-flows.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "validate-lang-conversion-skill",
+      "description": "Validate a convert-X-Y skill against meta-convert-dev (structure) and meta-convert-guide (content), create issues for gaps, update reference tables",
+      "repo": "aRustyDev/ai",
+      "path": "data/validate-lang-conversion-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "vector-store-SKILL",
+      "description": "PROTECTED: Vector store schema management. Changes require pre-modification checklist validation.",
+      "repo": "homecity/langchain-forum",
+      "path": "data/vector-store-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "vendor-negotiation.skill",
+      "description": "Expertise in negotiating favorable terms with AI vendors, optimizing contracts, managing commercial relationships, and ensuring value alignment throughout the vendor lifecycle.",
+      "repo": "mitkox/fteplusai",
+      "path": "data/vendor-negotiation.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "vendor-transition.skill",
+      "description": "Specialized expertise in managing the complex process of transitioning from outsourcing vendors to AI-augmented internal teams, including contract management, knowledge transfer, and relationship navi",
+      "repo": "mitkox/fteplusai",
+      "path": "data/vendor-transition.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "vercel-deployment-skill",
+      "description": "Deploy Next.js to Vercel with zero-config, manage environment variables, set up CI/CD pipelines, and optimize production performance. Apply when deploying to Vercel, configuring environments, or setti",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/vercel-deployment-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "verification-first.skill",
+      "description": "Verification-first development approach - Australian-enhanced",
+      "repo": "CleanExpo/NodeJS-Starter-V1",
+      "path": "data/verification-first.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "verification-protocol-SKILL",
+      "description": "- 2 verifications → Execute",
+      "repo": "homecity/langchain-forum",
+      "path": "data/verification-protocol-SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "versioning.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/versioning.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "visual-design.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/visual-design.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "vitest-unit-testing-skill",
+      "description": "Write fast unit tests with Vitest, coverage reporting, mocking, and snapshots. Apply when testing utilities, components, services, or building test coverage.",
+      "repo": "ThamJiaHe/claude-prompt-engineering-guide",
+      "path": "data/vitest-unit-testing-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "voice-tone.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/voice-tone.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "vulnerability-assessment.skill",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "data/vulnerability-assessment.skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "wade56754__XHS__claude__skills__n8n-code-python__SKILL",
+      "description": "Write Python code in n8n Code nodes. Use when writing Python in n8n, using _input/_json/_node syntax, working with standard library, or need to understand Python limitations in n8n Code nodes.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/wade56754__XHS__claude__skills__n8n-code-python__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "wcygan__dotfiles__claude__skills__nix-manager__SKILL",
+      "description": "Comprehensive Nix management following Determinate Systems best practices and this repository's patterns.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/wcygan__dotfiles__claude__skills__nix-manager__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "web-application-testing-skill",
+      "description": "This skill enables comprehensive testing and debugging of local web applications using Playwright automation.",
+      "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+      "path": "data/web-application-testing-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "whilp__world__claude__skills__meta__SKILL",
+      "description": "Guide for writing and improving Claude Code skills. Use when creating new skills, debugging why skills aren't activating, or improving skill descriptions and structure.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/whilp__world__claude__skills__meta__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "whrit__agent-flow__claude__skills__skill-builder__SKILL",
+      "description": "Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, gene",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/whrit__agent-flow__claude__skills__skill-builder__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "whrit__agent-flow__claude__skills__swarm-advanced__SKILL",
+      "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/whrit__agent-flow__claude__skills__swarm-advanced__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "why-ownership-beats-skill",
+      "description": "Skill earns access. Ownership captures upside. A mechanism-first explanation of why equity and assets change the slope.",
+      "repo": "randysalars/dreamweaving",
+      "path": "data/why-ownership-beats-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "wizact__dotclaude__claude__skills__fd-search__SKILL",
+      "description": "Fast and user-friendly file system search using fd as a replacement for `find` command",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/wizact__dotclaude__claude__skills__fd-search__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "workflow-based-skill",
+      "description": "Description of the workflow this skill guides through. Use when executing this specific workflow or process.",
+      "repo": "adaptationio/Skrillz",
+      "path": "data/workflow-based-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "workflow-skill",
+      "description": "Complete workflow for [end goal].",
+      "repo": "ScientiaCapital/ai-development-cockpit",
+      "path": "data/workflow-skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "x85446__claudecodetricks__claude__skills__SKILL",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/x85446__claudecodetricks__claude__skills__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "xcode_skill",
+      "description": "- (官方下载)[https://developer.apple.com/download/more/]",
+      "repo": "msncdma/PubNote",
+      "path": "data/xcode_skill",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "yaleh__meta-cc__claude__skills__api-design__SKILL",
+      "description": "Systematic API design methodology with 6 validated patterns covering parameter categorization, safe refactoring, audit-first approach, automated validation, quality gates, and example-driven documenta",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/yaleh__meta-cc__claude__skills__api-design__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "yamadashy__repomix__claude__skills__memory__SKILL",
+      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/yamadashy__repomix__claude__skills__memory__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "yangsi7__nikita__claude__skills__analyze-code__SKILL",
+      "description": "Intelligence-first code analysis for bugs, architecture, performance, and security. Use proactively when investigating code issues, tracing dependencies, or understanding system behavior. MUST query p",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/yangsi7__nikita__claude__skills__analyze-code__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "yangsi7__nikita__claude__skills__create-plan__SKILL",
+      "description": "Create detailed implementation plans from feature specs or bug reports with testable acceptance criteria. Use proactively when planning features, refactors, or fixes. Every task MUST have minimum 2 te",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/yangsi7__nikita__claude__skills__create-plan__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "yangsi7__nikita__claude__skills__generate-tasks__SKILL",
+      "description": "Generate user-story-organized task lists from implementation plans. Use when plan exists and user is ready for implementation, mentions \"create tasks\", \"break down work\", or asks \"what tasks are neede",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/yangsi7__nikita__claude__skills__generate-tasks__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "younwony__TIL__claude__skills__cs-sync__SKILL",
+      "description": "CS-GUIDE.md 업데이트 시 기존 CS 문서들을 새로운 가이드에 맞춰 동기화합니다. \"CS 동기화\", \"CS 싱크\", \"가이드 반영\" 요청 시 사용하세요.",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/younwony__TIL__claude__skills__cs-sync__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "yuann3__skills__claude__skills__vike-skills__SKILL",
+      "description": "Use when building or working with Vike + Vue SSR/SSG applications - establishes best practices for page creation, data fetching, routing, and layouts",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/yuann3__skills__claude__skills__vike-skills__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
+    },
+    {
+      "name": "yurifrl__cly__claude__skills__write-skill__SKILL",
+      "description": "Create Claude Code skills with proper structure and documentation. Use when building custom skills, writing SKILL.md files, or when user asks \"write a skill\" or \"create Claude skill\".",
+      "repo": "mattnigh/skills_collection",
+      "path": "data/yurifrl__cly__claude__skills__write-skill__SKILL",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "Unknown"
     }
   ]
 }

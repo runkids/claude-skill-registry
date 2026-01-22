@@ -1,121 +1,85 @@
 ---
 name: ux-prototyping
-description: Create interactive single-file HTML prototypes for UX validation. Use when the user asks to create a prototype, mockup, or interactive wireframe based on specs/architecture/ux.md or any UX specification. Triggers include requests like "create a prototype", "build a prototype from the UX spec", "make an interactive mockup", "prototype the user flow", or "validate the UX".
+description: Design and prototype user interfaces and dashboards to validate usability and stakeholder requirements. Use when creating wireframes, mockups, or interactive prototypes for pilot tools, dashboards, or workflows to gather user feedback and iterate quickly.
 ---
 
-# UX Prototyping Skill
+# Ux Prototyping
 
-Create single-file HTML prototypes focused on validating user flows, interaction patterns, and information architecture. Prioritize UX fidelity over visual polish.
+## Overview
 
-## Workflow
+[TODO: 1-2 sentences explaining what this skill enables]
 
-1. **Read the UX spec** at `specs/architecture/ux.md` (or user-specified path)
-2. **Identify core flows** - Extract user journeys, screens, states, and interactions
-3. **Build prototype** - Create single HTML file with all screens and interactions
-4. **Output** - Save to `/mnt/user-data/outputs/prototype.html`
+## Structuring This Skill
 
-## Prototype Structure
+[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
 
-Generate a single HTML file containing:
+**1. Workflow-Based** (best for sequential processes)
+- Works well when there are clear step-by-step procedures
+- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
+- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[App Name] - UX Prototype</title>
-  <style>/* All CSS inline */</style>
-</head>
-<body>
-  <!-- All screens as sections -->
-  <!-- Navigation/state management -->
-  <script>/* All JS inline */</script>
-</body>
-</html>
-```
+**2. Task-Based** (best for tool collections)
+- Works well when the skill offers different operations/capabilities
+- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
+- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
 
-## Core Principles
+**3. Reference/Guidelines** (best for standards or specifications)
+- Works well for brand guidelines, coding standards, or requirements
+- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
+- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
 
-### UX First, UI Second
-- **Do**: Implement all user flows, states, transitions, error states, empty states
-- **Do**: Make interactions feel responsive and logical
-- **Do**: Show realistic data and content hierarchy
-- **Defer**: Pixel-perfect styling, animations, brand colors (use clean defaults)
+**4. Capabilities-Based** (best for integrated systems)
+- Works well when the skill provides multiple interrelated features
+- Example: Product Management with "Core Capabilities" -> numbered capability list
+- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
 
-### Screen Management Pattern
-Implement screens as `<section>` elements with `data-screen` attributes:
+Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
 
-```javascript
-function showScreen(screenId) {
-  document.querySelectorAll('[data-screen]').forEach(s => s.hidden = true);
-  document.querySelector(`[data-screen="${screenId}"]`).hidden = false;
-}
-```
+Delete this entire "Structuring This Skill" section when done - it's just guidance.]
 
-### State Management Pattern
-Use a simple state object:
+## [TODO: Replace with the first main section based on chosen structure]
 
-```javascript
-const state = { currentScreen: 'home', user: null, data: [] };
-function setState(updates) { Object.assign(state, updates); render(); }
-```
+[TODO: Add content here. See examples in existing skills:
+- Code samples for technical skills
+- Decision trees for complex workflows
+- Concrete examples with realistic user requests
+- References to scripts/templates/references as needed]
 
-## Essential UX Elements
+## Resources (optional)
 
-### 1. User Flows
-- Primary task completion paths
-- Alternative/secondary flows  
-- Error recovery flows
+Create only the resource directories this skill actually needs. Delete this section if no resources are required.
 
-### 2. Screen States
-- **Empty** - First-time user, no data
-- **Loading** - Skeleton or spinner
-- **Error** - Network/validation errors
-- **Success** - Confirmations
-- **Partial** - Some data loaded
+### scripts/
+Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
 
-### 3. Interactions
-- Form inputs with validation
-- Button states (hover/active/disabled)
-- Screen navigation
-- Modal/overlay behaviors
+**Examples from other skills:**
+- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
+- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
 
-## Base Styles
+**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
 
-```css
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #f8fafc; --surface: #fff; --text: #1e293b;
-  --text-muted: #64748b; --primary: #3b82f6; --border: #e2e8f0;
-  --success: #22c55e; --error: #ef4444; --radius: 8px;
-}
-body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
-[data-screen] { display: none; }
-[data-screen].active { display: block; }
-.card { background: var(--surface); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-.btn { padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 500; cursor: pointer; border: none; }
-.btn-primary { background: var(--primary); color: white; }
-.btn-primary:hover { background: #2563eb; }
-.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-.input { width: 100%; padding: 0.625rem; border: 1px solid var(--border); border-radius: var(--radius); }
-.input:focus { outline: none; border-color: var(--primary); }
-.container { max-width: 480px; margin: 0 auto; padding: 1rem; }
-.stack > * + * { margin-top: 1rem; }
-.empty-state { text-align: center; padding: 3rem; color: var(--text-muted); }
-.error-msg { color: var(--error); font-size: 0.875rem; }
-```
+**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
 
-## Validation Checklist
+### references/
+Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
 
-Before delivering, verify:
-- [ ] All screens from spec implemented
-- [ ] Primary flow completable end-to-end
-- [ ] Empty/error/loading states shown
-- [ ] Navigation works correctly
-- [ ] Interactive elements have feedback
-- [ ] Responsive on mobile viewport
+**Examples from other skills:**
+- Product management: `communication.md`, `context_building.md` - detailed workflow guides
+- BigQuery: API reference documentation and query examples
+- Finance: Schema documentation, company policies
 
-## Output
+**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
 
-Save to `/mnt/user-data/outputs/prototype.html` (or descriptive name like `prototype-onboarding.html`).
+### assets/
+Files not intended to be loaded into context, but rather used within the output Codex produces.
+
+**Examples from other skills:**
+- Brand styling: PowerPoint template files (.pptx), logo files
+- Frontend builder: HTML/React boilerplate project directories
+- Typography: Font files (.ttf, .woff2)
+
+**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
+
+---
+
+**Not every skill requires all three types of resources.**

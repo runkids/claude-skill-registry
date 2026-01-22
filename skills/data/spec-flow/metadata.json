@@ -1,7 +1,7 @@
 {
   "name": "spec-flow",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/spec-flow/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-01-14T03:17:11.929030Z"
+  "repo": "echoVic/spec-flow",
+  "path": "SKILL.md",
+  "source": "github.com/echoVic/spec-flow",
+  "downloaded_at": "2026-01-22T04:13:08.406903Z"
 }

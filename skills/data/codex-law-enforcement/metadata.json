@@ -1,13 +1,7 @@
 {
   "name": "codex-law-enforcement",
-  "description": "Enforce the four Codex Laws governing all agent interactions: CONSENT, INVITATION, INTEGRITY, GROWTH.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "codex",
-    "law",
-    "enforcement"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/codex-law-enforcement/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:50.433483Z"
 }

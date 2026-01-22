@@ -1,7 +1,7 @@
 {
   "name": "pricing",
-  "repo": "SylphxAI/flow",
-  "path": "packages/flow/assets/skills/pricing/SKILL.md",
-  "source": "github.com/SylphxAI/flow",
-  "downloaded_at": "2026-01-14T03:51:25.716440Z"
+  "repo": "pluginagentmarketplace/custom-plugin-product-manager",
+  "path": "skills/pricing/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-product-manager",
+  "downloaded_at": "2026-01-21T03:46:47.427852Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "pm-planner",
-  "description": "Use when creating, editing, or breaking down backlog tasks. Invoked for task management, feature decomposition, writing acceptance criteria, and ensuring tasks follow atomic, testable, independent gui",
-  "repo": "jpoley/flowspec",
-  "category": "testing",
-  "tags": [
-    "planner"
-  ],
-  "stars": 7,
-  "source": "local"
+  "repo": "shaul1991/shaul-agents-plugin",
+  "path": "skills/pm-planner/SKILL.md",
+  "source": "github.com/shaul1991/shaul-agents-plugin",
+  "downloaded_at": "2026-01-22T02:12:28.801869Z"
 }

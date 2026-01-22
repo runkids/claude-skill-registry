@@ -1,12 +1,7 @@
 {
   "name": "dbt-testing",
-  "description": "dbt testing strategies using dbt_constraints for database-level enforcement, generic tests, and singular tests. Use this skill when implementing data quality checks, adding primary/foreign key constra",
   "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "category": "data",
-  "tags": [
-    "dbt",
-    "testing"
-  ],
-  "stars": 23,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dbt-testing/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-22T01:53:19.341337Z"
 }

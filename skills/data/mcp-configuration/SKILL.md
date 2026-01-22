@@ -1,94 +1,109 @@
 ---
-name: MCP Configuration
-description: MCP server configuration templates and setup scripts. Use when configuring MCP servers, setting up MCP environment, managing MCP configs, adding MCP servers, or when user mentions MCP setup, MCP configuration, server environment, or MCP installation.
-allowed-tools: Read, Write, Bash
+name: mcp-configuration
+description: MCP (Model Context Protocol) server configurations for various IDEs including setup, troubleshooting, and discovery management
+version: 1.0.0
+compatibility: All repositories with MCP integrations
+
+metadata:
+  category: tooling
+  tags:
+    - mcp
+    - ide-configuration
+    - github-mcp
+    - vscode
+    - cursor
+  triggers:
+    - on-demand
 ---
 
 # MCP Configuration
 
-This skill provides MCP server configuration templates, setup scripts, and environment management helpers for Claude Code MCP integration.
+Configuration and setup for MCP (Model Context Protocol) servers across different IDEs and tools.
 
-## What This Skill Provides
+## Overview
 
-### 1. Configuration Templates
-- `.mcp.json` template for MCP server definitions
-- Server configuration examples (FastMCP, Node.js, Python)
-- API key management patterns
+MCP server configurations are distributed to IDEs in different ways depending on the tool.
 
-### 2. Setup Scripts
-- `setup-mcp-server.sh` - Configure MCP server in .mcp.json
-- `validate-mcp-config.sh` - Validate MCP configuration
-- `list-mcp-servers.sh` - List available MCP servers
+## Skill Contents
 
-### 3. Server Type Templates
-- stdio servers (local process)
-- HTTP servers (remote API)
-- SSE servers (server-sent events)
+### Sections
 
-## Instructions
+- [Overview](#overview) (L23-L26)
+- [IDE Configuration Paths](#ide-configuration-paths) (L47-L56)
+- [Quick Reference](#quick-reference) (L57-L71)
+- [References](#references) (L72-L79)
+- [GitHub MCP Server](#github-mcp-server) (L80-L101)
+- [Related](#related) (L102-L105)
 
-### Adding MCP Server Configuration
+### Available Resources
 
-When user wants to configure MCP servers:
-
-1. Check if .mcp.json exists in project
-2. Use template to create/update configuration
-3. Add server definition with type, command, args
-4. Configure environment variables if needed
-
-Example structure:
-- mcpServers object
-- Server name as key
-- type: "stdio" or "http"
-- command and args for stdio
-- url for http servers
-
-### Validating Configuration
-
-Execute validation script:
-
-!{bash plugins/01-core/skills/mcp-configuration/scripts/validate-mcp-config.sh .mcp.json}
-
-Checks for:
-- Valid JSON format
-- Required fields present
-- Correct server type
-- Valid command paths
-
-### Environment Setup
-
-For MCP servers requiring API keys:
-
-1. Create .env file (if not exists)
-2. Add API key variables
-3. Reference in MCP server config
-4. Ensure .env is in .gitignore
-
-## Configuration Examples
-
-**FastMCP Server (stdio):**
-- type: stdio
-- command: python
-- args: ["-m", "server_name"]
-
-**HTTP Server:**
-- type: http
-- url: https://api.example.com
-
-**With Environment Variables:**
-- env: { API_KEY: "${API_KEY}" }
-- Reads from .env file
-
-## Success Criteria
-
-- ✅ Valid .mcp.json configuration
-- ✅ Server definitions are correct
-- ✅ Environment variables configured
-- ✅ API keys secured in .env
-- ✅ Configuration validated
+**📚 references/** - Detailed documentation
+- [github mcp setup](references/github-mcp-setup.md)
+- [ide configurations](references/ide-configurations.md)
+- [troubleshooting](references/troubleshooting.md)
 
 ---
 
-**Plugin**: 01-core
-**Skill Type**: Generator + Validator
-**Auto-invocation**: Yes (via description matching)
+## IDE Configuration Paths
+
+| IDE/Tool | Configuration File | Type |
+|----------|-------------------|------|
+| **Cursor** | `.cursor/mcp.json` | Repository-based |
+| **VS Code** (GitHub Copilot) | `.vscode/mcp.json` | Repository-based |
+| **Claude Code** | `.mcp.json` | Repository-based |
+| **IntelliJ IDEA** (Copilot) | `~/.config/github-copilot/intellij/mcp.json` | User-based |
+| **GitHub Copilot CLI** | `~/.copilot/mcp-config.json` | User-based |
+
+## Quick Reference
+
+### Automatic (Repository-based)
+
+These IDEs automatically detect MCP configurations from the repository:
+- Cursor
+- VS Code (with GitHub Copilot)
+- Claude Code
+
+### Manual (User-based)
+
+These tools require configuration in the user's home directory:
+- IntelliJ IDEA (with GitHub Copilot)
+- GitHub Copilot CLI
+
+## References
+
+| Reference | Content |
+|-----------|---------|
+| `references/ide-configurations.md` | Configuration paths for each IDE |
+| `references/github-mcp-setup.md` | GitHub MCP server setup with Docker |
+| `references/troubleshooting.md` | Common issues and solutions |
+
+## GitHub MCP Server
+
+The GitHub MCP server provides access to:
+- Dependabot alerts
+- Code security features
+- Secret protection
+- Security advisories
+- Labels management
+- Pull requests
+
+### Prerequisites
+
+1. **Docker** - Must be installed and running
+2. **GITHUB_TOKEN** - Environment variable with your GitHub PAT
+3. **Cloudflare CA Certificate** - Required for Bitso network TLS
+
+### Readiness Check
+
+```bash
+./global/scripts/check-github-mcp-readiness.sh
+```
+
+## Related
+
+- `java/commands/add-sonarqube-mcp-to-intellij-and-copilot-cli.md` - IntelliJ & CLI setup
+- `global/scripts/check-github-mcp-readiness.sh` - GitHub MCP readiness script
+<!-- AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY -->
+<!-- Source: bitsoex/ai-code-instructions → global/skills/mcp-configuration/SKILL.md -->
+<!-- To modify, edit the source file and run the distribution workflow -->
+

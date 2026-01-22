@@ -1,12 +1,7 @@
 {
   "name": "markdown-documentation",
-  "description": "Master markdown formatting, GitHub Flavored Markdown, README files, and documentation formatting. Use when writing markdown docs, READMEs, or formatting documentation.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "documents",
-  "tags": [
-    "markdown",
-    "documentation"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-markdown/skills/markdown-documentation/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-22T03:51:12.810236Z"
 }

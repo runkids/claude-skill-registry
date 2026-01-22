@@ -1,9 +1,7 @@
 {
   "name": "skill-gap-analyzer",
-  "description": "Analyzes the user's skill library to identify coverage gaps, redundant overlaps, and optimization opportunities. Use when users want to understand their skill ecosystem, optimize their skill collectio",
-  "repo": "Exploration-labs/Nates-Substack-Skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Wania-Kazmi/claude-code-autonomous-agent-workflow",
+  "path": ".claude/skills/skill-gap-analyzer/SKILL.md",
+  "source": "github.com/Wania-Kazmi/claude-code-autonomous-agent-workflow",
+  "downloaded_at": "2026-01-22T04:14:21.025986Z"
 }

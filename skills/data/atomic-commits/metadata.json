@@ -1,12 +1,7 @@
 {
   "name": "atomic-commits",
-  "description": "Creates semantic atomic commits using Conventional Commits. Use always when committing changes, staging files, or when asked to commit code. Analyzes diffs, suggests scope, and can split changes into ",
-  "repo": "tenlisboa/.claude",
-  "category": "development",
-  "tags": [
-    "atomic",
-    "commits"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "blueraai/bluera-base",
+  "path": "skills/atomic-commits/SKILL.md",
+  "source": "github.com/blueraai/bluera-base",
+  "downloaded_at": "2026-01-20T02:55:21.807257Z"
 }

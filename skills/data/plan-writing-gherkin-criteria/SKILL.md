@@ -1,14 +1,5 @@
 ---
-name: plan-writing-gherkin-criteria
 description: Guide for writing Gherkin acceptance criteria using Given-When-Then syntax for testable requirements. Covers scenario structure, background blocks, scenario outlines with examples tables, common patterns for authentication/CRUD/validation/error handling, and best practices for clear testable specifications. Essential for writing user stories and plan acceptance criteria
-allowed-tools: [Read, Write, Edit, Glob, Grep]
-tags:
-  - gherkin
-  - acceptance-criteria
-  - given-when-then
-  - bdd
-  - testing
-  - user-stories
 ---
 
 # Gherkin Acceptance Criteria Skill
@@ -513,7 +504,7 @@ Plans use Gherkin for phase-level acceptance criteria:
 Scenario: Phase 1 foundation complete
   Given Skills infrastructure is required
   When Phase 1 implementation is complete
-  Then .claude/skills/ directory should exist with README and TEMPLATE
+  Then .opencode/skill/ directory should exist with README and TEMPLATE
   And 3 Skills should be created (maker-checker-fixer, color-accessibility, repository-architecture)
   And AI Agents Convention should document skills: frontmatter field
   And all 3 Skills should auto-load when relevant tasks described

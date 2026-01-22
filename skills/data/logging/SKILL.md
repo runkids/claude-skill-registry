@@ -1,238 +1,101 @@
 ---
 name: logging
-description: Unified logging infrastructure for script execution and work progress tracking
-allowed-tools: Read, Bash
+description: Guide logging practices based on Dave Cheney's minimalist philosophy. Use when adding log.Info/Debug/Error/Warn/Fatal calls, reviewing logging code, handling errors with log+return pattern, discussing log levels, or designing error handling strategies.
 ---
 
-# Logging Skill
+# INSTRUCTIONS
 
-Unified logging infrastructure providing script execution logging and semantic work progress tracking.
+Apply Dave Cheney's logging philosophy: simplify ruthlessly, handle errors properly, and log only what matters.
 
-## Overview
+## Core Principles
 
-This skill provides a single unified API for two logging concerns:
+1. **Only Two Log Levels Matter**
+   - **Info**: For operators/users—things they need to know during normal operation
+   - **Debug**: For developers—controlled per-package during development
 
-1. **Script Execution Logging**: Tracking of script executor invocations (type: `script`)
-2. **Work Logging**: Semantic tracking of work progress (type: `work`)
+2. **Eliminate Unnecessary Levels**
+   | Level | Verdict | Reason |
+   |-------|---------|--------|
+   | Warning | Remove | "Nobody reads warnings"—either it's an error or info |
+   | Fatal | Avoid | Bypasses `defer`, prevents cleanup. Let errors bubble to `main()` |
+   | Error | Rethink | If handled, it's info. If not handled, return it to caller |
 
-## Log Files
+   **Exception**: Warnings from runtimes and external libraries should be logged at warning level. You don't control these sources, and their warnings often signal deprecations or upcoming breaking changes that operators need to track.
 
-### Script Execution Log
+3. **The Golden Rule of Error Logging**
+   > "You should either handle the error, or pass it back to the caller."
 
-**File**: `.plan/plans/{plan-id}/script-execution.log` (plan-scoped)
-**Fallback**: `.plan/logs/script-execution-YYYY-MM-DD.log` (global)
+   - **Don't** log an error AND return it (causes duplicate logs up the stack)
+   - **Don't** log errors in library code (caller decides what to do)
+   - **Do** let errors bubble up to where they can be meaningfully handled
 
-### Work Log
+4. **Terminal Error Handlers: When Error Level IS Appropriate**
 
-**File**: `.plan/plans/{plan-id}/work.log`
+   At the boundary where errors become **user-facing unexpected failures** (e.g., 5xx responses), error-level logging is correct:
 
----
+   - The error chain ends here—no caller to return to
+   - The user receives a generic message (for security/UX)
+   - Operators need the full error details for debugging
 
-## CLI Script Usage
+   ```go
+   // At HTTP handler boundary - error level is appropriate
+   if err != nil {
+       log.Error("unexpected failure",
+           "error", err,
+           "request_id", requestID,
+       )
+       http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+       return
+   }
+   ```
 
-Script: `plan-marshall:logging:manage-log`
+   **This is NOT the same as logging mid-stack**—this is the terminal handler where errors are finally consumed, not propagated.
 
-### Write API (Positional)
+## Review Checklist
 
-```bash
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  {type} {plan_id} {level} "{message}"
+When reviewing or writing logging code:
+
+- [ ] Is this log statement for users (info) or developers (debug)?
+- [ ] Am I logging an error AND returning it? (Remove the log)
+- [ ] Is this a terminal handler (5xx boundary)? (Error level is appropriate here)
+- [ ] Is this a warning? (Convert to info or error, or remove)
+- [ ] Is this `Fatal`/`panic` in library code? (Return error instead)
+- [ ] Does this log message help the operator understand system state?
+
+## Anti-Patterns to Avoid
+
+```go
+// BAD: Log and return (duplicate logs)
+if err != nil {
+    log.Error("failed to connect", err)
+    return err
+}
+
+// GOOD: Just return (let caller decide)
+if err != nil {
+    return fmt.Errorf("connect: %w", err)
+}
+
+// BAD: Warning that nobody will act on
+log.Warn("connection pool running low")
+
+// GOOD: Either info (if expected) or error (if action needed)
+log.Info("connection pool at 80% capacity")
 ```
 
-**Arguments** (all positional, all required):
+## Structured Logging
 
-| Argument | Values | Description |
-|----------|--------|-------------|
-| `type` | `script`, `work` | Log type (determines output file) |
-| `plan_id` | kebab-case | Plan identifier |
-| `level` | `INFO`, `WARN`, `ERROR` | Log level |
-| `message` | string | Log message |
+When logging is appropriate, prefer structured formats:
 
-**Output**: None (exit code only)
-
-### Read API
-
-```bash
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id {plan_id} --type {work|script} [--limit N] [--phase PHASE]
+```go
+// Prefer structured fields over string interpolation
+log.Info("request completed",
+    "method", r.Method,
+    "path", r.URL.Path,
+    "duration", time.Since(start),
+)
 ```
 
-**Arguments**:
+## Reference
 
-| Argument | Required | Description |
-|----------|----------|-------------|
-| `--plan-id` | Yes | Plan identifier |
-| `--type` | Yes | Log type: `work` or `script` |
-| `--limit` | No | Max entries to return (most recent) |
-| `--phase` | No | Filter by phase (work logs only) |
-
-**Output** (TOON):
-
-```toon
-status: success
-plan_id: my-plan
-log_type: work
-total_entries: 5
-showing: 3
-
-entries:
-  - timestamp: 2025-12-11T11:14:30Z
-    level: INFO
-    category: DECISION
-    message: Detected domain: java
-    phase: init
-  - timestamp: 2025-12-11T11:15:20Z
-    level: INFO
-    category: ARTIFACT
-    message: Created deliverable: auth module
-```
-
-### Examples
-
-```bash
-# Write: Script execution logging
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  script my-plan INFO "pm-workflow:manage-task:manage-task add (0.15s)"
-
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  script my-plan ERROR "pm-workflow:manage-task:manage-task add failed (exit 1)"
-
-# Write: Work logging (include [TAG] (caller) prefix)
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  work my-plan INFO "[ARTIFACT] (pm-workflow:phase-1-init) Created deliverable: auth module"
-
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  work my-plan WARN "[STATUS] (pm-workflow:phase-4-execute) Skipped validation step"
-
-# Read: All work log entries
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id my-plan --type work
-
-# Read: Last 5 work log entries
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id my-plan --type work --limit 5
-
-# Read: Work log entries for 1-init phase only
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id my-plan --type work --phase 1-init
-```
-
----
-
-## Log Format
-
-### Standard Entry Structure
-
-```
-[{timestamp}] [{level}] {message}
-```
-
-Since entries go to separate files (`script-execution.log` vs `work.log`), redundant type tags are omitted.
-
-### Example Output
-
-**script-execution.log**:
-```
-[2025-12-11T12:14:26Z] [INFO] pm-workflow:manage-files:manage-files create (0.19s)
-[2025-12-11T12:17:50Z] [ERROR] pm-workflow:manage-task:manage-task add failed (exit 1)
-```
-
-**work.log**:
-```
-[2025-12-11T11:14:30Z] [INFO] [STATUS] (pm-workflow:phase-1-init) Starting init phase
-[2025-12-11T11:14:48Z] [INFO] [DECISION] (pm-workflow:phase-1-init) Detected domain: java (pom.xml found)
-[2025-12-11T11:15:20Z] [INFO] [ARTIFACT] (pm-workflow:phase-1-init) Created deliverable: auth module
-```
-
-### Log Levels
-
-| Level | Description |
-|-------|-------------|
-| `INFO` | Progress, informational, or successful completion message |
-| `WARN` | Warning (non-fatal issue) |
-| `ERROR` | Error with details |
-
----
-
-## Python Import (from scripts run via executor)
-
-Scripts run via the executor have PYTHONPATH set up for cross-skill imports:
-
-```python
-from plan_logging import log_entry
-
-# Log to global script log
-log_entry('script', 'global', 'INFO', '[MY-COMPONENT] Processing started')
-
-# Log to plan-specific log
-log_entry('work', 'my-plan', 'INFO', '[ARTIFACT] Created deliverable')
-```
-
-**Note**: IDE warnings about unresolved imports are expected - PYTHONPATH is set at runtime by the executor.
-
----
-
-## Storage Locations
-
-### Plan-Scoped Logs
-
-```
-.plan/plans/{plan-id}/
-├── script-execution.log    # Script execution tracking
-└── work.log                # Work progress tracking
-```
-
-### Global Logs
-
-```
-.plan/logs/
-├── script-execution-YYYY-MM-DD.log    # Daily global script logs
-└── work-YYYY-MM-DD.log                # Daily global work logs (when no plan)
-```
-
-**Scope Selection**:
-- If `plan_id` is provided and plan directory exists: plan-scoped log
-- Otherwise: global log (both script and work types supported)
-
----
-
-## Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PLAN_BASE_DIR` | Base directory for .plan structure | `.plan` |
-| `LOG_MAX_OUTPUT` | Max chars to capture from stdout/stderr | `2000` |
-| `LOG_RETENTION_DAYS` | Days to keep global logs | `7` |
-
----
-
-## Integration Points
-
-### With Script Executor
-
-The executor automatically calls `log_script_execution()` after each script run.
-
-### With Planning Skills
-
-Planning skills call the simplified API:
-
-```bash
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  work my-plan INFO "[ARTIFACT] (pm-workflow:phase-3-plan) Created task: implement auth module"
-```
-
----
-
-## Scripts
-
-| Script | Notation | Description |
-|--------|----------|-------------|
-| `manage-log.py` | `plan-marshall:logging:manage-log` | CLI for logging operations (write and read) |
-| `plan_logging.py` | - | Python module (imported, not executed) |
-
-### Script Commands
-
-| Command | Parameters | Description |
-|---------|------------|-------------|
-| (positional) | `{type} {plan_id} {level} "{message}"` | Write log entry |
-| `read` | `--plan-id --type [--limit] [--phase]` | Read log entries (TOON output) |
+Based on: [Let's talk about logging](https://dave.cheney.net/2015/11/05/lets-talk-about-logging) by Dave Cheney (2015)

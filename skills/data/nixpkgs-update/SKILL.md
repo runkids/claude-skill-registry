@@ -1,7 +1,7 @@
 ---
 name: nixpkgs-update
 description: Update nixpkgs packages with nix-update and nixpkgs-review. Activate when user wants to bump a package version, contribute to nixpkgs, update Nix packages, or mentions nix-update, nixpkgs-review, or nixpkgs contribution.
-allowed-tools: Task, AskUserQuestion
+allowed-tools: [task]
 ---
 
 # Nixpkgs Package Update
@@ -14,7 +14,7 @@ Batch workflow for contributing package updates to NixOS/nixpkgs. Uses Repology 
 1. DISCOVER  → Query Repology API
 2. FILTER    → Keep only Rust/Go + by-name + no patches + buildable platform
 3. VALIDATE  → Parallel Explore agents confirm "simple" complexity
-4. SELECT    → AskUserQuestion (multi-select, only ezpz options)
+4. SELECT    → Present candidates to user (multi-select)
 5. UPDATE    → Parallel agents with git worktrees (10m timeout)
 6. REPORT    → Collect and display PR URLs
 ```
@@ -24,9 +24,9 @@ Batch workflow for contributing package updates to NixOS/nixpkgs. Uses Repology 
 Query Repology API for outdated nixpkgs packages:
 
 ```
-Task(
-  subagent_type="general-purpose",
-  model="haiku",
+task(
+  subagent_type="general",
+  description="Query Repology outdated packages",
   prompt="Query Repology API for outdated nixpkgs packages.
 
 Step 1 - Get outdated package names:
@@ -85,10 +85,12 @@ grep -E "platforms\s*=.*darwin" pkgs/by-name/*/<package>/package.nix  # macOS-on
 For EACH filtered candidate, spawn Explore agent to verify simplicity:
 
 ```
-Task(
-  subagent_type="Explore",
-  model="haiku",
-  prompt="Check pkgs/by-name/*/<package>/package.nix for:
+task(
+  subagent_type="explore",
+  description="Validate package complexity",
+  prompt="Thoroughness: quick
+
+Check pkgs/by-name/*/<package>/package.nix for:
   1. has_patches: any patches = [] or patches directory?
   2. has_complex_postinstall: complex substituteInPlace, wrapProgram with many deps?
   3. has_overrides: overrideAttrs, overrideModAttrs?
@@ -107,17 +109,16 @@ Only packages with has_patches=false AND complexity='simple' AND supports curren
 Present ONLY validated easy candidates:
 
 ```
-AskUserQuestion(
-  questions=[{
-    "question": "Which packages would you like to update? (select multiple)",
-    "header": "Packages",
-    "options": [
-      {"label": "some-rust-pkg (1.0.0 → 1.0.1)", "description": "Rust, simple, cross-platform"},
-      {"label": "some-go-pkg (0.5.0 → 0.5.1)", "description": "Go, simple, cross-platform"}
-    ],
-    "multiSelect": true
-  }]
-)
+Present candidates to user for selection (output directly):
+
+## Select Packages to Update
+
+| # | Package | Version | Type |
+|---|---------|---------|------|
+| 1 | some-rust-pkg | 1.0.0 → 1.0.1 | Rust, simple |
+| 2 | some-go-pkg | 0.5.0 → 0.5.1 | Go, simple |
+
+Ask: "Which packages would you like to update? (enter numbers, e.g., 1,2)"
 ```
 
 **Never show:**
@@ -144,8 +145,8 @@ git worktree add /tmp/nixpkgs-<package>-<version> -b <package>-<version> master
 
 ```
 // Single message with N Task calls, each with its own worktree:
-Task(subagent_type="general-purpose", run_in_background=true, prompt="Update pkg1 in /tmp/nixpkgs-pkg1-v1...")
-Task(subagent_type="general-purpose", run_in_background=true, prompt="Update pkg2 in /tmp/nixpkgs-pkg2-v2...")
+task(subagent_type="general", description="Update pkg1", prompt="Update pkg1 in /tmp/nixpkgs-pkg1-v1...")
+task(subagent_type="general", description="Update pkg2", prompt="Update pkg2 in /tmp/nixpkgs-pkg2-v2...")
 ```
 
 ### Update Agent Prompt Template
@@ -237,14 +238,7 @@ git worktree remove /tmp/nixpkgs-<package>-<version>
 
 ## Phase 6: Collect Results
 
-Use `AgentOutputTool` to gather results:
-
-```
-AgentOutputTool(agentId="agent1")
-AgentOutputTool(agentId="agent2")
-```
-
-Present summary:
+Task results return automatically when subagents complete. Present summary:
 
 ```
 ## Update Results

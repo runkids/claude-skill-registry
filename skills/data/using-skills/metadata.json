@@ -1,7 +1,7 @@
 {
   "name": "using-skills",
-  "repo": "liauw-media/household-expense-tracker",
-  "path": ".claude/skills/using-skills/SKILL.md",
-  "source": "github.com/liauw-media/household-expense-tracker",
-  "downloaded_at": "2026-01-14T03:58:24.666637Z"
+  "repo": "ceshine/ceshine-agent-skills",
+  "path": "using-skills/SKILL.md",
+  "source": "github.com/ceshine/ceshine-agent-skills",
+  "downloaded_at": "2026-01-22T03:00:51.927846Z"
 }

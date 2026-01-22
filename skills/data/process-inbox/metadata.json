@@ -1,12 +1,7 @@
 {
   "name": "process-inbox",
-  "description": "Guide user through inbox processing, clarifying and organizing items one at a time using the clarify and organize workflow. Automatically invoked when user wants to process their inbox.",
-  "repo": "elinsky/execution-system-skills",
-  "category": "design",
-  "tags": [
-    "process",
-    "inbox"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "TaylorHuston/local-life-manager",
+  "path": ".claude/skills/process-inbox/SKILL.md",
+  "source": "github.com/TaylorHuston/local-life-manager",
+  "downloaded_at": "2026-01-22T02:22:14.053009Z"
 }

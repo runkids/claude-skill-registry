@@ -1,7 +1,7 @@
 {
   "name": "spec-creation",
-  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "path": ".claude/skills/spec-creation/SKILL.md",
-  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
-  "downloaded_at": "2026-01-14T02:13:28.383264Z"
+  "repo": "bybren-llc/safe-agentic-workflow",
+  "path": ".gemini/skills/spec-creation/SKILL.md",
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-22T03:11:03.428150Z"
 }

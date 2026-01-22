@@ -1,7 +1,7 @@
 {
   "name": "markdown-formatter",
-  "repo": "beshkenadze/claude-skills-marketplace",
-  "path": "skills/creative/markdown-formatter/SKILL.md",
-  "source": "github.com/beshkenadze/claude-skills-marketplace",
-  "downloaded_at": "2026-01-14T01:46:10.838896Z"
+  "repo": "maxvaega/skillkit",
+  "path": "examples/skills/markdown-formatter/SKILL.md",
+  "source": "github.com/maxvaega/skillkit",
+  "downloaded_at": "2026-01-22T02:52:24.508520Z"
 }

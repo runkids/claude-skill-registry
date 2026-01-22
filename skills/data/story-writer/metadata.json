@@ -1,7 +1,7 @@
 {
   "name": "story-writer",
-  "repo": "aicoder2048/story-writer",
-  "path": ".claude/skills/story-writer/SKILL.md",
-  "source": "github.com/aicoder2048/story-writer",
-  "downloaded_at": "2026-01-14T02:12:28.031363Z"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/story-writer/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-22T02:21:53.215110Z"
 }

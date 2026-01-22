@@ -1,11 +1,7 @@
 {
   "name": "go-concurrency",
-  "description": "Go concurrency patterns - goroutines, channels, sync primitives",
-  "repo": "pluginagentmarketplace/custom-plugin-go",
-  "category": "development",
-  "tags": [
-    "concurrency"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-go/skills/go-concurrency/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-22T03:51:15.007962Z"
 }

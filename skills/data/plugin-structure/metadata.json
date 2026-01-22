@@ -1,7 +1,7 @@
 {
   "name": "plugin-structure",
-  "repo": "jwynia/agent-skills",
-  "path": "collections/official-claude-code/plugin-dev/skills/plugin-structure/SKILL.md",
-  "source": "github.com/jwynia/agent-skills",
-  "downloaded_at": "2026-01-14T03:19:20.016648Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/claude-code/plugin-structure/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-22T03:16:18.287661Z"
 }

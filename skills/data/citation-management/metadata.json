@@ -1,7 +1,7 @@
 {
   "name": "citation-management",
-  "repo": "benchflow-ai/skillsbench",
-  "path": "tasks/citation-check/environment/skills/citation-management/SKILL.md",
-  "source": "github.com/benchflow-ai/skillsbench",
-  "downloaded_at": "2026-01-14T03:02:45.887238Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/citation-management/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-01-22T02:37:48.221910Z"
 }

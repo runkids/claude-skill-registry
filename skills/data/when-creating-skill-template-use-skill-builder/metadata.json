@@ -1,7 +1,7 @@
 {
   "name": "when-creating-skill-template-use-skill-builder",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "path": ".claude/skills/utilities/when-creating-skill-template-use-skill-builder/SKILL.md",
-  "source": "github.com/DNYoussef/ai-chrome-extension",
-  "downloaded_at": "2026-01-14T03:10:16.560822Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/foundry/when-creating-skill-template-use-skill-builder/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-22T02:03:56.205076Z"
 }

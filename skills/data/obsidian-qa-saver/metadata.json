@@ -1,11 +1,7 @@
 {
   "name": "obsidian-qa-saver",
-  "description": "Save Q&A conversations to Obsidian notes with proper formatting, metadata, and organization. Use this skill when the user explicitly requests to save a conversation, question-answer exchange, or expla",
   "repo": "AIA-11-HN-MIB/MIB-MockInterviewAIBot",
-  "category": "data",
-  "tags": [
-    "obsidian",
-    "saver"
-  ],
-  "stars": 0
+  "path": ".claude/skills/obsidian-qa-saver/SKILL.md",
+  "source": "github.com/AIA-11-HN-MIB/MIB-MockInterviewAIBot",
+  "downloaded_at": "2026-01-22T03:25:03.925793Z"
 }

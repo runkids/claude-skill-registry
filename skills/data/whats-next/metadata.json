@@ -1,12 +1,7 @@
 {
   "name": "whats-next",
-  "description": "Use when user asks what to focus on next, what's next, what they should do, or needs help prioritizing their immediate work",
-  "repo": "craser/claude-skills",
-  "category": "development",
-  "tags": [
-    "whats",
-    "next"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "TaylorHuston/local-life-manager",
+  "path": ".claude/skills/whats-next/SKILL.md",
+  "source": "github.com/TaylorHuston/local-life-manager",
+  "downloaded_at": "2026-01-22T02:22:12.396823Z"
 }

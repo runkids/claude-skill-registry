@@ -25,20 +25,25 @@ Advanced multi-repository coordination system that combines swarm intelligence, 
 ## Core Capabilities
 
 ### 🔄 Multi-Repository Swarm Coordination
+
 Cross-repository AI swarm orchestration for distributed development workflows.
 
 ### 📦 Package Synchronization
+
 Intelligent dependency resolution and version alignment across multiple packages.
 
 ### 🏗️ Repository Architecture
+
 Structure optimization and template management for scalable projects.
 
 ### 🔗 Integration Management
+
 Cross-package integration testing and deployment coordination.
 
 ## Quick Start
 
 ### Initialize Multi-Repo Coordination
+
 ```bash
 # Basic swarm initialization
 npx claude-flow skill run github-multi-repo init \
@@ -54,6 +59,7 @@ npx claude-flow skill run github-multi-repo init \
 ```
 
 ### Synchronize Packages
+
 ```bash
 # Synchronize package versions and dependencies
 npx claude-flow skill run github-multi-repo sync \
@@ -63,6 +69,7 @@ npx claude-flow skill run github-multi-repo sync \
 ```
 
 ### Optimize Architecture
+
 ```bash
 # Analyze and optimize repository structure
 npx claude-flow skill run github-multi-repo optimize \
@@ -76,6 +83,7 @@ npx claude-flow skill run github-multi-repo optimize \
 ### 1. Cross-Repository Swarm Orchestration
 
 #### Repository Discovery
+
 ```javascript
 // Auto-discover related repositories with gh CLI
 const REPOS = Bash(`gh repo list my-organization --limit 100 \
@@ -98,6 +106,7 @@ mcp__claude-flow__swarm_init({
 ```
 
 #### Synchronized Operations
+
 ```javascript
 // Execute synchronized changes across repositories
 [Parallel Multi-Repo Operations]:
@@ -141,6 +150,7 @@ mcp__claude-flow__swarm_init({
 ### 2. Package Synchronization
 
 #### Version Alignment
+
 ```javascript
 // Synchronize package dependencies and versions
 [Complete Package Sync]:
@@ -181,6 +191,7 @@ mcp__claude-flow__swarm_init({
 ```
 
 #### Documentation Synchronization
+
 ```javascript
 // Synchronize CLAUDE.md files across packages
 [Documentation Sync]:
@@ -204,6 +215,7 @@ mcp__claude-flow__swarm_init({
 ```
 
 #### Cross-Package Integration
+
 ```javascript
 // Coordinate feature implementation across packages
 [Cross-Package Feature]:
@@ -242,6 +254,7 @@ mcp__claude-flow__swarm_init({
 ### 3. Repository Architecture
 
 #### Structure Analysis
+
 ```javascript
 // Analyze and optimize repository structure
 [Architecture Analysis]:
@@ -278,6 +291,7 @@ mcp__claude-flow__swarm_init({
 ```
 
 #### Template Creation
+
 ```javascript
 // Create standardized repository template
 [Template Creation]:
@@ -327,6 +341,7 @@ mcp__claude-flow__swarm_init({
 ```
 
 #### Cross-Repository Standardization
+
 ```javascript
 // Synchronize structure across repositories
 [Structure Standardization]:
@@ -356,6 +371,7 @@ jobs:
 ### 4. Orchestration Workflows
 
 #### Dependency Management
+
 ```javascript
 // Update dependencies across all repositories
 [Organization-Wide Dependency Update]:
@@ -402,6 +418,7 @@ Part of #$TRACKING_ISSUE"
 ```
 
 #### Refactoring Operations
+
 ```javascript
 // Coordinate large-scale refactoring
 [Cross-Repo Refactoring]:
@@ -424,6 +441,7 @@ Part of #$TRACKING_ISSUE"
 ```
 
 #### Security Updates
+
 ```javascript
 // Coordinate security patches
 [Security Patch Deployment]:
@@ -455,6 +473,7 @@ Part of #$TRACKING_ISSUE"
 ## Configuration
 
 ### Multi-Repo Config File
+
 ```yaml
 # .swarm/multi-repo.yml
 version: 1
@@ -489,6 +508,7 @@ dependencies:
 ```
 
 ### Repository Roles
+
 ```javascript
 {
   "roles": {
@@ -511,6 +531,7 @@ dependencies:
 ## Communication Strategies
 
 ### 1. Webhook-Based Coordination
+
 ```javascript
 const { MultiRepoSwarm } = require('ruv-swarm');
 
@@ -530,6 +551,7 @@ swarm.on('repo:update', async (event) => {
 ```
 
 ### 2. Event Streaming
+
 ```yaml
 # Kafka configuration for real-time coordination
 kafka:
@@ -546,6 +568,7 @@ kafka:
 ## Synchronization Patterns
 
 ### 1. Eventually Consistent
+
 ```javascript
 {
   "sync": {
@@ -560,6 +583,7 @@ kafka:
 ```
 
 ### 2. Strong Consistency
+
 ```javascript
 {
   "sync": {
@@ -572,6 +596,7 @@ kafka:
 ```
 
 ### 3. Hybrid Approach
+
 ```javascript
 {
   "sync": {
@@ -588,6 +613,7 @@ kafka:
 ## Use Cases
 
 ### 1. Microservices Coordination
+
 ```bash
 npx claude-flow skill run github-multi-repo microservices \
   --services "auth,users,orders,payments" \
@@ -597,6 +623,7 @@ npx claude-flow skill run github-multi-repo microservices \
 ```
 
 ### 2. Library Updates
+
 ```bash
 npx claude-flow skill run github-multi-repo lib-update \
   --library "org/shared-lib" \
@@ -607,6 +634,7 @@ npx claude-flow skill run github-multi-repo lib-update \
 ```
 
 ### 3. Organization-Wide Changes
+
 ```bash
 npx claude-flow skill run github-multi-repo org-policy \
   --policy "add-security-headers" \
@@ -618,6 +646,7 @@ npx claude-flow skill run github-multi-repo org-policy \
 ## Architecture Patterns
 
 ### Monorepo Structure
+
 ```
 ruv-FANN/
 ├── packages/
@@ -648,6 +677,7 @@ ruv-FANN/
 ```
 
 ### Command Structure
+
 ```
 .claude/
 ├── commands/
@@ -673,6 +703,7 @@ ruv-FANN/
 ## Monitoring & Visualization
 
 ### Multi-Repo Dashboard
+
 ```bash
 npx claude-flow skill run github-multi-repo dashboard \
   --port 3000 \
@@ -681,6 +712,7 @@ npx claude-flow skill run github-multi-repo dashboard \
 ```
 
 ### Dependency Graph
+
 ```bash
 npx claude-flow skill run github-multi-repo dep-graph \
   --format mermaid \
@@ -689,6 +721,7 @@ npx claude-flow skill run github-multi-repo dep-graph \
 ```
 
 ### Health Monitoring
+
 ```bash
 npx claude-flow skill run github-multi-repo health-check \
   --repos "org/*" \
@@ -699,29 +732,34 @@ npx claude-flow skill run github-multi-repo health-check \
 ## Best Practices
 
 ### 1. Repository Organization
+
 - Clear repository roles and boundaries
 - Consistent naming conventions
 - Documented dependencies
 - Shared configuration standards
 
 ### 2. Communication
+
 - Use appropriate sync strategies
 - Implement circuit breakers
 - Monitor latency and failures
 - Clear error propagation
 
 ### 3. Security
+
 - Secure cross-repo authentication
 - Encrypted communication channels
 - Audit trail for all operations
 - Principle of least privilege
 
 ### 4. Version Management
+
 - Semantic versioning alignment
 - Dependency compatibility validation
 - Automated version bump coordination
 
 ### 5. Testing Integration
+
 - Cross-package test validation
 - Integration test automation
 - Performance regression detection
@@ -729,6 +767,7 @@ npx claude-flow skill run github-multi-repo health-check \
 ## Performance Optimization
 
 ### Caching Strategy
+
 ```bash
 npx claude-flow skill run github-multi-repo cache-strategy \
   --analyze-patterns \
@@ -737,6 +776,7 @@ npx claude-flow skill run github-multi-repo cache-strategy \
 ```
 
 ### Parallel Execution
+
 ```bash
 npx claude-flow skill run github-multi-repo parallel-optimize \
   --analyze-dependencies \
@@ -745,6 +785,7 @@ npx claude-flow skill run github-multi-repo parallel-optimize \
 ```
 
 ### Resource Pooling
+
 ```bash
 npx claude-flow skill run github-multi-repo resource-pool \
   --share-agents \
@@ -755,6 +796,7 @@ npx claude-flow skill run github-multi-repo resource-pool \
 ## Troubleshooting
 
 ### Connectivity Issues
+
 ```bash
 npx claude-flow skill run github-multi-repo diagnose-connectivity \
   --test-all-repos \
@@ -763,6 +805,7 @@ npx claude-flow skill run github-multi-repo diagnose-connectivity \
 ```
 
 ### Memory Synchronization
+
 ```bash
 npx claude-flow skill run github-multi-repo debug-memory \
   --check-consistency \
@@ -771,6 +814,7 @@ npx claude-flow skill run github-multi-repo debug-memory \
 ```
 
 ### Performance Bottlenecks
+
 ```bash
 npx claude-flow skill run github-multi-repo perf-analysis \
   --profile-operations \
@@ -781,6 +825,7 @@ npx claude-flow skill run github-multi-repo perf-analysis \
 ## Advanced Features
 
 ### 1. Distributed Task Queue
+
 ```bash
 npx claude-flow skill run github-multi-repo queue \
   --backend redis \
@@ -790,6 +835,7 @@ npx claude-flow skill run github-multi-repo queue \
 ```
 
 ### 2. Cross-Repo Testing
+
 ```bash
 npx claude-flow skill run github-multi-repo test \
   --setup-test-env \
@@ -799,6 +845,7 @@ npx claude-flow skill run github-multi-repo test \
 ```
 
 ### 3. Monorepo Migration
+
 ```bash
 npx claude-flow skill run github-multi-repo to-monorepo \
   --analyze-repos \
@@ -810,6 +857,7 @@ npx claude-flow skill run github-multi-repo to-monorepo \
 ## Examples
 
 ### Full-Stack Application Update
+
 ```bash
 npx claude-flow skill run github-multi-repo fullstack-update \
   --frontend "org/web-app" \
@@ -819,6 +867,7 @@ npx claude-flow skill run github-multi-repo fullstack-update \
 ```
 
 ### Cross-Team Collaboration
+
 ```bash
 npx claude-flow skill run github-multi-repo cross-team \
   --teams "frontend,backend,devops" \
@@ -830,18 +879,21 @@ npx claude-flow skill run github-multi-repo cross-team \
 ## Metrics and Reporting
 
 ### Sync Quality Metrics
+
 - Package version alignment percentage
 - Documentation consistency score
 - Integration test success rate
 - Synchronization completion time
 
 ### Architecture Health Metrics
+
 - Repository structure consistency score
 - Documentation coverage percentage
 - Cross-repository integration success rate
 - Template adoption and usage statistics
 
 ### Automated Reporting
+
 - Weekly sync status reports
 - Dependency drift detection
 - Documentation divergence alerts
@@ -850,12 +902,14 @@ npx claude-flow skill run github-multi-repo cross-team \
 ## Integration Points
 
 ### Related Skills
+
 - `github-workflow` - GitHub workflow automation
 - `github-pr` - Pull request management
 - `sparc-architect` - Architecture design
 - `sparc-optimizer` - Performance optimization
 
 ### Related Commands
+
 - `/github sync-coordinator` - Cross-repo synchronization
 - `/github release-manager` - Coordinated releases
 - `/github repo-architect` - Repository optimization
@@ -863,8 +917,8 @@ npx claude-flow skill run github-multi-repo cross-team \
 
 ## Support and Resources
 
-- Documentation: https://github.com/ruvnet/claude-flow
-- Issues: https://github.com/ruvnet/claude-flow/issues
+- Documentation: <https://github.com/ruvnet/claude-flow>
+- Issues: <https://github.com/ruvnet/claude-flow/issues>
 - Examples: `.claude/examples/github-multi-repo/`
 
 ---

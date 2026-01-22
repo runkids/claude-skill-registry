@@ -1,28 +1,71 @@
+/*============================================================================*/
+/* WHEN-PROFILING-PERFORMANCE-USE-PERFORMANCE-PROFILER SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: when-profiling-performance-use-performance-profiler
 version: 1.0.0
-description: Comprehensive performance profiling, bottleneck detection, and optimization system
-author: Claude Code
+description: |
+  [assert|neutral] Comprehensive performance profiling, bottleneck detection, and optimization system [ground:given] [conf:0.95] [state:confirmed]
 category: performance
-complexity: HIGH
-tags: [performance, profiling, optimization, benchmarking, mece]
-agents:
-  - performance-analyzer
-  - performance-benchmarker
-  - coder
-  - optimizer
-components:
-  - subagent
-  - slash-command
-  - mcp-tool
-dependencies:
-  - claude-flow@alpha
-  - perf (Linux)
-  - instruments (macOS)
-  - clinic.js (Node.js)
+tags:
+- performance
+- profiling
+- optimization
+- benchmarking
+- mece
+author: Claude Code
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute when-profiling-performance-use-performance-profiler workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic performance processes"
 ---
 
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "when-profiling-performance-use-performance-profiler",
+  category: "performance",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-profiling-performance-use-performance-profiler", "performance", "workflow"],
+  context: "user needs when-profiling-performance-use-performance-profiler capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
 # Performance Profiler Skill
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+
 
 ## Overview
 
@@ -147,232 +190,67 @@ mcp__performance-profiler__analyze({
     "p99_response_time_ms": 789,
     "cpu_usage_percent": 67,
     "memory_usage_mb": 512,
-    "error_rate_percent": 0.1
-  },
-  "bottlenecks": [
-    {
-      "type": "cpu",
-      "severity": "high",
-      "function": "processData",
-      "time_percent": 34.5,
-      "calls": 123456,
-      "avg_time_ms": 2.3,
-      "recommendation": "Optimize algorithm complexity from O(n²) to O(n log n)"
-    }
-  ],
-  "optimizations": [...],
-  "estimated_improvement": {
-    "throughput_increase": "3.2x",
-    "latency_reduction": "68%",
-    "memory_reduction": "45%"
-  }
-}
-```
+    "error_
 
-### Flame Graph:
-Interactive SVG flame graph showing call stack with time proportions
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Heap Snapshot:
-Memory allocation breakdown with retention paths
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Optimization Report:
-Prioritized list of actionable improvements with code examples
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Examples
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### Example 1: Quick CPU Profiling
-```bash
-/profile ./my-app --mode quick --target cpu
-```
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Example 2: Deep Memory Analysis
-```bash
-/profile ./my-app --mode deep --target memory --detect-leaks
-```
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/performance/when-profiling-performance-use-performance-profiler/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Example 3: Full Stack Optimization
-```bash
-/profile ./my-app --mode standard --target all --optimize --benchmark
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-profiling-performance-use-performance-profiler-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Example 4: Database Query Optimization
-```bash
-/profile ./my-app --mode standard --target io --database --explain-queries
-```
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Integration with Claude-Flow
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Coordination Pattern:
-```javascript
-// Step 1: Initialize profiling swarm
-mcp__claude-flow__swarm_init({ topology: "star", maxAgents: 5 })
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-// Step 2: Spawn specialized agents
-[Parallel Execution]:
-  Task("CPU Profiler", "Profile CPU usage and identify hot paths in ./app", "performance-analyzer")
-  Task("Memory Profiler", "Analyze heap usage and detect memory leaks", "performance-analyzer")
-  Task("I/O Profiler", "Profile file system and database operations", "performance-analyzer")
-  Task("Network Profiler", "Analyze network requests and identify slow endpoints", "performance-analyzer")
-  Task("Optimizer", "Generate optimization recommendations based on profiling data", "optimizer")
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-// Step 3: Implementation agent applies optimizations
-[Sequential Execution]:
-  Task("Coder", "Implement recommended optimizations from profiling analysis", "coder")
-  Task("Benchmarker", "Run benchmark suite and validate improvements", "performance-benchmarker")
-```
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Configuration
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Default Settings:
-```json
-{
-  "profiling": {
-    "sampling_rate_hz": 99,
-    "stack_depth": 128,
-    "include_native_code": false,
-    "track_allocations": true
-  },
-  "thresholds": {
-    "cpu_hot_path_percent": 10,
-    "memory_leak_growth_mb": 10,
-    "slow_query_ms": 100,
-    "slow_request_ms": 1000
-  },
-  "optimization": {
-    "auto_apply": false,
-    "require_approval": true,
-    "run_tests_before": true,
-    "run_benchmarks_after": true
-  },
-  "output": {
-    "flame_graph": true,
-    "heap_snapshot": true,
-    "call_tree": true,
-    "recommendations": true
-  }
-}
-```
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## Profiling Techniques
-
-### CPU Profiling:
-- **Sampling**: Periodic stack sampling (low overhead)
-- **Instrumentation**: Function entry/exit hooks (accurate but higher overhead)
-- **Tracing**: Event-based profiling
-
-### Memory Profiling:
-- **Heap Snapshots**: Point-in-time memory state
-- **Allocation Tracking**: Record all allocations
-- **Leak Detection**: Compare snapshots over time
-- **GC Analysis**: Garbage collection patterns
-
-### I/O Profiling:
-- **Syscall Tracing**: Track system calls (strace, dtrace)
-- **File System**: Monitor read/write operations
-- **Database**: Query logging and EXPLAIN ANALYZE
-- **Network**: Packet capture and request timing
-
-### Concurrency Profiling:
-- **Thread Analysis**: CPU utilization per thread
-- **Lock Contention**: Identify blocking operations
-- **Async Operations**: Promise/callback timing
-
-## Performance Optimization Strategies
-
-### Algorithmic:
-- Reduce time complexity (O(n²) → O(n log n))
-- Use appropriate data structures
-- Eliminate unnecessary work
-- Memoization and dynamic programming
-
-### Caching:
-- In-memory caching (Redis, Memcached)
-- CDN for static assets
-- HTTP caching headers
-- Query result caching
-
-### Parallelization:
-- Multi-threading
-- Worker pools
-- Async I/O
-- Batching operations
-
-### Database:
-- Add missing indexes
-- Optimize queries
-- Reduce N+1 queries
-- Connection pooling
-- Read replicas
-
-### Memory:
-- Object pooling
-- Reduce allocations
-- Stream processing
-- Compression
-
-### Network:
-- Connection keep-alive
-- HTTP/2 or HTTP/3
-- Compression
-- Request batching
-- Rate limiting
-
-## Performance Budgets
-
-### Frontend:
-- Time to First Byte (TTFB): < 200ms
-- First Contentful Paint (FCP): < 1.8s
-- Largest Contentful Paint (LCP): < 2.5s
-- Time to Interactive (TTI): < 3.8s
-- Total Blocking Time (TBT): < 200ms
-- Cumulative Layout Shift (CLS): < 0.1
-
-### Backend:
-- API Response Time (p50): < 100ms
-- API Response Time (p95): < 500ms
-- API Response Time (p99): < 1000ms
-- Throughput: > 1000 req/s
-- Error Rate: < 0.1%
-- CPU Usage: < 70%
-- Memory Usage: < 80%
-
-### Database:
-- Query Time (p50): < 10ms
-- Query Time (p95): < 50ms
-- Query Time (p99): < 100ms
-- Connection Pool Utilization: < 80%
-
-## Best Practices
-
-1. Profile production workloads when possible
-2. Use production-like data volumes
-3. Profile under realistic load
-4. Measure multiple times for consistency
-5. Focus on p95/p99, not just averages
-6. Optimize bottlenecks in order of impact
-7. Always benchmark before and after
-8. Monitor for regressions in CI/CD
-9. Set up continuous profiling
-10. Track performance over time
-
-## Troubleshooting
-
-### Issue: High CPU usage but no obvious hot path
-**Solution**: Check for excessive small function calls, increase sampling rate, or use instrumentation
-
-### Issue: Memory grows continuously
-**Solution**: Run heap snapshot comparison to identify leak sources
-
-### Issue: Slow database queries
-**Solution**: Use EXPLAIN ANALYZE, check for missing indexes, analyze query plans
-
-### Issue: High latency but low CPU
-**Solution**: Profile I/O operations, check for blocking synchronous calls
-
-## See Also
-
-- PROCESS.md - Detailed step-by-step profiling workflow
-- README.md - Quick start guide
-- subagent-performance-profiler.md - Agent implementation details
-- slash-command-profile.sh - Command-line interface
-- mcp-performance-profiler.json - MCP tool schema
+[commit|confident] <promise>WHEN_PROFILING_PERFORMANCE_USE_PERFORMANCE_PROFILER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

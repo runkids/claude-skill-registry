@@ -1,7 +1,7 @@
 {
   "name": "ansible",
-  "repo": "liauw-media/CodeAssist",
-  "path": "skills/infrastructure/ansible/SKILL.md",
-  "source": "github.com/liauw-media/CodeAssist",
-  "downloaded_at": "2026-01-14T03:27:45.372726Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "INTEGRATION/processed/ansible/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-22T02:47:05.407344Z"
 }

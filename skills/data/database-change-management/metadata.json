@@ -1,13 +1,7 @@
 {
   "name": "database-change-management",
-  "description": "Plan and implement safe database schema changes including migrations, indexes, and backfills. Use when creatingtables, adding columns, optimizing queries, or managing Eloquent relationships. EXCLUSIVE",
   "repo": "htooayelwinict/claude-config",
-  "category": "data",
-  "tags": [
-    "database",
-    "change",
-    "management"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/database-change-management/SKILL.md",
+  "source": "github.com/htooayelwinict/claude-config",
+  "downloaded_at": "2026-01-19T04:20:12.245843Z"
 }

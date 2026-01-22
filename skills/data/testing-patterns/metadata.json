@@ -1,7 +1,7 @@
 {
   "name": "testing-patterns",
-  "repo": "nategarelik/claude-code-config",
-  "path": "skills/core/testing-patterns/SKILL.md",
-  "source": "github.com/nategarelik/claude-code-config",
-  "downloaded_at": "2026-01-14T03:59:15.267572Z"
+  "repo": "Wania-Kazmi/claude-code-autonomous-agent-workflow",
+  "path": ".claude/skills/testing-patterns/SKILL.md",
+  "source": "github.com/Wania-Kazmi/claude-code-autonomous-agent-workflow",
+  "downloaded_at": "2026-01-22T04:14:20.947352Z"
 }

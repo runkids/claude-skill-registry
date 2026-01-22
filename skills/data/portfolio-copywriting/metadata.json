@@ -1,9 +1,7 @@
 {
   "name": "portfolio-copywriting",
-  "description": "Copywriting dla bloga portfolio Pawla Lipowczana (pawellipowczan.pl). Uzyj przy tworzeniu nowych artykulow na blog, generowaniu tresci SEO, pisaniu case studies. Zawiera styl pisania autora (bezposred",
   "repo": "plipowczan/portfolio",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/portfolio-copywriting/SKILL.md",
+  "source": "github.com/plipowczan/portfolio",
+  "downloaded_at": "2026-01-22T00:52:39.679588Z"
 }

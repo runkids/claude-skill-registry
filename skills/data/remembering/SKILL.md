@@ -1,8 +1,8 @@
 ---
 name: remembering
-description: Advanced memory operations reference. Basic patterns (profile loading, simple recall/remember) are in project instructions. Consult this skill for background writes, memory versioning, complex queries, and edge cases.
+description: Advanced memory operations reference. Basic patterns (profile loading, simple recall/remember) are in project instructions. Consult this skill for background writes, memory versioning, complex queries, edge cases, session scoping, and retention management.
 metadata:
-  version: 2.2.1
+  version: 3.3.0
 ---
 
 > **⚠️ IMPORTANT FOR CLAUDE CODE AGENTS**
@@ -183,6 +183,39 @@ score = bm25_score * recency_weight * (1 + priority * 0.5)
 
 Priority affects composite ranking score - higher priority memories surface more readily in search results.
 
+### Memory Consolidation (v3.3.0)
+
+Biological memory consolidation pattern: memories that participate in active cognition consolidate more strongly.
+
+```python
+from remembering import strengthen, weaken, recall
+
+# Strengthen a memory (increment priority, max 2)
+result = strengthen("memory-uuid", boost=1)
+# Returns: {'memory_id': '...', 'old_priority': 0, 'new_priority': 1, 'changed': True}
+
+# Weaken a memory (decrement priority, min -1)
+result = weaken("memory-uuid", drop=1)
+# Returns: {'memory_id': '...', 'old_priority': 1, 'new_priority': 0, 'changed': True}
+
+# Auto-strengthen top results during recall (opt-in)
+results = recall("important topic", auto_strengthen=True, n=10)
+# Automatically strengthens top 3 results with priority < 2
+```
+
+**Use cases:**
+- Consolidate memories that prove useful across conversations
+- Implement spaced repetition patterns
+- Automatically promote frequently accessed knowledge
+- Simulate biological memory consolidation mechanisms
+
+**Notes:**
+- `strengthen()` caps at priority=2 (critical)
+- `weaken()` floors at priority=-1 (background)
+- `auto_strengthen=True` only affects top 3 results with priority < 2
+- Returns dict with old/new priority and whether change occurred
+- Replaced no-op placeholder functions from v2.0.0 with working implementations
+
 ## Background Writes (Agentic Pattern)
 
 **v0.6.0:** Unified API with `sync` parameter. Use `remember(..., sync=False)` for background writes:
@@ -236,6 +269,8 @@ supersede(original_id, "User now prefers Python 3.12", "decision", conf=0.9)
 ```
 
 Creates new memory with `refs=[original_id]`. Original preserved but not returned in default queries. Trace evolution via `refs` chain.
+
+**v3.3.0 Performance:** `supersede()` now uses batched operations, reducing HTTP requests by 50% (single request instead of two).
 
 ## Complex Queries
 
@@ -485,6 +520,69 @@ completed = recall(tags=["handoff-completed"], n=50)
 - Planning work that needs Claude Code execution
 - Coordinating between environments
 - Leaving detailed instructions for future sessions
+
+## Session Scoping (v3.2.0)
+
+Filter memories by conversation or work session using `session_id`:
+
+```python
+from remembering import remember, recall, set_session_id
+
+# Set session for all subsequent remember() calls
+set_session_id("project-alpha-sprint-1")
+remember("Feature spec approved", "decision", tags=["project-alpha"])
+
+# Query by session
+alpha_memories = recall(session_id="project-alpha-sprint-1", n=50)
+
+# Session ID defaults to MUNINN_SESSION_ID env var or 'default-session'
+import os
+os.environ['MUNINN_SESSION_ID'] = 'my-session'
+```
+
+**Note**: Session filtering bypasses cache (queries Turso directly). Cache support planned for future release.
+
+## Retrieval Observability (v3.2.0)
+
+Monitor query performance and usage patterns:
+
+```python
+from remembering import recall_stats, top_queries
+
+# Get retrieval statistics
+stats = recall_stats(limit=100)
+print(f"Cache hit rate: {stats['cache_hit_rate']:.1%}")
+print(f"Avg query time: {stats['avg_exec_time_ms']:.1f}ms")
+
+# Find most common searches
+for query_info in top_queries(n=10):
+    print(f"{query_info['query']}: {query_info['count']} times")
+```
+
+## Retention Management (v3.2.0)
+
+Analyze memory distribution and prune old/low-priority memories:
+
+```python
+from remembering import memory_histogram, prune_by_age, prune_by_priority
+
+# Get memory distribution
+hist = memory_histogram()
+print(f"Total: {hist['total']}")
+print(f"By type: {hist['by_type']}")
+print(f"By priority: {hist['by_priority']}")
+print(f"By age: {hist['by_age_days']}")
+
+# Preview what would be deleted (dry run)
+result = prune_by_age(older_than_days=90, priority_floor=0, dry_run=True)
+print(f"Would delete {result['count']} memories")
+
+# Actually delete old low-priority memories
+result = prune_by_age(older_than_days=90, priority_floor=0, dry_run=False)
+
+# Delete all background-priority memories
+result = prune_by_priority(max_priority=-1, dry_run=False)
+```
 
 ## Export/Import for Portability
 

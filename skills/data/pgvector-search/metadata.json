@@ -1,11 +1,7 @@
 {
   "name": "pgvector-search",
-  "description": "Production hybrid search with PGVector 0.7+ and BM25 using Reciprocal Rank Fusion, metadata filtering, and HNSW indexing for semantic retrieval",
-  "repo": "yonatangross/create-yg-app",
-  "category": "data",
-  "tags": [
-    "pgvector",
-    "search"
-  ],
-  "stars": 0
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/pgvector-search/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-22T01:25:14.790188Z"
 }

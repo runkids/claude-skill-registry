@@ -1,183 +1,218 @@
 ---
+source: /skills/claude-code/git-workflow-guide/SKILL.md
+source_version: 1.0.0
+translation_version: 1.0.0
+last_synced: 2025-12-25
+status: current
 name: git-workflow-guide
 description: |
-  Guide Git branching strategies, branch naming, and merge operations.
-  Use when: creating branches, merging, pull requests, Git workflow questions.
-  Keywords: branch, merge, PR, pull request, GitFlow, GitHub Flow, 分支, 合併, 工作流程.
+  指導 Git 分支策略、分支命名与合併操作。
+  使用时机：建立分支、合併、Pull Request、Git 工作流程問題。
+  关鍵字：branch, merge, PR, pull request, GitFlow, GitHub Flow, 分支, 合併, 工作流程。
 ---
 
-# Git Workflow Guide
+# Git 工作流程指南
 
-This skill provides guidance on Git branching strategies, branch naming conventions, and merge operations.
+> **语言**: [English](../../../../../skills/claude-code/git-workflow-guide/SKILL.md) | 简体中文
 
-## Quick Reference
+**版本**: 1.0.0
+**最後更新**: 2025-12-24
+**適用範圍**: Claude Code Skills
 
-### Workflow Strategy Selection
+---
 
-| Deployment Frequency | Recommended Strategy |
-|---------------------|---------------------|
-| Multiple times/day | Trunk-Based Development |
-| Weekly to bi-weekly | GitHub Flow |
-| Monthly or longer | GitFlow |
+## 目的
 
-### Branch Naming Convention
+本技能提供 Git 分支策略、分支命名慣例与合併操作的指導。
+
+## 快速參考
+
+### 工作流程策略选择
+
+| 部署頻率 | 建议策略 |
+|---------|---------|
+| 每日多次 | Trunk-Based Development |
+| 每周至雙周 | GitHub Flow |
+| 每月或更長 | GitFlow |
+
+### 分支命名慣例
 
 ```
 <type>/<short-description>
 ```
 
-| Type | Usage | Example |
-|------|-------|---------|
-| `feature/` | New functionality | `feature/oauth-login` |
-| `fix/` or `bugfix/` | Bug fixes | `fix/memory-leak` |
-| `hotfix/` | Urgent production fixes | `hotfix/security-patch` |
-| `refactor/` | Code refactoring | `refactor/extract-service` |
-| `docs/` | Documentation only | `docs/api-reference` |
-| `test/` | Test additions | `test/integration-tests` |
-| `chore/` | Maintenance tasks | `chore/update-dependencies` |
-| `release/` | Release preparation | `release/v1.2.0` |
+| 类型 | 用途 | 範例 |
+|------|------|------|
+| `feature/` | 新功能 | `feature/oauth-login` |
+| `fix/` 或 `bugfix/` | 错误修復 | `fix/memory-leak` |
+| `hotfix/` | 緊急生产環境修復 | `hotfix/security-patch` |
+| `refactor/` | 程序码重構 | `refactor/extract-service` |
+| `docs/` | 僅文件变更 | `docs/api-reference` |
+| `test/` | 测试新增 | `test/integration-tests` |
+| `chore/` | 維護任务 | `chore/update-dependencies` |
+| `release/` | 發布准备 | `release/v1.2.0` |
 
-### Naming Rules
+### 命名規則
 
-1. **Use lowercase** | 使用小寫
-2. **Use hyphens for spaces** | 使用連字號分隔單詞
-3. **Be descriptive but concise** | 具描述性但簡潔
+1. **使用小写**
+2. **使用連字号分隔单字**
+3. **描述性但簡潔**
 
-## Detailed Guidelines
+## 详细指南
 
-For complete standards, see:
-- [Git Workflow Strategies](./git-workflow.md)
-- [Branch Naming Reference](./branch-naming.md)
+完整标准請參阅：
+- [Git 工作流程策略](./git-workflow.md)
+- [分支命名參考](./branch-naming.md)
 
-## Pre-branch Checklist
+## 建立分支前检查清单
 
-Before creating a new branch:
+建立新分支前：
 
-1. **Check for unmerged branches**
+1. **检查未合併的分支**
    ```bash
    git branch --no-merged main
    ```
 
-2. **Sync latest code**
+2. **同步最新程序码**
    ```bash
    git checkout main
    git pull origin main
    ```
 
-3. **Verify tests pass**
+3. **验证测试通過**
    ```bash
-   npm test  # or your project's test command
+   npm test  # 或您项目的测试指令
    ```
 
-4. **Create branch with proper naming**
+4. **使用正确命名建立分支**
    ```bash
    git checkout -b feature/description
    ```
 
-## Merge Strategy Quick Guide
+## 合併策略快速指南
 
-| Strategy | When to Use |
-|----------|-------------|
-| **Merge Commit** (`--no-ff`) | Long-lived features, GitFlow releases |
-| **Squash Merge** | Feature branches, clean history |
-| **Rebase + FF** | Trunk-Based, short-lived branches |
+| 策略 | 使用时机 |
+|------|---------|
+| **Merge Commit** (`--no-ff`) | 長期功能、GitFlow 發布 |
+| **Squash Merge** | 功能分支、乾淨历史 |
+| **Rebase + FF** | Trunk-Based、短期分支 |
 
-## Examples
+## 範例
 
-### Creating a Feature Branch
+### 建立功能分支
 
 ```bash
-# Good
+# 良好範例
 git checkout -b feature/user-authentication
 git checkout -b fix/null-pointer-in-payment
 git checkout -b hotfix/critical-data-loss
 
-# Bad
-git checkout -b 123              # Not descriptive
-git checkout -b Fix-Bug          # Not lowercase
-git checkout -b myFeature        # No type prefix
+# 不良範例
+git checkout -b 123              # 缺乏描述性
+git checkout -b Fix-Bug          # 非小写
+git checkout -b myFeature        # 缺少类型前綴
 ```
 
-### Merge Workflow (GitHub Flow)
+### 合併工作流程 (GitHub Flow)
 
 ```bash
-# 1. Create branch from main
+# 1. 從 main 建立分支
 git checkout main
 git pull origin main
 git checkout -b feature/user-profile
 
-# 2. Make changes and commit
+# 2. 进行变更并提交
 git add .
 git commit -m "feat(profile): add avatar upload"
 git push -u origin feature/user-profile
 
-# 3. Create PR and merge via GitHub/GitLab UI
+# 3. 透過 GitHub/GitLab UI 建立 PR 并合併
 
-# 4. Delete branch after merge
+# 4. 合併後刪除分支
 git checkout main
 git pull origin main
 git branch -d feature/user-profile
 ```
 
-### Handling Merge Conflicts
+### 处理合併衝突
 
 ```bash
-# 1. Update your branch with main
+# 1. 使用 main 更新您的分支
 git checkout feature/my-feature
 git fetch origin
 git merge origin/main
 
-# 2. Resolve conflicts in files
+# 2. 在文件中解决衝突
 # <<<<<<< HEAD
-# Your changes
+# 您的变更
 # =======
-# Incoming changes
+# 传入的变更
 # >>>>>>> origin/main
 
-# 3. Stage resolved files
+# 3. 暫存已解决的文件
 git add resolved-file.js
 
-# 4. Complete merge
+# 4. 完成合併
 git commit -m "chore: resolve merge conflicts with main"
 
-# 5. Test and push
+# 5. 测试并推送
 npm test
 git push origin feature/my-feature
 ```
 
 ---
 
-## Configuration Detection
+## 組態偵测
 
-This skill supports project-specific workflow configuration.
+本技能支援项目特定的工作流程組態。
 
-### Detection Order
+### 偵测順序
 
-1. Check `CONTRIBUTING.md` for "Git Workflow" or "Branching Strategy" section
-2. If found, use the specified strategy (GitFlow / GitHub Flow / Trunk-Based)
-3. If not found, **default to GitHub Flow** for simplicity
+1. 检查 `CONTRIBUTING.md` 是否有「Git Workflow」或「Branching Strategy」章节
+2. 若找到，使用指定的策略（GitFlow / GitHub Flow / Trunk-Based）
+3. 若未找到，**预设使用 GitHub Flow** 以保持簡单
 
-### First-Time Setup
+### 首次设置
 
-If no configuration found:
+若未找到組態：
 
-1. Ask the user: "This project hasn't configured a Git workflow strategy. Which would you prefer? (GitFlow / GitHub Flow / Trunk-Based)"
-2. After selection, suggest documenting in `CONTRIBUTING.md`:
+1. 詢問使用者：「本项目尚未设置 Git 工作流程策略。您偏好哪一种？（GitFlow / GitHub Flow / Trunk-Based）」
+2. 选择後，建议在 `CONTRIBUTING.md` 中记录：
 
 ```markdown
-## Git Workflow
+## Git 工作流程
 
-### Branching Strategy
-This project uses **[chosen option]**.
+### 分支策略
+本项目使用 **[所選选项]**。
 
-### Branch Naming
-Format: `<type>/<description>`
-Example: `feature/oauth-login`, `fix/memory-leak`
+### 分支命名
+格式：`<type>/<description>`
+範例：`feature/oauth-login`、`fix/memory-leak`
 
-### Merge Strategy
-- Feature branches: **[Squash / Merge commit / Rebase]**
+### 合併策略
+- 功能分支：**[Squash / Merge commit / Rebase]**
 ```
 
 ---
 
-**License**: CC BY 4.0 | **Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)
+## 相关标准
+
+- [Git 工作流程](../../core/git-workflow.md)
+- [提交消息指南](../../core/commit-message-guide.md)
+- [簽入标准](../../core/checkin-standards.md)
+
+---
+
+## 版本历史
+
+| 版本 | 日期 | 变更 |
+|------|------|------|
+| 1.0.0 | 2025-12-24 | 新增：标准章节（目的、相关标准、版本历史、授权） |
+
+---
+
+## 授权
+
+本技能採用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 授权發布。
+
+**來源**：[universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

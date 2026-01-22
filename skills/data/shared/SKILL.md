@@ -2,70 +2,71 @@
 name: shared
 description: |
 
-Triggers: patterns, templates, git, shared
-  Shared infrastructure and patterns for sanctum git/workspace skills.
+Triggers: patterns, templates, specification, shared
+  Shared infrastructure and patterns for spec-kit specification-driven development.
 
-  Triggers: sanctum patterns, todowrite patterns, git commands, output templates,
-  sanctum infrastructure, shared patterns, git conventions
+  Triggers: spec-kit patterns, tech-stack patterns, checklist dimensions,
+  artifact structure, specification infrastructure, shared templates
 
-  Use when: developing new sanctum skills, refactoring existing skills,
-  ensuring consistency across sanctum workflows, referencing standard patterns
+  Use when: developing new spec-kit skills, referencing standard patterns,
+  ensuring consistency across specification workflows
 
-  DO NOT use directly: this skill is infrastructure for other sanctum skills.
+  DO NOT use directly: this skill is infrastructure for other spec-kit skills.
 
-  Provides reusable patterns consumed by all sanctum git and workspace skills.
+  Provides reusable patterns consumed by all spec-kit commands and skills.
 category: infrastructure
-tags: [shared, patterns, templates, git]
+tags: [shared, patterns, templates, specification]
 provides:
-  infrastructure: [todowrite-patterns, git-commands, output-templates]
-reusable_by: [all sanctum skills]
+  infrastructure: [tech-stack-patterns, checklist-dimensions, artifact-structure]
+reusable_by: [all spec-kit skills and commands]
 estimated_tokens: 200
 ---
 
-# Shared Infrastructure for Sanctum
+# Shared Infrastructure
+
+## Overview
+
+Provides common patterns, templates, and infrastructure modules used across all spec-kit commands and skills. This skill exists to reduce duplication and maintain consistency in specification-driven development workflows.
 
 ## Purpose
-This skill provides reusable patterns, templates, and conventions used across all sanctum git and workspace skills. It validates consistency in TodoWrite naming, git command usage, and output formatting.
+
+This skill consolidates reusable components:
+- Technology-specific patterns (ignore files, tooling configurations)
+- Quality validation dimensions for requirements
+- Artifact structure documentation (spec.md, plan.md, tasks.md, checklists)
 
 ## Modules
 
-### TodoWrite Patterns
-The `modules/todowrite-patterns.md` module documents the naming convention for TodoWrite items across all sanctum skills:
-- Pattern: `skill-name:step-name`
-- Examples from commit-messages, pr-prep, git-workspace-review, doc-updates, version-updates
-- Best practices for creating meaningful step names
+### tech-stack-patterns.md
+Technology-specific patterns for common stacks and tools:
+- Language-specific ignore patterns (Node.js, Python, Rust, Go, Java, C#)
+- Common tool configurations (Docker, ESLint, Prettier, Terraform)
+- Universal exclusions (.DS_Store, .vscode, .idea)
 
-### Git Commands
-The `modules/git-commands.md` module extracts common git commands used throughout sanctum workflows:
-- Repository confirmation commands
-- Diff commands (staged, unstaged, stat, detailed)
-- Branch and merge-base operations
-- Status parsing patterns
+### checklist-dimensions.md
+Quality validation dimensions for requirement testing:
+- Completeness, Clarity, Consistency
+- Measurability, Coverage, Edge Cases
+- Non-Functional Requirements
+- How to write "unit tests for requirements"
 
-### Output Templates
-The `modules/output-templates.md` module provides standardized output formats:
-- Conventional commit message structure
-- Pull request description template
-- Documentation update format
-- Version update summary format
+### artifact-structure.md
+Spec-kit artifact organization and purpose:
+- spec.md structure and role
+- plan.md structure and role
+- tasks.md structure and role
+- checklists/ directory organization
+- .specify/ feature directory layout
 
-### GitHub Comments
-The `modules/github-comments.md` module provides patterns for posting PR comments:
-- Reviews API vs Comments API differences
-- Inline comment patterns with correct `-F` flag for integers
-- Fallback strategies when inline comments fail
-- Summary comment templates
+## Usage
 
-## When to Reference
-- **New skill development**: Use these patterns to maintain consistency
-- **Workflow refactoring**: Reference when updating existing skills
-- **Cross-skill integration**: Check TodoWrite naming and git command patterns
-- **Template generation**: Use output templates for standardized artifacts
+This skill is automatically loaded by `speckit-orchestrator` and referenced by other spec-kit skills. It should not be loaded directly by commands.
 
-## Integration Notes
-This skill is infrastructure-only and does not define executable workflows. It serves as a reference for pattern consistency across sanctum's git and workspace operations.
+## Related Skills
 
-All sanctum skills should follow these shared patterns to validate predictable behavior and maintainable code.
+- `speckit-orchestrator`: Workflow coordination
+- `spec-writing`: Specification creation
+- `task-planning`: Task generation
 ## Troubleshooting
 
 ### Common Issues

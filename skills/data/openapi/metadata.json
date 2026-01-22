@@ -1,7 +1,7 @@
 {
   "name": "openapi",
-  "repo": "mcclowes/omg",
-  "path": ".claude/skills/openapi/SKILL.md",
-  "source": "github.com/mcclowes/omg",
-  "downloaded_at": "2026-01-14T04:01:35.425047Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/api-layer/openapi/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-22T03:54:20.693501Z"
 }

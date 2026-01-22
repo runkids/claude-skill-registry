@@ -7,7 +7,7 @@ allowed-tools:
   - Glob
   - Bash
   - AskUserQuestion
-model: claude-sonnet-4-5-20250929
+# model: inherit
 ---
 
 ## Reference Files
@@ -152,7 +152,7 @@ Activate with `/output-style style-name` and verify:
 
 ## When to Use What
 
-**See [when-to-use-what.md](../../references/customization/when-to-use-what.md) for complete guide.**
+**See [when-to-use-what.md](../../references/when-to-use-what.md) for complete guide.**
 
 **Quick:**
 

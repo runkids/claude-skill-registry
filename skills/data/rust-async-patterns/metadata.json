@@ -1,7 +1,7 @@
 {
   "name": "rust-async-patterns",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/systems-programming/skills/rust-async-patterns/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:29.735164Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/systems-programming/skills/rust-async-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-22T03:51:06.732815Z"
 }

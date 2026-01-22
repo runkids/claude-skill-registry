@@ -1,67 +1,60 @@
 ---
 name: create-worktree
-description: Git worktree を作成し、並行開発用の独立したブランチ環境を構築する。プラットフォーム固有コード開発時に使用。
+description: Creates a git worktree with branch and copies environment files (.envrc, .mcp.json)
+argument-hint: [branch-name]
+user-invocable: true
 ---
 
-# Git Worktree Creator
+# Create Worktree Skill
 
-planモード終了後、feature開発用の独立したworktree環境を自動作成します。
-
-## 概要
-
-このスキルは以下を自動で実行します：
-
-1. `.worktrees/<feature-name>/` ディレクトリにworktreeを作成
-2. `feature/<feature-name>` ブランチを新規作成
-3. 環境変数ファイル（`.env`, `.envrc` など）を自動コピー
-
-## 使用方法
-
-### 基本的な使い方
-
+**CLAUDE: When this skill is invoked with `/create-worktree <branch-name>`, immediately run:**
 ```bash
-bash .opencode/skill/create-worktree/scripts/create_worktree.sh <feature-name>
-
-# 例: Issue #42 用の worktree を作成
-bash .opencode/skill/create-worktree/scripts/create_worktree.sh issue-42-auth
+./.claude/skills/create-worktree.sh <branch-name>
 ```
 
-### 実行結果
+## Purpose
+Creates a new git worktree with a feature branch, automatically copying environment files that are not tracked in git.
 
-```
-.worktrees/issue-42-auth/     # worktreeディレクトリ
-├── .env                      # ルートからコピー
-├── .envrc                    # ルートからコピー
-└── ...（その他のファイル）
-```
-
-## コピーされる環境変数ファイル
-
-| ファイル | 説明 |
-|---------|------|
-| `.env` | ルートレベルの環境変数 |
-| `.envrc` | direnv設定 |
-| `.env.local` | ローカル開発用 |
-
-## 作業完了後
-
-### PR作成とworktree削除を同時に行う（推奨）
-
-**pr-and-cleanup** スキルを使用すると、PR作成とworktree削除を自動で行えます：
-
+## Usage
 ```bash
-cd .worktrees/<feature-name>
-bash ../../.opencode/skill/pr-and-cleanup/scripts/pr_and_cleanup.sh
+/create-worktree feature/my-new-feature
 ```
 
-詳細は [pr-and-cleanup スキル](../pr-and-cleanup/SKILL.md) を参照してください。
+## What It Does
+1. Creates a new git worktree at `../pierre_mcp_server-<branch-name>`
+2. Creates a new branch with the specified name
+3. Copies `.envrc` from main worktree
+4. Copies `.mcp.json` if present
+5. Runs `direnv allow` to activate the environment
 
-### 手動でworktreeを削除する場合
+## Commands
 
+### Using the script directly:
 ```bash
-git worktree remove .worktrees/<feature-name>
+./.claude/skills/create-worktree.sh <branch-name> [optional-path]
+
+# Examples:
+./.claude/skills/create-worktree.sh feature/new-api
+./.claude/skills/create-worktree.sh fix/bug-123 /tmp/quick-fix
 ```
 
-## 詳細
+### Manual steps (if script unavailable):
+```bash
+BRANCH="feature/my-feature"
+WORKTREE="../pierre_mcp_server-${BRANCH//\//-}"
 
-詳細については [REFERENCE.md](REFERENCE.md) を参照してください。
+git worktree add -b "$BRANCH" "$WORKTREE"
+cp .envrc "$WORKTREE/"
+cp .mcp.json "$WORKTREE/" 2>/dev/null || true
+cd "$WORKTREE" && direnv allow
+```
+
+## Cleanup
+When done with a worktree:
+```bash
+git worktree remove ../pierre_mcp_server-feature-my-feature
+git branch -d feature/my-feature  # if merged
+```
+
+## Related Skills
+- `finish-worktree` - Completes feature branch work with rebase and merge

@@ -1,7 +1,7 @@
 {
   "name": "issue-review",
-  "repo": "forrestthewoods/anubis",
-  "path": ".claude/skills/issue-review/SKILL.md",
-  "source": "github.com/forrestthewoods/anubis",
-  "downloaded_at": "2026-01-14T03:53:18.165533Z"
+  "repo": "DennisLiuCk/claude-plugin-marketplace",
+  "path": "plugins/issue-review/skills/issue-review/SKILL.md",
+  "source": "github.com/DennisLiuCk/claude-plugin-marketplace",
+  "downloaded_at": "2026-01-22T01:57:31.488286Z"
 }

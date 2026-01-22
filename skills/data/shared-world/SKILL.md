@@ -5,9 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
-  mode: application
 ---
 
 # Shared World: World Bible Management Skill

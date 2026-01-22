@@ -1,7 +1,7 @@
 {
   "name": "coding-agent",
-  "repo": "clawdbot/clawdbot",
+  "repo": "gupsammy/Claude-setup",
   "path": "skills/coding-agent/SKILL.md",
-  "source": "github.com/clawdbot/clawdbot",
-  "downloaded_at": "2026-01-14T04:05:34.439034Z"
+  "source": "github.com/gupsammy/Claude-setup",
+  "downloaded_at": "2026-01-22T04:13:16.489251Z"
 }

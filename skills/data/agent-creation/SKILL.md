@@ -1,209 +1,206 @@
+/*============================================================================*/
+/* AGENT-CREATION SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-name: claude-agent-sdk-agent-creation
-description: Use when creating or configuring Claude AI agents using the Agent SDK. Covers agent initialization, configuration, and basic setup patterns.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Grep
-  - Glob
+name: agent-creation
+version: 1.0.0
+description: |
+  [assert|neutral] Systematic agent creation using evidence-based prompting principles and 4-phase SOP methodology. Use when creating new specialist agents, refining existing agent prompts, or designing multi-agent syst [ground:given] [conf:0.95] [state:confirmed]
+category: foundry
+tags:
+- foundry
+- creation
+- meta-tools
+author: ruv
+cognitive_frame:
+  primary: compositional
+  goal_analysis:
+    first_order: "Execute agent-creation workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic foundry processes"
 ---
 
-# Claude Agent SDK - Agent Creation
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
 
-Creating and configuring AI agents using the Claude Agent SDK with TypeScript.
+[define|neutral] SKILL := {
+  name: "agent-creation",
+  category: "foundry",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Core Agent Initialization
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Basic Agent Creation
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Compositional",
+  source: "German",
+  force: "Build from primitives?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
 
-```typescript
-import { Agent } from '@anthropic-ai/claude-agent-sdk';
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
 
-const agent = new Agent({
-  model: 'claude-3-5-sonnet-20241022',  // Latest model
-  systemPrompt: 'You are a helpful assistant specialized in...',
-  settingSources: ['project'],  // Load .claude/CLAUDE.md from project
-  allowedTools: ['read_file', 'write_file', 'list_files'],
-});
-```
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## Configuration Options
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["agent-creation", "foundry", "workflow"],
+  context: "user needs agent-creation capability"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### System Prompts
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
-```typescript
-// Direct system prompt
-const agent = new Agent({
-  systemPrompt: 'You are an expert code reviewer...',
-});
+<!-- SKILL SOP IMPROVEMENT v1.0 -->
+## Skill Execution Criteria
 
-// Load from CLAUDE.md
-const agent = new Agent({
-  settingSources: ['project'],  // Loads ./.claude/CLAUDE.md
-});
+### When to Use This Skill
+- Creating new specialist agents with domain-specific expertise
+- Refining existing agent system prompts for better performance
+- Designing multi-agent coordination systems
+- Implementing role-based agent hierarchies
+- Building production-ready agents with embedded domain knowledge
 
-// User-level memory
-const agent = new Agent({
-  settingSources: ['user'],  // Loads ~/.claude/CLAUDE.md
-});
-```
+### When NOT to Use This Skill
+- For simple one-off tasks that don't need agent specialization
+- When existing agents already cover the required domain
+- For casual conversational interactions without systematic requirements
+- When the task is better suited for a slash command or micro-skill
 
-### Tool Permissions
+### Success Criteria
+- [assert|neutral] primary_outcome: "Production-ready agent with optimized system prompt, clear role definition, and validated performance" [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] quality_threshold: 0.9 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] verification_method: "Agent successfully completes domain-specific tasks with consistent high-quality output, passes validation tests, and integrates with Claude Agent SDK" [ground:acceptance-criteria] [conf:0.90] [state:provisional]
 
-```typescript
-// Allow specific tools
-const agent = new Agent({
-  allowedTools: [
-    'read_file',
-    'write_file',
-    'list_files',
-    'grep',
-    'bash',
-  ],
-});
+### Edge Cases
+- case: "Vague agent requirements"
+  handling: "Use Phase 1 (Initial Analysis) to research domain, identify patterns, and clarify scope before proceeding"
+- case: "Overlapping agent capabilities"
+  handling: "Conduct agent registry search, identify gaps vs duplicates, propose consolidation or specialization"
+- case: "Agent needs multiple conflicting personas"
+  handling: "Decompose into multiple focused agents with clear coordination pattern"
 
-// Block specific tools
-const agent = new Agent({
-  disallowedTools: ['bash', 'web_search'],
-});
+### Skill Guardrails
+NEVER:
+  - "Create agents without deep domain research (skipping Phase 1 undermines quality)"
+  - "Use generic prompts without evidence-based techniques (CoT, few-shot, role-based)"
+  - "Skip validation testing (Phase 3) before considering agent production-ready"
+  - "Create agents that duplicate existing registry agents without justification"
+ALWAYS:
+  - "Complete all 4 phases: Analysis -> Prompt Engineering -> Testing -> Integration"
+  - "Apply evidence-based prompting: Chain-of-Thought for reasoning, few-shot for patterns, clear role definition"
+  - "Validate with diverse test cases and measure against quality criteria"
+  - "Document agent capabilities, limitations, and integration points"
 
-// Permission modes
-const agent = new Agent({
-  permissionMode: 'strict',  // Require explicit approval
-});
-```
+### Evidence-Based Execution
+self_consistency: "After agent creation, test with same task multiple times to verify consistent outputs and reasoning quality"
+program_of_thought: "Decompose agent creation into: 1) Domain analysis, 2) Capability mapping, 3) Prompt architecture, 4) Test design, 5) Validation, 6) Integration"
+plan_and_solve: "Plan: Research domain + identify capabilities -> Execute: Build prompts + test cases -> Verify: Multi-run consistency + edge case handling"
+<!-- END SKILL SOP IMPROVEMENT -->
 
-## Agent Directory Structure
+# Agent Creation - Systematic Agent Design
 
-### Required Structure
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
 
-```
-project/
-├── .claude/
-│   ├── CLAUDE.md              # Project memory
-│   ├── agents/
-│   │   └── specialist.md      # Subagent definitions
-│   ├── skills/
-│   │   └── my-skill/
-│   │       └── SKILL.md       # Skill definitions
-│   └── commands/
-│       └── my-command.md      # Slash commands
-└── src/
-    └── index.ts               # Your code
-```
 
-## Authentication
 
-### Environment Variables
+Evidence-based agent creation following best practices for prompt engineering and agent specialization.
 
-```bash
-# Anthropic API (primary)
-export ANTHROPIC_API_KEY="sk-ant-..."
+---
 
-# Alternative providers
-export AWS_ACCESS_KEY_ID="..."
-export AWS_SECRET_ACCESS_KEY="..."
-export AWS_REGION="us-east-1"
+## When to Use This Skill
 
-# Google Vertex AI
-export GOOGLE_APPLICATION_CREDENTIALS="/path/to/credentials.json"
+Use when creating new specialist agents for specific domains, refining existing agent capabilities, designing multi-agent coordination systems, or implementing role-based agent hierarchies.
 
-# Azure
-export AZURE_OPENAI_API_KEY="..."
-export AZURE_OPENAI_ENDPOINT="..."
-```
+---
 
-### SDK Configuration
+## 4-Phase Agent Creation SOP
 
-```typescript
-// Anthropic direct
-const agent = new Agent({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+### Phase 1: Specification
+- Define agent purpose and domain
+- Identify core capabilities needed
+- Determine input/output formats
+- Specify quality criteria
 
-// Amazon Bedrock
-const agent = new Agent({
-  provider: 'bedrock',
-  model: 'anthropic.claude-3-5-sonnet-20241022-v2:0',
-});
-```
+**Tools**: Use `resources/scripts/generate_agent.sh` for automated generation
 
-## Best Practices
+### Phase 2: Prompt Engineering
+- Apply evidence-based prompting principles
+- Use Chain-of-Thought for reasoning tasks
+- Implement few-shot learning with examples (2-5 examples)
+- Define role and persona clearly
 
-### Always Specify Model
+**Reference**: See `references/prompting-principles.md` for detailed techniques
 
-```typescript
-// Good
-const agent = new Agent({
-  model: 'claude-3-5-sonnet-20241022',
-});
+### Phase 3: Testing & Vali
 
-// Avoid: relying on default model
-const agent = new Agent({});
-```
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Use Explicit Setting Sources
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-```typescript
-// Good
-const agent = new Agent({
-  settingSources: ['project'],
-});
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-// Avoid: unclear memory source
-const agent = new Agent({
-  systemPrompt: '...',
-});
-```
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### Separate Project and User Memory
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-```typescript
-// Project-specific context
-const projectAgent = new Agent({
-  settingSources: ['project'],
-});
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/foundry/agent-creation/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-// User preferences
-const userAgent = new Agent({
-  settingSources: ['user'],
-});
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "agent-creation-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Anti-Patterns
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-### Don't Hardcode API Keys
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-```typescript
-// Bad
-const agent = new Agent({
-  apiKey: 'sk-ant-hardcoded-key',
-});
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-// Good
-const agent = new Agent({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
-```
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Don't Mix Conflicting Permissions
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-```typescript
-// Bad: contradictory permissions
-const agent = new Agent({
-  allowedTools: ['read_file', 'write_file'],
-  disallowedTools: ['read_file'],  // Conflict!
-});
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-// Good: clear permissions
-const agent = new Agent({
-  allowedTools: ['read_file'],
-});
-```
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## Related Skills
-
-- **tool-integration**: Working with tools and MCP servers
-- **context-management**: Managing agent context and memory
+[commit|confident] <promise>AGENT_CREATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,9 +1,7 @@
 {
   "name": "skill-doc-generator",
-  "description": "Auto-generates standardized README documentation from SKILL.md files, validates consistency (frontmatter, descriptions, terminology), and creates usage examples. Use when documenting individual skills",
-  "repo": "Exploration-labs/Nates-Substack-Skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "freitasp1/claude-code-skills",
+  "path": "skills/doc-generator/skill-doc-generator/SKILL.md",
+  "source": "github.com/freitasp1/claude-code-skills",
+  "downloaded_at": "2026-01-22T01:08:22.409220Z"
 }

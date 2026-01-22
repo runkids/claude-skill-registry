@@ -1,9 +1,7 @@
 {
   "name": "apps-ayokoding-web-developing-content",
-  "description": "Comprehensive guide for creating content on ayokoding-web Hugo site using Hextra theme. Covers bilingual content strategy (default English), level-based weight ordering system, by-example tutorial ann",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/apps-ayokoding-web-developing-content/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:16.237704Z"
 }

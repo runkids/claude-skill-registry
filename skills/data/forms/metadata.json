@@ -1,10 +1,7 @@
 {
   "name": "forms",
-  "description": "HTML5 forms, Constraint Validation API, accessible form patterns, and modern input types",
-  "repo": "pluginagentmarketplace/custom-plugin-html",
-  "category": "data",
-  "tags": [
-    "forms"
-  ],
-  "stars": 1
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/anthropic/forms/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-22T01:14:59.076687Z"
 }

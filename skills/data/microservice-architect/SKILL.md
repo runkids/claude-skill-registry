@@ -1,57 +1,193 @@
 ---
 name: microservice-architect
-description: "Guides the planning of a microservices architecture. Use this skill when asked to design, plan, or architect a system using microservices. This skill helps with service boundary identification, communication pattern selection, data management, and defining service contracts."
+description: Guide the planning of microservices architecture. Use when designing, planning, or architecting a system using microservices.
 ---
 
-# Microservice Architect
+# Microservice Architecture
 
-## Overview
+Guided workflow for planning and designing microservices architecture.
 
-This skill provides a structured workflow for planning a microservices architecture. It helps in making key architectural decisions and producing standard deliverables.
+## When to Use
 
-The process is divided into four main steps. Follow them in order to ensure a comprehensive design.
+- Designing new microservices system
+- Breaking down a monolith
+- Adding services to existing architecture
+- Evaluating service boundaries
 
-## Step 1: Decompose the System into Services
+## Service Decomposition
 
-The first step is to identify the boundaries of each microservice. The goal is to create services that are loosely coupled and highly cohesive.
+### Domain-Driven Design Approach
 
-- **Action**: Use the service decomposition template to document each proposed service.
-- **Template**: `assets/templates/service_decomposition_template.md`
-- **Guidelines**: Refer to `references/service_decomposition.md` for criteria on how to define service boundaries, based on principles like Domain-Driven Design.
+1. **Identify Bounded Contexts**
+   - Each context = potential service
+   - Clear business capability ownership
+   - Independent data ownership
 
-For each potential service, copy the template and fill it out.
+2. **Map Service Boundaries**
+   ```
+   ┌─────────────────┐  ┌─────────────────┐
+   │  User Service   │  │  Order Service  │
+   │                 │  │                 │
+   │ • Registration  │  │ • Cart          │
+   │ • Authentication│  │ • Checkout      │
+   │ • Profile       │  │ • Order history │
+   └─────────────────┘  └─────────────────┘
+           │                    │
+           └──────┬─────────────┘
+                  ▼
+   ┌─────────────────────────────────┐
+   │      Notification Service       │
+   │                                 │
+   │ • Email                         │
+   │ • SMS                           │
+   │ • Push notifications            │
+   └─────────────────────────────────┘
+   ```
 
-## Step 2: Define Communication Patterns
+3. **Apply Single Responsibility**
+   - One service = one business capability
+   - Changes isolated to single service
+   - Independent deployment
 
-Once services are identified, determine how they will communicate with each other.
+## Communication Patterns
 
-- **Action**: For each interaction between services, choose a suitable communication pattern.
-- **Decision Matrix**: Use the matrix in `assets/templates/communication_matrix_template.md` to help select between REST, gRPC, GraphQL, and messaging.
-- **Reference**: For more details on each pattern, see `references/communication_patterns.md`.
+### Synchronous (REST/gRPC)
 
-Not all services need to use the same pattern. Choose the best fit for each interaction.
+| Use When | Avoid When |
+|----------|------------|
+| Need immediate response | High latency tolerance |
+| Simple request-response | Fan-out to many services |
+| Read operations | Long-running operations |
 
-## Step 3: Plan Data Management and Infrastructure
+### Asynchronous (Events/Messages)
 
-Address how data will be managed across services and what infrastructure is needed.
+| Use When | Avoid When |
+|----------|------------|
+| Eventual consistency OK | Immediate consistency required |
+| Decoupling needed | Simple request-response |
+| Fan-out to multiple services | Low complexity |
 
-- **Data Ownership**: Follow the database-per-service pattern. See `references/data_patterns.md` for details on this and handling distributed transactions with the Saga pattern.
-- **Infrastructure**: Plan for service discovery and an API gateway. Guidance can be found in `references/infrastructure.md`.
-- **Event-Driven**: If asynchronous communication is used, review patterns for event-driven architecture in `references/event_driven.md`.
+### Event-Driven Architecture
 
-## Step 4: Create Architecture Diagrams and Service Contracts
+```
+┌──────────────┐    publish     ┌─────────────────┐
+│ Order Service│ ──────────────▶│   Event Bus     │
+└──────────────┘  OrderCreated  └─────────────────┘
+                                       │
+                       ┌───────────────┼───────────────┐
+                       ▼               ▼               ▼
+              ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+              │ Inventory    │ │ Notification │ │ Analytics    │
+              │ Service      │ │ Service      │ │ Service      │
+              └──────────────┘ └──────────────┘ └──────────────┘
+```
 
-The final step is to document the architecture and the service APIs.
+## Data Management
 
-- **Architecture Diagrams**: Use the C4 model to visualize the architecture. Create System Context and Container diagrams at a minimum. See `references/c4_model.md` for an explanation of the C4 model.
-- **Service Contracts**: For each service, create a formal API contract.
-  - **Template**: A basic OpenAPI template is available at `assets/templates/service_contract_template.json`.
-  - **Guidelines**: See `references/service_contracts.md` for details on what to include in a contract and different specification formats.
+### Database per Service
 
-## Deliverables
+- Each service owns its data
+- No shared databases
+- Data duplication acceptable
 
-By the end of this process, you will have produced:
-- A set of completed service decomposition documents.
-- A communication matrix for service interactions.
-- C4 model architecture diagrams.
-- Service interface contracts for each service.
+### Data Consistency Patterns
+
+| Pattern | Use Case |
+|---------|----------|
+| Saga | Distributed transactions |
+| CQRS | Read/write separation |
+| Event Sourcing | Audit trail, temporal queries |
+
+### Saga Pattern Example
+
+```
+Order Saga:
+1. Order Service → Create order (PENDING)
+2. Payment Service → Charge payment
+   ├── Success → Continue
+   └── Failure → Compensate: Cancel order
+3. Inventory Service → Reserve items
+   ├── Success → Continue
+   └── Failure → Compensate: Refund, Cancel order
+4. Order Service → Confirm order (CONFIRMED)
+```
+
+## Resilience Patterns
+
+### Circuit Breaker
+
+```typescript
+const circuitBreaker = new CircuitBreaker({
+  failureThreshold: 5,      // Open after 5 failures
+  successThreshold: 3,      // Close after 3 successes
+  timeout: 30000,           // Half-open after 30s
+  fallback: () => cachedResponse
+})
+
+const result = await circuitBreaker.execute(() => 
+  externalService.call()
+)
+```
+
+### Retry with Backoff
+
+```typescript
+const retryConfig = {
+  maxRetries: 3,
+  baseDelay: 1000,
+  maxDelay: 10000,
+  exponential: true,
+  jitter: true
+}
+```
+
+### Bulkhead Pattern
+
+- Isolate resources per service
+- Prevent cascade failures
+- Limit concurrent requests
+
+## Service Discovery
+
+```yaml
+# Kubernetes Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+    - port: 80
+      targetPort: 3000
+```
+
+## Observability
+
+### The Three Pillars
+
+1. **Logging** - Structured, correlated logs
+2. **Metrics** - RED metrics (Rate, Errors, Duration)
+3. **Tracing** - Distributed request tracing
+
+### Service Mesh Benefits
+
+- mTLS between services
+- Traffic management
+- Observability built-in
+- Retry/timeout policies
+
+## Architecture Decision Checklist
+
+Before finalizing architecture:
+
+- [ ] Service boundaries clearly defined
+- [ ] Data ownership per service established
+- [ ] Communication patterns chosen
+- [ ] Consistency requirements documented
+- [ ] Failure scenarios identified
+- [ ] Resilience patterns decided
+- [ ] Observability strategy defined
+- [ ] Deployment strategy planned
+- [ ] Security boundaries established

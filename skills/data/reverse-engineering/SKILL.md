@@ -1,142 +1,62 @@
 ---
-name: reverse-engineering-tools
-description: Guide for reverse engineering tools and techniques used in game security research. Use this skill when working with debuggers, disassemblers, memory analysis tools, binary analysis, or decompilers for game security research.
+name: reverse-engineering
+description: ソフトウェアのリバースエンジニアリングレポートを作成するスキル。リポジトリの構造や機能を調査し、外部仕様・内部実装・使用方法を明確にするレポートを作成します。「リバースエンジニアリングレポートを作成して」「コードベースを分析して」「プロジェクトの構造を調査して」「システムの仕組みを解析して」等のリクエストで使用してください。新規開発者のオンボーディング、プロジェクトの理解、ドキュメント作成、将来の開発のための基礎資料として活用できます。
 ---
 
-# Reverse Engineering Tools & Techniques
+# リバースエンジニアリング
 
-## Overview
+このスキルは、ソフトウェアのリバースエンジニアリングレポートの作成をサポートします。
 
-This skill covers reverse engineering resources for game security research, including debuggers, disassemblers, memory analysis tools, and specialized game hacking utilities.
+## リバースエンジニアリングレポートについて
 
-## Debugging Tools
+リバースエンジニアリングレポートは、既存のソフトウェアやシステムの構造・動作・設計を分析し、その結果を文書化したものです。プロジェクトの理解を深め、将来の開発やメンテナンスに役立てることを目的としています。
 
-### Windows Debuggers
-- **Cheat Engine**: Memory scanner and debugger for games
-- **x64dbg**: Open-source x86/x64 debugger
-- **WinDbg**: Microsoft's kernel/user-mode debugger
-- **ReClass.NET**: Memory structure reconstruction
-- **HyperDbg**: Hypervisor-based debugger
+## 使用方法
 
-### Specialized Debuggers
-- **CE Mono Helper**: Unity/Mono game debugging
-- **dnSpy**: .NET assembly debugger/decompiler
-- **ILSpy**: .NET decompiler
-- **frida**: Dynamic instrumentation toolkit
+### 事前準備：コンテキストの確認
 
-### Platform-Specific
-- **edb-debugger**: Linux debugger
-- **PINCE**: Linux game hacking tool
-- **H5GG**: iOS cheat engine
-- **Hardware Breakpoint Tools**: HWBP implementations
+調査を開始する前に、以下の情報をユーザーから収集します。情報が不足している場合は質問して補足してください：
 
-## Disassembly & Decompilation
+1. **対象読者**: 誰がこのレポートを読むのか（開発者、プロジェクトマネージャー、QA エンジニアなど）
+2. **レポートの目的**: プロジェクトの理解、ドキュメント作成、将来の開発のための基礎資料など
+3. **使用方法**: 新規開発者のオンボーディング、プロジェクトのメンテナンス、機能追加のための基礎資料など
+4. **調査スコープ**: リバースエンジニアリング対象製品/システムの範囲（ソフトウェア全体、特定のモジュール、API のみなど）
 
-### Multi-Platform
-- **IDA Pro**: Industry standard disassembler
-- **Ghidra**: NSA's reverse engineering framework
-- **Binary Ninja**: Modern RE platform
-- **Cutter**: Radare2 GUI
+**重要**: コンテキストが明確になるまで調査を開始しないでください。
 
-### Specialized Tools
-- **IL2CPP Dumper**: Unity IL2CPP analysis
-- **dnSpy**: .NET/Unity decompilation
-- **jadx**: Android DEX decompiler
-- **Recaf**: Java bytecode editor
+### 調査ワークフロー
 
-## Memory Analysis
+#### フェーズ 1: 全体概要把握
 
-### Memory Scanners
-```
-- Cheat Engine: Pattern scanning, value searching
-- ReClass.NET: Structure reconstruction
-- Process Hacker: System analysis
-```
+1. リポジトリルートの `README`、`docs` ディレクトリ等のドキュメントを確認
+2. 仕様書、データシート、論文などの関連資料を確認
+3. ディレクトリ構造を確認し、主要なディレクトリやファイルの役割を把握
+4. パッケージやモジュールの構成を確認し、機能分割を理解
+5. リポジトリの Wiki や追加ドキュメントを確認
 
-### Dump Tools
-```
-- KsDumper: Kernel-space process dumping
-- PE-bear: PE file analysis
-- ImHex: Hex editor for RE
-```
+#### フェーズ 2: 詳細調査
 
-## Dynamic Binary Instrumentation (DBI)
+1. 依存関係を確認し、使用ライブラリやフレームワークを把握
+2. ビルドやデプロイ手順を確認し、セットアップ方法を理解
+3. テストフレームワークやテストケースの構成を確認
+4. コミット履歴を確認し、主要な変更点やリリースノートを把握
+5. イシューやプルリクエストを確認し、現在の開発状況や課題を把握
 
-### Frameworks
-- **Frida**: Cross-platform DBI
-- **DynamoRIO**: Runtime code manipulation
-- **Pin**: Intel's DBI framework
-- **TinyInst**: Lightweight instrumentation
-- **QBDI**: QuarkslaB DBI
+### レポートの作成
 
-### Use Cases
-1. API hooking and tracing
-2. Code coverage analysis
-3. Fuzzing harness creation
-4. Behavioral analysis
+- **テンプレート**: [references/template.md](references/template.md) を参照
+- **作成ガイド**: [references/guide.md](references/guide.md) を参照
+- **出力ファイル名**: `YYYYMMDD_reverse_engineering_report.md`（例: `20260101_reverse_engineering_report.md`）
+- **保存先**: リポジトリルートまたは `docs/` ディレクトリ
 
-## Anti-Analysis Bypass
+### 作成時の原則
 
-### Techniques
-- Anti-debug detection bypass
-- VM/Sandbox evasion
-- Timing attack mitigation
-- PatchGuard circumvention
+- **平易な言葉**: 専門用語は避け、必要に応じて説明を加える
+- **参考文献**: 理解の前提となる技術要素があれば、参考文献も記載
+- **視覚資料の活用**: 図、フローチャートなどを積極的に使用（Mermaid 記法推奨）
+- **客観性**: 推測や憶測ではなく、事実に基づいた分析結果を記述
+- **整合性**: レポート全体で用語や表記方法に一貫性を持たせる
 
-### Tools
-- **TitanHide**: Anti-debug hiding
-- **HyperHide**: Hypervisor-based hiding
-- **ScyllaHide**: Anti-anti-debug plugin
+### 日本語での作成
 
-## Game-Specific Analysis
-
-### Unity Games
-1. Locate `GameAssembly.dll` (IL2CPP) or managed DLLs
-2. Use IL2CPP Dumper for structure recovery
-3. Apply dnSpy for Mono games
-4. Hook via Unity-specific frameworks
-
-### Unreal Engine Games
-1. Identify UE version from signatures
-2. Use SDK generators (Dumper-7)
-3. Analyze Blueprint bytecode
-4. Hook UObject/UFunction systems
-
-### Native Games
-1. Standard PE analysis
-2. Import/export reconstruction
-3. Pattern scanning for signatures
-4. Runtime memory analysis
-
-## Workflow Best Practices
-
-### Initial Analysis
-```
-1. Identify protections (packer, obfuscator, anti-cheat)
-2. Determine game engine and version
-3. Collect symbol information if available
-4. Map out key modules and dependencies
-```
-
-### Deep Analysis
-```
-1. Locate target functionality
-2. Trace execution flow
-3. Document structures and relationships
-4. Develop hooking strategy
-```
-
-## VMProtect/Themida Analysis
-
-### Resources
-- Devirtualization tools
-- Control flow recovery
-- Handler analysis techniques
-- Unpacking methodologies
-
-## ROP/Exploit Development
-
-### Tools
-- **ROPgadget**: Gadget finder
-- **rp++**: Fast ROP gadget finder
-- **angrop**: Automated ROP chain generation
+レポートは日本語で作成します。技術ドキュメントとして適切な表現を使用してください。

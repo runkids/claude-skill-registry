@@ -1,482 +1,395 @@
 ---
 name: workflow-composer
-description: Chain multiple skills together into automated workflows with conditional logic and parallel execution
-allowed-tools: ["Read", "Write", "Bash", "Task", "TodoWrite"]
-version: 1.0.0
-author: GLINCKER Team
-license: Apache-2.0
-keywords: [automation, workflow, orchestration, skill-chaining, multi-agent, pipeline]
+description: >
+  Chain Vibery commands, skills, and agents into repeatable automated workflows.
+  Outputs: Executable workflow files, hook configurations, CI/CD integration.
+  Use when user has repetitive multi-step processes to automate.
+  Triggers: create workflow, automate this process, chain these commands, /workflow
 ---
 
 # Workflow Composer
 
-**⚡ UNIQUE FEATURE**: First skill that lets you chain multiple Claude Code skills together into automated workflows with conditional logic, parallel execution, and error handling. Create complex automation pipelines with simple YAML configs.
+Transform repetitive multi-step processes into one-command automations.
 
-## What This Skill Does
+## Purpose
 
-Orchestrates multiple skills into powerful automated workflows:
+Users manually run the same sequence of commands repeatedly. This skill captures those patterns and outputs executable workflows using Vibery hooks, custom commands, or CI/CD configurations.
 
-- **Chain skills together**: Output of one skill becomes input to the next
-- **Parallel execution**: Run multiple skills simultaneously
-- **Conditional logic**: IF/THEN/ELSE based on skill results
-- **Error handling**: Retry logic and fallback strategies
-- **Progress tracking**: Real-time status of workflow execution
-- **Workflow templates**: Save and reuse common workflows
-- **Schedule workflows**: Run workflows on triggers or schedules
+## Available Workflow Types
 
-## Why This Is Revolutionary
-
-This is the **first skill-composition framework** for Claude Code:
-- **No coding required**: Define workflows in simple YAML
-- **Visual workflow builder**: Generate workflow configs interactively
-- **Reusable components**: Build once, use everywhere
-- **Enterprise-ready**: Error handling, logging, notifications
-- **Community workflows**: Share workflows with others
-
-## Workflow Structure
-
-```yaml
-name: my-workflow
-description: What this workflow does
-version: 1.0.0
-
-# Input parameters
-inputs:
-  project_path:
-    type: string
-    required: true
-  run_tests:
-    type: boolean
-    default: true
-
-# Workflow steps
-steps:
-  # Sequential steps
-  - name: generate-readme
-    skill: readme-generator
-    inputs:
-      path: ${inputs.project_path}
-
-  - name: generate-tests
-    skill: unit-test-generator
-    inputs:
-      target: ${inputs.project_path}/src
-    when: ${inputs.run_tests}
-
-  # Parallel execution
-  - name: quality-checks
-    parallel:
-      - name: security-scan
-        skill: security-auditor
-        inputs:
-          path: ${inputs.project_path}
-
-      - name: lint-code
-        skill: code-linter
-        inputs:
-          path: ${inputs.project_path}
-
-  # Conditional logic
-  - name: fix-issues
-    skill: auto-fixer
-    when: ${steps.quality-checks.security-scan.issues > 0}
-    inputs:
-      issues: ${steps.quality-checks.security-scan.results}
-
-  # Error handling
-  - name: deploy
-    skill: deploy-orchestrator
-    inputs:
-      environment: production
-    retry:
-      max_attempts: 3
-      backoff: exponential
-    on_failure:
-      - skill: rollback
-      - skill: notify-team
-        inputs:
-          message: "Deployment failed"
-
-# Output mapping
-outputs:
-  readme_path: ${steps.generate-readme.output.file_path}
-  test_coverage: ${steps.generate-tests.output.coverage}
-  security_issues: ${steps.quality-checks.security-scan.issues}
 ```
+1. Hooks (event-triggered):
+   - PostToolUse: After Claude edits files
+   - PreToolUse: Before Claude runs commands
+   - Stop: When conversation ends
 
-## Instructions
+2. Custom Commands (.claude/commands/*.md):
+   - User-triggered via /command-name
+   - Can include $ARGUMENTS
 
-### Creating a Workflow
+3. GitHub Actions (.github/workflows/*.yml):
+   - Triggered by git events
+   - Full CI/CD capabilities
 
-When a user wants to create a workflow:
-
-1. **Interactive Workflow Builder**:
-   ```
-   Ask user:
-   - What's the goal of this workflow?
-   - Which skills should be included?
-   - Should any skills run in parallel?
-   - What are the inputs needed?
-   - What conditions/logic are needed?
-   ```
-
-2. **Generate Workflow YAML**:
-   - Create well-structured YAML file
-   - Add comments explaining each step
-   - Include error handling
-   - Validate syntax
-
-3. **Save Workflow**:
-   - Use Write to create `.claude-workflows/workflow-name.yml`
-   - Add to workflow registry
-   - Create documentation
-
-### Running a Workflow
-
-When a user wants to run a workflow:
-
-1. **Load Workflow**:
-   ```bash
-   Use Read to load workflow YAML from .claude-workflows/
-   ```
-
-2. **Validate Inputs**:
-   - Check all required inputs provided
-   - Validate input types
-   - Set defaults for optional inputs
-
-3. **Create Execution Plan**:
-   ```
-   - Parse workflow steps
-   - Identify parallel vs sequential
-   - Build dependency graph
-   - Prepare Task agents
-   ```
-
-4. **Execute Workflow**:
-   ```
-   For each step:
-     - Check 'when' condition (skip if false)
-     - If parallel block:
-       - Launch all Task agents simultaneously
-       - Wait for all to complete
-     - If sequential:
-       - Execute skill via Task agent
-       - Capture output
-       - Pass to next step
-     - Handle errors:
-       - Retry if configured
-       - Run on_failure steps
-       - Stop or continue based on config
-   ```
-
-5. **Track Progress**:
-   - Use TodoWrite to show workflow progress
-   - Update status for each step
-   - Show current step and completion percentage
-
-6. **Generate Report**:
-   ```markdown
-   # Workflow Execution Report
-
-   **Workflow**: ${workflow.name}
-   **Started**: ${start_time}
-   **Duration**: ${duration}
-   **Status**: ✅ Success / ⚠️ Partial / ❌ Failed
-
-   ## Steps
-   1. ✅ generate-readme (2.3s)
-   2. ✅ generate-tests (5.1s)
-   3. ⏭️ fix-issues (skipped - no issues found)
-   4. ✅ deploy (12.4s)
-
-   ## Outputs
-   - readme_path: /project/README.md
-   - test_coverage: 87%
-   - deployment_url: https://app.example.com
-   ```
-
-## Example Workflows
-
-### Example 1: Complete Project Setup
-
-```yaml
-name: project-setup
-description: Initialize new project with README, tests, CI/CD, and docs
-
-steps:
-  - name: scaffold
-    skill: project-scaffolder
-    inputs:
-      type: ${inputs.project_type}
-      name: ${inputs.project_name}
-
-  - name: generate-files
-    parallel:
-      - name: readme
-        skill: readme-generator
-
-      - name: gitignore
-        skill: gitignore-generator
-
-      - name: license
-        skill: license-picker
-        inputs:
-          license_type: MIT
-
-  - name: setup-tests
-    skill: unit-test-generator
-    inputs:
-      coverage_target: 80
-
-  - name: setup-cicd
-    skill: ci-cd-wizard
-    inputs:
-      platform: github-actions
-
-  - name: init-git
-    skill: git-initializer
-    inputs:
-      remote: ${inputs.git_remote}
+4. Shell Scripts:
+   - Direct automation
+   - Can combine multiple tools
 ```
-
-**Usage:**
-```
-User: "Set up a new Python project called 'my-api'"
-
-Workflow Composer:
-- Prompts for project type, git remote
-- Executes all steps
-- Shows progress
-- Reports results
-```
-
-### Example 2: Pre-Commit Workflow
-
-```yaml
-name: pre-commit-checks
-description: Run all quality checks before committing code
-
-steps:
-  - name: quality-checks
-    parallel:
-      - name: lint
-        skill: code-linter
-
-      - name: format
-        skill: code-formatter
-
-      - name: security
-        skill: security-auditor
-
-      - name: tests
-        skill: test-runner
-
-  - name: fix-issues
-    when: ${steps.quality-checks.lint.issues > 0}
-    skill: auto-fixer
-    inputs:
-      auto_fix: true
-
-  - name: verify
-    when: ${steps.fix-issues.ran}
-    skill: test-runner
-```
-
-### Example 3: Deploy Pipeline
-
-```yaml
-name: deploy-pipeline
-description: Complete deployment with tests, build, and monitoring setup
-
-steps:
-  - name: pre-deploy-checks
-    parallel:
-      - skill: test-runner
-      - skill: security-auditor
-      - skill: dependency-checker
-
-  - name: build
-    when: ${steps.pre-deploy-checks.all_passed}
-    skill: build-optimizer
-
-  - name: deploy
-    skill: deploy-orchestrator
-    inputs:
-      environment: ${inputs.environment}
-      strategy: blue-green
-    retry:
-      max_attempts: 3
-
-  - name: post-deploy
-    parallel:
-      - skill: health-checker
-      - skill: performance-tester
-      - skill: log-analyzer
-
-  - name: notify
-    skill: slack-bridge
-    inputs:
-      channel: deployments
-      message: "✅ Deployed ${inputs.environment}"
-```
-
-## Built-in Workflow Templates
-
-### 1. New Feature Workflow
-- Create feature branch
-- Generate boilerplate
-- Create tests
-- Setup documentation
-- Create PR
-
-### 2. Code Review Workflow
-- Run linters
-- Check security
-- Verify tests
-- Review architecture
-- Post review comments
-
-### 3. Bug Fix Workflow
-- Reproduce bug
-- Generate failing test
-- Apply fix
-- Verify fix
-- Update changelog
-
-### 4. Release Workflow
-- Update version
-- Generate changelog
-- Run full test suite
-- Build artifacts
-- Create release notes
-- Tag release
-
-## Tool Requirements
-
-- **Read**: Load workflow definitions
-- **Write**: Save workflows and reports
-- **Bash**: Execute commands, git operations
-- **Task**: Launch skills as agents
-- **TodoWrite**: Track workflow progress
-
-## Advanced Features
-
-### 1. Workflow Variables
-
-```yaml
-variables:
-  project_name: my-app
-  version: 1.0.0
-  deploy_env: production
-
-steps:
-  - name: deploy
-    inputs:
-      version: ${variables.version}
-      env: ${variables.deploy_env}
-```
-
-### 2. Conditional Execution
-
-```yaml
-- name: deploy-prod
-  when: |
-    ${inputs.environment == 'production'} &&
-    ${steps.tests.coverage >= 80} &&
-    ${steps.security.issues == 0}
-```
-
-### 3. Loop Execution
-
-```yaml
-- name: process-files
-  for_each: ${inputs.files}
-  skill: file-processor
-  inputs:
-    file: ${item}
-```
-
-### 4. Error Recovery
-
-```yaml
-- name: critical-step
-  skill: deployment
-  on_failure:
-    - skill: rollback
-    - skill: notify-team
-  continue_on_error: false
-```
-
-## Workflow Library
-
-Share workflows with the community:
-
-```bash
-# Publish workflow
-claude workflow publish my-workflow.yml
-
-# Install community workflow
-claude workflow install feature-complete-setup
-
-# List available workflows
-claude workflow browse
-```
-
-## Best Practices
-
-1. **Start simple**: Begin with 2-3 steps, then expand
-2. **Add error handling**: Always plan for failures
-3. **Use parallel execution**: Speed up independent tasks
-4. **Document inputs**: Clear descriptions for all parameters
-5. **Test incrementally**: Run each step individually first
-6. **Version your workflows**: Track changes over time
-
-## Limitations
-
-- Maximum 20 steps per workflow (performance)
-- Parallel execution limited to 5 concurrent skills
-- Workflow execution timeout: 30 minutes
-- Cannot nest workflows (yet - coming in v2.0)
-
-## Related Skills
-
-This skill works with ANY other skill in the marketplace!
-
-Popular combinations:
-- [pr-reviewer](../../devops/pr-reviewer/SKILL.md) + [unit-test-generator](../../testing/unit-test-generator/SKILL.md)
-- [readme-generator](../../documentation/readme-generator/SKILL.md) + [api-doc-generator](../../documentation/api-doc-generator/SKILL.md)
-- [security-auditor](../../security/security-auditor/SKILL.md) + [dependency-checker](../../security/dependency-checker/SKILL.md)
-
-## Changelog
-
-### Version 1.0.0 (2025-01-13)
-- Initial release
-- Sequential and parallel execution
-- Conditional logic support
-- Error handling and retry
-- Progress tracking
-- Workflow templates
-- Community sharing
-
-## Contributing
-
-This is a cornerstone skill for the marketplace. Help us improve:
-- Add new workflow templates
-- Improve error handling
-- Add visualization features
-- Create workflow examples
-
-## License
-
-Apache License 2.0 - See [LICENSE](../../../LICENSE)
-
-## Author
-
-**GLINCKER Team**
-- GitHub: [@GLINCKER](https://github.com/GLINCKER)
-- Repository: [claude-code-marketplace](https://github.com/GLINCKER/claude-code-marketplace)
 
 ---
 
-**🌟 WORLD'S FIRST skill composition framework for Claude Code!**
+## Process
+
+### Phase 1: Workflow Discovery
+
+#### Entry Check
+```
+IF user described: repetitive process + trigger condition
+    → Proceed to Phase 2
+ELSE
+    → Discover workflow first
+```
+
+#### Discovery Questions
+| Question | Purpose |
+|----------|---------|
+| "Walk me through what you do repeatedly" | Capture full sequence |
+| "What triggers this process?" | Determines workflow type |
+| "Any variations or conditions?" | Identifies branching logic |
+| "How often do you do this?" | Prioritizes automation value |
+
+#### Workflow Trigger → Type Mapping
+```
+IF trigger = "after I edit code"
+    → Hook (PostToolUse)
+
+IF trigger = "before running a command"
+    → Hook (PreToolUse)
+
+IF trigger = "when I finish a session"
+    → Hook (Stop)
+
+IF trigger = "when I type a command"
+    → Custom Command
+
+IF trigger = "on git push/PR"
+    → GitHub Action
+
+IF trigger = "manually, but want one command"
+    → Shell Script or Custom Command
+```
+
+---
+
+### Phase 2: Workflow Analysis
+
+#### Entry Check
+```
+IF workflow discovered:
+    → Analyze and structure
+ELSE
+    → Return to Phase 1
+```
+
+#### Step Extraction
+```
+FOR each step in user's process:
+    Identify:
+    - Action: What happens
+    - Tool: Which Vibery component
+    - Input: What it needs
+    - Output: What it produces
+    - Condition: When to skip/branch
+```
+
+#### Workflow Structure
+```markdown
+## Workflow: [Name]
+
+### Trigger
+[When this runs]
+
+### Steps
+| # | Action | Tool | Condition |
+|---|--------|------|-----------|
+| 1 | [action] | [vibery component] | [if any] |
+| 2 | [action] | [vibery component] | [if any] |
+
+### Variables
+- [var1]: [source]
+- [var2]: [source]
+
+### Error Handling
+- If [step] fails: [action]
+```
+
+---
+
+### Phase 3: Workflow Generation
+
+#### Entry Check
+```
+IF workflow analyzed:
+    → Generate appropriate format
+ELSE
+    → Return to Phase 2
+```
+
+#### Hook Generation
+```yaml
+# hooks/[workflow-name].yaml
+name: [workflow-name]
+description: [what it does]
+
+triggers:
+  - type: PostToolUse    # or PreToolUse, Stop
+    tools: [Write, Edit]  # which tools trigger
+
+actions:
+  - name: [step-1-name]
+    command: [command to run]
+    condition: [optional condition]
+
+  - name: [step-2-name]
+    command: [command to run]
+```
+
+**Install command:**
+```bash
+npx vibery install hook:[workflow-name]
+# Or copy to .claude/hooks/
+```
+
+#### Custom Command Generation
+```markdown
+# .claude/commands/[workflow-name].md
+
+[Description of what this workflow does]
+
+## Steps
+
+1. First, I'll [action 1]
+2. Then, [action 2]
+3. Finally, [action 3]
+
+## Input
+$ARGUMENTS
+
+## Execution
+
+[Detailed instructions for Claude to follow]
+
+### Step 1: [Name]
+[Instructions]
+
+### Step 2: [Name]
+[Instructions]
+
+### Confirmation
+Before completing, verify:
+- [ ] [check 1]
+- [ ] [check 2]
+```
+
+#### GitHub Action Generation
+```yaml
+# .github/workflows/[workflow-name].yml
+name: [Workflow Name]
+
+on:
+  [trigger]:
+    [conditions]
+
+jobs:
+  [job-name]:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: [Step 1]
+        run: [command]
+
+      - name: [Step 2]
+        run: [command]
+```
+
+#### Shell Script Generation
+```bash
+#!/bin/bash
+# [workflow-name].sh
+# [Description]
+
+set -e  # Exit on error
+
+# Step 1: [Name]
+echo "→ [Description]"
+[command]
+
+# Step 2: [Name]
+echo "→ [Description]"
+[command]
+
+echo "✓ Workflow complete"
+```
+
+---
+
+### Phase 4: Integration & Testing
+
+#### Entry Check
+```
+IF workflow generated:
+    → Add integration and test instructions
+ELSE
+    → Return to Phase 3
+```
+
+#### Integration Instructions
+```markdown
+## Installation
+
+### Option 1: Vibery Install (if published)
+```bash
+npx vibery install [workflow-name]
+```
+
+### Option 2: Manual Install
+```bash
+# Copy to appropriate location:
+cp [file] [destination]
+
+# Make executable (if script):
+chmod +x [file]
+```
+
+## Testing
+
+### Dry Run
+[Commands to test without side effects]
+
+### Verification
+After running, check:
+- [ ] [expected outcome 1]
+- [ ] [expected outcome 2]
+
+## Troubleshooting
+
+### Common Issues
+| Issue | Cause | Fix |
+|-------|-------|-----|
+| [issue] | [cause] | [fix] |
+```
+
+---
+
+### Phase 5: Output Delivery
+
+#### Output Format
+```markdown
+# Workflow: [Name]
+
+## Overview
+[One sentence description]
+
+## Trigger
+[When this runs]
+
+## Installation
+[Copy-paste commands]
+
+## Configuration
+[File content to create]
+
+## Usage
+[How to run/trigger]
+
+## Customization
+[What can be modified]
+
+## Related Workflows
+[Suggest complementary automations]
+```
+
+---
+
+## Common Workflow Templates
+
+### Feature Development Workflow
+```
+Trigger: /feature [name]
+Steps:
+1. Create branch: git checkout -b feature/[name]
+2. Generate spec: /spec-writer
+3. Plan architecture: architect-planner
+4. Create files: Based on plan
+5. Generate tests: /generate-tests
+6. Create PR: /create-pr
+```
+
+### Code Review Workflow
+```
+Trigger: PostToolUse on Edit
+Steps:
+1. Lint: Run project linter
+2. Type check: Run tsc/mypy
+3. Test affected: Run related tests
+4. Format: Auto-format on save
+```
+
+### Release Workflow
+```
+Trigger: /release [version]
+Steps:
+1. Run full test suite
+2. Update version in package.json
+3. Generate changelog
+4. Create git tag
+5. Push with tags
+6. Create GitHub release
+```
+
+### Documentation Workflow
+```
+Trigger: /docs
+Steps:
+1. Scan for undocumented functions
+2. Generate JSDoc/docstrings
+3. Update README if needed
+4. Generate API docs
+```
+
+---
+
+## Self-Check (Read before every response)
+
+□ Is the trigger clear and specific?
+  → Vague triggers = unexpected executions
+
+□ Are steps atomic and ordered?
+  → Each step should do one thing
+
+□ Did I include error handling?
+  → Workflows fail; handle gracefully
+
+□ Is output copy-paste ready?
+  → User shouldn't need to modify
+
+□ Did I include testing instructions?
+  → Untested workflows = broken workflows
+
+□ Is the workflow actually saving time?
+  → Automation overhead vs manual time
+
+□ Can it be undone if something goes wrong?
+  → Include rollback instructions for risky steps
+
+---
+
+## Integration with Vibery
+
+```
+SUGGEST after workflow created:
+    - "Publish to Vibery: npx vibery publish"
+    - "Share with team: Add to project .claude/"
+    - "Combine with: [related workflows]"
+```

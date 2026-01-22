@@ -1,8 +1,7 @@
 {
   "name": "postgres-optimization",
-  "repo": "vm-wylbur/pb-dotfiles",
-  "category": "data",
-  "description": "PostgreSQL database optimization combining institutional knowledge with live analysis",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:18.041245Z"
+  "repo": "SimHacker/moollm",
+  "path": "skills/postgres-optimization/SKILL.md",
+  "source": "github.com/SimHacker/moollm",
+  "downloaded_at": "2026-01-22T01:07:12.604551Z"
 }

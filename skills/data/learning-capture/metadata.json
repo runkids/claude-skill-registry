@@ -1,9 +1,7 @@
 {
   "name": "learning-capture",
-  "description": "Recognize and capture reusable patterns, workflows, and domain knowledge from work sessions into new skills. Use when completing tasks that involve novel approaches repeated 2+ times, synthesizing com",
-  "repo": "Exploration-labs/Nates-Substack-Skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "freitasp1/claude-code-skills",
+  "path": "skills/continual-learning/learning-capture/SKILL.md",
+  "source": "github.com/freitasp1/claude-code-skills",
+  "downloaded_at": "2026-01-22T01:08:22.485989Z"
 }

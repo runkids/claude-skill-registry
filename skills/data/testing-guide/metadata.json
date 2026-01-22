@@ -1,7 +1,7 @@
 {
   "name": "testing-guide",
-  "repo": "akaszubski/anyclaude-local",
-  "path": "plugins/autonomous-dev/skills/testing-guide/SKILL.md",
-  "source": "github.com/akaszubski/anyclaude-local",
-  "downloaded_at": "2026-01-14T01:21:52.578207Z"
+  "repo": "AsiaOstrich/universal-dev-standards",
+  "path": "skills/claude-code/testing-guide/SKILL.md",
+  "source": "github.com/AsiaOstrich/universal-dev-standards",
+  "downloaded_at": "2026-01-22T02:27:04.311834Z"
 }

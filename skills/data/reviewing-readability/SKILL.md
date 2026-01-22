@@ -1,72 +1,46 @@
 ---
 name: reviewing-readability
 description: >
-  "The Art of Readable Code"とミラーの法則（7±2）に基づくコード可読性レビュー。
-  トリガー: 可読性, 理解しやすい, わかりやすい, 明確, 命名, 変数名, 関数名,
+  Code readability review based on "The Art of Readable Code" and Miller's Law (7±2).
+  Use when reviewing code clarity, improving naming, or when user mentions
+  可読性, 理解しやすい, わかりやすい, 明確, 命名, 変数名, 関数名,
   ネスト, 深いネスト, 関数設計, コメント, 複雑, 難しい, 難読,
   Miller's Law, ミラーの法則, 認知負荷, AI-generated, 過剰設計.
-allowed-tools: Read, Grep, Glob, Task
+allowed-tools: [Read, Grep, Glob, Task]
+agent: readability-reviewer
+context: fork
+user-invocable: false
 ---
 
-# 可読性レビュー - コードの明確さと認知負荷
+# Readability Review
 
-目標: 新しいチームメンバーが1分以内にコードを理解できる。
+## Detection
 
-## ミラーの法則の限界（7±2）
+| ID  | Pattern                       | Fix                              |
+| --- | ----------------------------- | -------------------------------- |
+| RD1 | `processData()` (vague)       | `validateUserEmail()`            |
+| RD1 | Misleading identifiers        | Names reveal intent              |
+| RD2 | Nesting > 3 levels            | Guard clauses, extract functions |
+| RD2 | Function > 30 lines           | Decompose                        |
+| RD3 | Comment: `// increment i`     | Delete (self-evident)            |
+| RD3 | Comment: `// TODO: fix later` | Create issue or fix now          |
+| RD4 | Interface for single impl     | Remove until 2nd impl            |
+| RD4 | Class for stateless logic     | Pure function                    |
+| RD5 | > 5 function parameters       | Config object or decompose       |
 
-| コンテキスト   | 理想   | 最大 |
-| -------------- | ------ | ---- |
-| 関数引数       | 3      | 5    |
-| クラスメソッド | 5      | 7    |
-| 条件分岐       | 3      | 5    |
-| 関数長         | 5-10行 | 15行 |
-| ネスト深度     | 2      | 3    |
+## Thresholds
 
-## セクションベースのロード
+| Metric             | Recommended | Maximum |
+| ------------------ | ----------- | ------- |
+| Function lines     | ≤30         | 50      |
+| Nesting depth      | ≤3          | 4       |
+| Function arguments | ≤3          | 5       |
 
-| セクション       | ファイル                         | フォーカス            | トリガー               |
-| ---------------- | -------------------------------- | --------------------- | ---------------------- |
-| 制御フロー       | `references/control-flow.md`     | ネスト、ガード句      | ネスト, Miller's Law   |
-| コメント         | `references/comments-clarity.md` | WhatではなくWhy、意図 | コメント, 意図         |
-| AIアンチパターン | `references/ai-antipatterns.md`  | 過剰設計の検出        | AI-generated, 過剰設計 |
+## References
 
-**注**: 命名規則 → [@./references/naming.md](./references/naming.md)
-
-## クイックチェックリスト
-
-### 命名
-
-- [ ] 抽象より具体（`processData`ではなく`validateUserEmail`）
-- [ ] 検索可能で発音可能な名前
-- [ ] 名前から意図が明確
-
-### 制御フロー
-
-- [ ] ネスト深度 ≤ 3
-- [ ] 早期リターンのためのガード句
-- [ ] 複雑な条件は関数に抽出
-
-### コメント
-
-- [ ] 「何を」ではなく「なぜ」を説明
-- [ ] 古くなったコメントは更新または削除
-- [ ] まずコードを自己文書化
-
-### AIコードの臭い
-
-- [ ] 早すぎる抽象化なし（単一実装のインターフェース）
-- [ ] シンプルなタスクに不要なクラスなし
-- [ ] 誰も求めていない「将来対応」の柔軟性なし
-
-## 主要原則
-
-| 原則            | 適用                   |
-| --------------- | ---------------------- |
-| 明確さ > 賢さ   | シンプルなコードが勝つ |
-| 7±2の限界を尊重 | チャンクに分割         |
-| Tell, Don't Ask | 直接メソッド呼び出し   |
-
-## 参照
-
-- [@../../../skills/applying-code-principles/SKILL.md](../../../skills/applying-code-principles/SKILL.md) - 認知限界とリーダブルコード
-- [@./references/ai-antipatterns.md](./references/ai-antipatterns.md) - AI過剰設計パターン
+| Topic           | File                             |
+| --------------- | -------------------------------- |
+| Control Flow    | `references/control-flow.md`     |
+| Comments        | `references/comments-clarity.md` |
+| AI Antipatterns | `references/ai-antipatterns.md`  |
+| Naming          | `references/naming.md`           |

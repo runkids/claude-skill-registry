@@ -1,7 +1,7 @@
 {
   "name": "model-selection",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/tac/skills/model-selection/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-14T03:00:19.758160Z"
+  "repo": "ricardoroche/ricardos-claude-code",
+  "path": ".claude/skills/model-selection/SKILL.md",
+  "source": "github.com/ricardoroche/ricardos-claude-code",
+  "downloaded_at": "2026-01-22T04:06:46.907107Z"
 }

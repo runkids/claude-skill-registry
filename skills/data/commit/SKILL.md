@@ -1,50 +1,64 @@
 ---
 name: commit
-description: Generates commit messages and creates commits. Use when writing commit messages, committing changes, or reviewing staged changes.
+description: Guidelines for writing commit messages and PR descriptions
 ---
 
 # Commit Messages
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) format.
-
 ## Format
 
-```text
-<type>(<scope>): <description>
-
-[optional body]
+```
+type(scope): short message
 ```
 
 ## Types
 
-- `feat`: User-facing features or behavior changes (must change production code)
-- `fix`: Bug fixes (must change production code)
-- `docs`: Documentation only
-- `style`: Code style/formatting (no logic changes)
-- `refactor`: Code restructuring without behavior change
-- `test`: Adding or updating tests
-- `chore`: CI/CD, tooling, dependency bumps, configs (no production code)
+- `feat` - new feature
+- `fix` - bug fix
+- `refactor` - code refactoring
+- `chore` - maintenance tasks (deps, config, tooling)
 
 ## Scopes
 
-Optional. Use when it adds clarity. Examples: `cloudfront`, `s3`, `ci`.
+Always use the app or package name as scope:
 
-## Breaking Changes
+**Apps**: `admin`, `auth`, `editor`, `evals`, `main`
 
-Use `!` suffix: `feat!: remove deprecated resource`
+**Packages**: `ai`, `auth`, `core`, `db`, `e2e`, `error-reporter`, `mailer`, `next`, `testing`, `tsconfig`, `ui`, `utils`
+
+**Inferred scopes** (when change doesn't fit an app/package):
+
+- `agents` - CLAUDE.md, AGENTS.md, `.claude/` folder
+- `ci` - GitHub workflows, CI/CD configuration
+- `deps` - dependency updates across multiple packages
+- `data` - data layer changes spanning multiple packages
 
 ## Examples
 
-```text
-feat(cloudfront): add immutable cache headers
-fix: correct CloudFront Function ARN attribute
-chore: add husky pre-commit hooks
-docs: update architecture documentation
+```
+feat(main): add lesson page
+fix(editor): always use custom lesson kind
+refactor(db): use enum for step kind
+chore(deps): update vercel ai sdk
+chore(agents): add commit skill
+fix(ci): update node version in workflow
 ```
 
-## Instructions
+## Rules
 
-1. Run `git diff --staged` to see staged changes
-2. Analyze the changes and determine the appropriate type
-3. Write a concise description (under 72 characters)
-4. Add body only if the "why" isn't obvious from the description
+- Use lowercase for entire message
+- No period at the end
+- Keep message under 72 characters
+- Use imperative mood ("add" not "added")
+
+## Author
+
+Always set the AI agent as the commit author:
+
+```bash
+git commit -m "feat(main): add lesson page" --author="Claude Opus 4.5 <noreply@anthropic.com>"
+```
+
+# PR Descriptions
+
+Keep descriptions brief. Focus on what changed. No need to list verification commands run.

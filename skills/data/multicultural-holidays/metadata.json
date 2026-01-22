@@ -1,8 +1,7 @@
 {
   "name": "multicultural-holidays",
   "repo": "wildcard/caro",
-  "category": "data",
-  "description": "Expert on multicultural heritage traditions, holidays, and celebrations. Use for maintaining holiday theme features, adding new cultural events, ensuring cultural sensitivity, and managing the data-dr",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:52.894484Z"
+  "path": ".claude/skills/multicultural-holidays/SKILL.md",
+  "source": "github.com/wildcard/caro",
+  "downloaded_at": "2026-01-22T03:44:40.444550Z"
 }

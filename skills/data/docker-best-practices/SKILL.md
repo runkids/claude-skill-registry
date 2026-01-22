@@ -1,234 +1,151 @@
 ---
 name: docker-best-practices
-description: Create optimized Dockerfiles with multi-stage builds, security hardening, layer caching, and health checks. Includes docker-compose patterns for development and production environments.
+description: |
+  Dockerfile最適化、セキュリティ、マルチステージビルドを体系化するスキル。
+  イメージ最適化とローカル開発環境の設計を支援する。
+
+  Anchors:
+  • Dockerfile Best Practices / 適用: レイヤー最適化 / 目的: ビルド効率向上
+  • Image Security / 適用: 最小権限 / 目的: セキュリティ強化
+  • Multi-stage Builds / 適用: ビルド分離 / 目的: イメージ最小化
+
+  Trigger:
+  Use when optimizing Dockerfiles, improving image security, or designing local development container setups.
+  dockerfile optimization, image security, multi-stage build, docker compose
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-# Docker Best Practices Skill
+# docker-best-practices
 
-## When to Use
+## 概要
 
-Use this skill when:
-- Creating new Dockerfiles
-- Optimizing existing container images
-- Setting up docker-compose environments
-- Implementing health checks
-- Securing container deployments
-- Reducing image sizes
-- Configuring multi-stage builds
+Dockerfile最適化からセキュリティ強化、ローカル開発環境の設計までを整理する。
 
-## Dockerfile Patterns
+## ワークフロー
 
-### 1. Multi-Stage Build (Python)
+### Phase 1: 要件整理
 
-```dockerfile
-# Stage 1: Builder
-FROM python:3.12-slim AS builder
+**目的**: コンテナ化の目的と制約を明確化する。
 
-WORKDIR /app
+**アクション**:
 
-# Install build dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+1. `references/Level1_basics.md` で基本概念を確認する。
+2. `assets/docker-requirements-template.md` で要件を整理する。
+3. `references/requirements-index.md` で要件整合を確認する。
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
+**Task**: `agents/analyze-docker-requirements.md` を参照
 
-# Stage 2: Runtime
-FROM python:3.12-slim AS runtime
+### Phase 2: Dockerfile設計
 
-WORKDIR /app
+**目的**: Dockerfileとビルド戦略を設計する。
 
-# Create non-root user
-RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+**アクション**:
 
-# Copy wheels from builder
-COPY --from=builder /wheels /wheels
-RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
+1. `references/dockerfile-optimization.md` で最適化方針を確認する。
+2. `references/multi-stage-builds.md` でビルド分離を整理する。
+3. `assets/dockerfile-review-checklist.md` で設計観点を揃える。
 
-# Copy application
-COPY --chown=appuser:appgroup . .
+**Task**: `agents/design-dockerfile-plan.md` を参照
 
-# Switch to non-root user
-USER appuser
+### Phase 3: 実装と環境整備
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+**目的**: コンテナ設定と開発環境を整備する。
 
-EXPOSE 8000
+**アクション**:
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
+1. `assets/nodejs-dockerfile-template.dockerfile` を参照して実装する。
+2. `assets/docker-compose-template.yml` を参照して開発環境を整える。
+3. `references/image-security.md` でセキュリティ方針を確認する。
 
-### 2. Layer Caching Optimization
+**Task**: `agents/implement-container-setup.md` を参照
 
-```dockerfile
-# ✅ Good: Dependencies first (cached if unchanged)
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
+### Phase 4: 検証と運用
 
-# ❌ Bad: Entire context first (cache invalidated on any change)
-COPY . .
-RUN pip install -r requirements.txt
-```
+**目的**: イメージ品質を検証し記録を更新する。
 
-### 3. Security Hardening
+**アクション**:
 
-```dockerfile
-# ✅ Security checklist:
-# 1. Non-root user
-USER appuser
+1. `scripts/analyze-image.mjs` で検証する。
+2. `assets/image-evaluation-template.md` で結果を整理する。
+3. `scripts/log_usage.mjs` で記録を更新する。
 
-# 2. Read-only filesystem
-# docker run --read-only ...
+**Task**: `agents/validate-image-quality.md` を参照
 
-# 3. No new privileges
-# docker run --security-opt=no-new-privileges ...
+## Task仕様ナビ
 
-# 4. Drop capabilities
-# docker run --cap-drop=ALL ...
+| Task                        | 起動タイミング | 入力      | 出力                       |
+| --------------------------- | -------------- | --------- | -------------------------- |
+| analyze-docker-requirements | Phase 1開始時  | 目的/制約 | 要件メモ、対象範囲         |
+| design-dockerfile-plan      | Phase 2開始時  | 要件メモ  | Dockerfile設計、最適化方針 |
+| implement-container-setup   | Phase 3開始時  | 設計方針  | 実装方針、環境構成         |
+| validate-image-quality      | Phase 4開始時  | 実装方針  | 検証レポート、改善提案     |
 
-# 5. Minimal base image
-FROM python:3.12-alpine  # or distroless
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリを参照
 
-# 6. No secrets in image
-# Use environment variables or secrets mount
-```
+## ベストプラクティス
 
-### 4. Health Checks
+### すべきこと
 
-```dockerfile
-# HTTP health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+| 推奨事項                   | 理由                 |
+| -------------------------- | -------------------- |
+| マルチステージビルドを使う | イメージを小さくする |
+| 非root実行を徹底する       | セキュリティを高める |
+| キャッシュを活用する       | ビルド時間を短縮する |
+| 検証結果を記録する         | 改善が継続する       |
 
-# TCP health check (no curl)
-HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-    CMD nc -z localhost 8000 || exit 1
+### 避けるべきこと
 
-# Script health check
-HEALTHCHECK CMD ["/app/healthcheck.sh"]
-```
+| 禁止事項               | 問題点               |
+| ---------------------- | -------------------- |
+| 不要ファイルを含める   | イメージが肥大化する |
+| セキュリティ検証を省略 | リスクが増える       |
+| 目的外のツール導入     | 運用が複雑化する     |
 
-## Docker Compose Patterns
+## リソース参照
 
-### Development Environment
+### scripts/（決定論的処理）
 
-```yaml
-version: "3.9"
+| スクリプト                   | 機能                         |
+| ---------------------------- | ---------------------------- |
+| `scripts/analyze-image.mjs`  | イメージ分析                 |
+| `scripts/log_usage.mjs`      | 使用記録と評価メトリクス更新 |
+| `scripts/validate-skill.mjs` | スキル構造の検証             |
 
-services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - .:/app:cached
-      - /app/__pycache__  # Exclude pycache
-    ports:
-      - "8000:8000"
-    environment:
-      - DEBUG=true
-      - DATABASE_URL=postgresql://...
-    depends_on:
-      db:
-        condition: service_healthy
-    
-  db:
-    image: postgres:16-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=app
-      - POSTGRES_USER=app
-      - POSTGRES_PASSWORD=secret
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U app"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+### references/（詳細知識）
 
-volumes:
-  postgres_data:
-```
+| リソース             | パス                                                                           | 読込条件   |
+| -------------------- | ------------------------------------------------------------------------------ | ---------- |
+| レベル1 基礎         | [references/Level1_basics.md](references/Level1_basics.md)                     | 要件整理時 |
+| レベル2 実務         | [references/Level2_intermediate.md](references/Level2_intermediate.md)         | 設計時     |
+| レベル3 応用         | [references/Level3_advanced.md](references/Level3_advanced.md)                 | 実装時     |
+| レベル4 専門         | [references/Level4_expert.md](references/Level4_expert.md)                     | 改善時     |
+| Dockerfile最適化     | [references/dockerfile-optimization.md](references/dockerfile-optimization.md) | 設計時     |
+| イメージセキュリティ | [references/image-security.md](references/image-security.md)                   | 実装時     |
+| マルチステージ       | [references/multi-stage-builds.md](references/multi-stage-builds.md)           | 設計時     |
+| ローカル開発         | [references/local-development.md](references/local-development.md)             | 環境整備時 |
+| 要求仕様索引         | [references/requirements-index.md](references/requirements-index.md)           | 仕様確認時 |
+| 旧スキル             | [references/legacy-skill.md](references/legacy-skill.md)                       | 互換確認時 |
 
-### Production Environment
+### assets/（テンプレート・素材）
 
-```yaml
-version: "3.9"
+| アセット                                       | 用途                   |
+| ---------------------------------------------- | ---------------------- |
+| `assets/docker-requirements-template.md`       | 要件整理テンプレート   |
+| `assets/dockerfile-review-checklist.md`        | Dockerfileチェック     |
+| `assets/image-evaluation-template.md`          | 検証テンプレート       |
+| `assets/nodejs-dockerfile-template.dockerfile` | Dockerfileテンプレート |
+| `assets/docker-compose-template.yml`           | Composeテンプレート    |
 
-services:
-  app:
-    image: myapp:${VERSION:-latest}
-    deploy:
-      replicas: 3
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-      restart_policy:
-        condition: on-failure
-        max_attempts: 3
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    networks:
-      - app-network
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-```
+### 運用ファイル
 
-## Image Size Optimization
-
-```
-✅ Size reduction techniques:
-1. Use slim/alpine base images
-2. Multi-stage builds
-3. Combine RUN commands
-4. Clean up apt cache: && rm -rf /var/lib/apt/lists/*
-5. Use .dockerignore
-6. Remove build dependencies after install
-7. Use --no-cache-dir for pip
-```
-
-## Output Format
-
-```markdown
-## Docker Analysis Report
-
-### Image Analysis
-- Base image: python:3.12-slim
-- Final size: 125MB
-- Layers: 12
-- Security: ✅ Non-root user
-
-### Optimization Suggestions
-1. [Current] → [Optimized] - [Size saved]
-
-### Security Findings
-- ✅ Non-root user configured
-- ⚠️ Health check missing
-- ❌ Running as root
-
-### docker-compose Review
-- ✅ Health checks defined
-- ✅ Resource limits set
-- ⚠️ No restart policy
-```
-
-## Example Usage
-
-```
-@docker Create optimized Dockerfile for FastAPI app
-@docker Review docker-compose.yml for production readiness
-@docker Reduce image size of the current Dockerfile
-@docker Add health checks to all services
-```
+| ファイル       | 目的                       |
+| -------------- | -------------------------- |
+| `EVALS.json`   | レベル評価・メトリクス管理 |
+| `LOGS.md`      | 実行ログの蓄積             |
+| `CHANGELOG.md` | 改善履歴の記録             |

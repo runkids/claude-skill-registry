@@ -1,294 +1,408 @@
 ---
-name: Context Manager
-slug: context-manager
-description: Manage conversation context and memory for optimal AI performance
-category: meta
-complexity: simple
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "manage context"
-  - "clear context"
-  - "summarize context"
-  - "context window"
-  - "optimize context"
-tags:
-  - context-management
-  - memory
-  - optimization
+name: context-manager
+description: Comprehensive context and token usage management for Claude Code. Use this skill when working with large codebases, managing context window budget, optimizing file loading strategies, or when responses indicate context limitations. Helps with token analysis, file organization, query optimization, and context-efficient development workflows.
 ---
 
 # Context Manager
 
-The Context Manager skill helps you optimize conversation context to maintain Claude's effectiveness throughout long sessions. It tracks context window usage, identifies when to summarize or prune context, and helps you structure conversations to keep relevant information accessible while staying within token limits.
+Skill for managing context window and token usage in Claude Code sessions.
 
-This skill is essential for complex, multi-day projects where conversation history grows large. It helps you decide what to preserve, what to summarize, and what to discard, ensuring Claude maintains awareness of important decisions and project state without hitting context limits.
+## Overview
 
-Use this skill proactively during long development sessions, before starting new major features, or when you notice performance degradation due to context bloat.
+Claude Code has a context budget of approximately **190,000 tokens**. This skill helps manage this budget effectively through:
+- Token usage analysis and monitoring
+- Context-efficient query patterns
+- Strategic file loading
+- Optimization strategies for large codebases
 
-## Core Workflows
+## Quick Start
 
-### Workflow 1: Monitor Context Health
-1. **Check** current context usage:
-   - Token count
-   - Percentage of limit
-   - Recent growth rate
-2. **Analyze** context composition:
-   - How much is code?
-   - How much is conversation?
-   - How much is documentation?
-3. **Identify** problematic areas:
-   - Redundant information
-   - Outdated references
-   - Irrelevant tangents
-4. **Assess** risk level:
-   - Green: <50% usage, healthy
-   - Yellow: 50-75% usage, monitor
-   - Red: >75% usage, take action
-5. **Recommend** actions if needed
-6. **Report** status to user
+### Analyze Current Token Usage
 
-### Workflow 2: Summarize Long Conversation
-1. **Review** conversation history
-2. **Extract** key information:
-   - Decisions made
-   - Problems solved
-   - Current project state
-   - Open questions
-   - Next steps
-3. **Organize** by topic/timeline
-4. **Create** concise summary
-5. **Validate** with user
-6. **Suggest** starting new thread with summary
+Run the token analysis script to understand context usage:
 
-### Workflow 3: Prune Irrelevant Context
-1. **Identify** candidates for removal:
-   - Resolved issues
-   - Abandoned approaches
-   - Temporary debugging
-   - Superseded information
-2. **Categorize** by importance:
-   - Safe to remove
-   - Could summarize
-   - Must preserve
-3. **Propose** pruning plan to user
-4. **Execute** approved removals
-5. **Preserve** critical context
-6. **Verify** coherence after pruning
-
-### Workflow 4: Optimize Context Structure
-1. **Analyze** current context organization
-2. **Identify** inefficiencies:
-   - Information scattered across conversation
-   - Redundant explanations
-   - Lack of structure
-3. **Restructure** for efficiency:
-   - Group related information
-   - Create reference sections
-   - Use concise formats
-4. **Suggest** external documentation for:
-   - Architecture decisions
-   - API specifications
-   - Configuration details
-5. **Link** to external docs instead of inlining
-6. **Validate** improved efficiency
-
-## Quick Reference
-
-| Action | Command/Trigger |
-|--------|-----------------|
-| Check context status | "Check context window" or "How's our context?" |
-| Summarize conversation | "Summarize this conversation" |
-| Start fresh with summary | "Start new thread with summary" |
-| Prune old context | "Clear old context" or "Prune conversation" |
-| Optimize context structure | "Optimize our context" |
-| Preserve key decisions | "Document key decisions" |
-| Estimate context usage | "How much context are we using?" |
-
-## Best Practices
-
-- **Monitor Proactively**: Don't wait for performance issues
-  - Check context before starting major features
-  - Monitor after long debugging sessions
-  - Review weekly on long-running projects
-
-- **Summarize Regularly**: Compress history at natural breakpoints
-  - End of feature development
-  - After resolving major issues
-  - Before switching contexts (dev → deployment)
-
-- **Externalize Static Info**: Move unchanging content to files
-  - Architecture docs
-  - API specifications
-  - Code style guides
-  - Reference materials
-
-- **Use Structured Formats**: Make information dense and scannable
-  - Tables instead of prose
-  - Bullet points instead of paragraphs
-  - Code blocks instead of descriptions
-
-- **Preserve Decisions**: Always keep the "why"
-  - Why this approach was chosen
-  - Why alternatives were rejected
-  - What constraints influenced decisions
-
-- **Discard Aggressively**: Be ruthless with temporary content
-  - Debugging exploration
-  - Failed experiments
-  - Resolved issues
-  - Superseded plans
-
-- **Start Fresh Strategically**: Know when to begin new conversation
-  - After major milestones
-  - When switching to unrelated work
-  - When context is >75% full
-  - When performance degrades
-
-- **Document Externally**: Use files for persistent knowledge
-  - PIPELINE_STATUS.md for project state
-  - DECISIONS.md for architecture choices
-  - TODO.md for task lists
-  - README.md for onboarding
-
-## Context Optimization Strategies
-
-### Strategy 1: Hierarchical Summarization
-```
-Long conversation →
-  Detailed summary (50% reduction) →
-    Executive summary (80% reduction) →
-      Key decisions (95% reduction)
+```bash
+python scripts/analyze_tokens.py .
 ```
 
-### Strategy 2: Time-Based Windowing
-```
-Keep in context:
-- Last 1 hour: Full detail
-- Last 4 hours: Summarized
-- Last day: Key decisions only
-- Older: Link to external docs
-```
+This provides:
+- Total token count estimation
+- Budget usage percentage
+- Largest files by token count
+- Optimization recommendations
 
-### Strategy 3: Topic-Based Partitioning
-```
-Separate threads for:
-- Feature development
-- Bug investigation
-- Deployment/ops
-- Architecture discussion
+### For Specific Directories or Files
 
-Link between threads as needed
+```bash
+python scripts/analyze_tokens.py /path/to/directory
+python scripts/analyze_tokens.py src/large_file.py
+python scripts/analyze_tokens.py . --budget 190000
 ```
 
-### Strategy 4: Progressive Disclosure
+## When to Use This Skill
+
+Use this skill when:
+- Starting work on a large codebase (>50 files)
+- Noticing performance degradation or incomplete responses
+- Planning context-heavy operations (multi-file refactoring)
+- Setting up a new project for optimal Claude Code usage
+- Claude mentions being near context limits
+
+## Core Principles
+
+### 1. Load Only What's Needed
+
+**DO:**
+- Request specific files by name
+- Use line ranges for large files: `view(path, [start, end])`
+- Load files sequentially for related changes
+- Work on one module/component at a time
+
+**DON'T:**
+- Load entire directories without filtering
+- Keep unnecessary files in context
+- Load the same file multiple times
+- Request vague "show me everything" queries
+
+### 2. Use Targeted Queries
+
+**Good queries:**
 ```
-Start with:
-- Current task context only
-
-Add on demand:
-- Related decisions
-- Relevant code
-- Background information
-
-Remove when done
+"Update the timeout value in config.py line 45 to 30 seconds"
+"Show me the login function in auth.py"
+"Fix the validation bug in user.py lines 120-135"
 ```
 
-## Context Health Checklist
+**Poor queries:**
+```
+"Help me with this project"
+"Load all the code"
+"Show me everything related to authentication"
+```
 
-Before starting a major task, verify:
+### 3. Monitor and Optimize
 
-- [ ] Context usage < 75%
-- [ ] Recent decisions documented
-- [ ] Obsolete information removed
-- [ ] Current project state clear
-- [ ] Next steps identified
-- [ ] Relevant files/docs linked
-- [ ] Debugging traces cleaned up
+File size guidelines:
+- **Small (<1K tokens)**: Load freely
+- **Medium (1-5K tokens)**: Load when needed
+- **Large (5-20K tokens)**: Use line ranges
+- **Very large (>20K tokens)**: Split or load sections only
 
-## Warning Signs of Context Issues
+Budget zones:
+- **Green (<70%)**: Normal operation
+- **Yellow (70-85%)**: Be selective
+- **Red (>85%)**: Load essentials only, consider reset
 
-Watch for these indicators:
+## Progressive File Loading
 
-- **Responses get slower**: Processing large context
-- **Information ignored**: AI misses recent context
-- **Repetition**: AI re-explains known information
-- **Loss of coherence**: AI forgets earlier decisions
-- **Token limit warnings**: Approaching hard limits
-- **Degraded accuracy**: Mistakes in previously solid areas
+Follow this pattern for efficient context usage:
 
-## External Memory Strategies
+```
+1. Structure → "Show me the project structure"
+2. Module → "Show me files in the auth module"  
+3. Load → "Load auth.py"
+4. Target → "Show me lines 100-150 where the login logic is"
+5. Action → "Update line 120 to add validation"
+```
 
-Move these to files, not context:
+## Working with Large Files
 
-| Information Type | Best Storage |
-|------------------|--------------|
-| Project overview | README.md |
-| Architecture decisions | ARCHITECTURE.md or ADRs |
-| API contracts | OpenAPI spec or schema files |
-| Current project state | PIPELINE_STATUS.md or TODO.md |
-| Configuration | .env, config files |
-| Code style rules | .eslintrc, prettier.config.js |
-| Deployment process | DEPLOYMENT.md or CI/CD config |
-| Team decisions | DECISIONS.md or meeting notes |
+### Strategy 1: Line Ranges
 
-## Context Templates
+Instead of loading entire files:
 
-### Project State Summary Template
+```python
+# Load only relevant section
+view("src/api.py", view_range=[100, 200])
+view("src/models.py", view_range=[1, 50])
+```
+
+### Strategy 2: Progressive Disclosure
+
+```
+1. "What functions are in auth.py?"
+2. "Show me just the validate_token function"
+3. "Now show me where it's called"
+```
+
+### Strategy 3: Targeted Modifications
+
+```python
+# Precise changes without loading full file
+str_replace(
+    "Update timeout configuration",
+    "config.py",
+    old_str="TIMEOUT = 10",
+    new_str="TIMEOUT = 30"
+)
+```
+
+## Context Budget Management
+
+### Understanding Token Distribution
+
+Typical session breakdown:
+- System prompts & skills: ~40K tokens (21%)
+- Conversation history: ~30K tokens (16%)  
+- Available for files: ~120K tokens (63%)
+
+### Monitoring Usage
+
+Run periodic checks:
+```bash
+# Quick check
+python scripts/analyze_tokens.py .
+
+# Detailed analysis with JSON output
+python scripts/analyze_tokens.py . --json > token_report.json
+```
+
+### Warning Signs
+
+Start a new session or reduce context when:
+- Claude asks to see previously loaded files
+- Responses become incomplete or generic
+- Performance noticeably degrades
+- Token usage >85% for multiple messages
+- Switching to a completely different feature
+
+## Bash Command Optimization
+
+Commands add output to context. Minimize verbose output:
+
+```bash
+# Heavy output ❌
+npm install
+pip list
+git log
+
+# Optimized ✅  
+npm install --silent
+pip list --format=freeze | head -n 20
+git log --oneline -10
+```
+
+Use output redirection:
+```bash
+# Suppress unnecessary output
+command > /dev/null 2>&1
+command --quiet
+command | head -n 20
+```
+
+## Project Setup for Context Efficiency
+
+### Step 1: Create Context Guidelines
+
+Add a `.context-notes.md` to your project:
+
 ```markdown
-## Project: [Name]
-- **Status**: [Current pipeline stage]
-- **Current focus**: [What we're working on]
-- **Last completed**: [Recent achievement]
-- **Next steps**: [Immediate tasks]
-- **Blockers**: [What's preventing progress]
-- **Key decisions**: [Recent important choices]
+## Context Management
+
+### Key Files
+- `src/api.py` (large - use line ranges)
+- `src/config.py` (small - load freely)
+
+### Context Strategy  
+- Work on one module at a time
+- Exclude test fixtures (context-heavy)
+- Load models individually
+
+### Exclude Patterns
+- `data/` directory (large datasets)
+- `legacy/` directory (old code)
 ```
 
-### Decision Log Template
-```markdown
-## Decision: [Topic]
-- **Date**: [When]
-- **Context**: [Why we needed to decide]
-- **Options considered**: [Alternatives]
-- **Choice**: [What we decided]
-- **Rationale**: [Why this choice]
-- **Consequences**: [Trade-offs accepted]
+### Step 2: Add Exclusion Patterns
+
+Copy the `.claudeignore` template:
+
+```bash
+cp assets/claudeignore-template.txt .claudeignore
 ```
 
-### Session Summary Template
-```markdown
-## Session Summary: [Date]
-- **Duration**: [How long]
-- **Accomplished**: [What we built/fixed]
-- **Decisions**: [Choices made]
-- **Issues found**: [Problems discovered]
-- **Next session**: [Where to continue]
+Edit to add project-specific exclusions.
+
+### Step 3: Organize Code
+
+Structure for selective loading:
+```
+src/
+├── core/       # Core logic (load as needed)
+├── api/        # API routes (load by route)
+├── models/     # Data models (load individually)
+└── utils/      # Utilities (load specific files)
 ```
 
-## Advanced: Context Compression Techniques
+Avoid flat structures with many large files.
 
-For power users:
+## Advanced Techniques
 
-1. **Use references**: Link to code instead of pasting
-   - "See function `processData` in `/src/utils/data.ts`"
-   - Instead of: [pasting entire function]
+### Technique 1: Component-Based Loading
 
-2. **Leverage AI memory**: Store in knowledge graph
-   - Key relationships between entities
-   - Project-specific terminology
-   - Team member roles and expertise
+Work on one component at a time:
+1. Identify the component
+2. Load only relevant files
+3. Complete the work
+4. Move to next component
 
-3. **Create abbreviations**: Define once, use everywhere
-   - "FE" = Frontend, "BE" = Backend
-   - "MR" = Merge Request, "PR" = Pull Request
-   - Project-specific acronyms
+### Technique 2: Reference Documentation
 
-4. **Use diff format**: Show changes, not entire files
-   - Especially for code reviews
-   - Before/after comparisons
+For large reference files, create summaries:
+- Link to external documentation
+- Create concise internal docs
+- Use code comments for context
 
-5. **Batch similar information**: Group related items
-   - All env vars in one block
-   - All API endpoints in table
-   - All dependencies in list
+### Technique 3: Context Checkpoints
+
+For long tasks:
+1. Summarize progress periodically
+2. Start fresh session with minimal context
+3. Continue with only essential files loaded
+
+### Technique 4: Split Large Files
+
+When a file exceeds 500-1000 lines:
+- Split by functionality
+- Separate frequently changed from stable code
+- Group by dependencies
+
+Example:
+```
+Before: api.py (2000 lines, ~15K tokens)
+
+After:
+api/
+├── routes.py (~2K tokens)
+├── handlers.py (~3K tokens)  
+├── validation.py (~1.5K tokens)
+└── utils.py (~750 tokens)
+```
+
+## Reference Documentation
+
+For detailed information, see:
+
+- **[optimization_strategies.md](references/optimization_strategies.md)**: Comprehensive context optimization techniques, file loading best practices, and directory structure guidelines
+- **[claude_code_specifics.md](references/claude_code_specifics.md)**: Claude Code-specific patterns, tool usage best practices, and session management strategies
+- **[quick_reference.md](references/quick_reference.md)**: Quick reference cheat sheet with token budget rules, essential commands, and common patterns
+
+## Common Patterns
+
+### Pattern 1: Bug Fixing
+```
+"What file contains the authentication logic?"
+"Show me the login function in auth.py"
+"Update line 45 to fix the validation check"
+```
+
+### Pattern 2: Feature Development
+```
+"What's the structure of the API routes?"
+"Show me an example route handler"
+"Create a new /users route following that pattern"
+```
+
+### Pattern 3: Refactoring
+```
+"List files in the models/ directory"
+"Load models/user.py"
+"Refactor to use dataclasses"
+[Repeat for each file]
+```
+
+### Pattern 4: Code Review
+```
+"Review auth.py for security issues (lines 1-100)"
+"Now review lines 100-200"
+[Continue in sections]
+```
+
+## Troubleshooting
+
+### Issue: Context Feels Heavy
+
+**Solutions:**
+1. Run `python scripts/analyze_tokens.py .`
+2. Start new session if usage >85%
+3. Load only essential files
+4. Use line ranges for large files
+
+### Issue: Claude Asks for Previously Loaded Files
+
+**Solutions:**
+1. Acknowledge context limitations
+2. Start fresh session
+3. Load files more selectively
+4. Use explicit file references
+
+### Issue: Slow Performance
+
+**Solutions:**
+1. Check token usage with analysis script
+2. Reduce loaded file count
+3. Use view ranges instead of full files
+4. Exclude unnecessary directories
+
+### Issue: Need to Work on Large File
+
+**Solutions:**
+1. Use line ranges to load sections
+2. View structure first, then load relevant parts
+3. Make targeted str_replace edits
+4. Consider splitting if frequently modified
+
+## Best Practices Summary
+
+1. **Analyze first**: Run token analysis before major work
+2. **Load selectively**: Request specific files, not directories
+3. **Use line ranges**: For files >500 lines
+4. **Query precisely**: Targeted questions get targeted responses
+5. **Monitor budget**: Check usage regularly
+6. **Reset when needed**: Start fresh for new features
+7. **Optimize structure**: Organize code for selective loading
+8. **Document strategy**: Create project context guidelines
+9. **Exclude appropriately**: Use .claudeignore for vendor code
+10. **Think incrementally**: One component at a time
+
+## Integration with Development Workflow
+
+### Daily Development
+- Quick token check at start: `python scripts/analyze_tokens.py .`
+- Work on one module per session
+- Use line ranges for large files
+- Start fresh session for new features
+
+### Code Reviews
+- Load files individually
+- Review in sections for large files
+- Focus on changed files only
+
+### Refactoring
+- Analyze token usage first
+- Plan component-by-component approach
+- One file at a time
+- Test each file before moving on
+
+### Debugging
+- Identify relevant files first
+- Load only those files
+- Use line ranges for context
+- Make precise changes
+
+## Additional Resources
+
+Run analysis script with options:
+```bash
+# Basic analysis
+python scripts/analyze_tokens.py .
+
+# Custom budget
+python scripts/analyze_tokens.py . --budget 150000
+
+# JSON output for integration
+python scripts/analyze_tokens.py . --json
+
+# Exclude additional patterns
+python scripts/analyze_tokens.py . --exclude build dist
+```

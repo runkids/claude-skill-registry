@@ -1,9 +1,7 @@
 {
   "name": "youtube-transcribe",
-  "description": "Download YouTube video transcripts with timestamps. Use when asked to transcribe a YouTube video, get transcript, or extract text from a video URL.",
-  "repo": "rajshah4/my-agent-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "helmecke/dotfiles",
+  "path": "dot_config/opencode/skill/youtube-transcribe/SKILL.md",
+  "source": "github.com/helmecke/dotfiles",
+  "downloaded_at": "2026-01-22T02:23:04.310620Z"
 }

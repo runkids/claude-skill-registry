@@ -208,3 +208,11 @@ Tell user: "Found N unreplied comments: [IDs]. Run github-pr-review to address t
 - **github-pr-review** - For resolving review comments before merge
 - **github-pr-creation** - For creating PRs (this skill handles the merge)
 - **git-commit** - For commit message format during PR work
+
+## When to use this skill
+
+Merges GitHub Pull Requests after validating pre-merge checklist. Use when user wants to merge PR, close PR, finalize PR, complete merge, approve and merge, or execute merge. Runs pre-merge validation (tests, lint, CI, comments), confirms with user, merges with proper format, handles post-merge cleanup.
+
+## How to use this skill
+
+Refer to the instructions above or standard agent usage for this skill type.

@@ -1,7 +1,7 @@
 {
   "name": "multi-agent-coordination",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/orchestration/skills/multi-agent-coordination/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-14T02:54:03.035115Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": "plugins/orchestrate-complex/skills/multi-agent-coordination/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-22T03:56:15.834703Z"
 }

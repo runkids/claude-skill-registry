@@ -1,7 +1,7 @@
 {
   "name": "changelog-automation",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/documentation-generation/skills/changelog-automation/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:34.998413Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/documentation-generation/skills/changelog-automation/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-22T03:51:09.827224Z"
 }

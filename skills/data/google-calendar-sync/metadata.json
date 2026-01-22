@@ -1,8 +1,7 @@
 {
   "name": "google-calendar-sync",
-  "repo": "astoreyai/claude-skills",
-  "category": "data",
-  "description": "Manages Google Calendar through the Calendar API. Create, read, update, and delete events, manage multiple calendars, set reminders, handle recurring events, and sync with local schedules. Use when wo",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:03.940230Z"
+  "repo": "badass-courses/course-builder",
+  "path": ".opencode/skill/google-calendar-sync/SKILL.md",
+  "source": "github.com/badass-courses/course-builder",
+  "downloaded_at": "2026-01-22T00:54:46.790370Z"
 }

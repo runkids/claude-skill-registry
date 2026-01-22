@@ -1,217 +1,180 @@
 ---
-name: Git
-description: Expert guidance for Git version control operations including commits, branches, merging, rebasing, conflict resolution, and Git workflows. Use this when working with Git repositories, version control, or collaborative development.
+name: git
+description: "GitHub and Git workflow helpers; triggers on 'create pr', 'pr checks', 'retrigger tests', 'bump version', 'push'."
 ---
 
-# Git
+## Purpose
+Model-neutral helper for GitHub and Git workflows including PR management, CI triggers, version bumping, and branch operations.
 
-Expert assistance with Git version control and collaborative workflows.
+## Triggers
+Use when the user says: "create a pr", "check pr status", "retrigger tests", "toggle test label", "pr checks", "bump version", "push to remote".
 
-## Essential Commands
+## How to use
 
-### Repository Setup
-- `git init` - Initialize new repository
-- `git clone <url>` - Clone remote repository
-- `git remote add origin <url>` - Add remote
-- `git remote -v` - List remotes
-
-### Daily Workflow
-- `git status` - Check working tree status
-- `git add .` - Stage all changes
-- `git add -p` - Interactive staging
-- `git commit -m "message"` - Commit with message
-- `git commit --amend` - Amend last commit
-- `git pull` - Fetch and merge from remote
-- `git push` - Push commits to remote
-
-### Branch Management
-- `git branch` - List local branches
-- `git branch -a` - List all branches (including remote)
-- `git branch <name>` - Create new branch
-- `git checkout <branch>` - Switch to branch
-- `git checkout -b <name>` - Create and switch to new branch
-- `git branch -d <name>` - Delete branch (safe)
-- `git branch -D <name>` - Force delete branch
-- `git push origin --delete <branch>` - Delete remote branch
-
-### Viewing History
-- `git log` - View commit history
-- `git log --oneline --graph` - Compact graphical history
-- `git log --author="name"` - Filter by author
-- `git show <commit>` - Show commit details
-- `git diff` - Show unstaged changes
-- `git diff --staged` - Show staged changes
-- `git diff <branch1>..<branch2>` - Compare branches
-
-### Undoing Changes
-- `git restore <file>` - Discard working changes
-- `git restore --staged <file>` - Unstage file
-- `git reset HEAD~1` - Undo last commit (keep changes)
-- `git reset --hard HEAD~1` - Undo last commit (discard changes)
-- `git revert <commit>` - Create new commit that undoes changes
-- `git clean -fd` - Remove untracked files
-
-### Stashing
-- `git stash` - Stash current changes
-- `git stash list` - List stashes
-- `git stash pop` - Apply and remove last stash
-- `git stash apply` - Apply last stash (keep in list)
-- `git stash drop` - Delete last stash
-
-## Advanced Operations
-
-### Rebasing
+### Check PR Status
 ```bash
-# Rebase current branch onto main
-git rebase main
+# View PR checks
+gh pr checks <PR_NUMBER> --repo <owner/repo>
 
-# Interactive rebase (squash, reorder, edit commits)
-git rebase -i HEAD~3
-
-# Continue after resolving conflicts
-git rebase --continue
-
-# Abort rebase
-git rebase --abort
+# View PR details
+gh pr view <PR_NUMBER> --repo <owner/repo>
 ```
 
-### Cherry-picking
-```bash
-# Apply specific commit to current branch
-git cherry-pick <commit-hash>
+### Retrigger CI Tests
+When a PR test fails and a fix is pushed, tests don't automatically re-run. Toggle the "TEST" label to trigger:
 
-# Cherry-pick without committing
-git cherry-pick -n <commit-hash>
+```bash
+# Remove and re-add TEST label to trigger CI
+gh pr edit <PR_NUMBER> --repo <owner/repo> --remove-label "TEST"
+sleep 2
+gh pr edit <PR_NUMBER> --repo <owner/repo> --add-label "TEST"
 ```
 
-### Merging
+### Check CircleCI Pipeline Status
 ```bash
-# Merge branch into current
-git merge <branch>
+# Get latest pipeline for a branch
+curl -s -H "Circle-Token: $(cat ~/.circleci/cli.yml | grep token | awk '{print $2}')" \
+  "https://circleci.com/api/v2/project/gh/<owner>/<repo>/pipeline?branch=<BRANCH>" \
+  | jq '.items[0] | {number, state, created_at}'
 
-# Merge without fast-forward (create merge commit)
-git merge --no-ff <branch>
-
-# Abort merge
-git merge --abort
+# Get workflow status for a pipeline
+curl -s -H "Circle-Token: $(cat ~/.circleci/cli.yml | grep token | awk '{print $2}')" \
+  "https://circleci.com/api/v2/pipeline/<PIPELINE_ID>/workflow" \
+  | jq '.items[] | {name, status}'
 ```
 
-### Conflict Resolution
+### Poll CI Until Completion
 ```bash
-# Show conflicts
-git status
+# Poll current branch (10 min timeout, 1 min interval)
+# Update OWNER and REPO in the script first
+.lisa/skills/git/scripts/poll-ci.sh
 
-# After resolving conflicts in files
-git add <resolved-file>
-git commit
-
-# Use theirs/ours for entire file
-git checkout --theirs <file>
-git checkout --ours <file>
+# Poll specific branch
+.lisa/skills/git/scripts/poll-ci.sh feature-branch
 ```
 
-## Git Workflows
+Exit codes:
+- `0` - CI passed
+- `1` - CI failed
+- `2` - CI canceled
+- `3` - Timeout (10 minutes)
+- `4` - CircleCI token not found
+- `5` - No pipeline found for branch
 
-### Feature Branch Workflow
+### Bump Version
+Bump the semantic version in package.json before pushing:
+
 ```bash
-# Create feature branch
-git checkout -b feature/new-feature
+# Bump minor version (default): 1.2.3 → 1.3.0
+lisa bump-version
 
-# Work and commit
-git add .
-git commit -m "Add new feature"
+# Bump patch version: 1.2.3 → 1.2.4
+lisa bump-version patch
 
-# Update from main
-git checkout main
-git pull
-git checkout feature/new-feature
-git rebase main
-
-# Push feature branch
-git push -u origin feature/new-feature
+# Bump major version: 1.2.3 → 2.0.0
+lisa bump-version major
 ```
 
-### Hotfix Workflow
+Output (JSON to stdout):
+```json
+{
+  "status": "ok",
+  "bumpType": "minor",
+  "oldVersion": "1.2.3",
+  "newVersion": "1.3.0",
+  "file": "/path/to/package.json"
+}
+```
+
+## Workflow: Push with Version Bump
+
+**When pushing changes to remote**, bump the version first:
+
+1. **Bump version** (default: minor):
+   ```bash
+   lisa bump-version
+   ```
+
+2. **Commit the version bump**:
+   ```bash
+   git add package.json
+   git commit -m "chore: bump version to $(node -p "require('./package.json').version")"
+   ```
+
+3. **Push to remote**:
+   ```bash
+   git push
+   ```
+
+**One-liner for bump + commit + push**:
 ```bash
-# Create hotfix from main
-git checkout main
-git pull
-git checkout -b hotfix/critical-fix
-
-# Fix and commit
-git commit -am "Fix critical bug"
-
-# Merge back to main
-git checkout main
-git merge hotfix/critical-fix
+lisa bump-version && \
+git add package.json && \
+git commit -m "chore: bump version to $(node -p \"require('./package.json').version\")" && \
 git push
-
-# Clean up
-git branch -d hotfix/critical-fix
 ```
 
-## Configuration
+## Workflow: PR Created
 
-### User Setup
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your@email.com"
+**When a Pull Request is created**, follow these steps:
+
+1. **Create the PR** with the TEST label:
+   ```bash
+   gh pr create --title "[TICKET-123] - Title" --body "..." --label "TEST"
+   ```
+
+2. **Update Jira tickets** to "Code Review" status (see jira skill)
+
+3. **Monitor CI** - Check if tests pass:
+   ```bash
+   gh pr checks <PR_NUMBER> --repo <owner/repo>
+   ```
+
+## Workflow: PR Test Failure
+
+**When CI tests fail on a PR:**
+
+1. **Identify the failure** - Check CircleCI logs or GitHub checks
+2. **Push a fix** - Commit and push the fix to the branch
+3. **Retrigger tests** - Toggle the TEST label:
+   ```bash
+   gh pr edit <PR_NUMBER> --repo <owner/repo> --remove-label "TEST" && \
+   sleep 2 && \
+   gh pr edit <PR_NUMBER> --repo <owner/repo> --add-label "TEST"
+   ```
+4. **Monitor** - Watch for the new pipeline to complete
+
+## I/O Contract (examples)
+
+### PR Checks
+```
+gh pr checks 1266
+Run linter    pass    1m28s    https://github.com/...
+ci/circleci   pass    5m12s    https://circleci.com/...
 ```
 
-### Useful Aliases
-```bash
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global alias.lg "log --oneline --graph --all"
+### CircleCI Pipeline Status
+```json
+{
+  "number": 6162,
+  "state": "created",
+  "created_at": "2026-01-13T17:27:10.963Z"
+}
 ```
 
-### Editor
-```bash
-git config --global core.editor "vim"
+### CircleCI Workflow Status
+```json
+{
+  "name": "test",
+  "status": "running"
+}
 ```
 
-## Best Practices
+## Cross-model checklist
+- Claude: Use concise commands; prefer gh CLI for GitHub operations
+- Gemini: Explicit commands; avoid model-specific tokens
 
-1. **Commit Messages**: Use clear, descriptive messages following conventional commits
-2. **Small Commits**: Make atomic commits that do one thing
-3. **Pull Before Push**: Always pull latest changes before pushing
-4. **Branch Naming**: Use descriptive names like `feature/`, `bugfix/`, `hotfix/`
-5. **Never Force Push**: Avoid `git push --force` on shared branches
-6. **Review Changes**: Use `git diff` before committing
-7. **Protect Main**: Never commit directly to main/master
-
-## Troubleshooting
-
-### Undo accidental commit to wrong branch
-```bash
-git reset HEAD~1  # Undo commit, keep changes
-git stash         # Stash changes
-git checkout <correct-branch>
-git stash pop     # Apply changes
-git add .
-git commit -m "message"
-```
-
-### Fix merge conflicts
-```bash
-# View conflicts
-git status
-
-# Edit conflicting files (look for <<<<<<, ======, >>>>>>)
-# Remove conflict markers and keep desired code
-
-# Mark as resolved
-git add <file>
-git commit
-```
-
-### Recover deleted branch
-```bash
-# Find commit hash
-git reflog
-
-# Recreate branch
-git checkout -b <branch-name> <commit-hash>
-```
+## Notes
+- Requires `gh` CLI authenticated with GitHub
+- Requires CircleCI CLI/token for pipeline status
+- TEST label triggers CI workflow via GitHub Actions/CircleCI integration

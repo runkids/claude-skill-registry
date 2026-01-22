@@ -1,7 +1,7 @@
 {
   "name": "agent-coordination",
-  "repo": "d-o-hub/rust-self-learning-memory",
-  "path": ".opencode/skill/agent-coordination/SKILL.md",
-  "source": "github.com/d-o-hub/rust-self-learning-memory",
-  "downloaded_at": "2026-01-14T03:40:12.444830Z"
+  "repo": "bybren-llc/safe-agentic-workflow",
+  "path": ".claude/skills/agent-coordination/SKILL.md",
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-22T03:11:02.811919Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "sqlite",
-  "repo": "zzoohub/mealio",
-  "path": ".claude/skills/sqlite/SKILL.md",
-  "source": "github.com/zzoohub/mealio",
-  "downloaded_at": "2026-01-14T02:55:16.377256Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/databases-orms/sqlite/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-22T03:54:23.771239Z"
 }

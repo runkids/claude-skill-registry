@@ -1,8 +1,7 @@
 {
   "name": "zapier-workflows",
   "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Manage and trigger pre-built Zapier workflows and MCP tool orchestration. Use when user mentions workflows, Zaps, automations, daily digest, research, search, lead tracking, expenses, or asks to \"run\"",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.743133Z"
+  "path": "cli-tool/components/skills/development/zapier-workflows/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-22T03:18:30.299845Z"
 }

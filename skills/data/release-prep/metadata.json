@@ -1,7 +1,7 @@
 {
   "name": "release-prep",
-  "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/release-prep/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-14T02:11:10.573170Z"
+  "repo": "zeroae/zae-limiter",
+  "path": ".claude/skills/release-prep/SKILL.md",
+  "source": "github.com/zeroae/zae-limiter",
+  "downloaded_at": "2026-01-22T02:51:26.584962Z"
 }

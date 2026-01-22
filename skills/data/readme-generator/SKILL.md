@@ -1,436 +1,480 @@
 ---
 name: readme-generator
-description: This skill should be used when users want to create or improve README.md files for their projects. It generates professional documentation following the Deep Insight/Strands SDK style - comprehensive yet focused, with clear structure and practical examples.
+description: Эксперт по README файлам. Используй для создания документации проектов, badges, installation guides и usage examples.
 ---
 
 # README Generator
 
-## Overview
+Expert in creating comprehensive, well-structured README files with proper formatting, sections, badges, and documentation best practices.
 
-Generate professional README.md files that follow the Deep Insight/Strands SDK style: clear structure, progressive disclosure, and balanced depth. This skill uses Claude Code's native tools (Read, Glob, Grep) to explore codebases and creates user-friendly documentation.
-
-**Target style**: Deep Insight README - professional, visual, and user-focused.
-
-## When to Use This Skill
-
-Use this skill when:
-- Creating a new README.md from scratch
-- Improving an existing README with better structure and balance
-- Adopting the Deep Insight/Strands SDK documentation style
-- Converting technical documentation to user-friendly format
-
-Do NOT use this skill for:
-- API-only documentation (use API doc generators instead)
-- Internal technical specs (use architectural docs instead)
-
-## The Deep Insight README Pattern
-
-### Structure
-1. **Center-aligned header** with logo, title, tagline, badges, and quick navigation links
-2. **Latest News** - Recent updates and releases
-3. **Why [Project]?** - Value proposition with key benefits
-4. **Quick Start** - Get running in 2 minutes (install + basic example)
-5. **Demo** - Video/screenshots with sample outputs
-6. **Installation** - Detailed setup instructions
-7. **Architecture** - System overview with diagrams
-8. **Contributing** - Brief welcome with contribution areas
-9. **License** - Clear license type
-10. **Acknowledgments/Contributors** - Credits and team info
-
-### Key Principles
-- **Visual first**: Logo, centered layout, badges, architecture diagrams
-- **Balanced depth**: Substantial enough to be useful, focused enough to stay readable
-- **Progressive disclosure**: Quick value at top, details further down
-- **Code-first**: Show working examples, not just descriptions
-- **Professional yet accessible**: Clear language without excessive jargon
-
-## README Generation Workflow
-
-### Step 1: Explore the Codebase
-
-Use Claude Code's native tools to gather essential information:
-
-**Project structure:**
-```
-Use Glob to find key files:
-- Entry points: main.py, app.py, *.ipynb
-- Config: pyproject.toml, requirements.txt, .env.example
-- Assets: logos, screenshots, diagrams in assets/
-- Docs: CLAUDE.md, existing README, CONTRIBUTING.md
-```
-
-**Dependencies and frameworks:**
-```
-Use Read to examine:
-- pyproject.toml or requirements.txt for dependencies
-- Key imports in main files to identify frameworks
-- .env.example for required configuration
-```
-
-**Key features:**
-```
-Use Read to understand:
-- Main entry point logic
-- Command-line arguments or API endpoints
-- Output artifacts or deliverables
-```
-
-### Step 2: Build the README
-
-Create sections following the Deep Insight pattern:
-
-#### 1. Header Section with Logo
+## README Template
 
 ```markdown
-<div align="center">
-  <div>
-    <img src="./assets/project_logo.png" alt="Project Name" width="110px" height="210px">
-  </div>
+# Project Name
 
-  <h1 style="margin-top: 10px;">Project Name</h1>
+[![Build Status](https://img.shields.io/github/actions/workflow/status/owner/repo/ci.yml?branch=main)](https://github.com/owner/repo/actions)
+[![npm version](https://img.shields.io/npm/v/package-name.svg)](https://www.npmjs.com/package/package-name)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Coverage](https://img.shields.io/codecov/c/github/owner/repo)](https://codecov.io/gh/owner/repo)
 
-  <h2>Concise value proposition in one sentence</h2>
+> Brief, compelling description of what the project does and why it's useful.
 
-  <div align="center">
-    <a href="https://github.com/user/repo/graphs/commit-activity"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/user/repo"/></a>
-    <a href="https://github.com/user/repo/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/LICENSE-MIT-green"/></a>
-    <a href="https://www.python.org/downloads/"><img alt="Python" src="https://img.shields.io/badge/python-3.12+-blue.svg"/></a>
-  </div>
+## Features
 
-  <p>
-    <a href="#why-project">Why Project?</a>
-    ◆ <a href="#quick-start">Quick Start</a>
-    ◆ <a href="#demo">Demo</a>
-    ◆ <a href="#installation">Installation</a>
-    ◆ <a href="#architecture">Architecture</a>
-  </p>
-</div>
-```
+- ✅ Feature one with brief explanation
+- ✅ Feature two with brief explanation
+- ✅ Feature three with brief explanation
+- 🚧 Upcoming feature (in development)
 
-**Key points**:
-- Logo at the top, adjust size as needed
-- Title with reduced margin (`margin-top: 10px`)
-- Navigation links with ◆ separator
-
-#### 2. Latest News
-
-Show recent updates in reverse chronological order:
-
-```markdown
-## *Latest News* 🔥
-
-- **[2025/10]** Released [Project Workshop](link) (Korean)
-- **[2025/10]** Added support for Claude Sonnet 4.5 with enhanced reasoning capabilities
-- **[2025/09]** Released Project framework with multi-agent architecture
-```
-
-#### 3. Why [Project]?
-
-Value proposition with key benefits:
-
-```markdown
-## Why Project Name?
-
-Brief description of the transformation or value provided.
-
-- **🎨 Benefit 1** - Description
-- **🔒 Benefit 2** - Description
-- **🤖 Benefit 3** - Description
-- **📊 Benefit 4** - Description
-- **🚀 Benefit 5** - Description
-```
-
-#### 4. Quick Start
-
-Minimal commands to get running (2-3 steps max):
-
-```markdown
 ## Quick Start
 
 \`\`\`bash
-# 1. Clone and setup environment
-git clone https://github.com/user/repo.git
-cd repo-directory
-./setup.sh  # or your setup command
+# Install
+npm install package-name
 
-# 2. Configure credentials/environment (if needed)
-cp .env.example .env
-# Edit .env with your configuration
-
-# 3. Run basic example
-python main.py --example "basic task"
+# Run
+npx package-name init
 \`\`\`
 
-> **Prerequisites**: List key requirements (e.g., Python 3.12+, API keys, system dependencies)
->
-> **Need more options?** See [Installation](#installation) section below for detailed setup instructions and alternative configuration methods.
-```
-
-#### 5. Demo
-
-Video and sample outputs:
-
-```markdown
-## Demo
-
-### Use Case Title
-
-> **Task**: "Detailed task description"
->
-> **Workflow**: Input (data source) → Process (natural language prompt) → Output (deliverables with analysis)
-
-[▶️ Watch Full Demo on YouTube](video-url)
-
-### Sample Outputs
-
-📄 [Output 1](link) | 📄 [Output 2](link)
-```
-
-#### 6. Installation
-
-Complete setup with configuration:
-
-```markdown
 ## Installation
 
-This section provides detailed installation instructions and alternative configuration options. For a quick setup, see [Quick Start](#quick-start) above.
+### Prerequisites
 
-### Environment Setup
+- Node.js 18+
+- npm 9+ or yarn 1.22+
 
-\`\`\`bash
-# Clone the repository
-git clone https://github.com/user/repo.git
-cd repo-directory
-
-# Install dependencies (choose your method)
-pip install -r requirements.txt
-# OR
-poetry install
-# OR
-./setup.sh
-\`\`\`
-
-The setup automatically:
-- Installs required dependencies
-- Sets up virtual environment
-- Configures initial settings
-
-### Configuration
-
-Provide multiple configuration options for flexibility:
-
-**Option 1: Configuration File (Recommended)**
+### npm
 
 \`\`\`bash
-cp config.example.yaml config.yaml
-# Edit config.yaml with your settings
+npm install package-name
 \`\`\`
 
-**Option 2: Environment Variables**
+### yarn
 
 \`\`\`bash
-# Direct export (session-based)
-export API_KEY=your_api_key
-export ENVIRONMENT=production
+yarn add package-name
 \`\`\`
 
-**Option 3: .env File (Persistent)**
+### pnpm
 
 \`\`\`bash
-# Copy example file and edit
-cp .env.example .env
-# Edit .env with your configuration
+pnpm add package-name
 \`\`\`
 
-> **Security Note**: Never commit files with real credentials to version control. Sensitive files should be in \`.gitignore\`.
-```
+## Usage
 
-#### 7. Architecture
+### Basic Example
 
-System overview with visual diagram and optional text-based architecture:
+\`\`\`javascript
+import { Client } from 'package-name';
 
-```markdown
-## Architecture
+const client = new Client({
+  apiKey: process.env.API_KEY
+});
 
-### System Overview
+const result = await client.doSomething({
+  input: 'Hello, World!'
+});
 
-<div align="center">
-  <img src="./assets/architecture.png" alt="Project Architecture" width="750">
-</div>
-
-### Component Architecture (Optional)
-
-For complex systems, include text-based diagrams to explain flow:
-
-\`\`\`
-┌─────────────────────────────────────────────────────────┐
-│                     User Input                          │
-│                   (Entry Point)                         │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────────────────────┐
-│  COMPONENT A (Primary Handler)                          │
-│  • Responsibility 1                                     │
-│  • Responsibility 2                                     │
-│  • Responsibility 3                                     │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────────────────────┐
-│  COMPONENT B (Processor)                                │
-│  • Processing step 1                                    │
-│  • Processing step 2                                    │
-└──────────┬──────────┬──────────┬────────────────────────┘
-           │          │          │
-     ┌─────┘    ┌─────┘    ┌─────┘
-     ▼          ▼          ▼
-┌─────────┐ ┌─────────┐ ┌─────────┐
-│ MODULE1 │ │ MODULE2 │ │ MODULE3 │
-│         │ │         │ │         │
-│ Task A  │ │ Task B  │ │ Task C  │
-└─────────┘ └─────────┘ └─────────┘
+console.log(result);
 \`\`\`
 
-### Key Design Decisions
+### Advanced Configuration
 
-Explain architectural choices:
-- **Pattern Used**: Description of architectural pattern (e.g., microservices, event-driven)
-- **Technology Stack**: Key frameworks and libraries
-- **Scalability**: How the system scales
-```
+\`\`\`javascript
+const client = new Client({
+  apiKey: process.env.API_KEY,
+  timeout: 30000,
+  retries: 3,
+  debug: process.env.NODE_ENV === 'development'
+});
+\`\`\`
 
-#### 8. Contributing
+## API Reference
 
-```markdown
+### `Client(options)`
+
+Creates a new client instance.
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `apiKey` | `string` | Yes | - | Your API key |
+| `timeout` | `number` | No | `10000` | Request timeout in ms |
+| `retries` | `number` | No | `0` | Number of retry attempts |
+
+### `client.doSomething(params)`
+
+Performs the main operation.
+
+**Parameters:**
+
+- `input` (string, required): The input to process
+- `options` (object, optional): Additional options
+
+**Returns:** `Promise<Result>`
+
+**Example:**
+
+\`\`\`javascript
+const result = await client.doSomething({
+  input: 'test',
+  options: { format: 'json' }
+});
+\`\`\`
+
+## Configuration
+
+Create a `config.json` file in your project root:
+
+\`\`\`json
+{
+  "apiKey": "${API_KEY}",
+  "environment": "production",
+  "features": {
+    "caching": true,
+    "logging": false
+  }
+}
+\`\`\`
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `API_KEY` | Your API key | Yes |
+| `DEBUG` | Enable debug mode | No |
+| `LOG_LEVEL` | Logging level (info, warn, error) | No |
+
+## Examples
+
+See the [examples](./examples) directory for more detailed examples:
+
+- [Basic Usage](./examples/basic.js)
+- [With TypeScript](./examples/typescript.ts)
+- [Error Handling](./examples/error-handling.js)
+- [Custom Configuration](./examples/custom-config.js)
+
+## Troubleshooting
+
+### Common Issues
+
+**"Authentication failed" error**
+
+Ensure your API key is valid and has the required permissions.
+
+\`\`\`bash
+# Verify your API key
+curl -H "Authorization: Bearer $API_KEY" https://api.example.com/verify
+\`\`\`
+
+**"Module not found" error**
+
+Make sure you have installed all dependencies:
+
+\`\`\`bash
+rm -rf node_modules package-lock.json
+npm install
+\`\`\`
+
 ## Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
 
-### Quick Start for Contributors
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Development
 
 \`\`\`bash
-# Fork the repository on GitHub, then clone your fork
-git clone https://github.com/YOUR_USERNAME/repo.git
-cd repo-path
+# Clone the repo
+git clone https://github.com/owner/repo.git
+cd repo
 
-# Follow installation steps above
+# Install dependencies
+npm install
 
-# Create feature branch
-git checkout -b feature/your-feature-name
+# Run tests
+npm test
 
-# Make changes, test, then commit and push
-git add .
-git commit -m "Add feature: description"
-git push origin feature/your-feature-name
+# Run in development mode
+npm run dev
 \`\`\`
 
-### Contribution Areas
+## Changelog
 
-- **Feature Development**: Add new features and capabilities
-- **Bug Fixes**: Fix issues and improve stability
-- **Documentation**: Improve guides, examples, and tutorials
-- **Testing**: Add tests and improve test coverage
-- **Performance**: Optimize code and improve efficiency
-- **Design**: Improve UI/UX and visual elements
-```
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 
-#### 9. License
-
-```markdown
 ## License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-#### 10. Acknowledgments/Contributors
-
-```markdown
 ## Acknowledgments
 
-### Philosophy (Optional)
-
-> **"Your project philosophy or motto"**
-
-Brief description of project values, inspiration, or approach.
-
-## Contributors
-
-**Option 1: Simple List**
-- **Name** - Role
-  - [Email](mailto:email) · [GitHub](https://github.com/username)
-
-**Option 2: Table Format (for multiple contributors)**
-
-| Name | Role | Contact |
-|------|------|---------|
-| **Person 1** | Lead Developer | [Email](mailto:email1) · [LinkedIn](url) · [GitHub](url) |
-| **Person 2** | Contributor | [Email](mailto:email2) · [LinkedIn](url) · [GitHub](url) |
-| **Person 3** | Documentation | [Email](mailto:email3) · [LinkedIn](url) · [GitHub](url) |
+- [Library Name](https://example.com) - For providing X functionality
+- [Person Name](https://github.com/person) - For their contributions
 
 ---
 
-<div align="center">
-  <p>
-    <strong>Built with ❤️ by [Team Name]</strong><br>
-    <sub>Your project mission or tagline</sub>
-  </p>
-</div>
+Made with ❤️ by [Your Name](https://github.com/yourname)
+```
+
+## Badge Reference
+
+```yaml
+badges:
+  build_status:
+    github_actions: "[![Build](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/WORKFLOW.yml?branch=BRANCH)](URL)"
+    travis: "[![Build Status](https://img.shields.io/travis/OWNER/REPO.svg)](URL)"
+    circleci: "[![CircleCI](https://img.shields.io/circleci/build/github/OWNER/REPO)](URL)"
+
+  package_version:
+    npm: "[![npm](https://img.shields.io/npm/v/PACKAGE.svg)](URL)"
+    pypi: "[![PyPI](https://img.shields.io/pypi/v/PACKAGE.svg)](URL)"
+    gem: "[![Gem](https://img.shields.io/gem/v/PACKAGE.svg)](URL)"
+
+  coverage:
+    codecov: "[![codecov](https://img.shields.io/codecov/c/github/OWNER/REPO)](URL)"
+    coveralls: "[![Coverage](https://img.shields.io/coveralls/github/OWNER/REPO)](URL)"
+
+  license:
+    mit: "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+    apache: "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
+    gpl: "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)"
+
+  downloads:
+    npm: "[![Downloads](https://img.shields.io/npm/dm/PACKAGE.svg)](URL)"
+    pypi: "[![Downloads](https://img.shields.io/pypi/dm/PACKAGE.svg)](URL)"
+
+  quality:
+    codacy: "[![Codacy Badge](https://img.shields.io/codacy/grade/PROJECT_ID)](URL)"
+    code_climate: "[![Maintainability](https://img.shields.io/codeclimate/maintainability/OWNER/REPO)](URL)"
+
+  social:
+    stars: "[![GitHub stars](https://img.shields.io/github/stars/OWNER/REPO)](URL)"
+    forks: "[![GitHub forks](https://img.shields.io/github/forks/OWNER/REPO)](URL)"
+    watchers: "[![GitHub watchers](https://img.shields.io/github/watchers/OWNER/REPO)](URL)"
+```
+
+## Section Guidelines
+
+```yaml
+essential_sections:
+  title_and_badges:
+    purpose: "Immediate project identification"
+    elements:
+      - "Project name (H1)"
+      - "Key status badges"
+      - "One-line description"
+
+  features:
+    purpose: "Highlight key capabilities"
+    format: "Bullet list with checkmarks"
+    length: "5-8 items maximum"
+
+  quick_start:
+    purpose: "Fastest path to running code"
+    requirements:
+      - "Copy-pasteable commands"
+      - "Under 5 steps"
+      - "Working example"
+
+  installation:
+    purpose: "Complete setup instructions"
+    include:
+      - "Prerequisites with versions"
+      - "Multiple package managers"
+      - "Platform-specific notes"
+
+  usage:
+    purpose: "Demonstrate core functionality"
+    include:
+      - "Basic example"
+      - "Advanced configuration"
+      - "Real-world use case"
+
+  api_reference:
+    purpose: "Complete function documentation"
+    format:
+      - "Function signature"
+      - "Parameter table"
+      - "Return type"
+      - "Code example"
+
+optional_sections:
+  - "Architecture diagram"
+  - "Benchmarks/Performance"
+  - "FAQ"
+  - "Roadmap"
+  - "Security policy"
+  - "Code of conduct"
 ```
 
 ## Writing Guidelines
 
-### Visual Elements
-- **Logo**: Size to 110x210px or adjust proportionally
-- **Images**: Center-align with `<div align="center">`, size to ~750px width
-- **Badges**: Use relevant badges only (commit activity, license, Python version)
-- **Navigation**: Use ◆ separator between links
+```yaml
+tone:
+  - "Clear and concise"
+  - "Action-oriented"
+  - "Beginner-friendly"
+  - "Scannable"
 
-### Content
-- **Latest News**: Most recent first, use `[YYYY/MM]` format
-- **Benefits**: Use emojis for visual appeal
-- **Code blocks**: Always specify language
-- **Links**: Descriptive text, not "click here"
+structure:
+  headings: "Use H2 for main sections, H3 for subsections"
+  lists: "Prefer bullet points over paragraphs"
+  code: "Always include language identifier"
+  tables: "Use for structured data (parameters, options)"
 
-### Structure
-- Center-align header section
-- Progressive disclosure (quick value → details)
-- Clear heading hierarchy (H1 → H2 → H3)
-- Keep paragraphs short (3-4 lines max)
+code_blocks:
+  requirements:
+    - "Always specify language"
+    - "Include necessary imports"
+    - "Show expected output when helpful"
+    - "Use realistic values, not 'foo/bar'"
 
-## Best Practices
+  example:
+    good: |
+      ```javascript
+      import { Client } from 'my-package';
 
-1. **Follow the Deep Insight pattern** - Visual, professional structure
-2. **Use center alignment** - Header and diagrams
-3. **Include logo** - Brand identity at top
-4. **Show real examples** - Actual commands and outputs
-5. **Link to resources** - Videos, workshops, sample outputs
-6. **Credit contributors** - Team info at bottom
-7. **Add Latest News** - Keep users informed of updates
+      const client = new Client({ apiKey: process.env.API_KEY });
+      const result = await client.search('nodejs tutorials');
+      console.log(result.items);
+      ```
+    bad: |
+      ```
+      const x = new X();
+      x.foo();
+      ```
 
-## Common Pitfalls to Avoid
+anti_patterns:
+  - "Wall of text without headings"
+  - "Missing installation instructions"
+  - "Outdated badges or broken links"
+  - "Code examples that don't work"
+  - "Assuming reader knowledge"
+  - "Missing license information"
+```
 
-- Missing logo or visual elements
-- Not center-aligning header
-- Outdated "Latest News" section
-- Missing demo video or screenshots
-- Generic placeholder text
-- Broken internal links
-- Inconsistent formatting
+## Project Type Templates
 
-## Validation
+```yaml
+templates:
+  library:
+    sections:
+      - "Title + Badges"
+      - "Features"
+      - "Installation"
+      - "Quick Start"
+      - "API Reference"
+      - "Examples"
+      - "Contributing"
+      - "License"
 
-Before finalizing, verify:
+  cli_tool:
+    sections:
+      - "Title + Badges"
+      - "Features"
+      - "Installation"
+      - "Usage (with commands)"
+      - "Configuration"
+      - "Examples"
+      - "Contributing"
+      - "License"
 
-1. **Visual appeal**: Logo, centered header, proper spacing
-2. **Completeness**: All essential sections present
-3. **Accuracy**: All commands and links work
-4. **Clarity**: Non-technical user can follow
-5. **Style**: Matches Deep Insight pattern
+  api_service:
+    sections:
+      - "Title + Badges"
+      - "Features"
+      - "Getting Started"
+      - "Authentication"
+      - "API Reference"
+      - "Rate Limits"
+      - "Error Handling"
+      - "SDKs"
+      - "Support"
 
-A well-written README enables users to:
-- Understand what it does in 30 seconds
-- See visual proof (logo, diagrams, demos)
-- Get it running in 2-5 minutes
-- Find detailed resources if needed
-- Feel confident about the project's quality
+  framework:
+    sections:
+      - "Title + Badges"
+      - "Why This Framework"
+      - "Features"
+      - "Quick Start"
+      - "Documentation"
+      - "Examples"
+      - "Ecosystem"
+      - "Migration Guide"
+      - "Contributing"
+      - "License"
+```
+
+## Visual Elements
+
+```yaml
+diagrams:
+  architecture: |
+    ```
+    ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+    │   Client    │────▶│   Server    │────▶│  Database   │
+    └─────────────┘     └─────────────┘     └─────────────┘
+    ```
+
+  flow: |
+    ```
+    Input ──▶ Validate ──▶ Process ──▶ Output
+                │
+                ▼
+              Error
+    ```
+
+tables:
+  comparison: |
+    | Feature | This Project | Alternative A | Alternative B |
+    |---------|--------------|---------------|---------------|
+    | Speed   | ⚡ Fast      | 🐢 Slow       | 🚀 Fastest    |
+    | Size    | 📦 Small     | 📦 Medium     | 📦 Large      |
+
+  features: |
+    | Feature | Free | Pro | Enterprise |
+    |---------|:----:|:---:|:----------:|
+    | Basic   | ✅   | ✅  | ✅         |
+    | Advanced| ❌   | ✅  | ✅         |
+    | Support | ❌   | ❌  | ✅         |
+```
+
+## Checklist
+
+```yaml
+validation_checklist:
+  structure:
+    - "[ ] Title and description present"
+    - "[ ] Badges are current and working"
+    - "[ ] Installation instructions complete"
+    - "[ ] Quick start works on fresh clone"
+    - "[ ] API documentation accurate"
+    - "[ ] License file present"
+
+  quality:
+    - "[ ] No broken links"
+    - "[ ] Code examples tested and working"
+    - "[ ] Screenshots/GIFs current"
+    - "[ ] No typos or grammar issues"
+    - "[ ] Consistent formatting"
+
+  accessibility:
+    - "[ ] Alt text for images"
+    - "[ ] Proper heading hierarchy"
+    - "[ ] Code blocks have language specified"
+    - "[ ] Tables have headers"
+```
+
+## Лучшие практики
+
+1. **Start with Quick Start** — пользователи хотят результат быстро
+2. **Show, don't tell** — код важнее объяснений
+3. **Keep it current** — обновляй при каждом релизе
+4. **Test everything** — все примеры должны работать
+5. **Use badges wisely** — только релевантные, рабочие
+6. **Structure for scanning** — заголовки, списки, таблицы

@@ -1,12 +1,7 @@
 {
   "name": "branch-cleaner",
-  "description": "Identify and clean up stale git branches locally and on remotes with safe, reversible steps. Use when asked to prune, list, or delete merged/old branches or audit branch hygiene.",
-  "repo": "jMerta/codex-skills",
-  "category": "security",
-  "tags": [
-    "branch",
-    "cleaner"
-  ],
-  "stars": 90,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lancenunes/codex-skills",
+  "path": "branch-cleaner/SKILL.md",
+  "source": "github.com/lancenunes/codex-skills",
+  "downloaded_at": "2026-01-22T01:08:11.460473Z"
 }

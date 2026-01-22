@@ -1,9 +1,7 @@
 {
   "name": "apps-ose-platform-web-developing-content",
-  "description": "Guide for creating content on ose-platform-web Hugo site using PaperMod theme. Covers English-only landing page structure, update posts with date-prefixed filenames, PaperMod frontmatter (cover images",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/apps-ose-platform-web-developing-content/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:16.860397Z"
 }

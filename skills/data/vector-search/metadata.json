@@ -1,12 +1,7 @@
 {
   "name": "vector-search",
-  "description": "Semantic search using vector embeddings and similarity metrics. Apply when implementing search with embeddings (OpenAI, Sentence Transformers) or distance-based ranking. Covers cosine similarity, Eucl",
-  "repo": "vineethsoma/agent-packages",
-  "category": "product",
-  "tags": [
-    "vector",
-    "search"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "skillrecordings/support",
+  "path": ".claude/skills/vector-search/SKILL.md",
+  "source": "github.com/skillrecordings/support",
+  "downloaded_at": "2026-01-22T03:15:14.490550Z"
 }

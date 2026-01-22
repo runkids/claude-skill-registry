@@ -1,7 +1,7 @@
 {
   "name": "git",
-  "repo": "oriolrius/nifi-cluster",
-  "path": ".claude/skills/git/SKILL.md",
-  "source": "github.com/oriolrius/nifi-cluster",
-  "downloaded_at": "2026-01-14T04:01:38.626751Z"
+  "repo": "TonyCasey/lisa",
+  "path": "src/project/.lisa/skills/git/SKILL.md",
+  "source": "github.com/TonyCasey/lisa",
+  "downloaded_at": "2026-01-22T04:09:06.022510Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "fastmcp",
-  "repo": "jezweb/claude-skills",
-  "path": "skills/fastmcp/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-14T04:01:52.032442Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/fastmcp/skills/fastmcp/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:12.003589Z"
 }

@@ -1,159 +1,187 @@
 ---
 name: brand-strategy
-description: This skill should be used when translating research insights into actionable brand strategy frameworks. Use this when developing positioning statements, messaging architectures, audience strategies, or voice guidelines based on completed research. This skill provides strategic synthesis workflows, validation frameworks, and strategy document templates for evidence-based brand strategy development.
+description: "A 7-part brand strategy framework for building comprehensive brand foundations. Use when users ask to: (1) Create or develop a brand strategy, (2) Build a brand brief or brand guidelines, (3) Define brand positioning, messaging, or audience, (4) Work on brand identity or brand architecture, (5) Develop a go-to-market brand plan, or when users mention 'brand truth', 'audience architecture', 'messaging framework', or similar strategic branding terms."
+license: MIT
+metadata:
+  author: Rowan Brooks
+  version: "1.0"
 ---
 
-# Brand Strategy
+# Brand Strategy Framework
+
+A systematic 7-part methodology for building brand foundations — the same process top agencies use with Fortune 500 clients.
 
 ## Overview
 
-This skill enables evidence-based brand strategy development by providing workflows for synthesizing research insights into strategic frameworks. Use this skill when research has been completed and strategic decisions need to be made across positioning, messaging, audience, or voice dimensions.
+This skill guides users through a comprehensive brand strategy process, from core identity through measurement. Each phase builds on the previous, creating a cohesive strategic foundation.
 
-## When to Use This Skill
+Walk the user through each phase sequentially. Ask discovery questions, synthesize their answers, and produce structured outputs for each section before moving to the next.
 
-Invoke this skill when:
-- Research findings need to be translated into strategic recommendations
-- Positioning statements or messaging frameworks need to be developed
-- Strategic decisions require validation against market evidence
-- A comprehensive brand strategy document needs to be created
-- Existing strategy needs to be updated based on new research insights
+## The 7-Part Framework
 
-## Core Strategic Workflow
+### Phase 1: Brand Truth
 
-### Phase 1: Research Foundation Review
+The foundation. Define who the brand authentically is before anything else.
 
-Before developing strategy, establish the research foundation:
+**Discovery Questions:**
+- What problem does this brand exist to solve?
+- What would be lost if this brand disappeared tomorrow?
+- What does this brand believe that competitors don't?
+- What's the origin story? Why was it created?
+- What are the non-negotiable values?
 
-1. **Identify Available Research**: Review `/research/` directory for completed research domains
-   - Start with each domain's `RESEARCH.md` entry point
-   - Identify most recent research runs (`/{YYYY-MM-DD}/`)
-   - Note available exports and key findings
+**Output:** A Brand Truth statement (2-3 sentences) capturing the brand's reason for being, core belief, and authentic identity.
 
-2. **Load Relevant Research**: Based on strategic objective, load specific research files
-   - Category landscape research → competitive positioning insights
-   - Customer insight research → audience needs and pain points
-   - Voice/tone research → language patterns and preferences
+---
 
-3. **Extract Strategic Patterns**: Synthesize across research domains
-   - Identify contradictions that need resolution
-   - Map competitive white space opportunities
-   - Note validation gaps requiring additional research
+### Phase 2: Audience Architecture
 
-### Phase 2: Strategic Framework Development
+Define who the brand serves — not demographics, but motivations.
 
-Develop strategy using the strategist agent (`.claude/agents/strategist.md`) which provides:
-- Evidence-based positioning development
-- Messaging architecture construction
-- Audience strategy prioritization
-- Voice guideline creation
+**Discovery Questions:**
+- Who benefits most from what this brand offers?
+- What are they trying to achieve or avoid?
+- What do they currently believe about this category?
+- What would make them switch from their current solution?
+- Who is explicitly NOT the target?
 
-**Core Strategic Deliverables:**
+**Output:** 2-4 audience personas, each with:
+- Name/archetype
+- Core motivation (what they want)
+- Current belief (what they think now)
+- Tension point (what's holding them back)
+- Success state (what winning looks like for them)
 
-1. **Positioning Statement**
-   - Format: "We are [what] for [whom] in [context]"
-   - Must include: rationale, evidence footnotes, differentiation analysis
-   - Template: `assets/positioning-template.md`
+---
 
-2. **Messaging Architecture**
-   - Core theme and 3-5 content pillars
-   - Value propositions for each audience segment
-   - Proof points backing each claim
-   - Template: `assets/messaging-template.md`
+### Phase 3: Cultural Context
 
-3. **Audience Strategy**
-   - Segment definitions with characteristics
-   - Prioritization with strategic rationale
-   - Needs, pain points, decision criteria
-   - Template: `assets/audience-template.md`
+Position the brand within the broader landscape.
 
-4. **Voice Guidelines**
-   - 3-5 vocal attributes with examples
-   - Language patterns to embrace and avoid
-   - Concrete demonstrations of voice in action
-   - Template: `assets/voice-template.md`
+**Discovery Questions:**
+- What's happening in culture that makes this brand relevant now?
+- Who are the real competitors (including non-obvious ones)?
+- What category conventions should be challenged?
+- What cultural tension does this brand resolve?
+- Where is the white space?
 
-### Phase 3: Strategic Validation
+**Output:** A positioning statement that captures competitive differentiation and cultural relevance. Include a simple competitive landscape map.
 
-Before finalizing strategy, validate using the framework in `references/validation-checklist.md`:
+---
 
-1. **Evidence Check**: Every claim footnoted to research
-2. **Differentiation Test**: Strategy is distinct from competitors
-3. **Execution Feasibility**: Can be implemented consistently
-4. **Strategic Coherence**: All elements reinforce each other
+### Phase 4: Messaging Framework
 
-### Phase 4: Strategy Documentation
+Translate strategy into language.
 
-Document strategy in `/strategy/` directory following these principles:
+**Discovery Questions:**
+- What's the one thing people should remember?
+- What proof points support the core claim?
+- What objections need to be overcome?
+- What emotional territory does the brand own?
+- What words should never be used?
 
-**File Organization:**
-```
-/strategy/
-├── STRATEGY.md (entry point, progressive disclosure)
-├── /core/
-│   ├── narrative.md
-│   └── positioning.md
-├── /messaging/
-│   ├── pillars.md
-│   └── value-propositions.md
-├── /voice/
-│   ├── tone-guidelines.md
-│   └── vocabulary.md
-└── /audience/
-    └── personas/
-```
+**Output:** A messaging framework including:
+- Core message (1 sentence)
+- Supporting messages (3-5 proof points)
+- Tone attributes (3-5 adjectives with definitions)
+- Language do's and don'ts
 
-**Documentation Standards:**
-- Every strategic claim must be footnoted to research
-- Use format: `[^reference-name]: [Context], /path/to/file.md:line-number`
-- Strategy files should be polished and client-ready
-- Create or update `STRATEGY.md` as navigation entry point
+---
 
-## Common Strategic Scenarios
+### Phase 5: Visual Language
 
-### Scenario 1: Developing Positioning from Category Research
+Define the principles (not the executions) for visual identity.
 
-**Input**: Completed category landscape research showing competitive positioning and white space
-**Process**:
-1. Load `/research/category-landscape/RESEARCH.md` and latest findings
-2. Map competitive positioning territories using insights
-3. Identify white space opportunities
-4. Draft positioning statement using `assets/positioning-template.md`
-5. Validate against checklist in `references/validation-checklist.md`
-6. Document in `/strategy/core/positioning.md` with research footnotes
+**Discovery Questions:**
+- What should people feel when they see the brand?
+- What visual references resonate with the brand truth?
+- What does the category typically look like — and how should this differ?
+- What's the balance of minimal vs. expressive?
+- What elements are sacred vs. flexible?
 
-### Scenario 2: Creating Messaging Architecture from Customer Insights
+**Output:** Visual principles document including:
+- Mood/feeling descriptors
+- Reference directions (with rationale)
+- Typography philosophy
+- Color meaning/intent
+- Photography/illustration approach
+- What to avoid
 
-**Input**: Customer research showing needs, pain points, desired outcomes
-**Process**:
-1. Load `/research/customer-insight/RESEARCH.md` and findings
-2. Extract core customer themes and patterns
-3. Map themes to content pillars using `assets/messaging-template.md`
-4. Develop value propositions for each audience segment
-5. Validate messaging against customer research evidence
-6. Document in `/strategy/messaging/` with research footnotes
+---
 
-### Scenario 3: Building Comprehensive Brand Strategy
+### Phase 6: Channel Strategy
 
-**Input**: Multiple completed research domains (category, customer, voice)
-**Process**:
-1. Review all available research via `RESEARCH.md` entry points
-2. Use `assets/full-strategy-template.md` as structure
-3. Develop positioning, messaging, audience, voice in sequence
-4. Validate strategic coherence across all dimensions
-5. Document complete strategy in `/strategy/` directory
-6. Create `STRATEGY.md` navigation entry point
+Define where and how the brand shows up.
 
-## Resources
+**Discovery Questions:**
+- Where does the audience already spend attention?
+- What channels align with the brand personality?
+- What's the role of each channel (awareness, conversion, retention)?
+- What channels should be deprioritized or avoided?
+- What's the owned vs. earned vs. paid balance?
 
-### references/
-Strategic frameworks and validation tools:
-- `validation-checklist.md` - Framework for validating strategy before finalization
-- `strategic-principles.md` - Core principles governing strategic decisions
+**Output:** Channel matrix with:
+- Priority channels (ranked)
+- Role of each channel
+- Content themes per channel
+- Frequency/cadence guidelines
+- Channel-specific tone adjustments
 
-### assets/
-Strategy document templates:
-- `positioning-template.md` - Structure for positioning statements
-- `messaging-template.md` - Framework for messaging architecture
-- `audience-template.md` - Format for audience strategy
-- `voice-template.md` - Template for voice guidelines
-- `full-strategy-template.md` - Comprehensive brand strategy document structure
+---
+
+### Phase 7: Measurement Framework
+
+Define what success looks like.
+
+**Discovery Questions:**
+- What business outcomes matter most?
+- What leading indicators predict those outcomes?
+- What's the current baseline?
+- What's a realistic 6/12/24 month target?
+- What will you NOT measure (to stay focused)?
+
+**Output:** Measurement dashboard including:
+- North star metric
+- 3-5 supporting KPIs
+- Tracking cadence
+- Baseline and targets
+- What's explicitly out of scope
+
+---
+
+## Workflow Guidelines
+
+1. **Sequential, not parallel**: Complete each phase before moving to the next
+2. **Discovery before prescription**: Always ask questions before providing recommendations
+3. **Synthesize, don't summarize**: Transform user inputs into strategic outputs
+4. **Challenge assumptions**: Push back on generic or undifferentiated answers
+5. **Document as you go**: Produce a clear output artifact for each phase
+
+## Final Deliverable
+
+After completing all 7 phases, compile a Brand Strategy Document containing:
+
+1. Executive Summary (1 page)
+2. Brand Truth
+3. Audience Architecture
+4. Cultural Context & Positioning
+5. Messaging Framework
+6. Visual Language Principles
+7. Channel Strategy
+8. Measurement Framework
+
+Format as a professional strategy document suitable for stakeholder presentation.
+
+## Examples
+
+**User:** "Help me create a brand strategy for my new coffee subscription service"
+→ Begin with Phase 1 (Brand Truth) discovery questions
+
+**User:** "I need to define our target audience"
+→ Jump to Phase 2 (Audience Architecture) but note that Brand Truth should come first if not already defined
+
+**User:** "Can you write our brand messaging?"
+→ Jump to Phase 4 (Messaging Framework) but confirm Phases 1-3 are complete or gather that context first
+
+**User:** "Review my brand strategy"
+→ Evaluate against the 7-part framework, identify gaps, suggest improvements

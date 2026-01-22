@@ -1,135 +1,76 @@
 ---
 name: markdown-to-docx
-description: Convierte archivos Markdown a DOCX con formato profesional usando pandoc. Incluye portada con título, tabla de contenidos, cabeceras y estilos corporativos. Usar cuando se necesite generar documentos Word desde Markdown, exportar documentación, o crear informes en formato .docx.
+description: Convert markdown files to Microsoft Word (.docx) with custom styling. Use when generating Word documents from markdown, creating editable documentation, or exporting reports for Microsoft Office.
 ---
 
-# Markdown a DOCX
+# markdown-to-docx
 
-Convierte archivos Markdown a documentos Word (DOCX) con formato profesional.
+Convert markdown files to Microsoft Word (.docx) documents.
 
-## Características
-
-- **Portada con título**: Genera portada automática con título, autor y fecha
-- **Tabla de contenidos**: Índice automático con profundidad configurable
-- **Cabecera en páginas**: Configurable en la plantilla
-- **Código con fondo gris**: Bloques de código resaltados
-- **Estilos profesionales**: Tipografía y formato corporativo
-
-## Instrucciones
-
-Para convertir un archivo Markdown a DOCX:
-
-1. Asegúrate de que **pandoc** está instalado en el sistema
-2. Usa el script `scripts/convert.sh` para la conversión
-3. Especifica título y autor para generar portada
-
-## Uso básico
+## Installation Required
 
 ```bash
-# Conversión simple (con TOC por defecto)
-./scripts/convert.sh archivo.md
-
-# Con título y autor (genera portada)
-./scripts/convert.sh archivo.md --title "Mi Documento" --author "Mi Nombre"
-
-# Sin tabla de contenidos
-./scripts/convert.sh archivo.md --no-toc
-
-# Con plantilla personalizada
-./scripts/convert.sh archivo.md --template mi-plantilla.docx
+cd .claude/skills/markdown-to-docx
+npm install
 ```
 
-## Opciones del script
+**Dependencies:** `markdown-docx` (uses docx internally)
 
-| Opción | Descripción |
-|--------|-------------|
-| `-o, --output` | Nombre del archivo de salida |
-| `-t, --template` | Plantilla DOCX de referencia para estilos |
-| `--title "TITULO"` | Título del documento (para portada) |
-| `--author "AUTOR"` | Autor del documento |
-| `--date "FECHA"` | Fecha del documento |
-| `--toc` | Incluir tabla de contenidos (por defecto: sí) |
-| `--no-toc` | No incluir tabla de contenidos |
-| `--toc-depth N` | Profundidad del índice (por defecto: 2) |
-| `-h, --help` | Mostrar ayuda |
-
-## Metadatos YAML en Markdown
-
-Puedes incluir metadatos al inicio del archivo Markdown:
-
-```yaml
----
-title: "Título del Documento"
-author: "Nombre del Autor"
-date: "2024-01-15"
----
-
-# Contenido del documento...
-```
-
-## Ejemplos
-
-### Generar documento con portada e índice
+## Quick Start
 
 ```bash
-./scripts/convert.sh informe.md --title "Informe Técnico Q4" --author "Equipo Dev" -o informe_final.docx
+# Basic conversion
+node .claude/skills/markdown-to-docx/scripts/convert.cjs \
+  --file ./README.md
+
+# Custom output path
+node .claude/skills/markdown-to-docx/scripts/convert.cjs \
+  --file ./doc.md \
+  --output ./output/doc.docx
 ```
 
-### Documento sin índice
+## CLI Options
 
-```bash
-./scripts/convert.sh notas.md --no-toc --title "Notas de Reunión"
+| Option | Required | Description |
+| ------ | -------- | ----------- |
+| `--file <path>` | Yes | Input markdown file |
+| `--output <path>` | No | Output DOCX path (default: input name + .docx) |
+
+## Output Format (JSON)
+
+```json
+{
+  "success": true,
+  "input": "/path/to/input.md",
+  "output": "/path/to/output.docx",
+  "wordCount": 1523
+}
 ```
 
-### Índice con 3 niveles
+## Supported Markdown Elements
 
-```bash
-./scripts/convert.sh manual.md --toc-depth 3 --title "Manual de Usuario"
-```
+- Headings (H1-H6)
+- Paragraphs and emphasis (bold, italic)
+- Ordered and unordered lists
+- Code blocks
+- Tables (GFM style)
+- Links and images (local + URL)
+- Blockquotes
 
-## Personalización de estilos
+## Default Styling
 
-Para personalizar:
-- Cabecera en cada página
-- Código con fondo gris
-- Limitar bullets a 2 niveles
-- Estilos de títulos y fuentes
+Uses markdown-docx default styling:
 
-Consulta la guía detallada: [TEMPLATE_GUIDE.md](TEMPLATE_GUIDE.md)
+- Standard Word fonts
+- Professional formatting
+- Letter/A4 page size
 
-### Resumen rápido
+## Troubleshooting
 
-1. Abre `templates/reference.docx` en Word
-2. Modifica los estilos:
-   - **Source Code**: Añadir fondo gris
-   - **Encabezado de página**: Añadir título
-   - **Compact3+**: Quitar bullets
-3. Guarda y reemplaza la plantilla
+**Dependencies not found:** Run `npm install` in skill directory
+**Image not loading:** Ensure path is correct; URL images require network access (10s timeout)
 
-## Plantilla de referencia
+## Task Planning Notes
 
-La plantilla `templates/reference.docx` define:
-
-- **Heading 1-6**: Estilos de encabezados
-- **Body Text**: Texto del cuerpo
-- **Source Code**: Bloques de código (fondo gris)
-- **Table**: Estilos de tablas
-- **Encabezado/Pie**: Cabecera y numeración
-
-## Dependencias
-
-- **pandoc** >= 2.0: `brew install pandoc` (macOS) o `apt install pandoc` (Linux)
-
-## Verificar instalación de pandoc
-
-```bash
-pandoc --version
-```
-
-## Notas
-
-- Las imágenes referenciadas en el Markdown se incrustan automáticamente
-- Los enlaces se preservan como hipervínculos
-- Las tablas Markdown se convierten a tablas Word
-- El código se formatea con fuente monoespaciada y fondo (si la plantilla lo define)
-- La tabla de contenidos se genera automáticamente con 2 niveles por defecto
+- Always plan and break many small todo tasks
+- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

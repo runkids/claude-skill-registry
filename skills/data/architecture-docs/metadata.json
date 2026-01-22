@@ -1,12 +1,7 @@
 {
   "name": "architecture-docs",
-  "description": "Use this skill when creating, updating, or maintaining ARCHITECTURE.md files, when users ask about \"my architecture documentation\" or \"architecture\", when generating presentations/slides/PowerPoint fr",
-  "repo": "shadowX4fox/solutions-architect-skills",
-  "category": "data",
-  "tags": [
-    "architecture",
-    "docs"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Atemndobs/nebula-rfp",
+  "path": ".claude/skills/architecture-docs/SKILL.md",
+  "source": "github.com/Atemndobs/nebula-rfp",
+  "downloaded_at": "2026-01-22T02:30:08.661919Z"
 }

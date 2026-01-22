@@ -1,7 +1,7 @@
 {
   "name": "testing-quality",
-  "repo": "lastcow/innozverse",
-  "path": ".claude/skills/testing-quality/SKILL.md",
-  "source": "github.com/lastcow/innozverse",
-  "downloaded_at": "2026-01-14T03:01:33.507405Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/quality/testing-quality/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-22T02:03:52.442559Z"
 }

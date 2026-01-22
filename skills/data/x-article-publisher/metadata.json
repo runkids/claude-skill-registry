@@ -1,12 +1,7 @@
 {
   "name": "x-article-publisher",
-  "description": "Publish Markdown articles to X (Twitter) Articles editor with proper formatting. Use when user wants to publish a Markdown file/URL to X Articles, or mentions \"publish to X\", \"post article to Twitter\"",
-  "repo": "wshuyi/x-article-publisher-skill",
-  "category": "documents",
-  "tags": [
-    "article",
-    "publisher"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "ttmouse/skills",
+  "path": "x-article-publisher/SKILL.md",
+  "source": "github.com/ttmouse/skills",
+  "downloaded_at": "2026-01-22T03:40:39.395858Z"
 }

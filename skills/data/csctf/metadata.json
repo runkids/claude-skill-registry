@@ -1,9 +1,7 @@
 {
   "name": "csctf",
-  "description": "Chat Shared Conversation To File - convert ChatGPT, Gemini, Grok, and Claude share links to clean Markdown + HTML transcripts with preserved code fences.",
-  "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/csctf/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:07.112182Z"
 }

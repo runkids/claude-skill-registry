@@ -1,11 +1,7 @@
 {
   "name": "database-migrator",
-  "description": "Schema version control, migration script generation, rollback management",
-  "repo": "benreceveur/claude-workflow-engine",
-  "category": "data",
-  "tags": [
-    "database",
-    "migrator"
-  ],
-  "stars": 3
+  "repo": "ainexllc/ainexsuite",
+  "path": ".claude/skills/database-migrator/SKILL.md",
+  "source": "github.com/ainexllc/ainexsuite",
+  "downloaded_at": "2026-01-21T01:10:33.714657Z"
 }

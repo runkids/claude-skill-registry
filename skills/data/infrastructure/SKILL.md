@@ -1,166 +1,99 @@
 ---
 name: infrastructure
-description: Manage infrastructure as code. Use when provisioning resources, managing cloud infrastructure, or setting up environments. Covers Terraform and IaC patterns.
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep
+description: Use this skill when designing or reviewing cloud infrastructure, networking, compute resources, storage systems, or any system involving resource provisioning and management. Applies infrastructure thinking to specifications, designs, and implementations.
+version: 0.1.0
 ---
 
-# Infrastructure as Code
+# Infrastructure Engineering
 
-## Principles
+## When to Apply
 
-1. **Everything in Code**: No manual changes
-2. **Version Controlled**: All changes tracked
-3. **Idempotent**: Safe to run multiple times
-4. **Tested**: Validate before apply
+Use this skill when the system involves:
+- Cloud resource provisioning (compute, storage, networking)
+- Infrastructure as Code (Terraform, Pulumi, CloudFormation)
+- Networking (VPCs, subnets, load balancers, DNS)
+- Container orchestration (Kubernetes, ECS)
+- Database infrastructure and scaling
+- Disaster recovery and backup strategies
 
-## Terraform Basics
+## Mindset
 
-### Project Structure
-```
-infrastructure/
-├── main.tf           # Main configuration
-├── variables.tf      # Input variables
-├── outputs.tf        # Output values
-├── providers.tf      # Provider config
-├── terraform.tfvars  # Variable values
-└── modules/
-    └── vpc/          # Reusable modules
-```
+Infrastructure engineers think in terms of resources, failure domains, and operational burden.
 
-### Example: AWS VPC
+**Questions to always ask:**
+- What's the blast radius if this fails?
+- What are the failure domains? Are we resilient to AZ/region failure?
+- How does this scale? What's the bottleneck?
+- What's the cost? How does it grow with usage?
+- How do we recover from disaster? What's the RTO/RPO?
+- Who can access this? How is access audited?
+- What happens during a deploy? Is there downtime?
 
-```hcl
-# providers.tf
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
+**Assumptions to challenge:**
+- "The cloud is reliable" - AZs fail. Regions fail. Design for it.
+- "We can scale later" - Some architectural decisions don't scale. Choose early.
+- "It's in a private subnet" - Defense in depth. Don't rely on network alone.
+- "Kubernetes handles it" - K8s is a tool, not magic. Understand what it does.
+- "We'll back up later" - Untested backups aren't backups.
+- "The defaults are fine" - Defaults are generic. Review security groups, IAM, encryption.
 
-# main.tf
-resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr
+## Practices
 
-  tags = {
-    Name        = "${var.project}-vpc"
-    Environment = var.environment
-  }
-}
+### Infrastructure as Code
+All infrastructure in version-controlled code. No manual changes to production. Use modules for reusable patterns. **Don't** click in consoles for production, let IaC drift from reality, or copy-paste instead of modularize.
 
-# variables.tf
-variable "vpc_cidr" {
-  description = "CIDR block for VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-```
+### Failure Domains
+Spread resources across availability zones. Identify single points of failure. Design for component failure without total outage. **Don't** put all resources in one AZ, create hidden SPOFs, or assume any component is 100% available.
 
-## Workflows
+### Network Design
+Use private subnets for internal services. Minimize public exposure. Use security groups as allowlists. Implement network segmentation. **Don't** expose services unnecessarily, use 0.0.0.0/0 ingress, or rely on obscurity.
 
-```bash
-# Initialize
-terraform init
+### Resource Right-sizing
+Start small, measure, then scale. Use autoscaling for variable load. Set resource limits and requests. **Don't** overprovision "just in case", run without limits, or ignore cost monitoring.
 
-# Plan changes
-terraform plan -out=tfplan
+### State Management
+Externalize state from compute. Use managed services for databases and queues. Make compute stateless where possible. **Don't** store state on ephemeral instances, use local disk for important data, or couple state to compute lifecycle.
 
-# Apply changes
-terraform apply tfplan
+### Backup & Recovery
+Automate backups. Test restores regularly. Document RTO/RPO and verify you can meet them. Store backups in separate failure domains. **Don't** assume backups work without testing, keep backups in the same blast radius, or skip documenting recovery procedures.
 
-# Destroy resources
-terraform destroy
-```
+### Access Control
+Use IAM roles, not keys, where possible. Apply least privilege. Audit access regularly. Use separate accounts/projects for environments. **Don't** share credentials, use overly broad policies, or mix production and dev access.
 
-## Best Practices
+### Change Management
+Use progressive rollouts. Have rollback plans. Make changes reversible. Test in staging first. **Don't** yolo to production, make irreversible changes without approval, or skip staging.
 
-1. **Use Remote State**: Store state in S3/GCS
-2. **Lock State**: Prevent concurrent modifications
-3. **Use Modules**: Reusable infrastructure components
-4. **Environment Separation**: Separate state per environment
-5. **Secret Management**: Never store secrets in code
+## Vocabulary
 
-## State Management
+Use precise terminology:
 
-```hcl
-terraform {
-  backend "s3" {
-    bucket         = "terraform-state-bucket"
-    key            = "prod/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
-    encrypt        = true
-  }
-}
-```
+| Instead of | Say |
+|------------|-----|
+| "highly available" | "survives AZ failure" / "multi-region active-active" |
+| "scalable" | "horizontal autoscaling 2-10 nodes" / "scales to X RPS" |
+| "secure" | "private subnet with ALB" / "IAM role with policy X" |
+| "backed up" | "daily snapshots, 30-day retention, tested monthly" |
+| "fast" | "provisioned IOPS" / "SSD-backed" / "in same AZ" |
+| "serverless" | "Lambda with X memory, Y timeout" / "Fargate" |
 
-## ECS/Fargate
+## SDD Integration
 
-```hcl
-# Task Definition
-resource "aws_ecs_task_definition" "app" {
-  family                   = "${var.project}-task"
-  requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
-  cpu                      = 256
-  memory                   = 512
-  execution_role_arn       = aws_iam_role.ecs_execution.arn
+**During Specification:**
+- Identify availability requirements (uptime SLA, RTO, RPO)
+- Clarify scaling requirements (expected load, growth rate)
+- Determine compliance constraints (data residency, encryption)
+- Establish cost constraints
 
-  container_definitions = jsonencode([{
-    name  = "app"
-    image = "${aws_ecr_repository.app.repository_url}:latest"
-    portMappings = [{
-      containerPort = 8080
-      protocol      = "tcp"
-    }]
-    logConfiguration = {
-      logDriver = "awslogs"
-      options = {
-        awslogs-group         = aws_cloudwatch_log_group.app.name
-        awslogs-region        = var.aws_region
-        awslogs-stream-prefix = "app"
-      }
-    }
-  }])
-}
+**During Design:**
+- Document resource architecture with failure domains
+- Specify IaC approach and module structure
+- Design network topology and access patterns
+- Plan backup and disaster recovery strategy
+- Define autoscaling policies and limits
 
-# ECS Service
-resource "aws_ecs_service" "app" {
-  name            = "${var.project}-service"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = var.app_count
-  launch_type     = "FARGATE"
-
-  network_configuration {
-    subnets         = aws_subnet.private[*].id
-    security_groups = [aws_security_group.app.id]
-  }
-}
-```
-
-## S3 Buckets
-
-```hcl
-resource "aws_s3_bucket" "assets" {
-  bucket = "${var.project}-assets-${var.environment}"
-}
-
-resource "aws_s3_bucket_versioning" "assets" {
-  bucket = aws_s3_bucket.assets.id
-  versioning_configuration {
-    status = "Enabled"
-  }
-}
-
-resource "aws_s3_bucket_server_side_encryption_configuration" "assets" {
-  bucket = aws_s3_bucket.assets.id
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
-  }
-}
-```
+**During Review:**
+- Verify multi-AZ deployment where required
+- Check for single points of failure
+- Confirm IaC matches actual requirements
+- Validate backup and recovery procedures exist
+- Review IAM policies for least privilege

@@ -1,7 +1,7 @@
 {
   "name": "clinvar-database",
-  "repo": "x-cmd/skill",
-  "path": "data/k-dense-ai/clinvar-database/SKILL.md",
-  "source": "github.com/x-cmd/skill",
-  "downloaded_at": "2026-01-14T02:45:42.575002Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/database/clinvar-database/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:03.552990Z"
 }

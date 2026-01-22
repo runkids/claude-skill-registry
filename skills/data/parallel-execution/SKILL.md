@@ -1,364 +1,227 @@
 ---
 name: parallel-execution
-description: CRITICAL skill for executing multiple Task tool calls in a SINGLE message for true parallelism. Essential for efficient multi-task workflows, subagent coordination, and maximizing throughput.
-license: MIT
-compatibility: opencode
-metadata:
-  category: workflow
-  audience: agents
+description: Patterns for parallel subagent execution using Task tool with run_in_background. Use when coordinating multiple independent tasks, spawning dynamic subagents, or implementing features that can be parallelized.
 ---
 
-# Parallel Execution
+# Parallel Execution Patterns
 
-**CRITICAL**: This skill teaches how to execute multiple tasks simultaneously for maximum efficiency.
+## Core Concept
 
-## The Fundamental Rule
+Parallel execution spawns multiple subagents simultaneously using the Task tool with `run_in_background: true`. This enables N tasks to run concurrently, dramatically reducing total execution time.
 
-> **ALL Task calls MUST be in a SINGLE assistant message for true parallelism.**
+**Critical Rule**: ALL Task calls MUST be in a SINGLE assistant message for true parallelism. If Task calls are in separate messages, they run sequentially.
 
-If Task calls are in separate messages, they run SEQUENTIALLY, not in parallel.
+## Execution Protocol
 
----
+### Step 1: Identify Parallelizable Tasks
 
-## Why Parallel Execution Matters
+Before spawning, verify tasks are independent:
+- No task depends on another's output
+- Tasks target different files or concerns
+- Can run simultaneously without conflicts
 
-### Sequential (SLOW - AVOID)
+### Step 2: Prepare Dynamic Subagent Prompts
 
-```
-Message 1: Start Task A
-           ↓ wait for completion
-Message 2: Start Task B
-           ↓ wait for completion
-Message 3: Start Task C
-           ↓ wait for completion
-
-Total time = A + B + C = 90 seconds (if each takes 30s)
-```
-
-### Parallel (FAST - USE THIS)
+Each subagent receives a custom prompt defining its role:
 
 ```
-Message 1: Start Task A ─┐
-           Start Task B ─┼─ All run simultaneously
-           Start Task C ─┘
+You are a [ROLE] specialist for this specific task.
 
-Total time ≈ max(A, B, C) = 30 seconds
+Task: [CLEAR DESCRIPTION]
+
+Context:
+[RELEVANT CONTEXT ABOUT THE CODEBASE/PROJECT]
+
+Files to work with:
+[SPECIFIC FILES OR PATTERNS]
+
+Output format:
+[EXPECTED OUTPUT STRUCTURE]
+
+Focus areas:
+- [PRIORITY 1]
+- [PRIORITY 2]
 ```
 
-**Speedup: 3x faster with 3 parallel tasks**
+### Step 3: Launch All Tasks in ONE Message
 
----
+**CRITICAL**: Make ALL Task calls in the SAME assistant message:
 
-## How to Execute in Parallel
+```
+I'm launching N parallel subagents:
 
-### Step 1: Identify Independent Tasks
+[Task 1]
+description: "Subagent A - [brief purpose]"
+prompt: "[detailed instructions for subagent A]"
+run_in_background: true
 
-Tasks are independent when:
-- They don't depend on each other's output
-- They don't modify the same files
-- They can run in any order
+[Task 2]
+description: "Subagent B - [brief purpose]"
+prompt: "[detailed instructions for subagent B]"
+run_in_background: true
 
-### Step 2: Launch ALL Tasks in ONE Message
-
-```xml
-<!-- CORRECT: All tasks in single message = PARALLEL -->
-<task>
-  <description>Analyze authentication module</description>
-  <prompt>Review src/auth for security patterns...</prompt>
-</task>
-
-<task>
-  <description>Analyze API layer</description>
-  <prompt>Review src/api for REST best practices...</prompt>
-</task>
-
-<task>
-  <description>Analyze database layer</description>
-  <prompt>Review src/db for query optimization...</prompt>
-</task>
+[Task 3]
+description: "Subagent C - [brief purpose]"
+prompt: "[detailed instructions for subagent C]"
+run_in_background: true
 ```
 
-### Step 3: Collect and Synthesize Results
+### Step 4: Retrieve Results with TaskOutput
 
-After all tasks complete, combine their findings into a unified response.
+After launching, retrieve each result:
 
----
+```
+[Wait for completion, then retrieve]
 
-## Parallelization Patterns
+TaskOutput: task_1_id
+TaskOutput: task_2_id
+TaskOutput: task_3_id
+```
+
+### Step 5: Synthesize Results
+
+Combine all subagent outputs into unified result:
+- Merge related findings
+- Resolve conflicts between recommendations
+- Prioritize by severity/importance
+- Create actionable summary
+
+## Dynamic Subagent Patterns
 
 ### Pattern 1: Task-Based Parallelization
 
-When you have N independent tasks, spawn N subagents:
+When you have N tasks to implement, spawn N subagents:
 
 ```
-Implementation Plan:
+Plan:
 1. Implement auth module
 2. Create API endpoints
 3. Add database schema
 4. Write unit tests
 5. Update documentation
 
-Launch 5 parallel subagents:
-├─ Subagent 1: Implement auth module
-├─ Subagent 2: Create API endpoints
-├─ Subagent 3: Add database schema
-├─ Subagent 4: Write unit tests
-└─ Subagent 5: Update documentation
+Spawn 5 subagents (one per task):
+- Subagent 1: Implements auth module
+- Subagent 2: Creates API endpoints
+- Subagent 3: Adds database schema
+- Subagent 4: Writes unit tests
+- Subagent 5: Updates documentation
 ```
-
-**All 5 in ONE message!**
 
 ### Pattern 2: Directory-Based Parallelization
 
-Analyze different directories simultaneously:
+Analyze multiple directories simultaneously:
 
 ```
-Codebase Structure:
-├── src/auth/
-├── src/api/
-├── src/db/
-└── src/ui/
+Directories: src/auth, src/api, src/db
 
-Launch 4 parallel subagents:
-├─ Subagent 1: Analyze src/auth
-├─ Subagent 2: Analyze src/api
-├─ Subagent 3: Analyze src/db
-└─ Subagent 4: Analyze src/ui
+Spawn 3 subagents:
+- Subagent 1: Analyzes src/auth
+- Subagent 2: Analyzes src/api
+- Subagent 3: Analyzes src/db
 ```
 
 ### Pattern 3: Perspective-Based Parallelization
 
-Review from multiple angles at once:
+Review from multiple angles simultaneously:
 
 ```
-Code Review Perspectives:
-- Security vulnerabilities
-- Performance bottlenecks
-- Test coverage gaps
-- Architecture patterns
+Perspectives: Security, Performance, Testing, Architecture
 
-Launch 4 parallel subagents:
-├─ Subagent 1: Security review
-├─ Subagent 2: Performance analysis
-├─ Subagent 3: Test coverage review
-└─ Subagent 4: Architecture assessment
+Spawn 4 subagents:
+- Subagent 1: Security review
+- Subagent 2: Performance analysis
+- Subagent 3: Test coverage review
+- Subagent 4: Architecture assessment
 ```
-
-### Pattern 4: Adversarial Verification
-
-Use conflicting mandates for thorough review:
-
-```
-Verification Subagents (all parallel):
-├─ Syntax & Type Checker
-├─ Test Runner
-├─ Lint & Style Checker
-├─ Security Scanner
-└─ Build Validator
-
-Then (sequential, after above complete):
-├─ False Positive Filter
-├─ Missing Issues Finder
-└─ Context Validator
-```
-
----
 
 ## TodoWrite Integration
 
-When using parallel execution, mark ALL parallel tasks as `in_progress` simultaneously:
+When using parallel execution, TodoWrite behavior differs:
 
-### Before Launching Parallel Tasks
-
-```json
-{
-  "todos": [
-    { "content": "Analyze auth module", "status": "in_progress", "activeForm": "Analyzing auth module" },
-    { "content": "Analyze API layer", "status": "in_progress", "activeForm": "Analyzing API layer" },
-    { "content": "Analyze database layer", "status": "in_progress", "activeForm": "Analyzing database layer" },
-    { "content": "Synthesize findings", "status": "pending", "activeForm": "Synthesizing findings" }
-  ]
-}
-```
-
-### After Each Task Completes
-
-Mark as completed as results come in:
-
-```json
-{
-  "todos": [
-    { "content": "Analyze auth module", "status": "completed", "activeForm": "Analyzing auth module" },
-    { "content": "Analyze API layer", "status": "completed", "activeForm": "Analyzing API layer" },
-    { "content": "Analyze database layer", "status": "in_progress", "activeForm": "Analyzing database layer" },
-    { "content": "Synthesize findings", "status": "pending", "activeForm": "Synthesizing findings" }
-  ]
-}
-```
-
----
-
-## When to Parallelize
-
-### Good Candidates
-
-| Scenario | Parallel Approach |
-|----------|-------------------|
-| Multiple independent analyses | One subagent per analysis |
-| Multi-file processing | One subagent per file/directory |
-| Different review perspectives | One subagent per perspective |
-| Multiple independent features | One subagent per feature |
-| Exploratory research | Multiple search strategies |
-
-### When NOT to Parallelize
-
-| Scenario | Why Sequential |
-|----------|----------------|
-| Tasks with dependencies | B needs A's output |
-| Same file modifications | Risk of conflicts |
-| Sequential workflows | Order matters (commit → push → PR) |
-| Shared state | Race conditions |
-| Limited resources | Overwhelming the system |
-
----
-
-## Performance Impact
-
-| # Parallel Tasks | Sequential Time | Parallel Time | Speedup |
-|------------------|-----------------|---------------|---------|
-| 2 | 60s | 30s | 2x |
-| 3 | 90s | 30s | 3x |
-| 5 | 150s | 30s | 5x |
-| 10 | 300s | 30s | 10x |
-
-*Assuming each task takes ~30 seconds*
-
----
-
-## Common Mistakes
-
-### Mistake 1: Separate Messages
+**Sequential execution**: Only ONE task `in_progress` at a time
+**Parallel execution**: MULTIPLE tasks can be `in_progress` simultaneously
 
 ```
-WRONG (Sequential):
-Message 1: "I'll start analyzing the auth module..."
-           <task>Analyze auth</task>
-Message 2: "Now let me analyze the API..."
-           <task>Analyze API</task>
+# Before launching parallel tasks
+todos = [
+  { content: "Task A", status: "in_progress" },
+  { content: "Task B", status: "in_progress" },
+  { content: "Task C", status: "in_progress" },
+  { content: "Synthesize results", status: "pending" }
+]
 
-RIGHT (Parallel):
-Message 1: "I'll analyze all modules in parallel..."
-           <task>Analyze auth</task>
-           <task>Analyze API</task>
-           <task>Analyze DB</task>
+# After each TaskOutput retrieval, mark as completed
+todos = [
+  { content: "Task A", status: "completed" },
+  { content: "Task B", status: "completed" },
+  { content: "Task C", status: "completed" },
+  { content: "Synthesize results", status: "in_progress" }
+]
 ```
 
-### Mistake 2: Announcing Before Acting
+## When to Use Parallel Execution
 
+**Good candidates:**
+- Multiple independent analyses (code review, security, tests)
+- Multi-file processing where files are independent
+- Exploratory tasks with different perspectives
+- Verification tasks with different checks
+- Feature implementation with independent components
+
+**Avoid parallelization when:**
+- Tasks have dependencies (Task B needs Task A's output)
+- Sequential workflows are required (commit -> push -> PR)
+- Tasks modify the same files (risk of conflicts)
+- Order matters for correctness
+
+## Performance Benefits
+
+| Approach | 5 Tasks @ 30s each | Total Time |
+|----------|-------------------|------------|
+| Sequential | 30s + 30s + 30s + 30s + 30s | ~150s |
+| Parallel | All 5 run simultaneously | ~30s |
+
+Parallel execution is approximately Nx faster where N is the number of independent tasks.
+
+## Example: Feature Implementation
+
+**User request**: "Implement user authentication with login, registration, and password reset"
+
+**Orchestrator creates plan**:
+1. Implement login endpoint
+2. Implement registration endpoint
+3. Implement password reset endpoint
+4. Add authentication middleware
+5. Write integration tests
+
+**Parallel execution**:
 ```
-WRONG:
-"I'm going to launch three parallel tasks to analyze the codebase."
-[waits for response]
-"Now launching the tasks..."
+Launching 5 subagents in parallel:
 
-RIGHT:
-"Launching three parallel analysis tasks now:"
-<task>...</task>
-<task>...</task>
-<task>...</task>
-```
+[Task 1] Login endpoint implementation
+[Task 2] Registration endpoint implementation
+[Task 3] Password reset endpoint implementation
+[Task 4] Auth middleware implementation
+[Task 5] Integration test writing
 
-### Mistake 3: Forgetting Synthesis
+All tasks run simultaneously...
 
-```
-WRONG:
-Just dump all task outputs without integration
+[Collect results via TaskOutput]
 
-RIGHT:
-After receiving all results, synthesize:
-- Identify common themes
-- Resolve contradictions
-- Prioritize findings
-- Create unified recommendations
-```
-
----
-
-## Parallel Execution Checklist
-
-Before launching parallel tasks, verify:
-
-- [ ] Tasks are truly independent
-- [ ] No shared file modifications
-- [ ] No sequential dependencies
-- [ ] All tasks in SINGLE message
-- [ ] TodoWrite updated with all `in_progress`
-- [ ] Synthesis step planned
-
----
-
-## Template: Parallel Analysis
-
-```markdown
-## Launching Parallel Analysis
-
-I'm analyzing this codebase from multiple perspectives simultaneously.
-
-### Parallel Tasks
-
-<task description="Security Review">
-Analyze for security vulnerabilities, focusing on:
-- Authentication/authorization
-- Input validation
-- Secrets handling
-</task>
-
-<task description="Performance Review">
-Analyze for performance issues, focusing on:
-- N+1 queries
-- Memory leaks
-- Blocking operations
-</task>
-
-<task description="Test Coverage Review">
-Analyze test coverage, focusing on:
-- Missing test cases
-- Edge cases
-- Integration tests
-</task>
-
-### Synthesis (after all complete)
-
-[Combine findings into prioritized report]
+[Synthesize into cohesive implementation]
 ```
 
----
+## Troubleshooting
 
-## Quick Reference
+**Tasks running sequentially?**
+- Verify ALL Task calls are in SINGLE message
+- Check `run_in_background: true` is set for each
 
-```
-RULE #1:
-  ALL Task calls in SINGLE message = PARALLEL
-  Task calls in SEPARATE messages = SEQUENTIAL
+**Results not available?**
+- Use TaskOutput with correct task IDs
+- Wait for tasks to complete before retrieving
 
-PATTERNS:
-  Task-based:       One subagent per task
-  Directory-based:  One subagent per directory
-  Perspective-based: One subagent per viewpoint
-  Adversarial:      Multiple competing reviewers
-
-TODOWRITE:
-  Mark ALL parallel tasks as in_progress BEFORE launching
-  Mark each as completed AFTER receiving results
-
-SPEEDUP:
-  N parallel tasks ≈ Nx faster
-  (5 tasks @ 30s each: 150s → 30s)
-
-CHECKLIST:
-  ☐ Tasks independent?
-  ☐ No shared files?
-  ☐ No dependencies?
-  ☐ All in ONE message?
-  ☐ Synthesis planned?
-```
+**Conflicts in output?**
+- Ensure tasks don't modify same files
+- Add conflict resolution in synthesis step

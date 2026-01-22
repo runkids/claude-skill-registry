@@ -1,7 +1,7 @@
 {
   "name": "test-orchestrator",
-  "repo": "Brownbull/ayni_core",
-  "path": ".claude/skills/test-orchestrator/SKILL.md",
-  "source": "github.com/Brownbull/ayni_core",
-  "downloaded_at": "2026-01-14T03:19:08.970248Z"
+  "repo": "chaserbreitenbach/claude-skills-and-agents",
+  "path": "skills/testing/test-orchestrator/SKILL.md",
+  "source": "github.com/chaserbreitenbach/claude-skills-and-agents",
+  "downloaded_at": "2026-01-22T02:09:05.227812Z"
 }

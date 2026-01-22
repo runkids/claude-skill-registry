@@ -1,7 +1,7 @@
 {
   "name": "test-generator",
-  "repo": "ntaksh42/agents",
+  "repo": "omerlefaruk/CasareRPA",
   "path": ".claude/skills/test-generator/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-14T03:51:05.918010Z"
+  "source": "github.com/omerlefaruk/CasareRPA",
+  "downloaded_at": "2026-01-22T04:12:08.342476Z"
 }

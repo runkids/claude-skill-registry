@@ -1,111 +1,38 @@
 ---
 name: writing-user-stories
-description: Creates INVEST-compliant user stories with acceptance criteria. Use when capturing requirements, defining backlog items, or breaking down features.
+description: Use when an agent needs to write user stories for a project
 ---
 
-# User Story Writing
+# Writing User Stories
 
-Create user stories meeting INVEST criteria.
+## Overview
 
-## Execution Requirements
+Help Claude and subagents write properly formatted user stories for task definition.
 
-1. Use `templates/user-story.md` template
-2. Validate against INVEST criteria before completing
-3. Include 2-5 acceptance criteria
-4. Replace all `[bracketed placeholders]`
-5. Assign Story ID using next sequential number
+**Core principle:** User stories are formulaic ways of expressing user requirements. They identify the perosna of the actor, what they want to do, and what benefit are they hoping to gain from their actions.
 
-## Mode Detection
+## When to Use This Skill
 
-**CREATE**: No existing story path → Copy template, generate next ID, fill sections
-
-**EDIT**: Path provided → Read existing, preserve ID, update as requested
+Use this skill when:
+- You are asked to write a user story
+- You are asked to plan a feature
 
 ## User Story Format
 
-```
-As a [type of user],
-I want [goal/desire],
-So that [benefit/value].
-```
+As a PERSONA
+I want to DESCRIPTION_OF_ACTION
+So that DESCRIPTION_OF_BENEFIT.
 
-Example:
-```
-As a registered customer,
-I want to save items to a wishlist,
-So that I can purchase them later without searching again.
-```
+### Examples
 
-## Required Elements
+As a non-technical stakeholder, 
+I want to understand what changed in a release without reading code diffs 
+so that I can communicate updates to customers effectively.
 
-**Title** - Short, descriptive. "Wishlist - Add Items" not "User feature for saving stuff"
+As a new user, 
+I want to see examples of AI-generated code before connecting my repository 
+so that I understand the value proposition before committing to integration.
 
-**User Story Statement** - Who (role), What (goal), Why (value)
-
-**Acceptance Criteria** - Specific, testable conditions with Given-When-Then or checklist format
-
-## INVEST Criteria
-
-| Criterion | Meaning |
-|-----------|---------|
-| Independent | Develop in any order |
-| Negotiable | Details discussable |
-| Valuable | Delivers user/business value |
-| Estimable | Team can size it |
-| Small | Fits in one sprint |
-| Testable | Clear acceptance criteria |
-
-## Acceptance Criteria Formats
-
-Given-When-Then (preferred):
-```
-- [ ] Given [precondition], When [action], Then [result]
-```
-
-Checklist:
-```
-- [ ] User can [action with measurable outcome]
-```
-
-## Writing Guidelines
-
-Be specific about user roles: "premium subscriber" not "user"
-
-Focus on outcomes: "export my data" not "a button"
-
-State the benefit: "analyze in Excel" not "click it"
-
-## Story Splitting
-
-Split large stories by: workflow steps, business rules, data variations, user roles, or CRUD operations.
-
-## Anti-Patterns
-
-Do not write technical stories ("As a developer..."). Do not combine multiple features. Do not describe implementation. Do not omit the value clause. Do not use vague criteria.
-
-## Story vs Task vs Bug
-
-| Type | Purpose |
-|------|---------|
-| Story | New user-facing capability |
-| Task | Technical work, no direct user value |
-| Bug | Fix broken behavior |
-
-## Directory Structure
-
-```
-stories/
-├── US-001-brief-description.md
-├── US-002-brief-description.md
-└── archive/
-```
-
-Create `stories/` if needed. Scan for existing `US-*.md` files, find highest number, increment, pad to 3 digits.
-
-## Template
-
-Use `templates/user-story.md` for all new stories.
-
-## Output
-
-After creating/editing, report: file path, Story ID, acceptance criteria count, any INVEST concerns.
+As a home cook,
+I want to see that recipes have been tested by professional chefs
+so that I can know whether they are worth trying.

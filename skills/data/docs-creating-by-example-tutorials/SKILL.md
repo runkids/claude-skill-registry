@@ -1,13 +1,5 @@
 ---
-name: docs-creating-by-example-tutorials
 description: Comprehensive guide for creating by-example tutorials - code-first learning path with 75-90 heavily annotated examples achieving 95% language coverage. Covers five-part example structure, annotation density standards (1-2.25 comments per code line PER EXAMPLE), self-containment rules, and multiple code blocks for comparisons. Essential for creating by-example tutorials for programming languages on educational platforms
-allowed-tools: [Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, Bash]
-tags:
-  - by-example-tutorials
-  - code-annotation
-  - educational-content
-  - programming-tutorials
-  - annotation-density
 ---
 
 # By-Example Tutorial Creation Skill
@@ -481,13 +473,13 @@ int x = 10;  // This line declares a variable named x and assigns it the integer
 
 ## References
 
-**Primary Convention**: [By Example Tutorial Convention](../../../governance/conventions/tutorial/by-example.md)
+**Primary Convention**: [By Example Tutorial Convention](../../../../governance/conventions/tutorial/by-example.md)
 
 **Related Conventions**:
 
-- [Programming Language Tutorial Structure](../../../governance/conventions/tutorial/programming-language-structure.md) - Dual-path organization
-- [Programming Language Content Standard](../../../governance/conventions/tutorial/programming-language-content.md) - Universal content architecture
-- [Hugo ayokoding Convention](../../../governance/conventions/hugo/ayokoding.md) - Code annotation standards for ayokoding-web
+- [Programming Language Tutorial Structure](../../../../governance/conventions/tutorial/programming-language-structure.md) - Dual-path organization
+- [Programming Language Content Standard](../../../../governance/conventions/tutorial/programming-language-content.md) - Universal content architecture
+- [Hugo ayokoding Convention](../../../../governance/conventions/hugo/ayokoding.md) - Code annotation standards for ayokoding-web
 
 **Related Skills**:
 

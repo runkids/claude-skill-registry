@@ -1,10 +1,10 @@
 ---
 name: google-gemini-file-search
 description: |
-  Build document Q&A with Gemini File Search - fully managed RAG with automatic chunking, embeddings, and citations. Upload 100+ file formats, query with natural language.
+  Build document Q&A and searchable knowledge bases with Google Gemini File Search - fully managed RAG with automatic chunking, embeddings, and citations. Upload 100+ file formats (PDF, Word, Excel, code), configure semantic search, and query with natural language.
 
-  Use when: document Q&A, searchable knowledge bases, semantic search. Troubleshoot: document immutability, storage quota (3x), chunking config, metadata limits (20 max), polling timeouts.
-user-invocable: true
+  Use when: building document Q&A systems, creating searchable knowledge bases, implementing semantic search without managing embeddings, indexing large document collections (100+ formats), or troubleshooting document immutability errors (delete+re-upload required), storage quota issues (3x input size for embeddings), chunking configuration (500 tokens/chunk recommended), metadata limits (20 key-value pairs max), indexing cost surprises ($0.15/1M tokens one-time), operation polling timeouts (wait for done: true), force delete errors, or model compatibility (Gemini 2.5 Pro/Flash only).
+license: MIT
 allowed-tools:
   - Bash
   - Read
@@ -12,20 +12,97 @@ allowed-tools:
   - Glob
   - Grep
   - WebFetch
+metadata:
+  version: "1.0.0"
+  last_verified: "2025-11-10"
+  package_versions:
+    "@google/genai": "^0.21.0"
+  supported_models:
+    - gemini-2.5-pro
+    - gemini-2.5-flash
+  node_version: ">=18.0.0"
+  token_savings: "~65%"
+  errors_prevented: 8
+  keywords:
+    - file search
+    - gemini rag
+    - document search
+    - knowledge base
+    - semantic search
+    - google embeddings
+    - file upload
+    - managed rag
+    - automatic citations
+    - document qa
+    - retrieval augmented generation
+    - vector search
+    - grounding
+    - file indexing
 ---
 
 # Google Gemini File Search Setup
 
 ## Overview
 
-Google Gemini File Search is a fully managed RAG system. Upload documents (100+ formats: PDF, Word, Excel, code) and query with natural language—automatic chunking, embeddings, semantic search, and citations.
+Google Gemini File Search is a fully managed RAG (Retrieval-Augmented Generation) system that eliminates the need for separate vector databases, custom chunking logic, or embedding generation code. Upload documents (PDFs, Word, Excel, code files, etc.) and query them using natural language—Gemini automatically handles intelligent chunking, embedding with its optimized model, semantic search, and citation generation.
 
 **What This Skill Provides:**
-- Complete @google/genai File Search API setup
-- 8 documented errors with prevention strategies
+- Complete setup guide for @google/genai File Search API
+- TypeScript/JavaScript SDK configuration patterns
+- Working templates for 3 deployment scenarios (Node.js, Cloudflare Workers, Next.js)
+- 8 documented common errors with prevention strategies
 - Chunking best practices for optimal retrieval
-- Cost optimization ($0.15/1M tokens indexing, 3x storage multiplier)
-- Cloudflare Workers + Next.js integration templates
+- Cost optimization techniques
+- Comparison guide (vs Cloudflare Vectorize, OpenAI Files API, Claude MCP)
+
+**Key Features of File Search:**
+- **100+ File Formats**: PDF, Word (.docx), Excel (.xlsx), PowerPoint (.pptx), Markdown, JSON, CSV, code files (Python, JavaScript, TypeScript, Java, C++, Go, Rust, etc.)
+- **Automatic Embeddings**: Uses Google's Gemini Embedding model (no custom embedding code required)
+- **Semantic Search**: Vector-based search understands meaning and context, not just keywords
+- **Built-in Citations**: Grounding metadata automatically points to specific document sections
+- **Custom Metadata**: Filter queries by up to 20 custom key-value pairs per document
+- **Configurable Chunking**: Control chunk size (tokens) and overlap for precision tuning
+- **Cost-Effective**: $0.15/1M tokens for one-time indexing, free storage (up to limits), free query-time embeddings
+
+## When to Use This Skill
+
+**Ideal Use Cases:**
+- Building customer support knowledge bases (manuals, FAQs, troubleshooting guides)
+- Creating internal documentation search (company wikis, policies, procedures)
+- Legal/compliance document analysis (contracts, regulations, case law)
+- Research tools (academic papers, articles, textbooks)
+- Code documentation search (API docs, SDK references, examples)
+- Product information retrieval (specs, datasheets, user guides)
+
+**Use File Search When:**
+- ✅ You want a fully managed RAG solution (no vector DB setup)
+- ✅ Cost predictability matters (pay-per-indexing, not continuous storage fees)
+- ✅ You need broad file format support (100+ types out of the box)
+- ✅ Citations are important (built-in grounding metadata)
+- ✅ Simple deployment is priority (single API setup)
+- ✅ Documents are relatively static (updates are infrequent)
+
+**Use Cloudflare Vectorize/AutoRAG Instead When:**
+- ✅ Global edge performance is critical (low-latency worldwide)
+- ✅ Building full-stack apps on Cloudflare (Workers, R2, D1)
+- ✅ You need custom embedding models or retrieval logic
+- ✅ Real-time data updates from R2 or external sources
+
+**Use OpenAI Files API Instead When:**
+- ✅ Already using OpenAI Assistants API (conversational threads)
+- ✅ Need to attach knowledge to persistent assistant threads
+- ✅ Working with very large file collections (10,000+ files per store)
+- ✅ Prefer storage-based pricing model ($0.10/GB/day)
+
+## When NOT to Use This Skill
+
+Skip this skill if:
+- ❌ Need custom embedding models (File Search locks you to Gemini Embeddings)
+- ❌ Documents update frequently (no streaming updates, must delete+re-upload)
+- ❌ Building conversational AI agents (use OpenAI Assistants or Claude MCP instead)
+- ❌ Need BM25/hybrid search (File Search is vector-only)
+- ❌ Require advanced reranking configuration (automatic only)
+- ❌ Need to parse images/tables from PDFs (text extraction only)
 
 ## Prerequisites
 
@@ -61,9 +138,7 @@ pnpm add @google/genai
 yarn add @google/genai
 ```
 
-**Current Stable Version:** 1.30.0+ (verify with `npm view @google/genai version`)
-
-**⚠️ Important:** File Search API requires **@google/genai v1.29.0 or later**. Earlier versions do not support File Search. The API was added in v1.29.0 (November 5, 2025).
+**Current Stable Version:** 0.21.0+ (verify with `npm view @google/genai version`)
 
 ### 4. TypeScript Configuration (Optional but Recommended)
 
@@ -953,6 +1028,99 @@ npm install
 npm run dev
 ```
 
+## Comparison: File Search vs Alternatives
+
+| Feature | Gemini File Search | Cloudflare Vectorize | OpenAI Files API |
+|---------|-------------------|---------------------|------------------|
+| **Setup Complexity** | Simple (single API) | Moderate (DIY RAG) | Simple (single API) |
+| **File Format Support** | 100+ types | Manual (text/embeddings) | 20+ types |
+| **Max File Size** | 100 MB | N/A | 512 MB |
+| **Max Files/Store** | Unknown | Unlimited | 10,000 |
+| **Custom Embeddings** | No (Gemini only) | Yes (any model) | No (OpenAI only) |
+| **Chunking Control** | Limited (token-based) | Full control | None |
+| **Global Distribution** | No (US-centric) | Yes (edge network) | No |
+| **Citations** | Yes (automatic) | Manual implementation | Yes (automatic) |
+| **Metadata Filtering** | Yes (20 fields) | Yes (unlimited) | Yes |
+| **Streaming Updates** | No (delete+re-upload) | Yes (AutoRAG) | No |
+| **Pricing Model** | Pay-per-index | Usage-based | Storage-based |
+| **Free Tier** | 1 GB storage | Developer tier | 1 GB storage |
+| **TypeScript SDK** | Full support | Full support | Full support |
+
+**Cost Comparison (10 GB Knowledge Base, 1 Year):**
+
+**Gemini File Search:**
+- Indexing: 10GB ≈ 2.5B tokens × $0.15/1M = $375 one-time
+- Storage: Free (Tier 1 covers 10 GB)
+- Queries: Standard pricing
+- **Total Year 1:** $375
+
+**OpenAI Files API:**
+- Indexing: Free
+- Storage: 10GB × $0.10/GB/day = $365/year
+- Queries: Standard pricing
+- **Total Year 1:** $365
+
+**Cloudflare Vectorize (DIY):**
+- Indexing: Workers AI embeddings (varies)
+- Storage: Vectorize pricing
+- Queries: Workers AI pricing
+- **Total Year 1:** ~$100-500 (depends on usage)
+
+**Winner:** OpenAI for year 1, Gemini for year 2+ (if low update frequency)
+
+## Troubleshooting
+
+### Issue: "API key not valid"
+
+**Cause:** Invalid or missing API key
+
+**Solution:**
+```bash
+# Verify API key is set
+echo $GOOGLE_API_KEY
+
+# If missing, set it
+export GOOGLE_API_KEY="your-api-key-here"
+
+# Or add to .env file
+echo "GOOGLE_API_KEY=your-api-key-here" >> .env
+```
+
+### Issue: "Quota exceeded"
+
+**Cause:** Exceeded free tier limits (1 GB storage or 1,500 requests/day)
+
+**Solution:**
+- Delete old stores: `ai.fileSearchStores.delete({ name, force: true })`
+- Upgrade to paid tier: https://ai.google.dev/pricing
+- Wait until quota resets (daily at midnight UTC)
+
+### Issue: "File format not supported"
+
+**Cause:** Uploaded file type is not in the 100+ supported formats
+
+**Solution:**
+- Check supported MIME types: https://ai.google.dev/api/file-search/documents
+- Convert to supported format (e.g., DOCX to PDF, images to text via OCR)
+
+### Issue: "No results returned"
+
+**Cause:** Documents not fully indexed, or query too vague
+
+**Solution:**
+- Verify indexing complete: Poll operation until `done: true`
+- Check document count: `ai.fileSearchStores.documents.list()`
+- Refine query: Be more specific
+- Adjust metadata filter: May be too restrictive
+
+### Issue: "Poor retrieval quality"
+
+**Cause:** Suboptimal chunking configuration
+
+**Solution:**
+- Reduce `maxTokensPerChunk` for more precise retrieval (try 300-500)
+- Increase overlap to 10-15% of chunk size
+- Re-upload documents with new chunking config
 
 ## References
 
@@ -985,7 +1153,7 @@ npm run dev
 ---
 
 **Skill Version:** 1.0.0
-**Last Verified:** 2026-01-09
-**Package Version:** @google/genai ^1.35.0 (minimum 1.29.0 required)
+**Last Verified:** 2025-11-10
+**Package Version:** @google/genai ^0.21.0
 **Token Savings:** ~65%
 **Errors Prevented:** 8

@@ -1,7 +1,7 @@
 {
   "name": "bash",
-  "repo": "mauromedda/agent-toolkit",
-  "path": "skills/bash/SKILL.md",
-  "source": "github.com/mauromedda/agent-toolkit",
-  "downloaded_at": "2026-01-14T03:39:05.534205Z"
+  "repo": "dralgorhythm/claude-agentic-framework",
+  "path": ".claude/skills/languages/bash/SKILL.md",
+  "source": "github.com/dralgorhythm/claude-agentic-framework",
+  "downloaded_at": "2026-01-22T00:59:03.633774Z"
 }

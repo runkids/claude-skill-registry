@@ -1,11 +1,7 @@
 {
   "name": "zoom",
-  "description": "Create and manage Zoom meetings and access cloud recordings via the Zoom API. Use for queries like \"create a Zoom meeting\", \"list my Zoom meetings\", \"show my Zoom recordings\", or \"schedule a meeting f",
-  "repo": "glebis/claude-skills",
-  "category": "development",
-  "tags": [
-    "zoom"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "Andrejones92/canifi-life-os",
+  "path": "skills/zoom/SKILL.md",
+  "source": "github.com/Andrejones92/canifi-life-os",
+  "downloaded_at": "2026-01-22T01:42:19.783984Z"
 }

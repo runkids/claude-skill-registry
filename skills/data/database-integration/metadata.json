@@ -1,12 +1,7 @@
 {
   "name": "database-integration",
-  "description": "Database integration - schema design, queries, migrations, optimization",
-  "repo": "pluginagentmarketplace/custom-plugin-fullstack",
-  "category": "data",
-  "tags": [
-    "database",
-    "integration"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "bitsoex/bitso-java",
+  "path": ".claude/skills/database-integration/SKILL.md",
+  "source": "github.com/bitsoex/bitso-java",
+  "downloaded_at": "2026-01-22T02:30:40.071586Z"
 }

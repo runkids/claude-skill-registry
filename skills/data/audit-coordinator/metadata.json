@@ -1,12 +1,7 @@
 {
   "name": "audit-coordinator",
-  "description": "Orchestrates comprehensive audits across multiple specialized auditors for Claude Code customizations. Use when user wants complete evaluation of agents, skills, hooks, commands, output-styles, entire",
   "repo": "philoserf/claude-code-setup",
-  "category": "development",
-  "tags": [
-    "audit",
-    "coordinator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/audit-coordinator/SKILL.md",
+  "source": "github.com/philoserf/claude-code-setup",
+  "downloaded_at": "2026-01-22T01:30:33.949706Z"
 }

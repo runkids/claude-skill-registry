@@ -1,7 +1,7 @@
 {
   "name": "convex-development",
-  "repo": "phrazzld/claude-config",
-  "path": "skills/convex-development/SKILL.md",
-  "source": "github.com/phrazzld/claude-config",
-  "downloaded_at": "2026-01-14T03:03:36.962651Z"
+  "repo": "seanchiuai/claude-web-template",
+  "path": ".claude/skills/convex-development/SKILL.md",
+  "source": "github.com/seanchiuai/claude-web-template",
+  "downloaded_at": "2026-01-22T01:45:19.485842Z"
 }

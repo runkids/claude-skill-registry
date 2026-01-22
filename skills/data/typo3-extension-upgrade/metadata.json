@@ -1,7 +1,7 @@
 {
   "name": "typo3-extension-upgrade",
-  "repo": "dirnbauer/claude-cursor-typo3-skills",
+  "repo": "netresearch/typo3-extension-upgrade-skill",
   "path": "skills/typo3-extension-upgrade/SKILL.md",
-  "source": "github.com/dirnbauer/claude-cursor-typo3-skills",
-  "downloaded_at": "2026-01-14T03:08:56.696416Z"
+  "source": "github.com/netresearch/typo3-extension-upgrade-skill",
+  "downloaded_at": "2026-01-22T03:15:23.166544Z"
 }

@@ -1,103 +1,67 @@
 ---
 name: agents-md
-description: Guide for creating and editing CLAUDE.md or AGENTS.md files - AI agent instruction documents. Use when the user wants to create a new CLAUDE.md/AGENTS.md, edit existing agent documentation, set up AI instructions for a repository, or asks about best practices for agent docs structure.
+description: Create or update root and nested AGENTS.md files that document scoped conventions, monorepo module maps, cross-domain workflows, and (optionally) per-module feature maps (feature -> paths, entrypoints, tests, docs). Use when the user asks for AGENTS.md, nested agent instructions, or a module/feature map.
 ---
 
-# Agents MD
+# AGENTS.md builder
 
-## Overview
+## Goal
+Add lightweight, scoped guidance for an AI agent (and humans) by placing AGENTS.md files at key directory boundaries:
+- root: cross-domain guidance + a module map (for monorepos)
+- nested: tech-specific instructions for each component/module
+- optional: feature maps at the module level
 
-This skill provides knowledge and templates for creating and editing CLAUDE.md and AGENTS.md files - structured documentation that guides AI coding agents working with a codebase.
+Optimize for concise and precise instructions (short bullets, minimal prose). Link to docs for depth.
 
-## Output Format Selection
+## Inputs to ask for (if missing)
+- Is this a monorepo (multiple independently-built modules) or a single project?
+- Repo layout: where backend, frontend, docs, infra live; list the major modules/subprojects.
+- Cross-domain workflows to document (e.g., frontend calling backend API, auth flow, shared types, local dev).
+- If you want feature maps: top 5-15 user-facing features (names) and which module owns them.
+- Any rules about MCP usage to capture in root AGENTS.md (allowed servers/tools, safety constraints).
+- Any hard rules (do not touch X, required commands, style rules).
 
-Let the user choose the output format:
+## Where to put AGENTS.md (heuristics)
+Create AGENTS.md at:
+- repo root (global rules + module map + cross-domain workflows)
+- each major component/module root (e.g., `backend/`, `frontend/`, `docs/`, `infra/`)
+- any subdirectory that has different conventions, ownership, or high risk (payments, auth, data migrations)
 
-| Format | Use Case |
-|--------|----------|
-| **CLAUDE.md** | Claude Code specific (supports `@` imports, hierarchical memory) |
-| **AGENTS.md** | Cross-tool compatible (Codex, Cursor, Copilot, etc.) |
+Avoid placing AGENTS.md too deep unless there is a real boundary; too many files become noise.
 
-For format-specific features, see:
-- `references/claude-md-features.md` - Claude Code specific features
-- `references/agents-md-spec.md` - AGENTS.md specification
+## Workflow (checklist)
+1) Inventory the repo
+   - List top-level directories and build files (Gradle/Maven, Node/Next, docs site).
+   - Identify the natural "component roots" and any critical submodules.
+2) Draft root `AGENTS.md`
+   - State global rules only (things that apply everywhere).
+   - If monorepo: add a module/subproject map (not a feature map) and links to each nested AGENTS.md.
+   - Keep tech-specific instructions out of root; push them into the owning module's AGENTS.md.
+   - Docs: do not open/read `docs/` by default; consult only when asked or required.
+   - Add cross-domain workflows (how modules connect): frontend <-> backend API, auth/session, contract location (OpenAPI/GraphQL), "run together" local dev.
+   - Add cross-repo verification guidance: where to run per module + prereqs; quiet first run; re-run narrowed failures with verbose logs when debugging.
+3) Draft nested AGENTS.md per component
+   - Put tech-specific instructions in the module that owns them:
+     - Backend: how to run, test, migrate DB; key modules and entrypoints.
+     - Frontend: how to run, build, test; env vars; key routes/areas.
+     - Docs: docs structure, where to add ADRs/runbooks, how to preview/build docs.
+4) Build maps (as needed)
+   - If monorepo: module map goes in root (use `references/module-map-format.md`).
+   - Feature maps should live in the owning module AGENTS.md (use `references/feature-map-format.md`).
+5) Verify consistency
+   - Ensure guidance does not conflict between parent/child scopes.
+   - Keep each AGENTS.md short and actionable; move long detail into docs under `docs/`.
 
-## Document Structure
+## Templates
+Use these templates:
+- Root + module AGENTS.md: `references/agents-template.md`
+- Module map format: `references/module-map-format.md`
+- Feature map table format (per module): `references/feature-map-format.md`
+- Suggested `docs/` layout (Spring + Next): `references/docs-structure.md`
 
-Use this 8-section structure. See `assets/template.md` for the full template.
-
-### 1. Project Name & Overview
-Start with `# [Project Name]` followed by a brief description (1-3 sentences) explaining WHY this project exists, then list key features/capabilities as bullet points. No separate section heading needed.
-
-### 2. Architecture Overview
-Key architectural points as bullet list - important components, data flow, design decisions. Answer "WHAT are the key things to know?" Keep it concise (3-5 bullets). If `docs/ARCHITECTURE.md` or similar exists, link to it for details.
-
-### 3. Directory Structure
-Tree view of the repository layout with brief descriptions. Answer "WHERE is everything?"
-
-### 4. Core Principles
-Coding principles to follow. **Use these defaults as-is; append project-specific items rather than replacing:**
-
-```markdown
-## Core Principles
-- Correspond to the current codebase, data, and terminology over theory or general practices; always review thoroughly
-- Avoid adding new dependencies unless necessary; remove when possible
-- Follow clean code principles (simplicity, clarity, descriptive names, remove unused code)
-- Follow Conventional Commits for commit messages unless otherwise instructed
-```
-
-### 5. Commands
-Build, run, lint, and test commands. Example:
-
-```markdown
-## Commands
-- `npm install` - Install dependencies
-- `npm run dev` - Start development server
-- `npm run build` - Production build
-- `npm test` - Run all tests
-- `npm run lint` - Run linter
-```
-
-### 6. Testing
-Testing strategy and policies (not commands). **Use these defaults as-is; append project-specific items rather than replacing:**
-
-```markdown
-## Testing
-- Prefer integration tests over unit tests; write unit tests to cover edge cases
-- Do not use mocks by default; use them only for external communication or resource fetching
-- Test names should follow the user's language
-- New features require corresponding tests
-```
-
-### 7. Language Policy
-Programming and natural language rules. **Use these defaults as-is; append project-specific items rather than replacing:**
-
-```markdown
-## Language Policy
-- Follow the user's language by default (comments, commits, tests)
-- The following files must always be written in English:
-  - CLAUDE.md, AGENTS.md
-  - Files under .claude/
-  - Files under docs/agents/
-  - Files under .github/ (except comments)
-```
-
-### 8. Additional Resources
-References to detailed documentation. Format:
-
-```markdown
-## Additional Resources
-- `docs/ARCHITECTURE.md`: Detailed architecture decisions
-- `docs/agents/[FILE].md`: [Description]
-- `docs/adr/adr-001-[slug].md`: [ADR title]
-```
-
-## Best Practices
-
-For detailed guidelines on writing effective agent documentation, see `references/best-practices.md`.
-
-Key points:
-- Keep under 300 lines (ideally under 100)
-- Be specific, not generic
-- Use Progressive Disclosure - link to detailed docs instead of including everything
-- Let linters handle code style, not agent docs
+## Deliverable
+Provide:
+- Root `AGENTS.md` (if requested) with module map and cross-domain workflows.
+- Nested `AGENTS.md` per component/module with tech-specific guidance.
+- Optional feature map tables per module (if requested).
+- A list of files created/updated and any open questions.

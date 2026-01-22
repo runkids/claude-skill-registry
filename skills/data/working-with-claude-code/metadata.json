@@ -1,14 +1,7 @@
 {
   "name": "working-with-claude-code",
-  "description": "Use when working with Claude Code CLI, plugins, hooks, MCP servers, skills, configuration, or any Claude Code feature - provides comprehensive official documentation for all aspects of Claude Code",
-  "repo": "obra/superpowers-developing-for-claude-code",
-  "category": "documents",
-  "tags": [
-    "working",
-    "with",
-    "claude",
-    "code"
-  ],
-  "stars": 47,
-  "source": "local"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": "plugins/installed/superpowers-developing-for-claude-code/skills/working-with-claude-code/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-22T03:35:29.339098Z"
 }

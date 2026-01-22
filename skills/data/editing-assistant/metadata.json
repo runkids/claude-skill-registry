@@ -1,12 +1,7 @@
 {
   "name": "editing-assistant",
-  "description": "Comprehensive text editing and improvement assistant with multiple specialized modes. Use when editing, improving, proofreading, polishing, reviewing, rewriting, or cleaning up written content. Suppor",
   "repo": "philoserf/claude-code-setup",
-  "category": "documents",
-  "tags": [
-    "editing",
-    "assistant"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/editing-assistant/SKILL.md",
+  "source": "github.com/philoserf/claude-code-setup",
+  "downloaded_at": "2026-01-22T01:30:34.062679Z"
 }

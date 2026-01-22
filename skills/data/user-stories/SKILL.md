@@ -1,192 +1,68 @@
+<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->
 ---
 name: user-stories
-description: Guidelines for writing effective user stories with clear acceptance criteria. Use when creating issues from discovery findings.
+description: Generates user stories with clear acceptance criteria from product requirements or feature descriptions. Use when breaking down features for sprint planning, writing tickets, or communicating requirements to engineering.
+license: Apache-2.0
+metadata:
+  category: specification
+  frameworks: [triple-diamond, lean-startup, design-thinking]
+  author: product-on-purpose
+  version: "1.0.0"
 ---
 
-# User Stories Skill
+# User Stories
 
-This skill provides guidance for writing well-formed user stories with clear acceptance criteria.
+User stories are concise descriptions of functionality from the user's perspective. They capture who needs something, what they need, and why — without prescribing how to build it. Good user stories enable teams to break large features into estimable, deliverable increments while maintaining focus on user value.
 
-## User Story Format
+## When to Use
 
-```markdown
-As a [type of user],
-I want [goal/desire],
-So that [benefit/value].
-```
+- After PRD approval, when breaking down features for implementation
+- During sprint planning to create actionable work items
+- When writing tickets for engineering teams
+- When communicating requirements to stakeholders in accessible terms
+- When prioritizing a backlog based on user value
 
-### Examples
+## Instructions
 
-**Good:**
-```
-As a registered user,
-I want to reset my password via email,
-So that I can regain access to my account if I forget my password.
-```
+When asked to create user stories, follow these steps:
 
-**Bad:**
-```
-Add password reset feature.
-```
+1. **Understand the Feature Context**
+   Review the PRD or feature description. Understand the overall goal, target users, and scope boundaries. User stories should trace back to documented requirements.
 
-The good example captures WHO needs it, WHAT they need, and WHY.
+2. **Identify User Personas**
+   Determine which users interact with this feature. Each story should be written for a specific persona, not generic "users." Different personas may need different stories for the same feature.
 
----
+3. **Break Down by User Goal**
+   Decompose the feature into distinct user goals. Each story should deliver a complete, valuable capability — something the user can actually do when the story is done.
 
-## INVEST Criteria
+4. **Write Story Statements**
+   Use the format: "As a [persona], I want [action] so that [benefit]." The benefit clause is critical — it explains why this matters and helps prioritize.
 
-Good user stories are:
+5. **Define Acceptance Criteria**
+   Write specific, testable criteria using Given/When/Then format. Acceptance criteria define "done" — if all criteria pass, the story is complete.
 
-| Criteria | Description |
-|----------|-------------|
-| **I**ndependent | Can be developed separately from other stories |
-| **N**egotiable | Details can be discussed and refined |
-| **V**aluable | Delivers clear value to the user |
-| **E**stimable | Can be sized (fits in a single PR) |
-| **S**mall | Implementable in one PR, not weeks of work |
-| **T**estable | Has clear acceptance criteria to verify |
+6. **Apply INVEST Criteria**
+   Validate each story against INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable. Revise stories that don't meet these criteria.
 
-### Checking Your Stories
+7. **Add Context and Notes**
+   Include relevant design references, technical considerations, and dependencies. These help implementers understand the full picture.
 
-- **Independent**: Does this require other stories to be done first? If so, document the dependency.
-- **Negotiable**: Is there flexibility in HOW this is implemented?
-- **Valuable**: Can you explain the user benefit?
-- **Estimable**: Is it clear enough to implement?
-- **Small**: Could this be done in 1-3 days? If not, break it down.
-- **Testable**: Can you write acceptance criteria?
+## Output Format
 
----
+Use the template in `references/TEMPLATE.md` to structure the output.
 
-## Acceptance Criteria
+## Quality Checklist
 
-Acceptance criteria define WHEN a story is complete. They should be:
+Before finalizing, verify:
 
-- **Specific**: Clear, unambiguous conditions
-- **Measurable**: Can be verified as pass/fail
-- **Complete**: Cover the happy path AND edge cases
+- [ ] Each story follows "As a... I want... so that..." format
+- [ ] Stories are independent (can be built in any order)
+- [ ] Acceptance criteria use Given/When/Then format
+- [ ] Each criterion is testable (someone can verify pass/fail)
+- [ ] Stories are small enough to complete in one sprint
+- [ ] No implementation details in the story statement
+- [ ] Benefit clause explains why this matters to the user
 
-### Format
+## Examples
 
-Use checkbox format for easy verification:
-
-```markdown
-## Acceptance Criteria
-- [ ] User can request password reset with their email
-- [ ] Reset link is sent to registered email only
-- [ ] Reset link expires after 1 hour
-- [ ] User sees error message for unregistered email
-- [ ] User can set new password via reset link
-- [ ] Old password no longer works after reset
-```
-
-### Writing Good Criteria
-
-**Good criteria:**
-- [ ] Login form shows error for incorrect password
-- [ ] Error message says "Invalid email or password" (not which is wrong)
-- [ ] Account locks after 5 failed attempts
-
-**Bad criteria:**
-- [ ] Login works correctly (too vague)
-- [ ] Errors are handled (not specific)
-- [ ] Good UX (not measurable)
-
----
-
-## Breaking Down Large Features
-
-Large features should be broken into stories sized for a single PR.
-
-### Splitting Strategies
-
-1. **By User Flow Step**
-   - Registration → Login → Password Reset → Session Management
-
-2. **By Data Entity**
-   - User Model → User API → User UI
-
-3. **By User Type**
-   - End-user features → Admin features
-
-4. **By Complexity Layer**
-   - Backend API → Frontend UI → Integration
-
-### Example: "User Authentication" Feature
-
-Break into:
-
-| Issue | Story | Dependencies |
-|-------|-------|--------------|
-| #1 | Database schema for users | None |
-| #2 | User registration endpoint | #1 |
-| #3 | User login endpoint | #1 |
-| #4 | Session management | #3 |
-| #5 | Password reset flow | #2, #3 |
-
-Each issue is one PR's worth of work.
-
----
-
-## Issue Template
-
-```markdown
-## User Story
-As a [type of user],
-I want [goal/desire],
-So that [benefit/value].
-
-## Acceptance Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
-
-## Technical Notes
-[Architecture decisions, approach, or constraints]
-
-## UI/UX Requirements
-[Design specs, wireframes, or "None - backend only"]
-
-## Dependencies
-[List as "Depends on #X" or "None - can be worked independently"]
-
-## Out of Scope
-[Explicitly list what is NOT included to avoid scope creep]
-```
-
----
-
-## Common Mistakes
-
-### Too Big
-**Bad:** "As a user, I want a complete authentication system"
-**Better:** Split into registration, login, password reset, etc.
-
-### No User Value
-**Bad:** "Refactor the database layer"
-**Better:** "As a developer, I want a normalized user schema so that queries are faster"
-
-### Vague Criteria
-**Bad:** "Login should work well"
-**Better:** "User is redirected to dashboard after successful login"
-
-### Missing Edge Cases
-**Bad:** Only happy path criteria
-**Better:** Include error states, empty states, boundary conditions
-
-### Hidden Dependencies
-**Bad:** No mention of required prior work
-**Better:** "Depends on #1 (User model must exist first)"
-
----
-
-## Verification
-
-Before finalizing a story, verify:
-
-1. **Is the user clear?** Who specifically benefits?
-2. **Is the goal actionable?** What exactly will they do?
-3. **Is the value stated?** Why does this matter?
-4. **Are criteria testable?** Can each be verified pass/fail?
-5. **Is it sized right?** One PR, not a week of work?
-6. **Are dependencies explicit?** What must exist first?
-7. **Is scope bounded?** What's explicitly excluded?
+See `references/EXAMPLE.md` for a completed example.

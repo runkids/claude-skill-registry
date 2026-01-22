@@ -1,75 +1,160 @@
 ---
 name: tech-debt-analyzer
-description: Analyze and prioritize technical debt with refactoring recommendations. Use when evaluating code quality or planning debt reduction.
+description: This skill should be used when analyzing technical debt in a codebase, documenting code quality issues, creating technical debt registers, or assessing code maintainability. Use this for identifying code smells, architectural issues, dependency problems, missing documentation, security vulnerabilities, and creating comprehensive technical debt documentation.
 ---
 
-# Tech Debt Analyzer Skill
+# Technical Debt Analyzer
 
-技術的負債を分析し、優先順位を付けるスキルです。
+Systematically identify, analyze, and document technical debt.
 
-## 主な機能
+## When to Use
 
-- **コード複雑度**: サイクロマティック複雑度
-- **重複コード**: コピペ検出
-- **古い依存関係**: アップデート必要な dependencies
-- **TODO/FIXME**: 未解決タスク
-- **テストカバレッジ**: カバレッジ不足箇所
-- **優先順位付け**: 影響度とコストで評価
+**Use for:**
 
-## 分析レポート例
+- Analyzing code quality issues
+- Creating technical debt registers
+- Assessing code maintainability
+- Identifying dependency problems
+- Documenting security vulnerabilities
+- Planning refactoring efforts
 
-```markdown
-# 技術的負債分析レポート
+**Don't use when:**
 
-## サマリー
-- **総負債スコア**: 157ポイント
-- **推定解消時間**: 8週間
-- **Critical**: 3件
-- **High**: 12件
-- **Medium**: 25件
+- Writing new code → use `generic-feature-developer`
+- Code review → use `generic-code-reviewer`
+- Writing tests → use `test-specialist`
 
-## Critical 負債 (即時対応必須)
+## Quick Analysis Commands
 
-### 1. 古いNode.jsバージョン (v14)
-- **影響**: セキュリティリスク、パフォーマンス低下
-- **コスト**: 2日
-- **優先度**: 🔴 Critical
-- **アクション**: Node.js 18にアップグレード
+```bash
+# Find large files (>500 lines)
+find src -name "*.ts" -exec wc -l {} + | awk '$1 > 500' | sort -rn
 
-### 2. テストカバレッジ不足 (42%)
-- **影響**: バグリスク増加
-- **コスト**: 2週間
-- **優先度**: 🔴 Critical
-- **アクション**: カバレッジ80%を目標にテスト追加
+# Find TODO/FIXME markers
+grep -rn "TODO\|FIXME\|HACK\|XXX" src/
 
-### 3. 脆弱な依存関係 (lodash 4.17.15)
-- **影響**: CVE-2020-8203
-- **コスト**: 1時間
-- **優先度**: 🔴 Critical
-- **アクション**: npm update lodash
+# Check for console.log in production code
+grep -rn "console.log" src/ --include="*.ts" --include="*.tsx"
 
-## High 負債
+# Find TypeScript 'any' usage
+grep -rn ": any" src/ --include="*.ts" --include="*.tsx"
 
-### コード複雑度
-- **ファイル**: `src/order/processor.ts`
-- **複雑度**: 45 (推奨: <10)
-- **コスト**: 3日
-- **アクション**: リファクタリング
+# Check outdated dependencies
+npm outdated
 
-### 重複コード
-- **箇所**: 15箇所
-- **重複率**: 23%
-- **コスト**: 1週間
-- **アクション**: 共通化
+# Security vulnerabilities
+npm audit
 
-## 推奨実行順序
-
-1. 脆弱性修正 (1時間)
-2. Node.jsアップグレード (2日)
-3. Critical な複雑コードのリファクタリング (1週間)
-4. テストカバレッジ向上 (2週間)
-5. 重複コード解消 (1週間)
+# Unused exports (requires ts-unused-exports)
+npx ts-unused-exports tsconfig.json
 ```
 
-## バージョン情報
-- Version: 1.0.0
+## Debt Categories
+
+| Category      | Examples                                               |
+| ------------- | ------------------------------------------------------ |
+| Code Quality  | Large files, complex functions, TODO/FIXME markers     |
+| Architectural | Tight coupling, missing abstractions, circular deps    |
+| Test          | Missing coverage, fragile tests, slow execution        |
+| Documentation | Missing README, outdated docs, no ADRs                 |
+| Dependency    | Outdated packages, security vulnerabilities            |
+| Performance   | N+1 queries, memory leaks, large bundles               |
+| Security      | Missing validation, exposed secrets, XSS/SQL injection |
+
+## Analysis Workflow
+
+### 1. Automated Detection
+
+**Code Smells to Check:**
+
+- Large files (>500 lines)
+- Complex functions (cyclomatic complexity >10)
+- Debt markers (TODO, FIXME, HACK, XXX)
+- Console statements in production code
+- `any` types in TypeScript
+- Long parameter lists (>5 params)
+- Deep nesting (>4 levels)
+
+**Dependency Issues:**
+
+- Deprecated packages
+- Duplicate functionality
+- Loose version constraints
+- Known vulnerabilities
+
+### 2. Severity Assessment
+
+| Severity | Criteria                              | Action          |
+| -------- | ------------------------------------- | --------------- |
+| Critical | Security vulns, data loss risk        | Immediate fix   |
+| High     | Performance problems, blocking issues | Current sprint  |
+| Medium   | Code quality, missing docs            | This quarter    |
+| Low      | Minor smells, optimizations           | When convenient |
+
+### 3. Priority Matrix
+
+| Impact / Effort | Low       | Medium    | High      |
+| --------------- | --------- | --------- | --------- |
+| High Impact     | Do First  | Do Second | Plan & Do |
+| Medium Impact   | Do Second | Plan & Do | Consider  |
+| Low Impact      | Quick Win | Consider  | Avoid     |
+
+## Debt Register Format
+
+```markdown
+## DEBT-001: Description
+
+**Category:** Code Quality | **Severity:** High
+**Location:** src/services/UserService.ts
+
+**Description:** Brief description of the issue
+
+**Impact:**
+
+- Business: How it affects delivery
+- Technical: Why it's problematic
+- Risk: What could go wrong
+
+**Proposed Solution:** What to do about it
+**Effort:** Days/hours estimate
+**Target:** Sprint/quarter
+```
+
+## Prevention Strategies
+
+### Automated Guards
+
+```json
+{
+  "rules": {
+    "complexity": ["error", 10],
+    "max-lines-per-function": ["error", 50],
+    "max-params": ["error", 5],
+    "max-depth": ["error", 4]
+  }
+}
+```
+
+### Maintenance Schedule
+
+| Frequency | Tasks                              |
+| --------- | ---------------------------------- |
+| Weekly    | Review TODO/FIXME, update register |
+| Monthly   | Dependency updates, debt review    |
+| Quarterly | Full analysis, architecture review |
+
+## Self-Critique Checklist
+
+After completing debt analysis:
+
+- [ ] All automated checks run
+- [ ] Manual review of critical paths done
+- [ ] Severity assessments justified
+- [ ] Proposed solutions are actionable
+- [ ] Priority matrix applied consistently
+- [ ] Register entries are complete
+
+## See Also
+
+- [Code Review Standards](../_shared/CODE_REVIEW_STANDARDS.md) - Quality checks
+- Project `CLAUDE.md` - Workflow rules

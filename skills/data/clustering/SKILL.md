@@ -1,243 +1,297 @@
 ---
-name: clustering
-description: Discover patterns in unlabeled data using clustering, dimensionality reduction, and anomaly detection
-version: "1.4.0"
-sasmp_version: "1.4.0"
-bonded_agent: 03-unsupervised-learning
-bond_type: PRIMARY_BOND
-
-# Parameter Validation
-parameters:
-  required:
-    - name: X
-      type: array
-      validation: "2D array, scaled numeric"
-  optional:
-    - name: n_clusters
-      type: integer
-      default: null
-      validation: "2 <= n <= 50"
-    - name: method
-      type: string
-      default: "kmeans"
-      validation: "[kmeans|dbscan|hierarchical|hdbscan]"
-
-# Retry Logic
-retry_logic:
-  strategy: exponential_backoff
-  max_attempts: 3
-  base_delay_ms: 1000
-
-# Observability
-logging:
-  level: info
-  metrics: [n_clusters, silhouette_score, execution_time]
+name: bio-single-cell-clustering
+description: Dimensionality reduction and clustering for single-cell RNA-seq using Seurat (R) and Scanpy (Python). Use for running PCA, computing neighbors, clustering with Leiden/Louvain algorithms, generating UMAP/tSNE embeddings, and visualizing clusters.
+tool_type: mixed
+primary_tool: Seurat, Scanpy
 ---
 
-# Clustering Skill
+# Single-Cell Clustering
 
-> Discover hidden patterns and groupings in unlabeled data.
+Dimensionality reduction, neighbor graph construction, and clustering.
 
-## Quick Start
+## Scanpy (Python)
+
+### Required Imports
 
 ```python
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import silhouette_score
+import scanpy as sc
+import matplotlib.pyplot as plt
+```
 
-# Always scale before clustering
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+### PCA
+
+```python
+# Run PCA
+sc.tl.pca(adata, n_comps=50, svd_solver='arpack')
+
+# Visualize variance explained
+sc.pl.pca_variance_ratio(adata, n_pcs=50)
+
+# Visualize PCA
+sc.pl.pca(adata, color='n_genes_by_counts')
+```
+
+### Determine Number of PCs
+
+```python
+# Elbow plot to choose number of PCs
+sc.pl.pca_variance_ratio(adata, n_pcs=50, log=True)
+
+# Typically use 10-50 PCs based on elbow
+n_pcs = 30
+```
+
+### Compute Neighbors
+
+```python
+# Build k-nearest neighbor graph
+sc.pp.neighbors(adata, n_neighbors=15, n_pcs=30)
+```
+
+### Clustering (Leiden - Recommended)
+
+```python
+# Leiden clustering (preferred over Louvain)
+sc.tl.leiden(adata, resolution=0.5)
+
+# Higher resolution = more clusters
+sc.tl.leiden(adata, resolution=1.0, key_added='leiden_r1')
+
+# View cluster sizes
+adata.obs['leiden'].value_counts()
+```
+
+### Clustering (Louvain)
+
+```python
+# Louvain clustering (alternative)
+sc.tl.louvain(adata, resolution=0.5)
+```
+
+### UMAP
+
+```python
+# Compute UMAP embedding
+sc.tl.umap(adata, min_dist=0.3, spread=1.0)
+
+# Visualize clusters on UMAP
+sc.pl.umap(adata, color='leiden')
+
+# Color by gene expression
+sc.pl.umap(adata, color=['leiden', 'CD3D', 'MS4A1', 'CD14'])
+```
+
+### tSNE
+
+```python
+# Compute tSNE (slower than UMAP)
+sc.tl.tsne(adata, n_pcs=30, perplexity=30)
+
+# Visualize
+sc.pl.tsne(adata, color='leiden')
+```
+
+### Complete Clustering Pipeline
+
+```python
+import scanpy as sc
+
+# Assumes preprocessed data
+adata = sc.read_h5ad('preprocessed.h5ad')
+
+# PCA
+sc.tl.pca(adata, n_comps=50)
+
+# Neighbors
+sc.pp.neighbors(adata, n_neighbors=15, n_pcs=30)
 
 # Cluster
-kmeans = KMeans(n_clusters=5, random_state=42, n_init=10)
-labels = kmeans.fit_predict(X_scaled)
+sc.tl.leiden(adata, resolution=0.5)
 
-# Evaluate
-score = silhouette_score(X_scaled, labels)
-print(f"Silhouette Score: {score:.4f}")
+# UMAP
+sc.tl.umap(adata)
+
+# Visualize
+sc.pl.umap(adata, color='leiden')
 ```
 
-## Key Topics
-
-### 1. Clustering Algorithms
-
-| Algorithm | Best For | Key Params |
-|-----------|----------|------------|
-| **K-Means** | Spherical clusters | n_clusters |
-| **DBSCAN** | Arbitrary shapes, noise | eps, min_samples |
-| **Hierarchical** | Nested clusters | linkage |
-| **HDBSCAN** | Variable density | min_cluster_size |
+### Exploring Different Resolutions
 
 ```python
-from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
-import hdbscan
+# Try multiple resolutions
+for res in [0.2, 0.5, 0.8, 1.0, 1.5]:
+    sc.tl.leiden(adata, resolution=res, key_added=f'leiden_r{res}')
+    n_clusters = adata.obs[f'leiden_r{res}'].nunique()
+    print(f'Resolution {res}: {n_clusters} clusters')
 
-algorithms = {
-    'kmeans': KMeans(n_clusters=5, random_state=42),
-    'dbscan': DBSCAN(eps=0.5, min_samples=5),
-    'hierarchical': AgglomerativeClustering(n_clusters=5),
-    'hdbscan': hdbscan.HDBSCAN(min_cluster_size=15)
-}
+# Compare on UMAP
+sc.pl.umap(adata, color=['leiden_r0.2', 'leiden_r0.5', 'leiden_r1.0'], ncols=3)
 ```
 
-### 2. Finding Optimal K
+### PAGA (Trajectory Inference)
 
 ```python
-from sklearn.metrics import silhouette_score, calinski_harabasz_score
-import matplotlib.pyplot as plt
+# Partition-based graph abstraction
+sc.tl.paga(adata, groups='leiden')
+sc.pl.paga(adata, color='leiden')
 
-def find_optimal_k(X, max_k=15):
-    """Find optimal number of clusters."""
-    metrics = {'inertia': [], 'silhouette': [], 'calinski': []}
-    K = range(2, max_k + 1)
-
-    for k in K:
-        kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-        labels = kmeans.fit_predict(X)
-
-        metrics['inertia'].append(kmeans.inertia_)
-        metrics['silhouette'].append(silhouette_score(X, labels))
-        metrics['calinski'].append(calinski_harabasz_score(X, labels))
-
-    # Find optimal k
-    optimal_k = K[np.argmax(metrics['silhouette'])]
-    return optimal_k, metrics
+# Use PAGA for UMAP initialization
+sc.tl.umap(adata, init_pos='paga')
 ```
-
-### 3. Dimensionality Reduction
-
-| Method | Preserves | Speed |
-|--------|-----------|-------|
-| **PCA** | Global variance | Fast |
-| **t-SNE** | Local structure | Slow |
-| **UMAP** | Both local/global | Fast |
-
-```python
-from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
-import umap
-
-# PCA for preprocessing
-pca = PCA(n_components=0.95)  # Keep 95% variance
-X_pca = pca.fit_transform(X)
-
-# UMAP for visualization
-reducer = umap.UMAP(n_components=2, random_state=42)
-X_2d = reducer.fit_transform(X)
-```
-
-### 4. Anomaly Detection
-
-```python
-from sklearn.ensemble import IsolationForest
-from sklearn.neighbors import LocalOutlierFactor
-
-# Isolation Forest
-iso_forest = IsolationForest(contamination=0.1, random_state=42)
-anomalies = iso_forest.fit_predict(X)  # -1 for anomaly
-
-# Local Outlier Factor
-lof = LocalOutlierFactor(n_neighbors=20, contamination=0.1)
-anomalies = lof.fit_predict(X)
-```
-
-### 5. Cluster Validation
-
-```python
-from sklearn.metrics import (
-    silhouette_score,
-    calinski_harabasz_score,
-    davies_bouldin_score
-)
-
-def validate_clustering(X, labels):
-    """Comprehensive cluster validation."""
-    return {
-        'silhouette': silhouette_score(X, labels),  # Higher = better
-        'calinski_harabasz': calinski_harabasz_score(X, labels),  # Higher = better
-        'davies_bouldin': davies_bouldin_score(X, labels),  # Lower = better
-        'n_clusters': len(set(labels) - {-1})
-    }
-```
-
-## Best Practices
-
-### DO
-- Always scale features before clustering
-- Try multiple algorithms
-- Use multiple validation metrics
-- Visualize clusters in 2D
-- Interpret clusters with domain knowledge
-
-### DON'T
-- Don't use K-Means for non-spherical clusters
-- Don't ignore the silhouette score per cluster
-- Don't assume first result is optimal
-- Don't use t-SNE for new point projection
-
-## Exercises
-
-### Exercise 1: Elbow Method
-```python
-# TODO: Implement elbow method to find optimal K
-# Plot inertia vs K and identify elbow point
-```
-
-### Exercise 2: Compare Algorithms
-```python
-# TODO: Compare K-Means, DBSCAN, and HDBSCAN
-# on the same dataset using silhouette score
-```
-
-## Unit Test Template
-
-```python
-import pytest
-import numpy as np
-from sklearn.datasets import make_blobs
-
-def test_clustering_finds_groups():
-    """Test clustering finds expected number of clusters."""
-    X, y_true = make_blobs(n_samples=100, centers=3, random_state=42)
-
-    kmeans = KMeans(n_clusters=3, random_state=42)
-    labels = kmeans.fit_predict(X)
-
-    assert len(set(labels)) == 3
-
-def test_scaling_improves_score():
-    """Test that scaling improves clustering quality."""
-    X, _ = make_blobs(n_samples=100, centers=3)
-    X[:, 0] *= 100  # Make first feature much larger
-
-    # Without scaling
-    labels_raw = KMeans(n_clusters=3).fit_predict(X)
-    score_raw = silhouette_score(X, labels_raw)
-
-    # With scaling
-    X_scaled = StandardScaler().fit_transform(X)
-    labels_scaled = KMeans(n_clusters=3).fit_predict(X_scaled)
-    score_scaled = silhouette_score(X_scaled, labels_scaled)
-
-    assert score_scaled > score_raw
-```
-
-## Troubleshooting
-
-| Problem | Cause | Solution |
-|---------|-------|----------|
-| All in one cluster | Wrong eps/K | Reduce eps or increase K |
-| Too many clusters | Parameters too sensitive | Increase eps or min_samples |
-| Poor silhouette | Wrong algorithm | Try different clustering method |
-| Memory error | Large dataset | Use MiniBatchKMeans |
-
-## Related Resources
-
-- **Agent**: `03-unsupervised-learning`
-- **Previous**: `supervised-learning`
-- **Next**: `deep-learning`
 
 ---
 
-**Version**: 1.4.0 | **Status**: Production Ready
+## Seurat (R)
+
+### Required Libraries
+
+```r
+library(Seurat)
+library(ggplot2)
+```
+
+### PCA
+
+```r
+# Run PCA
+seurat_obj <- RunPCA(seurat_obj, features = VariableFeatures(seurat_obj), npcs = 50)
+
+# Visualize PCA
+DimPlot(seurat_obj, reduction = 'pca')
+VizDimLoadings(seurat_obj, dims = 1:2, reduction = 'pca')
+
+# Heatmaps of PC genes
+DimHeatmap(seurat_obj, dims = 1:6, cells = 500, balanced = TRUE)
+```
+
+### Determine Number of PCs
+
+```r
+# Elbow plot
+ElbowPlot(seurat_obj, ndims = 50)
+
+# JackStraw (more rigorous but slow)
+seurat_obj <- JackStraw(seurat_obj, num.replicate = 100)
+seurat_obj <- ScoreJackStraw(seurat_obj, dims = 1:20)
+JackStrawPlot(seurat_obj, dims = 1:20)
+```
+
+### Find Neighbors
+
+```r
+# Build KNN graph
+seurat_obj <- FindNeighbors(seurat_obj, dims = 1:30)
+```
+
+### Find Clusters
+
+```r
+# Louvain clustering (default)
+seurat_obj <- FindClusters(seurat_obj, resolution = 0.5)
+
+# View cluster assignments
+head(Idents(seurat_obj))
+table(Idents(seurat_obj))
+```
+
+### Exploring Different Resolutions
+
+```r
+# Try multiple resolutions
+seurat_obj <- FindClusters(seurat_obj, resolution = c(0.2, 0.5, 0.8, 1.0, 1.5))
+
+# Results stored in metadata
+head(seurat_obj@meta.data)
+
+# Compare resolutions
+library(clustree)
+clustree(seurat_obj, prefix = 'RNA_snn_res.')
+```
+
+### UMAP
+
+```r
+# Run UMAP
+seurat_obj <- RunUMAP(seurat_obj, dims = 1:30)
+
+# Visualize
+DimPlot(seurat_obj, reduction = 'umap', label = TRUE)
+
+# Split by sample
+DimPlot(seurat_obj, reduction = 'umap', split.by = 'sample')
+```
+
+### tSNE
+
+```r
+# Run tSNE
+seurat_obj <- RunTSNE(seurat_obj, dims = 1:30)
+
+# Visualize
+DimPlot(seurat_obj, reduction = 'tsne')
+```
+
+### Complete Clustering Pipeline
+
+```r
+library(Seurat)
+
+# Assumes preprocessed data
+seurat_obj <- readRDS('preprocessed.rds')
+
+# PCA
+seurat_obj <- RunPCA(seurat_obj, npcs = 50, verbose = FALSE)
+
+# Neighbors
+seurat_obj <- FindNeighbors(seurat_obj, dims = 1:30)
+
+# Cluster
+seurat_obj <- FindClusters(seurat_obj, resolution = 0.5)
+
+# UMAP
+seurat_obj <- RunUMAP(seurat_obj, dims = 1:30)
+
+# Visualize
+DimPlot(seurat_obj, reduction = 'umap', label = TRUE)
+```
+
+### Access Embeddings
+
+```r
+# Get PCA coordinates
+pca_coords <- Embeddings(seurat_obj, reduction = 'pca')
+
+# Get UMAP coordinates
+umap_coords <- Embeddings(seurat_obj, reduction = 'umap')
+
+# Add to metadata for custom plotting
+seurat_obj$UMAP_1 <- umap_coords[, 1]
+seurat_obj$UMAP_2 <- umap_coords[, 2]
+```
+
+---
+
+## Parameter Reference
+
+| Parameter | Typical Values | Effect |
+|-----------|---------------|--------|
+| n_pcs | 10-50 | More PCs capture more variance |
+| n_neighbors | 10-30 | Higher = smoother, lower = more local |
+| resolution | 0.2-2.0 | Higher = more clusters |
+| min_dist (UMAP) | 0.1-0.5 | Lower = tighter clusters |
+
+## Method Comparison
+
+| Step | Scanpy | Seurat |
+|------|--------|--------|
+| PCA | `sc.tl.pca()` | `RunPCA()` |
+| Neighbors | `sc.pp.neighbors()` | `FindNeighbors()` |
+| Cluster | `sc.tl.leiden()` | `FindClusters()` |
+| UMAP | `sc.tl.umap()` | `RunUMAP()` |
+| tSNE | `sc.tl.tsne()` | `RunTSNE()` |
+
+## Related Skills
+
+- **preprocessing** - Data must be preprocessed before clustering
+- **markers-annotation** - Find markers for each cluster
+- **data-io** - Save clustered results

@@ -1,9 +1,7 @@
 {
   "name": "battle-system",
-  "description": "バトルシステムの設計と実装ガイド。バトル関連の変更時に参照。",
-  "repo": "Osakana3610/Osakana-Guild",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "unfrgivn/wilds-of-cloverhollow",
+  "path": ".opencode/skill/battle-system/SKILL.md",
+  "source": "github.com/unfrgivn/wilds-of-cloverhollow",
+  "downloaded_at": "2026-01-19T02:18:23.667223Z"
 }

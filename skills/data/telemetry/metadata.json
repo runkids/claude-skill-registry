@@ -1,11 +1,7 @@
 {
   "name": "telemetry",
-  "description": "Parent skill that routes between telemetry-pr-insights (PR/CI) and telemetry-insights (interactive analysis).",
-  "repo": "blueplane-ai/bp-telemetry-core",
-  "category": "devops",
-  "tags": [
-    "telemetry"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "5dlabs/cto",
+  "path": ".factory/skills/telemetry/SKILL.md",
+  "source": "github.com/5dlabs/cto",
+  "downloaded_at": "2026-01-22T03:27:05.988125Z"
 }

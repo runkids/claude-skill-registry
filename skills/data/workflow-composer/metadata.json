@@ -1,8 +1,7 @@
 {
   "name": "workflow-composer",
-  "repo": "Lordjiggy/claude-code-marketplace",
-  "category": "data",
-  "description": "Chain multiple skills together into automated workflows with conditional logic and parallel execution",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:24.365141Z"
+  "repo": "vibery-studio/templates",
+  "path": "skills/workflow-composer/SKILL.md",
+  "source": "github.com/vibery-studio/templates",
+  "downloaded_at": "2026-01-21T03:31:15.048590Z"
 }

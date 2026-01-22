@@ -1,9 +1,7 @@
 {
   "name": "list-builder",
-  "description": "Build comprehensive randomization lists for creative entropy. Use when you need to create or expand lists of story elements (professions, locations, objects, names, etc.) for use with entropy tools. L",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/application/list-builder/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-21T03:40:36.847840Z"
 }

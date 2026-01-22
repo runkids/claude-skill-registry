@@ -1,7 +1,7 @@
 {
   "name": "agent-development",
-  "repo": "dwmkerr/claude-toolkit",
-  "path": "plugins/toolkit/skills/agent-development/SKILL.md",
-  "source": "github.com/dwmkerr/claude-toolkit",
-  "downloaded_at": "2026-01-14T04:08:33.965075Z"
+  "repo": "OshanKHZ/cc-swiss-knife",
+  "path": "plugins/claude-code-forge/skills/agent-development/SKILL.md",
+  "source": "github.com/OshanKHZ/cc-swiss-knife",
+  "downloaded_at": "2026-01-22T04:07:56.147542Z"
 }

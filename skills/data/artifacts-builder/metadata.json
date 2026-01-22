@@ -1,7 +1,7 @@
 {
   "name": "artifacts-builder",
-  "repo": "davepoon/buildwithclaude",
-  "path": "plugins/all-skills/skills/artifacts-builder/SKILL.md",
-  "source": "github.com/davepoon/buildwithclaude",
-  "downloaded_at": "2026-01-14T03:55:27.043099Z"
+  "repo": "laurenj3250-debug/vethub2.0",
+  "path": ".claude/skills/artifacts-builder/SKILL.md",
+  "source": "github.com/laurenj3250-debug/vethub2.0",
+  "downloaded_at": "2026-01-22T04:01:45.765364Z"
 }

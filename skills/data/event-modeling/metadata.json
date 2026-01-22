@@ -1,8 +1,7 @@
 {
   "name": "event-modeling",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Adam Dymitruk's Event Modeling methodology with swimlanes",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:04.018896Z"
+  "path": "plugins/event-modeling/skills/event-modeling/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-22T01:58:54.920122Z"
 }

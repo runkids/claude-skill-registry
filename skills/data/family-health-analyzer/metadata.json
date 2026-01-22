@@ -1,7 +1,7 @@
 {
   "name": "family-health-analyzer",
-  "repo": "huifer/Claude-Ally-Health",
+  "repo": "huifer/WellAlly-health",
   "path": ".claude/skills/family-health-analyzer/SKILL.md",
-  "source": "github.com/huifer/Claude-Ally-Health",
-  "downloaded_at": "2026-01-14T03:42:14.525652Z"
+  "source": "github.com/huifer/WellAlly-health",
+  "downloaded_at": "2026-01-22T01:15:43.721308Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "langchain-architecture",
-  "repo": "camoneart/claude-code",
-  "path": "skills/langchain-architecture/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:37:02.558488Z"
+  "repo": "apassuello/multimodal_insight_engine",
+  "path": ".claude/skills/langchain-architecture/SKILL.md",
+  "source": "github.com/apassuello/multimodal_insight_engine",
+  "downloaded_at": "2026-01-22T04:12:15.430862Z"
 }

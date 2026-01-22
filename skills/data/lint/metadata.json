@@ -1,7 +1,7 @@
 {
   "name": "lint",
-  "repo": "DataDog/dd-trace-py",
+  "repo": "ahtavarasmus/lightfriend-cloud",
   "path": ".claude/skills/lint/SKILL.md",
-  "source": "github.com/DataDog/dd-trace-py",
-  "downloaded_at": "2026-01-14T03:53:57.964572Z"
+  "source": "github.com/ahtavarasmus/lightfriend-cloud",
+  "downloaded_at": "2026-01-22T02:53:34.068175Z"
 }
