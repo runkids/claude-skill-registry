@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Extract structured metadata from documents using AI. Classify content types, extract topics and tools. Supports async batch processing.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:37.689290Z"
+  "downloaded_at": "2026-01-06T09:01:37.689290Z",
+  "dir_name": "document-indexing"
 }

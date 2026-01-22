@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Vector database configuration and setup for pgvector, Chroma, Pinecone, Weaviate, Qdrant, and FAISS with comparison guide and migration helpers",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:25.268578Z"
+  "downloaded_at": "2026-01-06T09:09:25.268578Z",
+  "dir_name": "vector-database-configs"
 }

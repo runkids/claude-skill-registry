@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Explore Kling AI models and their capabilities for video generation. Use when selecting modelsor understanding features. Trigger with phrases like 'kling ai models', 'klingai capabilities','kling vide",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:12.282122Z"
+  "downloaded_at": "2026-01-06T08:56:12.282122Z",
+  "dir_name": "klingai-model-catalog"
 }

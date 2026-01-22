@@ -9,5 +9,6 @@
     "oss",
     "predictor"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "sap-rpt1-oss-predictor"
 }

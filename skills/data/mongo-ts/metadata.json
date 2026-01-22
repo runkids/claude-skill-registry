@@ -2,7 +2,8 @@
   "name": "mongo-ts",
   "repo": "vivalalova/mongo-ts",
   "category": "data",
-  "description": "MongoDB CLI \u5de5\u5177\u3002\u76f4\u63a5\u57f7\u884c MongoDB \u67e5\u8a62\u8a9e\u6cd5\uff0c\u652f\u63f4 CRUD\u3001\u805a\u5408\u3001\u7d22\u5f15\u7ba1\u7406\u3002\u8f38\u51fa\u683c\u5f0f\uff1atable/json/csv/yaml\u3002\u9810\u8a2d\u552f\u8b80\u6a21\u5f0f\u4fdd\u8b77\u751f\u7522\u74b0\u5883\u3002",
+  "description": "MongoDB CLI 工具。直接執行 MongoDB 查詢語法，支援 CRUD、聚合、索引管理。輸出格式：table/json/csv/yaml。預設唯讀模式保護生產環境。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:29.984132Z"
+  "downloaded_at": "2026-01-06T09:09:29.984132Z",
+  "dir_name": "mongo-ts"
 }

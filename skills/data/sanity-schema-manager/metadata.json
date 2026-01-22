@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Manages schema lifecycle including scaffolding, safe field deprecation, and data migrations. Use when modifying existing schemas.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.839166Z"
+  "downloaded_at": "2026-01-06T08:57:14.839166Z",
+  "dir_name": "sanity-schema-manager"
 }

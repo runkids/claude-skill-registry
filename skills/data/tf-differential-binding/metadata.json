@@ -4,5 +4,6 @@
   "category": "data",
   "description": "The TF-differential-binding pipeline performs differential transcription factor (TF) binding analysis from ChIP-seq datasets (TF peaks) using the DiffBind package in R. It identifies genomic regions w",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.759032Z"
+  "downloaded_at": "2026-01-06T09:00:35.759032Z",
+  "dir_name": "tf-differential-binding"
 }

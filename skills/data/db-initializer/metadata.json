@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Initialize database infrastructure for new projects",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:57.110088Z"
+  "downloaded_at": "2026-01-06T09:01:57.110088Z",
+  "dir_name": "db-initializer"
 }

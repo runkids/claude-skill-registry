@@ -8,5 +8,6 @@
     "plugins"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "dir_name": "datasette-plugins"
 }

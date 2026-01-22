@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Validating external data from APIs, JSON parsing, user input, and any untrusted sources in TypeScript applications",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:04.862358Z"
+  "downloaded_at": "2026-01-06T09:05:04.862358Z",
+  "dir_name": "validating-external-data"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Guide for migrating from PHP/MySQL to Payload CMS with PostgreSQL. Use when working on migration tasks, understanding data models, or implementing Payload collections. Covers migration strategy, archi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:43.011641Z"
+  "downloaded_at": "2026-01-06T09:10:43.011641Z",
+  "dir_name": "payload-migration-workflow"
 }

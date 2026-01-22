@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Cheminformatics toolkit for fine-grained molecular control. SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints, substructure search, 2D/3D generation, similarity, reactions. For standard w",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:26.674213Z"
+  "downloaded_at": "2026-01-08T03:29:26.674213Z",
+  "dir_name": "scientific-pkg-rdkit"
 }

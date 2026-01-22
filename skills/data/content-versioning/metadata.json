@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when implementing draft/publish workflows, version history, content rollback, or audit trails. Covers versioning strategies, snapshot storage, diff generation, and version comparison APIs for head",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:00.415052Z"
+  "downloaded_at": "2026-01-06T09:00:00.415052Z",
+  "dir_name": "content-versioning"
 }

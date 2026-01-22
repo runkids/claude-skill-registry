@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Data Catalog Updater - Auto-activating skill for Data Pipelines.Triggers on: data catalog updater, data catalog updaterPart of the Data Pipelines skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:05.907993Z"
+  "downloaded_at": "2026-01-06T08:56:05.907993Z",
+  "dir_name": "data-catalog-updater"
 }

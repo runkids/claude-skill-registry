@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Track real-time cryptocurrency prices across exchanges with historical data and alerts.Use when monitoring real-time cryptocurrency prices.Trigger with phrases like \"check price\", \"track prices\", or \"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:46.792900Z"
+  "downloaded_at": "2026-01-06T08:55:46.792900Z",
+  "dir_name": "tracking-crypto-prices"
 }

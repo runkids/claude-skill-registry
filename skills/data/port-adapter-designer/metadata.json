@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Helps design port traits and adapter implementations for external dependencies. Activates when users need to abstract away databases, APIs, or other external systems.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:25.690830Z"
+  "downloaded_at": "2026-01-06T09:05:25.690830Z",
+  "dir_name": "port-adapter-designer"
 }

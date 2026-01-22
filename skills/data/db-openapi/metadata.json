@@ -2,7 +2,8 @@
   "name": "db-openapi",
   "repo": "SeSiTing/siti-claude-marketplace",
   "category": "data",
-  "description": "\u67e5\u8be2\u96c6\u6210\u8fde\u63a5\u5668\u548cAPI\u914d\u7f6e\uff08v3_openapi\u6570\u636e\u5e93\uff09\u3002\u4f7f\u7528 exec_sql \u5de5\u5177\u6267\u884c\u67e5\u8be2\u3002",
+  "description": "查询集成连接器和API配置（v3_openapi数据库）。使用 exec_sql 工具执行查询。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:16.633164Z"
+  "downloaded_at": "2026-01-06T09:08:16.633164Z",
+  "dir_name": "db-openapi"
 }

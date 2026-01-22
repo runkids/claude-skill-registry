@@ -9,5 +9,6 @@
     "branch",
     "cleanup"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "git-hex-branch-cleanup"
 }

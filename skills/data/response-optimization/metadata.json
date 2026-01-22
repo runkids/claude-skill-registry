@@ -4,5 +4,6 @@
   "category": "data",
   "description": "This skill should be used when the user asks about \"JSON flags\", \"token IDs\", \"cross-tool references\", \"progressive detail\", \"response optimization\", \"human and LLM readable\", \"automation flags\", \"con",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:33.256279Z"
+  "downloaded_at": "2026-01-06T09:08:33.256279Z",
+  "dir_name": "response-optimization"
 }

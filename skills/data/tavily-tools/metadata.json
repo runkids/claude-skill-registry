@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Executes Tavily AI web operations via unified Python CLI. Use when searching the web, extracting content from URLs, crawling websites, or mapping site structure.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:38.948411Z"
+  "downloaded_at": "2026-01-06T09:01:38.948411Z",
+  "dir_name": "tavily-tools"
 }

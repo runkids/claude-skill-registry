@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Guide developers through PostgreSQL setup, connection configuration, query patterns, and best practices",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:00.064509Z"
+  "downloaded_at": "2026-01-06T09:08:00.064509Z",
+  "dir_name": "postgresql-integration"
 }

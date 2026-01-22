@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when gleam's type system including algebraic data types, custom types, pattern matching, generic types, type inference, opaque types, exhaustive checking, and functional error handling for buildin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:04.557225Z"
+  "downloaded_at": "2026-01-06T08:57:04.557225Z",
+  "dir_name": "gleam-type-system"
 }

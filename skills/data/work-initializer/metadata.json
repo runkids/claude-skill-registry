@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Interactive setup wizard for work plugin configuration (CLI not yet available)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:00.514727Z"
+  "downloaded_at": "2026-01-06T09:02:00.514727Z",
+  "dir_name": "work-initializer"
 }

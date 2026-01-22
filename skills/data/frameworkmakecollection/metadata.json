@@ -2,7 +2,8 @@
   "name": "frameworkmakecollection",
   "repo": "atournayre/claude-marketplace",
   "category": "data",
-  "description": "G\u00e9n\u00e8re classe Collection typ\u00e9e avec traits Atournayre",
+  "description": "Génère classe Collection typée avec traits Atournayre",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:59.098280Z"
+  "downloaded_at": "2026-01-06T08:58:59.098280Z",
+  "dir_name": "frameworkmakecollection"
 }

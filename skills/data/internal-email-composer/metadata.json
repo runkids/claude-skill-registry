@@ -8,5 +8,6 @@
     "email",
     "composer"
   ],
-  "stars": 10
+  "stars": 10,
+  "dir_name": "internal-email-composer"
 }

@@ -1,9 +1,0 @@
-{
-  "name": "Agents",
-  "description": "Atlas skill, dynamic agent composition and management. USE WHEN user says create custom agents, spin up custom agents, specialized agents, OR asks for agent personalities, available traits, agent voic",
-  "repo": "edheltzel/atlas",
-  "category": "data",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/edheltzel/atlas"
-}

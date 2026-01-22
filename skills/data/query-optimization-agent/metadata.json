@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Analyzes and optimizes database queries for performance and efficiency",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:17.888099Z"
+  "downloaded_at": "2026-01-06T09:09:17.888099Z",
+  "dir_name": "query-optimization-agent"
 }

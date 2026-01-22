@@ -7,5 +7,6 @@
     "wezterm",
     "config"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "wezterm-config"
 }

@@ -8,5 +8,6 @@
     "package",
     "json"
   ],
-  "stars": 27
+  "stars": 27,
+  "dir_name": "parse-package-json"
 }

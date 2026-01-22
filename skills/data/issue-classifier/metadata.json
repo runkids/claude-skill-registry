@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Classify work type from issue metadata (CLI not yet available)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:00.105156Z"
+  "downloaded_at": "2026-01-06T09:02:00.105156Z",
+  "dir_name": "issue-classifier"
 }

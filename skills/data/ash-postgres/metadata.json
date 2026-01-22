@@ -8,5 +8,6 @@
     "postgres"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "dir_name": "ash-postgres"
 }

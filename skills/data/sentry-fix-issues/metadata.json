@@ -1,7 +1,0 @@
-{
-  "name": "sentry-fix-issues",
-  "repo": "getsentry/sentry-agent-skills",
-  "path": "skills/sentry-fix-issues/SKILL.md",
-  "source": "github.com/getsentry/sentry-agent-skills",
-  "downloaded_at": "2026-01-14T01:38:36.734708Z"
-}

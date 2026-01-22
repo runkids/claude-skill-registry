@@ -1,7 +1,0 @@
-{
-  "name": "version-skill",
-  "repo": "maxoreric/sop-engine",
-  "path": "$workflow.input.user_intent/skills/version-skill/SKILL.md",
-  "source": "github.com/maxoreric/sop-engine",
-  "downloaded_at": "2026-01-21T01:09:38.629209Z"
-}

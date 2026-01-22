@@ -1,9 +1,0 @@
-{
-  "name": "intent",
-  "description": "Interactive conversation to clarify user intent step-by-step before creating specifications or solutions. Use when requirements are unclear or user has a new idea to explore.",
-  "repo": "sofer/.agents",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

@@ -2,7 +2,8 @@
   "name": "ai-runtime-toolkit",
   "repo": "Dwsy/ai-runtime",
   "category": "data",
-  "description": "AI Runtime\u5de5\u5177\u88c5\u5907\u7cfb\u7edf\uff0c\u652f\u63018\u4e2a\u5185\u90e8\u4e13\u4e1a\u5de5\u5177\u548c10+\u4e2a\u5916\u90e8CLI\u5de5\u5177\u7684\u6574\u5408\u7ba1\u7406\uff0c\u63d0\u4f9b\u5de5\u5177\u53d1\u73b0\u3001\u6267\u884c\u548c\u914d\u7f6e\u529f\u80fd\uff0c\u9075\u5faa\u6574\u5408\u4f18\u4e8e\u521b\u9020\u7684\u8bbe\u8ba1\u7406\u5ff5",
+  "description": "AI Runtime工具装备系统，支持8个内部专业工具和10+个外部CLI工具的整合管理，提供工具发现、执行和配置功能，遵循整合优于创造的设计理念",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:13.938242Z"
+  "downloaded_at": "2026-01-06T09:05:13.938242Z",
+  "dir_name": "ai-runtime-toolkit"
 }

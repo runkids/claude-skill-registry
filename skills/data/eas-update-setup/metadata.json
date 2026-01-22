@@ -4,5 +4,6 @@
   "category": "data",
   "description": "EAS Update for OTA updates. Use when setting up over-the-air updates.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:16.198141Z"
+  "downloaded_at": "2026-01-06T09:06:16.198141Z",
+  "dir_name": "eas-update-setup"
 }

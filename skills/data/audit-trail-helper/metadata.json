@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Audit Trail Helper - Auto-activating skill for Enterprise Workflows.Triggers on: audit trail helper, audit trail helperPart of the Enterprise Workflows skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:00.650808Z"
+  "downloaded_at": "2026-01-06T08:56:00.650808Z",
+  "dir_name": "audit-trail-helper"
 }

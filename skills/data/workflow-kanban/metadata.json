@@ -2,7 +2,8 @@
   "name": "workflow-kanban",
   "repo": "RMSantista/VibeCForms",
   "category": "data",
-  "description": "AUTO-ACTIVATE on keywords (workflow, kanban, regras de neg\u00f3cio, transi\u00e7\u00e3o, processo, estado, automa\u00e7\u00e3o, patterns, agents, dashboard). Provides comprehensive knowledge and practical tools for developin",
+  "description": "AUTO-ACTIVATE on keywords (workflow, kanban, regras de negócio, transição, processo, estado, automação, patterns, agents, dashboard). Provides comprehensive knowledge and practical tools for developin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:55.303701Z"
+  "downloaded_at": "2026-01-06T09:07:55.303701Z",
+  "dir_name": "workflow-kanban"
 }

@@ -7,5 +7,6 @@
     "prompt",
     "clarifier"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "prompt-clarifier"
 }

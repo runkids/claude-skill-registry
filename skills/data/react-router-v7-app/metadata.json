@@ -8,5 +8,6 @@
     "router",
     "app"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "react-router-v7-app"
 }

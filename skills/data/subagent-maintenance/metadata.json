@@ -2,7 +2,8 @@
   "name": "subagent-maintenance",
   "repo": "matsuni-kk/agent_template_public",
   "category": "data",
-  "description": "Subagent\uff08{{AGENT_CONFIG_DIR}}/agents/*.md\uff09\u306e\u4f5c\u6210\u30fb\u66f4\u65b0\u30fb\u524a\u9664\u3092\u5bfe\u8a71\u3067\u884c\u3044\u3001\u30d5\u30ed\u30f3\u30c8\u30de\u30bf\u30fc\u4ed5\u69d8\u3068\u54c1\u8cea\u3092\u7dad\u6301\u3057\u305f\u307e\u307e\u53cd\u6620\u3059\u308b\u3002Subagent\u4f5c\u6210\u3001agent\u8ffd\u52a0\u3001subagent update\u3092\u4f9d\u983c\u3055\u308c\u305f\u3068\u304d\u306b\u4f7f\u7528\u3059\u308b\u3002",
+  "description": "Subagent（{{AGENT_CONFIG_DIR}}/agents/*.md）の作成・更新・削除を対話で行い、フロントマター仕様と品質を維持したまま反映する。Subagent作成、agent追加、subagent updateを依頼されたときに使用する。",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:10.672303Z"
+  "downloaded_at": "2026-01-08T03:30:10.672303Z",
+  "dir_name": "subagent-maintenance"
 }

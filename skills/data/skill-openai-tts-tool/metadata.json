@@ -4,5 +4,6 @@
   "category": "data",
   "description": "CLI tool for OpenAI text-to-speech synthesis",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:08.763023Z"
+  "downloaded_at": "2026-01-06T09:05:08.763023Z",
+  "dir_name": "skill-openai-tts-tool"
 }

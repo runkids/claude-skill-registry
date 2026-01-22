@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Semantic validation patterns for PROJECT.md alignment (GOALS, SCOPE, CONSTRAINTS, ARCHITECTURE)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:34.508975Z"
+  "downloaded_at": "2026-01-06T08:58:34.508975Z",
+  "dir_name": "project-alignment-validation"
 }

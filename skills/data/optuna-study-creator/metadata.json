@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Optuna Study Creator - Auto-activating skill for ML Training.Triggers on: optuna study creator, optuna study creatorPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:11.746620Z"
+  "downloaded_at": "2026-01-06T08:56:11.746620Z",
+  "dir_name": "optuna-study-creator"
 }

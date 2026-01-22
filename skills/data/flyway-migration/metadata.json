@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Database migration patterns using Flyway with versioned SQL scripts",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:20.090271Z"
+  "downloaded_at": "2026-01-06T08:59:20.090271Z",
+  "dir_name": "flyway-migration"
 }

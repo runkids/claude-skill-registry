@@ -2,7 +2,8 @@
   "name": "claim-ledger-to-tasks",
   "repo": "haizhouyuan/codexreadpublic",
   "category": "data",
-  "description": "\u626b\u63cf topic \u7684 digests Claim Ledger\uff0c\u628a\u201c\u672a\u6838\u9a8c + \u6570\u5b57\u9ad8\u5f71\u54cd\u201d\u6761\u76ee\u8f6c\u6210 tasks\uff08\u6838\u9a8c\u5f85\u529e\uff09\u3002",
+  "description": "扫描 topic 的 digests Claim Ledger，把“未核验 + 数字高影响”条目转成 tasks（核验待办）。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:59.572469Z"
+  "downloaded_at": "2026-01-06T09:05:59.572469Z",
+  "dir_name": "claim-ledger-to-tasks"
 }

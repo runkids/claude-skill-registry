@@ -7,5 +7,6 @@
     "direnv",
     "pattern"
   ],
-  "stars": 8
+  "stars": 8,
+  "dir_name": "direnv-pattern"
 }

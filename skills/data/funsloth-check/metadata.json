@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Validate datasets for Unsloth fine-tuning. Use when the user wants to check a dataset, analyze tokens, calculate Chinchilla optimality, or prepare data for training.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:27.644150Z"
+  "downloaded_at": "2026-01-06T08:59:27.644150Z",
+  "dir_name": "funsloth-check"
 }

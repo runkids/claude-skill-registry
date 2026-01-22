@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use to define guardrails that pause signal-driven plays when accounts are risky, saturated, or in-flight elsewhere.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:23.356109Z"
+  "downloaded_at": "2026-01-06T08:57:23.356109Z",
+  "dir_name": "suppression-logic"
 }

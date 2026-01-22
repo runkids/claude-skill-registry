@@ -1,9 +1,0 @@
-{
-  "name": "plugin-test-framework",
-  "description": "Virtual test environment for Claude Code hooks, plugins, and agents. Use when testing or validating plugin components without affecting production.",
-  "repo": "chkim-su/skillmaker",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

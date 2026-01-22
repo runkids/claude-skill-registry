@@ -4,5 +4,6 @@
   "category": "data",
   "description": "This skill performs PCA-based A/B compartments calling on Hi-C .mcool datasets using pre-defined MCP tools from the cooler-tools, cooltools-tools, and plot-hic-tools servers.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.110280Z"
+  "downloaded_at": "2026-01-06T09:00:35.110280Z",
+  "dir_name": "hic-compartments-calling"
 }

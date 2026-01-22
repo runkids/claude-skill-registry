@@ -1,9 +1,0 @@
-{
-  "name": "lms-auth",
-  "description": "LMS authentication system including SSO integration, useAuthReady hook patterns, four-layer security architecture, and permission checking. Use this skill when implementing auth flows, handling user s",
-  "repo": "geonook/learning-management-system-esid",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

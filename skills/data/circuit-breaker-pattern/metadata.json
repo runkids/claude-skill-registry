@@ -8,5 +8,6 @@
     "breaker",
     "pattern"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "circuit-breaker-pattern"
 }

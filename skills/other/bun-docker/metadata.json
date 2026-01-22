@@ -1,0 +1,9 @@
+{
+  "name": "bun-docker",
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/bun/skills/bun-docker/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:09.301393Z",
+  "dir_name": "bun-docker",
+  "category": "other"
+}

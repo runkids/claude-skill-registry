@@ -8,5 +8,6 @@
     "agents",
     "workflows"
   ],
-  "stars": 5
+  "stars": 5,
+  "dir_name": "convex-agents-workflows"
 }

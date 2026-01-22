@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Ingest new procedural memory (skills, patterns, docs) into the vector database.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:45.680857Z"
+  "downloaded_at": "2026-01-06T08:56:45.680857Z",
+  "dir_name": "system-learn"
 }

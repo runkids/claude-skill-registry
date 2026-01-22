@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Deep methodology knowledge for pairwise meta-analysis including fixed vs random effects, heterogeneity assessment, publication bias, and sensitivity analysis. Use when conducting or reviewing pairwise",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:28.050346Z"
+  "downloaded_at": "2026-01-06T09:04:28.050346Z",
+  "dir_name": "pairwise-ma-methodology"
 }

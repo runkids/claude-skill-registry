@@ -1,0 +1,9 @@
+{
+  "name": "shellcheck",
+  "repo": "mhalder/dotfiles",
+  "path": "claude/.claude/skills/shellcheck/SKILL.md",
+  "source": "github.com/mhalder/dotfiles",
+  "downloaded_at": "2026-01-17T02:23:59.207884Z",
+  "dir_name": "shellcheck",
+  "category": "other"
+}

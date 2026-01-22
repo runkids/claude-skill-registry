@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Result backend configuration patterns for Celery including Redis, Database, and RPC backends with serialization, expiration policies, and performance optimization. Use when configuring result storage,",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:22.665811Z"
+  "downloaded_at": "2026-01-06T09:09:22.665811Z",
+  "dir_name": "result-backend-patterns"
 }

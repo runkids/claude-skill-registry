@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Creates and configures HTTP with Server-Sent Events Model Context Protocol (MCP) server connections for OpenAI Agents SDK",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:37.770194Z"
+  "downloaded_at": "2026-01-06T09:08:37.770194Z",
+  "dir_name": "mcp-server-sse"
 }

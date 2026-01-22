@@ -8,5 +8,6 @@
     "version",
     "bumper"
   ],
-  "stars": 4
+  "stars": 4,
+  "dir_name": "pnpm-version-bumper"
 }

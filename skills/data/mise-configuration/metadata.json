@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Configure environment via mise [env] SSoT. TRIGGERS - mise env, mise.toml, environment variables, centralize config, Python venv, mise templates.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:42.559831Z"
+  "downloaded_at": "2026-01-06T08:59:42.559831Z",
+  "dir_name": "mise-configuration"
 }

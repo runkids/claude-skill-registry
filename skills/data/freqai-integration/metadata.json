@@ -4,5 +4,6 @@
   "category": "data",
   "description": "FreqAI self-adaptive ML retraining framework. Auto-retrains models on fresh data, prevents overfitting, adapts to regime changes. Built on FreqTrade.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:03.676502Z"
+  "downloaded_at": "2026-01-08T03:21:03.676502Z",
+  "dir_name": "freqai-integration"
 }

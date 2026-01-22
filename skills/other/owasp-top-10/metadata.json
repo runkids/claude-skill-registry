@@ -1,0 +1,9 @@
+{
+  "name": "owasp-top-10",
+  "repo": "NickCrew/claude-cortex",
+  "path": "claude_ctx_py/assets/skills/owasp-top-10/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-22T01:32:47.874499Z",
+  "dir_name": "owasp-top-10",
+  "category": "other"
+}

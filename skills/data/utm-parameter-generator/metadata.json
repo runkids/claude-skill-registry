@@ -8,5 +8,6 @@
     "parameter",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "dir_name": "utm-parameter-generator"
 }

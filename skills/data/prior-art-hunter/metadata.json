@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Autonomous prior art search and analysis agent. Searches multiple databases, analyzes references, creates claim charts, and assesses patentability impact.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:32.665960Z"
+  "downloaded_at": "2026-01-06T09:10:32.665960Z",
+  "dir_name": "prior-art-hunter"
 }

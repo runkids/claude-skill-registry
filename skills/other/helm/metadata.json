@@ -1,0 +1,9 @@
+{
+  "name": "helm",
+  "repo": "Lobbi-Docs/claude",
+  "path": ".claude/skills/helm/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-22T03:56:22.897620Z",
+  "dir_name": "helm",
+  "category": "other"
+}

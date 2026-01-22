@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Machine learning integration patterns for rRNA-Phylo covering three use cases - rRNA sequence classification (supervised learning with sklearn/PyTorch), multi-tree consensus (ensemble methods), and ge",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:56.422819Z"
+  "downloaded_at": "2026-01-06T09:07:56.422819Z",
+  "dir_name": "ml-integration-patterns"
 }

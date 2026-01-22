@@ -8,5 +8,6 @@
     "prompt",
     "mentor"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "meta-prompt-mentor"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Search Datadog logs via API - query syntax, storage tiers (indexes, flex, online-archives), pagination. Use when searching logs or using the dd search-logs command.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:03.891903Z"
+  "downloaded_at": "2026-01-06T09:10:03.891903Z",
+  "dir_name": "datadog-logs"
 }

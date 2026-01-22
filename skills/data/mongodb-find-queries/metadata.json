@@ -8,5 +8,6 @@
     "find",
     "queries"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "mongodb-find-queries"
 }

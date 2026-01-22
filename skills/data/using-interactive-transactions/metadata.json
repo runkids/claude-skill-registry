@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use interactive transactions with $transaction callback for atomic operations and automatic rollback. Use when operations must succeed or fail together.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:01.975370Z"
+  "downloaded_at": "2026-01-06T09:05:01.975370Z",
+  "dir_name": "using-interactive-transactions"
 }

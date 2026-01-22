@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Understanding and using StickerNest's self-improving AI system. Use when the user asks about AI self-improvement, prompt versioning, reflection loops, AI evaluation, auto-tuning prompts, or the AI jud",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:03.154707Z"
+  "downloaded_at": "2026-01-06T09:06:03.154707Z",
+  "dir_name": "self-improving-ai"
 }

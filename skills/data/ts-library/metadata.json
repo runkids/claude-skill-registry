@@ -1,9 +1,0 @@
-{
-  "name": "ts-library",
-  "description": "Use when authoring TypeScript libraries - covers project setup, package exports, build tooling (tsdown/unbuild), API design patterns, type inference tricks, testing, and release workflows. Patterns ex",
-  "repo": "onmax/nuxt-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

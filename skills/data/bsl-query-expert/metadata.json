@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Query BSL semantic models with group_by, aggregate, filter, and visualizations. Use for data analysis from existing semantic tables.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:20.749395Z"
+  "downloaded_at": "2026-01-06T08:56:20.749395Z",
+  "dir_name": "bsl-query-expert"
 }

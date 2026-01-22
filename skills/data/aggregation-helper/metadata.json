@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Aggregation Helper - Auto-activating skill for Data Analytics.Triggers on: aggregation helper, aggregation helperPart of the Data Analytics skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:08.457278Z"
+  "downloaded_at": "2026-01-06T08:56:08.457278Z",
+  "dir_name": "aggregation-helper"
 }

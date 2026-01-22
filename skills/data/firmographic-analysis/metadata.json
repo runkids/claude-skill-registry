@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when interpreting company-level enrichment data to segment accounts, spot buying triggers, and tailor outreach.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:21.912251Z"
+  "downloaded_at": "2026-01-06T08:57:21.912251Z",
+  "dir_name": "firmographic-analysis"
 }

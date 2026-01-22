@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Patterns for ingesting knowledge into vector databases and RAG systems",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:15.005867Z"
+  "downloaded_at": "2026-01-06T09:10:15.005867Z",
+  "dir_name": "knowledge-ingestion-patterns"
 }

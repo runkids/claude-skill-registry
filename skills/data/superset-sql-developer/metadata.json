@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Expert guidance for writing optimized SQL queries for Apache Superset datasets, virtual datasets, and SQL Lab. This skill helps you create performant queries, design efficient datasets, and leverage P",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:12.663397Z"
+  "downloaded_at": "2026-01-06T09:02:12.663397Z",
+  "dir_name": "superset-sql-developer"
 }

@@ -1,9 +1,0 @@
-{
-  "name": "lint-service",
-  "description": "Unified linting scripts for all services in the monorepo. Use when the user wants to lint code, check formatting, or run type checks.",
-  "repo": "gar-ai/mallorn",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

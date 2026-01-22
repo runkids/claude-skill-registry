@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when you need to work with stored procedure generation.This skill provides stored procedure code generation with comprehensive guidance and automation.Trigger with phrases like \"generate stored pr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:47.722407Z"
+  "downloaded_at": "2026-01-06T08:55:47.722407Z",
+  "dir_name": "generating-stored-procedures"
 }

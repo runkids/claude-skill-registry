@@ -8,5 +8,6 @@
     "daemon",
     "isolation"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "mcp-daemon-isolation"
 }

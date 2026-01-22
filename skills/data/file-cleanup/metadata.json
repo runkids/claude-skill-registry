@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Session-based file cleanup for privacy compliance. Use to delete temporary files, uploaded clinical notes, generated outputs, and expired logs to maintain HIPAA-friendly operations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.939472Z"
+  "downloaded_at": "2026-01-06T09:07:57.939472Z",
+  "dir_name": "file-cleanup"
 }

@@ -2,7 +2,8 @@
   "name": "doc-auto-sync",
   "repo": "taptap/claude-plugins-marketplace",
   "category": "data",
-  "description": "\u5f3a\u5236\u89c4\u8303\uff1aAI \u6539\u52a8\u6a21\u5757\u4ee3\u7801\u65f6\u9700\u540c\u6b65\u521b\u5efa/\u66f4\u65b0\u6a21\u5757\u6587\u6863\u4e0e\u7d22\u5f15\uff0c\u4fdd\u6301\u6587\u6863\u4e0e\u4ee3\u7801\u4e00\u81f4\u3002",
+  "description": "强制规范：AI 改动模块代码时需同步创建/更新模块文档与索引，保持文档与代码一致。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:45.036188Z"
+  "downloaded_at": "2026-01-06T09:08:45.036188Z",
+  "dir_name": "doc-auto-sync"
 }

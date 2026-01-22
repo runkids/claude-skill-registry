@@ -8,5 +8,6 @@
     "support",
     "agent"
   ],
-  "stars": 7
+  "stars": 7,
+  "dir_name": "virtuoso-support-agent"
 }

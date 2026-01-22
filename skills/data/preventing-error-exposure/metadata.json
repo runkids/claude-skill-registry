@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Prevent leaking database errors and P-codes to clients. Use when implementing API error handling or user-facing error messages.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:01.991957Z"
+  "downloaded_at": "2026-01-06T09:05:01.991957Z",
+  "dir_name": "preventing-error-exposure"
 }

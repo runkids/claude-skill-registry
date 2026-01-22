@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Retrieve and manage advertising campaign state throughout the campaign lifecycle. Use when checking campaign status, retrieving campaign data by ID, understanding campaign completion progress, or dete",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:33.455962Z"
+  "downloaded_at": "2026-01-06T09:05:33.455962Z",
+  "dir_name": "manage-campaign"
 }

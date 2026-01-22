@@ -2,7 +2,8 @@
   "name": "mermaid-validator",
   "repo": "sk8metalme/michi",
   "category": "data",
-  "description": "Mermaid\u56f3\u306e\u69cb\u6587\u691c\u8a3c\u3068\u4fee\u6b63\u3092\u884c\u3046\u30b9\u30ad\u30eb\u3002architecture.md\u751f\u6210\u6642\u306e\u30d1\u30fc\u30b9\u30a8\u30e9\u30fc\u3092\u9632\u6b62\u3002",
+  "description": "Mermaid図の構文検証と修正を行うスキル。architecture.md生成時のパースエラーを防止。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:25.428554Z"
+  "downloaded_at": "2026-01-06T09:08:25.428554Z",
+  "dir_name": "mermaid-validator"
 }

@@ -8,5 +8,6 @@
     "new",
     "issue"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "create-new-issue"
 }

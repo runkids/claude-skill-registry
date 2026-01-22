@@ -2,7 +2,8 @@
   "name": "mapping-html-to-api",
   "repo": "farmanlab/ai_agent_orchestra",
   "category": "data",
-  "description": "Maps HTML content elements to API response fields and generates data binding specifications. Updates the \"API\u30de\u30c3\u30d4\u30f3\u30b0\" section in screen spec.md.",
+  "description": "Maps HTML content elements to API response fields and generates data binding specifications. Updates the \"APIマッピング\" section in screen spec.md.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:51.925453Z"
+  "downloaded_at": "2026-01-06T09:01:51.925453Z",
+  "dir_name": "mapping-html-to-api"
 }

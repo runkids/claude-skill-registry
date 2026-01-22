@@ -7,5 +7,6 @@
     "typescript",
     "guardian"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "typescript-guardian"
 }

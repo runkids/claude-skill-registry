@@ -7,5 +7,6 @@
     "legacy",
     "bridge"
   ],
-  "stars": 11
+  "stars": 11,
+  "dir_name": "legacy-bridge"
 }

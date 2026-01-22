@@ -7,5 +7,6 @@
     "gomplate",
     "manager"
   ],
-  "stars": 2
+  "stars": 2,
+  "dir_name": "gomplate-manager"
 }

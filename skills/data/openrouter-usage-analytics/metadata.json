@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Track and analyze OpenRouter usage patterns. Use when optimizing costs or understanding usage. Trigger with phrases like 'openrouter analytics', 'openrouter usage', 'openrouter metrics', 'track openro",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:10.337407Z"
+  "downloaded_at": "2026-01-06T08:56:10.337407Z",
+  "dir_name": "openrouter-usage-analytics"
 }

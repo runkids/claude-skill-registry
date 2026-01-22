@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when implementing Least Significant Bit (LSB) steganography - allows hiding images or text within other images by encoding data in the least significant bits of pixel color channels",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:30.189377Z"
+  "downloaded_at": "2026-01-06T09:07:30.189377Z",
+  "dir_name": "lsb-steganography"
 }

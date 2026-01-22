@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Comprehensive management capabilities for Z.AI MCP servers, including quota tracking, health monitoring, configuration validation, and usage analytics for the Z.AI Lite Plan. Manages web-search-prime ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:43.589109Z"
+  "downloaded_at": "2026-01-06T09:09:43.589109Z",
+  "dir_name": "zai-mcp-manager"
 }

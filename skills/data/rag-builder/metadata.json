@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Build Retrieval-Augmented Generation systems with vector databases",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:20.359532Z"
+  "downloaded_at": "2026-01-06T09:10:20.359532Z",
+  "dir_name": "rag-builder"
 }

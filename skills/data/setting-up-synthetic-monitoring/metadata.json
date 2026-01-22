@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Setup synthetic monitoring for proactive performance tracking including uptime checks, transaction monitoring, and API health. Use when implementing availability monitoring or tracking critical user j",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:49.807294Z"
+  "downloaded_at": "2026-01-06T08:55:49.807294Z",
+  "dir_name": "setting-up-synthetic-monitoring"
 }

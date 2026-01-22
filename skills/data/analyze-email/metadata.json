@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Quick single email analysis - read metadata, content summary, and list attachments without extracting them.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:50.599456Z"
+  "downloaded_at": "2026-01-06T08:59:50.599456Z",
+  "dir_name": "analyze-email"
 }

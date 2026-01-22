@@ -8,5 +8,6 @@
     "protocol",
     "lookup"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "midi-protocol-lookup"
 }

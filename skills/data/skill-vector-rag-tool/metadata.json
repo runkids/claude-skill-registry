@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Local RAG with Ollama and FAISS",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:08.637689Z"
+  "downloaded_at": "2026-01-06T09:05:08.637689Z",
+  "dir_name": "skill-vector-rag-tool"
 }

@@ -9,5 +9,6 @@
     "and",
     "union"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "subquery-patterns-and-union"
 }

@@ -8,5 +8,6 @@
     "image",
     "generator"
   ],
-  "stars": 15
+  "stars": 15,
+  "dir_name": "seedream-image-generator"
 }

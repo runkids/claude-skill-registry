@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use this skill when working with the SurrealDartB package in Dart/Flutter projects. This includes creating embedded SurrealDB databases, performing CRUD operations, managing schemas with code generati",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:44.428137Z"
+  "downloaded_at": "2026-01-06T09:04:44.428137Z",
+  "dir_name": "surrealdartb"
 }

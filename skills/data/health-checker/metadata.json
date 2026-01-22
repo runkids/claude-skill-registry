@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Monitor database health and detect issues across environments",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:57.045705Z"
+  "downloaded_at": "2026-01-06T09:01:57.045705Z",
+  "dir_name": "health-checker"
 }

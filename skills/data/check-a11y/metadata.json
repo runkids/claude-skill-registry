@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Perform accessibility audit on web pages. Use when users ask to check accessibility, audit WCAG compliance, verify ARIA usage, check color contrast, audit keyboard navigation, or analyze screen reader",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:47.053540Z"
+  "downloaded_at": "2026-01-06T09:06:47.053540Z",
+  "dir_name": "check-a11y"
 }

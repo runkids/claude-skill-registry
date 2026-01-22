@@ -4,5 +4,6 @@
   "category": "data",
   "description": "IMMEDIATELY load this skill if you read ANY file containing \"taskagent\" (PLAN.md, org/projects, docs, etc). Also load for multi-session work or when user mentions agent tasks. For simple single-sessio",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:53.018130Z"
+  "downloaded_at": "2026-01-06T08:57:53.018130Z",
+  "dir_name": "taskagent"
 }

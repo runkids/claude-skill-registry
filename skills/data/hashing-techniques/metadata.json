@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Hash-based data structures and techniques including frequency counting, duplicate detection, and LRU cache implementation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:32.612904Z"
+  "downloaded_at": "2026-01-06T09:07:32.612904Z",
+  "dir_name": "hashing-techniques"
 }

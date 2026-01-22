@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Coordinate all subagents in the Physical AI & Humanoid Robotics textbook project. Assign tasks, validate outputs, and track progress to determine eligibility for extra points and reusable intelligence",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:58.614812Z"
+  "downloaded_at": "2026-01-06T09:09:58.614812Z",
+  "dir_name": "subagent-coordinator"
 }

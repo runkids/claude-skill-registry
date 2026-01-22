@@ -1,7 +1,0 @@
-{
-  "name": "scanning-for-secrets",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "plugins/security/secret-scanner/skills/scanning-for-secrets/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-20T01:16:05.289110Z"
-}

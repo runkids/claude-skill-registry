@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use to define schemas, topic tags, and lineage metadata for enriched signals.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:22.070868Z"
+  "downloaded_at": "2026-01-06T08:57:22.070868Z",
+  "dir_name": "signal-taxonomy"
 }

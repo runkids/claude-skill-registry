@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Explore and query blockchain subgraphs through a private MCP server running in Docker. Use this skill when exploring GraphQL subgraphs, querying blockchain data from subgraphs (NFT transfers, DEX swap",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:23.895144Z"
+  "downloaded_at": "2026-01-06T09:07:23.895144Z",
+  "dir_name": "subgraph-explorer"
 }

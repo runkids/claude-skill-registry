@@ -2,7 +2,8 @@
   "name": "glm4v-analyze-image",
   "repo": "CK991357/gemini-chat",
   "category": "data",
-  "description": "\u667a\u8c31AI\u7684\u89c6\u89c9\u8bed\u8a00\u6a21\u578b\uff0c\u7528\u4e8e\u56fe\u50cf\u5206\u6790\u3001\u5185\u5bb9\u8bc6\u522b\u548c\u89c6\u89c9\u95ee\u7b54",
+  "description": "智谱AI的视觉语言模型，用于图像分析、内容识别和视觉问答",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:31.881733Z"
+  "downloaded_at": "2026-01-06T09:04:31.881733Z",
+  "dir_name": "glm4v-analyze-image"
 }

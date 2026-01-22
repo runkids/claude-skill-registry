@@ -1,9 +1,0 @@
-{
-  "name": "git-commit-hygiene",
-  "description": "Draft and review Git commits and commit messages with an emphasis on atomic change sets and clean history. Use when asked to commit changes, propose commit messages, split/squash/rebase commits, or cl",
-  "repo": "goncalossilva/.agents",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

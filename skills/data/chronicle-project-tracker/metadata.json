@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Manage Chronicle project development using database-tracked milestones, next steps, and roadmap visualization. Works with MCP tools (fast, structured) or CLI commands (portable). Use when planning fea",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:24.237075Z"
+  "downloaded_at": "2026-01-06T09:04:24.237075Z",
+  "dir_name": "chronicle-project-tracker"
 }

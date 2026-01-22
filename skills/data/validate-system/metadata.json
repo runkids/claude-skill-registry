@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Validate Nexus-v3 system integrity and fix common issues automatically. Load when user mentions \"validate system\", \"check system\", or \"fix problems\". Runs comprehensive checks on folder structure, met",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:44.346816Z"
+  "downloaded_at": "2026-01-06T09:03:44.346816Z",
+  "dir_name": "validate-system"
 }

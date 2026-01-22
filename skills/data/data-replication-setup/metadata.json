@@ -8,5 +8,6 @@
     "replication",
     "setup"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "data-replication-setup"
 }

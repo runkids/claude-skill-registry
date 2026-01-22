@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Docker/container security audit patterns. Load when Dockerfile or docker-compose.yml present. Covers secrets in layers, port exposure, non-root users, multi-stage builds, and compose security.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:54.482562Z"
+  "downloaded_at": "2026-01-06T08:57:54.482562Z",
+  "dir_name": "security-docker"
 }

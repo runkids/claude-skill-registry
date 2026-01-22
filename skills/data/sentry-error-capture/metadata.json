@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Advanced error capture and context enrichment with Sentry.Use when implementing detailed error tracking, adding context,or customizing error capture behavior.Trigger with phrases like \"sentry error ca",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:01.669142Z"
+  "downloaded_at": "2026-01-06T08:56:01.669142Z",
+  "dir_name": "sentry-error-capture"
 }

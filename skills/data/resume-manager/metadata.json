@@ -4,5 +4,6 @@
   "category": "data",
   "description": "This skill should be used whenever users need help with resume creation, updating professional profiles, tracking career experiences, managing projects portfolio, or generating tailored resumes for jo",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:34.385746Z"
+  "downloaded_at": "2026-01-06T09:03:34.385746Z",
+  "dir_name": "resume-manager"
 }

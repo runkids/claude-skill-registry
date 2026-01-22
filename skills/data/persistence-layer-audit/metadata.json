@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Audit SQLite persistence layer for unused tables and broken integrations. Trigger when: (1) checking database usage, (2) cleaning up schema, (3) finding missing methods.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:04.222914Z"
+  "downloaded_at": "2026-01-06T09:10:04.222914Z",
+  "dir_name": "persistence-layer-audit"
 }

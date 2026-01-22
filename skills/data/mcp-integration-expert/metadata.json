@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Expert guidance for researching, documenting, and integrating Model Context Protocol (MCP) servers and tools. Covers MCP architecture, server/client implementation patterns, tool discovery, integratio",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:56.712443Z"
+  "downloaded_at": "2026-01-06T09:06:56.712443Z",
+  "dir_name": "mcp-integration-expert"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "ChromaDB vector database client for storing and retrieving text embeddings with hybrid search (dense + sparse). Use for RAG operations, contextual retrieval, and similarity search in clinical notes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.895506Z"
+  "downloaded_at": "2026-01-06T09:07:57.895506Z",
+  "dir_name": "chroma-client"
 }

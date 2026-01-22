@@ -4,5 +4,6 @@
   "category": "data",
   "description": "PM Airtable data model reference. Use when creating tables, querying structure, or understanding relationships between Domain, Subdomain, Capability, Entity, Requirement, and BacklogItem tables.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:57.408793Z"
+  "downloaded_at": "2026-01-06T09:02:57.408793Z",
+  "dir_name": "airtable-model"
 }

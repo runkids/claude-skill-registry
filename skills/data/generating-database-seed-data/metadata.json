@@ -4,5 +4,6 @@
   "category": "data",
   "description": "This skill enables AI assistant to generate realistic test data and database seed scripts for development and testing environments. it uses faker libraries to create realistic data, maintains relation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:46.987501Z"
+  "downloaded_at": "2026-01-06T08:55:46.987501Z",
+  "dir_name": "generating-database-seed-data"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Fetch current model names from AI providers (Anthropic, OpenAI, Gemini, Ollama), classify them into tiers (fast/default/heavy), and detect new models. Use when needing up-to-date model IDs for API cal",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:30.476292Z"
+  "downloaded_at": "2026-01-06T09:03:30.476292Z",
+  "dir_name": "model-discovery"
 }

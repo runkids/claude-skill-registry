@@ -4,5 +4,6 @@
   "category": "data",
   "description": "LocalAI local inference API management via Podman Quadlet. Provides anOpenAI-compatible API for local model inference with GPU acceleration.Use when users need to configure, start, or manage the Local",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:19.306518Z"
+  "downloaded_at": "2026-01-06T09:11:19.306518Z",
+  "dir_name": "localai"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Navigate web-based trainings that gate progress via timers/videos/disabled Next buttons.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:02.711313Z"
+  "downloaded_at": "2026-01-06T09:07:02.711313Z",
+  "dir_name": "training-navigation-vendor-agnostic"
 }

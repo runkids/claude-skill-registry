@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Feature Importance Analyzer - Auto-activating skill for ML Training.Triggers on: feature importance analyzer, feature importance analyzerPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:13.496586Z"
+  "downloaded_at": "2026-01-06T08:56:13.496586Z",
+  "dir_name": "feature-importance-analyzer"
 }

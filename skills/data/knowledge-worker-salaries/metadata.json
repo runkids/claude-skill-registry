@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Comprehensive global knowledge worker salary data with total market value calculations, sector breakdowns, geographic comparisons, and authoritative sources. USE WHEN discussing knowledge worker compe",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:15.950157Z"
+  "downloaded_at": "2026-01-06T08:56:15.950157Z",
+  "dir_name": "knowledge-worker-salaries"
 }

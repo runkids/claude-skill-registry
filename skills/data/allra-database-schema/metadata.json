@@ -2,7 +2,8 @@
   "name": "allra-database-schema",
   "repo": "Allra-Fintech/allra-ai-skills",
   "category": "data",
-  "description": "Allra \ub370\uc774\ud130\ubca0\uc774\uc2a4 \uc124\uacc4 \ubc0f QueryDSL \uc0ac\uc6a9 \uaddc\uce59. Use when creating JPA entities, writing QueryDSL queries, or adding @Transactional annotations.",
+  "description": "Allra 데이터베이스 설계 및 QueryDSL 사용 규칙. Use when creating JPA entities, writing QueryDSL queries, or adding @Transactional annotations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:52.172743Z"
+  "downloaded_at": "2026-01-06T09:03:52.172743Z",
+  "dir_name": "allra-database-schema"
 }

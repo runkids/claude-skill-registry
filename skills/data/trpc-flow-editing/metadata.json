@@ -8,5 +8,6 @@
     "flow",
     "editing"
   ],
-  "stars": 10
+  "stars": 10,
+  "dir_name": "trpc-flow-editing"
 }

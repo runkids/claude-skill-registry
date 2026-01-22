@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Troubleshoot agent & tool failures in scheduling orchestration. Use when MCP tools fail, agent communication breaks, constraint engines error, or database operations timeout. Provides systematic incid",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:50.366713Z"
+  "downloaded_at": "2026-01-06T09:00:50.366713Z",
+  "dir_name": "orchestration-debugging"
 }

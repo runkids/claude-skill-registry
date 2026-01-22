@@ -8,5 +8,6 @@
     "helix",
     "substrate"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "rosetta-helix-substrate"
 }

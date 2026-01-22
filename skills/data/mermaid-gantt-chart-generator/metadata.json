@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Mermaid Gantt Chart Generator - Auto-activating skill for Visual Content.Triggers on: mermaid gantt chart generator, mermaid gantt chart generatorPart of the Visual Content skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.031973Z"
+  "downloaded_at": "2026-01-06T08:56:14.031973Z",
+  "dir_name": "mermaid-gantt-chart-generator"
 }

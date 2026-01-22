@@ -7,5 +7,6 @@
     "plugin",
     "packaging"
   ],
-  "stars": 47
+  "stars": 47,
+  "dir_name": "plugin-packaging"
 }

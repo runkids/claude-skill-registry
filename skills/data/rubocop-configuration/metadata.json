@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when ruboCop configuration including YAML config, departments, inheritance, and customization.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:08.143007Z"
+  "downloaded_at": "2026-01-06T08:57:08.143007Z",
+  "dir_name": "rubocop-configuration"
 }

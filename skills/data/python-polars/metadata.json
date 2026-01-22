@@ -7,5 +7,6 @@
     "python",
     "polars"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "python-polars"
 }

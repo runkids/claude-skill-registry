@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Python interoperability setup using libpython-clj for Clojure agent development. Includes Python environment configuration, module importing strategies, data type conversion between Python and Clojure",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:24.993211Z"
+  "downloaded_at": "2026-01-06T09:06:24.993211Z",
+  "dir_name": "cva-setup-interop"
 }

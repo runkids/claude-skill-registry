@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Templates and patterns for common ML training scenarios including text classification, text generation, fine-tuning, and PEFT/LoRA. Provides ready-to-use training configurations, dataset preparation s",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:23.983204Z"
+  "downloaded_at": "2026-01-06T09:09:23.983204Z",
+  "dir_name": "training-patterns"
 }

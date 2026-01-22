@@ -9,5 +9,6 @@
     "router",
     "structure"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "nextjs-16-app-router-structure"
 }

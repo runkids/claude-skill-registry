@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Sequelize migration patterns and best practices for PostgreSQL schema changes. Use when creating migrations, modifying tables, managing indexes, or handling data migrations safely.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:37.761760Z"
+  "downloaded_at": "2026-01-06T09:05:37.761760Z",
+  "dir_name": "sequelize-migrations"
 }

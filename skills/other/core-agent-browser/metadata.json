@@ -1,0 +1,9 @@
+{
+  "name": "core-agent-browser",
+  "repo": "rustfs/rustfs",
+  "path": ".claude/skills/core-agent-browser/SKILL.md",
+  "source": "github.com/rustfs/rustfs",
+  "downloaded_at": "2026-01-22T03:42:46.617979Z",
+  "dir_name": "core-agent-browser",
+  "category": "other"
+}

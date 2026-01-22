@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Room ORM, SQLite, SharedPreferences, DataStore, encryption. Use when implementing data storage and database operations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:31.563760Z"
+  "downloaded_at": "2026-01-06T09:07:31.563760Z",
+  "dir_name": "data-persistence"
 }

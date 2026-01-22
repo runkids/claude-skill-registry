@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Manages blockchain interactions, wallet monitoring, and smart contract execution for the Kingdom",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:28:50.545996Z"
+  "downloaded_at": "2026-01-08T03:28:50.545996Z",
+  "dir_name": "web3-manager"
 }

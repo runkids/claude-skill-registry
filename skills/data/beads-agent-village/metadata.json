@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Set up and orchestrate multi-agent workflows using Beads (shared issue tracking/memory) and MCP Agent Mail (agent messaging). Use when coordinating multiple agents, setting up agent villages, tracking",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:10.069355Z"
+  "downloaded_at": "2026-01-06T09:06:10.069355Z",
+  "dir_name": "beads-agent-village"
 }

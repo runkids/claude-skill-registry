@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Price fixed income securities using present value, yield-to-maturity, and market conventions. Handles treasuries, corporates, municipals with various coupon frequencies. Requires numpy>=1.24.0, pandas",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:18.530783Z"
+  "downloaded_at": "2026-01-06T09:02:18.530783Z",
+  "dir_name": "bond-pricing"
 }

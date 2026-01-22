@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Advanced Maximum Likelihood phylogenetics with model selection (AIC/BIC), tree search algorithms (NNI/SPR/TBR), and performance optimization (Numba/GPU)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:56.464402Z"
+  "downloaded_at": "2026-01-06T09:07:56.464402Z",
+  "dir_name": "ml-tree-level4"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Query and analyze blockchain data including blocks, transactions, and smart contracts.Use when querying blockchain data and transactions.Trigger with phrases like \"explore blockchain\", \"query transact",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:46.368524Z"
+  "downloaded_at": "2026-01-06T08:55:46.368524Z",
+  "dir_name": "exploring-blockchain-data"
 }

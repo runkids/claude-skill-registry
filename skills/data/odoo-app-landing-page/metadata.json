@@ -9,5 +9,6 @@
     "landing",
     "page"
   ],
-  "stars": 2
+  "stars": 2,
+  "dir_name": "odoo-app-landing-page"
 }

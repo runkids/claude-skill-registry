@@ -2,7 +2,8 @@
   "name": "multi-llm-agent",
   "repo": "jiunbae/agent-skills",
   "category": "data",
-  "description": "\uc5ec\ub7ec LLM(OpenAI, Gemini, Ollama \ub4f1)\uc744 \ud1b5\ud569\ud558\uc5ec \uba40\ud2f0 \uc5d0\uc774\uc804\ud2b8 \ud611\uc5c5\uc744 \uc218\ud589\ud569\ub2c8\ub2e4. \uc5ed\ud560 \ubd84\ub2f4, \ud1a0\ub860/\ud569\uc758, \uccb4\uc778 \ud30c\uc774\ud504\ub77c\uc778, \ubcd1\ub82c \ucc98\ub9ac \ub4f1 \ub2e4\uc591\ud55c \ud611\uc5c5 \ud328\ud134\uc744 \uc9c0\uc6d0\ud558\uba70, \uc0ac\uc6a9 \uc2dc\uc810\uc5d0 \uc2dc\ub098\ub9ac\uc624\ub97c \ub3d9\uc801\uc73c\ub85c \uad6c\uc131\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \ubcf5\uc7a1\ud55c \uc791\uc5c5\uc744 \uc5ec\ub7ec LLM\uc5d0\uac8c \ubd84\uc0b0\ud558\uc5ec \ub354 \ub098\uc740 \uacb0\uacfc\ub97c \uc5bb\uace0 \uc2f6\uc744 \ub54c \uc0ac\uc6a9\ud558\uc138\uc694.",
+  "description": "여러 LLM(OpenAI, Gemini, Ollama 등)을 통합하여 멀티 에이전트 협업을 수행합니다. 역할 분담, 토론/합의, 체인 파이프라인, 병렬 처리 등 다양한 협업 패턴을 지원하며, 사용 시점에 시나리오를 동적으로 구성할 수 있습니다. 복잡한 작업을 여러 LLM에게 분산하여 더 나은 결과를 얻고 싶을 때 사용하세요.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:23.547972Z"
+  "downloaded_at": "2026-01-06T09:06:23.547972Z",
+  "dir_name": "multi-llm-agent"
 }

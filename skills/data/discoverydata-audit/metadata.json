@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Inventory available datasets, instrumentation gaps, and data quality considerations for the initiative.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:22.172703Z"
+  "downloaded_at": "2026-01-06T09:05:22.172703Z",
+  "dir_name": "discoverydata-audit"
 }

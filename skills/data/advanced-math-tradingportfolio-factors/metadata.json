@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Factor modeling and portfolio construction (Markowitz, Black-Litterman, constraints, turnover).",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:18.432945Z"
+  "downloaded_at": "2026-01-06T09:02:18.432945Z",
+  "dir_name": "advanced-math-tradingportfolio-factors"
 }

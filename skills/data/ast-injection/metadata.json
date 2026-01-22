@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use AST-aware edits to reduce syntax errors and maintain structure.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:35.066457Z"
+  "downloaded_at": "2026-01-06T09:04:35.066457Z",
+  "dir_name": "ast-injection"
 }

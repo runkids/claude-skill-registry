@@ -8,5 +8,6 @@
     "snowflake",
     "navigator"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "rdc-snowflake-navigator"
 }

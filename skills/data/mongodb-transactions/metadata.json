@@ -7,5 +7,6 @@
     "mongodb",
     "transactions"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "mongodb-transactions"
 }

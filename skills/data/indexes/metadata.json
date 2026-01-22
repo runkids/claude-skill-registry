@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Analyze database queries and recommend missing indexes with performance impact analysis",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:00.373329Z"
+  "downloaded_at": "2026-01-06T09:09:00.373329Z",
+  "dir_name": "indexes"
 }

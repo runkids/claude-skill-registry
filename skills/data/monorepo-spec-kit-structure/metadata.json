@@ -9,5 +9,6 @@
     "kit",
     "structure"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "monorepo-spec-kit-structure"
 }

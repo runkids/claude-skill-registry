@@ -1,0 +1,9 @@
+{
+  "name": "token-endpoint-reviewer",
+  "repo": "maronnjapan/maronn-openid-provider",
+  "path": ".claude/skills/token-endpoint-reviewer/SKILL.md",
+  "source": "github.com/maronnjapan/maronn-openid-provider",
+  "downloaded_at": "2026-01-22T03:24:55.291781Z",
+  "dir_name": "token-endpoint-reviewer",
+  "category": "other"
+}

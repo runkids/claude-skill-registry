@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Diagnoses and resolves common Model Context Protocol (MCP) server connection issues with OpenAI Agents SDK",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:37.777823Z"
+  "downloaded_at": "2026-01-06T09:08:37.777823Z",
+  "dir_name": "mcp-server-troubleshooting"
 }

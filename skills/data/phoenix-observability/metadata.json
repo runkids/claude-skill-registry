@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Open-source AI observability platform for LLM tracing, evaluation, and monitoring. Use when debugging LLM applications with detailed traces, running evaluations on datasets, or monitoring production A",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.809004Z"
+  "downloaded_at": "2026-01-06T08:56:19.809004Z",
+  "dir_name": "phoenix-observability"
 }

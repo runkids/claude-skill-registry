@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Search contacts in HubSpot CRM by email, name, or company. Load when user says 'search contacts', 'find contact', 'lookup contact', 'search for [name]'.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:43.638683Z"
+  "downloaded_at": "2026-01-06T09:03:43.638683Z",
+  "dir_name": "hubspot-search-contacts"
 }

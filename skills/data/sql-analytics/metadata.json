@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Master analytical SQL including window functions, CTEs, aggregations, and query optimization for BI workloads",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:43.659179Z"
+  "downloaded_at": "2026-01-06T09:02:43.659179Z",
+  "dir_name": "sql-analytics"
 }

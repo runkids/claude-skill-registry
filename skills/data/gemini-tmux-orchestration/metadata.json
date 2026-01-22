@@ -8,5 +8,6 @@
     "tmux",
     "orchestration"
   ],
-  "stars": 29
+  "stars": 29,
+  "dir_name": "gemini-tmux-orchestration"
 }

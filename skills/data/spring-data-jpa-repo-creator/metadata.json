@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Creates Spring Data JPA repositories following best practices.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:19.561235Z"
+  "downloaded_at": "2026-01-06T08:57:19.561235Z",
+  "dir_name": "spring-data-jpa-repo-creator"
 }

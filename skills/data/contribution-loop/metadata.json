@@ -1,9 +1,0 @@
-{
-  "name": "contribution-loop",
-  "description": "Find repos with design drift and generate meaningful PRs to fix them. Runs as an autonomous loop discovering GitHub repos using design systems, scanning for drift, and staging fixes for human review.",
-  "repo": "buoy-design/buoy",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Monitor protocol-wide KPIs, identify TVL trends, generate executive summaries, and flag at-risk vaults for the internal operations team. Activates for protocol overview, daily/weekly reports, and heal",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:08.529441Z"
+  "downloaded_at": "2026-01-06T09:06:08.529441Z",
+  "dir_name": "lagoon-protocol-health"
 }

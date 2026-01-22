@@ -7,5 +7,6 @@
     "stix2",
     "validator"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "stix2-validator"
 }

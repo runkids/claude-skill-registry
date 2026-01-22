@@ -4,5 +4,6 @@
   "category": "data",
   "description": "OWASP ASVS 5.0 requirements database for security audits. Provides chapter structure, control objectives, and verification requirements for all 17 ASVS domains.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:21.462282Z"
+  "downloaded_at": "2026-01-06T09:03:21.462282Z",
+  "dir_name": "asvs-requirements"
 }

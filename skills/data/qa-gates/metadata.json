@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use before launching sequences to validate content, data, compliance, and monitoring.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:22.727490Z"
+  "downloaded_at": "2026-01-06T08:57:22.727490Z",
+  "dir_name": "qa-gates"
 }

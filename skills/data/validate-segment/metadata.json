@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Validates CDP segment YAML configurations against the TD CDP API specification. Use when reviewing segment rules for correctness, checking operator types and values, or troubleshooting segment configu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:24.444084Z"
+  "downloaded_at": "2026-01-06T09:00:24.444084Z",
+  "dir_name": "validate-segment"
 }

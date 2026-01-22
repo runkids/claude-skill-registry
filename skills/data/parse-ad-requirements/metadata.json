@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Extract structured advertising campaign parameters from natural language input provided by advertisers. This skill should be used when analyzing advertising requirements, campaign briefs, or ad reques",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:33.513720Z"
+  "downloaded_at": "2026-01-06T09:05:33.513720Z",
+  "dir_name": "parse-ad-requirements"
 }

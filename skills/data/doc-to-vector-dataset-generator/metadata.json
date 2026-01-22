@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Converts documents into clean, chunked datasets suitable for embeddings and vector search. Produces chunked JSONL files with metadata, deduplication logic, and quality checks. Use when preparing \"trai",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:05.508890Z"
+  "downloaded_at": "2026-01-06T09:01:05.508890Z",
+  "dir_name": "doc-to-vector-dataset-generator"
 }

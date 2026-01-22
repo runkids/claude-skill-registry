@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Incremental Load Setup - Auto-activating skill for Data Pipelines.Triggers on: incremental load setup, incremental load setupPart of the Data Pipelines skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.633067Z"
+  "downloaded_at": "2026-01-06T08:56:14.633067Z",
+  "dir_name": "incremental-load-setup"
 }

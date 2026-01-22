@@ -7,5 +7,6 @@
     "model",
     "explanation"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "ml-model-explanation"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Qwen Training Data Miner (Prototype)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:31.119794Z"
+  "downloaded_at": "2026-01-06T08:59:31.119794Z",
+  "dir_name": "qwen-training-data-miner-prototype"
 }

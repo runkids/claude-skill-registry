@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Query Deutsche Bahn train connections and prices.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:00.138885Z"
+  "downloaded_at": "2026-01-06T09:11:00.138885Z",
+  "dir_name": "db-bahn"
 }

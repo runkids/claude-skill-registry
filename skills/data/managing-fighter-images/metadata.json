@@ -8,5 +8,6 @@
     "fighter",
     "images"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "managing-fighter-images"
 }

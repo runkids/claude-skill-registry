@@ -8,5 +8,6 @@
     "state",
     "expert"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "reactive-state-expert"
 }

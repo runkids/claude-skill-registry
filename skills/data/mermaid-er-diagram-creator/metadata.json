@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Mermaid Er Diagram Creator - Auto-activating skill for Visual Content.Triggers on: mermaid er diagram creator, mermaid er diagram creatorPart of the Visual Content skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:56.284459Z"
+  "downloaded_at": "2026-01-06T08:55:56.284459Z",
+  "dir_name": "mermaid-er-diagram-creator"
 }

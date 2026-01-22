@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Complete guide for Apache Spark data processing including RDDs, DataFrames, Spark SQL, streaming, MLlib, and production deployment",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:36.875693Z"
+  "downloaded_at": "2026-01-06T08:58:36.875693Z",
+  "dir_name": "apache-spark-data-processing"
 }

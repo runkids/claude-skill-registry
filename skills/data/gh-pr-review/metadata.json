@@ -1,9 +1,0 @@
-{
-  "name": "gh-pr-review",
-  "description": "Review GitHub pull requests using gh CLI. Approve, request changes, or comment on PRs. Use when user wants to provide PR feedback or approval.",
-  "repo": "dceoy/gh-actions-for-devops",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

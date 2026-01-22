@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Search the Met Museum Open Access Paintings collection using semantic search, find similar artworks, and search by image. Use this when users ask about art, paintings, museum collections, or want to f",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:46.623654Z"
+  "downloaded_at": "2026-01-06T09:00:46.623654Z",
+  "dir_name": "museum-search"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Generate custom reports, query reports, and script reports for Frappe applications. Use when creating data analysis and reporting features.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:17.360310Z"
+  "downloaded_at": "2026-01-06T09:03:17.360310Z",
+  "dir_name": "frappe-report-generator"
 }

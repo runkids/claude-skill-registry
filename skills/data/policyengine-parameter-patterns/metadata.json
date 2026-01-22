@@ -4,5 +4,6 @@
   "category": "data",
   "description": "PolicyEngine parameter patterns - YAML structure, naming conventions, metadata requirements, federal/state separation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:41.999340Z"
+  "downloaded_at": "2026-01-06T09:07:41.999340Z",
+  "dir_name": "policyengine-parameter-patterns"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Systematic debugging for Encore.ts backend incidents using diagnostic scripts, database queries, and structured logging. Use when backend tests fail, services crash, or async flows stall.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:36.294194Z"
+  "downloaded_at": "2026-01-06T09:02:36.294194Z",
+  "dir_name": "backend-debugging"
 }

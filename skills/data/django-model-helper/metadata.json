@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Generates Django models with proper field types, relationships, and migrations. Use when creating Django models or database schemas.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:48.258929Z"
+  "downloaded_at": "2026-01-06T09:01:48.258929Z",
+  "dir_name": "django-model-helper"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Configure and select AI models in Cursor. Triggers on \"cursor model\",\"cursor gpt\", \"cursor claude\", \"change cursor model\", \"cursor ai model\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:58.773746Z"
+  "downloaded_at": "2026-01-06T08:55:58.773746Z",
+  "dir_name": "cursor-model-selection"
 }

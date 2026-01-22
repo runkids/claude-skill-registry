@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Trusted domains, security assessment patterns, and domain research standards for WebFetch permissions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:46.384216Z"
+  "downloaded_at": "2026-01-06T09:04:46.384216Z",
+  "dir_name": "web-security-standards"
 }

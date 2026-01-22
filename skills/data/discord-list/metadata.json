@@ -4,5 +4,6 @@
   "category": "data",
   "description": "List Discord servers and channels. Use when user asks about available servers, channels, or wants to discover what's accessible.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:34.543613Z"
+  "downloaded_at": "2026-01-06T09:03:34.543613Z",
+  "dir_name": "discord-list"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when you need to work with database documentation.This skill provides automated documentation generation with comprehensive guidance and automation.Trigger with phrases like \"generate docs\", \"docu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:47.393578Z"
+  "downloaded_at": "2026-01-06T08:55:47.393578Z",
+  "dir_name": "database-documentation-gen"
 }

@@ -8,5 +8,6 @@
     "dependency",
     "injection"
   ],
-  "stars": 4
+  "stars": 4,
+  "dir_name": "pydantic-ai-dependency-injection"
 }

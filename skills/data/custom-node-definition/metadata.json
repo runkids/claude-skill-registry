@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Create custom node definitions with renderers, ports, external data, and constraints. Use when implementing new node types, custom node appearances, or node-specific behaviors.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:23.010534Z"
+  "downloaded_at": "2026-01-06T08:59:23.010534Z",
+  "dir_name": "custom-node-definition"
 }

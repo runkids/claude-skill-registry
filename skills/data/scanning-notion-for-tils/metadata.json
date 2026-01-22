@@ -4,5 +4,6 @@
   "category": "data",
   "description": "[UNDER DEVELOPMENT - DO NOT USE] Searches the Notion Writing database for unpublished items that could become TIL posts. This skill is not yet integrated with the publishing workflow.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:07.321012Z"
+  "downloaded_at": "2026-01-06T08:58:07.321012Z",
+  "dir_name": "scanning-notion-for-tils"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Wandb Experiment Logger - Auto-activating skill for ML Training.Triggers on: wandb experiment logger, wandb experiment loggerPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:12.852453Z"
+  "downloaded_at": "2026-01-06T08:56:12.852453Z",
+  "dir_name": "wandb-experiment-logger"
 }

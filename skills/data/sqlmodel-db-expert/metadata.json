@@ -7,5 +7,6 @@
     "sqlmodel",
     "expert"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "sqlmodel-db-expert"
 }

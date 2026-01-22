@@ -8,5 +8,6 @@
     "thumbnail",
     "check"
   ],
-  "stars": 14
+  "stars": 14,
+  "dir_name": "video-thumbnail-check"
 }

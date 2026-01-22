@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Async SQLAlchemy 2.0+ database patterns for FastAPI including session management, connection pooling, Alembic migrations, relationship loading strategies, and query optimization. Use when implementing",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:23.185835Z"
+  "downloaded_at": "2026-01-06T09:09:23.185835Z",
+  "dir_name": "async-sqlalchemy-patterns"
 }

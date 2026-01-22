@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use CloudBase HTTP API to access CloudBase platform features (database, authentication, cloud functions, cloud hosting, cloud storage, AI) via HTTP protocol from backends or scripts that are not using",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:43.919785Z"
+  "downloaded_at": "2026-01-06T08:55:43.919785Z",
+  "dir_name": "http-api-cloudbase"
 }

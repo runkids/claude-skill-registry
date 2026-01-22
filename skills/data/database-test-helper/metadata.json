@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Database Test Helper - Auto-activating skill for Test Automation.Triggers on: database test helper, database test helperPart of the Test Automation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:02.858480Z"
+  "downloaded_at": "2026-01-06T08:56:02.858480Z",
+  "dir_name": "database-test-helper"
 }

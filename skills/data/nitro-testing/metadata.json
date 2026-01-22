@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Test Nuxt 3 / Nitro API handlers with real PostgreSQL, transaction rollback isolation, and typed factories. No mocks, real SQL.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:55.819749Z"
+  "downloaded_at": "2026-01-06T09:09:55.819749Z",
+  "dir_name": "nitro-testing"
 }

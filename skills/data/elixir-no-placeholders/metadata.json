@@ -4,5 +4,6 @@
   "category": "data",
   "description": "PROHIBITS placeholder code, default values that mask missing data, and silent failures. Enforces fail-fast with loud errors. Use when implementing ANY function or data structure.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:11.270266Z"
+  "downloaded_at": "2026-01-06T09:07:11.270266Z",
+  "dir_name": "elixir-no-placeholders"
 }

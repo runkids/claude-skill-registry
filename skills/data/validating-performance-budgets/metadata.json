@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Validate application performance against defined budgets to identify regressions early. Use when checking page load times, bundle sizes, or API response times against thresholds. Trigger with phrases ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:49.454394Z"
+  "downloaded_at": "2026-01-06T08:55:49.454394Z",
+  "dir_name": "validating-performance-budgets"
 }

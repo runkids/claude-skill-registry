@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Component skill for systematic SQL query development in DataPeeker analysis sessions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:14.934202Z"
+  "downloaded_at": "2026-01-06T09:03:14.934202Z",
+  "dir_name": "writing-queries"
 }

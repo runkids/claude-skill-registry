@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Provides automated fact-checking, quality assessment, and self-validation capabilities for AI outputs. Use this skill when you need to verify factual claims, assess implementation quality, or ensure o",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:43.589762Z"
+  "downloaded_at": "2026-01-06T09:09:43.589762Z",
+  "dir_name": "fact-checking-self-assessment"
 }

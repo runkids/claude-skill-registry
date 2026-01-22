@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Data splitting for model validation using TD_TrainTestSplit",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:52.121988Z"
+  "downloaded_at": "2026-01-06T09:08:52.121988Z",
+  "dir_name": "td-train-test-split"
 }

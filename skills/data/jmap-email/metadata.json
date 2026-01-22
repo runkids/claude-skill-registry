@@ -7,5 +7,6 @@
     "jmap",
     "email"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "jmap-email"
 }

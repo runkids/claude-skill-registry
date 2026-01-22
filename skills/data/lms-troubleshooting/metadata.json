@@ -1,9 +1,0 @@
-{
-  "name": "lms-troubleshooting",
-  "description": "Solved issues, common errors, and debugging techniques for LMS. Use this skill when debugging issues, understanding error codes, fixing RLS problems, or troubleshooting environment variable issues.",
-  "repo": "geonook/learning-management-system-esid",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Apply Grey Haven database conventions - snake_case fields, multi-tenant with tenant_id and RLS, proper indexing, migrations for Drizzle (TypeScript) and SQLModel (Python). Use when designing schemas, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:13.432380Z"
+  "downloaded_at": "2026-01-06T08:58:13.432380Z",
+  "dir_name": "grey-haven-database-conventions"
 }

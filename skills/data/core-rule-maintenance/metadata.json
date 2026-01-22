@@ -2,7 +2,8 @@
   "name": "core-rule-maintenance",
   "repo": "matsuni-kk/agent_template_public",
   "category": "data",
-  "description": "CLAUDE.md/AGENTS.md\u7b49\u306e\u30b3\u30a2\u30eb\u30fc\u30eb\u30d5\u30a1\u30a4\u30eb\u306e\u4fdd\u5b88\u30fb\u66f4\u65b0\u3092\u5bfe\u8a71\u3067\u884c\u3044\u30013\u74b0\u5883\u540c\u671f\u3068\u6574\u5408\u6027\u3092\u7dad\u6301\u3057\u305f\u307e\u307e\u53cd\u6620\u3059\u308b\u3002CLAUDE.md\u66f4\u65b0\u3001\u30b3\u30a2\u30eb\u30fc\u30eb\u5909\u66f4\u3001\u30eb\u30fc\u30eb\u8ffd\u52a0\u3001\u30d1\u30b9\u8f9e\u66f8\u66f4\u65b0\u3001\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u7d22\u5f15\u66f4\u65b0\u3092\u4f9d\u983c\u3055\u308c\u305f\u3068\u304d\u306b\u4f7f\u7528\u3059\u308b\u3002",
+  "description": "CLAUDE.md/AGENTS.md等のコアルールファイルの保守・更新を対話で行い、3環境同期と整合性を維持したまま反映する。CLAUDE.md更新、コアルール変更、ルール追加、パス辞書更新、ワークフロー索引更新を依頼されたときに使用する。",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:11.285247Z"
+  "downloaded_at": "2026-01-08T03:30:11.285247Z",
+  "dir_name": "core-rule-maintenance"
 }

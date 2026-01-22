@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Screen entities against OFAC SDN, UN, EU, and other sanctions lists to identify compliance risks and regulatory violations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:50.002942Z"
+  "downloaded_at": "2026-01-06T09:10:50.002942Z",
+  "dir_name": "sanctions-check"
 }

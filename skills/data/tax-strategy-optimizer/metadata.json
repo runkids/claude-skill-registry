@@ -8,5 +8,6 @@
     "strategy",
     "optimizer"
   ],
-  "stars": 10
+  "stars": 10,
+  "dir_name": "tax-strategy-optimizer"
 }

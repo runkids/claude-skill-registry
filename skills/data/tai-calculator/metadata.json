@@ -2,7 +2,8 @@
   "name": "tai-calculator",
   "repo": "tedmax100/mahjong",
   "category": "data",
-  "description": "\u53f0\u7063\u9ebb\u5c07\u53f0\u6578\u8a08\u7b97\u5668\u3002\u7576\u7528\u6236\u63d0\u4f9b\u624b\u724c\u8981\u8a08\u7b97\u53f0\u6578\u3001\u8a62\u554f\u7279\u5b9a\u53f0\u578b\u7684\u53f0\u6578\uff08\u5982\u6e05\u4e00\u8272\u3001\u78b0\u78b0\u80e1\u3001\u81ea\u6478\uff09\u3001\u9700\u8981\u5206\u6790\u80e1\u724c\u724c\u578b\u3001\u8a08\u7b97\u5f97\u5206\u3001\u6216\u9a57\u8b49\u53f0\u6578\u8a08\u7b97\u662f\u5426\u6b63\u78ba\u6642\u4f7f\u7528\u6b64\u6280\u80fd\u3002",
+  "description": "台灣麻將台數計算器。當用戶提供手牌要計算台數、詢問特定台型的台數（如清一色、碰碰胡、自摸）、需要分析胡牌牌型、計算得分、或驗證台數計算是否正確時使用此技能。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:22.171551Z"
+  "downloaded_at": "2026-01-06T08:59:22.171551Z",
+  "dir_name": "tai-calculator"
 }

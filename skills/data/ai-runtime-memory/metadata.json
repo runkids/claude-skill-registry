@@ -2,7 +2,8 @@
   "name": "ai-runtime-memory",
   "repo": "Dwsy/ai-runtime",
   "category": "data",
-  "description": "AI Runtime\u5206\u5c42\u8bb0\u5fc6\u7cfb\u7edf\uff0c\u652f\u6301SQL\u98ce\u683c\u7684\u4e8b\u4ef6\u67e5\u8be2\u3001\u65f6\u95f4\u7ebf\u7ba1\u7406\uff0c\u4ee5\u53ca\u8bb0\u5fc6\u7684\u667a\u80fd\u56fa\u5316\u548c\u68c0\u7d22\uff0c\u7528\u4e8e\u9879\u76ee\u5386\u53f2\u8ffd\u8e2a\u548c\u7ecf\u9a8c\u4f20\u627f",
+  "description": "AI Runtime分层记忆系统，支持SQL风格的事件查询、时间线管理，以及记忆的智能固化和检索，用于项目历史追踪和经验传承",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:13.977640Z"
+  "downloaded_at": "2026-01-06T09:05:13.977640Z",
+  "dir_name": "ai-runtime-memory"
 }

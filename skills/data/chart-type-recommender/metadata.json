@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Chart Type Recommender - Auto-activating skill for Data Analytics.Triggers on: chart type recommender, chart type recommenderPart of the Data Analytics skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:56.324286Z"
+  "downloaded_at": "2026-01-06T08:55:56.324286Z",
+  "dir_name": "chart-type-recommender"
 }

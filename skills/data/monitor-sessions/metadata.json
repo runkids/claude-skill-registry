@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Monitor active Teradata sessions using real-time resources, view SQL execution details, identify blocking issues, and optionally take control actions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:52.281632Z"
+  "downloaded_at": "2026-01-06T09:08:52.281632Z",
+  "dir_name": "monitor-sessions"
 }

@@ -7,5 +7,6 @@
     "monitoring",
     "observability"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "monitoring-observability"
 }

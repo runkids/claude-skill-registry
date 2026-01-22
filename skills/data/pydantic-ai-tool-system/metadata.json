@@ -8,5 +8,6 @@
     "tool",
     "system"
   ],
-  "stars": 4
+  "stars": 4,
+  "dir_name": "pydantic-ai-tool-system"
 }

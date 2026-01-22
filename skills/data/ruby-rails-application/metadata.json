@@ -8,5 +8,6 @@
     "rails",
     "application"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "ruby-rails-application"
 }

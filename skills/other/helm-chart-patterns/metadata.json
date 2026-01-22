@@ -1,0 +1,9 @@
+{
+  "name": "helm-chart-patterns",
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/helm-chart-patterns/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-22T01:32:42.889303Z",
+  "dir_name": "helm-chart-patterns",
+  "category": "other"
+}

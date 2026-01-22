@@ -1,9 +1,0 @@
-{
-  "name": "django-redis-caching",
-  "description": "Django Redis caching with django-cacheops. This skill should be used when implementing caching, adding cache invalidation, optimizing API performance, modifying models that affect cached data, or debu",
-  "repo": "kettleofketchup/dota_tournament",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

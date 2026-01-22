@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Create, clean, and optimize datasets for LLM fine-tuning. Covers formats (Alpaca, ShareGPT, ChatML), synthetic data generation, quality assessment, and augmentation. Use when preparing data for traini",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:32.693453Z"
+  "downloaded_at": "2026-01-06T09:03:32.693453Z",
+  "dir_name": "dataset-engineering"
 }

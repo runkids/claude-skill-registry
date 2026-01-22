@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Run Earthly E2E validation for YAML schema contracts. Use when validating YAML schema changes, testing schema contracts against live ClickHouse, or regenerating Python types, DDL, and docs from YAML. ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:43.023861Z"
+  "downloaded_at": "2026-01-06T08:59:43.023861Z",
+  "dir_name": "schema-e2e-validation"
 }

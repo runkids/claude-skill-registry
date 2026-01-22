@@ -8,5 +8,6 @@
     "guess",
     "validation"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "convex-guess-validation"
 }

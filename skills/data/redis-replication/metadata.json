@@ -7,5 +7,6 @@
     "redis",
     "replication"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "redis-replication"
 }

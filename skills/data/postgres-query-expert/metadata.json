@@ -8,5 +8,6 @@
     "query",
     "expert"
   ],
-  "stars": 8
+  "stars": 8,
+  "dir_name": "postgres-query-expert"
 }

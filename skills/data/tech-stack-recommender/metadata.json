@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Recommend technology stacks based on project requirements, team expertise, and constraints. Use when selecting frameworks, languages, databases, and infrastructure for new projects.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:17.292871Z"
+  "downloaded_at": "2026-01-06T08:57:17.292871Z",
+  "dir_name": "tech-stack-recommender"
 }

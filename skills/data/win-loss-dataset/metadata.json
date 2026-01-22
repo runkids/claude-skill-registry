@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Structure for capturing qualitative + quantitative win/loss insights with consistent tagging.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:21.024364Z"
+  "downloaded_at": "2026-01-06T08:57:21.024364Z",
+  "dir_name": "win-loss-dataset"
 }

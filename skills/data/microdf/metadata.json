@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Weighted pandas DataFrames for survey microdata analysis - inequality, poverty, and distributional calculations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:41.491004Z"
+  "downloaded_at": "2026-01-06T09:07:41.491004Z",
+  "dir_name": "microdf"
 }

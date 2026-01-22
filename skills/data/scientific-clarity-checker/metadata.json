@@ -8,5 +8,6 @@
     "clarity",
     "checker"
   ],
-  "stars": 8
+  "stars": 8,
+  "dir_name": "scientific-clarity-checker"
 }

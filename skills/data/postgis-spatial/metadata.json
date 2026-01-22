@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when working with geographic queries, geometry filtering, ST_* functions, or region-based candidate filtering. Load for PostGIS spatial operations, polygon intersections, distance calculations, or",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:59.679226Z"
+  "downloaded_at": "2026-01-06T09:04:59.679226Z",
+  "dir_name": "postgis-spatial"
 }

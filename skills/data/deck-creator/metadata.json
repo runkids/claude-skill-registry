@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Create, update, and translate Dify X Reveal.js slide decks in this repo. Use when asked to draft slides, extract outlines, or maintain bilingual CN/EN parity for the ctrip/paypal/pupu/milvus/aispeech/",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:10.017628Z"
+  "downloaded_at": "2026-01-08T03:30:10.017628Z",
+  "dir_name": "deck-creator"
 }

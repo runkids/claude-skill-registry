@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Fine-tune LLMs using reinforcement learning with TRL - SFT for instruction tuning, DPO for preference alignment, PPO/GRPO for reward optimization, and reward model training. Use when need RLHF, align ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:18.639545Z"
+  "downloaded_at": "2026-01-06T08:56:18.639545Z",
+  "dir_name": "fine-tuning-with-trl"
 }

@@ -1,9 +1,0 @@
-{
-  "name": "sub-agent-creator",
-  "description": "Use PROACTIVELY when creating specialized Claude Code sub-agents for task delegation. Automates agent creation following Anthropic's official patterns with proper frontmatter, tool configuration, and ",
-  "repo": "cskiro/claudex",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

@@ -8,5 +8,6 @@
     "docker",
     "ops"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "truenas-docker-ops"
 }

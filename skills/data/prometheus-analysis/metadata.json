@@ -7,5 +7,6 @@
     "prometheus",
     "analysis"
   ],
-  "stars": 4
+  "stars": 4,
+  "dir_name": "prometheus-analysis"
 }

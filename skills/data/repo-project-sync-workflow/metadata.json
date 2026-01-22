@@ -4,5 +4,6 @@
   "category": "data",
   "description": "When editing KINTSUGI notebook modules (Kdecon, Kstitch, Kreg, etc.), always edit the main repo first then sync to project folders",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:28.002305Z"
+  "downloaded_at": "2026-01-06T09:08:28.002305Z",
+  "dir_name": "repo-project-sync-workflow"
 }

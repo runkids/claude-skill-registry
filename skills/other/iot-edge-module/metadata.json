@@ -1,0 +1,9 @@
+{
+  "name": "iot-edge-module",
+  "repo": "atc-net/atc-agentic-toolkit",
+  "path": ".claude/plugins/azure-iot/skills/iot-edge-module/SKILL.md",
+  "source": "github.com/atc-net/atc-agentic-toolkit",
+  "downloaded_at": "2026-01-22T01:36:41.751624Z",
+  "dir_name": "iot-edge-module",
+  "category": "other"
+}

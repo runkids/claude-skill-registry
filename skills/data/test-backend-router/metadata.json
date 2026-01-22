@@ -8,5 +8,6 @@
     "backend",
     "router"
   ],
-  "stars": 13
+  "stars": 13,
+  "dir_name": "test-backend-router"
 }

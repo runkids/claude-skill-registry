@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Knowledge engineering pipeline that transforms messy human intent and repository analysis into living operational domain profiles",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:20.956040Z"
+  "downloaded_at": "2026-01-06T09:06:20.956040Z",
+  "dir_name": "profile-creator"
 }

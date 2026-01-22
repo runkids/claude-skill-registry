@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Create and maintain Maps of Content (MOCs) for Obsidian vault navigation. Use when directories lack navigation structure, content needs organization, or index pages are missing. Generates MOCs based o",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:21.634204Z"
+  "downloaded_at": "2026-01-06T09:06:21.634204Z",
+  "dir_name": "obsidian-moc-creator"
 }

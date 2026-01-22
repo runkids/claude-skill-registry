@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Manage the concepts database - verify, add, update, and check for duplicates before modifying concepts. MANDATORY for all concept operations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:24.194086Z"
+  "downloaded_at": "2026-01-06T09:03:24.194086Z",
+  "dir_name": "manage-concepts-db"
 }

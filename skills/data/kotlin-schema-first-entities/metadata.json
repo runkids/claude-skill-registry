@@ -9,5 +9,6 @@
     "first",
     "entities"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "kotlin-schema-first-entities"
 }

@@ -7,5 +7,6 @@
     "speculator",
     "orchestration"
   ],
-  "stars": 2
+  "stars": 2,
+  "dir_name": "speculator-orchestration"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Edit and troubleshoot server-side HTML templates (.templ), including regeneration and handler wiring.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:00.515407Z"
+  "downloaded_at": "2026-01-06T09:07:00.515407Z",
+  "dir_name": "templ-templates"
 }

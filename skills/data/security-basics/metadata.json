@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Apply project-specific security and privacy guardrails (auth, headers, rate limiting, logging). Use when touching authentication, request handling, metrics exposure, or anything that could leak sensit",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:00.436928Z"
+  "downloaded_at": "2026-01-06T09:07:00.436928Z",
+  "dir_name": "security-basics"
 }

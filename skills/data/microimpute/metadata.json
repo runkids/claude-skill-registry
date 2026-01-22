@@ -4,5 +4,6 @@
   "category": "data",
   "description": "ML-based variable imputation for survey data - used in policyengine-us-data to fill missing values",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:41.500463Z"
+  "downloaded_at": "2026-01-06T09:07:41.500463Z",
+  "dir_name": "microimpute"
 }

@@ -7,5 +7,6 @@
     "author",
     "reviewer"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "pr-author-reviewer"
 }

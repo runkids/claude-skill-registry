@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Standards for creating new Obsidian projects with consistent structure and metadata.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:45.349501Z"
+  "downloaded_at": "2026-01-06T09:06:45.349501Z",
+  "dir_name": "obsi-project-kickoff"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Install and configure OADP operator with DataProtectionApplication for backup and restore operations on OpenShift clusters.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:13.533383Z"
+  "downloaded_at": "2026-01-06T09:07:13.533383Z",
+  "dir_name": "install-oadp"
 }

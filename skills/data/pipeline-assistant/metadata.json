@@ -4,5 +4,6 @@
   "category": "data",
   "description": "This skill should be used when users need to create or fix Redpanda Connect pipeline configurations. Trigger when users mention \"config\", \"pipeline\", \"YAML\", \"create a config\", \"fix my config\", \"valid",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:40.069523Z"
+  "downloaded_at": "2026-01-06T08:55:40.069523Z",
+  "dir_name": "pipeline-assistant"
 }

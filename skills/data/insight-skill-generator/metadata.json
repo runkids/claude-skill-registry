@@ -1,9 +1,0 @@
-{
-  "name": "insight-skill-generator",
-  "description": "Use PROACTIVELY when working with projects that have docs/lessons-learned/ directories to transform Claude Code explanatory insights into reusable, production-ready skills. Analyzes insight files, clu",
-  "repo": "cskiro/claudex",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

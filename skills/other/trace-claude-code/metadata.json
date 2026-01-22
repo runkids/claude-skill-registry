@@ -1,0 +1,9 @@
+{
+  "name": "trace-claude-code",
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/plugins/braintrust-tracing/skills/trace-claude-code/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-22T03:23:56.084932Z",
+  "dir_name": "trace-claude-code",
+  "category": "other"
+}

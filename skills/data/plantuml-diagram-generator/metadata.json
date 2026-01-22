@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Plantuml Diagram Generator - Auto-activating skill for Visual Content.Triggers on: plantuml diagram generator, plantuml diagram generatorPart of the Visual Content skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:01.820118Z"
+  "downloaded_at": "2026-01-06T08:56:01.820118Z",
+  "dir_name": "plantuml-diagram-generator"
 }

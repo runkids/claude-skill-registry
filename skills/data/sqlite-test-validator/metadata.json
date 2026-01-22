@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Test and validate SQLite database migrations and schema changes",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:40.843799Z"
+  "downloaded_at": "2026-01-06T09:02:40.843799Z",
+  "dir_name": "sqlite-test-validator"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Execute approved sprint plans for Stapledons Voyage using AILANG. ALL game logic must be AILANG - engine is rendering only. Use when user says \"execute sprint\", \"start implementation\", or wants to beg",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:36.245450Z"
+  "downloaded_at": "2026-01-06T09:08:36.245450Z",
+  "dir_name": "game-sprint-executor-ailang"
 }

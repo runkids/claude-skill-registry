@@ -1,9 +1,0 @@
-{
-  "name": "review-documentation",
-  "description": "Use this skill when asked to review the package documentation of the Go implementation of Feather.",
-  "repo": "feather-lang/feather",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

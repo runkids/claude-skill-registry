@@ -1,0 +1,9 @@
+{
+  "name": "54-cicd-gitops-argocd",
+  "repo": "panaversity/agentfactory",
+  "path": "apps/learn-app/docs/07-AI-Cloud-Native-Development/54-cicd-gitops-argocd/18-building-gitops-deployment-skill.md",
+  "source": "github.com/panaversity/agentfactory",
+  "downloaded_at": "2026-01-22T03:41:29.888318Z",
+  "dir_name": "54-cicd-gitops-argocd",
+  "category": "other"
+}

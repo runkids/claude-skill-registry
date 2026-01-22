@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Discover, browse, and compare agent skills from repositories. Shows new skills, updates, and helps users find relevant skills. Use when exploring available skills or checking for updates.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:15.592062Z"
+  "downloaded_at": "2026-01-06T09:03:15.592062Z",
+  "dir_name": "skill-browser"
 }

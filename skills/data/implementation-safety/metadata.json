@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Production-ready safety checklists for Rails implementation. Covers nil safety,ActiveRecord patterns, security vulnerabilities, error handling, and performance.Use before marking any file complete dur",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:17.645271Z"
+  "downloaded_at": "2026-01-06T09:02:17.645271Z",
+  "dir_name": "implementation-safety"
 }

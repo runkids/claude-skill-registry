@@ -8,5 +8,6 @@
     "graphics",
     "research"
   ],
-  "stars": 40
+  "stars": 40,
+  "dir_name": "gpu-graphics-research"
 }

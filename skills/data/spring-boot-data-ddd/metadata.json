@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Spring Boot 4 data layer implementation for Domain-Driven Design. Use when implementing JPA or JDBC aggregates, Spring Data repositories, transactional services, projections, or entity auditing. Cover",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:15.114689Z"
+  "downloaded_at": "2026-01-06T09:02:15.114689Z",
+  "dir_name": "spring-boot-data-ddd"
 }

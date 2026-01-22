@@ -2,7 +2,8 @@
   "name": "eld-sense-activation",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "data",
-  "description": "PCE (Process-Context Engine) \u306e\u30a2\u30af\u30c6\u30a3\u30d6\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u69cb\u7bc9\u30b9\u30ad\u30eb\u3002\u30bf\u30b9\u30af\u306b\u6700\u9069\u5316\u3055\u308c\u305f\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u3092\u30b3\u30f3\u30d1\u30a4\u30eb\u3057\u3001\u30d7\u30ed\u30bb\u30b9\u99c6\u52d5\u306e\u6295\u5165\u7269\u3092\u751f\u6210\u3059\u308b\u3002\u30c8\u30ea\u30ac\u30fc\u6761\u4ef6:- \u65b0\u3057\u3044\u30bf\u30b9\u30af\u3092\u958b\u59cb\u3059\u308b\u6642\uff08\u300c\u3053\u306e\u6a5f\u80fd\u3092\u5b9f\u88c5\u3057\u3066\u300d\uff09- AI\u306b\u30b3\u30fc\u30c9\u751f\u6210\u3092\u4f9d\u983c\u3059\u308b\u6642- \u8907\u96d1\u306a\u554f\u984c\u89e3\u6c7a\u306b\u7740\u624b\u3059\u308b\u6642- \u300c\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u3092\u6574\u7406\u3057\u3066\u300d- \u300c\u5fc5\u8981\u306a\u60c5\u5831\u3092\u307e\u3068\u3081\u3066\u300d",
+  "description": "PCE (Process-Context Engine) のアクティブコンテキスト構築スキル。タスクに最適化されたコンテキストをコンパイルし、プロセス駆動の投入物を生成する。トリガー条件:- 新しいタスクを開始する時（「この機能を実装して」）- AIにコード生成を依頼する時- 複雑な問題解決に着手する時- 「コンテキストを整理して」- 「必要な情報をまとめて」",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.394673Z"
+  "downloaded_at": "2026-01-06T09:04:21.394673Z",
+  "dir_name": "eld-sense-activation"
 }

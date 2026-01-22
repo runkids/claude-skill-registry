@@ -7,5 +7,6 @@
     "scan",
     "inbox"
   ],
-  "stars": 2
+  "stars": 2,
+  "dir_name": "scan-inbox"
 }

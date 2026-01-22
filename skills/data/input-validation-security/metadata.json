@@ -2,7 +2,8 @@
   "name": "input-validation-security",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "data",
-  "description": "Web\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u306b\u304a\u3051\u308b\u5305\u62ec\u7684\u306a\u5165\u529b\u691c\u8a3c\u3068\u30b5\u30cb\u30bf\u30a4\u30ba\u3002\u578b\u5b89\u5168\u306a\u691c\u8a3c\u3001\u8a31\u53ef\u30ea\u30b9\u30c8\u30d5\u30a3\u30eb\u30bf\u30ea\u30f3\u30b0\u3001\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u5bfe\u5fdc\u30a8\u30f3\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\u3092\u901a\u3058\u3066\u3001XSS\u3001SQL\u30a4\u30f3\u30b8\u30a7\u30af\u30b7\u30e7\u30f3\u3001\u30b3\u30de\u30f3\u30c9\u30a4\u30f3\u30b8\u30a7\u30af\u30b7\u30e7\u30f3\u3001\u30d1\u30b9\u30c8\u30e9\u30d0\u30fc\u30b5\u30eb\u306a\u3069\u306e\u5165\u529b\u30d9\u30fc\u30b9\u306e\u653b\u6483\u3092\u9632\u6b62\u3002Anchors:\u2022 OWASP Top 10 / \u9069\u7528: \u5168\u3066\u306e\u5165\u529b\u691c\u8a3c\u5224\u65ad / \u76ee\u7684: \u696d\u754c\u6a19\u6e96\u306e\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30d9\u30fc\u30b9\u30e9\u30a4\u30f3\u2022 CWE-20 (\u4e0d\u9069\u5207\u306a\u5165",
+  "description": "Webアプリケーションにおける包括的な入力検証とサニタイズ。型安全な検証、許可リストフィルタリング、コンテキスト対応エンコーディングを通じて、XSS、SQLインジェクション、コマンドインジェクション、パストラバーサルなどの入力ベースの攻撃を防止。Anchors:• OWASP Top 10 / 適用: 全ての入力検証判断 / 目的: 業界標準のセキュリティベースライン• CWE-20 (不適切な入",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:24.387421Z"
+  "downloaded_at": "2026-01-06T09:01:24.387421Z",
+  "dir_name": "input-validation-security"
 }

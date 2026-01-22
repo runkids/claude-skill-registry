@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Model fine-tuning with PyTorch and HuggingFace Trainer. Covers datasetpreparation, tokenization, training loops, TrainingArguments, SFTTrainerfor instruction tuning, evaluation, and checkpoint managem",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:04.868434Z"
+  "downloaded_at": "2026-01-06T09:04:04.868434Z",
+  "dir_name": "finetuning"
 }

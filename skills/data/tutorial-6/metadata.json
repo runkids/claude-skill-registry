@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Manage D&D 5e party-based encounters with multiple heroes vs multiple monsters. Teaches collection management, priority queues (initiative), and state synchronization through interactive JSON-driven c",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:25.555512Z"
+  "downloaded_at": "2026-01-06T09:06:25.555512Z",
+  "dir_name": "tutorial-6"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Track query execution using real-time resources, analyze query bands, access query logs, and identify performance patterns across the Teradata system",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:52.282148Z"
+  "downloaded_at": "2026-01-06T09:08:52.282148Z",
+  "dir_name": "monitor-queries"
 }

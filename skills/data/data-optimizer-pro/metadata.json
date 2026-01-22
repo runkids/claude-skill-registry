@@ -2,7 +2,8 @@
   "name": "data-optimizer-pro",
   "repo": "huifer/skill-security-scan",
   "category": "data",
-  "description": "\u667a\u80fd\u6570\u636e\u4f18\u5316\u5de5\u5177\uff0c\u81ea\u52a8\u6e05\u7406\u548c\u4f18\u5316\u9879\u76ee\u6587\u4ef6",
+  "description": "智能数据优化工具，自动清理和优化项目文件",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:54.216160Z"
+  "downloaded_at": "2026-01-06T08:57:54.216160Z",
+  "dir_name": "data-optimizer-pro"
 }

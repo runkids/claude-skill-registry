@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Pipeline Monitoring Setup - Auto-activating skill for Data Pipelines.Triggers on: pipeline monitoring setup, pipeline monitoring setupPart of the Data Pipelines skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:10.927658Z"
+  "downloaded_at": "2026-01-06T08:56:10.927658Z",
+  "dir_name": "pipeline-monitoring-setup"
 }

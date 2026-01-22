@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Email Parser - Auto-activating skill for Business Automation.Triggers on: email parser, email parserPart of the Business Automation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:57.440303Z"
+  "downloaded_at": "2026-01-06T08:55:57.440303Z",
+  "dir_name": "email-parser"
 }

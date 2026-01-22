@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Data Visualization Helper - Auto-activating skill for Visual Content.Triggers on: data visualization helper, data visualization helperPart of the Visual Content skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:56.125796Z"
+  "downloaded_at": "2026-01-06T08:55:56.125796Z",
+  "dir_name": "data-visualization-helper"
 }

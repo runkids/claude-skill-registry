@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use this skill when the user wants to build tool/scripts or achieve a task where using data from the Hugging Face API would help. This is especially useful when chaining or combining API calls or the ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:15.925734Z"
+  "downloaded_at": "2026-01-06T08:56:15.925734Z",
+  "dir_name": "hf-tool-builder"
 }

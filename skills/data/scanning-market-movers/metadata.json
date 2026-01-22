@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Detect significant price movements and unusual volume across crypto markets.Use when tracking significant price movements.Trigger with phrases like \"scan market movers\", \"check biggest gainers\", or \"f",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:46.739628Z"
+  "downloaded_at": "2026-01-06T08:55:46.739628Z",
+  "dir_name": "scanning-market-movers"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when you need to ensure database integrity through comprehensive data validation.This skill validates data types, ranges, formats, referential integrity, and business rules.Trigger with phrases li",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:46.965770Z"
+  "downloaded_at": "2026-01-06T08:55:46.965770Z",
+  "dir_name": "validating-database-integrity"
 }

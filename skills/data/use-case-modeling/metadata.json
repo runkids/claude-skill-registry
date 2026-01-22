@@ -2,7 +2,8 @@
   "name": "use-case-modeling",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "data",
-  "description": "\u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\u99c6\u52d5\u306e\u8981\u4ef6\u5206\u6790\u30b9\u30ad\u30eb\u3002\u30e6\u30fc\u30b6\u30fc\u3068\u30b7\u30b9\u30c6\u30e0\u306e\u5bfe\u8a71\u3092\u69cb\u9020\u5316\u3057\u3001\u30d3\u30b8\u30cd\u30b9\u30ed\u30b8\u30c3\u30af\u3092\u660e\u78ba\u306b\u3057\u307e\u3059\u3002\u30a2\u30af\u30bf\u30fc\u8b58\u5225\u304b\u3089\u8a73\u7d30\u30b7\u30ca\u30ea\u30aa\u8a2d\u8a08\u307e\u3067\u6bb5\u968e\u7684\u306b\u9032\u3081\u307e\u3059\u3002Anchors:\u2022 \u300eWriting Effective Use Cases\u300f(Alistair Cockburn) / \u9069\u7528: \u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\u8a2d\u8a08 / \u76ee\u7684: \u8981\u4ef6\u4ed5\u69d8\u306e\u660e\u78ba\u5316\u2022 \u300eThe Pragmatic Programmer\u300f(David",
+  "description": "ユースケース駆動の要件分析スキル。ユーザーとシステムの対話を構造化し、ビジネスロジックを明確にします。アクター識別から詳細シナリオ設計まで段階的に進めます。Anchors:• 『Writing Effective Use Cases』(Alistair Cockburn) / 適用: ユースケース設計 / 目的: 要件仕様の明確化• 『The Pragmatic Programmer』(David",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.739415Z"
+  "downloaded_at": "2026-01-06T09:00:45.739415Z",
+  "dir_name": "use-case-modeling"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when creating database migrations. Prevents data loss, downtime, and performance issues. Supports PostgreSQL, MySQL, SQLite. Python 3.8+",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:19.206225Z"
+  "downloaded_at": "2026-01-06T09:06:19.206225Z",
+  "dir_name": "database-migration-safe"
 }

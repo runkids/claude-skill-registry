@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Build Symfony forms with custom Form Types, validation constraints, data transformers, and proper error handling",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:31.137551Z"
+  "downloaded_at": "2026-01-06T08:57:31.137551Z",
+  "dir_name": "symfonyform-types-validation"
 }

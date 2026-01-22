@@ -1,9 +1,0 @@
-{
-  "name": "package-creation",
-  "description": "Post-creation workflow for new packages in dx-toolkit monorepo - implementation, testing, publishing",
-  "repo": "youdotcom-oss/dx-toolkit",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

@@ -9,5 +9,6 @@
     "human",
     "agents"
   ],
-  "stars": 5
+  "stars": 5,
+  "dir_name": "convex-agents-human-agents"
 }

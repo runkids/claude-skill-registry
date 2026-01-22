@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Explore and query the OpenRouter model catalog programmatically. Use when selecting models or checking availability. Trigger with phrases like 'openrouter models', 'list openrouter models', 'openroute",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:07.808996Z"
+  "downloaded_at": "2026-01-06T08:56:07.808996Z",
+  "dir_name": "openrouter-model-catalog"
 }

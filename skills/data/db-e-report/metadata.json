@@ -2,7 +2,8 @@
   "name": "db-e-report",
   "repo": "SeSiTing/siti-claude-marketplace",
   "category": "data",
-  "description": "\u63d0\u4f9bv3_e-report\u6570\u636e\u5e93\u7684SQL\u67e5\u8be2\u6a21\u677f\uff0c\u5305\u62ec\u6570\u636e\u5206\u6790\u544a\u8b66\u914d\u7f6e\u7b49\u8868\u7684\u67e5\u8be2\u3002\u67e5\u8be2\u5206\u6790\u544a\u8b66\u914d\u7f6e\u65f6\u4f7f\u7528\u3002\u4f7f\u7528 exec_sql \u5de5\u5177\u6267\u884c\u67e5\u8be2\u3002",
+  "description": "提供v3_e-report数据库的SQL查询模板，包括数据分析告警配置等表的查询。查询分析告警配置时使用。使用 exec_sql 工具执行查询。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:16.513521Z"
+  "downloaded_at": "2026-01-06T09:08:16.513521Z",
+  "dir_name": "db-e-report"
 }

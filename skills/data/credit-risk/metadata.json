@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Assess credit risk and default probability for bonds using credit spreads, rating transitions, and recovery analysis. Requires numpy>=1.24.0, pandas>=2.0.0, scipy>=1.10.0. Use when evaluating corporat",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:18.359243Z"
+  "downloaded_at": "2026-01-06T09:02:18.359243Z",
+  "dir_name": "credit-risk"
 }

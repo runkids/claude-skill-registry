@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Migrate and sync vector database collections across environments",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:17.612140Z"
+  "downloaded_at": "2026-01-06T09:10:17.612140Z",
+  "dir_name": "collection-migration"
 }

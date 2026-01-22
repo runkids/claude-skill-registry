@@ -9,5 +9,6 @@
     "form",
     "validation"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "type-safe-form-validation"
 }

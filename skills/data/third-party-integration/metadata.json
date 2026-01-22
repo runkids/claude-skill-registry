@@ -8,5 +8,6 @@
     "party",
     "integration"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "third-party-integration"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Interaction with NeonDB Postgres using Drizzle ORM.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:28.057121Z"
+  "downloaded_at": "2026-01-06T09:01:28.057121Z",
+  "dir_name": "database-orm"
 }

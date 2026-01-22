@@ -1,9 +1,0 @@
-{
-  "name": "agent-deploy",
-  "description": "生成したエージェントをGitHubプライベートリポジトリとして公開する。「デプロイ」「リポジトリ作成」「公開」を依頼されたときに使用する。",
-  "repo": "matsuni-kk/agent_template_public",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
-}

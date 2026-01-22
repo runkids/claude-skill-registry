@@ -8,5 +8,6 @@
     "actions",
     "general"
   ],
-  "stars": 5
+  "stars": 5,
+  "dir_name": "convex-actions-general"
 }

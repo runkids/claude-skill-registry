@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Expert database architecture including schema design, partitioning, replication, and performance optimization",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:48.793067Z"
+  "downloaded_at": "2026-01-06T09:06:48.793067Z",
+  "dir_name": "db-architect"
 }

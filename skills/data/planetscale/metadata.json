@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Implements PlanetScale serverless MySQL with branching workflows, non-blocking schema changes, and Prisma integration. Use when building apps with PlanetScale, implementing database branching, or need",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:56.996756Z"
+  "downloaded_at": "2026-01-06T09:09:56.996756Z",
+  "dir_name": "planetscale"
 }

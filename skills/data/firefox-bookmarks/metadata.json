@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Analyze Firefox bookmarks and tags directly from the places.sqlite database. Extract recent bookmarks, analyze tag popularity, find bookmark statistics, and explore bookmark metadata. Use when working",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:49.817451Z"
+  "downloaded_at": "2026-01-06T09:01:49.817451Z",
+  "dir_name": "firefox-bookmarks"
 }

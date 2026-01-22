@@ -8,5 +8,6 @@
     "response",
     "plan"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "incident-response-plan"
 }

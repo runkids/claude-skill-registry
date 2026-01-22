@@ -6,5 +6,6 @@
   "tags": [
     "query"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "go-db-query"
 }

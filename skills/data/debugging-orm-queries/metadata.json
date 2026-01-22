@@ -8,5 +8,6 @@
     "orm",
     "queries"
   ],
-  "stars": 2
+  "stars": 2,
+  "dir_name": "debugging-orm-queries"
 }

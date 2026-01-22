@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Generate data migration scripts for Frappe. Use when migrating data from legacy systems, transforming data structures, or importing large datasets.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:18.095624Z"
+  "downloaded_at": "2026-01-06T09:03:18.095624Z",
+  "dir_name": "frappe-data-migration-generator"
 }

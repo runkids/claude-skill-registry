@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Embedding/vector caching for AI cost optimization",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:25.328163Z"
+  "downloaded_at": "2026-01-06T09:09:25.328163Z",
+  "dir_name": "ai-cache-patterns"
 }

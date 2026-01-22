@@ -1,0 +1,9 @@
+{
+  "name": "cloudwatch-alarm-creator",
+  "repo": "dengineproblem/agents-monorepo",
+  "path": ".claude/skills/cloudwatch-alarm-creator/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-22T01:38:06.127525Z",
+  "dir_name": "cloudwatch-alarm-creator",
+  "category": "other"
+}

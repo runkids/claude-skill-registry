@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Build BSL semantic models with dimensions, measures, joins, and YAML config. Use for creating/modifying data models.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:20.715871Z"
+  "downloaded_at": "2026-01-06T08:56:20.715871Z",
+  "dir_name": "bsl-model-builder"
 }

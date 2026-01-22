@@ -8,5 +8,6 @@
     "comparison",
     "tool"
   ],
-  "stars": 10
+  "stars": 10,
+  "dir_name": "player-comparison-tool"
 }

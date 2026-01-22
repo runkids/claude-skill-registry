@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Define and track SLAs, SLIs, and SLOs for service reliability including availability, latency, and error rates. Use when establishing reliability targets or monitoring service health. Trigger with phr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:49.737013Z"
+  "downloaded_at": "2026-01-06T08:55:49.737013Z",
+  "dir_name": "tracking-service-reliability"
 }

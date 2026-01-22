@@ -7,5 +7,6 @@
     "hive",
     "mcp"
   ],
-  "stars": 6
+  "stars": 6,
+  "dir_name": "hive-mcp"
 }

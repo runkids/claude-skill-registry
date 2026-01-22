@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Supabase database query patterns, RLS policies, migration records, and nested join patterns. Use this skill when writing database queries, understanding RLS behavior, debugging query errors, or implem",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:59.347341Z"
+  "downloaded_at": "2026-01-06T09:09:59.347341Z",
+  "dir_name": "lms-database"
 }

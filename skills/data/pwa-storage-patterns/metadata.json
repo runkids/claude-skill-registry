@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Implement data persistence patterns for Progressive Web Apps. Use when working with browser storage APIs, implementing localStorage or IndexedDB, or managing client-side data persistence.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:18.374611Z"
+  "downloaded_at": "2026-01-06T09:03:18.374611Z",
+  "dir_name": "pwa-storage-patterns"
 }

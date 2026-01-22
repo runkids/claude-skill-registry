@@ -8,5 +8,6 @@
     "database",
     "design"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "nosql-database-design"
 }

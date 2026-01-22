@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Master scalability patterns with load balancing, caching, database scaling, microservices, and horizontal scaling strategies.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:59.212228Z"
+  "downloaded_at": "2026-01-06T09:02:59.212228Z",
+  "dir_name": "scalability-patterns"
 }

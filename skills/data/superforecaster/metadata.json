@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Make well-calibrated probability estimates using superforecasting methodology. Use when user asks about probability, likelihood, chance, odds, \"will X happen\", \"when will X happen\", \"how much will X c",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:08.638795Z"
+  "downloaded_at": "2026-01-06T09:10:08.638795Z",
+  "dir_name": "superforecaster"
 }

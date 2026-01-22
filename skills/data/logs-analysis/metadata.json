@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Analyze system and application log data from sosreport archives, extracting error patterns, kernel panics, OOM events, service failures, and application crashes from journald logs and traditional log ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:19.189020Z"
+  "downloaded_at": "2026-01-06T08:57:19.189020Z",
+  "dir_name": "logs-analysis"
 }

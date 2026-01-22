@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Extend video duration using Kling AI continuation features. Use when creating longer videosfrom shorter clips or building seamless sequences. Trigger with phrases like 'klingai extend video','kling ai",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:10.038955Z"
+  "downloaded_at": "2026-01-06T08:56:10.038955Z",
+  "dir_name": "klingai-video-extension"
 }

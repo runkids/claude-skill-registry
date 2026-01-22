@@ -4,5 +4,6 @@
   "category": "data",
   "description": "System maintenance for Bazzite OS. Updates via topgrade, cleanup of podman/flatpaks,viewing logs and changelogs, diagnostics, and power measurements. Use when usersneed to update, clean, or diagnose t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:06.011963Z"
+  "downloaded_at": "2026-01-06T09:04:06.011963Z",
+  "dir_name": "system"
 }

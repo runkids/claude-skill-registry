@@ -1,0 +1,9 @@
+{
+  "name": "bun-cloudflare-workers",
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/bun/skills/bun-cloudflare-workers/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-22T02:51:07.355267Z",
+  "dir_name": "bun-cloudflare-workers",
+  "category": "other"
+}

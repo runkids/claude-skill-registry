@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use when working with SQLite databases in DataPeeker analysis sessions - querying data, importing CSVs, exploring schemas, formatting output, or optimizing performance. Provides task-oriented guidance",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:14.924073Z"
+  "downloaded_at": "2026-01-06T09:03:14.924073Z",
+  "dir_name": "using-sqlite"
 }

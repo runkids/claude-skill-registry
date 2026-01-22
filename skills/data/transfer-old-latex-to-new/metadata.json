@@ -2,7 +2,8 @@
   "name": "transfer-old-latex-to-new",
   "repo": "huangwb8/ChineseResearchLaTeX",
   "category": "data",
-  "description": "\u667a\u80fd\u8fc1\u79fb\u65e7\u7248NSFC\u6807\u4e66\u5230\u65b0\u7248\u6a21\u677f\uff1a\u5206\u6790\u65e7\u65b0\u9879\u76ee\u7ed3\u6784\u3001AI\u81ea\u4e3b\u89c4\u5212\u8fc1\u79fb\u7b56\u7565\u3001\u6267\u884c\u5185\u5bb9\u8fc1\u79fb\u3001\u8fed\u4ee3\u4f18\u5316\u3001\u7f16\u8bd1\u9a8c\u8bc1\u3002\u7528\u4e8e\u7528\u6237\u8981\u6c42\"\u8fc1\u79fb\u6807\u4e66/\u5347\u7ea7\u6a21\u677f/\u8de8\u7248\u672c\u8fc1\u79fb/\u65e7\u6807\u4e66\u8f6c\u65b0\u6a21\u677f\"\u3002",
+  "description": "智能迁移旧版NSFC标书到新版模板：分析旧新项目结构、AI自主规划迁移策略、执行内容迁移、迭代优化、编译验证。用于用户要求\"迁移标书/升级模板/跨版本迁移/旧标书转新模板\"。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:16.434554Z"
+  "downloaded_at": "2026-01-06T08:56:16.434554Z",
+  "dir_name": "transfer-old-latex-to-new"
 }

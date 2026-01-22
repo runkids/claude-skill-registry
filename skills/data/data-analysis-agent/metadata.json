@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Analyzes data with rich metadata recommendations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:18.520136Z"
+  "downloaded_at": "2026-01-06T09:09:18.520136Z",
+  "dir_name": "data-analysis-agent"
 }

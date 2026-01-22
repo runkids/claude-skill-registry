@@ -2,7 +2,8 @@
   "name": "command-analytics",
   "repo": "garimto81/claude",
   "category": "data",
-  "description": "\ucee4\ub9e8\ub4dc, \uc2a4\ud0ac, \uc5d0\uc774\uc804\ud2b8 \uc0ac\uc6a9 \ube48\ub3c4 \uce21\uc815 \ubc0f \ub9ac\ud3ec\ud2b8 \uc0dd\uc131. \ubbf8\uc0ac\uc6a9 \ud56d\ubaa9 \uc2dd\ubcc4, \ucd5c\uc801\ud654 \uc81c\uc548 \uc81c\uacf5.",
+  "description": "커맨드, 스킬, 에이전트 사용 빈도 측정 및 리포트 생성. 미사용 항목 식별, 최적화 제안 제공.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:08.706144Z"
+  "downloaded_at": "2026-01-06T09:11:08.706144Z",
+  "dir_name": "command-analytics"
 }

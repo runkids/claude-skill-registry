@@ -8,5 +8,6 @@
     "run",
     "debrief"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "post-run-debrief"
 }

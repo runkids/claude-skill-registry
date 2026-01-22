@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Generate production-quality Python code for robot simulations that run in Pyodide (browser).Supports simplified physics simulations using NumPy, Matplotlib, and basic physics calculations.Creates educ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:38.888082Z"
+  "downloaded_at": "2026-01-06T09:06:38.888082Z",
+  "dir_name": "robot-simulation-setup"
 }

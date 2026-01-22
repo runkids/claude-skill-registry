@@ -1,0 +1,9 @@
+{
+  "name": "dockerfile-generator",
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/dockerfile-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-22T02:30:14.596815Z",
+  "dir_name": "dockerfile-generator",
+  "category": "other"
+}

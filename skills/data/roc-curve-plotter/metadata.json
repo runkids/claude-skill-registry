@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Roc Curve Plotter - Auto-activating skill for ML Training.Triggers on: roc curve plotter, roc curve plotterPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:11.615483Z"
+  "downloaded_at": "2026-01-06T08:56:11.615483Z",
+  "dir_name": "roc-curve-plotter"
 }

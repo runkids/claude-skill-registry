@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Query ALL available Skills database in Notion with filters. Load when user mentions \"search skill database\", \"query notion\", \"search skills database\", \"find skills in notion\", or \"browse notion skills",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:44.212428Z"
+  "downloaded_at": "2026-01-06T09:03:44.212428Z",
+  "dir_name": "search-skill-database"
 }

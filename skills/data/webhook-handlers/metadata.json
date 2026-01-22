@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Webhook event handling patterns for email tracking (sent, delivered, bounced, opened, clicked). Use when implementing email event webhooks, signature verification, processing delivery events, logging ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:25.458864Z"
+  "downloaded_at": "2026-01-06T09:09:25.458864Z",
+  "dir_name": "webhook-handlers"
 }

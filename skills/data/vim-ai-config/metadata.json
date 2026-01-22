@@ -7,5 +7,6 @@
     "vim",
     "config"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "vim-ai-config"
 }

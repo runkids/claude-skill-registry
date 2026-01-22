@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Comprehensive data profiling and quality assessment using Teradata ClearScape Analytics descriptive statistics functions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:50.411843Z"
+  "downloaded_at": "2026-01-06T09:08:50.411843Z",
+  "dir_name": "td-data-profiling"
 }

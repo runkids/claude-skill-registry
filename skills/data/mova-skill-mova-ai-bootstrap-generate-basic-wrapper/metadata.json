@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Generates a static MOVA AI bootstrap pack for a target model/environment (no LLM calls). Input: env.mova_ai_bootstrap_generate_v1, output: ds.mova_ai_bootstrap_pack_v1.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:47.917103Z"
+  "downloaded_at": "2026-01-06T09:06:47.917103Z",
+  "dir_name": "mova-skill-mova-ai-bootstrap-generate-basic-wrapper"
 }

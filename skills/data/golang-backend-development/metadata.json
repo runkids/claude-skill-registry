@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Complete guide for Go backend development including concurrency patterns, web servers, database integration, microservices, and production deployment",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:36.579507Z"
+  "downloaded_at": "2026-01-06T08:58:36.579507Z",
+  "dir_name": "golang-backend-development"
 }

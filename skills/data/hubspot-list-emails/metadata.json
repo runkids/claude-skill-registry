@@ -4,5 +4,6 @@
   "category": "data",
   "description": "List email engagements from HubSpot CRM. Load when user says 'list emails', 'show emails', 'email history', 'hubspot emails'. Returns logged email records.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:43.502277Z"
+  "downloaded_at": "2026-01-06T09:03:43.502277Z",
+  "dir_name": "hubspot-list-emails"
 }

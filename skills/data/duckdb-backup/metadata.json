@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Comprehensive DuckDB database backup toolkit supporting both file-based (cp) and native (ATTACH+COPY) backup approaches. Use when you need to backup DuckDB databases locally or to remote storage, crea",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:57.676891Z"
+  "downloaded_at": "2026-01-06T09:05:57.676891Z",
+  "dir_name": "duckdb-backup"
 }

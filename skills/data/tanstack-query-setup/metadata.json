@@ -4,5 +4,6 @@
   "category": "data",
   "description": "TanStack Query setup for data fetching and caching. Use when implementing server state management.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:17.103864Z"
+  "downloaded_at": "2026-01-06T09:06:17.103864Z",
+  "dir_name": "tanstack-query-setup"
 }

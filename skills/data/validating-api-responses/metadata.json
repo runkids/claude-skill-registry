@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Validate API responses against schemas to ensure contract compliance and data integrity.Use when ensuring API response correctness.Trigger with phrases like \"validate responses\", \"check API responses\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:45.836560Z"
+  "downloaded_at": "2026-01-06T08:55:45.836560Z",
+  "dir_name": "validating-api-responses"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Python dataclass best practices: slots, frozen, validation. Trigger when optimizing dataclasses or creating config classes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:22.089770Z"
+  "downloaded_at": "2026-01-06T09:10:22.089770Z",
+  "dir_name": "dataclass-optimization"
 }

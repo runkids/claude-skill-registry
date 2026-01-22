@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Creates comprehensive disaster recovery procedures with automated backup scripts, restore procedures, validation checks, and role assignments. Use for \"database backup\", \"disaster recovery\", \"data res",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:07.597928Z"
+  "downloaded_at": "2026-01-06T09:01:07.597928Z",
+  "dir_name": "backup-restore-runbook-generator"
 }

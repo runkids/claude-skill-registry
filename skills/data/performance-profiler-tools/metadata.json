@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Python tools for analyzing Instruments traces and performance data",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:40.864829Z"
+  "downloaded_at": "2026-01-06T09:02:40.864829Z",
+  "dir_name": "performance-profiler-tools"
 }

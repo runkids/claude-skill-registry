@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Configure connection pool sizing for optimal performance. Use when configuring DATABASE_URL or deploying to production.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:01.197437Z"
+  "downloaded_at": "2026-01-06T09:05:01.197437Z",
+  "dir_name": "configuring-connection-pools"
 }

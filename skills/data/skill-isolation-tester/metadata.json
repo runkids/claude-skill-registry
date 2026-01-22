@@ -1,9 +1,0 @@
-{
-  "name": "skill-isolation-tester",
-  "description": "Use PROACTIVELY when validating Claude Code skills before sharing or public release. Automated testing framework using multiple isolation environments (git worktree, Docker containers, VMs) to catch e",
-  "repo": "cskiro/claudex",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

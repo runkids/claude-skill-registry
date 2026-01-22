@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Implement reusable embedding functions using Gemini embedding models via LangChain with proper error handling and batching for sitemap-crawled content.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:15.232182Z"
+  "downloaded_at": "2026-01-06T09:07:15.232182Z",
+  "dir_name": "embedding-pipeline"
 }

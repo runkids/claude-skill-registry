@@ -8,5 +8,6 @@
     "chart",
     "types"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "chartjs-chart-types"
 }

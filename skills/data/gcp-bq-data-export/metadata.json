@@ -8,5 +8,6 @@
     "data",
     "export"
   ],
-  "stars": 0
+  "stars": 0,
+  "dir_name": "gcp-bq-data-export"
 }

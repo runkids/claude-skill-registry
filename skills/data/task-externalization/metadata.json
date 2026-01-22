@@ -7,5 +7,6 @@
     "task",
     "externalization"
   ],
-  "stars": 24
+  "stars": 24,
+  "dir_name": "task-externalization"
 }

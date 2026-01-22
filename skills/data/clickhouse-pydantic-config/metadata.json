@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Generate DBeaver configurations from Pydantic ClickHouse connection models. Use when user mentions \"DBeaver config\", \"ClickHouse connection setup\", \"database client configuration\", \"generate connectio",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:41.910072Z"
+  "downloaded_at": "2026-01-06T08:59:41.910072Z",
+  "dir_name": "clickhouse-pydantic-config"
 }

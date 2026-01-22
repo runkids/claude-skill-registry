@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Manages the Notion LLM Config Table database tracking model configurations and parameters across multiple model providers. Use when working with the LLM config table, adding models, updating model par",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:34.309069Z"
+  "downloaded_at": "2026-01-06T09:03:34.309069Z",
+  "dir_name": "notion-llm-config"
 }

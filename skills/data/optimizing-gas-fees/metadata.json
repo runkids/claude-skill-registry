@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Predict optimal gas prices and transaction timing to minimize blockchain transaction costs.Use when optimizing blockchain transaction costs.Trigger with phrases like \"optimize gas\", \"check gas prices\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:46.543536Z"
+  "downloaded_at": "2026-01-06T08:55:46.543536Z",
+  "dir_name": "optimizing-gas-fees"
 }

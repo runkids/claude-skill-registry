@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Comprehensive performance analysis and optimization for Next.js applications using Neon Postgres. Identifies bottlenecks across frontend, backend, and database layers.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:45.374148Z"
+  "downloaded_at": "2026-01-06T09:10:45.374148Z",
+  "dir_name": "nextjs-neon-performance-optimizer"
 }

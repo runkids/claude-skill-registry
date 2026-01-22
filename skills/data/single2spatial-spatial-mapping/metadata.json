@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Map scRNA-seq atlases onto spatial transcriptomics slides using omicverse's Single2Spatial workflow for deep-forest training, spot-level assessment, and marker visualisation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:15.468976Z"
+  "downloaded_at": "2026-01-06T08:56:15.468976Z",
+  "dir_name": "single2spatial-spatial-mapping"
 }

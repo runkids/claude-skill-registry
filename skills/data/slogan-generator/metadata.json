@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Generate and evaluate marketing slogans for any product or service. Creates options across multiple angles, scores against criteria, and recommends the best fit.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:25.673483Z"
+  "downloaded_at": "2026-01-06T08:58:25.673483Z",
+  "dir_name": "slogan-generator"
 }

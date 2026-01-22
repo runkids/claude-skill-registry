@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Check the status of a Hugging Face training job",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:43.530894Z"
+  "downloaded_at": "2026-01-06T08:59:43.530894Z",
+  "dir_name": "hf-job-status"
 }

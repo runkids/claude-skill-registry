@@ -9,5 +9,6 @@
     "readable",
     "interpreter"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "law-machine-readable-interpreter"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "This skill guides deploying Rails applications with Kamal. Use when configuring deploy.yml, setting up accessories, managing secrets, or preparing servers for container deployment.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:26.324305Z"
+  "downloaded_at": "2026-01-06T08:58:26.324305Z",
+  "dir_name": "kamal-coder"
 }

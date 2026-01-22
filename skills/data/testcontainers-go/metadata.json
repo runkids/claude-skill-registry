@@ -6,5 +6,6 @@
   "tags": [
     "testcontainers"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "testcontainers-go"
 }

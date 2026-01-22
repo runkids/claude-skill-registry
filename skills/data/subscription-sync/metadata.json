@@ -7,5 +7,6 @@
     "subscription",
     "sync"
   ],
-  "stars": 10
+  "stars": 10,
+  "dir_name": "subscription-sync"
 }

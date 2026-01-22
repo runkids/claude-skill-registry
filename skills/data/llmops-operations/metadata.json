@@ -2,7 +2,8 @@
   "name": "llmops-operations",
   "repo": "take566/mcp_server",
   "category": "data",
-  "description": "LLM\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u306e\u8a2d\u8a08\u30fb\u904b\u7528\u30fb\u8a55\u4fa1\u30fb\u6700\u9069\u5316\u3002\u30d7\u30ed\u30f3\u30d7\u30c8\u7ba1\u7406\u3001RAG\u69cb\u7bc9\u3001\u30d5\u30a1\u30a4\u30f3\u30c1\u30e5\u30fc\u30cb\u30f3\u30b0\u3001\u8a55\u4fa1\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3\u3001\u30b3\u30b9\u30c8\u6700\u9069\u5316\u3001\u672c\u756a\u904b\u7528\u3002\u300cLLM\u300d\u300c\u30d7\u30ed\u30f3\u30d7\u30c8\u300d\u300cRAG\u300d\u300c\u30d5\u30a1\u30a4\u30f3\u30c1\u30e5\u30fc\u30cb\u30f3\u30b0\u300d\u300cAI\u904b\u7528\u300d\u300c\u8a55\u4fa1\u300d\u306b\u95a2\u3059\u308b\u8cea\u554f\u3067\u4f7f\u7528\u3002",
+  "description": "LLMアプリケーションの設計・運用・評価・最適化。プロンプト管理、RAG構築、ファインチューニング、評価パイプライン、コスト最適化、本番運用。「LLM」「プロンプト」「RAG」「ファインチューニング」「AI運用」「評価」に関する質問で使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:55.922943Z"
+  "downloaded_at": "2026-01-06T09:09:55.922943Z",
+  "dir_name": "llmops-operations"
 }

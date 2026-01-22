@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Automatically invoked when creating visual diagrams (flowcharts, sequence diagrams, ERDs, state machines, user journeys). Ensures proper Mermaid syntax and diagram clarity.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:41.711755Z"
+  "downloaded_at": "2026-01-06T09:03:41.711755Z",
+  "dir_name": "generate-mermaid"
 }

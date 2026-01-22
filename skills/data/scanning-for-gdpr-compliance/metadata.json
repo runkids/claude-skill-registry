@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Scan for GDPR compliance issues in data handling and privacy practices. Use when ensuring EU data protection compliance. Trigger with 'scan GDPR compliance', 'check data privacy', or 'validate GDPR'.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:52.068776Z"
+  "downloaded_at": "2026-01-06T08:55:52.068776Z",
+  "dir_name": "scanning-for-gdpr-compliance"
 }

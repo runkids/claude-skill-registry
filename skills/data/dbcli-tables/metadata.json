@@ -4,5 +4,6 @@
   "category": "data",
   "description": "List all tables in a database and show table structure (columns, types, constraints) for 30+ databases using DbCli. Use when user wants to explore database schema, see what tables exist, check table s",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:10.612608Z"
+  "downloaded_at": "2026-01-06T08:59:10.612608Z",
+  "dir_name": "dbcli-tables"
 }

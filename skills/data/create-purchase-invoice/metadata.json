@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Create purchase invoice in NexERP database",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:22.222914Z"
+  "downloaded_at": "2026-01-06T09:04:22.222914Z",
+  "dir_name": "create-purchase-invoice"
 }

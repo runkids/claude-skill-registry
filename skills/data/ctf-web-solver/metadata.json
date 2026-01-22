@@ -2,7 +2,8 @@
   "name": "ctf-web-solver",
   "repo": "Tokeii0/CTFskill",
   "category": "data",
-  "description": "\u5f53\u7528\u6237\u6b63\u5728\u8fdb\u884c CTF \u6bd4\u8d5b\u6216\u7ec3\u4e60\uff0c\u9047\u5230 Web \u7c7b\u578b\u9898\u76ee\u65f6\u89e6\u53d1\u6b64 Skill\u3002\u9002\u7528\u573a\u666f\u5305\u62ec\uff1a- \u7528\u6237\u63cf\u8ff0\u4e86 SQL \u6ce8\u5165\u3001XSS\u3001SSRF\u3001SSTI\u3001XXE\u3001\u6587\u4ef6\u5305\u542b\u3001\u547d\u4ee4\u6267\u884c\u7b49 Web \u5b89\u5168\u95ee\u9898- \u7528\u6237\u9700\u8981\u8fdb\u884c\u4fe1\u606f\u641c\u96c6\u3001\u76ee\u5f55\u626b\u63cf\u3001\u7aef\u53e3\u626b\u63cf\u7b49\u6e17\u900f\u524d\u671f\u5de5\u4f5c- \u7528\u6237\u9047\u5230 PHP \u7279\u6027\u5229\u7528\u3001\u53cd\u5e8f\u5217\u5316\u3001JWT \u4f2a\u9020\u7b49\u9ad8\u7ea7\u653b\u51fb\u573a\u666f- \u7528\u6237\u63d0\u53ca \"CTF\"\u3001\"Web\"\u3001\"\u6e17\u900f\"\u3001\"\u6ce8\u5165\"\u3001\"\u7ed5\u8fc7\"\u3001\"\u6f0f\u6d1e\"",
+  "description": "当用户正在进行 CTF 比赛或练习，遇到 Web 类型题目时触发此 Skill。适用场景包括：- 用户描述了 SQL 注入、XSS、SSRF、SSTI、XXE、文件包含、命令执行等 Web 安全问题- 用户需要进行信息搜集、目录扫描、端口扫描等渗透前期工作- 用户遇到 PHP 特性利用、反序列化、JWT 伪造等高级攻击场景- 用户提及 \"CTF\"、\"Web\"、\"渗透\"、\"注入\"、\"绕过\"、\"漏洞\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:22.394056Z"
+  "downloaded_at": "2026-01-06T08:59:22.394056Z",
+  "dir_name": "ctf-web-solver"
 }

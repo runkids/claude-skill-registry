@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Direct Preference Optimization for learning from preference pairs. Covers DPOTrainer,preference dataset preparation, implicit reward modeling, and beta tuning forstable preference learning without exp",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:15.283601Z"
+  "downloaded_at": "2026-01-06T09:11:15.283601Z",
+  "dir_name": "dpo"
 }

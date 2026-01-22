@@ -4,5 +4,6 @@
   "category": "data",
   "description": "This skill should be used when creating or extending ActorSheet/ItemSheet classes, implementing getData or _prepareContext, binding events with activateListeners, handling drag/drop, or migrating from",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:42.875020Z"
+  "downloaded_at": "2026-01-06T09:10:42.875020Z",
+  "dir_name": "fvtt-sheets"
 }

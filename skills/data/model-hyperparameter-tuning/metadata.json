@@ -8,5 +8,6 @@
     "hyperparameter",
     "tuning"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "model-hyperparameter-tuning"
 }

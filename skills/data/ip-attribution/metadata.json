@@ -4,5 +4,6 @@
   "category": "data",
   "description": "A human-centered system for attributing creative contributions across any medium, where containers provide structure and conversations determine value",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:33.846104Z"
+  "downloaded_at": "2026-01-06T09:03:33.846104Z",
+  "dir_name": "ip-attribution"
 }

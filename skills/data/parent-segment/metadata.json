@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Manages CDP parent segments using `tdx ps` commands with YAML configs. Covers master tables, attributes, behaviors, `tdx ps validate` for join validation, `tdx ps preview` for data preview, and schedu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:24.365769Z"
+  "downloaded_at": "2026-01-06T09:00:24.365769Z",
+  "dir_name": "parent-segment"
 }

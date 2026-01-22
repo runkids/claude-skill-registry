@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Initialize Rust projects with proper structure, essential crates, and Cargo.toml configuration. Use when starting new Rust binaries or libraries.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:48.985878Z"
+  "downloaded_at": "2026-01-06T09:05:48.985878Z",
+  "dir_name": "rust-project-setup"
 }

@@ -8,5 +8,6 @@
     "upgrade",
     "assistant"
   ],
-  "stars": 22
+  "stars": 22,
+  "dir_name": "rails-upgrade-assistant"
 }

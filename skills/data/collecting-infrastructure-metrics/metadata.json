@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Collect comprehensive infrastructure performance metrics across compute, storage, network, containers, load balancers, and databases. Use when monitoring system performance or troubleshooting infrastr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:50.492454Z"
+  "downloaded_at": "2026-01-06T08:55:50.492454Z",
+  "dir_name": "collecting-infrastructure-metrics"
 }

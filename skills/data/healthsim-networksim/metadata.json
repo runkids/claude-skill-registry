@@ -7,5 +7,6 @@
     "healthsim",
     "networksim"
   ],
-  "stars": 3
+  "stars": 3,
+  "dir_name": "healthsim-networksim"
 }

@@ -8,5 +8,6 @@
     "before",
     "completion"
   ],
-  "stars": 1
+  "stars": 1,
+  "dir_name": "verifying-before-completion"
 }

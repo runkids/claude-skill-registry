@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Deep methodology knowledge for STC including outcome regression approach, effect modifier selection, covariate centering, and comparison with MAIC. Use when conducting or reviewing STC analyses.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:28.040420Z"
+  "downloaded_at": "2026-01-06T09:04:28.040420Z",
+  "dir_name": "stc-methodology"
 }

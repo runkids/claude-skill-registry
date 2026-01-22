@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Detects data integrity issues including orphaned records, broken foreign key relationships, constraint violations, and provides automated fix migrations. Use for \"data integrity\", \"orphaned records\", ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:07.574657Z"
+  "downloaded_at": "2026-01-06T09:01:07.574657Z",
+  "dir_name": "data-integrity-auditor"
 }

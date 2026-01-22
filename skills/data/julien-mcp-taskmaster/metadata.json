@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Install TaskMaster AI MCP for task management. Use when user needs AI-powered project task breakdown.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:55.577249Z"
+  "downloaded_at": "2026-01-06T09:08:55.577249Z",
+  "dir_name": "julien-mcp-taskmaster"
 }

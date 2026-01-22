@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Initial reconnaissance on binaries including checksec, file analysis, strings, and symbols. First step for any new target.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:53.789668Z"
+  "downloaded_at": "2026-01-06T09:03:53.789668Z",
+  "dir_name": "binary-reconnaissance"
 }

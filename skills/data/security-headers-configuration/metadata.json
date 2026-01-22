@@ -8,5 +8,6 @@
     "headers",
     "configuration"
   ],
-  "stars": 25
+  "stars": 25,
+  "dir_name": "security-headers-configuration"
 }

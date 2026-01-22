@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Learning Rate Scheduler - Auto-activating skill for ML Training.Triggers on: learning rate scheduler, learning rate schedulerPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:58.881656Z"
+  "downloaded_at": "2026-01-06T08:55:58.881656Z",
+  "dir_name": "learning-rate-scheduler"
 }

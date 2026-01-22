@@ -2,7 +2,8 @@
   "name": "obsidian-frontmatter",
   "repo": "AlejandroIglesiasCalvo/Coddex-Obsidian-Skills",
   "category": "data",
-  "description": "Aplicar reglas consistentes de YAML frontmatter en Obsidian: un bloque, claves est\u00c3\u00a1ndar, fechas YYYY-MM-DD, tags en lista, comillas cuando proceda.",
+  "description": "Aplicar reglas consistentes de YAML frontmatter en Obsidian: un bloque, claves estÃ¡ndar, fechas YYYY-MM-DD, tags en lista, comillas cuando proceda.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:18.277384Z"
+  "downloaded_at": "2026-01-06T09:10:18.277384Z",
+  "dir_name": "obsidian-frontmatter"
 }

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Comprehensive database design tool creating complete schemas with tables, fields, indexes, and ER diagrams. Use when users request database design for any system. Generates Markdown docs, SQL scripts,",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:22.031328Z"
+  "downloaded_at": "2026-01-06T09:00:22.031328Z",
+  "dir_name": "database-designer"
 }

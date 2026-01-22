@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Gate 5: Data structures document - defines entities, relationships, and ownershipbefore database technology selection. Large Track only.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:33.398265Z"
+  "downloaded_at": "2026-01-06T08:57:33.398265Z",
+  "dir_name": "pre-dev-data-model"
 }

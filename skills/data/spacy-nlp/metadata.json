@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Industrial-strength NLP with spaCy 3.x for text processing and custom classifier training. Use when: installing spaCy, selecting models (en_core_web_sm/md/lg/trf), tokenization, POS tagging, named ent",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:51.832351Z"
+  "downloaded_at": "2026-01-06T09:10:51.832351Z",
+  "dir_name": "spacy-nlp"
 }

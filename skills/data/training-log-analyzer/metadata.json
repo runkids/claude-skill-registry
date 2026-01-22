@@ -8,5 +8,6 @@
     "log",
     "analyzer"
   ],
-  "stars": 10
+  "stars": 10,
+  "dir_name": "training-log-analyzer"
 }

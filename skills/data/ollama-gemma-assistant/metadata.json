@@ -2,7 +2,8 @@
   "name": "ollama-gemma-assistant",
   "repo": "automacoescomerciaisintegradas/PAGIA",
   "category": "data",
-  "description": "Assistente de IA local usando Ollama com modelo Gemma2 para tarefas gerais de desenvolvimento e an\u00e1lise",
+  "description": "Assistente de IA local usando Ollama com modelo Gemma2 para tarefas gerais de desenvolvimento e análise",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:06.639927Z"
+  "downloaded_at": "2026-01-06T09:04:06.639927Z",
+  "dir_name": "ollama-gemma-assistant"
 }

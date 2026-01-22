@@ -1,9 +1,0 @@
-{
-  "name": "semantic-release-tagger",
-  "description": "Use PROACTIVELY when creating releases after PR merges to main, or when user asks about versioning strategy. Automated git tagging agent that analyzes repository state, parses conventional commits, ca",
-  "repo": "cskiro/claudex",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
-}

@@ -1,0 +1,9 @@
+{
+  "name": "sca-trivy",
+  "repo": "rohunj/claude-build-workflow",
+  "path": "skills/security/sca-trivy/SKILL.md",
+  "source": "github.com/rohunj/claude-build-workflow",
+  "downloaded_at": "2026-01-22T01:56:29.171278Z",
+  "dir_name": "sca-trivy",
+  "category": "other"
+}

@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Database operations with docker-local - create, connect, backup, restore for MySQL and PostgreSQL",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:29.530311Z"
+  "downloaded_at": "2026-01-06T09:00:29.530311Z",
+  "dir_name": "docker-local-database"
 }

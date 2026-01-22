@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Use this skill when running, managing, or analyzing yanex experiments. Includes executing experiments via CLI, parameter sweeps, dependencies, querying experiment history, comparing results, and maint",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:00.965733Z"
+  "downloaded_at": "2026-01-06T09:08:00.965733Z",
+  "dir_name": "yanex-experiment-tracking"
 }

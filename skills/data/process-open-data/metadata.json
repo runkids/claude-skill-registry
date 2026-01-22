@@ -4,5 +4,6 @@
   "category": "data",
   "description": "Read the csv open data file and process to know the first 5 items by cost. Use when the user need to process the file and get the first 5 items",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:51.325375Z"
+  "downloaded_at": "2026-01-06T09:03:51.325375Z",
+  "dir_name": "process-open-data"
 }
