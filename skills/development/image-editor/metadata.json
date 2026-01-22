@@ -7,5 +7,7 @@
     "image",
     "editor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "image-editor",
+  "github_branch": "main"
 }

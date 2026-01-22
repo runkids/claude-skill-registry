@@ -5,5 +5,7 @@
   "source": "github.com/onesmartguy/next-level-real-estate",
   "downloaded_at": "2026-01-14T02:03:55.064187Z",
   "dir_name": "text-to-speech-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ai-voice-audio/skills/text-to-speech-optimization",
+  "github_branch": "main"
 }

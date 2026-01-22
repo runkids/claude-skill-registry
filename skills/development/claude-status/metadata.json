@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Check collaboration status from Codex side. Use when user says claude status, check status, or collaboration status.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:21.944776Z"
+  "downloaded_at": "2026-01-06T09:01:21.944776Z",
+  "github_path": ".codex/skills/claude-status",
+  "github_branch": "main"
 }

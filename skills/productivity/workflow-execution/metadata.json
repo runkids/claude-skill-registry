@@ -7,5 +7,7 @@
     "workflow",
     "execution"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/workflow-execution",
+  "github_branch": "main"
 }

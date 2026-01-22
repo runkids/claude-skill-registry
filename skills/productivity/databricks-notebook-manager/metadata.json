@@ -8,5 +8,7 @@
     "notebook",
     "manager"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/databricks-notebook-manager",
+  "github_branch": "main"
 }

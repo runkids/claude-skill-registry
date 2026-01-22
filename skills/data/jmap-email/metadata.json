@@ -8,5 +8,7 @@
     "email"
   ],
   "stars": 3,
-  "dir_name": "jmap-email"
+  "dir_name": "jmap-email",
+  "github_path": "skills/jmap-email",
+  "github_branch": "main"
 }

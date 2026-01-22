@@ -7,5 +7,7 @@
     "test",
     "master"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/test-master",
+  "github_branch": "main"
 }

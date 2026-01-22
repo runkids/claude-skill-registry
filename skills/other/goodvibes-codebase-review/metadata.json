@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:20.835129Z",
   "dir_name": "goodvibes-codebase-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/goodvibes-codebase-review",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ingpoc/SKILLS",
   "downloaded_at": "2026-01-22T02:39:35.220904Z",
   "dir_name": "full-stack-debugger",
-  "category": "other"
+  "category": "other",
+  "github_path": "full-stack-debugger",
+  "github_branch": "main"
 }

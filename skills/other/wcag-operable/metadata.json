@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:44.937344Z",
   "dir_name": "wcag-operable",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/accessibility/wcag-operable",
+  "github_branch": "main"
 }

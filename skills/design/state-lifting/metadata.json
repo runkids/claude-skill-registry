@@ -2,7 +2,9 @@
   "name": "state-lifting",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "React\u306b\u304a\u3051\u308b\u72b6\u614b\u30ea\u30d5\u30c6\u30a3\u30f3\u30b0\u3068\u72b6\u614b\u914d\u7f6e\u5224\u65ad\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002\u5144\u5f1f\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u9593\u306e\u72b6\u614b\u5171\u6709\u3001Prop Drilling\u524a\u6e1b\u3001Context\u5c0e\u5165\u5224\u65ad\u3001Compound Component\u30d1\u30bf\u30fc\u30f3\u307e\u3067\u3001React\u72b6\u614b\u7ba1\u7406\u306e\u5168\u4f53\u50cf\u3092\u6271\u3046\u3002Anchors:\u2022 React Documentation (Lifting State Up) / \u9069\u7528: \u5171\u6709\u72b6\u614b\u306e\u914d\u7f6e\u5224\u65ad / \u76ee\u7684: \u6700\u5c0f\u8cac\u52d9\u3067\u306e\u5171\u6709\u8a2d\u8a08",
+  "description": "Reactにおける状態リフティングと状態配置判断を支援するスキル。兄弟コンポーネント間の状態共有、Prop Drilling削減、Context導入判断、Compound Componentパターンまで、React状態管理の全体像を扱う。Anchors:• React Documentation (Lifting State Up) / 適用: 共有状態の配置判断 / 目的: 最小責務での共有設計",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.172741Z"
+  "downloaded_at": "2026-01-06T09:00:45.172741Z",
+  "github_path": "docs/99-claude/skills/state-lifting",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "vite",
     "expert"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "react-vite-expert",
+  "github_branch": "main"
 }

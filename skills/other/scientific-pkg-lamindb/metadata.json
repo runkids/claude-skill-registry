@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:28.778644Z",
   "dir_name": "scientific-pkg-lamindb",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-pkg-lamindb",
+  "github_branch": "main"
 }

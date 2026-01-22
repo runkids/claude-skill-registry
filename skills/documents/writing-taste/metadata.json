@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Write clear, intentional documents with minimal patchy phrasing and strong structural discipline.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:33.114655Z"
+  "downloaded_at": "2026-01-06T09:10:33.114655Z",
+  "github_path": ".agents/skills/writing-taste",
+  "github_branch": "main"
 }

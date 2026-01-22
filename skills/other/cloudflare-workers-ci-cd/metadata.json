@@ -5,5 +5,7 @@
   "source": "github.com/secondsky/claude-skills",
   "downloaded_at": "2026-01-17T03:58:33.494918Z",
   "dir_name": "cloudflare-workers-ci-cd",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/cloudflare-workers/skills/cloudflare-workers-ci-cd",
+  "github_branch": "main"
 }

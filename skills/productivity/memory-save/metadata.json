@@ -7,5 +7,7 @@
     "memory",
     "save"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/memory-save",
+  "github_branch": "main"
 }

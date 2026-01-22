@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Manage kanban boards using the Kan CLI. Use when working with tasks, cards, boards, columns, or project tracking via the kan command.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:38.701877Z"
+  "downloaded_at": "2026-01-06T09:10:38.701877Z",
+  "github_path": "extras/claude-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:34.375806Z",
   "dir_name": "ansible-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ansible-workflow",
+  "github_branch": "main"
 }

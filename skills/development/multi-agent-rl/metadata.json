@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Master QMIX, MADDPG, CTDE - multi-agent learning with coordination and credit assignment",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:41.514755Z"
+  "downloaded_at": "2026-01-06T09:08:41.514755Z",
+  "github_path": ".claude/skills/yzmir-deep-rl/skills/multi-agent-rl",
+  "github_branch": "main"
 }

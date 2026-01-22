@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use to package upsell, cross-sell, and advocacy motions tied to customer outcomes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:19.975876Z"
+  "downloaded_at": "2026-01-06T08:57:19.975876Z",
+  "github_path": "plugins/account-management/skills/expansion-playbook",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pcortes/swarm-attack",
   "downloaded_at": "2026-01-22T01:17:42.625730Z",
   "dir_name": "issue-splitter",
-  "category": "other"
+  "category": "other",
+  "github_path": "swarm_attack/skills/issue-splitter",
+  "github_branch": "main"
 }

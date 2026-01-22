@@ -5,5 +5,7 @@
   "source": "github.com/Tony363/SuperClaude",
   "downloaded_at": "2026-01-22T01:21:08.759765Z",
   "dir_name": "agent-python-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/DEPRECATED/agent-python-pro",
+  "github_branch": "main"
 }

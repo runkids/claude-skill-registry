@@ -5,5 +5,7 @@
   "description": "Dbt Model Generator - Auto-activating skill for Data Pipelines.Triggers on: dbt model generator, dbt model generatorPart of the Data Pipelines skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:58.901803Z",
-  "dir_name": "dbt-model-generator"
+  "dir_name": "dbt-model-generator",
+  "github_path": "planned-skills/generated/11-data-pipelines/dbt-model-generator",
+  "github_branch": "main"
 }

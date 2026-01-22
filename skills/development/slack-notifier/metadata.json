@@ -2,7 +2,9 @@
   "name": "slack-notifier",
   "repo": "knishioka/machine-learning-workshop",
   "category": "development",
-  "description": "Slack\u30c1\u30e3\u30f3\u30cd\u30eb\u306b\u30d5\u30a9\u30fc\u30de\u30c3\u30c8\u6e08\u307f\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u9001\u4fe1\u3059\u308bSkill\u3002\u300cSlack\u306b\u901a\u77e5\u3057\u3066\u300d\u300c\u30c1\u30fc\u30e0\u306b\u9023\u7d61\u3057\u3066\u300d\u300c#channel\u306b\u6295\u7a3f\u3057\u3066\u300d\u306a\u3069\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u81ea\u52d5\u767a\u706b\u3059\u308b\u3002MCP\u9023\u643a\uff08\u30d5\u30ebAPI\uff09\u3068Webhook\u30d5\u30a9\u30fc\u30eb\u30d0\u30c3\u30af\uff08\u9001\u4fe1\u306e\u307f\uff09\u306e\u4e21\u65b9\u306b\u5bfe\u5fdc\u3002",
+  "description": "Slackチャンネルにフォーマット済みメッセージを送信するSkill。「Slackに通知して」「チームに連絡して」「#channelに投稿して」などのリクエストで自動発火する。MCP連携（フルAPI）とWebhookフォールバック（送信のみ）の両方に対応。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:56.752211Z"
+  "downloaded_at": "2026-01-06T08:58:56.752211Z",
+  "github_path": "claude-skills/slack-notifier",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-safety"
+  "dir_name": "agent-safety",
+  "github_path": "skills/agent-safety",
+  "github_branch": "main"
 }

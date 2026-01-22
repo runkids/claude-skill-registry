@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:48.338035Z",
   "dir_name": "venv-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/frameworks/sdlc-complete/extensions/python/skills/venv-manager",
+  "github_branch": "main"
 }

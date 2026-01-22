@@ -9,5 +9,7 @@
     "skill"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/amplifier-cli-skill",
+  "github_branch": "main"
 }

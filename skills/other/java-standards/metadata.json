@@ -5,5 +5,7 @@
   "source": "github.com/bitsoex/bitso-java",
   "downloaded_at": "2026-01-22T02:30:41.208108Z",
   "dir_name": "java-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/java-standards",
+  "github_branch": "main"
 }

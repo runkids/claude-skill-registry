@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:39.881215Z",
   "dir_name": "spec-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave/skills/spec-generator",
+  "github_branch": "main"
 }

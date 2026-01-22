@@ -7,5 +7,7 @@
     "update",
     "changelog"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/update-changelog",
+  "github_branch": "main"
 }

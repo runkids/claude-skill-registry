@@ -7,5 +7,7 @@
     "typescript",
     "pro"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/typescript-pro",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Test game mechanics via SQL. Use game_* tools for gameplay flow.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:59.896698Z"
+  "downloaded_at": "2026-01-06T09:04:59.896698Z",
+  "github_path": ".opencode/skills/gameplay-sql",
+  "github_branch": "main"
 }

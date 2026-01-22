@@ -8,5 +8,7 @@
     "brief",
     "generator"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/content-brief-generator",
+  "github_branch": "main"
 }

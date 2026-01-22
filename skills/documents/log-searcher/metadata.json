@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Searches logs by content keywords, patterns, and filters with context extraction",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:59.430714Z"
+  "downloaded_at": "2026-01-06T09:01:59.430714Z",
+  "github_path": "plugins/logs/skills/log-searcher",
+  "github_branch": "main"
 }

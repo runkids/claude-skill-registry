@@ -7,5 +7,7 @@
     "security",
     "audit"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/security-audit",
+  "github_branch": "main"
 }

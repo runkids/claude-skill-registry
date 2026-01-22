@@ -5,5 +5,7 @@
   "source": "github.com/umbraco/Umbraco-CMS-Backoffice-Skills",
   "downloaded_at": "2026-01-20T01:19:20.218040Z",
   "dir_name": "umbraco-monaco-markdown-editor-action",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/umbraco-backoffice-skills/skills/umbraco-monaco-markdown-editor-action",
+  "github_branch": "main"
 }

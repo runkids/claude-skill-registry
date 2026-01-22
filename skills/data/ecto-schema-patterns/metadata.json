@@ -5,5 +5,7 @@
   "description": "Use when defining data structures using Ecto schemas including fields, associations, embedded schemas, and schema metadata. Use for modeling domain data in Elixir applications.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:02.693807Z",
-  "dir_name": "ecto-schema-patterns"
+  "dir_name": "ecto-schema-patterns",
+  "github_path": "jutsu/jutsu-ecto/skills/ecto-schema-patterns",
+  "github_branch": "main"
 }

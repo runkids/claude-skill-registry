@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-competitive-analyst"
+  "dir_name": "agent-competitive-analyst",
+  "github_path": ".claude/skills/DEPRECATED/agent-competitive-analyst",
+  "github_branch": "main"
 }

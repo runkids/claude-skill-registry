@@ -5,5 +5,7 @@
   "source": "github.com/osoleve/the-fold",
   "downloaded_at": "2026-01-21T01:32:25.650515Z",
   "dir_name": "paren-debug",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/paren-debug",
+  "github_branch": "main"
 }

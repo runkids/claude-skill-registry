@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive code quality validation using Solargraph, Sorbet, and Rubocop for A+ Rails code. Trigger keywords: quality gates, validation, solargraph, sorbet, rubocop, type checking, linting, code qu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:29.698463Z"
+  "downloaded_at": "2026-01-06T09:03:29.698463Z",
+  "github_path": "plugins/reactree-flutter-dev/skills/code-quality-gates",
+  "github_branch": "main"
 }

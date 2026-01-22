@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-20T02:40:50.580694Z",
   "dir_name": "system-boundaries",
-  "category": "other"
+  "category": "other",
+  "github_path": "59-architecture-decision/system-boundaries",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "serverless"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/serverless",
+  "github_branch": "main"
 }

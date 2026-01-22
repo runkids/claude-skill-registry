@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:18.690150Z",
   "dir_name": "electron-packaging",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/electron-packaging",
+  "github_branch": "main"
 }

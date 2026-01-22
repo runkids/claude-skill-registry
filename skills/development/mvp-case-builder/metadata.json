@@ -8,5 +8,7 @@
     "case",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "mvp-case-builder",
+  "github_branch": "main"
 }

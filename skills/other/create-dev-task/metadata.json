@@ -5,5 +5,7 @@
   "source": "github.com/resolve-io/.prism",
   "downloaded_at": "2026-01-14T03:09:56.469463Z",
   "dir_name": "create-dev-task",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/prism-devtools/skills/create-dev-task",
+  "github_branch": "main"
 }

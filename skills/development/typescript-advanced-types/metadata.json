@@ -8,5 +8,7 @@
     "advanced",
     "types"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/typescript-advanced-types",
+  "github_branch": "main"
 }

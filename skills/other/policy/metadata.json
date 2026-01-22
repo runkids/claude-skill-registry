@@ -5,5 +5,7 @@
   "source": "github.com/radioactive-labs/plutonium-core",
   "downloaded_at": "2026-01-19T01:04:32.537245Z",
   "dir_name": "policy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plutonium-policy",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ndif-team/skills",
   "downloaded_at": "2026-01-19T02:46:14.474535Z",
   "dir_name": "model-steering",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/nnsight/skills/model-steering",
+  "github_branch": "main"
 }

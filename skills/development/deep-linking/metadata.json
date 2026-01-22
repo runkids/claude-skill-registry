@@ -8,5 +8,7 @@
     "linking"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/mobile/deep-linking",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "pytorch",
     "onnx"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/pytorch-onnx",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "refactoring",
     "roi"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/forensic-refactoring-roi",
+  "github_branch": "main"
 }

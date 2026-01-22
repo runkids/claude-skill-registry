@@ -5,5 +5,7 @@
   "source": "github.com/ryryo/dot-claude-dev",
   "downloaded_at": "2026-01-22T03:36:28.372553Z",
   "dir_name": "feedback",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dev/feedback",
+  "github_branch": "main"
 }

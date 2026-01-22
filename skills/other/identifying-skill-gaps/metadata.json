@@ -5,5 +5,7 @@
   "source": "github.com/LandonSchropp/agent-toolkit",
   "downloaded_at": "2026-01-21T01:41:22.011808Z",
   "dir_name": "identifying-skill-gaps",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/identifying-skill-gaps",
+  "github_branch": "main"
 }

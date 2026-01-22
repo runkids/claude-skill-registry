@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Islamic and Sufi wisdom - Tawhid unity, surrender navigation, 99 Names positions, dhikr practice, fana/baqa dissolution",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:55.507087Z"
+  "downloaded_at": "2026-01-06T08:56:55.507087Z",
+  "github_path": ".claude/skills/pattern-space/wisdom/abrahamic/islam-sufism-wisdom",
+  "github_branch": "main"
 }

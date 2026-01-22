@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:36.441060Z",
   "dir_name": "godot-best-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/game-development/godot/godot-best-practices",
+  "github_branch": "main"
 }

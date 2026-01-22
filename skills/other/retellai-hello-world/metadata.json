@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:05.729774Z",
   "dir_name": "retellai-hello-world",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/retellai-pack/skills/retellai-hello-world",
+  "github_branch": "main"
 }

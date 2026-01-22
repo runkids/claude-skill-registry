@@ -8,5 +8,7 @@
     "orchestrator",
     "creator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "opencode-agents/.claude/skills/opencode-orchestrator-creator",
+  "github_branch": "main"
 }

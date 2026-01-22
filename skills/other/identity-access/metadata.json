@@ -5,5 +5,7 @@
   "source": "github.com/dralgorhythm/claude-agentic-framework",
   "downloaded_at": "2026-01-22T00:59:03.534135Z",
   "dir_name": "identity-access",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/security/identity-access",
+  "github_branch": "main"
 }

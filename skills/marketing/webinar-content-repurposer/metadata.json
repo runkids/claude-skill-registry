@@ -8,5 +8,7 @@
     "content",
     "repurposer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "webinar-content-repurposer",
+  "github_branch": "main"
 }

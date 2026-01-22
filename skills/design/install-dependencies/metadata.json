@@ -7,5 +7,7 @@
     "install",
     "dependencies"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/install-dependencies",
+  "github_branch": "main"
 }

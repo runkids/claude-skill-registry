@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Image generation prompts",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:28.491151Z"
+  "downloaded_at": "2026-01-06T09:06:28.491151Z",
+  "github_path": "google/skills/nanobanana-prompt",
+  "github_branch": "main"
 }

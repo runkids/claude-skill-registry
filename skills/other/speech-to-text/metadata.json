@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:53.897885Z",
   "dir_name": "speech-to-text",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/speech-to-text",
+  "github_branch": "main"
 }

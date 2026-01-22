@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Generate, validate, and maintain API documentation (REST/OpenAPI and GraphQL) with reproducible structure and evidence-backed confidence.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:48.214940Z"
+  "downloaded_at": "2026-01-06T08:58:48.214940Z",
+  "github_path": "skills/delivery/api-docs",
+  "github_branch": "main"
 }

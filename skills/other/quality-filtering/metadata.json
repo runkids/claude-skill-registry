@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:45.940348Z",
   "dir_name": "quality-filtering",
-  "category": "other"
+  "category": "other",
+  "github_path": "read-qc/quality-filtering",
+  "github_branch": "main"
 }

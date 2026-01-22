@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:36.757018Z",
   "dir_name": "pyopenms",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/other/scientific-pkg-pyopenms",
+  "github_branch": "main"
 }

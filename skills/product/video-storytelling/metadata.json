@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Create coherent video story sequences with AI-generated images and narrated audio.Combines image-generation and elevenlabs skills to produce complete video stories withvisual and narrative consistency",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:52.536112Z"
+  "downloaded_at": "2026-01-06T08:59:52.536112Z",
+  "github_path": "skills/creative/video-storytelling",
+  "github_branch": "main"
 }

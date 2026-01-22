@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Conduct structured implementation postmortems to gather feedback on architecture conformance, library friction, and tooling effectiveness. Use when reviewing completed implementations, PRs, or develop",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:48.100601Z"
+  "downloaded_at": "2026-01-06T09:10:48.100601Z",
+  "github_path": "skills/implementation-postmortem",
+  "github_branch": "main"
 }

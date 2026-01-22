@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:56.392492Z",
   "dir_name": "failure-modes",
-  "category": "other"
+  "category": "other",
+  "github_path": "40-system-resilience/failure-modes",
+  "github_branch": "main"
 }

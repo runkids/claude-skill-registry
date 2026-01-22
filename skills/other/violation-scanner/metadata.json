@@ -5,5 +5,7 @@
   "source": "github.com/leonj1/external-claude-skills",
   "downloaded_at": "2026-01-21T01:00:53.957725Z",
   "dir_name": "violation-scanner",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/violation-scanner",
+  "github_branch": "main"
 }

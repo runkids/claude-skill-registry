@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:26.857401Z",
   "dir_name": "wp-playground",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wp-playground",
+  "github_branch": "main"
 }

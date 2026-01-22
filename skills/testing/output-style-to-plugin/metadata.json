@@ -8,5 +8,7 @@
     "style",
     "plugin"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "output-style-to-plugin",
+  "github_branch": "main"
 }

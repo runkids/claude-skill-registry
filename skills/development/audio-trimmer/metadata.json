@@ -8,5 +8,7 @@
     "trimmer"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "audio-trimmer",
+  "github_branch": "main"
 }

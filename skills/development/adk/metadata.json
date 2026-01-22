@@ -7,5 +7,7 @@
     "adk"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "codex/skills/adk",
+  "github_branch": "main"
 }

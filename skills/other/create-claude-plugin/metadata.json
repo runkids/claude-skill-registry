@@ -5,5 +5,7 @@
   "source": "github.com/ronnycoding/.claude",
   "downloaded_at": "2026-01-22T02:57:41.964495Z",
   "dir_name": "create-claude-plugin",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/create-claude-plugin",
+  "github_branch": "main"
 }

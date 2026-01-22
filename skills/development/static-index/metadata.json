@@ -2,7 +2,9 @@
   "name": "static-index",
   "repo": "jiunbae/agent-skills",
   "category": "development",
-  "description": "\uae00\ub85c\ubc8c \uc815\uc801 \ucee8\ud14d\uc2a4\ud2b8 \ud30c\uc77c\uc758 \uc778\ub371\uc2a4\ub97c \uc81c\uacf5\ud569\ub2c8\ub2e4. \ub2e4\ub978 \uc2a4\ud0ac\uc774\ub098 \uc5d0\uc774\uc804\ud2b8\uac00 \uc815\ubcf4\ub97c \ucc3e\uc744 \ub54c \uba3c\uc800 \ucc38\uc870\ud574\uc57c \ud560 \ud30c\uc77c\uc744 \uc790\uc5f0\uc5b4 \ucffc\ub9ac\ub85c \ucc3e\uc544\uc90d\ub2c8\ub2e4. \"\ub0b4 \uc815\ubcf4\", \"\ubcf4\uc548 \uaddc\uce59\" \ub4f1\uc758 \uc694\uccad\uc5d0 \uc801\uc808\ud55c static \ud30c\uc77c \uacbd\ub85c\ub97c \ubc18\ud658\ud569\ub2c8\ub2e4.",
+  "description": "글로벌 정적 컨텍스트 파일의 인덱스를 제공합니다. 다른 스킬이나 에이전트가 정보를 찾을 때 먼저 참조해야 할 파일을 자연어 쿼리로 찾아줍니다. \"내 정보\", \"보안 규칙\" 등의 요청에 적절한 static 파일 경로를 반환합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:23.815582Z"
+  "downloaded_at": "2026-01-06T09:06:23.815582Z",
+  "github_path": "context/static-index",
+  "github_branch": "main"
 }

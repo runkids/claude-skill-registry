@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:12.693938Z",
   "dir_name": "creative-writing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/community/creative-writing",
+  "github_branch": "main"
 }

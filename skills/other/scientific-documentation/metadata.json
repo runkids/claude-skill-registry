@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:10.309733Z",
   "dir_name": "scientific-documentation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-documentation",
+  "github_branch": "main"
 }

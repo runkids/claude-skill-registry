@@ -5,5 +5,7 @@
   "source": "github.com/hgeldenhuys/claude-code-sdk",
   "downloaded_at": "2026-01-22T02:26:56.228358Z",
   "dir_name": "database-workflows",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/database-workflows",
+  "github_branch": "main"
 }

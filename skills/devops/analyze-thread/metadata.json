@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Analyze complete email thread with conversation context, timeline, participants, and attachments tracking.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:50.589609Z"
+  "downloaded_at": "2026-01-06T08:59:50.589609Z",
+  "github_path": "plugins/mail-attachment-analyzer/skills/analyze-thread",
+  "github_branch": "main"
 }

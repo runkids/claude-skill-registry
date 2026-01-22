@@ -7,5 +7,7 @@
     "langgraph",
     "architecture"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/langgraph-architecture",
+  "github_branch": "main"
 }

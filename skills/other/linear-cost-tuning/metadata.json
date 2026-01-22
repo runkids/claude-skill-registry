@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:08.743426Z",
   "dir_name": "linear-cost-tuning",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/linear-pack/skills/linear-cost-tuning",
+  "github_branch": "main"
 }

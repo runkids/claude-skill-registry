@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Integrate third-party repository history into the monorepo by adding remotes and creating workspaces. Use when testing patches to upstream projects, making local modifications to dependencies, or main",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:09.693330Z"
+  "downloaded_at": "2026-01-06T08:59:09.693330Z",
+  "github_path": ".claude/skills/jj-graft-third-party",
+  "github_branch": "main"
 }

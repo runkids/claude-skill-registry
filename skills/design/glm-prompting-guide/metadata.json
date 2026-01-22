@@ -2,7 +2,9 @@
   "name": "glm-prompting-guide",
   "repo": "m16khb/glm-ensemble",
   "category": "design",
-  "description": "GLM-4.7 \ubaa8\ub378\uc744 \ud6a8\uacfc\uc801\uc73c\ub85c \ud65c\uc6a9\ud558\ub294 \ubc29\ubc95\uc744 \uc548\ub0b4\ud569\ub2c8\ub2e4.\uc0ac\uc6a9\uc790\uac00 \"GLM \uc0ac\uc6a9\ubc95\", \"GLM \ud504\ub86c\ud504\ud2b8\", \"GLM \ucd5c\uc801\ud654\" \ub4f1\uc744 \uc9c8\ubb38\ud560 \ub54c \ud65c\uc131\ud654\ub429\ub2c8\ub2e4.",
+  "description": "GLM-4.7 모델을 효과적으로 활용하는 방법을 안내합니다.사용자가 \"GLM 사용법\", \"GLM 프롬프트\", \"GLM 최적화\" 등을 질문할 때 활성화됩니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:54.387337Z"
+  "downloaded_at": "2026-01-06T09:06:54.387337Z",
+  "github_path": "skills/glm-prompting",
+  "github_branch": "main"
 }

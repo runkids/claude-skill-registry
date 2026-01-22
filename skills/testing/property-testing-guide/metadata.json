@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Introduces property-based testing with proptest, helping users find edge cases automatically by testing invariants and properties. Activates when users test algorithms or data structures.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:25.912514Z"
+  "downloaded_at": "2026-01-06T09:05:25.912514Z",
+  "github_path": "plugins/rust-testing/skills/property-testing-guide",
+  "github_branch": "main"
 }

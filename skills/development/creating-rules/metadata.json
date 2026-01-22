@@ -2,7 +2,9 @@
   "name": "creating-rules",
   "repo": "skanehira/dotfiles",
   "category": "development",
-  "description": ".claude/rules/\u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u306b\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u306b\u6cbf\u3063\u305f\u30eb\u30fc\u30eb\u30d5\u30a1\u30a4\u30eb\uff08.md\uff09\u3092\u4f5c\u6210\u3057\u307e\u3059\u3002\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\u30eb\u30fc\u30eb\u3001\u30c6\u30b9\u30c8\u898f\u7d04\u3001\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u8981\u4ef6\u306a\u3069\u306e\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u56fa\u6709\u306e\u6307\u793a\u3092\u4f5c\u6210\u3059\u308b\u5834\u5408\u306b\u4f7f\u7528\u3057\u307e\u3059\u3002paths frontmatter\u306b\u3088\u308b\u6761\u4ef6\u4ed8\u304d\u30eb\u30fc\u30eb\u3001\u9069\u5207\u306a\u30d5\u30a1\u30a4\u30eb\u540d\u3001\u30b5\u30d6\u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u69cb\u9020\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u307e\u3059\u3002",
+  "description": ".claude/rules/ディレクトリにベストプラクティスに沿ったルールファイル（.md）を作成します。コーディングルール、テスト規約、セキュリティ要件などのプロジェクト固有の指示を作成する場合に使用します。paths frontmatterによる条件付きルール、適切なファイル名、サブディレクトリ構造をサポートします。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:50.888207Z"
+  "downloaded_at": "2026-01-06T08:56:50.888207Z",
+  "github_path": "claude/skills/creating-rules",
+  "github_branch": "main"
 }

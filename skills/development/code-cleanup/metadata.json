@@ -8,5 +8,7 @@
     "cleanup"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "essentials/skills/code-cleanup",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:23.705188Z",
   "dir_name": "config-hygiene",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/common/review/config-hygiene",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/codatta/ai-content-studio",
   "downloaded_at": "2026-01-14T01:39:32.329179Z",
   "dir_name": "lark-bot-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/lark-bot-integration",
+  "github_branch": "main"
 }

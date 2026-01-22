@@ -8,5 +8,7 @@
     "client",
     "dev"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/grpc-client-dev",
+  "github_branch": "main"
 }

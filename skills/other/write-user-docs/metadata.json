@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:39.864061Z",
   "dir_name": "write-user-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/webapp-team/skills/write-user-docs",
+  "github_branch": "main"
 }

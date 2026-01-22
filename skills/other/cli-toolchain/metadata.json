@@ -5,5 +5,7 @@
   "source": "github.com/phrazzld/claude-config",
   "downloaded_at": "2026-01-14T03:03:35.298358Z",
   "dir_name": "cli-toolchain",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cli-toolchain",
+  "github_branch": "main"
 }

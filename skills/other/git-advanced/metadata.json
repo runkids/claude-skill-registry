@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:44:00.050471Z",
   "dir_name": "git-advanced",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/devtools/git-advanced",
+  "github_branch": "main"
 }

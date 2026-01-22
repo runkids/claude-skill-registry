@@ -8,5 +8,7 @@
     "path",
     "policy"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/worktree-path-policy",
+  "github_branch": "main"
 }

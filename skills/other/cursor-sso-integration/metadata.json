@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:05.904045Z",
   "dir_name": "cursor-sso-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-sso-integration",
+  "github_branch": "main"
 }

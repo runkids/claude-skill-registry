@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:50.109471Z",
   "dir_name": "create-subagent",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/create-subagent",
+  "github_branch": "main"
 }

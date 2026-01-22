@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:57.398407Z",
   "dir_name": "security-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/security-reviewer",
+  "github_branch": "main"
 }

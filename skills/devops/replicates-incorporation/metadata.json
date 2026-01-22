@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "This skill manages experimental reproducibility, pooling, and consensus strategies. This skill operates in two distinct modes based on the input state. (1) Pre-Peak Calling (BAM Mode): It merges all B",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.750604Z"
+  "downloaded_at": "2026-01-06T09:00:35.750604Z",
+  "github_path": "7.replicates-incorporation",
+  "github_branch": "main"
 }

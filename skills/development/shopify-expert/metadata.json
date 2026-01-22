@@ -7,5 +7,7 @@
     "shopify",
     "expert"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/shopify-expert",
+  "github_branch": "main"
 }

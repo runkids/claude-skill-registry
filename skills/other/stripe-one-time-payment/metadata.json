@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.988291Z",
   "dir_name": "stripe-one-time-payment",
-  "category": "other"
+  "category": "other",
+  "github_path": "stripe-one-time-payment",
+  "github_branch": "main"
 }

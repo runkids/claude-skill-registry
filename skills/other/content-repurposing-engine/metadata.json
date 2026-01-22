@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:39.314287Z",
   "dir_name": "content-repurposing-engine",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/content-repurposing-engine",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:07.211317Z",
   "dir_name": "apollo-security-basics",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/apollo-pack/skills/apollo-security-basics",
+  "github_branch": "main"
 }

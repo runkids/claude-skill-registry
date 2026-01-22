@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Generate and manage text embeddings for semantic search, clustering, and similarity tasks",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:20.395528Z"
+  "downloaded_at": "2026-01-08T03:29:20.395528Z",
+  "github_path": "skills/embedding-generator",
+  "github_branch": "main"
 }

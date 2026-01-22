@@ -2,7 +2,9 @@
   "name": "unity-editor-toolkit",
   "repo": "Dev-GOM/claude-code-marketplace",
   "category": "testing",
-  "description": "Unity Editor control and automation, WebSocket-based real-time communication. \uc720\ub2c8\ud2f0\uc5d0\ub514\ud130\uc81c\uc5b4\ubc0f\uc790\ub3d9\ud654, WebSocket\uae30\ubc18\uc2e4\uc2dc\uac04\ud1b5\uc2e0.Features/\uae30\ub2a5: GameObject control \uac8c\uc784\uc624\ube0c\uc81d\ud2b8\uc81c\uc5b4, Transform manipulation \ud2b8\ub79c\uc2a4\ud3fc\uc870\uc791, Component manageme",
+  "description": "Unity Editor control and automation, WebSocket-based real-time communication. 유니티에디터제어및자동화, WebSocket기반실시간통신.Features/기능: GameObject control 게임오브젝트제어, Transform manipulation 트랜스폼조작, Component manageme",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:29.840901Z"
+  "downloaded_at": "2026-01-06T08:57:29.840901Z",
+  "github_path": "plugins/unity-editor-toolkit/skills",
+  "github_branch": "main"
 }

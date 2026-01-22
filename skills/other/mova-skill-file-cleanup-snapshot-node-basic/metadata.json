@@ -5,5 +5,7 @@
   "source": "github.com/Leryk1981/mova_wf_cycle",
   "downloaded_at": "2026-01-22T02:33:26.948157Z",
   "dir_name": "mova-skill-file-cleanup-snapshot-node-basic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/mova_skill_file_cleanup_snapshot_node_basic",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "testing",
     "patterns"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/testing-patterns",
+  "github_branch": "main"
 }

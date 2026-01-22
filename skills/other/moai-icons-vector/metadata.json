@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:18.742686Z",
   "dir_name": "moai-icons-vector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-icons-vector",
+  "github_branch": "main"
 }

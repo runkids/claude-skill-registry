@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when configuring Dialyzer for Erlang/Elixir type checking and static analysis.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:02.566892Z"
+  "downloaded_at": "2026-01-06T08:57:02.566892Z",
+  "github_path": "jutsu/jutsu-dialyzer/skills/dialyzer-configuration",
+  "github_branch": "main"
 }

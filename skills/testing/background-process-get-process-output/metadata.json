@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "To read logs from a managed background process, fetch recent output (head or tail) for a process so you can inspect its stdout/stderr.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:13.241959Z"
+  "downloaded_at": "2026-01-06T08:59:13.241959Z",
+  "github_path": "dev-swarm/mcp-skills/background-process-get-process-output",
+  "github_branch": "main"
 }

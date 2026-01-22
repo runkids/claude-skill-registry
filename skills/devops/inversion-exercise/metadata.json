@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Flip core assumptions to reveal hidden constraints and alternative approaches - \"what if the opposite were true?\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:42.309326Z"
+  "downloaded_at": "2026-01-06T08:55:42.309326Z",
+  "github_path": ".claude/skills/problem-solving/inversion-exercise",
+  "github_branch": "main"
 }

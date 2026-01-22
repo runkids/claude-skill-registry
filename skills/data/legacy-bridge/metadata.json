@@ -8,5 +8,7 @@
     "bridge"
   ],
   "stars": 11,
-  "dir_name": "legacy-bridge"
+  "dir_name": "legacy-bridge",
+  "github_path": "skills/legacy-bridge",
+  "github_branch": "main"
 }

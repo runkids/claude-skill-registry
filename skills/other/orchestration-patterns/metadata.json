@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:22.461167Z",
   "dir_name": "orchestration-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/orchestrate-complex/skills/orchestration-patterns",
+  "github_branch": "main"
 }

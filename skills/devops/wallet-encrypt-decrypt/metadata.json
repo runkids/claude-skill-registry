@@ -8,5 +8,7 @@
     "encrypt",
     "decrypt"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/wallet-encrypt-decrypt",
+  "github_branch": "main"
 }

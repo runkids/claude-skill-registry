@@ -8,5 +8,7 @@
     "linter"
   ],
   "stars": 12,
-  "dir_name": "skill-linter"
+  "dir_name": "skill-linter",
+  "github_path": ".claude/skills/skill-linter",
+  "github_branch": "main"
 }

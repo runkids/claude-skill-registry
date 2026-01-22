@@ -8,5 +8,7 @@
     "question",
     "refiner"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/research-question-refiner",
+  "github_branch": "main"
 }

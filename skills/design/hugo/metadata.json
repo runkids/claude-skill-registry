@@ -6,5 +6,7 @@
   "tags": [
     "hugo"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/hugo",
+  "github_branch": "main"
 }

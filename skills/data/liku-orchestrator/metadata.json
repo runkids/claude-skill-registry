@@ -8,5 +8,7 @@
     "orchestrator"
   ],
   "stars": 0,
-  "dir_name": "liku-orchestrator"
+  "dir_name": "liku-orchestrator",
+  "github_path": "skills/liku-orchestrator",
+  "github_branch": "main"
 }

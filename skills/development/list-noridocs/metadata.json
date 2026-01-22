@@ -4,5 +4,7 @@
   "category": "development",
   "description": "List all server-side noridocs, optionally filtered by repository and/or path prefix.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:51.363605Z"
+  "downloaded_at": "2026-01-06T08:56:51.363605Z",
+  "github_path": "src/cli/features/claude-code/profiles/config/documenter/skills/paid-list-noridocs",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Complete Figma design extraction for pixel-perfect implementation.Extracts design tokens, component specs, layouts, and responsive behavior systematically.Use when user provides Figma design:- Figma U",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:30.368349Z"
+  "downloaded_at": "2026-01-06T09:07:30.368349Z",
+  "github_path": ".opencode/skill/figma-design-extraction",
+  "github_branch": "main"
 }

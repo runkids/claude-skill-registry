@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "gemini-image-generator"
+  "dir_name": "gemini-image-generator",
+  "github_path": ".claude/skills/gemini-image-generator",
+  "github_branch": "main"
 }

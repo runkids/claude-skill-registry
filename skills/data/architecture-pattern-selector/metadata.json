@@ -10,5 +10,7 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "architecture-pattern-selector"
+  "dir_name": "architecture-pattern-selector",
+  "github_path": "skills/architecture-pattern-selector",
+  "github_branch": "main"
 }

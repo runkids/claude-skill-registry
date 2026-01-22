@@ -9,5 +9,7 @@
     "calibration"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/bayesian-reasoning-calibration",
+  "github_branch": "main"
 }

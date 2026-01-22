@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:47:59.867612Z",
   "dir_name": "ast-injection",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/ast_injection",
+  "github_branch": "main"
 }

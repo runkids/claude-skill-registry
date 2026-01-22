@@ -8,5 +8,7 @@
     "sdk"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "apify-js-sdk",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:12.715226Z",
   "dir_name": "message-deleter",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-slack/skills/message-deleter",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Use when starting any conversation - establishes mandatory workflows for finding and using skill-set plugins",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:30.783423Z"
+  "downloaded_at": "2026-01-06T09:05:30.783423Z",
+  "github_path": "plugins/skill-set/skills/using-skill-set",
+  "github_branch": "main"
 }

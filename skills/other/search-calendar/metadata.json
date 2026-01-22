@@ -5,5 +5,7 @@
   "source": "github.com/christopheryeo/claude-skills",
   "downloaded_at": "2026-01-19T01:03:18.623055Z",
   "dir_name": "search-calendar",
-  "category": "other"
+  "category": "other",
+  "github_path": "search-calendar",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "project",
     "documentation"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-project-documentation",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "meta"
   ],
   "stars": 0,
-  "dir_name": "splatoon3-meta"
+  "dir_name": "splatoon3-meta",
+  "github_path": ".claude/skills/splatoon3-meta",
+  "github_branch": "main"
 }

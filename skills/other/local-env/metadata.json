@@ -5,5 +5,7 @@
   "source": "github.com/dailydotdev/daily-api",
   "downloaded_at": "2026-01-22T02:33:46.562467Z",
   "dir_name": "local-env",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/local-env",
+  "github_branch": "main"
 }

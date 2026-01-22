@@ -7,5 +7,7 @@
     "sdd",
     "update"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/sdd-update",
+  "github_branch": "main"
 }

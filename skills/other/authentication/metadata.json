@@ -5,5 +5,7 @@
   "source": "github.com/SHAJAR5110/Hackathon-II-phase2",
   "downloaded_at": "2026-01-14T04:08:29.821729Z",
   "dir_name": "authentication",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/Authentication",
+  "github_branch": "main"
 }

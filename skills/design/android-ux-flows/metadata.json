@@ -8,5 +8,7 @@
     "flows"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/android-ux-flows",
+  "github_branch": "main"
 }

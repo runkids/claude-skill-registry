@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Systematic troubleshooting for MCP tools including installation issues, runtime errors, config problems, and debugging strategies. Use when MCP tools not working, debugging errors, or helping users...",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:18.394678Z"
+  "downloaded_at": "2026-01-06T09:06:18.394678Z",
+  "github_path": "starter-kit/template/.claude/skills/mcp-troubleshooting",
+  "github_branch": "main"
 }

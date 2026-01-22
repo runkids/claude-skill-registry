@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Wine expert for pairing, tasting, regions, and building a wine collection",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:19.397289Z"
+  "downloaded_at": "2026-01-06T09:00:19.397289Z",
+  "github_path": "skills/culinary/wine-sommelier-assistant",
+  "github_branch": "main"
 }

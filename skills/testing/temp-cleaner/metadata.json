@@ -2,7 +2,9 @@
   "name": "temp-cleaner",
   "repo": "u9401066/copilot-capability-manager",
   "category": "testing",
-  "description": "Clean temporary files, caches, and build artifacts.LOAD THIS SKILL WHEN: User says \"\u6e05\u7406\", \"clean\", \"\u522a\u9664\u66ab\u5b58\", \"\u6e05\u9664\u5feb\u53d6\" | disk space issues | before archiving | end of workflow.CAPABILITIES: Python cache (__",
+  "description": "Clean temporary files, caches, and build artifacts.LOAD THIS SKILL WHEN: User says \"清理\", \"clean\", \"刪除暫存\", \"清除快取\" | disk space issues | before archiving | end of workflow.CAPABILITIES: Python cache (__",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:16.425130Z"
+  "downloaded_at": "2026-01-06T09:09:16.425130Z",
+  "github_path": ".claude/skills/temp-cleaner",
+  "github_branch": "main"
 }

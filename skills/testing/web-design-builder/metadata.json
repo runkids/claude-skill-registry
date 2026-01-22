@@ -8,5 +8,7 @@
     "design",
     "builder"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "web-design-builder",
+  "github_branch": "main"
 }

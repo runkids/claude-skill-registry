@@ -5,5 +5,7 @@
   "source": "github.com/agentuity/sdk-explorer",
   "downloaded_at": "2026-01-22T03:37:17.332365Z",
   "dir_name": "agentuity-cli-cloud-db-delete",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/agentuity-cli-cloud-db-delete",
+  "github_branch": "main"
 }

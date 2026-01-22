@@ -9,5 +9,7 @@
     "development"
   ],
   "stars": 40,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/aws-cdk/skills/aws-cdk-development",
+  "github_branch": "main"
 }

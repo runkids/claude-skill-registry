@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:07.133390Z",
   "dir_name": "gatsby-ecommerce-netlify",
-  "category": "other"
+  "category": "other",
+  "github_path": "gatsby-ecommerce-netlify",
+  "github_branch": "main"
 }

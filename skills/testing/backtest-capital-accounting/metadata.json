@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Critical fix for backtest capital accounting when equity curves are inflated or drawdown metrics are meaningless",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:54.621215Z"
+  "downloaded_at": "2026-01-06T09:09:54.621215Z",
+  "github_path": "plugins/trading/backtest-capital-accounting/skills/backtest-capital-accounting",
+  "github_branch": "main"
 }

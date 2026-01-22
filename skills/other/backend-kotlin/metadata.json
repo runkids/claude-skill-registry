@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:26.017616Z",
   "dir_name": "backend-kotlin",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/backend-kotlin",
+  "github_branch": "main"
 }

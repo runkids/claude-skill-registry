@@ -8,5 +8,7 @@
     "documentation"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/deployment-documentation",
+  "github_branch": "main"
 }

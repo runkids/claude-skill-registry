@@ -8,5 +8,7 @@
     "tracker"
   ],
   "stars": 1,
-  "dir_name": "word-tracker"
+  "dir_name": "word-tracker",
+  "github_path": "skills/word-tracker",
+  "github_branch": "main"
 }

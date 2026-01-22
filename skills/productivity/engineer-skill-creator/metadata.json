@@ -9,5 +9,7 @@
     "creator"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/engineer-skill-creator",
+  "github_branch": "main"
 }

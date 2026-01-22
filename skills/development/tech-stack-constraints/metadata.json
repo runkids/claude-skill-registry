@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Validate code and configurations against the allowed technology stack per constitution. Use when writing platform code, selecting libraries, or checking framework compliance.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:43.928926Z"
+  "downloaded_at": "2026-01-06T09:09:43.928926Z",
+  "github_path": ".claude/skills/tech-stack-constraints",
+  "github_branch": "main"
 }

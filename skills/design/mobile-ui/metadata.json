@@ -6,5 +6,7 @@
   "tags": [
     "mobile"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/mobile/mobile-ui",
+  "github_branch": "main"
 }

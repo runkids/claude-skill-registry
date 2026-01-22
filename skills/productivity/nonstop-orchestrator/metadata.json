@@ -7,5 +7,7 @@
     "nonstop",
     "orchestrator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/nonstop-orchestrator",
+  "github_branch": "main"
 }

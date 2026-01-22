@@ -7,5 +7,7 @@
     "keyword",
     "extractor"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "keyword-extractor",
+  "github_branch": "main"
 }

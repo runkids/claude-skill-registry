@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:12.863427Z",
   "dir_name": "postfx-composer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/postfx-composer",
+  "github_branch": "main"
 }

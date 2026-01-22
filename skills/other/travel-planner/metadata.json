@@ -5,5 +5,7 @@
   "source": "github.com/merllinsbeard/ai-claude-skills-collection",
   "downloaded_at": "2026-01-22T02:21:01.113653Z",
   "dir_name": "travel-planner",
-  "category": "other"
+  "category": "other",
+  "github_path": "meta/travel-planner",
+  "github_branch": "main"
 }

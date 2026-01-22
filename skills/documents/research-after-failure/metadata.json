@@ -8,5 +8,7 @@
     "after",
     "failure"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/research-after-failure",
+  "github_branch": "main"
 }

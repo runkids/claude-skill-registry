@@ -5,5 +5,7 @@
   "source": "github.com/Brownbull/khujta_ai_business",
   "downloaded_at": "2026-01-22T02:52:28.748672Z",
   "dir_name": "refiner",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/refiner",
+  "github_branch": "main"
 }

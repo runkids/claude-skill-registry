@@ -2,7 +2,9 @@
   "name": "interface-segregation",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "SOLID\u539f\u5247\u306e\u30a4\u30f3\u30bf\u30fc\u30d5\u30a7\u30fc\u30b9\u5206\u96e2\u539f\u5247\uff08ISP\uff09\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u304c\u4f7f\u7528\u3057\u306a\u3044\u30e1\u30bd\u30c3\u30c9\u3078\u306e\u4f9d\u5b58\u3092\u5f37\u5236\u3057\u306a\u3044\u8a2d\u8a08\u3092\u5b9f\u73fe\u3059\u308b\u3002Anchors:\u2022 \u300e\u30a2\u30b8\u30e3\u30a4\u30eb\u30bd\u30d5\u30c8\u30a6\u30a7\u30a2\u958b\u767a\u306e\u5965\u7fa9\u300f\uff08Robert C. Martin\uff09 / \u9069\u7528: ISP\u539f\u5247\u306e\u5b9a\u7fa9\u3068\u5b9f\u8df5 / \u76ee\u7684: \u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u56fa\u6709\u30a4\u30f3\u30bf\u30fc\u30d5\u30a7\u30fc\u30b9\u8a2d\u8a08\u2022 \u300eRefactoring\u300f\uff08Martin Fowler\uff09 / \u9069\u7528: Extra",
+  "description": "SOLID原則のインターフェース分離原則（ISP）を専門とするスキル。クライアントが使用しないメソッドへの依存を強制しない設計を実現する。Anchors:• 『アジャイルソフトウェア開発の奥義』（Robert C. Martin） / 適用: ISP原則の定義と実践 / 目的: クライアント固有インターフェース設計• 『Refactoring』（Martin Fowler） / 適用: Extra",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.950939Z"
+  "downloaded_at": "2026-01-06T09:00:42.950939Z",
+  "github_path": "docs/99-claude/skills/interface-segregation",
+  "github_branch": "main"
 }

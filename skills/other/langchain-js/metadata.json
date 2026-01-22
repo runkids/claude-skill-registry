@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:21.940367Z",
   "dir_name": "langchain-js",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/webdev/skills/langchain-js",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when saving current iteration progress mid-conversation, before context compaction, or at interim pause points",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:35.527501Z"
+  "downloaded_at": "2026-01-06T09:03:35.527501Z",
+  "github_path": "plugins/autonomy/skills/checkpointing-an-iteration",
+  "github_branch": "main"
 }

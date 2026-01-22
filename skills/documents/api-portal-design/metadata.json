@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "API documentation and developer portal design",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:05.409364Z"
+  "downloaded_at": "2026-01-06T09:00:05.409364Z",
+  "github_path": "plugins/documentation-standards/skills/api-portal-design",
+  "github_branch": "main"
 }

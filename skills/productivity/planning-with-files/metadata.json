@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Transforms workflow to use Manus-style persistent markdown files for planning, progress tracking, and knowledge storage. Use when starting complex tasks, multi-step projects, research tasks, or when t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:16.445805Z"
+  "downloaded_at": "2026-01-06T08:56:16.445805Z",
+  "github_path": ".cursor/skills/planning-with-files",
+  "github_branch": "main"
 }

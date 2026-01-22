@@ -5,5 +5,7 @@
   "source": "github.com/agentgptsmith/MonadFramework",
   "downloaded_at": "2026-01-22T02:09:27.509035Z",
   "dir_name": "iteration-05",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/multiplicity/iteration_05",
+  "github_branch": "main"
 }

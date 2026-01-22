@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Evaluates PopKit user experience using concrete heuristics for command naming, error messages, and interaction patterns",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:54.039781Z"
+  "downloaded_at": "2026-01-06T09:09:54.039781Z",
+  "github_path": "packages/popkit-ops/skills/pop-assessment-ux",
+  "github_branch": "main"
 }

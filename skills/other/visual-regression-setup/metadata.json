@@ -5,5 +5,7 @@
   "source": "github.com/Dexploarer/hyper-forge",
   "downloaded_at": "2026-01-22T01:08:15.625399Z",
   "dir_name": "visual-regression-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/visual-regression-setup",
+  "github_branch": "main"
 }

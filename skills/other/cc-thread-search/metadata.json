@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:50.895040Z",
   "dir_name": "cc-thread-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/cc-thread-search",
+  "github_branch": "main"
 }

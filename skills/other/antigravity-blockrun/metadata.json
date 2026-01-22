@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:53.477620Z",
   "dir_name": "antigravity-blockrun",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-blockrun",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/daispacy/py-claude-marketplace",
   "downloaded_at": "2026-01-22T02:43:14.818780Z",
   "dir_name": "rxswift-memory-check",
-  "category": "other"
+  "category": "other",
+  "github_path": "py-plugin/skills/rxswift-memory-check",
+  "github_branch": "main"
 }

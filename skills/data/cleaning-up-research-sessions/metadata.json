@@ -5,5 +5,7 @@
   "description": "Safely remove intermediate files from completed research sessions while preserving important data",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:00:59.137207Z",
-  "dir_name": "cleaning-up-research-sessions"
+  "dir_name": "cleaning-up-research-sessions",
+  "github_path": "skills/research/cleaning-up-research-sessions",
+  "github_branch": "main"
 }

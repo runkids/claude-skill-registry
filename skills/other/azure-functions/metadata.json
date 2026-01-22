@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:23.321925Z",
   "dir_name": "azure-functions",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/azure-functions",
+  "github_branch": "main"
 }

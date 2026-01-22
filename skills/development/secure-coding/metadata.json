@@ -2,7 +2,9 @@
   "name": "secure-coding",
   "repo": "baz-scm/awesome-reviewers",
   "category": "development",
-  "description": "Incorporating security at every step of software development \u2013 writing code that defends against vulnerabilities and protects user data.",
+  "description": "Incorporating security at every step of software development – writing code that defends against vulnerabilities and protects user data.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:49.775893Z"
+  "downloaded_at": "2026-01-06T08:56:49.775893Z",
+  "github_path": "_skills/secure-coding",
+  "github_branch": "main"
 }

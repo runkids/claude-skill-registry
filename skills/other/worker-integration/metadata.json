@@ -5,5 +5,7 @@
   "source": "github.com/ricable/ruvector-edge",
   "downloaded_at": "2026-01-22T01:46:08.156413Z",
   "dir_name": "worker-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-flow-v3/.claude/skills/worker-integration",
+  "github_branch": "main"
 }

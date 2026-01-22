@@ -6,5 +6,7 @@
   "tags": [
     "things"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugins/things/skills/things",
+  "github_branch": "main"
 }

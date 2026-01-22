@@ -9,5 +9,7 @@
     "design"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/angular-module-design",
+  "github_branch": "main"
 }

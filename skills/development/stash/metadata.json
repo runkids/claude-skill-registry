@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Git stash + session linking",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:28.627642Z"
+  "downloaded_at": "2026-01-06T09:06:28.627642Z",
+  "github_path": "session/skills/stash",
+  "github_branch": "main"
 }

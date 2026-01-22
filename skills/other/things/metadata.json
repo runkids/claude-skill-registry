@@ -5,5 +5,7 @@
   "source": "github.com/jeffvincent/claude-config",
   "downloaded_at": "2026-01-22T02:44:49.093883Z",
   "dir_name": "things",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/things",
+  "github_branch": "main"
 }

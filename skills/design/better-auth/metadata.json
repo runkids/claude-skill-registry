@@ -8,5 +8,7 @@
     "auth"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/better-auth/skills/better-auth",
+  "github_branch": "main"
 }

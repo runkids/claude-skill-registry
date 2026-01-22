@@ -5,5 +5,7 @@
   "source": "github.com/ndif-team/skills",
   "downloaded_at": "2026-01-19T02:46:14.025226Z",
   "dir_name": "logit-lens",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/nnsight/skills/logit-lens",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "security"
   ],
   "stars": 1,
-  "dir_name": "docker-security"
+  "dir_name": "docker-security",
+  "github_path": "skills/docker-security",
+  "github_branch": "main"
 }

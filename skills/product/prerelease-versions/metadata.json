@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Alpha/beta/RC tagging patterns and GitHub pre-release workflows for managing pre-production releases. Use when creating alpha releases, beta releases, release candidates, managing pre-release branches",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:27.628573Z"
+  "downloaded_at": "2026-01-06T09:09:27.628573Z",
+  "github_path": "plugins/versioning/skills/prerelease-versions",
+  "github_branch": "main"
 }

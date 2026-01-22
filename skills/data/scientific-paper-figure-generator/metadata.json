@@ -10,5 +10,7 @@
     "generator"
   ],
   "stars": 1,
-  "dir_name": "scientific-paper-figure-generator"
+  "dir_name": "scientific-paper-figure-generator",
+  "github_path": "scientific-paper-figure-generator",
+  "github_branch": "main"
 }

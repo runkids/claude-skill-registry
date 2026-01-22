@@ -2,7 +2,9 @@
   "name": "mcp-feishu",
   "repo": "taptap/claude-plugins-marketplace",
   "category": "development",
-  "description": "\u5f53\u7528\u6237\u63d0\u4f9b\u98de\u4e66 MCP URL \u5e76\u8bf7\u6c42\u914d\u7f6e\u65f6\u89e6\u53d1\u3002\u81ea\u52a8\u540c\u65f6\u914d\u7f6e\u5230 Claude Code \u548c Cursor\uff0c\u7b80\u5316\u56e2\u961f\u6210\u5458\u7684\u73af\u5883\u8bbe\u7f6e\u6d41\u7a0b\u3002",
+  "description": "当用户提供飞书 MCP URL 并请求配置时触发。自动同时配置到 Claude Code 和 Cursor，简化团队成员的环境设置流程。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:45.280182Z"
+  "downloaded_at": "2026-01-06T09:08:45.280182Z",
+  "github_path": "plugins/sync/skills/mcp-feishu",
+  "github_branch": "main"
 }

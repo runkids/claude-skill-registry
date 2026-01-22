@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Git expert covering branching strategies, collaboration, conflict resolution, and best practices",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:21.740311Z"
+  "downloaded_at": "2026-01-06T09:00:21.740311Z",
+  "github_path": "skills/technical/git-workflow-specialist",
+  "github_branch": "main"
 }

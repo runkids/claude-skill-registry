@@ -5,5 +5,7 @@
   "source": "github.com/HaRu-LLC/ai-pm_system_notebooklmuse",
   "downloaded_at": "2026-01-22T01:39:46.818552Z",
   "dir_name": "test-report",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/pm/executing/test-report",
+  "github_branch": "main"
 }

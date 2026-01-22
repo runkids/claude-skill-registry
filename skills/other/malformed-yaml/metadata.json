@@ -5,5 +5,7 @@
   "source": "github.com/netresearch/composer-agent-skill-plugin",
   "downloaded_at": "2026-01-22T01:40:43.335283Z",
   "dir_name": "malformed-yaml",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/Fixtures/malformed-yaml",
+  "github_branch": "main"
 }

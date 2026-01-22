@@ -7,5 +7,7 @@
     "slipstream",
     "finetune"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/slipstream-finetune",
+  "github_branch": "main"
 }

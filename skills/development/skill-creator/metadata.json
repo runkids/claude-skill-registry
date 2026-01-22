@@ -8,5 +8,7 @@
     "creator"
   ],
   "stars": 54704,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "codex-rs/core/src/skills/assets/samples/skill-creator",
+  "github_branch": "main"
 }

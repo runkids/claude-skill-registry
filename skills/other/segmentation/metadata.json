@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:40.748958Z",
   "dir_name": "segmentation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/email-marketing/skills/segmentation",
+  "github_branch": "main"
 }

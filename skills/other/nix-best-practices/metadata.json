@@ -5,5 +5,7 @@
   "source": "github.com/0xBigBoss/claude-code",
   "downloaded_at": "2026-01-22T03:38:32.026731Z",
   "dir_name": "nix-best-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/nix-best-practices",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Run mjr.wtf locally using Docker Compose (SQLite), including migrations, logs, and teardown.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:00.122585Z"
+  "downloaded_at": "2026-01-06T09:07:00.122585Z",
+  "github_path": ".github/skills/docker-compose-dev",
+  "github_branch": "main"
 }

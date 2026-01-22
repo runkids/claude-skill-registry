@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/squawk",
   "downloaded_at": "2026-01-22T01:24:07.840451Z",
   "dir_name": "phase0-discovery",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/phase0-discovery",
+  "github_branch": "main"
 }

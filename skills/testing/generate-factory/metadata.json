@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Auto-generate test data factories from schemas, types, or models. Use when creating test data infrastructure, setting up fixtures, or reducing test setup boilerplate.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:57.730199Z"
+  "downloaded_at": "2026-01-06T08:56:57.730199Z",
+  "github_path": "agentic/code/addons/testing-quality/skills/generate-factory",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Systematic debugging workflow enforcing 'The Iron Law': No fixes without root cause investigation first.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:56.239844Z"
+  "downloaded_at": "2026-01-06T09:10:56.239844Z",
+  "github_path": ".agent/skills/dev-coding-debug",
+  "github_branch": "main"
 }

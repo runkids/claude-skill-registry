@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Document Merger - Auto-activating skill for Business Automation.Triggers on: document merger, document mergerPart of the Business Automation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:01.212341Z"
+  "downloaded_at": "2026-01-06T08:56:01.212341Z",
+  "github_path": "planned-skills/generated/19-business-automation/document-merger",
+  "github_branch": "main"
 }

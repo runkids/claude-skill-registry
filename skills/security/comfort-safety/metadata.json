@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Use when creating animations that reassure users, reduce anxiety, or communicate protection and security.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:16.228217Z"
+  "downloaded_at": "2026-01-06T09:05:16.228217Z",
+  "github_path": "skills/06-by-emotional-outcome/comfort-safety",
+  "github_branch": "main"
 }

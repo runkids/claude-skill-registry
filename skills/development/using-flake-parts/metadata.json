@@ -8,5 +8,7 @@
     "flake",
     "parts"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/using-flake-parts",
+  "github_branch": "main"
 }

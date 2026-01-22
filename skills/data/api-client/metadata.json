@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "api-client"
+  "dir_name": "api-client",
+  "github_path": ".claude/skills/api-client",
+  "github_branch": "main"
 }

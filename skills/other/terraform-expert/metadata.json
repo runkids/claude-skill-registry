@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:07.319152Z",
   "dir_name": "terraform-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/devops/terraform-expert",
+  "github_branch": "main"
 }

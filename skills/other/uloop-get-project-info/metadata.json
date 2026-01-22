@@ -5,5 +5,7 @@
   "source": "github.com/hatayama/uLoopMCP",
   "downloaded_at": "2026-01-20T01:32:51.454192Z",
   "dir_name": "uloop-get-project-info",
-  "category": "other"
+  "category": "other",
+  "github_path": "Packages/src/Cli~/src/skills/skill-definitions/cli-only/uloop-get-project-info",
+  "github_branch": "main"
 }

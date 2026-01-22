@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:08.626989Z",
   "dir_name": "gemini-workspace-bridge",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/google-ecosystem/skills/gemini-workspace-bridge",
+  "github_branch": "main"
 }

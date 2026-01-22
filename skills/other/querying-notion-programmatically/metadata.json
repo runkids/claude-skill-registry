@@ -5,5 +5,7 @@
   "source": "github.com/aufrank/agent-skills",
   "downloaded_at": "2026-01-17T01:01:33.460461Z",
   "dir_name": "querying-notion-programmatically",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/querying-notion-programmatically",
+  "github_branch": "main"
 }

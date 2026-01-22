@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Edge case and boundary testing patterns for unit tests. Testing minimum/maximum values, null cases, empty collections, and numeric precision. Pure JUnit 5 unit tests. Use when ensuring code handles li",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:13.601024Z"
+  "downloaded_at": "2026-01-06T08:57:13.601024Z",
+  "github_path": "skills/junit-test/unit-test-boundary-conditions",
+  "github_branch": "main"
 }

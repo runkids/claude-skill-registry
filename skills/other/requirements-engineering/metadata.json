@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:16.130163Z",
   "dir_name": "requirements-engineering",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/requirements-engineering",
+  "github_branch": "main"
 }

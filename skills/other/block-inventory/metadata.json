@@ -5,5 +5,7 @@
   "source": "github.com/aemysites/sagarsane-20250826",
   "downloaded_at": "2026-01-22T04:04:10.909478Z",
   "dir_name": "block-inventory",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/block-inventory",
+  "github_branch": "main"
 }

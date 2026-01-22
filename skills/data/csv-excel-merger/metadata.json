@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "csv-excel-merger"
+  "dir_name": "csv-excel-merger",
+  "github_path": "csv-excel-merger",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "requirements-verification",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u8981\u4ef6\u691c\u8a3c\u306e\u5c02\u9580\u30b9\u30ad\u30eb\u3002\u8981\u4ef6\u306e\u5b8c\u5168\u6027\u30fb\u4e00\u8cab\u6027\u30fb\u5b9f\u73fe\u53ef\u80fd\u6027\u30fb\u691c\u8a3c\u53ef\u80fd\u6027\u3092\u4f53\u7cfb\u7684\u306b\u8a55\u4fa1\u3057\u3001\u54c1\u8cea\u3092\u4fdd\u8a3c\u3059\u308b\u3002\u54c1\u8cea\u30c1\u30a7\u30c3\u30af\u30ea\u30b9\u30c8\u3068\u691c\u8a3c\u30b9\u30af\u30ea\u30d7\u30c8\u3092\u7528\u3044\u3066\u3001\u30ec\u30d3\u30e5\u30fc\u7d50\u679c\u306e\u6574\u7406\u3068\u6539\u5584\u63d0\u6848\u307e\u3067\u884c\u3046\u3002Anchors:\u2022 Software Requirements (Karl Wiegers) / \u9069\u7528: \u8981\u4ef6\u691c\u8a3c\u5168\u4f53 / \u76ee\u7684: \u5b8c\u5168\u6027\u30fb\u4e00\u8cab\u6027\u30fb\u5b9f\u73fe\u53ef\u80fd\u6027\u306e\u8a55\u4fa1\u2022 IEEE 830 SRS Standard / \u9069",
+  "description": "要件検証の専門スキル。要件の完全性・一貫性・実現可能性・検証可能性を体系的に評価し、品質を保証する。品質チェックリストと検証スクリプトを用いて、レビュー結果の整理と改善提案まで行う。Anchors:• Software Requirements (Karl Wiegers) / 適用: 要件検証全体 / 目的: 完全性・一貫性・実現可能性の評価• IEEE 830 SRS Standard / 適",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:44.670680Z"
+  "downloaded_at": "2026-01-06T09:00:44.670680Z",
+  "github_path": "docs/99-claude/skills/requirements-verification",
+  "github_branch": "main"
 }

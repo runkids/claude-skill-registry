@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:18.449709Z",
   "dir_name": "moai-project-language-initializer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-project-language-initializer",
+  "github_branch": "main"
 }

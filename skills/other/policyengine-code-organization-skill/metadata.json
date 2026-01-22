@@ -5,5 +5,7 @@
   "source": "github.com/PolicyEngine/policyengine-claude",
   "downloaded_at": "2026-01-22T02:32:15.896783Z",
   "dir_name": "policyengine-code-organization-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/technical-patterns/policyengine-code-organization-skill",
+  "github_branch": "main"
 }

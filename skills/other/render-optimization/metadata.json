@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-19T00:58:03.101940Z",
   "dir_name": "render-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/render-optimization",
+  "github_branch": "main"
 }

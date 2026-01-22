@@ -5,5 +5,7 @@
   "source": "github.com/mhalder/dotfiles",
   "downloaded_at": "2026-01-17T02:23:59.864171Z",
   "dir_name": "ansible-playbook",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/.claude/skills/ansible-playbook",
+  "github_branch": "main"
 }

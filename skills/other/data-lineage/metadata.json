@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:55.253233Z",
   "dir_name": "data-lineage",
-  "category": "other"
+  "category": "other",
+  "github_path": "43-data-reliability/data-lineage",
+  "github_branch": "main"
 }

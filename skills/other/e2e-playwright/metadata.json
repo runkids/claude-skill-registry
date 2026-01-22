@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:48.970925Z",
   "dir_name": "e2e-playwright",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-testing/skills/e2e-playwright",
+  "github_branch": "main"
 }

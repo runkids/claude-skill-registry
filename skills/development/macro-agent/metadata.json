@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Macroeconomic and market regime analyst. Monitors Fed policy, inflation, GDP, unemployment, and global economic trends to determine overall market risk appetite and sector rotation strategies.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:46.656047Z"
+  "downloaded_at": "2026-01-06T09:07:46.656047Z",
+  "github_path": "backend/ai/skills/war-room/macro-agent",
+  "github_branch": "main"
 }

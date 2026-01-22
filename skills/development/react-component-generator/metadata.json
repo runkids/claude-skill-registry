@@ -8,5 +8,7 @@
     "component",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "react-component-generator",
+  "github_branch": "main"
 }

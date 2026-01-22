@@ -5,5 +5,7 @@
   "source": "github.com/DauQuangThanh/hanoi-rainbow",
   "downloaded_at": "2026-01-22T02:21:59.283305Z",
   "dir_name": "requirements-gathering",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/requirements-gathering",
+  "github_branch": "main"
 }

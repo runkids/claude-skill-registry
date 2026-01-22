@@ -5,5 +5,7 @@
   "source": "github.com/proflead/codex-skills-library",
   "downloaded_at": "2026-01-22T02:40:42.211315Z",
   "dir_name": "cli-ux-improver",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/frontend/cli-ux-improver",
+  "github_branch": "main"
 }

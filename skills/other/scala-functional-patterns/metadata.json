@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:18.651882Z",
   "dir_name": "scala-functional-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-scala/skills/scala-functional-patterns",
+  "github_branch": "main"
 }

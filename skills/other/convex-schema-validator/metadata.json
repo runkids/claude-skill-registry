@@ -5,5 +5,7 @@
   "source": "github.com/waynesutton/convexskills",
   "downloaded_at": "2026-01-22T02:21:09.201706Z",
   "dir_name": "convex-schema-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/convex-schema-validator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Analyze your uploaded YouTube videos' performance against competitor benchmarks using Playwright MCP. Use when asked to review video analytics, compare performance, check how a video is doing, or refl",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:37.886289Z",
-  "dir_name": "analyze-video-performance-skill"
+  "dir_name": "analyze-video-performance-skill",
+  "github_path": ".claude/skills/analyze-video-performance-skill",
+  "github_branch": "main"
 }

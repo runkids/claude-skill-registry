@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:59.667776Z",
   "dir_name": "skill-learner",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workspace-hub/skill-learner",
+  "github_branch": "main"
 }

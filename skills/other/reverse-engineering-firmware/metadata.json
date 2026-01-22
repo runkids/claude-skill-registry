@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:51.376798Z",
   "dir_name": "reverse-engineering-firmware",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/security/reverse-engineering-firmware",
+  "github_branch": "main"
 }

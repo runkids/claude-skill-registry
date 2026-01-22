@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:31.045615Z",
   "dir_name": "language-framework-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/language-framework-specialist",
+  "github_branch": "main"
 }

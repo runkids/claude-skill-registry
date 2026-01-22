@@ -5,5 +5,7 @@
   "source": "github.com/lapc506/flutter-agentic-boilerplate",
   "downloaded_at": "2026-01-14T03:08:44.374964Z",
   "dir_name": "webview-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/flutter/webview-integration",
+  "github_branch": "main"
 }

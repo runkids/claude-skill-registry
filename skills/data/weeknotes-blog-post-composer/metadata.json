@@ -10,5 +10,7 @@
     "composer"
   ],
   "stars": 0,
-  "dir_name": "weeknotes-blog-post-composer"
+  "dir_name": "weeknotes-blog-post-composer",
+  "github_path": "weeknotes-blog-post-composer",
+  "github_branch": "main"
 }

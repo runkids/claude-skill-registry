@@ -8,5 +8,7 @@
     "deployment",
     "patterns"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "claude_ctx_py/assets/skills/kubernetes-deployment-patterns",
+  "github_branch": "main"
 }

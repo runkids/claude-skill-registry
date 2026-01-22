@@ -4,5 +4,7 @@
   "category": "development",
   "description": "gRPC service implementation patterns. Use when building gRPC services.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:14.831903Z"
+  "downloaded_at": "2026-01-06T09:06:14.831903Z",
+  "github_path": "tech-stacks/go/skills/grpc-patterns",
+  "github_branch": "main"
 }

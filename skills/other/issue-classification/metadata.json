@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:52.791387Z",
   "dir_name": "issue-classification",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/issue-classification",
+  "github_branch": "main"
 }

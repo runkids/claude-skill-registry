@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:10.582897Z",
   "dir_name": "python-typing-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/python-typing-patterns",
+  "github_branch": "main"
 }

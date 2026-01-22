@@ -8,5 +8,7 @@
     "service",
     "development"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/grpc-service-development",
+  "github_branch": "main"
 }

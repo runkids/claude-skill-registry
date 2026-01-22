@@ -5,5 +5,7 @@
   "source": "github.com/onesmartguy/next-level-real-estate",
   "downloaded_at": "2026-01-14T02:03:54.730348Z",
   "dir_name": "audio-editing-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ai-voice-audio/skills/audio-editing-automation",
+  "github_branch": "main"
 }

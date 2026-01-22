@@ -8,5 +8,7 @@
     "inquiry"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "generated-skills/dev-inquiry",
+  "github_branch": "main"
 }

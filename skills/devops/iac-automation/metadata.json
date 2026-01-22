@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Terraform, Ansible, CloudFormation, and infrastructure automation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:31.997593Z"
+  "downloaded_at": "2026-01-06T09:07:31.997593Z",
+  "github_path": "skills/iac-automation",
+  "github_branch": "main"
 }

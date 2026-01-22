@@ -7,5 +7,7 @@
     "jira",
     "spaces"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "jira-spaces",
+  "github_branch": "main"
 }

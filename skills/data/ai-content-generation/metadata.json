@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-content-generation"
+  "dir_name": "ai-content-generation",
+  "github_path": ".claude/skills/ai-content-generation",
+  "github_branch": "main"
 }

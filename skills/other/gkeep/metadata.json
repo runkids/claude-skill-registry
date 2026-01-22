@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:23.826287Z",
   "dir_name": "gkeep",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vacinc/gkeep",
+  "github_branch": "main"
 }

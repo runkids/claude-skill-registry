@@ -5,5 +5,7 @@
   "source": "github.com/Synthesys-Lab/assassyn",
   "downloaded_at": "2026-01-17T01:51:50.732934Z",
   "dir_name": "move-a-file",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/move-a-file",
+  "github_branch": "main"
 }

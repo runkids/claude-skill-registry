@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ci-credit-memo"
+  "dir_name": "ci-credit-memo",
+  "github_path": "skill-dev/ci-credit-memo",
+  "github_branch": "main"
 }

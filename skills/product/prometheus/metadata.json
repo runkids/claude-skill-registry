@@ -6,5 +6,7 @@
   "tags": [
     "prometheus"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/prometheus",
+  "github_branch": "main"
 }

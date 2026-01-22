@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:50.335810Z",
   "dir_name": "create-mcp-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/create-mcp-skill",
+  "github_branch": "main"
 }

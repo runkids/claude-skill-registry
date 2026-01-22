@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:43.900798Z",
   "dir_name": "adoption-playbook",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/customer-success/skills/adoption-playbook",
+  "github_branch": "main"
 }

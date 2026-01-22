@@ -5,5 +5,7 @@
   "source": "github.com/BPMSTC/websiteagent",
   "downloaded_at": "2026-01-22T04:06:01.974839Z",
   "dir_name": "express-api-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/express-api-patterns",
+  "github_branch": "main"
 }

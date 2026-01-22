@@ -11,5 +11,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cross-conversation-project-manager"
+  "dir_name": "cross-conversation-project-manager",
+  "github_path": "cross-conversation-project-manager",
+  "github_branch": "main"
 }

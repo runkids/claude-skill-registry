@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:17.532924Z",
   "dir_name": "lottie",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/webdev/skills/lottie",
+  "github_branch": "main"
 }

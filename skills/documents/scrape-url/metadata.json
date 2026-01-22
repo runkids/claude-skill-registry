@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Web crawling with Tantivy full-text search indexing. Supports crawl, search, and auto-crawl. WHEN: User wants to \"scrape a website\", \"crawl documentation\", \"search crawled content\", \"index a site\". WH",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:46.988592Z"
+  "downloaded_at": "2026-01-06T09:04:46.988592Z",
+  "github_path": "plugins/kg/skills/scrape-url",
+  "github_branch": "main"
 }

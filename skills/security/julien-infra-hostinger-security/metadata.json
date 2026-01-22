@@ -9,5 +9,7 @@
     "hostinger",
     "security"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/julien-infra-hostinger-security",
+  "github_branch": "main"
 }

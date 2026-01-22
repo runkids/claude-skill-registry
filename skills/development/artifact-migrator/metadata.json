@@ -8,5 +8,7 @@
     "migrator"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/artifact-migrator",
+  "github_branch": "main"
 }

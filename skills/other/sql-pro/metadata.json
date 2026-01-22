@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:05.779109Z",
   "dir_name": "sql-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sql-pro",
+  "github_branch": "main"
 }

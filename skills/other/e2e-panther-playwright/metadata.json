@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:14.924641Z",
   "dir_name": "e2e-panther-playwright",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/e2e-panther-playwright",
+  "github_branch": "main"
 }

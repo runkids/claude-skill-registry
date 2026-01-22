@@ -5,5 +5,7 @@
   "source": "github.com/alinaqi/claude-bootstrap",
   "downloaded_at": "2026-01-22T03:20:50.873360Z",
   "dir_name": "existing-repo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/existing-repo",
+  "github_branch": "main"
 }

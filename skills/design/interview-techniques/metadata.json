@@ -2,7 +2,9 @@
   "name": "interview-techniques",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u30e6\u30fc\u30b6\u30fc\u30a4\u30f3\u30bf\u30d3\u30e5\u30fc\u3001\u8981\u4ef6\u30d2\u30a2\u30ea\u30f3\u30b0\u3001\u30b9\u30c6\u30fc\u30af\u30db\u30eb\u30c0\u30fc\u805e\u304d\u53d6\u308a\u6642\u306b\u4f7f\u7528\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30aa\u30fc\u30d7\u30f3\u30a8\u30f3\u30c9\u8cea\u554f\u3001\u8981\u6c42\u306e\u6df1\u6398\u308a\u3001\u524d\u63d0\u306e\u660e\u78ba\u5316\u3092\u901a\u3058\u3066\u3001\u30e6\u30fc\u30b6\u30fc\u306e\u771f\u306e\u30cb\u30fc\u30ba\u3092\u5f15\u304d\u51fa\u3057\u307e\u3059\u3002Anchors:\u2022 Interviewing Users (Steve Portigal) / \u9069\u7528: \u30a4\u30f3\u30bf\u30d3\u30e5\u30fc\u8a2d\u8a08\u3068\u5b9f\u65bd / \u76ee\u7684: \u30d0\u30a4\u30a2\u30b9\u3092\u907f\u3051\u6df1\u3044\u6d1e\u5bdf\u3092\u5f97\u308b\u2022 Just Enough Research (Erika",
+  "description": "ユーザーインタビュー、要件ヒアリング、ステークホルダー聞き取り時に使用するスキル。オープンエンド質問、要求の深掘り、前提の明確化を通じて、ユーザーの真のニーズを引き出します。Anchors:• Interviewing Users (Steve Portigal) / 適用: インタビュー設計と実施 / 目的: バイアスを避け深い洞察を得る• Just Enough Research (Erika",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.954711Z"
+  "downloaded_at": "2026-01-06T09:00:42.954711Z",
+  "github_path": "docs/99-claude/skills/interview-techniques",
+  "github_branch": "main"
 }

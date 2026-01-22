@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Complete epic with cleanup and archiving, or verify feature already closed. MUST BE USED when finishing epics/features.For epics: Verifies children closed, archives docs, caches to Serena, closes epic",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:59.780453Z"
+  "downloaded_at": "2026-01-06T09:02:59.780453Z",
+  "github_path": ".claude/skills/finish-feature",
+  "github_branch": "main"
 }

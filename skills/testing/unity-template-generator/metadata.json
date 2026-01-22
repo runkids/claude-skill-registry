@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Generates production-ready C# script templates (MonoBehaviour, ScriptableObject, Editor, tests). Use when creating new scripts or setting up project structure.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:29.410916Z"
+  "downloaded_at": "2026-01-06T08:57:29.410916Z",
+  "github_path": "plugins/unity-dev-toolkit/skills/unity-template-generator",
+  "github_branch": "main"
 }

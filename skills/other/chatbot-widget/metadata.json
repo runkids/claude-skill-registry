@@ -5,5 +5,7 @@
   "source": "github.com/astoeffer/plugin-marketplace",
   "downloaded_at": "2026-01-14T03:02:34.666088Z",
   "dir_name": "chatbot-widget",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/cloodle-ai-integration/skills/chatbot-widget",
+  "github_branch": "main"
 }

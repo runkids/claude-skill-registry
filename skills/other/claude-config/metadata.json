@@ -5,5 +5,7 @@
   "source": "github.com/snkrheadz/laptop",
   "downloaded_at": "2026-01-22T02:40:51.369444Z",
   "dir_name": "claude-config",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/claude-config",
+  "github_branch": "main"
 }

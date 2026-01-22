@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:30.261872Z",
   "dir_name": "wp-security-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wp-security-review",
+  "github_branch": "main"
 }

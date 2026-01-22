@@ -5,5 +5,7 @@
   "source": "github.com/alec-c4/claude-skills-rails-dev",
   "downloaded_at": "2026-01-22T02:33:15.007370Z",
   "dir_name": "rails-technical-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": "rails-technical-writer",
+  "github_branch": "main"
 }

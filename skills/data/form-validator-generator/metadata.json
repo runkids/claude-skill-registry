@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "form-validator-generator"
+  "dir_name": "form-validator-generator",
+  "github_path": ".claude/skills/form-validator-generator",
+  "github_branch": "main"
 }

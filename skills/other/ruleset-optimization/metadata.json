@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:31.673796Z",
   "dir_name": "ruleset-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ruleset-optimization",
+  "github_branch": "main"
 }

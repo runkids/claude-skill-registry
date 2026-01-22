@@ -7,5 +7,7 @@
     "torch",
     "compile"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/torch-compile",
+  "github_branch": "main"
 }

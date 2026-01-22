@@ -5,5 +5,7 @@
   "source": "github.com/chaorenex1/coding-workflow",
   "downloaded_at": "2026-01-22T01:43:17.387581Z",
   "dir_name": "code-with-codex",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-with-codex",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/PolicyEngine/policyengine-claude",
   "downloaded_at": "2026-01-22T02:32:15.827599Z",
   "dir_name": "policyengine-simulation-mechanics-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tools-and-apis/policyengine-simulation-mechanics-skill",
+  "github_branch": "main"
 }

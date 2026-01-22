@@ -9,5 +9,7 @@
     "astro",
     "install"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/julien-ref-astro-install",
+  "github_branch": "main"
 }

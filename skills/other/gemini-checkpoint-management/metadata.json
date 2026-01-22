@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:51.405935Z",
   "dir_name": "gemini-checkpoint-management",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/google-ecosystem/skills/gemini-checkpoint-management",
+  "github_branch": "main"
 }

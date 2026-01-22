@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
   "downloaded_at": "2026-01-19T03:01:42.865426Z",
   "dir_name": "game-tools-workflows",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/game-tools-workflows",
+  "github_branch": "main"
 }

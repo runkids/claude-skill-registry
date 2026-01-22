@@ -7,5 +7,7 @@
     "bitrix"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "bitrix",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/starwards/starwards",
   "downloaded_at": "2026-01-22T03:48:49.413272Z",
   "dir_name": "github-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-api",
+  "github_branch": "main"
 }

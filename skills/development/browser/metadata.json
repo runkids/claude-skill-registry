@@ -7,5 +7,7 @@
     "browser"
   ],
   "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "pi/agent/skills/agent-browser",
+  "github_branch": "main"
 }

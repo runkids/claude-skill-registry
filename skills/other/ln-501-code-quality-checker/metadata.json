@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:08.393529Z",
   "dir_name": "ln-501-code-quality-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-501-code-quality-checker",
+  "github_branch": "main"
 }

@@ -2,5 +2,7 @@
   "name": "systematic-debugging",
   "repo": "obra/superpowers",
   "category": "development",
-  "source": "Superpowers"
+  "source": "Superpowers",
+  "github_path": "skills/systematic-debugging",
+  "github_branch": "main"
 }

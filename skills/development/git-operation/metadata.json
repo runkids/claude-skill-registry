@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Guide for basic Git operations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:40.630035Z"
+  "downloaded_at": "2026-01-06T09:03:40.630035Z",
+  "github_path": ".github/skills/git-operation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Hyperparameter Tuner - Auto-activating skill for ML Training.Triggers on: hyperparameter tuner, hyperparameter tunerPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:03.250285Z",
-  "dir_name": "hyperparameter-tuner"
+  "dir_name": "hyperparameter-tuner",
+  "github_path": "plugins/ai-ml/hyperparameter-tuner/skills/tuning-hyperparameters",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/panaversity/agentfactory",
   "downloaded_at": "2026-01-22T03:41:32.231861Z",
   "dir_name": "ux-evaluator",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/_skills_archive/cold/ux-evaluator",
+  "github_branch": "main"
 }

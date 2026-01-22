@@ -5,5 +5,7 @@
   "source": "github.com/posit-dev/skills",
   "downloaded_at": "2026-01-22T02:46:55.978970Z",
   "dir_name": "create-release-checklist",
-  "category": "other"
+  "category": "other",
+  "github_path": "open-source/create-release-checklist",
+  "github_branch": "main"
 }

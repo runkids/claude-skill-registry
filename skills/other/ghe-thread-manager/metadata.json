@@ -5,5 +5,7 @@
   "source": "github.com/Emasoft/ghe-marketplace",
   "downloaded_at": "2026-01-17T03:27:53.790396Z",
   "dir_name": "ghe-thread-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ghe/skills/ghe-thread-manager",
+  "github_branch": "main"
 }

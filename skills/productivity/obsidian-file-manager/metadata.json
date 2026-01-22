@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "This skill should be used when managing documentation files in an Obsidian vault, including creating session artifacts, moving planning documents from project directories to the vault, updating docume",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:00.509368Z"
+  "downloaded_at": "2026-01-06T09:04:00.509368Z",
+  "github_path": "skills/obsidian-file-manager",
+  "github_branch": "main"
 }

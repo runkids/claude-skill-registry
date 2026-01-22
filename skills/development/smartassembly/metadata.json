@@ -4,5 +4,7 @@
   "category": "development",
   "description": ">",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:24:33.002049Z"
+  "downloaded_at": "2026-01-08T03:24:33.002049Z",
+  "github_path": ".claude/skills/smartassembly",
+  "github_branch": "main"
 }

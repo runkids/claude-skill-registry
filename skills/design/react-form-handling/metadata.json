@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Provides robust patterns and reusable components for handling forms in React. Use this skill when building forms that require validation, error handling, multi-step flows, file uploads, or complex sub",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:14.752660Z"
+  "downloaded_at": "2026-01-06T09:07:14.752660Z",
+  "github_path": ".claude/skills/react-form-handling",
+  "github_branch": "main"
 }

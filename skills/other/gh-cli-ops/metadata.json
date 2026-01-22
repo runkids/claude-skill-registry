@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:05.122728Z",
   "dir_name": "gh-cli-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/gh-cli-ops",
+  "github_branch": "main"
 }

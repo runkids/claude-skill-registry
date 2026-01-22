@@ -5,5 +5,7 @@
   "source": "github.com/jeffvincent/claude-config",
   "downloaded_at": "2026-01-22T02:44:49.422617Z",
   "dir_name": "gmail-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gmail-skill",
+  "github_branch": "main"
 }

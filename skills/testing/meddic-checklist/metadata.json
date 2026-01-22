@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use to inspect qualification coverage across Metrics, Economic buyer, Decision criteria, Decision process, Implications, Champion.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.474685Z"
+  "downloaded_at": "2026-01-06T08:57:25.474685Z",
+  "github_path": "plugins/sales-calls/skills/meddic-checklist",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "gemini-integration",
   "repo": "dseirz-rgb/worker",
   "category": "testing",
-  "description": "Google Gemini API \u96c6\u6210\u6307\u5357\uff1a\u63d0\u4f9b AI \u5206\u6790\u3001\u63d0\u793a\u8bcd\u5de5\u7a0b\u3001\u6d41\u5f0f\u54cd\u5e94\u548c\u591a\u6a21\u6001\u5904\u7406\u7684\u6700\u4f73\u5b9e\u8df5\u3002Use when: \u9700\u8981\u96c6\u6210 Gemini API\u3001\u7f16\u5199\u63d0\u793a\u8bcd\u3001\u5904\u7406\u6d41\u5f0f\u54cd\u5e94\u3001\u591a\u6a21\u6001\u8f93\u5165\u3002Triggers: \"Gemini\", \"AI\", \"LLM\", \"\u63d0\u793a\u8bcd\", \"prompt\", \"\u6d41\u5f0f\", \"streaming\", \"\u591a\u6a21\u6001\"",
+  "description": "Google Gemini API 集成指南：提供 AI 分析、提示词工程、流式响应和多模态处理的最佳实践。Use when: 需要集成 Gemini API、编写提示词、处理流式响应、多模态输入。Triggers: \"Gemini\", \"AI\", \"LLM\", \"提示词\", \"prompt\", \"流式\", \"streaming\", \"多模态\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:26.720285Z"
+  "downloaded_at": "2026-01-06T09:10:26.720285Z",
+  "github_path": ".kiro/skills/gemini-integration",
+  "github_branch": "main"
 }

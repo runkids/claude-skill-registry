@@ -5,5 +5,7 @@
   "source": "github.com/bnomei/kirby-mcp",
   "downloaded_at": "2026-01-14T01:35:55.111729Z",
   "dir_name": "kirby-scaffold-page-type",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/kirby-scaffold-page-type",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "management"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/ccpm-mcp-management",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:04.046290Z",
   "dir_name": "vite-vue",
-  "category": "other"
+  "category": "other",
+  "github_path": "vite-vue",
+  "github_branch": "main"
 }

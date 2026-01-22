@@ -5,5 +5,7 @@
   "description": "Model Checkpoint Manager - Auto-activating skill for ML Training.Triggers on: model checkpoint manager, model checkpoint managerPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:07.780479Z",
-  "dir_name": "model-checkpoint-manager"
+  "dir_name": "model-checkpoint-manager",
+  "github_path": "planned-skills/generated/07-ml-training/model-checkpoint-manager",
+  "github_branch": "main"
 }

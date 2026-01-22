@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-22T03:51:07.072990Z",
   "dir_name": "kpi-dashboard-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/business-analytics/skills/kpi-dashboard-design",
+  "github_branch": "main"
 }

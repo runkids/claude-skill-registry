@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:01.453546Z",
   "dir_name": "audit-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/audit-agent",
+  "github_branch": "main"
 }

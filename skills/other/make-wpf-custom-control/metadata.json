@@ -5,5 +5,7 @@
   "source": "github.com/christian289/dotnet-with-claudecode",
   "downloaded_at": "2026-01-22T02:11:37.994384Z",
   "dir_name": "make-wpf-custom-control",
-  "category": "other"
+  "category": "other",
+  "github_path": "wpf-dev-pack/commands/make-wpf-custom-control",
+  "github_branch": "main"
 }

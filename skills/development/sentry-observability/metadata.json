@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Integrate Sentry with observability stack.Use when connecting Sentry to logging, metrics, APM tools,or building unified observability dashboards.Trigger with phrases like \"sentry observability\", \"sent",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:59.299397Z"
+  "downloaded_at": "2026-01-06T08:55:59.299397Z",
+  "github_path": "plugins/saas-packs/sentry-pack/skills/sentry-observability",
+  "github_branch": "main"
 }

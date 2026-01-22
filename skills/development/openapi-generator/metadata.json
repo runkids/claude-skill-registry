@@ -7,5 +7,7 @@
     "openapi",
     "generator"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/openapi-generator",
+  "github_branch": "main"
 }

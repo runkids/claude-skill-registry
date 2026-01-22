@@ -8,5 +8,7 @@
     "pnpm"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/enforcing-pnpm",
+  "github_branch": "main"
 }

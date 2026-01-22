@@ -8,5 +8,7 @@
     "architect"
   ],
   "stars": 15,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".opencode/skill/agent-architect",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:08.804773Z",
   "dir_name": "firmware-analyst",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/firmware-analyst",
+  "github_branch": "main"
 }

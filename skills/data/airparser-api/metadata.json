@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "airparser-api"
+  "dir_name": "airparser-api",
+  "github_path": ".claude/skills/airparser-api",
+  "github_branch": "main"
 }

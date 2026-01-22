@@ -5,5 +5,7 @@
   "description": "Explain what Nexus is and how it works. Load when user says \"explain nexus\", \"what is nexus\", \"how does nexus work\", \"nexus overview\", \"about nexus\", or asks for help understanding the system.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:44.264536Z",
-  "dir_name": "explain-nexus"
+  "dir_name": "explain-nexus",
+  "github_path": "00-system/skills/system/explain-nexus",
+  "github_branch": "main"
 }

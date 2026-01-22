@@ -8,5 +8,7 @@
     "domain",
     "monitoring"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-domain-monitoring",
+  "github_branch": "main"
 }

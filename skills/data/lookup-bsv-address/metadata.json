@@ -9,5 +9,7 @@
     "address"
   ],
   "stars": 0,
-  "dir_name": "lookup-bsv-address"
+  "dir_name": "lookup-bsv-address",
+  "github_path": "skills/lookup-bsv-address",
+  "github_branch": "main"
 }

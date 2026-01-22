@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:33.374871Z",
   "dir_name": "model-tracking-protocol",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/orchestration/skills/model-tracking-protocol",
+  "github_branch": "main"
 }

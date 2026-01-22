@@ -5,5 +5,7 @@
   "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
   "downloaded_at": "2026-01-22T02:23:52.929317Z",
   "dir_name": "app-component",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/agents/app-starter/agents-context/skills/app-component",
+  "github_branch": "main"
 }

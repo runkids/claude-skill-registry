@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:38.906507Z",
   "dir_name": "youtube-script-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/youtube-script-generator",
+  "github_branch": "main"
 }

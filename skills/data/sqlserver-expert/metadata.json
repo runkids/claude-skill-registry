@@ -8,5 +8,7 @@
     "expert"
   ],
   "stars": 0,
-  "dir_name": "sqlserver-expert"
+  "dir_name": "sqlserver-expert",
+  "github_path": ".claude/skills/sqlserver-expert",
+  "github_branch": "main"
 }

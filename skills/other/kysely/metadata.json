@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:23.410682Z",
   "dir_name": "kysely",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/webdev/databases-orms/kysely",
+  "github_branch": "main"
 }

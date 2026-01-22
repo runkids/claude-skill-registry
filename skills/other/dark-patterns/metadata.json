@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:47.451711Z",
   "dir_name": "dark-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/anti-patterns/dark-patterns",
+  "github_branch": "main"
 }

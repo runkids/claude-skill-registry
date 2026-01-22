@@ -8,5 +8,7 @@
     "deprecation",
     "fixer"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/python-deprecation-fixer",
+  "github_branch": "main"
 }

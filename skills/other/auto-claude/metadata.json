@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:27.559167Z",
   "dir_name": "auto-claude",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/auto-claude",
+  "github_branch": "main"
 }

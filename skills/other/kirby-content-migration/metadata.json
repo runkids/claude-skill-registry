@@ -5,5 +5,7 @@
   "source": "github.com/bnomei/kirby-mcp",
   "downloaded_at": "2026-01-14T01:35:54.936719Z",
   "dir_name": "kirby-content-migration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/kirby-content-migration",
+  "github_branch": "main"
 }

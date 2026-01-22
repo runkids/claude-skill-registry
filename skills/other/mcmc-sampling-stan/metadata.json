@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:34.940185Z",
   "dir_name": "mcmc-sampling-stan",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/mcmc-sampling-stan",
+  "github_branch": "main"
 }

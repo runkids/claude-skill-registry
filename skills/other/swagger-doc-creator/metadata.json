@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:12.012249Z",
   "dir_name": "swagger-doc-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/15-api-development/swagger-doc-creator",
+  "github_branch": "main"
 }

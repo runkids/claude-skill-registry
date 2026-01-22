@@ -5,5 +5,7 @@
   "source": "github.com/zerobias-org/module",
   "downloaded_at": "2026-01-21T01:50:57.942577Z",
   "dir_name": "workflow-completion",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workflow-completion",
+  "github_branch": "main"
 }

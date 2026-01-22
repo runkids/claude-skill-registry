@@ -7,5 +7,7 @@
     "wolf",
     "governance"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "wolf-governance",
+  "github_branch": "main"
 }

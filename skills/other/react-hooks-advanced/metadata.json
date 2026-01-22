@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:03.582009Z",
   "dir_name": "react-hooks-advanced",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/react-hooks-advanced",
+  "github_branch": "main"
 }

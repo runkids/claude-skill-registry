@@ -5,5 +5,7 @@
   "source": "github.com/Mavrick91/tanstack-start-app",
   "downloaded_at": "2026-01-22T01:07:34.931019Z",
   "dir_name": "checkout",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/checkout",
+  "github_branch": "main"
 }

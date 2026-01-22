@@ -5,5 +5,7 @@
   "source": "github.com/maneeshanif/todo-spec-driven",
   "downloaded_at": "2026-01-22T02:22:52.373476Z",
   "dir_name": "docker-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/docker-setup",
+  "github_branch": "main"
 }

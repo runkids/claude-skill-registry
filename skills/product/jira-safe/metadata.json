@@ -7,5 +7,7 @@
     "jira",
     "safe"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "jira-safe",
+  "github_branch": "main"
 }

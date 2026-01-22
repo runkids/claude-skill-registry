@@ -6,5 +6,7 @@
   "tags": [
     "installer"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/installer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/SecOps-CLI-Guides",
   "downloaded_at": "2026-01-14T02:20:59.563888Z",
   "dir_name": "ddos-attack-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ddos-attack-testing",
+  "github_branch": "main"
 }

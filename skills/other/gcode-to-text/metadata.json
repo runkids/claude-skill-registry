@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:34.000854Z",
   "dir_name": "gcode-to-text",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/gcode-to-text",
+  "github_branch": "main"
 }

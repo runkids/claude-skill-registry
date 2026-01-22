@@ -2,5 +2,7 @@
   "name": "subagent-driven-development",
   "repo": "obra/superpowers",
   "category": "development",
-  "source": "Superpowers"
+  "source": "Superpowers",
+  "github_path": "skills/subagent-driven-development",
+  "github_branch": "main"
 }

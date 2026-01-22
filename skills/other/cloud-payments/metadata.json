@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-21T01:37:40.303653Z",
   "dir_name": "cloud-payments",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tools/cloud/cloud-payments",
+  "github_branch": "main"
 }

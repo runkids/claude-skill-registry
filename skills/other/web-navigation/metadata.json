@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:25.326395Z",
   "dir_name": "web-navigation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/web-navigation",
+  "github_branch": "main"
 }

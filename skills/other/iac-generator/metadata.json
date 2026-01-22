@@ -5,5 +5,7 @@
   "source": "github.com/arbgjr/satra",
   "downloaded_at": "2026-01-22T02:00:04.847904Z",
   "dir_name": "iac-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/iac-generator",
+  "github_branch": "main"
 }

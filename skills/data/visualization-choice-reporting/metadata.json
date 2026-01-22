@@ -9,5 +9,7 @@
     "reporting"
   ],
   "stars": 8,
-  "dir_name": "visualization-choice-reporting"
+  "dir_name": "visualization-choice-reporting",
+  "github_path": "skills/visualization-choice-reporting",
+  "github_branch": "main"
 }

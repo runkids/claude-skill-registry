@@ -5,5 +5,7 @@
   "description": "Design, optimize, and migrate SQL databases with reliability and performance guardrails.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:58:49.558091Z",
-  "dir_name": "sql-database-specialist"
+  "dir_name": "sql-database-specialist",
+  "github_path": "skills/platforms/sql-database-specialist",
+  "github_branch": "main"
 }

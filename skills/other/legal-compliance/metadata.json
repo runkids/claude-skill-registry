@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:30.913343Z",
   "dir_name": "legal-compliance",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/legal-compliance",
+  "github_branch": "main"
 }

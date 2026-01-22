@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-file-analyzer"
+  "dir_name": "ai-file-analyzer",
+  "github_path": ".claude/skills/ai-file-analyzer",
+  "github_branch": "main"
 }

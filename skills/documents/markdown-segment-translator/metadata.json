@@ -2,7 +2,9 @@
   "name": "markdown-segment-translator",
   "repo": "wordflowlab/agentsdk",
   "category": "documents",
-  "description": "\u957f\u6587\u6863Markdown\u5206\u6bb5\u7ffb\u8bd1\u6280\u80fd\uff08Agent\u81ea\u5df1\u7ffb\u8bd1\uff09",
+  "description": "长文档Markdown分段翻译技能（Agent自己翻译）",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:58.499297Z"
+  "downloaded_at": "2026-01-06T08:58:58.499297Z",
+  "github_path": "examples/skills/workspace/skills/markdown-segment-translator",
+  "github_branch": "main"
 }

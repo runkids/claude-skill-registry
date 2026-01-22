@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:41.641083Z",
   "dir_name": "cosmic-database",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/other/cosmic-database",
+  "github_branch": "main"
 }

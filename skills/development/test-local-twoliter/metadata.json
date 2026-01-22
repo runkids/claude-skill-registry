@@ -8,5 +8,7 @@
     "local",
     "twoliter"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/test-local-twoliter",
+  "github_branch": "main"
 }

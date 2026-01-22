@@ -8,5 +8,7 @@
     "recap",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "game-recap-generator",
+  "github_branch": "main"
 }

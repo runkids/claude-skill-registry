@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:04.109536Z",
   "dir_name": "api-design-fundamentals",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/api-design-fundamentals",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Best practices for writing clear, effective pull request descriptions. Use when creating PRs to ensure they communicate changes effectively to reviewers.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:03.166655Z"
+  "downloaded_at": "2026-01-06T09:11:03.166655Z",
+  "github_path": ".automatasaurus/skills/pr-writing",
+  "github_branch": "main"
 }

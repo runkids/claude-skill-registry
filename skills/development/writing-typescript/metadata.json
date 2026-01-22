@@ -7,5 +7,7 @@
     "writing",
     "typescript"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/writing-typescript",
+  "github_branch": "main"
 }

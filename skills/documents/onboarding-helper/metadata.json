@@ -7,5 +7,7 @@
     "onboarding",
     "helper"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/onboarding-helper",
+  "github_branch": "main"
 }

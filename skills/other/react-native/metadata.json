@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:28.227096Z",
   "dir_name": "react-native",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/react-native",
+  "github_branch": "main"
 }

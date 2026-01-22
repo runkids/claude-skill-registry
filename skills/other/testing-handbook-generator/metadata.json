@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:28.107486Z",
   "dir_name": "testing-handbook-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/testing-handbook-skills/skills/testing-handbook-generator",
+  "github_branch": "main"
 }

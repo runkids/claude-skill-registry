@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:20.388674Z",
   "dir_name": "mecw-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/leyline/skills/mecw-patterns",
+  "github_branch": "main"
 }

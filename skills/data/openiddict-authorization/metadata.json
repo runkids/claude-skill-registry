@@ -8,5 +8,7 @@
     "authorization"
   ],
   "stars": 0,
-  "dir_name": "openiddict-authorization"
+  "dir_name": "openiddict-authorization",
+  "github_path": ".claude/skills/openiddict-authorization",
+  "github_branch": "main"
 }

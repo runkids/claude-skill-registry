@@ -7,5 +7,7 @@
     "release",
     "prep"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "claude_ctx_py/assets/skills/release-prep",
+  "github_branch": "main"
 }

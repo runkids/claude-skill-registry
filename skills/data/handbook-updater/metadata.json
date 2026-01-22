@@ -8,5 +8,7 @@
     "updater"
   ],
   "stars": 0,
-  "dir_name": "handbook-updater"
+  "dir_name": "handbook-updater",
+  "github_path": "handbook-updater",
+  "github_branch": "main"
 }

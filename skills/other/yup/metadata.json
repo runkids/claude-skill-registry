@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:16.651587Z",
   "dir_name": "yup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/webdev/forms/yup",
+  "github_branch": "main"
 }

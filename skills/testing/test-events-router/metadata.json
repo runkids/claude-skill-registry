@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Test the SSE events router and real-time event streaming. Use when testing Server-Sent Events endpoint or event authorization. Triggers on \"test events\", \"test sse\", \"test events router\", \"test real-t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:32.633703Z"
+  "downloaded_at": "2026-01-06T09:03:32.633703Z",
+  "github_path": ".claude/skills/test-events-router",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "context"
   ],
   "stars": 0,
-  "dir_name": "vault-context"
+  "dir_name": "vault-context",
+  "github_path": "vault-context",
+  "github_branch": "main"
 }

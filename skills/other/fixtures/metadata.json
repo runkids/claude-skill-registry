@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:23.218208Z",
   "dir_name": "fixtures",
-  "category": "other"
+  "category": "other",
+  "github_path": "test/pm-plugin-development/plugin-doctor/fixtures/skill-structure/table-references",
+  "github_branch": "main"
 }

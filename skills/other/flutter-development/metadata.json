@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:32.433169Z",
   "dir_name": "flutter-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/flutter-development",
+  "github_branch": "main"
 }

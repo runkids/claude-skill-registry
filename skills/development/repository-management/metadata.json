@@ -7,5 +7,7 @@
     "repository",
     "management"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/repository-management",
+  "github_branch": "main"
 }

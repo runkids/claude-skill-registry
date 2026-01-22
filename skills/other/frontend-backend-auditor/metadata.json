@@ -5,5 +5,7 @@
   "source": "github.com/Acurioustractor/empathy-ledger-v2",
   "downloaded_at": "2026-01-21T02:30:19.532871Z",
   "dir_name": "frontend-backend-auditor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/local/frontend-backend-auditor",
+  "github_branch": "main"
 }

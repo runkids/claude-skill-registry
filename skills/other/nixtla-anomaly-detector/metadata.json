@@ -5,5 +5,7 @@
   "source": "github.com/intent-solutions-io/plugins-nixtla",
   "downloaded_at": "2026-01-22T00:52:30.458615Z",
   "dir_name": "nixtla-anomaly-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "000-docs/000a-planned-skills/core-forecasting/nixtla-anomaly-detector",
+  "github_branch": "main"
 }

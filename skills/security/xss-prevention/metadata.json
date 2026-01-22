@@ -7,5 +7,7 @@
     "xss",
     "prevention"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/xss-prevention",
+  "github_branch": "main"
 }

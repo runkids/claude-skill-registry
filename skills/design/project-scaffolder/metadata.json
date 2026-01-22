@@ -7,5 +7,7 @@
     "project",
     "scaffolder"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/project-scaffolder",
+  "github_branch": "main"
 }

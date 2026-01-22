@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:13.386135Z",
   "dir_name": "architecture-paradigm-event-driven",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/archetypes/skills/architecture-paradigm-event-driven",
+  "github_branch": "main"
 }

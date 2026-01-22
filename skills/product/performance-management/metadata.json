@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Master performance management, goal-setting, OKRs, reviews, feedback, and metrics for engineering teams",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:44.812187Z"
+  "downloaded_at": "2026-01-06T09:02:44.812187Z",
+  "github_path": "skills/performance-management",
+  "github_branch": "main"
 }

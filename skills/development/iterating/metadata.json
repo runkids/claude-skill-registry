@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Multi-conversation methodology for iterative stateful work with context accumulation. Use when users request work that spans multiple sessions (research, debugging, refactoring, feature development), ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:55.013283Z"
+  "downloaded_at": "2026-01-06T08:57:55.013283Z",
+  "github_path": "iterating",
+  "github_branch": "main"
 }

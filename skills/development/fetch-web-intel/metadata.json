@@ -8,5 +8,7 @@
     "web",
     "intel"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/fetch-web-intel",
+  "github_branch": "main"
 }

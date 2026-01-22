@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:05.774657Z",
   "dir_name": "system-diagnostics",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/windows-diagnostics/skills/system-diagnostics",
+  "github_branch": "main"
 }

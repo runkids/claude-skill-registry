@@ -5,5 +5,7 @@
   "source": "github.com/ksoichiro/ChronoDawn",
   "downloaded_at": "2026-01-22T01:22:12.850284Z",
   "dir_name": "doc-maintenance",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/doc-maintenance",
+  "github_branch": "main"
 }

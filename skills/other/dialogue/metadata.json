@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:40.886047Z",
   "dir_name": "dialogue",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/character/dialogue",
+  "github_branch": "main"
 }

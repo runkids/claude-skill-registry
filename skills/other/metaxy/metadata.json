@@ -5,5 +5,7 @@
   "source": "github.com/anam-org/metaxy",
   "downloaded_at": "2026-01-22T01:24:17.052393Z",
   "dir_name": "metaxy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude-plugin/skills/metaxy",
+  "github_branch": "main"
 }

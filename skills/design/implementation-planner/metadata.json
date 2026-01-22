@@ -7,5 +7,7 @@
     "implementation",
     "planner"
   ],
-  "stars": 28
+  "stars": 28,
+  "github_path": "skills/implementation-planner",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
   "downloaded_at": "2026-01-22T01:49:13.276302Z",
   "dir_name": "building-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": "agent-builder/skills/building-skills",
+  "github_branch": "main"
 }

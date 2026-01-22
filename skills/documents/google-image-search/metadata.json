@@ -8,5 +8,7 @@
     "image",
     "search"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "google-image-search",
+  "github_branch": "main"
 }

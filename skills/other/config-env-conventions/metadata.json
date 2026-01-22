@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-20T02:40:46.864472Z",
   "dir_name": "config-env-conventions",
-  "category": "other"
+  "category": "other",
+  "github_path": "64-meta-standards/config-env-conventions",
+  "github_branch": "main"
 }

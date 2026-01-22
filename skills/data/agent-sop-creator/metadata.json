@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-sop-creator"
+  "dir_name": "agent-sop-creator",
+  "github_path": "agent-sop-creator",
+  "github_branch": "main"
 }

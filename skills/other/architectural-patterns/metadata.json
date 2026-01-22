@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-17T02:52:42.849708Z",
   "dir_name": "architectural-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/architectural-patterns",
+  "github_branch": "main"
 }

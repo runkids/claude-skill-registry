@@ -5,5 +5,7 @@
   "source": "github.com/alec-c4/claude-skills-rails-dev",
   "downloaded_at": "2026-01-22T02:33:13.482584Z",
   "dir_name": "rails-devops",
-  "category": "other"
+  "category": "other",
+  "github_path": "rails-devops",
+  "github_branch": "main"
 }

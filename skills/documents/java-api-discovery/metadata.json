@@ -8,5 +8,7 @@
     "api",
     "discovery"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/java-api-discovery",
+  "github_branch": "main"
 }

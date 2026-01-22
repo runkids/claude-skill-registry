@@ -7,5 +7,7 @@
     "code",
     "migration"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/code-migration",
+  "github_branch": "main"
 }

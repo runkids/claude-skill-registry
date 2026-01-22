@@ -8,5 +8,7 @@
     "convergence",
     "forecast"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/model-convergence-forecast",
+  "github_branch": "main"
 }

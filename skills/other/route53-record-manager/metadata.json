@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:16.735660Z",
   "dir_name": "route53-record-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/13-aws-skills/route53-record-manager",
+  "github_branch": "main"
 }

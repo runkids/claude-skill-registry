@@ -5,5 +5,7 @@
   "source": "github.com/githubnext/gh-aw",
   "downloaded_at": "2026-01-14T02:08:49.560599Z",
   "dir_name": "github-copilot-agent-tips-and-tricks",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-copilot-agent-tips-and-tricks",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:55.115399Z",
   "dir_name": "invoice-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "invoice-generator",
+  "github_branch": "main"
 }

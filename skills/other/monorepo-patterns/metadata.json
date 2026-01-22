@@ -5,5 +5,7 @@
   "source": "github.com/hgeldenhuys/claude-code-sdk",
   "downloaded_at": "2026-01-22T02:26:56.294309Z",
   "dir_name": "monorepo-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/monorepo-patterns",
+  "github_branch": "main"
 }

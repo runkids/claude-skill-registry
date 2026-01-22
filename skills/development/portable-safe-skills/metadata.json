@@ -8,5 +8,7 @@
     "safe",
     "skills"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "skills/portable-safe-skills",
+  "github_branch": "main"
 }

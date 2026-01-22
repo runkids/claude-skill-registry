@@ -5,5 +5,7 @@
   "source": "github.com/maxvaega/skillkit",
   "downloaded_at": "2026-01-22T02:52:25.223858Z",
   "dir_name": "edge-special-chars",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/fixtures/skills/edge-special-chars",
+  "github_branch": "main"
 }

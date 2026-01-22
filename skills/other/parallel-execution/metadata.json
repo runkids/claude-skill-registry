@@ -5,5 +5,7 @@
   "source": "github.com/Tahir-yamin/dev-engineering-playbook",
   "downloaded_at": "2026-01-22T03:41:41.098828Z",
   "dir_name": "parallel-execution",
-  "category": "other"
+  "category": "other",
+  "github_path": "agents/cloudai/skills/parallel-execution",
+  "github_branch": "main"
 }

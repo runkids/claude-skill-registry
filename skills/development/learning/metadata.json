@@ -2,7 +2,9 @@
   "name": "learning",
   "repo": "wayne930242/weihung-pai",
   "category": "development",
-  "description": "\u5b78\u7fd2\u8f14\u52a9\u8207\u77e5\u8b58\u7ba1\u7406\u3002\u89f8\u767c\uff1alearn, note, knowledge, memory, review, understand, teach me, \u5b78\u7fd2, \u7b46\u8a18, \u6559\u6211, \u89e3\u91cb",
+  "description": "學習輔助與知識管理。觸發：learn, note, knowledge, memory, review, understand, teach me, 學習, 筆記, 教我, 解釋",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:24.970220Z"
+  "downloaded_at": "2026-01-06T09:00:24.970220Z",
+  "github_path": "pai-claude/workspace/.claude/skills/learning",
+  "github_branch": "main"
 }

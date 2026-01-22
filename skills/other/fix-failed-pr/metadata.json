@@ -5,5 +5,7 @@
   "source": "github.com/agentage/desktop",
   "downloaded_at": "2026-01-19T03:35:54.154240Z",
   "dir_name": "fix-failed-pr",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/fix-failed-pr",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "routing"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cloudflare-email-routing",
+  "github_branch": "main"
 }

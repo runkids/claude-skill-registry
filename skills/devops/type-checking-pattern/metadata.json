@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Fix F821 undefined name errors for optional dependencies using TYPE_CHECKING",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:27.939343Z"
+  "downloaded_at": "2026-01-06T09:08:27.939343Z",
+  "github_path": "plugins/general/type-checking-pattern/skills/type-checking-pattern",
+  "github_branch": "main"
 }

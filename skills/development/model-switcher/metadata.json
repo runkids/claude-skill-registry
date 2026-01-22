@@ -2,7 +2,9 @@
   "name": "model-switcher",
   "repo": "shiiman/claude-code-plugins",
   "category": "development",
-  "description": "\u30bf\u30b9\u30af\u306e\u8907\u96d1\u3055\u306b\u5fdc\u3058\u3066 Claude \u306e\u30e2\u30c7\u30eb\u3092\u81ea\u52d5\u7684\u306b\u5207\u308a\u66ff\u3048\u308b\u3002\u8907\u96d1\u306a\u30bf\u30b9\u30af\uff08\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u8a2d\u8a08\u3001\u5927\u898f\u6a21\u30ea\u30d5\u30a1\u30af\u30bf\u30ea\u30f3\u30b0\u3001\u96e3\u89e3\u306a\u30d0\u30b0\u4fee\u6b63\uff09\u3067\u306f opus \u3092\u3001\u5358\u7d14\u306a\u30bf\u30b9\u30af\uff08\u5c0f\u3055\u306a\u4fee\u6b63\u3001\u30d5\u30a9\u30fc\u30de\u30c3\u30c8\u3001\u7c21\u5358\u306a\u8cea\u554f\uff09\u3067\u306f sonnet \u3092\u81ea\u52d5\u9078\u629e\u3002\u30b3\u30b9\u30c8\u3068\u54c1\u8cea\u306e\u30d0\u30e9\u30f3\u30b9\u3092\u6700\u9069\u5316\u3002",
+  "description": "タスクの複雑さに応じて Claude のモデルを自動的に切り替える。複雑なタスク（アーキテクチャ設計、大規模リファクタリング、難解なバグ修正）では opus を、単純なタスク（小さな修正、フォーマット、簡単な質問）では sonnet を自動選択。コストと品質のバランスを最適化。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:20.401447Z"
+  "downloaded_at": "2026-01-06T09:08:20.401447Z",
+  "github_path": "plugins/shiiman-claude/skills/model-switcher",
+  "github_branch": "main"
 }

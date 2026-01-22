@@ -5,5 +5,7 @@
   "source": "github.com/rish2jain/paperresearchagent",
   "downloaded_at": "2026-01-22T03:12:23.392917Z",
   "dir_name": "nvidia-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/nvidia-api",
+  "github_branch": "main"
 }

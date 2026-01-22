@@ -5,5 +5,7 @@
   "source": "github.com/surfdeeper/surfing-game",
   "downloaded_at": "2026-01-22T01:25:07.188003Z",
   "dir_name": "logic-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/logic-testing",
+  "github_branch": "main"
 }

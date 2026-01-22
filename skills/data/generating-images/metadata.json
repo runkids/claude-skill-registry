@@ -8,5 +8,7 @@
     "images"
   ],
   "stars": 0,
-  "dir_name": "generating-images"
+  "dir_name": "generating-images",
+  "github_path": "generating-images",
+  "github_branch": "main"
 }

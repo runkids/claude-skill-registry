@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:47.706834Z",
   "dir_name": "cnv-visualization",
-  "category": "other"
+  "category": "other",
+  "github_path": "copy-number/cnv-visualization",
+  "github_branch": "main"
 }

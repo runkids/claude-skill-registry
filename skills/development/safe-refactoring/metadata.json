@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Systematic code refactoring while preserving all external behavior.Use when identifying code smells, planning refactoring sequences,executing safe structural improvements, or validating behavior prese",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:41.513897Z"
+  "downloaded_at": "2026-01-06T08:56:41.513897Z",
+  "github_path": "plugins/start/skills/safe-refactoring",
+  "github_branch": "main"
 }

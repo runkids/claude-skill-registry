@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:02.356382Z",
   "dir_name": "knowledge-base-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/knowledge-base-manager",
+  "github_branch": "main"
 }

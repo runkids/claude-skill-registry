@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:10.728942Z",
   "dir_name": "grpc-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/api/grpc-expert",
+  "github_branch": "main"
 }

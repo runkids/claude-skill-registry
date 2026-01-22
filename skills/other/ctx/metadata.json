@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:48.544479Z",
   "dir_name": "ctx",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ctx",
+  "github_branch": "main"
 }

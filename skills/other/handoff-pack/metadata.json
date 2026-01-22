@@ -5,5 +5,7 @@
   "source": "github.com/BerryKuipers/claude-code-toolkit",
   "downloaded_at": "2026-01-22T01:27:05.424729Z",
   "dir_name": "handoff-pack",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/gemini-workflows/handoff-pack",
+  "github_branch": "main"
 }

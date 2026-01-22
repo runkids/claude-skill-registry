@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use it when the user asks to \"ask gemini\", \"ask codex\", or \"ask in browser\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.597389Z"
+  "downloaded_at": "2026-01-06T08:57:10.597389Z",
+  "github_path": "examples",
+  "github_branch": "main"
 }

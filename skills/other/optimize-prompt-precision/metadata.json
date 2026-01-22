@@ -5,5 +5,7 @@
   "source": "github.com/doodledood/claude-code-plugins",
   "downloaded_at": "2026-01-22T02:39:47.513325Z",
   "dir_name": "optimize-prompt-precision",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugins/prompt-engineering/skills/optimize-prompt-precision",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Aggregate multi-reviewer feedback into consolidated, actionable recommendations. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.556650Z"
+  "downloaded_at": "2026-01-06T08:56:58.556650Z",
+  "github_path": "plugins/marketing/skills/review-synthesis",
+  "github_branch": "main"
 }

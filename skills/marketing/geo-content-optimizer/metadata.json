@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Optimizes content for Generative Engine Optimization (GEO) to increase chances of being cited by AI systems like ChatGPT, Claude, Perplexity, and Google AI Overviews. Makes content AI-friendly while m",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.582541Z"
+  "downloaded_at": "2026-01-06T08:57:10.582541Z",
+  "github_path": "build/geo-content-optimizer",
+  "github_branch": "main"
 }

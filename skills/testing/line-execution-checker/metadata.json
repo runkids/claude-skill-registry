@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Check if specific lines were executed using gcov data",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:43.377162Z"
+  "downloaded_at": "2026-01-06T08:55:43.377162Z",
+  "github_path": ".claude/skills/crash-analysis/line-execution-checker",
+  "github_branch": "main"
 }

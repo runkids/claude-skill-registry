@@ -5,5 +5,7 @@
   "description": "Python package reorganization with pyproject.toml inside package directory",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:08:28.203193Z",
-  "dir_name": "repo-reorganization"
+  "dir_name": "repo-reorganization",
+  "github_path": "plugins/maxfuse/repo-reorganization/skills/repo-reorganization",
+  "github_branch": "main"
 }

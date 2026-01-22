@@ -2,7 +2,9 @@
   "name": "sla-tracking",
   "repo": "gtmagents/gtm-agents",
   "category": "design",
-  "description": "Use to design measurement, alerting, and reporting for MQL\u2192SQL SLAs.",
+  "description": "Use to design measurement, alerting, and reporting for MQL→SQL SLAs.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.758780Z"
+  "downloaded_at": "2026-01-06T08:57:25.758780Z",
+  "github_path": "plugins/sales-handoff-orchestration/skills/sla-tracking",
+  "github_branch": "main"
 }

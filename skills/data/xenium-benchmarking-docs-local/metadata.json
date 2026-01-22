@@ -10,5 +10,7 @@
     "local"
   ],
   "stars": 0,
-  "dir_name": "xenium-benchmarking-docs-local"
+  "dir_name": "xenium-benchmarking-docs-local",
+  "github_path": "xenium-benchmarking-docs-local",
+  "github_branch": "main"
 }

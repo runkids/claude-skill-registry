@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:33.642492Z",
   "dir_name": "build-pov-ray",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/build-pov-ray",
+  "github_branch": "main"
 }

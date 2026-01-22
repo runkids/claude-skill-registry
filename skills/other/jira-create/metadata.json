@@ -5,5 +5,7 @@
   "source": "github.com/bcowdery/claude-skills",
   "downloaded_at": "2026-01-19T01:37:32.295968Z",
   "dir_name": "jira-create",
-  "category": "other"
+  "category": "other",
+  "github_path": "patsy-plugin/skills/jira-create",
+  "github_branch": "main"
 }

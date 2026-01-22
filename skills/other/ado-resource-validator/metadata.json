@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:51.203894Z",
   "dir_name": "ado-resource-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-ado/skills/ado-resource-validator",
+  "github_branch": "main"
 }

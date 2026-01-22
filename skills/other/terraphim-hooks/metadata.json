@@ -5,5 +5,7 @@
   "source": "github.com/terraphim/codex-skills",
   "downloaded_at": "2026-01-22T02:22:57.477126Z",
   "dir_name": "terraphim-hooks",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/terraphim-hooks",
+  "github_branch": "main"
 }

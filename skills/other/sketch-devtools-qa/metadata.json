@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:06.304618Z",
   "dir_name": "sketch-devtools-qa",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/sketch-devtools-qa",
+  "github_branch": "main"
 }

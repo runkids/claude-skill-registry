@@ -5,5 +5,7 @@
   "source": "github.com/TianqiYe/tockstalk-bot",
   "downloaded_at": "2026-01-22T01:48:09.037861Z",
   "dir_name": "web-monitor-bot",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/web-monitor-bot",
+  "github_branch": "main"
 }

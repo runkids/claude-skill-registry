@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-model-selection"
+  "dir_name": "agent-model-selection",
+  "github_path": "skills/agent-model-selection",
+  "github_branch": "main"
 }

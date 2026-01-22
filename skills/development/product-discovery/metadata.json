@@ -7,5 +7,7 @@
     "product",
     "discovery"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/product-discovery",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Authoritative reference for Mermaid diagram syntax. Provides diagram types, syntax patterns, examples, and platform integration guidance for generating accurate Mermaid diagrams.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:14.812587Z"
+  "downloaded_at": "2026-01-06T09:00:14.812587Z",
+  "github_path": "plugins/visualization/skills/mermaid-syntax",
+  "github_branch": "main"
 }

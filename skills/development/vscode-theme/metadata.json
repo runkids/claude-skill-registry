@@ -7,5 +7,7 @@
     "vscode",
     "theme"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "skills/vscode-theme",
+  "github_branch": "main"
 }

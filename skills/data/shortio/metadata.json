@@ -7,5 +7,7 @@
     "shortio"
   ],
   "stars": 8,
-  "dir_name": "shortio"
+  "dir_name": "shortio",
+  "github_path": "shortio",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/giuseppe-trisciuoglio/developer-kit",
   "downloaded_at": "2026-01-22T01:58:41.982064Z",
   "dir_name": "aws-rds-spring-boot-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aws-java/aws-rds-spring-boot-integration",
+  "github_branch": "main"
 }

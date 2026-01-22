@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-22T03:51:04.496674Z",
   "dir_name": "react-native-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ui-design/skills/react-native-design",
+  "github_branch": "main"
 }

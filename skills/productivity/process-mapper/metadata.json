@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Map workflows, extract SOPs, and identify automation opportunities through systematic process capture and AI tractability assessment. Use when documenting workflows, creating SOPs, conducting process ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:50.687046Z"
+  "downloaded_at": "2026-01-06T08:58:50.687046Z",
+  "github_path": "ProcessMapper/process-mapper",
+  "github_branch": "main"
 }

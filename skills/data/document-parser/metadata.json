@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "document-parser"
+  "dir_name": "document-parser",
+  "github_path": "skills/document-parser",
+  "github_branch": "main"
 }

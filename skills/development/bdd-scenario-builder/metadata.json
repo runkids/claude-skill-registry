@@ -2,7 +2,9 @@
   "name": "bdd-scenario-builder",
   "repo": "yurake/skills",
   "category": "development",
-  "description": "Behavior-Driven Development (BDD) \u3067\u632f\u308b\u821e\u3044\u3092\u5b9a\u7fa9\u30fb\u30b7\u30ca\u30ea\u30aa\u5316\u3059\u308b\u305f\u3081\u306e\u30ac\u30a4\u30c9\u3002Given-When-Then \u3068 Gherkin \u3067\u53d7\u3051\u5165\u308c\u6761\u4ef6\u3084\u30a8\u30c3\u30b8\u30b1\u30fc\u30b9\u3092\u6574\u7406\u3057\u3001\u5931\u6557\u30d1\u30bf\u30fc\u30f3\u3084\u5c0f\u3055\u304f\u59cb\u3081\u308b\u5c0e\u5165\u30b9\u30c6\u30c3\u30d7\u3092\u542b\u3081\u3066\u3001\u696d\u52d9\u8a00\u8a9e\u3067\u660e\u78ba\u306a\u30b7\u30ca\u30ea\u30aa\u3092\u66f8\u304f\u3068\u304d\u306b\u4f7f\u3046\u3002",
+  "description": "Behavior-Driven Development (BDD) で振る舞いを定義・シナリオ化するためのガイド。Given-When-Then と Gherkin で受け入れ条件やエッジケースを整理し、失敗パターンや小さく始める導入ステップを含めて、業務言語で明確なシナリオを書くときに使う。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:41.211229Z"
+  "downloaded_at": "2026-01-06T09:09:41.211229Z",
+  "github_path": "dev/bdd-scenario-builder",
+  "github_branch": "main"
 }

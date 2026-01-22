@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when working with Ruby metaprogramming features including dynamic method definition, method_missing, class_eval, define_method, and reflection.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:08.249239Z"
+  "downloaded_at": "2026-01-06T08:57:08.249239Z",
+  "github_path": "jutsu/jutsu-ruby/skills/ruby-metaprogramming",
+  "github_branch": "main"
 }

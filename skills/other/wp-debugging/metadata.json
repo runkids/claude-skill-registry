@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:25.747190Z",
   "dir_name": "wp-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wp-debugging",
+  "github_branch": "main"
 }

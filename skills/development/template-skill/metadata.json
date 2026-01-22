@@ -7,5 +7,7 @@
     "template",
     "skill"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "skills/template-skill",
+  "github_branch": "main"
 }

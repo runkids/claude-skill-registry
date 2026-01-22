@@ -8,5 +8,7 @@
     "source",
     "finder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/recruitment-source-finder",
+  "github_branch": "main"
 }

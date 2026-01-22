@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Contract-first REST API design with OpenAPI 3.1 specification",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:05.000981Z"
+  "downloaded_at": "2026-01-06T09:00:05.000981Z",
+  "github_path": "plugins/formal-specification/skills/openapi-design",
+  "github_branch": "main"
 }

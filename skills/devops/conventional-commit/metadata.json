@@ -7,5 +7,7 @@
     "conventional",
     "commit"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "conventional-commit",
+  "github_branch": "main"
 }

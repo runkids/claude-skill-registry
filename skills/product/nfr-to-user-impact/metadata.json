@@ -2,7 +2,9 @@
   "name": "nfr-to-user-impact",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "product",
-  "description": "\u5c06\u6280\u672f\u6027\u7684NFR\uff08\u975e\u529f\u80fd\u9700\u6c42\uff09\u7ea6\u675f\u8f6c\u6362\u4e3a\u7528\u6237\u80fd\u611f\u77e5\u7684\u5f71\u54cd\u63cf\u8ff0\uff0c\u7528\u4e1a\u52a1\u8bed\u8a00\u89e3\u91ca\u6280\u672f\u7ea6\u675f\u7684\u4ef7\u503c\u3002\u9002\u5408\u5728NFR\u5b9a\u4e49\u5b8c\u6210\u540e\u3001\u9700\u8981\u5411\u5ba2\u6237\u6216\u7ba1\u7406\u5c42\u89e3\u91ca\u65f6\u4f7f\u7528\uff0c\u5f53NFR\u8fc7\u4e8e\u6280\u672f\u5316\u65f6\u3002\u5e2e\u52a9\u4e0d\u719f\u6089\u6280\u672f\u672f\u8bed\u7684PM/\u5ba2\u6237/BA\u7406\u89e3NFR\u7684\u4e1a\u52a1\u610f\u4e49\uff0c\u8ba9\u6280\u672f\u7ea6\u675f\u53d8\u5f97\u4eb2\u5207\u6613\u61c2\u3002",
+  "description": "将技术性的NFR（非功能需求）约束转换为用户能感知的影响描述，用业务语言解释技术约束的价值。适合在NFR定义完成后、需要向客户或管理层解释时使用，当NFR过于技术化时。帮助不熟悉技术术语的PM/客户/BA理解NFR的业务意义，让技术约束变得亲切易懂。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:52.060676Z"
+  "downloaded_at": "2026-01-06T09:09:52.060676Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/requirements/nfr-to-user-impact",
+  "github_branch": "main"
 }

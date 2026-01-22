@@ -8,5 +8,7 @@
     "voice"
   ],
   "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/majestic-marketing/skills/brand-voice",
+  "github_branch": "main"
 }

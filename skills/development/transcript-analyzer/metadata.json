@@ -7,5 +7,7 @@
     "transcript",
     "analyzer"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "transcript-analyzer",
+  "github_branch": "main"
 }

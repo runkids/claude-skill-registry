@@ -5,5 +5,7 @@
   "source": "github.com/rish2jain/paperresearchagent",
   "downloaded_at": "2026-01-22T03:12:24.244682Z",
   "dir_name": "aws-eks",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aws-eks",
+  "github_branch": "main"
 }

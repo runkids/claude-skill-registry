@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Promise-based HTTP client for making requests from browser and Node.js",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:26.548230Z"
+  "downloaded_at": "2026-01-06T09:08:26.548230Z",
+  "github_path": ".claude/skills/frontend/axios",
+  "github_branch": "main"
 }

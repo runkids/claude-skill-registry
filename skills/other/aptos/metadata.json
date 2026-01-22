@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:18.673343Z",
   "dir_name": "aptos",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos",
+  "github_branch": "main"
 }

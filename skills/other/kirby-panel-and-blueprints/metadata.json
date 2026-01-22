@@ -5,5 +5,7 @@
   "source": "github.com/bnomei/kirby-mcp",
   "downloaded_at": "2026-01-14T01:35:55.324555Z",
   "dir_name": "kirby-panel-and-blueprints",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/kirby-panel-and-blueprints",
+  "github_branch": "main"
 }

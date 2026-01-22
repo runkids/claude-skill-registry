@@ -8,5 +8,7 @@
     "best",
     "practices"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/n8n-best-practices",
+  "github_branch": "main"
 }

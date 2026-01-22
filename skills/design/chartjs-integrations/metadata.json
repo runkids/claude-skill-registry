@@ -7,5 +7,7 @@
     "chartjs",
     "integrations"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/chartjs-integrations",
+  "github_branch": "main"
 }

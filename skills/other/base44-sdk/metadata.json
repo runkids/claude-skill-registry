@@ -5,5 +5,7 @@
   "source": "github.com/base44/skills",
   "downloaded_at": "2026-01-21T00:57:52.739142Z",
   "dir_name": "base44-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/base44-sdk",
+  "github_branch": "main"
 }

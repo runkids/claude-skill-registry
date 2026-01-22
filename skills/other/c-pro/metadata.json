@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:04.513701Z",
   "dir_name": "c-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/c-pro",
+  "github_branch": "main"
 }

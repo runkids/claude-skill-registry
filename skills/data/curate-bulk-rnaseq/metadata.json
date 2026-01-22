@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "curate-bulk-rnaseq"
+  "dir_name": "curate-bulk-rnaseq",
+  "github_path": "skills/curate-bulk-rnaseq",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/modu-ai/cc-plugins",
   "downloaded_at": "2026-01-19T03:57:57.605307Z",
   "dir_name": "moai-platform-appintoss",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/moai-platform-appintoss/skills/moai-platform-appintoss",
+  "github_branch": "main"
 }

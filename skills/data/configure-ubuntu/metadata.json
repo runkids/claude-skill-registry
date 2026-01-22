@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "configure-ubuntu"
+  "dir_name": "configure-ubuntu",
+  "github_path": ".claude/skills/configure-ubuntu",
+  "github_branch": "main"
 }

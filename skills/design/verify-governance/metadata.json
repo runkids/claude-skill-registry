@@ -7,5 +7,7 @@
     "verify",
     "governance"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/verify-governance",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/CongDon1207/AGENTS.md",
   "downloaded_at": "2026-01-22T03:08:21.051903Z",
   "dir_name": "bash-linux",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/bash-linux",
+  "github_branch": "main"
 }

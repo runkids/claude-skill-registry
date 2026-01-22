@@ -8,5 +8,7 @@
     "regression",
     "testing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/visual-regression-testing",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "mechanics",
     "betting"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/market-mechanics-betting",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Guidelines for comments in code. Use when adding, editing, or removing comments.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:12.662453Z"
+  "downloaded_at": "2026-01-06T09:07:12.662453Z",
+  "github_path": "plugins/code/skills/comment-cleanup",
+  "github_branch": "main"
 }

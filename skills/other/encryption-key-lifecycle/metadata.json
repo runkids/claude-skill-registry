@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-17T02:52:40.038456Z",
   "dir_name": "encryption-key-lifecycle",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/encryption-key-lifecycle",
+  "github_branch": "main"
 }

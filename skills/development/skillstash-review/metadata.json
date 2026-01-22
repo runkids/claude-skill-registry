@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Review skillstash PRs and summarize validation issues",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:48.436741Z"
+  "downloaded_at": "2026-01-06T09:05:48.436741Z",
+  "github_path": ".agents/skills/skillstash-review",
+  "github_branch": "main"
 }

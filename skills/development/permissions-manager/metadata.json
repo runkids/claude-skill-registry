@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Configures Claude Code permissions via natural language for CLI tools (git, gcloud, aws, kubectl, maven, gradle, npm, docker), project types (Rust, Java, TypeScript, Python), and file patterns. Use wh",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:51.287664Z"
+  "downloaded_at": "2026-01-06T09:10:51.287664Z",
+  "github_path": "skills/development/permissions-manager",
+  "github_branch": "main"
 }

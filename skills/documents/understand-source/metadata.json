@@ -7,5 +7,7 @@
     "understand",
     "source"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/understand-source",
+  "github_branch": "main"
 }

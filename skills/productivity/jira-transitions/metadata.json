@@ -7,5 +7,7 @@
     "jira",
     "transitions"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "jira-transitions",
+  "github_branch": "main"
 }

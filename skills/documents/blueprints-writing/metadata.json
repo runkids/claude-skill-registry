@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Use when creating or updating technical blueprint documentation for new features, API changes, or architectural modifications. Always use search_blueprints first to avoid duplication, then write_bluep",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:00.259999Z"
+  "downloaded_at": "2026-01-06T08:57:00.259999Z",
+  "github_path": "hashi/hashi-blueprints/skills/blueprints-writing",
+  "github_branch": "main"
 }

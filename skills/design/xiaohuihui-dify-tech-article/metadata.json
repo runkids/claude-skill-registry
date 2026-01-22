@@ -2,7 +2,9 @@
   "name": "xiaohuihui-dify-tech-article",
   "repo": "wwwzhouhui/skills_collection",
   "category": "design",
-  "description": "\u4e13\u4e3aDify\u5de5\u4f5c\u6d41\u6848\u4f8b\u5206\u4eab\u8bbe\u8ba1\u7684\u516c\u4f17\u53f7\u6587\u7ae0\u751f\u6210\u5668,\u9075\u5faa\u5c0f\u7070\u7070\u516c\u4f17\u53f7\u5199\u4f5c\u89c4\u8303,\u81ea\u52a8\u751f\u6210\u5305\u542b\u524d\u8a00\u3001\u5de5\u4f5c\u6d41\u5236\u4f5c\u3001\u603b\u7ed3\u7684\u5b8c\u6574Dify\u6848\u4f8b\u6587\u7ae0,\u914d\u6709\u8be6\u7ec6\u7684\u8282\u70b9\u914d\u7f6e\u3001\u63d2\u4ef6\u5b89\u88c5\u6b65\u9aa4\u3001\u4ee3\u7801\u793a\u4f8b,\u5e76\u652f\u6301\u81ea\u52a8\u751f\u6210\u56fe\u7247\u4e0a\u4f20\u5230\u817e\u8baf\u4e91COS\u56fe\u5e8a",
+  "description": "专为Dify工作流案例分享设计的公众号文章生成器,遵循小灰灰公众号写作规范,自动生成包含前言、工作流制作、总结的完整Dify案例文章,配有详细的节点配置、插件安装步骤、代码示例,并支持自动生成图片上传到腾讯云COS图床",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:14.991074Z"
+  "downloaded_at": "2026-01-06T08:58:14.991074Z",
+  "github_path": "xiaohuihui-dify-tech-article",
+  "github_branch": "main"
 }

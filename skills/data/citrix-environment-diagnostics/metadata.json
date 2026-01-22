@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "citrix-environment-diagnostics"
+  "dir_name": "citrix-environment-diagnostics",
+  "github_path": ".claude/skills/citrix-environment-diagnostics",
+  "github_branch": "main"
 }

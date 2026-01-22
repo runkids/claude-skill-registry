@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cp-writing-style"
+  "dir_name": "cp-writing-style",
+  "github_path": ".claude/skills/cp-writing-style",
+  "github_branch": "main"
 }

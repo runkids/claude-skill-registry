@@ -7,5 +7,7 @@
     "paper",
     "validator"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/paper-validator",
+  "github_branch": "main"
 }

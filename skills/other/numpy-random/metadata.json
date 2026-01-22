@@ -5,5 +5,7 @@
   "source": "github.com/cuba6112/skillfactory",
   "downloaded_at": "2026-01-22T01:16:55.694469Z",
   "dir_name": "numpy-random",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/numpy-random",
+  "github_branch": "main"
 }

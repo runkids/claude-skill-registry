@@ -5,5 +5,7 @@
   "source": "github.com/VidyFoo/antigravity-skill-engine",
   "downloaded_at": "2026-01-22T03:47:04.915550Z",
   "dir_name": "code-auditing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/2-audit/code-auditing",
+  "github_branch": "main"
 }

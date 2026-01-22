@@ -5,5 +5,7 @@
   "source": "github.com/u9401066/pubmed-search-mcp",
   "downloaded_at": "2026-01-22T03:59:20.022480Z",
   "dir_name": "code-refactor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/code-refactor",
+  "github_branch": "main"
 }

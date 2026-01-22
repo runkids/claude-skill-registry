@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:06:01.281410Z",
   "dir_name": "synthetic-event-system-internals",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/synthetic-event-system-internals",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/posit-dev/skills",
   "downloaded_at": "2026-01-22T02:46:56.197534Z",
   "dir_name": "cran-extrachecks",
-  "category": "other"
+  "category": "other",
+  "github_path": "r-lib/cran-extrachecks",
+  "github_branch": "main"
 }

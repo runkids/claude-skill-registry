@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:01.684701Z",
   "dir_name": "electron-ipc-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/electron-ipc-patterns",
+  "github_branch": "main"
 }

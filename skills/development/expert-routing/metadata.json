@@ -7,5 +7,7 @@
     "expert",
     "routing"
   ],
-  "stars": 9
+  "stars": 9,
+  "github_path": "skills/expert-routing",
+  "github_branch": "main"
 }

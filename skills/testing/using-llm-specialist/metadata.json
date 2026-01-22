@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "LLM specialist router to prompt engineering, fine-tuning, RAG, evaluation, and safety skills.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:41.378015Z"
+  "downloaded_at": "2026-01-06T08:59:41.378015Z",
+  "github_path": "plugins/yzmir-llm-specialist/skills/using-llm-specialist",
+  "github_branch": "main"
 }

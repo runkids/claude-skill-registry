@@ -7,5 +7,7 @@
     "fetch"
   ],
   "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/fetch",
+  "github_branch": "main"
 }

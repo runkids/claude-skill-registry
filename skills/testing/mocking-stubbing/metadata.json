@@ -7,5 +7,7 @@
     "mocking",
     "stubbing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/mocking-stubbing",
+  "github_branch": "main"
 }

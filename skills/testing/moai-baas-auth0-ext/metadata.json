@@ -9,5 +9,7 @@
     "auth0",
     "ext"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-baas-auth0-ext",
+  "github_branch": "main"
 }

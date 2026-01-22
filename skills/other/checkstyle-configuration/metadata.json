@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-21T03:32:14.542858Z",
   "dir_name": "checkstyle-configuration",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-checkstyle/skills/checkstyle-configuration",
+  "github_branch": "main"
 }

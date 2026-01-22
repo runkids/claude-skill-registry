@@ -5,5 +5,7 @@
   "source": "github.com/vasic-digital/SuperAgent",
   "downloaded_at": "2026-01-22T03:16:19.586284Z",
   "dir_name": "appinsights-instrumentation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-copilot/appinsights-instrumentation",
+  "github_branch": "main"
 }

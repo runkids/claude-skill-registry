@@ -7,5 +7,7 @@
     "graphql",
     "security"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/graphql-security",
+  "github_branch": "main"
 }

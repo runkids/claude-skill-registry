@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:05.105268Z",
   "dir_name": "sentry-ci-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/sentry-pack/skills/sentry-ci-integration",
+  "github_branch": "main"
 }

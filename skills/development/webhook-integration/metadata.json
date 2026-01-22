@@ -7,5 +7,7 @@
     "webhook",
     "integration"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/webhook-integration",
+  "github_branch": "main"
 }

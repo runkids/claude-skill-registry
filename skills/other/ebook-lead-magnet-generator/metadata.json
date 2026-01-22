@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:39.754994Z",
   "dir_name": "ebook-lead-magnet-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/ebook-lead-magnet-generator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:04.136649Z",
   "dir_name": "ln-210-epic-coordinator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-210-epic-coordinator",
+  "github_branch": "main"
 }

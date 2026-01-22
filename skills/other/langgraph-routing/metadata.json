@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-20T01:39:00.596478Z",
   "dir_name": "langgraph-routing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/langgraph-routing",
+  "github_branch": "main"
 }

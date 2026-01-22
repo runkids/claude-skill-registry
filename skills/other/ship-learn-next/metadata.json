@@ -5,5 +5,7 @@
   "source": "github.com/gupsammy/Claude-setup",
   "downloaded_at": "2026-01-22T04:13:16.726261Z",
   "dir_name": "ship-learn-next",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ship-learn-next",
+  "github_branch": "main"
 }

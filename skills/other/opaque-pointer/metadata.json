@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:29.267435Z",
   "dir_name": "opaque-pointer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/patterns/opaque-pointer",
+  "github_branch": "main"
 }

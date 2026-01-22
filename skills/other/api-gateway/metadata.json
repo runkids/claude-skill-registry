@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:42.660606Z",
   "dir_name": "api-gateway",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/go-api-gateway",
+  "github_branch": "main"
 }

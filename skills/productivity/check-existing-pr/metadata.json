@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Check if pull request already exists for current branch to support workflow resumption and prevent duplicate PR creation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:14.856038Z"
+  "downloaded_at": "2026-01-06T08:59:14.856038Z",
+  "github_path": ".claude/skills/github-integration/check-existing-pr",
+  "github_branch": "main"
 }

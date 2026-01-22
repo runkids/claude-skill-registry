@@ -5,5 +5,7 @@
   "source": "github.com/creator-hian/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:40:46.186343Z",
   "dir_name": "unity-csharp-fundamentals",
-  "category": "other"
+  "category": "other",
+  "github_path": "unity-plugin/skills/unity-csharp-fundamentals",
+  "github_branch": "main"
 }

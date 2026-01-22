@@ -7,5 +7,7 @@
     "contract",
     "generator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "contract-generator",
+  "github_branch": "main"
 }

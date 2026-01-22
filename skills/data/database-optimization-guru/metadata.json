@@ -5,5 +5,7 @@
   "description": "Database expert for query optimization, indexing, schema design, and performance tuning",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:00:21.687728Z",
-  "dir_name": "database-optimization-guru"
+  "dir_name": "database-optimization-guru",
+  "github_path": "skills/technical/database-optimization-guru",
+  "github_branch": "main"
 }

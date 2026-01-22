@@ -7,5 +7,7 @@
     "makefile",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "makefile-generator",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Verify bidirectional traceability from requirements to code to tests. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.554210Z"
+  "downloaded_at": "2026-01-06T08:56:58.554210Z",
+  "github_path": "plugins/sdlc/skills/traceability-check",
+  "github_branch": "main"
 }

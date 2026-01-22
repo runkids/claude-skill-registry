@@ -10,5 +10,7 @@
   ],
   "stars": 14,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "dosdp-design-patterns"
+  "dir_name": "dosdp-design-patterns",
+  "github_path": "dosdp-design-patterns",
+  "github_branch": "main"
 }

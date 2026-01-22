@@ -5,5 +5,7 @@
   "source": "github.com/serpro69/claude-starter-kit",
   "downloaded_at": "2026-01-22T01:36:31.603477Z",
   "dir_name": "documentation-process",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/templates/claude/skills/documentation-process",
+  "github_branch": "main"
 }

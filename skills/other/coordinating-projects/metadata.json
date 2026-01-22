@@ -5,5 +5,7 @@
   "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
   "downloaded_at": "2026-01-22T01:49:13.850312Z",
   "dir_name": "coordinating-projects",
-  "category": "other"
+  "category": "other",
+  "github_path": "project-manager/skills/coordinating-projects",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "vue",
     "router"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/vue-router",
+  "github_branch": "main"
 }

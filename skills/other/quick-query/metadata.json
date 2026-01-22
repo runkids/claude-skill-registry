@@ -5,5 +5,7 @@
   "source": "github.com/yhvh-chen/Olav",
   "downloaded_at": "2026-01-22T00:58:55.321127Z",
   "dir_name": "quick-query",
-  "category": "other"
+  "category": "other",
+  "github_path": ".olav/skills/quick-query",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "meta",
     "proof"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/occlusion-trace-meta-proof",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/schwepps/skills",
   "downloaded_at": "2026-01-22T03:29:05.841555Z",
   "dir_name": "geo-aeo-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "geo-aeo-optimization",
+  "github_branch": "main"
 }

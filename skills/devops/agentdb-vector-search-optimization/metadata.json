@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "AgentDB Vector Search Optimization operates on 3 fundamental principles:",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:53.642269Z"
+  "downloaded_at": "2026-01-06T08:58:53.642269Z",
+  "github_path": "skills/platforms/agentdb-vector-search-optimization",
+  "github_branch": "main"
 }

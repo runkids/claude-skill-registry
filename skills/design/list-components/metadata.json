@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Fetch component names from Sippy component readiness API",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:18.095893Z"
+  "downloaded_at": "2026-01-06T08:57:18.095893Z",
+  "github_path": "plugins/component-health/skills/list-components",
+  "github_branch": "main"
 }

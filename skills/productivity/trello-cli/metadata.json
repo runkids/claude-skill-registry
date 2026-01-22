@@ -7,5 +7,7 @@
     "trello",
     "cli"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "plugins/trello-cli/skills/trello-cli",
+  "github_branch": "main"
 }

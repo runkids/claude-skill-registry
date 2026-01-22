@@ -5,5 +5,7 @@
   "source": "github.com/robdtaylor/personal-ai-infrastructure",
   "downloaded_at": "2026-01-22T02:08:05.014866Z",
   "dir_name": "cuttingparams",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/CuttingParams",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "trade",
     "screener"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/pair-trade-screener",
+  "github_branch": "main"
 }

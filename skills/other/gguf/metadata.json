@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:56.402335Z",
   "dir_name": "gguf",
-  "category": "other"
+  "category": "other",
+  "github_path": "10-optimization/gguf",
+  "github_branch": "main"
 }

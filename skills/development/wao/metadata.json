@@ -4,5 +4,7 @@
   "category": "development",
   "description": "GitHub repository skill for ArweaveOasis/wao",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:27.510934Z"
+  "downloaded_at": "2026-01-06T09:00:27.510934Z",
+  "github_path": "INTEGRATION/processed/wao",
+  "github_branch": "main"
 }

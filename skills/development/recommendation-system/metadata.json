@@ -7,5 +7,7 @@
     "recommendation",
     "system"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/recommendation-system",
+  "github_branch": "main"
 }

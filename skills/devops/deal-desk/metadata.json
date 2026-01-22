@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use to manage pricing, packaging, and approval workflows for renewal negotiations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.067782Z"
+  "downloaded_at": "2026-01-06T08:57:25.067782Z",
+  "github_path": "plugins/renewal-orchestration/skills/deal-desk",
+  "github_branch": "main"
 }

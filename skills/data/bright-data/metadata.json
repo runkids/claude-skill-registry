@@ -9,5 +9,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bright-data"
+  "dir_name": "bright-data",
+  "github_path": "bright-data",
+  "github_branch": "main"
 }

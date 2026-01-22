@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Extract comment locations from code files for analysis. Use when cleaning comments, auditing code documentation, or analyzing comment patterns. Supports Python, JavaScript, TypeScript, Go, Rust, Java,",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:40.590247Z"
+  "downloaded_at": "2026-01-06T08:59:40.590247Z",
+  "github_path": "plugins/base/skills/code-comments",
+  "github_branch": "main"
 }

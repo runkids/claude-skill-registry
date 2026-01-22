@@ -7,5 +7,7 @@
     "kargo",
     "skill"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/kargo-skill",
+  "github_branch": "main"
 }

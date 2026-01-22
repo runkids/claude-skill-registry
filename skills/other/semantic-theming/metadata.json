@@ -5,5 +5,7 @@
   "source": "github.com/BerryKuipers/claude-code-toolkit",
   "downloaded_at": "2026-01-22T01:27:06.606230Z",
   "dir_name": "semantic-theming",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/styling/semantic-theming",
+  "github_branch": "main"
 }

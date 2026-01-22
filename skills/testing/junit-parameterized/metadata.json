@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when jUnit parameterized tests with various value sources and test factories.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:05.129731Z"
+  "downloaded_at": "2026-01-06T08:57:05.129731Z",
+  "github_path": "jutsu/jutsu-junit/skills/junit-parameterized",
+  "github_branch": "main"
 }

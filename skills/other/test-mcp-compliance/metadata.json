@@ -5,5 +5,7 @@
   "source": "github.com/Async-IO/pierre_mcp_server",
   "downloaded_at": "2026-01-22T03:51:25.492250Z",
   "dir_name": "test-mcp-compliance",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/test-mcp-compliance",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:53.486773Z",
   "dir_name": "kafka-mcp-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-kafka/skills/kafka-mcp-integration",
+  "github_branch": "main"
 }

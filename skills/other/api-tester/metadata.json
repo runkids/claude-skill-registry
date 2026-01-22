@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:37.882790Z",
   "dir_name": "api-tester",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/api-tester",
+  "github_branch": "main"
 }

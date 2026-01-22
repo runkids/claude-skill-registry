@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Generate custom voice profiles from natural language descriptions. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.643431Z"
+  "downloaded_at": "2026-01-06T08:56:58.643431Z",
+  "github_path": "plugins/voice/skills/voice-create",
+  "github_branch": "main"
 }

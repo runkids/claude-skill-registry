@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Claude Code internals explorer",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:28.372343Z"
+  "downloaded_at": "2026-01-06T09:06:28.372343Z",
+  "github_path": "claude-code-internals/skills/claude-code-internals",
+  "github_branch": "main"
 }

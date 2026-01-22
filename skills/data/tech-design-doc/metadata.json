@@ -9,5 +9,7 @@
     "doc"
   ],
   "stars": 2,
-  "dir_name": "tech-design-doc"
+  "dir_name": "tech-design-doc",
+  "github_path": "skills/tech-design-doc",
+  "github_branch": "main"
 }

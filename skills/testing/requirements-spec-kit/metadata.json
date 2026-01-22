@@ -8,5 +8,7 @@
     "spec",
     "kit"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "requirements-spec-kit",
+  "github_branch": "main"
 }

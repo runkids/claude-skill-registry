@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Multiagent AI system for scientific research assistance that automates research workflows from data analysis to publication. This skill should be used when generating research ideas from datasets, dev",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.994857Z"
+  "downloaded_at": "2026-01-06T08:55:36.994857Z",
+  "github_path": "cli-tool/components/skills/scientific/denario",
+  "github_branch": "main"
 }

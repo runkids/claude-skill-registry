@@ -7,5 +7,7 @@
     "color",
     "accessibility"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/color-accessibility",
+  "github_branch": "main"
 }

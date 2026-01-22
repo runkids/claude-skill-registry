@@ -7,5 +7,7 @@
     "graphql",
     "codegen"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/graphql-codegen",
+  "github_branch": "main"
 }

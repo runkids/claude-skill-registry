@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:46.179183Z",
   "dir_name": "ado-multi-project",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-ado/skills/ado-multi-project",
+  "github_branch": "main"
 }

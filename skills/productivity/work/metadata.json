@@ -6,5 +6,7 @@
   "tags": [
     "work"
   ],
-  "stars": 9
+  "stars": 9,
+  "github_path": ".claude/skills/dev-workflow",
+  "github_branch": "main"
 }

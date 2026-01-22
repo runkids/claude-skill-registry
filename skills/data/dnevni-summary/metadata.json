@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "dnevni-summary"
+  "dir_name": "dnevni-summary",
+  "github_path": ".claude/skills/dnevni-summary",
+  "github_branch": "main"
 }

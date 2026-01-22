@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-19T03:36:21.118938Z",
   "dir_name": "genre-conventions",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/craft/genre-conventions",
+  "github_branch": "main"
 }

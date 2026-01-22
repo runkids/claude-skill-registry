@@ -1,5 +1,7 @@
 {
   "name": "marketing-strategy-pmm",
   "repo": "alirezarezvani/claude-skills",
-  "category": "marketing"
+  "category": "marketing",
+  "github_path": "marketing-skill/marketing-strategy-pmm",
+  "github_branch": "main"
 }

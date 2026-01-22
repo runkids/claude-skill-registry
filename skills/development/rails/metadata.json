@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive Ruby on Rails v8.1 development guide with detailed documentation for Active Record, controllers, views, routing, testing, jobs, mailers, and more. Use when working on Rails applications,",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:58.106316Z"
+  "downloaded_at": "2026-01-06T09:09:58.106316Z",
+  "github_path": "plugins/ruby-rails/skills/cucumber-gherkin",
+  "github_branch": "main"
 }

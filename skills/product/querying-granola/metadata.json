@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Queries local Granola meeting cache for meeting history, context, and attendee information. Use when preparing for meetings, researching past interactions with a person or company, finding past discus",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:35.466742Z"
+  "downloaded_at": "2026-01-06T09:10:35.466742Z",
+  "github_path": "skills/querying-granola",
+  "github_branch": "main"
 }

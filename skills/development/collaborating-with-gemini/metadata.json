@@ -9,5 +9,7 @@
     "gemini"
   ],
   "stars": 39,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".codex/skills/collaborating-with-gemini",
+  "github_branch": "main"
 }

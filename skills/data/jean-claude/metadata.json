@@ -8,5 +8,7 @@
     "claude"
   ],
   "stars": 5,
-  "dir_name": "jean-claude"
+  "dir_name": "jean-claude",
+  "github_path": "skills/jean-claude",
+  "github_branch": "main"
 }

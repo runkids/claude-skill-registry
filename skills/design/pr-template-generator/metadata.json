@@ -7,5 +7,7 @@
     "template",
     "generator"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/pr-template-generator",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Provides reusable templates for generating comprehensive codebase knowledge bases including architecture diagrams, concept maps, and module documentation. Supports both single-project and monorepo str",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:40.589957Z"
+  "downloaded_at": "2026-01-06T08:59:40.589957Z",
+  "github_path": "plugins/base/skills/knowledge-base-templates",
+  "github_branch": "main"
 }

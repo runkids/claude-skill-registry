@@ -5,5 +5,7 @@
   "source": "github.com/dy9759/Text2KnowledgeCards",
   "downloaded_at": "2026-01-14T02:08:16.006389Z",
   "dir_name": "pdf-anthropic",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aitemplates-skills/pdf-anthropic",
+  "github_branch": "main"
 }

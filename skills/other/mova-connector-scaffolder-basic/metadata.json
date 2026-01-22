@@ -5,5 +5,7 @@
   "source": "github.com/Leryk1981/mova_wf_cycle",
   "downloaded_at": "2026-01-22T02:33:27.356382Z",
   "dir_name": "mova-connector-scaffolder-basic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/mova_connector_scaffolder_basic",
+  "github_branch": "main"
 }

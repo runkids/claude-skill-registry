@@ -5,5 +5,7 @@
   "source": "github.com/profmikegreene/gotei",
   "downloaded_at": "2026-01-22T04:05:49.890172Z",
   "dir_name": "template-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": "Gotei_Skills/template-generation",
+  "github_branch": "main"
 }

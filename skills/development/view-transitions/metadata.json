@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Creates smooth animated transitions between views using the native View Transitions API. Use when building page transitions, state changes, or morphing elements between different DOM states in SPAs an",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:04.104922Z"
+  "downloaded_at": "2026-01-06T09:10:04.104922Z",
+  "github_path": "plugins/goodvibes/skills/webdev/skills/view-transitions",
+  "github_branch": "main"
 }

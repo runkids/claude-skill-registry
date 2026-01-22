@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:39.972469Z",
   "dir_name": "resource-monitor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/resource-monitor",
+  "github_branch": "main"
 }

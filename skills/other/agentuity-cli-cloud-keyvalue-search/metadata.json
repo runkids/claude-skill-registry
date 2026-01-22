@@ -5,5 +5,7 @@
   "source": "github.com/agentuity/sdk-explorer",
   "downloaded_at": "2026-01-22T03:37:22.014105Z",
   "dir_name": "agentuity-cli-cloud-keyvalue-search",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/agentuity-cli-cloud-keyvalue-search",
+  "github_branch": "main"
 }

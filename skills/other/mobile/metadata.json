@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-design-system",
   "downloaded_at": "2026-01-14T03:12:02.476601Z",
   "dir_name": "mobile",
-  "category": "other"
+  "category": "other",
+  "github_path": "developer-roadmap-plugin/skills/mobile",
+  "github_branch": "main"
 }

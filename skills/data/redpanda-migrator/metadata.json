@@ -8,5 +8,7 @@
     "migrator"
   ],
   "stars": 0,
-  "dir_name": "redpanda-migrator"
+  "dir_name": "redpanda-migrator",
+  "github_path": "redpanda-migrator",
+  "github_branch": "main"
 }

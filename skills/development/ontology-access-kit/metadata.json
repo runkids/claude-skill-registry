@@ -8,5 +8,7 @@
     "access",
     "kit"
   ],
-  "stars": 14
+  "stars": 14,
+  "github_path": "ontology-access-kit",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "law",
     "governor"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/codex-law-governor",
+  "github_branch": "main"
 }

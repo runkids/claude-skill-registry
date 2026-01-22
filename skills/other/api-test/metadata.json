@@ -5,5 +5,7 @@
   "source": "github.com/dfujiwara/kindle-notes-reminder",
   "downloaded_at": "2026-01-22T02:37:53.345860Z",
   "dir_name": "api-test",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/api-test",
+  "github_branch": "main"
 }

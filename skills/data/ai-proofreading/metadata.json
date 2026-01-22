@@ -8,5 +8,7 @@
   ],
   "stars": 14,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-proofreading"
+  "dir_name": "ai-proofreading",
+  "github_path": "skills/ai-proofreading",
+  "github_branch": "main"
 }

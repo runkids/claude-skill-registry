@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-19T02:22:02.287835Z",
   "dir_name": "multi-tenancy-saas",
-  "category": "other"
+  "category": "other",
+  "github_path": "62-scale-operations/multi-tenancy-saas",
+  "github_branch": "main"
 }

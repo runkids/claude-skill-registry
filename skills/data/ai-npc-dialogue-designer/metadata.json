@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-npc-dialogue-designer"
+  "dir_name": "ai-npc-dialogue-designer",
+  "github_path": ".claude/skills/ai-npc-dialogue-designer",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "fundamentals"
   ],
   "stars": 5,
-  "dir_name": "convex-agents-fundamentals"
+  "dir_name": "convex-agents-fundamentals",
+  "github_path": "convex-agents-fundamentals",
+  "github_branch": "main"
 }

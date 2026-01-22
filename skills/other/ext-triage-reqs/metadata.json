@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:27.393664Z",
   "dir_name": "ext-triage-reqs",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-requirements/skills/ext-triage-reqs",
+  "github_branch": "main"
 }

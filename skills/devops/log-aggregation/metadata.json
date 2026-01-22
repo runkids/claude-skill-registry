@@ -7,5 +7,7 @@
     "log",
     "aggregation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/log-aggregation",
+  "github_branch": "main"
 }

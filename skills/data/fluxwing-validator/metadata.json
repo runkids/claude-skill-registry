@@ -9,5 +9,7 @@
   ],
   "stars": 9,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "fluxwing-validator"
+  "dir_name": "fluxwing-validator",
+  "github_path": "skills/fluxwing-validator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:56.017211Z",
   "dir_name": "graph-database-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/graph-database-expert",
+  "github_branch": "main"
 }

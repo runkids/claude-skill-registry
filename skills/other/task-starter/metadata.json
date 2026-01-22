@@ -5,5 +5,7 @@
   "source": "github.com/goldeneggg/dotfiles",
   "downloaded_at": "2026-01-22T03:11:08.539801Z",
   "dir_name": "task-starter",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-linux/.claude/skills/task-starter",
+  "github_branch": "main"
 }

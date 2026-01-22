@@ -5,5 +5,7 @@
   "source": "github.com/mahidalhan/claude-hacks",
   "downloaded_at": "2026-01-14T01:59:27.353667Z",
   "dir_name": "standup",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/standup/skills/standup",
+  "github_branch": "main"
 }

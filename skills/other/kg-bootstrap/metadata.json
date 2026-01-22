@@ -5,5 +5,7 @@
   "source": "github.com/costiash/CognivAgent",
   "downloaded_at": "2026-01-20T03:10:04.012433Z",
   "dir_name": "kg-bootstrap",
-  "category": "other"
+  "category": "other",
+  "github_path": "app/agent/resources/.claude/skills/kg-bootstrap",
+  "github_branch": "main"
 }

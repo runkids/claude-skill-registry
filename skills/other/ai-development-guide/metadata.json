@@ -5,5 +5,7 @@
   "source": "github.com/shinpr/claude-code-workflows",
   "downloaded_at": "2026-01-22T03:24:40.789166Z",
   "dir_name": "ai-development-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ai-development-guide",
+  "github_branch": "main"
 }

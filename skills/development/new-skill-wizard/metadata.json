@@ -8,5 +8,7 @@
     "skill",
     "wizard"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/new-skill-wizard",
+  "github_branch": "main"
 }

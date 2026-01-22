@@ -5,5 +5,7 @@
   "source": "github.com/Microck/ordinary-claude-skills",
   "downloaded_at": "2026-01-21T00:56:03.007586Z",
   "dir_name": "command-name",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills_all/command-name",
+  "github_branch": "main"
 }

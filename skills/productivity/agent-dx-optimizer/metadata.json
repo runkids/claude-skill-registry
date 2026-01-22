@@ -8,5 +8,7 @@
     "optimizer"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/DEPRECATED/agent-dx-optimizer",
+  "github_branch": "main"
 }

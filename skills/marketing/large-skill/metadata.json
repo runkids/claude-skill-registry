@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Large skill with extensive content and supplementary files",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:50.702051Z"
+  "downloaded_at": "2026-01-06T08:59:50.702051Z",
+  "github_path": "tests/fixtures/skills/large-skill",
+  "github_branch": "main"
 }

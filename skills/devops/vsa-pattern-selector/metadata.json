@@ -2,7 +2,9 @@
   "name": "vsa-pattern-selector",
   "repo": "akiramei/blazor-enterprise-architecture-poc",
   "category": "devops",
-  "description": "Blazor VSA \u30d1\u30bf\u30fc\u30f3\u30ab\u30bf\u30ed\u30b0\u304b\u3089\u306e\u9069\u5207\u306a\u30d1\u30bf\u30fc\u30f3\u9078\u629e\u652f\u63f4\u3002\u65b0\u6a5f\u80fd\u8ffd\u52a0\u3001 CRUD \u64cd\u4f5c\u3001\u30af\u30a8\u30ea\u5b9f\u88c5\u3001\u72b6\u614b\u9077\u79fb\u3001\u30d0\u30a6\u30f3\u30c0\u30ea\u30fc\u8a2d\u8a08\u306a\u3069\u306e\u6587\u8108\u3067\u3001 catalog/index.json \u306e ai_decision_matrix \u306b\u57fa\u3065\u3044\u3066\u6700\u9069\u306a\u30d1\u30bf\u30fc\u30f3\u3092 \u63d0\u6848\u3059\u308b\u3002Feature Slice\u3001Pipeline Behavior\u3001Domain Pattern\u3001 Query Pattern \u306a\u3069\u304b",
+  "description": "Blazor VSA パターンカタログからの適切なパターン選択支援。新機能追加、 CRUD 操作、クエリ実装、状態遷移、バウンダリー設計などの文脈で、 catalog/index.json の ai_decision_matrix に基づいて最適なパターンを 提案する。Feature Slice、Pipeline Behavior、Domain Pattern、 Query Pattern などか",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:30.481313Z"
+  "downloaded_at": "2026-01-06T09:01:30.481313Z",
+  "github_path": "catalog/skills/vsa-pattern-selector",
+  "github_branch": "main"
 }

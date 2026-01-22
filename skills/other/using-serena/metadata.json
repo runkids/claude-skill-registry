@@ -5,5 +5,7 @@
   "source": "github.com/sumik5/sumik-claude-plugin",
   "downloaded_at": "2026-01-19T05:57:56.077504Z",
   "dir_name": "using-serena",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/using-serena",
+  "github_branch": "main"
 }

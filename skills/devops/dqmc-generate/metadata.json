@@ -8,5 +8,7 @@
     "generate"
   ],
   "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/dqmc-generate",
+  "github_branch": "main"
 }

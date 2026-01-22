@@ -5,5 +5,7 @@
   "source": "github.com/resolve-io/.prism",
   "downloaded_at": "2026-01-14T03:09:56.553167Z",
   "dir_name": "initialize-project-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/prism-devtools/skills/initialize-project-memory",
+  "github_branch": "main"
 }

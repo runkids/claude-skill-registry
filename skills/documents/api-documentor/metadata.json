@@ -8,5 +8,7 @@
     "documentor"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-documentor",
+  "github_branch": "main"
 }

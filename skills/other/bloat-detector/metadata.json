@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:21.710092Z",
   "dir_name": "bloat-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/conserve/skills/bloat-detector",
+  "github_branch": "main"
 }

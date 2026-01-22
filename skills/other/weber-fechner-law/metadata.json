@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:44.082301Z",
   "dir_name": "weber-fechner-law",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/perception/weber-fechner-law",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:15.914750Z",
   "dir_name": "refactoring-ritual",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/refactoring-ritual",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "nestjs-conventions",
   "repo": "uniyous/parkgolf-platform",
   "category": "development",
-  "description": "Park Golf Platform NestJS \ucf54\ub529 \ucee8\ubca4\uc158. \ubaa8\ub4c8 \uad6c\uc870, \uc11c\ube44\uc2a4/\ucee8\ud2b8\ub864\ub7ec \uc791\uc131 \uaddc\uce59, DTO/Entity \ud328\ud134, \uc758\uc874\uc131 \uc8fc\uc785 \ubc29\ubc95 \uc548\ub0b4. \"NestJS\", \"\ucee8\ubca4\uc158\", \"\ucf54\ub529 \uc2a4\ud0c0\uc77c\", \"\ubaa8\ub4c8\", \"\uc11c\ube44\uc2a4\" \uad00\ub828 \uc9c8\ubb38 \uc2dc \uc0ac\uc6a9\ud569\ub2c8\ub2e4.",
+  "description": "Park Golf Platform NestJS 코딩 컨벤션. 모듈 구조, 서비스/컨트롤러 작성 규칙, DTO/Entity 패턴, 의존성 주입 방법 안내. \"NestJS\", \"컨벤션\", \"코딩 스타일\", \"모듈\", \"서비스\" 관련 질문 시 사용합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:19.578358Z"
+  "downloaded_at": "2026-01-06T09:09:19.578358Z",
+  "github_path": ".claude/skills/development/nestjs-conventions",
+  "github_branch": "main"
 }

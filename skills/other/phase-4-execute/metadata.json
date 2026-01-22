@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:28.636331Z",
   "dir_name": "phase-4-execute",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-workflow/skills/phase-4-execute",
+  "github_branch": "main"
 }

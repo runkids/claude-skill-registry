@@ -5,5 +5,7 @@
   "source": "github.com/jamshu/jamshi-marketplace",
   "downloaded_at": "2026-01-22T02:53:23.973779Z",
   "dir_name": "odoo-migration-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/odoo-dev/skills/odoo-migration-assistant",
+  "github_branch": "main"
 }

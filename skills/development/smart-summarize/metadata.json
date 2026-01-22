@@ -7,5 +7,7 @@
     "smart",
     "summarize"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/smart-summarize",
+  "github_branch": "main"
 }

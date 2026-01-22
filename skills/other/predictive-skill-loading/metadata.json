@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:02.970249Z",
   "dir_name": "predictive-skill-loading",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/predictive-skill-loading",
+  "github_branch": "main"
 }

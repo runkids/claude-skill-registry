@@ -8,5 +8,7 @@
     "component",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "qwik-component-generator",
+  "github_branch": "main"
 }

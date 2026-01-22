@@ -9,5 +9,7 @@
     "builder"
   ],
   "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "chatgpt-app-builder",
+  "github_branch": "main"
 }

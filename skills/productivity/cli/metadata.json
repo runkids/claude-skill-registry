@@ -7,5 +7,7 @@
     "cli"
   ],
   "stars": 23,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cli",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "regression",
     "detection"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/performance-regression-detection",
+  "github_branch": "main"
 }

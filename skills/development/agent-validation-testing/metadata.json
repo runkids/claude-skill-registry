@@ -2,7 +2,9 @@
   "name": "agent-validation-testing",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u306e\u691c\u8a3c\u3068\u30c6\u30b9\u30c8\u30b1\u30fc\u30b9\u8a2d\u8a08\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002**Anchors:**\u2022 Test-Driven Development: By Example\uff08Kent Beck\uff09/ \u9069\u7528: \u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u691c\u8a3c\u3068\u30c6\u30b9\u30c8\u30b1\u30fc\u30b9\u8a2d\u8a08 / \u76ee\u7684: Red-Green-Refactor\u30d1\u30bf\u30fc\u30f3\u306b\u57fa\u3065\u304f\u4fe1\u983c\u6027\u306e\u9ad8\u3044\u691c\u8a3c**Trigger:**\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u691c\u8a3c\u30fb\u30c6\u30b9\u30c8\u30b1\u30fc\u30b9\u8a2d\u8a08\u30fb\u30c6\u30b9\u30c8\u5b9f\u88c5\u30fb\u7d50\u679c\u8a55\u4fa1\u30fb\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3",
+  "description": "エージェントの検証とテストケース設計を専門とするスキル。**Anchors:**• Test-Driven Development: By Example（Kent Beck）/ 適用: エージェント検証とテストケース設計 / 目的: Red-Green-Refactorパターンに基づく信頼性の高い検証**Trigger:**エージェント検証・テストケース設計・テスト実装・結果評価・バリデーション",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.074756Z"
+  "downloaded_at": "2026-01-06T09:00:40.074756Z",
+  "github_path": "docs/99-claude/skills/agent-validation-testing",
+  "github_branch": "main"
 }

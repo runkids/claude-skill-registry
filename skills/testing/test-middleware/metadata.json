@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Test middleware functions. Use when testing authentication, validation, or other middleware. Triggers on \"test middleware\", \"test auth middleware\", \"test validation middleware\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:26.742113Z"
+  "downloaded_at": "2026-01-06T09:03:26.742113Z",
+  "github_path": ".claude/skills/test-middleware",
+  "github_branch": "main"
 }

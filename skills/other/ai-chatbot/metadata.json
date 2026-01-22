@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:04.283849Z",
   "dir_name": "ai-chatbot",
-  "category": "other"
+  "category": "other",
+  "github_path": "ai-chatbot",
+  "github_branch": "main"
 }

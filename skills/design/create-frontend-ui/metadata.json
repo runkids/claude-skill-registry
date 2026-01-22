@@ -7,5 +7,7 @@
     "create",
     "frontend"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/create-frontend-ui",
+  "github_branch": "main"
 }

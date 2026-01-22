@@ -5,5 +5,7 @@
   "source": "github.com/YusukeShimizu/lightning-compute-protocol",
   "downloaded_at": "2026-01-14T02:53:09.592823Z",
   "dir_name": "lcp-repo",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/lcp-repo",
+  "github_branch": "main"
 }

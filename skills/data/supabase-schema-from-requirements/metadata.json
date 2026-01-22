@@ -5,5 +5,7 @@
   "description": "Execute Supabase primary workflow: Schema from Requirements.Use when Starting a new project with defined data requirements,Refactoring an existing schema based on new features, or Creating migrations ",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:50.813488Z",
-  "dir_name": "supabase-schema-from-requirements"
+  "dir_name": "supabase-schema-from-requirements",
+  "github_path": "plugins/saas-packs/supabase-pack/skills/supabase-schema-from-requirements",
+  "github_branch": "main"
 }

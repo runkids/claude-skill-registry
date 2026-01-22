@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-machine-learning",
   "downloaded_at": "2026-01-21T04:07:47.525414Z",
   "dir_name": "ml-deployment",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ml-deployment",
+  "github_branch": "main"
 }

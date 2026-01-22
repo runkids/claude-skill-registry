@@ -5,5 +5,7 @@
   "source": "github.com/takemo101/compose-workflow",
   "downloaded_at": "2026-01-22T02:45:06.593090Z",
   "dir_name": "reviewer-common",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/reviewer-common",
+  "github_branch": "main"
 }

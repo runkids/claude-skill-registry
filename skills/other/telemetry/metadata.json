@@ -5,5 +5,7 @@
   "source": "github.com/5dlabs/cto",
   "downloaded_at": "2026-01-22T03:27:05.988125Z",
   "dir_name": "telemetry",
-  "category": "other"
+  "category": "other",
+  "github_path": ".factory/skills/telemetry",
+  "github_branch": "main"
 }

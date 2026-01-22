@@ -5,5 +5,7 @@
   "description": "Master SQL for data analysis with complex queries, joins, aggregations, window functions, and query optimization.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:58.083495Z",
-  "dir_name": "sql-analysis"
+  "dir_name": "sql-analysis",
+  "github_path": "plugins/data-analyst/skills/sql-analysis",
+  "github_branch": "main"
 }

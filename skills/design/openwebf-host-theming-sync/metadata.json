@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Sync theming between Flutter and WebF (automatic theme sync, prefers-color-scheme, dark mode patterns). Use when the user mentions theme sync, dark mode, prefers-color-scheme, CSS variables, or WebF t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:59.687998Z"
+  "downloaded_at": "2026-01-06T09:03:59.687998Z",
+  "github_path": "webf-plugin/skills/openwebf-host-theming-sync",
+  "github_branch": "main"
 }

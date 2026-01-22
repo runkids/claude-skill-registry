@@ -8,5 +8,7 @@
     "sub",
     "agent"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/query-sub-agent",
+  "github_branch": "main"
 }

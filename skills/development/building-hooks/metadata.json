@@ -8,5 +8,7 @@
     "hooks"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/building-hooks",
+  "github_branch": "main"
 }

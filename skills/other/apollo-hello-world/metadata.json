@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:09.273274Z",
   "dir_name": "apollo-hello-world",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/apollo-pack/skills/apollo-hello-world",
+  "github_branch": "main"
 }

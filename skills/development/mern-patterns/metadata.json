@@ -4,5 +4,7 @@
   "category": "development",
   "description": "MERN stack patterns including React with Vite, Express middleware, MongoDB schemas, API Gateway architecture, session management, error handling, and testing strategies. Activate for MERN development,",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:51.797722Z"
+  "downloaded_at": "2026-01-06T09:06:51.797722Z",
+  "github_path": "plugins/lobbi-platform-manager/skills/mern-patterns",
+  "github_branch": "main"
 }

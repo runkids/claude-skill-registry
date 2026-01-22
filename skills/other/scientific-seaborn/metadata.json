@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:45.530509Z",
   "dir_name": "scientific-seaborn",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-seaborn",
+  "github_branch": "main"
 }

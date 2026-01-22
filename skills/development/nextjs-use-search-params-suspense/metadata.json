@@ -10,5 +10,7 @@
     "params",
     "suspense"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "nextjs-use-search-params-suspense",
+  "github_branch": "main"
 }

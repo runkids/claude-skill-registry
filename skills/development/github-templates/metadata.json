@@ -7,5 +7,7 @@
     "github",
     "templates"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/github-templates",
+  "github_branch": "main"
 }

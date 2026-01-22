@@ -2,7 +2,9 @@
   "name": "check-service-status",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "\uc11c\ube44\uc2a4 \uc0c1\ud0dc \ud655\uc778. Use when (1) \"\ud604\ud669 \uc54c\ub824\uc918\", (2) \"\uc11c\ube44\uc2a4 \uc0c1\ud0dc \ud655\uc778\",(3) \"cm-* \uc0c1\ud0dc \uccb4\ud06c\". GitHub \ub808\ud3ec \uc0c1\ud0dc \ubc0f \ucd5c\uadfc \ubc30\ud3ec \uc815\ubcf4 \uc870\ud68c.",
+  "description": "서비스 상태 확인. Use when (1) \"현황 알려줘\", (2) \"서비스 상태 확인\",(3) \"cm-* 상태 체크\". GitHub 레포 상태 및 최근 배포 정보 조회.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:50.992844Z"
+  "downloaded_at": "2026-01-06T09:02:50.992844Z",
+  "github_path": "semo-system/semo-skills/check-service-status",
+  "github_branch": "main"
 }

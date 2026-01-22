@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-19T03:26:22.788804Z",
   "dir_name": "email-template-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/marketing-pro-workflow/.claude/skills/email-template-generator",
+  "github_branch": "main"
 }

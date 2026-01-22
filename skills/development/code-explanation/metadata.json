@@ -8,5 +8,7 @@
     "explanation"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "claude_ctx_py/assets/skills/code-explanation",
+  "github_branch": "main"
 }

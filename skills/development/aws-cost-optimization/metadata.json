@@ -9,5 +9,7 @@
     "optimization"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/aws-cost-optimization",
+  "github_branch": "main"
 }

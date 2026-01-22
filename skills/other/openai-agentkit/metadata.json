@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:27.131614Z",
   "dir_name": "openai-agentkit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/openai-agentkit",
+  "github_branch": "main"
 }

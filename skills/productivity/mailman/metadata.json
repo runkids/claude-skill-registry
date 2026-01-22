@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Guidance for setting up and configuring mailing list servers with Postfix and Mailman3. This skill should be used when tasks involve configuring email servers, mailing list management, LMTP integratio",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:18.911034Z"
+  "downloaded_at": "2026-01-06T08:58:18.911034Z",
+  "github_path": "letta/benchmarks/trajectory-only/mailman",
+  "github_branch": "main"
 }

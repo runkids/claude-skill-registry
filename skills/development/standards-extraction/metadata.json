@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Extract coding standards and conventions from CONTRIBUTING.md, .editorconfig, linter configs. Use for onboarding and ensuring consistent contributions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:22.197568Z"
+  "downloaded_at": "2026-01-06T09:03:22.197568Z",
+  "github_path": ".ai-dev-kit/skills/standards-extraction",
+  "github_branch": "main"
 }

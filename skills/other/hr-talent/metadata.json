@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:26.695498Z",
   "dir_name": "hr-talent",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/hr-talent",
+  "github_branch": "main"
 }

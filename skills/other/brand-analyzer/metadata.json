@@ -5,5 +5,7 @@
   "source": "github.com/merllinsbeard/ai-claude-skills-collection",
   "downloaded_at": "2026-01-22T02:21:05.509297Z",
   "dir_name": "brand-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": "content/brand-analyzer",
+  "github_branch": "main"
 }

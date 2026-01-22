@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:36.834127Z",
   "dir_name": "monorepo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/monorepo-architecture",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:15.456462Z",
   "dir_name": "local-settings-updater",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-claude/skills/local-settings-updater",
+  "github_branch": "main"
 }

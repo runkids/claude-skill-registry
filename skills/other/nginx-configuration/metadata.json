@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:28.660212Z",
   "dir_name": "nginx-configuration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/nginx-configuration",
+  "github_branch": "main"
 }

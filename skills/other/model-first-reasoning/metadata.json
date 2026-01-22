@@ -5,5 +5,7 @@
   "source": "github.com/j0KZ/mcp-agents",
   "downloaded_at": "2026-01-19T03:12:23.073370Z",
   "dir_name": "model-first-reasoning",
-  "category": "other"
+  "category": "other",
+  "github_path": "starter-kit/template/.claude/skills/model-first-reasoning",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vibery-studio/templates",
   "downloaded_at": "2026-01-21T03:31:14.911043Z",
   "dir_name": "vibery-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vibery-manager",
+  "github_branch": "main"
 }

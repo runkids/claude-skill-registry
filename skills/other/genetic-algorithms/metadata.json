@@ -5,5 +5,7 @@
   "source": "github.com/LeandroLarrosa/gentlemonster",
   "downloaded_at": "2026-01-22T03:33:12.500141Z",
   "dir_name": "genetic-algorithms",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/genetic-algorithms",
+  "github_branch": "main"
 }

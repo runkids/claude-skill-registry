@@ -9,5 +9,7 @@
     "sequence",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "cold-email-sequence-generator",
+  "github_branch": "main"
 }

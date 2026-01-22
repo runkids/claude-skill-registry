@@ -8,5 +8,7 @@
     "scraper"
   ],
   "stars": 49,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "agentic/code/addons/doc-intelligence/skills/doc-scraper",
+  "github_branch": "main"
 }

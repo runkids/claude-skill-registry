@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:03.547599Z",
   "dir_name": "mcp-configuration-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/_legacy_archive/mcp-configuration-skill",
+  "github_branch": "main"
 }

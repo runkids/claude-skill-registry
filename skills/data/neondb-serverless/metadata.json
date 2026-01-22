@@ -5,5 +5,7 @@
   "description": "Use Neon serverless Postgres with branching, connection pooling, and instant scalability for modern applications with Prisma or Drizzle ORM integration. Use when setting up serverless Postgres databas",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:59.141684Z",
-  "dir_name": "neondb-serverless"
+  "dir_name": "neondb-serverless",
+  "github_path": "droidz_installer/payloads/droid_cli/default/skills/neondb-serverless",
+  "github_branch": "main"
 }

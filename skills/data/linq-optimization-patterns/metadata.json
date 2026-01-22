@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 0,
-  "dir_name": "linq-optimization-patterns"
+  "dir_name": "linq-optimization-patterns",
+  "github_path": ".claude/skills/linq-optimization-patterns",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:40.224897Z",
   "dir_name": "unit-test-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/unit-test-generator",
+  "github_branch": "main"
 }

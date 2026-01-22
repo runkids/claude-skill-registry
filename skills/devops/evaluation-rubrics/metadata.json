@@ -8,5 +8,7 @@
     "rubrics"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/evaluation-rubrics",
+  "github_branch": "main"
 }

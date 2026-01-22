@@ -2,7 +2,9 @@
   "name": "positioning-integrator",
   "repo": "YL08140921/unson-os-market-research",
   "category": "testing",
-  "description": "\u5168\u30d5\u30a7\u30fc\u30ba\u306e\u6210\u679c\u3092\u7d71\u5408\u3057\u3066STP\u30dd\u30b8\u30b7\u30e7\u30cb\u30f3\u30b0\u5b8c\u6210\u3068LP\u7528\u30e1\u30c3\u30bb\u30fc\u30b8\u30f3\u30b0\u958b\u767a\u3002\u6700\u7d42\u7d71\u5408\u3001\u30dd\u30b8\u30b7\u30e7\u30cb\u30f3\u30b0\u3001\u30e1\u30c3\u30bb\u30fc\u30b8\u30f3\u30b0\u958b\u767a\u3067\u5fc5\u9808\u4f7f\u7528\u3002MUST BE USED for final integration.",
+  "description": "全フェーズの成果を統合してSTPポジショニング完成とLP用メッセージング開発。最終統合、ポジショニング、メッセージング開発で必須使用。MUST BE USED for final integration.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:39.474872Z"
+  "downloaded_at": "2026-01-06T09:09:39.474872Z",
+  "github_path": ".skills/positioning-integrator",
+  "github_branch": "main"
 }

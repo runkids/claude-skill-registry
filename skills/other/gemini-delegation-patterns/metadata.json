@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:12.331287Z",
   "dir_name": "gemini-delegation-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/google-ecosystem/skills/gemini-delegation-patterns",
+  "github_branch": "main"
 }

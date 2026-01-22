@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:45.779542Z",
   "dir_name": "peak-annotation",
-  "category": "other"
+  "category": "other",
+  "github_path": "chip-seq/peak-annotation",
+  "github_branch": "main"
 }

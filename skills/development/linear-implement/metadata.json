@@ -7,5 +7,7 @@
     "linear",
     "implement"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "plugins/rails-toolkit/skills/linear-implement",
+  "github_branch": "main"
 }

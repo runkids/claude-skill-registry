@@ -5,5 +5,7 @@
   "source": "github.com/ajianaz/skills-collection",
   "downloaded_at": "2026-01-22T03:22:37.853224Z",
   "dir_name": "devops-deployer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devops-deployer",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "matchmaking"
   ],
   "stars": 1,
-  "dir_name": "matchmaking"
+  "dir_name": "matchmaking",
+  "github_path": "skills/matchmaking",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/MacroMan5/claude-code-workflow-plugins",
   "downloaded_at": "2026-01-14T03:37:12.587022Z",
   "dir_name": "output-style-selector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/output-style-selector",
+  "github_branch": "main"
 }

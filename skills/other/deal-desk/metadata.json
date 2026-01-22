@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:41.854858Z",
   "dir_name": "deal-desk",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/renewal-orchestration/skills/deal-desk",
+  "github_branch": "main"
 }

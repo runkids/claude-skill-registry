@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:33.909151Z",
   "dir_name": "polyglot-c-py",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/polyglot-c-py",
+  "github_branch": "main"
 }

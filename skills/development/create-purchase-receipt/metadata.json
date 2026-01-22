@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create goods receipt (GR) record when receiving goods from supplier",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:22.394563Z"
+  "downloaded_at": "2026-01-06T09:04:22.394563Z",
+  "github_path": "backend/ai-doc-processing/skills/purchasing/create-purchase-receipt",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:51.187588Z",
   "dir_name": "local-blast",
-  "category": "other"
+  "category": "other",
+  "github_path": "database-access/local-blast",
+  "github_branch": "main"
 }

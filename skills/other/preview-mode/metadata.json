@@ -5,5 +5,7 @@
   "source": "github.com/lovedragonball/power-ranger-toolkit",
   "downloaded_at": "2026-01-19T01:38:19.458907Z",
   "dir_name": "preview-mode",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/skills/preview-mode",
+  "github_branch": "main"
 }

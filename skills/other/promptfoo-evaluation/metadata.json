@@ -5,5 +5,7 @@
   "source": "github.com/nguyendinhquocx/code-ai",
   "downloaded_at": "2026-01-14T01:13:42.317021Z",
   "dir_name": "promptfoo-evaluation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/promptfoo-evaluation",
+  "github_branch": "main"
 }

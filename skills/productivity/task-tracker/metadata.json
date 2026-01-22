@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Automatically update sprint task status in JSON files and PROGRESS.md. Use when starting a sprint task (mark in-progress), completing a task (mark completed), or encountering blockers (mark blocked).",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:50.790240Z"
+  "downloaded_at": "2026-01-06T09:03:50.790240Z",
+  "github_path": ".claude/skills/task-tracker",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/BbgnsurfTech/claude-skills-collection",
   "downloaded_at": "2026-01-22T01:10:42.130706Z",
   "dir_name": "gitlab-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "community/jamie-bitflight-claude-skills/gitlab-skill",
+  "github_branch": "main"
 }

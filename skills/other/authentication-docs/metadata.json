@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-20T01:41:12.543932Z",
   "dir_name": "authentication-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/authentication-docs",
+  "github_branch": "main"
 }

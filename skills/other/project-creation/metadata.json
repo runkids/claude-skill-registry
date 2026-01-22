@@ -5,5 +5,7 @@
   "source": "github.com/saknarinZ/agent_skills_gemini",
   "downloaded_at": "2026-01-22T02:44:46.828130Z",
   "dir_name": "project-creation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/project-creation",
+  "github_branch": "main"
 }

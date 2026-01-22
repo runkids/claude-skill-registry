@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:28.903266Z",
   "dir_name": "imessage",
-  "category": "other"
+  "category": "other",
+  "github_path": "tools/imessage",
+  "github_branch": "main"
 }

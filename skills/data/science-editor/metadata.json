@@ -8,5 +8,7 @@
     "editor"
   ],
   "stars": 0,
-  "dir_name": "science-editor"
+  "dir_name": "science-editor",
+  "github_path": ".claude/skills/science-editor",
+  "github_branch": "main"
 }

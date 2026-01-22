@@ -5,5 +5,7 @@
   "source": "github.com/AgentSecOps/SecOpsAgentKit",
   "downloaded_at": "2026-01-19T02:09:02.325213Z",
   "dir_name": "ir-velociraptor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/incident-response/ir-velociraptor",
+  "github_branch": "main"
 }

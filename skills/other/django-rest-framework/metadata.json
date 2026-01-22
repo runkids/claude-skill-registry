@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:13.331294Z",
   "dir_name": "django-rest-framework",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-django/skills/django-rest-framework",
+  "github_branch": "main"
 }

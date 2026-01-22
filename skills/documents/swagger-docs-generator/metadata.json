@@ -8,5 +8,7 @@
     "docs",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "swagger-docs-generator",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "implementation"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/deepagents-implementation",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "big-data"
+  "dir_name": "big-data",
+  "github_path": "skills/big-data",
+  "github_branch": "main"
 }

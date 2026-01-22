@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "custom-elements"
+  "dir_name": "custom-elements",
+  "github_path": ".claude/skills/custom-elements",
+  "github_branch": "main"
 }

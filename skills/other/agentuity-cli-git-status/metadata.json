@@ -5,5 +5,7 @@
   "source": "github.com/agentuity/sdk-explorer",
   "downloaded_at": "2026-01-22T03:37:22.594829Z",
   "dir_name": "agentuity-cli-git-status",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/agentuity-cli-git-status",
+  "github_branch": "main"
 }

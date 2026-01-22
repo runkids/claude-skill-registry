@@ -8,5 +8,7 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "repository-generator"
+  "dir_name": "repository-generator",
+  "github_path": ".claude/skills/repository-generator",
+  "github_branch": "main"
 }

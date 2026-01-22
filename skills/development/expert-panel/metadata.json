@@ -8,5 +8,7 @@
     "panel"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "expert-panel",
+  "github_branch": "main"
 }

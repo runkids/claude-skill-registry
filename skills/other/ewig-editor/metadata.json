@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-14T02:29:16.551949Z",
   "dir_name": "ewig-editor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ewig-editor",
+  "github_branch": "main"
 }

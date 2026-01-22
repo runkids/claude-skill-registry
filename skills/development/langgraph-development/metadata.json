@@ -7,5 +7,7 @@
     "langgraph",
     "development"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/langgraph-development",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cleanup-issue"
+  "dir_name": "cleanup-issue",
+  "github_path": "cleanup-issue",
+  "github_branch": "main"
 }

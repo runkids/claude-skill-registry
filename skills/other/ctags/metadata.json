@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:21.082541Z",
   "dir_name": "ctags",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/ctags",
+  "github_branch": "main"
 }

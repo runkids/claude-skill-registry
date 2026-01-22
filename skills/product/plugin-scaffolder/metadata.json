@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Scaffolds complete Claude Code plugin structures with all necessary directories, manifest, and documentation. Activates when user wants to create a new plugin, package features together, or prepare fo",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.352117Z"
+  "downloaded_at": "2026-01-06T09:00:26.352117Z",
+  "github_path": "skills/plugin-scaffolder",
+  "github_branch": "main"
 }

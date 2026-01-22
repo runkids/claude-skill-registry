@@ -8,5 +8,7 @@
     "workspace",
     "init"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "git-workspace-init",
+  "github_branch": "main"
 }

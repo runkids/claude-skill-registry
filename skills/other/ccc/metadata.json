@@ -5,5 +5,7 @@
   "source": "github.com/timequity/plugins",
   "downloaded_at": "2026-01-19T01:35:33.524345Z",
   "dir_name": "ccc",
-  "category": "other"
+  "category": "other",
+  "github_path": "ccc",
+  "github_branch": "main"
 }

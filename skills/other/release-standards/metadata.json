@@ -5,5 +5,7 @@
   "source": "github.com/AsiaOstrich/universal-dev-standards",
   "downloaded_at": "2026-01-22T02:27:03.488088Z",
   "dir_name": "release-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": "locales/zh-CN/skills/claude-code/release-standards",
+  "github_branch": "main"
 }

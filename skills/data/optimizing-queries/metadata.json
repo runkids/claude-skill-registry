@@ -8,5 +8,7 @@
     "queries"
   ],
   "stars": 2,
-  "dir_name": "optimizing-queries"
+  "dir_name": "optimizing-queries",
+  "github_path": "skills/optimizing-queries",
+  "github_branch": "main"
 }

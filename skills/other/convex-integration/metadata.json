@@ -5,5 +5,7 @@
   "source": "github.com/Atemndobs/nebula-rfp",
   "downloaded_at": "2026-01-22T02:30:08.201045Z",
   "dir_name": "convex-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".gemini/skills/convex-integration",
+  "github_branch": "main"
 }

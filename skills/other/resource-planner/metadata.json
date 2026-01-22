@@ -5,5 +5,7 @@
   "source": "github.com/lexicalninja/my-little-scrum-team",
   "downloaded_at": "2026-01-17T03:36:51.533489Z",
   "dir_name": "resource-planner",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/resource-planner",
+  "github_branch": "main"
 }

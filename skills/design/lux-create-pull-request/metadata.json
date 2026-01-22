@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Guidelines and checklists for creating a PR for Luxor.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:36.792807Z"
+  "downloaded_at": "2026-01-06T09:10:36.792807Z",
+  "github_path": "skill/lux/lux-create-pull-request",
+  "github_branch": "main"
 }

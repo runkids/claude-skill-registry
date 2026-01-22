@@ -5,5 +5,7 @@
   "source": "github.com/Everyone-Needs-A-Copilot/claude-copilot",
   "downloaded_at": "2026-01-17T01:48:03.442507Z",
   "dir_name": "frontmatter-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "templates/skills/frontmatter-validation",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "testing",
     "e2e"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/testing-e2e",
+  "github_branch": "main"
 }

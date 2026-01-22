@@ -5,5 +5,7 @@
   "source": "github.com/CyangZhou/-2--Project-Yunshu-",
   "downloaded_at": "2026-01-21T04:18:22.191625Z",
   "dir_name": "vlm-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".trae/skills/vlm_expert",
+  "github_branch": "main"
 }

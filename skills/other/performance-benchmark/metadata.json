@@ -5,5 +5,7 @@
   "source": "github.com/kzahedi/YARS",
   "downloaded_at": "2026-01-22T02:58:47.665917Z",
   "dir_name": "performance-benchmark",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/performance-benchmark",
+  "github_branch": "main"
 }

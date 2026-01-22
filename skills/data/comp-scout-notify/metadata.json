@@ -9,5 +9,7 @@
     "notify"
   ],
   "stars": 0,
-  "dir_name": "comp-scout-notify"
+  "dir_name": "comp-scout-notify",
+  "github_path": "skills/comp-scout-notify",
+  "github_branch": "main"
 }

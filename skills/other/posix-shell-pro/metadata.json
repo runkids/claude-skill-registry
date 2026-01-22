@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:08.031642Z",
   "dir_name": "posix-shell-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/posix-shell-pro",
+  "github_branch": "main"
 }

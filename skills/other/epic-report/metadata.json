@@ -5,5 +5,7 @@
   "source": "github.com/krazyuniks/guitar-tone-shootout",
   "downloaded_at": "2026-01-14T01:00:43.816990Z",
   "dir_name": "epic-report",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/epic-report",
+  "github_branch": "main"
 }

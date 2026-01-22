@@ -8,5 +8,7 @@
     "framework"
   ],
   "stars": 2,
-  "dir_name": "knowledge-framework"
+  "dir_name": "knowledge-framework",
+  "github_path": "skills/knowledge-framework",
+  "github_branch": "main"
 }

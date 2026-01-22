@@ -5,5 +5,7 @@
   "source": "github.com/hxk622/TokenDance",
   "downloaded_at": "2026-01-22T03:42:03.810211Z",
   "dir_name": "pytdc",
-  "category": "other"
+  "category": "other",
+  "github_path": "backend/app/skills/builtin/scientific/chemistry/pytdc",
+  "github_branch": "main"
 }

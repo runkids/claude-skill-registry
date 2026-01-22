@@ -7,5 +7,7 @@
     "wordpress",
     "pro"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/wordpress-pro",
+  "github_branch": "main"
 }

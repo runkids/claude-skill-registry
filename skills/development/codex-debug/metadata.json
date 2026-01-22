@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use for systematic debugging and root cause analysis with Codex. Triggers on \"codex debug\", \"codex root cause\", \"have codex investigate this bug\", \"codex find the issue\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:35.440856Z"
+  "downloaded_at": "2026-01-06T09:06:35.440856Z",
+  "github_path": "codex-consulting/skills/codex-debug",
+  "github_branch": "main"
 }

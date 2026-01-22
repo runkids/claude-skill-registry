@@ -7,5 +7,7 @@
     "requirements",
     "gathering"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/requirements-gathering",
+  "github_branch": "main"
 }

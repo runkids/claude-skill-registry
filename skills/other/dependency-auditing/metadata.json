@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:07.496357Z",
   "dir_name": "dependency-auditing",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/dependency-auditing",
+  "github_branch": "main"
 }

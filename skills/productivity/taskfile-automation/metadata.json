@@ -7,5 +7,7 @@
     "taskfile",
     "automation"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/taskfile-automation",
+  "github_branch": "main"
 }

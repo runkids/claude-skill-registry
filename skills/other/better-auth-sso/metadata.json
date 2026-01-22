@@ -5,5 +5,7 @@
   "source": "github.com/mjunaidca/mjs-agent-skills",
   "downloaded_at": "2026-01-22T03:06:59.681809Z",
   "dir_name": "better-auth-sso",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/taskflow-vault/skills/engineering/better-auth-sso",
+  "github_branch": "main"
 }

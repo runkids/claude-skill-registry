@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Hilt dependency injection library for Android. Use for Android DI, Dagger integration, component hierarchy, ViewModel injection, testing with Hilt, and compile-time dependency injection.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:24.673024Z"
+  "downloaded_at": "2026-01-06T09:03:24.673024Z",
+  "github_path": "claude/skills/hilt",
+  "github_branch": "main"
 }

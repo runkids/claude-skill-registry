@@ -8,5 +8,7 @@
     "project",
     "manager"
   ],
-  "stars": 18
+  "stars": 18,
+  "github_path": "rails-project-manager",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:25.051588Z",
   "dir_name": "rn-styling",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rn-styling",
+  "github_branch": "main"
 }

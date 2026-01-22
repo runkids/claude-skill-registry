@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:50.253084Z",
   "dir_name": "react-native-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-mobile/skills/react-native-setup",
+  "github_branch": "main"
 }

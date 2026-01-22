@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-14T03:53:07.308370Z",
   "dir_name": "tracker",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/milestone-tracker",
+  "github_branch": "main"
 }

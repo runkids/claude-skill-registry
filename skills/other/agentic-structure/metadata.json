@@ -5,5 +5,7 @@
   "source": "github.com/BackGwa/Agentic-Structure",
   "downloaded_at": "2026-01-22T00:52:57.578023Z",
   "dir_name": "agentic-structure",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/skills/agentic-structure",
+  "github_branch": "main"
 }

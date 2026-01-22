@@ -6,5 +6,7 @@
   "tags": [
     "piper"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "piper",
+  "github_branch": "main"
 }

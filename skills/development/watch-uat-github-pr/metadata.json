@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Watch a GitHub UAT PR for maintainer feedback or approval by polling comments until approved/passed.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:40.605438Z"
+  "downloaded_at": "2026-01-06T09:02:40.605438Z",
+  "github_path": ".github/skills/watch-uat-github-pr",
+  "github_branch": "main"
 }

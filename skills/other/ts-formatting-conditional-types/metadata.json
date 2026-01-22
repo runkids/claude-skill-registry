@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:54.452454Z",
   "dir_name": "ts-formatting-conditional-types",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/ts-formatting-conditional-types",
+  "github_branch": "main"
 }

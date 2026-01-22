@@ -5,5 +5,7 @@
   "source": "github.com/shwilliamson/automatasaurus",
   "downloaded_at": "2026-01-14T03:19:14.228698Z",
   "dir_name": "pr-writing",
-  "category": "other"
+  "category": "other",
+  "github_path": "template/skills/pr-writing",
+  "github_branch": "main"
 }

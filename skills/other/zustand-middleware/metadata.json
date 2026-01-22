@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-21T03:32:12.375712Z",
   "dir_name": "zustand-middleware",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-zustand/skills/zustand-middleware",
+  "github_branch": "main"
 }

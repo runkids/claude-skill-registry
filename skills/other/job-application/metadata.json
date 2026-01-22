@@ -5,5 +5,7 @@
   "source": "github.com/skillcreatorai/Ai-Agent-Skills",
   "downloaded_at": "2026-01-22T01:09:38.111184Z",
   "dir_name": "job-application",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/job-application",
+  "github_branch": "main"
 }

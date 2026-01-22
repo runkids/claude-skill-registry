@@ -5,5 +5,7 @@
   "source": "github.com/Activer007/ordinary-claude-skills",
   "downloaded_at": "2026-01-22T02:48:18.324849Z",
   "dir_name": "ts-agent-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills_all/ts-agent-sdk",
+  "github_branch": "main"
 }

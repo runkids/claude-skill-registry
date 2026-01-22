@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:09.015933Z",
   "dir_name": "developing-preact",
-  "category": "other"
+  "category": "other",
+  "github_path": "developing-preact",
+  "github_branch": "main"
 }

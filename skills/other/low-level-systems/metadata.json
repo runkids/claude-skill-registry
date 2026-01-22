@@ -5,5 +5,7 @@
   "source": "github.com/ragnarula/cc-plugins",
   "downloaded_at": "2026-01-22T02:09:43.249763Z",
   "dir_name": "low-level-systems",
-  "category": "other"
+  "category": "other",
+  "github_path": "sdd/skills/low-level-systems",
+  "github_branch": "main"
 }

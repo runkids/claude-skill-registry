@@ -4,5 +4,7 @@
   "category": "design",
   "description": "React Context Setup - Auto-activating skill for Frontend Development.Triggers on: react context setup, react context setupPart of the Frontend Development skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.125593Z"
+  "downloaded_at": "2026-01-06T08:56:14.125593Z",
+  "github_path": "planned-skills/generated/05-frontend-dev/react-context-setup",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "architecture"
   ],
   "stars": 0,
-  "dir_name": "sql-db-architecture"
+  "dir_name": "sql-db-architecture",
+  "github_path": ".claude/skills/sql-db-architecture",
+  "github_branch": "main"
 }

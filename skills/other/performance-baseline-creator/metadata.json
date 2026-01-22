@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:02.518030Z",
   "dir_name": "performance-baseline-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/10-performance-testing/performance-baseline-creator",
+  "github_branch": "main"
 }

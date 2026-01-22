@@ -9,5 +9,7 @@
     "deleter"
   ],
   "stars": 0,
-  "dir_name": "qdrant-doc-deleter"
+  "dir_name": "qdrant-doc-deleter",
+  "github_path": ".claude/skills/qdrant-doc-deleter",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-17T02:52:43.819423Z",
   "dir_name": "health-check-implementation",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/health-check-implementation",
+  "github_branch": "main"
 }

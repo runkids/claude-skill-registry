@@ -5,5 +5,7 @@
   "source": "github.com/rysweet/AzureHayMaker",
   "downloaded_at": "2026-01-22T03:18:46.019999Z",
   "dir_name": "architecting-solutions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/architecting-solutions",
+  "github_branch": "main"
 }

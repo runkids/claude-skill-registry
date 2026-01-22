@@ -8,5 +8,7 @@
     "upgrade"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/astro-v6-upgrade",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Starlitnightly/omicverse",
   "downloaded_at": "2026-01-21T03:02:06.077312Z",
   "dir_name": "single-preprocessing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/single-preprocessing",
+  "github_branch": "main"
 }

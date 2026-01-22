@@ -7,5 +7,7 @@
     "debugging"
   ],
   "stars": 45,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "core/skills/debugging",
+  "github_branch": "main"
 }

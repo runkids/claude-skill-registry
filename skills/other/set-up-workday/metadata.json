@@ -5,5 +5,7 @@
   "source": "github.com/christopheryeo/claude-skills",
   "downloaded_at": "2026-01-19T01:03:17.396427Z",
   "dir_name": "set-up-workday",
-  "category": "other"
+  "category": "other",
+  "github_path": "set-up-workday",
+  "github_branch": "main"
 }

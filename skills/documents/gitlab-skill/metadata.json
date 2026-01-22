@@ -7,5 +7,7 @@
     "gitlab",
     "skill"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "plugins/gitlab-skill/skills/gitlab-skill",
+  "github_branch": "main"
 }

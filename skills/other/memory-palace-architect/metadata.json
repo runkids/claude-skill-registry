@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-20T01:02:16.480565Z",
   "dir_name": "memory-palace-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/memory-palace/skills/memory-palace-architect",
+  "github_branch": "main"
 }

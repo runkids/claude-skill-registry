@@ -7,5 +7,7 @@
     "openai",
     "agents"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/openai-agents",
+  "github_branch": "main"
 }

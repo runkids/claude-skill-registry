@@ -5,5 +5,7 @@
   "source": "github.com/thinmintdev/claude-cooker",
   "downloaded_at": "2026-01-22T04:11:56.041140Z",
   "dir_name": "codex-cli-bridge",
-  "category": "other"
+  "category": "other",
+  "github_path": "generated-skills/codex-cli-bridge",
+  "github_branch": "main"
 }

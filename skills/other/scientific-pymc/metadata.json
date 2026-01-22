@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:36.698410Z",
   "dir_name": "scientific-pymc",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-pymc",
+  "github_branch": "main"
 }

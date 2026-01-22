@@ -7,5 +7,7 @@
     "dev",
     "explore"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "generated-skills/dev-explore",
+  "github_branch": "main"
 }

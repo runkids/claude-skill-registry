@@ -5,5 +5,7 @@
   "source": "github.com/wildwasser/opencode-agents",
   "downloaded_at": "2026-01-22T01:04:09.157406Z",
   "dir_name": "agent-tuning",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skills/agent-tuning",
+  "github_branch": "main"
 }

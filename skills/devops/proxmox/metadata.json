@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Proxmox VE virtualization platform reference for VM/LXC management, clustering,storage, and networking. Includes Terraform and Ansible integration patterns.Use when working with Proxmox configurations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:40.954628Z"
+  "downloaded_at": "2026-01-06T09:07:40.954628Z",
+  "github_path": "technologies/skills/proxmox",
+  "github_branch": "main"
 }

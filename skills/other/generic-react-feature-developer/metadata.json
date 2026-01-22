@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:35.455291Z",
   "dir_name": "generic-react-feature-developer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/generic-react-feature-developer",
+  "github_branch": "main"
 }

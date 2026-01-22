@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:19.519909Z",
   "dir_name": "tutorial-updates",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sanctum/skills/tutorial-updates",
+  "github_branch": "main"
 }

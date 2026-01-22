@@ -8,5 +8,7 @@
     "skills"
   ],
   "stars": 772,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "src/skills/builtin/creating-skills",
+  "github_branch": "main"
 }

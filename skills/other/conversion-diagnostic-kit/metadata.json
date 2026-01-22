@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:45.341287Z",
   "dir_name": "conversion-diagnostic-kit",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/e-commerce/skills/conversion-diagnostic-kit",
+  "github_branch": "main"
 }

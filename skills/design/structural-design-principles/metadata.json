@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use when designing modules and components requiring Composition Over Inheritance, Law of Demeter, Tell Don't Ask, and Encapsulation principles that transcend programming paradigms.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:00.107745Z"
+  "downloaded_at": "2026-01-06T08:57:00.107745Z",
+  "github_path": "core/skills/structural-design-principles",
+  "github_branch": "main"
 }

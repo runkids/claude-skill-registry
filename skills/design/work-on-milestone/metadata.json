@@ -7,5 +7,7 @@
     "work",
     "milestone"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/work-on-milestone",
+  "github_branch": "main"
 }

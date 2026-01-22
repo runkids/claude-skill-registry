@@ -8,5 +8,7 @@
     "report",
     "tracker"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "injury-report-tracker",
+  "github_branch": "main"
 }

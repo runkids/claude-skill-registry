@@ -7,5 +7,7 @@
     "vue",
     "story"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/vue-story",
+  "github_branch": "main"
 }

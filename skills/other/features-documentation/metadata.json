@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:58.954559Z",
   "dir_name": "features-documentation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/features-documentation",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "status"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/board-status",
+  "github_branch": "main"
 }

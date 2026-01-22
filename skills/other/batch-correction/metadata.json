@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:48.006088Z",
   "dir_name": "batch-correction",
-  "category": "other"
+  "category": "other",
+  "github_path": "differential-expression/batch-correction",
+  "github_branch": "main"
 }

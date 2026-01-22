@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Cypress E2E testing standards including framework adaptations, test organization, and best practices",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:45.946123Z"
+  "downloaded_at": "2026-01-06T09:04:45.946123Z",
+  "github_path": "claude/marketplace/bundles/cui-frontend-expert/skills/cui-cypress",
+  "github_branch": "main"
 }

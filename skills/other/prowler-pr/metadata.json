@@ -5,5 +5,7 @@
   "source": "github.com/prowler-cloud/prowler",
   "downloaded_at": "2026-01-22T02:57:26.433240Z",
   "dir_name": "prowler-pr",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prowler-provider",
+  "github_branch": "main"
 }

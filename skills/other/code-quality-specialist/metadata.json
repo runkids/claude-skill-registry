@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:30.403523Z",
   "dir_name": "code-quality-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/code-quality-specialist",
+  "github_branch": "main"
 }

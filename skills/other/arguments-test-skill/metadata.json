@@ -5,5 +5,7 @@
   "source": "github.com/maxvaega/skillkit",
   "downloaded_at": "2026-01-22T02:52:25.518128Z",
   "dir_name": "arguments-test-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/fixtures/skills/arguments-test-skill",
+  "github_branch": "main"
 }

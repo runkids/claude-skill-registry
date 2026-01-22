@@ -7,5 +7,7 @@
     "repository",
     "analyzer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/repository-analyzer",
+  "github_branch": "main"
 }

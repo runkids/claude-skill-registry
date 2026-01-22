@@ -2,7 +2,9 @@
   "name": "output-formatting",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "documents",
-  "description": "\u69d8\u3005\u306a\u5f62\u5f0f\u3067\u306e\u51fa\u529b\u30d5\u30a9\u30fc\u30de\u30c3\u30c6\u30a3\u30f3\u30b0\u30b9\u30ad\u30eb\u3002Markdown\u3001JSON\u3001YAML\u3001\u8868\u5f62\u5f0f\u306a\u3069\u3001\u69cb\u9020\u5316\u3055\u308c\u305f\u898b\u3084\u3059\u3044\u51fa\u529b\u3092\u4f5c\u6210\u3057\u307e\u3059\u3002Anchors:\u2022 The Pragmatic Programmer (Andrew Hunt, David Thomas) / \u9069\u7528: \u30b3\u30fc\u30c9\u54c1\u8cea\u3068\u53ef\u8aad\u6027 / \u76ee\u7684: \u8aad\u307f\u3084\u3059\u304f\u4fdd\u5b88\u53ef\u80fd\u306a\u51fa\u529b\u8a2d\u8a08\u2022 Technical Writing (Google Develop",
+  "description": "様々な形式での出力フォーマッティングスキル。Markdown、JSON、YAML、表形式など、構造化された見やすい出力を作成します。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: コード品質と可読性 / 目的: 読みやすく保守可能な出力設計• Technical Writing (Google Develop",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:25.244421Z"
+  "downloaded_at": "2026-01-06T09:01:25.244421Z",
+  "github_path": "docs/99-claude/skills/output-formatting",
+  "github_branch": "main"
 }

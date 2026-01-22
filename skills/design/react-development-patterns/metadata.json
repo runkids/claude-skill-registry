@@ -8,5 +8,7 @@
     "development",
     "patterns"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/react-development-patterns",
+  "github_branch": "main"
 }

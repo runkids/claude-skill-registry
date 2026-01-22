@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:23.202096Z",
   "dir_name": "qmd",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/steipete/qmd",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/rshankras/claude-code-apple-skills",
   "downloaded_at": "2026-01-14T02:22:10.143112Z",
   "dir_name": "market-research",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/product/market-research",
+  "github_branch": "main"
 }

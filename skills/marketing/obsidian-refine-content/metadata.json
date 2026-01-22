@@ -8,5 +8,7 @@
     "refine",
     "content"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "obsidian-refine-content",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "General-purpose skill for Mechanic/Fen ecosystem work. Covers ecosystem context, development tools, component overview, and AFD principles. Use for everyday addon work, exploration, or when unsure whi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:29.304897Z"
+  "downloaded_at": "2026-01-06T09:00:29.304897Z",
+  "github_path": ".claude/skills/s-working",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "analyzer"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/ast-analyzer",
+  "github_branch": "main"
 }

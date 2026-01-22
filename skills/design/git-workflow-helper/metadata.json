@@ -8,5 +8,7 @@
     "workflow",
     "helper"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/git-workflow-helper",
+  "github_branch": "main"
 }

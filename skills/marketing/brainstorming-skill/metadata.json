@@ -8,5 +8,7 @@
     "skill"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/brainstorming-skill/skills/brainstorming-skill",
+  "github_branch": "main"
 }

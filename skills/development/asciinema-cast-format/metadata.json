@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Reference for asciinema v3 NDJSON format. TRIGGERS - cast format, asciicast spec, event codes, cast header, cast structure, parse cast file. Use when understanding or parsing .cast files.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:41.734923Z"
+  "downloaded_at": "2026-01-06T08:59:41.734923Z",
+  "github_path": "plugins/asciinema-tools/skills/asciinema-cast-format",
+  "github_branch": "main"
 }

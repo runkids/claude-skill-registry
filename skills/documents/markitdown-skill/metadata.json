@@ -7,5 +7,7 @@
     "markitdown",
     "skill"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/markitdown-skill",
+  "github_branch": "main"
 }

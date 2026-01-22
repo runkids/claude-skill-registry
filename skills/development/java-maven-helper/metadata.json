@@ -8,5 +8,7 @@
     "maven",
     "helper"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/java-maven-helper",
+  "github_branch": "main"
 }

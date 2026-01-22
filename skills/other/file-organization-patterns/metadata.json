@@ -5,5 +5,7 @@
   "source": "github.com/michsindlinger/agent-os-extended",
   "downloaded_at": "2026-01-22T03:54:37.404545Z",
   "dir_name": "file-organization-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "agent-os/templates/skills/file-organization-patterns",
+  "github_branch": "main"
 }

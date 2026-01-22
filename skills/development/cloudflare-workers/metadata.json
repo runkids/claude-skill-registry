@@ -8,5 +8,7 @@
     "workers"
   ],
   "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "cloudflare-workers/skill",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "wolf"
   ],
   "stars": 0,
-  "dir_name": "wolf"
+  "dir_name": "wolf",
+  "github_path": "wolf-adr",
+  "github_branch": "main"
 }

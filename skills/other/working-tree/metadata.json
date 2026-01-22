@@ -5,5 +5,7 @@
   "source": "github.com/poindexter12/waypoint",
   "downloaded_at": "2026-01-19T03:24:55.183896Z",
   "dir_name": "working-tree",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/skills/working-tree",
+  "github_branch": "main"
 }

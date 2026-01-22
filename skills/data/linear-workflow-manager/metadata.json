@@ -9,5 +9,7 @@
     "manager"
   ],
   "stars": 2,
-  "dir_name": "linear-workflow-manager"
+  "dir_name": "linear-workflow-manager",
+  "github_path": "",
+  "github_branch": "main"
 }

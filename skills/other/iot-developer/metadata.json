@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:01.473597Z",
   "dir_name": "iot-developer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/iot-developer",
+  "github_branch": "main"
 }

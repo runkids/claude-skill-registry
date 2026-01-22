@@ -11,5 +11,7 @@
     "builder"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/anthropic-dev-tools-mcp-builder",
+  "github_branch": "main"
 }

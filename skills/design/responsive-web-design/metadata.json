@@ -8,5 +8,7 @@
     "web",
     "design"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/responsive-web-design",
+  "github_branch": "main"
 }

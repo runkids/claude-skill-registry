@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Use when asked to design a new feature or project",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:38.300359Z"
+  "downloaded_at": "2026-01-06T09:01:38.300359Z",
+  "github_path": "skills/writing-product-specs",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:57.788594Z",
   "dir_name": "social-media",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/marketing/social-media",
+  "github_branch": "main"
 }

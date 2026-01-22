@@ -5,5 +5,7 @@
   "source": "github.com/oimiragieo/agent-studio",
   "downloaded_at": "2026-01-14T03:17:06.082256Z",
   "dir_name": "slack-notifications",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/slack-notifications",
+  "github_branch": "main"
 }

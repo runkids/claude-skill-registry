@@ -5,5 +5,7 @@
   "source": "github.com/ccheney/robust-skills",
   "downloaded_at": "2026-01-22T02:19:38.749994Z",
   "dir_name": "clean-ddd-hexagonal",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/clean-ddd-hexagonal",
+  "github_branch": "main"
 }

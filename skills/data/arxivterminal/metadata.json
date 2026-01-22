@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "arxivterminal"
+  "dir_name": "arxivterminal",
+  "github_path": "skills/arxivterminal",
+  "github_branch": "main"
 }

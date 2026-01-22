@@ -8,5 +8,7 @@
     "testing"
   ],
   "stars": 49,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "droidz_installer/payloads/droid_cli/default/skills/e2e-testing",
+  "github_branch": "main"
 }

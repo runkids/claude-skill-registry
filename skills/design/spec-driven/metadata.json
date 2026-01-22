@@ -2,7 +2,9 @@
   "name": "spec-driven",
   "repo": "NikiforovAll/claude-code-rules",
   "category": "design",
-  "description": "Guide spec-driven development workflow (Requirements \u2192 Design \u2192 Tasks \u2192 Implementation) with approval gates between phases. Use when user wants structured feature planning or says \"use spec-driven\" or",
+  "description": "Guide spec-driven development workflow (Requirements → Design → Tasks → Implementation) with approval gates between phases. Use when user wants structured feature planning or says \"use spec-driven\" or",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:56.144409Z"
+  "downloaded_at": "2026-01-06T08:56:56.144409Z",
+  "github_path": "plugins/handbook-agent-spec-kit/skills/spec-driven",
+  "github_branch": "main"
 }

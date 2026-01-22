@@ -5,5 +5,7 @@
   "description": "Use when validating and casting data with Ecto changesets including field validation, constraints, nested changesets, and data transformation. Use for ensuring data integrity before database operation",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:02.774471Z",
-  "dir_name": "ecto-changesets"
+  "dir_name": "ecto-changesets",
+  "github_path": "jutsu/jutsu-ecto/skills/ecto-changesets",
+  "github_branch": "main"
 }

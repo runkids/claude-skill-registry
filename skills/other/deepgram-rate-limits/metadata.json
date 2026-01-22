@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:42.457147Z",
   "dir_name": "deepgram-rate-limits",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/deepgram-pack/skills/deepgram-rate-limits",
+  "github_branch": "main"
 }

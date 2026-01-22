@@ -5,5 +5,7 @@
   "source": "github.com/BbgnsurfTech/claude-skills-collection",
   "downloaded_at": "2026-01-22T01:10:43.404664Z",
   "dir_name": "holistic-linting",
-  "category": "other"
+  "category": "other",
+  "github_path": "community/jamie-bitflight-claude-skills/holistic-linting",
+  "github_branch": "main"
 }

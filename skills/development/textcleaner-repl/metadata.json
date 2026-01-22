@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Interact with TextCleaner",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:24:56.300425Z"
+  "downloaded_at": "2026-01-08T03:24:56.300425Z",
+  "github_path": ".claude/skills/textcleaner-repl",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "authentication"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "backend/app/agents/developer/src/skills/nextjs/authentication",
+  "github_branch": "main"
 }

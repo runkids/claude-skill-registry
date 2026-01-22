@@ -7,5 +7,7 @@
     "supadata"
   ],
   "stars": 8,
-  "dir_name": "supadata"
+  "dir_name": "supadata",
+  "github_path": "supadata",
+  "github_branch": "main"
 }

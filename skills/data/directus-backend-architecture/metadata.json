@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "directus-backend-architecture"
+  "dir_name": "directus-backend-architecture",
+  "github_path": ".claude/skills/directus-backend-architecture",
+  "github_branch": "main"
 }

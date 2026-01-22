@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:15.892291Z",
   "dir_name": "mocha-fundamentals",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-mocha/skills/mocha-fundamentals",
+  "github_branch": "main"
 }

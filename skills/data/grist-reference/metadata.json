@@ -8,5 +8,7 @@
     "reference"
   ],
   "stars": 0,
-  "dir_name": "grist-reference"
+  "dir_name": "grist-reference",
+  "github_path": ".claude/skills/grist-reference",
+  "github_branch": "main"
 }

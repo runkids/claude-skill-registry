@@ -8,5 +8,7 @@
     "rep",
     "tracker"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "ramping-rep-tracker",
+  "github_branch": "main"
 }

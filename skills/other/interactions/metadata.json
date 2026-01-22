@@ -5,5 +5,7 @@
   "source": "github.com/unfrgivn/wilds-of-cloverhollow",
   "downloaded_at": "2026-01-19T02:18:23.523310Z",
   "dir_name": "interactions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/interactions",
+  "github_branch": "main"
 }

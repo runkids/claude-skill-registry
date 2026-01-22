@@ -9,5 +9,7 @@
     "cli",
     "usage"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/chrome-devtools-cli-usage",
+  "github_branch": "main"
 }

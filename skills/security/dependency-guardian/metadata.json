@@ -7,5 +7,7 @@
     "dependency",
     "guardian"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/dependency-guardian",
+  "github_branch": "main"
 }

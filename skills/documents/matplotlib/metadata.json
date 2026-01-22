@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Foundational plotting library. Create line plots, scatter, bar, histograms, heatmaps, 3D, subplots, export PNG/PDF/SVG, for scientific visualization and publication figures.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.716518Z"
+  "downloaded_at": "2026-01-06T08:55:37.716518Z",
+  "github_path": "cli-tool/components/skills/scientific/matplotlib",
+  "github_branch": "main"
 }

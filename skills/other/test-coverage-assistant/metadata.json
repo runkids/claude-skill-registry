@@ -5,5 +5,7 @@
   "source": "github.com/AsiaOstrich/universal-dev-standards",
   "downloaded_at": "2026-01-22T02:27:04.612607Z",
   "dir_name": "test-coverage-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "locales/zh-CN/skills/claude-code/test-coverage-assistant",
+  "github_branch": "main"
 }

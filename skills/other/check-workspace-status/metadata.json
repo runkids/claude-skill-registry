@@ -5,5 +5,7 @@
   "source": "github.com/speakeasy-api/speakeasy",
   "downloaded_at": "2026-01-22T01:17:37.763470Z",
   "dir_name": "check-workspace-status",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/check-workspace-status",
+  "github_branch": "main"
 }

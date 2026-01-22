@@ -7,5 +7,7 @@
     "code",
     "health"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "code-health",
+  "github_branch": "main"
 }

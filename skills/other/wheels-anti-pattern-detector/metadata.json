@@ -5,5 +5,7 @@
   "source": "github.com/wheels-dev/wheels",
   "downloaded_at": "2026-01-22T02:34:46.005649Z",
   "dir_name": "wheels-anti-pattern-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wheels-anti-pattern-detector",
+  "github_branch": "main"
 }

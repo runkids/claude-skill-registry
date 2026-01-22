@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:19.108393Z",
   "dir_name": "mermaid-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/talk-to-slidev-workflow/.claude/skills/mermaid-tools",
+  "github_branch": "main"
 }

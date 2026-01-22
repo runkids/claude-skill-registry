@@ -9,5 +9,7 @@
     "focused",
     "patterns"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "test-watch-focused-patterns",
+  "github_branch": "main"
 }

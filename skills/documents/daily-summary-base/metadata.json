@@ -8,5 +8,7 @@
     "summary",
     "base"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/daily-summary-base",
+  "github_branch": "main"
 }

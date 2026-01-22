@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Master iOS development foundations - Architecture, lifecycle, memory, concurrency",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:45.508253Z"
+  "downloaded_at": "2026-01-06T09:02:45.508253Z",
+  "github_path": "skills/ios-fundamentals",
+  "github_branch": "main"
 }

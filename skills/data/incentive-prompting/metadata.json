@@ -8,5 +8,7 @@
     "prompting"
   ],
   "stars": 0,
-  "dir_name": "incentive-prompting"
+  "dir_name": "incentive-prompting",
+  "github_path": "dist/.claude-plugin/skills/incentive-prompting",
+  "github_branch": "main"
 }

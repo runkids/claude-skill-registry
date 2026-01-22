@@ -5,5 +5,7 @@
   "source": "github.com/atc-net/atc-agentic-toolkit",
   "downloaded_at": "2026-01-22T01:36:41.751624Z",
   "dir_name": "iot-edge-module",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/plugins/azure-iot/skills/iot-edge-module",
+  "github_branch": "main"
 }

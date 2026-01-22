@@ -9,5 +9,7 @@
     "time",
     "payment"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "stripe-one-time-payment",
+  "github_branch": "main"
 }

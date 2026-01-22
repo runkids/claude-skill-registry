@@ -5,5 +5,7 @@
   "source": "github.com/ddttom/allaboutv2",
   "downloaded_at": "2026-01-22T03:01:35.621524Z",
   "dir_name": "eds-performance-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/eds-performance-debugging",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "markdown-to-slides",
   "repo": "knishioka/machine-learning-workshop",
   "category": "documents",
-  "description": "Markdown\u30d5\u30a1\u30a4\u30eb\u3092PowerPoint\u30d7\u30ec\u30bc\u30f3\u30c6\u30fc\u30b7\u30e7\u30f3\uff08PPTX\uff09\u306b\u5909\u63db\u3059\u308bSkill\u3002\u300cMarkdown\u3092\u30b9\u30e9\u30a4\u30c9\u306b\u5909\u63db\u3057\u3066\u300d\u300c\u30d7\u30ec\u30bc\u30f3\u8cc7\u6599\u3092\u4f5c\u3063\u3066\u300d\u300cPPTX\u3092\u751f\u6210\u3057\u3066\u300d\u306a\u3069\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u81ea\u52d5\u767a\u706b\u3059\u308b\u3002python-pptx\u30e9\u30a4\u30d6\u30e9\u30ea\u3092\u4f7f\u7528\u3002",
+  "description": "MarkdownファイルをPowerPointプレゼンテーション（PPTX）に変換するSkill。「Markdownをスライドに変換して」「プレゼン資料を作って」「PPTXを生成して」などのリクエストで自動発火する。python-pptxライブラリを使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:56.590493Z"
+  "downloaded_at": "2026-01-06T08:58:56.590493Z",
+  "github_path": "claude-skills/markdown-to-slides",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:07.939190Z",
   "dir_name": "making-waffles",
-  "category": "other"
+  "category": "other",
+  "github_path": "making-waffles",
+  "github_branch": "main"
 }

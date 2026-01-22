@@ -8,5 +8,7 @@
     "koan",
     "generator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/pathology-koan-generator",
+  "github_branch": "main"
 }

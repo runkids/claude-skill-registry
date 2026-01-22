@@ -7,5 +7,7 @@
     "react",
     "hooks"
   ],
-  "stars": 29
+  "stars": 29,
+  "github_path": "skills/react-hooks",
+  "github_branch": "main"
 }

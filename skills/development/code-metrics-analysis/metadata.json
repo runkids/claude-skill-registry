@@ -8,5 +8,7 @@
     "metrics",
     "analysis"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/code-metrics-analysis",
+  "github_branch": "main"
 }

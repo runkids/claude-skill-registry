@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "drawio"
+  "dir_name": "drawio",
+  "github_path": "drawio",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "deploy-service",
   "repo": "semicolon-devteam/semo",
   "category": "devops",
-  "description": "**Docker/SSH \uae30\ubc18** \ub9c8\uc774\ud06c\ub85c\uc11c\ube44\uc2a4 \uc9c1\uc811 \ubc30\ud3ec.\ub85c\uceec \ube4c\ub4dc \u2192 SSH \uc804\uc1a1 \u2192 PM2 \uc7ac\uc2dc\uc791.Use when:(1) ms-* \uc11c\ube44\uc2a4 \ubc30\ud3ec (ms-notifier, ms-scheduler \ub4f1),(2) Docker \ube4c\ub4dc/\uc774\ubbf8\uc9c0 \uc0dd\uc131,(3) PM2 \uc7ac\uc2dc\uc791/\ub864\ubc31,(4) SSH \uc811\uadfc \ud544\uc694\ud55c \uc9c1\uc811 \ubc30\ud3ec.\u26a0\ufe0f GitHub Actions/Milestone \uae30\ubc18 ",
+  "description": "**Docker/SSH 기반** 마이크로서비스 직접 배포.로컬 빌드 → SSH 전송 → PM2 재시작.Use when:(1) ms-* 서비스 배포 (ms-notifier, ms-scheduler 등),(2) Docker 빌드/이미지 생성,(3) PM2 재시작/롤백,(4) SSH 접근 필요한 직접 배포.⚠️ GitHub Actions/Milestone 기반 ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:51.445910Z"
+  "downloaded_at": "2026-01-06T09:02:51.445910Z",
+  "github_path": "semo-system/semo-skills/deploy-service",
+  "github_branch": "main"
 }

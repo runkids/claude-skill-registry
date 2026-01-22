@@ -9,5 +9,7 @@
     "standards"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/titanium-toolkit/skills/code-quality-standards",
+  "github_branch": "main"
 }

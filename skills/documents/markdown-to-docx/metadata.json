@@ -7,5 +7,7 @@
     "markdown",
     "docx"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/markdown-to-docx",
+  "github_branch": "main"
 }

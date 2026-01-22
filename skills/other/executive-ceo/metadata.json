@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:29.033333Z",
   "dir_name": "executive-ceo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/executive-ceo",
+  "github_branch": "main"
 }

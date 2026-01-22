@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Setup personal web app with pnpm workspace monorepo structure deployable to Cloudflare. Use when starting a new personal project.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:59.367848Z"
+  "downloaded_at": "2026-01-06T09:06:59.367848Z",
+  "github_path": "plugins/psp/skills/psp-monorepo-project",
+  "github_branch": "main"
 }

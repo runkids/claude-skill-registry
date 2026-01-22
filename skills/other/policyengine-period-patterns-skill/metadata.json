@@ -5,5 +5,7 @@
   "source": "github.com/PolicyEngine/policyengine-claude",
   "downloaded_at": "2026-01-22T02:32:15.688005Z",
   "dir_name": "policyengine-period-patterns-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/technical-patterns/policyengine-period-patterns-skill",
+  "github_branch": "main"
 }

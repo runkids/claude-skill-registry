@@ -5,5 +5,7 @@
   "source": "github.com/secondsky/claude-skills",
   "downloaded_at": "2026-01-17T03:58:35.737785Z",
   "dir_name": "cloudflare-sandbox",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/cloudflare-sandbox/skills/cloudflare-sandbox",
+  "github_branch": "main"
 }

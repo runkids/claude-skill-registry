@@ -5,5 +5,7 @@
   "source": "github.com/davila7/claude-code-templates",
   "downloaded_at": "2026-01-21T01:07:36.040646Z",
   "dir_name": "devops-iac-engineer",
-  "category": "other"
+  "category": "other",
+  "github_path": "cli-tool/components/skills/development/devops-iac-engineer",
+  "github_branch": "main"
 }

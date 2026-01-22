@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "archaeology-discussion"
+  "dir_name": "archaeology-discussion",
+  "github_path": ".claude/skills/archaeology-discussion",
+  "github_branch": "main"
 }

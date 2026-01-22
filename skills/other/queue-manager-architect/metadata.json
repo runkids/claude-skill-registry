@@ -5,5 +5,7 @@
   "source": "github.com/willsigmon/sigstack-site",
   "downloaded_at": "2026-01-17T02:00:42.995512Z",
   "dir_name": "queue-manager-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/queue-manager-architect",
+  "github_branch": "main"
 }

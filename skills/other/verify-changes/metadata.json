@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:47:54.887388Z",
   "dir_name": "verify-changes",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/verify_changes",
+  "github_branch": "main"
 }

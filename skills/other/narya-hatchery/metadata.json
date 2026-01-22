@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T04:21:44.951011Z",
   "dir_name": "narya-hatchery",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/narya-hatchery",
+  "github_branch": "main"
 }

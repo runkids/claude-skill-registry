@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:52.026983Z",
   "dir_name": "data-validation-rules",
-  "category": "other"
+  "category": "other",
+  "github_path": "43-data-reliability/data-validation-rules",
+  "github_branch": "main"
 }

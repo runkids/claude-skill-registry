@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Validate plugin integrity and offer safe auto-fixes for common issues - checks agents, skills, hooks, routing config, and plugin structure",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:16.877210Z"
+  "downloaded_at": "2026-01-06T09:10:16.877210Z",
+  "github_path": "packages/popkit-core/skills/pop-validation-engine",
+  "github_branch": "main"
 }

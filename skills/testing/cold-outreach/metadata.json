@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Master cold email, LinkedIn, and first-touch prospect outreach. Use when crafting outbound sequences, social touches, or follow-ups that must earn fast responses.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:26.089268Z"
+  "downloaded_at": "2026-01-06T08:57:26.089268Z",
+  "github_path": "plugins/sales-prospecting/skills/cold-outreach",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/nguyendinhquocx/code-ai",
   "downloaded_at": "2026-01-14T01:13:39.074240Z",
   "dir_name": "docs-cleaner",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/docs-cleaner",
+  "github_branch": "main"
 }

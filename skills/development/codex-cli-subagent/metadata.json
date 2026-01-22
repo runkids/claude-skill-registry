@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Helps you to run a subagent using codex exec",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:58.417873Z"
+  "downloaded_at": "2026-01-06T08:58:58.417873Z",
+  "github_path": "plugins/codex-cli-subagent/skills/codex-cli-subagent",
+  "github_branch": "main"
 }

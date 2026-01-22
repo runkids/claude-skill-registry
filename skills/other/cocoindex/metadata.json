@@ -5,5 +5,7 @@
   "source": "github.com/cocoindex-io/cocoindex-claude",
   "downloaded_at": "2026-01-22T01:43:54.812110Z",
   "dir_name": "cocoindex",
-  "category": "other"
+  "category": "other",
+  "github_path": "cocoindex",
+  "github_branch": "main"
 }

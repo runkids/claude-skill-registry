@@ -2,7 +2,9 @@
   "name": "domain-services",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u30c9\u30e1\u30a4\u30f3\u99c6\u52d5\u8a2d\u8a08\u306b\u304a\u3051\u308b\u30c9\u30e1\u30a4\u30f3\u30b5\u30fc\u30d3\u30b9\u306e\u8b58\u5225\u30fb\u8a2d\u8a08\u30fb\u5b9f\u88c5\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u3084\u5024\u30aa\u30d6\u30b8\u30a7\u30af\u30c8\u306b\u5c5e\u3055\u306a\u3044\u30c9\u30e1\u30a4\u30f3\u30ed\u30b8\u30c3\u30af\u3092\u9069\u5207\u306b\u30e2\u30c7\u30eb\u5316\u3059\u308b\u3002Anchors:\u2022 Domain-Driven Design (Eric Evans) / \u9069\u7528: \u30b5\u30fc\u30d3\u30b9\u8b58\u5225\u30d1\u30bf\u30fc\u30f3 / \u76ee\u7684: \u30c9\u30e1\u30a4\u30f3\u30ed\u30b8\u30c3\u30af\u306e\u9069\u5207\u306a\u914d\u7f6e\u2022 Implementing DDD (Vaughn Vernon) / \u9069\u7528: \u30b5",
+  "description": "ドメイン駆動設計におけるドメインサービスの識別・設計・実装を専門とするスキル。エンティティや値オブジェクトに属さないドメインロジックを適切にモデル化する。Anchors:• Domain-Driven Design (Eric Evans) / 適用: サービス識別パターン / 目的: ドメインロジックの適切な配置• Implementing DDD (Vaughn Vernon) / 適用: サ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:41.930383Z"
+  "downloaded_at": "2026-01-06T09:00:41.930383Z",
+  "github_path": "docs/99-claude/skills/domain-services",
+  "github_branch": "main"
 }

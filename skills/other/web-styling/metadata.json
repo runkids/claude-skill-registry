@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:25.165396Z",
   "dir_name": "web-styling",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/web-styling",
+  "github_branch": "main"
 }

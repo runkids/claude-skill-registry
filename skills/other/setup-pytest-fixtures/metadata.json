@@ -5,5 +5,7 @@
   "source": "github.com/dawiddutoit/custom-claude",
   "downloaded_at": "2026-01-22T03:15:39.402677Z",
   "dir_name": "setup-pytest-fixtures",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/setup-pytest-fixtures",
+  "github_branch": "main"
 }

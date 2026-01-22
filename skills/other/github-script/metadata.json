@@ -5,5 +5,7 @@
   "source": "github.com/githubnext/gh-aw",
   "downloaded_at": "2026-01-14T02:08:48.195097Z",
   "dir_name": "github-script",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-script",
+  "github_branch": "main"
 }

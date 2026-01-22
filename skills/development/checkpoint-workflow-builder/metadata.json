@@ -8,5 +8,7 @@
     "workflow",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/checkpoint-workflow-builder",
+  "github_branch": "main"
 }

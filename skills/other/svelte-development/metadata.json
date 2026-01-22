@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:31.852773Z",
   "dir_name": "svelte-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/svelte-development",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Optimize machine learning model hyperparameters using grid search, random search, or Bayesian optimization. Finds best parameter configurations to maximize performance. Use when asked to \"tune hyperpa",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:44.550590Z"
+  "downloaded_at": "2026-01-06T08:55:44.550590Z",
+  "github_path": "plugins/ai-ml/hyperparameter-tuner/skills/tuning-hyperparameters",
+  "github_branch": "main"
 }

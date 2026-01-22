@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:43.197606Z",
   "dir_name": "cxo-briefing-kit",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/enterprise-sales/skills/cxo-briefing-kit",
+  "github_branch": "main"
 }

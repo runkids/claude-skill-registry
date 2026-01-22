@@ -5,5 +5,7 @@
   "source": "github.com/Leryk1981/mova_wf_cycle",
   "downloaded_at": "2026-01-22T02:33:27.423372Z",
   "dir_name": "mova-dpp-passport-normalize-basic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/mova_dpp_passport_normalize_basic",
+  "github_branch": "main"
 }

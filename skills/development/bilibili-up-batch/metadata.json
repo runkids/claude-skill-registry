@@ -2,7 +2,9 @@
   "name": "bilibili-up-batch",
   "repo": "haizhouyuan/codexreadpublic",
   "category": "development",
-  "description": "\u6279\u91cf\u4e0b\u8f7d B \u7ad9 UP \u6700\u8fd1 N \u6761\u89c6\u9891\u5230 imports\uff0c\u5e76\u7528 video_pipeline \u751f\u6210\u8bc1\u636e\u5305\uff08\u9002\u5408 worker panes \u5e76\u884c\u8dd1\uff09\u3002",
+  "description": "批量下载 B 站 UP 最近 N 条视频到 imports，并用 video_pipeline 生成证据包（适合 worker panes 并行跑）。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:59.208998Z"
+  "downloaded_at": "2026-01-06T09:05:59.208998Z",
+  "github_path": "skills-src/bilibili-up-batch",
+  "github_branch": "main"
 }

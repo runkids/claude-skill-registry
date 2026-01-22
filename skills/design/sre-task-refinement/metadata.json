@@ -8,5 +8,7 @@
     "task",
     "refinement"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/sre-task-refinement",
+  "github_branch": "main"
 }

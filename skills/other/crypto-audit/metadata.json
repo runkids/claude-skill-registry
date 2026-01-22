@@ -5,5 +5,7 @@
   "source": "github.com/MAF2414/kyco",
   "downloaded_at": "2026-01-22T01:22:52.958508Z",
   "dir_name": "crypto-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/crypto-audit",
+  "github_branch": "main"
 }

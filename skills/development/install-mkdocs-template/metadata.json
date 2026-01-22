@@ -4,5 +4,7 @@
   "category": "development",
   "description": "This skill creates a complete MkDocs Material project structure for intelligent textbooks. It sets up a Conda virtual environment named 'mkdocs', installs all dependencies, generates mkdocs.yml with a",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:28.849211Z"
+  "downloaded_at": "2026-01-06T08:59:28.849211Z",
+  "github_path": "skills/archived/install-mkdocs-template",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "preact"
   ],
   "stars": 21,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "developing-preact",
+  "github_branch": "main"
 }

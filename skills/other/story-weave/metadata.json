@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:16.777407Z",
   "dir_name": "story-weave",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/oss/story-weave",
+  "github_branch": "main"
 }

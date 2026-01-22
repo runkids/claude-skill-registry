@@ -9,5 +9,7 @@
     "calibration"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/behavioral-profile-calibration",
+  "github_branch": "main"
 }

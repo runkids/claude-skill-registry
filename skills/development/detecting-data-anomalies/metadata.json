@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Identify anomalies and outliers in datasets using machine learning algorithms.Use when analyzing data for unusual patterns, outliers, or unexpected deviations from normal behavior.Trigger with phrases",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:44.550702Z"
+  "downloaded_at": "2026-01-06T08:55:44.550702Z",
+  "github_path": "plugins/ai-ml/anomaly-detection-system/skills/detecting-data-anomalies",
+  "github_branch": "main"
 }

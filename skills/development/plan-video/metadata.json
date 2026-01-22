@@ -2,7 +2,9 @@
   "name": "plan-video",
   "repo": "mojito-llm/freeship-skills",
   "category": "development",
-  "description": "\u89c6\u9891\u5904\u7406\u4efb\u52a1\u89c4\u5212\u5de5\u5177\u3002\u4ece\u7528\u6237\u8f93\u5165\u4e2d\u63d0\u53d6\u89c6\u9891 URLs\uff0c\u751f\u6210\u552f\u4e00 VideoId\uff0c\u521b\u5efa\u7ed3\u6784\u5316\u7684 todolist.md \u8ffd\u8e2a\u5f85\u751f\u6210\u6587\u4ef6\u3002\u652f\u6301\u5c0f\u7ea2\u4e66\u3001\u6296\u97f3\u3001TikTok\u3001B\u7ad9\u3001YouTube\u3001\u5feb\u624b\u7b49 11+ \u5e73\u53f0\u3002",
+  "description": "视频处理任务规划工具。从用户输入中提取视频 URLs，生成唯一 VideoId，创建结构化的 todolist.md 追踪待生成文件。支持小红书、抖音、TikTok、B站、YouTube、快手等 11+ 平台。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:12.270757Z"
+  "downloaded_at": "2026-01-06T09:07:12.270757Z",
+  "github_path": "parsing-skills/plan-video",
+  "github_branch": "main"
 }

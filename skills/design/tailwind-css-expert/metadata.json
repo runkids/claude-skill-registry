@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Advanced Tailwind CSS expertise for generating production-ready React components with inline Tailwind CSS, designing modern UI patterns, teaching advanced concepts, and optimizing Tailwind configurati",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:52.432246Z"
+  "downloaded_at": "2026-01-06T09:10:52.432246Z",
+  "github_path": ".claude/skills/tailwind-css-expert",
+  "github_branch": "main"
 }

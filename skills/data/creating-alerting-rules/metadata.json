@@ -5,5 +5,7 @@
   "description": "This skill enables AI assistant to create intelligent alerting rules for proactive performance monitoring. it is triggered when the user requests to \"create alerts\", \"define monitoring rules\", or \"set",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:49.157608Z",
-  "dir_name": "creating-alerting-rules"
+  "dir_name": "creating-alerting-rules",
+  "github_path": "plugins/performance/alerting-rule-creator/skills/creating-alerting-rules",
+  "github_branch": "main"
 }

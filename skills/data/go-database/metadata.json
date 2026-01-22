@@ -7,5 +7,7 @@
     "database"
   ],
   "stars": 1,
-  "dir_name": "go-database"
+  "dir_name": "go-database",
+  "github_path": "skills/go-database",
+  "github_branch": "main"
 }

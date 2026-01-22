@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:38.188375Z",
   "dir_name": "write-issue",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/write-issue",
+  "github_branch": "main"
 }

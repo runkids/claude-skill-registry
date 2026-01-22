@@ -5,5 +5,7 @@
   "source": "github.com/kanopi/cms-cultivator",
   "downloaded_at": "2026-01-14T01:23:38.646416Z",
   "dir_name": "code-standards-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-standards-checker",
+  "github_branch": "main"
 }

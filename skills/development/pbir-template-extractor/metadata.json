@@ -8,5 +8,7 @@
     "template",
     "extractor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/pbir-template-extractor",
+  "github_branch": "main"
 }

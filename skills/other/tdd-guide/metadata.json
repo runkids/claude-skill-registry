@@ -5,5 +5,7 @@
   "source": "github.com/thinmintdev/claude-cooker",
   "downloaded_at": "2026-01-22T04:11:55.498068Z",
   "dir_name": "tdd-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "generated-skills/tdd-guide",
+  "github_branch": "main"
 }

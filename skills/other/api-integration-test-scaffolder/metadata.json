@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:04.836408Z",
   "dir_name": "api-integration-test-scaffolder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/_legacy_archive/api-integration-test-scaffolder",
+  "github_branch": "main"
 }

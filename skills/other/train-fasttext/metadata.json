@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:34.856608Z",
   "dir_name": "train-fasttext",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/train-fasttext",
+  "github_branch": "main"
 }

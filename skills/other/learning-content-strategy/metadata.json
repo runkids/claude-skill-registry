@@ -5,5 +5,7 @@
   "source": "github.com/pauljbernard/content",
   "downloaded_at": "2026-01-22T01:07:47.704618Z",
   "dir_name": "learning-content-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/learning-content-strategy",
+  "github_branch": "main"
 }

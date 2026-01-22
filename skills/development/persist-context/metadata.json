@@ -2,7 +2,9 @@
   "name": "persist-context",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "SEMO \uc138\uc158 \uac04 \ucee8\ud14d\uc2a4\ud2b8 \uc601\uc18d\ud654 (\uacf5\ud1b5 Skill). Use when (1) \uc544\ud0a4\ud14d\ucc98 \uacb0\uc815 \uc0ac\ud56d \uc800\uc7a5,(2) \ud300 \uc120\ud638\ub3c4 \uae30\ub85d, (3) \uc790\uc8fc \ucc38\uc870\ud558\ub294 \ud30c\uc77c \uce90\uc2f1, (4) \uc138\uc158 \uac04 \ub9e5\ub77d \uc720\uc9c0.",
+  "description": "SEMO 세션 간 컨텍스트 영속화 (공통 Skill). Use when (1) 아키텍처 결정 사항 저장,(2) 팀 선호도 기록, (3) 자주 참조하는 파일 캐싱, (4) 세션 간 맥락 유지.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.832377Z"
+  "downloaded_at": "2026-01-06T09:02:52.832377Z",
+  "github_path": "semo-system/semo-skills/persist-context",
+  "github_branch": "main"
 }

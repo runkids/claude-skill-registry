@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when migrating from Jest to Bun's test runner, import compatibility, mocks, and config.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:42.572006Z"
+  "downloaded_at": "2026-01-06T08:58:42.572006Z",
+  "github_path": "plugins/bun/skills/bun-jest-migration",
+  "github_branch": "main"
 }

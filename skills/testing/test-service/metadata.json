@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Guide for testing service layer. Use when asked to test services. Directs to implementation-specific testing skills.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:27.176918Z"
+  "downloaded_at": "2026-01-06T09:03:27.176918Z",
+  "github_path": ".claude/skills/test-service",
+  "github_branch": "main"
 }

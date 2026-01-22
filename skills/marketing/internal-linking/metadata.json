@@ -7,5 +7,7 @@
     "internal",
     "linking"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "internal-linking",
+  "github_branch": "main"
 }

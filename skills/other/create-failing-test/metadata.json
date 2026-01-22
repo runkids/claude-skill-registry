@@ -5,5 +5,7 @@
   "source": "github.com/resolve-io/.prism",
   "downloaded_at": "2026-01-14T03:09:58.163534Z",
   "dir_name": "create-failing-test",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/prism-devtools/skills/create-failing-test",
+  "github_branch": "main"
 }

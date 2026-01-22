@@ -5,5 +5,7 @@
   "source": "github.com/SimHacker/moollm",
   "downloaded_at": "2026-01-22T01:07:12.982465Z",
   "dir_name": "exit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/exit",
+  "github_branch": "main"
 }

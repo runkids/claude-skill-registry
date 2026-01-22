@@ -9,5 +9,7 @@
     "plan",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "sales-coaching-plan-generator",
+  "github_branch": "main"
 }

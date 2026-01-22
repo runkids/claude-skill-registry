@@ -7,5 +7,7 @@
     "correlation",
     "tracing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/correlation-tracing",
+  "github_branch": "main"
 }

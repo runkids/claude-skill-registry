@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:38.460534Z",
   "dir_name": "security-checklist",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/webapp-team/skills/security-checklist",
+  "github_branch": "main"
 }

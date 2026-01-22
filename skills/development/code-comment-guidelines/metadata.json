@@ -9,5 +9,7 @@
     "guidelines"
   ],
   "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/code-comment-guidelines",
+  "github_branch": "main"
 }

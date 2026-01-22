@@ -5,5 +5,7 @@
   "source": "github.com/mhattingpete/claude-skills-marketplace",
   "downloaded_at": "2026-01-22T02:16:34.156776Z",
   "dir_name": "ensemble-solving",
-  "category": "other"
+  "category": "other",
+  "github_path": "engineering-workflow-plugin/skills/ensemble-solving",
+  "github_branch": "main"
 }

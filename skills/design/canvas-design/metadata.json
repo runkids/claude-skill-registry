@@ -10,5 +10,7 @@
     "graphics"
   ],
   "stars": 0,
-  "source": "Anthropic Official"
+  "source": "Anthropic Official",
+  "github_path": "skills/canvas-design",
+  "github_branch": "main"
 }

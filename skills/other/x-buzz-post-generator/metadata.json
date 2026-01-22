@@ -5,5 +5,7 @@
   "source": "github.com/yuch4/dx-selecta",
   "downloaded_at": "2026-01-22T03:45:50.814122Z",
   "dir_name": "x-buzz-post-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/x-buzz-post-generator",
+  "github_branch": "main"
 }

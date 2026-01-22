@@ -7,5 +7,7 @@
     "chef",
     "assistant"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/chef-assistant",
+  "github_branch": "main"
 }

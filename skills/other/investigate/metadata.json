@@ -5,5 +5,7 @@
   "source": "github.com/google/mcp-security",
   "downloaded_at": "2026-01-22T03:00:54.599567Z",
   "dir_name": "investigate",
-  "category": "other"
+  "category": "other",
+  "github_path": "extensions/google-secops/skills/investigate",
+  "github_branch": "main"
 }

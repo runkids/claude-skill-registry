@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:48:00.167493Z",
   "dir_name": "pattern-miner",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/pattern_miner",
+  "github_branch": "main"
 }

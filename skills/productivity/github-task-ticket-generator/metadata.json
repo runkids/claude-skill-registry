@@ -9,5 +9,7 @@
     "ticket",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/github-task-ticket-generator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:54.585248Z",
   "dir_name": "data-storyteller",
-  "category": "other"
+  "category": "other",
+  "github_path": "data-storyteller",
+  "github_branch": "main"
 }

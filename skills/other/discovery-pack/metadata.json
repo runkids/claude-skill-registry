@@ -5,5 +5,7 @@
   "source": "github.com/nsalvacao/discovery-pack",
   "downloaded_at": "2026-01-22T01:42:11.584987Z",
   "dir_name": "discovery-pack",
-  "category": "other"
+  "category": "other",
+  "github_path": "skill/discovery-pack",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "safety"
   ],
   "stars": 0,
-  "dir_name": "guardrails-safety"
+  "dir_name": "guardrails-safety",
+  "github_path": "skills/guardrails-safety",
+  "github_branch": "main"
 }

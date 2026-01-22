@@ -9,5 +9,7 @@
     "coauthoring"
   ],
   "stars": 0,
-  "source": "Anthropic Official"
+  "source": "Anthropic Official",
+  "github_path": "skills/doc-coauthoring",
+  "github_branch": "main"
 }

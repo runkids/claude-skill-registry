@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:48:00.352502Z",
   "dir_name": "quality-gates",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/quality_gates",
+  "github_branch": "main"
 }

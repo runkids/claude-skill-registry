@@ -7,5 +7,7 @@
     "chrome",
     "automation"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "chrome-automation",
+  "github_branch": "main"
 }

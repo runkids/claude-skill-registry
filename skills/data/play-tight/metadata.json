@@ -8,5 +8,7 @@
     "tight"
   ],
   "stars": 0,
-  "dir_name": "play-tight"
+  "dir_name": "play-tight",
+  "github_path": "play-tight",
+  "github_branch": "main"
 }

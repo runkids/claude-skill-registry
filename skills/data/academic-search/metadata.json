@@ -9,5 +9,7 @@
   ],
   "stars": 21,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "academic-search"
+  "dir_name": "academic-search",
+  "github_path": "skills/academic-search",
+  "github_branch": "main"
 }

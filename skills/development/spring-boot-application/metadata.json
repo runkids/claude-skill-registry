@@ -8,5 +8,7 @@
     "boot",
     "application"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/spring-boot-application",
+  "github_branch": "main"
 }

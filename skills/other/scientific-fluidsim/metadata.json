@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:46.404394Z",
   "dir_name": "scientific-fluidsim",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-fluidsim",
+  "github_branch": "main"
 }

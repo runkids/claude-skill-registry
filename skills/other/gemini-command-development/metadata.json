@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:11.871803Z",
   "dir_name": "gemini-command-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/google-ecosystem/skills/gemini-command-development",
+  "github_branch": "main"
 }

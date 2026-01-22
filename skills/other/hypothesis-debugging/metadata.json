@@ -5,5 +5,7 @@
   "source": "github.com/leynos/agent-helper-scripts",
   "downloaded_at": "2026-01-22T02:38:51.405124Z",
   "dir_name": "hypothesis-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/hypothesis-debugging",
+  "github_branch": "main"
 }

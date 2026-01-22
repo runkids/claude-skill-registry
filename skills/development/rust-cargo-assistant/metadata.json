@@ -8,5 +8,7 @@
     "cargo",
     "assistant"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/rust-cargo-assistant",
+  "github_branch": "main"
 }

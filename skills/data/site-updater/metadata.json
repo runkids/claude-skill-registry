@@ -8,5 +8,7 @@
     "updater"
   ],
   "stars": 0,
-  "dir_name": "site-updater"
+  "dir_name": "site-updater",
+  "github_path": ".claude/skills/site-updater",
+  "github_branch": "main"
 }

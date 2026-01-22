@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:06.477650Z",
   "dir_name": "using-system-archaeologist",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/axiom-system-archaeologist/skills/using-system-archaeologist",
+  "github_branch": "main"
 }

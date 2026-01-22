@@ -5,5 +5,7 @@
   "source": "github.com/intent-solutions-io/plugins-nixtla",
   "downloaded_at": "2026-01-22T00:52:25.573550Z",
   "dir_name": "timegpt-lab-bootstrap",
-  "category": "other"
+  "category": "other",
+  "github_path": "002-workspaces/timegpt-lab/skills/timegpt-lab-bootstrap",
+  "github_branch": "main"
 }

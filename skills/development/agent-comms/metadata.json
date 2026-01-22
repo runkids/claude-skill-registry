@@ -8,5 +8,7 @@
     "comms"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "agent-comms",
+  "github_branch": "main"
 }

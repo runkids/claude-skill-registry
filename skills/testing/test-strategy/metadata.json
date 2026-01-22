@@ -7,5 +7,7 @@
     "test",
     "strategy"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/test-strategy",
+  "github_branch": "main"
 }

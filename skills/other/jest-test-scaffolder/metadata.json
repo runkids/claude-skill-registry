@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:04.587707Z",
   "dir_name": "jest-test-scaffolder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/jest-test-scaffolder",
+  "github_branch": "main"
 }

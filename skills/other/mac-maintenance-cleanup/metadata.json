@@ -5,5 +5,7 @@
   "source": "github.com/evanfang0054/cc-system-creator-scripts",
   "downloaded_at": "2026-01-22T02:03:19.307557Z",
   "dir_name": "mac-maintenance-cleanup",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mac-maintenance-cleanup",
+  "github_branch": "main"
 }

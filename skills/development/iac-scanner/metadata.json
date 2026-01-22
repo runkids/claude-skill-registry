@@ -7,5 +7,7 @@
     "iac",
     "scanner"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/iac-scanner",
+  "github_branch": "main"
 }

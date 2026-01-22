@@ -5,5 +5,7 @@
   "source": "github.com/doccker/cc-use-exp",
   "downloaded_at": "2026-01-22T01:13:43.225459Z",
   "dir_name": "python-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/python-dev",
+  "github_branch": "main"
 }

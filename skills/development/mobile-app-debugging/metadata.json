@@ -8,5 +8,7 @@
     "app",
     "debugging"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/mobile-app-debugging",
+  "github_branch": "main"
 }

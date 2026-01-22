@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:59.617764Z",
   "dir_name": "cfn-parameterized-queries",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cfn-parameterized-queries",
+  "github_branch": "main"
 }

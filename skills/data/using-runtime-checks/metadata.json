@@ -5,5 +5,7 @@
   "description": "Teaches how to validate external data at runtime using Zod and other validation libraries in TypeScript. Use when working with APIs, JSON parsing, user input, or any external data source where runtime",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:05:04.862245Z",
-  "dir_name": "using-runtime-checks"
+  "dir_name": "using-runtime-checks",
+  "github_path": "typescript/skills/using-runtime-checks",
+  "github_branch": "main"
 }

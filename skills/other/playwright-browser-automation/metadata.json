@@ -5,5 +5,7 @@
   "source": "github.com/ghealysr/nicole-assistant",
   "downloaded_at": "2026-01-14T02:20:23.119678Z",
   "dir_name": "playwright-browser-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/installed/playwright-skill/Playwright Browser Automation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/benchflow-ai/skillsbench",
   "downloaded_at": "2026-01-14T03:02:46.254301Z",
   "dir_name": "box-least-squares",
-  "category": "other"
+  "category": "other",
+  "github_path": "tasks/exoplanet-detection-period/environment/skills/box-least-squares",
+  "github_branch": "main"
 }

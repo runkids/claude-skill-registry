@@ -5,5 +5,7 @@
   "source": "github.com/Okyline/Okyline-skill",
   "downloaded_at": "2026-01-22T01:07:38.300990Z",
   "dir_name": "okyline",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/okyline",
+  "github_branch": "main"
 }

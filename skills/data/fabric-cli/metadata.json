@@ -9,5 +9,7 @@
   ],
   "stars": 14,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "fabric-cli"
+  "dir_name": "fabric-cli",
+  "github_path": "skills/fabric-cli",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:38.410461Z",
   "dir_name": "vue-component-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/vue-component-architect",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "api-connector-design",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "security",
-  "description": "\u5916\u90e8API\u3068\u306e\u7d71\u5408\u8a2d\u8a08\u30d1\u30bf\u30fc\u30f3\u306b\u95a2\u3059\u308b\u5c02\u9580\u77e5\u8b58\u3002RESTful API\u3001GraphQL\u3001WebSocket\u7b49\u306e\u7d71\u5408\u8a2d\u8a08\u3068\u5b9f\u88c5\u6307\u91dd\u3092\u63d0\u4f9b\u3057\u307e\u3059\u3002Anchors:\u2022 \u300eRESTful Web APIs\u300f\uff08Leonard Richardson\uff09/ \u9069\u7528: RESTful API\u8a2d\u8a08\u3001HTTP\u30bb\u30de\u30f3\u30c6\u30a3\u30af\u30b9 / \u76ee\u7684: \u30ea\u30bd\u30fc\u30b9\u4e2d\u5fc3\u306e\u8a2d\u8a08\u30d1\u30bf\u30fc\u30f3\u7406\u89e3\u2022 \u300eBuilding Microservices\u300f\uff08S",
+  "description": "外部APIとの統合設計パターンに関する専門知識。RESTful API、GraphQL、WebSocket等の統合設計と実装指針を提供します。Anchors:• 『RESTful Web APIs』（Leonard Richardson）/ 適用: RESTful API設計、HTTPセマンティクス / 目的: リソース中心の設計パターン理解• 『Building Microservices』（S",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.318405Z"
+  "downloaded_at": "2026-01-06T09:00:40.318405Z",
+  "github_path": "docs/99-claude/skills/api-connector-design",
+  "github_branch": "main"
 }

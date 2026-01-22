@@ -8,5 +8,7 @@
     "content",
     "management"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "json-content-management",
+  "github_branch": "main"
 }

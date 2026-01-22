@@ -5,5 +5,7 @@
   "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
   "downloaded_at": "2026-01-22T01:49:13.518663Z",
   "dir_name": "building-commands",
-  "category": "other"
+  "category": "other",
+  "github_path": "agent-builder/skills/building-commands",
+  "github_branch": "main"
 }

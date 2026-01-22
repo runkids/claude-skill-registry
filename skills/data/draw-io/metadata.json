@@ -8,5 +8,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "draw-io"
+  "dir_name": "draw-io",
+  "github_path": "skills/draw-io",
+  "github_branch": "main"
 }

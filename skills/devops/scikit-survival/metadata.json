@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Comprehensive toolkit for survival analysis and time-to-event modeling in Python using scikit-survival. Use this skill when working with censored survival data, performing time-to-event analysis, fitt",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.830842Z"
+  "downloaded_at": "2026-01-06T08:55:38.830842Z",
+  "github_path": "cli-tool/components/skills/scientific/scikit-survival",
+  "github_branch": "main"
 }

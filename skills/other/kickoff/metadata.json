@@ -5,5 +5,7 @@
   "source": "github.com/takish/dotfiles",
   "downloaded_at": "2026-01-20T02:43:48.560305Z",
   "dir_name": "kickoff",
-  "category": "other"
+  "category": "other",
+  "github_path": "dot_claude/skills/kickoff",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "conductor"
   ],
   "stars": 18,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/conductor",
+  "github_branch": "main"
 }

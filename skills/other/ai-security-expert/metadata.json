@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:26.592350Z",
   "dir_name": "ai-security-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ai-security-expert",
+  "github_branch": "main"
 }

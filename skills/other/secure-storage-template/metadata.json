@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:34:56.283142Z",
   "dir_name": "secure-storage-template",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/secure-storage-template",
+  "github_branch": "main"
 }

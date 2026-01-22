@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Comprehensive LaTeX documentation from Overleaf Learn tutorials",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.353023Z"
+  "downloaded_at": "2026-01-06T09:00:26.353023Z",
+  "github_path": "INTEGRATION/failed/latex-overleaf-js-rendering-issue-20251231",
+  "github_branch": "main"
 }

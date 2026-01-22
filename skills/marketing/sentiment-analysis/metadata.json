@@ -7,5 +7,7 @@
     "sentiment",
     "analysis"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/sentiment-analysis",
+  "github_branch": "main"
 }

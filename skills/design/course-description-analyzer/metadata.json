@@ -8,5 +8,7 @@
     "description",
     "analyzer"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/course-description-analyzer",
+  "github_branch": "main"
 }

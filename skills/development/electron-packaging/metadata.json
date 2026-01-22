@@ -2,7 +2,9 @@
   "name": "electron-packaging",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "Electron\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u306e\u30d3\u30eb\u30c9\u30fb\u30d1\u30c3\u30b1\u30fc\u30b8\u30f3\u30b0\u30fb\u914d\u5e03\u3092\u7d71\u4e00\u7684\u306b\u7ba1\u7406\u3059\u308b\u5c02\u9580\u77e5\u8b58\u3002electron-builder\u306b\u3088\u308b\u30af\u30ed\u30b9\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u5bfe\u5fdc\u3001\u30b3\u30fc\u30c9\u7f72\u540d\u3001\u30a4\u30f3\u30b9\u30c8\u30fc\u30e9\u30fc\u751f\u6210\u3092\u652f\u63f4\u3002Anchors:\u2022 electron-builder / \u9069\u7528: \u30d3\u30eb\u30c9\u8a2d\u5b9a\u30fb\u30d1\u30c3\u30b1\u30fc\u30b8\u30f3\u30b0 / \u76ee\u7684: \u30af\u30ed\u30b9\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u914d\u5e03\u2022 Code Signing / \u9069\u7528: macOS/Windows\u7f72\u540d ",
+  "description": "Electronアプリケーションのビルド・パッケージング・配布を統一的に管理する専門知識。electron-builderによるクロスプラットフォーム対応、コード署名、インストーラー生成を支援。Anchors:• electron-builder / 適用: ビルド設定・パッケージング / 目的: クロスプラットフォーム配布• Code Signing / 適用: macOS/Windows署名 ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.106486Z"
+  "downloaded_at": "2026-01-06T09:00:42.106486Z",
+  "github_path": "docs/99-claude/skills/electron-packaging",
+  "github_branch": "main"
 }

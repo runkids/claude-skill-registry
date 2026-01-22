@@ -5,5 +5,7 @@
   "source": "github.com/mikeastock/agents",
   "downloaded_at": "2026-01-14T03:42:42.170859Z",
   "dir_name": "fetching-buildkite-failures",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fetching-buildkite-failures",
+  "github_branch": "main"
 }

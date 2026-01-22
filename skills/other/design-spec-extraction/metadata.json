@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:51.076793Z",
   "dir_name": "design-spec-extraction",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design-spec-extraction",
+  "github_branch": "main"
 }

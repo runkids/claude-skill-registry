@@ -8,5 +8,7 @@
     "ref",
     "powershell"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/julien-ref-powershell",
+  "github_branch": "main"
 }

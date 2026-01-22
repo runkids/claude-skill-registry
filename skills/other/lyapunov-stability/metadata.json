@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:35:01.522527Z",
   "dir_name": "lyapunov-stability",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/lyapunov-stability",
+  "github_branch": "main"
 }

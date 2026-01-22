@@ -5,5 +5,7 @@
   "source": "github.com/githubnext/gh-aw",
   "downloaded_at": "2026-01-14T02:08:48.604449Z",
   "dir_name": "http-mcp-headers",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/http-mcp-headers",
+  "github_branch": "main"
 }

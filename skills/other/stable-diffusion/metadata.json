@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:54.931788Z",
   "dir_name": "stable-diffusion",
-  "category": "other"
+  "category": "other",
+  "github_path": "18-multimodal/stable-diffusion",
+  "github_branch": "main"
 }

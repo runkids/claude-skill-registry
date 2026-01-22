@@ -9,5 +9,7 @@
     "auto",
     "activation"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/forced-reading-auto-activation",
+  "github_branch": "main"
 }

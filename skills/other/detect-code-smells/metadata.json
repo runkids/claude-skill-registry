@@ -5,5 +5,7 @@
   "source": "github.com/mvillmow/ProjectOdyssey",
   "downloaded_at": "2026-01-22T02:46:11.269862Z",
   "dir_name": "detect-code-smells",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tier-2/detect-code-smells",
+  "github_branch": "main"
 }

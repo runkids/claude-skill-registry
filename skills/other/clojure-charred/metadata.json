@@ -5,5 +5,7 @@
   "source": "github.com/Ramblurr/nix-devenv",
   "downloaded_at": "2026-01-22T04:06:41.511274Z",
   "dir_name": "clojure-charred",
-  "category": "other"
+  "category": "other",
+  "github_path": "prompts/skills/clojure-charred",
+  "github_branch": "main"
 }

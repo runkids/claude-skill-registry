@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:34:55.729498Z",
   "dir_name": "gworkspace-mcp",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gworkspace-mcp",
+  "github_branch": "main"
 }

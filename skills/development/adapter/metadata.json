@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Adapter (Wrapper) Pattern pattern for C development",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:21.663352Z"
+  "downloaded_at": "2026-01-08T03:20:21.663352Z",
+  "github_path": ".claude/library/patterns/adapter",
+  "github_branch": "main"
 }

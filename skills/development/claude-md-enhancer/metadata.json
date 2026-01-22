@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyzes, generates, and enhances CLAUDE.md files for any project type using best practices, modular architecture support, and tech stack customization. Use when setting up new projects, improving exi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:44.525490Z"
+  "downloaded_at": "2026-01-06T08:56:44.525490Z",
+  "github_path": "generated-skills/claude-md-enhancer",
+  "github_branch": "main"
 }

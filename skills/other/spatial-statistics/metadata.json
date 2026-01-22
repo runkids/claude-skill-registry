@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:45.482977Z",
   "dir_name": "spatial-statistics",
-  "category": "other"
+  "category": "other",
+  "github_path": "spatial-transcriptomics/spatial-statistics",
+  "github_branch": "main"
 }

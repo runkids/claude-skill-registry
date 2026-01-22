@@ -5,5 +5,7 @@
   "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
   "downloaded_at": "2026-01-22T01:49:12.411529Z",
   "dir_name": "managing-branches",
-  "category": "other"
+  "category": "other",
+  "github_path": "github-workflows/skills/managing-branches",
+  "github_branch": "main"
 }

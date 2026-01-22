@@ -8,5 +8,7 @@
     "project",
     "skel"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/python-project-skel",
+  "github_branch": "main"
 }

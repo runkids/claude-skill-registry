@@ -10,5 +10,7 @@
     "products"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/building-apple-platform-products",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "emotion",
     "choreographer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "skills/emotion-choreographer",
+  "github_branch": "main"
 }

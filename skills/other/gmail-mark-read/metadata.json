@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:13.463081Z",
   "dir_name": "gmail-mark-read",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/gmail-mark-read",
+  "github_branch": "main"
 }

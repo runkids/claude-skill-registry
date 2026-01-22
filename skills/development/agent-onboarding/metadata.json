@@ -8,5 +8,7 @@
     "onboarding"
   ],
   "stars": 11,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/agent-onboarding",
+  "github_branch": "main"
 }

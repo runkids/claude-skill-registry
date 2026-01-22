@@ -8,5 +8,7 @@
     "transcribe"
   ],
   "stars": 0,
-  "dir_name": "whisper-transcribe"
+  "dir_name": "whisper-transcribe",
+  "github_path": "",
+  "github_branch": "main"
 }

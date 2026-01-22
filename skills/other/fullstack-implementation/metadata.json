@@ -5,5 +5,7 @@
   "source": "github.com/htooayelwinict/claude-config",
   "downloaded_at": "2026-01-19T04:20:12.088083Z",
   "dir_name": "fullstack-implementation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fullstack-implementation",
+  "github_branch": "main"
 }

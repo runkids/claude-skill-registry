@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:09.359242Z",
   "dir_name": "ln-626-dead-code-auditor",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-626-dead-code-auditor",
+  "github_branch": "main"
 }

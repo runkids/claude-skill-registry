@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:15.177411Z",
   "dir_name": "prompt-craft",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/arcanea/prompt-craft",
+  "github_branch": "main"
 }

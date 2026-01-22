@@ -8,5 +8,7 @@
     "modeling",
     "techniques"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "claude_ctx_py/assets/skills/threat-modeling-techniques",
+  "github_branch": "main"
 }

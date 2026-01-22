@@ -10,5 +10,7 @@
     "skill"
   ],
   "stars": 0,
-  "dir_name": "templar-miner-claude-skill"
+  "dir_name": "templar-miner-claude-skill",
+  "github_path": "",
+  "github_branch": "main"
 }

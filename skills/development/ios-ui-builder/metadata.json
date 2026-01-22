@@ -7,5 +7,7 @@
     "ios",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/ios-ui-builder",
+  "github_branch": "main"
 }

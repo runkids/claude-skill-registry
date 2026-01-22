@@ -8,5 +8,7 @@
     "storytelling"
   ],
   "stars": 8,
-  "dir_name": "communication-storytelling"
+  "dir_name": "communication-storytelling",
+  "github_path": "skills/communication-storytelling",
+  "github_branch": "main"
 }

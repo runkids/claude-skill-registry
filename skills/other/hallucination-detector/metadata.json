@@ -5,5 +5,7 @@
   "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor",
   "downloaded_at": "2026-01-22T00:54:54.457586Z",
   "dir_name": "hallucination-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/hallucination-detector",
+  "github_branch": "main"
 }

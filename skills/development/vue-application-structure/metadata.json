@@ -8,5 +8,7 @@
     "application",
     "structure"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/vue-application-structure",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:39.889648Z",
   "dir_name": "json-transformer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/json-transformer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "SQL query optimization, schema design, indexing, and relational database mastery",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:32.449322Z",
-  "dir_name": "sql-databases"
+  "dir_name": "sql-databases",
+  "github_path": "skills/sql-databases",
+  "github_branch": "main"
 }

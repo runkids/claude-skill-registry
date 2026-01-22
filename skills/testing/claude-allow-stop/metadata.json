@@ -9,5 +9,7 @@
     "stop"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".bitbot/internal/bitbot-config/.claude/skills/claude-allow-stop",
+  "github_branch": "main"
 }

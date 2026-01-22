@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-architect-reviewer"
+  "dir_name": "agent-architect-reviewer",
+  "github_path": ".claude/skills/DEPRECATED/agent-architect-reviewer",
+  "github_branch": "main"
 }

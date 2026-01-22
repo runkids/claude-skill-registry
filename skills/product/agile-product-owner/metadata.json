@@ -1,5 +1,7 @@
 {
   "name": "agile-product-owner",
   "repo": "alirezarezvani/claude-skills",
-  "category": "product"
+  "category": "product",
+  "github_path": "product-team/agile-product-owner",
+  "github_branch": "main"
 }

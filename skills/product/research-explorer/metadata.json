@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Conducts external research for competitive analysis, standards, and APIs",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:53.854171Z"
+  "downloaded_at": "2026-01-06T09:10:53.854171Z",
+  "github_path": "plugins/v/skills/research-explorer",
+  "github_branch": "main"
 }

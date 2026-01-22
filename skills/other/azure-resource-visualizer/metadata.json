@@ -5,5 +5,7 @@
   "source": "github.com/vasic-digital/SuperAgent",
   "downloaded_at": "2026-01-22T03:16:19.417261Z",
   "dir_name": "azure-resource-visualizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-copilot/azure-resource-visualizer",
+  "github_branch": "main"
 }

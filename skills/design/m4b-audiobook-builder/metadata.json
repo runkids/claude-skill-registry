@@ -8,5 +8,7 @@
     "audiobook",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "m4b-audiobook-builder",
+  "github_branch": "main"
 }

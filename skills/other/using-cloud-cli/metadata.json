@@ -5,5 +5,7 @@
   "source": "github.com/alexei-led/claude-code-config",
   "downloaded_at": "2026-01-17T03:17:59.116911Z",
   "dir_name": "using-cloud-cli",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/using-cloud-cli",
+  "github_branch": "main"
 }

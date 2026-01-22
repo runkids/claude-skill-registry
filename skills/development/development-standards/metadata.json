@@ -8,5 +8,7 @@
     "standards"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/development-standards",
+  "github_branch": "main"
 }

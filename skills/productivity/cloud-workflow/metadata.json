@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Event-driven workflow automation in Flow Nexus cloud. Use for creating, executing, and managing complex automated workflows with message queue processing and intelligent agent coordination.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:09.665450Z"
+  "downloaded_at": "2026-01-06T09:10:09.665450Z",
+  "github_path": ".claude/skills/tools/cloud/cloud-workflow",
+  "github_branch": "main"
 }

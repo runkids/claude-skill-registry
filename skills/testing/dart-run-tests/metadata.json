@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "To run Dart or Flutter tests with the agent-centric test runner, execute tests using this tool instead of shell `dart test` or `flutter test`.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:12.870250Z"
+  "downloaded_at": "2026-01-06T08:59:12.870250Z",
+  "github_path": "dev-swarm/mcp-skills/dart-run-tests",
+  "github_branch": "main"
 }

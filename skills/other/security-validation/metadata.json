@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:45.857359Z",
   "dir_name": "security-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/security/skills/security-validation",
+  "github_branch": "main"
 }

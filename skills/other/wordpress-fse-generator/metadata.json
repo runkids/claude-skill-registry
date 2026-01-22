@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:38.478306Z",
   "dir_name": "wordpress-fse-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/wordpress-fse-generator",
+  "github_branch": "main"
 }

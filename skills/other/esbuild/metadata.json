@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:21.653623Z",
   "dir_name": "esbuild",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/webdev/build-tools/esbuild",
+  "github_branch": "main"
 }

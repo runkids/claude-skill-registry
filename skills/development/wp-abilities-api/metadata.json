@@ -7,5 +7,7 @@
     "abilities",
     "api"
   ],
-  "stars": 26
+  "stars": 26,
+  "github_path": "skills/wp-abilities-api",
+  "github_branch": "main"
 }

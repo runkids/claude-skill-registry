@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:54.920122Z",
   "dir_name": "event-modeling",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/event-modeling/skills/saga-patterns",
+  "github_branch": "main"
 }

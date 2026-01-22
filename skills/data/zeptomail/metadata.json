@@ -7,5 +7,7 @@
     "zeptomail"
   ],
   "stars": 8,
-  "dir_name": "zeptomail"
+  "dir_name": "zeptomail",
+  "github_path": "zeptomail",
+  "github_branch": "main"
 }

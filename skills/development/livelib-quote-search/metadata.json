@@ -8,5 +8,7 @@
     "quote",
     "search"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/livelib-quote-search",
+  "github_branch": "main"
 }

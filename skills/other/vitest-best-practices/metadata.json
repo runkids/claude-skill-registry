@@ -5,5 +5,7 @@
   "source": "github.com/gohypergiant/standard-toolkit",
   "downloaded_at": "2026-01-22T04:01:59.548990Z",
   "dir_name": "vitest-best-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/vitest-best-practices",
+  "github_branch": "main"
 }

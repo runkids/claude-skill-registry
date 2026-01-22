@@ -2,7 +2,9 @@
   "name": "encryption-key-lifecycle",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "devops",
-  "description": "\u6697\u53f7\u5316\u9375\u306e\u30e9\u30a4\u30d5\u30b5\u30a4\u30af\u30eb\u7ba1\u7406\uff08\u751f\u6210\u3001\u30ed\u30fc\u30c6\u30fc\u30b7\u30e7\u30f3\u3001\u5931\u52b9\u3001\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\uff09\u306e\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3092\u63d0\u4f9b\u3059\u308b\u30b9\u30ad\u30eb\u3002Anchors:- NIST SP 800-57 / \u9069\u7528: \u9375\u30e9\u30a4\u30d5\u30b5\u30a4\u30af\u30eb\u5168\u822c / \u76ee\u7684: \u696d\u754c\u6a19\u6e96\u6e96\u62e0- AWS KMS Best Practices / \u9069\u7528: \u30af\u30e9\u30a6\u30c9\u9375\u7ba1\u7406 / \u76ee\u7684: \u30af\u30e9\u30a6\u30c9\u5b9f\u88c5\u30d1\u30bf\u30fc\u30f3- Continuous Delivery (Jez Humble) /",
+  "description": "暗号化鍵のライフサイクル管理（生成、ローテーション、失効、バックアップ）のベストプラクティスを提供するスキル。Anchors:- NIST SP 800-57 / 適用: 鍵ライフサイクル全般 / 目的: 業界標準準拠- AWS KMS Best Practices / 適用: クラウド鍵管理 / 目的: クラウド実装パターン- Continuous Delivery (Jez Humble) /",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.150432Z"
+  "downloaded_at": "2026-01-06T09:00:42.150432Z",
+  "github_path": "docs/99-claude/skills/encryption-key-lifecycle",
+  "github_branch": "main"
 }

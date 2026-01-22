@@ -8,5 +8,7 @@
     "page",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "sveltekit-page-generator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:40.353659Z",
   "dir_name": "webinars",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/content-marketing/skills/webinars",
+  "github_branch": "main"
 }

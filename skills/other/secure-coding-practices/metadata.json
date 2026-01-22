@@ -5,5 +5,7 @@
   "source": "github.com/NickCrew/claude-cortex",
   "downloaded_at": "2026-01-22T01:32:44.806857Z",
   "dir_name": "secure-coding-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude_ctx_py/assets/skills/secure-coding-practices",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "This skill should be used when the user asks about \"ActiveRecord\", \"database queries\", \"query optimization\", \"N+1 queries\", \"eager loading\", \"associations\", \"migrations\", \"database indexes\", \"SQL perf",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:04:11.309497Z",
-  "dir_name": "activerecord-patterns"
+  "dir_name": "activerecord-patterns",
+  "github_path": "ruby-on-rails/skills/activerecord-patterns",
+  "github_branch": "main"
 }

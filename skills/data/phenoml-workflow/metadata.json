@@ -8,5 +8,7 @@
     "workflow"
   ],
   "stars": 0,
-  "dir_name": "phenoml-workflow"
+  "dir_name": "phenoml-workflow",
+  "github_path": "skills/phenoml-workflow",
+  "github_branch": "main"
 }

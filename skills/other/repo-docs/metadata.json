@@ -5,5 +5,7 @@
   "source": "github.com/alanben/ClaudeSkills",
   "downloaded_at": "2026-01-22T04:02:30.408368Z",
   "dir_name": "repo-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "repo-docs",
+  "github_branch": "main"
 }

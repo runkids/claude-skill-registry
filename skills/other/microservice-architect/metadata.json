@@ -5,5 +5,7 @@
   "source": "github.com/yairbederman/EngineeringAgency",
   "downloaded_at": "2026-01-22T04:09:03.158653Z",
   "dir_name": "microservice-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/microservice-architect",
+  "github_branch": "main"
 }

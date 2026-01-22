@@ -8,5 +8,7 @@
     "full",
     "coverage"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/tdd-full-coverage",
+  "github_branch": "main"
 }

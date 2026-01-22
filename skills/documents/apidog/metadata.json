@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Apidog API development platform documentation - API design, testing, mocking, and documentation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:44.863994Z"
+  "downloaded_at": "2026-01-06T09:03:44.863994Z",
+  "github_path": "apidog/apidog",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "composer"
   ],
   "stars": 10,
-  "dir_name": "internal-email-composer"
+  "dir_name": "internal-email-composer",
+  "github_path": "internal-email-composer",
+  "github_branch": "main"
 }

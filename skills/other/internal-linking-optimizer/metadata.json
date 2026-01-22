@@ -5,5 +5,7 @@
   "source": "github.com/aaron-he-zhu/seo-geo-claude-skills",
   "downloaded_at": "2026-01-22T01:07:58.595285Z",
   "dir_name": "internal-linking-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "optimize/internal-linking-optimizer",
+  "github_branch": "main"
 }

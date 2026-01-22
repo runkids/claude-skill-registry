@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Keyword-based automatic skill detection and activation system for Claude conversations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:22.613541Z"
+  "downloaded_at": "2026-01-06T09:00:22.613541Z",
+  "github_path": "skills/skill-auto-activator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:29.726334Z",
   "dir_name": "wordpress-router",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wordpress-router",
+  "github_branch": "main"
 }

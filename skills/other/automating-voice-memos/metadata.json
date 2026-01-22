@@ -5,5 +5,7 @@
   "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin",
   "downloaded_at": "2026-01-22T03:00:34.642207Z",
   "dir_name": "automating-voice-memos",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/automating-mac-apps-plugin/skills/automating-voice-memos",
+  "github_branch": "main"
 }

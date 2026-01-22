@@ -5,5 +5,7 @@
   "source": "github.com/bastos/skills",
   "downloaded_at": "2026-01-22T04:05:37.305988Z",
   "dir_name": "obsidian-daily",
-  "category": "other"
+  "category": "other",
+  "github_path": "obsidian-daily",
+  "github_branch": "main"
 }

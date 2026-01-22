@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Test skill with executable scripts for testing script execution feature",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:54.260741Z"
+  "downloaded_at": "2026-01-06T08:56:54.260741Z",
+  "github_path": "tests/fixtures/skills/script-skill",
+  "github_branch": "main"
 }

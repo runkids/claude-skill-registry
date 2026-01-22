@@ -5,5 +5,7 @@
   "source": "github.com/hoodini/ai-agents-skills",
   "downloaded_at": "2026-01-22T02:55:39.081898Z",
   "dir_name": "analytics-metrics",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/analytics-metrics",
+  "github_branch": "main"
 }

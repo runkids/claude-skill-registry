@@ -5,5 +5,7 @@
   "source": "github.com/mjunaidca/mjs-agent-skills",
   "downloaded_at": "2026-01-22T03:06:57.595517Z",
   "dir_name": "cloud-deploy-blueprint",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/taskflow-vault/skills/engineering/cloud-deploy-blueprint",
+  "github_branch": "main"
 }

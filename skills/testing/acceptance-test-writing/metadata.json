@@ -9,5 +9,7 @@
     "writing"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/acceptance-test-writing",
+  "github_branch": "main"
 }

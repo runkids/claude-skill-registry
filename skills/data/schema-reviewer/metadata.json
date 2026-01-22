@@ -8,5 +8,7 @@
     "reviewer"
   ],
   "stars": 0,
-  "dir_name": "schema-reviewer"
+  "dir_name": "schema-reviewer",
+  "github_path": "skills/schema-reviewer",
+  "github_branch": "main"
 }

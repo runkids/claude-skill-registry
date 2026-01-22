@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:54.828626Z",
   "dir_name": "sparc-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workspace-hub/sparc-workflow",
+  "github_branch": "main"
 }

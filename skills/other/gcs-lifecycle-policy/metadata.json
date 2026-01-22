@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:06.090389Z",
   "dir_name": "gcs-lifecycle-policy",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/14-gcp-skills/gcs-lifecycle-policy",
+  "github_branch": "main"
 }

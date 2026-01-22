@@ -5,5 +5,7 @@
   "source": "github.com/christian289/dotnet-with-claudecode",
   "downloaded_at": "2026-01-22T02:11:38.721943Z",
   "dir_name": "handling-wpf-input-commands",
-  "category": "other"
+  "category": "other",
+  "github_path": "wpf-dev-pack/skills/handling-wpf-input-commands",
+  "github_branch": "main"
 }

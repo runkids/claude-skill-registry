@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:11.410827Z",
   "dir_name": "gamma-enterprise-rbac",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/gamma-pack/skills/gamma-enterprise-rbac",
+  "github_branch": "main"
 }

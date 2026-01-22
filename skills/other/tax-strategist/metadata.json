@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-22T02:21:48.156710Z",
   "dir_name": "tax-strategist",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tax-strategist",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:58.500971Z",
   "dir_name": "kml-geojson-converter",
-  "category": "other"
+  "category": "other",
+  "github_path": "kml-geojson-converter",
+  "github_branch": "main"
 }

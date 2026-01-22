@@ -9,5 +9,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ebook-extractor"
+  "dir_name": "ebook-extractor",
+  "github_path": "skills/ebook-extractor",
+  "github_branch": "main"
 }

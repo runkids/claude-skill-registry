@@ -8,5 +8,7 @@
     "status",
     "sync"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/project-status-sync",
+  "github_branch": "main"
 }

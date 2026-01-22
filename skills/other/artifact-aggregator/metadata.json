@@ -5,5 +5,7 @@
   "source": "github.com/djimontyp/task-tracker",
   "downloaded_at": "2026-01-22T01:44:57.092218Z",
   "dir_name": "artifact-aggregator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills-old/artifact-aggregator",
+  "github_branch": "main"
 }

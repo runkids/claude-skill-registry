@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:10.791156Z",
   "dir_name": "ln-511-test-researcher",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-511-test-researcher",
+  "github_branch": "main"
 }

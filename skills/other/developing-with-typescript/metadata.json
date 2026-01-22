@@ -5,5 +5,7 @@
   "source": "github.com/FortiumPartners/ensemble",
   "downloaded_at": "2026-01-22T01:50:16.664543Z",
   "dir_name": "developing-with-typescript",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/development/skills/developing-with-typescript",
+  "github_branch": "main"
 }

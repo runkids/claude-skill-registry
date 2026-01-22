@@ -5,5 +5,7 @@
   "source": "github.com/vasic-digital/SuperAgent",
   "downloaded_at": "2026-01-22T03:16:18.680184Z",
   "dir_name": "vscode-ext-commands",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-copilot/vscode-ext-commands",
+  "github_branch": "main"
 }

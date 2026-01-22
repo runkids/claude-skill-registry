@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:41.608279Z",
   "dir_name": "brand-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/business-tools/brand-strategy-framework/skills/brand-strategy",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "URDF structure templates and validation patterns for robotics content. Use when creating robot descriptions, validating URDF files, or teaching URDF concepts.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:44.146075Z"
+  "downloaded_at": "2026-01-06T09:09:44.146075Z",
+  "github_path": ".claude/skills/urdf-templates",
+  "github_branch": "main"
 }

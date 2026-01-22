@@ -2,7 +2,9 @@
   "name": "reviewing-security",
   "repo": "ryuichi1208/dotfiles",
   "category": "security",
-  "description": "OWASP API Security Top 10 (2023) \u3068 Rust \u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3002\u8106\u5f31\u6027\u691c\u51fa\u3002Use when: \u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3001\u8106\u5f31\u6027\u3001OWASP\u3001\u8a8d\u8a3c\u3001\u8a8d\u53ef\u3001\u76e3\u67fb\u3092\u4f9d\u983c\u3055\u308c\u305f\u6642\u3002",
+  "description": "OWASP API Security Top 10 (2023) と Rust セキュリティベストプラクティス。脆弱性検出。Use when: セキュリティ、脆弱性、OWASP、認証、認可、監査を依頼された時。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:50.904955Z"
+  "downloaded_at": "2026-01-06T08:56:50.904955Z",
+  "github_path": "mac/claude/skills/reviewing-security",
+  "github_branch": "main"
 }

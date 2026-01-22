@@ -8,5 +8,7 @@
     "photo",
     "finder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "stock-photo-finder",
+  "github_branch": "main"
 }

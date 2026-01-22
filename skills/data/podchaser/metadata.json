@@ -7,5 +7,7 @@
     "podchaser"
   ],
   "stars": 8,
-  "dir_name": "podchaser"
+  "dir_name": "podchaser",
+  "github_path": "podchaser",
+  "github_branch": "main"
 }

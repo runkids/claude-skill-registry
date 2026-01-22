@@ -9,5 +9,7 @@
     "setup"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/documentation-site-setup",
+  "github_branch": "main"
 }

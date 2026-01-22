@@ -5,5 +5,7 @@
   "source": "github.com/abyssparanoia/rapid-go",
   "downloaded_at": "2026-01-22T01:37:35.137403Z",
   "dir_name": "crud-implementation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/crud-implementation",
+  "github_branch": "main"
 }

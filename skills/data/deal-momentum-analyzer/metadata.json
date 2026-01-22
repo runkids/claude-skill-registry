@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "deal-momentum-analyzer"
+  "dir_name": "deal-momentum-analyzer",
+  "github_path": "deal-momentum-analyzer",
+  "github_branch": "main"
 }

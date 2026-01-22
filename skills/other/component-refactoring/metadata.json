@@ -5,5 +5,7 @@
   "source": "github.com/yairbederman/EngineeringAgency",
   "downloaded_at": "2026-01-22T04:09:02.923289Z",
   "dir_name": "component-refactoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/component-refactoring",
+  "github_branch": "main"
 }

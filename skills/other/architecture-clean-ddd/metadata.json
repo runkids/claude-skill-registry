@@ -5,5 +5,7 @@
   "source": "github.com/TheBeardedBearSAS/claude-craft",
   "downloaded_at": "2026-01-22T04:10:43.254145Z",
   "dir_name": "architecture-clean-ddd",
-  "category": "other"
+  "category": "other",
+  "github_path": "Dev/i18n/pt/Symfony/skills/architecture-clean-ddd",
+  "github_branch": "main"
 }

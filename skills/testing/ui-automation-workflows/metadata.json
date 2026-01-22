@@ -7,5 +7,7 @@
     "automation",
     "workflows"
   ],
-  "stars": 28
+  "stars": 28,
+  "github_path": "skills/ui-automation-workflows",
+  "github_branch": "main"
 }

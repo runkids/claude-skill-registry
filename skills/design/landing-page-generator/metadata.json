@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Research-to-release SOP for high-conversion landing pages with validated copy, design, and deployment steps.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:48.173171Z"
+  "downloaded_at": "2026-01-06T08:58:48.173171Z",
+  "github_path": "skills/delivery/landing-page-generator",
+  "github_branch": "main"
 }

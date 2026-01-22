@@ -2,5 +2,7 @@
   "name": "using-git-worktrees",
   "repo": "obra/superpowers",
   "category": "development",
-  "source": "Superpowers"
+  "source": "Superpowers",
+  "github_path": "skills/using-git-worktrees",
+  "github_branch": "main"
 }

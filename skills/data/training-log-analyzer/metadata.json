@@ -9,5 +9,7 @@
     "analyzer"
   ],
   "stars": 10,
-  "dir_name": "training-log-analyzer"
+  "dir_name": "training-log-analyzer",
+  "github_path": "training-log-analyzer",
+  "github_branch": "main"
 }

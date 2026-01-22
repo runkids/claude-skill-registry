@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:16.414189Z",
   "dir_name": "executing-plans",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/executing-plans",
+  "github_branch": "main"
 }

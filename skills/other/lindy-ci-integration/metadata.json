@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:02.241701Z",
   "dir_name": "lindy-ci-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/lindy-pack/skills/lindy-ci-integration",
+  "github_branch": "main"
 }

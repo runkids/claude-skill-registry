@@ -5,5 +5,7 @@
   "source": "github.com/matlab/skills",
   "downloaded_at": "2026-01-22T02:22:06.248248Z",
   "dir_name": "matlab-uihtml-app-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/matlab-uihtml-app-builder",
+  "github_branch": "main"
 }

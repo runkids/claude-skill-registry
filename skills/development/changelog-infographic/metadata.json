@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generate beautiful infographic PNG images from Claude Code changelog summaries. Use this skill after changelog-interpreter has generated a user-friendly summary, to create a visual representation that",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:01.701390Z"
+  "downloaded_at": "2026-01-06T09:08:01.701390Z",
+  "github_path": ".claude/cc-version-updater-test/skills/changelog-infographic",
+  "github_branch": "main"
 }

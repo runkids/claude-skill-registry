@@ -7,5 +7,7 @@
     "hex",
     "math"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/hex-math",
+  "github_branch": "main"
 }

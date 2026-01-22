@@ -7,5 +7,7 @@
     "react",
     "component"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/react-component",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:36.171693Z",
   "dir_name": "media-adaptation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/application/media-adaptation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:32.580928Z",
   "dir_name": "attempt-ledger",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-relay/skills/attempt-ledger",
+  "github_branch": "main"
 }

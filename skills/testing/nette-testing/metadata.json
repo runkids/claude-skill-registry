@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Provides Nette Tester testing conventions. Use when writing tests, using Assert methods, or running tester commands.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:45.358908Z"
+  "downloaded_at": "2026-01-06T08:58:45.358908Z",
+  "github_path": "plugins/nette/skills/nette-testing",
+  "github_branch": "main"
 }

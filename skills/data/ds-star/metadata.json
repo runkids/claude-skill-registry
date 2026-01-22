@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ds-star"
+  "dir_name": "ds-star",
+  "github_path": "skills/ds-star",
+  "github_branch": "main"
 }

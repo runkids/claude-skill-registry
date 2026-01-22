@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:53.732275Z",
   "dir_name": "linux-at-spi2",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/linux-at-spi2",
+  "github_branch": "main"
 }

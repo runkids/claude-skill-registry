@@ -8,5 +8,7 @@
     "ecosystem",
     "mapping"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/report-ecosystem-mapping",
+  "github_branch": "main"
 }

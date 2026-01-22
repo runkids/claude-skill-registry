@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:22.233361Z",
   "dir_name": "prd-v09-gtm-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/marketing-pro-workflow/.claude/skills/prd-v09-gtm-strategy",
+  "github_branch": "main"
 }

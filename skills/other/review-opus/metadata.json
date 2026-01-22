@@ -5,5 +5,7 @@
   "source": "github.com/cskwork/llm-review",
   "downloaded_at": "2026-01-22T04:10:59.444229Z",
   "dir_name": "review-opus",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/claude-codex/skills/review-opus",
+  "github_branch": "main"
 }

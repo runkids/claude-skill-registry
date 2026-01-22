@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:16.193941Z",
   "dir_name": "architecture-paradigm-serverless",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/archetypes/skills/architecture-paradigm-serverless",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "coihuin-compress"
+  "dir_name": "coihuin-compress",
+  "github_path": ".claude/skills/coihuin-compress",
+  "github_branch": "main"
 }

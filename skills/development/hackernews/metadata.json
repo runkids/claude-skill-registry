@@ -6,5 +6,7 @@
   "tags": [
     "hackernews"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "hackernews",
+  "github_branch": "main"
 }

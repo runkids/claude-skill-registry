@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use when configuring interactive controls and args for Storybook stories. Helps create dynamic, explorable component demonstrations with proper type constraints.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:08.958334Z"
+  "downloaded_at": "2026-01-06T08:57:08.958334Z",
+  "github_path": "jutsu/jutsu-storybook/skills/storybook-args-controls",
+  "github_branch": "main"
 }

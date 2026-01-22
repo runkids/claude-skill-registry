@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:45.937480Z",
   "dir_name": "tool-permission-model",
-  "category": "other"
+  "category": "other",
+  "github_path": "54-agentops/tool-permission-model",
+  "github_branch": "main"
 }

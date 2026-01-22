@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:39.034126Z",
   "dir_name": "sync-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/iterate/skills/sync-patterns",
+  "github_branch": "main"
 }

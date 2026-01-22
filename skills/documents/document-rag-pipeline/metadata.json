@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Build complete document knowledge bases with PDF text extraction, OCR for scanned documents, vector embeddings, and semantic search. Use this for creating searchable document libraries from folders of",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:01.047163Z"
+  "downloaded_at": "2026-01-06T09:10:01.047163Z",
+  "github_path": ".claude/skills/document-handling/document-rag-pipeline",
+  "github_branch": "main"
 }

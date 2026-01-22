@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "aiproofing-text"
+  "dir_name": "aiproofing-text",
+  "github_path": "skills/aiproofing-text",
+  "github_branch": "main"
 }

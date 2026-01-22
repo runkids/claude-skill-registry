@@ -5,5 +5,7 @@
   "source": "github.com/maxvaega/skillkit",
   "downloaded_at": "2026-01-22T02:52:25.806711Z",
   "dir_name": "skill-b",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/fixtures/plugins/multi-dir-plugin/experimental/skill-b",
+  "github_branch": "main"
 }

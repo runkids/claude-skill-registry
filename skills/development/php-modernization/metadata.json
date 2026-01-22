@@ -7,5 +7,7 @@
     "php",
     "modernization"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/php-modernization",
+  "github_branch": "main"
 }

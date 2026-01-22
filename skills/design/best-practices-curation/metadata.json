@@ -2,7 +2,9 @@
   "name": "best-practices-curation",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u306e\u53ce\u96c6\u30fb\u8a55\u4fa1\u30fb\u7d71\u5408\u30fb\u66f4\u65b0\u3092\u4f53\u7cfb\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3002\u60c5\u5831\u6e90\u306e\u4fe1\u983c\u6027\u8a55\u4fa1\u3001\u54c1\u8cea\u30b9\u30b3\u30a2\u30ea\u30f3\u30b0\u3001\u7d71\u5408\u30d1\u30bf\u30fc\u30f3\u3092\u7528\u3044\u3066\u77e5\u8b58\u30d9\u30fc\u30b9\u3092\u6539\u5584\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u5b9f\u8df5\u7684\u6539\u5584 / \u76ee\u7684: \u7d99\u7d9a\u7684\u306a\u54c1\u8cea\u5411\u4e0a\u2022 Evidence-Based Management / \u9069\u7528: \u8a55\u4fa1\u57fa\u6e96 / \u76ee\u7684: \u5224\u65ad\u306e\u4e00\u8cab\u6027\u3092\u62c5\u4fdd\u2022 Knowledge Ma",
+  "description": "ベストプラクティスの収集・評価・統合・更新を体系化するスキル。情報源の信頼性評価、品質スコアリング、統合パターンを用いて知識ベースを改善する。Anchors:• The Pragmatic Programmer / 適用: 実践的改善 / 目的: 継続的な品質向上• Evidence-Based Management / 適用: 評価基準 / 目的: 判断の一貫性を担保• Knowledge Ma",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.600317Z"
+  "downloaded_at": "2026-01-06T09:00:40.600317Z",
+  "github_path": "docs/99-claude/skills/best-practices-curation",
+  "github_branch": "main"
 }

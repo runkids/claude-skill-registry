@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:53.932748Z",
   "dir_name": "airflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/automation/airflow",
+  "github_branch": "main"
 }

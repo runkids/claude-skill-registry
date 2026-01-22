@@ -8,5 +8,7 @@
     "before",
     "merge"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/verification-before-merge",
+  "github_branch": "main"
 }

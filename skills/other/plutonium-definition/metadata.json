@@ -5,5 +5,7 @@
   "source": "github.com/radioactive-labs/plutonium-core",
   "downloaded_at": "2026-01-22T03:05:17.387468Z",
   "dir_name": "plutonium-definition",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plutonium-definition-fields",
+  "github_branch": "main"
 }

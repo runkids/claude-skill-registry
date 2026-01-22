@@ -5,5 +5,7 @@
   "source": "github.com/leonardomso/33-js-concepts",
   "downloaded_at": "2026-01-22T01:27:14.758021Z",
   "dir_name": "resource-curator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/resource-curator",
+  "github_branch": "main"
 }

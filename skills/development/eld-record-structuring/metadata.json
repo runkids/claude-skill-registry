@@ -2,7 +2,9 @@
   "name": "eld-record-structuring",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "development",
-  "description": "PCE (Process-Context Engine) \u306e\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u69cb\u9020\u5316\u30b9\u30ad\u30eb\u3002\u53ce\u96c6\u3057\u305f\u77e5\u8b58\u3092\u9069\u5207\u306a\u5834\u6240\u30fb\u7c92\u5ea6\u3067\u69cb\u9020\u5316\u3057\u3001\u518d\u5229\u7528\u53ef\u80fd\u306b\u3059\u308b\u3002\u30c8\u30ea\u30ac\u30fc\u6761\u4ef6:- \u300cCLAUDE.md\u3092\u66f4\u65b0\u3057\u3066\u300d- \u300cADR\u3092\u6574\u7406\u3057\u3066\u300d- \u300c\u77e5\u8b58\u3092\u69cb\u9020\u5316\u3057\u3066\u300d- \u300cpce-memory\u306b\u767b\u9332\u3057\u3066\u300d- pce-collection\u3067\u84c4\u7a4d\u3055\u308c\u305f\u77e5\u898b\u306e\u6574\u7406\u6642",
+  "description": "PCE (Process-Context Engine) のコンテキスト構造化スキル。収集した知識を適切な場所・粒度で構造化し、再利用可能にする。トリガー条件:- 「CLAUDE.mdを更新して」- 「ADRを整理して」- 「知識を構造化して」- 「pce-memoryに登録して」- pce-collectionで蓄積された知見の整理時",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.350847Z"
+  "downloaded_at": "2026-01-06T09:04:21.350847Z",
+  "github_path": "caphtech-plugin/skills/eld-record-structuring",
+  "github_branch": "main"
 }

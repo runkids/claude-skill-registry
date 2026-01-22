@@ -9,5 +9,7 @@
     "monitor"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/DEPRECATED/agent-performance-monitor",
+  "github_branch": "main"
 }

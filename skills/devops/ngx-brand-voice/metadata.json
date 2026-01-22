@@ -2,7 +2,9 @@
   "name": "ngx-brand-voice",
   "repo": "270aldo/ngx_workspace",
   "category": "devops",
-  "description": "Gu\u00eda completa de voz de marca NGX \"Verdad Directa\" con modos de comunicaci\u00f3n, adaptaci\u00f3n por audiencia y ejemplos aprobados",
+  "description": "Guía completa de voz de marca NGX \"Verdad Directa\" con modos de comunicación, adaptación por audiencia y ejemplos aprobados",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:11.894875Z"
+  "downloaded_at": "2026-01-06T09:10:11.894875Z",
+  "github_path": "ngx-marketing/skills/ngx-brand-voice",
+  "github_branch": "main"
 }

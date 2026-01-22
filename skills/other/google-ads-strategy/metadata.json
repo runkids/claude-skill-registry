@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:39.592527Z",
   "dir_name": "google-ads-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-marketing/skills/google-ads-strategy",
+  "github_branch": "main"
 }

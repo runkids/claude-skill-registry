@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:34:55.521591Z",
   "dir_name": "gf3-tripartite",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gf3-tripartite",
+  "github_branch": "main"
 }

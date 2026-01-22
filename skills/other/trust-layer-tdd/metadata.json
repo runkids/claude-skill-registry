@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:48:00.958808Z",
   "dir_name": "trust-layer-tdd",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/trust_layer_tdd",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "troubleshooting",
     "kubernetes"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/troubleshooting-kubernetes",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:16.880820Z",
   "dir_name": "deep-work",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/meta/deep-work",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "recovery"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/operations/cicd-intelligent-recovery",
+  "github_branch": "main"
 }

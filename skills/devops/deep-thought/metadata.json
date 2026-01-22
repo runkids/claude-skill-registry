@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Deploy meta-cognition and recursive systems thinking mode. Use when need to question the question, find root causes of root causes, or escape current system constraints.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:55.000795Z"
+  "downloaded_at": "2026-01-06T08:56:55.000795Z",
+  "github_path": ".claude/skills/pattern-space/perspectives/deep-thought",
+  "github_branch": "main"
 }

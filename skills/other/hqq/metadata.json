@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:56.192905Z",
   "dir_name": "hqq",
-  "category": "other"
+  "category": "other",
+  "github_path": "10-optimization/hqq",
+  "github_branch": "main"
 }

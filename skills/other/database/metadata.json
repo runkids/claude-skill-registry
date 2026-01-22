@@ -5,5 +5,7 @@
   "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework",
   "downloaded_at": "2026-01-22T04:10:34.992541Z",
   "dir_name": "database",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/database",
+  "github_branch": "main"
 }

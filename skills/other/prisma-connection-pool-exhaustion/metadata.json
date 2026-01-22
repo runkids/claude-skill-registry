@@ -5,5 +5,7 @@
   "source": "github.com/Wania-Kazmi/claude-code-autonomous-agent-workflow",
   "downloaded_at": "2026-01-22T04:14:20.719657Z",
   "dir_name": "prisma-connection-pool-exhaustion",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/claudeception/examples/prisma-connection-pool-exhaustion",
+  "github_branch": "main"
 }

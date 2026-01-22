@@ -5,5 +5,7 @@
   "source": "github.com/mengfei0053/skills",
   "downloaded_at": "2026-01-14T01:58:00.555378Z",
   "dir_name": "openharmony-ability-kit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/openharmony-ability-kit",
+  "github_branch": "main"
 }

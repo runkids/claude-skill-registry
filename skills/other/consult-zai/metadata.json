@@ -5,5 +5,7 @@
   "source": "github.com/centminmod/my-claude-code-setup",
   "downloaded_at": "2026-01-22T03:05:09.754317Z",
   "dir_name": "consult-zai",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/consult-zai",
+  "github_branch": "main"
 }

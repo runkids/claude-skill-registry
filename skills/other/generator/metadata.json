@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:59.956131Z",
   "dir_name": "generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/cfn-extras/skills/deprecated/cfn-cerebras-code-generator",
+  "github_branch": "main"
 }

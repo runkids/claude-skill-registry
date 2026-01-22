@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:31.276256Z",
   "dir_name": "api-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend/skills/api-integration",
+  "github_branch": "main"
 }

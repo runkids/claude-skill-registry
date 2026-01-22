@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:50.341493Z",
   "dir_name": "devsecops-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/security/skills/devsecops-practices",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "memory"
   ],
   "stars": 0,
-  "dir_name": "managing-claude-memory"
+  "dir_name": "managing-claude-memory",
+  "github_path": "skills/managing-claude-memory",
+  "github_branch": "main"
 }

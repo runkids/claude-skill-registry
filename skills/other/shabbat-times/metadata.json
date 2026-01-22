@@ -5,5 +5,7 @@
   "source": "github.com/hoodini/ai-agents-skills",
   "downloaded_at": "2026-01-22T02:55:38.357001Z",
   "dir_name": "shabbat-times",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/shabbat-times",
+  "github_branch": "main"
 }

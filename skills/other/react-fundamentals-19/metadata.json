@@ -5,5 +5,7 @@
   "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
   "downloaded_at": "2026-01-14T01:09:22.039813Z",
   "dir_name": "react-fundamentals-19",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/react-master/skills/react-fundamentals-19",
+  "github_branch": "main"
 }

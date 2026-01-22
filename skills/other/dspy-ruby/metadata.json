@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:40.755586Z",
   "dir_name": "dspy-ruby",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/development/dspy-ruby",
+  "github_branch": "main"
 }

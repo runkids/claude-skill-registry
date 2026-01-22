@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generate Linear activity reports for date ranges.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:28.525698Z"
+  "downloaded_at": "2026-01-06T09:06:28.525698Z",
+  "github_path": "github-activity/skills/github-activity",
+  "github_branch": "main"
 }

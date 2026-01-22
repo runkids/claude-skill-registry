@@ -5,5 +5,7 @@
   "source": "github.com/miethe/MeatyMusic",
   "downloaded_at": "2026-01-22T03:37:32.455546Z",
   "dir_name": "validate",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workflow/validate",
+  "github_branch": "main"
 }

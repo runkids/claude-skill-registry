@@ -8,5 +8,7 @@
     "message",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/commit-message-generator",
+  "github_branch": "main"
 }

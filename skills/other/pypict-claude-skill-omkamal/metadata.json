@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:27.721767Z",
   "dir_name": "pypict-claude-skill-omkamal",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pypict-claude-skill_omkamal",
+  "github_branch": "main"
 }

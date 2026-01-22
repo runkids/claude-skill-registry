@@ -5,5 +5,7 @@
   "source": "github.com/camoneart/claude-code",
   "downloaded_at": "2026-01-22T02:26:13.713949Z",
   "dir_name": "creating-atomic-prs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/creating-atomic-prs",
+  "github_branch": "main"
 }

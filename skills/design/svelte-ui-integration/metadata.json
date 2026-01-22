@@ -7,5 +7,7 @@
     "svelte",
     "integration"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/svelte-ui-integration",
+  "github_branch": "main"
 }

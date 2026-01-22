@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:09.210317Z",
   "dir_name": "controlling-spotify",
-  "category": "other"
+  "category": "other",
+  "github_path": "controlling-spotify",
+  "github_branch": "main"
 }

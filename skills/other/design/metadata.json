@@ -5,5 +5,7 @@
   "source": "github.com/zoonk/zoonk",
   "downloaded_at": "2026-01-22T04:16:37.946683Z",
   "dir_name": "design",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/design",
+  "github_branch": "main"
 }

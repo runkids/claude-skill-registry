@@ -8,5 +8,7 @@
     "localizer"
   ],
   "stars": 0,
-  "dir_name": "content-localizer"
+  "dir_name": "content-localizer",
+  "github_path": "skills/content-localizer",
+  "github_branch": "main"
 }

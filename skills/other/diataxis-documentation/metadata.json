@@ -5,5 +5,7 @@
   "source": "github.com/AJBcoding/claude-skill-eval",
   "downloaded_at": "2026-01-22T01:30:41.353617Z",
   "dir_name": "diataxis-documentation",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic-coding-main/Claude/skills/diataxis-documentation",
+  "github_branch": "main"
 }

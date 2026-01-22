@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "daily-planning"
+  "dir_name": "daily-planning",
+  "github_path": ".claude/skills/daily-planning",
+  "github_branch": "main"
 }

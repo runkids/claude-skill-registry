@@ -8,5 +8,7 @@
     "fastapi"
   ],
   "stars": 1,
-  "dir_name": "python-fastapi-ai"
+  "dir_name": "python-fastapi-ai",
+  "github_path": "skills/python-fastapi-ai",
+  "github_branch": "main"
 }

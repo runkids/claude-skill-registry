@@ -5,5 +5,7 @@
   "source": "github.com/RainLib/AI-Storyboard",
   "downloaded_at": "2026-01-22T03:46:55.838508Z",
   "dir_name": "film-storyboard-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/film-storyboard-skill",
+  "github_branch": "main"
 }

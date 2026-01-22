@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Guide for testing repository layer. Use when asked to test repositories or data access layer. Directs to implementation-specific testing skills.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:24.948039Z"
+  "downloaded_at": "2026-01-06T09:03:24.948039Z",
+  "github_path": ".claude/skills/test-repository",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "api"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".github/skills/create-crud-api",
+  "github_branch": "main"
 }

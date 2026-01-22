@@ -8,5 +8,7 @@
     "best",
     "practices"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/global-best-practices",
+  "github_branch": "main"
 }

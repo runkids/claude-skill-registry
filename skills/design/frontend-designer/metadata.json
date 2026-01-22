@@ -7,5 +7,7 @@
     "frontend",
     "designer"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/frontend-designer",
+  "github_branch": "main"
 }

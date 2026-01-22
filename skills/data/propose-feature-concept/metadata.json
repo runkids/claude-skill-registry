@@ -9,5 +9,7 @@
     "concept"
   ],
   "stars": 3,
-  "dir_name": "propose-feature-concept"
+  "dir_name": "propose-feature-concept",
+  "github_path": "skills/propose-feature-concept",
+  "github_branch": "main"
 }

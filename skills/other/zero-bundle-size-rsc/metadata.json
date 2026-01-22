@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:56.278956Z",
   "dir_name": "zero-bundle-size-rsc",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/zero-bundle-size-rsc",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Convert markdown articles from Obsidian vault to XML format, preserving bold text, blockquotes, and header hierarchy based on hashtag count",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:44.256346Z"
+  "downloaded_at": "2026-01-06T08:58:44.256346Z",
+  "github_path": "plugins/markdown-utilities/skills/markdown-to-xml",
+  "github_branch": "main"
 }

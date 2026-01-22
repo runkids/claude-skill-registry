@@ -7,5 +7,7 @@
     "search",
     "commits"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/gh-search-commits",
+  "github_branch": "main"
 }

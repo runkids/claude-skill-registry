@@ -5,5 +5,7 @@
   "source": "github.com/ajianaz/skills-collection",
   "downloaded_at": "2026-01-22T03:22:38.010579Z",
   "dir_name": "shadcn-svelte-management",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/shadcn-svelte-management",
+  "github_branch": "main"
 }

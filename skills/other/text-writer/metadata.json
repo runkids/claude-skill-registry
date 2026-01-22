@@ -5,5 +5,7 @@
   "source": "github.com/imagepit/text-lint-plugin",
   "downloaded_at": "2026-01-22T02:28:35.424635Z",
   "dir_name": "text-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/text-writer",
+  "github_branch": "main"
 }

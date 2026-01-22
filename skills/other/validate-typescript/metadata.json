@@ -5,5 +5,7 @@
   "source": "github.com/BerryKuipers/claude-code-toolkit",
   "downloaded_at": "2026-01-22T01:27:05.498687Z",
   "dir_name": "validate-typescript",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/quality/validate-typescript",
+  "github_branch": "main"
 }

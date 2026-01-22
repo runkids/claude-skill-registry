@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "blog-workflow"
+  "dir_name": "blog-workflow",
+  "github_path": "blog-workflow",
+  "github_branch": "main"
 }

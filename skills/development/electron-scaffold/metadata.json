@@ -7,5 +7,7 @@
     "electron",
     "scaffold"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "electron-scaffold",
+  "github_branch": "main"
 }

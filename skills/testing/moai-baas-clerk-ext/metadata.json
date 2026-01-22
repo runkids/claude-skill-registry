@@ -9,5 +9,7 @@
     "clerk",
     "ext"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-baas-clerk-ext",
+  "github_branch": "main"
 }

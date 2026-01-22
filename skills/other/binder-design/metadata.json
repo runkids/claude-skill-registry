@@ -5,5 +5,7 @@
   "source": "github.com/adaptyvbio/protein-design-skills",
   "downloaded_at": "2026-01-22T01:55:53.814047Z",
   "dir_name": "binder-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/binder-design",
+  "github_branch": "main"
 }

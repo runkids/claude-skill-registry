@@ -7,5 +7,7 @@
     "webhook",
     "development"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/webhook-development",
+  "github_branch": "main"
 }

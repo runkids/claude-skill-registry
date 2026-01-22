@@ -5,5 +5,7 @@
   "source": "github.com/umbraco/Umbraco-CMS-Backoffice-Skills",
   "downloaded_at": "2026-01-20T01:19:15.036435Z",
   "dir_name": "umbraco-ufm-component",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/umbraco-backoffice-skills/skills/umbraco-ufm-component",
+  "github_branch": "main"
 }

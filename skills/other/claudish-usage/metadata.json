@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:33.816387Z",
   "dir_name": "claudish-usage",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend/skills/claudish-usage",
+  "github_branch": "main"
 }

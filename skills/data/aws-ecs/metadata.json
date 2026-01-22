@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "aws-ecs"
+  "dir_name": "aws-ecs",
+  "github_path": "skills/aws-ecs",
+  "github_branch": "main"
 }

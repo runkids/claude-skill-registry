@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/developer-essentials/skills/e2e-testing-patterns",
+  "github_branch": "main"
 }

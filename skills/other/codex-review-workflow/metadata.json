@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:05.150500Z",
   "dir_name": "codex-review-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/codex-review-workflow",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "vitest-advanced",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "Vitest\u306e\u9ad8\u5ea6\u306a\u6a5f\u80fd\u3092\u6d3b\u7528\u3057\u305f\u30c6\u30b9\u30c8\u5b9f\u88c5\u30b9\u30ad\u30eb\u3002\u4e26\u5217\u5b9f\u884c\u3001\u30ab\u30d0\u30ec\u30c3\u30b8\u6700\u9069\u5316\u3001\u975e\u540c\u671f\u30c6\u30b9\u30c8\u51e6\u7406\u3001\u30e2\u30c3\u30af\u6226\u7565\u3092\u5b9f\u88c5\u3057\u307e\u3059\u3002Anchors:\u2022 \u300eTest-Driven Development: By Example\u300f\uff08Kent Beck\uff09 / \u9069\u7528: \u30c6\u30b9\u30c8\u8a2d\u8a08 / \u76ee\u7684: \u54c1\u8cea\u5411\u4e0aTrigger:Use when optimizing Vitest tests, configuring para",
+  "description": "Vitestの高度な機能を活用したテスト実装スキル。並列実行、カバレッジ最適化、非同期テスト処理、モック戦略を実装します。Anchors:• 『Test-Driven Development: By Example』（Kent Beck） / 適用: テスト設計 / 目的: 品質向上Trigger:Use when optimizing Vitest tests, configuring para",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.921394Z"
+  "downloaded_at": "2026-01-06T09:00:45.921394Z",
+  "github_path": "docs/99-claude/skills/vitest-advanced",
+  "github_branch": "main"
 }

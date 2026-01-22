@@ -2,7 +2,9 @@
   "name": "bm-analyzer",
   "repo": "jiunbae/agent-skills",
   "category": "development",
-  "description": "\ud604\uc7ac \ub808\ud3ec\uc9c0\ud1a0\ub9ac\uc758 \uc11c\ube44\uc2a4\ub97c BM(\ube44\uc988\ub2c8\uc2a4 \ubaa8\ub378) \uad00\uc810\uc5d0\uc11c \uc644\ubcbd\ud558\uac8c \ubd84\uc11d\ud569\ub2c8\ub2e4. \uc5ec\ub7ec BM \uc804\ubb38\uac00 \uc5d0\uc774\uc804\ud2b8(\uc218\uc775 \uc804\ub7b5\uac00, \uc2dc\uc7a5 \ubd84\uc11d\uac00, \uc0ac\uc6a9\uc790 \uac00\uce58 \ubd84\uc11d\uac00, \uc131\uc7a5 \uc804\ub7b5\uac00)\uac00 \ubcd1\ub82c\ub85c \ub2e4\ubc29\uba74\uc5d0\uc11c \ubd84\uc11d\ud558\uace0, \uc218\uc775\ud654 \ubc29\uc548\uacfc \uac1c\uc120\uc810\uc744 \uc81c\uc2dc\ud569\ub2c8\ub2e4. \"BM \ubd84\uc11d\", \"\uc218\uc775\ud654 \ubd84\uc11d\", \"\ube44\uc988\ub2c8\uc2a4 \ubaa8\ub378 \ubd84\uc11d\", \"\uc11c\ube44\uc2a4 \ubd84\uc11d\" \uc694\uccad \uc2dc \ud65c\uc131\ud654\ub429\ub2c8\ub2e4.",
+  "description": "현재 레포지토리의 서비스를 BM(비즈니스 모델) 관점에서 완벽하게 분석합니다. 여러 BM 전문가 에이전트(수익 전략가, 시장 분석가, 사용자 가치 분석가, 성장 전략가)가 병렬로 다방면에서 분석하고, 수익화 방안과 개선점을 제시합니다. \"BM 분석\", \"수익화 분석\", \"비즈니스 모델 분석\", \"서비스 분석\" 요청 시 활성화됩니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:23.612513Z"
+  "downloaded_at": "2026-01-06T09:06:23.612513Z",
+  "github_path": "business/bm-analyzer",
+  "github_branch": "main"
 }

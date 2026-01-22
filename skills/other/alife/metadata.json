@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:34:52.010883Z",
   "dir_name": "alife",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/true-alife",
+  "github_branch": "main"
 }

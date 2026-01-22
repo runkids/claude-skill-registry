@@ -8,5 +8,7 @@
     "eval",
     "strategy"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/production-eval-strategy",
+  "github_branch": "main"
 }

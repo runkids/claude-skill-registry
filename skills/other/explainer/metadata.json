@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:12.315193Z",
   "dir_name": "explainer",
-  "category": "other"
+  "category": "other",
+  "github_path": "core/skills/explainer",
+  "github_branch": "main"
 }

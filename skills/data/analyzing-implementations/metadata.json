@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "analyzing-implementations"
+  "dir_name": "analyzing-implementations",
+  "github_path": "skills/analyzing-implementations",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:05.405723Z",
   "dir_name": "using-web-backend",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/axiom-web-backend/skills/using-web-backend",
+  "github_branch": "main"
 }

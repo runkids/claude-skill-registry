@@ -5,5 +5,7 @@
   "source": "github.com/natea/ai-news-influencer",
   "downloaded_at": "2026-01-22T04:02:39.412628Z",
   "dir_name": "accessibility-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/accessibility-testing",
+  "github_branch": "main"
 }

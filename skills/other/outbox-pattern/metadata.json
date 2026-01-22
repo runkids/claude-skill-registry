@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:14.970889Z",
   "dir_name": "outbox-pattern",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/outbox-pattern",
+  "github_branch": "main"
 }

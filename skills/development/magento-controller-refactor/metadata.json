@@ -8,5 +8,7 @@
     "controller",
     "refactor"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "magento-controller-refactor",
+  "github_branch": "main"
 }

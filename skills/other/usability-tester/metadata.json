@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:03.797659Z",
   "dir_name": "usability-tester",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/usability-tester",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "stack",
     "evaluator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/hook-stack-evaluator",
+  "github_branch": "main"
 }

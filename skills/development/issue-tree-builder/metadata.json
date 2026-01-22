@@ -8,5 +8,7 @@
     "tree",
     "builder"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "issue-tree-builder",
+  "github_branch": "main"
 }

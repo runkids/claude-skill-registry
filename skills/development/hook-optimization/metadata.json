@@ -7,5 +7,7 @@
     "hook",
     "optimization"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/hook-optimization",
+  "github_branch": "main"
 }

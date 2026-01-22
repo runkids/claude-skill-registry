@@ -9,5 +9,7 @@
     "improver"
   ],
   "stars": 4,
-  "dir_name": "review-skill-improver"
+  "dir_name": "review-skill-improver",
+  "github_path": "skills/review-skill-improver",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:02:01.122238Z",
   "dir_name": "spaarke-conventions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/spaarke-conventions",
+  "github_branch": "main"
 }

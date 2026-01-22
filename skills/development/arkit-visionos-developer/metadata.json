@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build and debug ARKit features for visionOS, including ARKitSession setup, authorization, data providers (world tracking, plane detection, scene reconstruction, hand tracking), anchor processing, and ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:25.348020Z"
+  "downloaded_at": "2026-01-06T08:59:25.348020Z",
+  "github_path": "skills/arkit-visionos-developer",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "analysis"
   ],
   "stars": 0,
-  "dir_name": "higher-ed-fred-analysis"
+  "dir_name": "higher-ed-fred-analysis",
+  "github_path": "higher-ed-fred-analysis",
+  "github_branch": "main"
 }

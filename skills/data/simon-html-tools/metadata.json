@@ -9,5 +9,7 @@
     "tools"
   ],
   "stars": 0,
-  "dir_name": "simon-html-tools"
+  "dir_name": "simon-html-tools",
+  "github_path": "skills/simon-html-tools",
+  "github_branch": "main"
 }

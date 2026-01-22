@@ -5,5 +5,7 @@
   "source": "github.com/parcadei/Continuous-Claude-v3",
   "downloaded_at": "2026-01-22T03:23:55.985293Z",
   "dir_name": "constrained-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/math/optimization/constrained-optimization",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "execute"
   ],
   "stars": 5,
-  "dir_name": "troubleshooting-execute"
+  "dir_name": "troubleshooting-execute",
+  "github_path": "skills/troubleshooting-execute",
+  "github_branch": "main"
 }

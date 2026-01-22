@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:55.199084Z",
   "dir_name": "plantuml-syntax",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/visualization/skills/plantuml-syntax",
+  "github_branch": "main"
 }

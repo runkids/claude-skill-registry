@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:18.315371Z",
   "dir_name": "moai-security-devsecops",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-security-devsecops",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:02.670549Z",
   "dir_name": "clerk-data-handling",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/clerk-pack/skills/clerk-data-handling",
+  "github_branch": "main"
 }

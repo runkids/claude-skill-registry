@@ -8,5 +8,7 @@
     "smell",
     "detection"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/code-smell-detection",
+  "github_branch": "main"
 }

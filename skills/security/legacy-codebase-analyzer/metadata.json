@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Comprehensive legacy codebase analysis skill for technical debt assessment, security vulnerability scanning, performance bottleneck detection, and modernization roadmap generation. Includes 7 Python t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:20.332794Z"
+  "downloaded_at": "2026-01-06T08:59:20.332794Z",
+  "github_path": "skills/engineering-team/legacy-codebase-analyzer",
+  "github_branch": "main"
 }

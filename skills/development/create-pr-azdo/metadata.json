@@ -2,7 +2,9 @@
   "name": "create-pr-azdo",
   "repo": "oocx/tfplan2md-uat",
   "category": "development",
-  "description": "Create an Azure DevOps pull request using az devops tooling; include the repo\u2019s linear-history merge preference and ask the Maintainer if merge options differ.",
+  "description": "Create an Azure DevOps pull request using az devops tooling; include the repo’s linear-history merge preference and ask the Maintainer if merge options differ.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:40.605133Z"
+  "downloaded_at": "2026-01-06T09:02:40.605133Z",
+  "github_path": ".github/skills/create-pr-azdo",
+  "github_branch": "main"
 }

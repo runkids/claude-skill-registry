@@ -9,5 +9,7 @@
     "endings"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".bitbot/internal/bitbot-config/.claude/skills/fix-line-endings",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "writeunittest",
   "repo": "duplojs/utils",
   "category": "testing",
-  "description": "Cr\u00e9er ou mettre \u00e0 jour un fichier de test unitaire Vitest pour une fonction TypeScript donn\u00e9e, namespac\u00e9e via @scripts (namespace.function), en respectant les conventions de test du projet (ExpectType",
+  "description": "Créer ou mettre à jour un fichier de test unitaire Vitest pour une fonction TypeScript donnée, namespacée via @scripts (namespace.function), en respectant les conventions de test du projet (ExpectType",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:08.749201Z"
+  "downloaded_at": "2026-01-08T03:30:08.749201Z",
+  "github_path": ".codex/skills/writeUnitTest",
+  "github_branch": "main"
 }

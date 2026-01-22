@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:54.745956Z",
   "dir_name": "sentencepiece",
-  "category": "other"
+  "category": "other",
+  "github_path": "02-tokenization/sentencepiece",
+  "github_branch": "main"
 }

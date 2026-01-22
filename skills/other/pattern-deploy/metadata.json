@@ -5,5 +5,7 @@
   "source": "github.com/commontoolsinc/labs",
   "downloaded_at": "2026-01-21T03:05:56.111441Z",
   "dir_name": "pattern-deploy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pattern-deploy",
+  "github_branch": "main"
 }

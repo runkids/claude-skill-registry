@@ -5,5 +5,7 @@
   "source": "github.com/benchflow-ai/skillsbench",
   "downloaded_at": "2026-01-14T03:02:46.526586Z",
   "dir_name": "timeseries-detrending",
-  "category": "other"
+  "category": "other",
+  "github_path": "tasks/econ-detrending-correlation/environment/skills/timeseries-detrending",
+  "github_branch": "main"
 }

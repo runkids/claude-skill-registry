@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:17.417863Z",
   "dir_name": "api-platform-tests",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/api-platform-tests",
+  "github_branch": "main"
 }

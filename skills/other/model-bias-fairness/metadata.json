@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-17T03:41:46.643132Z",
   "dir_name": "model-bias-fairness",
-  "category": "other"
+  "category": "other",
+  "github_path": "44-ai-governance/model-bias-fairness",
+  "github_branch": "main"
 }

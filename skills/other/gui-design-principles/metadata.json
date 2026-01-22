@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:03.890926Z",
   "dir_name": "gui-design-principles",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gui-design-principles",
+  "github_branch": "main"
 }

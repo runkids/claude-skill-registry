@@ -9,5 +9,7 @@
     "review"
   ],
   "stars": 4,
-  "dir_name": "shadcn-code-review"
+  "dir_name": "shadcn-code-review",
+  "github_path": "skills/shadcn-code-review",
+  "github_branch": "main"
 }

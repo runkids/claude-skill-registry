@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "database-schema-expert"
+  "dir_name": "database-schema-expert",
+  "github_path": ".claude/skills/database-schema-expert",
+  "github_branch": "main"
 }

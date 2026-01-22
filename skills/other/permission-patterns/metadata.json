@@ -5,5 +5,7 @@
   "source": "github.com/hgeldenhuys/claude-code-sdk",
   "downloaded_at": "2026-01-22T02:26:56.648362Z",
   "dir_name": "permission-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/permission-patterns",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "palette",
     "extractor"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "color-palette-extractor",
+  "github_branch": "main"
 }

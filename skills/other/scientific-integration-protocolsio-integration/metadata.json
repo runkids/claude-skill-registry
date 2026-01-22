@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:28.399215Z",
   "dir_name": "scientific-integration-protocolsio-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-integration-protocolsio-integration",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cellphonedb"
+  "dir_name": "cellphonedb",
+  "github_path": "cellphonedb",
+  "github_branch": "main"
 }

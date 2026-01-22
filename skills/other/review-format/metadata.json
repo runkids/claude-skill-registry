@@ -5,5 +5,7 @@
   "source": "github.com/uuta/dotfiles",
   "downloaded_at": "2026-01-22T01:52:43.592762Z",
   "dir_name": "review-format",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/simple-review-format",
+  "github_branch": "main"
 }

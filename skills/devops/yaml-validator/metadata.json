@@ -7,5 +7,7 @@
     "yaml",
     "validator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "yaml-validator",
+  "github_branch": "main"
 }

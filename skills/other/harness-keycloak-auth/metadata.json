@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:22.609266Z",
   "dir_name": "harness-keycloak-auth",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/aws-eks-helm-keycloak/skills/harness-keycloak-auth",
+  "github_branch": "main"
 }

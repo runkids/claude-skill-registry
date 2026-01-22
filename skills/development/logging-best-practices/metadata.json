@@ -8,5 +8,7 @@
     "best",
     "practices"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/logging-best-practices",
+  "github_branch": "main"
 }

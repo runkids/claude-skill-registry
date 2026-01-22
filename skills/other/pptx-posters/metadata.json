@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:38.747950Z",
   "dir_name": "pptx-posters",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/pptx-posters",
+  "github_branch": "main"
 }

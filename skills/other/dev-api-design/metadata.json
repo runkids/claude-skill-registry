@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:24:59.167669Z",
   "dir_name": "dev-api-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/dev-api-design",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:06.233361Z",
   "dir_name": "granola-install-auth",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/granola-pack/skills/granola-install-auth",
+  "github_branch": "main"
 }

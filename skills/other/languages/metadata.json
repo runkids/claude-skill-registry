@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-cloudflare",
   "downloaded_at": "2026-01-14T01:29:58.681578Z",
   "dir_name": "languages",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/languages",
+  "github_branch": "main"
 }

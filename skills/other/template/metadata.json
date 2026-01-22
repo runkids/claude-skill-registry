@@ -5,5 +5,7 @@
   "source": "github.com/AgentSecOps/SecOpsAgentKit",
   "downloaded_at": "2026-01-19T02:08:58.205217Z",
   "dir_name": "template",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/_template",
+  "github_branch": "main"
 }

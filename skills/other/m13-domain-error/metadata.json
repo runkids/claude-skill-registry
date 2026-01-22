@@ -5,5 +5,7 @@
   "source": "github.com/rustfs/rustfs",
   "downloaded_at": "2026-01-22T03:42:46.467098Z",
   "dir_name": "m13-domain-error",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/m13-domain-error",
+  "github_branch": "main"
 }

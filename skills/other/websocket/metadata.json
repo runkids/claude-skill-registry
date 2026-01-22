@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:54.660386Z",
   "dir_name": "websocket",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/websocket",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "regression",
     "debugging"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/performance-regression-debugging",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:05.648350Z",
   "dir_name": "linear-security-basics",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/linear-pack/skills/linear-security-basics",
+  "github_branch": "main"
 }

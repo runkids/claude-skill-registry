@@ -7,5 +7,7 @@
     "solarwinds",
     "logs"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/solarwinds-logs",
+  "github_branch": "main"
 }

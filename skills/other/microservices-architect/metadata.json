@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:09.919185Z",
   "dir_name": "microservices-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/microservices-architect",
+  "github_branch": "main"
 }

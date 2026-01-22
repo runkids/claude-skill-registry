@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Desktop application development with Electron and Tauri",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:34.573540Z"
+  "downloaded_at": "2026-01-06T09:10:34.573540Z",
+  "github_path": "domain-applications/desktop-apps",
+  "github_branch": "main"
 }

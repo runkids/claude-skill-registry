@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Code review checklist for SwiftUI and Swift PRs. Use when reviewing pull requests, checking code quality, verifying Swift/SwiftUI implementations, or conducting PR reviews. Provides prioritized checkl",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:25.513299Z"
+  "downloaded_at": "2026-01-06T09:00:25.513299Z",
+  "github_path": "ios_development/skills/swiftui-code-review-checklist",
+  "github_branch": "main"
 }

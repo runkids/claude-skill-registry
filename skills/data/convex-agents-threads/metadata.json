@@ -9,5 +9,7 @@
     "threads"
   ],
   "stars": 5,
-  "dir_name": "convex-agents-threads"
+  "dir_name": "convex-agents-threads",
+  "github_path": "convex-agents-threads",
+  "github_branch": "main"
 }

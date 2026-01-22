@@ -4,5 +4,7 @@
   "category": "design",
   "description": "UI component library templates (buttons, forms, cards, modals, etc.). Use when generating frontend UI components.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:26.569360Z"
+  "downloaded_at": "2026-01-06T09:09:26.569360Z",
+  "github_path": ".archive/old-numbered-plugins/02-develop/skills/component-templates",
+  "github_branch": "main"
 }

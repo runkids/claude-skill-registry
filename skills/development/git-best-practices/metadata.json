@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generate comprehensive, detailed git commit messages following best practices with problem explanations for fixes and complete change lists for features. Use when committing changes, writing commit me",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:40.677214Z"
+  "downloaded_at": "2026-01-06T09:08:40.677214Z",
+  "github_path": "skills/git-best-practices",
+  "github_branch": "main"
 }

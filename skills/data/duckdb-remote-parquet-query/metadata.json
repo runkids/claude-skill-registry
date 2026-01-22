@@ -11,5 +11,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "duckdb-remote-parquet-query"
+  "dir_name": "duckdb-remote-parquet-query",
+  "github_path": "skills/duckdb-remote-parquet-query",
+  "github_branch": "main"
 }

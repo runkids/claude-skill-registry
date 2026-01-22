@@ -5,5 +5,7 @@
   "source": "github.com/camoneart/claude-code",
   "downloaded_at": "2026-01-22T02:26:12.416106Z",
   "dir_name": "translate-article",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/translate-article",
+  "github_branch": "main"
 }

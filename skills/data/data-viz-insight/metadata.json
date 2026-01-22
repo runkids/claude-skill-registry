@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "data-viz-insight"
+  "dir_name": "data-viz-insight",
+  "github_path": ".claude/skills/data-viz-insight",
+  "github_branch": "main"
 }

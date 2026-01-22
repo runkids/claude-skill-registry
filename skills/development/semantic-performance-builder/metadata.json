@@ -8,5 +8,7 @@
     "performance",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "skills/semantic-performance-builder",
+  "github_branch": "main"
 }

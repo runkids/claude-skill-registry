@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "base-model-selector"
+  "dir_name": "base-model-selector",
+  "github_path": "skills/base-model-selector",
+  "github_branch": "main"
 }

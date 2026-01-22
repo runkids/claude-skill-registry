@@ -5,5 +5,7 @@
   "source": "github.com/ntaksh42/agents",
   "downloaded_at": "2026-01-22T02:30:16.133380Z",
   "dir_name": "copilot-delegate",
-  "category": "other"
+  "category": "other",
+  "github_path": "dotfiles/claude/skills/copilot-delegate",
+  "github_branch": "main"
 }

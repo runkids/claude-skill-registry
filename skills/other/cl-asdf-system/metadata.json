@@ -5,5 +5,7 @@
   "source": "github.com/cxxxr/.claude",
   "downloaded_at": "2026-01-22T03:14:21.887252Z",
   "dir_name": "cl-asdf-system",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cl-asdf-system",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:54.790694Z",
   "dir_name": "terraform-iac",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/operations/infrastructure/terraform-iac",
+  "github_branch": "main"
 }

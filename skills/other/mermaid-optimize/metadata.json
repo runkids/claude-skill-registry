@@ -5,5 +5,7 @@
   "source": "github.com/jinbangyi/k8s-agent",
   "downloaded_at": "2026-01-22T03:53:19.775574Z",
   "dir_name": "mermaid-optimize",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/mermaid-optimize",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Create purchase claim (PCL) for price/quantity discrepancies with supplier",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:22.214201Z"
+  "downloaded_at": "2026-01-06T09:04:22.214201Z",
+  "github_path": "backend/ai-doc-processing/skills/purchasing/create-purchase-claim",
+  "github_branch": "main"
 }

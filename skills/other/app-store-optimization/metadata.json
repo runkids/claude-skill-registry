@@ -5,5 +5,7 @@
   "source": "github.com/thinmintdev/claude-cooker",
   "downloaded_at": "2026-01-22T04:11:57.093183Z",
   "dir_name": "app-store-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "generated-skills/app-store-optimization",
+  "github_branch": "main"
 }

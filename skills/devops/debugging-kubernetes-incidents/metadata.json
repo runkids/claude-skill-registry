@@ -8,5 +8,7 @@
     "kubernetes",
     "incidents"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "debugging-kubernetes-incidents",
+  "github_branch": "main"
 }

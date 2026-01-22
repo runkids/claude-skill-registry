@@ -5,5 +5,7 @@
   "source": "github.com/akornmeier/claude-config",
   "downloaded_at": "2026-01-21T01:52:52.703525Z",
   "dir_name": "motion-vue-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/motion-vue-skill",
+  "github_branch": "main"
 }

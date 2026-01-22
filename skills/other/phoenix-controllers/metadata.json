@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:17.438116Z",
   "dir_name": "phoenix-controllers",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-phoenix/skills/phoenix-controllers",
+  "github_branch": "main"
 }

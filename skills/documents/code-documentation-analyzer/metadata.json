@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Code Documentation Analyzer - Auto-activating skill for Technical Documentation.Triggers on: code documentation analyzer, code documentation analyzerPart of the Technical Documentation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:55.116348Z"
+  "downloaded_at": "2026-01-06T08:55:55.116348Z",
+  "github_path": "planned-skills/generated/17-technical-docs/code-documentation-analyzer",
+  "github_branch": "main"
 }

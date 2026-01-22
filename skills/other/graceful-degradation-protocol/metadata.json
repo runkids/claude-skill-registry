@@ -5,5 +5,7 @@
   "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
   "downloaded_at": "2026-01-22T01:18:52.930148Z",
   "dir_name": "graceful-degradation-protocol",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/graceful-degradation-protocol",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:41.717534Z",
   "dir_name": "express-route-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/06-backend-dev/express-route-generator",
+  "github_branch": "main"
 }

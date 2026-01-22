@@ -9,5 +9,7 @@
     "mentor"
   ],
   "stars": 0,
-  "dir_name": "meta-prompt-mentor"
+  "dir_name": "meta-prompt-mentor",
+  "github_path": ".claude/meta-prompt-mentor",
+  "github_branch": "main"
 }

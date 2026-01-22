@@ -5,5 +5,7 @@
   "source": "github.com/mattg101/SolidLink",
   "downloaded_at": "2026-01-22T01:26:06.133231Z",
   "dir_name": "git-pr-merge",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/dev/.agent/skills/git-pr-merge",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/umbraco/Umbraco-CMS-Backoffice-Skills",
   "downloaded_at": "2026-01-20T01:19:15.977548Z",
   "dir_name": "umbraco-package-view",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/umbraco-backoffice-skills/skills/umbraco-package-view",
+  "github_branch": "main"
 }

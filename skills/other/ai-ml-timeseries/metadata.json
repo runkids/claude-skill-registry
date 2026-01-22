@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:24:59.608505Z",
   "dir_name": "ai-ml-timeseries",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/ai-ml-timeseries",
+  "github_branch": "main"
 }

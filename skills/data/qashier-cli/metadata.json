@@ -8,5 +8,7 @@
     "cli"
   ],
   "stars": 0,
-  "dir_name": "qashier-cli"
+  "dir_name": "qashier-cli",
+  "github_path": "skills/qashier-cli",
+  "github_branch": "main"
 }

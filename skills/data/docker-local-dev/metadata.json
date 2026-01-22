@@ -10,5 +10,7 @@
   ],
   "stars": 16,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "docker-local-dev"
+  "dir_name": "docker-local-dev",
+  "github_path": "skills/docker-local-dev",
+  "github_branch": "main"
 }

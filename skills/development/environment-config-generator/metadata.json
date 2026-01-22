@@ -2,7 +2,9 @@
   "name": "environment-config-generator",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "development",
-  "description": "\u751f\u6210\u591a\u73af\u5883\u914d\u7f6e\u6e05\u5355\u548cdotenv\u6a21\u677f\u6587\u4ef6\uff0c\u786e\u4fdddev/test/staging/prod\u73af\u5883\u914d\u7f6e\u5b8c\u6574\u3002\u5f53\u9700\u8981\u521b\u5efa\u73af\u5883\u914d\u7f6e\u3001\u751f\u6210.env.example\u6a21\u677f\u3001\u6587\u6863\u5316\u6d4b\u8bd5\u6846\u67b6setup\u3001\u6620\u5c04CI\u73af\u5883\u53d8\u91cf\u65f6\u4f7f\u7528\u3002\u89e3\u51b3dotenv\u7ecf\u5e38\u88ab\u5ffd\u89c6\u7684\u75db\u70b9\u3002",
+  "description": "生成多环境配置清单和dotenv模板文件，确保dev/test/staging/prod环境配置完整。当需要创建环境配置、生成.env.example模板、文档化测试框架setup、映射CI环境变量时使用。解决dotenv经常被忽视的痛点。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:57.715794Z"
+  "downloaded_at": "2026-01-06T09:09:57.715794Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/execspec_compile/environment-config-generator",
+  "github_branch": "main"
 }

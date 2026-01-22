@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Retrieve authoritative library documentation and code examples.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:23.422728Z"
+  "downloaded_at": "2026-01-06T09:06:23.422728Z",
+  "github_path": ".codex/skills/explore-docs",
+  "github_branch": "main"
 }

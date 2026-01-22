@@ -5,5 +5,7 @@
   "source": "github.com/unfrgivn/wilds-of-cloverhollow",
   "downloaded_at": "2026-01-19T02:18:23.204140Z",
   "dir_name": "dialogue-box",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/dialogue-box",
+  "github_branch": "main"
 }

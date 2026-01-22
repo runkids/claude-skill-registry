@@ -11,5 +11,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cellchat-pkg-local-complete"
+  "dir_name": "cellchat-pkg-local-complete",
+  "github_path": "cellchat-pkg-local-complete",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/weholt/script-cast",
   "downloaded_at": "2026-01-22T03:27:58.904160Z",
   "dir_name": "agent-ops-dependencies",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/agent-ops-dependencies",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Trading dashboard P&L visualization with profit tracker integration, win-rate overlays, R-multiples, and configurable settings",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:28.520801Z"
+  "downloaded_at": "2026-01-06T09:08:28.520801Z",
+  "github_path": "plugins/trading/dashboard-pnl-visualization/skills/dashboard-pnl-visualization",
+  "github_branch": "main"
 }

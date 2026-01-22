@@ -5,5 +5,7 @@
   "description": "Farm out AI tasks via Named Pipe to get isolated context. Use when processing large files, batch summarization, or to avoid context pollution. Each call runs in fresh context.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:47.052122Z",
-  "dir_name": "aiclimenu"
+  "dir_name": "aiclimenu",
+  "github_path": "windows/skill",
+  "github_branch": "main"
 }

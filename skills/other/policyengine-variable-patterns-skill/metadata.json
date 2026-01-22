@@ -5,5 +5,7 @@
   "source": "github.com/PolicyEngine/policyengine-claude",
   "downloaded_at": "2026-01-22T02:32:15.983314Z",
   "dir_name": "policyengine-variable-patterns-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/technical-patterns/policyengine-variable-patterns-skill",
+  "github_branch": "main"
 }

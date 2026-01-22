@@ -5,5 +5,7 @@
   "source": "github.com/Tahir-yamin/dev-engineering-playbook",
   "downloaded_at": "2026-01-22T03:41:41.498800Z",
   "dir_name": "testing-principles",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/shinpr/frontend/skills/testing-principles",
+  "github_branch": "main"
 }

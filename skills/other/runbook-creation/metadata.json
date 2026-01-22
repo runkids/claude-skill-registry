@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:24.348370Z",
   "dir_name": "runbook-creation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/runbook-creation",
+  "github_branch": "main"
 }

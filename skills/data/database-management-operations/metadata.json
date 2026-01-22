@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "database-management-operations"
+  "dir_name": "database-management-operations",
+  "github_path": ".claude/skills/database-management-operations",
+  "github_branch": "main"
 }

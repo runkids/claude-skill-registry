@@ -2,7 +2,9 @@
   "name": "approval-gates",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u627f\u8a8d\u30b2\u30fc\u30c8\u306e\u8a2d\u8a08\u30fb\u8a55\u4fa1\u30fb\u904b\u7528\u3092\u4f53\u7cfb\u5316\u3057\u3001\u5909\u66f4\u7ba1\u7406\u3068\u30ea\u30ea\u30fc\u30b9\u5224\u65ad\u3092\u5b89\u5168\u306b\u9032\u3081\u308b\u30b9\u30ad\u30eb\u3002\u30ea\u30b9\u30af\u8a55\u4fa1\u306b\u57fa\u3065\u304f\u30b2\u30fc\u30c8\u6761\u4ef6\u3001\u624b\u52d5\u627f\u8a8d\u3068\u81ea\u52d5\u691c\u8a3c\u306e\u5206\u96e2\u3001\u76e3\u67fb\u53ef\u80fd\u306a\u8a18\u9332\u8a2d\u8a08\u3092\u652f\u63f4\u3057\u307e\u3059\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u54c1\u8cea\u30b2\u30fc\u30c8\u306e\u6bb5\u968e\u5316 / \u76ee\u7684: \u5909\u66f4\u306e\u5b89\u5168\u6027\u3092\u6bb5\u968e\u7684\u306b\u9ad8\u3081\u308b\u2022 \u30ea\u30b9\u30af\u8a55\u4fa1\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af / \u9069\u7528: \u5f71\u97ff\u5ea6\u3068\u767a\u751f\u78ba\u7387\u306e\u5206\u985e / \u76ee\u7684: \u30b2\u30fc\u30c8\u6761",
+  "description": "承認ゲートの設計・評価・運用を体系化し、変更管理とリリース判断を安全に進めるスキル。リスク評価に基づくゲート条件、手動承認と自動検証の分離、監査可能な記録設計を支援します。Anchors:• The Pragmatic Programmer / 適用: 品質ゲートの段階化 / 目的: 変更の安全性を段階的に高める• リスク評価フレームワーク / 適用: 影響度と発生確率の分類 / 目的: ゲート条",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.329794Z"
+  "downloaded_at": "2026-01-06T09:00:40.329794Z",
+  "github_path": "docs/99-claude/skills/approval-gates",
+  "github_branch": "main"
 }

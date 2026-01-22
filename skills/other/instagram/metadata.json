@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:18.065937Z",
   "dir_name": "instagram",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/video-creator-workflow/.claude/skills/instagram",
+  "github_branch": "main"
 }

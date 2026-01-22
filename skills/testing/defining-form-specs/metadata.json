@@ -2,7 +2,9 @@
   "name": "defining-form-specs",
   "repo": "farmanlab/ai_agent_orchestra",
   "category": "testing",
-  "description": "Defines form field specifications including validation rules, error states, and submission behavior. Updates the \"\u30d5\u30a9\u30fc\u30e0\u4ed5\u69d8\" section in screen spec.md.",
+  "description": "Defines form field specifications including validation rules, error states, and submission behavior. Updates the \"フォーム仕様\" section in screen spec.md.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:51.417632Z"
+  "downloaded_at": "2026-01-06T09:01:51.417632Z",
+  "github_path": ".agents/skills/defining-form-specs",
+  "github_branch": "main"
 }

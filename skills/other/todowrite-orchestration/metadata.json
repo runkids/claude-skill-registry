@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:33.165245Z",
   "dir_name": "todowrite-orchestration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/orchestration/skills/todowrite-orchestration",
+  "github_branch": "main"
 }

@@ -2,5 +2,7 @@
   "name": "doc-coauthoring",
   "repo": "anthropics/skills",
   "category": "official",
-  "source": "Anthropic Official"
+  "source": "Anthropic Official",
+  "github_path": "skills/doc-coauthoring",
+  "github_branch": "main"
 }

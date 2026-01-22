@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Comprehensive security best practices, vulnerability scanning, and security guidance for development workflows with automated security checks and compliance monitoring.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:33.445114Z"
+  "downloaded_at": "2026-01-06T09:05:33.445114Z",
+  "github_path": "anthropic-plugins/security-guidance",
+  "github_branch": "main"
 }

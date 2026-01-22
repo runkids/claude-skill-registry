@@ -5,5 +5,7 @@
   "source": "github.com/BreakerOfStems/claude-skills",
   "downloaded_at": "2026-01-19T02:13:24.801936Z",
   "dir_name": "unity-coding",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/unity-coding",
+  "github_branch": "main"
 }

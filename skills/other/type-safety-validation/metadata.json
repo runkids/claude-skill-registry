@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:13.788937Z",
   "dir_name": "type-safety-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/type-safety-validation",
+  "github_branch": "main"
 }

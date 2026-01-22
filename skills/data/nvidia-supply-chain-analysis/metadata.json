@@ -10,5 +10,7 @@
     "analysis"
   ],
   "stars": 0,
-  "dir_name": "nvidia-supply-chain-analysis"
+  "dir_name": "nvidia-supply-chain-analysis",
+  "github_path": "skills/nvidia-supply-chain-analysis",
+  "github_branch": "main"
 }

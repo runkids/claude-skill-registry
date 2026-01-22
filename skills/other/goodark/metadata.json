@@ -5,5 +5,7 @@
   "source": "github.com/Cantara/lib-electronic-components",
   "downloaded_at": "2026-01-14T02:18:29.342486Z",
   "dir_name": "goodark",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/manufacturers/goodark",
+  "github_branch": "main"
 }

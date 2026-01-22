@@ -5,5 +5,7 @@
   "source": "github.com/agentuity/sdk-explorer",
   "downloaded_at": "2026-01-22T03:37:21.945381Z",
   "dir_name": "agentuity-cli-cloud-keyvalue-delete",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/agentuity-cli-cloud-keyvalue-delete-namespace",
+  "github_branch": "main"
 }

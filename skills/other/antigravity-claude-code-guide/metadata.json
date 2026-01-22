@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:57.896545Z",
   "dir_name": "antigravity-claude-code-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-claude-code-guide",
+  "github_branch": "main"
 }

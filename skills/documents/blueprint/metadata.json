@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Provides unified CLI access for Blueprint framework - gate validation, document templates, FrontMatter schemas, worker handoffs, constitutions, and worker registry.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:59.137800Z"
+  "downloaded_at": "2026-01-06T09:00:59.137800Z",
+  "github_path": "core/claude/skills/blueprint",
+  "github_branch": "main"
 }

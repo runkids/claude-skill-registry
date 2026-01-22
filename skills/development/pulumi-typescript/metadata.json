@@ -7,5 +7,7 @@
     "pulumi",
     "typescript"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "pulumi-typescript",
+  "github_branch": "main"
 }

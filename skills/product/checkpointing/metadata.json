@@ -4,5 +4,7 @@
   "category": "product",
   "description": "How checkpointing works for tracking file changes and rewinding to previous states. Use when user asks about checkpoints, rewinding, rollback, undo, or restoring previous states.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:50.982741Z"
+  "downloaded_at": "2026-01-06T09:07:50.982741Z",
+  "github_path": "plugins/claude-code-metaskill/skills/checkpointing",
+  "github_branch": "main"
 }

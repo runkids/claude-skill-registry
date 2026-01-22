@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:39.620866Z",
   "dir_name": "spec-to-code-compliance",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/trailofbits-spec-to-code-compliance/skills/spec-to-code-compliance",
+  "github_branch": "main"
 }

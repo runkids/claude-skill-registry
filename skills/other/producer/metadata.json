@@ -5,5 +5,7 @@
   "source": "github.com/miethe/MeatyMusic",
   "downloaded_at": "2026-01-22T03:37:32.522704Z",
   "dir_name": "producer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workflow/producer",
+  "github_branch": "main"
 }

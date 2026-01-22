@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:26.761907Z",
   "dir_name": "django-application",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/django-application",
+  "github_branch": "main"
 }

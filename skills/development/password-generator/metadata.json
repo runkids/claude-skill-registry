@@ -7,5 +7,7 @@
     "password",
     "generator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "password-generator",
+  "github_branch": "main"
 }

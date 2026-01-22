@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:51.099091Z",
   "dir_name": "multiome-pipeline",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/multiome-pipeline",
+  "github_branch": "main"
 }

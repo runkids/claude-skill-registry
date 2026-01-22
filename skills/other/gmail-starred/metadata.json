@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:10.870567Z",
   "dir_name": "gmail-starred",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/gmail-starred",
+  "github_branch": "main"
 }

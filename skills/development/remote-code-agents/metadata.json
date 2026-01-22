@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Delegate tasks to remote Claude Code agent containers for parallel execution, long-running analysis, or resource-intensive operations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:48.595292Z"
+  "downloaded_at": "2026-01-06T09:06:48.595292Z",
+  "github_path": "skills/workflow/remote-code-agents",
+  "github_branch": "main"
 }

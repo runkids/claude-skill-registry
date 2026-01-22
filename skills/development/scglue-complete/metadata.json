@@ -7,5 +7,7 @@
     "scglue",
     "complete"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "scglue-complete",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expert knowledge for migrating projects to OpenSaaS Stack. Use when discussing migration strategies, access control patterns, or OpenSaaS Stack configuration best practices.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:04.224917Z"
+  "downloaded_at": "2026-01-06T09:01:04.224917Z",
+  "github_path": "claude-plugins/opensaas-migration/skills/opensaas-migration",
+  "github_branch": "main"
 }

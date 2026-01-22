@@ -7,5 +7,7 @@
     "compliance",
     "checker"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/compliance-checker",
+  "github_branch": "main"
 }

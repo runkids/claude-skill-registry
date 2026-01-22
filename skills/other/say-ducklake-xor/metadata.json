@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T04:21:47.053343Z",
   "dir_name": "say-ducklake-xor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/say-ducklake-xor",
+  "github_branch": "main"
 }

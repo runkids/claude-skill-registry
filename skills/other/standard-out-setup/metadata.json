@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:52.439897Z",
   "dir_name": "standard-out-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/standard-out-setup",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "boot",
     "engineer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/spring-boot-engineer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/kylehughes/knapsack",
   "downloaded_at": "2026-01-19T03:38:03.079372Z",
   "dir_name": "engineering-claude-context",
-  "category": "other"
+  "category": "other",
+  "github_path": "dotfiles/link/claude/skills/engineering-claude-context",
+  "github_branch": "main"
 }

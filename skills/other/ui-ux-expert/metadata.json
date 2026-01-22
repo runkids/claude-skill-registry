@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:55.084048Z",
   "dir_name": "ui-ux-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ui-ux-expert",
+  "github_branch": "main"
 }

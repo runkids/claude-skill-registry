@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "brand-consistency-checker"
+  "dir_name": "brand-consistency-checker",
+  "github_path": "brand-consistency-checker",
+  "github_branch": "main"
 }

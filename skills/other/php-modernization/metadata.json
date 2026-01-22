@@ -5,5 +5,7 @@
   "source": "github.com/netresearch/php-modernization-skill",
   "downloaded_at": "2026-01-22T01:27:19.352743Z",
   "dir_name": "php-modernization",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/php-modernization",
+  "github_branch": "main"
 }

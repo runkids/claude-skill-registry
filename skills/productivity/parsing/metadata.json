@@ -6,5 +6,7 @@
   "tags": [
     "parsing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/parsing",
+  "github_branch": "main"
 }

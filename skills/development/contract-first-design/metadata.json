@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Design and manage API contracts before implementation using OpenAPI and AsyncAPI specifications for contract-first development",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:11.248328Z"
+  "downloaded_at": "2026-01-06T09:00:11.248328Z",
+  "github_path": "plugins/spec-driven-development/skills/contract-first-design",
+  "github_branch": "main"
 }

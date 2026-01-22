@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Research best practices, guides, and libraries. Use when needing documentation, recommendations, implementation guidance, or library comparisons.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:11.218727Z"
+  "downloaded_at": "2026-01-06T09:04:11.218727Z",
+  "github_path": "skills/development/research-guide",
+  "github_branch": "main"
 }

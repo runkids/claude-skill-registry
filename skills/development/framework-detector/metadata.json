@@ -7,5 +7,7 @@
     "framework",
     "detector"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/framework-detector",
+  "github_branch": "main"
 }

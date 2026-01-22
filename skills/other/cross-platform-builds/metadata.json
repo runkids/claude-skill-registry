@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:39.158713Z",
   "dir_name": "cross-platform-builds",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/juce-dev-team/skills/cross-platform-builds",
+  "github_branch": "main"
 }

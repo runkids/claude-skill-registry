@@ -7,5 +7,7 @@
     "typescript",
     "mcp"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/typescript-mcp",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/seanchatmangpt/ggen",
   "downloaded_at": "2026-01-22T03:08:32.885466Z",
   "dir_name": "poka-yoke-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/poka-yoke-patterns",
+  "github_branch": "main"
 }

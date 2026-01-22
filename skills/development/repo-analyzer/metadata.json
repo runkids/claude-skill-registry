@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyze GitHub repositories for structure, documentation, dependencies, and contribution patterns. Use for codebase understanding and health assessment.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:57.838481Z"
+  "downloaded_at": "2026-01-06T08:56:57.838481Z",
+  "github_path": "agentic/code/frameworks/sdlc-complete/extensions/github/skills/repo-analyzer",
+  "github_branch": "main"
 }

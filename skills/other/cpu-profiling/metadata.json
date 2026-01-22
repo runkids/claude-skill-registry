@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:22.578372Z",
   "dir_name": "cpu-profiling",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cpu-profiling",
+  "github_branch": "main"
 }

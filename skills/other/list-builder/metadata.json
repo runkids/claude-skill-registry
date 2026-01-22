@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:36.847840Z",
   "dir_name": "list-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/application/list-builder",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/edwinhu/workflows",
   "downloaded_at": "2026-01-14T01:24:10.099235Z",
   "dir_name": "notebook-debug",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/notebook-debug",
+  "github_branch": "main"
 }

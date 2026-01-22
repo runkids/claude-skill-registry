@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Rigorous analysis expert covering limits, continuity, sequences, series, and measure theory foundations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:20.147179Z"
+  "downloaded_at": "2026-01-06T09:00:20.147179Z",
+  "github_path": "skills/mathematics/real-analysis-fundamentals",
+  "github_branch": "main"
 }

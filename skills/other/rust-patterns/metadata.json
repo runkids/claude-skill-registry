@@ -5,5 +5,7 @@
   "source": "github.com/5dlabs/cto",
   "downloaded_at": "2026-01-22T03:27:09.325275Z",
   "dir_name": "rust-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "templates/skills/languages/rust-patterns",
+  "github_branch": "main"
 }

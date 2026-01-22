@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:40.904540Z",
   "dir_name": "creative-variants",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/paid-media/skills/creative-variants",
+  "github_branch": "main"
 }

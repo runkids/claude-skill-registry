@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/async-await-patterns",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/AsiaOstrich/universal-dev-standards",
   "downloaded_at": "2026-01-22T02:27:03.419355Z",
   "dir_name": "commit-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": "locales/zh-CN/skills/claude-code/commit-standards",
+  "github_branch": "main"
 }

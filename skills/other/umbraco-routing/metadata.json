@@ -5,5 +5,7 @@
   "source": "github.com/umbraco/Umbraco-CMS-Backoffice-Skills",
   "downloaded_at": "2026-01-20T01:19:15.379496Z",
   "dir_name": "umbraco-routing",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/umbraco-backoffice-skills/skills/umbraco-routing",
+  "github_branch": "main"
 }

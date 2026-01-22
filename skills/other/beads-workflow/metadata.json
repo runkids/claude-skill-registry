@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:34.092539Z",
   "dir_name": "beads-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/beads-workflow",
+  "github_branch": "main"
 }

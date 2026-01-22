@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:14.133683Z",
   "dir_name": "arcanea-voice",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/arcanea/arcanea-voice",
+  "github_branch": "main"
 }

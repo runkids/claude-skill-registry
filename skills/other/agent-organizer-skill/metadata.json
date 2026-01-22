@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:15.965694Z",
   "dir_name": "agent-organizer-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "agent-organizer-skill",
+  "github_branch": "main"
 }

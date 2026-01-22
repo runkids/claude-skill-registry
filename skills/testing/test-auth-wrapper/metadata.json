@@ -8,5 +8,7 @@
     "auth",
     "wrapper"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/test-auth-wrapper",
+  "github_branch": "main"
 }

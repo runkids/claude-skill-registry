@@ -8,5 +8,7 @@
     "javascript"
   ],
   "stars": 0,
-  "dir_name": "gtm-javascript"
+  "dir_name": "gtm-javascript",
+  "github_path": "skills/gtm-javascript",
+  "github_branch": "main"
 }

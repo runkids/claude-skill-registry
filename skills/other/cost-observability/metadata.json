@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-20T02:40:56.821215Z",
   "dir_name": "cost-observability",
-  "category": "other"
+  "category": "other",
+  "github_path": "42-cost-engineering/cost-observability",
+  "github_branch": "main"
 }

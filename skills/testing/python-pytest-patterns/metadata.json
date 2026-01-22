@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "pytest testing patterns for Python. Triggers on: pytest, fixture, mark, parametrize, mock, conftest, test coverage, unit test, integration test, pytest.raises.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:45.694013Z"
+  "downloaded_at": "2026-01-06T08:59:45.694013Z",
+  "github_path": "skills/python-pytest-patterns",
+  "github_branch": "main"
 }

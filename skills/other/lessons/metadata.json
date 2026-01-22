@@ -5,5 +5,7 @@
   "source": "github.com/timequity/plugins",
   "downloaded_at": "2026-01-19T01:35:42.528107Z",
   "dir_name": "lessons",
-  "category": "other"
+  "category": "other",
+  "github_path": "ccc/skills/lessons",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "protocol",
     "translation"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/metaphor-to-protocol-translation",
+  "github_branch": "main"
 }

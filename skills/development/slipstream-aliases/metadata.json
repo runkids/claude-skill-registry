@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Suggested shell aliases based on usage patterns",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.976647Z"
+  "downloaded_at": "2026-01-06T09:07:57.976647Z",
+  "github_path": "config/skills/slipstream-aliases",
+  "github_branch": "main"
 }

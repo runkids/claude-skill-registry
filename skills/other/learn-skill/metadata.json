@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:15.024519Z",
   "dir_name": "learn-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/learn_skill",
+  "github_branch": "main"
 }

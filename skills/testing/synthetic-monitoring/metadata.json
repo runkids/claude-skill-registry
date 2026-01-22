@@ -7,5 +7,7 @@
     "synthetic",
     "monitoring"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/synthetic-monitoring",
+  "github_branch": "main"
 }

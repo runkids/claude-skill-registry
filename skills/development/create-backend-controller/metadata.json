@@ -8,5 +8,7 @@
     "backend",
     "controller"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "create-backend-controller",
+  "github_branch": "main"
 }

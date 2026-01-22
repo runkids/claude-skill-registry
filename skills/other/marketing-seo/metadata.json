@@ -5,5 +5,7 @@
   "source": "github.com/itsbariscan/claude-code-marketing",
   "downloaded_at": "2026-01-14T03:15:19.886375Z",
   "dir_name": "marketing-seo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/marketing-seo",
+  "github_branch": "main"
 }

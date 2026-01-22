@@ -8,5 +8,7 @@
     "maven",
     "gradle"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/java-maven-gradle",
+  "github_branch": "main"
 }

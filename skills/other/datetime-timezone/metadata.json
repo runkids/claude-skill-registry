@@ -5,5 +5,7 @@
   "source": "github.com/mjunaidca/mjs-agent-skills",
   "downloaded_at": "2026-01-22T03:06:57.035564Z",
   "dir_name": "datetime-timezone",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/taskflow-vault/skills/engineering/datetime-timezone",
+  "github_branch": "main"
 }

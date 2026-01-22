@@ -7,5 +7,7 @@
     "ptc",
     "orchestration"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/ptc-orchestration",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "writer"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/article-writer",
+  "github_branch": "main"
 }

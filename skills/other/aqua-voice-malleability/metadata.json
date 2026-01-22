@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:12.475921Z",
   "dir_name": "aqua-voice-malleability",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aqua-voice-malleability",
+  "github_branch": "main"
 }

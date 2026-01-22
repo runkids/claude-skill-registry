@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:07.873603Z",
   "dir_name": "product-manager-toolkit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/product-manager-toolkit",
+  "github_branch": "main"
 }

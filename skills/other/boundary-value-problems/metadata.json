@@ -5,5 +5,7 @@
   "source": "github.com/namesreallyblank/Clorch",
   "downloaded_at": "2026-01-22T01:16:46.966393Z",
   "dir_name": "boundary-value-problems",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/math/odes-pdes/boundary-value-problems",
+  "github_branch": "main"
 }

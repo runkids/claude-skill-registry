@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:28.237490Z",
   "dir_name": "gcp-cloud-functions",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gcp-cloud-functions",
+  "github_branch": "main"
 }

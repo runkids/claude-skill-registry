@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "customer-review-aggregator"
+  "dir_name": "customer-review-aggregator",
+  "github_path": "customer-review-aggregator",
+  "github_branch": "main"
 }

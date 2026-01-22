@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-22T02:21:52.131605Z",
   "dir_name": "performance-profiler",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/performance-profiler",
+  "github_branch": "main"
 }

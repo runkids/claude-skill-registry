@@ -5,5 +5,7 @@
   "source": "github.com/hannesill/m4",
   "downloaded_at": "2026-01-22T01:18:40.989095Z",
   "dir_name": "sepsis-3-cohort",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/m4/skills/sepsis-3-cohort",
+  "github_branch": "main"
 }

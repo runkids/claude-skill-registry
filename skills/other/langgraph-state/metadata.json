@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-20T01:39:05.133806Z",
   "dir_name": "langgraph-state",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/langgraph-state",
+  "github_branch": "main"
 }

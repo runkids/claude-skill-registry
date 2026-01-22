@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Automated comprehensive code documentation generation with API docs, README files, inline comments, and architecture diagrams",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:08.796220Z"
+  "downloaded_at": "2026-01-06T09:05:08.796220Z",
+  "github_path": ".claude/skills/documentation/when-documenting-code-use-doc-generator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/resolve-io/.prism",
   "downloaded_at": "2026-01-14T03:09:56.197551Z",
   "dir_name": "create-story-tasks",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/prism-devtools/skills/create-story-tasks",
+  "github_branch": "main"
 }

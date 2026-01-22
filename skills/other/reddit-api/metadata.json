@@ -5,5 +5,7 @@
   "source": "github.com/alinaqi/claude-bootstrap",
   "downloaded_at": "2026-01-22T03:20:49.899648Z",
   "dir_name": "reddit-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/reddit-api",
+  "github_branch": "main"
 }

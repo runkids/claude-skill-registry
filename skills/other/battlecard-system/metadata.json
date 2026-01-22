@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:43.591714Z",
   "dir_name": "battlecard-system",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sales-enablement/skills/battlecard-system",
+  "github_branch": "main"
 }

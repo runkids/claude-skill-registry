@@ -5,5 +5,7 @@
   "source": "github.com/sendaifun/skills",
   "downloaded_at": "2026-01-22T03:42:52.123524Z",
   "dir_name": "coingecko",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/coingecko",
+  "github_branch": "main"
 }

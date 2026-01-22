@@ -5,5 +5,7 @@
   "source": "github.com/BbgnsurfTech/claude-skills-collection",
   "downloaded_at": "2026-01-22T01:10:47.268409Z",
   "dir_name": "using-tmux-for-interactive-commands",
-  "category": "other"
+  "category": "other",
+  "github_path": "community/superpowers-lab/skills/using-tmux-for-interactive-commands",
+  "github_branch": "main"
 }

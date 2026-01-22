@@ -5,5 +5,7 @@
   "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
   "downloaded_at": "2026-01-22T03:16:47.797354Z",
   "dir_name": "nextjs-routing-advanced",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/nextjs-master/skills/nextjs-routing-advanced",
+  "github_branch": "main"
 }

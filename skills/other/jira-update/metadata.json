@@ -5,5 +5,7 @@
   "source": "github.com/bcowdery/claude-skills",
   "downloaded_at": "2026-01-19T01:37:32.455451Z",
   "dir_name": "jira-update",
-  "category": "other"
+  "category": "other",
+  "github_path": "patsy-plugin/skills/jira-update",
+  "github_branch": "main"
 }

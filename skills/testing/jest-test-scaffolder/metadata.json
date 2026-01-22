@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "\"Scaffolds Jest unit tests for React components and hooks. Use when creating tests for frontend components.\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-08T02:53:53.514539Z"
+  "downloaded_at": "2026-01-08T02:53:53.514539Z",
+  "github_path": ".claude/skills/jest-test-scaffolder",
+  "github_branch": "main"
 }

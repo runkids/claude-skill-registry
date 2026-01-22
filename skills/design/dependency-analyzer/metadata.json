@@ -8,5 +8,7 @@
     "analyzer"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "dependency-analyzer",
+  "github_branch": "main"
 }

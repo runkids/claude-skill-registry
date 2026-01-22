@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Django framework best practices including project structure, ORM, and security.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:42.231319Z"
+  "downloaded_at": "2026-01-06T09:06:42.231319Z",
+  "github_path": "src/skills/builtin/django",
+  "github_branch": "main"
 }

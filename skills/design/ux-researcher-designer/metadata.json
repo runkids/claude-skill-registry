@@ -1,5 +1,7 @@
 {
   "name": "ux-researcher-designer",
   "repo": "alirezarezvani/claude-skills",
-  "category": "design"
+  "category": "design",
+  "github_path": "product-team/ux-researcher-designer",
+  "github_branch": "main"
 }

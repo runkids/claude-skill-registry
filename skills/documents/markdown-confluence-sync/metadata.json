@@ -8,5 +8,7 @@
     "confluence",
     "sync"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/markdown-confluence-sync",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/LeandroLarrosa/gentlemonster",
   "downloaded_at": "2026-01-22T03:33:12.694450Z",
   "dir_name": "agentic-framework",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/agentic-framework",
+  "github_branch": "main"
 }

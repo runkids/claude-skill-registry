@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Meta-tool for rapid adb-* skill creation from templates",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:24.416866Z"
+  "downloaded_at": "2026-01-08T03:21:24.416866Z",
+  "github_path": ".claude/skills/adb/adb-foundation/adb-skill-generator",
+  "github_branch": "main"
 }

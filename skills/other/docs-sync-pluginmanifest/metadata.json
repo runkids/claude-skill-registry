@@ -5,5 +5,7 @@
   "source": "github.com/epieczko/betty",
   "downloaded_at": "2026-01-22T02:27:34.361446Z",
   "dir_name": "docs-sync-pluginmanifest",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/docs.sync.pluginmanifest",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:33.073717Z",
   "dir_name": "nextjs-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/nextjs-workflow",
+  "github_branch": "main"
 }

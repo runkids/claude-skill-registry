@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Check docker-local environment status - all services, containers, and project accessibility",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:30.644381Z"
+  "downloaded_at": "2026-01-06T09:00:30.644381Z",
+  "github_path": "docker-local/skills/docker-local-status",
+  "github_branch": "main"
 }

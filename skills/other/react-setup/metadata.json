@@ -5,5 +5,7 @@
   "source": "github.com/otoshek/Claude-Code-Toolkit",
   "downloaded_at": "2026-01-22T04:15:27.841216Z",
   "dir_name": "react-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/react-setup",
+  "github_branch": "main"
 }

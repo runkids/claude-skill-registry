@@ -5,5 +5,7 @@
   "source": "github.com/leonj1/external-claude-skills",
   "downloaded_at": "2026-01-21T01:00:57.012049Z",
   "dir_name": "test-pattern-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/test-pattern-detector",
+  "github_branch": "main"
 }

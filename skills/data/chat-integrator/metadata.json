@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "chat-integrator"
+  "dir_name": "chat-integrator",
+  "github_path": ".claude/skills/chat-integrator",
+  "github_branch": "main"
 }

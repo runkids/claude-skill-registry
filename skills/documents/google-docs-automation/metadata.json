@@ -8,5 +8,7 @@
     "docs",
     "automation"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/google-docs-automation",
+  "github_branch": "main"
 }

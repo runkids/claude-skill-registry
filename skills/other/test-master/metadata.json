@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:10.100787Z",
   "dir_name": "test-master",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/test-master",
+  "github_branch": "main"
 }

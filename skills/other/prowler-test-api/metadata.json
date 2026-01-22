@@ -5,5 +5,7 @@
   "source": "github.com/prowler-cloud/prowler",
   "downloaded_at": "2026-01-22T02:57:28.573890Z",
   "dir_name": "prowler-test-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prowler-test-api",
+  "github_branch": "main"
 }

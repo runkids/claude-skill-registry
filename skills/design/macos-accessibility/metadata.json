@@ -7,5 +7,7 @@
     "macos",
     "accessibility"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/macos-accessibility",
+  "github_branch": "main"
 }

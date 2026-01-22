@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build decentralized applications on AO - a permanent, decentralized compute platform using actor model for parallel processes with native message-passing and permanent storage on Arweave",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:50.313486Z"
+  "downloaded_at": "2026-01-06T08:59:50.313486Z",
+  "github_path": "INTEGRATION/processed/arweave-ao-cookbook-2025-12-26",
+  "github_branch": "main"
 }

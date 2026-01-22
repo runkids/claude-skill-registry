@@ -9,5 +9,7 @@
     "mail"
   ],
   "stars": 0,
-  "dir_name": "poplar-direct-mail"
+  "dir_name": "poplar-direct-mail",
+  "github_path": "skills/poplar-direct-mail",
+  "github_branch": "main"
 }

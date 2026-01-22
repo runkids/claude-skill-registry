@@ -5,5 +5,7 @@
   "source": "github.com/mpuig/raw",
   "downloaded_at": "2026-01-22T01:02:16.665499Z",
   "dir_name": "tool-authoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "builder/skills/tool-authoring",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ericmjl/skills",
   "downloaded_at": "2026-01-22T03:20:33.166492Z",
   "dir_name": "agents-md-improver",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/agents-md-improver",
+  "github_branch": "main"
 }

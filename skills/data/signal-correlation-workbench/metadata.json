@@ -5,5 +5,7 @@
   "description": "Toolkit for linking VoC feedback with telemetry, revenue, and operational data.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:27.136780Z",
-  "dir_name": "signal-correlation-workbench"
+  "dir_name": "signal-correlation-workbench",
+  "github_path": "plugins/voice-of-customer/skills/signal-correlation-workbench",
+  "github_branch": "main"
 }

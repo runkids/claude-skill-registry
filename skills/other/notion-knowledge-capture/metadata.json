@@ -5,5 +5,7 @@
   "source": "github.com/monkey1sai/detection_pose",
   "downloaded_at": "2026-01-22T04:05:07.086119Z",
   "dir_name": "notion-knowledge-capture",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/notion-knowledge-capture",
+  "github_branch": "main"
 }

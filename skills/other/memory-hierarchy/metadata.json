@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:40.301327Z",
   "dir_name": "memory-hierarchy",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/documentation-tools/skills/memory-hierarchy",
+  "github_branch": "main"
 }

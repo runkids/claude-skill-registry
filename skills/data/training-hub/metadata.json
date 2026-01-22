@@ -8,5 +8,7 @@
     "hub"
   ],
   "stars": 1,
-  "dir_name": "training-hub"
+  "dir_name": "training-hub",
+  "github_path": "",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Transform poorly formatted executive summaries into professionally formatted documents matching a specific brand template. Use when the user provides an executive summary (text, markdown, docx, or PDF",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:11.225028Z"
+  "downloaded_at": "2026-01-06T09:07:11.225028Z",
+  "github_path": "docs",
+  "github_branch": "main"
 }

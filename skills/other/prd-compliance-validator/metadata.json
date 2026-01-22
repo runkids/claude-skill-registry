@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/cursor-dev-system",
   "downloaded_at": "2026-01-22T02:41:40.783124Z",
   "dir_name": "prd-compliance-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prd-compliance-validator",
+  "github_branch": "main"
 }

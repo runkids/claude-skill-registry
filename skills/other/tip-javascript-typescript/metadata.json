@@ -5,5 +5,7 @@
   "source": "github.com/sushichan044/dotfiles",
   "downloaded_at": "2026-01-22T01:43:52.374063Z",
   "dir_name": "tip-javascript-typescript",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/tip-javascript-typescript",
+  "github_branch": "main"
 }

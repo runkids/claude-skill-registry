@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:52.698684Z",
   "dir_name": "generate-factory",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/addons/testing-quality/skills/generate-factory",
+  "github_branch": "main"
 }

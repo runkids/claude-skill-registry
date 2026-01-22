@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:08.362491Z",
   "dir_name": "clerk-migration-deep-dive",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/clerk-pack/skills/clerk-migration-deep-dive",
+  "github_branch": "main"
 }

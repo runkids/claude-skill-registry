@@ -8,5 +8,7 @@
     "signal",
     "synthesizer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "weak-signal-synthesizer",
+  "github_branch": "main"
 }

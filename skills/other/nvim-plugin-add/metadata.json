@@ -5,5 +5,7 @@
   "source": "github.com/tkancf/dotfiles",
   "downloaded_at": "2026-01-22T04:04:13.713492Z",
   "dir_name": "nvim-plugin-add",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/nvim-plugin-add",
+  "github_branch": "main"
 }

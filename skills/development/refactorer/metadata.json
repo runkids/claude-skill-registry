@@ -2,7 +2,9 @@
   "name": "refactorer",
   "repo": "muryoimpl/dotfiles",
   "category": "development",
-  "description": "\u30b3\u30fc\u30c9\u54c1\u8cea\u306e\u554f\u984c\u3092\u7a4d\u6975\u7684\u306b\u691c\u51fa\u3057\u6539\u5584\u3059\u308b\u3002\u4ee5\u4e0b\u3092\u691c\u51fa\u3057\u305f\u969b\u306b\u81ea\u52d5\u767a\u52d5: (1) \u9577\u3044\u30e1\u30bd\u30c3\u30c9/\u30af\u30e9\u30b9\u3001(2) \u91cd\u8907\u30b3\u30fc\u30c9\u30d1\u30bf\u30fc\u30f3\u3001(3) \u6df1\u3044\u30cd\u30b9\u30c8\u3001(4) \u4e0d\u9069\u5207\u306a\u547d\u540d\u3001(5) \u30de\u30b8\u30c3\u30af\u30ca\u30f3\u30d0\u30fc/\u6587\u5b57\u5217\u3001(6) N+1 \u30af\u30a8\u30ea\u30d1\u30bf\u30fc\u30f3\u3001(7) \u672a\u4f7f\u7528\u30b3\u30fc\u30c9\u3001(8) Feature Envy \u3084 God \u30af\u30e9\u30b9\u3002\u8a00\u8a9e\u975e\u4f9d\u5b58\u306e\u30ea\u30d5\u30a1\u30af\u30bf\u30ea\u30f3\u30b0\u30ac\u30a4\u30c0\u30f3\u30b9\u3092\u63d0\u4f9b\u3002",
+  "description": "コード品質の問題を積極的に検出し改善する。以下を検出した際に自動発動: (1) 長いメソッド/クラス、(2) 重複コードパターン、(3) 深いネスト、(4) 不適切な命名、(5) マジックナンバー/文字列、(6) N+1 クエリパターン、(7) 未使用コード、(8) Feature Envy や God クラス。言語非依存のリファクタリングガイダンスを提供。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:22.788107Z"
+  "downloaded_at": "2026-01-06T09:01:22.788107Z",
+  "github_path": ".claude/skills/refactorer",
+  "github_branch": "main"
 }

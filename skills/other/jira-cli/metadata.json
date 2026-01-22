@@ -5,5 +5,7 @@
   "source": "github.com/Code-and-Sorts/awesome-copilot-agents",
   "downloaded_at": "2026-01-22T03:02:02.995982Z",
   "dir_name": "jira-cli",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/jira-cli",
+  "github_branch": "main"
 }

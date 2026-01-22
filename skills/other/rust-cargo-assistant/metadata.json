@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:41.786682Z",
   "dir_name": "rust-cargo-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rust-cargo-assistant",
+  "github_branch": "main"
 }

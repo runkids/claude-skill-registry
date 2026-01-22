@@ -5,5 +5,7 @@
   "source": "github.com/agentuity/sdk-explorer",
   "downloaded_at": "2026-01-22T03:37:20.594791Z",
   "dir_name": "agentuity-cli-project-auth-init",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/agentuity-cli-project-auth-init",
+  "github_branch": "main"
 }

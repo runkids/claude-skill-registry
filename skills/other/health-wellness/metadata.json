@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:29.888512Z",
   "dir_name": "health-wellness",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/health-wellness",
+  "github_branch": "main"
 }

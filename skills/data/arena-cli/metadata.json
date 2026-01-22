@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "arena-cli"
+  "dir_name": "arena-cli",
+  "github_path": "skills/arena-cli",
+  "github_branch": "main"
 }

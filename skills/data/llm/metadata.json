@@ -7,5 +7,7 @@
     "llm"
   ],
   "stars": 0,
-  "dir_name": "llm"
+  "dir_name": "llm",
+  "github_path": "skills/llm",
+  "github_branch": "main"
 }

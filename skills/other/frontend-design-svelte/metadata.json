@@ -5,5 +5,7 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:10.572040Z",
   "dir_name": "frontend-design-svelte",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend-design-system/skills/_archive/frontend-design-svelte",
+  "github_branch": "main"
 }

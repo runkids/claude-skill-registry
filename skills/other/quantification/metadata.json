@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:47.251209Z",
   "dir_name": "quantification",
-  "category": "other"
+  "category": "other",
+  "github_path": "rna-quantification/featurecounts-counting",
+  "github_branch": "main"
 }

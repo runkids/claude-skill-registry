@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:32.939157Z",
   "dir_name": "ba-orchestration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/business-analysis/ba-orchestration",
+  "github_branch": "main"
 }

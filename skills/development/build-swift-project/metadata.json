@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build and test the LocalizeAR Swift project using build.sh scripts. Use this skill whenever building, testing, or cleaning the project. NEVER use xcodebuild or swift build directly - always use build.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:38.254203Z"
+  "downloaded_at": "2026-01-06T09:03:38.254203Z",
+  "github_path": ".claude/skills/build-swift-project",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-19T03:26:22.660784Z",
   "dir_name": "us-market-bubble-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/stock-trader-workflow/.claude/skills/weekly-trade-strategy/.claude/skills/us-market-bubble-detector",
+  "github_branch": "main"
 }

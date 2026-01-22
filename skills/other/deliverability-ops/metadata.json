@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.018240Z",
   "dir_name": "deliverability-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/email-marketing/skills/deliverability-ops",
+  "github_branch": "main"
 }

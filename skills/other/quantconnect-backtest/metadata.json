@@ -5,5 +5,7 @@
   "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE",
   "downloaded_at": "2026-01-22T02:16:31.141543Z",
   "dir_name": "quantconnect-backtest",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/quantconnect-backtest",
+  "github_branch": "main"
 }

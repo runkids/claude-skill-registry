@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:29.819525Z",
   "dir_name": "cui-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-dev-java-cui/skills/cui-testing",
+  "github_branch": "main"
 }

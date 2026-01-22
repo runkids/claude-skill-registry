@@ -5,5 +5,7 @@
   "source": "github.com/conorluddy/ios-simulator-skill",
   "downloaded_at": "2026-01-22T03:39:22.238749Z",
   "dir_name": "ios-simulator-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "ios-simulator-skill",
+  "github_branch": "main"
 }

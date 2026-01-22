@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/clawdbot",
   "downloaded_at": "2026-01-22T03:52:10.461948Z",
   "dir_name": "spotify-player",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/spotify-player",
+  "github_branch": "main"
 }

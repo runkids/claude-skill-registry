@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-19T04:20:22.232672Z",
   "dir_name": "container-security",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/container-workflow/skills/container-security",
+  "github_branch": "main"
 }

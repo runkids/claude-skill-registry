@@ -10,5 +10,7 @@
     "shannon"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/executing-tasks-with-shannon-do",
+  "github_branch": "main"
 }

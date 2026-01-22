@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Write tests for Zod schemas. Use when testing entity schemas, DTO validation, query parameter schemas, or any schema validation rules. Triggers on \"test schema\", \"schema tests\", \"test validation\", \"te",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:27.038584Z"
+  "downloaded_at": "2026-01-06T09:03:27.038584Z",
+  "github_path": ".claude/skills/test-schema",
+  "github_branch": "main"
 }

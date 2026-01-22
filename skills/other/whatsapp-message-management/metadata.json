@@ -5,5 +5,7 @@
   "source": "github.com/natea/ExoMind",
   "downloaded_at": "2026-01-22T02:14:43.127175Z",
   "dir_name": "whatsapp-message-management",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/whatsapp-message-management",
+  "github_branch": "main"
 }

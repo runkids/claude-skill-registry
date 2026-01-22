@@ -9,5 +9,7 @@
     "hostinger",
     "web"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/julien-infra-hostinger-web",
+  "github_branch": "main"
 }

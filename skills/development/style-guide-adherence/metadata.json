@@ -8,5 +8,7 @@
     "guide",
     "adherence"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/style-guide-adherence",
+  "github_branch": "main"
 }

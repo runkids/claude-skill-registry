@@ -7,5 +7,7 @@
     "agentforce"
   ],
   "stars": 16,
-  "dir_name": "sf-ai-agentforce"
+  "dir_name": "sf-ai-agentforce",
+  "github_path": "sf-ai-agentforce-testing",
+  "github_branch": "main"
 }

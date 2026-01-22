@@ -6,5 +6,7 @@
   "tags": [
     "monday"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "monday",
+  "github_branch": "main"
 }

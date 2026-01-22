@@ -5,5 +5,7 @@
   "source": "github.com/audunstrand/status-app",
   "downloaded_at": "2026-01-14T01:52:03.394964Z",
   "dir_name": "independent-research",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/independent-research",
+  "github_branch": "main"
 }

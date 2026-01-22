@@ -9,5 +9,7 @@
     "agents"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/architecting-innovation-agents",
+  "github_branch": "main"
 }

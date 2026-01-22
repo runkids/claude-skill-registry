@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:15.834703Z",
   "dir_name": "multi-agent-coordination",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/orchestrate-complex/skills/multi-agent-coordination",
+  "github_branch": "main"
 }

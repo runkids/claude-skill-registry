@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:02.138818Z",
   "dir_name": "orchestration-planner",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/orchestration-planner",
+  "github_branch": "main"
 }

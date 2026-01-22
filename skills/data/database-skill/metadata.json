@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "database-skill"
+  "dir_name": "database-skill",
+  "github_path": ".claude/skills/database-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/sickn33/antigravity-awesome-skills",
   "downloaded_at": "2026-01-22T02:27:21.060253Z",
   "dir_name": "red-team-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/red-team-tools",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/christian289/dotnet-with-claudecode",
   "downloaded_at": "2026-01-22T02:11:38.825087Z",
   "dir_name": "managing-styles-resourcedictionary",
-  "category": "other"
+  "category": "other",
+  "github_path": "wpf-dev-pack/skills/managing-styles-resourcedictionary",
+  "github_branch": "main"
 }

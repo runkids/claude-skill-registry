@@ -5,5 +5,7 @@
   "source": "github.com/CommandCodeAI/agent-skills",
   "downloaded_at": "2026-01-22T03:56:48.908101Z",
   "dir_name": "aws-cdk-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aws-cdk-development",
+  "github_branch": "main"
 }

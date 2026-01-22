@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Structured workflow for infrastructure capacity planning including growthforecasting, scaling strategy, and resource provisioning decisions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:33.064946Z"
+  "downloaded_at": "2026-01-06T08:57:33.064946Z",
+  "github_path": ".archive/ops-team/skills/ops-capacity-planning",
+  "github_branch": "main"
 }

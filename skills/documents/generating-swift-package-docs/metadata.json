@@ -9,5 +9,7 @@
     "package",
     "docs"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "skills/generating-swift-package-docs",
+  "github_branch": "main"
 }

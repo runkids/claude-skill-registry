@@ -5,5 +5,7 @@
   "source": "github.com/hxk622/TokenDance",
   "downloaded_at": "2026-01-22T03:42:06.830783Z",
   "dir_name": "pymc",
-  "category": "other"
+  "category": "other",
+  "github_path": "backend/app/skills/builtin/scientific/research-tools/pymc",
+  "github_branch": "main"
 }

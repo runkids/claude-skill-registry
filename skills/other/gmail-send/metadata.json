@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:16.982676Z",
   "dir_name": "gmail-send",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/gmail-send",
+  "github_branch": "main"
 }

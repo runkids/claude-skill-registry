@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:41.905172Z",
   "dir_name": "project-detection",
-  "category": "other"
+  "category": "other",
+  "github_path": ".archive/old-numbered-plugins/01-core/skills/project-detection",
+  "github_branch": "main"
 }

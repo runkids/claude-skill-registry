@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-21T03:32:10.310182Z",
   "dir_name": "go-interfaces",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-go/skills/go-interfaces",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:56.093692Z",
   "dir_name": "selection",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cfn-agent-lifecycle/lib/selection",
+  "github_branch": "main"
 }

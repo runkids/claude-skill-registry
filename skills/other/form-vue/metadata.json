@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:12.065509Z",
   "dir_name": "form-vue",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/form-vue",
+  "github_branch": "main"
 }

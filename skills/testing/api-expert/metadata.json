@@ -8,5 +8,7 @@
     "expert"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-expert",
+  "github_branch": "main"
 }

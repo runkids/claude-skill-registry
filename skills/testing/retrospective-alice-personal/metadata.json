@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Alice's couch-to-5K retrospective with training reflections and progress tracking.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:25.717015Z"
+  "downloaded_at": "2026-01-06T09:00:25.717015Z",
+  "github_path": "examples/alice-the-athlete/skills/retrospective-alice-personal",
+  "github_branch": "main"
 }

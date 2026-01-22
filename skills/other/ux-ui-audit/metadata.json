@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:24.467672Z",
   "dir_name": "ux-ui-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ux-ui-audit",
+  "github_branch": "main"
 }

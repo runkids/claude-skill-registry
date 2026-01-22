@@ -6,5 +6,7 @@
   "tags": [
     "iosdev"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "iosdev-cn",
+  "github_branch": "main"
 }

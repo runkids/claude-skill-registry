@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:09.739109Z",
   "dir_name": "salesforce-developer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/salesforce-developer",
+  "github_branch": "main"
 }

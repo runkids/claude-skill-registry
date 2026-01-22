@@ -10,5 +10,7 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "json-api-mock-generator"
+  "dir_name": "json-api-mock-generator",
+  "github_path": "json-api-mock-generator",
+  "github_branch": "main"
 }

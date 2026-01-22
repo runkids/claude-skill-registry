@@ -5,5 +5,7 @@
   "source": "github.com/AIPexStudio/AIPex",
   "downloaded_at": "2026-01-22T02:35:21.568394Z",
   "dir_name": "ux-audit-walkthrough",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/browser-runtime/src/skill/built-in/ux-audit-walkthrough",
+  "github_branch": "main"
 }

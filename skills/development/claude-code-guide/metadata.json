@@ -2,7 +2,9 @@
   "name": "claude-code-guide",
   "repo": "2025Emma/vibe-coding-cn",
   "category": "development",
-  "description": "Claude Code \u9ad8\u7ea7\u5f00\u53d1\u6307\u5357 - \u5168\u9762\u7684\u4e2d\u6587\u6559\u7a0b\uff0c\u6db5\u76d6\u5de5\u5177\u4f7f\u7528\u3001REPL \u73af\u5883\u3001\u5f00\u53d1\u5de5\u4f5c\u6d41\u3001MCP \u96c6\u6210\u3001\u9ad8\u7ea7\u6a21\u5f0f\u548c\u6700\u4f73\u5b9e\u8df5\u3002\u9002\u5408\u5b66\u4e60 Claude Code \u7684\u9ad8\u7ea7\u529f\u80fd\u548c\u5f00\u53d1\u6280\u5de7\u3002",
+  "description": "Claude Code 高级开发指南 - 全面的中文教程，涵盖工具使用、REPL 环境、开发工作流、MCP 集成、高级模式和最佳实践。适合学习 Claude Code 的高级功能和开发技巧。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:30.494328Z"
+  "downloaded_at": "2026-01-06T08:56:30.494328Z",
+  "github_path": "i18n/zh/skills/claude-code-guide",
+  "github_branch": "main"
 }

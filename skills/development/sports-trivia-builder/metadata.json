@@ -8,5 +8,7 @@
     "trivia",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "sports-trivia-builder",
+  "github_branch": "main"
 }

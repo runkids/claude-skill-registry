@@ -2,7 +2,9 @@
   "name": "development-principles",
   "repo": "RevTechStudio/rts-plugins",
   "category": "development",
-  "description": "\u958b\u767a\u306b\u304a\u3051\u308b\u57fa\u672c\u539f\u5247\uff08\u66d6\u6627\u3055\u7981\u6b62\u3001\u77db\u76fe\u691c\u51fa\u3001\u63a8\u5bdf\u7981\u6b62\uff09\u3092\u5b9a\u7fa9\u3059\u308b\u3002\u8981\u4ef6\u5b9a\u7fa9\u6642\u3001\u4ed5\u69d8\u78ba\u8a8d\u6642\u3001\u8a2d\u8a08\u30ec\u30d3\u30e5\u30fc\u6642\u3001\u307e\u305f\u306f\u30e6\u30fc\u30b6\u30fc\u304c\u66d6\u6627\u306a\u8981\u4ef6\u3001\u4ed5\u69d8\u306e\u77db\u76fe\u3001\u4e0d\u660e\u70b9\u306e\u78ba\u8a8d\u3001\u63a8\u6e2c\u56de\u907f\u306b\u8a00\u53ca\u3057\u305f\u969b\u306b\u4f7f\u7528\u3059\u308b\u3002",
+  "description": "開発における基本原則（曖昧さ禁止、矛盾検出、推察禁止）を定義する。要件定義時、仕様確認時、設計レビュー時、またはユーザーが曖昧な要件、仕様の矛盾、不明点の確認、推測回避に言及した際に使用する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:52.144686Z"
+  "downloaded_at": "2026-01-06T09:07:52.144686Z",
+  "github_path": "rts-foundation/skills/development-principles",
+  "github_branch": "main"
 }

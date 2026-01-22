@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:13.031586Z",
   "dir_name": "javascript-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/languages/javascript-expert",
+  "github_branch": "main"
 }

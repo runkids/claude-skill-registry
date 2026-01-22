@@ -10,5 +10,7 @@
     "page"
   ],
   "stars": 2,
-  "dir_name": "odoo-app-landing-page"
+  "dir_name": "odoo-app-landing-page",
+  "github_path": ".claude/skills/odoo-app-landing-page",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "action",
     "items"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "meeting-notes-to-action-items",
+  "github_branch": "main"
 }

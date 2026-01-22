@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:08.507094Z",
   "dir_name": "shader-fundamentals",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/shader-fundamentals",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "algorithms"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/algorithms",
+  "github_branch": "main"
 }

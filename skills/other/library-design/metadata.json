@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:47.856709Z",
   "dir_name": "library-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "crispr-screens/library-design",
+  "github_branch": "main"
 }

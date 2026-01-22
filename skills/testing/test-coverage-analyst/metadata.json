@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Guides on analyzing and improving test coverage for Python (pytest-cov) and JavaScript (c8) projects. Use when a user asks to set up test coverage, generate coverage reports, understand why coverage i",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:14.915170Z"
+  "downloaded_at": "2026-01-06T09:07:14.915170Z",
+  "github_path": ".claude/skills/test-coverage-analyst",
+  "github_branch": "main"
 }

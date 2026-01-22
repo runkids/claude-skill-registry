@@ -2,5 +2,7 @@
   "name": "writing-plans",
   "repo": "obra/superpowers",
   "category": "development",
-  "source": "Superpowers"
+  "source": "Superpowers",
+  "github_path": "skills/writing-plans",
+  "github_branch": "main"
 }

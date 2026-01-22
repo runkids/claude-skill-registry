@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "fastapi-code-review"
+  "dir_name": "fastapi-code-review",
+  "github_path": "fastapi-code-review",
+  "github_branch": "main"
 }

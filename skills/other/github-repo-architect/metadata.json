@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:59.333745Z",
   "dir_name": "github-repo-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/github/github-repo-architect",
+  "github_branch": "main"
 }

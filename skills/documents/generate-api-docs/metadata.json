@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Create API reference documentation from docstrings. Use when documenting public module interfaces.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:51.152230Z"
+  "downloaded_at": "2026-01-06T08:58:51.152230Z",
+  "github_path": ".claude/skills/tier-2/generate-api-docs",
+  "github_branch": "main"
 }

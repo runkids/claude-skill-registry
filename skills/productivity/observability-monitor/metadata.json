@@ -7,5 +7,7 @@
     "observability",
     "monitor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/observability-monitor",
+  "github_branch": "main"
 }

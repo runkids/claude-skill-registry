@@ -5,5 +5,7 @@
   "source": "github.com/doodledood/claude-code-plugins",
   "downloaded_at": "2026-01-22T02:39:47.593200Z",
   "dir_name": "audit-ux",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugins/solo-dev/skills/audit-ux",
+  "github_branch": "main"
 }

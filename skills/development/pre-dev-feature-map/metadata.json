@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Gate 2: Feature relationship map - visualizes feature landscape, groupings,and interactions at business level before technical architecture.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:33.415025Z"
+  "downloaded_at": "2026-01-06T08:57:33.415025Z",
+  "github_path": "pm-team/skills/pre-dev-feature-map",
+  "github_branch": "main"
 }

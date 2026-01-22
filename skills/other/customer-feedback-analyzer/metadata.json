@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:04.422594Z",
   "dir_name": "customer-feedback-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/customer-feedback-analyzer",
+  "github_branch": "main"
 }

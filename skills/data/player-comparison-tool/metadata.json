@@ -9,5 +9,7 @@
     "tool"
   ],
   "stars": 10,
-  "dir_name": "player-comparison-tool"
+  "dir_name": "player-comparison-tool",
+  "github_path": "player-comparison-tool",
+  "github_branch": "main"
 }

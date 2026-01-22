@@ -5,5 +5,7 @@
   "source": "github.com/omerlefaruk/CasareRPA",
   "downloaded_at": "2026-01-22T04:12:06.652832Z",
   "dir_name": "command-phase-report",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/command-phase-report",
+  "github_branch": "main"
 }

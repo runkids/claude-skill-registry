@@ -7,5 +7,7 @@
     "repo",
     "map"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/repo-map",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Create comprehensive operational playbook documenting organizational structure, processes, meeting rhythms, communication protocols, OKRs, tools, onboarding, and culture. Build the operating system th",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:29.959258Z"
+  "downloaded_at": "2026-01-06T09:02:29.959258Z",
+  "github_path": "skills/fundraising-operations/operational-playbook-creator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mrgoonie/xxxnaper",
   "downloaded_at": "2026-01-22T04:10:32.444080Z",
   "dir_name": "root-cause-tracing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/debugging/root-cause-tracing",
+  "github_branch": "main"
 }

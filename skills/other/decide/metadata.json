@@ -5,5 +5,7 @@
   "source": "github.com/doodledood/claude-code-plugins",
   "downloaded_at": "2026-01-22T02:39:46.571201Z",
   "dir_name": "decide",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugins/life-ops/skills/decide",
+  "github_branch": "main"
 }

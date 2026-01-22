@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when creating or modifying DTO files in the `dto/` folder.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:37.258784Z"
+  "downloaded_at": "2026-01-06T09:01:37.258784Z",
+  "github_path": ".cursor/skills/dto-response",
+  "github_branch": "main"
 }

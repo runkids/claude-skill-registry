@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:29.054200Z",
   "dir_name": "pareto",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-founder/skills/pareto",
+  "github_branch": "main"
 }

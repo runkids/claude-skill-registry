@@ -5,5 +5,7 @@
   "source": "github.com/Smooth-Operation/household-expense-tracker",
   "downloaded_at": "2026-01-22T02:58:42.583180Z",
   "dir_name": "database-backup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/safety/database-backup",
+  "github_branch": "main"
 }

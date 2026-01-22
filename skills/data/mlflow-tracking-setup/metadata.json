@@ -5,5 +5,7 @@
   "description": "Mlflow Tracking Setup - Auto-activating skill for ML Training.Triggers on: mlflow tracking setup, mlflow tracking setupPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:11.993565Z",
-  "dir_name": "mlflow-tracking-setup"
+  "dir_name": "mlflow-tracking-setup",
+  "github_path": "planned-skills/generated/07-ml-training/mlflow-tracking-setup",
+  "github_branch": "main"
 }

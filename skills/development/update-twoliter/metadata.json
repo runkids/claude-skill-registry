@@ -7,5 +7,7 @@
     "update",
     "twoliter"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/update-twoliter",
+  "github_branch": "main"
 }

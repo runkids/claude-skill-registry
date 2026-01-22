@@ -7,5 +7,7 @@
     "knowledge",
     "extractor"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/knowledge-extractor",
+  "github_branch": "main"
 }

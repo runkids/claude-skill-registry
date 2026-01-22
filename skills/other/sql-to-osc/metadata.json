@@ -5,5 +5,7 @@
   "source": "github.com/DennisLiuCk/claude-plugin-marketplace",
   "downloaded_at": "2026-01-22T01:57:31.254215Z",
   "dir_name": "sql-to-osc",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sql-to-osc/skills/sql-to-osc",
+  "github_branch": "main"
 }

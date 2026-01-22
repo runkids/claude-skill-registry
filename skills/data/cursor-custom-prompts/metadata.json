@@ -5,5 +5,7 @@
   "description": "Create effective custom prompts for Cursor AI. Triggers on \"cursor prompts\",\"prompt engineering cursor\", \"better cursor prompts\", \"cursor instructions\".",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:58.133554Z",
-  "dir_name": "cursor-custom-prompts"
+  "dir_name": "cursor-custom-prompts",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-custom-prompts",
+  "github_branch": "main"
 }

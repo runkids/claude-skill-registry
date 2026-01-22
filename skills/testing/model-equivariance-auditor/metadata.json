@@ -8,5 +8,7 @@
     "equivariance",
     "auditor"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/model-equivariance-auditor",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jdeweedata/circletel",
   "downloaded_at": "2026-01-22T02:28:03.758614Z",
   "dir_name": "session-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/session-checker",
+  "github_branch": "main"
 }

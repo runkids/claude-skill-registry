@@ -5,5 +5,7 @@
   "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
   "downloaded_at": "2026-01-22T03:46:52.189933Z",
   "dir_name": "erpnext-impl-whitelisted",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/source/impl/erpnext-impl-whitelisted",
+  "github_branch": "main"
 }

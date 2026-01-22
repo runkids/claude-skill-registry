@@ -5,5 +5,7 @@
   "source": "github.com/cuba6112/skillfactory",
   "downloaded_at": "2026-01-22T01:16:55.015557Z",
   "dir_name": "torchserve",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/torchserve",
+  "github_branch": "main"
 }

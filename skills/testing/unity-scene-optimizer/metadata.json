@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Analyzes scenes for performance bottlenecks (draw calls, batching, textures, GameObjects). Use when optimizing scenes or investigating performance issues.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:29.384360Z"
+  "downloaded_at": "2026-01-06T08:57:29.384360Z",
+  "github_path": "plugins/unity-dev-toolkit/skills/unity-scene-optimizer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:40.136397Z",
   "dir_name": "domain-classifier",
-  "category": "other"
+  "category": "other",
+  "github_path": "domain-classifier",
+  "github_branch": "main"
 }

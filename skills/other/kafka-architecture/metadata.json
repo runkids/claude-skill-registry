@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:50.078755Z",
   "dir_name": "kafka-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-kafka/skills/kafka-architecture",
+  "github_branch": "main"
 }

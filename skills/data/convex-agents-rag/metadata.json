@@ -9,5 +9,7 @@
     "rag"
   ],
   "stars": 5,
-  "dir_name": "convex-agents-rag"
+  "dir_name": "convex-agents-rag",
+  "github_path": "convex-agents-rag",
+  "github_branch": "main"
 }

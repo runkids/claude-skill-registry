@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:14.357860Z",
   "dir_name": "workflow-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/attune/skills/workflow-setup",
+  "github_branch": "main"
 }

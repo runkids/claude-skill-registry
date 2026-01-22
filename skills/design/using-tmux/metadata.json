@@ -7,5 +7,7 @@
     "using",
     "tmux"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/using-tmux",
+  "github_branch": "main"
 }

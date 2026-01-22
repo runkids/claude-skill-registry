@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-20T01:39:00.048468Z",
   "dir_name": "skill-evolution",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-evolution",
+  "github_branch": "main"
 }

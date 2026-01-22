@@ -9,5 +9,7 @@
     "builder"
   ],
   "stars": 21,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/anthropic/claude-command-builder",
+  "github_branch": "main"
 }

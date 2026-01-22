@@ -2,7 +2,9 @@
   "name": "work-logs-sync",
   "repo": "younwony/younwony.github.io",
   "category": "development",
-  "description": "/work-log \uc2a4\ud0ac \uac00\uc774\ub4dc\uac00 \ubcc0\uacbd\ub418\uc5c8\uc744 \ub54c \uae30\uc874 work-logs \ud30c\uc77c\ub4e4\uc744 \uc0c8 \ud615\uc2dd\uc5d0 \ub9de\uac8c \uc77c\uad04 \ub3d9\uae30\ud654\ud569\ub2c8\ub2e4.",
+  "description": "/work-log 스킬 가이드가 변경되었을 때 기존 work-logs 파일들을 새 형식에 맞게 일괄 동기화합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:40.691820Z"
+  "downloaded_at": "2026-01-06T09:09:40.691820Z",
+  "github_path": ".claude/skills/data/work-logs-sync",
+  "github_branch": "main"
 }

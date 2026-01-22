@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create thoughtful git commits with conventional commits format. Invoke when user says \"commit\", \"commit these changes\", \"create a commit\", \"save my changes\", or after completing a task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:44.638776Z"
+  "downloaded_at": "2026-01-06T09:05:44.638776Z",
+  "github_path": "skills/commit-changes",
+  "github_branch": "main"
 }

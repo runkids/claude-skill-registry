@@ -8,5 +8,7 @@
     "pages",
     "deploy"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/github-pages-deploy",
+  "github_branch": "main"
 }

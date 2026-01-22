@@ -8,5 +8,7 @@
     "core"
   ],
   "stars": 0,
-  "dir_name": "wordpress-core"
+  "dir_name": "wordpress-core",
+  "github_path": ".claude/skills/wordpress-core",
+  "github_branch": "main"
 }

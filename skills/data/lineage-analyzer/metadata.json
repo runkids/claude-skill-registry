@@ -8,5 +8,7 @@
     "analyzer"
   ],
   "stars": 0,
-  "dir_name": "lineage-analyzer"
+  "dir_name": "lineage-analyzer",
+  "github_path": "skills/lineage-analyzer",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "stress",
     "testing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/stress-testing",
+  "github_branch": "main"
 }

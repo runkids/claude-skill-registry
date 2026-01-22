@@ -5,5 +5,7 @@
   "source": "github.com/randysalars/dreamweaving",
   "downloaded_at": "2026-01-22T02:43:18.840235Z",
   "dir_name": "symbolic-mapping",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tier1-neural-core/symbolic-mapping",
+  "github_branch": "main"
 }

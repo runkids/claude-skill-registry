@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:01.740054Z",
   "dir_name": "task-delegator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/task-delegator",
+  "github_branch": "main"
 }

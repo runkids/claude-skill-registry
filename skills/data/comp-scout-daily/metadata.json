@@ -9,5 +9,7 @@
     "daily"
   ],
   "stars": 0,
-  "dir_name": "comp-scout-daily"
+  "dir_name": "comp-scout-daily",
+  "github_path": "skills/comp-scout-daily",
+  "github_branch": "main"
 }

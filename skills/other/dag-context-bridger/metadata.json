@@ -5,5 +5,7 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-17T03:02:48.258156Z",
   "dir_name": "dag-context-bridger",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dag-context-bridger",
+  "github_branch": "main"
 }

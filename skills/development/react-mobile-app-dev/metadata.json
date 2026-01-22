@@ -2,7 +2,9 @@
   "name": "react-mobile-app-dev",
   "repo": "SmallRob/nice_today_android",
   "category": "development",
-  "description": "\u4e13\u95e8\u7528\u4e8eReact\u79fb\u52a8\u7aefWeb\u5e94\u7528\u5f00\u53d1\u7684\u6280\u80fd\uff0c\u6db5\u76d6\u54cd\u5e94\u5f0f\u8bbe\u8ba1\u3001\u6027\u80fd\u4f18\u5316\u3001PWA\u3001\u89e6\u6478\u4ea4\u4e92\u3001\u79fb\u52a8\u7aef\u9002\u914d\u7b49\u5168\u6d41\u7a0b\u5f00\u53d1\u6307\u5bfc\u3002",
+  "description": "专门用于React移动端Web应用开发的技能，涵盖响应式设计、性能优化、PWA、触摸交互、移动端适配等全流程开发指导。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:27.289147Z"
+  "downloaded_at": "2026-01-06T09:08:27.289147Z",
+  "github_path": "skills",
+  "github_branch": "main"
 }

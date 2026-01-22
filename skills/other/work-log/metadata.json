@@ -5,5 +5,7 @@
   "source": "github.com/younwony/younwony.github.io",
   "downloaded_at": "2026-01-22T03:21:53.325685Z",
   "dir_name": "work-log",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/data/work-log",
+  "github_branch": "main"
 }

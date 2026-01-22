@@ -5,5 +5,7 @@
   "source": "github.com/Kalyanikhandare29/Agent-Skills-for-Context-Engineering",
   "downloaded_at": "2026-01-22T04:11:06.559654Z",
   "dir_name": "evaluation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/advanced-evaluation",
+  "github_branch": "main"
 }

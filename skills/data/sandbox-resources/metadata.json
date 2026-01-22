@@ -8,5 +8,7 @@
     "resources"
   ],
   "stars": 0,
-  "dir_name": "sandbox-resources"
+  "dir_name": "sandbox-resources",
+  "github_path": "sandbox-resources",
+  "github_branch": "main"
 }

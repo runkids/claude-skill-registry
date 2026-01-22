@@ -5,5 +5,7 @@
   "source": "github.com/hgeldenhuys/claude-code-sdk",
   "downloaded_at": "2026-01-22T02:26:55.434405Z",
   "dir_name": "git-workflows",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/git-workflows",
+  "github_branch": "main"
 }

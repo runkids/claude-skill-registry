@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "daily-task-creator"
+  "dir_name": "daily-task-creator",
+  "github_path": "skills/daily-task-creator",
+  "github_branch": "main"
 }

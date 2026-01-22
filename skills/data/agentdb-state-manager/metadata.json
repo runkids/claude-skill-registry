@@ -10,5 +10,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agentdb-state-manager"
+  "dir_name": "agentdb-state-manager",
+  "github_path": ".gemini/skills/agentdb-state-manager",
+  "github_branch": "main"
 }

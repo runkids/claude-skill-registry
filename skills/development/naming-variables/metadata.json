@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Choose names that fully and accurately describe what the variable represents",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:09.333392Z"
+  "downloaded_at": "2026-01-06T09:04:09.333392Z",
+  "github_path": "packages/claude/.claude/skills/coding/naming-variables",
+  "github_branch": "main"
 }

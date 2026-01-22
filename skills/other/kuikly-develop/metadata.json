@@ -5,5 +5,7 @@
   "source": "github.com/lotosbin/claude-skills",
   "downloaded_at": "2026-01-22T02:51:17.166856Z",
   "dir_name": "kuikly-develop",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/kuikly-develop",
+  "github_branch": "main"
 }

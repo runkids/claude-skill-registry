@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:08.297769Z",
   "dir_name": "sentry-enterprise-rbac",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/sentry-pack/skills/sentry-enterprise-rbac",
+  "github_branch": "main"
 }

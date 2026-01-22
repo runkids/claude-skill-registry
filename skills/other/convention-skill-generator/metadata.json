@@ -5,5 +5,7 @@
   "source": "github.com/RevTechStudio/rts-plugins",
   "downloaded_at": "2026-01-22T03:44:55.254889Z",
   "dir_name": "convention-skill-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "rts-plugin-generator/skills/convention-skill-generator",
+  "github_branch": "main"
 }

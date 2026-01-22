@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.923361Z",
   "dir_name": "financial-deep-research",
-  "category": "other"
+  "category": "other",
+  "github_path": "financial-deep-research",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Use when identifying cultural moments, audio trends, memes, or creator collaborations to inform social content.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:26.500298Z"
+  "downloaded_at": "2026-01-06T08:57:26.500298Z",
+  "github_path": "plugins/social-media/skills/trend-research",
+  "github_branch": "main"
 }

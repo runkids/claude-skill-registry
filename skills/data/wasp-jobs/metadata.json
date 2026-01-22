@@ -8,5 +8,7 @@
     "jobs"
   ],
   "stars": 0,
-  "dir_name": "wasp-jobs"
+  "dir_name": "wasp-jobs",
+  "github_path": ".claude/skills/wasp-jobs",
+  "github_branch": "main"
 }

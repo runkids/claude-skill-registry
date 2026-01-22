@@ -7,5 +7,7 @@
     "barcode",
     "reader"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "qr-barcode-reader",
+  "github_branch": "main"
 }

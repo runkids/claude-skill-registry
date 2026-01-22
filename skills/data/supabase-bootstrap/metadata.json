@@ -8,5 +8,7 @@
     "bootstrap"
   ],
   "stars": 0,
-  "dir_name": "supabase-bootstrap"
+  "dir_name": "supabase-bootstrap",
+  "github_path": "skills/supabase-bootstrap",
+  "github_branch": "main"
 }

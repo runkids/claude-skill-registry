@@ -2,7 +2,9 @@
   "name": "zaregoto-miko",
   "repo": "niracler/skill",
   "category": "development",
-  "description": "\u5c06\u7d20\u6750\u8f6c\u6362\u4e3a\u620f\u8a00\u7cfb\u5217\u8475\u4e95\u5deb\u5973\u5b50\u7684\u8bf4\u8bdd\u98ce\u683c\u3002\u89e6\u53d1\u573a\u666f\uff1a(1) \u7528\u6237\u63d0\u4f9b\u7d20\u6750\u5e76\u8981\u6c42\u300c\u7528\u5deb\u5973\u5b50\u98ce\u683c\u6539\u5199\u300d\u300c\u5deb\u5973\u5b50\u4f1a\u600e\u4e48\u8bf4\u300d\uff1b(2) \u7528\u6237\u8bf4\u300c\u620f\u8a00\u98ce\u683c\u300d\u300c\u5deb\u5973\u5b50\u53e3\u543b\u300d\uff1b(3) \u9700\u8981\u5c06\u666e\u901a\u6587\u5b57\u8f6c\u6362\u4e3a\u8352\u8bde\u6bd4\u55bb + \u6d3b\u6cfc\u8bed\u6c14\u7684\u98ce\u683c\u3002",
+  "description": "将素材转换为戏言系列葵井巫女子的说话风格。触发场景：(1) 用户提供素材并要求「用巫女子风格改写」「巫女子会怎么说」；(2) 用户说「戏言风格」「巫女子口吻」；(3) 需要将普通文字转换为荒诞比喻 + 活泼语气的风格。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:35.974273Z"
+  "downloaded_at": "2026-01-06T09:02:35.974273Z",
+  "github_path": "src/zaregoto-miko",
+  "github_branch": "main"
 }

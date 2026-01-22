@@ -8,5 +8,7 @@
     "essentials",
     "debug"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-essentials-debug",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "testing"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "astro-testing",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:18.742102Z",
   "dir_name": "anthropic-raintree-technology-claude-starter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/anthropic",
+  "github_branch": "main"
 }

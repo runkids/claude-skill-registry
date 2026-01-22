@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:48.313485Z",
   "dir_name": "motif-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "sequence-manipulation/motif-search",
+  "github_branch": "main"
 }

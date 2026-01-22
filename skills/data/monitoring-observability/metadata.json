@@ -8,5 +8,7 @@
     "observability"
   ],
   "stars": 3,
-  "dir_name": "monitoring-observability"
+  "dir_name": "monitoring-observability",
+  "github_path": "monitoring-observability",
+  "github_branch": "main"
 }

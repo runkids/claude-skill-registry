@@ -7,5 +7,7 @@
     "worker",
     "multithreading"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".codex/skills/js-worker-multithreading",
+  "github_branch": "main"
 }

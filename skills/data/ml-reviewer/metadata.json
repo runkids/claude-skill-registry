@@ -7,5 +7,7 @@
     "reviewer"
   ],
   "stars": 0,
-  "dir_name": "ml-reviewer"
+  "dir_name": "ml-reviewer",
+  "github_path": "skills/ml-reviewer",
+  "github_branch": "main"
 }

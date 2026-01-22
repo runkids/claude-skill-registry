@@ -8,5 +8,7 @@
     "dev",
     "guidelines"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/frontend-dev-guidelines",
+  "github_branch": "main"
 }

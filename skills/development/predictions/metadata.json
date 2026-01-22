@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Skill from tolgaio/neo",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:28:53.955087Z"
+  "downloaded_at": "2026-01-08T03:28:53.955087Z",
+  "github_path": "skills/fabric/extract/predictions",
+  "github_branch": "main"
 }

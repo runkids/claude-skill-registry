@@ -7,5 +7,7 @@
     "release",
     "orchestrator"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/release-orchestrator",
+  "github_branch": "main"
 }

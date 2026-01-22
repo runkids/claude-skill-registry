@@ -8,5 +8,7 @@
     "resolvers"
   ],
   "stars": 1,
-  "dir_name": "graphql-resolvers"
+  "dir_name": "graphql-resolvers",
+  "github_path": "skills/graphql-resolvers",
+  "github_branch": "main"
 }

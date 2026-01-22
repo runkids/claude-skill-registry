@@ -5,5 +5,7 @@
   "source": "github.com/iOfficeAI/AionUi",
   "downloaded_at": "2026-01-22T02:47:16.596478Z",
   "dir_name": "x-recruiter",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/x-recruiter",
+  "github_branch": "main"
 }

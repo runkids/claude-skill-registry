@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:24.553932Z",
   "dir_name": "researcher",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/researcher",
+  "github_branch": "main"
 }

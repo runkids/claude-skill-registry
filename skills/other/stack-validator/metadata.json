@@ -5,5 +5,7 @@
   "source": "github.com/rknall/claude-skills",
   "downloaded_at": "2026-01-20T01:28:18.930901Z",
   "dir_name": "stack-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "stack-validator",
+  "github_branch": "main"
 }

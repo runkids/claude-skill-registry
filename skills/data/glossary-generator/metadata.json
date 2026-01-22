@@ -8,5 +8,7 @@
     "generator"
   ],
   "stars": 4,
-  "dir_name": "glossary-generator"
+  "dir_name": "glossary-generator",
+  "github_path": "skills/glossary-generator",
+  "github_branch": "main"
 }

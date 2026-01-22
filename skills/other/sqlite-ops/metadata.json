@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:08.691550Z",
   "dir_name": "sqlite-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sqlite-ops",
+  "github_branch": "main"
 }

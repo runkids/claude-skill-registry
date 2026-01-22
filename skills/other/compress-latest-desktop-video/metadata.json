@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:40.609058Z",
   "dir_name": "compress-latest-desktop-video",
-  "category": "other"
+  "category": "other",
+  "github_path": "compress-latest-desktop-video",
+  "github_branch": "main"
 }

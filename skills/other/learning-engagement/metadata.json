@@ -5,5 +5,7 @@
   "source": "github.com/pauljbernard/content",
   "downloaded_at": "2026-01-22T01:07:43.711716Z",
   "dir_name": "learning-engagement",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/learning-engagement",
+  "github_branch": "main"
 }

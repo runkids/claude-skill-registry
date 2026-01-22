@@ -5,5 +5,7 @@
   "source": "github.com/dredd-us/seashells",
   "downloaded_at": "2026-01-22T01:30:16.918549Z",
   "dir_name": "uncertainty-routing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/uncertainty-routing",
+  "github_branch": "main"
 }

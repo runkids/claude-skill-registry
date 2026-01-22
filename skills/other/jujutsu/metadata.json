@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-14T01:56:20.115596Z",
   "dir_name": "jujutsu",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/undoing-operations-in-jujutsu",
+  "github_branch": "main"
 }

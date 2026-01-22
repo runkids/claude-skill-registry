@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:34.303017Z",
   "dir_name": "hanami-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/hanami-workflow",
+  "github_branch": "main"
 }

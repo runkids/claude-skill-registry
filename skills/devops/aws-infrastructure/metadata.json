@@ -8,5 +8,7 @@
     "infrastructure"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/aws-infrastructure",
+  "github_branch": "main"
 }

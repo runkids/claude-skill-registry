@@ -7,5 +7,7 @@
     "interactivity",
     "api"
   ],
-  "stars": 26
+  "stars": 26,
+  "github_path": "skills/wp-interactivity-api",
+  "github_branch": "main"
 }

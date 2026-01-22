@@ -7,5 +7,7 @@
     "novelist",
     "analyst"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/novelist-analyst",
+  "github_branch": "main"
 }

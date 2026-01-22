@@ -7,5 +7,7 @@
     "k8s",
     "reviewer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/k8s-reviewer",
+  "github_branch": "main"
 }

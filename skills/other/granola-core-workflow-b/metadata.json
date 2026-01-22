@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:08.544099Z",
   "dir_name": "granola-core-workflow-b",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/granola-pack/skills/granola-core-workflow-b",
+  "github_branch": "main"
 }

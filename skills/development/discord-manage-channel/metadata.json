@@ -9,5 +9,7 @@
     "channel"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "discord-manage-channel",
+  "github_branch": "main"
 }

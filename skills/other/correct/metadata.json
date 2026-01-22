@@ -5,5 +5,7 @@
   "source": "github.com/gaearon/woodshed",
   "downloaded_at": "2026-01-22T04:04:05.809374Z",
   "dir_name": "correct",
-  "category": "other"
+  "category": "other",
+  "github_path": "test/root/skills/mul/correct",
+  "github_branch": "main"
 }

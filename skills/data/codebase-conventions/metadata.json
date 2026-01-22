@@ -5,5 +5,7 @@
   "description": "Load when starting work in 10x-Mapmaster or when unsure about project standards. Covers file organization, naming conventions, type constraints, SQL style, and project-specific limits (200-char descri",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:04:59.536774Z",
-  "dir_name": "codebase-conventions"
+  "dir_name": "codebase-conventions",
+  "github_path": ".opencode/skills/codebase-conventions",
+  "github_branch": "main"
 }

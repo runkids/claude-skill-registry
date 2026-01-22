@@ -2,7 +2,9 @@
   "name": "nsforge-quick-calculate",
   "repo": "u9401066/nsforge-mcp",
   "category": "design",
-  "description": "\u5feb\u901f\u8a08\u7b97\uff08\u7121\u9700\u6703\u8a71\uff09\u3002\u89f8\u767c\u8a5e\uff1a\u8a08\u7b97, \u7c21\u5316, \u6c42\u89e3, \u5fae\u5206, \u7a4d\u5206, \u6975\u9650, \u7d1a\u6578, \u4e0d\u7b49\u5f0f, \u6a5f\u7387\u3002",
+  "description": "快速計算（無需會話）。觸發詞：計算, 簡化, 求解, 微分, 積分, 極限, 級數, 不等式, 機率。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:24.144021Z"
+  "downloaded_at": "2026-01-06T09:10:24.144021Z",
+  "github_path": ".claude/skills/nsforge-quick-calculate",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/arthur-debert/padz",
   "downloaded_at": "2026-01-22T03:17:36.603189Z",
   "dir_name": "padz-display-identifiers",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/padz-display-identifiers",
+  "github_branch": "main"
 }

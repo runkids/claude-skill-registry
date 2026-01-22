@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyzes backlink profiles to understand link authority, identify toxic links, discover link building opportunities, and monitor competitor link acquisition. Essential for off-page SEO strategy.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.643663Z"
+  "downloaded_at": "2026-01-06T08:57:10.643663Z",
+  "github_path": "monitor/backlink-analyzer",
+  "github_branch": "main"
 }

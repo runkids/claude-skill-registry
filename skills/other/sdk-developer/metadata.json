@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:19.184716Z",
   "dir_name": "sdk-developer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos/shelby/sdk-developer",
+  "github_branch": "main"
 }

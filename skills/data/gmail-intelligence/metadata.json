@@ -8,5 +8,7 @@
     "intelligence"
   ],
   "stars": 0,
-  "dir_name": "gmail-intelligence"
+  "dir_name": "gmail-intelligence",
+  "github_path": "skills/gmail-intelligence",
+  "github_branch": "main"
 }

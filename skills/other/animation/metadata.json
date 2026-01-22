@@ -5,5 +5,7 @@
   "source": "github.com/bagherhosseini/Github_Copilot_Skills",
   "downloaded_at": "2026-01-21T02:09:22.323558Z",
   "dir_name": "animation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/animation",
+  "github_branch": "main"
 }

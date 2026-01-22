@@ -8,5 +8,7 @@
     "evaluation"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "ai-vendor-evaluation",
+  "github_branch": "main"
 }

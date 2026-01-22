@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:15.375529Z",
   "dir_name": "prep-release",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/prep_release",
+  "github_branch": "main"
 }

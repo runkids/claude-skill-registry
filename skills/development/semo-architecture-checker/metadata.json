@@ -2,7 +2,9 @@
   "name": "semo-architecture-checker",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": ".claude \ub514\ub809\ud1a0\ub9ac \uad6c\uc870 \uac80\uc99d \ubc0f \uc790\ub3d9 \uc218\uc815. Use when:(1) SEMO \uc5c5\ub370\uc774\ud2b8 \ud6c4 \ubb34\uacb0\uc131 \uccb4\ud06c, (2) \uc2ec\ub9c1\ud06c \uae68\uc9d0 \uc758\uc2ec \uc2dc,(3) version-updater\uc5d0\uc11c \uc790\ub3d9 \ud638\ucd9c, (4) \uc0c8 \uc138\uc158 \uc2dc\uc791 \uc2dc.",
+  "description": ".claude 디렉토리 구조 검증 및 자동 수정. Use when:(1) SEMO 업데이트 후 무결성 체크, (2) 심링크 깨짐 의심 시,(3) version-updater에서 자동 호출, (4) 새 세션 시작 시.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.697238Z"
+  "downloaded_at": "2026-01-06T09:02:52.697238Z",
+  "github_path": "semo-system/semo-skills/semo-architecture-checker",
+  "github_branch": "main"
 }

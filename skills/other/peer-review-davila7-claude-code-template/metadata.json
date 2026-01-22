@@ -5,5 +5,7 @@
   "source": "github.com/davila7/claude-code-templates",
   "downloaded_at": "2026-01-22T03:18:28.589331Z",
   "dir_name": "peer-review-davila7-claude-code-template",
-  "category": "other"
+  "category": "other",
+  "github_path": "cli-tool/components/skills/scientific/peer-review",
+  "github_branch": "main"
 }

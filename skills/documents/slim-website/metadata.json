@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "AI-powered website generator that analyzes your project content and creates customized Docusaurus documentation websites. Use when you want to automatically generate a professional website based on yo",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:28.472250Z"
+  "downloaded_at": "2026-01-06T08:57:28.472250Z",
+  "github_path": "static/marketplace/skills/slim-website-maker",
+  "github_branch": "main"
 }

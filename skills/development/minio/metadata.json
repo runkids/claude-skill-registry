@@ -6,5 +6,7 @@
   "tags": [
     "minio"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "minio",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "cli",
     "tools"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/local-cli-tools",
+  "github_branch": "main"
 }

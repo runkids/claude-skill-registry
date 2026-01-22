@@ -2,7 +2,9 @@
   "name": "process-feedback",
   "repo": "semicolon-devteam/semo",
   "category": "product",
-  "description": "SEMO \ud53c\ub4dc\ubc31 \uc774\uc288 \ubd84\uc11d \ubc0f \ubc18\uc601. Use when (1) \"\ud53c\ub4dc\ubc31 \ucc98\ub9ac\ud574\uc918\", \"\uc774\uc288 \ubc18\uc601\ud574\uc918\",(2) check-feedback \ud6c4 \uc218\uc815 \uc694\uccad, (3) SEMO \uc2dc\uc2a4\ud15c/\ud328\ud0a4\uc9c0 \uac1c\uc120 \uc694\uccad.",
+  "description": "SEMO 피드백 이슈 분석 및 반영. Use when (1) \"피드백 처리해줘\", \"이슈 반영해줘\",(2) check-feedback 후 수정 요청, (3) SEMO 시스템/패키지 개선 요청.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:50.938441Z"
+  "downloaded_at": "2026-01-06T09:02:50.938441Z",
+  "github_path": "semo-system/meta/skills/process-feedback",
+  "github_branch": "main"
 }

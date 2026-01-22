@@ -5,5 +5,7 @@
   "source": "github.com/shiroinock/Darts-Score-Trainer",
   "downloaded_at": "2026-01-22T03:38:34.939262Z",
   "dir_name": "local-ci",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/local-ci",
+  "github_branch": "main"
 }

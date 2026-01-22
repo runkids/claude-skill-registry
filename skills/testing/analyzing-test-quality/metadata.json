@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Automatically activated when user asks about test quality, code coverage, test reliability, test maintainability, or wants to analyze their test suite. Provides framework-agnostic test quality analysi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:40.761649Z"
+  "downloaded_at": "2026-01-06T09:01:40.761649Z",
+  "github_path": "testing-expert/skills/analyzing-test-quality",
+  "github_branch": "main"
 }

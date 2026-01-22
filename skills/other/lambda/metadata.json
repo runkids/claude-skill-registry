@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:38.106828Z",
   "dir_name": "lambda",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devops/lambda-optimization-advisor",
+  "github_branch": "main"
 }

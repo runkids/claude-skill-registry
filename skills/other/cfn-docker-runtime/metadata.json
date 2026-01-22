@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:43:01.054862Z",
   "dir_name": "cfn-docker-runtime",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/cfn-extras/skills/deprecated/cfn-docker-runtime",
+  "github_branch": "main"
 }

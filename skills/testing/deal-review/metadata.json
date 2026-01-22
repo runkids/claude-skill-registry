@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use to run structured opportunity inspections that align pipeline data with buyer reality.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.972438Z"
+  "downloaded_at": "2026-01-06T08:57:25.972438Z",
+  "github_path": "plugins/sales-pipeline/skills/deal-review",
+  "github_branch": "main"
 }

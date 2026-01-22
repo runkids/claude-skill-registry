@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:57.053679Z",
   "dir_name": "sglang",
-  "category": "other"
+  "category": "other",
+  "github_path": "12-inference-serving/sglang",
+  "github_branch": "main"
 }

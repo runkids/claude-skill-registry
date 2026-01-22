@@ -8,5 +8,7 @@
     "diagram"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/aws-diagram",
+  "github_branch": "main"
 }

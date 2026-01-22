@@ -5,5 +5,7 @@
   "source": "github.com/resolve-io/.prism",
   "downloaded_at": "2026-01-14T03:09:56.646146Z",
   "dir_name": "resize-story",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/prism-devtools/skills/resize-story",
+  "github_branch": "main"
 }

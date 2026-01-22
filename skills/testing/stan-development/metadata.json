@@ -7,5 +7,7 @@
     "stan",
     "development"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/stan-development",
+  "github_branch": "main"
 }

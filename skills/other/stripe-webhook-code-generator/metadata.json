@@ -5,5 +5,7 @@
   "source": "github.com/whatnextjamie/stripe-webhook-skills",
   "downloaded_at": "2026-01-22T02:29:18.058998Z",
   "dir_name": "stripe-webhook-code-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/stripe-webhook-code-generator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Smith-Happens/xlightsfpptester",
   "downloaded_at": "2026-01-21T02:50:25.357470Z",
   "dir_name": "agent-inventor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/agent-inventor",
+  "github_branch": "main"
 }

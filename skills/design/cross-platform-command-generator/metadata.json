@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Generates cross-platform commands and scripts for Linux, macOS, and Windows with security validation and compatibility guidance",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:20.211702Z"
+  "downloaded_at": "2026-01-06T09:11:20.211702Z",
+  "github_path": "skills/cross-platform-command-generator",
+  "github_branch": "main"
 }

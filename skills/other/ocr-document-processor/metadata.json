@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:58.772341Z",
   "dir_name": "ocr-document-processor",
-  "category": "other"
+  "category": "other",
+  "github_path": "ocr-document-processor",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/aufrank/agent-skills",
   "downloaded_at": "2026-01-17T01:01:32.688004Z",
   "dir_name": "tool-quality-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tool-quality-audit",
+  "github_branch": "main"
 }

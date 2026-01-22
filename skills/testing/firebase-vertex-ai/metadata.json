@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Firebase platform expert with Vertex AI Gemini integration for Authentication, Firestore, Storage, Functions, Hosting, and AI-powered features. Use when asked to \"setup firebase\", \"deploy to firebase\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:46.358284Z"
+  "downloaded_at": "2026-01-06T08:55:46.358284Z",
+  "github_path": "plugins/community/jeremy-firebase/skills/firebase-vertex-ai",
+  "github_branch": "main"
 }

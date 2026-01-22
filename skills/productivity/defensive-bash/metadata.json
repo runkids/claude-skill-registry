@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Production-grade defensive Bash scripting for server automation, monitoring, and DevOps tasks. Emphasizes safety, error handling, idempotency, and logging.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:03.888562Z"
+  "downloaded_at": "2026-01-06T09:04:03.888562Z",
+  "github_path": "plugins/server-ops/skills/defensive-bash",
+  "github_branch": "main"
 }

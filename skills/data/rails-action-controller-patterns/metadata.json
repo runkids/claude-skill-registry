@@ -5,5 +5,7 @@
   "description": "Use when action Controller patterns including routing, filters, strong parameters, and REST conventions.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:07.529609Z",
-  "dir_name": "rails-action-controller-patterns"
+  "dir_name": "rails-action-controller-patterns",
+  "github_path": "jutsu/jutsu-rails/skills/rails-action-controller-patterns",
+  "github_branch": "main"
 }

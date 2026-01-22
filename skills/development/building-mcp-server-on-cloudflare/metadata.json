@@ -10,5 +10,7 @@
     "cloudflare"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "building-mcp-server-on-cloudflare",
+  "github_branch": "main"
 }

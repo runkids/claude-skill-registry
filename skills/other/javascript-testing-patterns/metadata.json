@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:13.664046Z",
   "dir_name": "javascript-testing-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/javascript-typescript/skills/javascript-testing-patterns",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "logging"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/logging",
+  "github_branch": "main"
 }

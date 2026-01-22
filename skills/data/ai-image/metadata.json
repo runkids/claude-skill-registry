@@ -8,5 +8,7 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-image"
+  "dir_name": "ai-image",
+  "github_path": "ai-image",
+  "github_branch": "main"
 }

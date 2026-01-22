@@ -7,5 +7,7 @@
     "rails",
     "viewcomponents"
   ],
-  "stars": 18
+  "stars": 18,
+  "github_path": "rails-viewcomponents",
+  "github_branch": "main"
 }

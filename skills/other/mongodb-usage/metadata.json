@@ -5,5 +5,7 @@
   "source": "github.com/fcakyon/claude-codex-settings",
   "downloaded_at": "2026-01-22T03:06:12.900852Z",
   "dir_name": "mongodb-usage",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/mongodb-tools/skills/mongodb-usage",
+  "github_branch": "main"
 }

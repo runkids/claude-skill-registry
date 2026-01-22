@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-gemini",
   "downloaded_at": "2026-01-22T01:04:03.147417Z",
   "dir_name": "zustand",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/zustand",
+  "github_branch": "main"
 }

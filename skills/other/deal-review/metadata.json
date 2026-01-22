@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:40.298353Z",
   "dir_name": "deal-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sales-pipeline/skills/deal-review",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Supabase PostgreSQL RPC, pgvector operations, and real-time subscriptions",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:11.747678Z",
-  "dir_name": "supabase-rpc-manager"
+  "dir_name": "supabase-rpc-manager",
+  "github_path": "docs/claude-code-skills/community/supabase-rpc-manager",
+  "github_branch": "main"
 }

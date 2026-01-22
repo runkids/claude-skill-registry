@@ -7,5 +7,7 @@
     "adr"
   ],
   "stars": 20,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "dot_claude/skills/adr",
+  "github_branch": "main"
 }

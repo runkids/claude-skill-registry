@@ -8,5 +8,7 @@
     "app"
   ],
   "stars": 0,
-  "dir_name": "create-app"
+  "dir_name": "create-app",
+  "github_path": "skills/create-app",
+  "github_branch": "main"
 }

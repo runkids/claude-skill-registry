@@ -6,5 +6,7 @@
   "tags": [
     "surrealdb"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "surrealdb",
+  "github_branch": "main"
 }

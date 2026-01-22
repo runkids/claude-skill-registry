@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-14T03:00:26.189916Z",
   "dir_name": "zachman-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/enterprise-architecture/skills/zachman-analysis",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 0,
-  "dir_name": "llm-caching-patterns"
+  "dir_name": "llm-caching-patterns",
+  "github_path": ".claude/skills/llm-caching-patterns",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "tmux",
     "orchestrator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/tmux-orchestrator",
+  "github_branch": "main"
 }

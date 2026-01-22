@@ -2,7 +2,9 @@
   "name": "creating-proposals",
   "repo": "sekka/dotfiles",
   "category": "development",
-  "description": "\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u5411\u3051\u63d0\u6848\u8cc7\u6599\u306e\u4f5c\u6210\u3092\u652f\u63f4\u3057\u307e\u3059\u3002\u30b3\u30f3\u30b5\u30eb\u6d41\u306e\u30ce\u30a6\u30cf\u30a6\u306b\u57fa\u3065\u304d\u3001\u610f\u601d\u6c7a\u5b9a\u3092\u4fc3\u3059\u8cc7\u6599\u69cb\u6210\u30fb\u539f\u7a3f\u3092\u4f5c\u6210\u3057\u307e\u3059\u3002\u63d0\u6848\u66f8\u3001\u4f01\u753b\u66f8\u3001\u55b6\u696d\u8cc7\u6599\u304c\u5fc5\u8981\u306a\u3068\u304d\u306b\u4f7f\u7528\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+  "description": "クライアント向け提案資料の作成を支援します。コンサル流のノウハウに基づき、意思決定を促す資料構成・原稿を作成します。提案書、企画書、営業資料が必要なときに使用してください。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:11.481013Z"
+  "downloaded_at": "2026-01-06T09:08:11.481013Z",
+  "github_path": "home/.claude/skills/creating-proposals",
+  "github_branch": "main"
 }

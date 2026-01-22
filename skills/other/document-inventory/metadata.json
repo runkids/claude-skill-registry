@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-20T03:48:05.089845Z",
   "dir_name": "document-inventory",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/document-handling/document-inventory",
+  "github_branch": "main"
 }

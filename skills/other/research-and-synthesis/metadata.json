@@ -5,5 +5,7 @@
   "source": "github.com/htooayelwinict/claude-config",
   "downloaded_at": "2026-01-19T04:20:11.805042Z",
   "dir_name": "research-and-synthesis",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/research-and-synthesis",
+  "github_branch": "main"
 }

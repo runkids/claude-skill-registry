@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:46.882292Z",
   "dir_name": "msa-parsing",
-  "category": "other"
+  "category": "other",
+  "github_path": "alignment/msa-parsing",
+  "github_branch": "main"
 }

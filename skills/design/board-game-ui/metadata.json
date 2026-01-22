@@ -8,5 +8,7 @@
     "game"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/board-game-ui",
+  "github_branch": "main"
 }

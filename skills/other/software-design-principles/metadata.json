@@ -5,5 +5,7 @@
   "source": "github.com/audunstrand/status-app",
   "downloaded_at": "2026-01-14T01:52:04.085961Z",
   "dir_name": "software-design-principles",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/software-design-principles",
+  "github_branch": "main"
 }

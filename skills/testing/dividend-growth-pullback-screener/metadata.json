@@ -9,5 +9,7 @@
     "pullback",
     "screener"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/dividend-growth-pullback-screener",
+  "github_branch": "main"
 }

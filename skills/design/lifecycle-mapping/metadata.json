@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use when designing automation programs aligned to lifecycle stages, SLAs, and GTM objectives.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:23.926839Z"
+  "downloaded_at": "2026-01-06T08:57:23.926839Z",
+  "github_path": "plugins/marketing-automation/skills/lifecycle-mapping",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:36.713167Z",
   "dir_name": "convert-elm-elixir",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/convert-elm-elixir",
+  "github_branch": "main"
 }

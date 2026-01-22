@@ -5,5 +5,7 @@
   "source": "github.com/rohunj/claude-build-workflow",
   "downloaded_at": "2026-01-22T01:56:28.833736Z",
   "dir_name": "pytm",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/security/pytm",
+  "github_branch": "main"
 }

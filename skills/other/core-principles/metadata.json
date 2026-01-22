@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:31.343588Z",
   "dir_name": "core-principles",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend/skills/core-principles",
+  "github_branch": "main"
 }

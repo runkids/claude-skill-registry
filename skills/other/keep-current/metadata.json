@@ -5,5 +5,7 @@
   "source": "github.com/shanepadgett/agent-extensions",
   "downloaded_at": "2026-01-21T02:23:02.955637Z",
   "dir_name": "keep-current",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/keep-current",
+  "github_branch": "main"
 }

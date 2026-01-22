@@ -5,5 +5,7 @@
   "source": "github.com/RevTechStudio/rts-plugins",
   "downloaded_at": "2026-01-22T03:44:55.389722Z",
   "dir_name": "element-definition-convention",
-  "category": "other"
+  "category": "other",
+  "github_path": "rts-plugin-generator/skills/element-definition-convention",
+  "github_branch": "main"
 }

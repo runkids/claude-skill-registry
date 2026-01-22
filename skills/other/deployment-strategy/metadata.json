@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:28.604574Z",
   "dir_name": "deployment-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/deployment-strategy",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/xebia/gino-gelato-webinar",
   "downloaded_at": "2026-01-22T04:06:53.735266Z",
   "dir_name": "investigation-mode",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/investigation-mode",
+  "github_branch": "main"
 }

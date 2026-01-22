@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:34.688371Z",
   "dir_name": "musical-dna",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/creative/music/musical-dna",
+  "github_branch": "main"
 }

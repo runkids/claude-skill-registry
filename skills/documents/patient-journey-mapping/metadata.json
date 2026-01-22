@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Framework for documenting compliant patient journeys with touchpoints, consent, and escalation paths.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:23.279998Z"
+  "downloaded_at": "2026-01-06T08:57:23.279998Z",
+  "github_path": "plugins/healthcare-marketing/skills/patient-journey-mapping",
+  "github_branch": "main"
 }

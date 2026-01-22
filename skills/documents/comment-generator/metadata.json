@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Generate code comments and docstrings. Use when user asks to \"add comments\", \"document this code\", \"explain with comments\", or \"add docstrings\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:47.937089Z"
+  "downloaded_at": "2026-01-06T09:01:47.937089Z",
+  "github_path": "examples/beginner/simple-skills/comment-generator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:46.782385Z",
   "dir_name": "markers-annotation",
-  "category": "other"
+  "category": "other",
+  "github_path": "single-cell/markers-annotation",
+  "github_branch": "main"
 }

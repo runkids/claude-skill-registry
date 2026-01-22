@@ -4,5 +4,7 @@
   "category": "development",
   "description": "To read console logs from the current page, retrieve console messages for debugging JavaScript output.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:12.286969Z"
+  "downloaded_at": "2026-01-06T08:59:12.286969Z",
+  "github_path": "dev-swarm/mcp-skills/playwright-browser-console-messages",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/prowler-cloud/prowler",
   "downloaded_at": "2026-01-22T02:57:25.379297Z",
   "dir_name": "pytest",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pytest",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-19T03:03:35.777240Z",
   "dir_name": "chat-response-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/chat-response-generator",
+  "github_branch": "main"
 }

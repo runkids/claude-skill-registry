@@ -8,5 +8,7 @@
     "packet",
     "generation"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/proof-packet-generation",
+  "github_branch": "main"
 }

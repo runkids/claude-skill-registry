@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Master smart contract security with auditing, vulnerability detection, and incident response",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:43.909187Z"
+  "downloaded_at": "2026-01-06T09:02:43.909187Z",
+  "github_path": "skills/smart-contract-security",
+  "github_branch": "main"
 }

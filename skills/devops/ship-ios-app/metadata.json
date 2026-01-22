@@ -8,5 +8,7 @@
     "ios",
     "app"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "ship-ios-app",
+  "github_branch": "main"
 }

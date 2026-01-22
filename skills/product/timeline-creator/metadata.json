@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Create HTML timelines and project roadmaps with Gantt charts, milestones, phase groupings, and progress indicators. Use when users request timelines, roadmaps, Gantt charts, project schedules, or mile",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:42.893764Z"
+  "downloaded_at": "2026-01-06T08:56:42.893764Z",
+  "github_path": "visual-documentation-plugin/skills/timeline-creator",
+  "github_branch": "main"
 }

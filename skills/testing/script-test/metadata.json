@@ -2,7 +2,9 @@
   "name": "script-test",
   "repo": "Leavesfly/Jimi",
   "category": "testing",
-  "description": "\u6d4b\u8bd5\u811a\u672c\u6267\u884c\u529f\u80fd\u7684\u793a\u4f8b Skill",
+  "description": "测试脚本执行功能的示例 Skill",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:30.464674Z"
+  "downloaded_at": "2026-01-06T08:56:30.464674Z",
+  "github_path": "src/main/resources/skills/script-test",
+  "github_branch": "main"
 }

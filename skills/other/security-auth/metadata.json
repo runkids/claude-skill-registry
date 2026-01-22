@@ -5,5 +5,7 @@
   "source": "github.com/ajianaz/skills-collection",
   "downloaded_at": "2026-01-22T03:22:38.610550Z",
   "dir_name": "security-auth",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/security-auth",
+  "github_branch": "main"
 }

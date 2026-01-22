@@ -8,5 +8,7 @@
     "workflow",
     "guide"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/tdd-workflow-guide",
+  "github_branch": "main"
 }

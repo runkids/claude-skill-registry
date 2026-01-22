@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:36.214213Z",
   "dir_name": "db-wal-recovery",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/db-wal-recovery",
+  "github_branch": "main"
 }

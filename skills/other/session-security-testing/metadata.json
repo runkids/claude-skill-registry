@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/SecOps-CLI-Guides",
   "downloaded_at": "2026-01-14T02:20:56.298709Z",
   "dir_name": "session-security-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/session-security-testing",
+  "github_branch": "main"
 }

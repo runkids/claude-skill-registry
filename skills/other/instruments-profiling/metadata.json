@@ -5,5 +5,7 @@
   "source": "github.com/nickromney/n-dotfiles",
   "downloaded_at": "2026-01-22T04:02:51.917878Z",
   "dir_name": "instruments-profiling",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/instruments-profiling",
+  "github_branch": "main"
 }

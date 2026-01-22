@@ -8,5 +8,7 @@
     "hunter"
   ],
   "stars": 10,
-  "dir_name": "contact-hunter"
+  "dir_name": "contact-hunter",
+  "github_path": "contact-hunter",
+  "github_branch": "main"
 }

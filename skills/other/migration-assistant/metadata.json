@@ -5,5 +5,7 @@
   "source": "github.com/lovedragonball/power-ranger-toolkit",
   "downloaded_at": "2026-01-19T01:38:26.408191Z",
   "dir_name": "migration-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/skills/migration-assistant",
+  "github_branch": "main"
 }

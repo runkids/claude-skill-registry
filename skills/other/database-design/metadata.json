@@ -5,5 +5,7 @@
   "source": "github.com/CongDon1207/AGENTS.md",
   "downloaded_at": "2026-01-22T03:08:27.869050Z",
   "dir_name": "database-design",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/database-design",
+  "github_branch": "main"
 }

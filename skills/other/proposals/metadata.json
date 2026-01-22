@@ -5,5 +5,7 @@
   "source": "github.com/mbcoalson/skills",
   "downloaded_at": "2026-01-22T02:20:04.543227Z",
   "dir_name": "proposals",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/energize-denver-proposals",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "databricks-query"
+  "dir_name": "databricks-query",
+  "github_path": "skills/databricks-query",
+  "github_branch": "main"
 }

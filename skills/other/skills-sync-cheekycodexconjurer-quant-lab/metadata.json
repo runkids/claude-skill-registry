@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:47:59.527267Z",
   "dir_name": "skills-sync-cheekycodexconjurer-quant-lab",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/skills_sync",
+  "github_branch": "main"
 }

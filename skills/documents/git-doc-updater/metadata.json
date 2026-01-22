@@ -8,5 +8,7 @@
     "doc",
     "updater"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/git-doc-updater",
+  "github_branch": "main"
 }

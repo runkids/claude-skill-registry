@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:05.687929Z",
   "dir_name": "csharp-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/csharp-pro",
+  "github_branch": "main"
 }

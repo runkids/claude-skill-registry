@@ -8,5 +8,7 @@
     "tooltips"
   ],
   "stars": 0,
-  "dir_name": "chartjs-tooltips"
+  "dir_name": "chartjs-tooltips",
+  "github_path": "skills/chartjs-tooltips",
+  "github_branch": "main"
 }

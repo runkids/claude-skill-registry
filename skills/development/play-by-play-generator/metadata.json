@@ -8,5 +8,7 @@
     "play",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "play-by-play-generator",
+  "github_branch": "main"
 }

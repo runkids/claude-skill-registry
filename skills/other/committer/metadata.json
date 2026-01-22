@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:16.312317Z",
   "dir_name": "committer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-git/skills/committer",
+  "github_branch": "main"
 }

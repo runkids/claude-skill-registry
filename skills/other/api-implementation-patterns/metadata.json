@@ -5,5 +5,7 @@
   "source": "github.com/michsindlinger/agent-os-extended",
   "downloaded_at": "2026-01-22T03:54:33.218030Z",
   "dir_name": "api-implementation-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "agent-os/templates/skills/api-implementation-patterns",
+  "github_branch": "main"
 }

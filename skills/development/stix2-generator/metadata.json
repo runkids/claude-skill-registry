@@ -7,5 +7,7 @@
     "stix2",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "stix2-generator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/christopheryeo/claude-skills",
   "downloaded_at": "2026-01-19T01:03:18.013695Z",
   "dir_name": "sentient-brand-guideline",
-  "category": "other"
+  "category": "other",
+  "github_path": "sentient-brand-guideline",
+  "github_branch": "main"
 }

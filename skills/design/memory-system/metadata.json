@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Complete guide to the AgenticFleet memory system. Read this first.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:45.701431Z"
+  "downloaded_at": "2026-01-06T08:56:45.701431Z",
+  "github_path": ".fleet/context/skills/memory-system-guide",
+  "github_branch": "main"
 }

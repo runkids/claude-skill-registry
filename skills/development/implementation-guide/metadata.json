@@ -7,5 +7,7 @@
     "implementation",
     "guide"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "implementation-guide",
+  "github_branch": "main"
 }

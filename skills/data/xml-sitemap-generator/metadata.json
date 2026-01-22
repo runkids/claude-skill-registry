@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "xml-sitemap-generator"
+  "dir_name": "xml-sitemap-generator",
+  "github_path": "xml-sitemap-generator",
+  "github_branch": "main"
 }

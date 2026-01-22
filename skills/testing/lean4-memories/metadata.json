@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "This skill should be used when working on Lean 4 formalization projects to maintain persistent memory of successful proof patterns, failed approaches, project conventions, and user preferences across ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.678730Z"
+  "downloaded_at": "2026-01-06T08:57:14.678730Z",
+  "github_path": "plugins/lean4-memories/skills/lean4-memories",
+  "github_branch": "main"
 }

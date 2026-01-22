@@ -5,5 +5,7 @@
   "source": "github.com/psh355q-ui/szdi57465yt",
   "downloaded_at": "2026-01-22T03:25:44.131505Z",
   "dir_name": "quick-analyzer-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": "backend/ai/skills/analysis/quick-analyzer-agent",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "art",
     "search"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/prior-art-search",
+  "github_branch": "main"
 }

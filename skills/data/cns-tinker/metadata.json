@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cns-tinker"
+  "dir_name": "cns-tinker",
+  "github_path": ".claude/skills/cns-tinker",
+  "github_branch": "main"
 }

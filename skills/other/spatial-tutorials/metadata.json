@@ -5,5 +5,7 @@
   "source": "github.com/Starlitnightly/omicverse",
   "downloaded_at": "2026-01-21T03:02:04.503356Z",
   "dir_name": "spatial-tutorials",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/spatial-tutorials",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/u9401066/med-paper-assistant",
   "downloaded_at": "2026-01-22T03:27:16.995103Z",
   "dir_name": "parallel-search",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/parallel-search",
+  "github_branch": "main"
 }

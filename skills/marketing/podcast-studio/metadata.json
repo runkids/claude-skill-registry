@@ -7,5 +7,7 @@
     "podcast",
     "studio"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "podcast-studio",
+  "github_branch": "main"
 }

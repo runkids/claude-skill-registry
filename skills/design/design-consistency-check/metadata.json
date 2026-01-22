@@ -2,7 +2,9 @@
   "name": "design-consistency-check",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "design",
-  "description": "\u68c0\u67e5VS\u2194SD/DM\u4e00\u81f4\u6027\uff08value_path\u662f\u5426\u4e0e\u5e8f\u5217\u56fe/\u6570\u636e\u6a21\u578b\u5339\u914d\uff09\uff0c\u751f\u6210\u4e0d\u4e00\u81f4\u9879\u6e05\u5355\u548c\u4fee\u590d\u5efa\u8bae\u3002\u5f53Self-Reflection\u62a5\u544a\u4e00\u81f4\u6027\u95ee\u9898\u6216\u51c6\u5907CONSTRAINT\u9a8c\u6536\u524d\u4f7f\u7528\u3002",
+  "description": "检查VS↔SD/DM一致性（value_path是否与序列图/数据模型匹配），生成不一致项清单和修复建议。当Self-Reflection报告一致性问题或准备CONSTRAINT验收前使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:54.488382Z"
+  "downloaded_at": "2026-01-06T09:09:54.488382Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/design/design-consistency-check",
+  "github_branch": "main"
 }

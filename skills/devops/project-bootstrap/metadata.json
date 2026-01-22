@@ -7,5 +7,7 @@
     "project",
     "bootstrap"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/project-bootstrap",
+  "github_branch": "main"
 }

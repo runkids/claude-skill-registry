@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:52.369343Z",
   "dir_name": "cryptography",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/security/skills/cryptography",
+  "github_branch": "main"
 }

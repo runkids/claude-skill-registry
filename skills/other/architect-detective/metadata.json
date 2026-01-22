@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:32.613515Z",
   "dir_name": "architect-detective",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/code-analysis/skills/architect-detective",
+  "github_branch": "main"
 }

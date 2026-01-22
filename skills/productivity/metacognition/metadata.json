@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Validates approach and checks assumptions before/after tasks. Use when: starting work, encountering errors, or switching phases.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:28.709934Z"
+  "downloaded_at": "2026-01-06T08:57:28.709934Z",
+  "github_path": ".agents/skills/metacognition",
+  "github_branch": "main"
 }

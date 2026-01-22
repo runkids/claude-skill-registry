@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Evaluate and implement visualization algorithms for ocean/foam rendering. Use when discussing rendering techniques, contour algorithms, performance optimization for graphics, or evaluating algorithm t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:36.439657Z"
+  "downloaded_at": "2026-01-06T09:08:36.439657Z",
+  "github_path": ".claude/skills/visualization-algorithms",
+  "github_branch": "main"
 }

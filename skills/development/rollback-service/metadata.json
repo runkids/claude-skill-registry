@@ -2,7 +2,9 @@
   "name": "rollback-service",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "\uc11c\ube44\uc2a4\ub97c \uc774\uc804 \ubc84\uc804\uc73c\ub85c \ub864\ubc31. Use when (1) \ub864\ubc31 \uc694\uccad, (2) \uc774\uc804 \ubc84\uc804 \ubcf5\uc6d0, (3) /SEMO:rollback \ucee4\ub9e8\ub4dc.",
+  "description": "서비스를 이전 버전으로 롤백. Use when (1) 롤백 요청, (2) 이전 버전 복원, (3) /SEMO:rollback 커맨드.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.072549Z"
+  "downloaded_at": "2026-01-06T09:02:52.072549Z",
+  "github_path": "semo-system/semo-skills/rollback-service",
+  "github_branch": "main"
 }

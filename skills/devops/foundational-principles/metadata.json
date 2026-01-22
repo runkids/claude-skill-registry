@@ -2,7 +2,9 @@
   "name": "foundational-principles",
   "repo": "cuipengfei/prompts",
   "category": "devops",
-  "description": "\u57fa\u7840\u539f\u5219 - AI \u52a9\u624b\u7684\u6838\u5fc3\u601d\u7ef4\u539f\u5219\u548c\u6307\u4ee4\u6846\u67b6\u6982\u8ff0\u3002\u5305\u542b\u7cfb\u7edf\u601d\u7ef4\u3001\u8fa9\u8bc1\u601d\u7ef4\u3001\u521b\u65b0\u601d\u7ef4\u548c\u6279\u5224\u601d\u7ef4\u56db\u5927\u6838\u5fc3\u539f\u5219\u3002",
+  "description": "基础原则 - AI 助手的核心思维原则和指令框架概述。包含系统思维、辩证思维、创新思维和批判思维四大核心原则。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:28.054990Z"
+  "downloaded_at": "2026-01-06T08:59:28.054990Z",
+  "github_path": "plugins/foundational-principles/skills/foundational-principles",
+  "github_branch": "main"
 }

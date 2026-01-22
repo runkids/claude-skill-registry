@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:34:56.578200Z",
   "dir_name": "mdm-cobordism",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mdm-cobordism",
+  "github_branch": "main"
 }

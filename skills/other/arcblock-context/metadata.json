@@ -5,5 +5,7 @@
   "source": "github.com/ArcBlock/agent-skills",
   "downloaded_at": "2026-01-14T03:25:37.418373Z",
   "dir_name": "arcblock-context",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/arcblock-context/skills/arcblock-context",
+  "github_branch": "main"
 }

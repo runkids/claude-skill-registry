@@ -8,5 +8,7 @@
     "pdf",
     "export"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/obsidian-pdf-export",
+  "github_branch": "main"
 }

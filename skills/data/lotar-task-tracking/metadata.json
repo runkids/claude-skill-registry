@@ -5,5 +5,7 @@
   "description": "Use this to create and maintain LoTaR tasks for work tracking, with minimal friction and consistent updates.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:40.022890Z",
-  "dir_name": "lotar-task-tracking"
+  "dir_name": "lotar-task-tracking",
+  "github_path": ".github/skills/lotar-task-tracking",
+  "github_branch": "main"
 }

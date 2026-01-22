@@ -8,5 +8,7 @@
     "model",
     "integration"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/pydantic-ai-model-integration",
+  "github_branch": "main"
 }

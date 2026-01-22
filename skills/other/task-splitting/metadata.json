@@ -5,5 +5,7 @@
   "source": "github.com/doraemonkeys/sloc-guard",
   "downloaded_at": "2026-01-22T03:42:59.429973Z",
   "dir_name": "task-splitting",
-  "category": "other"
+  "category": "other",
+  "github_path": ".cursor/skills/task-splitting",
+  "github_branch": "main"
 }

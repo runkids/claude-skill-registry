@@ -7,5 +7,7 @@
     "water",
     "crisis"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/water-crisis",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-20T02:40:50.321623Z",
   "dir_name": "llm-cost-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "42-cost-engineering/llm-cost-optimization",
+  "github_branch": "main"
 }

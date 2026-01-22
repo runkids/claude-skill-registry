@@ -7,5 +7,7 @@
     "sre",
     "engineer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/sre-engineer",
+  "github_branch": "main"
 }

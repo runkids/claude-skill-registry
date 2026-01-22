@@ -9,5 +9,7 @@
     "configuration"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cloud-security-configuration",
+  "github_branch": "main"
 }

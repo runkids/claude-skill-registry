@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-19T00:58:05.342092Z",
   "dir_name": "vision-language-models",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vision-language-models",
+  "github_branch": "main"
 }

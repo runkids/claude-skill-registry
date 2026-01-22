@@ -7,5 +7,7 @@
     "figma",
     "implementation"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/figma-implementation",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "documentation"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/abatilo-core/skills/diataxis-documentation",
+  "github_branch": "main"
 }

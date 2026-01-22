@@ -7,5 +7,7 @@
     "javascript",
     "expert"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/javascript-expert",
+  "github_branch": "main"
 }

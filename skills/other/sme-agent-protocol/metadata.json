@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:05.476238Z",
   "dir_name": "sme-agent-protocol",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/meta-sme-protocol/skills/sme-agent-protocol",
+  "github_branch": "main"
 }

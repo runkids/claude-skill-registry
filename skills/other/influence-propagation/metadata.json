@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:14.348411Z",
   "dir_name": "influence-propagation",
-  "category": "other"
+  "category": "other",
+  "github_path": "ies/music-topos/.agents/skills/influence-propagation",
+  "github_branch": "main"
 }

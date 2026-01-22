@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:13.076569Z",
   "dir_name": "builder-ux",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/builder-ux",
+  "github_branch": "main"
 }

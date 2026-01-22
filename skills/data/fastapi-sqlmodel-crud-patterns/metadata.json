@@ -11,5 +11,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "fastapi-sqlmodel-crud-patterns"
+  "dir_name": "fastapi-sqlmodel-crud-patterns",
+  "github_path": ".claude/skills/fastapi-sqlmodel-crud-patterns",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "creator"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/gitlab-tbc/skills/component-creator",
+  "github_branch": "main"
 }

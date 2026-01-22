@@ -5,5 +5,7 @@
   "source": "github.com/horuz-ai/claude-plugins",
   "downloaded_at": "2026-01-22T03:49:55.331605Z",
   "dir_name": "vercel-ai-sdk-v5",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/nextjs/skills/vercel-ai-sdk-v5",
+  "github_branch": "main"
 }

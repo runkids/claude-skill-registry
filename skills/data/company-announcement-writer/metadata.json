@@ -9,5 +9,7 @@
     "writer"
   ],
   "stars": 10,
-  "dir_name": "company-announcement-writer"
+  "dir_name": "company-announcement-writer",
+  "github_path": "company-announcement-writer",
+  "github_branch": "main"
 }

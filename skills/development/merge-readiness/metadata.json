@@ -7,5 +7,7 @@
     "merge",
     "readiness"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/merge-readiness",
+  "github_branch": "main"
 }

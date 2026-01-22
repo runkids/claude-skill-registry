@@ -7,5 +7,7 @@
     "nextjs",
     "specialist"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/nextjs-16-specialist",
+  "github_branch": "main"
 }

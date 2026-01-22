@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:33.488630Z",
   "dir_name": "capability-mapping",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/business-analysis/capability-mapping",
+  "github_branch": "main"
 }

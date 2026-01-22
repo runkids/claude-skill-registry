@@ -5,5 +5,7 @@
   "source": "github.com/Mavrick91/tanstack-start-app",
   "downloaded_at": "2026-01-22T01:07:35.552745Z",
   "dir_name": "admin-crud",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/admin-crud",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "pipeline"
   ],
   "stars": 1,
-  "dir_name": "scraping-data-pipeline"
+  "dir_name": "scraping-data-pipeline",
+  "github_path": ".claude/skills/scraping-data-pipeline",
+  "github_branch": "main"
 }

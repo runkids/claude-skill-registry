@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:32.910985Z",
   "dir_name": "cli-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cli-development",
+  "github_branch": "main"
 }

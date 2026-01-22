@@ -5,5 +5,7 @@
   "source": "github.com/MUmerRazzaq/fast-next-todo",
   "downloaded_at": "2026-01-22T02:08:32.650915Z",
   "dir_name": "fastapi-integration-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/fastapi-integration-testing",
+  "github_branch": "main"
 }

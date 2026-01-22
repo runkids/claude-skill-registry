@@ -5,5 +5,7 @@
   "source": "github.com/gupsammy/Claude-setup",
   "downloaded_at": "2026-01-22T04:13:16.489251Z",
   "dir_name": "coding-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/coding-agent",
+  "github_branch": "main"
 }

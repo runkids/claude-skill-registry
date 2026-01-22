@@ -5,5 +5,7 @@
   "source": "github.com/yangsi7/nikita",
   "downloaded_at": "2026-01-14T01:57:21.613507Z",
   "dir_name": "nextjs-project-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/nextjs-project-setup",
+  "github_branch": "main"
 }

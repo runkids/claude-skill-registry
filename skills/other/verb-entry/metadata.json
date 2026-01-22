@@ -5,5 +5,7 @@
   "source": "github.com/tkgally/je-dict-1",
   "downloaded_at": "2026-01-22T02:07:30.651631Z",
   "dir_name": "verb-entry",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/verb-entry",
+  "github_branch": "main"
 }

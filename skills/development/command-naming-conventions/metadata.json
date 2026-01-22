@@ -2,7 +2,9 @@
   "name": "command-naming-conventions",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "\u30b3\u30de\u30f3\u30c9\u547d\u540d\u898f\u5247\uff08\u52d5\u8a5e\u30d9\u30fc\u30b9\u547d\u540d/kebab-case/\u540d\u524d\u7a7a\u9593/\u767a\u898b\u53ef\u80fd\u6027\uff09\u3092\u6574\u7406\u3057\u3001\u4e00\u8cab\u3057\u305f\u547d\u540d\u8a2d\u8a08\u3068\u898b\u76f4\u3057\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002\u547d\u540d\u30eb\u30fc\u30eb\u3001\u30c1\u30a7\u30c3\u30af\u30ea\u30b9\u30c8\u904b\u7528\u3001\u691c\u8a3c\u624b\u9806\u3092\u4e00\u8cab\u3057\u3066\u6574\u7406\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer (Andrew Hunt, David Thomas) / \u9069\u7528: \u547d\u540d\u898f\u5247\u306e\u4e00\u8cab\u6027 / \u76ee\u7684: \u5b9f\u8df5\u7684\u306a\u547d\u540d\u306e\u5b89\u5b9a\u5316\u2022 Clean Cod",
+  "description": "コマンド命名規則（動詞ベース命名/kebab-case/名前空間/発見可能性）を整理し、一貫した命名設計と見直しを支援するスキル。命名ルール、チェックリスト運用、検証手順を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 命名規則の一貫性 / 目的: 実践的な命名の安定化• Clean Cod",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:41.055170Z"
+  "downloaded_at": "2026-01-06T09:00:41.055170Z",
+  "github_path": "docs/99-claude/skills/command-naming-conventions",
+  "github_branch": "main"
 }

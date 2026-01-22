@@ -8,5 +8,7 @@
     "gemini",
     "embeddings"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/google-gemini-embeddings",
+  "github_branch": "main"
 }

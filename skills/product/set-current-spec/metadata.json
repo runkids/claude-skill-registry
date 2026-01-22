@@ -4,5 +4,7 @@
   "category": "product",
   "description": "This skill should be used when switching between specs, after creating a new spec with \"/spec-kit:specify\", when the user says \"switch to spec 002\" or \"work on feature X\", or when resuming work on a d",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:36.949400Z"
+  "downloaded_at": "2026-01-06T09:03:36.949400Z",
+  "github_path": "plugins/spec-kit/skills/set-current-spec",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/hitoshura25/claude-devtools",
   "downloaded_at": "2026-01-22T03:26:57.908803Z",
   "dir_name": "android-playstore-publishing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/android-playstore-publishing",
+  "github_branch": "main"
 }

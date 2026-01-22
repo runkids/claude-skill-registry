@@ -8,5 +8,7 @@
     "standards",
     "checker"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/code-standards-checker",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/paleo/alignfirst",
   "downloaded_at": "2026-01-22T01:59:54.452846Z",
   "dir_name": "technical-documentation-authoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/technical-documentation-authoring",
+  "github_branch": "main"
 }

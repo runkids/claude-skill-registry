@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Statechart and state machine modeling for lifecycle and behavior specification",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:05.091699Z"
+  "downloaded_at": "2026-01-06T09:00:05.091699Z",
+  "github_path": "plugins/formal-specification/skills/state-machine-design",
+  "github_branch": "main"
 }

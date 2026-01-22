@@ -5,5 +5,7 @@
   "source": "github.com/younwony/younwony.github.io",
   "downloaded_at": "2026-01-22T03:21:53.741168Z",
   "dir_name": "sync-check",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/data/sync-check",
+  "github_branch": "main"
 }

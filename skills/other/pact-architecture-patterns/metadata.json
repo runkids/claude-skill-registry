@@ -5,5 +5,7 @@
   "source": "github.com/ProfSynapse/PACT-prompt",
   "downloaded_at": "2026-01-17T03:29:27.924038Z",
   "dir_name": "pact-architecture-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "pact-plugin/skills/pact-architecture-patterns",
+  "github_branch": "main"
 }

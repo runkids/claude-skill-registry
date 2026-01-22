@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:30.533172Z",
   "dir_name": "wp-gutenberg-blocks",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wp-gutenberg-blocks",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Multi-step workflows user does frequently",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:58.066321Z"
+  "downloaded_at": "2026-01-06T09:07:58.066321Z",
+  "github_path": "config/skills/slipstream-workflows",
+  "github_branch": "main"
 }

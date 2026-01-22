@@ -9,5 +9,7 @@
     "validation"
   ],
   "stars": 0,
-  "dir_name": "convex-guess-validation"
+  "dir_name": "convex-guess-validation",
+  "github_path": "skills/convex-guess-validation",
+  "github_branch": "main"
 }

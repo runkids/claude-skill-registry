@@ -5,5 +5,7 @@
   "source": "github.com/hereinthehive/gotrino-inclusion",
   "downloaded_at": "2026-01-22T03:02:53.074771Z",
   "dir_name": "examples-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/examples-audit",
+  "github_branch": "main"
 }

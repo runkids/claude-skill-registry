@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Expert guidance for Meta's FAIRChem library - machine learning methods for materials science and quantum chemistry using pretrained UMA models with ASE integration for fast, accurate predictions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:52.851085Z"
+  "downloaded_at": "2026-01-06T08:59:52.851085Z",
+  "github_path": "skills/programming/fairchem",
+  "github_branch": "main"
 }

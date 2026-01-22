@@ -5,5 +5,7 @@
   "source": "github.com/davila7/claude-code-templates",
   "downloaded_at": "2026-01-22T03:18:32.146514Z",
   "dir_name": "prompt-engineering-outlines",
-  "category": "other"
+  "category": "other",
+  "github_path": "cli-tool/components/skills/ai-research/prompt-engineering-outlines",
+  "github_branch": "main"
 }

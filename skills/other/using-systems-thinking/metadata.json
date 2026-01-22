@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:05.761367Z",
   "dir_name": "using-systems-thinking",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/yzmir-systems-thinking/skills/using-systems-thinking",
+  "github_branch": "main"
 }

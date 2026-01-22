@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Best practices for bundling scripts in skills including error handling, constants documentation, and execution patterns. Use when creating script-enabled skills.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:08.043937Z"
+  "downloaded_at": "2026-01-06T09:10:08.043937Z",
+  "github_path": "plugins/goodvibes/skills/create/script-best-practices",
+  "github_branch": "main"
 }

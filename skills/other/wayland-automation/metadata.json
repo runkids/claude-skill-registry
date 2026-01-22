@@ -5,5 +5,7 @@
   "source": "github.com/cxxxr/.claude",
   "downloaded_at": "2026-01-22T03:14:22.181773Z",
   "dir_name": "wayland-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wayland-automation",
+  "github_branch": "main"
 }

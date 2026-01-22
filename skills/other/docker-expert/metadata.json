@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:11.039351Z",
   "dir_name": "docker-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/devops/docker-expert",
+  "github_branch": "main"
 }

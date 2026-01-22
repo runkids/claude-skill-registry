@@ -5,5 +5,7 @@
   "source": "github.com/RebelPotato/agent-config",
   "downloaded_at": "2026-01-22T04:15:07.560381Z",
   "dir_name": "ddgs-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ddgs-search",
+  "github_branch": "main"
 }

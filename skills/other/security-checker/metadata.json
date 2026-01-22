@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:08.454300Z",
   "dir_name": "security-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-terraform/skills/security-checker",
+  "github_branch": "main"
 }

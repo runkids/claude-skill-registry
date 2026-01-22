@@ -5,5 +5,7 @@
   "source": "github.com/cuba6112/skillfactory",
   "downloaded_at": "2026-01-22T01:16:57.408003Z",
   "dir_name": "google-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/google-search",
+  "github_branch": "main"
 }

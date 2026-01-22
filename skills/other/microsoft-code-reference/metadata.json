@@ -5,5 +5,7 @@
   "source": "github.com/github/awesome-copilot",
   "downloaded_at": "2026-01-22T02:05:59.076858Z",
   "dir_name": "microsoft-code-reference",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/microsoft-code-reference",
+  "github_branch": "main"
 }

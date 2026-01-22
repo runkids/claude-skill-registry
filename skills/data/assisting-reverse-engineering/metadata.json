@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "assisting-reverse-engineering"
+  "dir_name": "assisting-reverse-engineering",
+  "github_path": ".claude/skills/assisting-reverse-engineering",
+  "github_branch": "main"
 }

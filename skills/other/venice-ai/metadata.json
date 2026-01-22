@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-22T02:47:00.338889Z",
   "dir_name": "venice-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": "INTEGRATION/processed/venice-ai",
+  "github_branch": "main"
 }

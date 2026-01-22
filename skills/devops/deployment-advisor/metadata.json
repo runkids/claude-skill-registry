@@ -8,5 +8,7 @@
     "advisor"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/deployment-advisor",
+  "github_branch": "main"
 }

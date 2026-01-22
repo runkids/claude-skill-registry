@@ -8,5 +8,7 @@
     "homelab",
     "guest"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "new-homelab-guest",
+  "github_branch": "main"
 }

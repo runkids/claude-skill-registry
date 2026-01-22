@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Analyzes meeting transcripts and recordings to uncover behavioral patterns, communication insights, and actionable feedback. Identifies when you avoid conflict, use filler words, dominate conversation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.014031Z"
+  "downloaded_at": "2026-01-06T08:55:36.014031Z",
+  "github_path": "cli-tool/components/skills/productivity/meeting-insights-analyzer",
+  "github_branch": "main"
 }

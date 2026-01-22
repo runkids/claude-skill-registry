@@ -7,5 +7,7 @@
     "multi",
     "llm"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/multi-llm",
+  "github_branch": "main"
 }

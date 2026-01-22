@@ -7,5 +7,7 @@
     "release",
     "planning"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/release-planning",
+  "github_branch": "main"
 }

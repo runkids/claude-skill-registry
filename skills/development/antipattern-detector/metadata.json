@@ -8,5 +8,7 @@
     "detector"
   ],
   "stars": 32,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/antipattern-detector",
+  "github_branch": "main"
 }

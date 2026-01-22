@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expert UX evaluator for command-line interfaces, CLIs, terminal tools, shell scripts, and developer APIs. Use proactively when reviewing CLIs, testing command usability, evaluating error messages, ass",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:51.577135Z"
+  "downloaded_at": "2026-01-06T09:03:51.577135Z",
+  "github_path": "skill",
+  "github_branch": "main"
 }

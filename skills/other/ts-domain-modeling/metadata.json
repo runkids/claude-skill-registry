@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:53.007134Z",
   "dir_name": "ts-domain-modeling",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/ts-domain-modeling",
+  "github_branch": "main"
 }

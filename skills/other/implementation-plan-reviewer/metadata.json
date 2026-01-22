@@ -5,5 +5,7 @@
   "source": "github.com/axiomantic/spellbook",
   "downloaded_at": "2026-01-14T03:44:30.224009Z",
   "dir_name": "implementation-plan-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/implementation-plan-reviewer",
+  "github_branch": "main"
 }

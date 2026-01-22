@@ -5,5 +5,7 @@
   "source": "github.com/nickromney/n-dotfiles",
   "downloaded_at": "2026-01-22T04:02:52.606898Z",
   "dir_name": "video-transcript-downloader",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/video-transcript-downloader",
+  "github_branch": "main"
 }

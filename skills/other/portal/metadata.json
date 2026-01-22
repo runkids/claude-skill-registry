@@ -5,5 +5,7 @@
   "source": "github.com/radioactive-labs/plutonium-core",
   "downloaded_at": "2026-01-19T01:04:33.102902Z",
   "dir_name": "portal",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plutonium-portal",
+  "github_branch": "main"
 }

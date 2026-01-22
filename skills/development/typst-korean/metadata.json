@@ -2,7 +2,9 @@
   "name": "typst-korean",
   "repo": "hyeok8055/hyeok-plugins",
   "category": "development",
-  "description": "Typst \ubb38\uc11c \uc791\uc131\uc744 \ub3c4\uc640\uc90d\ub2c8\ub2e4. \ud504\ub9ac\ud150\ub2e4\ub4dc(Pretendard) \ud3f0\ud2b8\ub97c \uae30\ubcf8\uc73c\ub85c \uc124\uc815\ud558\uace0 \ud55c\uae00 \ubb38\uc11c\uc5d0 \uc801\ud569\ud55c \uc124\uc815\uc744 \uc548\ub0b4\ud569\ub2c8\ub2e4. Typst \ubb38\ubc95, \ud3f0\ud2b8 \uc124\uc815, \ud398\uc774\uc9c0 \ub808\uc774\uc544\uc6c3 \uad00\ub828 \uc9c8\ubb38\uc5d0 \uc0ac\uc6a9\ud569\ub2c8\ub2e4.",
+  "description": "Typst 문서 작성을 도와줍니다. 프리텐다드(Pretendard) 폰트를 기본으로 설정하고 한글 문서에 적합한 설정을 안내합니다. Typst 문법, 폰트 설정, 페이지 레이아웃 관련 질문에 사용합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:11.724273Z"
+  "downloaded_at": "2026-01-06T09:06:11.724273Z",
+  "github_path": "plugins/typst-korean/skills/typst-korean",
+  "github_branch": "main"
 }

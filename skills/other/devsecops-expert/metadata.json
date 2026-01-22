@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:56.611441Z",
   "dir_name": "devsecops-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devsecops-expert",
+  "github_branch": "main"
 }

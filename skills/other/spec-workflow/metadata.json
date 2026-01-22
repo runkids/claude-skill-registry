@@ -5,5 +5,7 @@
   "source": "github.com/baiyongping/cowork-platform",
   "downloaded_at": "2026-01-22T03:47:00.974726Z",
   "dir_name": "spec-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/spec-workflow",
+  "github_branch": "main"
 }

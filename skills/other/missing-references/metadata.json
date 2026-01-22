@@ -5,5 +5,7 @@
   "source": "github.com/pproenca/dot-skills",
   "downloaded_at": "2026-01-22T02:36:29.633910Z",
   "dir_name": "missing-references",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/fixtures/missing-references",
+  "github_branch": "main"
 }

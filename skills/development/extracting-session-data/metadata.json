@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Locates, lists, filters, and extracts structured data from Claude Code native session logs. Supports both single and multiple session analysis.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:37.206916Z"
+  "downloaded_at": "2026-01-06T09:01:37.206916Z",
+  "github_path": "plugins/claude-retrospective/skills/extracting-session-data",
+  "github_branch": "main"
 }

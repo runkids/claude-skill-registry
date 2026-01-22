@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Game server architecture, scalability, matchmaking, and backend systemsfor online games. Build robust, scalable multiplayer infrastructure.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:44.949590Z"
+  "downloaded_at": "2026-01-06T09:02:44.949590Z",
+  "github_path": "skills/game-servers",
+  "github_branch": "main"
 }

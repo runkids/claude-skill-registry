@@ -10,5 +10,7 @@
     "builder"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/deep-research-prompt-builder",
+  "github_branch": "main"
 }

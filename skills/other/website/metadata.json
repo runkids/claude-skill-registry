@@ -5,5 +5,7 @@
   "source": "github.com/jenniferied/everything-machine",
   "downloaded_at": "2026-01-14T03:38:13.933432Z",
   "dir_name": "website",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/website",
+  "github_branch": "main"
 }

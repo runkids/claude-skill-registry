@@ -2,7 +2,9 @@
   "name": "prompt-versioning-management",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "documents",
-  "description": "\u30d7\u30ed\u30f3\u30d7\u30c8\u306e\u30e9\u30a4\u30d5\u30b5\u30a4\u30af\u30eb\u7ba1\u7406\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30d0\u30fc\u30b8\u30e7\u30f3\u7ba1\u7406\u3001\u30c7\u30d7\u30ed\u30a4\u6226\u7565\u3001\u30ed\u30fc\u30eb\u30d0\u30c3\u30af\u3001\u5909\u66f4\u8ffd\u8de1\u306b\u3088\u308a\u3001\u672c\u756a\u74b0\u5883\u3067\u5b89\u5168\u304b\u3064\u52b9\u7387\u7684\u306a\u30d7\u30ed\u30f3\u30d7\u30c8\u904b\u7528\u3092\u5b9f\u73fe\u3057\u307e\u3059\u3002Anchors:\u2022 The Pragmatic Programmer (Andrew Hunt, David Thomas) / \u9069\u7528: \u624b\u9806\u8a2d\u8a08\u3068\u5b9f\u8df5\u7684\u6539\u5584 / \u76ee\u7684: \u4f53\u7cfb\u7684\u306a\u30d0\u30fc\u30b8\u30e7\u30f3\u7ba1\u7406\u2022 Continuous Delivery",
+  "description": "プロンプトのライフサイクル管理を専門とするスキル。バージョン管理、デプロイ戦略、ロールバック、変更追跡により、本番環境で安全かつ効率的なプロンプト運用を実現します。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 手順設計と実践的改善 / 目的: 体系的なバージョン管理• Continuous Delivery",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:44.167238Z"
+  "downloaded_at": "2026-01-06T09:00:44.167238Z",
+  "github_path": "docs/99-claude/skills/prompt-versioning-management",
+  "github_branch": "main"
 }

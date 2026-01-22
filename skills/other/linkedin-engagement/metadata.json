@@ -5,5 +5,7 @@
   "source": "github.com/freitasp1/claude-code-skills",
   "downloaded_at": "2026-01-22T01:08:21.992018Z",
   "dir_name": "linkedin-engagement",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/linkedin-engagement",
+  "github_branch": "main"
 }

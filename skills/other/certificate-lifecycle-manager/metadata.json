@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:09.788822Z",
   "dir_name": "certificate-lifecycle-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/04-security-advanced/certificate-lifecycle-manager",
+  "github_branch": "main"
 }

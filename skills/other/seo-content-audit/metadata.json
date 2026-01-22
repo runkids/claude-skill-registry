@@ -5,5 +5,7 @@
   "source": "github.com/schwepps/skills",
   "downloaded_at": "2026-01-22T03:29:06.079850Z",
   "dir_name": "seo-content-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "seo-content-audit",
+  "github_branch": "main"
 }

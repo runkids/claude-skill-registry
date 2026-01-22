@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:23.924573Z",
   "dir_name": "better-auth",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/better_auth",
+  "github_branch": "main"
 }

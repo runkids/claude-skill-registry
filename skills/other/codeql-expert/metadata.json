@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:11.260561Z",
   "dir_name": "codeql-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/security/codeql-expert",
+  "github_branch": "main"
 }

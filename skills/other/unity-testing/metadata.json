@@ -5,5 +5,7 @@
   "source": "github.com/jwmyers/vui-vux-plugins",
   "downloaded_at": "2026-01-22T03:47:51.184988Z",
   "dir_name": "unity-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/zero-day-dev/skills/unity-testing",
+  "github_branch": "main"
 }

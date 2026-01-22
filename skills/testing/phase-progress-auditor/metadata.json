@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Audits current project state for a given phase, detects completed, partial, or missing artifacts, fixes gaps via specs, and determines the correct next action.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:14.490010Z"
+  "downloaded_at": "2026-01-06T09:11:14.490010Z",
+  "github_path": ".gemini/skills/phase-progress-auditor",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "blueprint",
     "architect"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/mcp-blueprint-architect",
+  "github_branch": "main"
 }

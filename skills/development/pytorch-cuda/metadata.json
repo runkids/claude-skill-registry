@@ -7,5 +7,7 @@
     "pytorch",
     "cuda"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/pytorch-cuda",
+  "github_branch": "main"
 }

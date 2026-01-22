@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:07.031178Z",
   "dir_name": "env-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/env-validation",
+  "github_branch": "main"
 }

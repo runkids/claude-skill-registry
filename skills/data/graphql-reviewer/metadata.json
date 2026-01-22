@@ -8,5 +8,7 @@
     "reviewer"
   ],
   "stars": 0,
-  "dir_name": "graphql-reviewer"
+  "dir_name": "graphql-reviewer",
+  "github_path": "skills/graphql-reviewer",
+  "github_branch": "main"
 }

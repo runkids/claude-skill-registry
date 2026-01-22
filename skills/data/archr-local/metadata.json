@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "archr-local"
+  "dir_name": "archr-local",
+  "github_path": "archr-local",
+  "github_branch": "main"
 }

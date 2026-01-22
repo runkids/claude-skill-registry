@@ -5,5 +5,7 @@
   "source": "github.com/autohandai/community-skills",
   "downloaded_at": "2026-01-22T03:12:07.421164Z",
   "dir_name": "api-design-restful",
-  "category": "other"
+  "category": "other",
+  "github_path": "api-design-restful",
+  "github_branch": "main"
 }

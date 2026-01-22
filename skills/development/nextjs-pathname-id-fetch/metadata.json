@@ -8,5 +8,7 @@
     "pathname",
     "fetch"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "nextjs-pathname-id-fetch",
+  "github_branch": "main"
 }

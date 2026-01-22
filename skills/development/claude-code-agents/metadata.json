@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create and configure Claude Code agents with YAML frontmatter, tool selection, model specification, and naming conventions. Reference for building specialized AI subagents that handle complex, multi-s",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:58.700454Z"
+  "downloaded_at": "2026-01-06T08:57:58.700454Z",
+  "github_path": "frameworks/shared-skills/skills/claude-code-agents",
+  "github_branch": "main"
 }

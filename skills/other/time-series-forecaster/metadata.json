@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:50.636688Z",
   "dir_name": "time-series-forecaster",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-ml/skills/time-series-forecaster",
+  "github_branch": "main"
 }

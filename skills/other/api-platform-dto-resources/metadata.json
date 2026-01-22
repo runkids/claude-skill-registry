@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:17.060448Z",
   "dir_name": "api-platform-dto-resources",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/api-platform-dto-resources",
+  "github_branch": "main"
 }

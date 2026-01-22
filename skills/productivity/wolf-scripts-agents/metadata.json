@@ -8,5 +8,7 @@
     "scripts",
     "agents"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "wolf-scripts-agents",
+  "github_branch": "main"
 }

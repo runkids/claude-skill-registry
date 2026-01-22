@@ -8,5 +8,7 @@
     "strategy",
     "advisor"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/options-strategy-advisor",
+  "github_branch": "main"
 }

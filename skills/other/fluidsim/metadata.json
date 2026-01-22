@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:04.116076Z",
   "dir_name": "fluidsim",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fluidsim",
+  "github_branch": "main"
 }

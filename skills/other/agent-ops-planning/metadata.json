@@ -5,5 +5,7 @@
   "source": "github.com/weholt/script-cast",
   "downloaded_at": "2026-01-22T03:27:57.533918Z",
   "dir_name": "agent-ops-planning",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/agent-ops-planning",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:46.027602Z",
   "dir_name": "performance-lighthouse-runner",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/05-frontend-dev/performance-lighthouse-runner",
+  "github_branch": "main"
 }

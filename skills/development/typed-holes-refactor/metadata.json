@@ -8,5 +8,7 @@
     "holes",
     "refactor"
   ],
-  "stars": 33
+  "stars": 33,
+  "github_path": "skills/typed-holes-refactor",
+  "github_branch": "main"
 }

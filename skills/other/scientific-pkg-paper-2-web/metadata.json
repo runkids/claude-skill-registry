@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:34.897896Z",
   "dir_name": "scientific-pkg-paper-2-web",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-pkg-paper-2-web",
+  "github_branch": "main"
 }

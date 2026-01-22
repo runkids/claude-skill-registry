@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Teams Webhook Sender - Auto-activating skill for Business Automation.Triggers on: teams webhook sender, teams webhook senderPart of the Business Automation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:07.734941Z"
+  "downloaded_at": "2026-01-06T08:56:07.734941Z",
+  "github_path": "planned-skills/generated/19-business-automation/teams-webhook-sender",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "GitHub repository skill for permaweb/aos-sqlite",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:27.460821Z"
+  "downloaded_at": "2026-01-06T09:00:27.460821Z",
+  "github_path": "INTEGRATION/processed/aos-sqlite",
+  "github_branch": "main"
 }

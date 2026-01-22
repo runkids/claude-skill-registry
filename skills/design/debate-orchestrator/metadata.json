@@ -8,5 +8,7 @@
     "orchestrator"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/debate-orchestrator",
+  "github_branch": "main"
 }

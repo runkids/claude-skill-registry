@@ -5,5 +5,7 @@
   "source": "github.com/Andrejones92/canifi-life-os",
   "downloaded_at": "2026-01-22T01:42:26.663166Z",
   "dir_name": "homedepot",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/homedepot",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
     "info"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".bitbot/internal/bitbot-config/.claude/skills/claude-get-session-info",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/madooei/backend-template",
   "downloaded_at": "2026-01-22T03:36:21.839379Z",
   "dir_name": "setup-events",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/setup-events",
+  "github_branch": "main"
 }

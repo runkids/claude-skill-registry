@@ -5,5 +5,7 @@
   "source": "github.com/yairbederman/EngineeringAgency",
   "downloaded_at": "2026-01-22T04:09:03.681539Z",
   "dir_name": "test-driven-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/test-driven-development",
+  "github_branch": "main"
 }

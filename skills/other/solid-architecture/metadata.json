@@ -5,5 +5,7 @@
   "source": "github.com/rbergman/dark-matter-marketplace",
   "downloaded_at": "2026-01-17T02:25:51.607971Z",
   "dir_name": "solid-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/architecture/skills/solid-architecture",
+  "github_branch": "main"
 }

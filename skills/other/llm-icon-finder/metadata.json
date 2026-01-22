@@ -5,5 +5,7 @@
   "source": "github.com/nguyendinhquocx/code-ai",
   "downloaded_at": "2026-01-14T01:13:39.706847Z",
   "dir_name": "llm-icon-finder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/llm-icon-finder",
+  "github_branch": "main"
 }

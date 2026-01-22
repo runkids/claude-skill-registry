@@ -5,5 +5,7 @@
   "source": "github.com/CongDon1207/AGENTS.md",
   "downloaded_at": "2026-01-22T03:08:25.473304Z",
   "dir_name": "server-management",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/server-management",
+  "github_branch": "main"
 }

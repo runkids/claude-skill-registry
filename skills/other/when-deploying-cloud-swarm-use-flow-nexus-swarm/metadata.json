@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:39:02.464943Z",
   "dir_name": "when-deploying-cloud-swarm-use-flow-nexus-swarm",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/platform/when-deploying-cloud-swarm-use-flow-nexus-swarm",
+  "github_branch": "main"
 }

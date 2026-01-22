@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-21T01:37:42.521611Z",
   "dir_name": "github-swarm-pr",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/github/github-swarm-pr",
+  "github_branch": "main"
 }

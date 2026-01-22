@@ -5,5 +5,7 @@
   "source": "github.com/SherifEldeeb/agentskills",
   "downloaded_at": "2026-01-19T03:42:11.960226Z",
   "dir_name": "containment",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cybersecurity/containment",
+  "github_branch": "main"
 }

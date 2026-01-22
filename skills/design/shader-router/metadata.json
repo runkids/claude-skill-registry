@@ -7,5 +7,7 @@
     "shader",
     "router"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/shader-router",
+  "github_branch": "main"
 }

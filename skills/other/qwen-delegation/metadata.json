@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:20.640463Z",
   "dir_name": "qwen-delegation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/conjure/skills/qwen-delegation",
+  "github_branch": "main"
 }

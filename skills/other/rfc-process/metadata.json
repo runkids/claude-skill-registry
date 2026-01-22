@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:02.434620Z",
   "dir_name": "rfc-process",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/documentation-standards/skills/rfc-process",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:18.891619Z",
   "dir_name": "terraformer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/iac-golden-architect/skills/terraformer",
+  "github_branch": "main"
 }

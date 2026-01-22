@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:39.696406Z",
   "dir_name": "testimonial-quote-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/testimonial-quote-generator",
+  "github_branch": "main"
 }

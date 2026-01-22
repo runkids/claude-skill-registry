@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:45.275986Z",
   "dir_name": "trust-credibility",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/frameworks/trust-credibility",
+  "github_branch": "main"
 }

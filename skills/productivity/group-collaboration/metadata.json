@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Best practices for inter-group communication, knowledge sharing, and collaborative workflows in four-tier architecture",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.268818Z"
+  "downloaded_at": "2026-01-06T08:58:46.268818Z",
+  "github_path": "skills/group-collaboration",
+  "github_branch": "main"
 }

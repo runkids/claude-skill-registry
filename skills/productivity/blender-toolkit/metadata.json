@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Blender automation with geometry creation, materials, modifiers, and Mixamo animation retargeting.Core Features: WebSocket-based real-time control, automatic bone mapping with UI review, two-phase con",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:29.385674Z"
+  "downloaded_at": "2026-01-06T08:57:29.385674Z",
+  "github_path": "plugins/blender-toolkit/skills",
+  "github_branch": "main"
 }

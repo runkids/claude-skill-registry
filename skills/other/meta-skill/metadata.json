@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:37.683995Z",
   "dir_name": "meta-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "meta-skill",
+  "github_branch": "main"
 }

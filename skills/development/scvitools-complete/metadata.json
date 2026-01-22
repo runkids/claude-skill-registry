@@ -7,5 +7,7 @@
     "scvitools",
     "complete"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "scvitools-complete",
+  "github_branch": "main"
 }

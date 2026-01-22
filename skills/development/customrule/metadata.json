@@ -4,5 +4,7 @@
   "category": "development",
   "description": "This is a new rule",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:48.960711Z"
+  "downloaded_at": "2026-01-06T09:03:48.960711Z",
+  "github_path": ".cursor/skills/customrule",
+  "github_branch": "main"
 }

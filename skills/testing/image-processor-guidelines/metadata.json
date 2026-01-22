@@ -8,5 +8,7 @@
     "processor",
     "guidelines"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/image-processor-guidelines",
+  "github_branch": "main"
 }

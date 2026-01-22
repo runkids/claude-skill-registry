@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:32.712408Z",
   "dir_name": "scientific-pkg-bioservices",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-pkg-bioservices",
+  "github_branch": "main"
 }

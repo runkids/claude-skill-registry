@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:34:55.105137Z",
   "dir_name": "koopman-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ies/music-topos/.agents/skills/koopman-generator",
+  "github_branch": "main"
 }

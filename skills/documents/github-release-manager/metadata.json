@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Automated release coordination and deployment with swarm orchestration for seamless version management, testing, and deployment across multiple packages. Use for release pipelines, version coordinatio",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:11.111584Z"
+  "downloaded_at": "2026-01-06T09:10:11.111584Z",
+  "github_path": ".claude/skills/development/github/github-release-manager",
+  "github_branch": "main"
 }

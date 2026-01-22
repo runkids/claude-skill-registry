@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:45.228544Z",
   "dir_name": "sagemaker-endpoint-deployer",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/08-ml-deployment/sagemaker-endpoint-deployer",
+  "github_branch": "main"
 }

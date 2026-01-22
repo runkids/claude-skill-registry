@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-14T03:00:21.730297Z",
   "dir_name": "ecosystem-health",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/claude-ecosystem/skills/ecosystem-health",
+  "github_branch": "main"
 }

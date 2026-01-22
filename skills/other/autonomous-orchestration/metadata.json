@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:59.180074Z",
   "dir_name": "autonomous-orchestration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/autonomous-orchestration",
+  "github_branch": "main"
 }

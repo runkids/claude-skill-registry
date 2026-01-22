@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Expert at creating continuous improvement feedback loops for Claude's responses. Use when establishing self-improvement processes, tracking progress over time, or implementing iterative refinement wor",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:40.649617Z"
+  "downloaded_at": "2026-01-06T09:01:40.649617Z",
+  "github_path": "self-improvement/skills/creating-feedback-loops",
+  "github_branch": "main"
 }

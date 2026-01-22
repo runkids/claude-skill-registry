@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-21T03:48:19.867399Z",
   "dir_name": "levn-ln-710-dependency-upgrader",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/levn-ln-710-dependency-upgrader",
+  "github_branch": "main"
 }

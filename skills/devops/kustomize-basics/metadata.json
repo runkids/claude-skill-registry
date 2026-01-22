@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use when customizing Kubernetes configurations without templates using Kustomize overlays and patches.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:05.297316Z"
+  "downloaded_at": "2026-01-06T08:57:05.297316Z",
+  "github_path": "jutsu/jutsu-kustomize/skills/kustomize-basics",
+  "github_branch": "main"
 }

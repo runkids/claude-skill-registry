@@ -5,5 +5,7 @@
   "source": "github.com/MAF2414/kyco",
   "downloaded_at": "2026-01-22T01:22:53.229143Z",
   "dir_name": "injection-hunter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/injection-hunter",
+  "github_branch": "main"
 }

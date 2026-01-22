@@ -7,5 +7,7 @@
     "vue",
     "testing"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/vue-testing",
+  "github_branch": "main"
 }

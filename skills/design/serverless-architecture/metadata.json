@@ -7,5 +7,7 @@
     "serverless",
     "architecture"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/serverless-architecture",
+  "github_branch": "main"
 }

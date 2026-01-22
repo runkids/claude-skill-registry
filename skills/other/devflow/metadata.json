@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:48.846640Z",
   "dir_name": "devflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devflow",
+  "github_branch": "main"
 }

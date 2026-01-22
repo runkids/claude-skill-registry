@@ -5,5 +5,7 @@
   "source": "github.com/tikazyq/agentic-spec-forge",
   "downloaded_at": "2026-01-22T03:11:26.594571Z",
   "dir_name": "registry-sync-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/design/registry-sync-validator",
+  "github_branch": "main"
 }

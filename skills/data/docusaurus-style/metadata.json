@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "docusaurus-style"
+  "dir_name": "docusaurus-style",
+  "github_path": ".claude/skills/docusaurus-style",
+  "github_branch": "main"
 }

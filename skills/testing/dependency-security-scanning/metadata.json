@@ -2,7 +2,9 @@
   "name": "dependency-security-scanning",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "\u4f9d\u5b58\u95a2\u4fc2\u306e\u8106\u5f31\u6027\u30b9\u30ad\u30e3\u30f3\u3001CVE\u8a55\u4fa1\u3001\u30ec\u30dd\u30fc\u30c8\u4f5c\u6210\u3092\u4f53\u7cfb\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3002SCA\u306e\u904b\u7528\u3068\u4fee\u6b63\u8a08\u753b\u306e\u6574\u7406\u3092\u652f\u63f4\u3059\u308b\u3002Anchors:\u2022 OWASP Dependency-Check / \u9069\u7528: \u4f9d\u5b58\u30b9\u30ad\u30e3\u30f3 / \u76ee\u7684: \u691c\u51fa\u306e\u6a19\u6e96\u5316\u2022 CVSS v3.1 Specification / \u9069\u7528: \u91cd\u5927\u5ea6\u8a55\u4fa1 / \u76ee\u7684: \u512a\u5148\u5ea6\u306e\u6574\u5408\u6027\u2022 Web Application Security / \u9069\u7528: \u8105\u5a01\u8a55",
+  "description": "依存関係の脆弱性スキャン、CVE評価、レポート作成を体系化するスキル。SCAの運用と修正計画の整理を支援する。Anchors:• OWASP Dependency-Check / 適用: 依存スキャン / 目的: 検出の標準化• CVSS v3.1 Specification / 適用: 重大度評価 / 目的: 優先度の整合性• Web Application Security / 適用: 脅威評",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:41.675747Z"
+  "downloaded_at": "2026-01-06T09:00:41.675747Z",
+  "github_path": "docs/99-claude/skills/dependency-security-scanning",
+  "github_branch": "main"
 }

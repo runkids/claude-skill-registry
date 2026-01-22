@@ -5,5 +5,7 @@
   "source": "github.com/jwiegley/claude-prompts",
   "downloaded_at": "2026-01-22T01:09:13.408121Z",
   "dir_name": "persian",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/persian",
+  "github_branch": "main"
 }

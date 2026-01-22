@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:51.274484Z",
   "dir_name": "llms-txt-support",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/addons/doc-intelligence/skills/llms-txt-support",
+  "github_branch": "main"
 }

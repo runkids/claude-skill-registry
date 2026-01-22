@@ -5,5 +5,7 @@
   "source": "github.com/Baptistecaille/Manus",
   "downloaded_at": "2026-01-22T01:22:02.776886Z",
   "dir_name": "professeur-lycee",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/professeur_lycee",
+  "github_branch": "main"
 }

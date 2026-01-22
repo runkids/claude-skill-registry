@@ -5,5 +5,7 @@
   "source": "github.com/lancenunes/codex-skills",
   "downloaded_at": "2026-01-22T01:08:11.028579Z",
   "dir_name": "vps-checkup",
-  "category": "other"
+  "category": "other",
+  "github_path": "vps-checkup",
+  "github_branch": "main"
 }

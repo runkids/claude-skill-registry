@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:26.057611Z",
   "dir_name": "aws-s3-management",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aws-s3-management",
+  "github_branch": "main"
 }

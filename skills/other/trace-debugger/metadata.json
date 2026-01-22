@@ -5,5 +5,7 @@
   "source": "github.com/sunholo-data/ailang",
   "downloaded_at": "2026-01-22T03:40:47.673984Z",
   "dir_name": "trace-debugger",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/trace-debugger",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/drgaciw/academic-athletics-saas",
   "downloaded_at": "2026-01-22T04:04:35.722826Z",
   "dir_name": "generating-commit-messages",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/generating-commit-messages",
+  "github_branch": "main"
 }

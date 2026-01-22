@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when working with SmartCodable",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:14.377569Z"
+  "downloaded_at": "2026-01-06T09:11:14.377569Z",
+  "github_path": "output/SmartCodable",
+  "github_branch": "main"
 }

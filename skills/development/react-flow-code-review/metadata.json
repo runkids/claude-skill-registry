@@ -9,5 +9,7 @@
     "code",
     "review"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/react-flow-code-review",
+  "github_branch": "main"
 }

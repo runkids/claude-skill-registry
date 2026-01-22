@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:08.192244Z",
   "dir_name": "deepgram-common-errors",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/deepgram-pack/skills/deepgram-common-errors",
+  "github_branch": "main"
 }

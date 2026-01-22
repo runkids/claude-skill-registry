@@ -7,5 +7,7 @@
     "conversation",
     "archaeologist"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "conversation-archaeologist",
+  "github_branch": "main"
 }

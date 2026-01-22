@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:08.901234Z",
   "dir_name": "browsing-bluesky",
-  "category": "other"
+  "category": "other",
+  "github_path": "browsing-bluesky",
+  "github_branch": "main"
 }

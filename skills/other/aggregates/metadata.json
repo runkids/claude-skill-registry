@@ -5,5 +5,7 @@
   "source": "github.com/TheBeardedBearSAS/claude-craft",
   "downloaded_at": "2026-01-22T04:10:44.989851Z",
   "dir_name": "aggregates",
-  "category": "other"
+  "category": "other",
+  "github_path": "Dev/i18n/pt/Symfony/skills/aggregates",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:05.886115Z",
   "dir_name": "stripe-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/stripe-sync",
+  "github_branch": "main"
 }

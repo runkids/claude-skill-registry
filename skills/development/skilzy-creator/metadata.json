@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive toolset for creating, converting, validating, and packaging Skilzy-compliant AI agent skills. This skill should be used when users want to initialize a new skill, convert a Claude skill ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:17.571819Z"
+  "downloaded_at": "2026-01-06T09:01:17.571819Z",
+  "github_path": "Skills/skilzy-creator",
+  "github_branch": "main"
 }

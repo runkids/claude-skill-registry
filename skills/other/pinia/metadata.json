@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-gemini",
   "downloaded_at": "2026-01-22T01:04:00.137187Z",
   "dir_name": "pinia",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pinia",
+  "github_branch": "main"
 }

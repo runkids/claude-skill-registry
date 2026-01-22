@@ -5,5 +5,7 @@
   "source": "github.com/RobThePCGuy/Claude-Patent-Creator",
   "downloaded_at": "2026-01-19T03:15:27.897226Z",
   "dir_name": "development-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/development-assistant",
+  "github_branch": "main"
 }

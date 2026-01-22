@@ -8,5 +8,7 @@
     "generator"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "batch-qr-generator",
+  "github_branch": "main"
 }

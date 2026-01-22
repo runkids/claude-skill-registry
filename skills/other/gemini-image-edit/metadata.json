@@ -5,5 +5,7 @@
   "source": "github.com/bluewaves-creations/bluewaves-skills",
   "downloaded_at": "2026-01-14T02:03:04.277849Z",
   "dir_name": "gemini-image-edit",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/fal-media/skills/gemini-image-edit",
+  "github_branch": "main"
 }

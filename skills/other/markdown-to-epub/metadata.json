@@ -5,5 +5,7 @@
   "source": "github.com/yousufjoyian/claude-skills",
   "downloaded_at": "2026-01-14T02:24:04.361622Z",
   "dir_name": "markdown-to-epub",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-epub-skill/markdown-to-epub",
+  "github_branch": "main"
 }

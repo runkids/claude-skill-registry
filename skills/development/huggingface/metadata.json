@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Import GGUF models from HuggingFace into Ollama. Pull models directlyusing the hf.co/ prefix, track download progress, and use importedmodels for inference.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:05.344209Z"
+  "downloaded_at": "2026-01-06T09:04:05.344209Z",
+  "github_path": "bazzite-ai-ollama/skills/huggingface",
+  "github_branch": "main"
 }

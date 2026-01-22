@@ -5,5 +5,7 @@
   "source": "github.com/bnomei/kirby-mcp",
   "downloaded_at": "2026-01-14T01:35:55.583510Z",
   "dir_name": "kirby-upgrade-and-maintenance",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/kirby-upgrade-and-maintenance",
+  "github_branch": "main"
 }

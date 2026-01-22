@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "UniTask library expert specializing in allocation-free async/await patterns, coroutine migration, and Unity-optimized asynchronous programming. Masters UniTask performance optimizations, cancellation ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:39.707133Z"
+  "downloaded_at": "2026-01-06T09:00:39.707133Z",
+  "github_path": "unity-plugin/skills/unity-unitask",
+  "github_branch": "main"
 }

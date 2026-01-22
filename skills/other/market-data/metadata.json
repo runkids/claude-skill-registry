@@ -5,5 +5,7 @@
   "source": "github.com/marketcalls/openalgo-claude-plugin",
   "downloaded_at": "2026-01-22T02:37:40.565084Z",
   "dir_name": "market-data",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/openalgo-python/skills/market-data",
+  "github_branch": "main"
 }

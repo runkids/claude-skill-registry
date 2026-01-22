@@ -8,5 +8,7 @@
     "alignment"
   ],
   "stars": 1,
-  "dir_name": "goal-alignment"
+  "dir_name": "goal-alignment",
+  "github_path": "skills/goal-alignment",
+  "github_branch": "main"
 }

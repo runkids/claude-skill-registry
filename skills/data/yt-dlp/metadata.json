@@ -7,5 +7,7 @@
     "dlp"
   ],
   "stars": 0,
-  "dir_name": "yt-dlp"
+  "dir_name": "yt-dlp",
+  "github_path": "skills/yt-dlp",
+  "github_branch": "main"
 }

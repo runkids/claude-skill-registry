@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:44.293702Z",
   "dir_name": "kiss-principle",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/design-principles/kiss-principle",
+  "github_branch": "main"
 }

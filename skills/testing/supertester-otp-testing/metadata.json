@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "This skill should be used when teams need to adopt Supertester to build deterministic Elixir OTP tests with isolation, synchronization, and supervision coverage.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:36.339681Z"
+  "downloaded_at": "2026-01-06T08:59:36.339681Z",
+  "github_path": ".claude/skills/supertester-skill",
+  "github_branch": "main"
 }

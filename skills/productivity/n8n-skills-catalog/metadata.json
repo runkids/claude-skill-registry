@@ -8,5 +8,7 @@
     "skills",
     "catalog"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/n8n-skills-catalog",
+  "github_branch": "main"
 }

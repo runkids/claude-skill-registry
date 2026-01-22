@@ -8,5 +8,7 @@
     "updater"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/dependency-updater",
+  "github_branch": "main"
 }

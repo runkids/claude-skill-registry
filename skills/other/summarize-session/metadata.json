@@ -5,5 +5,7 @@
   "source": "github.com/ebinnion/dotfiles",
   "downloaded_at": "2026-01-14T03:41:14.858237Z",
   "dir_name": "summarize-session",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/summarize-session",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-database-administrator"
+  "dir_name": "agent-database-administrator",
+  "github_path": ".claude/skills/DEPRECATED/agent-database-administrator",
+  "github_branch": "main"
 }

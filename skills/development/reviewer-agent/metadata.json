@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Code review and audit agent for pull requests and code quality",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:19.363093Z"
+  "downloaded_at": "2026-01-06T09:09:19.363093Z",
+  "github_path": "skills/specialized/reviewer-agent",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:47.530088Z",
   "dir_name": "scientific-pufferlib",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-pufferlib",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:35.804454Z",
   "dir_name": "example-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "templates/plugin-template/skills/example-skill",
+  "github_branch": "main"
 }

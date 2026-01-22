@@ -10,5 +10,7 @@
     "next"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/deploy-shot-client-next",
+  "github_branch": "main"
 }

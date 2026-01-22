@@ -2,7 +2,9 @@
   "name": "nsforge-code-generation",
   "repo": "u9401066/nsforge-mcp",
   "category": "development",
-  "description": "\u7a0b\u5f0f\u78bc/\u5831\u544a\u751f\u6210\u3002\u89f8\u767c\u8a5e\uff1a\u751f\u6210\u7a0b\u5f0f\u78bc, Python \u51fd\u6578, LaTeX, \u5831\u544a, export\u3002",
+  "description": "程式碼/報告生成。觸發詞：生成程式碼, Python 函數, LaTeX, 報告, export。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:50.229492Z"
+  "downloaded_at": "2026-01-06T09:09:50.229492Z",
+  "github_path": ".claude/skills/nsforge-code-generation",
+  "github_branch": "main"
 }

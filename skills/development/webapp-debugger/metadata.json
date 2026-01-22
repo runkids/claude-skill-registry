@@ -2,7 +2,9 @@
   "name": "webapp-debugger",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "development",
-  "description": "Chrome DevTools MCP\u3092\u4f7f\u7528\u3057\u305fWeb\u30a2\u30d7\u30ea\u306e\u30c7\u30d0\u30c3\u30b0\u652f\u63f4\u30b9\u30ad\u30eb\u3002\u30d6\u30e9\u30a6\u30b6\u64cd\u4f5c\u3001\u30b3\u30f3\u30bd\u30fc\u30eb\u30ed\u30b0\u76e3\u8996\u3001\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u30ea\u30af\u30a8\u30b9\u30c8\u5206\u6790\u3001\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u8a08\u6e2c\u3092\u884c\u3046\u3002\u4f7f\u7528\u30bf\u30a4\u30df\u30f3\u30b0: (1) Web\u30a2\u30d7\u30ea\u306e\u52d5\u4f5c\u78ba\u8a8d\u30fb\u30c7\u30d0\u30c3\u30b0 (2) UI\u306e\u81ea\u52d5\u64cd\u4f5c\u30c6\u30b9\u30c8 (3) \u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u30a8\u30e9\u30fc\u306e\u8abf\u67fb (4) \u30b3\u30f3\u30bd\u30fc\u30eb\u30a8\u30e9\u30fc\u306e\u78ba\u8a8d (5) \u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u554f\u984c\u306e\u8a3a\u65ad (6) \u30d5\u30a9\u30fc\u30e0\u5165\u529b\u306e\u81ea\u52d5\u5316 (7) \u30b9",
+  "description": "Chrome DevTools MCPを使用したWebアプリのデバッグ支援スキル。ブラウザ操作、コンソールログ監視、ネットワークリクエスト分析、パフォーマンス計測を行う。使用タイミング: (1) Webアプリの動作確認・デバッグ (2) UIの自動操作テスト (3) ネットワークエラーの調査 (4) コンソールエラーの確認 (5) パフォーマンス問題の診断 (6) フォーム入力の自動化 (7) ス",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:22.050005Z"
+  "downloaded_at": "2026-01-06T09:04:22.050005Z",
+  "github_path": "webapp-dev-plugin/skills/webapp-debugger",
+  "github_branch": "main"
 }

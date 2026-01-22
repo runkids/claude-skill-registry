@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Orchestrate marketing data collection, transformation, and reporting workflows. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.443157Z"
+  "downloaded_at": "2026-01-06T08:56:58.443157Z",
+  "github_path": "plugins/marketing/skills/data-pipeline",
+  "github_branch": "main"
 }

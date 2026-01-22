@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:15.684055Z",
   "dir_name": "gflownet",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gflownet",
+  "github_branch": "main"
 }

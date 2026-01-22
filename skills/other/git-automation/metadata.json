@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:03.485102Z",
   "dir_name": "git-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/git-automation",
+  "github_branch": "main"
 }

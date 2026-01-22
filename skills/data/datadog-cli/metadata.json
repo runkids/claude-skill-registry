@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "datadog-cli"
+  "dir_name": "datadog-cli",
+  "github_path": "skills/datadog-cli",
+  "github_branch": "main"
 }

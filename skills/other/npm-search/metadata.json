@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:23.132388Z",
   "dir_name": "npm-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/thesethrose/npm-search",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Perform on-chain analysis including whale tracking, token flows, and network activity.Use when performing crypto analysis.Trigger with phrases like \"analyze crypto\", \"check blockchain\", or \"monitor ma",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:46.957287Z",
-  "dir_name": "analyzing-on-chain-data"
+  "dir_name": "analyzing-on-chain-data",
+  "github_path": "plugins/crypto/on-chain-analytics/skills/analyzing-on-chain-data",
+  "github_branch": "main"
 }

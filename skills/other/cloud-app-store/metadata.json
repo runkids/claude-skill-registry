@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-19T03:34:46.573826Z",
   "dir_name": "cloud-app-store",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tools/cloud/cloud-app-store",
+  "github_branch": "main"
 }

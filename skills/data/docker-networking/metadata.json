@@ -8,5 +8,7 @@
     "networking"
   ],
   "stars": 1,
-  "dir_name": "docker-networking"
+  "dir_name": "docker-networking",
+  "github_path": "skills/docker-networking",
+  "github_branch": "main"
 }

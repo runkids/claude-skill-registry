@@ -8,5 +8,7 @@
     "registration"
   ],
   "stars": 0,
-  "dir_name": "pre-registration"
+  "dir_name": "pre-registration",
+  "github_path": "skills/pre-registration",
+  "github_branch": "main"
 }

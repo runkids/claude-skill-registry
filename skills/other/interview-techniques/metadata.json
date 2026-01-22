@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:03.784784Z",
   "dir_name": "interview-techniques",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/interview-techniques",
+  "github_branch": "main"
 }

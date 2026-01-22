@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:15.160177Z",
   "dir_name": "csharp-linq",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-csharp/csharp-linq",
+  "github_branch": "main"
 }

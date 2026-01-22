@@ -6,5 +6,7 @@
   "tags": [
     "zendesk"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "zendesk",
+  "github_branch": "main"
 }

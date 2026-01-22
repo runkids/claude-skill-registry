@@ -6,5 +6,7 @@
   "tags": [
     "qiita"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "qiita",
+  "github_branch": "main"
 }

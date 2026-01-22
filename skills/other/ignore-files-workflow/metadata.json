@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:32.783516Z",
   "dir_name": "ignore-files-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ignore-files-workflow",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "conductor",
     "context"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/conductor-context",
+  "github_branch": "main"
 }

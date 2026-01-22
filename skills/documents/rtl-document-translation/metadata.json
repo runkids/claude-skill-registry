@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Translate structured documents (DOCX) to RTL languages (Arabic, Hebrew, Urdu) while preserving exact formatting, table structures, colors, and layouts. Handles quote normalization, multi-pass translat",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:16.601037Z"
+  "downloaded_at": "2026-01-06T08:57:16.601037Z",
+  "github_path": "web-desktop-exports/rtl-document-translation",
+  "github_branch": "main"
 }

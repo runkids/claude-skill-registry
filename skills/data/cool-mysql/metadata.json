@@ -9,5 +9,7 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cool-mysql"
+  "dir_name": "cool-mysql",
+  "github_path": ".claude/skills/cool-mysql",
+  "github_branch": "main"
 }

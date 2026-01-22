@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:10.743599Z",
   "dir_name": "claude-code-debug",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/claude-code-debug",
+  "github_branch": "main"
 }

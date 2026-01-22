@@ -7,5 +7,7 @@
     "tdd",
     "powerhouse"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/tdd-powerhouse",
+  "github_branch": "main"
 }

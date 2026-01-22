@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:26.359689Z",
   "dir_name": "azure-app-service",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/azure-app-service",
+  "github_branch": "main"
 }

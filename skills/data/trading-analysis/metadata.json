@@ -8,5 +8,7 @@
     "analysis"
   ],
   "stars": 0,
-  "dir_name": "trading-analysis"
+  "dir_name": "trading-analysis",
+  "github_path": ".claude/skills/trading-analysis",
+  "github_branch": "main"
 }

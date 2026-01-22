@@ -5,5 +5,7 @@
   "source": "github.com/faulkdev/github-copilot-superpowers",
   "downloaded_at": "2026-01-22T03:45:05.508371Z",
   "dir_name": "obra-requesting-code-review",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/obra/obra-requesting-code-review",
+  "github_branch": "main"
 }

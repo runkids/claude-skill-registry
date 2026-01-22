@@ -5,5 +5,7 @@
   "source": "github.com/bearbinary/Jarvy",
   "downloaded_at": "2026-01-22T03:53:01.886221Z",
   "dir_name": "agentic-jumpstart-performance",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/agentic-jumpstart-performance",
+  "github_branch": "main"
 }

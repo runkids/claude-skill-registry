@@ -7,5 +7,7 @@
     "implement",
     "issue"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugins/implement-issue/skills/implement-issue",
+  "github_branch": "main"
 }

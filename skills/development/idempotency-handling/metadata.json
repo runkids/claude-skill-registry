@@ -7,5 +7,7 @@
     "idempotency",
     "handling"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/idempotency-handling",
+  "github_branch": "main"
 }

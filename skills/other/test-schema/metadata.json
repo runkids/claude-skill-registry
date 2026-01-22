@@ -5,5 +5,7 @@
   "source": "github.com/madooei/backend-template",
   "downloaded_at": "2026-01-22T03:36:24.694264Z",
   "dir_name": "test-schema",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/test-schema",
+  "github_branch": "main"
 }

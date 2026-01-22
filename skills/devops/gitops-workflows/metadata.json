@@ -7,5 +7,7 @@
     "gitops",
     "workflows"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "gitops-workflows",
+  "github_branch": "main"
 }

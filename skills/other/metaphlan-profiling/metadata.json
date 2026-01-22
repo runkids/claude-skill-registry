@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:50.146628Z",
   "dir_name": "metaphlan-profiling",
-  "category": "other"
+  "category": "other",
+  "github_path": "metagenomics/metaphlan-profiling",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "proof",
     "points"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "proof-points",
+  "github_branch": "main"
 }

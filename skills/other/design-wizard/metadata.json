@@ -5,5 +5,7 @@
   "source": "github.com/davepoon/buildwithclaude",
   "downloaded_at": "2026-01-22T03:46:01.037202Z",
   "dir_name": "design-wizard",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend-design-pro/skills/design-wizard",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Intensive mathematical analysis for numerical stability, algorithm correctness,and alignment with authoritative standards.Triggers: math review, numerical stability, algorithm correctness, mathematica",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:48.595421Z"
+  "downloaded_at": "2026-01-06T08:56:48.595421Z",
+  "github_path": "plugins/pensive/skills/math-review",
+  "github_branch": "main"
 }

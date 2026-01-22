@@ -5,5 +5,7 @@
   "source": "github.com/santiago-afonso/codex-container-sandbox",
   "downloaded_at": "2026-01-22T02:08:01.193616Z",
   "dir_name": "codex-container-sandbox",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/codex-container-sandbox",
+  "github_branch": "main"
 }

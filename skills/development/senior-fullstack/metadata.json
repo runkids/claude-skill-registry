@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive fullstack development skill for building complete web applications with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding, code quality analysis, architectur",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.466679Z"
+  "downloaded_at": "2026-01-06T08:55:35.466679Z",
+  "github_path": "cli-tool/components/skills/development/senior-fullstack",
+  "github_branch": "main"
 }

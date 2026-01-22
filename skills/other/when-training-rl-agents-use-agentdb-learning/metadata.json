@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:39:02.936134Z",
   "dir_name": "when-training-rl-agents-use-agentdb-learning",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/agentdb/when-training-rl-agents-use-agentdb-learning",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:41.034480Z",
   "dir_name": "slash-commands",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/development/when-creating-slash-commands-use-slash-command-encoder",
+  "github_branch": "main"
 }

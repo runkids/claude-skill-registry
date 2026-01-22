@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:17.568307Z",
   "dir_name": "kanban",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/kanban",
+  "github_branch": "main"
 }

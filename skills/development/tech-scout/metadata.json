@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expert technology scouting including emerging tech discovery, evaluation, and adoption recommendations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:49.298230Z"
+  "downloaded_at": "2026-01-06T09:06:49.298230Z",
+  "github_path": "skills/research/tech-scout",
+  "github_branch": "main"
 }

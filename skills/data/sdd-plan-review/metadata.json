@@ -9,5 +9,7 @@
     "review"
   ],
   "stars": 3,
-  "dir_name": "sdd-plan-review"
+  "dir_name": "sdd-plan-review",
+  "github_path": "skills/sdd-plan-review",
+  "github_branch": "main"
 }

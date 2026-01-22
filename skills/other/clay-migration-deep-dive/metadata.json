@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:13.833302Z",
   "dir_name": "clay-migration-deep-dive",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/clay-pack/skills/clay-migration-deep-dive",
+  "github_branch": "main"
 }

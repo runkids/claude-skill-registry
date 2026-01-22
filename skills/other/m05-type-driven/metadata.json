@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:42.453276Z",
   "dir_name": "m05-type-driven",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/other/m05-type-driven",
+  "github_branch": "main"
 }

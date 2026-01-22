@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Evaluate and improve code modularization using the Balanced Coupling Model. Analyzes coupling strength, connascence types, and distance to identify refactoring opportunities and architectural improvem",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:12.140070Z"
+  "downloaded_at": "2026-01-06T09:05:12.140070Z",
+  "github_path": "review-tool/skills/code-modularization-evaluator",
+  "github_branch": "main"
 }

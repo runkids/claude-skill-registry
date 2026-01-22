@@ -2,7 +2,9 @@
   "name": "review-security",
   "repo": "ssiumha/dots",
   "category": "security",
-  "description": "\ubcf4\uc548 \uad00\uc810\uc5d0\uc11c \ucf54\ub4dc\ub97c \uac80\ud1a0\ud569\ub2c8\ub2e4. OWASP Top 10, credential \ub178\ucd9c, injection \uacf5\uaca9 \ub4f1\uc744 \uccb4\ud06c\ud569\ub2c8\ub2e4.",
+  "description": "보안 관점에서 코드를 검토합니다. OWASP Top 10, credential 노출, injection 공격 등을 체크합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:57.807085Z"
+  "downloaded_at": "2026-01-06T08:58:57.807085Z",
+  "github_path": "prompts/skills/review-security",
+  "github_branch": "main"
 }

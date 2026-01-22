@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:08.082895Z",
   "dir_name": "conductor-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/conductor-setup",
+  "github_branch": "main"
 }

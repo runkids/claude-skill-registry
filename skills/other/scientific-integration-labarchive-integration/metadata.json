@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:33.580542Z",
   "dir_name": "scientific-integration-labarchive-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-integration-labarchive-integration",
+  "github_branch": "main"
 }

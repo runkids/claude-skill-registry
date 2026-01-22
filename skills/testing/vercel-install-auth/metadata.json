@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Install and configure Vercel SDK/CLI authentication.Use when setting up a new Vercel integration, configuring API keys,or initializing Vercel in your project.Trigger with phrases like \"install vercel\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:51.388241Z"
+  "downloaded_at": "2026-01-06T08:55:51.388241Z",
+  "github_path": "plugins/saas-packs/vercel-pack/skills/vercel-install-auth",
+  "github_branch": "main"
 }

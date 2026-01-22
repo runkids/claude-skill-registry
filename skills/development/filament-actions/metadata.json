@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create FilamentPHP v4 actions with modals, confirmation, forms, and bulk operations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:16.409422Z"
+  "downloaded_at": "2026-01-06T09:00:16.409422Z",
+  "github_path": "filament-specialist/skills/filament-actions",
+  "github_branch": "main"
 }

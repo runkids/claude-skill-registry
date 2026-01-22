@@ -5,5 +5,7 @@
   "description": "Create robust, error-proof Prisma seed scripts with comprehensive error handling and validation.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:00:25.041206Z",
-  "dir_name": "database-seed"
+  "dir_name": "database-seed",
+  "github_path": "backend/app/agents/developer/src/skills/nextjs/database-seed",
+  "github_branch": "main"
 }

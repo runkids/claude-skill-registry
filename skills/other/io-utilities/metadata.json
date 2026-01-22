@@ -5,5 +5,7 @@
   "source": "github.com/anhvth/speedy_utils",
   "downloaded_at": "2026-01-22T01:40:54.710176Z",
   "dir_name": "io-utilities",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/io-utilities",
+  "github_branch": "main"
 }

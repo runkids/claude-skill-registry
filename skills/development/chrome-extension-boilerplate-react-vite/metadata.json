@@ -10,5 +10,7 @@
     "react",
     "vite"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "chrome-extension-boilerplate-react-vite",
+  "github_branch": "main"
 }

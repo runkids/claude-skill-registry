@@ -5,5 +5,7 @@
   "source": "github.com/bluewaves-creations/bluewaves-skills",
   "downloaded_at": "2026-01-14T02:03:03.086304Z",
   "dir_name": "app-intents",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/swift-apple-dev/skills/app-intents",
+  "github_branch": "main"
 }

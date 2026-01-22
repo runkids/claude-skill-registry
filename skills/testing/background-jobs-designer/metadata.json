@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Designs background job processing systems with queue integration (BullMQ/Celery), job definitions, retry policies, exponential backoff, idempotent execution, and monitoring hooks. Use when implementin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:06.268342Z"
+  "downloaded_at": "2026-01-06T09:01:06.268342Z",
+  "github_path": "templates/backend/background-jobs-designer",
+  "github_branch": "main"
 }

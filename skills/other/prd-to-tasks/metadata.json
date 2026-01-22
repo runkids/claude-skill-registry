@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/squawk",
   "downloaded_at": "2026-01-14T01:57:14.744032Z",
   "dir_name": "prd-to-tasks",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/PRD-to-Tasks",
+  "github_branch": "main"
 }

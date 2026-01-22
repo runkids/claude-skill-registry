@@ -5,5 +5,7 @@
   "source": "github.com/alec-c4/claude-skills-rails-dev",
   "downloaded_at": "2026-01-22T02:33:14.865648Z",
   "dir_name": "rails-project-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "rails-project-manager",
+  "github_branch": "main"
 }

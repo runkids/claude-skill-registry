@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:30.877092Z",
   "dir_name": "gpg-signing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-specialist/gpg-signing",
+  "github_branch": "main"
 }

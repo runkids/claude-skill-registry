@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Analyze dependencies for known security vulnerabilities and outdated versions. Use when auditing third-party libraries. Trigger with 'check dependencies', 'scan for vulnerabilities', or 'audit package",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:52.014952Z"
+  "downloaded_at": "2026-01-06T08:55:52.014952Z",
+  "github_path": "plugins/security/dependency-checker/skills/analyzing-dependencies",
+  "github_branch": "main"
 }

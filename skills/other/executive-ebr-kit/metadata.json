@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:43.844398Z",
   "dir_name": "executive-ebr-kit",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/customer-success/skills/executive-ebr-kit",
+  "github_branch": "main"
 }

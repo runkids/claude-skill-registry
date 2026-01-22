@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use when starting work, tracking tasks, or deciding where to record discovered work - clarifies when to use TodoWrite vs Beans",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:30.947363Z"
+  "downloaded_at": "2026-01-06T08:58:30.947363Z",
+  "github_path": "skills-DISABLED/issue-tracking-with-beans",
+  "github_branch": "main"
 }

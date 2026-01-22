@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Query identity change logs to explore profile creation and merging",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:23.973575Z"
+  "downloaded_at": "2026-01-06T09:00:23.973575Z",
+  "github_path": "realtime-skills/identity",
+  "github_branch": "main"
 }

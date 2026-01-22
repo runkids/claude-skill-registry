@@ -5,5 +5,7 @@
   "source": "github.com/davepoon/buildwithclaude",
   "downloaded_at": "2026-01-22T03:46:02.868573Z",
   "dir_name": "obsidian-bases",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/all-skills/skills/obsidian-bases",
+  "github_branch": "main"
 }

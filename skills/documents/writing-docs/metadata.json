@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Expert at writing high-quality documentation for code, APIs, and projects. Auto-invokes when generating docstrings, creating README files, writing API documentation, adding code comments, or producing",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:39.407972Z"
+  "downloaded_at": "2026-01-06T09:01:39.407972Z",
+  "github_path": "documents-manager/skills/writing-docs",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "project-structure-validator",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "development",
-  "description": "\u538b\u529b\u6d4b\u8bd5STRUCT\u6587\u4ef6\uff0c\u9a8c\u8bc1\u6a21\u5757\u5316\u5206\u89e3\u7684\u53ef\u884c\u6027\u3002\u5f53\u9879\u76ee\u7ed3\u6784\u786e\u5b9a\u540e\u4f7f\u7528\uff0c\u786e\u4fdd\u6a21\u5757\u8fb9\u754c\u6e05\u6670\u3002",
+  "description": "压力测试STRUCT文件，验证模块化分解的可行性。当项目结构确定后使用，确保模块边界清晰。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:25.853486Z"
+  "downloaded_at": "2026-01-06T09:10:25.853486Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/implementation_planning/project-structure-validator",
+  "github_branch": "main"
 }

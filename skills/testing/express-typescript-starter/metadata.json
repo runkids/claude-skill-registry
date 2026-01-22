@@ -9,5 +9,7 @@
     "starter"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "express-typescript-starter",
+  "github_branch": "main"
 }

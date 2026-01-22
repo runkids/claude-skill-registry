@@ -5,5 +5,7 @@
   "source": "github.com/cuba6112/skillfactory",
   "downloaded_at": "2026-01-22T01:16:55.838608Z",
   "dir_name": "tool-calling",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tool-calling",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "hackernews"
   ],
   "stars": 0,
-  "dir_name": "hackernews"
+  "dir_name": "hackernews",
+  "github_path": "",
+  "github_branch": "main"
 }

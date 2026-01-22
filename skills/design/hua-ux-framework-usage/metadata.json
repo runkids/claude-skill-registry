@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Quick reference guide for developing with hua-ux framework",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:11.714567Z"
+  "downloaded_at": "2026-01-06T09:06:11.714567Z",
+  "github_path": "packages/create-hua-ux/templates/nextjs/.claude/skills/hua-ux-framework",
+  "github_branch": "main"
 }

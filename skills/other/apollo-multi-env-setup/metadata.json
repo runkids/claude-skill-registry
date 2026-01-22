@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:15.628245Z",
   "dir_name": "apollo-multi-env-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/apollo-pack/skills/apollo-multi-env-setup",
+  "github_branch": "main"
 }

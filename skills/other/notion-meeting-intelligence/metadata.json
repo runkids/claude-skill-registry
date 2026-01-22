@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:08.698564Z",
   "dir_name": "notion-meeting-intelligence",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/notion-meeting-intelligence",
+  "github_branch": "main"
 }

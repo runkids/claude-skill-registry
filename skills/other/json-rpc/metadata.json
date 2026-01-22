@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:58.024520Z",
   "dir_name": "json-rpc",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/json-rpc",
+  "github_branch": "main"
 }

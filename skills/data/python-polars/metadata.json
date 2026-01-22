@@ -8,5 +8,7 @@
     "polars"
   ],
   "stars": 1,
-  "dir_name": "python-polars"
+  "dir_name": "python-polars",
+  "github_path": "skills/python-polars",
+  "github_branch": "main"
 }

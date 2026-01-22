@@ -5,5 +5,7 @@
   "source": "github.com/terraphim/codex-skills",
   "downloaded_at": "2026-01-22T02:22:57.672914Z",
   "dir_name": "disciplined-specification",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/disciplined-specification",
+  "github_branch": "main"
 }

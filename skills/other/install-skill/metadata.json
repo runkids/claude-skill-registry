@@ -5,5 +5,7 @@
   "source": "github.com/schwepps/skills",
   "downloaded_at": "2026-01-22T03:29:05.492302Z",
   "dir_name": "install-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "install-skill",
+  "github_branch": "main"
 }

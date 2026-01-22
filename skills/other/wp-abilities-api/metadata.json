@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:28.595748Z",
   "dir_name": "wp-abilities-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wp-abilities-api",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Comprehensive assistance with LangChain_1.0",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:41.616767Z",
-  "dir_name": "langchain-10"
+  "dir_name": "langchain-10",
+  "github_path": "LangChain_1.0/LangChain_1.0",
+  "github_branch": "main"
 }

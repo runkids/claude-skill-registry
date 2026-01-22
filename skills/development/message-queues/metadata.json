@@ -7,5 +7,7 @@
     "message",
     "queues"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/message-queues",
+  "github_branch": "main"
 }

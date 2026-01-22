@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:31.872648Z",
   "dir_name": "css-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/css-workflow",
+  "github_branch": "main"
 }

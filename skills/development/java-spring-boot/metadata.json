@@ -8,5 +8,7 @@
     "spring",
     "boot"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/java-spring-boot",
+  "github_branch": "main"
 }

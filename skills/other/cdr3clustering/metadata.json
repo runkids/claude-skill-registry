@@ -5,5 +5,7 @@
   "source": "github.com/pwwang/immunopipe",
   "downloaded_at": "2026-01-22T03:34:34.106892Z",
   "dir_name": "cdr3clustering",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cdr3clustering",
+  "github_branch": "main"
 }

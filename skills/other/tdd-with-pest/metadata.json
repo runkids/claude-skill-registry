@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:16.267270Z",
   "dir_name": "tdd-with-pest",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tdd-with-pest",
+  "github_branch": "main"
 }

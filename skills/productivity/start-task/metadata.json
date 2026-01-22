@@ -2,7 +2,9 @@
   "name": "start-task",
   "repo": "semicolon-devteam/semo",
   "category": "productivity",
-  "description": "\uc791\uc5c5 \uc2dc\uc791. Use when (1) \"\ub79c\ub4dc #123 \uc791\uc5c5 \uc9c4\ud589\", (2) \"#45 \uc2dc\uc791\ud558\uc790\",(3) \"\uc774\uc288 \uc791\uc5c5 \uc2dc\uc791\ud574\uc918\". \uc774\uc288 \uc0c1\ud0dc \ubcc0\uacbd + \ube0c\ub79c\uce58 \uc0dd\uc131 + Draft PR.",
+  "description": "작업 시작. Use when (1) \"랜드 #123 작업 진행\", (2) \"#45 시작하자\",(3) \"이슈 작업 시작해줘\". 이슈 상태 변경 + 브랜치 생성 + Draft PR.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.107468Z"
+  "downloaded_at": "2026-01-06T09:02:52.107468Z",
+  "github_path": "semo-system/semo-skills/start-task",
+  "github_branch": "main"
 }

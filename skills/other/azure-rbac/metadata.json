@@ -5,5 +5,7 @@
   "source": "github.com/BreakerOfStems/claude-skills",
   "downloaded_at": "2026-01-19T02:13:24.660954Z",
   "dir_name": "azure-rbac",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/azure-rbac",
+  "github_branch": "main"
 }

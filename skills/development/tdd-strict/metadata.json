@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Test-Driven Development (Strict) skill for the ikigai project",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:26.563547Z"
+  "downloaded_at": "2026-01-06T09:03:26.563547Z",
+  "github_path": ".claude/library/tdd-strict",
+  "github_branch": "main"
 }

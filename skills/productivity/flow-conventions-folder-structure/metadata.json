@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Validate and fix folder structure for Output SDK workflows. Use to ensure migrated workflows follow the correct structure conventions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:14.354545Z"
+  "downloaded_at": "2026-01-06T09:11:14.354545Z",
+  "github_path": "plugins/outputai-flow-migrator/skills/flow-conventions-folder-structure",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:56.740302Z",
   "dir_name": "auto-update-systems",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/auto-update-systems",
+  "github_branch": "main"
 }

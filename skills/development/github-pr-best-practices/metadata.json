@@ -8,5 +8,7 @@
     "best",
     "practices"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/github-pr-best-practices",
+  "github_branch": "main"
 }

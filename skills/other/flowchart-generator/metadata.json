@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:57.428458Z",
   "dir_name": "flowchart-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "flowchart-generator",
+  "github_branch": "main"
 }

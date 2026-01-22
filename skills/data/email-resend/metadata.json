@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "email-resend"
+  "dir_name": "email-resend",
+  "github_path": "email-resend",
+  "github_branch": "main"
 }

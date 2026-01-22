@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Skill from tolgaio/neo",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:28:33.527844Z"
+  "downloaded_at": "2026-01-08T03:28:33.527844Z",
+  "github_path": "skills/fabric/official/pattern-template",
+  "github_branch": "main"
 }

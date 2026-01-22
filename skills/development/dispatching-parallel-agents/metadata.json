@@ -2,5 +2,7 @@
   "name": "dispatching-parallel-agents",
   "repo": "obra/superpowers",
   "category": "development",
-  "source": "Superpowers"
+  "source": "Superpowers",
+  "github_path": "skills/dispatching-parallel-agents",
+  "github_branch": "main"
 }

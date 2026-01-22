@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/SecOps-CLI-Guides",
   "downloaded_at": "2026-01-14T02:20:56.961642Z",
   "dir_name": "linux-commands",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/linux-commands",
+  "github_branch": "main"
 }

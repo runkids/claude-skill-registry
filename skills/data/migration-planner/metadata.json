@@ -5,5 +5,7 @@
   "description": "Builds phased data and system migrations using feature flags, dual writes, backfills, and validation. Includes rollback plans and risk mitigation. Use for \"data migration\", \"system migration\", \"databa",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:05.342340Z",
-  "dir_name": "migration-planner"
+  "dir_name": "migration-planner",
+  "github_path": "templates/architecture/migration-planner",
+  "github_branch": "main"
 }

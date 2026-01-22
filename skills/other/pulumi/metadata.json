@@ -5,5 +5,7 @@
   "source": "github.com/pproenca/dot-skills",
   "downloaded_at": "2026-01-22T02:36:27.485819Z",
   "dir_name": "pulumi",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/.experimental/pulumi",
+  "github_branch": "main"
 }

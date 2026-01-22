@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:57.405821Z",
   "dir_name": "bitsandbytes",
-  "category": "other"
+  "category": "other",
+  "github_path": "10-optimization/bitsandbytes",
+  "github_branch": "main"
 }

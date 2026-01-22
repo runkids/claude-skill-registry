@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:30.608908Z",
   "dir_name": "react-coder",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-react/skills/react-coder",
+  "github_branch": "main"
 }

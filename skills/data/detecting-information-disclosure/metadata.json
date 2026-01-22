@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "detecting-information-disclosure"
+  "dir_name": "detecting-information-disclosure",
+  "github_path": ".claude/skills/detecting-information-disclosure",
+  "github_branch": "main"
 }

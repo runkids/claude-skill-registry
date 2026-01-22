@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:47.248606Z",
   "dir_name": "scientific-torchdrug",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-torchdrug",
+  "github_branch": "main"
 }

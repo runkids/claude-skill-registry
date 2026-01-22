@@ -9,5 +9,7 @@
     "resources"
   ],
   "stars": 1,
-  "dir_name": "working-with-resources"
+  "dir_name": "working-with-resources",
+  "github_path": "skills/working-with-resources",
+  "github_branch": "main"
 }

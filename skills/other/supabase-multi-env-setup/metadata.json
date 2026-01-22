@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:09.595353Z",
   "dir_name": "supabase-multi-env-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/supabase-pack/skills/supabase-multi-env-setup",
+  "github_branch": "main"
 }

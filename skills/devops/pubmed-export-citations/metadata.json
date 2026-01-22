@@ -8,5 +8,7 @@
     "export",
     "citations"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/pubmed-export-citations",
+  "github_branch": "main"
 }

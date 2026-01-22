@@ -5,5 +5,7 @@
   "source": "github.com/laris-co/nat-agents-core",
   "downloaded_at": "2026-01-22T02:08:26.927998Z",
   "dir_name": "oracle-mentor",
-  "category": "other"
+  "category": "other",
+  "github_path": "bundles/skills/oracle-mentor",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:13.526130Z",
   "dir_name": "accountant-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/professional/accountant-expert",
+  "github_branch": "main"
 }

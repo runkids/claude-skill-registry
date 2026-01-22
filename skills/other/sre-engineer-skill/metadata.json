@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:13.042400Z",
   "dir_name": "sre-engineer-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "sre-engineer-skill",
+  "github_branch": "main"
 }

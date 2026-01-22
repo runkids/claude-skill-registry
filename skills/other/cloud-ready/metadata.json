@@ -5,5 +5,7 @@
   "source": "github.com/LeandroLarrosa/gentlemonster",
   "downloaded_at": "2026-01-22T03:33:11.875233Z",
   "dir_name": "cloud-ready",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cloud-ready",
+  "github_branch": "main"
 }

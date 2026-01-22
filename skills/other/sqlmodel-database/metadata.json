@@ -5,5 +5,7 @@
   "source": "github.com/mjunaidca/mjs-agent-skills",
   "downloaded_at": "2026-01-22T03:06:58.837742Z",
   "dir_name": "sqlmodel-database",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/taskflow-vault/skills/engineering/sqlmodel-database",
+  "github_branch": "main"
 }

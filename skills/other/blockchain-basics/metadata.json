@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-blockchain",
   "downloaded_at": "2026-01-14T02:23:37.308292Z",
   "dir_name": "blockchain-basics",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/blockchain-basics",
+  "github_branch": "main"
 }

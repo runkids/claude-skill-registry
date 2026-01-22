@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:01:58.985541Z",
   "dir_name": "azure-deploy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/azure-deploy",
+  "github_branch": "main"
 }

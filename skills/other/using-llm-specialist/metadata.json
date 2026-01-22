@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:05.621556Z",
   "dir_name": "using-llm-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/yzmir-llm-specialist/skills/using-llm-specialist",
+  "github_branch": "main"
 }

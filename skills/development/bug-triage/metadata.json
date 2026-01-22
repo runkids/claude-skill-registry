@@ -8,5 +8,7 @@
     "triage"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "bug-triage",
+  "github_branch": "main"
 }

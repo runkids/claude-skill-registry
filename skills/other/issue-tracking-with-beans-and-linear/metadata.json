@@ -5,5 +5,7 @@
   "source": "github.com/czottmann/claude-code-stuff",
   "downloaded_at": "2026-01-22T01:55:30.324111Z",
   "dir_name": "issue-tracking-with-beans-and-linear",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/issue-tracking-with-beans-and-linear",
+  "github_branch": "main"
 }

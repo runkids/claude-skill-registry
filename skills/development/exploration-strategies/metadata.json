@@ -2,7 +2,9 @@
   "name": "exploration-strategies",
   "repo": "tachyon-beep/hamlet",
   "category": "development",
-  "description": "Master \u03b5-greedy, UCB, curiosity-driven, RND, intrinsic motivation exploration",
+  "description": "Master ε-greedy, UCB, curiosity-driven, RND, intrinsic motivation exploration",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:41.438795Z"
+  "downloaded_at": "2026-01-06T09:08:41.438795Z",
+  "github_path": ".claude/skills/yzmir-deep-rl/skills/exploration-strategies",
+  "github_branch": "main"
 }

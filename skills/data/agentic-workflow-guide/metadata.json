@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agentic-workflow-guide"
+  "dir_name": "agentic-workflow-guide",
+  "github_path": "agentic-workflow-guide",
+  "github_branch": "main"
 }

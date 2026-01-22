@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:13.541975Z",
   "dir_name": "caching-strategies",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/caching-strategies",
+  "github_branch": "main"
 }

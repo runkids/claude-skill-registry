@@ -9,5 +9,7 @@
     "net"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/dev-asp-net",
+  "github_branch": "main"
 }

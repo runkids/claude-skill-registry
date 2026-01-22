@@ -5,5 +5,7 @@
   "source": "github.com/wukangcheng2944/skills1",
   "downloaded_at": "2026-01-22T02:20:17.542228Z",
   "dir_name": "test-cases",
-  "category": "other"
+  "category": "other",
+  "github_path": "test-cases",
+  "github_branch": "main"
 }

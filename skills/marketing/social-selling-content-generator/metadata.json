@@ -9,5 +9,7 @@
     "content",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "social-selling-content-generator",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "xcode",
     "cli"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/using-xcode-cli",
+  "github_branch": "main"
 }

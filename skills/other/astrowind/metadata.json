@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:04.217292Z",
   "dir_name": "astrowind",
-  "category": "other"
+  "category": "other",
+  "github_path": "astrowind",
+  "github_branch": "main"
 }

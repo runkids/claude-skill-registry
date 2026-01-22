@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/claude-code-guide",
   "downloaded_at": "2026-01-22T01:00:55.958209Z",
   "dir_name": "wordpress-penetration-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wordpress-penetration-testing",
+  "github_branch": "main"
 }

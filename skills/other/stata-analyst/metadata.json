@@ -5,5 +5,7 @@
   "source": "github.com/nealcaren/sociology-analysis-agents",
   "downloaded_at": "2026-01-22T04:00:27.294346Z",
   "dir_name": "stata-analyst",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/stata-analyst/skills/stata-analyst",
+  "github_branch": "main"
 }

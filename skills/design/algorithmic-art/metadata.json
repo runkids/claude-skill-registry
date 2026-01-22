@@ -10,5 +10,7 @@
     "creative"
   ],
   "stars": 0,
-  "source": "Anthropic Official"
+  "source": "Anthropic Official",
+  "github_path": "skills/algorithmic-art",
+  "github_branch": "main"
 }

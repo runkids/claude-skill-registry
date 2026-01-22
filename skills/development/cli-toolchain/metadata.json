@@ -8,5 +8,7 @@
     "toolchain"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cli-toolchain",
+  "github_branch": "main"
 }

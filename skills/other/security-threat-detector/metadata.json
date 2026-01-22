@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:38.693174Z",
   "dir_name": "security-threat-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/security-threat-detector",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/FortiumPartners/ensemble",
   "downloaded_at": "2026-01-22T01:50:18.375923Z",
   "dir_name": "developing-with-react",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/development/skills/developing-with-react",
+  "github_branch": "main"
 }

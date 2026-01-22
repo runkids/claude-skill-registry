@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:11.163154Z",
   "dir_name": "braindance-worlds",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/braindance-worlds",
+  "github_branch": "main"
 }

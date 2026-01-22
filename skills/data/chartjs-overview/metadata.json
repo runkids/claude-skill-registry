@@ -8,5 +8,7 @@
     "overview"
   ],
   "stars": 0,
-  "dir_name": "chartjs-overview"
+  "dir_name": "chartjs-overview",
+  "github_path": "skills/chartjs-overview",
+  "github_branch": "main"
 }

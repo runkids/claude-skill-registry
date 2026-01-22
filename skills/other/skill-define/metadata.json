@@ -5,5 +5,7 @@
   "source": "github.com/epieczko/betty",
   "downloaded_at": "2026-01-22T02:27:31.070026Z",
   "dir_name": "skill-define",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill.define",
+  "github_branch": "main"
 }

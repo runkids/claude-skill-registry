@@ -5,5 +5,7 @@
   "description": "Send daily report to Slack workspace via webhook or Bot API",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:44.024187Z",
-  "dir_name": "slack-notify"
+  "dir_name": "slack-notify",
+  "github_path": "211-daily-data-report/daily-report-volume/skills/slack-notify",
+  "github_branch": "main"
 }

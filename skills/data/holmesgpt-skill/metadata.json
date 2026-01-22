@@ -8,5 +8,7 @@
     "skill"
   ],
   "stars": 0,
-  "dir_name": "holmesgpt-skill"
+  "dir_name": "holmesgpt-skill",
+  "github_path": "skills/holmesgpt-skill",
+  "github_branch": "main"
 }

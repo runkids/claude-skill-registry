@@ -5,5 +5,7 @@
   "source": "github.com/ManuelKugelmann/BitBot",
   "downloaded_at": "2026-01-22T02:56:43.474887Z",
   "dir_name": "claude-restart-compact",
-  "category": "other"
+  "category": "other",
+  "github_path": ".bitbot/internal/bitbot-config/.claude/skills/claude-restart-compact",
+  "github_branch": "main"
 }

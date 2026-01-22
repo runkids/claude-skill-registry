@@ -8,5 +8,7 @@
     "postgresql"
   ],
   "stars": 0,
-  "dir_name": "mastering-postgresql"
+  "dir_name": "mastering-postgresql",
+  "github_path": "mastering-postgresql",
+  "github_branch": "main"
 }

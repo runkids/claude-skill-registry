@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:31.254841Z",
   "dir_name": "incident-response",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/infra/incident-response",
+  "github_branch": "main"
 }

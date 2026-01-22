@@ -5,5 +5,7 @@
   "source": "github.com/beshkenadze/claude-skills-marketplace",
   "downloaded_at": "2026-01-14T01:46:10.065728Z",
   "dir_name": "gitea-tea",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/development/gitea-tea",
+  "github_branch": "main"
 }

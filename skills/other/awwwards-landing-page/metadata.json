@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.531175Z",
   "dir_name": "awwwards-landing-page",
-  "category": "other"
+  "category": "other",
+  "github_path": "awwwards-landing-page",
+  "github_branch": "main"
 }

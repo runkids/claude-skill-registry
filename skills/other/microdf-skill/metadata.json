@@ -5,5 +5,7 @@
   "source": "github.com/PolicyEngine/policyengine-claude",
   "downloaded_at": "2026-01-22T02:32:13.965912Z",
   "dir_name": "microdf-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/data-science/microdf-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:10.814755Z",
   "dir_name": "perplexity-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/perplexity-search",
+  "github_branch": "main"
 }

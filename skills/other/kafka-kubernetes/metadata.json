@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:48.378319Z",
   "dir_name": "kafka-kubernetes",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-kafka/skills/kafka-kubernetes",
+  "github_branch": "main"
 }

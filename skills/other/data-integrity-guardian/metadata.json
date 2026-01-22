@@ -5,5 +5,7 @@
   "source": "github.com/Acurioustractor/empathy-ledger-v2",
   "downloaded_at": "2026-01-21T02:30:19.468312Z",
   "dir_name": "data-integrity-guardian",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/local/data-integrity-guardian",
+  "github_branch": "main"
 }

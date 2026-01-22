@@ -7,5 +7,7 @@
     "whats",
     "next"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "whats-next",
+  "github_branch": "main"
 }

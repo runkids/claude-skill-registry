@@ -7,5 +7,7 @@
     "openai"
   ],
   "stars": 8,
-  "dir_name": "openai"
+  "dir_name": "openai",
+  "github_path": "openai",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/rknall/claude-skills",
   "downloaded_at": "2026-01-20T01:28:19.136162Z",
   "dir_name": "ui-design-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "ui-design-review",
+  "github_branch": "main"
 }

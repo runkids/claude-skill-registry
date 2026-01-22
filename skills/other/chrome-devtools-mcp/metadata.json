@@ -5,5 +5,7 @@
   "source": "github.com/Michael0520/milo-claudekit",
   "downloaded_at": "2026-01-22T04:15:18.732849Z",
   "dir_name": "chrome-devtools-mcp",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/chrome-devtools-mcp/skills/chrome-devtools-mcp",
+  "github_branch": "main"
 }

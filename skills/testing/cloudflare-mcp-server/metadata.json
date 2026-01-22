@@ -9,5 +9,7 @@
     "server"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cloudflare-mcp-server",
+  "github_branch": "main"
 }

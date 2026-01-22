@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 0,
-  "dir_name": "mermaid-diagram-patterns"
+  "dir_name": "mermaid-diagram-patterns",
+  "github_path": ".claude/skills/mermaid-diagram-patterns",
+  "github_branch": "main"
 }

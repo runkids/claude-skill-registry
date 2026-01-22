@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "This skill should be used when the user asks about \"snapshot.md\", \"constraints.md\", \"decisions.md\", \"debt.md\", \".ctx/\", \"living context\", \"documentation freshness\", \"stale docs\", \"ADR\", \"architecture ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:54.233962Z"
+  "downloaded_at": "2026-01-06T09:06:54.233962Z",
+  "github_path": "plugin/skills/living-context",
+  "github_branch": "main"
 }

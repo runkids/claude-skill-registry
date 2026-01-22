@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Create comprehensive E2E test plans with all major flows, pages, roles, and test scenarios",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:29.051686Z"
+  "downloaded_at": "2026-01-06T09:00:29.051686Z",
+  "github_path": "e2e-test-specialist/skills/e2e-test-plan",
+  "github_branch": "main"
 }

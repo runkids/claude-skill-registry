@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:51.682918Z",
   "dir_name": "cc-writing-hooks",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/cc-writing-hooks",
+  "github_branch": "main"
 }

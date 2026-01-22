@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:18.846377Z",
   "dir_name": "optimistic-updates",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/optimistic-updates",
+  "github_branch": "main"
 }

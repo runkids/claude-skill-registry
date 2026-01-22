@@ -8,5 +8,7 @@
     "paywall",
     "bypass"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/medium-paywall-bypass",
+  "github_branch": "main"
 }

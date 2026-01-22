@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Replace text in fillable PDF forms by updating form field values. This skill should be used when users need to update names, addresses, dates, or other text in PDF form fields.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:15.929866Z"
+  "downloaded_at": "2026-01-06T08:56:15.929866Z",
+  "github_path": "skills/public/pdf-text-replace",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "vercel",
     "sdk"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "vercel-ai-sdk",
+  "github_branch": "main"
 }

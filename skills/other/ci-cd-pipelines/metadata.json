@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:30.691903Z",
   "dir_name": "ci-cd-pipelines",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/infra/ci-cd-pipelines",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "|",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:20.414120Z"
+  "downloaded_at": "2026-01-08T03:20:20.414120Z",
+  "github_path": ".claude/skills/code-review-gate",
+  "github_branch": "main"
 }

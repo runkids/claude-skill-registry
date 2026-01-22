@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/clawdbot",
   "downloaded_at": "2026-01-22T03:52:10.604750Z",
   "dir_name": "sherpa-onnx-tts",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sherpa-onnx-tts",
+  "github_branch": "main"
 }

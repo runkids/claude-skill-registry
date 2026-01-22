@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:07.661454Z",
   "dir_name": "moai-project-template-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-project-template-optimizer",
+  "github_branch": "main"
 }

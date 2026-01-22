@@ -8,5 +8,7 @@
     "deployment",
     "exec"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/patch-deployment-exec",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:15.663932Z",
   "dir_name": "task-configuration",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-mise/skills/task-configuration",
+  "github_branch": "main"
 }

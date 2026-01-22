@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Single source of truth and librarian for ALL Duende Software documentation. Manages local documentation storage, scraping, discovery, and resolution. Use when finding, locating, searching, or resolvin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:03.215347Z"
+  "downloaded_at": "2026-01-06T09:00:03.215347Z",
+  "github_path": "plugins/duende-ecosystem/skills/duende-docs",
+  "github_branch": "main"
 }

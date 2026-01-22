@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when writing or editing markdown files. Covers headings, text formatting, lists, links, images, code blocks, and blockquotes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:06.623489Z"
+  "downloaded_at": "2026-01-06T08:57:06.623489Z",
+  "github_path": "jutsu/jutsu-markdown/skills/markdown-syntax-fundamentals",
+  "github_branch": "main"
 }

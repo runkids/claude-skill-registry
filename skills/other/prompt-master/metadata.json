@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:37.452597Z",
   "dir_name": "prompt-master",
-  "category": "other"
+  "category": "other",
+  "github_path": "prompt-master",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "surrealdb",
     "expert"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/surrealdb-expert",
+  "github_branch": "main"
 }

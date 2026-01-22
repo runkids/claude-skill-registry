@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:26.721140Z",
   "dir_name": "iterator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/patterns/iterator",
+  "github_branch": "main"
 }

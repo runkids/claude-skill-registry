@@ -5,5 +5,7 @@
   "source": "github.com/alirezarezvani/claude-skills",
   "downloaded_at": "2026-01-22T03:57:33.604105Z",
   "dir_name": "regulatory-affairs-head",
-  "category": "other"
+  "category": "other",
+  "github_path": "ra-qm-team/regulatory-affairs-head",
+  "github_branch": "main"
 }

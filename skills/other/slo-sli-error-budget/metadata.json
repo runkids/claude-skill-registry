@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:50.817414Z",
   "dir_name": "slo-sli-error-budget",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/slo-sli-error-budget",
+  "github_branch": "main"
 }

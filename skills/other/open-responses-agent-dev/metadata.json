@@ -5,5 +5,7 @@
   "source": "github.com/OthmanAdi/open-responses-agent-skill",
   "downloaded_at": "2026-01-22T02:05:12.391247Z",
   "dir_name": "open-responses-agent-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/open-responses-agent-dev",
+  "github_branch": "main"
 }

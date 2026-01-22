@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Backport docs/examples changes to a pre-existing ZenML release. Use when changes merged to `develop` need to be reflected in a live release version. Triggers include",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:19:05.258280Z"
+  "downloaded_at": "2026-01-08T03:19:05.258280Z",
+  "github_path": ".claude/skills/zenml-backport",
+  "github_branch": "main"
 }

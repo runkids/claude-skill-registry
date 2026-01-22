@@ -5,5 +5,7 @@
   "source": "github.com/longkeyy/claude-discover",
   "downloaded_at": "2026-01-14T02:29:33.453924Z",
   "dir_name": "content-discovery",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/content-discovery",
+  "github_branch": "main"
 }

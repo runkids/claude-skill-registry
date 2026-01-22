@@ -8,5 +8,7 @@
     "contrastive",
     "framing"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/negative-contrastive-framing",
+  "github_branch": "main"
 }

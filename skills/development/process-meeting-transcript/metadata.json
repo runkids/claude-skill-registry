@@ -8,5 +8,7 @@
     "meeting",
     "transcript"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "plugins/meeting-transcript/skills/process-meeting-transcript",
+  "github_branch": "main"
 }

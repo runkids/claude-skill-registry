@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Expert at creating and modifying Claude Code agents (subagents). Auto-invokes when the user wants to create, update, modify, enhance, validate, or standardize agents, or when modifying agent YAML fron",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:39.417958Z"
+  "downloaded_at": "2026-01-06T09:01:39.417958Z",
+  "github_path": "agent-builder/skills/building-agents",
+  "github_branch": "main"
 }

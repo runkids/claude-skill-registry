@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Handle Unity's asynchronous programming patterns including coroutines, async/await, and Job System. Masters Unity's main thread restrictions and threading models. Use when guidance needed on Unity asy",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:39.470749Z"
+  "downloaded_at": "2026-01-06T09:00:39.470749Z",
+  "github_path": "unity-plugin/skills/unity-async",
+  "github_branch": "main"
 }

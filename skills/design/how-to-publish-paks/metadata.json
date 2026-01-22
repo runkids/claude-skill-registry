@@ -8,5 +8,7 @@
     "publish",
     "paks"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "how-to-publish-paks",
+  "github_branch": "main"
 }

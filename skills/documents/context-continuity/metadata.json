@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "High-fidelity context transfer protocol for moving conversations between AI agents. Preserves decision tempo, open loops, and critical context with graceful degradation. Use when the user says \"transf",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:50.271500Z"
+  "downloaded_at": "2026-01-06T08:58:50.271500Z",
+  "github_path": "ContextContinuityCode/context-continuity-code",
+  "github_branch": "main"
 }

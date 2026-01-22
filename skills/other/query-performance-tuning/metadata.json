@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-17T02:52:48.138123Z",
   "dir_name": "query-performance-tuning",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/query-performance-tuning",
+  "github_branch": "main"
 }

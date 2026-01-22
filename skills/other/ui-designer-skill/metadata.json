@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:12.032058Z",
   "dir_name": "ui-designer-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "ui-designer-skill",
+  "github_branch": "main"
 }

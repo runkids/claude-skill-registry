@@ -8,5 +8,7 @@
     "form"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".github/skills/create-form",
+  "github_branch": "main"
 }

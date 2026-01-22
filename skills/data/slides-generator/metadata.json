@@ -8,5 +8,7 @@
     "generator"
   ],
   "stars": 8,
-  "dir_name": "slides-generator"
+  "dir_name": "slides-generator",
+  "github_path": "plugins/slides-generator/skills/slides-generator",
+  "github_branch": "main"
 }

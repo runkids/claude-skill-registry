@@ -8,5 +8,7 @@
     "customizer"
   ],
   "stars": 11,
-  "dir_name": "skill-customizer"
+  "dir_name": "skill-customizer",
+  "github_path": "skill-customizer",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "wuwuole-sonnet",
   "repo": "FlameMiss9/FlameMiss",
   "category": "development",
-  "description": "\u521b\u4f5c\u83ce\u58eb\u6bd4\u4e9a\u98ce\u683c\u5341\u56db\u884c\u8bd7\uff0c\u4e3b\u9898\"\u7a9d\u7a9d\u4e50\"",
+  "description": "创作菎士比亚风格十四行诗，主题\"窝窝乐\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:53.126003Z"
+  "downloaded_at": "2026-01-06T09:10:53.126003Z",
+  "github_path": "lele-rage-plugin/skills/wuwuole-sonnet",
+  "github_branch": "main"
 }

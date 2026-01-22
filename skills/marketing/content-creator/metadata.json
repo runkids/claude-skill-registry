@@ -1,5 +1,7 @@
 {
   "name": "content-creator",
   "repo": "alirezarezvani/claude-skills",
-  "category": "marketing"
+  "category": "marketing",
+  "github_path": "marketing-skill/content-creator",
+  "github_branch": "main"
 }

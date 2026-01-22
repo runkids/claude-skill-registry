@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Configures logging systems, log aggregation, and log analysis pipelines",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:18.260216Z"
+  "downloaded_at": "2026-01-06T09:09:18.260216Z",
+  "github_path": "skills/devops/logging-config-agent",
+  "github_branch": "main"
 }

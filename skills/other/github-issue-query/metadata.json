@@ -5,5 +5,7 @@
   "source": "github.com/githubnext/gh-aw",
   "downloaded_at": "2026-01-14T02:08:48.985730Z",
   "dir_name": "github-issue-query",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-issue-query",
+  "github_branch": "main"
 }

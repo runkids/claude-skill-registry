@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:22.537940Z",
   "dir_name": "evaluation-framework",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/leyline/skills/evaluation-framework",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/omerlefaruk/CasareRPA",
   "downloaded_at": "2026-01-22T04:12:06.495963Z",
   "dir_name": "command-fix-feature",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/command-fix-feature",
+  "github_branch": "main"
 }

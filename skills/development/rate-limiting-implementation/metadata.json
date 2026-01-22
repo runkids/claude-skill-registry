@@ -8,5 +8,7 @@
     "limiting",
     "implementation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/rate-limiting-implementation",
+  "github_branch": "main"
 }

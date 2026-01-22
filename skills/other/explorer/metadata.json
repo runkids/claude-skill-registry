@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-22T01:49:30.292704Z",
   "dir_name": "explorer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/acurioustractor/codebase-explorer",
+  "github_branch": "main"
 }

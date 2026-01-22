@@ -5,5 +5,7 @@
   "source": "github.com/robertguss/claude-code-toolkit",
   "downloaded_at": "2026-01-22T02:47:23.952606Z",
   "dir_name": "book-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/non-fiction-book-factory/book-architect",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dredd-us/seashells",
   "downloaded_at": "2026-01-22T01:30:16.512599Z",
   "dir_name": "vibe-coding-yaml",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/vibe-coding-yaml",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "simulator"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "debate-simulator",
+  "github_branch": "main"
 }

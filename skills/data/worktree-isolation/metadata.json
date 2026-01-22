@@ -8,5 +8,7 @@
     "isolation"
   ],
   "stars": 1,
-  "dir_name": "worktree-isolation"
+  "dir_name": "worktree-isolation",
+  "github_path": "skills/worktree-isolation",
+  "github_branch": "main"
 }

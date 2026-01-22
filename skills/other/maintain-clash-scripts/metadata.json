@@ -5,5 +5,7 @@
   "source": "github.com/mmm1h/clashconfig",
   "downloaded_at": "2026-01-14T03:05:47.655094Z",
   "dir_name": "maintain-clash-scripts",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/maintain-clash-scripts",
+  "github_branch": "main"
 }

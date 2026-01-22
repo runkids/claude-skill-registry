@@ -5,5 +5,7 @@
   "source": "github.com/zerobias-org/module",
   "downloaded_at": "2026-01-21T01:50:58.186761Z",
   "dir_name": "openapi-foundations",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/openapi-foundations",
+  "github_branch": "main"
 }

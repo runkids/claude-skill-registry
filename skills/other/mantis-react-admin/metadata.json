@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:05.767929Z",
   "dir_name": "mantis-react-admin",
-  "category": "other"
+  "category": "other",
+  "github_path": "mantis-react-admin",
+  "github_branch": "main"
 }

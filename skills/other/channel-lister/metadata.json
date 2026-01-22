@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:06.808454Z",
   "dir_name": "channel-lister",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-slack/skills/channel-lister",
+  "github_branch": "main"
 }

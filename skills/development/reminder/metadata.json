@@ -6,5 +6,7 @@
   "tags": [
     "reminder"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/reminder",
+  "github_branch": "main"
 }

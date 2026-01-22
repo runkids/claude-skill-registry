@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generate social media posts for building in public, coding in public, or dev content creation. Activate when user mentions Twitter, X, BlueSky, LinkedIn, Instagram posts about coding, sharing progress",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:23.285998Z"
+  "downloaded_at": "2026-01-06T09:01:23.285998Z",
+  "github_path": "skills/build-in-public",
+  "github_branch": "main"
 }

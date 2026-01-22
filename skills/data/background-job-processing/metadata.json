@@ -10,5 +10,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "background-job-processing"
+  "dir_name": "background-job-processing",
+  "github_path": "skills/background-job-processing",
+  "github_branch": "main"
 }

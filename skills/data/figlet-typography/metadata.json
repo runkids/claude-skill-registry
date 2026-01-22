@@ -9,5 +9,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "figlet-typography"
+  "dir_name": "figlet-typography",
+  "github_path": "skills/figlet-typography",
+  "github_branch": "main"
 }

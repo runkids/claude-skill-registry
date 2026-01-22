@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:47.696271Z",
   "dir_name": "fitts-law",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/cognitive-laws/fitts-law",
+  "github_branch": "main"
 }

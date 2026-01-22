@@ -8,5 +8,7 @@
     "bsv",
     "transaction"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/decode-bsv-transaction",
+  "github_branch": "main"
 }

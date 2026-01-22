@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Load when retrofitting framework documentation to existing code. Supports creating specs and decisions from implementations, enabling gradual framework adoption for existing projects.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:38.475260Z"
+  "downloaded_at": "2026-01-06T09:03:38.475260Z",
+  "github_path": "katachi/skills/retrofit-existing",
+  "github_branch": "main"
 }

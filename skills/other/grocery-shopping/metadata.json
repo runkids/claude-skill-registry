@@ -5,5 +5,7 @@
   "source": "github.com/natea/ExoMind",
   "downloaded_at": "2026-01-22T02:14:42.652004Z",
   "dir_name": "grocery-shopping",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/grocery-shopping",
+  "github_branch": "main"
 }

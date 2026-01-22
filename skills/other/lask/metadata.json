@@ -5,5 +5,7 @@
   "source": "github.com/bfly123/claude_code_bridge",
   "downloaded_at": "2026-01-19T01:07:30.112205Z",
   "dir_name": "lask",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex_skills/lask",
+  "github_branch": "main"
 }

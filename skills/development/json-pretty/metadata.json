@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Pretty-print JSON via json_prettify tool.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:20.211155Z"
+  "downloaded_at": "2026-01-06T09:05:20.211155Z",
+  "github_path": "examples/SkillsMCPUnifiedDemo/agent_skills/json-pretty",
+  "github_branch": "main"
 }

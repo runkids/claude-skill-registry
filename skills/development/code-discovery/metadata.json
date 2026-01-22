@@ -8,5 +8,7 @@
     "discovery"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/code-discovery",
+  "github_branch": "main"
 }

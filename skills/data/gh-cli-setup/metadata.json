@@ -8,5 +8,7 @@
     "setup"
   ],
   "stars": 1,
-  "dir_name": "gh-cli-setup"
+  "dir_name": "gh-cli-setup",
+  "github_path": "skills/gh-cli-setup",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/doraemonkeys/sloc-guard",
   "downloaded_at": "2026-01-22T03:42:59.686680Z",
   "dir_name": "requirement-change",
-  "category": "other"
+  "category": "other",
+  "github_path": ".cursor/skills/requirement-change",
+  "github_branch": "main"
 }

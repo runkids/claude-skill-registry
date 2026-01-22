@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "campaign-orchestration"
+  "dir_name": "campaign-orchestration",
+  "github_path": "campaign-orchestration",
+  "github_branch": "main"
 }

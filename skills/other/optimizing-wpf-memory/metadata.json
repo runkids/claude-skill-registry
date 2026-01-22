@@ -5,5 +5,7 @@
   "source": "github.com/christian289/dotnet-with-claudecode",
   "downloaded_at": "2026-01-22T02:11:39.878880Z",
   "dir_name": "optimizing-wpf-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": "wpf-dev-pack/skills/optimizing-wpf-memory",
+  "github_branch": "main"
 }

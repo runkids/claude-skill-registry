@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-17T02:12:12.424176Z",
   "dir_name": "agent-client-protocol",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills-templates/agent-client-protocol",
+  "github_branch": "main"
 }

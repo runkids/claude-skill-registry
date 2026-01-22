@@ -8,5 +8,7 @@
     "consensus",
     "synthesis"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "irp_swarm_console/skills/rtc-consensus-synthesis",
+  "github_branch": "main"
 }

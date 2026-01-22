@@ -7,5 +7,7 @@
     "git",
     "review"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/git-review",
+  "github_branch": "main"
 }

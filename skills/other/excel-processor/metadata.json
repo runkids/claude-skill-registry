@@ -5,5 +5,7 @@
   "source": "github.com/ntaksh42/agents",
   "downloaded_at": "2026-01-22T02:30:12.544591Z",
   "dir_name": "excel-processor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/excel-processor",
+  "github_branch": "main"
 }

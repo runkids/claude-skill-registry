@@ -5,5 +5,7 @@
   "source": "github.com/rickoslyder/HypeDelta",
   "downloaded_at": "2026-01-22T03:53:16.929556Z",
   "dir_name": "topic-synthesis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/topic-synthesis",
+  "github_branch": "main"
 }

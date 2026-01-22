@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:17.330448Z",
   "dir_name": "gemini-delegation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/conjure/skills/gemini-delegation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:05.497913Z",
   "dir_name": "slides-list",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/slides-list",
+  "github_branch": "main"
 }

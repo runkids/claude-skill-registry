@@ -2,7 +2,9 @@
   "name": "test-naming-conventions",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "\u30c6\u30b9\u30c8\u547d\u540d\u898f\u5247\u3092\u8a2d\u8a08\u3057\u3001\u53ef\u8aad\u6027\u3068\u4e00\u8cab\u6027\u3092\u7dad\u6301\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30d5\u30a1\u30a4\u30eb\u540d\u3001describe/it \u69cb\u9020\u3001\u30b7\u30ca\u30ea\u30aa\u8868\u73fe\u3092\u7d71\u4e00\u3057\u3001\u30c1\u30fc\u30e0\u904b\u7528\u3092\u652f\u63f4\u3059\u308b\u3002Anchors:\u2022 xUnit Test Patterns / \u9069\u7528: \u547d\u540d\u898f\u5247\u8a2d\u8a08 / \u76ee\u7684: \u53ef\u8aad\u6027\u306e\u5411\u4e0a\u2022 Specification by Example / \u9069\u7528: \u30b7\u30ca\u30ea\u30aa\u547d\u540d / \u76ee\u7684: \u610f\u56f3\u306e\u5171\u6709Trigger:Use when defini",
+  "description": "テスト命名規則を設計し、可読性と一貫性を維持するスキル。ファイル名、describe/it 構造、シナリオ表現を統一し、チーム運用を支援する。Anchors:• xUnit Test Patterns / 適用: 命名規則設計 / 目的: 可読性の向上• Specification by Example / 適用: シナリオ命名 / 目的: 意図の共有Trigger:Use when defini",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.737071Z"
+  "downloaded_at": "2026-01-06T09:00:45.737071Z",
+  "github_path": "docs/99-claude/skills/test-naming-conventions",
+  "github_branch": "main"
 }

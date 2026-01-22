@@ -5,5 +5,7 @@
   "source": "github.com/Cantara/lib-electronic-components",
   "downloaded_at": "2026-01-22T02:07:20.497749Z",
   "dir_name": "telink",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/manufacturers/telink",
+  "github_branch": "main"
 }

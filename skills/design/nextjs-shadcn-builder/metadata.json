@@ -8,5 +8,7 @@
     "shadcn",
     "builder"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/nextjs-shadcn-builder",
+  "github_branch": "main"
 }

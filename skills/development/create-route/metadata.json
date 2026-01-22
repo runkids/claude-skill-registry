@@ -8,5 +8,7 @@
     "route"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".github/skills/create-route",
+  "github_branch": "main"
 }

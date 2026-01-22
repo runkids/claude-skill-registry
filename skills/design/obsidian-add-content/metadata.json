@@ -8,5 +8,7 @@
     "add",
     "content"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "obsidian-add-content",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "fetcher"
   ],
   "stars": 0,
-  "dir_name": "issue-fetcher"
+  "dir_name": "issue-fetcher",
+  "github_path": ".claude/skills/issue-fetcher",
+  "github_branch": "main"
 }

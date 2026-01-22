@@ -5,5 +5,7 @@
   "source": "github.com/massimodeluisa/recursive-decomposition-skill",
   "downloaded_at": "2026-01-22T03:01:54.624372Z",
   "dir_name": "recursive-decomposition",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/recursive-decomposition/skills/recursive-decomposition",
+  "github_branch": "main"
 }

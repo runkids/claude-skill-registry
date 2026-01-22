@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:38.219068Z",
   "dir_name": "sleep-story",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/application/sleep-story",
+  "github_branch": "main"
 }

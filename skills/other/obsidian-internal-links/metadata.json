@@ -5,5 +5,7 @@
   "source": "github.com/tolgaio/neo",
   "downloaded_at": "2026-01-22T02:03:04.592546Z",
   "dir_name": "obsidian-internal-links",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/obsidian-internal-links",
+  "github_branch": "main"
 }

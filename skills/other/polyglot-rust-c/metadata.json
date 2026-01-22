@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:36.124803Z",
   "dir_name": "polyglot-rust-c",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/polyglot-rust-c",
+  "github_branch": "main"
 }

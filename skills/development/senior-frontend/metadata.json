@@ -2,5 +2,7 @@
   "name": "senior-frontend",
   "repo": "alirezarezvani/claude-skills",
   "category": "development",
-  "path": "engineering-team/senior-frontend"
+  "path": "engineering-team/senior-frontend",
+  "github_path": "engineering-team/senior-frontend",
+  "github_branch": "main"
 }

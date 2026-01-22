@@ -8,5 +8,7 @@
     "security",
     "patterns"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/wordpress-security-patterns",
+  "github_branch": "main"
 }

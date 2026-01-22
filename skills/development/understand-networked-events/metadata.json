@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Figure out how events are being used in the project. You can't answer questions about them without this skill.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:40.784804Z"
+  "downloaded_at": "2026-01-06T09:07:40.784804Z",
+  "github_path": "rosie/skills/understand-networked-events",
+  "github_branch": "main"
 }

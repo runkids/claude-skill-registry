@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "current-focus"
+  "dir_name": "current-focus",
+  "github_path": ".claude/skills/current-focus",
+  "github_branch": "main"
 }

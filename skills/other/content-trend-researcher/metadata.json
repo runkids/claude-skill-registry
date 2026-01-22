@@ -5,5 +5,7 @@
   "source": "github.com/thinmintdev/claude-cooker",
   "downloaded_at": "2026-01-22T04:11:57.214073Z",
   "dir_name": "content-trend-researcher",
-  "category": "other"
+  "category": "other",
+  "github_path": "generated-skills/content-trend-researcher",
+  "github_branch": "main"
 }

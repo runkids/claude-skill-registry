@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Optimize Rust code for WebAssembly compilation and runtime performance. Use when building WASM applications, optimizing binary size, or improving WASM runtime performance.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:18.455662Z"
+  "downloaded_at": "2026-01-06T09:03:18.455662Z",
+  "github_path": ".cursor/skills/rust-wasm-optimization",
+  "github_branch": "main"
 }

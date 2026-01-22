@@ -2,7 +2,9 @@
   "name": "asterisk-validator",
   "repo": "mikopbx/Core",
   "category": "development",
-  "description": "\u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u043e\u043d\u043d\u044b\u0445 \u0444\u0430\u0439\u043b\u043e\u0432 Asterisk \u0438 \u0430\u043d\u0430\u043b\u0438\u0437 \u043b\u043e\u0433\u043e\u0432 \u043d\u0430 \u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u043e\u0441\u0442\u044c \u0438 best practices. \u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u043f\u0440\u0438 \u043e\u0442\u043b\u0430\u0434\u043a\u0435 \u043f\u0440\u043e\u0431\u043b\u0435\u043c \u0437\u0430\u043f\u0443\u0441\u043a\u0430 Asterisk, \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0435 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439 \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438 \u0438\u043b\u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0435 \u043e\u0448\u0438\u0431\u043e\u043a \u043f\u043e\u0441\u043b\u0435",
+  "description": "Валидация конфигурационных файлов Asterisk и анализ логов на корректность и best practices. Использовать при отладке проблем запуска Asterisk, проверке изменений конфигурации или проверке ошибок после",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:17.610063Z"
+  "downloaded_at": "2026-01-06T08:56:17.610063Z",
+  "github_path": ".claude/skills/asterisk-validator",
+  "github_branch": "main"
 }

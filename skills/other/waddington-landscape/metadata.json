@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T04:21:38.226585Z",
   "dir_name": "waddington-landscape",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/waddington-landscape",
+  "github_branch": "main"
 }

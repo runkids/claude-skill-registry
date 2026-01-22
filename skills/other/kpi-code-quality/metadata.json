@@ -5,5 +5,7 @@
   "source": "github.com/Anveio/conveaux",
   "downloaded_at": "2026-01-22T03:56:31.634071Z",
   "dir_name": "kpi-code-quality",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/kpi-code-quality",
+  "github_branch": "main"
 }

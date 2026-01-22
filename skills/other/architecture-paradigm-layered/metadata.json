@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-20T01:02:18.633403Z",
   "dir_name": "architecture-paradigm-layered",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/archetypes/skills/architecture-paradigm-layered",
+  "github_branch": "main"
 }

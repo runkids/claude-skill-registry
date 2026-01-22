@@ -8,5 +8,7 @@
     "architecture",
     "enforcer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "react-architecture-enforcer",
+  "github_branch": "main"
 }

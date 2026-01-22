@@ -8,5 +8,7 @@
     "auto",
     "activation"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/skills-auto-activation",
+  "github_branch": "main"
 }

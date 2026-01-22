@@ -5,5 +5,7 @@
   "source": "github.com/adaptationio/Skrillz",
   "downloaded_at": "2026-01-22T03:07:09.486022Z",
   "dir_name": "supabase-cli",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/supabase-cli",
+  "github_branch": "main"
 }

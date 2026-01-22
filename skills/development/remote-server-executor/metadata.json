@@ -8,5 +8,7 @@
     "server",
     "executor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "remote-server-executor",
+  "github_branch": "main"
 }

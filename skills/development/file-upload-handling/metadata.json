@@ -8,5 +8,7 @@
     "upload",
     "handling"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/file-upload-handling",
+  "github_branch": "main"
 }

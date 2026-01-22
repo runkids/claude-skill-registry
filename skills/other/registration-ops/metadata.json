@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.361204Z",
   "dir_name": "registration-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/webinar-automation/skills/registration-ops",
+  "github_branch": "main"
 }

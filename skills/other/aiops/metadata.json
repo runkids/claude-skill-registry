@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-22T01:49:27.939575Z",
   "dir_name": "aiops",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/azeem-2/aiops",
+  "github_branch": "main"
 }

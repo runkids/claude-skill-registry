@@ -8,5 +8,7 @@
     "states"
   ],
   "stars": 0,
-  "dir_name": "error-states"
+  "dir_name": "error-states",
+  "github_path": "error-states",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "activity"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/gh-activity",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "eld-model-link-map",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "development",
-  "description": "LDE\uff08Law-Driven Engineering\uff09\u306eLink Map\uff08\u9023\u7d50\u8868\uff09\u7ba1\u7406\u30b9\u30ad\u30eb\u3002Law \u2194 Term \u306e\u76f8\u4e92\u53c2\u7167\u95a2\u4fc2\u3092\u53ef\u8996\u5316\u3057\u3001\u5b64\u7acb\u306e\u691c\u51fa\u3068\u5f71\u97ff\u5206\u6790\u3092\u884c\u3046\u3002\u4f7f\u7528\u30bf\u30a4\u30df\u30f3\u30b0: (1) Law Card\u3092\u4f5c\u6210\u3057\u305f\u5f8c\u3001(2) Term Card\u3092\u4f5c\u6210\u3057\u305f\u5f8c\u3001(3) \u300cLink Map\u3092\u66f4\u65b0\u3057\u3066\u300d\u300c\u5b64\u7acb\u30c1\u30a7\u30c3\u30af\u3057\u3066\u300d\u3001(4) \u5909\u66f4\u5f71\u97ff\u5206\u6790\u6642",
+  "description": "LDE（Law-Driven Engineering）のLink Map（連結表）管理スキル。Law ↔ Term の相互参照関係を可視化し、孤立の検出と影響分析を行う。使用タイミング: (1) Law Cardを作成した後、(2) Term Cardを作成した後、(3) 「Link Mapを更新して」「孤立チェックして」、(4) 変更影響分析時",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.223545Z"
+  "downloaded_at": "2026-01-06T09:04:21.223545Z",
+  "github_path": "caphtech-plugin/skills/eld-model-link-map",
+  "github_branch": "main"
 }

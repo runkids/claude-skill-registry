@@ -5,5 +5,7 @@
   "source": "github.com/RevTechStudio/rts-plugins",
   "downloaded_at": "2026-01-22T03:44:55.189879Z",
   "dir_name": "workflow-skill-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "rts-plugin-generator/skills/workflow-skill-generator",
+  "github_branch": "main"
 }

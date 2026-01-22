@@ -10,5 +10,7 @@
     "core"
   ],
   "stars": 0,
-  "dir_name": "julien-infra-hostinger-core"
+  "dir_name": "julien-infra-hostinger-core",
+  "github_path": "skills/julien-infra-hostinger-core",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "meme",
     "creator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "sports-meme-creator",
+  "github_branch": "main"
 }

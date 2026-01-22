@@ -5,5 +5,7 @@
   "source": "github.com/rwHiveAqua/advisor",
   "downloaded_at": "2026-01-22T03:26:00.203644Z",
   "dir_name": "lean-startup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/lean-startup",
+  "github_branch": "main"
 }

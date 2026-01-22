@@ -5,5 +5,7 @@
   "source": "github.com/robertguss/claude-code-toolkit",
   "downloaded_at": "2026-01-22T02:47:24.224522Z",
   "dir_name": "pragmatic-writing",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/compound-writing/skills/pragmatic-writing",
+  "github_branch": "main"
 }

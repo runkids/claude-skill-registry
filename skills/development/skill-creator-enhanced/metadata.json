@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Creates production-grade, reusable skills that extend Claude's capabilities.This skill should be used when users want to create a new skill, improve anexisting skill, or build domain-specific intellig",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:38.037064Z"
+  "downloaded_at": "2026-01-06T09:03:38.037064Z",
+  "github_path": "FastAPI/zero-to-hero/.claude/skills/skill-creator-enhanced",
+  "github_branch": "main"
 }

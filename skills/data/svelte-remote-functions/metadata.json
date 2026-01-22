@@ -9,5 +9,7 @@
     "functions"
   ],
   "stars": 0,
-  "dir_name": "svelte-remote-functions"
+  "dir_name": "svelte-remote-functions",
+  "github_path": "",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "formatter"
   ],
   "stars": 4,
-  "dir_name": "json-formatter"
+  "dir_name": "json-formatter",
+  "github_path": "skills/json-formatter",
+  "github_branch": "main"
 }

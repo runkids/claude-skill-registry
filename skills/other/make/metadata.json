@@ -5,5 +5,7 @@
   "source": "github.com/mauromedda/agent-toolkit",
   "downloaded_at": "2026-01-14T03:39:05.428986Z",
   "dir_name": "make",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/make",
+  "github_branch": "main"
 }

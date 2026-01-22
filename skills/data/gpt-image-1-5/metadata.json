@@ -8,5 +8,7 @@
     "image"
   ],
   "stars": 0,
-  "dir_name": "gpt-image-1-5"
+  "dir_name": "gpt-image-1-5",
+  "github_path": "skills/gpt-image-1-5",
+  "github_branch": "main"
 }

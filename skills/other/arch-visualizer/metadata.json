@@ -5,5 +5,7 @@
   "source": "github.com/monicajeon28/GMcruise",
   "downloaded_at": "2026-01-22T01:14:51.333904Z",
   "dir_name": "arch-visualizer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/arch-visualizer",
+  "github_branch": "main"
 }

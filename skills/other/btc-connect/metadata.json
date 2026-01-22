@@ -5,5 +5,7 @@
   "source": "github.com/Activer007/ordinary-claude-skills",
   "downloaded_at": "2026-01-22T02:48:17.597837Z",
   "dir_name": "btc-connect",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills_all/btc-connect",
+  "github_branch": "main"
 }

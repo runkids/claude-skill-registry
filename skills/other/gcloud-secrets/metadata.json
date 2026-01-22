@@ -5,5 +5,7 @@
   "source": "github.com/jonit-dev/pixelperfect",
   "downloaded_at": "2026-01-21T01:34:47.558568Z",
   "dir_name": "gcloud-secrets",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/gcloud-secrets",
+  "github_branch": "main"
 }

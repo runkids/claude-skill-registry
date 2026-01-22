@@ -5,5 +5,7 @@
   "source": "github.com/mutable-state-inc/ensue-skill",
   "downloaded_at": "2026-01-22T02:58:30.719901Z",
   "dir_name": "ensue-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ensue-memory",
+  "github_branch": "main"
 }

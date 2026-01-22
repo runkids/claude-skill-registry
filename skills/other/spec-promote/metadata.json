@@ -5,5 +5,7 @@
   "source": "github.com/srnnkls/tropos",
   "downloaded_at": "2026-01-21T02:14:33.807246Z",
   "dir_name": "spec-promote",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/spec-promote",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/omerakben/omer-akben",
   "downloaded_at": "2026-01-22T03:54:40.437402Z",
   "dir_name": "data-architecture-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/data-architecture-skill",
+  "github_branch": "main"
 }

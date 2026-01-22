@@ -6,5 +6,7 @@
   "tags": [
     "intercom"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "intercom",
+  "github_branch": "main"
 }

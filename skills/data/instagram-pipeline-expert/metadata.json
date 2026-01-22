@@ -9,5 +9,7 @@
     "expert"
   ],
   "stars": 1,
-  "dir_name": "instagram-pipeline-expert"
+  "dir_name": "instagram-pipeline-expert",
+  "github_path": ".claude/skills/instagram-pipeline-expert",
+  "github_branch": "main"
 }

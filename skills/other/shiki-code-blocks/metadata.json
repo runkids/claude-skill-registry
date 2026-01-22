@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:07.956484Z",
   "dir_name": "shiki-code-blocks",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/shiki-code-blocks",
+  "github_branch": "main"
 }

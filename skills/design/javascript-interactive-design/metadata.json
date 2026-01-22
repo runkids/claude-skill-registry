@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Add interactivity and dynamic behavior to web designs using vanilla JavaScript. Handles animations, user interactions, form validation, DOM manipulation, event handling, and progressive enhancement wi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T07:57:45.626478Z"
+  "downloaded_at": "2026-01-06T07:57:45.626478Z",
+  "github_path": "javascript-interactive-design",
+  "github_branch": "main"
 }

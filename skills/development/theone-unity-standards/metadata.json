@@ -8,5 +8,7 @@
     "unity",
     "standards"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/theone-unity-standards",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/CleanExpo/Unite-Hub",
   "downloaded_at": "2026-01-22T01:27:32.326640Z",
   "dir_name": "business-consistency",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/business-consistency",
+  "github_branch": "main"
 }

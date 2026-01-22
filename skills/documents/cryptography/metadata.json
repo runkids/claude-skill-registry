@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Comprehensive cryptography guidance covering encryption algorithms, password hashing, TLS configuration, key management, and post-quantum considerations. Use when implementing encryption, choosing has",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:10.472743Z"
+  "downloaded_at": "2026-01-06T09:00:10.472743Z",
+  "github_path": "plugins/security/skills/cryptography",
+  "github_branch": "main"
 }

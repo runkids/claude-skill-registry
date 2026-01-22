@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Operational patterns, templates, and decision rules for time series forecasting (modern best practices): tree-based methods (LightGBM), deep learning (Transformers, RNNs), future-guided learning, temp",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:58.695775Z"
+  "downloaded_at": "2026-01-06T08:57:58.695775Z",
+  "github_path": "frameworks/shared-skills/skills/ai-ml-timeseries",
+  "github_branch": "main"
 }

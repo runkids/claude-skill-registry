@@ -5,5 +5,7 @@
   "source": "github.com/ghealysr/nicole-assistant",
   "downloaded_at": "2026-01-14T02:20:21.684808Z",
   "dir_name": "ios-simulator-skill-ghealysr-nicole-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/installed/ios-simulator-skill/iOS Simulator Skill",
+  "github_branch": "main"
 }

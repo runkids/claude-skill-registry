@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Use when implementing map camera animations (flyTo, easeTo, jumpTo), handling zoom transitions, or managing bearing/pitch. Load for useMapCamera composable patterns, preventing camera feedback loops, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:59.596645Z"
+  "downloaded_at": "2026-01-06T09:04:59.596645Z",
+  "github_path": ".opencode/skills/maplibre-camera",
+  "github_branch": "main"
 }

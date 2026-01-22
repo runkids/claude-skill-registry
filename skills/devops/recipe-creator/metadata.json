@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Create custom recipes based on available ingredients, dietary restrictions, and preferences",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:13.973318Z"
+  "downloaded_at": "2026-01-06T09:03:13.973318Z",
+  "github_path": "skills/recipe-creator",
+  "github_branch": "main"
 }

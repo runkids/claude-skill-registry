@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-19T02:22:02.707700Z",
   "dir_name": "llm-function-calling",
-  "category": "other"
+  "category": "other",
+  "github_path": "06-ai-ml-production/llm-function-calling",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "experiment-tracking"
+  "dir_name": "experiment-tracking",
+  "github_path": ".claude/skills/experiment-tracking",
+  "github_branch": "main"
 }

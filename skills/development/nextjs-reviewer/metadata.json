@@ -7,5 +7,7 @@
     "nextjs",
     "reviewer"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/nextjs-reviewer",
+  "github_branch": "main"
 }

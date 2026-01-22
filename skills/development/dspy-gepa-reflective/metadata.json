@@ -9,5 +9,7 @@
     "reflective"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/dspy-gepa-reflective",
+  "github_branch": "main"
 }

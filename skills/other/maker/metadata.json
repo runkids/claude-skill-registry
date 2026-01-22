@@ -5,5 +5,7 @@
   "source": "github.com/alanben/ClaudeSkills",
   "downloaded_at": "2026-01-22T04:02:30.338270Z",
   "dir_name": "maker",
-  "category": "other"
+  "category": "other",
+  "github_path": "maker",
+  "github_branch": "main"
 }

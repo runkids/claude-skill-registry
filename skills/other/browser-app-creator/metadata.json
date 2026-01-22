@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:37.146448Z",
   "dir_name": "browser-app-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/browser-app-creator",
+  "github_branch": "main"
 }

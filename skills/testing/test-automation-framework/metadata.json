@@ -8,5 +8,7 @@
     "automation",
     "framework"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/test-automation-framework",
+  "github_branch": "main"
 }

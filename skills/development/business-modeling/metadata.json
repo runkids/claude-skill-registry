@@ -2,7 +2,9 @@
   "name": "business-modeling",
   "repo": "cna-bootcamp/aiguide",
   "category": "development",
-  "description": "Lean Canvas\ub97c \uc0ac\uc6a9\ud558\uc5ec \ud3ec\uad04\uc801\uc778 \ube44\uc988\ub2c8\uc2a4 \ubaa8\ub378\uc744 \uc124\uacc4\ud569\ub2c8\ub2e4. \uc218\uc775 \ud750\ub984\uacfc \ube44\uc988\ub2c8\uc2a4 \uc804\ub7b5\uc744 \uacc4\ud68d\ud560 \ub54c \uc0ac\uc6a9\ud558\uc138\uc694.",
+  "description": "Lean Canvas를 사용하여 포괄적인 비즈니스 모델을 설계합니다. 수익 흐름과 비즈니스 전략을 계획할 때 사용하세요.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.936006Z"
+  "downloaded_at": "2026-01-06T08:58:46.936006Z",
+  "github_path": ".claude/skills/12-business-modeling",
+  "github_branch": "main"
 }

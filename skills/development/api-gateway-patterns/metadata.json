@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "claude_ctx_py/assets/skills/api-gateway-patterns",
+  "github_branch": "main"
 }

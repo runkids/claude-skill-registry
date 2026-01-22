@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Complete Next.js integration patterns for Clerk authentication with App Router and Pages Router. Use when setting up Clerk in Next.js, configuring authentication middleware, implementing protected rou",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:23.158455Z"
+  "downloaded_at": "2026-01-06T09:09:23.158455Z",
+  "github_path": "plugins/clerk/skills/nextjs-integration",
+  "github_branch": "main"
 }

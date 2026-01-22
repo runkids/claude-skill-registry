@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:14.319665Z",
   "dir_name": "education",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/domains/education",
+  "github_branch": "main"
 }

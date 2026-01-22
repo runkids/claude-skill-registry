@@ -6,5 +6,7 @@
   "tags": [
     "nuxt"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/nuxt-ui",
+  "github_branch": "main"
 }

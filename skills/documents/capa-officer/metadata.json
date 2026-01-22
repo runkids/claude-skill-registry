@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Senior CAPA Officer specialist for managing Corrective and Preventive Actions within Quality Management Systems. Provides CAPA process management, root cause analysis, effectiveness verification, and ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.737230Z"
+  "downloaded_at": "2026-01-06T08:55:35.737230Z",
+  "github_path": "cli-tool/components/skills/enterprise-communication/capa-officer",
+  "github_branch": "main"
 }

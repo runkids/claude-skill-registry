@@ -9,5 +9,7 @@
     "templates"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/agent-skill-templates",
+  "github_branch": "main"
 }

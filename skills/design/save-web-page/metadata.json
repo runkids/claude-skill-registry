@@ -8,5 +8,7 @@
     "web",
     "page"
   ],
-  "stars": 17
+  "stars": 17,
+  "github_path": "save-web-page",
+  "github_branch": "main"
 }

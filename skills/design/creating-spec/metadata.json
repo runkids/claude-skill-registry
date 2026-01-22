@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Initialize a new spec with requirements, design, and task planning. Orchestrates the entire spec-driven workflow from feature idea to actionable task list.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:29.349767Z"
+  "downloaded_at": "2026-01-06T08:58:29.349767Z",
+  "github_path": "claude/skills/starwave-creating-spec",
+  "github_branch": "main"
 }

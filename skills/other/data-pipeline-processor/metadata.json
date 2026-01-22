@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:55.833992Z",
   "dir_name": "data-pipeline-processor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/data-pipeline-processor",
+  "github_branch": "main"
 }

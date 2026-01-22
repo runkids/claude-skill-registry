@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expert at creating and managing Claude Code plugins that bundle agents, skills, commands, and hooks into cohesive packages. Auto-invokes when the user wants to create, structure, validate, or publish ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:39.408623Z"
+  "downloaded_at": "2026-01-06T09:01:39.408623Z",
+  "github_path": "agent-builder/skills/building-plugins",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-blockchain",
   "downloaded_at": "2026-01-14T02:23:37.496157Z",
   "dir_name": "ethereum-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ethereum-development",
+  "github_branch": "main"
 }

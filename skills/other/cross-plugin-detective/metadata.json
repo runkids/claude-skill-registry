@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:33.012494Z",
   "dir_name": "cross-plugin-detective",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/code-analysis/skills/cross-plugin-detective",
+  "github_branch": "main"
 }

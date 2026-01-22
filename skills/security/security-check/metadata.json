@@ -7,5 +7,7 @@
     "security",
     "check"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/security-check",
+  "github_branch": "main"
 }

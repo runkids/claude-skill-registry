@@ -8,5 +8,7 @@
     "connector"
   ],
   "stars": 17,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "examples/before-after/api-connector-converted",
+  "github_branch": "main"
 }

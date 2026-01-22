@@ -5,5 +5,7 @@
   "source": "github.com/merllinsbeard/ai-claude-skills-collection",
   "downloaded_at": "2026-01-22T02:21:03.126564Z",
   "dir_name": "ultrathink-mode",
-  "category": "other"
+  "category": "other",
+  "github_path": "meta/ultrathink-mode",
+  "github_branch": "main"
 }

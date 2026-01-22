@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Creates TypeScript modules following immutable, fluent API patterns with proper encapsulation.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:08.146605Z"
+  "downloaded_at": "2026-01-08T03:21:08.146605Z",
+  "github_path": ".claude/skills/.update-claude-md",
+  "github_branch": "main"
 }

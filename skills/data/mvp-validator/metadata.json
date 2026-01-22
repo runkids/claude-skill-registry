@@ -8,5 +8,7 @@
     "validator"
   ],
   "stars": 13,
-  "dir_name": "mvp-validator"
+  "dir_name": "mvp-validator",
+  "github_path": "mvp-validator",
+  "github_branch": "main"
 }

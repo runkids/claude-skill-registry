@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:10.907692Z",
   "dir_name": "apollo-observability",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/apollo-pack/skills/apollo-observability",
+  "github_branch": "main"
 }

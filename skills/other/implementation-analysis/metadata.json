@@ -5,5 +5,7 @@
   "source": "github.com/audunstrand/status-app",
   "downloaded_at": "2026-01-14T01:52:03.746961Z",
   "dir_name": "implementation-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/implementation-analysis",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-20T03:48:01.941771Z",
   "dir_name": "pandas-data-processing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/programming/pandas-data-processing",
+  "github_branch": "main"
 }

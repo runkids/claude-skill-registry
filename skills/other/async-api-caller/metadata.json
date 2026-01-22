@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:12.623724Z",
   "dir_name": "async-api-caller",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/16-api-integration/async-api-caller",
+  "github_branch": "main"
 }

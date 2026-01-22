@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Generate new Navigator slash commands following project conventions. Use when user says \"add slash command\", \"create command\", \"new /nav command\", or \"add /nav:[name] command\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.410035Z"
+  "downloaded_at": "2026-01-06T08:57:10.410035Z",
+  "github_path": "skills/plugin-slash-command",
+  "github_branch": "main"
 }

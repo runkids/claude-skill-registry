@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:11.557577Z",
   "dir_name": "unread-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-slack/skills/unread-checker",
+  "github_branch": "main"
 }

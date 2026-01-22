@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Number theory expert covering primes, divisibility, modular arithmetic, Diophantine equations, and cryptographic applications",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:20.058055Z"
+  "downloaded_at": "2026-01-06T09:00:20.058055Z",
+  "github_path": "skills/mathematics/number-theory-explorer",
+  "github_branch": "main"
 }

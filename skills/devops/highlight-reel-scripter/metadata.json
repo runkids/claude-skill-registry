@@ -8,5 +8,7 @@
     "reel",
     "scripter"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "highlight-reel-scripter",
+  "github_branch": "main"
 }

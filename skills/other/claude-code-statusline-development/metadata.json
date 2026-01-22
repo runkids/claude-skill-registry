@@ -5,5 +5,7 @@
   "source": "github.com/dwmkerr/claude-toolkit",
   "downloaded_at": "2026-01-20T01:34:33.107287Z",
   "dir_name": "claude-code-statusline-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/toolkit/skills/claude-code-statusline-development",
+  "github_branch": "main"
 }

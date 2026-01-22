@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-20T01:39:00.410865Z",
   "dir_name": "golden-dataset-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/golden-dataset-validation",
+  "github_branch": "main"
 }

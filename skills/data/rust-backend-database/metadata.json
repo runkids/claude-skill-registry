@@ -9,5 +9,7 @@
     "database"
   ],
   "stars": 0,
-  "dir_name": "rust-backend-database"
+  "dir_name": "rust-backend-database",
+  "github_path": "skills/rust-backend-database",
+  "github_branch": "main"
 }

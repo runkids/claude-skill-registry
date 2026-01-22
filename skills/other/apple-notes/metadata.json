@@ -5,5 +5,7 @@
   "source": "github.com/gupsammy/Claude-setup",
   "downloaded_at": "2026-01-22T04:13:16.412804Z",
   "dir_name": "apple-notes",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/apple-notes",
+  "github_branch": "main"
 }

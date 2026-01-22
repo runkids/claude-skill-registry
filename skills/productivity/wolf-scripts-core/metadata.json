@@ -8,5 +8,7 @@
     "scripts",
     "core"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "wolf-scripts-core",
+  "github_branch": "main"
 }

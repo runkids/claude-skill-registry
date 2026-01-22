@@ -8,5 +8,7 @@
     "language",
     "processing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/natural-language-processing",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Provides expertise in converting Figma designs to HTML/CSS using Figma MCP tools, with data attributes for content tracking and comprehensive analysis. Use when converting Figma designs to web code.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:51.365342Z"
+  "downloaded_at": "2026-01-06T09:01:51.365342Z",
+  "github_path": ".agents/skills/converting-figma-to-html",
+  "github_branch": "main"
 }

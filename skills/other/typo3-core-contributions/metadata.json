@@ -5,5 +5,7 @@
   "source": "github.com/netresearch/typo3-core-contributions-skill",
   "downloaded_at": "2026-01-22T04:00:32.884332Z",
   "dir_name": "typo3-core-contributions",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/typo3-core-contributions",
+  "github_branch": "main"
 }

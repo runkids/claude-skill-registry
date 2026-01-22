@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-22T02:46:59.710098Z",
   "dir_name": "just",
-  "category": "other"
+  "category": "other",
+  "github_path": "INTEGRATION/processed/just",
+  "github_branch": "main"
 }

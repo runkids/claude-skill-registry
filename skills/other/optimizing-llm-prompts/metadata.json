@@ -5,5 +5,7 @@
   "source": "github.com/kylehughes/knapsack",
   "downloaded_at": "2026-01-19T03:38:02.462710Z",
   "dir_name": "optimizing-llm-prompts",
-  "category": "other"
+  "category": "other",
+  "github_path": "dotfiles/link/claude/skills/optimizing-llm-prompts",
+  "github_branch": "main"
 }

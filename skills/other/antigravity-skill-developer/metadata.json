@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-21T03:48:14.965714Z",
   "dir_name": "antigravity-skill-developer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-skill-developer",
+  "github_branch": "main"
 }

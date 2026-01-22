@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Handles FABER workflow feedback requests - posting to issues and tracking responses",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:57.524575Z"
+  "downloaded_at": "2026-01-06T09:01:57.524575Z",
+  "github_path": "plugins/faber/skills/feedback-handler",
+  "github_branch": "main"
 }

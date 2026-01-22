@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Write Bash scripts following best practices. Use when creating shell scripts, automation, or CLI tools. Covers safe scripting patterns.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:49.132185Z"
+  "downloaded_at": "2026-01-06T09:01:49.132185Z",
+  "github_path": ".claude/skills/languages/bash",
+  "github_branch": "main"
 }

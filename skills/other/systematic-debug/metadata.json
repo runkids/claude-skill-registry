@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:15.519398Z",
   "dir_name": "systematic-debug",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/systematic-debug",
+  "github_branch": "main"
 }

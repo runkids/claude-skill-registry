@@ -2,7 +2,9 @@
   "name": "list-bugs",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "GitHub Issue Type \uae30\ubc18 \ubc84\uadf8 \uc774\uc288 \uc870\ud68c. Use when (1) \"\ubc84\uadf8 \uc774\uc288 \ubaa9\ub85d\",(2) \"\ubc84\uadf8 \ud655\uc778\", (3) \"\ubc84\uadf8 \uc870\ud68c\", (4) type:Bug \uc774\uc288 \ud544\ud130\ub9c1.",
+  "description": "GitHub Issue Type 기반 버그 이슈 조회. Use when (1) \"버그 이슈 목록\",(2) \"버그 확인\", (3) \"버그 조회\", (4) type:Bug 이슈 필터링.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.678642Z"
+  "downloaded_at": "2026-01-06T09:02:52.678642Z",
+  "github_path": "semo-system/semo-skills/list-bugs",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/OshanKHZ/cc-swiss-knife",
   "downloaded_at": "2026-01-22T04:07:55.803873Z",
   "dir_name": "documentation-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/core/skills/documentation-standards",
+  "github_branch": "main"
 }

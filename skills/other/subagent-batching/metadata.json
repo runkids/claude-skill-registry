@@ -5,5 +5,7 @@
   "source": "github.com/JacobPEvans/ai-assistant-instructions",
   "downloaded_at": "2026-01-22T01:20:46.483998Z",
   "dir_name": "subagent-batching",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentsmd/skills/subagent-batching",
+  "github_branch": "main"
 }

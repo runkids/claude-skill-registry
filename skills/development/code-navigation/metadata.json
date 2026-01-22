@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when you need to understand the codebase structure, find definitions, or trace references without reading entire files.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:19.172189Z"
+  "downloaded_at": "2026-01-06T09:06:19.172189Z",
+  "github_path": ".claude/skills/code-navigation",
+  "github_branch": "main"
 }

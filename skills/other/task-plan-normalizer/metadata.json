@@ -5,5 +5,7 @@
   "source": "github.com/BreakerOfStems/claude-skills",
   "downloaded_at": "2026-01-19T02:13:26.502523Z",
   "dir_name": "task-plan-normalizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/task-plan-normalizer",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "load",
     "memory"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/load-memory",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:35.755815Z",
   "dir_name": "reshard-c4-data",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/reshard-c4-data",
+  "github_branch": "main"
 }

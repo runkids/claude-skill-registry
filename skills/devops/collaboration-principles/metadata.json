@@ -2,7 +2,9 @@
   "name": "collaboration-principles",
   "repo": "TakumiOkayasu/dotfile-work",
   "category": "devops",
-  "description": "\u30c7\u30d0\u30c3\u30b0\u30fb\u30ec\u30d3\u30e5\u30fc\u30fb\u554f\u984c\u5831\u544a\u6642\u306b\u4f7f\u7528\u3002\u8aa0\u5b9f\u306a\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u3068\u6839\u672c\u539f\u56e0\u5206\u6790\u3092\u5fb9\u5e95\u3002",
+  "description": "デバッグ・レビュー・問題報告時に使用。誠実なコミュニケーションと根本原因分析を徹底。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:16.027252Z"
+  "downloaded_at": "2026-01-06T09:10:16.027252Z",
+  "github_path": "claude/skills/4-utility/collaboration-principles",
+  "github_branch": "main"
 }

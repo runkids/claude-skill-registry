@@ -8,5 +8,7 @@
     "strategy"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/deep-strategy",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-22T01:02:57.749959Z",
   "dir_name": "dag-capability-ranker",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dag-capability-ranker",
+  "github_branch": "main"
 }

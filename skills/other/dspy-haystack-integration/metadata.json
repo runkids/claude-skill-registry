@@ -5,5 +5,7 @@
   "source": "github.com/OmidZamani/dspy-skills",
   "downloaded_at": "2026-01-22T02:16:26.357194Z",
   "dir_name": "dspy-haystack-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dspy-haystack-integration",
+  "github_branch": "main"
 }

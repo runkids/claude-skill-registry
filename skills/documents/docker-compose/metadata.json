@@ -8,5 +8,7 @@
     "compose"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "docker-specialist/skills/docker-compose",
+  "github_branch": "main"
 }

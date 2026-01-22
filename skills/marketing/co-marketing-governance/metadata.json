@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Governance playbook for joint marketing programs, MDF, and performance reviews.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:24.399509Z"
+  "downloaded_at": "2026-01-06T08:57:24.399509Z",
+  "github_path": "plugins/partnership-development/skills/co-marketing-governance",
+  "github_branch": "main"
 }

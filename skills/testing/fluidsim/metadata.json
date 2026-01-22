@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Framework for computational fluid dynamics simulations using Python. Use when running fluid dynamics simulations including Navier-Stokes equations (2D/3D), shallow water equations, stratified flows, o",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.118612Z"
+  "downloaded_at": "2026-01-06T08:55:37.118612Z",
+  "github_path": "cli-tool/components/skills/scientific/fluidsim",
+  "github_branch": "main"
 }

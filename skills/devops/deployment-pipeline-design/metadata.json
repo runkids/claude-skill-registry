@@ -9,5 +9,7 @@
     "design"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/cicd-automation/skills/deployment-pipeline-design",
+  "github_branch": "main"
 }

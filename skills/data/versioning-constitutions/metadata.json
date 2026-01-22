@@ -8,5 +8,7 @@
     "constitutions"
   ],
   "stars": 5,
-  "dir_name": "versioning-constitutions"
+  "dir_name": "versioning-constitutions",
+  "github_path": "skills/versioning-constitutions",
+  "github_branch": "main"
 }

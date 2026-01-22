@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/cursor-dev-system",
   "downloaded_at": "2026-01-22T02:41:41.153247Z",
   "dir_name": "code-review-gate",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-review-gate",
+  "github_branch": "main"
 }

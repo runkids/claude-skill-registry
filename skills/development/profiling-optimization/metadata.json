@@ -7,5 +7,7 @@
     "profiling",
     "optimization"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/profiling-optimization",
+  "github_branch": "main"
 }

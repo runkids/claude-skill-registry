@@ -5,5 +5,7 @@
   "source": "github.com/akornmeier/claude-config",
   "downloaded_at": "2026-01-21T01:52:51.346989Z",
   "dir_name": "nuxt-ui-tdd",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/nuxt-ui-tdd",
+  "github_branch": "main"
 }

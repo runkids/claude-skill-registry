@@ -6,5 +6,7 @@
   "tags": [
     "writing"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/writing-go",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:32.780610Z",
   "dir_name": "kubernetes-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/infra/kubernetes-ops",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/christian289/dotnet-with-claudecode",
   "downloaded_at": "2026-01-22T02:11:40.800579Z",
   "dir_name": "implementing-2d-graphics",
-  "category": "other"
+  "category": "other",
+  "github_path": "wpf-dev-pack/skills/implementing-2d-graphics",
+  "github_branch": "main"
 }

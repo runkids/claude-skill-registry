@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:55.141026Z",
   "dir_name": "sqlcipher",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sqlcipher",
+  "github_branch": "main"
 }

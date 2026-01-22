@@ -5,5 +5,7 @@
   "source": "github.com/Denissvgn/project-team-ag",
   "downloaded_at": "2026-01-22T04:13:06.104576Z",
   "dir_name": "research-engineer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/research-engineer",
+  "github_branch": "main"
 }

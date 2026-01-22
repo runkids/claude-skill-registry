@@ -9,5 +9,7 @@
     "skill",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/skill-creator",
+  "github_branch": "main"
 }

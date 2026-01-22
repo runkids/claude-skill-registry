@@ -7,5 +7,7 @@
     "test",
     "planner"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/qa-test-planner",
+  "github_branch": "main"
 }

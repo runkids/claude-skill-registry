@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:17.472378Z",
   "dir_name": "dapp-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos/shelby/dapp-builder",
+  "github_branch": "main"
 }

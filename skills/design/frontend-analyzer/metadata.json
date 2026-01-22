@@ -7,5 +7,7 @@
     "frontend",
     "analyzer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/frontend-analyzer",
+  "github_branch": "main"
 }

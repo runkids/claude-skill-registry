@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Core prompt design patterns and templates for effective LLM communication",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:46.176496Z"
+  "downloaded_at": "2026-01-06T09:02:46.176496Z",
+  "github_path": "skills/prompt-design",
+  "github_branch": "main"
 }

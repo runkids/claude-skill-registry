@@ -7,5 +7,7 @@
     "run",
     "iflow"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/run-iflow",
+  "github_branch": "main"
 }

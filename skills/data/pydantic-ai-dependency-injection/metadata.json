@@ -9,5 +9,7 @@
     "injection"
   ],
   "stars": 4,
-  "dir_name": "pydantic-ai-dependency-injection"
+  "dir_name": "pydantic-ai-dependency-injection",
+  "github_path": "skills/pydantic-ai-dependency-injection",
+  "github_branch": "main"
 }

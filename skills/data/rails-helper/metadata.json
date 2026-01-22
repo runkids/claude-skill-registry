@@ -8,5 +8,7 @@
     "helper"
   ],
   "stars": 2,
-  "dir_name": "rails-helper"
+  "dir_name": "rails-helper",
+  "github_path": "my-custom-plugin/skills/rails-helper",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:52.365456Z",
   "dir_name": "gemini-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/platforms/gemini-search",
+  "github_branch": "main"
 }

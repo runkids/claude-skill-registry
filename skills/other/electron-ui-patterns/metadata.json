@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-20T01:41:12.810951Z",
   "dir_name": "electron-ui-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/electron-ui-patterns",
+  "github_branch": "main"
 }

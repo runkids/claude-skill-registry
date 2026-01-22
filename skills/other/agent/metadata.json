@@ -5,5 +5,7 @@
   "source": "github.com/bitwikiorg/skills.md",
   "downloaded_at": "2026-01-22T01:14:59.226690Z",
   "dir_name": "agent",
-  "category": "other"
+  "category": "other",
+  "github_path": "sources/vercel/agents",
+  "github_branch": "main"
 }

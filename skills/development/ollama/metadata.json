@@ -6,5 +6,7 @@
   "tags": [
     "ollama"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "ollama",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Apply Eskil Steenberg's black box architecture principles to build modular, maintainable software. Automatically refactors code into replaceable components, designs system architectures with clean bou",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:55.436777Z"
+  "downloaded_at": "2026-01-06T09:05:55.436777Z",
+  "github_path": "skills",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "self",
     "knowledge"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/product-self-knowledge",
+  "github_branch": "main"
 }

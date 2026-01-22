@@ -5,5 +5,7 @@
   "description": "Design complete database schemas with tables, relationships, constraints, and indexes for Supabase. Triggers when user describes data models, entities, or requests schema design.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:50.086856Z",
-  "dir_name": "design-schema"
+  "dir_name": "design-schema",
+  "github_path": "plugins/database-operations/.claude/skills/design-schema",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Test Data Builder - Auto-activating skill for Test Automation.Triggers on: test data builder, test data builderPart of the Test Automation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:00.560443Z"
+  "downloaded_at": "2026-01-06T08:56:00.560443Z",
+  "github_path": "planned-skills/generated/09-test-automation/test-data-builder",
+  "github_branch": "main"
 }

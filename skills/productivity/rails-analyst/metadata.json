@@ -7,5 +7,7 @@
     "rails",
     "analyst"
   ],
-  "stars": 18
+  "stars": 18,
+  "github_path": "rails-analyst",
+  "github_branch": "main"
 }

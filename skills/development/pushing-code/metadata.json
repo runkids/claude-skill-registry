@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Commits and pushes code changes. Used when work should be committed and/or pushed to Git.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:34.142285Z"
+  "downloaded_at": "2026-01-06T09:05:34.142285Z",
+  "github_path": ".claude/skills/accessing-github",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "gitlab"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "gitlab",
+  "github_branch": "main"
 }

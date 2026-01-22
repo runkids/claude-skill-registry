@@ -7,5 +7,7 @@
     "pdf",
     "toolkit"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "pdf-toolkit",
+  "github_branch": "main"
 }

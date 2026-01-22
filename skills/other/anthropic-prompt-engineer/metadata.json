@@ -5,5 +5,7 @@
   "source": "github.com/zircote/.claude",
   "downloaded_at": "2026-01-22T02:55:23.188661Z",
   "dir_name": "anthropic-prompt-engineer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/anthropic-prompt-engineer",
+  "github_branch": "main"
 }

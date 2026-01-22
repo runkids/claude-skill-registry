@@ -5,5 +5,7 @@
   "description": "Systematic web development workflow from PRD to implementation plan. Generates database schemas, detailed use cases with sequence diagrams, page requirements with state management design (Context + us",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:37.964561Z",
-  "dir_name": "spec-based-web-dev"
+  "dir_name": "spec-based-web-dev",
+  "github_path": ".claude/skills/spec_to_plan",
+  "github_branch": "main"
 }

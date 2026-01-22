@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:04.632576Z",
   "dir_name": "r3f-materials",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/r3f-materials",
+  "github_branch": "main"
 }

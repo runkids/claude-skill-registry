@@ -5,5 +5,7 @@
   "source": "github.com/ragnarula/cc-plugins",
   "downloaded_at": "2026-01-22T02:09:42.740901Z",
   "dir_name": "sdd",
-  "category": "other"
+  "category": "other",
+  "github_path": "sdd/skills/distributed-systems",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:20.746334Z",
   "dir_name": "client-communication",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/client-communication",
+  "github_branch": "main"
 }

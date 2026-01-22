@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:40.835758Z",
   "dir_name": "m03-mutability",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/other/m03-mutability",
+  "github_branch": "main"
 }

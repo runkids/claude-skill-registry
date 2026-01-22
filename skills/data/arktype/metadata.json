@@ -8,5 +8,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "arktype"
+  "dir_name": "arktype",
+  "github_path": ".claude/skills/arktype",
+  "github_branch": "main"
 }

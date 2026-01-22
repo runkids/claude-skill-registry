@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "To run JavaScript in the page context, evaluate an expression on the page or a specific element for inspection or manipulation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:11.699007Z"
+  "downloaded_at": "2026-01-06T08:59:11.699007Z",
+  "github_path": "dev-swarm/mcp-skills/playwright-browser-evaluate",
+  "github_branch": "main"
 }

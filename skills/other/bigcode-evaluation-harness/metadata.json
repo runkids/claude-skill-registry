@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:55.729224Z",
   "dir_name": "bigcode-evaluation-harness",
-  "category": "other"
+  "category": "other",
+  "github_path": "11-evaluation/bigcode-evaluation-harness",
+  "github_branch": "main"
 }

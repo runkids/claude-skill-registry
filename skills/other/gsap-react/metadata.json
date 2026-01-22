@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:02.070839Z",
   "dir_name": "gsap-react",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gsap-react",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "architect"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/dapr-microservices-architect",
+  "github_branch": "main"
 }

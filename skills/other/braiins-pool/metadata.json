@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-22T02:46:59.272784Z",
   "dir_name": "braiins-pool",
-  "category": "other"
+  "category": "other",
+  "github_path": "INTEGRATION/processed/braiins-pool",
+  "github_branch": "main"
 }

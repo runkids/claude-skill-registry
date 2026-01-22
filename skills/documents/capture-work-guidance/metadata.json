@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Comprehensive guide for AI agents on proactive documentation capture using /docent:tell",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:04.988927Z"
+  "downloaded_at": "2026-01-06T09:09:04.988927Z",
+  "github_path": "skills/docent/capture-work-guidance",
+  "github_branch": "main"
 }

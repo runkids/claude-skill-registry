@@ -5,5 +5,7 @@
   "source": "github.com/PaoloQuaranta/Webarmonium",
   "downloaded_at": "2026-01-22T01:07:31.921070Z",
   "dir_name": "music-composer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/music-composer",
+  "github_branch": "main"
 }

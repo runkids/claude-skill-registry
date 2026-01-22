@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generate FilamentPHP v4 resources with form, table, relation managers, and actions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:16.548098Z"
+  "downloaded_at": "2026-01-06T09:00:16.548098Z",
+  "github_path": "filament-specialist/skills/filament-resource",
+  "github_branch": "main"
 }

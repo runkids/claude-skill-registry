@@ -5,5 +5,7 @@
   "source": "github.com/saskinosie/weaviate-claude-skills",
   "downloaded_at": "2026-01-22T03:53:06.619169Z",
   "dir_name": "weaviate-connection",
-  "category": "other"
+  "category": "other",
+  "github_path": "weaviate-connection",
+  "github_branch": "main"
 }

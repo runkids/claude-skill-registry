@@ -8,5 +8,7 @@
     "bubble",
     "detector"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/weekly-trade-strategy/.claude/skills/us-market-bubble-detector",
+  "github_branch": "main"
 }

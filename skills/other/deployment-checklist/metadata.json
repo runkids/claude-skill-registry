@@ -5,5 +5,7 @@
   "source": "github.com/medride/claude-code-research",
   "downloaded_at": "2026-01-22T04:02:33.811197Z",
   "dir_name": "deployment-checklist",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/deployment-checklist",
+  "github_branch": "main"
 }

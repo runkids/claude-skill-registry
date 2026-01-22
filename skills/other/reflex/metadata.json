@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-14T01:56:15.184577Z",
   "dir_name": "reflex",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/development/reflex-dev",
+  "github_branch": "main"
 }

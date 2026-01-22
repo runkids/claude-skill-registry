@@ -2,7 +2,9 @@
   "name": "feature-flag-patterns",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "\u6a5f\u80fd\u30d5\u30e9\u30b0\uff08Feature Flag/Feature Toggle\uff09\u306b\u3088\u308b\u6bb5\u968e\u7684\u30ea\u30ea\u30fc\u30b9\u3068A/B\u30c6\u30b9\u30c8\u5b9f\u88c5\u30b9\u30ad\u30eb\u3002\u30ea\u30b9\u30af\u7ba1\u7406\u3068\u30ab\u30ca\u30ea\u30a2\u30ea\u30ea\u30fc\u30b9\u3092\u53ef\u80fd\u306b\u3057\u3001\u672c\u756a\u74b0\u5883\u3067\u306e\u5b89\u5168\u306a\u6a5f\u80fd\u5c55\u958b\u3092\u5b9f\u73fe\u3057\u307e\u3059\u3002Anchors:\u2022 Feature Toggles (Pete Hodgson - Martin Fowler blog) / \u9069\u7528: \u30d5\u30e9\u30b0\u8a2d\u8a08\u30d1\u30bf\u30fc\u30f3 / \u76ee\u7684: Release/Experiment/",
+  "description": "機能フラグ（Feature Flag/Feature Toggle）による段階的リリースとA/Bテスト実装スキル。リスク管理とカナリアリリースを可能にし、本番環境での安全な機能展開を実現します。Anchors:• Feature Toggles (Pete Hodgson - Martin Fowler blog) / 適用: フラグ設計パターン / 目的: Release/Experiment/",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:26.087616Z"
+  "downloaded_at": "2026-01-06T09:01:26.087616Z",
+  "github_path": "docs/99-claude/skills/feature-flag-patterns",
+  "github_branch": "main"
 }

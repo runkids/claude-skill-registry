@@ -5,5 +5,7 @@
   "source": "github.com/dredd-us/seashells",
   "downloaded_at": "2026-01-22T01:30:17.643832Z",
   "dir_name": "life-sciences-connector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/life-sciences-connector",
+  "github_branch": "main"
 }

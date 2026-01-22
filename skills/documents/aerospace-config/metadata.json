@@ -8,5 +8,7 @@
     "config"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/aerospace-config",
+  "github_branch": "main"
 }

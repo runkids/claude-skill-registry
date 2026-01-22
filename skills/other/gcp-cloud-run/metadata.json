@@ -5,5 +5,7 @@
   "source": "github.com/sickn33/antigravity-awesome-skills",
   "downloaded_at": "2026-01-22T02:27:23.904541Z",
   "dir_name": "gcp-cloud-run",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gcp-cloud-run",
+  "github_branch": "main"
 }

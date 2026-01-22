@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Manage OmniFocus projects and tasks programmatically. This skill should be used when creating, reading, updating, or listing OmniFocus tasks and projects. Supports all OmniFocus versions through intel",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:00.717534Z"
+  "downloaded_at": "2026-01-06T09:04:00.717534Z",
+  "github_path": "skills/omnifocus",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "dev",
     "guidelines"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/next-tailwind-dev-guidelines",
+  "github_branch": "main"
 }

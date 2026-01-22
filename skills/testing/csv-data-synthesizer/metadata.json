@@ -8,5 +8,7 @@
     "data",
     "synthesizer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "csv-data-synthesizer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:05.549803Z",
   "dir_name": "using-ml-production",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/yzmir-ml-production/skills/using-ml-production",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Containerizes applications with impact-aware Dockerfiles and docker-compose configurations. This skill should be used when containerizing projects for Docker, creating Dockerfiles, docker-compose file",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:33.200012Z"
+  "downloaded_at": "2026-01-06T09:02:33.200012Z",
+  "github_path": "docs/taskflow-vault/skills/engineering/containerize-apps",
+  "github_branch": "main"
 }

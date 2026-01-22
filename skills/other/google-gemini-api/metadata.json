@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:32.440550Z",
   "dir_name": "google-gemini-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/google-gemini-api",
+  "github_branch": "main"
 }

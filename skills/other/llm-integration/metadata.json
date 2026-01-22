@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:15.673726Z",
   "dir_name": "llm-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/llm-integration",
+  "github_branch": "main"
 }

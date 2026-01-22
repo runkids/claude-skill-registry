@@ -5,5 +5,7 @@
   "source": "github.com/EdWrld/config.files",
   "downloaded_at": "2026-01-22T02:51:29.066415Z",
   "dir_name": "context-dump",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/context-dump",
+  "github_branch": "main"
 }

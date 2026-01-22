@@ -9,5 +9,7 @@
     "workflow"
   ],
   "stars": 0,
-  "dir_name": "ndp-github-workflow"
+  "dir_name": "ndp-github-workflow",
+  "github_path": ".claude/skills/ndp-github-workflow",
+  "github_branch": "main"
 }

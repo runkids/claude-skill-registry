@@ -5,5 +5,7 @@
   "source": "github.com/mhalder/dotfiles",
   "downloaded_at": "2026-01-17T02:23:58.807752Z",
   "dir_name": "ssl-certs",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/.claude/skills/ssl-certs",
+  "github_branch": "main"
 }

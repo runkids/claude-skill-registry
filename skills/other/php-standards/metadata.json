@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/oh-my-brand-wp-fse",
   "downloaded_at": "2026-01-22T03:00:42.311680Z",
   "dir_name": "php-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/php-standards",
+  "github_branch": "main"
 }

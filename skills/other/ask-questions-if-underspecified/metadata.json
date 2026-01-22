@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:28.460180Z",
   "dir_name": "ask-questions-if-underspecified",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ask-questions-if-underspecified/skills/ask-questions-if-underspecified",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:17.281747Z",
   "dir_name": "moai-core-issue-labels",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-core-issue-labels",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Mixed Precision Trainer - Auto-activating skill for ML Training.Triggers on: mixed precision trainer, mixed precision trainerPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:59.327262Z",
-  "dir_name": "mixed-precision-trainer"
+  "dir_name": "mixed-precision-trainer",
+  "github_path": "planned-skills/generated/07-ml-training/mixed-precision-trainer",
+  "github_branch": "main"
 }

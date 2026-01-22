@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:36.232237Z",
   "dir_name": "session-launcher",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/session-launcher",
+  "github_branch": "main"
 }

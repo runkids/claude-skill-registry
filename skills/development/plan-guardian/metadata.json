@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Skill from turbobeest/squawk",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:18.850344Z"
+  "downloaded_at": "2026-01-08T03:20:18.850344Z",
+  "github_path": ".claude/skills/plan-guardian",
+  "github_branch": "main"
 }

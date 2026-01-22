@@ -8,5 +8,7 @@
     "power",
     "calculator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "statistical-power-calculator",
+  "github_branch": "main"
 }

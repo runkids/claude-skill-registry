@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:55.199494Z",
   "dir_name": "outlier-detective",
-  "category": "other"
+  "category": "other",
+  "github_path": "outlier-detective",
+  "github_branch": "main"
 }

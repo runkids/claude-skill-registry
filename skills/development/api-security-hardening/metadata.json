@@ -9,5 +9,7 @@
     "hardening"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-security-hardening",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "core"
   ],
   "stars": 0,
-  "dir_name": "convex-core"
+  "dir_name": "convex-core",
+  "github_path": "skills/convex-core",
+  "github_branch": "main"
 }

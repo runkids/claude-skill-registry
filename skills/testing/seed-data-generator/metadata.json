@@ -8,5 +8,7 @@
     "data",
     "generator"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/seed-data-generator",
+  "github_branch": "main"
 }

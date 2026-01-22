@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Combine multiple voice profiles with weighted mixing to create hybrid voices. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.643384Z"
+  "downloaded_at": "2026-01-06T08:56:58.643384Z",
+  "github_path": "plugins/voice/skills/voice-blend",
+  "github_branch": "main"
 }

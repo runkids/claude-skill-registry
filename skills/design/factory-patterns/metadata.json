@@ -2,7 +2,9 @@
   "name": "factory-patterns",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "GoF\u306eFactory\u7cfb\u30d1\u30bf\u30fc\u30f3\uff08Factory Method\u3001Abstract Factory\u3001Builder\u7b49\uff09\u306e\u8a2d\u8a08\u30fb\u5b9f\u88c5\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002Erich Gamma\u306e\u300eDesign Patterns\u300f\u306b\u57fa\u3065\u304d\u3001\u30aa\u30d6\u30b8\u30a7\u30af\u30c8\u751f\u6210\u306e\u67d4\u8edf\u6027\u3068\u62e1\u5f35\u6027\u3092\u5b9f\u73fe\u3059\u308b\u6226\u7565\u3092\u63d0\u4f9b\u3057\u307e\u3059\u3002Anchors:\u2022 Design Patterns / \u9069\u7528: \u5168Factory\u7cfb\u30d1\u30bf\u30fc\u30f3\u5171\u901a\u306e\u57fa\u672c\u539f\u5247 / \u76ee\u7684: Gang",
+  "description": "GoFのFactory系パターン（Factory Method、Abstract Factory、Builder等）の設計・実装を支援するスキル。Erich Gammaの『Design Patterns』に基づき、オブジェクト生成の柔軟性と拡張性を実現する戦略を提供します。Anchors:• Design Patterns / 適用: 全Factory系パターン共通の基本原則 / 目的: Gang",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.326043Z"
+  "downloaded_at": "2026-01-06T09:00:42.326043Z",
+  "github_path": "docs/99-claude/skills/factory-patterns",
+  "github_branch": "main"
 }

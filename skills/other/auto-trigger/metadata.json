@@ -5,5 +5,7 @@
   "source": "github.com/Charon-Fan/agent-playbook",
   "downloaded_at": "2026-01-21T03:43:47.084490Z",
   "dir_name": "auto-trigger",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/auto-trigger",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:22.619448Z",
   "dir_name": "opentrons-absorbance-reader",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/laboratory/opentrons-absorbance-reader",
+  "github_branch": "main"
 }

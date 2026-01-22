@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:08.959171Z",
   "dir_name": "versioning-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": "versioning-skills",
+  "github_branch": "main"
 }

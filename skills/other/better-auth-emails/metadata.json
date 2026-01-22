@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:08.507111Z",
   "dir_name": "better-auth-emails",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/better-auth-emails",
+  "github_branch": "main"
 }

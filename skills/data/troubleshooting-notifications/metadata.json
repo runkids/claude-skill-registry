@@ -8,5 +8,7 @@
     "notifications"
   ],
   "stars": 0,
-  "dir_name": "troubleshooting-notifications"
+  "dir_name": "troubleshooting-notifications",
+  "github_path": "skills/troubleshooting-notifications",
+  "github_branch": "main"
 }

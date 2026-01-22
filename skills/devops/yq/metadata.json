@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "This skill should be used when the user asks to \"get a field from docker-compose\", \"extract value from yaml\", \"what services are in this compose file\", \"get the image from kubernetes manifest\", \"pull ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:59.357533Z"
+  "downloaded_at": "2026-01-06T09:00:59.357533Z",
+  "github_path": "claude/skills/yq",
+  "github_branch": "main"
 }

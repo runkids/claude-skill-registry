@@ -5,5 +5,7 @@
   "source": "github.com/blackpwnguin/Personal-AI",
   "downloaded_at": "2026-01-14T03:22:21.746546Z",
   "dir_name": "createskill-blackpwnguin-personal-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/Createskill",
+  "github_branch": "main"
 }

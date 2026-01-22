@@ -5,5 +5,7 @@
   "source": "github.com/sensei-hacker/inav-claude",
   "downloaded_at": "2026-01-22T02:14:38.199216Z",
   "dir_name": "communication",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/communication",
+  "github_branch": "main"
 }

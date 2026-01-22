@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T04:21:48.438709Z",
   "dir_name": "geohash-coloring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/geohash-coloring",
+  "github_branch": "main"
 }

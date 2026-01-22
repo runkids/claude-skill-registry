@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:17.161115Z",
   "dir_name": "expo-router",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/expo/expo-router",
+  "github_branch": "main"
 }

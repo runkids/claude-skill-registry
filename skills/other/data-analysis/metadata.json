@@ -5,5 +5,7 @@
   "source": "github.com/Acurioustractor/empathy-ledger-v2",
   "downloaded_at": "2026-01-21T02:30:17.451533Z",
   "dir_name": "data-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/local/data-analysis",
+  "github_branch": "main"
 }

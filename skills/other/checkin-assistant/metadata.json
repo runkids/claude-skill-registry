@@ -5,5 +5,7 @@
   "source": "github.com/AsiaOstrich/universal-dev-standards",
   "downloaded_at": "2026-01-22T02:27:02.356567Z",
   "dir_name": "checkin-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "locales/zh-CN/skills/claude-code/checkin-assistant",
+  "github_branch": "main"
 }

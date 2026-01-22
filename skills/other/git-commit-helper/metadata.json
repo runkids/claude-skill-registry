@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:05.912125Z",
   "dir_name": "git-commit-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/git-commit-helper",
+  "github_branch": "main"
 }

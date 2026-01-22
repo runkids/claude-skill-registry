@@ -5,5 +5,7 @@
   "source": "github.com/Ramblurr/nix-devenv",
   "downloaded_at": "2026-01-22T04:06:42.462342Z",
   "dir_name": "clojure-scope-capture",
-  "category": "other"
+  "category": "other",
+  "github_path": "prompts/skills/clojure-scope-capture",
+  "github_branch": "main"
 }

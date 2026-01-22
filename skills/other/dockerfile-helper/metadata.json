@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-14T01:33:37.575575Z",
   "dir_name": "dockerfile-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-docker/skills/dockerfile-helper",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/lovedragonball/power-ranger-toolkit",
   "downloaded_at": "2026-01-19T01:38:21.830590Z",
   "dir_name": "vision-to-code",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/skills/vision-to-code",
+  "github_branch": "main"
 }

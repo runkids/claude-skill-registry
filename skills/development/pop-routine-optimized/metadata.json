@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Token-optimized morning/nightly routine using caching and selective execution",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:10.876430Z"
+  "downloaded_at": "2026-01-06T09:10:10.876430Z",
+  "github_path": "packages/popkit-dev/skills/pop-routine-optimized",
+  "github_branch": "main"
 }

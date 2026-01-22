@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:06.547220Z",
   "dir_name": "using-skillpack-maintenance",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/meta-skillpack-maintenance/skills/using-skillpack-maintenance",
+  "github_branch": "main"
 }

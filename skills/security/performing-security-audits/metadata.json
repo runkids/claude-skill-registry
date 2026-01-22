@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Analyze code, infrastructure, and configurations by conducting comprehensive security audits. It leverages tools within the security-pro-pack plugin, including vulnerability scanning, compliance check",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:49.095337Z"
+  "downloaded_at": "2026-01-06T08:55:49.095337Z",
+  "github_path": "plugins/packages/security-pro-pack/skills/performing-security-audits",
+  "github_branch": "main"
 }

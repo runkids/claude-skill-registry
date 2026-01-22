@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "ISO 13485 Quality Management System specialist for medical device companies. Provides QMS implementation, maintenance, process optimization, and compliance expertise. Use for QMS design, documentation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.879691Z"
+  "downloaded_at": "2026-01-06T08:55:35.879691Z",
+  "github_path": "cli-tool/components/skills/enterprise-communication/quality-manager-qms-iso13485",
+  "github_branch": "main"
 }

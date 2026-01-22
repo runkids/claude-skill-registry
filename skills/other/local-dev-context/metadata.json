@@ -5,5 +5,7 @@
   "source": "github.com/ljchg12-hue/dotfiles",
   "downloaded_at": "2026-01-14T01:32:08.828850Z",
   "dir_name": "local-dev-context",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/local-dev-context",
+  "github_branch": "main"
 }

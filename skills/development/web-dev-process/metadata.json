@@ -8,5 +8,7 @@
     "dev",
     "process"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".web-agency/skills/web-dev-process",
+  "github_branch": "main"
 }

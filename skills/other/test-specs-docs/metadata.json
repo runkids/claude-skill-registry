@@ -5,5 +5,7 @@
   "source": "github.com/duc01226/EasyPlatform",
   "downloaded_at": "2026-01-22T01:21:01.033077Z",
   "dir_name": "test-specs-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/test-specs-docs",
+  "github_branch": "main"
 }

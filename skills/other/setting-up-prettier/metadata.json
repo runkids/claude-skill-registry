@@ -5,5 +5,7 @@
   "source": "github.com/camoneart/claude-code",
   "downloaded_at": "2026-01-22T02:26:13.865772Z",
   "dir_name": "setting-up-prettier",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/setting-up-prettier",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "market",
     "planner"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/go-to-market-planner",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:46.445886Z",
   "dir_name": "traceability-check",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sdlc/skills/traceability-check",
+  "github_branch": "main"
 }

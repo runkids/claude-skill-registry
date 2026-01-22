@@ -5,5 +5,7 @@
   "source": "github.com/edwinhu/workflows",
   "downloaded_at": "2026-01-14T01:24:11.534223Z",
   "dir_name": "dev-delegate",
-  "category": "other"
+  "category": "other",
+  "github_path": "lib/skills/dev-delegate",
+  "github_branch": "main"
 }

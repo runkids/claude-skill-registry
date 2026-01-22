@@ -11,5 +11,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "backend-debugging-dependency-resolution"
+  "dir_name": "backend-debugging-dependency-resolution",
+  "github_path": ".claude/skills/backend-debugging-dependency-resolution",
+  "github_branch": "main"
 }

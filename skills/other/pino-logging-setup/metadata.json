@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:08.229436Z",
   "dir_name": "pino-logging-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/pino-logging-setup",
+  "github_branch": "main"
 }

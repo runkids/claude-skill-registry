@@ -6,5 +6,7 @@
   "tags": [
     "validation"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/validation",
+  "github_branch": "main"
 }

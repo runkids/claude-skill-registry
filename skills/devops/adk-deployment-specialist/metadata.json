@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Deploy and orchestrate Vertex AI ADK agents using A2A protocol. Manages AgentCard discovery, task submission, Code Execution Sandbox, and Memory Bank. Use when asked to \"deploy ADK agent\" or \"orchestr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:44.552175Z"
+  "downloaded_at": "2026-01-06T08:55:44.552175Z",
+  "github_path": "plugins/ai-ml/jeremy-adk-orchestrator/skills/adk-deployment-specialist",
+  "github_branch": "main"
 }

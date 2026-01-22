@@ -5,5 +5,7 @@
   "source": "github.com/arttttt/CMIDCABot",
   "downloaded_at": "2026-01-22T02:49:03.213699Z",
   "dir_name": "status",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/status",
+  "github_branch": "main"
 }

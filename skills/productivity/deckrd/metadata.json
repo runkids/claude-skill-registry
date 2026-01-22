@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Stepwise derivation workflow from requirements to executable tasks.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:30.315174Z"
+  "downloaded_at": "2026-01-06T09:01:30.315174Z",
+  "github_path": "plugins/deckrd-coder/skills/deckrd-coder",
+  "github_branch": "main"
 }

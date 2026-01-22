@@ -5,5 +5,7 @@
   "source": "github.com/tbroadley/dotfiles",
   "downloaded_at": "2026-01-22T03:05:01.803473Z",
   "dir_name": "alfred-clipboard",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/alfred-clipboard",
+  "github_branch": "main"
 }

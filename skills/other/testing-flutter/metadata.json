@@ -5,5 +5,7 @@
   "source": "github.com/TheBeardedBearSAS/claude-craft",
   "downloaded_at": "2026-01-22T04:10:40.953953Z",
   "dir_name": "testing-flutter",
-  "category": "other"
+  "category": "other",
+  "github_path": "Dev/i18n/de/Flutter/skills/testing-flutter",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:50.484032Z",
   "dir_name": "ml-system-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/ml-system-design",
+  "github_branch": "main"
 }

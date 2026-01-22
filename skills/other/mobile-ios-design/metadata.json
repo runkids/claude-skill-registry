@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-22T03:51:04.342880Z",
   "dir_name": "mobile-ios-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ui-design/skills/mobile-ios-design",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:43.401345Z",
   "dir_name": "auto-rollback-triggers",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/deployment/skills/auto-rollback-triggers",
+  "github_branch": "main"
 }

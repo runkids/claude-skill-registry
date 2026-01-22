@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-14T03:53:07.667142Z",
   "dir_name": "community-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/community-builder",
+  "github_branch": "main"
 }

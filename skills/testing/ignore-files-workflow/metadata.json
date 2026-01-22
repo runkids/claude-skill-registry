@@ -8,5 +8,7 @@
     "files",
     "workflow"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/ignore-files-workflow",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:01:58.709397Z",
   "dir_name": "conflict-check",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/conflict-check",
+  "github_branch": "main"
 }

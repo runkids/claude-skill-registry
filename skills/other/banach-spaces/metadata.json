@@ -5,5 +5,7 @@
   "source": "github.com/parcadei/Continuous-Claude-v3",
   "downloaded_at": "2026-01-22T03:23:55.779589Z",
   "dir_name": "banach-spaces",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/math/functional-analysis/banach-spaces",
+  "github_branch": "main"
 }

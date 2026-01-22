@@ -5,5 +5,7 @@
   "source": "github.com/Ramblurr/nix-devenv",
   "downloaded_at": "2026-01-22T04:06:42.694744Z",
   "dir_name": "clojure-core-async-flow",
-  "category": "other"
+  "category": "other",
+  "github_path": "prompts/skills/clojure-core-async-flow",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "clustering-analysis"
+  "dir_name": "clustering-analysis",
+  "github_path": "skills/clustering-analysis",
+  "github_branch": "main"
 }

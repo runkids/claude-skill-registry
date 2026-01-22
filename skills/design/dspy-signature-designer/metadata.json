@@ -9,5 +9,7 @@
     "designer"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/dspy-signature-designer",
+  "github_branch": "main"
 }

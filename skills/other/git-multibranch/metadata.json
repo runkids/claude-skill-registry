@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:36.041203Z",
   "dir_name": "git-multibranch",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/git-multibranch",
+  "github_branch": "main"
 }

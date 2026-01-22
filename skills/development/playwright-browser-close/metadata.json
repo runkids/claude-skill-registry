@@ -4,5 +4,7 @@
   "category": "development",
   "description": "To close the current Playwright page, close the page to end the session or free resources.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:11.942801Z"
+  "downloaded_at": "2026-01-06T08:59:11.942801Z",
+  "github_path": "dev-swarm/mcp-skills/playwright-browser-close",
+  "github_branch": "main"
 }

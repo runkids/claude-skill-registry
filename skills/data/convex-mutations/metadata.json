@@ -8,5 +8,7 @@
     "mutations"
   ],
   "stars": 5,
-  "dir_name": "convex-mutations"
+  "dir_name": "convex-mutations",
+  "github_path": "convex-mutations",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:40.162635Z",
   "dir_name": "scientific-lamindb",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-lamindb",
+  "github_branch": "main"
 }

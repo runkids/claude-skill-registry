@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Create and maintain CLAUDE.md files for Claude Code projects. Use when users want to create a new CLAUDE.md, improve an existing one, audit CLAUDE.md quality, set up Claude Code configuration for a re",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:47.158740Z"
+  "downloaded_at": "2026-01-06T08:59:47.158740Z",
+  "github_path": "plugins/claude-md/skills/claude-md",
+  "github_branch": "main"
 }

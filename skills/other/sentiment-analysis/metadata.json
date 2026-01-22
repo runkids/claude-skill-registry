@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:27.523504Z",
   "dir_name": "sentiment-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sentiment-analysis",
+  "github_branch": "main"
 }

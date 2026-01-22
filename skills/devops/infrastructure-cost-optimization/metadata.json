@@ -8,5 +8,7 @@
     "cost",
     "optimization"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/infrastructure-cost-optimization",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/liauw-media/CodeAssist",
   "downloaded_at": "2026-01-22T01:05:22.925373Z",
   "dir_name": "gitops",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/platform-engineering/gitops",
+  "github_branch": "main"
 }

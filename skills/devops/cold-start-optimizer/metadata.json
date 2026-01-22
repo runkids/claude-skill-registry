@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Provides guidance on reducing Lambda cold start times through binary optimization, lazy initialization, and deployment strategies. Activates when users discuss cold starts or deployment configuration.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:25.819194Z"
+  "downloaded_at": "2026-01-06T09:05:25.819194Z",
+  "github_path": "plugins/rust-lambda/skills/cold-start-optimizer",
+  "github_branch": "main"
 }

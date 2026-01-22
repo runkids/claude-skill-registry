@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:33.280040Z",
   "dir_name": "opentofu-coder",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-devops/skills/opentofu-coder",
+  "github_branch": "main"
 }

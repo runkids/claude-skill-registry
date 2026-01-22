@@ -8,5 +8,7 @@
     "swa"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/azure-swa",
+  "github_branch": "main"
 }

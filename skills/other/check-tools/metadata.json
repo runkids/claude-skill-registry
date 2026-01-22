@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:07.705791Z",
   "dir_name": "check-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "check-tools",
+  "github_branch": "main"
 }

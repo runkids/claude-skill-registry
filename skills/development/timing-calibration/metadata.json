@@ -2,7 +2,9 @@
   "name": "timing-calibration",
   "repo": "dylantarre/animation-principles",
   "category": "development",
-  "description": "Use when animation speed feels wrong\u2014too fast, too slow, or inconsistent",
+  "description": "Use when animation speed feels wrong—too fast, too slow, or inconsistent",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:18.860359Z"
+  "downloaded_at": "2026-01-06T09:05:18.860359Z",
+  "github_path": "skills/12-by-problem-type/timing-calibration",
+  "github_branch": "main"
 }

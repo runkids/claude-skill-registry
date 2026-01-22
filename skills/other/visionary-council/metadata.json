@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:11.688514Z",
   "dir_name": "visionary-council",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/premium/visionary-council",
+  "github_branch": "main"
 }

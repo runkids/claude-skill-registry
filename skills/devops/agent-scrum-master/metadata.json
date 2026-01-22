@@ -9,5 +9,7 @@
     "master"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/DEPRECATED/agent-scrum-master",
+  "github_branch": "main"
 }

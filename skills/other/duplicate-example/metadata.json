@@ -5,5 +5,7 @@
   "source": "github.com/iPlug2/iPlug2",
   "downloaded_at": "2026-01-22T01:23:12.394240Z",
   "dir_name": "duplicate-example",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/duplicate-example",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:52.583680Z",
   "dir_name": "data-quality-monitoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "43-data-reliability/data-quality-monitoring",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/profmikegreene/gotei",
   "downloaded_at": "2026-01-22T04:05:50.399761Z",
   "dir_name": "failure-mode-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "Gotei_Skills/failure-mode-analysis",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/zerobias-org/module",
   "downloaded_at": "2026-01-21T01:50:57.373507Z",
   "dir_name": "manage-localmemory",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/manage-localmemory",
+  "github_branch": "main"
 }

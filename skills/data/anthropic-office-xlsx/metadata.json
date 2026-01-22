@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "anthropic-office-xlsx"
+  "dir_name": "anthropic-office-xlsx",
+  "github_path": "skills/anthropic-office-xlsx",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "pull",
     "request"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugins/pull-request/skills/pull-request",
+  "github_branch": "main"
 }

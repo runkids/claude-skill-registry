@@ -9,5 +9,7 @@
     "sweep"
   ],
   "stars": 0,
-  "dir_name": "schwab-data-sweep"
+  "dir_name": "schwab-data-sweep",
+  "github_path": "skills/schwab-data-sweep",
+  "github_branch": "main"
 }

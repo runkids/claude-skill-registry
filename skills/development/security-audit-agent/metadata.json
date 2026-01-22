@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Performs comprehensive security audits of codebases, identifying vulnerabilities and security best practices",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:19.036360Z"
+  "downloaded_at": "2026-01-06T09:09:19.036360Z",
+  "github_path": "skills/security/security-audit-agent",
+  "github_branch": "main"
 }

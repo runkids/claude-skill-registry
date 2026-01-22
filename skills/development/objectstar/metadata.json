@@ -4,5 +4,7 @@
   "category": "development",
   "description": ">",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:23.166921Z"
+  "downloaded_at": "2026-01-08T03:31:23.166921Z",
+  "github_path": ".codex/skills/objectstar",
+  "github_branch": "main"
 }

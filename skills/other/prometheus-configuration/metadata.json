@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:13.731353Z",
   "dir_name": "prometheus-configuration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/observability-monitoring/skills/prometheus-configuration",
+  "github_branch": "main"
 }

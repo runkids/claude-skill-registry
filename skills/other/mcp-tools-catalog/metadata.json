@@ -5,5 +5,7 @@
   "source": "github.com/bnufw/lear_by_ai",
   "downloaded_at": "2026-01-22T04:13:13.669215Z",
   "dir_name": "mcp-tools-catalog",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/mcp-tools-catalog",
+  "github_branch": "main"
 }

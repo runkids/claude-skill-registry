@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:03.270202Z",
   "dir_name": "code-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-analysis",
+  "github_branch": "main"
 }

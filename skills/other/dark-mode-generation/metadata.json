@@ -5,5 +5,7 @@
   "source": "github.com/flight505/storybook-assistant",
   "downloaded_at": "2026-01-19T03:34:51.157486Z",
   "dir_name": "dark-mode-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dark-mode-generation",
+  "github_branch": "main"
 }

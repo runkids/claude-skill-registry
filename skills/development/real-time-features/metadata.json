@@ -8,5 +8,7 @@
     "time",
     "features"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/real-time-features",
+  "github_branch": "main"
 }

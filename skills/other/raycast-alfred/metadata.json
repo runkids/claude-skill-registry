@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:58.573046Z",
   "dir_name": "raycast-alfred",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/devtools/raycast-alfred",
+  "github_branch": "main"
 }

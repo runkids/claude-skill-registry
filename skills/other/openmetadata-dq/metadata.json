@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:33.415838Z",
   "dir_name": "openmetadata-dq",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/openmetadata-dq",
+  "github_branch": "main"
 }

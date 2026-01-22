@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Audit codebase for agentic layer coverage and identify gaps. Use when assessing agentic layer maturity, identifying investment opportunities, or evaluating primitive coverage.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:12.845068Z"
+  "downloaded_at": "2026-01-06T09:00:12.845068Z",
+  "github_path": "plugins/tac/skills/agentic-layer-audit",
+  "github_branch": "main"
 }

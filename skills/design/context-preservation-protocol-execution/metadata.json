@@ -9,5 +9,7 @@
     "protocol",
     "execution"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/context-preservation-protocol-execution",
+  "github_branch": "main"
 }

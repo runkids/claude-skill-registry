@@ -2,7 +2,9 @@
   "name": "reviewing-readability",
   "repo": "thkt/claude-config",
   "category": "development",
-  "description": "\"The Art of Readable Code\"\u3068\u30df\u30e9\u30fc\u306e\u6cd5\u5247\uff087\u00b12\uff09\u306b\u57fa\u3065\u304f\u30b3\u30fc\u30c9\u53ef\u8aad\u6027\u30ec\u30d3\u30e5\u30fc\u3002 \u30c8\u30ea\u30ac\u30fc: \u53ef\u8aad\u6027, \u7406\u89e3\u3057\u3084\u3059\u3044, \u308f\u304b\u308a\u3084\u3059\u3044, \u660e\u78ba, \u547d\u540d, \u5909\u6570\u540d, \u95a2\u6570\u540d, \u30cd\u30b9\u30c8, \u6df1\u3044\u30cd\u30b9\u30c8, \u95a2\u6570\u8a2d\u8a08, \u30b3\u30e1\u30f3\u30c8, \u8907\u96d1, \u96e3\u3057\u3044, \u96e3\u8aad, Miller's Law, \u30df\u30e9\u30fc\u306e\u6cd5\u5247, \u8a8d\u77e5\u8ca0\u8377, AI-generated, \u904e\u5270\u8a2d\u8a08.",
+  "description": "\"The Art of Readable Code\"とミラーの法則（7±2）に基づくコード可読性レビュー。 トリガー: 可読性, 理解しやすい, わかりやすい, 明確, 命名, 変数名, 関数名, ネスト, 深いネスト, 関数設計, コメント, 複雑, 難しい, 難読, Miller's Law, ミラーの法則, 認知負荷, AI-generated, 過剰設計.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:23.187665Z"
+  "downloaded_at": "2026-01-06T09:00:23.187665Z",
+  "github_path": ".ja/skills/reviewing-readability",
+  "github_branch": "main"
 }

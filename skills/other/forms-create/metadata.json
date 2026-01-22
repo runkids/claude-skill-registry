@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:10.391866Z",
   "dir_name": "forms-create",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/forms-create",
+  "github_branch": "main"
 }

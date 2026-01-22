@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Master manual testing with exploratory testing, test case execution, bug reporting, and quality validation techniques.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:59.568879Z"
+  "downloaded_at": "2026-01-06T09:02:59.568879Z",
+  "github_path": "plugins/qa-engineer/skills/manual-testing",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "devtools-testing",
   "repo": "diegofornalha/skills-futuro",
   "category": "development",
-  "description": "Toolkit para interagir e testar aplica\u00e7\u00f5es web locais usando Chrome DevTools MCP. Suporta verifica\u00e7\u00e3o de funcionalidade frontend, debugging de UI, captura de screenshots, an\u00e1lise de performance, inspe",
+  "description": "Toolkit para interagir e testar aplicações web locais usando Chrome DevTools MCP. Suporta verificação de funcionalidade frontend, debugging de UI, captura de screenshots, análise de performance, inspe",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:25.860340Z"
+  "downloaded_at": "2026-01-06T09:10:25.860340Z",
+  "github_path": "devtools-testing",
+  "github_branch": "main"
 }

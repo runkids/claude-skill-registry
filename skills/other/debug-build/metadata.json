@@ -5,5 +5,7 @@
   "source": "github.com/kzahedi/YARS",
   "downloaded_at": "2026-01-22T02:58:47.292585Z",
   "dir_name": "debug-build",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/debug-build",
+  "github_branch": "main"
 }

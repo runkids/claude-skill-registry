@@ -8,5 +8,7 @@
     "performance",
     "benchmarks"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/running-performance-benchmarks",
+  "github_branch": "main"
 }

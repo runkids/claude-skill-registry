@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Deep pre-execution analysis framework using four philosophers (Socrates, Aristotle, Feynman, Drucker) for structured critical thinking before implementing plans. Use when users need to thoroughly unde",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:30.718056Z"
+  "downloaded_at": "2026-01-06T09:07:30.718056Z",
+  "github_path": "round-table-analysis",
+  "github_branch": "main"
 }

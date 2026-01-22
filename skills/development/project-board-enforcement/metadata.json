@@ -8,5 +8,7 @@
     "board",
     "enforcement"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/project-board-enforcement",
+  "github_branch": "main"
 }

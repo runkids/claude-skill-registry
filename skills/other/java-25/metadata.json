@@ -5,5 +5,7 @@
   "source": "github.com/bitsoex/bitso-java",
   "downloaded_at": "2026-01-22T02:30:39.074375Z",
   "dir_name": "java-25",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/java-25",
+  "github_branch": "main"
 }

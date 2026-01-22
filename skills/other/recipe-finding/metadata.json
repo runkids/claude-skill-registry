@@ -5,5 +5,7 @@
   "source": "github.com/natea/ExoMind",
   "downloaded_at": "2026-01-22T02:14:42.440985Z",
   "dir_name": "recipe-finding",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/recipe-finding",
+  "github_branch": "main"
 }

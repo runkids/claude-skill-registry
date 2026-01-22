@@ -5,5 +5,7 @@
   "source": "github.com/chaorenex1/coding-workflow",
   "downloaded_at": "2026-01-22T01:43:18.394902Z",
   "dir_name": "code-refactoring-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-refactoring-assistant",
+  "github_branch": "main"
 }

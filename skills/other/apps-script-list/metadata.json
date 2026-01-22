@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:14.665909Z",
   "dir_name": "apps-script-list",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/apps-script-list",
+  "github_branch": "main"
 }

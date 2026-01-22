@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create a target for haskell application.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:50.174337Z"
+  "downloaded_at": "2026-01-06T09:02:50.174337Z",
+  "github_path": ".claude/skills/create-haskell-bazel-targets",
+  "github_branch": "main"
 }

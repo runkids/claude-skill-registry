@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:43.130561Z",
   "dir_name": "tutorial-outline-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/17-technical-docs/tutorial-outline-creator",
+  "github_branch": "main"
 }

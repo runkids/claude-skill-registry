@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:38.883270Z",
   "dir_name": "web-asset-generator-web-asset-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/web-asset-generator-web-asset-generator",
+  "github_branch": "main"
 }

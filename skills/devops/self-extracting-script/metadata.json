@@ -8,5 +8,7 @@
     "extracting",
     "script"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/self-extracting-script",
+  "github_branch": "main"
 }

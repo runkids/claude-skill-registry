@@ -9,5 +9,7 @@
     "workflow"
   ],
   "stars": 0,
-  "dir_name": "restaurant-feature-workflow"
+  "dir_name": "restaurant-feature-workflow",
+  "github_path": ".claude/skills/restaurant-feature-workflow",
+  "github_branch": "main"
 }

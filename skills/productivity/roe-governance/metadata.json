@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Use to codify sales rules of engagement, escalation paths, and exception workflows.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.858259Z"
+  "downloaded_at": "2026-01-06T08:57:25.858259Z",
+  "github_path": "plugins/sales-operations/skills/roe-governance",
+  "github_branch": "main"
 }

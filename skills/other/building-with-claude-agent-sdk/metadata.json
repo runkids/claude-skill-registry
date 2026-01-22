@@ -5,5 +5,7 @@
   "source": "github.com/panaversity/agentfactory",
   "downloaded_at": "2026-01-22T03:41:36.036383Z",
   "dir_name": "building-with-claude-agent-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/_skills_archive/rare/building-with-claude-agent-sdk",
+  "github_branch": "main"
 }

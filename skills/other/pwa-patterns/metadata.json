@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:12.556508Z",
   "dir_name": "pwa-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pwa-patterns",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/claude-code-guide",
   "downloaded_at": "2026-01-22T01:00:53.978097Z",
   "dir_name": "scanning-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scanning-tools",
+  "github_branch": "main"
 }

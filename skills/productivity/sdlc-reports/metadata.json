@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Generate comprehensive SDLC reports including iteration status, metrics dashboards, and executive summaries. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.589817Z"
+  "downloaded_at": "2026-01-06T08:56:58.589817Z",
+  "github_path": "plugins/sdlc/skills/sdlc-reports",
+  "github_branch": "main"
 }

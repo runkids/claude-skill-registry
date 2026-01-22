@@ -5,5 +5,7 @@
   "source": "github.com/JordanGunn/nunchuck",
   "downloaded_at": "2026-01-22T03:07:59.495016Z",
   "dir_name": "task-close",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/task/task-close",
+  "github_branch": "main"
 }

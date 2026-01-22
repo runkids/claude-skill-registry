@@ -5,5 +5,7 @@
   "source": "github.com/ProfSynapse/PACT-prompt",
   "downloaded_at": "2026-01-17T03:29:26.359928Z",
   "dir_name": "pact-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": "pact-plugin/skills/pact-memory",
+  "github_branch": "main"
 }

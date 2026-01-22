@@ -6,5 +6,7 @@
   "tags": [
     "mcpgraph"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "testClaude/.claude/skills/mcpgraphtoolkit",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "server",
     "navigation"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "nextjs-server-navigation",
+  "github_branch": "main"
 }

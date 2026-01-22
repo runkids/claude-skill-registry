@@ -9,5 +9,7 @@
     "engineering"
   ],
   "stars": 8,
-  "dir_name": "meta-prompt-engineering"
+  "dir_name": "meta-prompt-engineering",
+  "github_path": "skills/meta-prompt-engineering",
+  "github_branch": "main"
 }

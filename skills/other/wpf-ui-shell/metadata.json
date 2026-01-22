@@ -5,5 +5,7 @@
   "source": "github.com/YosrBennagra/3SC",
   "downloaded_at": "2026-01-17T03:18:55.015208Z",
   "dir_name": "wpf-ui-shell",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/wpf-ui-shell",
+  "github_branch": "main"
 }

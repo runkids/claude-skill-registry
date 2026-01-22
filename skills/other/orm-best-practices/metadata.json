@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:18.419050Z",
   "dir_name": "orm-best-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/orm-best-practices",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "navigation",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/react-native-navigation-builder",
+  "github_branch": "main"
 }

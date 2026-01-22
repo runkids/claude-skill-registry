@@ -5,5 +5,7 @@
   "source": "github.com/jovermier/claude-code-plugins-ip-labs",
   "downloaded_at": "2026-01-19T03:04:52.232618Z",
   "dir_name": "agent-native-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/dev/agents/review/agent-native-reviewer",
+  "github_branch": "main"
 }

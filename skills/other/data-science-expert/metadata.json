@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:11.189767Z",
   "dir_name": "data-science-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/ai/data-science-expert",
+  "github_branch": "main"
 }

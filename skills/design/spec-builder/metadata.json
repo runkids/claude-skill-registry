@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Generate comprehensive specification documents including requirements, technical design, and detailed task breakdown from any feature request. Use when the user asks to create specs, requirements docs",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:21.915582Z"
+  "downloaded_at": "2026-01-06T09:07:21.915582Z",
+  "github_path": "templates/skills/spec-builder",
+  "github_branch": "main"
 }

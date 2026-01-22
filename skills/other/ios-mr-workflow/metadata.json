@@ -5,5 +5,7 @@
   "source": "github.com/daispacy/py-claude-marketplace",
   "downloaded_at": "2026-01-22T02:43:14.389239Z",
   "dir_name": "ios-mr-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "py-plugin/skills/ios-mr-workflow",
+  "github_branch": "main"
 }

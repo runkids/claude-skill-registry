@@ -7,5 +7,7 @@
     "microsim",
     "utils"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/microsim-utils",
+  "github_branch": "main"
 }

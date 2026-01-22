@@ -7,5 +7,7 @@
     "markdown",
     "optimization"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/markdown-optimization",
+  "github_branch": "main"
 }

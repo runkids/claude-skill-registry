@@ -5,5 +5,7 @@
   "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
   "downloaded_at": "2026-01-22T03:02:40.568800Z",
   "dir_name": "observability-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/dapr/skills/observability-setup",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "optimizer"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "docker-optimizer",
+  "github_branch": "main"
 }

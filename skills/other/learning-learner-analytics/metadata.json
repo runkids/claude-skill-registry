@@ -5,5 +5,7 @@
   "source": "github.com/pauljbernard/content",
   "downloaded_at": "2026-01-22T01:07:48.839571Z",
   "dir_name": "learning-learner-analytics",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/learning-learner-analytics",
+  "github_branch": "main"
 }

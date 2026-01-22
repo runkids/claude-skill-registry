@@ -5,5 +5,7 @@
   "source": "github.com/kzahedi/YARS",
   "downloaded_at": "2026-01-22T02:58:47.924788Z",
   "dir_name": "release-build",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/release-build",
+  "github_branch": "main"
 }

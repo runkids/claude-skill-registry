@@ -7,5 +7,7 @@
     "code",
     "standards"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugin/skills/best-practices-extractor",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "gen"
   ],
   "stars": 0,
-  "dir_name": "media-gen"
+  "dir_name": "media-gen",
+  "github_path": "skills/media-gen",
+  "github_branch": "main"
 }

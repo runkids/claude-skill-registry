@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Expert at organizing and managing documentation structure across projects. Auto-invokes when organizing documentation files, setting up documentation frameworks, creating documentation directories, ma",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:39.423160Z"
+  "downloaded_at": "2026-01-06T09:01:39.423160Z",
+  "github_path": "documents-manager/skills/managing-docs",
+  "github_branch": "main"
 }

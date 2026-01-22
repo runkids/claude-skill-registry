@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Create a Kind cluster in Docker-in-Docker environment",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:13.938153Z"
+  "downloaded_at": "2026-01-06T09:05:13.938153Z",
+  "github_path": "examples/ark/plugin/skills/kind-setup",
+  "github_branch": "main"
 }

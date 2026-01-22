@@ -5,5 +5,7 @@
   "description": "Expert guidance for writing Supabase PostgreSQL row-level security (RLS) policies. Use when creating, modifying, or troubleshooting RLS policies for Supabase databases, implementing access control pat",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:23.286046Z",
-  "dir_name": "supabase-rls-policy"
+  "dir_name": "supabase-rls-policy",
+  "github_path": "plugins/supabase/skills/supabase-rls-policy",
+  "github_branch": "main"
 }

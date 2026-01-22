@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Handle WordPress plugin activation and deactivation hooks.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:12.859345Z"
+  "downloaded_at": "2026-01-06T09:05:12.859345Z",
+  "github_path": ".factory/skills/wp-activation",
+  "github_branch": "main"
 }

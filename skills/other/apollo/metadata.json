@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:25.141239Z",
   "dir_name": "apollo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/jhumanj/apollo",
+  "github_branch": "main"
 }

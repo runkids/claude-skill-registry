@@ -5,5 +5,7 @@
   "source": "github.com/radioactive-labs/plutonium-core",
   "downloaded_at": "2026-01-19T01:04:33.655293Z",
   "dir_name": "rodauth",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plutonium-rodauth",
+  "github_branch": "main"
 }

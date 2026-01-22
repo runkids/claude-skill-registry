@@ -8,5 +8,7 @@
     "formatter"
   ],
   "stars": 0,
-  "dir_name": "sql-formatter"
+  "dir_name": "sql-formatter",
+  "github_path": "",
+  "github_branch": "main"
 }

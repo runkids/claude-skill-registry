@@ -8,5 +8,7 @@
     "crud",
     "module"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/zhongyi-crud-module",
+  "github_branch": "main"
 }

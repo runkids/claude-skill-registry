@@ -7,5 +7,7 @@
     "eod"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/eod",
+  "github_branch": "main"
 }

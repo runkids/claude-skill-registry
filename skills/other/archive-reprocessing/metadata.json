@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:33.233305Z",
   "dir_name": "archive-reprocessing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/archive-reprocessing",
+  "github_branch": "main"
 }

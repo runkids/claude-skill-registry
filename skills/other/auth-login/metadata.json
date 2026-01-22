@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:04.966320Z",
   "dir_name": "auth-login",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/auth-login",
+  "github_branch": "main"
 }

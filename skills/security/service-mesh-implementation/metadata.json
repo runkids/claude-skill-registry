@@ -8,5 +8,7 @@
     "mesh",
     "implementation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/service-mesh-implementation",
+  "github_branch": "main"
 }

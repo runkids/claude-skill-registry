@@ -4,5 +4,7 @@
   "category": "development",
   "description": "This skill guides Cloudflare Workers and Pages development with Wrangler CLI. Use when creating Workers, configuring D1 databases, R2 storage, KV namespaces, Queues, or deploying to Cloudflare Pages.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:24.366399Z"
+  "downloaded_at": "2026-01-06T08:58:24.366399Z",
+  "github_path": "plugins/majestic-devops/skills/wrangler-coder",
+  "github_branch": "main"
 }

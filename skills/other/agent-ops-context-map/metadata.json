@@ -5,5 +5,7 @@
   "source": "github.com/weholt/script-cast",
   "downloaded_at": "2026-01-22T03:28:00.034414Z",
   "dir_name": "agent-ops-context-map",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/agent-ops-context-map",
+  "github_branch": "main"
 }

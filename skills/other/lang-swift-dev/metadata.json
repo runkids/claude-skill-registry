@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:32.428099Z",
   "dir_name": "lang-swift-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-swift-dev",
+  "github_branch": "main"
 }

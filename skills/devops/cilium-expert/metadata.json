@@ -7,5 +7,7 @@
     "cilium",
     "expert"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/cilium-expert",
+  "github_branch": "main"
 }

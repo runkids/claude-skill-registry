@@ -7,5 +7,7 @@
     "devops",
     "deployer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/devops-deployer",
+  "github_branch": "main"
 }

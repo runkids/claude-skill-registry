@@ -9,5 +9,7 @@
     "workflow"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/buck2-test-workflow",
+  "github_branch": "main"
 }

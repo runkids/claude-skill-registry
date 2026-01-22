@@ -9,5 +9,7 @@
     "downloader"
   ],
   "stars": 0,
-  "dir_name": "notion-uploader-downloader"
+  "dir_name": "notion-uploader-downloader",
+  "github_path": "",
+  "github_branch": "main"
 }

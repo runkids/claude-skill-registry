@@ -2,7 +2,9 @@
   "name": "project-methodology",
   "repo": "kilburn/AIseminar",
   "category": "development",
-  "description": "High\u2011level development methodology for AI\u2011assisted FastAPI\u00a0+\u00a0Vue projects.",
+  "description": "High‑level development methodology for AI‑assisted FastAPI + Vue projects.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:39.544215Z"
+  "downloaded_at": "2026-01-06T09:06:39.544215Z",
+  "github_path": "task-scheduler-in-vue-tailwind-and-fastapi/.claude/skills/project-methodology",
+  "github_branch": "main"
 }

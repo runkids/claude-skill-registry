@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Chat Shared Conversation To File - convert ChatGPT, Gemini, Grok, and Claude share links to clean Markdown + HTML transcripts with preserved code fences.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:44.823948Z"
+  "downloaded_at": "2026-01-06T08:58:44.823948Z",
+  "github_path": "skills/csctf",
+  "github_branch": "main"
 }

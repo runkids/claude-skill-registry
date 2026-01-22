@@ -8,5 +8,7 @@
     "expression",
     "builder"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "cron-expression-builder",
+  "github_branch": "main"
 }

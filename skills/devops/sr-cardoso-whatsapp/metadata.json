@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Integracao WhatsApp via Evolution API no Sr Cardoso. Use quando configurar EVOLUTION_*, conectar instancias, ajustar notificacoes, cron jobs, filas de retry e mensagens automaticas.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:10.272348Z"
+  "downloaded_at": "2026-01-06T09:10:10.272348Z",
+  "github_path": ".codex/skills/sr-cardoso-whatsapp",
+  "github_branch": "main"
 }

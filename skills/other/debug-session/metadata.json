@@ -5,5 +5,7 @@
   "source": "github.com/claudeaceae/samara-main",
   "downloaded_at": "2026-01-21T04:14:40.434819Z",
   "dir_name": "debug-session",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/debug-session",
+  "github_branch": "main"
 }

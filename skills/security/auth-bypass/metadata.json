@@ -2,7 +2,9 @@
   "name": "auth-bypass",
   "repo": "yhy0/CHYing-agent",
   "category": "security",
-  "description": "\u8ba4\u8bc1\u7ed5\u8fc7\u6f0f\u6d1e\u68c0\u6d4b\u4e0e\u5229\u7528\u3002\u5f53\u76ee\u6807\u5b58\u5728\u767b\u5f55\u529f\u80fd\u3001\u6743\u9650\u63a7\u5236\u3001JWT/Session \u8ba4\u8bc1\u65f6\u4f7f\u7528\u3002\u5305\u62ec IDOR\u3001\u8d8a\u6743\u8bbf\u95ee\u7b49\u3002",
+  "description": "认证绕过漏洞检测与利用。当目标存在登录功能、权限控制、JWT/Session 认证时使用。包括 IDOR、越权访问等。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:27.471975Z"
+  "downloaded_at": "2026-01-06T08:56:27.471975Z",
+  "github_path": "chying_agent/skills/auth-bypass",
+  "github_branch": "main"
 }

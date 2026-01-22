@@ -5,5 +5,7 @@
   "source": "github.com/anhvth/speedy_utils",
   "downloaded_at": "2026-01-22T01:40:55.299513Z",
   "dir_name": "ray-distributed-computing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/ray-distributed-computing",
+  "github_branch": "main"
 }

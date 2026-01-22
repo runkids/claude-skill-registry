@@ -8,5 +8,7 @@
     "fix"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/bug-fix",
+  "github_branch": "main"
 }

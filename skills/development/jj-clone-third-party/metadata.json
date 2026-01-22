@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Clone external repositories into work/ directory for examination and source code research. Use when needing to understand third-party dependency implementations, debug upstream issues, or research API",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:09.545540Z"
+  "downloaded_at": "2026-01-06T08:59:09.545540Z",
+  "github_path": ".claude/skills/jj-clone-third-party",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/hhk7734/hhk7734",
   "downloaded_at": "2026-01-22T03:56:51.669241Z",
   "dir_name": "create-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/create-skill",
+  "github_branch": "main"
 }

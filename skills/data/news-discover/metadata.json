@@ -8,5 +8,7 @@
     "discover"
   ],
   "stars": 0,
-  "dir_name": "news-discover"
+  "dir_name": "news-discover",
+  "github_path": ".claude/skills/news-discover",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:58.083980Z",
   "dir_name": "auto",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cfn-memory-persistence/lib/auto",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "checker"
   ],
   "stars": 0,
-  "dir_name": "code-smell-checker"
+  "dir_name": "code-smell-checker",
+  "github_path": "skills/code-smell-checker",
+  "github_branch": "main"
 }

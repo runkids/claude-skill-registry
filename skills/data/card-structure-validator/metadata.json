@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "card-structure-validator"
+  "dir_name": "card-structure-validator",
+  "github_path": ".claude/skills/card-structure-validator",
+  "github_branch": "main"
 }

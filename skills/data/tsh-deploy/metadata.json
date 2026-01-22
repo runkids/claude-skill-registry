@@ -8,5 +8,7 @@
     "deploy"
   ],
   "stars": 0,
-  "dir_name": "tsh-deploy"
+  "dir_name": "tsh-deploy",
+  "github_path": ".claude/skills/tsh-deploy",
+  "github_branch": "main"
 }

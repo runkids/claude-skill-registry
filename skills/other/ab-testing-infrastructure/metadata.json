@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:57.842828Z",
   "dir_name": "ab-testing-infrastructure",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/ab-testing-infrastructure",
+  "github_branch": "main"
 }

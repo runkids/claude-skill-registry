@@ -8,5 +8,7 @@
     "clarifier"
   ],
   "stars": 0,
-  "dir_name": "prompt-clarifier"
+  "dir_name": "prompt-clarifier",
+  "github_path": "skills/prompt-clarifier",
+  "github_branch": "main"
 }

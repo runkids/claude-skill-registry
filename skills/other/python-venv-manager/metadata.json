@@ -5,5 +5,7 @@
   "source": "github.com/fsyyft-go/kratos-layout",
   "downloaded_at": "2026-01-21T00:53:43.502476Z",
   "dir_name": "python-venv-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/python-venv-manager",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Standards for generating enterprise documents (Word, Excel, PDF) using Template-First architecture.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:43.473622Z"
+  "downloaded_at": "2026-01-06T09:10:43.473622Z",
+  "github_path": ".agent/skills/biz-doc-generator",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Master user guide writing with clear instructions, tutorials, screenshots, and end-user documentation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:59.321316Z"
+  "downloaded_at": "2026-01-06T09:02:59.321316Z",
+  "github_path": "plugins/technical-writer/skills/user-guide-writing",
+  "github_branch": "main"
 }

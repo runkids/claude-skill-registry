@@ -9,5 +9,7 @@
     "starter"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/design-system-starter",
+  "github_branch": "main"
 }

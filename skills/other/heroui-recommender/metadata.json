@@ -5,5 +5,7 @@
   "source": "github.com/sgcarstrends/sgcarstrends",
   "downloaded_at": "2026-01-22T02:24:55.084077Z",
   "dir_name": "heroui-recommender",
-  "category": "other"
+  "category": "other",
+  "github_path": "apps/web/.claude/skills/heroui-recommender",
+  "github_branch": "main"
 }

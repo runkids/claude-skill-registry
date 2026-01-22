@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Updates 00_MASTER_INDEX navigation files to reflect new/changed content.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:40.024821Z"
+  "downloaded_at": "2026-01-08T03:31:40.024821Z",
+  "github_path": ".codex/skills/index-sheriff",
+  "github_branch": "main"
 }

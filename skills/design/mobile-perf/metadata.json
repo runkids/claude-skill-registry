@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Optimizes React Native Expo applications for speed, responsiveness, and battery efficiency. Use when fixing lag, optimizing lists, or reducing bundle size.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:13.344157Z"
+  "downloaded_at": "2026-01-06T09:05:13.344157Z",
+  "github_path": "skills/mobile-perf",
+  "github_branch": "main"
 }

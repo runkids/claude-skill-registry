@@ -5,5 +5,7 @@
   "source": "github.com/daispacy/py-claude-marketplace",
   "downloaded_at": "2026-01-22T02:43:15.303012Z",
   "dir_name": "copilot-agent-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "py-plugin/skills/copilot-agent-builder",
+  "github_branch": "main"
 }

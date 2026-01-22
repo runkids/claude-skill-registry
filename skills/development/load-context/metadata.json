@@ -2,7 +2,9 @@
   "name": "load-context",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "\ub3c4\uba54\uc778/\uae30\ub2a5\uc758 \ucee8\ud14d\uc2a4\ud2b8 \ube60\ub978 \ud30c\uc545. Use when:(1) \ud2b9\uc815 \ub3c4\uba54\uc778 \uc774\ud574 \ud544\uc694, (2) \uae30\uc874 \uae30\ub2a5 \uc218\uc815 \uc804 \ud30c\uc545,(3) \uc138\uc158 \uc2dc\uc791 \uc2dc \ucee8\ud14d\uc2a4\ud2b8 \ub85c\ub4dc.",
+  "description": "도메인/기능의 컨텍스트 빠른 파악. Use when:(1) 특정 도메인 이해 필요, (2) 기존 기능 수정 전 파악,(3) 세션 시작 시 컨텍스트 로드.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:51.854554Z"
+  "downloaded_at": "2026-01-06T09:02:51.854554Z",
+  "github_path": "semo-system/semo-skills/load-context",
+  "github_branch": "main"
 }

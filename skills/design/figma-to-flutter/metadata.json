@@ -7,5 +7,7 @@
     "figma",
     "flutter"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "figma-to-flutter",
+  "github_branch": "main"
 }

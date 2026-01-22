@@ -9,5 +9,7 @@
     "accounts"
   ],
   "stars": 21,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "categorizing-bsky-accounts",
+  "github_branch": "main"
 }

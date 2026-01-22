@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Use when animating carousels, sliders, image galleries, or horizontally scrolling content for smooth navigation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:16.817022Z"
+  "downloaded_at": "2026-01-06T09:05:16.817022Z",
+  "github_path": "skills/07-by-ui-element/carousels-sliders",
+  "github_branch": "main"
 }

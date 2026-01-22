@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:15.937332Z",
   "dir_name": "strawberry-graphql",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/strawberry-graphql",
+  "github_branch": "main"
 }

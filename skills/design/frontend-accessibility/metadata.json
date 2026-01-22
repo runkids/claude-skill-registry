@@ -7,5 +7,7 @@
     "frontend",
     "accessibility"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/frontend-accessibility",
+  "github_branch": "main"
 }

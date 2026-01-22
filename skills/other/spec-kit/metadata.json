@@ -5,5 +5,7 @@
   "source": "github.com/rhuss/cc-superpowers-sdd",
   "downloaded_at": "2026-01-19T03:24:41.584386Z",
   "dir_name": "spec-kit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/spec-kit",
+  "github_branch": "main"
 }

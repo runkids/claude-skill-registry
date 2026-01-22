@@ -7,5 +7,7 @@
     "nextjs",
     "supabase"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "nextjs-supabase",
+  "github_branch": "main"
 }

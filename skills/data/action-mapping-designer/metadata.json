@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "action-mapping-designer"
+  "dir_name": "action-mapping-designer",
+  "github_path": ".claude/skills/action-mapping-designer",
+  "github_branch": "main"
 }

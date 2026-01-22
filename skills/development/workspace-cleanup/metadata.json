@@ -7,5 +7,7 @@
     "workspace",
     "cleanup"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/workspace-cleanup",
+  "github_branch": "main"
 }

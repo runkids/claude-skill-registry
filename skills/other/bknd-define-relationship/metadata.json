@@ -5,5 +5,7 @@
   "source": "github.com/cameronapak/freedom-stack-v3",
   "downloaded_at": "2026-01-22T03:30:09.118564Z",
   "dir_name": "bknd-define-relationship",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/bknd-define-relationship",
+  "github_branch": "main"
 }

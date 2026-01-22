@@ -8,5 +8,7 @@
     "react",
     "admin"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "mantis-react-admin",
+  "github_branch": "main"
 }

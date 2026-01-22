@@ -8,5 +8,7 @@
     "native",
     "app"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/react-native-app",
+  "github_branch": "main"
 }

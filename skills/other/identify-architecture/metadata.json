@@ -5,5 +5,7 @@
   "source": "github.com/mvillmow/ProjectOdyssey",
   "downloaded_at": "2026-01-22T02:46:15.930190Z",
   "dir_name": "identify-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tier-2/identify-architecture",
+  "github_branch": "main"
 }

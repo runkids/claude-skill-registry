@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Transform YouTube transcripts into comprehensive lecture notes with PDF and HTML outputs",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:07.320809Z"
+  "downloaded_at": "2026-01-06T09:04:07.320809Z",
+  "github_path": ".claude/skills/youtube-transcript-to-lecture-notes-skill",
+  "github_branch": "main"
 }

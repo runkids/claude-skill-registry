@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Multi-stakeholder approval routing with status tracking and escalation. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.027734Z"
+  "downloaded_at": "2026-01-06T08:56:58.027734Z",
+  "github_path": "plugins/marketing/skills/approval-workflow",
+  "github_branch": "main"
 }

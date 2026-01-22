@@ -2,7 +2,9 @@
   "name": "gas-automation",
   "repo": "memuringo/subagent_agentskills_skills",
   "category": "productivity",
-  "description": "Google Apps Script\u958b\u767a\u30b9\u30ad\u30eb\u3002GAS\u4f5c\u6210\u3001\u30b9\u30d7\u30ec\u30c3\u30c9\u30b7\u30fc\u30c8\u81ea\u52d5\u5316\u3001Google API\u9023\u643a\u6642\u306b\u4f7f\u7528\u3002",
+  "description": "Google Apps Script開発スキル。GAS作成、スプレッドシート自動化、Google API連携時に使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:48.380782Z"
+  "downloaded_at": "2026-01-06T09:10:48.380782Z",
+  "github_path": ".claude/skills/gas-automation",
+  "github_branch": "main"
 }

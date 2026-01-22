@@ -5,5 +5,7 @@
   "source": "github.com/faionfaion/faion-network",
   "downloaded_at": "2026-01-19T01:20:26.577717Z",
   "dir_name": "faion-sdd",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/faion-sdd",
+  "github_branch": "main"
 }

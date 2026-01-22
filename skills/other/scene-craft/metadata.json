@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:15.270917Z",
   "dir_name": "scene-craft",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/oss/scene-craft",
+  "github_branch": "main"
 }

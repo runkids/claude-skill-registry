@@ -5,5 +5,7 @@
   "source": "github.com/Doyajin174/myskills",
   "downloaded_at": "2026-01-22T02:12:15.006732Z",
   "dir_name": "line-limit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".public/skills/line-limit",
+  "github_branch": "main"
 }

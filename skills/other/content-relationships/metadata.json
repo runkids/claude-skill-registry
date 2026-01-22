@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:51.694912Z",
   "dir_name": "content-relationships",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/content-management-system/skills/content-relationships",
+  "github_branch": "main"
 }

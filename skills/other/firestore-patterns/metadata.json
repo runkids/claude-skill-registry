@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:21.992811Z",
   "dir_name": "firestore-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/firestore_patterns",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/CommandCodeAI/agent-skills",
   "downloaded_at": "2026-01-22T03:56:46.669198Z",
   "dir_name": "notebooklm-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/notebooklm-skill",
+  "github_branch": "main"
 }

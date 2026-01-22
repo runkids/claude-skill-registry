@@ -9,5 +9,7 @@
     "integrity",
     "check"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/cross-session-integrity-check",
+  "github_branch": "main"
 }

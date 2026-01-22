@@ -5,5 +5,7 @@
   "description": "PostgreSQL query optimization and performance tuning reference. Use when analyzing slow queries, interpreting EXPLAIN output, optimizing indexes, or troubleshooting database performance issues.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:05:37.656025Z",
-  "dir_name": "postgres-query-optimization"
+  "dir_name": "postgres-query-optimization",
+  "github_path": "database-expert/skills/postgres-query-optimization",
+  "github_branch": "main"
 }

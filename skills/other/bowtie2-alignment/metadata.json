@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:48.160118Z",
   "dir_name": "bowtie2-alignment",
-  "category": "other"
+  "category": "other",
+  "github_path": "read-alignment/bowtie2-alignment",
+  "github_branch": "main"
 }

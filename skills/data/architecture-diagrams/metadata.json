@@ -9,5 +9,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "architecture-diagrams"
+  "dir_name": "architecture-diagrams",
+  "github_path": "skills/architecture-diagrams",
+  "github_branch": "main"
 }

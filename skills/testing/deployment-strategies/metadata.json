@@ -2,7 +2,9 @@
   "name": "deployment-strategies",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "\u30c7\u30d7\u30ed\u30a4\u6226\u7565\u306e\u9078\u5b9a\u3001\u5b9f\u88c5\u3001\u691c\u8a3c\u3001\u30ed\u30fc\u30eb\u30d0\u30c3\u30af\u8a08\u753b\u3092\u4f53\u7cfb\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3002Blue-Green/Canary/Rolling \u306e\u9069\u7528\u5224\u65ad\u3068\u904b\u7528\u8a2d\u8a08\u3092\u6574\u7406\u3059\u308b\u3002Anchors:\u2022 Release It! / \u9069\u7528: \u30c7\u30d7\u30ed\u30a4\u5b89\u5b9a\u6027 / \u76ee\u7684: \u672c\u756a\u904b\u7528\u306e\u5b89\u5168\u6027\u2022 Continuous Delivery / \u9069\u7528: \u6bb5\u968e\u7684\u30ea\u30ea\u30fc\u30b9 / \u76ee\u7684: \u30ea\u30b9\u30af\u4f4e\u6e1b\u2022 Observability / \u9069\u7528: \u691c\u8a3c\u8a2d\u8a08 ",
+  "description": "デプロイ戦略の選定、実装、検証、ロールバック計画を体系化するスキル。Blue-Green/Canary/Rolling の適用判断と運用設計を整理する。Anchors:• Release It! / 適用: デプロイ安定性 / 目的: 本番運用の安全性• Continuous Delivery / 適用: 段階的リリース / 目的: リスク低減• Observability / 適用: 検証設計 ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:41.675804Z"
+  "downloaded_at": "2026-01-06T09:00:41.675804Z",
+  "github_path": "docs/99-claude/skills/deployment-strategies",
+  "github_branch": "main"
 }

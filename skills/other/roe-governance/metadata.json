@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:42.021797Z",
   "dir_name": "roe-governance",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sales-operations/skills/roe-governance",
+  "github_branch": "main"
 }

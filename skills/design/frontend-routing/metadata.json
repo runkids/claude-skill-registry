@@ -7,5 +7,7 @@
     "frontend",
     "routing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/frontend-routing",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:15.772699Z",
   "dir_name": "doctrine-migrations",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/doctrine-migrations",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "selection"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/automation-language-selection",
+  "github_branch": "main"
 }

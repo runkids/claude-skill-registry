@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Decision guide for choosing the right specialized agent for each task type",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:39.081904Z"
+  "downloaded_at": "2026-01-06T09:00:39.081904Z",
+  "github_path": "plugin/skills/selecting-agents",
+  "github_branch": "main"
 }

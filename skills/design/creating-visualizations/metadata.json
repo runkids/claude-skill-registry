@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Component skill for creating effective visualizations (terminal-based and image-based) in DataPeeker analysis sessions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:14.570604Z"
+  "downloaded_at": "2026-01-06T09:03:14.570604Z",
+  "github_path": "plugins/datapeeker/skills/creating-visualizations",
+  "github_branch": "main"
 }

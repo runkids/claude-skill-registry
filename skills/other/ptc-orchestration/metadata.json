@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:33.679832Z",
   "dir_name": "ptc-orchestration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ptc-orchestration",
+  "github_branch": "main"
 }

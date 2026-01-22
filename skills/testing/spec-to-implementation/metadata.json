@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Parse specifications and create implementation plans with task tracking in Notion",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:15.768200Z"
+  "downloaded_at": "2026-01-06T09:03:15.768200Z",
+  "github_path": "plugins/notion-skills/skills/spec-to-implementation",
+  "github_branch": "main"
 }

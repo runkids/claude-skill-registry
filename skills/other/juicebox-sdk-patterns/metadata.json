@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:09.046334Z",
   "dir_name": "juicebox-sdk-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/juicebox-pack/skills/juicebox-sdk-patterns",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Michael0520/milo-claudekit",
   "downloaded_at": "2026-01-22T04:15:18.813256Z",
   "dir_name": "migration-planning",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/one-ui-migration/skills/migration-planning",
+  "github_branch": "main"
 }

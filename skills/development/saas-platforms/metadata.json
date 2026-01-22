@@ -4,5 +4,7 @@
   "category": "development",
   "description": "SaaS architecture, multi-tenancy, and subscription management",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:07.760260Z"
+  "downloaded_at": "2026-01-06T09:11:07.760260Z",
+  "github_path": "domain-applications/saas-platforms",
+  "github_branch": "main"
 }

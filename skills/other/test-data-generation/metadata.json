@@ -5,5 +5,7 @@
   "source": "github.com/MUmerRazzaq/fast-next-todo",
   "downloaded_at": "2026-01-22T02:08:33.356614Z",
   "dir_name": "test-data-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/test-data-generation",
+  "github_branch": "main"
 }

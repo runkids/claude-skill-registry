@@ -7,5 +7,7 @@
     "deepseek"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "deepseek",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyze AppWorld task failures to extract specific API patterns and generate actionable playbook bullets with concrete code examples",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:36.049906Z"
+  "downloaded_at": "2026-01-06T08:58:36.049906Z",
+  "github_path": "plugins/ace-context-engineering/skills/reflect-appworld-failure",
+  "github_branch": "main"
 }

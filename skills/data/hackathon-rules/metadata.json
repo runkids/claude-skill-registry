@@ -5,5 +5,7 @@
   "description": "Enforces Hackathon II rules, phases, and evaluation constraints.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:11:12.896059Z",
-  "dir_name": "hackathon-rules"
+  "dir_name": "hackathon-rules",
+  "github_path": ".gemini/skills/hackathon-rules",
+  "github_branch": "main"
 }

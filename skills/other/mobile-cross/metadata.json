@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:24.782990Z",
   "dir_name": "mobile-cross",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mobile-cross",
+  "github_branch": "main"
 }

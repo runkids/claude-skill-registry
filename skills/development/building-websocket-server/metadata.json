@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build scalable WebSocket servers for real-time bidirectional communication.Use when enabling real-time bidirectional communication.Trigger with phrases like \"build WebSocket server\", \"add real-time AP",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:45.836669Z"
+  "downloaded_at": "2026-01-06T08:55:45.836669Z",
+  "github_path": "plugins/api-development/websocket-server-builder/skills/building-websocket-server",
+  "github_branch": "main"
 }

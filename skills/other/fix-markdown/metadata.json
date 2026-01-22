@@ -5,5 +5,7 @@
   "source": "github.com/mystilleef/llm-agent-skills",
   "downloaded_at": "2026-01-20T01:23:15.851633Z",
   "dir_name": "fix-markdown",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fix-markdown",
+  "github_branch": "main"
 }

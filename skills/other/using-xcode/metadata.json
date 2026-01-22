@@ -5,5 +5,7 @@
   "source": "github.com/czottmann/claude-code-stuff",
   "downloaded_at": "2026-01-22T01:55:29.575809Z",
   "dir_name": "using-xcode",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/using-xcode",
+  "github_branch": "main"
 }

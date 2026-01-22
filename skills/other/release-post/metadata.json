@@ -5,5 +5,7 @@
   "source": "github.com/posit-dev/skills",
   "downloaded_at": "2026-01-22T02:46:56.044962Z",
   "dir_name": "release-post",
-  "category": "other"
+  "category": "other",
+  "github_path": "open-source/release-post",
+  "github_branch": "main"
 }

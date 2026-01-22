@@ -7,5 +7,7 @@
     "typo3",
     "ddev"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/typo3-ddev",
+  "github_branch": "main"
 }

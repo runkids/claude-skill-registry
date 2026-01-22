@@ -5,5 +5,7 @@
   "source": "github.com/CommandCodeAI/agent-skills",
   "downloaded_at": "2026-01-22T03:56:48.073525Z",
   "dir_name": "building-mcp-server-on-cloudflare",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/building-mcp-server-on-cloudflare",
+  "github_branch": "main"
 }

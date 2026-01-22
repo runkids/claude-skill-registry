@@ -5,5 +5,7 @@
   "description": "Optimize AI assistant configurations for maximum effectiveness. USE THIS SKILL when user says \"improve CLAUDE.md\", \"better copilot instructions\", \"tune AI\", \"optimize prompts\", \"MCP configuration\", or",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:46.693503Z",
-  "dir_name": "ai-tuning"
+  "dir_name": "ai-tuning",
+  "github_path": ".github/skills/ai-tuning",
+  "github_branch": "main"
 }

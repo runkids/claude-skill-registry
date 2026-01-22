@@ -10,5 +10,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "fantasy-lineup-optimizer"
+  "dir_name": "fantasy-lineup-optimizer",
+  "github_path": "fantasy-lineup-optimizer",
+  "github_branch": "main"
 }

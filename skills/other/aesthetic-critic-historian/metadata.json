@@ -5,5 +5,7 @@
   "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
   "downloaded_at": "2026-01-22T04:08:03.621896Z",
   "dir_name": "aesthetic-critic-historian",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aesthetic-critic-historian",
+  "github_branch": "main"
 }

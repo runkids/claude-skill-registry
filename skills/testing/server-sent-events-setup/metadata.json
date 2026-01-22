@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Server Sent Events Setup - Auto-activating skill for API Integration.Triggers on: server sent events setup, server sent events setupPart of the API Integration skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:58.490057Z"
+  "downloaded_at": "2026-01-06T08:55:58.490057Z",
+  "github_path": "planned-skills/generated/16-api-integration/server-sent-events-setup",
+  "github_branch": "main"
 }

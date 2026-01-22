@@ -8,5 +8,7 @@
     "recreator"
   ],
   "stars": 0,
-  "dir_name": "screen-recreator"
+  "dir_name": "screen-recreator",
+  "github_path": ".claude/skills/screen-recreator",
+  "github_branch": "main"
 }

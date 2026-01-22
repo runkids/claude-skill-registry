@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:34:53.828714Z",
   "dir_name": "integrated-plurigrid-asi",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plurigrid-asi-integrated/_integrated",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "factory-orchestrator",
   "repo": "m16khb/claude-integration",
   "category": "development",
-  "description": "\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\ud130 \uc5d0\uc774\uc804\ud2b8 \uc0dd\uc131 \ubc0f \uc804\ubb38\uac00 \uc870\ud569 \uc804\ubb38 \uc2a4\ud0ac",
+  "description": "오케스트레이터 에이전트 생성 및 전문가 조합 전문 스킬",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:54.184726Z"
+  "downloaded_at": "2026-01-06T09:06:54.184726Z",
+  "github_path": "plugins/automation-tools/skills/factory-orchestrator",
+  "github_branch": "main"
 }

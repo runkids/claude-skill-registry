@@ -8,5 +8,7 @@
     "run"
   ],
   "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/dqmc-run",
+  "github_branch": "main"
 }

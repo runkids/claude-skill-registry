@@ -7,5 +7,7 @@
     "session",
     "management"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/session-management",
+  "github_branch": "main"
 }

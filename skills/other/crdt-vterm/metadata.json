@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:34:53.651996Z",
   "dir_name": "crdt-vterm",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/crdt-vterm",
+  "github_branch": "main"
 }

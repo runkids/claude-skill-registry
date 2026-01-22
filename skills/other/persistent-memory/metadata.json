@@ -5,5 +5,7 @@
   "source": "github.com/liauw-media/CodeAssist",
   "downloaded_at": "2026-01-22T01:05:21.281269Z",
   "dir_name": "persistent-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ai/persistent-memory",
+  "github_branch": "main"
 }

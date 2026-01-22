@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Measurement system tracking engagement, health, and business impact of community programs.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:20.670306Z"
+  "downloaded_at": "2026-01-06T08:57:20.670306Z",
+  "github_path": "plugins/community-building/skills/community-kpi-dashboard",
+  "github_branch": "main"
 }

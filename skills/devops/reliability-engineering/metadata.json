@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "SRE principles, observability, and incident management",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:52.560101Z"
+  "downloaded_at": "2026-01-06T09:10:52.560101Z",
+  "github_path": "software-engineering/reliability-engineering",
+  "github_branch": "main"
 }

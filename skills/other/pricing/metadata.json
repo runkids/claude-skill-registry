@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-product-manager",
   "downloaded_at": "2026-01-21T03:46:47.427852Z",
   "dir_name": "pricing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pricing",
+  "github_branch": "main"
 }

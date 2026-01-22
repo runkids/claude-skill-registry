@@ -5,5 +5,7 @@
   "source": "github.com/SherifEldeeb/agentskills",
   "downloaded_at": "2026-01-19T03:42:11.829776Z",
   "dir_name": "email-forensics",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/forensics/email-forensics",
+  "github_branch": "main"
 }

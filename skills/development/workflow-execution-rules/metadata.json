@@ -8,5 +8,7 @@
     "execution",
     "rules"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/workflow-execution-rules",
+  "github_branch": "main"
 }

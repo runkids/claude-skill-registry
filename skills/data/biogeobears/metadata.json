@@ -8,5 +8,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "biogeobears"
+  "dir_name": "biogeobears",
+  "github_path": "biogeobears",
+  "github_branch": "main"
 }

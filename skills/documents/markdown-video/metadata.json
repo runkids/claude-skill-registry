@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Convert Deckset-format markdown slides with speaker notes to presentation video with TTS narration. Use when user requests to create video from slides, generate presentation video, or convert slides t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:16.737382Z"
+  "downloaded_at": "2026-01-06T08:58:16.737382Z",
+  "github_path": "markdown-video",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Automatic persistent memory for Claude Code sessions. Activates on preference statements (\"I prefer\", \"I always\", \"I like\"), corrections (\"no, don't\", \"actually\"), identity statements (\"my name is\", \"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:41.794782Z"
+  "downloaded_at": "2026-01-06T09:01:41.794782Z",
+  "github_path": "skills/auto-memory",
+  "github_branch": "main"
 }

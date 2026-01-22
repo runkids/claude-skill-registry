@@ -5,5 +5,7 @@
   "source": "github.com/rshankras/claude-code-apple-skills",
   "downloaded_at": "2026-01-14T02:22:09.470344Z",
   "dir_name": "ui-review-tahoe",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/macos/ui-review-tahoe",
+  "github_branch": "main"
 }

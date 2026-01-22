@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:11.815044Z",
   "dir_name": "m365-admin-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "m365-admin-skill",
+  "github_branch": "main"
 }

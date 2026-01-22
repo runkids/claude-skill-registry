@@ -5,5 +5,7 @@
   "description": "Interactive SQL mode for 30+ databases using DbCli. Provides REPL environment for exploratory queries, rapid prototyping, and database administration. Includes safety prompts before dangerous operatio",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:10.145136Z",
-  "dir_name": "dbcli-interactive"
+  "dir_name": "dbcli-interactive",
+  "github_path": "skills/dbcli-interactive",
+  "github_branch": "main"
 }

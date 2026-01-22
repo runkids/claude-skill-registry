@@ -9,5 +9,7 @@
     "pwa",
     "assets"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/web-asset-generator",
+  "github_branch": "main"
 }

@@ -2,5 +2,7 @@
   "name": "algorithmic-art",
   "repo": "anthropics/skills",
   "category": "official",
-  "source": "Anthropic Official"
+  "source": "Anthropic Official",
+  "github_path": "skills/algorithmic-art",
+  "github_branch": "main"
 }

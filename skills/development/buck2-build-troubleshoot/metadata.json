@@ -9,5 +9,7 @@
     "troubleshoot"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/buck2-build-troubleshoot",
+  "github_branch": "main"
 }

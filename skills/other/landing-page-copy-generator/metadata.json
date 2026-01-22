@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:39.802300Z",
   "dir_name": "landing-page-copy-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/landing-page-copy-generator",
+  "github_branch": "main"
 }

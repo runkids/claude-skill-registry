@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Four fundamental team types and interaction modes from Team Topologies",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:14.063250Z"
+  "downloaded_at": "2026-01-06T09:00:14.063250Z",
+  "github_path": "plugins/team-design/skills/team-topologies",
+  "github_branch": "main"
 }

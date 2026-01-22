@@ -5,5 +5,7 @@
   "source": "github.com/EpicenterHQ/epicenter",
   "downloaded_at": "2026-01-22T01:11:25.034327Z",
   "dir_name": "rust-errors",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rust-errors",
+  "github_branch": "main"
 }

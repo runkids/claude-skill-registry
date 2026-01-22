@@ -7,5 +7,7 @@
     "verification",
     "gate"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/verification-gate",
+  "github_branch": "main"
 }

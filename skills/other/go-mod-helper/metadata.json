@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:38.361097Z",
   "dir_name": "go-mod-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/go-mod-helper",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "library",
     "bundler"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills-main/skills-main/new_skills/library-bundler",
+  "github_branch": "main"
 }

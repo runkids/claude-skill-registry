@@ -8,5 +8,7 @@
     "wasip1",
     "tools"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "skills/mbt-wasip1-tools",
+  "github_branch": "main"
 }

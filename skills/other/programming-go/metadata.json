@@ -5,5 +5,7 @@
   "source": "github.com/mgomes/3xo-suit",
   "downloaded_at": "2026-01-22T01:34:58.399531Z",
   "dir_name": "programming-go",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/dotfiles/skills/programming-go",
+  "github_branch": "main"
 }

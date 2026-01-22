@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when setting up a new open-ended goal for autonomy tracking, before starting the first iteration",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:36.188045Z"
+  "downloaded_at": "2026-01-06T09:03:36.188045Z",
+  "github_path": "plugins/autonomy/skills/creating-a-goal",
+  "github_branch": "main"
 }

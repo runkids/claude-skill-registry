@@ -5,5 +5,7 @@
   "source": "github.com/rhuss/cc-superpowers-sdd",
   "downloaded_at": "2026-01-19T03:24:42.688027Z",
   "dir_name": "spec-refactoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/spec-refactoring",
+  "github_branch": "main"
 }

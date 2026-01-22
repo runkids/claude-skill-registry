@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when jUnit extensions including custom extensions, rules, and conditional test execution.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:05.121473Z"
+  "downloaded_at": "2026-01-06T08:57:05.121473Z",
+  "github_path": "jutsu/jutsu-junit/skills/junit-extensions",
+  "github_branch": "main"
 }

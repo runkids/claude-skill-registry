@@ -5,5 +5,7 @@
   "source": "github.com/duc01226/EasyPlatform",
   "downloaded_at": "2026-01-22T01:21:00.434841Z",
   "dir_name": "design-spec",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/design-spec",
+  "github_branch": "main"
 }

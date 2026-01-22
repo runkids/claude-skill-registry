@@ -8,5 +8,7 @@
     "app",
     "testing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/mobile-app-testing",
+  "github_branch": "main"
 }

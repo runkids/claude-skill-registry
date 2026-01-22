@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Structured workflow for disaster recovery planning, implementation, and testingincluding RTO/RPO definition, DR strategy selection, and failover procedures.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:33.196310Z"
+  "downloaded_at": "2026-01-06T08:57:33.196310Z",
+  "github_path": ".archive/ops-team/skills/ops-disaster-recovery",
+  "github_branch": "main"
 }

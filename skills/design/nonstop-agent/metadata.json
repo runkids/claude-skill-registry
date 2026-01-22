@@ -2,7 +2,9 @@
   "name": "nonstop-agent",
   "repo": "seolcoding/nonstop-agent",
   "category": "design",
-  "description": "Creates long-running autonomous agents. Use when the user asks for \"\ub871 \ub7ec\ub2dd \uc5d0\uc774\uc804\ud2b8 \ub9cc\ub4e4\uc5b4\uc918\", \"\uc790\uc728 \uc5d0\uc774\uc804\ud2b8 \uc0dd\uc131\", \"autonomous agent\", \"long-running agent\", \"nonstop agent\", or \"24/7 agent\". Collects requirements thr",
+  "description": "Creates long-running autonomous agents. Use when the user asks for \"롱 러닝 에이전트 만들어줘\", \"자율 에이전트 생성\", \"autonomous agent\", \"long-running agent\", \"nonstop agent\", or \"24/7 agent\". Collects requirements thr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:21.976783Z"
+  "downloaded_at": "2026-01-06T09:00:21.976783Z",
+  "github_path": "skills",
+  "github_branch": "main"
 }

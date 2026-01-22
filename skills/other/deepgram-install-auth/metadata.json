@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:02.153672Z",
   "dir_name": "deepgram-install-auth",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/deepgram-pack/skills/deepgram-install-auth",
+  "github_branch": "main"
 }

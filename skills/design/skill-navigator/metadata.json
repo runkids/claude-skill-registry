@@ -7,5 +7,7 @@
     "skill",
     "navigator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "skill-navigator",
+  "github_branch": "main"
 }

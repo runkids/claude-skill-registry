@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Expert-level state management with Redux Toolkit and Zustand using TypeScript. Handle complex application state including shopping carts, user authentication, product catalogs, API state management, a",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:07.042776Z"
+  "downloaded_at": "2026-01-06T09:11:07.042776Z",
+  "github_path": ".claude/skills/state-management-expert",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "mcp"
   ],
   "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/atlassian-mcp",
+  "github_branch": "main"
 }

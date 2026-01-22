@@ -8,5 +8,7 @@
     "web",
     "vitals"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/core-web-vitals",
+  "github_branch": "main"
 }

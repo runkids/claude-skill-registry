@@ -9,5 +9,7 @@
     "safety"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/external-system-safety",
+  "github_branch": "main"
 }

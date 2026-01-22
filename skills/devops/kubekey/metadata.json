@@ -6,5 +6,7 @@
   "tags": [
     "kubekey"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/kubekey",
+  "github_branch": "main"
 }

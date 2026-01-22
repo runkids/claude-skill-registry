@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "designing-dynamodb-tables"
+  "dir_name": "designing-dynamodb-tables",
+  "github_path": "skills/designing-dynamodb-tables",
+  "github_branch": "main"
 }

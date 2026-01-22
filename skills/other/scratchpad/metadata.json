@@ -5,5 +5,7 @@
   "source": "github.com/SimHacker/moollm",
   "downloaded_at": "2026-01-22T01:07:12.825178Z",
   "dir_name": "scratchpad",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scratchpad",
+  "github_branch": "main"
 }

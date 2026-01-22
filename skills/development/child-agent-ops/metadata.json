@@ -2,7 +2,9 @@
   "name": "child-agent-ops",
   "repo": "A-Genno/Polaris",
   "category": "development",
-  "description": "\u5b50\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u306e\u8d77\u52d5\u30fb\u6307\u793a\u30fb\u5831\u544a\u30fb\u5b89\u5168\u904b\u7528\u3092\u6a19\u6e96\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3002codex \u3067\u306e\u30bf\u30b9\u30af\u5206\u89e3\u3001\u78ba\u8a8d\u5224\u65ad\u3001\u30c1\u30a7\u30c3\u30af\u30ea\u30b9\u30c8\u3001\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8\u3092\u63d0\u4f9b\u3057\u3001\u30ea\u30fc\u30c0\u30fc/\u5b9f\u88c5/\u30ec\u30d3\u30e5\u30fc\u5404\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u304c\u8ff7\u308f\u305a\u52d5\u3051\u308b\u3088\u3046\u306b\u3059\u308b\u3002",
+  "description": "子エージェントの起動・指示・報告・安全運用を標準化するスキル。codex でのタスク分解、確認判断、チェックリスト、テンプレートを提供し、リーダー/実装/レビュー各エージェントが迷わず動けるようにする。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:41.182511Z"
+  "downloaded_at": "2026-01-06T09:03:41.182511Z",
+  "github_path": "documents/skills/child-agent-ops",
+  "github_branch": "main"
 }

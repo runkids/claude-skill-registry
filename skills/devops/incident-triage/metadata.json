@@ -7,5 +7,7 @@
     "incident",
     "triage"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/incident-triage",
+  "github_branch": "main"
 }

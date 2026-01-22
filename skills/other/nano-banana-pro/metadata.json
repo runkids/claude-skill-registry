@@ -5,5 +5,7 @@
   "source": "github.com/nickromney/n-dotfiles",
   "downloaded_at": "2026-01-22T04:02:51.489274Z",
   "dir_name": "nano-banana-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/nano-banana-pro",
+  "github_branch": "main"
 }

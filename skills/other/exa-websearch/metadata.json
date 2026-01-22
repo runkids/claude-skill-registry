@@ -5,5 +5,7 @@
   "source": "github.com/leonj1/external-claude-skills",
   "downloaded_at": "2026-01-21T01:00:53.527544Z",
   "dir_name": "exa-websearch",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/exa-websearch",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:54.875593Z",
   "dir_name": "model-registry",
-  "category": "other"
+  "category": "other",
+  "github_path": "44-ai-governance/model-registry",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:55.815932Z",
   "dir_name": "api-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fastapi-expert",
+  "github_branch": "main"
 }

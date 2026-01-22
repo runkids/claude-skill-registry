@@ -2,7 +2,9 @@
   "name": "problem-diagnosis",
   "repo": "dylantarre/animation-principles",
   "category": "development",
-  "description": "Use when animation \"feels wrong\" but you can't pinpoint why\u2014debugging floaty movement, stiff characters, unclear action, or any motion that isn't working and needs systematic troubleshooting.",
+  "description": "Use when animation \"feels wrong\" but you can't pinpoint why—debugging floaty movement, stiff characters, unclear action, or any motion that isn't working and needs systematic troubleshooting.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:14.789628Z"
+  "downloaded_at": "2026-01-06T09:05:14.789628Z",
+  "github_path": "skills/02-by-thinking-style/problem-diagnosis",
+  "github_branch": "main"
 }

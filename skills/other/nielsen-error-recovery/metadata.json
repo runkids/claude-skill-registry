@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:46.556240Z",
   "dir_name": "nielsen-error-recovery",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/heuristics/nielsen-error-recovery",
+  "github_branch": "main"
 }

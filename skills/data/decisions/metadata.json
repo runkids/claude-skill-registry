@@ -8,5 +8,7 @@
   ],
   "stars": 17,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "decisions"
+  "dir_name": "decisions",
+  "github_path": "decisions",
+  "github_branch": "main"
 }

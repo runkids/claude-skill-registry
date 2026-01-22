@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:02.290351Z",
   "dir_name": "functional-non-functional-requirements",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/functional-non-functional-requirements",
+  "github_branch": "main"
 }

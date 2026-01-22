@@ -5,5 +5,7 @@
   "source": "github.com/macaugh/super-rouge-hunter-skills",
   "downloaded_at": "2026-01-14T04:04:26.913145Z",
   "dir_name": "payload-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/exploitation/payload-generation",
+  "github_branch": "main"
 }

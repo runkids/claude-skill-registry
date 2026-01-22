@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:03.477066Z",
   "dir_name": "rag-implementer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rag-implementer",
+  "github_branch": "main"
 }

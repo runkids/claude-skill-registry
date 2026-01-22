@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "active-directory"
+  "dir_name": "active-directory",
+  "github_path": "skills/active-directory",
+  "github_branch": "main"
 }

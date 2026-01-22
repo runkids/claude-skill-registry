@@ -7,5 +7,7 @@
     "types",
     "architecture"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/types-architecture",
+  "github_branch": "main"
 }

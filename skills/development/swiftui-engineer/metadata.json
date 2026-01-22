@@ -7,5 +7,7 @@
     "swiftui",
     "engineer"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/swiftui-engineer",
+  "github_branch": "main"
 }

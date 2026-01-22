@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Single source of truth and librarian for ALL Gemini CLI documentation. Manages local documentation storage, scraping, discovery, and resolution. Use when finding, locating, searching, or resolving Gem",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:07.729015Z"
+  "downloaded_at": "2026-01-06T09:00:07.729015Z",
+  "github_path": "plugins/google-ecosystem/skills/gemini-cli-docs",
+  "github_branch": "main"
 }

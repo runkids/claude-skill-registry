@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:39.476065Z",
   "dir_name": "snippet-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/snippet-manager",
+  "github_branch": "main"
 }

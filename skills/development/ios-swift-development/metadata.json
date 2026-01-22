@@ -8,5 +8,7 @@
     "swift",
     "development"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/ios-swift-development",
+  "github_branch": "main"
 }

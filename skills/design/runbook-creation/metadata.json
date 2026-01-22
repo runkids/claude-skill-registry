@@ -7,5 +7,7 @@
     "runbook",
     "creation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/runbook-creation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/shareAI-lab/shareAI-skills",
   "downloaded_at": "2026-01-19T01:29:12.782467Z",
   "dir_name": "vibe-coding",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vibe-coding",
+  "github_branch": "main"
 }

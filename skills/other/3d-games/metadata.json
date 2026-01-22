@@ -5,5 +5,7 @@
   "source": "github.com/CongDon1207/AGENTS.md",
   "downloaded_at": "2026-01-22T03:08:24.474051Z",
   "dir_name": "3d-games",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/game-development/3d-games",
+  "github_branch": "main"
 }

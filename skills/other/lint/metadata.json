@@ -5,5 +5,7 @@
   "source": "github.com/ahtavarasmus/lightfriend-cloud",
   "downloaded_at": "2026-01-22T02:53:34.068175Z",
   "dir_name": "lint",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/lint",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "query",
     "analyzer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/snowflake-query-analyzer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/AJBcoding/claude-skill-eval",
   "downloaded_at": "2026-01-20T04:03:42.765596Z",
   "dir_name": "create-slidev-presentation",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic-coding-main/Claude/skills/create-slidev-presentation",
+  "github_branch": "main"
 }

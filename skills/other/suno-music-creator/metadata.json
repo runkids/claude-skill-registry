@@ -5,5 +5,7 @@
   "source": "github.com/schwepps/skills",
   "downloaded_at": "2026-01-22T03:29:05.980893Z",
   "dir_name": "suno-music-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "suno-music-creator",
+  "github_branch": "main"
 }

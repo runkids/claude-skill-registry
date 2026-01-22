@@ -7,5 +7,7 @@
     "sdd",
     "next"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/sdd-next",
+  "github_branch": "main"
 }

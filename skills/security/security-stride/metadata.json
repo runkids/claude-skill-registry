@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Activate when conducting security analysis using STRIDE threat modeling, vulnerability assessment, and security architecture evaluation",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:42.735973Z"
+  "downloaded_at": "2026-01-08T03:29:42.735973Z",
+  "github_path": "skills/security-stride",
+  "github_branch": "main"
 }

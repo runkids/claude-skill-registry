@@ -8,5 +8,7 @@
     "html"
   ],
   "stars": 0,
-  "dir_name": "semantic-html"
+  "dir_name": "semantic-html",
+  "github_path": "semantic-html",
+  "github_branch": "main"
 }

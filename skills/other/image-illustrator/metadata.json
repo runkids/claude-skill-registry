@@ -5,5 +5,7 @@
   "source": "github.com/RogueRope/docs",
   "downloaded_at": "2026-01-21T02:32:21.460265Z",
   "dir_name": "image-illustrator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/image-illustrator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:07.498054Z",
   "dir_name": "go-backend-clean-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "go-backend-clean-architecture",
+  "github_branch": "main"
 }

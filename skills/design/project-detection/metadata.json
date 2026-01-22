@@ -7,5 +7,7 @@
     "project",
     "detection"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/project-detection",
+  "github_branch": "main"
 }

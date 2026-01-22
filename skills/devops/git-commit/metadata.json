@@ -8,5 +8,7 @@
     "commit"
   ],
   "stars": 728,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".opencode/skill/git-commit",
+  "github_branch": "main"
 }

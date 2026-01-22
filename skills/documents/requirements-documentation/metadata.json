@@ -2,7 +2,9 @@
   "name": "requirements-documentation",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "documents",
-  "description": "\u8981\u4ef6\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u306e\u4f5c\u6210\u30fb\u69cb\u9020\u5316\u30fb\u54c1\u8cea\u7ba1\u7406\u30fb\u30cf\u30f3\u30c9\u30aa\u30d5\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30ab\u30fc\u30eb\u30fb\u30a6\u30a3\u30fc\u30ac\u30fc\u30ba\u306e\u8981\u6c42\u5de5\u5b66\u7406\u8ad6\u306b\u57fa\u3065\u304d\u3001\u30b9\u30c6\u30fc\u30af\u30db\u30eb\u30c0\u30fc\u3068\u958b\u767a\u30c1\u30fc\u30e0\u306e\u53cc\u65b9\u306b\u6709\u7528\u306a\u4ed5\u69d8\u66f8\u3092\u4f5c\u6210\u3059\u308b\u3002Anchors:\u2022 Software Requirements (Karl Wiegers) / \u9069\u7528: \u8981\u4ef6\u7ba1\u7406\u5168\u822c / \u76ee\u7684: \u660e\u78ba\u3067\u691c\u8a3c\u53ef\u80fd\u306a\u4ed5\u69d8\u2022 IEEE 830 SRS Standard / \u9069\u7528: \u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u69cb",
+  "description": "要件ドキュメントの作成・構造化・品質管理・ハンドオフを支援するスキル。カール・ウィーガーズの要求工学理論に基づき、ステークホルダーと開発チームの双方に有用な仕様書を作成する。Anchors:• Software Requirements (Karl Wiegers) / 適用: 要件管理全般 / 目的: 明確で検証可能な仕様• IEEE 830 SRS Standard / 適用: ドキュメント構",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:44.541426Z"
+  "downloaded_at": "2026-01-06T09:00:44.541426Z",
+  "github_path": "docs/99-claude/skills/requirements-documentation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:11.743227Z",
   "dir_name": "csharp-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/languages/csharp-expert",
+  "github_branch": "main"
 }

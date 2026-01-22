@@ -8,5 +8,7 @@
     "device",
     "stomp"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/mmd-device-hx-stomp",
+  "github_branch": "main"
 }

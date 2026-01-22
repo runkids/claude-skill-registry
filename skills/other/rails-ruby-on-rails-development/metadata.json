@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-21T03:48:19.588248Z",
   "dir_name": "rails-ruby-on-rails-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rails-ruby-on-rails-development",
+  "github_branch": "main"
 }

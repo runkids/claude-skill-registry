@@ -5,5 +5,7 @@
   "description": "Email, notifications, and messaging system patterns",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:52.136501Z",
-  "dir_name": "communication-systems"
+  "dir_name": "communication-systems",
+  "github_path": "domain-applications/communication-systems",
+  "github_branch": "main"
 }

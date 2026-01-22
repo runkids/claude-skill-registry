@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:26.415299Z",
   "dir_name": "py-pydantic-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/py-pydantic-patterns",
+  "github_branch": "main"
 }

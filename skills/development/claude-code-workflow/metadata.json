@@ -8,5 +8,7 @@
     "code",
     "workflow"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/claude-code-workflow",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "detector"
   ],
   "stars": 0,
-  "dir_name": "priority-detector"
+  "dir_name": "priority-detector",
+  "github_path": "skills/priority-detector",
+  "github_branch": "main"
 }

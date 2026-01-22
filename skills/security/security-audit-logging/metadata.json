@@ -8,5 +8,7 @@
     "audit",
     "logging"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/security-audit-logging",
+  "github_branch": "main"
 }

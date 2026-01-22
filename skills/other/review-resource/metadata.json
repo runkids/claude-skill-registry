@@ -5,5 +5,7 @@
   "source": "github.com/madooei/backend-template",
   "downloaded_at": "2026-01-22T03:36:23.009939Z",
   "dir_name": "review-resource",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/review-resource",
+  "github_branch": "main"
 }

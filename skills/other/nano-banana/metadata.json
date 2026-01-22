@@ -5,5 +5,7 @@
   "source": "github.com/horuz-ai/claude-plugins",
   "downloaded_at": "2026-01-22T03:49:55.283396Z",
   "dir_name": "nano-banana",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/google/skills/nano-banana",
+  "github_branch": "main"
 }

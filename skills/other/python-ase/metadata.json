@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:22.675039Z",
   "dir_name": "python-ase",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/programming/python-ase",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/davila7/claude-code-templates",
   "downloaded_at": "2026-01-22T03:18:31.780410Z",
   "dir_name": "prompt-engineering-dspy",
-  "category": "other"
+  "category": "other",
+  "github_path": "cli-tool/components/skills/ai-research/prompt-engineering-dspy",
+  "github_branch": "main"
 }

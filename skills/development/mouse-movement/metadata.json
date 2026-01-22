@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Human-like mouse movement patterns. Use when automating browser interactions to avoid bot detection.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:13.604827Z"
+  "downloaded_at": "2026-01-06T09:04:13.604827Z",
+  "github_path": ".claude/plugins/reddit-automation/skills/mouse-movement",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:25.429026Z",
   "dir_name": "kubernetes-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/kubernetes-ai",
+  "github_branch": "main"
 }

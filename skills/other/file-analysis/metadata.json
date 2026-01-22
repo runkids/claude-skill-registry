@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:13.266831Z",
   "dir_name": "file-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sanctum/skills/file-analysis",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Create FilamentPHP v4 infolists with entries, sections, and layouts for view pages",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:16.518517Z"
+  "downloaded_at": "2026-01-06T09:00:16.518517Z",
+  "github_path": "filament-specialist/skills/filament-infolists",
+  "github_branch": "main"
 }

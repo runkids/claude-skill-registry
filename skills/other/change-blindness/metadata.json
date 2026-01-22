@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:45.999296Z",
   "dir_name": "change-blindness",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/perception/change-blindness",
+  "github_branch": "main"
 }

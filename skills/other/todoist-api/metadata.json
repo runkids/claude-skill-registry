@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:59.515539Z",
   "dir_name": "todoist-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/productivity/todoist-api",
+  "github_branch": "main"
 }

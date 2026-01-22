@@ -8,5 +8,7 @@
     "loop"
   ],
   "stars": 0,
-  "dir_name": "ci-fix-loop"
+  "dir_name": "ci-fix-loop",
+  "github_path": "skills/ci-fix-loop",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/JoernStoehler/msc-viterbo",
   "downloaded_at": "2026-01-22T02:23:01.395858Z",
   "dir_name": "experiment-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/experiment-workflow",
+  "github_branch": "main"
 }

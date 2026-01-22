@@ -9,5 +9,7 @@
     "research"
   ],
   "stars": 0,
-  "dir_name": "powergraph-gnn-research"
+  "dir_name": "powergraph-gnn-research",
+  "github_path": "skills/powergraph-gnn-research",
+  "github_branch": "main"
 }

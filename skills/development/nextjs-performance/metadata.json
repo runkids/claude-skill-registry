@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Next.js performance optimizations including next/image, next/font, dynamic imports, caching strategies, and bundle optimization. Use when optimizing Next.js apps for speed or Core Web Vitals.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:00.075042Z"
+  "downloaded_at": "2026-01-06T09:10:00.075042Z",
+  "github_path": "plugins/cc-nextjs/skills/nextjs-performance",
+  "github_branch": "main"
 }

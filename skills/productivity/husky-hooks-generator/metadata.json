@@ -8,5 +8,7 @@
     "hooks",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "husky-hooks-generator",
+  "github_branch": "main"
 }

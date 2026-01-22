@@ -5,5 +5,7 @@
   "source": "github.com/proflead/codex-skills-library",
   "downloaded_at": "2026-01-22T02:40:41.804492Z",
   "dir_name": "ci-failure-triage",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/infra/ci-failure-triage",
+  "github_branch": "main"
 }

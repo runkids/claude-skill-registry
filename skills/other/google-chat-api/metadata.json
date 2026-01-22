@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:25.703587Z",
   "dir_name": "google-chat-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/google-chat-api",
+  "github_branch": "main"
 }

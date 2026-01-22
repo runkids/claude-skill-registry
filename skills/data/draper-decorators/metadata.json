@@ -8,5 +8,7 @@
     "decorators"
   ],
   "stars": 0,
-  "dir_name": "draper-decorators"
+  "dir_name": "draper-decorators",
+  "github_path": "draper-decorators",
+  "github_branch": "main"
 }

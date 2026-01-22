@@ -7,5 +7,7 @@
     "toml",
     "python"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "plugins/toml-python/skills/toml-python",
+  "github_branch": "main"
 }

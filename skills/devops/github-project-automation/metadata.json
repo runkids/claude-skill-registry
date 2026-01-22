@@ -8,5 +8,7 @@
     "project",
     "automation"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/github-project-automation",
+  "github_branch": "main"
 }

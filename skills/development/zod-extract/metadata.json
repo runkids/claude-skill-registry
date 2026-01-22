@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Find inline Zod schemas and move them to validations/ directory",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:16.236961Z"
+  "downloaded_at": "2026-01-06T09:10:16.236961Z",
+  "github_path": "files/claude/skills/zod-extract",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/BerryKuipers/claude-code-toolkit",
   "downloaded_at": "2026-01-22T01:27:06.382897Z",
   "dir_name": "dns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/infrastructure/dns",
+  "github_branch": "main"
 }

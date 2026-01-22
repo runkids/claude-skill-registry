@@ -5,5 +5,7 @@
   "source": "github.com/PierreZ/claude-personal-skills",
   "downloaded_at": "2026-01-17T04:04:52.603442Z",
   "dir_name": "fdb-layer-engineering",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fdb-layer-engineering",
+  "github_branch": "main"
 }

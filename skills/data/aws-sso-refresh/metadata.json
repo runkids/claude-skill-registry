@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "aws-sso-refresh"
+  "dir_name": "aws-sso-refresh",
+  "github_path": "skills/aws-sso-refresh",
+  "github_branch": "main"
 }

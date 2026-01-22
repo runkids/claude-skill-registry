@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Implement the /chat endpoint that performs agent-based RAG reasoning with proper input validation and response formatting.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:15.706776Z"
+  "downloaded_at": "2026-01-06T09:07:15.706776Z",
+  "github_path": ".claude/skills/rag-chat-endpoint",
+  "github_branch": "main"
 }

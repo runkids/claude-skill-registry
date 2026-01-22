@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "buildkite"
+  "dir_name": "buildkite",
+  "github_path": "",
+  "github_branch": "main"
 }

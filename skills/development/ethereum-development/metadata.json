@@ -8,5 +8,7 @@
     "development"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/ethereum-development",
+  "github_branch": "main"
 }

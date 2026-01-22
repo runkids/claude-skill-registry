@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:13.137550Z",
   "dir_name": "k8s-manifest-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/kubernetes-operations/skills/k8s-manifest-generator",
+  "github_branch": "main"
 }

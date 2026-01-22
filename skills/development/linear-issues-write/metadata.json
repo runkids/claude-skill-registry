@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create and update Linear issues via CLI (write operations)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:45.025824Z"
+  "downloaded_at": "2026-01-06T08:59:45.025824Z",
+  "github_path": "docs/registry/skills/linear-issues-write",
+  "github_branch": "main"
 }

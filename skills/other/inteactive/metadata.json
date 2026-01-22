@@ -5,5 +5,7 @@
   "source": "github.com/labring/FastGPT",
   "downloaded_at": "2026-01-22T03:02:50.333415Z",
   "dir_name": "inteactive",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/core/app/workflow/inteactive",
+  "github_branch": "main"
 }

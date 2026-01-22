@@ -5,5 +5,7 @@
   "source": "github.com/hgeldenhuys/claude-code-sdk",
   "downloaded_at": "2026-01-22T02:26:56.352835Z",
   "dir_name": "creating-plugins",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/creating-plugins",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "eld-predict-impact",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "development",
-  "description": "ELD\uff08Evidence-Loop Development\uff09\u306ePredict\uff08\u4e88\u6e2c\uff09\u30d5\u30a7\u30fc\u30ba\u30b9\u30ad\u30eb\u3002\u5909\u66f4\u306e\u5f71\u97ff\u3092\u56e0\u679c\u30bf\u30a4\u30d7\u3067\u5206\u985e\u3057\u3001\u6bb5\u968e\u5316\u6226\u7565\u3068\u505c\u6b62\u6761\u4ef6\u3092\u78ba\u5b9a\u3059\u308b\u3002\u300c\u8ce2\u304f\u52d5\u304f\u300d\u3088\u308a\u3082\u300c\u58ca\u3055\u305a\u306b\u53ce\u675f\u3059\u308b\u300d\u3092\u512a\u5148\u3002\u4f7f\u7528\u30bf\u30a4\u30df\u30f3\u30b0: (1) \u5b9f\u88c5\u524d\u306e\u5f71\u97ff\u5206\u6790\u3001(2) \u300c\u5f71\u97ff\u4e88\u6e2c\u3057\u3066\u300d\u300c\u6bb5\u968e\u5316\u8a08\u753b\u3092\u7acb\u3066\u3066\u300d\u3001(3) Phase 2: Design\u3067\u5909\u66f4\u8a08\u753b\u3092\u7b56\u5b9a\u3059\u308b\u6642\u3001(4) \u8907\u96d1\u306a\u5909\u66f4\u524d\u306e\u30ea\u30b9\u30af\u8a55\u4fa1",
+  "description": "ELD（Evidence-Loop Development）のPredict（予測）フェーズスキル。変更の影響を因果タイプで分類し、段階化戦略と停止条件を確定する。「賢く動く」よりも「壊さずに収束する」を優先。使用タイミング: (1) 実装前の影響分析、(2) 「影響予測して」「段階化計画を立てて」、(3) Phase 2: Designで変更計画を策定する時、(4) 複雑な変更前のリスク評価",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:17.918156Z"
+  "downloaded_at": "2026-01-06T09:10:17.918156Z",
+  "github_path": "caphtech-plugin/skills/eld-predict-impact",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
     "auditor"
   ],
   "stars": 0,
-  "dir_name": "wordpress-site-speed-auditor"
+  "dir_name": "wordpress-site-speed-auditor",
+  "github_path": "skills/wordpress-site-speed-auditor",
+  "github_branch": "main"
 }

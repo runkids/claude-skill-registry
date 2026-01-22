@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:24.276105Z",
   "dir_name": "caching-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/caching-strategy",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:02.043447Z",
   "dir_name": "skill-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-validator",
+  "github_branch": "main"
 }

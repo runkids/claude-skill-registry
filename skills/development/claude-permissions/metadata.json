@@ -8,5 +8,7 @@
     "permissions"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/meta-work/skills/claude-permissions",
+  "github_branch": "main"
 }

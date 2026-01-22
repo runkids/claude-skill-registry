@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:26.187066Z",
   "dir_name": "defense-in-depth-obra",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/defense-in-depth_obra",
+  "github_branch": "main"
 }

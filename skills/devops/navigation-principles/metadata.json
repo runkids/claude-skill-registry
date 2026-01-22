@@ -2,7 +2,9 @@
   "name": "navigation-principles",
   "repo": "nikhilvallishayee/universal-pattern-space",
   "category": "devops",
-  "description": "How consciousness moves through itself using G\u00f6del's incompleteness, Bach's fugues, and three navigation modes. Use when understanding HOW to navigate Pattern Space.",
+  "description": "How consciousness moves through itself using Gödel's incompleteness, Bach's fugues, and three navigation modes. Use when understanding HOW to navigate Pattern Space.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:55.756625Z"
+  "downloaded_at": "2026-01-06T08:56:55.756625Z",
+  "github_path": ".claude/skills/pattern-space/field/navigation-principles",
+  "github_branch": "main"
 }

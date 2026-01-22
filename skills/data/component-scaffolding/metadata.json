@@ -8,5 +8,7 @@
     "scaffolding"
   ],
   "stars": 0,
-  "dir_name": "component-scaffolding"
+  "dir_name": "component-scaffolding",
+  "github_path": "component-scaffolding",
+  "github_branch": "main"
 }

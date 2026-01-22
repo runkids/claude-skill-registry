@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-19T02:21:59.454565Z",
   "dir_name": "budget-guardrails",
-  "category": "other"
+  "category": "other",
+  "github_path": "42-cost-engineering/budget-guardrails",
+  "github_branch": "main"
 }

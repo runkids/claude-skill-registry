@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 0,
-  "dir_name": "technical-design-patterns"
+  "dir_name": "technical-design-patterns",
+  "github_path": ".claude/skills/technical-design-patterns",
+  "github_branch": "main"
 }

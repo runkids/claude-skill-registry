@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:32.091161Z",
   "dir_name": "lang-scala-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-scala-dev",
+  "github_branch": "main"
 }

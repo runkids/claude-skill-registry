@@ -7,5 +7,7 @@
     "software",
     "mobile"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/software-mobile",
+  "github_branch": "main"
 }

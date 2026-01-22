@@ -5,5 +5,7 @@
   "source": "github.com/christopheryeo/claude-skills",
   "downloaded_at": "2026-01-19T01:03:16.963268Z",
   "dir_name": "new-quotation",
-  "category": "other"
+  "category": "other",
+  "github_path": "new-quotation",
+  "github_branch": "main"
 }

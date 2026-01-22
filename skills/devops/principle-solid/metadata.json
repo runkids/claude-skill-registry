@@ -2,7 +2,9 @@
   "name": "principle-solid",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "devops",
-  "description": "\u5e94\u7528\u9762\u5411\u5bf9\u8c61\u8bbe\u8ba1\u4e94\u5927\u539f\u5219\uff08\u5355\u4e00\u804c\u8d23\u3001\u5f00\u95ed\u3001\u91cc\u6c0f\u66ff\u6362\u3001\u63a5\u53e3\u9694\u79bb\u3001\u4f9d\u8d56\u5012\u7f6e\uff09\uff0c\u7cfb\u7edf\u5316\u8bc4\u5ba1\u7c7b\u4e0e\u6a21\u5757\u8bbe\u8ba1\u8d28\u91cf\u3002\u5f53\u9700\u8981\u8bc4\u5ba1\u67b6\u6784\u8bbe\u8ba1\u3001\u91cd\u6784\u73b0\u6709\u4ee3\u7801\u3001\u5ba1\u67e5\u7c7b\u804c\u8d23\u5212\u5206\u65f6\u4f7f\u7528\u3002\u652f\u6301\u591a\u5c42\u6b21\u68c0\u67e5\u6e05\u5355\u548c\u8fdd\u53cd\u539f\u5219\u7684\u8bca\u65ad\u4fee\u590d\u3002",
+  "description": "应用面向对象设计五大原则（单一职责、开闭、里氏替换、接口隔离、依赖倒置），系统化评审类与模块设计质量。当需要评审架构设计、重构现有代码、审查类职责划分时使用。支持多层次检查清单和违反原则的诊断修复。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:58.049364Z"
+  "downloaded_at": "2026-01-06T09:09:58.049364Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/common_advanced/principle-solid",
+  "github_branch": "main"
 }

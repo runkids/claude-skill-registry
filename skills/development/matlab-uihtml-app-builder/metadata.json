@@ -9,5 +9,7 @@
     "app",
     "builder"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/matlab-uihtml-app-builder",
+  "github_branch": "main"
 }

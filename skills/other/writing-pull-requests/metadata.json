@@ -5,5 +5,7 @@
   "source": "github.com/technicalpickles/pickled-claude-plugins",
   "downloaded_at": "2026-01-22T02:59:51.445569Z",
   "dir_name": "writing-pull-requests",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/git-workflows/skills/writing-pull-requests",
+  "github_branch": "main"
 }

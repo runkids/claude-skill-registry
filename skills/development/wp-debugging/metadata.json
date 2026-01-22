@@ -6,5 +6,7 @@
   "tags": [
     "debugging"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/wp-debugging",
+  "github_branch": "main"
 }

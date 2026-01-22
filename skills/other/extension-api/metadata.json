@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:22.512547Z",
   "dir_name": "extension-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/plan-marshall/skills/extension-api",
+  "github_branch": "main"
 }

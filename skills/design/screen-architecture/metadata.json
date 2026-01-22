@@ -2,7 +2,9 @@
   "name": "screen-architecture",
   "repo": "hiragram/claude-code-plugins",
   "category": "design",
-  "description": "iOS\u753b\u9762\u5b9f\u88c5\u306e\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u30fb\u8a2d\u8a08\u601d\u60f3\u30b9\u30ad\u30eb\u3002Redux\u30d1\u30bf\u30fc\u30f3\u306b\u57fa\u3065\u304fSingle Root State\u3001Reducer\u306b\u3088\u308b\u30d3\u30b8\u30cd\u30b9\u30ed\u30b8\u30c3\u30af\u5206\u96e2\u3001\u30c6\u30b9\u30bf\u30d3\u30ea\u30c6\u30a3\u3092\u91cd\u8996\u3057\u305f\u5b9f\u88c5\u3092\u652f\u63f4\u3002\u4f7f\u7528\u30b7\u30fc\u30f3\uff1a(1)\u300c\u3053\u306e\u30d7\u30ed\u30c8\u30bf\u30a4\u30d7\u3092\u672c\u756a\u5b9f\u88c5\u306b\u3057\u3066\u300d\u306a\u3069\u306e\u672c\u683c\u5b9f\u88c5\u30ea\u30af\u30a8\u30b9\u30c8 (2)\u300c\u72b6\u614b\u7ba1\u7406\u3092\u6574\u7406\u3057\u3066\u300d\u306a\u3069\u306e\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u9069\u7528\u30ea\u30af\u30a8\u30b9\u30c8 (3) \u753b\u9762\u306e\u72b6\u614b\u7ba1\u7406\u3084\u30c6\u30b9\u30c8\u53ef\u80fd\u306a\u8a2d\u8a08\u304c\u5fc5\u8981\u306a\u5834\u5408 (4)\u300c\u3053\u306e\u753b",
+  "description": "iOS画面実装のアーキテクチャ・設計思想スキル。Reduxパターンに基づくSingle Root State、Reducerによるビジネスロジック分離、テスタビリティを重視した実装を支援。使用シーン：(1)「このプロトタイプを本番実装にして」などの本格実装リクエスト (2)「状態管理を整理して」などのアーキテクチャ適用リクエスト (3) 画面の状態管理やテスト可能な設計が必要な場合 (4)「この画",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:05.704277Z"
+  "downloaded_at": "2026-01-06T09:06:05.704277Z",
+  "github_path": "ios-team/skills/screen-architecture",
+  "github_branch": "main"
 }

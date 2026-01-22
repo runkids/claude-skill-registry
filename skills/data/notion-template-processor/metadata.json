@@ -9,5 +9,7 @@
     "processor"
   ],
   "stars": 0,
-  "dir_name": "notion-template-processor"
+  "dir_name": "notion-template-processor",
+  "github_path": "skills/notion-template-processor",
+  "github_branch": "main"
 }

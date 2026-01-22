@@ -7,5 +7,7 @@
     "typst",
     "writer"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "typst-writer",
+  "github_branch": "main"
 }

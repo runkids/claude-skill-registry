@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:31.314156Z",
   "dir_name": "secrets-guardian",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/secrets-guardian",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-22T02:47:04.406195Z",
   "dir_name": "t4-stack",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills-templates/t4-stack",
+  "github_branch": "main"
 }

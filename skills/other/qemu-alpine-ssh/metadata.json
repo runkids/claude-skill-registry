@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:35.958508Z",
   "dir_name": "qemu-alpine-ssh",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/qemu-alpine-ssh",
+  "github_branch": "main"
 }

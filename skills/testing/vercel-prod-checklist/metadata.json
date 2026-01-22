@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Execute Vercel production deployment checklist and rollback procedures.Use when deploying Vercel integrations to production, preparing for launch,or implementing go-live procedures.Trigger with phrase",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:51.625426Z"
+  "downloaded_at": "2026-01-06T08:55:51.625426Z",
+  "github_path": "plugins/saas-packs/vercel-pack/skills/vercel-prod-checklist",
+  "github_branch": "main"
 }

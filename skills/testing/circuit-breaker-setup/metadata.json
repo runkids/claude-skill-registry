@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Circuit Breaker Setup - Auto-activating skill for API Integration.Triggers on: circuit breaker setup, circuit breaker setupPart of the API Integration skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:55.548137Z"
+  "downloaded_at": "2026-01-06T08:55:55.548137Z",
+  "github_path": "planned-skills/generated/16-api-integration/circuit-breaker-setup",
+  "github_branch": "main"
 }

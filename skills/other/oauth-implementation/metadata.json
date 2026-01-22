@@ -5,5 +5,7 @@
   "source": "github.com/secondsky/claude-skills",
   "downloaded_at": "2026-01-17T03:58:36.971574Z",
   "dir_name": "oauth-implementation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/oauth-implementation/skills/oauth-implementation",
+  "github_branch": "main"
 }

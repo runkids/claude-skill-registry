@@ -7,5 +7,7 @@
     "gemini",
     "image"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/gemini-image",
+  "github_branch": "main"
 }

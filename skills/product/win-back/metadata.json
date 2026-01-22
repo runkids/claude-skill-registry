@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Design win-back campaigns to re-engage dormant customers and recover churned users with targeted messaging, special offers, and feedback collection to understand and address churn reasons.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:28.136069Z"
+  "downloaded_at": "2026-01-06T08:58:28.136069Z",
+  "github_path": "plugins/majestic-sales/skills/win-back",
+  "github_branch": "main"
 }

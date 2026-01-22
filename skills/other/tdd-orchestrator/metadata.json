@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:08.992311Z",
   "dir_name": "tdd-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tdd-orchestrator",
+  "github_branch": "main"
 }

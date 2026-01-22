@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:25.265759Z",
   "dir_name": "playwright-local",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/playwright-local",
+  "github_branch": "main"
 }

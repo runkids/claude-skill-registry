@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-19T02:08:14.986590Z",
   "dir_name": "graphics-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/other/graphics-api",
+  "github_branch": "main"
 }

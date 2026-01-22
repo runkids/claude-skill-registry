@@ -7,5 +7,7 @@
     "error",
     "detective"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "error-detective",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "the",
     "tests"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/run-the-tests",
+  "github_branch": "main"
 }

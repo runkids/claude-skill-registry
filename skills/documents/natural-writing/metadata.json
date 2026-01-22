@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Write like a human, not a language model. Avoid AI-tell vocabulary, formulaic structures, and hollow emphasis. Apply to ALL written output including prose, documentation, comments, and communication.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:20.910820Z"
+  "downloaded_at": "2026-01-06T09:01:20.910820Z",
+  "github_path": "opencode/skill/natural-writing",
+  "github_branch": "main"
 }

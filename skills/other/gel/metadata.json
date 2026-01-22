@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:49.689537Z",
   "dir_name": "gel",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/gel",
+  "github_branch": "main"
 }

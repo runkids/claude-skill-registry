@@ -9,5 +9,7 @@
     "gif"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cli-demo-gif",
+  "github_branch": "main"
 }

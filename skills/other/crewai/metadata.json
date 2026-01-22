@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:54.192504Z",
   "dir_name": "crewai",
-  "category": "other"
+  "category": "other",
+  "github_path": "14-agents/crewai",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Two-stage paper screening - abstract scoring then deep dive for specific data extraction",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:59.138163Z"
+  "downloaded_at": "2026-01-06T09:00:59.138163Z",
+  "github_path": "skills/research/evaluating-paper-relevance",
+  "github_branch": "main"
 }

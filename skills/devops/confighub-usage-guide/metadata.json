@@ -8,5 +8,7 @@
     "usage",
     "guide"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "confighub-usage-guide",
+  "github_branch": "main"
 }

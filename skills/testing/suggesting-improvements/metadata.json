@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Expert at suggesting specific, actionable improvements to Claude's responses and work. Use when Claude's output needs enhancement, when quality issues are identified, or when iterating on solutions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:40.763835Z"
+  "downloaded_at": "2026-01-06T09:01:40.763835Z",
+  "github_path": "self-improvement/skills/suggesting-improvements",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use for running and editing notebooks efficiently via jtool/Jupyter; prefers uv for deps and headless execution.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:29.919157Z"
+  "downloaded_at": "2026-01-06T08:58:29.919157Z",
+  "github_path": ".codex/skills/data",
+  "github_branch": "main"
 }

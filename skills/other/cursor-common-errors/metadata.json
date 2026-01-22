@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:04.175985Z",
   "dir_name": "cursor-common-errors",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-common-errors",
+  "github_branch": "main"
 }

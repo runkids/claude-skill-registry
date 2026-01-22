@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:10.601363Z",
   "dir_name": "streaming-api-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/streaming-api-patterns",
+  "github_branch": "main"
 }

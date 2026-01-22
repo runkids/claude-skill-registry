@@ -8,5 +8,7 @@
     "background",
     "jobs"
   ],
-  "stars": 18
+  "stars": 18,
+  "github_path": "rails-background-jobs",
+  "github_branch": "main"
 }

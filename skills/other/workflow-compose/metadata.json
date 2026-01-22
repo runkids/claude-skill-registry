@@ -5,5 +5,7 @@
   "source": "github.com/epieczko/betty",
   "downloaded_at": "2026-01-22T02:27:31.185299Z",
   "dir_name": "workflow-compose",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/workflow.compose",
+  "github_branch": "main"
 }

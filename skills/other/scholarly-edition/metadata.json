@@ -5,5 +5,7 @@
   "source": "github.com/Embassy-of-the-Free-Mind/sourcelibrary-v2",
   "downloaded_at": "2026-01-22T03:36:33.941045Z",
   "dir_name": "scholarly-edition",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scholarly-edition",
+  "github_branch": "main"
 }

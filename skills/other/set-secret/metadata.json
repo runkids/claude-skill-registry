@@ -5,5 +5,7 @@
   "source": "github.com/MenadBt/prospection",
   "downloaded_at": "2026-01-22T02:03:21.936250Z",
   "dir_name": "set-secret",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/set-secret",
+  "github_branch": "main"
 }

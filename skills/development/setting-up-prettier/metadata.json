@@ -7,5 +7,7 @@
     "setting",
     "prettier"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/setting-up-prettier",
+  "github_branch": "main"
 }

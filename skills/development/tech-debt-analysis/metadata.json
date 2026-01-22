@@ -8,5 +8,7 @@
     "debt",
     "analysis"
   ],
-  "stars": 22
+  "stars": 22,
+  "github_path": "skills/tech-debt-analysis",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/laris-co/nat-agents-core",
   "downloaded_at": "2026-01-22T02:08:26.774371Z",
   "dir_name": "where-we-are",
-  "category": "other"
+  "category": "other",
+  "github_path": "bundles/skills/where-we-are",
+  "github_branch": "main"
 }

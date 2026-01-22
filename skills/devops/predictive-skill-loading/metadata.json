@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Anticipates and pre-loads optimal skills before task execution based on pattern matching and historical success rates",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.442698Z"
+  "downloaded_at": "2026-01-06T08:58:46.442698Z",
+  "github_path": "skills/predictive-skill-loading",
+  "github_branch": "main"
 }

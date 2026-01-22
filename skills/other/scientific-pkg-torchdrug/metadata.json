@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:34.144094Z",
   "dir_name": "scientific-pkg-torchdrug",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-pkg-torchdrug",
+  "github_branch": "main"
 }

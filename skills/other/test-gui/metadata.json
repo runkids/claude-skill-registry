@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:16.300698Z",
   "dir_name": "test-gui",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/test_gui",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "react"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/frontend-react",
+  "github_branch": "main"
 }

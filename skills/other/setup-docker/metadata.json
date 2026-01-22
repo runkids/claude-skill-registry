@@ -5,5 +5,7 @@
   "source": "github.com/madooei/backend-template",
   "downloaded_at": "2026-01-22T03:36:21.957564Z",
   "dir_name": "setup-docker",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/setup-docker",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:17.543383Z",
   "dir_name": "ios-raintree-technology-claude-starter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ios",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/lambda-curry/devagent",
   "downloaded_at": "2026-01-21T01:49:18.289865Z",
   "dir_name": "worktree-setup-hook",
-  "category": "other"
+  "category": "other",
+  "github_path": ".cursor/skills/worktree-setup-hook",
+  "github_branch": "main"
 }

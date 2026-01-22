@@ -5,5 +5,7 @@
   "source": "github.com/BreakerOfStems/claude-skills",
   "downloaded_at": "2026-01-19T02:13:24.534472Z",
   "dir_name": "github-pr",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-pr",
+  "github_branch": "main"
 }

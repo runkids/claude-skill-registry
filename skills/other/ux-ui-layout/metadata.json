@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:27.339009Z",
   "dir_name": "ux-ui-layout",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ux-ui-layout",
+  "github_branch": "main"
 }

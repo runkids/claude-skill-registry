@@ -6,5 +6,7 @@
   "tags": [
     "integration"
   ],
-  "stars": 16
+  "stars": 16,
+  "github_path": "sf-integration",
+  "github_branch": "main"
 }

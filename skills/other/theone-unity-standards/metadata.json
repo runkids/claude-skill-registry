@@ -5,5 +5,7 @@
   "source": "github.com/The1Studio/theone-training-skills",
   "downloaded_at": "2026-01-22T04:10:24.438338Z",
   "dir_name": "theone-unity-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/theone-unity-standards",
+  "github_branch": "main"
 }

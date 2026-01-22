@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:30.092983Z",
   "dir_name": "scientific-thinking-hypothesis-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-thinking-hypothesis-generation",
+  "github_branch": "main"
 }

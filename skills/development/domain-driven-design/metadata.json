@@ -9,5 +9,7 @@
     "design"
   ],
   "stars": 15,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/domain-driven-design",
+  "github_branch": "main"
 }

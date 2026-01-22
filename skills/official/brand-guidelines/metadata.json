@@ -2,5 +2,7 @@
   "name": "brand-guidelines",
   "repo": "anthropics/skills",
   "category": "official",
-  "source": "Anthropic Official"
+  "source": "Anthropic Official",
+  "github_path": "skills/brand-guidelines",
+  "github_branch": "main"
 }

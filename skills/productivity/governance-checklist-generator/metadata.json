@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Governance Checklist Generator - Auto-activating skill for Enterprise Workflows.Triggers on: governance checklist generator, governance checklist generatorPart of the Enterprise Workflows skill catego",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.072319Z"
+  "downloaded_at": "2026-01-06T08:56:14.072319Z",
+  "github_path": "planned-skills/generated/20-enterprise-workflows/governance-checklist-generator",
+  "github_branch": "main"
 }

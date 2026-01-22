@@ -5,5 +5,7 @@
   "source": "github.com/lambda-curry/devagent",
   "downloaded_at": "2026-01-21T01:49:18.614005Z",
   "dir_name": "issue-logging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".devagent/plugins/ralph/skills/issue-logging",
+  "github_branch": "main"
 }

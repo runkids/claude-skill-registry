@@ -5,5 +5,7 @@
   "source": "github.com/TobiasWooldridge/WaveCap",
   "downloaded_at": "2026-01-22T02:11:28.537690Z",
   "dir_name": "wavecap-filters",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wavecap-filters",
+  "github_branch": "main"
 }

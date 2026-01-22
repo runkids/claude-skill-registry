@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:05.071562Z",
   "dir_name": "kubecon-llm-k8s",
-  "category": "other"
+  "category": "other",
+  "github_path": "kubecon-llm-k8s",
+  "github_branch": "main"
 }

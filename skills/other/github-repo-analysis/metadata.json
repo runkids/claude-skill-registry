@@ -5,5 +5,7 @@
   "source": "github.com/Innfi/solid-fortnight",
   "downloaded_at": "2026-01-14T03:34:25.683428Z",
   "dir_name": "github-repo-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "agent-skills/github-repo-analysis",
+  "github_branch": "main"
 }

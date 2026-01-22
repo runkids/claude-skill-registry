@@ -5,5 +5,7 @@
   "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
   "downloaded_at": "2026-01-22T04:09:53.765169Z",
   "dir_name": "orchestration-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ORCHESTRATION_DEBUGGING",
+  "github_branch": "main"
 }

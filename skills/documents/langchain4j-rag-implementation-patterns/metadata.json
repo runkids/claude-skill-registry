@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Implement Retrieval-Augmented Generation (RAG) systems with LangChain4j. Build document ingestion pipelines, embedding stores, vector search strategies, and knowledge-enhanced AI applications. Use whe",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.010016Z"
+  "downloaded_at": "2026-01-06T08:57:14.010016Z",
+  "github_path": "skills/langchain4j/langchain4j-rag-implementation-patterns",
+  "github_branch": "main"
 }

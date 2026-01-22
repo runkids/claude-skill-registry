@@ -2,7 +2,9 @@
   "name": "skill-granularity-convention",
   "repo": "RevTechStudio/rts-plugins",
   "category": "development",
-  "description": "\u30b9\u30ad\u30eb\u306e\u9069\u5207\u306a\u7c92\u5ea6\u3092\u5b9a\u7fa9\uff081\u30b9\u30ad\u30eb1\u76ee\u7684\u3001\u5206\u5272\u57fa\u6e96\u3001\u7d50\u5408\u57fa\u6e96\uff09\u3059\u308b\u3002\u30b9\u30ad\u30eb\u8a2d\u8a08\u6642\u3001\u7c92\u5ea6\u5224\u65ad\u6642\u3001\u307e\u305f\u306f\u30e6\u30fc\u30b6\u30fc\u304c\u30b9\u30ad\u30eb\u7c92\u5ea6\u30011\u30b9\u30ad\u30eb1\u76ee\u7684\u3001\u5206\u5272\u57fa\u6e96\u3001\u7d50\u5408\u57fa\u6e96\u3001\u30b9\u30ad\u30eb\u8a2d\u8a08\u539f\u5247\u306b\u8a00\u53ca\u3057\u305f\u969b\u306b\u4f7f\u7528\u3059\u308b\u3002",
+  "description": "スキルの適切な粒度を定義（1スキル1目的、分割基準、結合基準）する。スキル設計時、粒度判断時、またはユーザーがスキル粒度、1スキル1目的、分割基準、結合基準、スキル設計原則に言及した際に使用する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:53.493402Z"
+  "downloaded_at": "2026-01-06T09:07:53.493402Z",
+  "github_path": "rts-plugin-generator/skills/skill-granularity-convention",
+  "github_branch": "main"
 }

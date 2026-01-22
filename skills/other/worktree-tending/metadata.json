@@ -5,5 +5,7 @@
   "source": "github.com/lajarre/dotfiles",
   "downloaded_at": "2026-01-22T01:42:14.213450Z",
   "dir_name": "worktree-tending",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/worktree-tending",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "write-code",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "\ucf54\ub4dc \uc791\uc131, \uc218\uc815, \uad6c\ud604. Use when (1) \"\ucf54\ub4dc \uc791\uc131\ud574\uc918\", \"\uad6c\ud604\ud574\uc918\",(2) \uae30\ub2a5 \ucd94\uac00/\uc218\uc815, (3) \ubc84\uadf8 \uc218\uc815.",
+  "description": "코드 작성, 수정, 구현. Use when (1) \"코드 작성해줘\", \"구현해줘\",(2) 기능 추가/수정, (3) 버그 수정.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.909072Z"
+  "downloaded_at": "2026-01-06T09:02:52.909072Z",
+  "github_path": "semo-system/semo-skills/write-code",
+  "github_branch": "main"
 }

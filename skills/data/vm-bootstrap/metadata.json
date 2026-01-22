@@ -7,5 +7,7 @@
     "bootstrap"
   ],
   "stars": 0,
-  "dir_name": "vm-bootstrap"
+  "dir_name": "vm-bootstrap",
+  "github_path": "vm-bootstrap",
+  "github_branch": "main"
 }

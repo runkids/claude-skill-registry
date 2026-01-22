@@ -7,5 +7,7 @@
     "grocery",
     "shopping"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/grocery-shopping",
+  "github_branch": "main"
 }

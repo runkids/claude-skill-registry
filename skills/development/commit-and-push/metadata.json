@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create a git commit and push",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:11.228560Z"
+  "downloaded_at": "2026-01-06T09:11:11.228560Z",
+  "github_path": "commit-and-push",
+  "github_branch": "main"
 }

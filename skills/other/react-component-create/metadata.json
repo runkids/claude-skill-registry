@@ -5,5 +5,7 @@
   "source": "github.com/cpa03/blueprintify",
   "downloaded_at": "2026-01-22T03:39:30.152771Z",
   "dir_name": "react-component-create",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/react-component-create",
+  "github_branch": "main"
 }

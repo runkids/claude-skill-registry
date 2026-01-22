@@ -8,5 +8,7 @@
     "session",
     "analysis"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/claude-session-analysis",
+  "github_branch": "main"
 }

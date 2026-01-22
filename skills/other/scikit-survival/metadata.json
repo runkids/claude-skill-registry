@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:05.375267Z",
   "dir_name": "scikit-survival",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scikit-survival",
+  "github_branch": "main"
 }

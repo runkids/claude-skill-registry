@@ -8,5 +8,7 @@
     "leak",
     "detector"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/memory-leak-detector",
+  "github_branch": "main"
 }

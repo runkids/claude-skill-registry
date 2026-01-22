@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:10.566951Z",
   "dir_name": "openai-responses",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/openai-responses",
+  "github_branch": "main"
 }

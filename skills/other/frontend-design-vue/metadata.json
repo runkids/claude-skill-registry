@@ -5,5 +5,7 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:08.879179Z",
   "dir_name": "frontend-design-vue",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend-design-system/skills/_archive/frontend-design-vue",
+  "github_branch": "main"
 }

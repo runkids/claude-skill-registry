@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive guide to building Bitcoin protocol implementation in Rust, covering cryptographic primitives, blockchain architecture, consensus mechanisms, networking, and wallet development. Use when ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:50.442179Z"
+  "downloaded_at": "2026-01-06T08:59:50.442179Z",
+  "github_path": "INTEGRATION/processed/building-bitcoin-rust",
+  "github_branch": "main"
 }

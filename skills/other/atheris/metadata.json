@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:27.501538Z",
   "dir_name": "atheris",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/testing-handbook-skills/skills/atheris",
+  "github_branch": "main"
 }

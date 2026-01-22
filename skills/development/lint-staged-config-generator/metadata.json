@@ -9,5 +9,7 @@
     "config",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "lint-staged-config-generator",
+  "github_branch": "main"
 }

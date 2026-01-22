@@ -2,7 +2,9 @@
   "name": "python-code-reviewer",
   "repo": "anxiong2025/25-Day-Agents-Course-by-Google",
   "category": "development",
-  "description": "\u5ba1\u67e5 Python \u4ee3\u7801\uff0c\u63d0\u4f9b\u6539\u8fdb\u5efa\u8bae\uff0c\u786e\u4fdd\u4ee3\u7801\u8d28\u91cf\u548c\u6700\u4f73\u5b9e\u8df5",
+  "description": "审查 Python 代码，提供改进建议，确保代码质量和最佳实践",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:43.464953Z"
+  "downloaded_at": "2026-01-06T08:56:43.464953Z",
+  "github_path": "skills-example/.claude/skills/python-code-reviewer",
+  "github_branch": "main"
 }

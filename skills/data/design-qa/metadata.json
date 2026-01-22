@@ -8,5 +8,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "design-qa"
+  "dir_name": "design-qa",
+  "github_path": "design-qa",
+  "github_branch": "main"
 }

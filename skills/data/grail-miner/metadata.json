@@ -8,5 +8,7 @@
     "miner"
   ],
   "stars": 0,
-  "dir_name": "grail-miner"
+  "dir_name": "grail-miner",
+  "github_path": "",
+  "github_branch": "main"
 }

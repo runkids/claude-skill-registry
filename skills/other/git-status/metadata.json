@@ -5,5 +5,7 @@
   "source": "github.com/mystilleef/llm-agent-skills",
   "downloaded_at": "2026-01-20T01:23:15.583694Z",
   "dir_name": "git-status",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/git-status",
+  "github_branch": "main"
 }

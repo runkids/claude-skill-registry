@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "sql-schema-generator"
+  "dir_name": "sql-schema-generator",
+  "github_path": "sql-schema-generator",
+  "github_branch": "main"
 }

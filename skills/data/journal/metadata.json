@@ -7,5 +7,7 @@
     "journal"
   ],
   "stars": 17,
-  "dir_name": "journal"
+  "dir_name": "journal",
+  "github_path": "journal",
+  "github_branch": "main"
 }

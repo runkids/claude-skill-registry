@@ -8,5 +8,7 @@
     "knowledge"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/devkit-knowledge",
+  "github_branch": "main"
 }

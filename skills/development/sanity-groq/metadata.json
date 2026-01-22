@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expert assistance for writing, optimizing, and debugging GROQ queries. Use when writing queries or debugging performance.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.778610Z"
+  "downloaded_at": "2026-01-06T08:57:14.778610Z",
+  "github_path": "sanity-plugin/skills/sanity-groq",
+  "github_branch": "main"
 }

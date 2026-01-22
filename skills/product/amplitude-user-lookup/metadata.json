@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Amplitude user behavior queries",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:28.373684Z"
+  "downloaded_at": "2026-01-06T09:06:28.373684Z",
+  "github_path": "amplitude-user-lookup/skills/amplitude-user-lookup",
+  "github_branch": "main"
 }

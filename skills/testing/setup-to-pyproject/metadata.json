@@ -7,5 +7,7 @@
     "setup",
     "pyproject"
   ],
-  "stars": 23
+  "stars": 23,
+  "github_path": "setup-to-pyproject",
+  "github_branch": "main"
 }

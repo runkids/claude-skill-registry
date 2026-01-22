@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Batch Inference Pipeline - Auto-activating skill for ML Deployment.Triggers on: batch inference pipeline, batch inference pipelinePart of the ML Deployment skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.036173Z"
+  "downloaded_at": "2026-01-06T08:56:14.036173Z",
+  "github_path": "planned-skills/generated/08-ml-deployment/batch-inference-pipeline",
+  "github_branch": "main"
 }

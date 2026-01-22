@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Format TypeScript sources using Deno formatter",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:49.550346Z"
+  "downloaded_at": "2026-01-06T09:02:49.550346Z",
+  "github_path": ".opencode/skill/fmt",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anhvth/speedy_utils",
   "downloaded_at": "2026-01-22T01:40:55.180990Z",
   "dir_name": "caching-utilities",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/caching-utilities",
+  "github_branch": "main"
 }

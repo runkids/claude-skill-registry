@@ -5,5 +5,7 @@
   "source": "github.com/parcadei/Continuous-Claude-v3",
   "downloaded_at": "2026-01-22T03:23:55.434182Z",
   "dir_name": "groups",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/math/abstract-algebra/groups",
+  "github_branch": "main"
 }

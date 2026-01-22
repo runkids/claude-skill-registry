@@ -9,5 +9,7 @@
     "optimizer"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/dspy-miprov2-optimizer",
+  "github_branch": "main"
 }

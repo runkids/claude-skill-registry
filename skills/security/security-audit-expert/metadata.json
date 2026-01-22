@@ -2,7 +2,9 @@
   "name": "security-audit-expert",
   "repo": "dy9759/Text2KnowledgeCards",
   "category": "security",
-  "description": "\u4e13\u4e1a\u5b89\u5168\u5ba1\u8ba1\u4e13\u5bb6\uff0c\u7cbe\u901a\u6f0f\u6d1e\u626b\u63cf\u3001\u6e17\u900f\u6d4b\u8bd5\u3001\u5408\u89c4\u68c0\u67e5\u548c\u5b89\u5168\u4ee3\u7801\u5ba1\u67e5\u3002\u5e2e\u52a9\u4f01\u4e1a\u8bc6\u522b\u548c\u4fee\u590d\u5b89\u5168\u98ce\u9669\uff0c\u786e\u4fdd\u7cfb\u7edf\u548c\u6570\u636e\u7684\u5b89\u5168\u6027\u3002",
+  "description": "专业安全审计专家，精通漏洞扫描、渗透测试、合规检查和安全代码审查。帮助企业识别和修复安全风险，确保系统和数据的安全性。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:14.307829Z"
+  "downloaded_at": "2026-01-06T09:05:14.307829Z",
+  "github_path": "skills/missing-skills/security/security-audit-expert",
+  "github_branch": "main"
 }

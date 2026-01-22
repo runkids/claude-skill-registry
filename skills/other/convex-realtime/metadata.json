@@ -5,5 +5,7 @@
   "source": "github.com/waynesutton/convexskills",
   "downloaded_at": "2026-01-22T02:21:08.894367Z",
   "dir_name": "convex-realtime",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/convex-realtime",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "comment",
     "analysis"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "youtube-comment-analysis",
+  "github_branch": "main"
 }

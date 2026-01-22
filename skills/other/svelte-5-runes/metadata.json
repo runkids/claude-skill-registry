@@ -5,5 +5,7 @@
   "source": "github.com/szweibel/claude-skills",
   "downloaded_at": "2026-01-22T02:35:24.333796Z",
   "dir_name": "svelte-5-runes",
-  "category": "other"
+  "category": "other",
+  "github_path": "svelte-5-runes",
+  "github_branch": "main"
 }

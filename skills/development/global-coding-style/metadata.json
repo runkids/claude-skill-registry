@@ -8,5 +8,7 @@
     "coding",
     "style"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/global-coding-style",
+  "github_branch": "main"
 }

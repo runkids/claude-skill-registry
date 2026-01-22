@@ -5,5 +5,7 @@
   "source": "github.com/X-School-Academy/ai-dev-swarm",
   "downloaded_at": "2026-01-14T02:33:44.673690Z",
   "dir_name": "dev-swarm-mcp-server",
-  "category": "other"
+  "category": "other",
+  "github_path": "dev-swarm/skills/dev-swarm-mcp-server",
+  "github_branch": "main"
 }

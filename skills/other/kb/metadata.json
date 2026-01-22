@@ -5,5 +5,7 @@
   "source": "github.com/pianzhu/my-claude-skills",
   "downloaded_at": "2026-01-22T04:10:53.078102Z",
   "dir_name": "kb",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/HelloAgents/kb",
+  "github_branch": "main"
 }

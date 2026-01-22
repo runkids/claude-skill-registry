@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:05.079290Z",
   "dir_name": "audio-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/audio-analysis",
+  "github_branch": "main"
 }

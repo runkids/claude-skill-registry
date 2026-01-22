@@ -5,5 +5,7 @@
   "source": "github.com/Wania-Kazmi/claude-code-autonomous-agent-workflow",
   "downloaded_at": "2026-01-22T04:14:20.786759Z",
   "dir_name": "nextjs-server-side-error-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/claudeception/examples/nextjs-server-side-error-debugging",
+  "github_branch": "main"
 }

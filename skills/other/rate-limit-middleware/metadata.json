@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:07.324710Z",
   "dir_name": "rate-limit-middleware",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/06-backend-dev/rate-limit-middleware",
+  "github_branch": "main"
 }

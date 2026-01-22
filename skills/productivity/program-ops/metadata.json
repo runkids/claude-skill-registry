@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Use when standardizing event workflows, tooling, and routing across portfolios.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:23.028019Z"
+  "downloaded_at": "2026-01-06T08:57:23.028019Z",
+  "github_path": "plugins/event-marketing/skills/program-ops",
+  "github_branch": "main"
 }

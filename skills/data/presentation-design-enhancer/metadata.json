@@ -9,5 +9,7 @@
     "enhancer"
   ],
   "stars": 10,
-  "dir_name": "presentation-design-enhancer"
+  "dir_name": "presentation-design-enhancer",
+  "github_path": "presentation-design-enhancer",
+  "github_branch": "main"
 }

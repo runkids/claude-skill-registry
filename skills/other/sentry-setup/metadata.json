@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:06.287776Z",
   "dir_name": "sentry-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/sentry-setup",
+  "github_branch": "main"
 }

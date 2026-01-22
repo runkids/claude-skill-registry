@@ -7,5 +7,7 @@
     "mechinterp",
     "patterns"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/mechinterp-patterns",
+  "github_branch": "main"
 }

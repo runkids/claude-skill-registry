@@ -6,5 +6,7 @@
   "tags": [
     "sleeptrack"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/sleeptrack-be",
+  "github_branch": "main"
 }

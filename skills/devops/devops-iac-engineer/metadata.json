@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Implements infrastructure as code using Terraform, Kubernetes, and cloud platforms. Designs scalable architectures, CI/CD pipelines, and observability solutions. Provides security-first DevOps practic",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.248993Z"
+  "downloaded_at": "2026-01-06T08:55:35.248993Z",
+  "github_path": "cli-tool/components/skills/development/devops-iac-engineer",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "docs",
     "seeker"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/docs-seeker",
+  "github_branch": "main"
 }

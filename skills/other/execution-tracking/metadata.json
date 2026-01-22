@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:41.584147Z",
   "dir_name": "execution-tracking",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/implementation/skills/execution-tracking",
+  "github_branch": "main"
 }

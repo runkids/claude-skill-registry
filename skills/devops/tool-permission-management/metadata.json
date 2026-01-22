@@ -2,7 +2,9 @@
   "name": "tool-permission-management",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "devops",
-  "description": "\u30c4\u30fc\u30eb\u6a29\u9650\u306e\u8981\u4ef6\u6574\u7406\u3001\u30dd\u30ea\u30b7\u30fc\u8a2d\u8a08\u3001\u76e3\u67fb\u904b\u7528\u3092\u4f53\u7cfb\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3002\u6700\u5c0f\u6a29\u9650\u306e\u539f\u5247\u3068\u5909\u66f4\u5c65\u6b74\u3092\u5fb9\u5e95\u3057\u3001\u5b89\u5168\u306a\u30c4\u30fc\u30eb\u5229\u7528\u3092\u652f\u63f4\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u6a29\u9650\u904b\u7528 / \u76ee\u7684: \u5b9f\u52d9\u7684\u306a\u5b89\u5168\u6027\u2022 Zero Trust Architecture (NIST SP 800-207) / \u9069\u7528: \u30a2\u30af\u30bb\u30b9\u5236\u5fa1 / \u76ee\u7684: \u6700\u5c0f\u6a29\u9650\u306e\u5fb9\u5e95Trigger:",
+  "description": "ツール権限の要件整理、ポリシー設計、監査運用を体系化するスキル。最小権限の原則と変更履歴を徹底し、安全なツール利用を支援する。Anchors:• The Pragmatic Programmer / 適用: 権限運用 / 目的: 実務的な安全性• Zero Trust Architecture (NIST SP 800-207) / 適用: アクセス制御 / 目的: 最小権限の徹底Trigger:",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.737751Z"
+  "downloaded_at": "2026-01-06T09:00:45.737751Z",
+  "github_path": "docs/99-claude/skills/tool-permission-management",
+  "github_branch": "main"
 }

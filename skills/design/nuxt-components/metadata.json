@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Vue component patterns with Composition API and script setup. Use when creating components, understanding script setup order convention, organizing component directories, or implementing component pat",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:22.838011Z"
+  "downloaded_at": "2026-01-06T09:03:22.838011Z",
+  "github_path": "skills/nuxt-components",
+  "github_branch": "main"
 }

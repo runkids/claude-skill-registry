@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:05.237221Z",
   "dir_name": "using-deep-rl",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/yzmir-deep-rl/skills/using-deep-rl",
+  "github_branch": "main"
 }

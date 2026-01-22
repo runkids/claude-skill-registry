@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-21T03:32:13.901731Z",
   "dir_name": "shell-error-handling",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-shellcheck/skills/shell-error-handling",
+  "github_branch": "main"
 }

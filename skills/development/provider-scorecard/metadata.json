@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use to track enrichment provider success, cost, latency, and quality trends.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:22.070906Z"
+  "downloaded_at": "2026-01-06T08:57:22.070906Z",
+  "github_path": "plugins/data-signal-enrichment/skills/provider-scorecard",
+  "github_branch": "main"
 }

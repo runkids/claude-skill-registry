@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:25.875534Z",
   "dir_name": "mcp-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mcp-architecture",
+  "github_branch": "main"
 }

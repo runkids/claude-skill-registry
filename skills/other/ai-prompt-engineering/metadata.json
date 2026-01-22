@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:25:01.421823Z",
   "dir_name": "ai-prompt-engineering",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/ai-prompt-engineering",
+  "github_branch": "main"
 }

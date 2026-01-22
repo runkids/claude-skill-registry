@@ -8,5 +8,7 @@
     "icon",
     "picker"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/mdl2-icon-picker",
+  "github_branch": "main"
 }

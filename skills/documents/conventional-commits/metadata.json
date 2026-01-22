@@ -7,5 +7,7 @@
     "conventional",
     "commits"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "plugins/conventional-commits/skills/conventional-commits",
+  "github_branch": "main"
 }

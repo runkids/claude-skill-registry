@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:58.716788Z",
   "dir_name": "environment-bootstrap",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/environment-bootstrap",
+  "github_branch": "main"
 }

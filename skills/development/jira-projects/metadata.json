@@ -7,5 +7,7 @@
     "jira",
     "projects"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "jira-projects",
+  "github_branch": "main"
 }

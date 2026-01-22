@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:18.794335Z",
   "dir_name": "opus-4-5-migration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/opus_4_5_migration",
+  "github_branch": "main"
 }

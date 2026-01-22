@@ -8,5 +8,7 @@
     "subagent",
     "guide"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/linear-subagent-guide",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "generator"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/documentation-generator",
+  "github_branch": "main"
 }

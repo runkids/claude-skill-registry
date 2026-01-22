@@ -8,5 +8,7 @@
     "orchestrator"
   ],
   "stars": 0,
-  "dir_name": "sprint-orchestrator"
+  "dir_name": "sprint-orchestrator",
+  "github_path": "skills/sprint-orchestrator",
+  "github_branch": "main"
 }

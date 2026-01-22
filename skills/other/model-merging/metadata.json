@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:58.051577Z",
   "dir_name": "model-merging",
-  "category": "other"
+  "category": "other",
+  "github_path": "19-emerging-techniques/model-merging",
+  "github_branch": "main"
 }

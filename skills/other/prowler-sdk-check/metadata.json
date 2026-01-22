@@ -5,5 +5,7 @@
   "source": "github.com/prowler-cloud/prowler",
   "downloaded_at": "2026-01-22T02:57:27.886843Z",
   "dir_name": "prowler-sdk-check",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prowler-sdk-check",
+  "github_branch": "main"
 }

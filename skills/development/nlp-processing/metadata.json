@@ -7,5 +7,7 @@
     "nlp",
     "processing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/nlp-processing",
+  "github_branch": "main"
 }

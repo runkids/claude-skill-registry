@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "data-access-guidelines"
+  "dir_name": "data-access-guidelines",
+  "github_path": "skills/data-access-guidelines",
+  "github_branch": "main"
 }

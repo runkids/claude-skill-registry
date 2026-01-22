@@ -8,5 +8,7 @@
     "wasm"
   ],
   "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/discover-wasm",
+  "github_branch": "main"
 }

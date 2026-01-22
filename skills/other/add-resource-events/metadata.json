@@ -5,5 +5,7 @@
   "source": "github.com/madooei/backend-template",
   "downloaded_at": "2026-01-22T03:36:23.923727Z",
   "dir_name": "add-resource-events",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/add-resource-events",
+  "github_branch": "main"
 }

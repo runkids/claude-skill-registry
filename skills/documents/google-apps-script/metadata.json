@@ -8,5 +8,7 @@
     "apps",
     "script"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "google-apps-script",
+  "github_branch": "main"
 }

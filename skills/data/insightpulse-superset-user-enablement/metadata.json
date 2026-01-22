@@ -10,5 +10,7 @@
     "enablement"
   ],
   "stars": 0,
-  "dir_name": "insightpulse-superset-user-enablement"
+  "dir_name": "insightpulse-superset-user-enablement",
+  "github_path": ".claude/skills/insightpulse-superset-user-enablement",
+  "github_branch": "main"
 }

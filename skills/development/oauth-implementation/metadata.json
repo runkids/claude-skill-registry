@@ -7,5 +7,7 @@
     "oauth",
     "implementation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/oauth-implementation",
+  "github_branch": "main"
 }

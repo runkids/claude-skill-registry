@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:39.098691Z",
   "dir_name": "onepassword-cli-coder",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-devops/skills/onepassword-cli-coder",
+  "github_branch": "main"
 }

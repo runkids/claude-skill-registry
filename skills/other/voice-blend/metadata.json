@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:44.020582Z",
   "dir_name": "voice-blend",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/voice/skills/voice-blend",
+  "github_branch": "main"
 }

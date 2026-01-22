@@ -8,5 +8,7 @@
     "context"
   ],
   "stars": 0,
-  "dir_name": "mission-context"
+  "dir_name": "mission-context",
+  "github_path": "skills/mission-context",
+  "github_branch": "main"
 }

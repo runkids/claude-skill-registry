@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:31.045526Z",
   "dir_name": "dna-insert",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/dna-insert",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/cheolwanpark/claude-plugins",
   "downloaded_at": "2026-01-19T02:09:59.338009Z",
   "dir_name": "sol-slot-info",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/crypto/skills/sol-slot-info",
+  "github_branch": "main"
 }

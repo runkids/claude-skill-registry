@@ -7,5 +7,7 @@
     "phase",
     "documenter"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/phase-documenter",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:09.000610Z",
   "dir_name": "fine-tuning-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fine-tuning-expert",
+  "github_branch": "main"
 }

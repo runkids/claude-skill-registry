@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:37.782268Z",
   "dir_name": "count-dataset-tokens",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/count-dataset-tokens",
+  "github_branch": "main"
 }

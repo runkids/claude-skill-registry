@@ -8,5 +8,7 @@
     "native"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/cloud-native",
+  "github_branch": "main"
 }

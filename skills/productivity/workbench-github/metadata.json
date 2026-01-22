@@ -7,5 +7,7 @@
     "workbench",
     "github"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".codex/skills/workbench-github",
+  "github_branch": "main"
 }

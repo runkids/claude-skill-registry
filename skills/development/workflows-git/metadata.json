@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Git workflow orchestrator guiding developers through workspace setup, clean commits, and work completion across git-worktrees, git-commit, and git-finish skills",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:33.062322Z"
+  "downloaded_at": "2026-01-06T09:02:33.062322Z",
+  "github_path": ".opencode/skill/workflows-git",
+  "github_branch": "main"
 }

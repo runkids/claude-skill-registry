@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Handles re-reviews after new commits. Use when a PR already has review comments or when responding to developer changes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:36.582650Z"
+  "downloaded_at": "2026-01-06T09:01:36.582650Z",
+  "github_path": "plugins/bitwarden-code-review/skills/reviewing-incremental-changes",
+  "github_branch": "main"
 }

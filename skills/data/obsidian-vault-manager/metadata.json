@@ -9,5 +9,7 @@
     "manager"
   ],
   "stars": 0,
-  "dir_name": "obsidian-vault-manager"
+  "dir_name": "obsidian-vault-manager",
+  "github_path": "obsidian-vault-manager",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "audio",
     "api"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/web-audio-api",
+  "github_branch": "main"
 }

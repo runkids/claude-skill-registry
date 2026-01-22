@@ -7,5 +7,7 @@
     "product",
     "analytics"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/product-analytics",
+  "github_branch": "main"
 }

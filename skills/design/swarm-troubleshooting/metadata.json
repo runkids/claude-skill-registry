@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Diagnostic and recovery guidance for swarm coordination issues. Use this skill when you encounter 'spawn failed', need to 'diagnose team', 'fix swarm', resolve 'status mismatch', perform 'recovery', t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:22.623932Z"
+  "downloaded_at": "2026-01-06T08:59:22.623932Z",
+  "github_path": "plugins/claude-swarm/skills/swarm-troubleshooting",
+  "github_branch": "main"
 }

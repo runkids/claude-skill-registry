@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:59.848089Z",
   "dir_name": "content-similarity-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": "content-similarity-checker",
+  "github_branch": "main"
 }

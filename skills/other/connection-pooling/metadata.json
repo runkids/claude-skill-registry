@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:54.489892Z",
   "dir_name": "connection-pooling",
-  "category": "other"
+  "category": "other",
+  "github_path": "04-database/connection-pooling",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/davila7/claude-code-templates",
   "downloaded_at": "2026-01-22T03:18:32.209126Z",
   "dir_name": "scientific-critical-thinking",
-  "category": "other"
+  "category": "other",
+  "github_path": "cli-tool/components/skills/scientific/scientific-critical-thinking",
+  "github_branch": "main"
 }

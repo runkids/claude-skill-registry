@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:52.136542Z",
   "dir_name": "zero-trust",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/security/skills/zero-trust",
+  "github_branch": "main"
 }

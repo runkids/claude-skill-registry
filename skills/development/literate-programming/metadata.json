@@ -7,5 +7,7 @@
     "literate",
     "programming"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "literate-programming",
+  "github_branch": "main"
 }

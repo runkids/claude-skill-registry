@@ -5,5 +5,7 @@
   "source": "github.com/LeandroLarrosa/gentlemonster",
   "downloaded_at": "2026-01-22T03:33:12.164806Z",
   "dir_name": "fibonacci-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fibonacci-optimization",
+  "github_branch": "main"
 }

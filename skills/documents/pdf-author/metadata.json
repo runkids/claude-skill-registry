@@ -7,5 +7,7 @@
     "pdf",
     "author"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/pdf-author",
+  "github_branch": "main"
 }

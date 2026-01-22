@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "To accept or dismiss browser dialogs like alert/confirm/prompt, handle the dialog so automation can continue.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:13.869632Z"
+  "downloaded_at": "2026-01-06T08:59:13.869632Z",
+  "github_path": "dev-swarm/mcp-skills/playwright-browser-handle-dialog",
+  "github_branch": "main"
 }

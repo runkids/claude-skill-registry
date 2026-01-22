@@ -8,5 +8,7 @@
     "testing",
     "engine"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "hypothesis-testing-engine",
+  "github_branch": "main"
 }

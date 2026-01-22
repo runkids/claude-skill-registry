@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:15.491748Z",
   "dir_name": "value-objects-and-dtos",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/value-objects-and-dtos",
+  "github_branch": "main"
 }

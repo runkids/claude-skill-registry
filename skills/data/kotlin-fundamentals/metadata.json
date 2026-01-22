@@ -8,5 +8,7 @@
     "fundamentals"
   ],
   "stars": 1,
-  "dir_name": "kotlin-fundamentals"
+  "dir_name": "kotlin-fundamentals",
+  "github_path": "skills/kotlin-fundamentals",
+  "github_branch": "main"
 }

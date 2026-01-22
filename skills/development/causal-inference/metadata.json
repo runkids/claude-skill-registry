@@ -8,5 +8,7 @@
     "inference"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/causal-inference",
+  "github_branch": "main"
 }

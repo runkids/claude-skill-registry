@@ -8,5 +8,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "excel"
+  "dir_name": "excel",
+  "github_path": "skills/excel",
+  "github_branch": "main"
 }

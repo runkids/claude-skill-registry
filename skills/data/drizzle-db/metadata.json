@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "drizzle-db"
+  "dir_name": "drizzle-db",
+  "github_path": ".claude/skills/drizzle-db",
+  "github_branch": "main"
 }

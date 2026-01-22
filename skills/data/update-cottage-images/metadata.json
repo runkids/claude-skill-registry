@@ -9,5 +9,7 @@
     "images"
   ],
   "stars": 0,
-  "dir_name": "update-cottage-images"
+  "dir_name": "update-cottage-images",
+  "github_path": ".claude/skills/update-cottage-images",
+  "github_branch": "main"
 }

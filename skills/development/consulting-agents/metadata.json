@@ -7,5 +7,7 @@
     "consulting",
     "agents"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/consulting-agents",
+  "github_branch": "main"
 }

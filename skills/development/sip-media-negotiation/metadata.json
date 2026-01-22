@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when handling SDP offer/answer, codec negotiation, media capabilities, and RTP session setup in SIP applications.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:08.957939Z"
+  "downloaded_at": "2026-01-06T08:57:08.957939Z",
+  "github_path": "jutsu/jutsu-sip/skills/sip-media-negotiation",
+  "github_branch": "main"
 }

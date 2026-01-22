@@ -5,5 +5,7 @@
   "source": "github.com/adilkalam/orca",
   "downloaded_at": "2026-01-22T01:27:24.749888Z",
   "dir_name": "alignment-verification",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/alignment-verification",
+  "github_branch": "main"
 }

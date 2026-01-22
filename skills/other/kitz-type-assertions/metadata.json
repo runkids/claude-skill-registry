@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:53.162246Z",
   "dir_name": "kitz-type-assertions",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/kitz-type-assertions",
+  "github_branch": "main"
 }

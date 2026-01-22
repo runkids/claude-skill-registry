@@ -6,5 +6,7 @@
   "tags": [
     "zapsign"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "zapsign",
+  "github_branch": "main"
 }

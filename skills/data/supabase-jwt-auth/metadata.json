@@ -9,5 +9,7 @@
     "auth"
   ],
   "stars": 0,
-  "dir_name": "supabase-jwt-auth"
+  "dir_name": "supabase-jwt-auth",
+  "github_path": ".claude/skills/supabase-jwt-auth",
+  "github_branch": "main"
 }

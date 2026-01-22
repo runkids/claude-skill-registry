@@ -5,5 +5,7 @@
   "source": "github.com/hummbl-dev/HUMMBL-Unified-Tier-Framework",
   "downloaded_at": "2026-01-22T03:47:46.339226Z",
   "dir_name": "sitrep-coordinator",
-  "category": "other"
+  "category": "other",
+  "github_path": "sitrep-coordinator",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Scan repository and update context file",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:13.866565Z"
+  "downloaded_at": "2026-01-06T09:11:13.866565Z",
+  "github_path": ".opencode/skill/context-update",
+  "github_branch": "main"
 }

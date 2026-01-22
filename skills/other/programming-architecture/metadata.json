@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
   "downloaded_at": "2026-01-19T03:01:43.322079Z",
   "dir_name": "programming-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/programming-architecture",
+  "github_branch": "main"
 }

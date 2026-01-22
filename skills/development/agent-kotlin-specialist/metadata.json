@@ -9,5 +9,7 @@
     "specialist"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/DEPRECATED/agent-kotlin-specialist",
+  "github_branch": "main"
 }

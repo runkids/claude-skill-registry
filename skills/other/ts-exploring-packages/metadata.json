@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:53.320695Z",
   "dir_name": "ts-exploring-packages",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/ts-exploring-packages",
+  "github_branch": "main"
 }

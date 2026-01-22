@@ -5,5 +5,7 @@
   "source": "github.com/mattg101/SolidLink",
   "downloaded_at": "2026-01-22T01:26:06.674064Z",
   "dir_name": "gcp-copy",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/dev/.agent/skills/gcp-copy",
+  "github_branch": "main"
 }

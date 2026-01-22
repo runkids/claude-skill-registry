@@ -9,5 +9,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "executive-role"
+  "dir_name": "executive-role",
+  "github_path": "skills/executive-role",
+  "github_branch": "main"
 }

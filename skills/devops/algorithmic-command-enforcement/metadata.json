@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use boolean decision trees instead of imperatives for 100% compliance under pressure",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:38.667777Z"
+  "downloaded_at": "2026-01-06T09:00:38.667777Z",
+  "github_path": "plugin/skills/algorithmic-command-enforcement",
+  "github_branch": "main"
 }

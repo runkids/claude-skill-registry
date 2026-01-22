@@ -5,5 +5,7 @@
   "description": "Use when relay fragment composition, data masking, colocation, and container patterns for React applications.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:07.871464Z",
-  "dir_name": "relay-fragments-patterns"
+  "dir_name": "relay-fragments-patterns",
+  "github_path": "jutsu/jutsu-relay/skills/relay-fragments-patterns",
+  "github_branch": "main"
 }

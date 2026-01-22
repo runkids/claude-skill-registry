@@ -7,5 +7,7 @@
     "kubernetes",
     "deployment"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/kubernetes-deployment",
+  "github_branch": "main"
 }

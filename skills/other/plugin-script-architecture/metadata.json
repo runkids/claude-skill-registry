@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:26.262739Z",
   "dir_name": "plugin-script-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-plugin-development/skills/plugin-script-architecture",
+  "github_branch": "main"
 }

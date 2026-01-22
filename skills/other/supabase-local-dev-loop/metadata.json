@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:18.444010Z",
   "dir_name": "supabase-local-dev-loop",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/supabase-pack/skills/supabase-local-dev-loop",
+  "github_branch": "main"
 }

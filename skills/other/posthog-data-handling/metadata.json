@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-21T01:43:00.752609Z",
   "dir_name": "posthog-data-handling",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/posthog-pack/skills/posthog-data-handling",
+  "github_branch": "main"
 }

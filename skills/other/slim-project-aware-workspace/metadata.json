@@ -5,5 +5,7 @@
   "source": "github.com/NASA-AMMOS/slim",
   "downloaded_at": "2026-01-17T01:29:57.576278Z",
   "dir_name": "slim-project-aware-workspace",
-  "category": "other"
+  "category": "other",
+  "github_path": "static/marketplace/skills/slim-project-aware-workspace",
+  "github_branch": "main"
 }

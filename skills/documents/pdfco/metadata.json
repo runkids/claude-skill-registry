@@ -6,5 +6,7 @@
   "tags": [
     "pdfco"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "pdfco",
+  "github_branch": "main"
 }

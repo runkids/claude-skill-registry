@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive IEEE PES paper review for Physics-Guided SSL GNN power grid research. Use when reviewing paper sections, checking claims against evidence, validating physics consistency (PF/Line Flow/Ca",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:07.638980Z"
+  "downloaded_at": "2026-01-08T03:29:07.638980Z",
+  "github_path": "skills/paper-review-skills",
+  "github_branch": "main"
 }

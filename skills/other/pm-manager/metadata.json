@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:24.170973Z",
   "dir_name": "pm-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pm-manager",
+  "github_branch": "main"
 }

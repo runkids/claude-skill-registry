@@ -2,7 +2,9 @@
   "name": "k8s-installer",
   "repo": "jeff1121/MySkills",
   "category": "devops",
-  "description": "\u81ea\u52d5\u5316\u5b89\u88dd Kubernetes \u53e2\u96c6\u3002\u7576\u4f7f\u7528\u8005\u8981\u6c42\u5b89\u88dd K8S\u3001\u5efa\u7acb Kubernetes cluster\u3001\u6216\u8a62\u554f\u5982\u4f55\u81ea\u52d5\u5316\u90e8\u7f72 K8S \u6642\u4f7f\u7528\u6b64 Skill\u3002\u900f\u904e SSH \u9023\u7dda\u5230\u76ee\u6a19\u7bc0\u9ede\uff0c\u81ea\u52d5\u5b8c\u6210\u524d\u7f6e\u4f5c\u696d\u3001\u5957\u4ef6\u5b89\u88dd\u3001\u53e2\u96c6\u521d\u59cb\u5316\u8207 Worker \u52a0\u5165\u3002",
+  "description": "自動化安裝 Kubernetes 叢集。當使用者要求安裝 K8S、建立 Kubernetes cluster、或詢問如何自動化部署 K8S 時使用此 Skill。透過 SSH 連線到目標節點，自動完成前置作業、套件安裝、叢集初始化與 Worker 加入。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:33.677681Z"
+  "downloaded_at": "2026-01-06T09:10:33.677681Z",
+  "github_path": "skills/k8s-installer",
+  "github_branch": "main"
 }

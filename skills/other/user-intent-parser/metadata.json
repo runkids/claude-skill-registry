@@ -5,5 +5,7 @@
   "source": "github.com/Junior-Frontend-dev/Hi-u-ng",
   "downloaded_at": "2026-01-21T02:31:23.514209Z",
   "dir_name": "user-intent-parser",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/questioning/user-intent-parser",
+  "github_branch": "main"
 }

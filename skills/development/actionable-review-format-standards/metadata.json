@@ -10,5 +10,7 @@
     "standards"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/actionable-review-format-standards",
+  "github_branch": "main"
 }

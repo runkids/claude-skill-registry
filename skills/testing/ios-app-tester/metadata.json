@@ -8,5 +8,7 @@
     "app",
     "tester"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/ios-app-tester",
+  "github_branch": "main"
 }

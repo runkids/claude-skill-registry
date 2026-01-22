@@ -8,5 +8,7 @@
     "forecast",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "sales-forecast-builder",
+  "github_branch": "main"
 }

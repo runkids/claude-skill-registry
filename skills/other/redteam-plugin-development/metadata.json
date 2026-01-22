@@ -5,5 +5,7 @@
   "source": "github.com/promptfoo/promptfoo",
   "downloaded_at": "2026-01-22T04:13:02.960373Z",
   "dir_name": "redteam-plugin-development",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/redteam-plugin-development",
+  "github_branch": "main"
 }

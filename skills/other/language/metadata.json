@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:31.111714Z",
   "dir_name": "language",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-marketing/skills/language",
+  "github_branch": "main"
 }

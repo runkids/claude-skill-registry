@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-training-data-generation"
+  "dir_name": "ai-training-data-generation",
+  "github_path": ".claude/skills/ai-training-data-generation",
+  "github_branch": "main"
 }

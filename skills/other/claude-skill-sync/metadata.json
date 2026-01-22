@@ -5,5 +5,7 @@
   "source": "github.com/bchewy/codex-brian",
   "downloaded_at": "2026-01-22T02:05:55.506091Z",
   "dir_name": "claude-skill-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/claude-skill-sync",
+  "github_branch": "main"
 }

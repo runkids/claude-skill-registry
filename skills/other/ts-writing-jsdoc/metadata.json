@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:51.043494Z",
   "dir_name": "ts-writing-jsdoc",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/ts-writing-jsdoc",
+  "github_branch": "main"
 }

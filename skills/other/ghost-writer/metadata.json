@@ -5,5 +5,7 @@
   "source": "github.com/robertguss/claude-code-toolkit",
   "downloaded_at": "2026-01-22T02:47:23.351931Z",
   "dir_name": "ghost-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/writing/ghost-writer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/gadievron/raptor",
   "downloaded_at": "2026-01-22T04:15:04.824883Z",
   "dir_name": "github-evidence-kit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/oss-forensics/github-evidence-kit",
+  "github_branch": "main"
 }

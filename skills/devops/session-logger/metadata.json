@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Log work sessions with timestamps, decisions, agent handoffs, issues, and outcomes. Use when a session log needs to be created or updated.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:44.433665Z"
+  "downloaded_at": "2026-01-06T09:10:44.433665Z",
+  "github_path": ".claude/skills/session-logger",
+  "github_branch": "main"
 }

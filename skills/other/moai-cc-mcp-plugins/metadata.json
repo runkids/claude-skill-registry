@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:06.548605Z",
   "dir_name": "moai-cc-mcp-plugins",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-cc-mcp-plugins",
+  "github_branch": "main"
 }

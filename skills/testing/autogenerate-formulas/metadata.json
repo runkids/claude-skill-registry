@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Autogenerate formula implementations from formula specifications (F-*). Converts mathematical formulas, calculations, and algorithms into production code with tests. Use when F-* includes formula spec",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:35.499030Z"
+  "downloaded_at": "2026-01-06T09:05:35.499030Z",
+  "github_path": "claude-code/.claude-plugin/plugins/aisdlc-methodology/skills/code/generation/autogenerate-formulas",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "pinia"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/pinia",
+  "github_branch": "main"
 }

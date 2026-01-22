@@ -2,7 +2,9 @@
   "name": "security-configuration-review",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "security",
-  "description": "\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u95a2\u9023\u8a2d\u5b9a\u306e\u30ec\u30d3\u30e5\u30fc\u3001\u69cb\u6210\u76e3\u67fb\u3001\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30d9\u30fc\u30b9\u30e9\u30a4\u30f3\u78ba\u8a8d\u3092\u7d71\u4e00\u7684\u306b\u5b9f\u65bd\u3059\u308b\u30b9\u30ad\u30eb\u3002\u8105\u5a01\u30e2\u30c7\u30ea\u30f3\u30b0\u306b\u57fa\u3065\u3044\u305f\u8a2d\u5b9a\u8a55\u4fa1\u3068\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u306e\u9069\u7528\u3092\u901a\u3058\u3066\u3001\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u306e\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u614b\u52e2\u3092\u5411\u4e0a\u3055\u305b\u307e\u3059\u3002Anchors:\u2022 \u300eWeb Application Security\u300f\uff08Andrew Hoffman\uff09 / \u9069\u7528: \u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u8a2d\u5b9a\u76e3\u67fb / \u76ee\u7684: \u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u614b\u52e2\u306e\u5411\u4e0aTrigge",
+  "description": "セキュリティ関連設定のレビュー、構成監査、セキュリティベースライン確認を統一的に実施するスキル。脅威モデリングに基づいた設定評価とベストプラクティスの適用を通じて、アプリケーションのセキュリティ態勢を向上させます。Anchors:• 『Web Application Security』（Andrew Hoffman） / 適用: セキュリティ設定監査 / 目的: セキュリティ態勢の向上Trigge",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:44.939120Z"
+  "downloaded_at": "2026-01-06T09:00:44.939120Z",
+  "github_path": "docs/99-claude/skills/security-configuration-review",
+  "github_branch": "main"
 }

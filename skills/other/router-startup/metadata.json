@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:24:59.103134Z",
   "dir_name": "router-startup",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/router-startup",
+  "github_branch": "main"
 }

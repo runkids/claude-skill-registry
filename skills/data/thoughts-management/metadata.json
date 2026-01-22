@@ -8,5 +8,7 @@
     "management"
   ],
   "stars": 12,
-  "dir_name": "thoughts-management"
+  "dir_name": "thoughts-management",
+  "github_path": "skills/thoughts-management",
+  "github_branch": "main"
 }

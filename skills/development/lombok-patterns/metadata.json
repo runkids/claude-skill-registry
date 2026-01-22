@@ -7,5 +7,7 @@
     "lombok",
     "patterns"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "lombok-patterns",
+  "github_branch": "main"
 }

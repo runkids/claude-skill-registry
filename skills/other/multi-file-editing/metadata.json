@@ -5,5 +5,7 @@
   "source": "github.com/hgeldenhuys/claude-code-sdk",
   "downloaded_at": "2026-01-22T02:26:57.591817Z",
   "dir_name": "multi-file-editing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/multi-file-editing",
+  "github_branch": "main"
 }

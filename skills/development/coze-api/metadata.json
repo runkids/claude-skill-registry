@@ -2,7 +2,9 @@
   "name": "coze-api",
   "repo": "smallnest/goskills",
   "category": "development",
-  "description": "\u8c03\u7528\u6263\u5b50(Coze)\u667a\u80fd\u4f53 API \u8fdb\u884c\u5bf9\u8bdd\u3001\u5de5\u4f5c\u6d41\u6267\u884c\u7b49\u64cd\u4f5c\u3002\u5f53\u7528\u6237\u9700\u8981\u96c6\u6210 Coze \u667a\u80fd\u4f53\u3001\u8c03\u7528 Coze API\u3001\u6216\u5f00\u53d1 Coze \u76f8\u5173\u5e94\u7528\u65f6\u4f7f\u7528\u3002\u652f\u6301\u6d41\u5f0f\u548c\u975e\u6d41\u5f0f\u5bf9\u8bdd\u3001\u5de5\u4f5c\u6d41\u8c03\u7528\u7b49\u529f\u80fd\u3002",
+  "description": "调用扣子(Coze)智能体 API 进行对话、工作流执行等操作。当用户需要集成 Coze 智能体、调用 Coze API、或开发 Coze 相关应用时使用。支持流式和非流式对话、工作流调用等功能。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:43.221206Z"
+  "downloaded_at": "2026-01-06T08:56:43.221206Z",
+  "github_path": "testdata/skills/coze-api/coze-api",
+  "github_branch": "main"
 }

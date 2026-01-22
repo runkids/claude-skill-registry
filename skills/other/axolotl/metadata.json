@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:56.538983Z",
   "dir_name": "axolotl",
-  "category": "other"
+  "category": "other",
+  "github_path": "03-fine-tuning/axolotl",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/lambda-curry/devagent",
   "downloaded_at": "2026-01-21T01:49:18.370448Z",
   "dir_name": "create-slash-command",
-  "category": "other"
+  "category": "other",
+  "github_path": ".cursor/skills/create-slash-command",
+  "github_branch": "main"
 }

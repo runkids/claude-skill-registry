@@ -8,5 +8,7 @@
     "commit",
     "push"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/git-commit-push",
+  "github_branch": "main"
 }

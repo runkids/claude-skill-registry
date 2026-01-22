@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Run comprehensive health check on docker-local environment - diagnose configuration, services, and connectivity",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:30.248546Z"
+  "downloaded_at": "2026-01-06T09:00:30.248546Z",
+  "github_path": "docker-local/skills/docker-local-doctor",
+  "github_branch": "main"
 }

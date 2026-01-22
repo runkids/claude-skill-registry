@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Timing attacks and other side-channel exploitation techniques",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:54.047951Z"
+  "downloaded_at": "2026-01-06T09:03:54.047951Z",
+  "github_path": "security/.claude/skills/side-channels",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "hooks",
     "setup"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/git-hooks-setup",
+  "github_branch": "main"
 }

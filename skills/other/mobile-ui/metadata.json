@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:31.589353Z",
   "dir_name": "mobile-ui",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mobile/mobile-ui",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:39.987993Z",
   "dir_name": "pop-brainstorming",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-dev/skills/pop-brainstorming",
+  "github_branch": "main"
 }

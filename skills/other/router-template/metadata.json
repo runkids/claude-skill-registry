@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:05.792784Z",
   "dir_name": "router-template",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/router-template",
+  "github_branch": "main"
 }

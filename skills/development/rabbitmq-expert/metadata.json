@@ -7,5 +7,7 @@
     "rabbitmq",
     "expert"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/rabbitmq-expert",
+  "github_branch": "main"
 }

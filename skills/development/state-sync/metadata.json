@@ -7,5 +7,7 @@
     "state",
     "sync"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/state-sync",
+  "github_branch": "main"
 }

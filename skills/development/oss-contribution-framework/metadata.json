@@ -8,5 +8,7 @@
     "contribution",
     "framework"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/oss-contribution-framework",
+  "github_branch": "main"
 }

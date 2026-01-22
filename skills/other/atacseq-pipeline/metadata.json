@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:46.020244Z",
   "dir_name": "atacseq-pipeline",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/atacseq-pipeline",
+  "github_branch": "main"
 }

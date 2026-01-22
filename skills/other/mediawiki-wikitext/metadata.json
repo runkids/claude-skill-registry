@@ -5,5 +5,7 @@
   "source": "github.com/kongyo2/mediawiki-wikitext-skill",
   "downloaded_at": "2026-01-22T02:20:52.718018Z",
   "dir_name": "mediawiki-wikitext",
-  "category": "other"
+  "category": "other",
+  "github_path": "mediawiki-wikitext",
+  "github_branch": "main"
 }

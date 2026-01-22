@@ -8,5 +8,7 @@
     "web",
     "tools"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/styling-web-tools",
+  "github_branch": "main"
 }

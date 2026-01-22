@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:37.616392Z",
   "dir_name": "design-master",
-  "category": "other"
+  "category": "other",
+  "github_path": "design-master",
+  "github_branch": "main"
 }

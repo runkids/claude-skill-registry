@@ -8,5 +8,7 @@
     "django"
   ],
   "stars": 0,
-  "dir_name": "setup-django"
+  "dir_name": "setup-django",
+  "github_path": "skills/setup-django",
+  "github_branch": "main"
 }

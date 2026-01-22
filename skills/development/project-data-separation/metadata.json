@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Pattern for separating repository code from user data and notebooks. Trigger: organizing scientific pipelines, separating code from data",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:28.158012Z"
+  "downloaded_at": "2026-01-06T09:08:28.158012Z",
+  "github_path": "plugins/scientific/project-data-separation/skills/project-data-separation",
+  "github_branch": "main"
 }

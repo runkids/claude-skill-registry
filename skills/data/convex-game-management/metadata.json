@@ -9,5 +9,7 @@
     "management"
   ],
   "stars": 0,
-  "dir_name": "convex-game-management"
+  "dir_name": "convex-game-management",
+  "github_path": "skills/convex-game-management",
+  "github_branch": "main"
 }

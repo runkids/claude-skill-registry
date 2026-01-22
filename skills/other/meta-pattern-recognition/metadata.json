@@ -5,5 +5,7 @@
   "source": "github.com/mrgoonie/xxxnaper",
   "downloaded_at": "2026-01-22T04:10:31.918969Z",
   "dir_name": "meta-pattern-recognition",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/problem-solving/meta-pattern-recognition",
+  "github_branch": "main"
 }

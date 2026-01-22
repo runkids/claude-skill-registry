@@ -8,5 +8,7 @@
     "module",
     "options"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/nix-module-options",
+  "github_branch": "main"
 }

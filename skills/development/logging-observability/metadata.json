@@ -7,5 +7,7 @@
     "logging",
     "observability"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/logging-observability",
+  "github_branch": "main"
 }

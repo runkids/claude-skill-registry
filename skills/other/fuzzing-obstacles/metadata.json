@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:39.156296Z",
   "dir_name": "fuzzing-obstacles",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/trailofbits-testing-handbook-skills/skills/fuzzing-obstacles",
+  "github_branch": "main"
 }

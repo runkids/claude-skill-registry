@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:24.839740Z",
   "dir_name": "source-code",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/source-code",
+  "github_branch": "main"
 }

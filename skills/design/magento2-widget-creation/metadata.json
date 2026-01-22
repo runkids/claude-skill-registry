@@ -8,5 +8,7 @@
     "widget",
     "creation"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "magento2-widget-creation",
+  "github_branch": "main"
 }

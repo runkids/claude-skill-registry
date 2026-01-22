@@ -5,5 +5,7 @@
   "source": "github.com/ricardoroche/ricardos-claude-code",
   "downloaded_at": "2026-01-22T04:06:48.319298Z",
   "dir_name": "dependency-management",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dependency-management",
+  "github_branch": "main"
 }

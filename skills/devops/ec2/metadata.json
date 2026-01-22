@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "AWS EC2 virtual machine management for instances, AMIs, and networking. Use when launching instances, configuring security groups, managing key pairs, troubleshooting connectivity, or automating insta",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:28:04.768004Z"
+  "downloaded_at": "2026-01-08T03:28:04.768004Z",
+  "github_path": "skills/ec2",
+  "github_branch": "main"
 }

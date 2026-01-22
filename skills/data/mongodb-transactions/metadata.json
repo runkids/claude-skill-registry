@@ -8,5 +8,7 @@
     "transactions"
   ],
   "stars": 0,
-  "dir_name": "mongodb-transactions"
+  "dir_name": "mongodb-transactions",
+  "github_path": "skills/mongodb-transactions",
+  "github_branch": "main"
 }

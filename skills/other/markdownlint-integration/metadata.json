@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:18.942995Z",
   "dir_name": "markdownlint-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-markdown/skills/markdownlint-integration",
+  "github_branch": "main"
 }

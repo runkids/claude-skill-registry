@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:34.622317Z",
   "dir_name": "devops-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/devops-specialist",
+  "github_branch": "main"
 }

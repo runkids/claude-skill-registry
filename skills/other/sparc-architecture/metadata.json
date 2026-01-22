@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:57.003448Z",
   "dir_name": "sparc-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/sparc/sparc-architecture",
+  "github_branch": "main"
 }

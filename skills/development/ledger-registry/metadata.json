@@ -7,5 +7,7 @@
     "ledger",
     "registry"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/ledger-registry",
+  "github_branch": "main"
 }

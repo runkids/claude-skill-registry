@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "A test local skill for Codex. Use when testing Codex-specific local skills.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:44.169680Z"
+  "downloaded_at": "2026-01-06T09:04:44.169680Z",
+  "github_path": ".codex/skills/codex-test-skill",
+  "github_branch": "main"
 }

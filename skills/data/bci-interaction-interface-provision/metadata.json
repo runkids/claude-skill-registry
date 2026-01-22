@@ -11,5 +11,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bci-interaction-interface-provision"
+  "dir_name": "bci-interaction-interface-provision",
+  "github_path": "skills/bci-interaction-interface-provision",
+  "github_branch": "main"
 }

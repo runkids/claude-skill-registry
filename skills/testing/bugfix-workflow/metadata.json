@@ -2,7 +2,9 @@
   "name": "bugfix-workflow",
   "repo": "penkzhou/swiss-army-knife-plugin",
   "category": "testing",
-  "description": "\u901a\u7528 Bugfix \u5de5\u4f5c\u6d41\u77e5\u8bc6\u5e93\uff0c\u5305\u542b TDD \u6d41\u7a0b\u3001\u8f93\u51fa\u683c\u5f0f\u89c4\u8303\u3001\u7f6e\u4fe1\u5ea6\u8bc4\u5206\u6807\u51c6\u548c\u901a\u7528\u6700\u4f73\u5b9e\u8df5\u3002\u9002\u7528\u4e8e\u6240\u6709\u6280\u672f\u6808\uff08backend/frontend/e2e\uff09\u3002",
+  "description": "通用 Bugfix 工作流知识库，包含 TDD 流程、输出格式规范、置信度评分标准和通用最佳实践。适用于所有技术栈（backend/frontend/e2e）。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:41.164382Z"
+  "downloaded_at": "2026-01-06T09:02:41.164382Z",
+  "github_path": "swiss-army-knife/skills/bugfix-workflow",
+  "github_branch": "main"
 }

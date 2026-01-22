@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:16.665519Z",
   "dir_name": "identity",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plaid/identity",
+  "github_branch": "main"
 }

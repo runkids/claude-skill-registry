@@ -9,5 +9,7 @@
     "vulnerabilities",
     "linear"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "ln-621-security-auditor",
+  "github_branch": "main"
 }

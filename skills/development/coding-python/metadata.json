@@ -4,5 +4,7 @@
   "category": "development",
   "description": "When python, flask, or jinja are being written or edited.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:27.889640Z"
+  "downloaded_at": "2026-01-06T08:58:27.889640Z",
+  "github_path": ".roo/skills/coding-python",
+  "github_branch": "main"
 }

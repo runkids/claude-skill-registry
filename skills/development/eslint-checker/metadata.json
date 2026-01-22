@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Run ESLint for JavaScript/TypeScript code quality and style enforcement. Use for static analysis and auto-fixing.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:57.935199Z"
+  "downloaded_at": "2026-01-06T08:56:57.935199Z",
+  "github_path": "agentic/code/frameworks/sdlc-complete/extensions/javascript/skills/eslint-checker",
+  "github_branch": "main"
 }

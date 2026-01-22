@@ -5,5 +5,7 @@
   "source": "github.com/bcowdery/claude-skills",
   "downloaded_at": "2026-01-19T01:37:32.167750Z",
   "dir_name": "ast-refactor",
-  "category": "other"
+  "category": "other",
+  "github_path": "patsy-plugin/skills/ast-refactor",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "rag"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/rag",
+  "github_branch": "main"
 }

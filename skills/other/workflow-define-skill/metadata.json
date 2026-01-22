@@ -5,5 +5,7 @@
   "source": "github.com/maxoreric/sop-engine",
   "downloaded_at": "2026-01-21T01:09:39.838810Z",
   "dir_name": "workflow-define-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "$workflow.input.user_intent/skills/workflow-define-skill",
+  "github_branch": "main"
 }

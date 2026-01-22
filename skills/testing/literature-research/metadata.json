@@ -2,7 +2,9 @@
   "name": "literature-research",
   "repo": "bahayonghang/wechat-content-writer",
   "category": "testing",
-  "description": "This skill should be used when the user asks to \"\u641c\u7d22\u6587\u732e\", \"\u67e5\u627e\u5b66\u672f\u8d44\u6599\", \"\u641c\u7d22\u6700\u65b0\u7814\u7a76\", \"literature search\", \"find papers\", \"search academic literature\", \"latest research\", or mentions specific academic domains l",
+  "description": "This skill should be used when the user asks to \"搜索文献\", \"查找学术资料\", \"搜索最新研究\", \"literature search\", \"find papers\", \"search academic literature\", \"latest research\", or mentions specific academic domains l",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:34.349958Z"
+  "downloaded_at": "2026-01-06T09:00:34.349958Z",
+  "github_path": "wechat-content-writer/skills/literature-research",
+  "github_branch": "main"
 }

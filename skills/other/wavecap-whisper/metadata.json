@@ -5,5 +5,7 @@
   "source": "github.com/TobiasWooldridge/WaveCap",
   "downloaded_at": "2026-01-22T02:11:28.249104Z",
   "dir_name": "wavecap-whisper",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wavecap-whisper",
+  "github_branch": "main"
 }

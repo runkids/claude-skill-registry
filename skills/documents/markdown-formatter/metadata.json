@@ -7,5 +7,7 @@
     "markdown",
     "formatter"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/markdown-formatter",
+  "github_branch": "main"
 }

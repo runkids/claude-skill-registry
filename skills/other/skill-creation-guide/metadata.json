@@ -5,5 +5,7 @@
   "source": "github.com/notedit/happy-coding-agent",
   "downloaded_at": "2026-01-22T01:10:35.619255Z",
   "dir_name": "skill-creation-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-creation-guide",
+  "github_branch": "main"
 }

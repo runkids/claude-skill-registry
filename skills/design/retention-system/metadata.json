@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Design comprehensive customer retention systems with health scoring, churn prediction, proactive engagement workflows, and customer success frameworks to maximize lifetime value.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:25.580586Z"
+  "downloaded_at": "2026-01-06T08:58:25.580586Z",
+  "github_path": "plugins/majestic-marketing/skills/retention-system",
+  "github_branch": "main"
 }

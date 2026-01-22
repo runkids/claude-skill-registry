@@ -7,5 +7,7 @@
     "nextjs",
     "workflow"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/nextjs-workflow",
+  "github_branch": "main"
 }

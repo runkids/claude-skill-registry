@@ -5,5 +5,7 @@
   "source": "github.com/Tahir-yamin/dev-engineering-playbook",
   "downloaded_at": "2026-01-22T03:41:41.573119Z",
   "dir_name": "optimizing-performance",
-  "category": "other"
+  "category": "other",
+  "github_path": "agents/cloudai/skills/optimizing-performance",
+  "github_branch": "main"
 }

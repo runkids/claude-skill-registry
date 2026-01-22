@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "This skill should be used when engineering decisions are being made during code implementation. The Archivist enforces decision documentation as a standard practice, ensuring every engineering choice ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:47.004387Z"
+  "downloaded_at": "2026-01-06T09:04:47.004387Z",
+  "github_path": "skills/the-archivist",
+  "github_branch": "main"
 }

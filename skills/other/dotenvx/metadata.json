@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-14T00:52:35.653071Z",
   "dir_name": "dotenvx",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills-templates/dotenvx",
+  "github_branch": "main"
 }

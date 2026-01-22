@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:48.912939Z",
   "dir_name": "gh-ticket",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gh-ticket",
+  "github_branch": "main"
 }

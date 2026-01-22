@@ -5,5 +5,7 @@
   "source": "github.com/academind/claude-code-course",
   "downloaded_at": "2026-01-22T02:41:44.609284Z",
   "dir_name": "modern-best-practice-react-components",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/modern-best-practice-react-components",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "TAM/SAM/SOM analysis and competitive landscape mapping. Identifies beachhead markets and expansion opportunities with data-driven market sizing.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:29.627477Z"
+  "downloaded_at": "2026-01-06T09:02:29.627477Z",
+  "github_path": "skills/foundation-strategy/market-opportunity-analyzer",
+  "github_branch": "main"
 }

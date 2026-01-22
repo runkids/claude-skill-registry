@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:23.356781Z",
   "dir_name": "deps-npm",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/deps_npm",
+  "github_branch": "main"
 }

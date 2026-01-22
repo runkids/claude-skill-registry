@@ -5,5 +5,7 @@
   "source": "github.com/SteveLeve/claude-marketplace",
   "downloaded_at": "2026-01-22T04:12:02.214329Z",
   "dir_name": "wrangler-workflows",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/cloudflare-expert/skills/wrangler-workflows",
+  "github_branch": "main"
 }

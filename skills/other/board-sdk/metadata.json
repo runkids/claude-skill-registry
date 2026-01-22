@@ -5,5 +5,7 @@
   "source": "github.com/jwmyers/vui-vux-plugins",
   "downloaded_at": "2026-01-22T03:47:50.985836Z",
   "dir_name": "board-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/zero-day-dev/skills/board-sdk",
+  "github_branch": "main"
 }

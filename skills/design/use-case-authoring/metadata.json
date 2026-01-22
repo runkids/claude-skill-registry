@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use Case 2.0 methodology for capturing functional requirements and actor interactions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:06.598249Z"
+  "downloaded_at": "2026-01-06T09:00:06.598249Z",
+  "github_path": "plugins/formal-specification/skills/use-case-authoring",
+  "github_branch": "main"
 }

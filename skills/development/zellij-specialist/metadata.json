@@ -7,5 +7,7 @@
     "zellij",
     "specialist"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "zellij-specialist",
+  "github_branch": "main"
 }

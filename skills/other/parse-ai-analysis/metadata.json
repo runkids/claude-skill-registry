@@ -5,5 +5,7 @@
   "source": "github.com/BerryKuipers/claude-code-toolkit",
   "downloaded_at": "2026-01-22T01:27:06.024726Z",
   "dir_name": "parse-ai-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-integration/parse-ai-analysis",
+  "github_branch": "main"
 }

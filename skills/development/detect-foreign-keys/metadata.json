@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Identify foreign key relationships between tables using heuristics, value overlap analysis, and referential integrity checks",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:14.527506Z"
+  "downloaded_at": "2026-01-06T09:03:14.527506Z",
+  "github_path": "plugins/datapeeker/skills/detect-foreign-keys",
+  "github_branch": "main"
 }

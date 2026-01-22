@@ -8,5 +8,7 @@
     "analytics"
   ],
   "stars": 0,
-  "dir_name": "vision-analytics"
+  "dir_name": "vision-analytics",
+  "github_path": ".claude/skills/vision-analytics",
+  "github_branch": "main"
 }

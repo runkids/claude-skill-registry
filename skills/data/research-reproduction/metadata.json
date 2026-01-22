@@ -8,5 +8,7 @@
     "reproduction"
   ],
   "stars": 0,
-  "dir_name": "research-reproduction"
+  "dir_name": "research-reproduction",
+  "github_path": ".claude/skills/research-reproduction",
+  "github_branch": "main"
 }

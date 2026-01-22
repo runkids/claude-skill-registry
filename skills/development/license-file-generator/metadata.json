@@ -8,5 +8,7 @@
     "file",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "license-file-generator",
+  "github_branch": "main"
 }

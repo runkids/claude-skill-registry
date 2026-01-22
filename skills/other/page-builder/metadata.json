@@ -5,5 +5,7 @@
   "source": "github.com/AayushBaniya2006/blinkfund",
   "downloaded_at": "2026-01-22T01:05:09.790013Z",
   "dir_name": "page-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/page-builder",
+  "github_branch": "main"
 }

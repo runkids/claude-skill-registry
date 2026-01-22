@@ -5,5 +5,7 @@
   "source": "github.com/zircote/.claude",
   "downloaded_at": "2026-01-22T02:55:22.701642Z",
   "dir_name": "python-project-skel",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/python-project-skel",
+  "github_branch": "main"
 }

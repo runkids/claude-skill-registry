@@ -5,5 +5,7 @@
   "source": "github.com/dolsoon/my-awesome-project",
   "downloaded_at": "2026-01-22T02:19:55.452738Z",
   "dir_name": "moai-cc-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-cc-skills",
+  "github_branch": "main"
 }

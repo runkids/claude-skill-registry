@@ -5,5 +5,7 @@
   "source": "github.com/giuseppe-trisciuoglio/developer-kit",
   "downloaded_at": "2026-01-22T01:58:44.432055Z",
   "dir_name": "unit-test-exception-handler",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/junit-test/unit-test-exception-handler",
+  "github_branch": "main"
 }

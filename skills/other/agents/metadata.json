@@ -5,5 +5,7 @@
   "source": "github.com/edheltzel/atlas",
   "downloaded_at": "2026-01-14T01:35:25.995497Z",
   "dir_name": "agents",
-  "category": "other"
+  "category": "other",
+  "github_path": "claudecode/.claude/skills/Agents",
+  "github_branch": "main"
 }

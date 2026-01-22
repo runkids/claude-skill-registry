@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:25:02.622428Z",
   "dir_name": "data-analytics-engineering",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/data-analytics-engineering",
+  "github_branch": "main"
 }

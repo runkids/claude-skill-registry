@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:40.507891Z",
   "dir_name": "multi-order-evolution",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/application/multi-order-evolution",
+  "github_branch": "main"
 }

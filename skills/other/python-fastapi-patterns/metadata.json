@@ -5,5 +5,7 @@
   "source": "github.com/autohandai/community-skills",
   "downloaded_at": "2026-01-22T03:12:07.792182Z",
   "dir_name": "python-fastapi-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "python-fastapi-patterns",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
     "scaffolds"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/code-data-analysis-scaffolds",
+  "github_branch": "main"
 }

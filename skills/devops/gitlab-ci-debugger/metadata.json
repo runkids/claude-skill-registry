@@ -7,5 +7,7 @@
     "gitlab",
     "debugger"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/gitlab-ci-debugger",
+  "github_branch": "main"
 }

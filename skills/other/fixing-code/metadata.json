@@ -5,5 +5,7 @@
   "source": "github.com/alexei-led/claude-code-config",
   "downloaded_at": "2026-01-17T03:17:58.838583Z",
   "dir_name": "fixing-code",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fixing-code",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:41.234606Z",
   "dir_name": "case-studies",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/content-marketing/skills/case-studies",
+  "github_branch": "main"
 }

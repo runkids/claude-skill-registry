@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:25:01.170225Z",
   "dir_name": "software-crypto-web3",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/software-crypto-web3",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Ramblurr/nix-devenv",
   "downloaded_at": "2026-01-22T04:06:43.286768Z",
   "dir_name": "clojure-guardrails",
-  "category": "other"
+  "category": "other",
+  "github_path": "prompts/skills/clojure-guardrails",
+  "github_branch": "main"
 }

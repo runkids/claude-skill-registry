@@ -10,5 +10,7 @@
     "user",
     "questions"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-alfred-ask-user-questions",
+  "github_branch": "main"
 }

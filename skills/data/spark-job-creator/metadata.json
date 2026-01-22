@@ -5,5 +5,7 @@
   "description": "Spark Job Creator - Auto-activating skill for Data Pipelines.Triggers on: spark job creator, spark job creatorPart of the Data Pipelines skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:14.072042Z",
-  "dir_name": "spark-job-creator"
+  "dir_name": "spark-job-creator",
+  "github_path": "planned-skills/generated/11-data-pipelines/spark-job-creator",
+  "github_branch": "main"
 }

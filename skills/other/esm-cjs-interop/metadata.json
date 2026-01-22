@@ -5,5 +5,7 @@
   "source": "github.com/orient-bot/orient",
   "downloaded_at": "2026-01-22T03:58:45.126982Z",
   "dir_name": "esm-cjs-interop",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/esm-cjs-interop",
+  "github_branch": "main"
 }

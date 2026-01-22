@@ -8,5 +8,7 @@
     "preview"
   ],
   "stars": 0,
-  "dir_name": "diff-preview"
+  "dir_name": "diff-preview",
+  "github_path": "skills/diff-preview",
+  "github_branch": "main"
 }

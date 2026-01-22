@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-14T01:33:41.770304Z",
   "dir_name": "settings-viewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-claude/skills/settings-viewer",
+  "github_branch": "main"
 }

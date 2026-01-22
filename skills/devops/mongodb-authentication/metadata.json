@@ -7,5 +7,7 @@
     "mongodb",
     "authentication"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/mongodb-authentication",
+  "github_branch": "main"
 }

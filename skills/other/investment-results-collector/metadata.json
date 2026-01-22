@@ -5,5 +5,7 @@
   "source": "github.com/ZhiruiFeng/LocalAgentCrew",
   "downloaded_at": "2026-01-22T01:44:14.840679Z",
   "dir_name": "investment-results-collector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/investment-results-collector",
+  "github_branch": "main"
 }

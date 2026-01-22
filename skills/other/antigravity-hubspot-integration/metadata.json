@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T01:00:00.598553Z",
   "dir_name": "antigravity-hubspot-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-hubspot-integration",
+  "github_branch": "main"
 }

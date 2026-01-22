@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:07.634809Z",
   "dir_name": "chrome-extension-boilerplate-react-vite",
-  "category": "other"
+  "category": "other",
+  "github_path": "chrome-extension-boilerplate-react-vite",
+  "github_branch": "main"
 }

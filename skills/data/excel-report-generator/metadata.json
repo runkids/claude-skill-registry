@@ -10,5 +10,7 @@
   ],
   "stars": 15,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "excel-report-generator"
+  "dir_name": "excel-report-generator",
+  "github_path": "excel-report-generator",
+  "github_branch": "main"
 }

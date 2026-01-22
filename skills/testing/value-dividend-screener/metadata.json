@@ -8,5 +8,7 @@
     "dividend",
     "screener"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/value-dividend-screener",
+  "github_branch": "main"
 }

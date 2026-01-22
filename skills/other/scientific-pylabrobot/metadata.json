@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:47.940752Z",
   "dir_name": "scientific-pylabrobot",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-pylabrobot",
+  "github_branch": "main"
 }

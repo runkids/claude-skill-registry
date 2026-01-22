@@ -8,5 +8,7 @@
     "automation"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/browser-automation",
+  "github_branch": "main"
 }

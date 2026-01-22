@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:52:59.124444Z",
   "dir_name": "patch-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/patch-design",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/phylaxsystems/agent-skills",
   "downloaded_at": "2026-01-17T02:28:05.213214Z",
   "dir_name": "implementing-assertions",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/implementing-assertions",
+  "github_branch": "main"
 }

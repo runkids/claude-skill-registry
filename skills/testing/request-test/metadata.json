@@ -2,7 +2,9 @@
   "name": "request-test",
   "repo": "semicolon-devteam/semo",
   "category": "testing",
-  "description": "\ud14c\uc2a4\ud2b8 \uc694\uccad \uba54\uc2dc\uc9c0 \uc0dd\uc131 \ubc0f \uc804\uc1a1. Use when (1) Issue \ud14c\uc2a4\ud2b8 \uc694\uccad,(2) QA\uc5d0\uac8c \ud14c\uc2a4\ud2b8 \uc54c\ub9bc, (3) \ud658\uacbd \uc815\ubcf4 \ud3ec\ud568 \uba54\uc2dc\uc9c0 \uc0dd\uc131.",
+  "description": "테스트 요청 메시지 생성 및 전송. Use when (1) Issue 테스트 요청,(2) QA에게 테스트 알림, (3) 환경 정보 포함 메시지 생성.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.078732Z"
+  "downloaded_at": "2026-01-06T09:02:52.078732Z",
+  "github_path": "semo-system/semo-skills/request-test",
+  "github_branch": "main"
 }

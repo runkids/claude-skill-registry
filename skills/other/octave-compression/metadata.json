@@ -5,5 +5,7 @@
   "source": "github.com/elevanaltd/octave-mcp",
   "downloaded_at": "2026-01-22T03:04:02.523984Z",
   "dir_name": "octave-compression",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/octave_mcp/resources/skills/octave-compression",
+  "github_branch": "main"
 }

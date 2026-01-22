@@ -8,5 +8,7 @@
     "tester"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "apps/web/.claude/skills/component-tester",
+  "github_branch": "main"
 }

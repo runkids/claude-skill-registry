@@ -2,7 +2,9 @@
   "name": "nextjs-gherkin-generator",
   "repo": "tailwind8/portfolio-reserve",
   "category": "design",
-  "description": "Next.js/TypeScript\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u5411\u3051Gherkin\u30b7\u30ca\u30ea\u30aa\u81ea\u52d5\u751f\u6210\u30b9\u30ad\u30eb\u3002\u4ee5\u4e0b\u306e\u5834\u5408\u306b\u4f7f\u7528:(1) \u30e6\u30fc\u30b6\u30fc\u30b9\u30c8\u30fc\u30ea\u30fc\u304b\u3089BDD\u30b7\u30ca\u30ea\u30aa\u4f5c\u6210\u6642(2) PRD/\u4ed5\u69d8\u66f8\u304b\u3089\u30c6\u30b9\u30c8\u30b7\u30ca\u30ea\u30aa\u751f\u6210\u6642(3) API\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u306e\u632f\u308b\u821e\u3044\u5b9a\u7fa9\u6642(4) \u30da\u30fc\u30b8\u9077\u79fb\u30fbUI\u30a4\u30f3\u30bf\u30e9\u30af\u30b7\u30e7\u30f3\u306e\u30b7\u30ca\u30ea\u30aa\u5316\u6642",
+  "description": "Next.js/TypeScriptプロジェクト向けGherkinシナリオ自動生成スキル。以下の場合に使用:(1) ユーザーストーリーからBDDシナリオ作成時(2) PRD/仕様書からテストシナリオ生成時(3) APIエンドポイントの振る舞い定義時(4) ページ遷移・UIインタラクションのシナリオ化時",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:43.174342Z"
+  "downloaded_at": "2026-01-06T09:08:43.174342Z",
+  "github_path": ".claude/skills/nextjs-gherkin-generator",
+  "github_branch": "main"
 }

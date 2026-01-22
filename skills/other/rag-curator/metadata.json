@@ -5,5 +5,7 @@
   "source": "github.com/arbgjr/satra",
   "downloaded_at": "2026-01-22T02:00:01.921401Z",
   "dir_name": "rag-curator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/rag-curator",
+  "github_branch": "main"
 }

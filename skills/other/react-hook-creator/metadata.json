@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:11.611141Z",
   "dir_name": "react-hook-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/05-frontend-dev/react-hook-creator",
+  "github_branch": "main"
 }

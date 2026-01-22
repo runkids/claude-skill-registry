@@ -5,5 +5,7 @@
   "source": "github.com/JaveedIshaq/ai-workflow-orchestrator",
   "downloaded_at": "2026-01-22T03:59:28.668750Z",
   "dir_name": "airtable-sync-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ballee/airtable-sync-specialist",
+  "github_branch": "main"
 }

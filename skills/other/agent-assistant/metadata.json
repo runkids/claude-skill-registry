@@ -5,5 +5,7 @@
   "source": "github.com/ref-docs/sdd-stl",
   "downloaded_at": "2026-01-22T02:59:40.743628Z",
   "dir_name": "agent-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/templates/agents/claude-code/skills/agent-assistant",
+  "github_branch": "main"
 }

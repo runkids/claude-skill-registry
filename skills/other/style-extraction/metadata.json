@@ -5,5 +5,7 @@
   "source": "github.com/yellinzero/aico",
   "downloaded_at": "2026-01-21T03:00:50.237763Z",
   "dir_name": "style-extraction",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aico-frontend-style-extraction",
+  "github_branch": "main"
 }

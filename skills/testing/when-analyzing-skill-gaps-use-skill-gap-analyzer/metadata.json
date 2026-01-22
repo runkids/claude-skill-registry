@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Analyze skill library to identify coverage gaps, redundant overlaps, optimization opportunities, and provide recommendations for skill portfolio improvement",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:09.226377Z"
+  "downloaded_at": "2026-01-06T09:05:09.226377Z",
+  "github_path": ".claude/skills/meta-tools/when-analyzing-skill-gaps-use-skill-gap-analyzer",
+  "github_branch": "main"
 }

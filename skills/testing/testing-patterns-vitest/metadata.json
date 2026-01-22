@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Vitest testing conventions and patterns for @j0kz/mcp-agents including test organization, naming, assertion patterns, mocking strategies, and coverage targets (75%). Use when writing tests, organiz...",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:18.883254Z"
+  "downloaded_at": "2026-01-06T09:06:18.883254Z",
+  "github_path": "starter-kit/template/.claude/skills/testing-patterns-vitest",
+  "github_branch": "main"
 }

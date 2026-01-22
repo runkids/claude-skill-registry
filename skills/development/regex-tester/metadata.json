@@ -7,5 +7,7 @@
     "regex",
     "tester"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "regex-tester",
+  "github_branch": "main"
 }

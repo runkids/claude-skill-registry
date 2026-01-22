@@ -7,5 +7,7 @@
     "cicd",
     "expert"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/cicd-expert",
+  "github_branch": "main"
 }

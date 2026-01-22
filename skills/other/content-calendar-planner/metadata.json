@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:38.764202Z",
   "dir_name": "content-calendar-planner",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/content-calendar-planner",
+  "github_branch": "main"
 }

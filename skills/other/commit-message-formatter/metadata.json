@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:38.610281Z",
   "dir_name": "commit-message-formatter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/commit-message-formatter",
+  "github_branch": "main"
 }

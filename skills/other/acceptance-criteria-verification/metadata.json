@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:59.479770Z",
   "dir_name": "acceptance-criteria-verification",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/acceptance-criteria-verification",
+  "github_branch": "main"
 }

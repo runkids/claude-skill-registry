@@ -9,5 +9,7 @@
     "mitigation"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "emergency-ulimit-mitigation",
+  "github_branch": "main"
 }

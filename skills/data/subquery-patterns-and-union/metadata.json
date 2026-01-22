@@ -10,5 +10,7 @@
     "union"
   ],
   "stars": 1,
-  "dir_name": "subquery-patterns-and-union"
+  "dir_name": "subquery-patterns-and-union",
+  "github_path": "skills/subquery-patterns-and-union",
+  "github_branch": "main"
 }

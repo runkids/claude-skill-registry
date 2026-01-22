@@ -5,5 +5,7 @@
   "source": "github.com/alirezarezvani/claude-skills",
   "downloaded_at": "2026-01-22T03:57:33.436506Z",
   "dir_name": "senior-security",
-  "category": "other"
+  "category": "other",
+  "github_path": "engineering-team/senior-security",
+  "github_branch": "main"
 }

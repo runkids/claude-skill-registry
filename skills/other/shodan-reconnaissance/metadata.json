@@ -5,5 +5,7 @@
   "source": "github.com/sickn33/antigravity-awesome-skills",
   "downloaded_at": "2026-01-22T02:27:21.842306Z",
   "dir_name": "shodan-reconnaissance",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/shodan-reconnaissance",
+  "github_branch": "main"
 }

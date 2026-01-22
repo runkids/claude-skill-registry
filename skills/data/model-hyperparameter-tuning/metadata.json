@@ -9,5 +9,7 @@
     "tuning"
   ],
   "stars": 25,
-  "dir_name": "model-hyperparameter-tuning"
+  "dir_name": "model-hyperparameter-tuning",
+  "github_path": "skills/model-hyperparameter-tuning",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Write or update documentation in the server-side noridocs system.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:51.478117Z"
+  "downloaded_at": "2026-01-06T08:56:51.478117Z",
+  "github_path": "src/cli/features/claude-code/profiles/config/documenter/skills/paid-write-noridoc",
+  "github_branch": "main"
 }

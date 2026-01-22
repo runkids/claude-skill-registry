@@ -8,5 +8,7 @@
     "plugin",
     "dev"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "zellij-plugin-dev",
+  "github_branch": "main"
 }

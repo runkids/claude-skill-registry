@@ -9,5 +9,7 @@
     "explainer"
   ],
   "stars": 4,
-  "dir_name": "tech-manga-explainer"
+  "dir_name": "tech-manga-explainer",
+  "github_path": "tech-manga-explainer",
+  "github_branch": "main"
 }

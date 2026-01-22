@@ -6,5 +6,7 @@
   "tags": [
     "intro"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "py-intro",
+  "github_branch": "main"
 }

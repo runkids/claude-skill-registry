@@ -7,5 +7,7 @@
     "php",
     "pro"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/php-pro",
+  "github_branch": "main"
 }

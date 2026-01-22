@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:04.860589Z",
   "dir_name": "ln-220-story-coordinator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-220-story-coordinator",
+  "github_branch": "main"
 }

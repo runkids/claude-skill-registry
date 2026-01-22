@@ -5,5 +5,7 @@
   "source": "github.com/weholt/script-cast",
   "downloaded_at": "2026-01-22T03:27:59.091738Z",
   "dir_name": "agent-ops-critical-review",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/agent-ops-critical-review",
+  "github_branch": "main"
 }

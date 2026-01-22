@@ -5,5 +5,7 @@
   "source": "github.com/nguyendinhquocx/code-ai",
   "downloaded_at": "2026-01-14T01:13:41.094888Z",
   "dir_name": "pdf-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pdf-creator",
+  "github_branch": "main"
 }

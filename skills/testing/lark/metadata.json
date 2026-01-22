@@ -6,5 +6,7 @@
   "tags": [
     "lark"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "lark",
+  "github_branch": "main"
 }

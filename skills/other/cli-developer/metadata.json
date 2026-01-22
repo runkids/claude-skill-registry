@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:24.285020Z",
   "dir_name": "cli-developer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cli_developer",
+  "github_branch": "main"
 }

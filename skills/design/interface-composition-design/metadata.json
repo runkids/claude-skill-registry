@@ -2,7 +2,9 @@
   "name": "interface-composition-design",
   "repo": "TakumiOkayasu/dotfile-work",
   "category": "design",
-  "description": "\u30af\u30e9\u30b9\u8a2d\u8a08\u3084\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u30ea\u30d5\u30a1\u30af\u30bf\u30ea\u30f3\u30b0\u6642\u306b\u4f7f\u7528\u3002\u7d99\u627f\u3088\u308a\u5408\u6210\u3092\u63a8\u5968\u3002",
+  "description": "クラス設計やアーキテクチャリファクタリング時に使用。継承より合成を推奨。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:44.261691Z"
+  "downloaded_at": "2026-01-06T09:08:44.261691Z",
+  "github_path": "claude/skills/3-task/design/interface-composition-design",
+  "github_branch": "main"
 }

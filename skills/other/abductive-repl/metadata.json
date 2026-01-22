@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:34:58.148222Z",
   "dir_name": "abductive-repl",
-  "category": "other"
+  "category": "other",
+  "github_path": "ies/music-topos/.agents/skills/abductive-repl",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Transforms research findings into executive-ready briefings. Automatically activated when user mentions 'executive', 'briefing', 'C-suite', 'board', 'leadership', or 'presentation'.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:15.238502Z"
+  "downloaded_at": "2026-01-06T08:56:15.238502Z",
+  "github_path": "research-agent/.claude/skills/executive-briefing",
+  "github_branch": "main"
 }

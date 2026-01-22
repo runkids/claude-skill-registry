@@ -4,5 +4,7 @@
   "category": "development",
   "description": "python's package managing",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:44.031525Z"
+  "downloaded_at": "2026-01-06T08:56:44.031525Z",
+  "github_path": ".codex/skills/uv-package-management-assistant",
+  "github_branch": "main"
 }

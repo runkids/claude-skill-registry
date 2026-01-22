@@ -9,5 +9,7 @@
     "bug",
     "diagnosis"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/godot-visual-bug-diagnosis",
+  "github_branch": "main"
 }

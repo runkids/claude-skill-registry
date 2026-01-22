@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:02.834618Z",
   "dir_name": "groq-security-basics",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/groq-pack/skills/groq-security-basics",
+  "github_branch": "main"
 }

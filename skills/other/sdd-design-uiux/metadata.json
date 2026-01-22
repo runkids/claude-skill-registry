@@ -5,5 +5,7 @@
   "source": "github.com/h2b-dev-studio/web-playground",
   "downloaded_at": "2026-01-20T03:07:25.284920Z",
   "dir_name": "sdd-design-uiux",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/sdd-design-uiux",
+  "github_branch": "main"
 }

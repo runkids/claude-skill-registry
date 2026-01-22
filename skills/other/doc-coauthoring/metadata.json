@@ -5,5 +5,7 @@
   "source": "github.com/RebelPotato/agent-config",
   "downloaded_at": "2026-01-22T04:15:07.676953Z",
   "dir_name": "doc-coauthoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/doc-coauthoring",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Create execution roadmaps for projects. Use when planning multi-phase projects or feature rollouts. Covers phased delivery and milestone planning.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:49.548218Z"
+  "downloaded_at": "2026-01-06T09:01:49.548218Z",
+  "github_path": ".claude/skills/product/execution-roadmaps",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/faulkdev/github-copilot-superpowers",
   "downloaded_at": "2026-01-22T03:45:05.789389Z",
   "dir_name": "obra-subagent-driven-development",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/obra/obra-subagent-driven-development",
+  "github_branch": "main"
 }

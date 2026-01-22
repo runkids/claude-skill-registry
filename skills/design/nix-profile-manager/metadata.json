@@ -8,5 +8,7 @@
     "profile",
     "manager"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "nix-profile-manager",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/philoserf/claude-code-setup",
   "downloaded_at": "2026-01-22T01:30:34.302537Z",
   "dir_name": "skill-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-audit",
+  "github_branch": "main"
 }

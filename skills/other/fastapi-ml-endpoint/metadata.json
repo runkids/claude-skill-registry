@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:09.349987Z",
   "dir_name": "fastapi-ml-endpoint",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/08-ml-deployment/fastapi-ml-endpoint",
+  "github_branch": "main"
 }

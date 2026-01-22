@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:56.892281Z",
   "dir_name": "epic-management",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/epic-management",
+  "github_branch": "main"
 }

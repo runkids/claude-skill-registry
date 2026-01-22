@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use when enforcing brand tone, style, and localization rules across copy.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:21.325797Z"
+  "downloaded_at": "2026-01-06T08:57:21.325797Z",
+  "github_path": "plugins/copywriting/skills/voice-guidelines",
+  "github_branch": "main"
 }

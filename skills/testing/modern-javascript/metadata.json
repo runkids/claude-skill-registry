@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Modern ES6+ JavaScript features including classes, modules, destructuring, iterators, proxies, and latest ECMAScript features.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:45.599147Z"
+  "downloaded_at": "2026-01-06T09:02:45.599147Z",
+  "github_path": "skills/modern-javascript",
+  "github_branch": "main"
 }

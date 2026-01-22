@@ -5,5 +5,7 @@
   "source": "github.com/coder/mux",
   "downloaded_at": "2026-01-22T03:58:31.419610Z",
   "dir_name": "dev-server-sandbox",
-  "category": "other"
+  "category": "other",
+  "github_path": ".mux/skills/dev-server-sandbox",
+  "github_branch": "main"
 }

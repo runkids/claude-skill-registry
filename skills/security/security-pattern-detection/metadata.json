@@ -8,5 +8,7 @@
     "pattern",
     "detection"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/security-pattern-detection",
+  "github_branch": "main"
 }

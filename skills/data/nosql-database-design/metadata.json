@@ -9,5 +9,7 @@
     "design"
   ],
   "stars": 25,
-  "dir_name": "nosql-database-design"
+  "dir_name": "nosql-database-design",
+  "github_path": "skills/nosql-database-design",
+  "github_branch": "main"
 }

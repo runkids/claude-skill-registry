@@ -8,5 +8,7 @@
     "health",
     "analyzer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "pipeline-health-analyzer",
+  "github_branch": "main"
 }

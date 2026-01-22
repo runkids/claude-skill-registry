@@ -5,5 +5,7 @@
   "source": "github.com/orient-bot/orient",
   "downloaded_at": "2026-01-22T03:58:46.016176Z",
   "dir_name": "react-router-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/react-router-setup",
+  "github_branch": "main"
 }

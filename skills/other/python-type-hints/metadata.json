@@ -5,5 +5,7 @@
   "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
   "downloaded_at": "2026-01-14T01:09:28.029026Z",
   "dir_name": "python-type-hints",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/python-master/skills/python-type-hints",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "register"
   ],
   "stars": 8,
-  "dir_name": "project-risk-register"
+  "dir_name": "project-risk-register",
+  "github_path": "skills/project-risk-register",
+  "github_branch": "main"
 }

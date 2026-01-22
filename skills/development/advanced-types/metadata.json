@@ -8,5 +8,7 @@
     "types"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/advanced-types",
+  "github_branch": "main"
 }

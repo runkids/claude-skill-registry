@@ -8,5 +8,7 @@
     "contract"
   ],
   "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-contract",
+  "github_branch": "main"
 }

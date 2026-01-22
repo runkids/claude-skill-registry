@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build Progressive Web Apps with Dioxus framework. Use when developing Dioxus web applications, creating PWA features, or working with WASM targets.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:18.295808Z"
+  "downloaded_at": "2026-01-06T09:03:18.295808Z",
+  "github_path": ".cursor/skills/dioxus-pwa-development",
+  "github_branch": "main"
 }

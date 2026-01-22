@@ -5,5 +5,7 @@
   "source": "github.com/skillcreatorai/Ai-Agent-Skills",
   "downloaded_at": "2026-01-22T01:09:36.925567Z",
   "dir_name": "jira-issues",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/jira-issues",
+  "github_branch": "main"
 }

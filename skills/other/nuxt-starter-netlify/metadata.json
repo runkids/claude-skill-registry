@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.361113Z",
   "dir_name": "nuxt-starter-netlify",
-  "category": "other"
+  "category": "other",
+  "github_path": "nuxt-starter-netlify",
+  "github_branch": "main"
 }

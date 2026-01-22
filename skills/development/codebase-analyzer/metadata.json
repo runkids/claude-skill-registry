@@ -8,5 +8,7 @@
     "analyzer"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills-main/skills-main/new_skills/codebase-analyzer",
+  "github_branch": "main"
 }

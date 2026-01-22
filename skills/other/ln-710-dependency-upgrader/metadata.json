@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:07.321582Z",
   "dir_name": "ln-710-dependency-upgrader",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-710-dependency-upgrader",
+  "github_branch": "main"
 }

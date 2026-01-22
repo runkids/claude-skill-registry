@@ -5,5 +5,7 @@
   "source": "github.com/gonzaloetjo/alto",
   "downloaded_at": "2026-01-17T03:51:55.096263Z",
   "dir_name": "alto-protocol",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/alto-protocol",
+  "github_branch": "main"
 }

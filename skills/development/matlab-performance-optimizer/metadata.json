@@ -8,5 +8,7 @@
     "performance",
     "optimizer"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/matlab-performance-optimizer",
+  "github_branch": "main"
 }

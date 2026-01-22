@@ -5,5 +5,7 @@
   "description": "Ruby on Rails 8 and Ruby 3.2 backend development. Use when working on Rails applications, API development, ActiveRecord models, database migrations, service objects, serializers, RSpec testing, or Rub",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:46.213292Z",
-  "dir_name": "ruby-rails"
+  "dir_name": "ruby-rails",
+  "github_path": "skills/ruby-rails",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-19T02:56:36.201230Z",
   "dir_name": "fetch-url",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dcjanus/fetch-url",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:09.704923Z",
   "dir_name": "structural-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/structural-search",
+  "github_branch": "main"
 }

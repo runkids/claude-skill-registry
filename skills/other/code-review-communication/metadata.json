@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:03.520905Z",
   "dir_name": "code-review-communication",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/soft-skills/skills/code-review-communication",
+  "github_branch": "main"
 }

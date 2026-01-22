@@ -2,7 +2,9 @@
   "name": "electron-distribution",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "Electron\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u306e\u914d\u5e03\u30fb\u81ea\u52d5\u66f4\u65b0\u306b\u95a2\u3059\u308b\u5c02\u9580\u77e5\u8b58\u3092\u63d0\u4f9b\u3059\u308b\u30b9\u30ad\u30eb\u3002electron-builder/electron-updater\u306b\u3088\u308b\u30d3\u30eb\u30c9\u30fb\u7f72\u540d\u30fb\u66f4\u65b0\u914d\u4fe1\u3001CI/CD\u30ea\u30ea\u30fc\u30b9\u30d5\u30ed\u30fc\u3001\u5404\u7a2e\u30a2\u30d7\u30ea\u30b9\u30c8\u30a2\uff08MAS/Microsoft Store/Snapcraft\uff09\u3078\u306e\u914d\u5e03\u3092\u652f\u63f4\u3059\u308b\u3002Anchors:\u2022 electron-builder / \u9069\u7528: \u30d3\u30eb\u30c9\u30fb\u7f72\u540d\u30fb\u30d1\u30c3\u30b1\u30fc\u30b8\u30f3\u30b0 /",
+  "description": "Electronアプリケーションの配布・自動更新に関する専門知識を提供するスキル。electron-builder/electron-updaterによるビルド・署名・更新配信、CI/CDリリースフロー、各種アプリストア（MAS/Microsoft Store/Snapcraft）への配布を支援する。Anchors:• electron-builder / 適用: ビルド・署名・パッケージング /",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.088919Z"
+  "downloaded_at": "2026-01-06T09:00:42.088919Z",
+  "github_path": "docs/99-claude/skills/electron-distribution",
+  "github_branch": "main"
 }

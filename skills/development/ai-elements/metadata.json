@@ -7,5 +7,7 @@
     "elements"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/ai-elements",
+  "github_branch": "main"
 }

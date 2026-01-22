@@ -5,5 +5,7 @@
   "source": "github.com/ksoichiro/ChronoDawn",
   "downloaded_at": "2026-01-22T01:22:13.020233Z",
   "dir_name": "structure-worldgen",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/structure-worldgen",
+  "github_branch": "main"
 }

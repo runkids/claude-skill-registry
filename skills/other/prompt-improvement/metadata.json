@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-14T03:00:22.145561Z",
   "dir_name": "prompt-improvement",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/claude-ecosystem/skills/prompt-improvement",
+  "github_branch": "main"
 }

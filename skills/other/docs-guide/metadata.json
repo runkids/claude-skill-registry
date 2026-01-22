@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:28.857455Z",
   "dir_name": "docs-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/docs-guide",
+  "github_branch": "main"
 }

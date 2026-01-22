@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:17.206044Z",
   "dir_name": "elixir-ecto-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-elixir/skills/elixir-ecto-patterns",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "expander"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/content-expander",
+  "github_branch": "main"
 }

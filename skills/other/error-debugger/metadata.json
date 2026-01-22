@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:24.042621Z",
   "dir_name": "error-debugger",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/error-debugger",
+  "github_branch": "main"
 }

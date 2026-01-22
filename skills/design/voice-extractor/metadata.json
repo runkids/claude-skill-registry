@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Extract voice patterns from transcripts - speaking style, phrases, vocabulary for authentic author profiles",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:16.312567Z"
+  "downloaded_at": "2026-01-06T09:00:16.312567Z",
+  "github_path": "article-writer/skills/voice-extractor",
+  "github_branch": "main"
 }

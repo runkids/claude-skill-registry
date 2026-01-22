@@ -7,5 +7,7 @@
     "text",
     "speech"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/text-to-speech",
+  "github_branch": "main"
 }

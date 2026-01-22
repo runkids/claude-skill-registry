@@ -5,5 +5,7 @@
   "description": "Expert in French pastry techniques, from croissants to éclairs, macarons to tarte tatin",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:00:19.054968Z",
-  "dir_name": "french-pastry-master"
+  "dir_name": "french-pastry-master",
+  "github_path": "skills/culinary/french-pastry-master",
+  "github_branch": "main"
 }

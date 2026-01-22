@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Interactive developer assistant with tool access for codebase exploration",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:16.895864Z"
+  "downloaded_at": "2026-01-06T09:09:16.895864Z",
+  "github_path": "skills/core/chat-assistant",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/fercracix33/poli2-clean-architecture",
   "downloaded_at": "2026-01-22T04:01:39.937603Z",
   "dir_name": "supabase-expert-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/supabase-expert-skill",
+  "github_branch": "main"
 }

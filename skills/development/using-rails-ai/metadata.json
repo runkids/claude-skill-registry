@@ -7,5 +7,7 @@
     "using",
     "rails"
   ],
-  "stars": 15
+  "stars": 15,
+  "github_path": "skills/using-rails-ai",
+  "github_branch": "main"
 }

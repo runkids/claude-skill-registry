@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:02:00.214536Z",
   "dir_name": "dataverse-deploy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dataverse-deploy",
+  "github_branch": "main"
 }

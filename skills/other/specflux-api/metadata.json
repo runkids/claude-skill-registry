@@ -5,5 +5,7 @@
   "source": "github.com/cliangdev/specflux",
   "downloaded_at": "2026-01-22T02:16:40.093566Z",
   "dir_name": "specflux-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/plugin/skills/specflux-api",
+  "github_branch": "main"
 }

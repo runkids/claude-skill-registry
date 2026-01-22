@@ -7,5 +7,7 @@
     "bsky"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/bsky",
+  "github_branch": "main"
 }

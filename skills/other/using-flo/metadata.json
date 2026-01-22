@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:52.855823Z",
   "dir_name": "using-flo",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/todo/flo/skills/using-flo",
+  "github_branch": "main"
 }

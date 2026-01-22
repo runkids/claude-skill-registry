@@ -5,5 +5,7 @@
   "source": "github.com/ScientiaCapital/skills",
   "downloaded_at": "2026-01-19T03:08:04.620664Z",
   "dir_name": "extension-authoring-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "active/extension-authoring-skill",
+  "github_branch": "main"
 }

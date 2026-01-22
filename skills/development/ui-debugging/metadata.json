@@ -6,5 +6,7 @@
   "tags": [
     "debugging"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "ui-debugging",
+  "github_branch": "main"
 }

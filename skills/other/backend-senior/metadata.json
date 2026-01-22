@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:26.204664Z",
   "dir_name": "backend-senior",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/backend-senior",
+  "github_branch": "main"
 }

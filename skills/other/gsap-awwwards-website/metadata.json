@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.596482Z",
   "dir_name": "gsap-awwwards-website",
-  "category": "other"
+  "category": "other",
+  "github_path": "gsap-awwwards-website",
+  "github_branch": "main"
 }

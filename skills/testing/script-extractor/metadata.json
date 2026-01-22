@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Detects inline logic anti-pattern in prompts and identifies opportunities to extract deterministic operations to scripts",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:55.327782Z"
+  "downloaded_at": "2026-01-06T09:01:55.327782Z",
+  "github_path": "plugins/faber-agent/skills/script-extractor",
+  "github_branch": "main"
 }

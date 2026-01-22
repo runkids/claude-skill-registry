@@ -8,5 +8,7 @@
     "series",
     "decomposer"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "time-series-decomposer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
   "downloaded_at": "2026-01-22T02:21:41.468333Z",
   "dir_name": "interleaved-thinking",
-  "category": "other"
+  "category": "other",
+  "github_path": "examples/interleaved_thinking",
+  "github_branch": "main"
 }

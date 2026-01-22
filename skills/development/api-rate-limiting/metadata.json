@@ -9,5 +9,7 @@
     "limiting"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-rate-limiting",
+  "github_branch": "main"
 }

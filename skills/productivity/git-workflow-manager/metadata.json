@@ -8,5 +8,7 @@
     "workflow",
     "manager"
   ],
-  "stars": 29
+  "stars": 29,
+  "github_path": "skills/git-workflow-manager",
+  "github_branch": "main"
 }

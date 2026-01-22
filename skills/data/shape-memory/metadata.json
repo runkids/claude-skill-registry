@@ -8,5 +8,7 @@
     "memory"
   ],
   "stars": 0,
-  "dir_name": "shape-memory"
+  "dir_name": "shape-memory",
+  "github_path": ".claude/skills/shape-memory",
+  "github_branch": "main"
 }

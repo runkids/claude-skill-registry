@@ -2,7 +2,9 @@
   "name": "pattern-thinking",
   "repo": "TakumiOkayasu/dotfile-work",
   "category": "development",
-  "description": "\u30d1\u30bf\u30fc\u30f3\u9078\u629e\u306e\u601d\u8003\u30d7\u30ed\u30bb\u30b9\u3002\u3088\u304f\u3042\u308b\u30d1\u30bf\u30fc\u30f3\u304b\u3089\u72ec\u81ea\u30a2\u30d7\u30ed\u30fc\u30c1\u307e\u3067\u3001\u72b6\u6cc1\u306b\u5fdc\u3058\u305f\u6700\u9069\u306a\u9078\u629e\u80a2\u3092\u63d0\u6848\u3059\u308b\u3002\u5b89\u6613\u306a\u300c\u3068\u308a\u3042\u3048\u305a\u3053\u308c\u300d\u3092\u907f\u3051\u3001\u610f\u56f3\u3092\u6301\u3063\u305f\u8a2d\u8a08\u5224\u65ad\u3092\u4fc3\u3059\u3002",
+  "description": "パターン選択の思考プロセス。よくあるパターンから独自アプローチまで、状況に応じた最適な選択肢を提案する。安易な「とりあえずこれ」を避け、意図を持った設計判断を促す。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:52.066308Z"
+  "downloaded_at": "2026-01-06T09:09:52.066308Z",
+  "github_path": "claude/skills/3-task/design/pattern-thinking",
+  "github_branch": "main"
 }

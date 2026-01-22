@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Skill for Linear project management tasks including creating projects, creating issues, and reviewing project structures. Use when working with Linear project setup, issue creation, project planning, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:49.460831Z"
+  "downloaded_at": "2026-01-06T09:07:49.460831Z",
+  "github_path": "project-roles/skills/linear-project-management",
+  "github_branch": "main"
 }

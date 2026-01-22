@@ -10,5 +10,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "brain-operating-system"
+  "dir_name": "brain-operating-system",
+  "github_path": "skills/brain-operating-system",
+  "github_branch": "main"
 }

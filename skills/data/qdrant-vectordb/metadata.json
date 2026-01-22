@@ -8,5 +8,7 @@
     "vectordb"
   ],
   "stars": 0,
-  "dir_name": "qdrant-vectordb"
+  "dir_name": "qdrant-vectordb",
+  "github_path": ".claude/skills/qdrant-vectordb",
+  "github_branch": "main"
 }

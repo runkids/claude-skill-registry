@@ -9,5 +9,7 @@
     "fix",
     "connector"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/test-and-fix-connector",
+  "github_branch": "main"
 }

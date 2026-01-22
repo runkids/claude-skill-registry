@@ -2,7 +2,9 @@
   "name": "implementation-loop",
   "repo": "okurawave/expo-browser",
   "category": "productivity",
-  "description": "implca \u304c tasks \u3092\u66f4\u65b0\u3057\u306a\u304c\u3089\u5b9f\u88c5\u2192\u30c6\u30b9\u30c8\u2192\u4fee\u6b63\u3092\u56de\u3059\u305f\u3081\u306e\u624b\u9806\u3002",
+  "description": "implca が tasks を更新しながら実装→テスト→修正を回すための手順。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:03.870780Z"
+  "downloaded_at": "2026-01-06T09:10:03.870780Z",
+  "github_path": ".github/skills/implementation-loop",
+  "github_branch": "main"
 }

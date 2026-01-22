@@ -5,5 +5,7 @@
   "source": "github.com/JordanGunn/nunchuck",
   "downloaded_at": "2026-01-22T03:08:00.230362Z",
   "dir_name": "prompt-exec",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prompt/prompt-exec",
+  "github_branch": "main"
 }

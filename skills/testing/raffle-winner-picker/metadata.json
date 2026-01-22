@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Picks random winners from lists, spreadsheets, or Google Sheets for giveaways, raffles, and contests. Ensures fair, unbiased selection with transparency.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.301748Z"
+  "downloaded_at": "2026-01-06T08:55:36.301748Z",
+  "github_path": "cli-tool/components/skills/productivity/raffle-winner-picker",
+  "github_branch": "main"
 }

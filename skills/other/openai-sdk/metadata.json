@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:34.419751Z",
   "dir_name": "openai-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/openai-sdk",
+  "github_branch": "main"
 }

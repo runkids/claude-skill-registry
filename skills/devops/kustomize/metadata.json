@@ -6,5 +6,7 @@
   "tags": [
     "kustomize"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/kustomize",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-14T03:53:05.815462Z",
   "dir_name": "nextjs-project-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/nextjs-project-manager",
+  "github_branch": "main"
 }

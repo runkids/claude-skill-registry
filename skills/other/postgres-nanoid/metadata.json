@@ -5,5 +5,7 @@
   "source": "github.com/azlekov/my-claude-code",
   "downloaded_at": "2026-01-21T04:04:46.460275Z",
   "dir_name": "postgres-nanoid",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/postgres-nanoid",
+  "github_branch": "main"
 }

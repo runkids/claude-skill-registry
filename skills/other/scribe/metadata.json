@@ -5,5 +5,7 @@
   "source": "github.com/nikhilvallishayee/universal-pattern-space",
   "downloaded_at": "2026-01-17T01:44:31.404380Z",
   "dir_name": "scribe",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pattern-space/perspectives/scribe",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:13.126852Z",
   "dir_name": "langgraph-checkpoints",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/langgraph-checkpoints",
+  "github_branch": "main"
 }

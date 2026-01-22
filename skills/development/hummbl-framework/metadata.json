@@ -7,5 +7,7 @@
     "hummbl",
     "framework"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "hummbl-framework",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Create and manage database backups across environments",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:56.832626Z",
-  "dir_name": "backup-manager"
+  "dir_name": "backup-manager",
+  "github_path": "plugins/faber-db/skills/backup-manager",
+  "github_branch": "main"
 }

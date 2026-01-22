@@ -7,5 +7,7 @@
     "vite",
     "vue"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "vite-vue",
+  "github_branch": "main"
 }

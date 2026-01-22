@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "detecting-anomalies"
+  "dir_name": "detecting-anomalies",
+  "github_path": "skills/detecting-anomalies",
+  "github_branch": "main"
 }

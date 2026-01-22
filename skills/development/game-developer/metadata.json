@@ -7,5 +7,7 @@
     "game",
     "developer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/game-developer",
+  "github_branch": "main"
 }

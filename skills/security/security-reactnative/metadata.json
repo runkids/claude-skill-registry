@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Security - React Native Best Practices. Use when reviewing security, implementing auth, or hardening code.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:52.422995Z"
+  "downloaded_at": "2026-01-06T08:58:52.422995Z",
+  "github_path": "Dev/i18n/pt/ReactNative/skills/security-reactnative",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "log",
     "attempt"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/log-attempt",
+  "github_branch": "main"
 }

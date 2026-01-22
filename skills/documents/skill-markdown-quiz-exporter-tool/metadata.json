@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Export quiz markdown to Anki, Flashcard Hero, HTML",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:08.403277Z"
+  "downloaded_at": "2026-01-06T09:05:08.403277Z",
+  "github_path": "plugins/markdown-quiz-exporter-tool/skills/markdown-quiz-exporter-tool",
+  "github_branch": "main"
 }

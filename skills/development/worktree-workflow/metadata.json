@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Isolated git worktree workflow for coding agents. Handles worktree creation, atomic commits, branch publishing, optional PR creation, and cleanup. Use when implementing code changes that need branch i",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:40.616246Z"
+  "downloaded_at": "2026-01-06T08:59:40.616246Z",
+  "github_path": "plugins/dev/skills/worktree-workflow",
+  "github_branch": "main"
 }

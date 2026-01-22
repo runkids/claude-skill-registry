@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:26.279274Z",
   "dir_name": "executive-chro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/executive-chro",
+  "github_branch": "main"
 }

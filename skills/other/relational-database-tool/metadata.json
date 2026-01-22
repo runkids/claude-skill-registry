@@ -5,5 +5,7 @@
   "source": "github.com/baiyongping/cowork-platform",
   "downloaded_at": "2026-01-22T03:47:02.340135Z",
   "dir_name": "relational-database-tool",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/relational-database-tool",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "data",
     "fabric"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/supabase-data-fabric",
+  "github_branch": "main"
 }

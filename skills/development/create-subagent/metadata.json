@@ -7,5 +7,7 @@
     "create",
     "subagent"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/create-subagent",
+  "github_branch": "main"
 }

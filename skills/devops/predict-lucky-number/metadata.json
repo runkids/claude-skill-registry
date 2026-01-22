@@ -8,5 +8,7 @@
     "lucky",
     "number"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/predict-lucky-number",
+  "github_branch": "main"
 }

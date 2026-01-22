@@ -8,5 +8,7 @@
     "coder",
     "sdlc"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "vibe-coder-sdlc",
+  "github_branch": "main"
 }

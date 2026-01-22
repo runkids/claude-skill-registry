@@ -8,5 +8,7 @@
     "pipeline",
     "setup"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/cicd-pipeline-setup",
+  "github_branch": "main"
 }

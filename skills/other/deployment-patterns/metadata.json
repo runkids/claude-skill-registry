@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-19T02:22:05.012996Z",
   "dir_name": "deployment-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "69-platform-engineering-lite/deployment-patterns",
+  "github_branch": "main"
 }

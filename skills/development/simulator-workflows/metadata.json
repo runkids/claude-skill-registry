@@ -7,5 +7,7 @@
     "simulator",
     "workflows"
   ],
-  "stars": 28
+  "stars": 28,
+  "github_path": "skills/simulator-workflows",
+  "github_branch": "main"
 }

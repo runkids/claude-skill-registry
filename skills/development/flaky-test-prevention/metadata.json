@@ -2,7 +2,9 @@
   "name": "flaky-test-prevention",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "\u30d5\u30ec\u30fc\u30ad\u30fc\uff08\u4e0d\u5b89\u5b9a\uff09\u306a\u30c6\u30b9\u30c8\u3092\u691c\u51fa\u30fb\u4fee\u6b63\u3059\u308b\u30b9\u30ad\u30eb\u3002\u975e\u6c7a\u5b9a\u6027\u306e\u6392\u9664\u3001\u30ea\u30c8\u30e9\u30a4\u30ed\u30b8\u30c3\u30af\u3001\u30c6\u30b9\u30c8\u5b89\u5b9a\u6027\u5411\u4e0a\u30d1\u30bf\u30fc\u30f3\u3092\u63d0\u4f9b\u3002\u4e26\u5217\u5b9f\u884c\u6642\u306e\u554f\u984c\u89e3\u6c7a\u3084\u30bf\u30a4\u30df\u30f3\u30b0\u4f9d\u5b58\u306e\u9664\u53bb\u3092\u652f\u63f4\u3002Anchors:\u2022 Test-Driven Development\uff08Kent Beck\uff09 / \u9069\u7528: Red-Green-Refactor / \u76ee\u7684: \u5b89\u5b9a\u3057\u305f\u30c6\u30b9\u30c8\u8a2d\u8a08\u2022 xUnit Test Patterns\uff08Gerard Me",
+  "description": "フレーキー（不安定）なテストを検出・修正するスキル。非決定性の排除、リトライロジック、テスト安定性向上パターンを提供。並列実行時の問題解決やタイミング依存の除去を支援。Anchors:• Test-Driven Development（Kent Beck） / 適用: Red-Green-Refactor / 目的: 安定したテスト設計• xUnit Test Patterns（Gerard Me",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.363728Z"
+  "downloaded_at": "2026-01-06T09:00:42.363728Z",
+  "github_path": "docs/99-claude/skills/flaky-test-prevention",
+  "github_branch": "main"
 }

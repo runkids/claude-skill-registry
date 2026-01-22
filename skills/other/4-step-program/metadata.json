@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:49.897251Z",
   "dir_name": "4-step-program",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/4-step-program",
+  "github_branch": "main"
 }

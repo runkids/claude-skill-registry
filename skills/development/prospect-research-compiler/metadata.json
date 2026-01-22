@@ -8,5 +8,7 @@
     "research",
     "compiler"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "prospect-research-compiler",
+  "github_branch": "main"
 }

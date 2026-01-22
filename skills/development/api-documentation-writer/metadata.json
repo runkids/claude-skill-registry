@@ -9,5 +9,7 @@
     "writer"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "api-documentation-writer",
+  "github_branch": "main"
 }

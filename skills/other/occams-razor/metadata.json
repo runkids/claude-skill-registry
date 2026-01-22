@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:46.066368Z",
   "dir_name": "occams-razor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/design-principles/occams-razor",
+  "github_branch": "main"
 }

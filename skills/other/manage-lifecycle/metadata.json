@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:26.717269Z",
   "dir_name": "manage-lifecycle",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-workflow/skills/manage-lifecycle",
+  "github_branch": "main"
 }

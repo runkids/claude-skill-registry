@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 10,
-  "dir_name": "utm-parameter-generator"
+  "dir_name": "utm-parameter-generator",
+  "github_path": "utm-parameter-generator",
+  "github_branch": "main"
 }

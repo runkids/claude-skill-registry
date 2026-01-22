@@ -5,5 +5,7 @@
   "source": "github.com/BbgnsurfTech/claude-skills-collection",
   "downloaded_at": "2026-01-22T01:10:41.365843Z",
   "dir_name": "litellm",
-  "category": "other"
+  "category": "other",
+  "github_path": "community/jamie-bitflight-claude-skills/litellm",
+  "github_branch": "main"
 }

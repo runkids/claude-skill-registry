@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when crafting tiered ABM messaging, offers, and creative variants.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:20.001343Z"
+  "downloaded_at": "2026-01-06T08:57:20.001343Z",
+  "github_path": "plugins/abm-orchestration/skills/personalization",
+  "github_branch": "main"
 }

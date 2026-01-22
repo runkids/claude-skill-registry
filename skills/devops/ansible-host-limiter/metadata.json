@@ -9,5 +9,7 @@
     "limiter"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/ansible-host-limiter",
+  "github_branch": "main"
 }

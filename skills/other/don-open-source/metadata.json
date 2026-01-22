@@ -5,5 +5,7 @@
   "source": "github.com/dstotijn/developer-overheid-nl-agent-skills",
   "downloaded_at": "2026-01-22T03:50:55.656947Z",
   "dir_name": "don-open-source",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/don-open-source",
+  "github_branch": "main"
 }

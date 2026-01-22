@@ -9,5 +9,7 @@
     "setup"
   ],
   "stars": 0,
-  "dir_name": "mongodb-atlas-setup"
+  "dir_name": "mongodb-atlas-setup",
+  "github_path": "skills/mongodb-atlas-setup",
+  "github_branch": "main"
 }

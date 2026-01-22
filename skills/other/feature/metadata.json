@@ -5,5 +5,7 @@
   "source": "github.com/call1800messiah/The-Eighth",
   "downloaded_at": "2026-01-22T01:38:42.135316Z",
   "dir_name": "feature",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/feature",
+  "github_branch": "main"
 }

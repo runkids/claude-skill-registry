@@ -8,5 +8,7 @@
     "usage",
     "analysis"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "component-usage-analysis",
+  "github_branch": "main"
 }

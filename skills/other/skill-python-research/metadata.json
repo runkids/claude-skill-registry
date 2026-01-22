@@ -5,5 +5,7 @@
   "source": "github.com/benbrastmckie/ModelChecker",
   "downloaded_at": "2026-01-17T02:43:12.733980Z",
   "dir_name": "skill-python-research",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/skill-python-research",
+  "github_branch": "main"
 }

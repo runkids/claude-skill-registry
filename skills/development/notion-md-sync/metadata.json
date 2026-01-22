@@ -7,5 +7,7 @@
     "notion",
     "sync"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "notion-md-sync",
+  "github_branch": "main"
 }

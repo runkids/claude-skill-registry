@@ -8,5 +8,7 @@
     "writer"
   ],
   "stars": 0,
-  "dir_name": "prompt-writer"
+  "dir_name": "prompt-writer",
+  "github_path": ".claude/skills/prompt-writer",
+  "github_branch": "main"
 }

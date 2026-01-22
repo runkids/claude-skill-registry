@@ -5,5 +5,7 @@
   "source": "github.com/jamesrochabrun/skills",
   "downloaded_at": "2026-01-22T01:27:10.348656Z",
   "dir_name": "apple-hig-designer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/apple-hig-designer",
+  "github_branch": "main"
 }

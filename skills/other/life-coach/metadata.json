@@ -5,5 +5,7 @@
   "source": "github.com/mbcoalson/skills",
   "downloaded_at": "2026-01-22T02:20:04.625979Z",
   "dir_name": "life-coach",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/life-coach",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Interacts with vLex legal APIs for document search, anonymization, citation extraction, and classification. Use when needing international legal documents, PII removal, or legal text analysis. Require",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:45.875366Z"
+  "downloaded_at": "2026-01-06T09:08:45.875366Z",
+  "github_path": "skills/vlex",
+  "github_branch": "main"
 }

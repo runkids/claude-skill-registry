@@ -8,5 +8,7 @@
     "design"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/context-ui-design",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Expert guidance on dynasty fantasy football strategies, player valuation frameworks, roster construction, trade evaluation, and asset management. Use this skill when analyzing dynasty trades, evaluati",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:43.302286Z"
+  "downloaded_at": "2026-01-06T09:09:43.302286Z",
+  "github_path": ".claude/skills/ff-analytics-team/ff-dynasty-strategy",
+  "github_branch": "main"
 }

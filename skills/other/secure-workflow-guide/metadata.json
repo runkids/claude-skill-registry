@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:26.636590Z",
   "dir_name": "secure-workflow-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/building-secure-contracts/skills/development-guidelines/secure-workflow-guide",
+  "github_branch": "main"
 }

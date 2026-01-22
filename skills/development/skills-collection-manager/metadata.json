@@ -8,5 +8,7 @@
     "collection",
     "manager"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/skills-collection-manager",
+  "github_branch": "main"
 }

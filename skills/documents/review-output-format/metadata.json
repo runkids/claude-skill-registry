@@ -8,5 +8,7 @@
     "output",
     "format"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/review-output-format",
+  "github_branch": "main"
 }

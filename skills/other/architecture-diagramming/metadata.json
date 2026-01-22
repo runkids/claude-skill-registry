@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:27.735794Z",
   "dir_name": "architecture-diagramming",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/architecture-diagramming",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "xss",
   "repo": "yhy0/CHYing-agent",
   "category": "development",
-  "description": "\u8de8\u7ad9\u811a\u672c\u6f0f\u6d1e\u68c0\u6d4b\u4e0e\u5229\u7528\u3002\u5f53\u76ee\u6807\u5b58\u5728\u7528\u6237\u8f93\u5165\u53cd\u5c04\u3001\u8bc4\u8bba\u529f\u80fd\u3001\u641c\u7d22\u6846\u3001URL \u53c2\u6570\u663e\u793a\u65f6\u4f7f\u7528\u3002\u5305\u62ec\u53cd\u5c04\u578b\u3001\u5b58\u50a8\u578b\u3001DOM XSS\u3002",
+  "description": "跨站脚本漏洞检测与利用。当目标存在用户输入反射、评论功能、搜索框、URL 参数显示时使用。包括反射型、存储型、DOM XSS。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:27.471921Z"
+  "downloaded_at": "2026-01-06T08:56:27.471921Z",
+  "github_path": "chying_agent/skills/xss",
+  "github_branch": "main"
 }

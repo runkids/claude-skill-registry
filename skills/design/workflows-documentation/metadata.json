@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Unified markdown and OpenCode component specialist providing document quality enforcement (structure, style), content optimization for AI assistants, complete component creation workflows (skills, age",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:32.883876Z"
+  "downloaded_at": "2026-01-06T09:02:32.883876Z",
+  "github_path": ".opencode/skill/workflows-documentation",
+  "github_branch": "main"
 }

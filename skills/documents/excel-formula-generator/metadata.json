@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Excel Formula Generator - Auto-activating skill for Business Automation.Triggers on: excel formula generator, excel formula generatorPart of the Business Automation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:05.285003Z"
+  "downloaded_at": "2026-01-06T08:56:05.285003Z",
+  "github_path": "planned-skills/generated/19-business-automation/excel-formula-generator",
+  "github_branch": "main"
 }

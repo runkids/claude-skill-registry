@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "capacities"
+  "dir_name": "capacities",
+  "github_path": ".claude/skills/capacities",
+  "github_branch": "main"
 }

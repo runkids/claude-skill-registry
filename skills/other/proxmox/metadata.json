@@ -5,5 +5,7 @@
   "source": "github.com/poindexter12/waypoint",
   "downloaded_at": "2026-01-19T03:24:54.596834Z",
   "dir_name": "proxmox",
-  "category": "other"
+  "category": "other",
+  "github_path": "technologies/skills/proxmox",
+  "github_branch": "main"
 }

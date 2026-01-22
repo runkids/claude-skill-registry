@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:56.095782Z",
   "dir_name": "web-audio-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/web-audio-api",
+  "github_branch": "main"
 }

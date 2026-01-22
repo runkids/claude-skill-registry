@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:49.950870Z",
   "dir_name": "amplicon-processing",
-  "category": "other"
+  "category": "other",
+  "github_path": "microbiome/amplicon-processing",
+  "github_branch": "main"
 }

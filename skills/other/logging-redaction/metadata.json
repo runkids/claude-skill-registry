@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-17T03:41:39.896786Z",
   "dir_name": "logging-redaction",
-  "category": "other"
+  "category": "other",
+  "github_path": "46-data-classification/logging-redaction",
+  "github_branch": "main"
 }

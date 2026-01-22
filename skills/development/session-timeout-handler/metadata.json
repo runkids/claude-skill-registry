@@ -8,5 +8,7 @@
     "timeout",
     "handler"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/session-timeout-handler",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/resolve-io/.prism",
   "downloaded_at": "2026-01-14T03:09:57.577571Z",
   "dir_name": "probe-estimation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/prism-devtools/skills/probe-estimation",
+  "github_branch": "main"
 }

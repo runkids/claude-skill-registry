@@ -5,5 +5,7 @@
   "source": "github.com/starwards/starwards",
   "downloaded_at": "2026-01-22T03:48:50.412679Z",
   "dir_name": "starwards-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/starwards-workflow",
+  "github_branch": "main"
 }

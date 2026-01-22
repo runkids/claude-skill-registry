@@ -8,5 +8,7 @@
     "add",
     "file"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/ios-add-file",
+  "github_branch": "main"
 }

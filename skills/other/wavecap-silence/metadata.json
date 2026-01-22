@@ -5,5 +5,7 @@
   "source": "github.com/TobiasWooldridge/WaveCap",
   "downloaded_at": "2026-01-22T02:11:28.390522Z",
   "dir_name": "wavecap-silence",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wavecap-silence",
+  "github_branch": "main"
 }

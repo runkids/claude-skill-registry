@@ -5,5 +5,7 @@
   "source": "github.com/agentuity/sdk-explorer",
   "downloaded_at": "2026-01-22T03:37:19.420527Z",
   "dir_name": "agentuity-cli-auth-logout",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/agentuity-cli-auth-logout",
+  "github_branch": "main"
 }

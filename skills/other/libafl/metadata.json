@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:27.724402Z",
   "dir_name": "libafl",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/testing-handbook-skills/skills/libafl",
+  "github_branch": "main"
 }

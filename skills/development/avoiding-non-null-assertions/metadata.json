@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Avoid non-null assertion operator (!) and use type-safe alternatives instead",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:05.113696Z"
+  "downloaded_at": "2026-01-06T09:05:05.113696Z",
+  "github_path": "typescript/skills/avoiding-non-null-assertions",
+  "github_branch": "main"
 }

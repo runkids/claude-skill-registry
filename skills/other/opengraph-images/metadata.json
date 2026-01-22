@@ -5,5 +5,7 @@
   "source": "github.com/sgcarstrends/sgcarstrends",
   "downloaded_at": "2026-01-22T02:24:53.706997Z",
   "dir_name": "opengraph-images",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/opengraph-images",
+  "github_branch": "main"
 }

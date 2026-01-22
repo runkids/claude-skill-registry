@@ -5,5 +5,7 @@
   "source": "github.com/brmatola/gremlins",
   "downloaded_at": "2026-01-22T02:20:42.459532Z",
   "dir_name": "investigating-a-codebase",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/investigating-a-codebase",
+  "github_branch": "main"
 }

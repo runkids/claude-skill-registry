@@ -5,5 +5,7 @@
   "source": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
   "downloaded_at": "2026-01-22T02:21:41.536559Z",
   "dir_name": "comprehensive-research-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": "examples/interleaved_thinking/generated_skills/comprehensive-research-agent",
+  "github_branch": "main"
 }

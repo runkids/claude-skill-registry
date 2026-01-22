@@ -7,5 +7,7 @@
     "applescript"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/applescript",
+  "github_branch": "main"
 }

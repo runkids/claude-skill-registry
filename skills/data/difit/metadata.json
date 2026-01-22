@@ -8,5 +8,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "difit"
+  "dir_name": "difit",
+  "github_path": ".claude/skills/difit",
+  "github_branch": "main"
 }

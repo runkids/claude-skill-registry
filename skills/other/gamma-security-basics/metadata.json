@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:03.828176Z",
   "dir_name": "gamma-security-basics",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/gamma-pack/skills/gamma-security-basics",
+  "github_branch": "main"
 }

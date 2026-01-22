@@ -9,5 +9,7 @@
     "samples"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/apc-code-samples",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "base",
     "directory"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "plugins/xdg-base-directory/skills/xdg-base-directory",
+  "github_branch": "main"
 }

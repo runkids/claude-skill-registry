@@ -2,7 +2,9 @@
   "name": "create-git-worktree",
   "repo": "getty104/claude-code-marketplace",
   "category": "development",
-  "description": "git worktree \u3092\u5229\u7528\u3057\u305f\u5206\u96e2\u4f5c\u696d\u74b0\u5883\u3092\u81ea\u52d5\u69cb\u7bc9\u3057\u307e\u3059\u3002\u30c7\u30d5\u30a9\u30eb\u30c8\u30d6\u30e9\u30f3\u30c1\u304b\u3089\u6700\u65b0\u30b3\u30fc\u30c9\u3092\u53d6\u5f97\u3057\u3001.git-worktrees/ \u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u306b\u65b0\u898fworktree\u3092\u4f5c\u6210\u3001.env\u30fbnpm\u4f9d\u5b58\u95a2\u4fc2\u3092\u81ea\u52d5\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3057\u307e\u3059\u3002\u30d6\u30e9\u30f3\u30c1\u540d\u306e '/' \u306f\u81ea\u52d5\u7684\u306b '-' \u306b\u5909\u63db\u3055\u308c\u307e\u3059\u3002\u65e2\u5b58worktree\u306f\u518d\u5229\u7528\u3055\u308c\u307e\u3059\u3002",
+  "description": "git worktree を利用した分離作業環境を自動構築します。デフォルトブランチから最新コードを取得し、.git-worktrees/ ディレクトリに新規worktreeを作成、.env・npm依存関係を自動セットアップします。ブランチ名の '/' は自動的に '-' に変換されます。既存worktreeは再利用されます。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:51.207091Z"
+  "downloaded_at": "2026-01-06T08:59:51.207091Z",
+  "github_path": "base-tools/skills/create-git-worktree",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "rendering"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/cloudflare-browser-rendering/skills/cloudflare-browser-rendering",
+  "github_branch": "main"
 }

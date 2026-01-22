@@ -2,7 +2,9 @@
   "name": "preferences",
   "repo": "gakonst/dotfiles",
   "category": "development",
-  "description": "Use when aligning with Georgios\u2019s default Git/GitHub conventions\u2014cloning with gh, Conventional Commits, atomic staging, and guarded GitHub Actions for Rust/Python/TypeScript\u2014so work matches his standa",
+  "description": "Use when aligning with Georgios’s default Git/GitHub conventions—cloning with gh, Conventional Commits, atomic staging, and guarded GitHub Actions for Rust/Python/TypeScript—so work matches his standa",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:29.947838Z"
+  "downloaded_at": "2026-01-06T08:58:29.947838Z",
+  "github_path": ".codex/skills/preferences",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/phrazzld/claude-config",
   "downloaded_at": "2026-01-14T03:03:39.079571Z",
   "dir_name": "ai-llm-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ai-llm-development",
+  "github_branch": "main"
 }

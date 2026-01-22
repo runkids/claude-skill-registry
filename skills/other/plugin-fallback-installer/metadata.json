@@ -5,5 +5,7 @@
   "source": "github.com/camoneart/claude-code",
   "downloaded_at": "2026-01-22T02:26:15.129029Z",
   "dir_name": "plugin-fallback-installer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plugin-fallback-installer",
+  "github_branch": "main"
 }

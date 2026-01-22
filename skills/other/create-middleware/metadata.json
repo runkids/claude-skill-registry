@@ -5,5 +5,7 @@
   "source": "github.com/madooei/backend-template",
   "downloaded_at": "2026-01-22T03:36:23.695840Z",
   "dir_name": "create-middleware",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/create-middleware",
+  "github_branch": "main"
 }

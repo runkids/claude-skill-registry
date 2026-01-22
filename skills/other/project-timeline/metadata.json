@@ -5,5 +5,7 @@
   "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE",
   "downloaded_at": "2026-01-22T02:16:30.911497Z",
   "dir_name": "project-timeline",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/project-timeline",
+  "github_branch": "main"
 }

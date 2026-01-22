@@ -8,5 +8,7 @@
     "dotfiles"
   ],
   "stars": 0,
-  "dir_name": "managing-dotfiles"
+  "dir_name": "managing-dotfiles",
+  "github_path": ".claude/skills/managing-dotfiles",
+  "github_branch": "main"
 }

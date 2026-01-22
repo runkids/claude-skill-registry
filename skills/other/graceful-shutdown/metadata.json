@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:25.870638Z",
   "dir_name": "graceful-shutdown",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/graceful-shutdown",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "field-extraction-parsing"
+  "dir_name": "field-extraction-parsing",
+  "github_path": "skills/field-extraction-parsing",
+  "github_branch": "main"
 }

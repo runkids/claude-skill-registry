@@ -5,5 +5,7 @@
   "source": "github.com/Brownbull/khujta_ai_business",
   "downloaded_at": "2026-01-22T02:52:28.960381Z",
   "dir_name": "executive",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/executive",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Embassy-of-the-Free-Mind/sourcelibrary-v2",
   "downloaded_at": "2026-01-22T03:36:33.535664Z",
   "dir_name": "qa-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/qa-audit",
+  "github_branch": "main"
 }

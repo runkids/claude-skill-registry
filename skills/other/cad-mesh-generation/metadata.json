@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-19T03:34:40.342582Z",
   "dir_name": "cad-mesh-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/programming/cad-mesh-generation",
+  "github_branch": "main"
 }

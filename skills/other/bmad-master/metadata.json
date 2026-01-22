@@ -5,5 +5,7 @@
   "source": "github.com/co-cddo/innovation-sandbox-on-aws-deployer",
   "downloaded_at": "2026-01-14T01:56:25.885844Z",
   "dir_name": "bmad-master",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bmad/core/bmad-master",
+  "github_branch": "main"
 }

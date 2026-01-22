@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "AWS Kiro specification patterns and synchronization. Use when working with Kiro IDE, syncing requirements.md/design.md/tasks.md files, or configuring steering files for AI agent context.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:11.314364Z"
+  "downloaded_at": "2026-01-06T09:00:11.314364Z",
+  "github_path": "plugins/spec-driven-development/skills/kiro-integration",
+  "github_branch": "main"
 }

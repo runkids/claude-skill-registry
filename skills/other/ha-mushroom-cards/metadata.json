@@ -5,5 +5,7 @@
   "source": "github.com/dawiddutoit/custom-claude",
   "downloaded_at": "2026-01-22T03:15:40.980986Z",
   "dir_name": "ha-mushroom-cards",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ha-mushroom-cards",
+  "github_branch": "main"
 }

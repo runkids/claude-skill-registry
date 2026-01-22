@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:52.856996Z",
   "dir_name": "pdf-extractor",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/addons/doc-intelligence/skills/pdf-extractor",
+  "github_branch": "main"
 }

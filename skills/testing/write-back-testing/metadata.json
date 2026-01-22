@@ -8,5 +8,7 @@
     "back",
     "testing"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/write-back-testing",
+  "github_branch": "main"
 }

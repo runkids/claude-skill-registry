@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Classification model evaluation and metrics calculation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:49.385242Z"
+  "downloaded_at": "2026-01-06T09:08:49.385242Z",
+  "github_path": "skills/analytics/td-classification-evaluator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:13.216223Z",
   "dir_name": "vercel-known-pitfalls",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/vercel-pack/skills/vercel-known-pitfalls",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "diary-writer",
   "repo": "nnsi/hono-practice",
   "category": "development",
-  "description": "/docs/diary/\u306b\u65e5\u8a18\u3092\u66f8\u304f\u3002",
+  "description": "/docs/diary/に日記を書く。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:36.498660Z"
+  "downloaded_at": "2026-01-06T09:02:36.498660Z",
+  "github_path": ".claude/skills/write-diary",
+  "github_branch": "main"
 }

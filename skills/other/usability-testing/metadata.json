@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:30.743716Z",
   "dir_name": "usability-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-research/usability-testing",
+  "github_branch": "main"
 }

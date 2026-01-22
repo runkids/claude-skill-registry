@@ -5,5 +5,7 @@
   "source": "github.com/creator-hian/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:40:47.054204Z",
   "dir_name": "unity-r3",
-  "category": "other"
+  "category": "other",
+  "github_path": "unity-plugin/skills/unity-r3",
+  "github_branch": "main"
 }

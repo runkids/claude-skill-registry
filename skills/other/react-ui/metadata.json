@@ -5,5 +5,7 @@
   "source": "github.com/surfdeeper/surfing-game",
   "downloaded_at": "2026-01-22T01:25:06.613349Z",
   "dir_name": "react-ui",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/react-ui",
+  "github_branch": "main"
 }

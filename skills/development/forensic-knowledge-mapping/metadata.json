@@ -9,5 +9,7 @@
     "mapping"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/forensic-knowledge-mapping",
+  "github_branch": "main"
 }

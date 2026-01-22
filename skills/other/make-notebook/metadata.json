@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:15.735435Z",
   "dir_name": "make-notebook",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/make_notebook",
+  "github_branch": "main"
 }

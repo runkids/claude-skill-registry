@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:56.349662Z",
   "dir_name": "miro-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/communication/miro-api",
+  "github_branch": "main"
 }

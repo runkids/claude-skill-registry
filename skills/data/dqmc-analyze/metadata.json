@@ -9,5 +9,7 @@
   ],
   "stars": 16,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "dqmc-analyze"
+  "dir_name": "dqmc-analyze",
+  "github_path": ".claude/skills/dqmc-analyze",
+  "github_branch": "main"
 }

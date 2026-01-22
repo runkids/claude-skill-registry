@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-14T03:53:04.383441Z",
   "dir_name": "ad-copy-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ad-copy-writer",
+  "github_branch": "main"
 }

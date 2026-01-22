@@ -5,5 +5,7 @@
   "source": "github.com/leonj1/external-claude-skills",
   "downloaded_at": "2026-01-21T01:00:53.454759Z",
   "dir_name": "code-searcher",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-searcher",
+  "github_branch": "main"
 }

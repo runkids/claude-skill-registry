@@ -7,5 +7,7 @@
     "codex",
     "advisor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/codex-advisor",
+  "github_branch": "main"
 }

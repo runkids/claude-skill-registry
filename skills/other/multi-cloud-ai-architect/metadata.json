@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:27.572792Z",
   "dir_name": "multi-cloud-ai-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/multi-cloud-ai-architect",
+  "github_branch": "main"
 }

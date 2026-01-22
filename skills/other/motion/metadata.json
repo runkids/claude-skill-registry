@@ -5,5 +5,7 @@
   "source": "github.com/stephanofer/finance-trackerv2",
   "downloaded_at": "2026-01-22T02:52:31.615179Z",
   "dir_name": "motion",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/motion",
+  "github_branch": "main"
 }

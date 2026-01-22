@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/SecOps-CLI-Guides",
   "downloaded_at": "2026-01-14T02:20:59.014088Z",
   "dir_name": "network-ports-reference",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/network-ports-reference",
+  "github_branch": "main"
 }

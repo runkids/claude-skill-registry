@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:54.512986Z",
   "dir_name": "budget-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": "budget-analyzer",
+  "github_branch": "main"
 }

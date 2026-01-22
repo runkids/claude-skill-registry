@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-design-system",
   "downloaded_at": "2026-01-14T03:12:02.069461Z",
   "dir_name": "plugin-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plugin-testing",
+  "github_branch": "main"
 }

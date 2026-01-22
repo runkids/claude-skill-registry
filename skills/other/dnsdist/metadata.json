@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-19T03:41:51.719465Z",
   "dir_name": "dnsdist",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills-templates/dnsdist",
+  "github_branch": "main"
 }

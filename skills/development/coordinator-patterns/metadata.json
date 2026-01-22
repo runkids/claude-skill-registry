@@ -2,7 +2,9 @@
   "name": "coordinator-patterns",
   "repo": "penkzhou/swiss-army-knife-plugin",
   "category": "development",
-  "description": "master-coordinator \u548c review-coordinator \u5171\u4eab\u7684\u901a\u7528\u6a21\u5f0f\uff0c\u5305\u62ec Phase \u9a8c\u8bc1\u3001\u9519\u8bef\u5904\u7406\u3001TodoWrite \u7ba1\u7406\u548c\u72b6\u6001\u8bf4\u660e\u3002\u6240\u6709 coordinator agents \u5e94\u5f15\u7528\u6b64 skill \u4ee5\u4fdd\u6301\u4e00\u81f4\u6027\u3002",
+  "description": "master-coordinator 和 review-coordinator 共享的通用模式，包括 Phase 验证、错误处理、TodoWrite 管理和状态说明。所有 coordinator agents 应引用此 skill 以保持一致性。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:41.146133Z"
+  "downloaded_at": "2026-01-06T09:02:41.146133Z",
+  "github_path": "swiss-army-knife/skills/coordinator-patterns",
+  "github_branch": "main"
 }

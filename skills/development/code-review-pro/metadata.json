@@ -8,5 +8,7 @@
     "review",
     "pro"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "code-review-pro",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "scrapeninja"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "scrapeninja",
+  "github_branch": "main"
 }

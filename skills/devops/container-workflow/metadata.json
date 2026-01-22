@@ -7,5 +7,7 @@
     "container",
     "workflow"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/devcontainer-workflow",
+  "github_branch": "main"
 }

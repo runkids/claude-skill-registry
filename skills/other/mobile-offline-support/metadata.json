@@ -5,5 +5,7 @@
   "source": "github.com/secondsky/claude-skills",
   "downloaded_at": "2026-01-17T03:58:37.868417Z",
   "dir_name": "mobile-offline-support",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/mobile-offline-support/skills/mobile-offline-support",
+  "github_branch": "main"
 }

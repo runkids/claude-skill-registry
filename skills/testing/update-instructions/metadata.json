@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Update CLAUDE.md and AGENTS.md instruction files with smart merge. Preserves user customizations while updating SpecWeave sections. Use after plugin refresh, version upgrade, or when instruction files",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:10.506530Z"
+  "downloaded_at": "2026-01-06T08:58:10.506530Z",
+  "github_path": "plugins/specweave/skills/update-instructions",
+  "github_branch": "main"
 }

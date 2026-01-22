@@ -8,5 +8,7 @@
     "session",
     "start"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/sdv-session-start",
+  "github_branch": "main"
 }

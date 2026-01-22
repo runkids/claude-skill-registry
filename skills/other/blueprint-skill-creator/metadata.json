@@ -5,5 +5,7 @@
   "source": "github.com/mjunaidca/mjs-agent-skills",
   "downloaded_at": "2026-01-22T03:06:59.813803Z",
   "dir_name": "blueprint-skill-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/taskflow-vault/skills/engineering/blueprint-skill-creator",
+  "github_branch": "main"
 }

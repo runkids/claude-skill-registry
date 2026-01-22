@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Instruction set for enabling and operating the Spring Cache abstraction in Spring Boot when implementing application-level caching for performance-sensitive workloads.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.332188Z"
+  "downloaded_at": "2026-01-06T08:57:14.332188Z",
+  "github_path": "skills/spring-boot/spring-boot-cache",
+  "github_branch": "main"
 }

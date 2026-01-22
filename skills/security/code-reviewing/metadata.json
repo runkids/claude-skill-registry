@@ -8,5 +8,7 @@
     "reviewing"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/code-quality/skills/code-reviewing",
+  "github_branch": "main"
 }

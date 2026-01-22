@@ -10,5 +10,7 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "academic-writing-style"
+  "dir_name": "academic-writing-style",
+  "github_path": "plugins/product-development-suite/skills/academic-writing-style",
+  "github_branch": "main"
 }

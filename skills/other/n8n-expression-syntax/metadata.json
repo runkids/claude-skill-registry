@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:14.322742Z",
   "dir_name": "n8n-expression-syntax",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/n8n-expression-syntax",
+  "github_branch": "main"
 }

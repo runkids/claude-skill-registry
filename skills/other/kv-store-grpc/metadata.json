@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:34.585986Z",
   "dir_name": "kv-store-grpc",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/kv-store-grpc",
+  "github_branch": "main"
 }

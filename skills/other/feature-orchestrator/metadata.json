@@ -5,5 +5,7 @@
   "source": "github.com/WomenDefiningAI/claude-code-skills",
   "downloaded_at": "2026-01-19T03:52:07.681325Z",
   "dir_name": "feature-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/feature-orchestrator",
+  "github_branch": "main"
 }

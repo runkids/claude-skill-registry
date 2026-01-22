@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Design Thinking methodology for human-centered innovation. Covers the 5-phase IDEO/Stanford d.school approach (Empathize, Define, Ideate, Prototype, Test) with workshop facilitation and exercise templ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:58.808890Z"
+  "downloaded_at": "2026-01-06T08:59:58.808890Z",
+  "github_path": "plugins/business-analysis/skills/design-thinking",
+  "github_branch": "main"
 }

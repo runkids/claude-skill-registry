@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:42.720269Z",
   "dir_name": "pop-research-capture",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-research/skills/pop-research-capture",
+  "github_branch": "main"
 }

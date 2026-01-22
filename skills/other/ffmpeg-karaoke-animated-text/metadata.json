@@ -5,5 +5,7 @@
   "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
   "downloaded_at": "2026-01-14T01:09:24.388576Z",
   "dir_name": "ffmpeg-karaoke-animated-text",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ffmpeg-master/skills/ffmpeg-karaoke-animated-text",
+  "github_branch": "main"
 }

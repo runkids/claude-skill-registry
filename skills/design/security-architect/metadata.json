@@ -7,5 +7,7 @@
     "security",
     "architect"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/security-architect",
+  "github_branch": "main"
 }

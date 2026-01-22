@@ -6,5 +6,7 @@
   "tags": [
     "publish"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/publish",
+  "github_branch": "main"
 }

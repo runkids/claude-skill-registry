@@ -5,5 +5,7 @@
   "source": "github.com/Ramblurr/nix-devenv",
   "downloaded_at": "2026-01-22T04:06:42.323079Z",
   "dir_name": "clojure-babashka-cli",
-  "category": "other"
+  "category": "other",
+  "github_path": "prompts/skills/clojure-babashka-cli",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:55.156088Z",
   "dir_name": "trl-fine-tuning",
-  "category": "other"
+  "category": "other",
+  "github_path": "06-post-training/trl-fine-tuning",
+  "github_branch": "main"
 }

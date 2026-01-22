@@ -7,5 +7,7 @@
     "sdd"
   ],
   "stars": 3,
-  "dir_name": "sdd-pr"
+  "dir_name": "sdd-pr",
+  "github_path": "skills/sdd-pr",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "fine-tuning"
+  "dir_name": "fine-tuning",
+  "github_path": "skills/fine-tuning",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-21T03:48:20.199995Z",
   "dir_name": "antigravity-agent-manager-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-agent-manager-skill",
+  "github_branch": "main"
 }

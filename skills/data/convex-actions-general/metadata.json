@@ -9,5 +9,7 @@
     "general"
   ],
   "stars": 5,
-  "dir_name": "convex-actions-general"
+  "dir_name": "convex-actions-general",
+  "github_path": "convex-actions-general",
+  "github_branch": "main"
 }

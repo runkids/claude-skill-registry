@@ -2,7 +2,9 @@
   "name": "version-control-guidelines",
   "repo": "RevTechStudio/rts-plugins",
   "category": "development",
-  "description": "Git\u904b\u7528\u30ac\u30a4\u30c9\u30e9\u30a4\u30f3\u3001\u30d6\u30e9\u30f3\u30c1\u6226\u7565\u3001\u30b3\u30df\u30c3\u30c8\u30e1\u30c3\u30bb\u30fc\u30b8\uff08Conventional Commits\uff09\u3001\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u4f5c\u6210\u3001\u500b\u4eba\u958b\u767a\u3068\u30c1\u30fc\u30e0\u958b\u767a\u306e\u4f7f\u3044\u5206\u3051\u3092\u5b9a\u7fa9\u3059\u308b\u3002Git\u30b3\u30df\u30c3\u30c8\u4f5c\u6210\u6642\u3001\u30d6\u30e9\u30f3\u30c1\u4f5c\u6210\u6642\u3001PR\u4f5c\u6210\u6642\u3001\u307e\u305f\u306f\u30e6\u30fc\u30b6\u30fc\u304c\u30b3\u30df\u30c3\u30c8\u30e1\u30c3\u30bb\u30fc\u30b8\u3001\u30d6\u30e9\u30f3\u30c1\u6226\u7565\u3001\u30d0\u30fc\u30b8\u30e7\u30f3\u7ba1\u7406\u3001Conventional Commits\u3001Semantic Versioning\u306b\u8a00\u53ca\u3057\u305f\u969b\u306b\u4f7f\u7528\u3059\u308b\u3002",
+  "description": "Git運用ガイドライン、ブランチ戦略、コミットメッセージ（Conventional Commits）、プルリクエスト作成、個人開発とチーム開発の使い分けを定義する。Gitコミット作成時、ブランチ作成時、PR作成時、またはユーザーがコミットメッセージ、ブランチ戦略、バージョン管理、Conventional Commits、Semantic Versioningに言及した際に使用する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:52.460143Z"
+  "downloaded_at": "2026-01-06T09:07:52.460143Z",
+  "github_path": "rts-foundation/skills/version-control-guidelines",
+  "github_branch": "main"
 }

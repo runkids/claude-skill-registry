@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "data-cleaning"
+  "dir_name": "data-cleaning",
+  "github_path": "skills/data-cleaning",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:57.484302Z",
   "dir_name": "distance-calculator",
-  "category": "other"
+  "category": "other",
+  "github_path": "distance-calculator",
+  "github_branch": "main"
 }

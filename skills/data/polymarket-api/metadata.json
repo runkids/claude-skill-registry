@@ -8,5 +8,7 @@
     "api"
   ],
   "stars": 0,
-  "dir_name": "polymarket-api"
+  "dir_name": "polymarket-api",
+  "github_path": ".claude/skills/polymarket-api",
+  "github_branch": "main"
 }

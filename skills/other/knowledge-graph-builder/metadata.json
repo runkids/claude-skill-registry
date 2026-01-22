@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:02.912705Z",
   "dir_name": "knowledge-graph-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/knowledge-graph-builder",
+  "github_branch": "main"
 }

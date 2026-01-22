@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:11.692518Z",
   "dir_name": "worktree-coordination",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/worktree-coordination",
+  "github_branch": "main"
 }

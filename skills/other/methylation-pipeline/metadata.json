@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:51.776924Z",
   "dir_name": "methylation-pipeline",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/methylation-pipeline",
+  "github_branch": "main"
 }

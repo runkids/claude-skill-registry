@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when adding interaction testing to Storybook stories. Enables automated testing of component behavior, user interactions, and state changes directly in stories.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:09.058599Z"
+  "downloaded_at": "2026-01-06T08:57:09.058599Z",
+  "github_path": "jutsu/jutsu-storybook/skills/storybook-play-functions",
+  "github_branch": "main"
 }

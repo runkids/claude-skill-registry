@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:44.189168Z",
   "dir_name": "grafana-dashboard-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/02-devops-advanced/grafana-dashboard-creator",
+  "github_branch": "main"
 }

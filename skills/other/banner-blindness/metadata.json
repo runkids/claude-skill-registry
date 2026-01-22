@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:47.763351Z",
   "dir_name": "banner-blindness",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/perception/banner-blindness",
+  "github_branch": "main"
 }

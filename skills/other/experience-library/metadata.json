@@ -5,5 +5,7 @@
   "source": "github.com/dredd-us/seashells",
   "downloaded_at": "2026-01-22T01:30:16.767370Z",
   "dir_name": "experience-library",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/experience-library",
+  "github_branch": "main"
 }

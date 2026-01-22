@@ -7,5 +7,7 @@
     "quarterly",
     "connect"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "quarterly-connect",
+  "github_branch": "main"
 }

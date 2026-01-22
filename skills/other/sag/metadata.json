@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:35.463172Z",
   "dir_name": "sag",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/error-messages",
+  "github_branch": "main"
 }

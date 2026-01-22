@@ -6,5 +6,7 @@
   "tags": [
     "mongodb"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/mongodb",
+  "github_branch": "main"
 }

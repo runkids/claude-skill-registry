@@ -6,5 +6,7 @@
   "tags": [],
   "stars": 0,
   "source": "Unknown",
-  "dir_name": "create-agent-skill"
+  "dir_name": "create-agent-skill",
+  "github_path": "plugins/core/skills/create-agent-skills",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Recognize and capture reusable patterns, workflows, and domain knowledge from work sessions into new skills. Use when completing tasks that involve novel approaches repeated 2+ times, synthesizing com",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:16.714063Z"
+  "downloaded_at": "2026-01-06T08:59:16.714063Z",
+  "github_path": "learning-capture",
+  "github_branch": "main"
 }

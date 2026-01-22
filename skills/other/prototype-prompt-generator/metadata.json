@@ -5,5 +5,7 @@
   "source": "github.com/cexll/myclaude",
   "downloaded_at": "2026-01-21T01:04:08.681527Z",
   "dir_name": "prototype-prompt-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prototype-prompt-generator",
+  "github_branch": "main"
 }

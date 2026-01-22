@@ -5,5 +5,7 @@
   "source": "github.com/rjmurillo/ai-agents",
   "downloaded_at": "2026-01-22T04:17:13.304931Z",
   "dir_name": "research-and-incorporate",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/research-and-incorporate",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "xcode",
     "build"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "skills/xcode-build",
+  "github_branch": "main"
 }

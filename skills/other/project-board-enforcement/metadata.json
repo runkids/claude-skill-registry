@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:59.411409Z",
   "dir_name": "project-board-enforcement",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/project-board-enforcement",
+  "github_branch": "main"
 }

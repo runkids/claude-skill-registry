@@ -5,5 +5,7 @@
   "source": "github.com/CleanExpo/Unite-Hub",
   "downloaded_at": "2026-01-22T01:27:32.855870Z",
   "dir_name": "workspace-isolation-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/workspace-isolation-audit",
+  "github_branch": "main"
 }

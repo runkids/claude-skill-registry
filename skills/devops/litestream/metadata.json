@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "SQLite disaster recovery and streaming replication to cloud storage (S3, GCS, Azure, SFTP, NATS). Use this skill for configuring Litestream, deploying to cloud platforms, troubleshooting WAL replicati",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:23.665806Z"
+  "downloaded_at": "2026-01-08T03:30:23.665806Z",
+  "github_path": ".gemini/skills/litestream",
+  "github_branch": "main"
 }

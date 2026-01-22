@@ -9,5 +9,7 @@
     "findings"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/apply-all-findings",
+  "github_branch": "main"
 }

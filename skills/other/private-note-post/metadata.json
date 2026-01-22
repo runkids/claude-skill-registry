@@ -5,5 +5,7 @@
   "source": "github.com/takish/dotfiles",
   "downloaded_at": "2026-01-20T02:43:49.302328Z",
   "dir_name": "private-note-post",
-  "category": "other"
+  "category": "other",
+  "github_path": "dot_claude/skills/private_note-post",
+  "github_branch": "main"
 }

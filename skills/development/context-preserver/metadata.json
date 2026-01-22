@@ -7,5 +7,7 @@
     "context",
     "preserver"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/context-preserver",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "release",
     "notes"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "skills/writing-app-release-notes",
+  "github_branch": "main"
 }

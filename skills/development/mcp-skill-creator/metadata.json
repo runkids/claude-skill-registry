@@ -8,5 +8,7 @@
     "skill",
     "creator"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "mcp-skill-creator",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build software using isolated container-use environments with SpecKit workflow. Use when user needs to build a feature, application, or complex task that benefits from spec-driven development. Keyword",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:29.524833Z"
+  "downloaded_at": "2026-01-06T09:06:29.524833Z",
+  "github_path": ".claude/skills/dagger_spec_skill",
+  "github_branch": "main"
 }

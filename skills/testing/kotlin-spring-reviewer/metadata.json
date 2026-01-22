@@ -8,5 +8,7 @@
     "spring",
     "reviewer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/kotlin-spring-reviewer",
+  "github_branch": "main"
 }

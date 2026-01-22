@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Expert infrastructure design including networking, compute, storage, and operations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:48.966849Z"
+  "downloaded_at": "2026-01-06T09:06:48.966849Z",
+  "github_path": ".claude/skills/architecture/infrastructure-expert",
+  "github_branch": "main"
 }

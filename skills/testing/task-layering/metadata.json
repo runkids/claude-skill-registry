@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Breaks down specs into complexity-stratified tasks. Use when organizing tasks, assigning work to agents, or when user mentions task layering, task stratification, or parallel task execution.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:26.536932Z"
+  "downloaded_at": "2026-01-06T09:09:26.536932Z",
+  "github_path": ".archive/agents/skills/task-layering",
+  "github_branch": "main"
 }

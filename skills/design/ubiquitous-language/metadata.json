@@ -2,7 +2,9 @@
   "name": "ubiquitous-language",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u30c9\u30e1\u30a4\u30f3\u99c6\u52d5\u8a2d\u8a08\u306b\u304a\u3051\u308b\u30e6\u30d3\u30ad\u30bf\u30b9\u8a00\u8a9e\u306e\u78ba\u7acb\u3068\u9069\u7528\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30c9\u30e1\u30a4\u30f3\u30a8\u30ad\u30b9\u30d1\u30fc\u30c8\u3068\u958b\u767a\u8005\u304c\u5171\u6709\u3059\u308b\u53b3\u5bc6\u306a\u8a9e\u5f59\u4f53\u7cfb\u3092\u69cb\u7bc9\u3057\u3001\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u306e\u9f5f\u9f6c\u3092\u9632\u3050\u3002Anchors:\u2022 Domain-Driven Design (Eric Evans) / \u9069\u7528: \u30e6\u30d3\u30ad\u30bf\u30b9\u8a00\u8a9e\u306e\u539f\u5247\u3068\u5b9f\u8df5 / \u76ee\u7684: \u30b3\u30fc\u30c9\u3068\u30c9\u30e1\u30a4\u30f3\u306e\u4e00\u8cab\u6027\u78ba\u4fdd\u2022 Bounded Context / \u9069\u7528: \u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u5883\u754c\u3067\u306e",
+  "description": "ドメイン駆動設計におけるユビキタス言語の確立と適用を専門とするスキル。ドメインエキスパートと開発者が共有する厳密な語彙体系を構築し、コミュニケーションの齟齬を防ぐ。Anchors:• Domain-Driven Design (Eric Evans) / 適用: ユビキタス言語の原則と実践 / 目的: コードとドメインの一貫性確保• Bounded Context / 適用: コンテキスト境界での",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.813857Z"
+  "downloaded_at": "2026-01-06T09:00:45.813857Z",
+  "github_path": "docs/99-claude/skills/ubiquitous-language",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "pdf",
     "extractor"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "my-custom-plugin/skills/pdf-extractor",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "builder"
   ],
   "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-integration-builder",
+  "github_branch": "main"
 }

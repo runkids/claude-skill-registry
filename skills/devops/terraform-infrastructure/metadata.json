@@ -7,5 +7,7 @@
     "terraform",
     "infrastructure"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/terraform-infrastructure",
+  "github_branch": "main"
 }

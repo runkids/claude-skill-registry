@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:14.588992Z",
   "dir_name": "threejs-graphics-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/threejs-graphics-optimizer",
+  "github_branch": "main"
 }

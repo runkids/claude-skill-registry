@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Performance profiling, optimization techniques, and benchmarking methodology. Use when profiling code, optimizing bottlenecks, benchmarking implementations, analyzing memory usage, improving latency, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:37.455503Z"
+  "downloaded_at": "2026-01-06T08:59:37.455503Z",
+  "github_path": "baselayer/skills/performance-engineering",
+  "github_branch": "main"
 }

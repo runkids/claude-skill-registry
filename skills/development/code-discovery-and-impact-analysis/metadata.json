@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Discover project patterns and find all code usages before making changes. Use BEFORE renaming, refactoring, moving files, changing signatures, or adding features to ensure completeness and follow proj",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:03.925793Z"
+  "downloaded_at": "2026-01-06T09:09:03.925793Z",
+  "github_path": "claude/skills/code-discovery-and-impact-analysis",
+  "github_branch": "main"
 }

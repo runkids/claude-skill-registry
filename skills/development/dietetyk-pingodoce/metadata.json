@@ -2,7 +2,9 @@
   "name": "dietetyk-pingodoce",
   "repo": "zewelor/pingodoce",
   "category": "development",
-  "description": "Konsultant dietetyczny analizuj\u0105cy zakupy Pingo Doce. U\u017cywaj gdy u\u017cytkownik pyta o diet\u0119, zdrowie, od\u017cywianie, zakupy spo\u017cywcze, blind spots \u017cywieniowe, lub chce porady dietetycznej. Automatycznie ana",
+  "description": "Konsultant dietetyczny analizujący zakupy Pingo Doce. Używaj gdy użytkownik pyta o dietę, zdrowie, odżywianie, zakupy spożywcze, blind spots żywieniowe, lub chce porady dietetycznej. Automatycznie ana",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:24.087159Z"
+  "downloaded_at": "2026-01-06T09:10:24.087159Z",
+  "github_path": ".claude/skills/dietetyk",
+  "github_branch": "main"
 }

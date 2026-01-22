@@ -5,5 +5,7 @@
   "description": "Security intelligence for code analysis. Detects SQL injection, XSS, CSRF, authentication issues, crypto failures, and more. Actions: scan, analyze, fix, audit, check, review, secure, validate, saniti",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:45.359595Z",
-  "dir_name": "vibe-security"
+  "dir_name": "vibe-security",
+  "github_path": "cli/assets/.claude/skills/vibe-security",
+  "github_branch": "main"
 }

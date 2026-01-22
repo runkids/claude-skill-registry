@@ -5,5 +5,7 @@
   "source": "github.com/edwinhu/workflows",
   "downloaded_at": "2026-01-14T01:24:10.432043Z",
   "dir_name": "lseg-data",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/lseg-data",
+  "github_branch": "main"
 }

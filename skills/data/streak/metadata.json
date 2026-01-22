@@ -7,5 +7,7 @@
     "streak"
   ],
   "stars": 8,
-  "dir_name": "streak"
+  "dir_name": "streak",
+  "github_path": "streak",
+  "github_branch": "main"
 }

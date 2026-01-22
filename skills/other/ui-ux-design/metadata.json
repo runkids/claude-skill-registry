@@ -5,5 +5,7 @@
   "source": "github.com/samhvw8/dot-claude",
   "downloaded_at": "2026-01-22T03:35:43.754899Z",
   "dir_name": "ui-ux-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ui-ux-design",
+  "github_branch": "main"
 }

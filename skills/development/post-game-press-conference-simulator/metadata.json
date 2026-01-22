@@ -10,5 +10,7 @@
     "conference",
     "simulator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "post-game-press-conference-simulator",
+  "github_branch": "main"
 }

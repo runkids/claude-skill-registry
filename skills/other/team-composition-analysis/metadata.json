@@ -5,5 +5,7 @@
   "source": "github.com/pelan05/vscode_agents_folder",
   "downloaded_at": "2026-01-22T01:14:47.956048Z",
   "dir_name": "team-composition-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/team-composition-analysis",
+  "github_branch": "main"
 }

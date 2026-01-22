@@ -5,5 +5,7 @@
   "source": "github.com/monicajeon28/GMcruise",
   "downloaded_at": "2026-01-22T01:14:51.881848Z",
   "dir_name": "monorepo-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/monorepo-architect",
+  "github_branch": "main"
 }

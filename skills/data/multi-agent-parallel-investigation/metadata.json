@@ -10,5 +10,7 @@
     "investigation"
   ],
   "stars": 0,
-  "dir_name": "multi-agent-parallel-investigation"
+  "dir_name": "multi-agent-parallel-investigation",
+  "github_path": "skills/multi-agent-parallel-investigation",
+  "github_branch": "main"
 }

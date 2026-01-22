@@ -8,5 +8,7 @@
     "daemon"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/playwright-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin",
   "downloaded_at": "2026-01-22T03:00:33.579068Z",
   "dir_name": "automating-mail",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/automating-mac-apps-plugin/skills/automating-mail",
+  "github_branch": "main"
 }

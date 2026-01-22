@@ -5,5 +5,7 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:10.335334Z",
   "dir_name": "technical-annotator",
-  "category": "other"
+  "category": "other",
+  "github_path": "user-story-system/.claude/skills/technical-annotator",
+  "github_branch": "main"
 }

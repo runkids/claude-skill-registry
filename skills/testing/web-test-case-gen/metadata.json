@@ -9,5 +9,7 @@
     "case",
     "gen"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "web-test-case-gen",
+  "github_branch": "main"
 }

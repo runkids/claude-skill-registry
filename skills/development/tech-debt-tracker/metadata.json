@@ -8,5 +8,7 @@
     "debt",
     "tracker"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/tech-debt-tracker",
+  "github_branch": "main"
 }

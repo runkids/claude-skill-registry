@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Choose and implement Supabase validated architecture blueprints for different scales.Use when designing new Supabase integrations, choosing between monolith/service/microservicearchitectures, or plann",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:50.041765Z"
+  "downloaded_at": "2026-01-06T08:55:50.041765Z",
+  "github_path": "plugins/saas-packs/supabase-pack/skills/supabase-architecture-variants",
+  "github_branch": "main"
 }

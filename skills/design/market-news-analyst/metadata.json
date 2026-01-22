@@ -8,5 +8,7 @@
     "news",
     "analyst"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/market-news-analyst",
+  "github_branch": "main"
 }

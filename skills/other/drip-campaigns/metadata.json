@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:41.391515Z",
   "dir_name": "drip-campaigns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/email-marketing/skills/drip-campaigns",
+  "github_branch": "main"
 }

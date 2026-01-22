@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-plugin",
   "downloaded_at": "2026-01-22T03:54:21.486875Z",
   "dir_name": "lemonsqueezy",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/goodvibes/skills/webdev/skills/lemonsqueezy",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/sgcarstrends/sgcarstrends",
   "downloaded_at": "2026-01-22T02:24:54.627936Z",
   "dir_name": "component-tester",
-  "category": "other"
+  "category": "other",
+  "github_path": "apps/web/.claude/skills/component-tester",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Comprehensive testing patterns for Spring Boot applications including unit, integration, slice, and container-based testing with JUnit 5, Mockito, Testcontainers, and performance optimization. Use whe",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.541674Z"
+  "downloaded_at": "2026-01-06T08:57:14.541674Z",
+  "github_path": "skills/spring-boot/spring-boot-test-patterns",
+  "github_branch": "main"
 }

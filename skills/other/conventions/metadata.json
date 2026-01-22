@@ -5,5 +5,7 @@
   "source": "github.com/Mineru98/skills-store",
   "downloaded_at": "2026-01-22T04:05:58.740702Z",
   "dir_name": "conventions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/conventions",
+  "github_branch": "main"
 }

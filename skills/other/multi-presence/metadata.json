@@ -5,5 +5,7 @@
   "source": "github.com/SimHacker/moollm",
   "downloaded_at": "2026-01-22T01:07:10.834174Z",
   "dir_name": "multi-presence",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/multi-presence",
+  "github_branch": "main"
 }

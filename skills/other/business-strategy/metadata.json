@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:31.443713Z",
   "dir_name": "business-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/business-strategy",
+  "github_branch": "main"
 }

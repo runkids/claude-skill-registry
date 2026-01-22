@@ -5,5 +5,7 @@
   "source": "github.com/gabrielkuettel/vibegallery",
   "downloaded_at": "2026-01-21T01:19:52.805673Z",
   "dir_name": "algorand-typescript",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/algorand-typescript",
+  "github_branch": "main"
 }

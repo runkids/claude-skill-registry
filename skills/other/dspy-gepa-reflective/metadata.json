@@ -5,5 +5,7 @@
   "source": "github.com/OmidZamani/dspy-skills",
   "downloaded_at": "2026-01-22T02:16:25.590337Z",
   "dir_name": "dspy-gepa-reflective",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dspy-gepa-reflective",
+  "github_branch": "main"
 }

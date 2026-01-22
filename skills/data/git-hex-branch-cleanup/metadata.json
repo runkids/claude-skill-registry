@@ -10,5 +10,7 @@
     "cleanup"
   ],
   "stars": 0,
-  "dir_name": "git-hex-branch-cleanup"
+  "dir_name": "git-hex-branch-cleanup",
+  "github_path": "skills/git-hex-branch-cleanup",
+  "github_branch": "main"
 }

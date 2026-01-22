@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Creates comprehensive permission tests ensuring RBAC doesn't regress with test matrices, CI gating, and authorization coverage. Use for \"RBAC testing\", \"permission tests\", \"authorization testing\", or ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:09.191480Z"
+  "downloaded_at": "2026-01-06T09:01:09.191480Z",
+  "github_path": "templates/security/rbac-policy-tester",
+  "github_branch": "main"
 }

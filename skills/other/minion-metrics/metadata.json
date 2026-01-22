@@ -5,5 +5,7 @@
   "source": "github.com/felixmanojh/minions",
   "downloaded_at": "2026-01-14T02:52:12.972905Z",
   "dir_name": "minion-metrics",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/minion-metrics",
+  "github_branch": "main"
 }

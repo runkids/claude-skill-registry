@@ -5,5 +5,7 @@
   "source": "github.com/adrianwedd/lemonsqueezy-claude-skills",
   "downloaded_at": "2026-01-22T02:06:14.111571Z",
   "dir_name": "refund-order",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/refund-order",
+  "github_branch": "main"
 }

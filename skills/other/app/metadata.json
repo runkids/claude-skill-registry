@@ -5,5 +5,7 @@
   "source": "github.com/bitwikiorg/skills.md",
   "downloaded_at": "2026-01-22T01:14:58.143405Z",
   "dir_name": "app",
-  "category": "other"
+  "category": "other",
+  "github_path": "sources/vercel/rendering_animate_svg_wrapper",
+  "github_branch": "main"
 }

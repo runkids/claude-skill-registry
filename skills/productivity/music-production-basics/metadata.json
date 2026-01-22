@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Music production expert for recording, mixing, mastering, and DAW workflows",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:18.645639Z"
+  "downloaded_at": "2026-01-06T09:00:18.645639Z",
+  "github_path": "skills/creative/music-production-basics",
+  "github_branch": "main"
 }

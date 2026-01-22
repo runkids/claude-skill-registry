@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "brand-guide"
+  "dir_name": "brand-guide",
+  "github_path": "skills/brand-guide",
+  "github_branch": "main"
 }

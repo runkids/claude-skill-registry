@@ -8,5 +8,7 @@
     "release",
     "notes"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/write-release-notes",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Diff-aware guardrail checker for Fear-of-Falling (FOF) changes; fails closed on raw data edits, Kxx intro/req_cols mismatches, and output discipline risks.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:21.787201Z",
-  "dir_name": "fof-preflight"
+  "dir_name": "fof-preflight",
+  "github_path": ".codex/skills/fof-preflight",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/seanchatmangpt/ggen",
   "downloaded_at": "2026-01-22T03:08:33.148512Z",
   "dir_name": "bb80-specification-closure",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bb80-specification-closure",
+  "github_branch": "main"
 }

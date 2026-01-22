@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:11.969835Z",
   "dir_name": "check-updates",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-plugin/skills/check-updates",
+  "github_branch": "main"
 }

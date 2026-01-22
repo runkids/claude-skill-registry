@@ -5,5 +5,7 @@
   "source": "github.com/gabrielkuettel/vibegallery",
   "downloaded_at": "2026-01-21T01:19:53.417181Z",
   "dir_name": "implement-arc-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/implement-arc-standards",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
     "engineer"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/DEPRECATED/agent-machine-learning-engineer",
+  "github_branch": "main"
 }

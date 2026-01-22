@@ -5,5 +5,7 @@
   "source": "github.com/jonit-dev/pixelperfect",
   "downloaded_at": "2026-01-21T01:34:48.681000Z",
   "dir_name": "supabase-migrations",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/supabase-migrations",
+  "github_branch": "main"
 }

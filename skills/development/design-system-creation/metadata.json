@@ -8,5 +8,7 @@
     "system",
     "creation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/design-system-creation",
+  "github_branch": "main"
 }

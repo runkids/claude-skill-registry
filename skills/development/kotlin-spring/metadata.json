@@ -7,5 +7,7 @@
     "kotlin",
     "spring"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/kotlin-spring",
+  "github_branch": "main"
 }

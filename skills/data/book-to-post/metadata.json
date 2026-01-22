@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "book-to-post"
+  "dir_name": "book-to-post",
+  "github_path": ".claude/skills/book-to-post",
+  "github_branch": "main"
 }

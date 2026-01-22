@@ -8,5 +8,7 @@
     "markdown"
   ],
   "stars": 0,
-  "dir_name": "web-to-markdown"
+  "dir_name": "web-to-markdown",
+  "github_path": "web-to-markdown",
+  "github_branch": "main"
 }

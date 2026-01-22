@@ -5,5 +5,7 @@
   "source": "github.com/jscraik/SkillsInspector",
   "downloaded_at": "2026-01-20T03:28:30.266383Z",
   "dir_name": "inner",
-  "category": "other"
+  "category": "other",
+  "github_path": "Tests/SkillsCoreTests/Fixtures/nested/inner",
+  "github_branch": "main"
 }

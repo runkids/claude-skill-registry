@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Best practices when developing in Ruby codebases",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:08.711659Z"
+  "downloaded_at": "2026-01-06T09:07:08.711659Z",
+  "github_path": "plugins/dotfiles/skills/programming-ruby",
+  "github_branch": "main"
 }

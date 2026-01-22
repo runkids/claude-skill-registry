@@ -8,5 +8,7 @@
     "chart",
     "patterns"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "claude_ctx_py/assets/skills/helm-chart-patterns",
+  "github_branch": "main"
 }

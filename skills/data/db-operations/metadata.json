@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "db-operations"
+  "dir_name": "db-operations",
+  "github_path": ".claude/skills/db-operations",
+  "github_branch": "main"
 }

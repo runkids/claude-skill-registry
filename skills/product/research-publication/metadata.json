@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Prepare research outputs for publication with compliance to venue rules, evidence integrity, and confidence ceilings.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:49.353410Z"
+  "downloaded_at": "2026-01-06T08:58:49.353410Z",
+  "github_path": "skills/research/research-publication",
+  "github_branch": "main"
 }

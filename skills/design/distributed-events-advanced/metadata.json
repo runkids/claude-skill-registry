@@ -9,5 +9,7 @@
     "advanced"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/distributed-events-advanced",
+  "github_branch": "main"
 }

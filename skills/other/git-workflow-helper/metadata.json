@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:37.274943Z",
   "dir_name": "git-workflow-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/git-workflow-helper",
+  "github_branch": "main"
 }

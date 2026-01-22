@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:04.982328Z",
   "dir_name": "az-cli-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/az-cli-ops",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "netlify"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "astro-supabase-netlify",
+  "github_branch": "main"
 }

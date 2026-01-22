@@ -5,5 +5,7 @@
   "source": "github.com/ScientiaCapital/skills",
   "downloaded_at": "2026-01-19T03:08:03.549266Z",
   "dir_name": "langgraph-agents-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "active/langgraph-agents-skill",
+  "github_branch": "main"
 }

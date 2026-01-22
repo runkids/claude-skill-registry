@@ -2,7 +2,9 @@
   "name": "seo-auditor",
   "repo": "huifer/claude-code-seo",
   "category": "marketing",
-  "description": "\u5bf9\u6574\u4e2a\u9879\u76ee\u8fdb\u884c\u5168\u9762 SEO \u5ba1\u8ba1\uff0c\u626b\u63cf\u6240\u6709\u9875\u9762\u548c\u7ec4\u4ef6\uff0c\u751f\u6210\u4f18\u5148\u7ea7\u6392\u5e8f\u7684\u95ee\u9898\u5217\u8868\u548c\u4fee\u590d\u5efa\u8bae\u3002\u5305\u62ec\u6280\u672f SEO\u3001\u5185\u5bb9 SEO\u3001E-E-A-T \u6743\u5a01\u6027\u3001\u5185\u5bb9\u7b56\u7565\u548c\u6027\u80fd\u76f8\u5173\u5efa\u8bae\u3002\u63d0\u4f9b 0-100 \u5206\u7684 SEO \u8bc4\u5206\u7cfb\u7edf\uff086 \u4e2a\u7ef4\u5ea6\uff09\u3002\u652f\u6301\u4e2d\u82f1\u6587\u53cc\u8bed\u3002",
+  "description": "对整个项目进行全面 SEO 审计，扫描所有页面和组件，生成优先级排序的问题列表和修复建议。包括技术 SEO、内容 SEO、E-E-A-T 权威性、内容策略和性能相关建议。提供 0-100 分的 SEO 评分系统（6 个维度）。支持中英文双语。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:41.555665Z"
+  "downloaded_at": "2026-01-06T09:10:41.555665Z",
+  "github_path": "skills/seo-auditor",
+  "github_branch": "main"
 }

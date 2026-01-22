@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:32.186002Z",
   "dir_name": "testing-core",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/testing-core",
+  "github_branch": "main"
 }

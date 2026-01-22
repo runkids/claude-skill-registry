@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:23.677407Z",
   "dir_name": "font-pairing-suggester",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/talk-to-slidev-workflow/.claude/skills/font-pairing-suggester",
+  "github_branch": "main"
 }

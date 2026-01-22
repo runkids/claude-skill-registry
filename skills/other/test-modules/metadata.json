@@ -5,5 +5,7 @@
   "source": "github.com/dudusoar/sdr-sentiment-analysis",
   "downloaded_at": "2026-01-22T00:53:47.262548Z",
   "dir_name": "test-modules",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/test-modules",
+  "github_branch": "main"
 }

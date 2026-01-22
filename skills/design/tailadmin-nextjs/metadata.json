@@ -7,5 +7,7 @@
     "tailadmin",
     "nextjs"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "tailadmin-nextjs",
+  "github_branch": "main"
 }

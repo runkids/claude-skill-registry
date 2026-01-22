@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:02:01.261683Z",
   "dir_name": "dataverse-create-schema",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dataverse-create-schema",
+  "github_branch": "main"
 }

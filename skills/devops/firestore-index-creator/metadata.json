@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Firestore Index Creator - Auto-activating skill for GCP Skills.Triggers on: firestore index creator, firestore index creatorPart of the GCP Skills skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:11.614775Z"
+  "downloaded_at": "2026-01-06T08:56:11.614775Z",
+  "github_path": "planned-skills/generated/14-gcp-skills/firestore-index-creator",
+  "github_branch": "main"
 }

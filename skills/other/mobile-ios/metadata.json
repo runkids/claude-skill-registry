@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:27.083310Z",
   "dir_name": "mobile-ios",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mobile-ios",
+  "github_branch": "main"
 }

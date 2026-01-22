@@ -2,7 +2,9 @@
   "name": "server-actions-and-routes",
   "repo": "shoma-endo/industry-specific-mc-training",
   "category": "development",
-  "description": "Next.js App Router \u306b\u304a\u3051\u308b Server Actions \u3068 Route Handlers \u306e\u4f7f\u3044\u5206\u3051\u3001\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3001\u304a\u3088\u3073\u5b9f\u88c5\u898f\u7d04\u3002",
+  "description": "Next.js App Router における Server Actions と Route Handlers の使い分け、セキュリティ、および実装規約。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:36.841618Z"
+  "downloaded_at": "2026-01-06T09:10:36.841618Z",
+  "github_path": ".claude/skills/server-actions-and-routes",
+  "github_branch": "main"
 }

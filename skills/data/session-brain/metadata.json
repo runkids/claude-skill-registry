@@ -8,5 +8,7 @@
     "brain"
   ],
   "stars": 0,
-  "dir_name": "session-brain"
+  "dir_name": "session-brain",
+  "github_path": ".claude/skills/session-brain",
+  "github_branch": "main"
 }

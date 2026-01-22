@@ -8,5 +8,7 @@
     "doc",
     "gen"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/llm-doc-gen",
+  "github_branch": "main"
 }

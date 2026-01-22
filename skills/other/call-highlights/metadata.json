@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:41.458490Z",
   "dir_name": "call-highlights",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sales-coaching/skills/call-highlights",
+  "github_branch": "main"
 }

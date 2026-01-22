@@ -1,5 +1,7 @@
 {
   "name": "marketing-demand-acquisition",
   "repo": "alirezarezvani/claude-skills",
-  "category": "marketing"
+  "category": "marketing",
+  "github_path": "marketing-skill/marketing-demand-acquisition",
+  "github_branch": "main"
 }

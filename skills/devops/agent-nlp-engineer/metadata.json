@@ -9,5 +9,7 @@
     "engineer"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/DEPRECATED/agent-nlp-engineer",
+  "github_branch": "main"
 }

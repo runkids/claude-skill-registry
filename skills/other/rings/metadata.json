@@ -5,5 +5,7 @@
   "source": "github.com/parcadei/Continuous-Claude-v3",
   "downloaded_at": "2026-01-22T03:23:55.370380Z",
   "dir_name": "rings",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/math/abstract-algebra/rings",
+  "github_branch": "main"
 }

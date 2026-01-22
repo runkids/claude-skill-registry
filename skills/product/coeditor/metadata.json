@@ -6,5 +6,7 @@
   "tags": [
     "coeditor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "coeditor",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Perform GO and KEGG functional enrichment using HOMER from genomic regions (BED/narrowPeak/broadPeak) or gene lists, and produce R-based barplot/dotplot visualizations. Use this skill when you want to",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.016455Z"
+  "downloaded_at": "2026-01-06T09:00:35.016455Z",
+  "github_path": "11_toolBased.functional-enrichment",
+  "github_branch": "main"
 }

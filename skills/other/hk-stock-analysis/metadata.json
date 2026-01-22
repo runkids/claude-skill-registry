@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:19.934155Z",
   "dir_name": "hk-stock-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/stock-trader-workflow/.claude/skills/hk-stock-analysis",
+  "github_branch": "main"
 }

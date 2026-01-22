@@ -5,5 +5,7 @@
   "source": "github.com/pr-pm/prpm",
   "downloaded_at": "2026-01-22T04:04:41.697001Z",
   "dir_name": "droid-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/cli/test-fixtures/integration/batch-2-agents/files/droid-skill",
+  "github_branch": "main"
 }

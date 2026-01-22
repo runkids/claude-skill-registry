@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:03.811857Z",
   "dir_name": "react-page-scaffolder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/react-page-scaffolder",
+  "github_branch": "main"
 }

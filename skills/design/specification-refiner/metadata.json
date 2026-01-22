@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Systematic analysis and refinement of specifications, requirements, architecture designs, and project plans. Use when the user wants to identify gaps, weaknesses, inefficiencies, or complications in a",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:25.815878Z"
+  "downloaded_at": "2026-01-06T09:03:25.815878Z",
+  "github_path": "skills/specification-refiner",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:10.188556Z",
   "dir_name": "deepgram-sdk-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/deepgram-pack/skills/deepgram-sdk-patterns",
+  "github_branch": "main"
 }

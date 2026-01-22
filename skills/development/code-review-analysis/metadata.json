@@ -8,5 +8,7 @@
     "review",
     "analysis"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/code-review-analysis",
+  "github_branch": "main"
 }

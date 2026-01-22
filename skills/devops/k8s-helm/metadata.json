@@ -7,5 +7,7 @@
     "k8s",
     "helm"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/k8s-helm",
+  "github_branch": "main"
 }

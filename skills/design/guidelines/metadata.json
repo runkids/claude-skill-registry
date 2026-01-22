@@ -2,7 +2,9 @@
   "name": "guidelines",
   "repo": "cna-bootcamp/aiguide",
   "category": "design",
-  "description": "MVP \uc8fc\uc81c\uc640 \uace0\uac1d \uc720\ud615\uc744 \ubc14\ud0d5\uc73c\ub85c \ud504\ub85c\uc81d\ud2b8 \ud300 \uad6c\uc131 \ubc0f \ud611\uc5c5 \uc9c0\uce68\uc744 \uc791\uc131\ud569\ub2c8\ub2e4. \ud504\ub85c\uc81d\ud2b8 \uc2dc\uc791 \uc2dc \uc0ac\uc6a9\ud558\uc138\uc694. (project)",
+  "description": "MVP 주제와 고객 유형을 바탕으로 프로젝트 팀 구성 및 협업 지침을 작성합니다. 프로젝트 시작 시 사용하세요. (project)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.547636Z"
+  "downloaded_at": "2026-01-06T08:58:46.547636Z",
+  "github_path": ".claude/skills/03-guidelines",
+  "github_branch": "main"
 }

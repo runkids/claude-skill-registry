@@ -7,5 +7,7 @@
     "naming",
     "analyzer"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/naming-analyzer",
+  "github_branch": "main"
 }

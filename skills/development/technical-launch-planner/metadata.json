@@ -8,5 +8,7 @@
     "launch",
     "planner"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/technical-launch-planner",
+  "github_branch": "main"
 }

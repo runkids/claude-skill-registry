@@ -5,5 +5,7 @@
   "source": "github.com/OneKeyHQ/app-monorepo",
   "downloaded_at": "2026-01-22T01:29:21.963600Z",
   "dir_name": "1k-state-management",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/1k-state-management",
+  "github_branch": "main"
 }

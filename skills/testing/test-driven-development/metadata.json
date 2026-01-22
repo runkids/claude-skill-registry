@@ -9,5 +9,7 @@
     "red-green-refactor"
   ],
   "stars": 0,
-  "source": "Community Skills"
+  "source": "Community Skills",
+  "github_path": "skills/test-driven-development",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Git to Fossil export",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:28.378482Z"
+  "downloaded_at": "2026-01-06T09:06:28.378482Z",
+  "github_path": "fossil-ui/skills/fossil-ui",
+  "github_branch": "main"
 }

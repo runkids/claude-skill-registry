@@ -5,5 +5,7 @@
   "source": "github.com/Tony363/SuperClaude",
   "downloaded_at": "2026-01-22T01:21:11.416800Z",
   "dir_name": "agent-chaos-engineer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/DEPRECATED/agent-chaos-engineer",
+  "github_branch": "main"
 }

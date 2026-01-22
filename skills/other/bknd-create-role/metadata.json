@@ -5,5 +5,7 @@
   "source": "github.com/cameronapak/freedom-stack-v3",
   "downloaded_at": "2026-01-22T03:30:07.400392Z",
   "dir_name": "bknd-create-role",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/bknd-create-role",
+  "github_branch": "main"
 }

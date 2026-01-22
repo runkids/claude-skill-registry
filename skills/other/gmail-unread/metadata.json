@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:06.520964Z",
   "dir_name": "gmail-unread",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/gmail-unread",
+  "github_branch": "main"
 }

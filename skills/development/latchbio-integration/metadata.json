@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Latch platform for bioinformatics workflows. Build pipelines with Latch SDK, @workflow/@task decorators, deploy serverless workflows, LatchFile/LatchDir, Nextflow/Snakemake integration.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.585261Z"
+  "downloaded_at": "2026-01-06T08:55:37.585261Z",
+  "github_path": "cli-tool/components/skills/scientific/latchbio-integration",
+  "github_branch": "main"
 }

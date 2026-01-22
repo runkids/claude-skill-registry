@@ -5,5 +5,7 @@
   "source": "github.com/leegonzales/AISkills",
   "downloaded_at": "2026-01-14T02:13:21.145552Z",
   "dir_name": "claude-speak",
-  "category": "other"
+  "category": "other",
+  "github_path": "ClaudeSpeak/claude-speak",
+  "github_branch": "main"
 }

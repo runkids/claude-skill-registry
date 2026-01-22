@@ -9,5 +9,7 @@
     "hook"
   ],
   "stars": 0,
-  "dir_name": "tanstack-query-hook"
+  "dir_name": "tanstack-query-hook",
+  "github_path": "tanstack-query-hook",
+  "github_branch": "main"
 }

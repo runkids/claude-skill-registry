@@ -5,5 +5,7 @@
   "source": "github.com/jovermier/claude-code-plugins-ip-labs",
   "downloaded_at": "2026-01-19T03:04:51.483045Z",
   "dir_name": "coder-convex-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/convex/skills/coder-convex-setup",
+  "github_branch": "main"
 }

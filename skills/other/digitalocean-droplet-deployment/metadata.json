@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:43.737429Z",
   "dir_name": "digitalocean-droplet-deployment",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/deployment/skills/digitalocean-droplet-deployment",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Assess agentic layer maturity using the 12-grade classification system (Class 1-3). Use when evaluating codebase readiness, identifying next upgrade steps, or tracking progress toward the Codebase Sin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.290752Z"
+  "downloaded_at": "2026-01-06T09:00:26.290752Z",
+  "github_path": "plugins/tac/skills/agentic-layer-assessment",
+  "github_branch": "main"
 }

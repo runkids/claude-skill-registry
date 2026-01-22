@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build complete, production-ready Arduino projects (environmental monitors, robot controllers, IoT devices, automation systems). Assembles multi-component systems combining sensors, actuators, communic",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:36.919534Z"
+  "downloaded_at": "2026-01-06T09:03:36.919534Z",
+  "github_path": "skills/arduino-project-builder",
+  "github_branch": "main"
 }

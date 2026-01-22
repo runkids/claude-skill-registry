@@ -2,7 +2,9 @@
   "name": "python-runner",
   "repo": "TakSung/python-katas",
   "category": "development",
-  "description": "Python \ud504\ub85c\uc81d\ud2b8 \uc2e4\ud589, \ud14c\uc2a4\ud2b8, \ubb38\ubc95 \uac80\uc0ac, \uc784\ud3ec\ud2b8 \uac80\uc99d\uc744 \uc704\ud55c \uc2a4\ud0ac. `scripts/python-runner.sh`\ub97c \uc0ac\uc6a9\ud569\ub2c8\ub2e4.",
+  "description": "Python 프로젝트 실행, 테스트, 문법 검사, 임포트 검증을 위한 스킬. `scripts/python-runner.sh`를 사용합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:43.452051Z"
+  "downloaded_at": "2026-01-06T09:08:43.452051Z",
+  "github_path": "platforms/linux/.claude/skills/python-runner",
+  "github_branch": "main"
 }

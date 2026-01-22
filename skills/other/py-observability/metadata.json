@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:25.581647Z",
   "dir_name": "py-observability",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/py-observability",
+  "github_branch": "main"
 }

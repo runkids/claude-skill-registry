@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:07.664888Z",
   "dir_name": "ln-112-project-core-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-112-project-core-creator",
+  "github_branch": "main"
 }

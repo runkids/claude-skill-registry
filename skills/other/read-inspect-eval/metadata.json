@@ -5,5 +5,7 @@
   "source": "github.com/tbroadley/dotfiles",
   "downloaded_at": "2026-01-22T03:05:02.047972Z",
   "dir_name": "read-inspect-eval",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/read-inspect-eval",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:28.961015Z",
   "dir_name": "libfuzzer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/testing-handbook-skills/skills/libfuzzer",
+  "github_branch": "main"
 }

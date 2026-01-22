@@ -7,5 +7,7 @@
     "nextjs",
     "aws"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "nextjs-on-aws",
+  "github_branch": "main"
 }

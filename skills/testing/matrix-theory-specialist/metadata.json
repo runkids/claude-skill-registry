@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Advanced matrix theory expert covering spectral theory, matrix factorizations, and numerical linear algebra",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:20.062794Z"
+  "downloaded_at": "2026-01-06T09:00:20.062794Z",
+  "github_path": "skills/mathematics/matrix-theory-specialist",
+  "github_branch": "main"
 }

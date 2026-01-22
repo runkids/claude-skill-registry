@@ -6,5 +6,7 @@
   "tags": [
     "rpi"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "rpi",
+  "github_branch": "main"
 }

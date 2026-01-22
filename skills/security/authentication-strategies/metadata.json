@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Authentication patterns including JWT, sessions, and OAuth. Use when implementing user authentication.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:15.531426Z"
+  "downloaded_at": "2026-01-06T09:06:15.531426Z",
+  "github_path": "tech-stacks/js/node/skills/authentication-strategies",
+  "github_branch": "main"
 }

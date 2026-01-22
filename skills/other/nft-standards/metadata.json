@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:10.339169Z",
   "dir_name": "nft-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/blockchain-web3/skills/nft-standards",
+  "github_branch": "main"
 }

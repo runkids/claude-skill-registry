@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "add-strict-checks"
+  "dir_name": "add-strict-checks",
+  "github_path": "skills/add-strict-checks",
+  "github_branch": "main"
 }

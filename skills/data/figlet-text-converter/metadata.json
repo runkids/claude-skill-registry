@@ -10,5 +10,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "figlet-text-converter"
+  "dir_name": "figlet-text-converter",
+  "github_path": "figlet-text-converter",
+  "github_branch": "main"
 }

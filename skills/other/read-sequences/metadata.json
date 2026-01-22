@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:51.026384Z",
   "dir_name": "read-sequences",
-  "category": "other"
+  "category": "other",
+  "github_path": "sequence-io/read-sequences",
+  "github_branch": "main"
 }

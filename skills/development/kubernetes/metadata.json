@@ -6,5 +6,7 @@
   "tags": [
     "kubernetes"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/kubernetes",
+  "github_branch": "main"
 }

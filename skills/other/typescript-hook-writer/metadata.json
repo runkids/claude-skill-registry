@@ -5,5 +5,7 @@
   "source": "github.com/pr-pm/prpm",
   "downloaded_at": "2026-01-22T04:04:38.813286Z",
   "dir_name": "typescript-hook-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/typescript-hook-writer",
+  "github_branch": "main"
 }

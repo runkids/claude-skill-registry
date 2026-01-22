@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Adr Generator - Auto-activating skill for Technical Documentation.Triggers on: adr generator, adr generatorPart of the Technical Documentation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:54.278093Z"
+  "downloaded_at": "2026-01-06T08:55:54.278093Z",
+  "github_path": "planned-skills/generated/17-technical-docs/adr-generator",
+  "github_branch": "main"
 }

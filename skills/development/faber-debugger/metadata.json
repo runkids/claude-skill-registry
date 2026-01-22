@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Universal debugger skill that diagnoses workflow issues and proposes solutions using a persistent knowledge base",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:57.146961Z"
+  "downloaded_at": "2026-01-06T09:01:57.146961Z",
+  "github_path": "plugins/faber/skills/faber-debugger",
+  "github_branch": "main"
 }

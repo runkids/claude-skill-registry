@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:17.069573Z",
   "dir_name": "claude-settings-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/anthropic/claude-settings-expert",
+  "github_branch": "main"
 }

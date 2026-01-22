@@ -8,5 +8,7 @@
     "cloud",
     "cli"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/using-cloud-cli",
+  "github_branch": "main"
 }

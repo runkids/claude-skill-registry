@@ -5,5 +5,7 @@
   "source": "github.com/vasic-digital/SuperAgent",
   "downloaded_at": "2026-01-22T03:16:20.108193Z",
   "dir_name": "groq-hello-world",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plugins/saas-packs/groq-pack/groq-hello-world",
+  "github_branch": "main"
 }

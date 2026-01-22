@@ -9,5 +9,7 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ash-postgres"
+  "dir_name": "ash-postgres",
+  "github_path": "claude/skills/ash-postgres",
+  "github_branch": "main"
 }

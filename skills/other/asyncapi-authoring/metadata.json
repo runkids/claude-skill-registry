@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:10.923444Z",
   "dir_name": "asyncapi-authoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/spec-driven-development/skills/asyncapi-authoring",
+  "github_branch": "main"
 }

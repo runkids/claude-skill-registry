@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:02.798360Z",
   "dir_name": "web-search-fallback",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/web-search-fallback",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:13.934743Z",
   "dir_name": "ignore",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/ignore",
+  "github_branch": "main"
 }

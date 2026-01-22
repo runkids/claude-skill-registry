@@ -7,5 +7,7 @@
     "skyrim",
     "papyrus"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/skyrim-papyrus",
+  "github_branch": "main"
 }

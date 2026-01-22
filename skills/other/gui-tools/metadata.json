@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:35.859998Z",
   "dir_name": "gui-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-specialist/gui-tools",
+  "github_branch": "main"
 }

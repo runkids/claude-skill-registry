@@ -7,5 +7,7 @@
     "security",
     "lens"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".library/skills/security-lens",
+  "github_branch": "main"
 }

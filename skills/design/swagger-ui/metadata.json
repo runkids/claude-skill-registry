@@ -2,7 +2,9 @@
   "name": "swagger-ui",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "Swagger UI \u3092\u7528\u3044\u305f OpenAPI \u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u306e\u516c\u958b\u30fb\u7d71\u5408\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002\u9759\u7684HTML/React/Next.js/\u30b5\u30fc\u30d0\u30fc\u57cb\u3081\u8fbc\u307f\u306e\u69cb\u6210\u3092\u6574\u7406\u3057\u3001\u5b89\u5168\u306aAPI Explorer\u3092\u69cb\u7bc9\u3059\u308b\u3002Anchors:\u2022 OpenAPI Specification / \u9069\u7528: API\u4ed5\u69d8\u4e92\u63db / \u76ee\u7684: \u5b9a\u7fa9\u306e\u4e00\u8cab\u6027\u78ba\u4fdd\u2022 Swagger UI Documentation / \u9069\u7528: UI\u69cb\u6210",
+  "description": "Swagger UI を用いた OpenAPI ドキュメントの公開・統合を支援するスキル。静的HTML/React/Next.js/サーバー埋め込みの構成を整理し、安全なAPI Explorerを構築する。Anchors:• OpenAPI Specification / 適用: API仕様互換 / 目的: 定義の一貫性確保• Swagger UI Documentation / 適用: UI構成",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.374875Z"
+  "downloaded_at": "2026-01-06T09:00:45.374875Z",
+  "github_path": "docs/99-claude/skills/swagger-ui",
+  "github_branch": "main"
 }

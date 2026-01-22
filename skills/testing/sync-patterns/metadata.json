@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Compare specs with implementation state, update spec status, and generate sync reports. Use when syncing specs, checking implementation status, marking tasks complete, generating sync reports, or when",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:27.160068Z"
+  "downloaded_at": "2026-01-06T09:09:27.160068Z",
+  "github_path": "plugins/iterate/skills/sync-patterns",
+  "github_branch": "main"
 }

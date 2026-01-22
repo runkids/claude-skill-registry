@@ -5,5 +5,7 @@
   "source": "github.com/pproenca/dot-skills",
   "downloaded_at": "2026-01-22T02:36:29.967988Z",
   "dir_name": "invalid-name-consecutive-hyphens",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/fixtures/invalid-name-consecutive-hyphens",
+  "github_branch": "main"
 }

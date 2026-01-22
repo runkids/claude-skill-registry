@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Performance optimization for React Native. Use when optimizing lists, preventing re-renders, memoizing components, or debugging performance issues in Expo/React Native apps.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:31.561116Z"
+  "downloaded_at": "2026-01-06T09:04:31.561116Z",
+  "github_path": "skills/rn-performance",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/j0KZ/mcp-agents",
   "downloaded_at": "2026-01-19T03:12:19.839282Z",
   "dir_name": "debug-detective",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/universal-skills/debug-detective",
+  "github_branch": "main"
 }

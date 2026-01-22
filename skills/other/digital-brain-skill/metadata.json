@@ -5,5 +5,7 @@
   "source": "github.com/Kalyanikhandare29/Agent-Skills-for-Context-Engineering",
   "downloaded_at": "2026-01-22T04:11:07.640309Z",
   "dir_name": "digital-brain-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "examples/digital-brain-skill",
+  "github_branch": "main"
 }

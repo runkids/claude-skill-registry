@@ -5,5 +5,7 @@
   "description": "Use this agent when you need to design, implement, or optimize FastAPI backend applications. This includes API endpoint creation, database integration, authentication/authorization implementation, clo",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:07:39.333798Z",
-  "dir_name": "fastapi-python-expert"
+  "dir_name": "fastapi-python-expert",
+  "github_path": "",
+  "github_branch": "main"
 }

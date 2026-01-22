@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "execution-recovery"
+  "dir_name": "execution-recovery",
+  "github_path": ".claude/skills/execution-recovery",
+  "github_branch": "main"
 }

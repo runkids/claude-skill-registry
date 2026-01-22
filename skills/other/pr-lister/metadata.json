@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:08.730189Z",
   "dir_name": "pr-lister",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-git/skills/pr-lister",
+  "github_branch": "main"
 }

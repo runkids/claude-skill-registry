@@ -9,5 +9,7 @@
     "design"
   ],
   "stars": 0,
-  "dir_name": "mongodb-schema-design"
+  "dir_name": "mongodb-schema-design",
+  "github_path": "skills/mongodb-schema-design",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "elixir"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/deploy-shot-elixir",
+  "github_branch": "main"
 }

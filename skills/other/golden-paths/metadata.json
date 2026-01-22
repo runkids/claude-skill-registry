@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:53.836186Z",
   "dir_name": "golden-paths",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/golden-paths",
+  "github_branch": "main"
 }

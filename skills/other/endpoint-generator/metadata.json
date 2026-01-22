@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-20T02:40:52.826883Z",
   "dir_name": "endpoint-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "67-codegen-scaffolding-automation/endpoint-generator",
+  "github_branch": "main"
 }

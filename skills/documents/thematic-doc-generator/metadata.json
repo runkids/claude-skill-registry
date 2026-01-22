@@ -8,5 +8,7 @@
     "doc",
     "generator"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "thematic-doc-generator",
+  "github_branch": "main"
 }

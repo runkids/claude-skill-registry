@@ -5,5 +5,7 @@
   "source": "github.com/GGPrompts/my-plugins",
   "downloaded_at": "2026-01-22T03:22:54.386305Z",
   "dir_name": "docker-mcp",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/backend/docker-mcp/skills/docker-mcp",
+  "github_branch": "main"
 }

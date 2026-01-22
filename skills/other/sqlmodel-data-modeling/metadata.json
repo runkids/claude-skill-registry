@@ -5,5 +5,7 @@
   "source": "github.com/MUmerRazzaq/fast-next-todo",
   "downloaded_at": "2026-01-22T02:08:31.537614Z",
   "dir_name": "sqlmodel-data-modeling",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/sqlmodel-data-modeling",
+  "github_branch": "main"
 }

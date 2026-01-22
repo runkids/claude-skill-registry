@@ -5,5 +5,7 @@
   "source": "github.com/hsudatalks/univers-container",
   "downloaded_at": "2026-01-22T01:39:57.879481Z",
   "dir_name": "tmux-manage",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tmux-manage",
+  "github_branch": "main"
 }

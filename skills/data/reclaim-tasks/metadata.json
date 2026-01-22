@@ -8,5 +8,7 @@
     "tasks"
   ],
   "stars": 1,
-  "dir_name": "reclaim-tasks"
+  "dir_name": "reclaim-tasks",
+  "github_path": "reclaim-tasks",
+  "github_branch": "main"
 }

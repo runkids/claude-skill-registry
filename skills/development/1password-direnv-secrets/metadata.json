@@ -9,5 +9,7 @@
     "secrets"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/1password-direnv-secrets",
+  "github_branch": "main"
 }

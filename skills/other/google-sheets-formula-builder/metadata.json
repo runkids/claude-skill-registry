@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:53.192729Z",
   "dir_name": "google-sheets-formula-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/cfn-extras/skills/google-sheets-formula-builder",
+  "github_branch": "main"
 }

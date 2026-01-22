@@ -7,5 +7,7 @@
     "svelte",
     "runes"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "svelte-5-runes",
+  "github_branch": "main"
 }

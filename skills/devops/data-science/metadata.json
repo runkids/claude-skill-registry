@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Statistical analysis strategies and data exploration techniques",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:33.870012Z"
+  "downloaded_at": "2026-01-06T09:06:33.870012Z",
+  "github_path": "data-science",
+  "github_branch": "main"
 }

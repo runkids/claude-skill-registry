@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:35:03.740247Z",
   "dir_name": "sheaf-cohomology",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sheaf-cohomology",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/terraphim/codex-skills",
   "downloaded_at": "2026-01-22T02:22:57.358750Z",
   "dir_name": "disciplined-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/disciplined-design",
+  "github_branch": "main"
 }

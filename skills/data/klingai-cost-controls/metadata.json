@@ -5,5 +5,7 @@
   "description": "Implement cost controls and budget management for Kling AI. Use when managing spending limits,tracking costs, or preventing budget overruns. Trigger with phrases like 'klingai cost','kling ai budget',",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:59.834024Z",
-  "dir_name": "klingai-cost-controls"
+  "dir_name": "klingai-cost-controls",
+  "github_path": "plugins/saas-packs/klingai-pack/skills/klingai-cost-controls",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ryryo/dot-claude-dev",
   "downloaded_at": "2026-01-22T03:36:30.601120Z",
   "dir_name": "ideation",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/SAMPLE/dot-claude-dev/dotfiles/claude/skills/ideation",
+  "github_branch": "main"
 }

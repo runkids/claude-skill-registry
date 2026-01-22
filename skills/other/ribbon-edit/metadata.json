@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:01:59.600928Z",
   "dir_name": "ribbon-edit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ribbon-edit",
+  "github_branch": "main"
 }

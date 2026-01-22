@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "On-page SEO optimization techniques including keyword density, meta tags, heading structure, and readability. Use when optimizing existing content or validating new content against SEO requirements.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:29.522114Z"
+  "downloaded_at": "2026-01-06T08:56:29.522114Z",
+  "github_path": "plugins/seo/skills/content-optimizer",
+  "github_branch": "main"
 }

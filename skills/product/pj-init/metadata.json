@@ -2,7 +2,9 @@
   "name": "pj-init",
   "repo": "ssiumha/dots",
   "category": "product",
-  "description": "\uba40\ud2f0\ub808\ud3ec \uc6cc\ud06c\uc2a4\ud398\uc774\uc2a4(~/pj/xxx/)\uc758 CLAUDE.md\ub97c \ucd08\uae30\ud654\ud569\ub2c8\ub2e4. \uc5ec\ub7ec \ub3c5\ub9bd \uc800\uc7a5\uc18c\uac00 \ud558\ub098\uc758 \ud504\ub85c\uc81d\ud2b8\ub85c \uad00\ub9ac\ub418\ub294 \uad6c\uc870\uc5d0\uc11c \uc0ac\uc6a9\ud558\uc138\uc694. (user)",
+  "description": "멀티레포 워크스페이스(~/pj/xxx/)의 CLAUDE.md를 초기화합니다. 여러 독립 저장소가 하나의 프로젝트로 관리되는 구조에서 사용하세요. (user)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:57.833990Z"
+  "downloaded_at": "2026-01-06T08:58:57.833990Z",
+  "github_path": "prompts/skills/pj-init",
+  "github_branch": "main"
 }

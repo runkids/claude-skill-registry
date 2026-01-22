@@ -5,5 +5,7 @@
   "source": "github.com/nahisaho/CodeGraphMCPServer",
   "downloaded_at": "2026-01-22T04:03:32.477525Z",
   "dir_name": "change-impact-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/change-impact-analyzer",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "azure-troubleshoot"
+  "dir_name": "azure-troubleshoot",
+  "github_path": "skills/azure-troubleshoot",
+  "github_branch": "main"
 }

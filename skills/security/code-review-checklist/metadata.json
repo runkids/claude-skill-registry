@@ -8,5 +8,7 @@
     "review",
     "checklist"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/code-review-checklist",
+  "github_branch": "main"
 }

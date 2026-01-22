@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Add purposeful debug logging to improve observability without changing behavior.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:44.011079Z"
+  "downloaded_at": "2026-01-06T08:56:44.011079Z",
+  "github_path": ".codex/skills/debug-logging-assistant",
+  "github_branch": "main"
 }

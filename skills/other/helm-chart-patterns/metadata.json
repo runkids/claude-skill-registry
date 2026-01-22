@@ -5,5 +5,7 @@
   "source": "github.com/NickCrew/claude-cortex",
   "downloaded_at": "2026-01-22T01:32:42.889303Z",
   "dir_name": "helm-chart-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude_ctx_py/assets/skills/helm-chart-patterns",
+  "github_branch": "main"
 }

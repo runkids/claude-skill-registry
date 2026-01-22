@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:06.070604Z",
   "dir_name": "golang-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/golang-pro",
+  "github_branch": "main"
 }

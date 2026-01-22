@@ -8,5 +8,7 @@
     "extension",
     "upgrade"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/typo3-extension-upgrade",
+  "github_branch": "main"
 }

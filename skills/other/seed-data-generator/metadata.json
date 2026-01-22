@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:41.628168Z",
   "dir_name": "seed-data-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/seed-data-generator",
+  "github_branch": "main"
 }

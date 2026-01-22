@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-19T03:03:28.458558Z",
   "dir_name": "peer-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/peer-reviewer",
+  "github_branch": "main"
 }

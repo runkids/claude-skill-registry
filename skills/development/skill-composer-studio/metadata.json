@@ -8,5 +8,7 @@
     "composer",
     "studio"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "skill-composer-studio",
+  "github_branch": "main"
 }

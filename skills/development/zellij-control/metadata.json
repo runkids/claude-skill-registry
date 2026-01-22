@@ -2,7 +2,9 @@
   "name": "zellij-control",
   "repo": "cuipengfei/prompts",
   "category": "development",
-  "description": "\u4f7f\u7528 Zellij \u7ec8\u7aef\u590d\u7528\u5668\u63a7\u5236\u4ea4\u4e92\u5f0f CLI \u7a0b\u5e8f\u3002\u5f53\u9700\u8981\u8fd0\u884c\u9700\u8981\u952e\u76d8\u4ea4\u4e92\u7684 TUI \u5e94\u7528\uff08htop\u3001btop\u3001lazygit\u3001fzf\uff09\u3001REPL\uff08python\u3001bun repl\uff09\u6216\u5206\u9875\u5668\uff08less\u3001bat\uff09\u65f6\u4f7f\u7528\u6b64\u6280\u80fd\u3002\u4e0d\u9002\u7528\u4e8e\u975e\u4ea4\u4e92\u5f0f\u547d\u4ee4\uff08\u76f4\u63a5\u7528 Bash\uff09\u6216\u6587\u4ef6\u7f16\u8f91\uff08\u76f4\u63a5\u7528 Edit \u5de5\u5177\uff09\u3002",
+  "description": "使用 Zellij 终端复用器控制交互式 CLI 程序。当需要运行需要键盘交互的 TUI 应用（htop、btop、lazygit、fzf）、REPL（python、bun repl）或分页器（less、bat）时使用此技能。不适用于非交互式命令（直接用 Bash）或文件编辑（直接用 Edit 工具）。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:28.214595Z"
+  "downloaded_at": "2026-01-06T08:59:28.214595Z",
+  "github_path": "plugins/zellij-control/skills/zellij-control",
+  "github_branch": "main"
 }

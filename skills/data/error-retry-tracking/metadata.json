@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "error-retry-tracking"
+  "dir_name": "error-retry-tracking",
+  "github_path": "skills/error-retry-tracking",
+  "github_branch": "main"
 }

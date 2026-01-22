@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:08.282796Z",
   "dir_name": "research-handoff-oracle",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/research-handoff-oracle",
+  "github_branch": "main"
 }

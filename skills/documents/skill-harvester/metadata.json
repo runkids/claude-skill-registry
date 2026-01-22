@@ -7,5 +7,7 @@
     "skill",
     "harvester"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/skill-harvester",
+  "github_branch": "main"
 }

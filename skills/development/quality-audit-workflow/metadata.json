@@ -8,5 +8,7 @@
     "audit",
     "workflow"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/quality-audit-workflow",
+  "github_branch": "main"
 }

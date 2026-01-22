@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:09.361214Z",
   "dir_name": "vastai-cost-tuning",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/vastai-pack/skills/vastai-cost-tuning",
+  "github_branch": "main"
 }

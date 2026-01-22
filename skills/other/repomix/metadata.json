@@ -5,5 +5,7 @@
   "source": "github.com/samhvw8/dotfiles",
   "downloaded_at": "2026-01-22T04:16:20.012375Z",
   "dir_name": "repomix",
-  "category": "other"
+  "category": "other",
+  "github_path": "dot_claude/skills/repomix",
+  "github_branch": "main"
 }

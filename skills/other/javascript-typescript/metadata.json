@@ -5,5 +5,7 @@
   "source": "github.com/julianromli/opencode-template",
   "downloaded_at": "2026-01-22T01:52:36.309373Z",
   "dir_name": "javascript-typescript",
-  "category": "other"
+  "category": "other",
+  "github_path": "skill/javascript-typescript",
+  "github_branch": "main"
 }

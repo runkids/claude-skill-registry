@@ -5,5 +5,7 @@
   "source": "github.com/PostHog/posthog",
   "downloaded_at": "2026-01-22T03:55:13.781103Z",
   "dir_name": "implementing-agent-modes",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/implementing-agent-modes",
+  "github_branch": "main"
 }

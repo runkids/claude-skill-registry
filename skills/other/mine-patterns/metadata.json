@@ -5,5 +5,7 @@
   "source": "github.com/madebynoam/dcode",
   "downloaded_at": "2026-01-22T01:31:20.829322Z",
   "dir_name": "mine-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mine-patterns",
+  "github_branch": "main"
 }

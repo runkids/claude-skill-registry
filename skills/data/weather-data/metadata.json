@@ -8,5 +8,7 @@
     "data"
   ],
   "stars": 0,
-  "dir_name": "weather-data"
+  "dir_name": "weather-data",
+  "github_path": ".claude/skills/weather-data",
+  "github_branch": "main"
 }

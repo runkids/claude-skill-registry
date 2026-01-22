@@ -5,5 +5,7 @@
   "source": "github.com/briansunter/pokeclaude",
   "downloaded_at": "2026-01-20T03:27:03.284873Z",
   "dir_name": "pokemon-skill-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pokemon-skill-builder",
+  "github_branch": "main"
 }

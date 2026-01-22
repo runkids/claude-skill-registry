@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:48:00.688244Z",
   "dir_name": "handoff-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/handoff_writer",
+  "github_branch": "main"
 }

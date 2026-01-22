@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-22T02:21:52.758345Z",
   "dir_name": "infrastructure-documenter",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/infrastructure-documenter",
+  "github_branch": "main"
 }

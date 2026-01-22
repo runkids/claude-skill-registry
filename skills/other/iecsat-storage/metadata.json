@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T04:21:44.636453Z",
   "dir_name": "iecsat-storage",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/iecsat-storage",
+  "github_branch": "main"
 }

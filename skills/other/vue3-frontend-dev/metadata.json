@@ -5,5 +5,7 @@
   "source": "github.com/ChuDiRen/AI-agent-testing-platform",
   "downloaded_at": "2026-01-17T02:49:28.159450Z",
   "dir_name": "vue3-frontend-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codebuddy/skills/development/vue3-frontend-dev",
+  "github_branch": "main"
 }

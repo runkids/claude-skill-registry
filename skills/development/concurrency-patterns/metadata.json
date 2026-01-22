@@ -7,5 +7,7 @@
     "concurrency",
     "patterns"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/concurrency-patterns",
+  "github_branch": "main"
 }

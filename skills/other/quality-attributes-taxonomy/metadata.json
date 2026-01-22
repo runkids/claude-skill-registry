@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:51.341221Z",
   "dir_name": "quality-attributes-taxonomy",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/quality-attributes-taxonomy",
+  "github_branch": "main"
 }

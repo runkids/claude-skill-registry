@@ -5,5 +5,7 @@
   "source": "github.com/vibery-studio/templates",
   "downloaded_at": "2026-01-21T03:31:14.836501Z",
   "dir_name": "udemy-crawler",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/udemy-crawler",
+  "github_branch": "main"
 }

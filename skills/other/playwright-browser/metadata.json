@@ -5,5 +5,7 @@
   "source": "github.com/Light-Brands/base-ai",
   "downloaded_at": "2026-01-22T03:34:21.868314Z",
   "dir_name": "playwright-browser",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/core/skills/playwright-browser",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:01.682519Z",
   "dir_name": "model-export-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/08-ml-deployment/model-export-helper",
+  "github_branch": "main"
 }

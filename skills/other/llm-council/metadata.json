@@ -5,5 +5,7 @@
   "source": "github.com/gcpdev/llm-council-skill",
   "downloaded_at": "2026-01-22T02:32:22.802266Z",
   "dir_name": "llm-council",
-  "category": "other"
+  "category": "other",
+  "github_path": "llm-council",
+  "github_branch": "main"
 }

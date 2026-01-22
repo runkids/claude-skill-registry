@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-19T04:20:30.864003Z",
   "dir_name": "fastapi-realtime",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/fastapi-backend/skills/fastapi-realtime",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/OmidZamani/dspy-skills",
   "downloaded_at": "2026-01-22T02:16:25.957232Z",
   "dir_name": "dspy-miprov2-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dspy-miprov2-optimizer",
+  "github_branch": "main"
 }

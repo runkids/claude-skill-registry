@@ -2,7 +2,9 @@
   "name": "us-enrich-context",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "product",
-  "description": "\u4e3a\u7cbe\u70bc\u7684User Story\u589e\u52a0\u771f\u5b9e\u573a\u666f\u63cf\u8ff0\u3001\u7528\u6237\u5fc3\u7406\u548c\u5177\u4f53\u5bf9\u8bdd\uff0c\u8ba9US\u5bf9PM/\u5ba2\u6237\u66f4\u4eb2\u5207\u6613\u61c2\u3002\u9002\u5408\u5728US\u521d\u7a3f\u5b8c\u6210\u540e\u3001\u9700\u8981\u5411\u5ba2\u6237\u5c55\u793a\u7406\u89e3\u6216\u51c6\u5907\u9a8c\u6536\u65f6\u4f7f\u7528\uff0c\u5f53US\u683c\u5f0f\u6b63\u786e\u4f46\u7f3a\u4e4f\u573a\u666f\u611f\u65f6\u3002\u5e2e\u52a9\u4e0d\u719f\u6089\u654f\u6377\u7684PM/BA\u3001\u9700\u8981\u5bf9\u5916\u6c9f\u901a\u7684\u56e2\u961f\uff0c\u901a\u8fc7\u4e30\u5bcc\u7684\u573a\u666f\u611f\u8ba9\u9700\u6c42\u6587\u6863\u66f4\u5bb9\u6613\u88ab\u7406\u89e3\u548c\u63a5\u53d7\u3002",
+  "description": "为精炼的User Story增加真实场景描述、用户心理和具体对话，让US对PM/客户更亲切易懂。适合在US初稿完成后、需要向客户展示理解或准备验收时使用，当US格式正确但缺乏场景感时。帮助不熟悉敏捷的PM/BA、需要对外沟通的团队，通过丰富的场景感让需求文档更容易被理解和接受。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:20.167575Z"
+  "downloaded_at": "2026-01-06T09:10:20.167575Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/requirements/us-enrich-context",
+  "github_branch": "main"
 }

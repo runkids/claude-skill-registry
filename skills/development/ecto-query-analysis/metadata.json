@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyzes Ecto queries for N+1 problems, missing preloads, and performance issues.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:28.032259Z"
+  "downloaded_at": "2026-01-06T09:10:28.032259Z",
+  "github_path": "skills/ecto-query-analysis",
+  "github_branch": "main"
 }

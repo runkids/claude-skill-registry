@@ -8,5 +8,7 @@
     "request",
     "automation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/pull-request-automation",
+  "github_branch": "main"
 }

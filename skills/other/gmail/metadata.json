@@ -5,5 +5,7 @@
   "source": "github.com/tbroadley/dotfiles",
   "downloaded_at": "2026-01-22T03:05:00.801374Z",
   "dir_name": "gmail",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/gmail",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-14T01:33:43.095861Z",
   "dir_name": "forms-update",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/forms-update",
+  "github_branch": "main"
 }

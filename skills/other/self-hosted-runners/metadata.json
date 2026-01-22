@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:14.617863Z",
   "dir_name": "self-hosted-runners",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/self-hosted-runners",
+  "github_branch": "main"
 }

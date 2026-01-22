@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Systematic data quality remediation - detect duplicates/outliers/inconsistencies, design cleaning strategy, execute transformations, verify results (component skill for DataPeeker analysis sessions)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:14.432233Z"
+  "downloaded_at": "2026-01-06T09:03:14.432233Z",
+  "github_path": "plugins/datapeeker/skills/cleaning-data",
+  "github_branch": "main"
 }

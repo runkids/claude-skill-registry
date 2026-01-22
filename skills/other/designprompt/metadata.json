@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:37.959914Z",
   "dir_name": "designprompt",
-  "category": "other"
+  "category": "other",
+  "github_path": "designprompt",
+  "github_branch": "main"
 }

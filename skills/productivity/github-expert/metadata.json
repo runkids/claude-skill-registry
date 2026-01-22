@@ -7,5 +7,7 @@
     "github",
     "expert"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "github-expert",
+  "github_branch": "main"
 }

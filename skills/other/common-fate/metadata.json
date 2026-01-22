@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:45.625609Z",
   "dir_name": "common-fate",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/gestalt/common-fate",
+  "github_branch": "main"
 }

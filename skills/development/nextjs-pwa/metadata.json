@@ -7,5 +7,7 @@
     "nextjs",
     "pwa"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/nextjs-pwa",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "kommo"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "kommo",
+  "github_branch": "main"
 }

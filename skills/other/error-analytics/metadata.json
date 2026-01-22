@@ -5,5 +5,7 @@
   "source": "github.com/lovedragonball/power-ranger-toolkit",
   "downloaded_at": "2026-01-19T01:38:21.984446Z",
   "dir_name": "error-analytics",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/skills/error-analytics",
+  "github_branch": "main"
 }

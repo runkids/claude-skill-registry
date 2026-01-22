@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ailang-inbox"
+  "dir_name": "ailang-inbox",
+  "github_path": "skills/ailang-inbox",
+  "github_branch": "main"
 }

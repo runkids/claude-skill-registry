@@ -7,5 +7,7 @@
     "vertical",
     "playbooks"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/vertical-playbooks",
+  "github_branch": "main"
 }

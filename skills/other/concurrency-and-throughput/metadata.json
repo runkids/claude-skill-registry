@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-19T02:22:01.420178Z",
   "dir_name": "concurrency-and-throughput",
-  "category": "other"
+  "category": "other",
+  "github_path": "47-performance-engineering/concurrency-and-throughput",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "video",
     "format"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "video-format",
+  "github_branch": "main"
 }

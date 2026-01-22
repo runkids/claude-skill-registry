@@ -8,5 +8,7 @@
     "gutenberg",
     "expert"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".web-agency/skills/wordpress-gutenberg-expert",
+  "github_branch": "main"
 }

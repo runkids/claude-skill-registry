@@ -8,5 +8,7 @@
     "agent",
     "orchestrator"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/multi-agent-orchestrator",
+  "github_branch": "main"
 }

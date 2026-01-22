@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Performance bottleneck analysis, workflow inefficiency detection, pattern recognition, and optimization recommendations. Use for identifying performance issues, root cause analysis, and generating act",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:20.406507Z"
+  "downloaded_at": "2026-01-06T09:10:20.406507Z",
+  "github_path": ".claude/skills/tools/optimization/optimization-analyzer",
+  "github_branch": "main"
 }

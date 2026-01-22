@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Tool usage patterns for non-prompting file operations - use Glob, Read, Grep instead of Bash commands to avoid user interruptions in all agents and commands",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:46.368417Z"
+  "downloaded_at": "2026-01-06T09:04:46.368417Z",
+  "github_path": "claude/marketplace/bundles/cui-utility-commands/skills/cui-diagnostic-patterns",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:16.194472Z",
   "dir_name": "moai-core-spec-authoring",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-core-spec-authoring",
+  "github_branch": "main"
 }

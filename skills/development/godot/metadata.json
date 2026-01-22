@@ -6,5 +6,7 @@
   "tags": [
     "godot"
   ],
-  "stars": 15
+  "stars": 15,
+  "github_path": "skills/godot",
+  "github_branch": "main"
 }

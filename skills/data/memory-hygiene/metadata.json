@@ -8,5 +8,7 @@
     "hygiene"
   ],
   "stars": 3,
-  "dir_name": "memory-hygiene"
+  "dir_name": "memory-hygiene",
+  "github_path": "skills/memory-hygiene",
+  "github_branch": "main"
 }

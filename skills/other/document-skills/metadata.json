@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:29.650795Z",
   "dir_name": "document-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/document-skills",
+  "github_branch": "main"
 }

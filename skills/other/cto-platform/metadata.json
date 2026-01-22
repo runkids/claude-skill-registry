@@ -5,5 +5,7 @@
   "source": "github.com/5dlabs/cto",
   "downloaded_at": "2026-01-22T03:27:06.058714Z",
   "dir_name": "cto-platform",
-  "category": "other"
+  "category": "other",
+  "github_path": ".factory/skills/cto-platform",
+  "github_branch": "main"
 }

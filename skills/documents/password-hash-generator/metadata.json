@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Password Hash Generator - Auto-activating skill for Security Fundamentals.Triggers on: password hash generator, password hash generatorPart of the Security Fundamentals skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:12.043485Z"
+  "downloaded_at": "2026-01-06T08:56:12.043485Z",
+  "github_path": "planned-skills/generated/03-security-fundamentals/password-hash-generator",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Build React components with proper patterns, accessibility, and composition. Use when creating new components, refactoring existing ones, or reviewing component architecture. Covers forwardRef, prop d",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:13.763575Z"
+  "downloaded_at": "2026-01-06T08:59:13.763575Z",
+  "github_path": "skills/react-component-dev",
+  "github_branch": "main"
 }

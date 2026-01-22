@@ -8,5 +8,7 @@
     "generator"
   ],
   "stars": 4,
-  "dir_name": "microsim-generator"
+  "dir_name": "microsim-generator",
+  "github_path": "skills/archived/causal-loop-microsim-generator",
+  "github_branch": "main"
 }

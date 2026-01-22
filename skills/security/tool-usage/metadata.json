@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Security tool command reference",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:54.010817Z"
+  "downloaded_at": "2026-01-06T09:03:54.010817Z",
+  "github_path": "security/.claude/skills/tool-usage",
+  "github_branch": "main"
 }

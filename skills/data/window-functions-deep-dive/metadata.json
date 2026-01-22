@@ -10,5 +10,7 @@
     "dive"
   ],
   "stars": 1,
-  "dir_name": "window-functions-deep-dive"
+  "dir_name": "window-functions-deep-dive",
+  "github_path": "skills/window-functions-deep-dive",
+  "github_branch": "main"
 }

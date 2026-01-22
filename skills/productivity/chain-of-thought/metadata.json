@@ -8,5 +8,7 @@
     "thought"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/chain-of-thought",
+  "github_branch": "main"
 }

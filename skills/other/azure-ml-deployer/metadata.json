@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:04.522693Z",
   "dir_name": "azure-ml-deployer",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/08-ml-deployment/azure-ml-deployer",
+  "github_branch": "main"
 }

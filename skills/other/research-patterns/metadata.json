@@ -5,5 +5,7 @@
   "source": "github.com/akaszubski/anyclaude-local",
   "downloaded_at": "2026-01-17T03:13:49.714006Z",
   "dir_name": "research-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/autonomous-dev/skills/research-patterns",
+  "github_branch": "main"
 }

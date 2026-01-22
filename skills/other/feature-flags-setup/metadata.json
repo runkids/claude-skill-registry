@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:09.031903Z",
   "dir_name": "feature-flags-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/feature-flags-setup",
+  "github_branch": "main"
 }

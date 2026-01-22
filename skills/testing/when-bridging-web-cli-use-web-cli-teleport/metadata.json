@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Bridge web interfaces with CLI workflows for seamless bidirectional integration",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:09.683677Z"
+  "downloaded_at": "2026-01-06T09:05:09.683677Z",
+  "github_path": ".claude/skills/workflow/when-bridging-web-cli-use-web-cli-teleport",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "maintenance"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/codebase-health/skills/docs-maintenance",
+  "github_branch": "main"
 }

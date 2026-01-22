@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:52.215200Z",
   "dir_name": "agent-governance",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/agent-governance",
+  "github_branch": "main"
 }

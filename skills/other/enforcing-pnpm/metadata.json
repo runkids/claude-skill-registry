@@ -5,5 +5,7 @@
   "source": "github.com/camoneart/claude-code",
   "downloaded_at": "2026-01-22T02:26:11.958506Z",
   "dir_name": "enforcing-pnpm",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/enforcing-pnpm",
+  "github_branch": "main"
 }

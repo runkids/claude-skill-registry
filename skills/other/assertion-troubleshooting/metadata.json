@@ -5,5 +5,7 @@
   "source": "github.com/phylaxsystems/agent-skills",
   "downloaded_at": "2026-01-17T02:28:05.369582Z",
   "dir_name": "assertion-troubleshooting",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/assertion-troubleshooting",
+  "github_branch": "main"
 }

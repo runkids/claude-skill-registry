@@ -5,5 +5,7 @@
   "source": "github.com/rish2jain/paperresearchagent",
   "downloaded_at": "2026-01-22T03:12:23.757291Z",
   "dir_name": "aws-sagemaker",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aws-sagemaker",
+  "github_branch": "main"
 }

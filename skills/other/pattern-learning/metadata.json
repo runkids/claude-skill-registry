@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:02.718458Z",
   "dir_name": "pattern-learning",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/contextual-pattern-learning",
+  "github_branch": "main"
 }

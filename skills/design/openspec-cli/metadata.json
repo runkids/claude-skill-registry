@@ -7,5 +7,7 @@
     "openspec",
     "cli"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/openspec/openspec-cli",
+  "github_branch": "main"
 }

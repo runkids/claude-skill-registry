@@ -7,5 +7,7 @@
     "setup"
   ],
   "stars": 275,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/tavily-tools/skills/setup",
+  "github_branch": "main"
 }

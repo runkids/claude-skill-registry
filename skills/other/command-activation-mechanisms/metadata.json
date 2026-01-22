@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:17.859562Z",
   "dir_name": "command-activation-mechanisms",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/command-activation-mechanisms",
+  "github_branch": "main"
 }

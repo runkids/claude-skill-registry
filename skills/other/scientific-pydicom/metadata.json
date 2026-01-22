@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:37.380210Z",
   "dir_name": "scientific-pydicom",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-pydicom",
+  "github_branch": "main"
 }

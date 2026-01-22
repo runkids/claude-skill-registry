@@ -5,5 +5,7 @@
   "source": "github.com/TobiasWooldridge/WaveCap",
   "downloaded_at": "2026-01-22T02:11:29.005174Z",
   "dir_name": "wavecap-hallucination",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wavecap-hallucination",
+  "github_branch": "main"
 }

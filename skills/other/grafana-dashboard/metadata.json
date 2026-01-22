@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:26.470696Z",
   "dir_name": "grafana-dashboard",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/grafana-dashboard",
+  "github_branch": "main"
 }

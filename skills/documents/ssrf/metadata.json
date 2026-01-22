@@ -2,7 +2,9 @@
   "name": "ssrf",
   "repo": "yhy0/CHYing-agent",
   "category": "documents",
-  "description": "\u670d\u52a1\u7aef\u8bf7\u6c42\u4f2a\u9020\u6f0f\u6d1e\u68c0\u6d4b\u4e0e\u5229\u7528\u3002\u5f53\u76ee\u6807\u5b58\u5728 URL \u53c2\u6570\u3001\u8fdc\u7a0b\u6587\u4ef6\u52a0\u8f7d\u3001Webhook\u3001PDF \u751f\u6210\u3001URL \u9884\u89c8\u529f\u80fd\u65f6\u4f7f\u7528\u3002",
+  "description": "服务端请求伪造漏洞检测与利用。当目标存在 URL 参数、远程文件加载、Webhook、PDF 生成、URL 预览功能时使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:27.512852Z"
+  "downloaded_at": "2026-01-06T08:56:27.512852Z",
+  "github_path": "chying_agent/skills/ssrf",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "module",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "nestjs-module-generator",
+  "github_branch": "main"
 }

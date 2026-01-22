@@ -5,5 +5,7 @@
   "source": "github.com/Emasoft/ghe-marketplace",
   "downloaded_at": "2026-01-17T03:27:53.272432Z",
   "dir_name": "ghe-report",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ghe/skills/ghe-report",
+  "github_branch": "main"
 }

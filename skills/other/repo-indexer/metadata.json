@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:47:59.617982Z",
   "dir_name": "repo-indexer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/repo_indexer",
+  "github_branch": "main"
 }

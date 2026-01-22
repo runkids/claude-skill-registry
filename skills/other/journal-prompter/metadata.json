@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-19T03:03:33.197238Z",
   "dir_name": "journal-prompter",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/journal-prompter",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "environment-validation"
+  "dir_name": "environment-validation",
+  "github_path": "skills/environment-validation",
+  "github_branch": "main"
 }

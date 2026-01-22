@@ -6,5 +6,7 @@
   "tags": [
     "imgur"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "imgur",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:25:00.503762Z",
   "dir_name": "help-center-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/help-center-design",
+  "github_branch": "main"
 }

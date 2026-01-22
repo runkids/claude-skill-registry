@@ -5,5 +5,7 @@
   "source": "github.com/netresearch/netresearch-branding-skill",
   "downloaded_at": "2026-01-22T01:07:40.546787Z",
   "dir_name": "netresearch-branding",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/netresearch-branding",
+  "github_branch": "main"
 }

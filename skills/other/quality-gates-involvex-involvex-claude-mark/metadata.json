@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:31.924203Z",
   "dir_name": "quality-gates-involvex-involvex-claude-mark",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/orchestration/skills/quality-gates",
+  "github_branch": "main"
 }

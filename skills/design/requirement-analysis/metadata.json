@@ -7,5 +7,7 @@
     "requirement",
     "analysis"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/requirement-analysis",
+  "github_branch": "main"
 }

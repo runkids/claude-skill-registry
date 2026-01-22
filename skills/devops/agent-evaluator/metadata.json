@@ -8,5 +8,7 @@
     "evaluator"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/agent-evaluator",
+  "github_branch": "main"
 }

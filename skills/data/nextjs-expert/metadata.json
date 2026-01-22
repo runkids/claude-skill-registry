@@ -8,5 +8,7 @@
     "expert"
   ],
   "stars": 0,
-  "dir_name": "nextjs-expert"
+  "dir_name": "nextjs-expert",
+  "github_path": ".web-agency/skills/nextjs-expert",
+  "github_branch": "main"
 }

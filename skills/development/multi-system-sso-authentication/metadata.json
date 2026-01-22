@@ -9,5 +9,7 @@
     "sso",
     "authentication"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/multi-system-sso-authentication",
+  "github_branch": "main"
 }

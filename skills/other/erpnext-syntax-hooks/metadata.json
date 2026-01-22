@@ -5,5 +5,7 @@
   "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
   "downloaded_at": "2026-01-22T03:46:51.843511Z",
   "dir_name": "erpnext-syntax-hooks",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/source/syntax/erpnext-syntax-hooks",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "testing",
     "library"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/react-testing-library",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-19T02:38:47.212788Z",
   "dir_name": "dag-output-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dag-output-validator",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "file-watcher-security",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u30d5\u30a1\u30a4\u30eb\u76e3\u8996\u30b7\u30b9\u30c6\u30e0\u306e\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u5bfe\u7b56\u3092\u5b9f\u88c5\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30d1\u30b9\u30c8\u30e9\u30d0\u30fc\u30b5\u30eb\u30fb\u30b7\u30f3\u30dc\u30ea\u30c3\u30af\u30ea\u30f3\u30af\u653b\u6483\u306e\u9632\u6b62\u3001\u6700\u5c0f\u6a29\u9650\u306e\u539f\u5247\u306b\u57fa\u3065\u304f\u6a29\u9650\u7ba1\u7406\u3001\u591a\u5c64\u9632\u5fa1\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u3092\u8a2d\u8a08\u30fb\u5b9f\u88c5\u3002Anchors:\u2022 Threat Modeling\uff08Adam Shostack\uff09 / \u9069\u7528: STRIDE\u30e2\u30c7\u30eb / \u76ee\u7684: \u8105\u5a01\u306e\u4f53\u7cfb\u7684\u5206\u985e\u2022 Web Application Security\uff08Andrew Hoffman\uff09 ",
+  "description": "ファイル監視システムのセキュリティ対策を実装するスキル。パストラバーサル・シンボリックリンク攻撃の防止、最小権限の原則に基づく権限管理、多層防御アーキテクチャを設計・実装。Anchors:• Threat Modeling（Adam Shostack） / 適用: STRIDEモデル / 目的: 脅威の体系的分類• Web Application Security（Andrew Hoffman） ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.373159Z"
+  "downloaded_at": "2026-01-06T09:00:42.373159Z",
+  "github_path": "docs/99-claude/skills/file-watcher-security",
+  "github_branch": "main"
 }

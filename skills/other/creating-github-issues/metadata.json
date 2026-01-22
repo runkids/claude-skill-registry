@@ -5,5 +5,7 @@
   "source": "github.com/StirlingMarketingGroup/marlin",
   "downloaded_at": "2026-01-22T02:10:07.855154Z",
   "dir_name": "creating-github-issues",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/creating-github-issues",
+  "github_branch": "main"
 }

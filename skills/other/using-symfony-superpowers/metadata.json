@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:14.993666Z",
   "dir_name": "using-symfony-superpowers",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/using-symfony-superpowers",
+  "github_branch": "main"
 }

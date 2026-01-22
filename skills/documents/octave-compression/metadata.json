@@ -7,5 +7,7 @@
     "octave",
     "compression"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "src/octave_mcp/resources/skills/octave-compression",
+  "github_branch": "main"
 }

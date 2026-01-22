@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Zustand state management for React Native. Use when implementing client-side state.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:16.442140Z"
+  "downloaded_at": "2026-01-06T09:06:16.442140Z",
+  "github_path": "tech-stacks/js/react-native/skills/zustand-mobile-patterns",
+  "github_branch": "main"
 }

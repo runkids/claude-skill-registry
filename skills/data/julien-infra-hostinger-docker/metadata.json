@@ -10,5 +10,7 @@
     "docker"
   ],
   "stars": 0,
-  "dir_name": "julien-infra-hostinger-docker"
+  "dir_name": "julien-infra-hostinger-docker",
+  "github_path": "skills/julien-infra-hostinger-docker",
+  "github_branch": "main"
 }

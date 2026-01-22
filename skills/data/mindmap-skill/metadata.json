@@ -8,5 +8,7 @@
     "skill"
   ],
   "stars": 3,
-  "dir_name": "mindmap-skill"
+  "dir_name": "mindmap-skill",
+  "github_path": "",
+  "github_branch": "main"
 }

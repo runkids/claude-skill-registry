@@ -8,5 +8,7 @@
     "store"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/app-store",
+  "github_branch": "main"
 }

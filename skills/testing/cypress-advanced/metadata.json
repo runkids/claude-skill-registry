@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when advanced Cypress features including custom commands, plugins, and network stubbing.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:02.590934Z"
+  "downloaded_at": "2026-01-06T08:57:02.590934Z",
+  "github_path": "jutsu/jutsu-cypress/skills/cypress-advanced",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "review",
     "workflow"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/codex-review-workflow",
+  "github_branch": "main"
 }

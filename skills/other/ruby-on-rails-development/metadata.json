@@ -5,5 +5,7 @@
   "source": "github.com/alec-c4/claude-skills-rails-dev",
   "downloaded_at": "2026-01-22T02:33:15.128671Z",
   "dir_name": "ruby-on-rails-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "ruby-on-rails-development",
+  "github_branch": "main"
 }

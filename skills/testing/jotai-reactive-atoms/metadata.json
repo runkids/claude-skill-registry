@@ -8,5 +8,7 @@
     "reactive",
     "atoms"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/jotai-reactive-atoms",
+  "github_branch": "main"
 }

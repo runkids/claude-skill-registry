@@ -5,5 +5,7 @@
   "source": "github.com/jwmyers/vui-vux-plugins",
   "downloaded_at": "2026-01-22T03:47:51.274788Z",
   "dir_name": "zero-day-rules",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/zero-day-dev/skills/zero-day-rules",
+  "github_branch": "main"
 }

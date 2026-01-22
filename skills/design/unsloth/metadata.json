@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Expert guidance for fast fine-tuning with Unsloth - 2-5x faster training, 50-80% less memory, LoRA/QLoRA optimization",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:18.151203Z"
+  "downloaded_at": "2026-01-06T08:56:18.151203Z",
+  "github_path": "03-fine-tuning/unsloth",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Manage Gitea via CLI. Use when user mentions \"tea\", \"gitea cli\", or needs terminal-based Gitea operations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:10.729154Z"
+  "downloaded_at": "2026-01-06T09:04:10.729154Z",
+  "github_path": "skills/development/gitea-tea",
+  "github_branch": "main"
 }

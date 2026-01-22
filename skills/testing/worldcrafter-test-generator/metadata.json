@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Generate comprehensive tests following three-layer pyramid - unit (Vitest), integration (real database), E2E (Playwright). Use when user needs \"add tests\", \"improve coverage\", \"test [feature]\", \"write",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:08.243026Z"
+  "downloaded_at": "2026-01-06T09:06:08.243026Z",
+  "github_path": ".claude/skills/worldcrafter-test-generator",
+  "github_branch": "main"
 }

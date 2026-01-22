@@ -5,5 +5,7 @@
   "source": "github.com/creator-hian/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:40:46.659310Z",
   "dir_name": "unity-collection-pool",
-  "category": "other"
+  "category": "other",
+  "github_path": "unity-plugin/skills/unity-collection-pool",
+  "github_branch": "main"
 }

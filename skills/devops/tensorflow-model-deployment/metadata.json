@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Deploy and serve TensorFlow models",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:09.436550Z"
+  "downloaded_at": "2026-01-06T08:57:09.436550Z",
+  "github_path": "jutsu/jutsu-tensorflow/skills/tensorflow-model-deployment",
+  "github_branch": "main"
 }

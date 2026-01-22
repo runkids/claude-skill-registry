@@ -5,5 +5,7 @@
   "source": "github.com/onesmartguy/next-level-real-estate",
   "downloaded_at": "2026-01-14T02:03:55.281381Z",
   "dir_name": "dotnet-minimal-api-templates",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/api-scaffolding/skills/dotnet-minimal-api-templates",
+  "github_branch": "main"
 }

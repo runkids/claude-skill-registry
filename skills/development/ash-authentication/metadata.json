@@ -8,5 +8,7 @@
     "authentication"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "claude/skills/ash-authentication",
+  "github_branch": "main"
 }

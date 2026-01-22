@@ -7,5 +7,7 @@
     "deferred",
     "work"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/no-deferred-work",
+  "github_branch": "main"
 }

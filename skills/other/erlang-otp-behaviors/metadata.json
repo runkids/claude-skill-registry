@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-21T03:32:12.583967Z",
   "dir_name": "erlang-otp-behaviors",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-erlang/skills/erlang-otp-behaviors",
+  "github_branch": "main"
 }

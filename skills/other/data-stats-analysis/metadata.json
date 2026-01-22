@@ -5,5 +5,7 @@
   "source": "github.com/Starlitnightly/omicverse",
   "downloaded_at": "2026-01-21T03:02:05.663037Z",
   "dir_name": "data-stats-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/data-stats-analysis",
+  "github_branch": "main"
 }

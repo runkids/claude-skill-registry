@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:48:00.519535Z",
   "dir_name": "refactor-gate",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/refactor_gate",
+  "github_branch": "main"
 }

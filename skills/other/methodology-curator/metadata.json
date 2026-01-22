@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:15.231142Z",
   "dir_name": "methodology-curator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/abstract/skills/methodology-curator",
+  "github_branch": "main"
 }

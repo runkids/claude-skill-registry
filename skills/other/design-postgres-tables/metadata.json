@@ -5,5 +5,7 @@
   "source": "github.com/vasic-digital/SuperAgent",
   "downloaded_at": "2026-01-22T03:16:18.883833Z",
   "dir_name": "design-postgres-tables",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/postgres-mcp/design-postgres-tables",
+  "github_branch": "main"
 }

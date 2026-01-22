@@ -5,5 +5,7 @@
   "description": "Gradient Clipping Helper - Auto-activating skill for ML Training.Triggers on: gradient clipping helper, gradient clipping helperPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:05.073831Z",
-  "dir_name": "gradient-clipping-helper"
+  "dir_name": "gradient-clipping-helper",
+  "github_path": "planned-skills/generated/07-ml-training/gradient-clipping-helper",
+  "github_branch": "main"
 }

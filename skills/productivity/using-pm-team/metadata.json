@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "10 pre-dev workflow skills + 3 research agents organized into Small Track (4 gates, <2 days) andLarge Track (9 gates, 2+ days) for systematic feature planning with research-first approach.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:33.554628Z"
+  "downloaded_at": "2026-01-06T08:57:33.554628Z",
+  "github_path": "pm-team/skills/using-pm-team",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:18.034484Z",
   "dir_name": "python-data-stack",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/python_data_stack",
+  "github_branch": "main"
 }

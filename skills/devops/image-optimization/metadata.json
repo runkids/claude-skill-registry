@@ -7,5 +7,7 @@
     "image",
     "optimization"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/image-optimization",
+  "github_branch": "main"
 }

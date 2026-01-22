@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Creates structured development plans with phased task breakdowns, requirements, and QA checklists. Use when the user explicitly asks to create a dev plan, development plan, or document development req",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:52.118519Z"
+  "downloaded_at": "2026-01-06T08:56:52.118519Z",
+  "github_path": "Claude/skills/creating-development-plans",
+  "github_branch": "main"
 }

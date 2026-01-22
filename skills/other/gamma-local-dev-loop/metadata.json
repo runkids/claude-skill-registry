@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:02.980052Z",
   "dir_name": "gamma-local-dev-loop",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/gamma-pack/skills/gamma-local-dev-loop",
+  "github_branch": "main"
 }

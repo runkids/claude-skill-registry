@@ -4,5 +4,7 @@
   "category": "development",
   "description": "This skill should be used when the user asks about \"Workers API\", \"fetch handler\", \"Workers runtime\", \"request handling\", \"response handling\", \"Workers bindings\", \"environment variables in Workers\", \"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:15.067171Z"
+  "downloaded_at": "2026-01-06T09:06:15.067171Z",
+  "github_path": "plugins/cloudflare-expert/skills/workers-development",
+  "github_branch": "main"
 }

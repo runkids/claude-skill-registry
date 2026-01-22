@@ -2,7 +2,9 @@
   "name": "applying-fsd-architecture",
   "repo": "jeongsk/claude-skills",
   "category": "design",
-  "description": "Feature-Sliced Design(FSD) \uc544\ud0a4\ud14d\ucc98\ub97c \uc801\uc6a9\ud55c \ud504\ub860\ud2b8\uc5d4\ub4dc \ud504\ub85c\uc81d\ud2b8 \uac1c\ubc1c \uc9c0\uc6d0. FSD \ub808\uc774\uc5b4, \uc2ac\ub77c\uc774\uc2a4, \uc138\uadf8\uba3c\ud2b8 \uad6c\uc870 \uc124\uacc4, \uc758\uc874\uc131 \uaddc\uce59 \uc801\uc6a9, \ub9c8\uc774\uadf8\ub808\uc774\uc158 \uc2dc \uc0ac\uc6a9.",
+  "description": "Feature-Sliced Design(FSD) 아키텍처를 적용한 프론트엔드 프로젝트 개발 지원. FSD 레이어, 슬라이스, 세그먼트 구조 설계, 의존성 규칙 적용, 마이그레이션 시 사용.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:36.721890Z"
+  "downloaded_at": "2026-01-06T09:03:36.721890Z",
+  "github_path": "fsd-helper/skills/applying-fsd-architecture",
+  "github_branch": "main"
 }

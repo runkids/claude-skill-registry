@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:39.463705Z",
   "dir_name": "audit-context-building",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/trailofbits-audit-context-building/skills/audit-context-building",
+  "github_branch": "main"
 }

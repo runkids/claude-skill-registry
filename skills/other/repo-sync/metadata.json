@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-20T03:48:05.623798Z",
   "dir_name": "repo-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workspace-hub/repo-sync",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "configuration",
     "nodes"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/n8n-node-configuration",
+  "github_branch": "main"
 }

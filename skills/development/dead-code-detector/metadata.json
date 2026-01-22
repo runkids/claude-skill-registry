@@ -9,5 +9,7 @@
     "detector"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/dead-code-detector",
+  "github_branch": "main"
 }

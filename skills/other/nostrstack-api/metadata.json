@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:05.394695Z",
   "dir_name": "nostrstack-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/nostrstack-api",
+  "github_branch": "main"
 }

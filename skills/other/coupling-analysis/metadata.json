@@ -5,5 +5,7 @@
   "source": "github.com/Smith-Happens/xlightsfpptester",
   "downloaded_at": "2026-01-21T02:50:23.755884Z",
   "dir_name": "coupling-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/coupling-analysis",
+  "github_branch": "main"
 }

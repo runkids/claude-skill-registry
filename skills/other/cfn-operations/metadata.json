@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:58.165276Z",
   "dir_name": "cfn-operations",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cfn-operations",
+  "github_branch": "main"
 }

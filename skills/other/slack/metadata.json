@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:36.042197Z",
   "dir_name": "slack",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/slack-skill",
+  "github_branch": "main"
 }

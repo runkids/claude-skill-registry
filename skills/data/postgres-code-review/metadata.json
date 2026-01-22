@@ -9,5 +9,7 @@
     "review"
   ],
   "stars": 4,
-  "dir_name": "postgres-code-review"
+  "dir_name": "postgres-code-review",
+  "github_path": "skills/postgres-code-review",
+  "github_branch": "main"
 }

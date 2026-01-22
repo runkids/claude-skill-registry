@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:13.392606Z",
   "dir_name": "theme-factory-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "theme-factory-skill",
+  "github_branch": "main"
 }

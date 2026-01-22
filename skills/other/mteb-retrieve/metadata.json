@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:34.086985Z",
   "dir_name": "mteb-retrieve",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/mteb-retrieve",
+  "github_branch": "main"
 }

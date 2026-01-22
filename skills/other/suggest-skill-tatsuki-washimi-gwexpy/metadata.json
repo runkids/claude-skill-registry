@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:15.657337Z",
   "dir_name": "suggest-skill-tatsuki-washimi-gwexpy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/suggest_skill",
+  "github_branch": "main"
 }

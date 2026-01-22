@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Generate comprehensive unit tests for iOS RxSwift project files (ViewModels, UseCases, Services). Creates complete test files with nested mocks, RxTest patterns, session error handling, and memory lea",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:47.518056Z"
+  "downloaded_at": "2026-01-06T09:04:47.518056Z",
+  "github_path": "py-plugin/skills/ios-generate-unit-tests",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "native",
     "modules"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/react-native-native-modules",
+  "github_branch": "main"
 }

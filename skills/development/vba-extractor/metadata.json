@@ -7,5 +7,7 @@
     "vba",
     "extractor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/vba-extractor",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/rdmptv/AdbAutoPlayer",
   "downloaded_at": "2026-01-22T03:58:39.520036Z",
   "dir_name": "adb-bypass",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/adb/adb-utility/adb-bypass",
+  "github_branch": "main"
 }

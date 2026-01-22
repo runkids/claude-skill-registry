@@ -5,5 +5,7 @@
   "source": "github.com/lingfengQAQ/webnovel-writer",
   "downloaded_at": "2026-01-22T02:55:29.725371Z",
   "dir_name": "webnovel-query",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/webnovel-query",
+  "github_branch": "main"
 }

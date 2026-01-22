@@ -5,5 +5,7 @@
   "source": "github.com/waynesutton/convexskills",
   "downloaded_at": "2026-01-22T02:21:08.427045Z",
   "dir_name": "avoid-feature-creep",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/avoid-feature-creep",
+  "github_branch": "main"
 }

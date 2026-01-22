@@ -7,5 +7,7 @@
     "framework",
     "orchestrator"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/framework-orchestrator",
+  "github_branch": "main"
 }

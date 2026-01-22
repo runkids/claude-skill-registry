@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "exercise-patterns"
+  "dir_name": "exercise-patterns",
+  "github_path": ".claude/skills/exercise-patterns",
+  "github_branch": "main"
 }

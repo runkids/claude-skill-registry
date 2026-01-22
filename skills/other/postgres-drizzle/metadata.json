@@ -5,5 +5,7 @@
   "source": "github.com/ccheney/robust-skills",
   "downloaded_at": "2026-01-22T02:19:38.648633Z",
   "dir_name": "postgres-drizzle",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/postgres-drizzle",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Initialize Navigator documentation structure in a project. Auto-invokes when user says \"Initialize Navigator\", \"Set up Navigator\", \"Create Navigator structure\", or \"Bootstrap Navigator\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.079921Z"
+  "downloaded_at": "2026-01-06T08:57:10.079921Z",
+  "github_path": "skills/nav-init",
+  "github_branch": "main"
 }

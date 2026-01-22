@@ -2,7 +2,9 @@
   "name": "callabo-init",
   "repo": "jiunbae/agent-skills",
   "category": "development",
-  "description": "Callabo \uc11c\ube44\uc2a4 \uc6cc\ud06c\uc2a4\ud398\uc774\uc2a4\ub97c \ucd08\uae30\ud654\ud569\ub2c8\ub2e4. \uc0c8 \uc6cc\ud06c\uc2a4\ud398\uc774\uc2a4 \uc0dd\uc131, \ube0c\ub79c\uce58 \uc0dd\uc131, \uc11c\ube44\uc2a4 \ucef4\ud3ec\ub10c\ud2b8(callabo-server, callabo-webapp, magi) \uc120\ud0dd \ubc0f \ud3ec\ud2b8 \uc124\uc815, \uc11c\ube44\uc2a4 \uac04 \uc5f0\ub3d9 \uc124\uc815\uc744 \uc9c0\uc6d0\ud569\ub2c8\ub2e4.",
+  "description": "Callabo 서비스 워크스페이스를 초기화합니다. 새 워크스페이스 생성, 브랜치 생성, 서비스 컴포넌트(callabo-server, callabo-webapp, magi) 선택 및 포트 설정, 서비스 간 연동 설정을 지원합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:23.719919Z"
+  "downloaded_at": "2026-01-06T09:06:23.719919Z",
+  "github_path": "callabo/callabo-init",
+  "github_branch": "main"
 }

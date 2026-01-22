@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-22T02:47:03.865673Z",
   "dir_name": "ai-testcase-generator-mcp",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills-templates/testing/ai-testcase-generator-mcp",
+  "github_branch": "main"
 }

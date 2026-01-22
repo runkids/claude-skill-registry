@@ -4,5 +4,7 @@
   "repo": "stickystyle/claude-skills",
   "category": "devops",
   "tags": [],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/uv",
+  "github_branch": "main"
 }

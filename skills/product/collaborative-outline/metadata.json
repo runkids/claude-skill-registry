@@ -2,7 +2,9 @@
   "name": "collaborative-outline",
   "repo": "bahayonghang/wechat-content-writer",
   "category": "product",
-  "description": "This skill should be used when the user asks to \"\u521b\u5efa\u5927\u7eb2\", \"outline\", \"\u6587\u7ae0\u7ed3\u6784\u89c4\u5212\", \"plan article structure\", or needs help structuring their content before writing. Provides collaborative outline creation w",
+  "description": "This skill should be used when the user asks to \"创建大纲\", \"outline\", \"文章结构规划\", \"plan article structure\", or needs help structuring their content before writing. Provides collaborative outline creation w",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:34.370730Z"
+  "downloaded_at": "2026-01-06T09:00:34.370730Z",
+  "github_path": "wechat-content-writer/skills/collaborative-outline",
+  "github_branch": "main"
 }

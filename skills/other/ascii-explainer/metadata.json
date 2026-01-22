@@ -5,5 +5,7 @@
   "source": "github.com/mahidalhan/claude-hacks",
   "downloaded_at": "2026-01-14T01:59:29.756520Z",
   "dir_name": "ascii-explainer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ascii-explainer/skills/ascii-explainer",
+  "github_branch": "main"
 }

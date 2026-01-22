@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ansible-fix"
+  "dir_name": "ansible-fix",
+  "github_path": "skills/ansible-fix",
+  "github_branch": "main"
 }

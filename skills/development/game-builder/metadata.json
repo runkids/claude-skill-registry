@@ -7,5 +7,7 @@
     "game",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "game-builder",
+  "github_branch": "main"
 }

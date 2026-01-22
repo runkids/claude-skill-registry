@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:58.168483Z",
   "dir_name": "query-deduplication-engines",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/query-deduplication-engines",
+  "github_branch": "main"
 }

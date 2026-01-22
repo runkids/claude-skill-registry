@@ -5,5 +5,7 @@
   "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE",
   "downloaded_at": "2026-01-22T02:16:31.227524Z",
   "dir_name": "quantconnect-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/quantconnect-validation",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Reality is the ultimate judge. Use when need to ground insights in experience, test if it actually works, or validate through results not theory.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:55.582130Z"
+  "downloaded_at": "2026-01-06T08:56:55.582130Z",
+  "github_path": ".claude/skills/pattern-space/transformation/reality-testing",
+  "github_branch": "main"
 }

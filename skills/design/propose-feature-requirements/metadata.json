@@ -8,5 +8,7 @@
     "feature",
     "requirements"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/propose-feature-requirements",
+  "github_branch": "main"
 }

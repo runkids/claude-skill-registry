@@ -5,5 +5,7 @@
   "source": "github.com/pianzhu/my-claude-skills",
   "downloaded_at": "2026-01-22T04:10:53.151271Z",
   "dir_name": "nexus-prompt-engineer-en",
-  "category": "other"
+  "category": "other",
+  "github_path": "nexus-prompt-engineer-en",
+  "github_branch": "main"
 }

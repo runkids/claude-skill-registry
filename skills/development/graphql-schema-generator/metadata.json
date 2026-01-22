@@ -8,5 +8,7 @@
     "schema",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "graphql-schema-generator",
+  "github_branch": "main"
 }

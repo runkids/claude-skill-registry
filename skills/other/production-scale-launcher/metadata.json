@@ -5,5 +5,7 @@
   "source": "github.com/monicajeon28/GMcruise",
   "downloaded_at": "2026-01-22T01:14:51.459261Z",
   "dir_name": "production-scale-launcher",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/production-scale-launcher",
+  "github_branch": "main"
 }

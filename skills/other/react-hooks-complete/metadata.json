@@ -5,5 +5,7 @@
   "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
   "downloaded_at": "2026-01-14T01:09:28.927500Z",
   "dir_name": "react-hooks-complete",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/react-master/skills/react-hooks-complete",
+  "github_branch": "main"
 }

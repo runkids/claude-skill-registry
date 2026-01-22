@@ -5,5 +5,7 @@
   "source": "github.com/ajianaz/skills-collection",
   "downloaded_at": "2026-01-22T03:22:37.577969Z",
   "dir_name": "svelte-ui-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/svelte-ui-integration",
+  "github_branch": "main"
 }

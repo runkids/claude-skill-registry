@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:57.729661Z",
   "dir_name": "memory-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/memory-integration",
+  "github_branch": "main"
 }

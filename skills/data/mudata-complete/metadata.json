@@ -8,5 +8,7 @@
     "complete"
   ],
   "stars": 0,
-  "dir_name": "mudata-complete"
+  "dir_name": "mudata-complete",
+  "github_path": "mudata-complete",
+  "github_branch": "main"
 }

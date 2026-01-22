@@ -5,5 +5,7 @@
   "source": "github.com/gupsammy/Claude-setup",
   "downloaded_at": "2026-01-22T04:13:18.060620Z",
   "dir_name": "updateclaudemd",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/updateclaudemd",
+  "github_branch": "main"
 }

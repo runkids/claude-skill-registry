@@ -7,5 +7,7 @@
     "claude",
     "skillkit"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/claude-skillkit",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
   "downloaded_at": "2026-01-14T03:47:34.839512Z",
   "dir_name": "minimax-mcp-usage",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/minimax-mcp-usage",
+  "github_branch": "main"
 }

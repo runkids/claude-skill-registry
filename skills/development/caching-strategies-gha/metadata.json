@@ -2,7 +2,9 @@
   "name": "caching-strategies-gha",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "GitHub Actions \u306e\u30ad\u30e3\u30c3\u30b7\u30e5\u6226\u7565\u3092\u8a2d\u8a08\u3057\u3001\u30ad\u30fc\u8a2d\u8a08\u3001\u30d1\u30b9\u9078\u5b9a\u3001\u30d2\u30c3\u30c8\u7387\u6539\u5584\u300110GB\u5236\u9650\u7ba1\u7406\u3092\u884c\u3046\u30b9\u30ad\u30eb\u3002actions/cache \u306e\u6700\u9069\u5316\u3001\u4f9d\u5b58\u30ad\u30e3\u30c3\u30b7\u30e5\u306e\u5206\u5272\u3001Docker\u30ec\u30a4\u30e4\u30fc\u9023\u643a\u306a\u3069\u3092\u4f53\u7cfb\u5316\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u5b9f\u8df5\u7684\u6539\u5584 / \u76ee\u7684: \u53cd\u5fa9\u7684\u306a\u6700\u9069\u5316\u2022 Continuous Delivery / \u9069\u7528: \u30d1",
+  "description": "GitHub Actions のキャッシュ戦略を設計し、キー設計、パス選定、ヒット率改善、10GB制限管理を行うスキル。actions/cache の最適化、依存キャッシュの分割、Dockerレイヤー連携などを体系化する。Anchors:• The Pragmatic Programmer / 適用: 実践的改善 / 目的: 反復的な最適化• Continuous Delivery / 適用: パ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.665885Z"
+  "downloaded_at": "2026-01-06T09:00:40.665885Z",
+  "github_path": "docs/99-claude/skills/caching-strategies-gha",
+  "github_branch": "main"
 }

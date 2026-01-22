@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:21.327868Z",
   "dir_name": "ai-slop-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/content-creator-workflow/.claude/skills/ai-slop-detector",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Upgrade Cursor versions and migrate settings. Triggers on \"upgrade cursor\",\"update cursor\", \"cursor migration\", \"cursor new version\", \"cursor changelog\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:00.284642Z"
+  "downloaded_at": "2026-01-06T08:56:00.284642Z",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-upgrade-migration",
+  "github_branch": "main"
 }

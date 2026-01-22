@@ -6,5 +6,7 @@
   "tags": [
     "orchestrate"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/orchestrate",
+  "github_branch": "main"
 }

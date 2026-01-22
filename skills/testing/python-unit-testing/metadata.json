@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "A skill for creating comprehensive Python unit tests using pytest. It provides guidance and templates for test structure, fixtures, mocking, parameterization, and coverage. Use this when you need to w",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:14.608988Z"
+  "downloaded_at": "2026-01-06T09:07:14.608988Z",
+  "github_path": ".claude/skills/python-unit-testing",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-19T04:20:22.711053Z",
   "dir_name": "workflow-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/team-accelerator/skills/workflow-automation",
+  "github_branch": "main"
 }

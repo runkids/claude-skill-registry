@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build .NET solution/projects using dotnet CLI. Use when task involves compiling, restoring dependencies, or building artifacts.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:53.894642Z"
+  "downloaded_at": "2026-01-06T09:05:53.894642Z",
+  "github_path": ".agent/skills/dotnet-build",
+  "github_branch": "main"
 }

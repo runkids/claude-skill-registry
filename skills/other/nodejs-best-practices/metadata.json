@@ -5,5 +5,7 @@
   "source": "github.com/CongDon1207/AGENTS.md",
   "downloaded_at": "2026-01-22T03:08:23.291172Z",
   "dir_name": "nodejs-best-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/nodejs-best-practices",
+  "github_branch": "main"
 }

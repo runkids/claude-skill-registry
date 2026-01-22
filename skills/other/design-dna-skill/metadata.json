@@ -5,5 +5,7 @@
   "source": "github.com/adilkalam/orca",
   "downloaded_at": "2026-01-22T01:27:24.991774Z",
   "dir_name": "design-dna-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design-dna-skill",
+  "github_branch": "main"
 }

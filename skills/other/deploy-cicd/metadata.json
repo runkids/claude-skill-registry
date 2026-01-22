@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:24.182646Z",
   "dir_name": "deploy-cicd",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/deploy_cicd",
+  "github_branch": "main"
 }

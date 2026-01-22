@@ -10,5 +10,7 @@
   ],
   "stars": 15,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "dify-dsl-generator"
+  "dir_name": "dify-dsl-generator",
+  "github_path": "dify-dsl-generator",
+  "github_branch": "main"
 }

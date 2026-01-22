@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:55.431721Z",
   "dir_name": "authorization-models",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/security/skills/authorization-models",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:02.522771Z",
   "dir_name": "artillery-config-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/10-performance-testing/artillery-config-generator",
+  "github_branch": "main"
 }

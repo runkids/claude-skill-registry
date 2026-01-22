@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Master Tableau development including calculated fields, LOD expressions, table calculations, and dashboard design",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:43.671079Z"
+  "downloaded_at": "2026-01-06T09:02:43.671079Z",
+  "github_path": "skills/tableau",
+  "github_branch": "main"
 }

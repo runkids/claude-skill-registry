@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Automatically sync the documentation structure from docs/content/{en,uk}/ to CLAUDE.md when changes are detected in the docs directory. This skill should be triggered when documentation files are adde",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:06.052166Z"
+  "downloaded_at": "2026-01-06T09:05:06.052166Z",
+  "github_path": ".claude/skills-old/sync-docs-structure",
+  "github_branch": "main"
 }

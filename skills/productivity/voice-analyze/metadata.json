@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Reverse-engineer voice profiles from sample content by analyzing writing patterns. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.592431Z"
+  "downloaded_at": "2026-01-06T08:56:58.592431Z",
+  "github_path": "plugins/voice/skills/voice-analyze",
+  "github_branch": "main"
 }

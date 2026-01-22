@@ -2,7 +2,9 @@
   "name": "command-agent-skill-integration",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "\u30b3\u30de\u30f3\u30c9/\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8/\u30b9\u30ad\u30eb\u306e\u7d71\u5408\u8a2d\u8a08\u3092\u6574\u7406\u3057\u3001\u9023\u643a\u30d1\u30bf\u30fc\u30f3\u3068\u8907\u5408\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002\u8d77\u52d5\u30d1\u30bf\u30fc\u30f3\u3001\u53c2\u7167\u30d1\u30bf\u30fc\u30f3\u3001\u7d71\u5408\u691c\u8a3c\u306e\u624b\u9806\u3092\u4e00\u8cab\u3057\u3066\u6574\u7406\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer (Andrew Hunt, David Thomas) / \u9069\u7528: \u9023\u643a\u624b\u9806\u306e\u8a2d\u8a08 / \u76ee\u7684: \u518d\u73fe\u6027\u306e\u78ba\u4fdd\u2022 Multi-Agent Systems (Wooldrid",
+  "description": "コマンド/エージェント/スキルの統合設計を整理し、連携パターンと複合ワークフローを支援するスキル。起動パターン、参照パターン、統合検証の手順を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 連携手順の設計 / 目的: 再現性の確保• Multi-Agent Systems (Wooldrid",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.901051Z"
+  "downloaded_at": "2026-01-06T09:00:40.901051Z",
+  "github_path": "docs/99-claude/skills/command-agent-skill-integration",
+  "github_branch": "main"
 }

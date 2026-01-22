@@ -5,5 +5,7 @@
   "source": "github.com/pproenca/dot-skills",
   "downloaded_at": "2026-01-22T02:36:29.499522Z",
   "dir_name": "too-long-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/fixtures/too-long-skill",
+  "github_branch": "main"
 }

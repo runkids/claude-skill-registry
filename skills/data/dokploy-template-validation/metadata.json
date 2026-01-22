@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "dokploy-template-validation"
+  "dir_name": "dokploy-template-validation",
+  "github_path": ".claude/skills/dokploy-template-validation",
+  "github_branch": "main"
 }

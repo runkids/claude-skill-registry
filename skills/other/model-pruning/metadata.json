@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:55.512491Z",
   "dir_name": "model-pruning",
-  "category": "other"
+  "category": "other",
+  "github_path": "19-emerging-techniques/model-pruning",
+  "github_branch": "main"
 }

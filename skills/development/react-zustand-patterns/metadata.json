@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Zustand state management patterns for React. Use when working with Zustand stores, debugging state timing issues, or implementing async actions. Works for both React web and React Native.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:31.191495Z"
+  "downloaded_at": "2026-01-06T09:04:31.191495Z",
+  "github_path": "skills/react-zustand-patterns",
+  "github_branch": "main"
 }

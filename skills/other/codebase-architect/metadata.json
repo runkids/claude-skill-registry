@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:20.168001Z",
   "dir_name": "codebase-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/codebase-architect",
+  "github_branch": "main"
 }

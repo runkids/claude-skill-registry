@@ -7,5 +7,7 @@
     "security",
     "documentation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/security-documentation",
+  "github_branch": "main"
 }

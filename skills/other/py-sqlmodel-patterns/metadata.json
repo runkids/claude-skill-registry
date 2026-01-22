@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:26.477014Z",
   "dir_name": "py-sqlmodel-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/py-sqlmodel-patterns",
+  "github_branch": "main"
 }

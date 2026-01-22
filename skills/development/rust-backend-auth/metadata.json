@@ -8,5 +8,7 @@
     "backend",
     "auth"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/rust-backend-auth",
+  "github_branch": "main"
 }

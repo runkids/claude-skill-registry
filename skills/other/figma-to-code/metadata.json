@@ -5,5 +5,7 @@
   "source": "github.com/yairbederman/EngineeringAgency",
   "downloaded_at": "2026-01-22T04:09:01.644165Z",
   "dir_name": "figma-to-code",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/figma-to-code",
+  "github_branch": "main"
 }

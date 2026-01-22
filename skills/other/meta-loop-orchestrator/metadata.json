@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:56.038612Z",
   "dir_name": "meta-loop-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/orchestration/meta-loop-orchestrator",
+  "github_branch": "main"
 }

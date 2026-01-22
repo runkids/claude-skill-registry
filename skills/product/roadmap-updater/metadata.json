@@ -7,5 +7,7 @@
     "roadmap",
     "updater"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/roadmap-updater",
+  "github_branch": "main"
 }

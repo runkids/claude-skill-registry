@@ -5,5 +5,7 @@
   "source": "github.com/ZachBeta/claude-as-coach",
   "downloaded_at": "2026-01-21T01:12:44.676474Z",
   "dir_name": "daily-morning-routine-base",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/daily-morning-routine-base",
+  "github_branch": "main"
 }

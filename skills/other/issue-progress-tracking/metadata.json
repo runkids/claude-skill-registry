@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:11.522192Z",
   "dir_name": "issue-progress-tracking",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/issue-progress-tracking",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "This skill should be used when creating a new Azure IoT Edge module. Use when the user requests to scaffold, create, or set up a new edge module. The skill automates module scaffolding, manifest confi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:04.759341Z"
+  "downloaded_at": "2026-01-06T09:04:04.759341Z",
+  "github_path": ".claude/plugins/azure-iot/skills/iot-edge-module",
+  "github_branch": "main"
 }

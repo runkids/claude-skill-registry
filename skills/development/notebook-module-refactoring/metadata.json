@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Safe refactoring of Jupyter notebook code into Python modules",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:28.139819Z"
+  "downloaded_at": "2026-01-06T09:08:28.139819Z",
+  "github_path": "plugins/kintsugi/notebook-module-refactoring/skills/notebook-module-refactoring",
+  "github_branch": "main"
 }

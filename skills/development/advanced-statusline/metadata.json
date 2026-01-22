@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Implement AI-powered statusline with session tracking, plan detection, workspace emojis, and intelligent caching for Claude Code",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:23.332401Z"
+  "downloaded_at": "2026-01-06T09:03:23.332401Z",
+  "github_path": "skills/advanced-statusline",
+  "github_branch": "main"
 }

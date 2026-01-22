@@ -8,5 +8,7 @@
     "starter",
     "netlify"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "nuxt-starter-netlify",
+  "github_branch": "main"
 }

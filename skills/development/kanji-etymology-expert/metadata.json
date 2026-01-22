@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Kanji specialist covering character origins, radical systems, mnemonic techniques, and historical development",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:45.709434Z"
+  "downloaded_at": "2026-01-08T03:29:45.709434Z",
+  "github_path": "skills/linguistic/kanji-etymology-expert",
+  "github_branch": "main"
 }

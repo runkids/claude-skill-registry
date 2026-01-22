@@ -2,7 +2,9 @@
   "name": "pedagogie-revision-enonce",
   "repo": "jfdion/claude-skills",
   "category": "documents",
-  "description": "D\u00e9tection et analyse d'ambigu\u00eft\u00e9s dans les documents p\u00e9dagogiques (\u00e9nonc\u00e9s de TP, consignes, grilles d'\u00e9valuation, instructions). Identifie les passages n\u00e9cessitant clarification et g\u00e9n\u00e8re un tableau ",
+  "description": "Détection et analyse d'ambiguïtés dans les documents pédagogiques (énoncés de TP, consignes, grilles d'évaluation, instructions). Identifie les passages nécessitant clarification et génère un tableau ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:22.781608Z"
+  "downloaded_at": "2026-01-06T09:06:22.781608Z",
+  "github_path": "fr/pedagogie-revision-enonces/skill",
+  "github_branch": "main"
 }

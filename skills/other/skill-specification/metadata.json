@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:35:03.553648Z",
   "dir_name": "skill-specification",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-specification",
+  "github_branch": "main"
 }

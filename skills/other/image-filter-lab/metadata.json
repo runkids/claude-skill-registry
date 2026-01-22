@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:54.961773Z",
   "dir_name": "image-filter-lab",
-  "category": "other"
+  "category": "other",
+  "github_path": "image-filter-lab",
+  "github_branch": "main"
 }

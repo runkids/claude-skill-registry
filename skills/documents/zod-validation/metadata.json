@@ -2,7 +2,9 @@
   "name": "zod-validation",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "documents",
-  "description": "Zod\u30e9\u30a4\u30d6\u30e9\u30ea\u306b\u3088\u308b\u30e9\u30f3\u30bf\u30a4\u30e0\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3\u3001\u30b9\u30ad\u30fc\u30de\u5b9a\u7fa9\u3001TypeScript\u578b\u63a8\u8ad6\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u578b\u5b89\u5168\u306a\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3\u30ed\u30b8\u30c3\u30af\u3092\u8a2d\u8a08\u30fb\u5b9f\u88c5\u3057\u3001API\u30fb\u30d5\u30a9\u30fc\u30e0\u30fb\u30c9\u30e1\u30a4\u30f3\u5c64\u3067\u306e\u691c\u8a3c\u3092\u7db2\u7f85\u3059\u308b\u3002Anchors:\u2022 Zod Official Documentation / \u9069\u7528: \u30b9\u30ad\u30fc\u30deAPI\u30fb\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3 / \u76ee\u7684: \u516c\u5f0f\u30d1\u30bf\u30fc\u30f3\u6e96\u62e0\u2022 Effective TypeScript (Da",
+  "description": "Zodライブラリによるランタイムバリデーション、スキーマ定義、TypeScript型推論を専門とするスキル。型安全なバリデーションロジックを設計・実装し、API・フォーム・ドメイン層での検証を網羅する。Anchors:• Zod Official Documentation / 適用: スキーマAPI・バリデーション / 目的: 公式パターン準拠• Effective TypeScript (Da",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:46.303831Z"
+  "downloaded_at": "2026-01-06T09:00:46.303831Z",
+  "github_path": "docs/99-claude/skills/zod-validation",
+  "github_branch": "main"
 }

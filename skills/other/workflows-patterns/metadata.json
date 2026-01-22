@@ -5,5 +5,7 @@
   "source": "github.com/SteveLeve/claude-marketplace",
   "downloaded_at": "2026-01-22T04:12:02.278050Z",
   "dir_name": "workflows-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/cloudflare-expert/skills/workflows-patterns",
+  "github_branch": "main"
 }

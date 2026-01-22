@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.821134Z",
   "dir_name": "deno-monorepo-template",
-  "category": "other"
+  "category": "other",
+  "github_path": "deno-monorepo-template",
+  "github_branch": "main"
 }

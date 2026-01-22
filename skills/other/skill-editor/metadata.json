@@ -5,5 +5,7 @@
   "source": "github.com/iplaylf2/coding-profile",
   "downloaded_at": "2026-01-22T02:58:50.473282Z",
   "dir_name": "skill-editor",
-  "category": "other"
+  "category": "other",
+  "github_path": "agent/skills/skill-editor",
+  "github_branch": "main"
 }

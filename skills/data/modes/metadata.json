@@ -7,5 +7,7 @@
     "modes"
   ],
   "stars": 0,
-  "dir_name": "modes"
+  "dir_name": "modes",
+  "github_path": "skills/modes",
+  "github_branch": "main"
 }

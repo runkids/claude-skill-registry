@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build Django applications with models, views, forms, templates, REST APIs, and modern Django 5.x patterns.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:25.805061Z"
+  "downloaded_at": "2026-01-06T08:58:25.805061Z",
+  "github_path": "plugins/majestic-python/skills/django-coder",
+  "github_branch": "main"
 }

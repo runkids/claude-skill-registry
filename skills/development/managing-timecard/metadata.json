@@ -7,5 +7,7 @@
     "managing",
     "timecard"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/managing-timecard",
+  "github_branch": "main"
 }

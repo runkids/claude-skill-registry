@@ -9,5 +9,7 @@
     "questionnaire"
   ],
   "stars": 8,
-  "dir_name": "symmetry-discovery-questionnaire"
+  "dir_name": "symmetry-discovery-questionnaire",
+  "github_path": "skills/symmetry-discovery-questionnaire",
+  "github_branch": "main"
 }

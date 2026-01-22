@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Game design fundamentals, GDD templates, player psychology, game balancing, and progression systems. Use when designing game mechanics, writing design documents, or balancing gameplay.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:52.711763Z"
+  "downloaded_at": "2026-01-06T08:56:52.711763Z",
+  "github_path": "skills/game-development/game-design",
+  "github_branch": "main"
 }

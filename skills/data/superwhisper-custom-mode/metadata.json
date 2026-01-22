@@ -9,5 +9,7 @@
     "mode"
   ],
   "stars": 1,
-  "dir_name": "superwhisper-custom-mode"
+  "dir_name": "superwhisper-custom-mode",
+  "github_path": "superwhisper-custom-mode",
+  "github_branch": "main"
 }

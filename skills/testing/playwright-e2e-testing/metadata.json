@@ -8,5 +8,7 @@
     "e2e",
     "testing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/playwright-e2e-testing",
+  "github_branch": "main"
 }

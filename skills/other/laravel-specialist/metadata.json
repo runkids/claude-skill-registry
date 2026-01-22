@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:09.329349Z",
   "dir_name": "laravel-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/laravel-specialist",
+  "github_branch": "main"
 }

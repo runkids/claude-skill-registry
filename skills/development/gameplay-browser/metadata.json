@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Test game via browser with Chrome DevTools. Navigate UI, play through game flow, observe behavior and report issues.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:59.596557Z"
+  "downloaded_at": "2026-01-06T09:04:59.596557Z",
+  "github_path": ".opencode/skills/gameplay-browser",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "FAIL LOUDLY pattern for selection constraints. Trigger when: (1) correlated stocks selected together, (2) min_crypto_positions ignored, (3) constraints violated silently.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:11.869368Z",
-  "dir_name": "selection-diversity-validation"
+  "dir_name": "selection-diversity-validation",
+  "github_path": "plugins/trading/selection-diversity-validation/skills/selection-diversity-validation",
+  "github_branch": "main"
 }

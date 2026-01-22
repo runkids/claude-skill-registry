@@ -7,5 +7,7 @@
     "npm",
     "helper"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/npm-helper",
+  "github_branch": "main"
 }

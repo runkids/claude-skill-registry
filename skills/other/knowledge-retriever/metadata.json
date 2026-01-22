@@ -5,5 +5,7 @@
   "source": "github.com/LeandroLarrosa/gentlemonster",
   "downloaded_at": "2026-01-22T03:33:12.631316Z",
   "dir_name": "knowledge-retriever",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/knowledge-retriever",
+  "github_branch": "main"
 }

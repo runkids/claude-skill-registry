@@ -7,5 +7,7 @@
     "nginx",
     "configuration"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/nginx-configuration",
+  "github_branch": "main"
 }

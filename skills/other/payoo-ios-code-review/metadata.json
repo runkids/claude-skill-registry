@@ -5,5 +5,7 @@
   "source": "github.com/daispacy/py-claude-marketplace",
   "downloaded_at": "2026-01-22T02:43:14.911360Z",
   "dir_name": "payoo-ios-code-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "py-plugin/skills/payoo-ios-code-review",
+  "github_branch": "main"
 }

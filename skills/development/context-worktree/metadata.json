@@ -2,7 +2,9 @@
   "name": "context-worktree",
   "repo": "jiunbae/agent-skills",
   "category": "development",
-  "description": "\uc0c8 \uc791\uc5c5 \uc694\uccad \uc2dc \uae30\uc874 \uc791\uc5c5\uacfc\uc758 \ub9e5\ub77d \uc720\uc0ac\uc131\uc744 \ud310\ub2e8\ud558\uace0, \ube44\uc720\uc0ac\ud55c \uacbd\uc6b0 \uc790\ub3d9\uc73c\ub85c git worktree\ub97c \uc0dd\uc131\ud558\uc5ec \uc0c8 \ube0c\ub79c\uce58\uc5d0\uc11c \uc791\uc5c5\ud569\ub2c8\ub2e4. \uc791\uc5c5 \uc2dc\uc791, \uc0c8 \uae30\ub2a5 \uad6c\ud604, \ub2e4\ub978 \uc774\uc288 \uc791\uc5c5 \uc2dc \uc790\ub3d9 \ud65c\uc131\ud654\ub429\ub2c8\ub2e4.",
+  "description": "새 작업 요청 시 기존 작업과의 맥락 유사성을 판단하고, 비유사한 경우 자동으로 git worktree를 생성하여 새 브랜치에서 작업합니다. 작업 시작, 새 기능 구현, 다른 이슈 작업 시 자동 활성화됩니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:23.982197Z"
+  "downloaded_at": "2026-01-06T09:06:23.982197Z",
+  "github_path": "development/context-worktree",
+  "github_branch": "main"
 }

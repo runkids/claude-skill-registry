@@ -8,5 +8,7 @@
     "awwwards",
     "website"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "gsap-awwwards-website",
+  "github_branch": "main"
 }

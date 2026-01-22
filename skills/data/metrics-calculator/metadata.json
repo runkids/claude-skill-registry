@@ -8,5 +8,7 @@
     "calculator"
   ],
   "stars": 0,
-  "dir_name": "metrics-calculator"
+  "dir_name": "metrics-calculator",
+  "github_path": ".claude/skills/metrics-calculator",
+  "github_branch": "main"
 }

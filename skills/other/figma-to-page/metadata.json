@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:01.579197Z",
   "dir_name": "figma-to-page",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/figma-to-page",
+  "github_branch": "main"
 }

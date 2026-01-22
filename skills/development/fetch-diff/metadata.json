@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Fetch PR diff with filtering and line numbers for code review.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:19:34.220143Z"
+  "downloaded_at": "2026-01-08T03:19:34.220143Z",
+  "github_path": ".claude/skills/fetch-diff",
+  "github_branch": "main"
 }

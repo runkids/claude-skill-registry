@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:21.612716Z",
   "dir_name": "fairchem",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/programming/fairchem",
+  "github_branch": "main"
 }

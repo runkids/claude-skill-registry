@@ -7,5 +7,7 @@
     "gemini"
   ],
   "stars": 0,
-  "dir_name": "gemini-ai"
+  "dir_name": "gemini-ai",
+  "github_path": ".claude/skills/gemini-ai",
+  "github_branch": "main"
 }

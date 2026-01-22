@@ -5,5 +5,7 @@
   "source": "github.com/claudeaceae/samara-main",
   "downloaded_at": "2026-01-21T04:14:40.576025Z",
   "dir_name": "diagnose-leaks",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/diagnose-leaks",
+  "github_branch": "main"
 }

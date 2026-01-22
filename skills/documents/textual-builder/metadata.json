@@ -7,5 +7,7 @@
     "textual",
     "builder"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "textual-builder",
+  "github_branch": "main"
 }

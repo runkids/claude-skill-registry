@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:08.022301Z",
   "dir_name": "ln-771-logging-configurator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-771-logging-configurator",
+  "github_branch": "main"
 }

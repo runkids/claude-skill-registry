@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-19T04:20:38.755734Z",
   "dir_name": "beanie-odm",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/fastapi-backend/skills/beanie-odm",
+  "github_branch": "main"
 }

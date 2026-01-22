@@ -8,5 +8,7 @@
     "automation"
   ],
   "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/specweave-ui/skills/browser-automation",
+  "github_branch": "main"
 }

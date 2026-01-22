@@ -8,5 +8,7 @@
     "development"
   ],
   "stars": 0,
-  "dir_name": "secure-development"
+  "dir_name": "secure-development",
+  "github_path": "skills/secure-development",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "progress"
   ],
   "stars": 1,
-  "dir_name": "reviewing-implementation-progress"
+  "dir_name": "reviewing-implementation-progress",
+  "github_path": "skills/reviewing-implementation-progress",
+  "github_branch": "main"
 }

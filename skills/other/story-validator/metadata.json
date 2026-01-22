@@ -5,5 +5,7 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:08.726318Z",
   "dir_name": "story-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "user-story-system/.claude/skills/story-validator",
+  "github_branch": "main"
 }

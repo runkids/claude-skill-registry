@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cross-task-learning"
+  "dir_name": "cross-task-learning",
+  "github_path": ".claude/skills/cross-task-learning",
+  "github_branch": "main"
 }

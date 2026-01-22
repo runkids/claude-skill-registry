@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:11.980256Z",
   "dir_name": "typescript-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/languages/typescript-expert",
+  "github_branch": "main"
 }

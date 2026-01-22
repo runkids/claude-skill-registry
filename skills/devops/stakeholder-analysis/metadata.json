@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Stakeholder identification, analysis, and management using BABOK techniques. Creates Power/Interest matrices, RACI charts, and communication plans.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:59.089608Z"
+  "downloaded_at": "2026-01-06T08:59:59.089608Z",
+  "github_path": "plugins/business-analysis/skills/stakeholder-analysis",
+  "github_branch": "main"
 }

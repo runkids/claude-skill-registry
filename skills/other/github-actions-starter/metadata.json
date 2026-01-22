@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:08.762204Z",
   "dir_name": "github-actions-starter",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/01-devops-basics/github-actions-starter",
+  "github_branch": "main"
 }

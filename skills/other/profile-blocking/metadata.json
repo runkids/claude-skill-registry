@@ -5,5 +5,7 @@
   "source": "github.com/pwittchen/varun.surf",
   "downloaded_at": "2026-01-22T02:56:31.922891Z",
   "dir_name": "profile-blocking",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/profile-blocking",
+  "github_branch": "main"
 }

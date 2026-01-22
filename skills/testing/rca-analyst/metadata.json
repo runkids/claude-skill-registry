@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Structured root cause analysis methodology with three-test isolation and prevention analysis",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:36.815997Z"
+  "downloaded_at": "2026-01-06T09:10:36.815997Z",
+  "github_path": "plugins/v/skills/rca-analyst",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-17T02:05:50.748495Z",
   "dir_name": "thumbnail-concept-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/video-creator-workflow/.claude/skills/thumbnail-concept-generator",
+  "github_branch": "main"
 }

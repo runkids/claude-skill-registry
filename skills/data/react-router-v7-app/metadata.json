@@ -9,5 +9,7 @@
     "app"
   ],
   "stars": 0,
-  "dir_name": "react-router-v7-app"
+  "dir_name": "react-router-v7-app",
+  "github_path": "skills/react-router-v7-app",
+  "github_branch": "main"
 }

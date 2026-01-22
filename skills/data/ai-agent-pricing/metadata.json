@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-agent-pricing"
+  "dir_name": "ai-agent-pricing",
+  "github_path": "skills/ai-agent-pricing",
+  "github_branch": "main"
 }

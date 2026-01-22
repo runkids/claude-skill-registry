@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:36.643797Z",
   "dir_name": "context-retrospective",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/meta/context-retrospective",
+  "github_branch": "main"
 }

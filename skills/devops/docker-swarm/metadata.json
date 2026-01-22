@@ -8,5 +8,7 @@
     "swarm"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/docker-swarm",
+  "github_branch": "main"
 }

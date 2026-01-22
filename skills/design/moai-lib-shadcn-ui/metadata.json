@@ -8,5 +8,7 @@
     "lib",
     "shadcn"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-lib-shadcn-ui",
+  "github_branch": "main"
 }

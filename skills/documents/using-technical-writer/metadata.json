@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Router for documentation tasks - routes to ADRs, APIs, runbooks, security docs, or governance docs",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:41.171638Z"
+  "downloaded_at": "2026-01-06T08:59:41.171638Z",
+  "github_path": "plugins/muna-technical-writer/skills/using-technical-writer",
+  "github_branch": "main"
 }

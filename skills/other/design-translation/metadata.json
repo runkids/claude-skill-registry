@@ -5,5 +5,7 @@
   "source": "github.com/canva-sdks/canva-claude-skills",
   "downloaded_at": "2026-01-17T03:04:04.387291Z",
   "dir_name": "design-translation",
-  "category": "other"
+  "category": "other",
+  "github_path": "design-translation",
+  "github_branch": "main"
 }

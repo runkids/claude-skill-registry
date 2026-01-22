@@ -5,5 +5,7 @@
   "source": "github.com/j0KZ/mcp-agents",
   "downloaded_at": "2026-01-19T03:12:22.293202Z",
   "dir_name": "release-publishing-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "starter-kit/template/.claude/skills/release-publishing-workflow",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:38.442865Z",
   "dir_name": "docker-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/docker-helper",
+  "github_branch": "main"
 }

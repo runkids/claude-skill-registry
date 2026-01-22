@@ -2,7 +2,9 @@
   "name": "improvement-pipeline",
   "repo": "DNYoussef/context-cascade",
   "category": "development",
-  "description": "Coordinate sequential improvement stages (analyze \u2192 propose \u2192 build \u2192 validate) with Prompt Architect clarity and Skill Forge guardrails.",
+  "description": "Coordinate sequential improvement stages (analyze → propose → build → validate) with Prompt Architect clarity and Skill Forge guardrails.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:50.092855Z"
+  "downloaded_at": "2026-01-06T08:58:50.092855Z",
+  "github_path": "skills/tooling/improvement-pipeline",
+  "github_branch": "main"
 }

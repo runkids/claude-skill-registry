@@ -2,7 +2,9 @@
   "name": "test-doubles",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "\u30c6\u30b9\u30c8\u30c0\u30d6\u30eb\u306e\u9078\u629e\u30fb\u8a2d\u8a08\u30fb\u691c\u8a3c\u3092\u4e00\u8cab\u3057\u3066\u6574\u7406\u3059\u308b\u30b9\u30ad\u30eb\u3002\u4f9d\u5b58\u95a2\u4fc2\u306e\u5206\u96e2\u3068\u691c\u8a3c\u6226\u7565\u3092\u7d71\u4e00\u3057\u3001\u30c6\u30b9\u30c8\u306e\u610f\u56f3\u3068\u53ef\u8aad\u6027\u3092\u9ad8\u3081\u308b\u3002Anchors:\u2022 Test-Driven Development: By Example / \u9069\u7528: \u30c6\u30b9\u30c8\u30c0\u30d6\u30eb\u9078\u629e / \u76ee\u7684: \u30c6\u30b9\u30c8\u610f\u56f3\u306e\u660e\u78ba\u5316\u2022 xUnit Test Patterns / \u9069\u7528: \u30c6\u30b9\u30c8\u30d1\u30bf\u30fc\u30f3 / \u76ee\u7684: \u30c0\u30d6\u30eb\u8a2d\u8a08\u306e\u4e00\u8cab\u6027Trigger:Use w",
+  "description": "テストダブルの選択・設計・検証を一貫して整理するスキル。依存関係の分離と検証戦略を統一し、テストの意図と可読性を高める。Anchors:• Test-Driven Development: By Example / 適用: テストダブル選択 / 目的: テスト意図の明確化• xUnit Test Patterns / 適用: テストパターン / 目的: ダブル設計の一貫性Trigger:Use w",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.633908Z"
+  "downloaded_at": "2026-01-06T09:00:45.633908Z",
+  "github_path": "docs/99-claude/skills/test-doubles",
+  "github_branch": "main"
 }

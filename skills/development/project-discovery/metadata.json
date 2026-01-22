@@ -7,5 +7,7 @@
     "project",
     "discovery"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "skills/project-discovery",
+  "github_branch": "main"
 }

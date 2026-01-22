@@ -9,5 +9,7 @@
     "coolify"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/admin-app-coolify",
+  "github_branch": "main"
 }

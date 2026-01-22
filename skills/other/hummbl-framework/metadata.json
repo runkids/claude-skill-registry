@@ -5,5 +5,7 @@
   "source": "github.com/hummbl-dev/HUMMBL-Unified-Tier-Framework",
   "downloaded_at": "2026-01-22T03:47:46.274204Z",
   "dir_name": "hummbl-framework",
-  "category": "other"
+  "category": "other",
+  "github_path": "hummbl-framework",
+  "github_branch": "main"
 }

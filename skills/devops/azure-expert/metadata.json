@@ -8,5 +8,7 @@
     "expert"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "azure-expert",
+  "github_branch": "main"
 }

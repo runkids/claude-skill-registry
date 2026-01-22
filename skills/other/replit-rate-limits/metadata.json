@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:08.902309Z",
   "dir_name": "replit-rate-limits",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/replit-pack/skills/replit-rate-limits",
+  "github_branch": "main"
 }

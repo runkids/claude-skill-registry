@@ -8,5 +8,7 @@
     "chat",
     "tool"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/wechat-chat-tool",
+  "github_branch": "main"
 }

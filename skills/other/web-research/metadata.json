@@ -5,5 +5,7 @@
   "source": "github.com/Activer007/ordinary-claude-skills",
   "downloaded_at": "2026-01-22T02:48:18.260647Z",
   "dir_name": "web-research",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills_all/web-research",
+  "github_branch": "main"
 }

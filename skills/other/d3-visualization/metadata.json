@@ -5,5 +5,7 @@
   "source": "github.com/ntaksh42/agents",
   "downloaded_at": "2026-01-22T02:30:12.787042Z",
   "dir_name": "d3-visualization",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/d3-visualization",
+  "github_branch": "main"
 }

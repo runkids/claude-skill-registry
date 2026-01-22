@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:54.302208Z",
   "dir_name": "date-normalizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "date-normalizer",
+  "github_branch": "main"
 }

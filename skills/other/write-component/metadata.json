@@ -5,5 +5,7 @@
   "source": "github.com/coeus-ventures/epic-web",
   "downloaded_at": "2026-01-22T02:16:43.811559Z",
   "dir_name": "write-component",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/write-component",
+  "github_branch": "main"
 }

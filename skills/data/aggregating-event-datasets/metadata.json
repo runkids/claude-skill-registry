@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "aggregating-event-datasets"
+  "dir_name": "aggregating-event-datasets",
+  "github_path": "skills/aggregating-event-datasets",
+  "github_branch": "main"
 }

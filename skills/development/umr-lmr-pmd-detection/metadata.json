@@ -4,5 +4,7 @@
   "category": "development",
   "description": "This pipeline performs genome-wide segmentation of CpG methylation profiles to identify Unmethylated Regions (UMRs), Low-Methylated Regions (LMRs), and Partially Methylated Domains (PMDs) using whole-",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.598747Z"
+  "downloaded_at": "2026-01-06T09:00:35.598747Z",
+  "github_path": "26.UMR-LMR-PMD-detection",
+  "github_branch": "main"
 }

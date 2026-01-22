@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build llm-mux binary and run locally for development/debugging",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:28.104489Z"
+  "downloaded_at": "2026-01-06T08:56:28.104489Z",
+  "github_path": ".opencode/skill/build-deploy",
+  "github_branch": "main"
 }

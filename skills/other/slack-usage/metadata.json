@@ -5,5 +5,7 @@
   "source": "github.com/fcakyon/claude-codex-settings",
   "downloaded_at": "2026-01-22T03:06:12.545358Z",
   "dir_name": "slack-usage",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/slack-tools/skills/slack-usage",
+  "github_branch": "main"
 }

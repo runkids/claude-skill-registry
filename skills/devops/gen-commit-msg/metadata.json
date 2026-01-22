@@ -8,5 +8,7 @@
     "commit",
     "msg"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/gen-commit-msg",
+  "github_branch": "main"
 }

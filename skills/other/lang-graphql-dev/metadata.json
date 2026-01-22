@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:34.172207Z",
   "dir_name": "lang-graphql-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-graphql-dev",
+  "github_branch": "main"
 }

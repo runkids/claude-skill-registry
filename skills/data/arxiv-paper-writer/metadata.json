@@ -5,5 +5,7 @@
   "description": "Write LaTeX ML/AI review articles for arXiv using the IEEEtran template and verified BibTeX citations.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:52.557372Z",
-  "dir_name": "arxiv-paper-writer"
+  "dir_name": "arxiv-paper-writer",
+  "github_path": ".codex/skills/arxiv-paper-writer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/hxk622/TokenDance",
   "downloaded_at": "2026-01-22T03:42:11.350729Z",
   "dir_name": "latex-posters",
-  "category": "other"
+  "category": "other",
+  "github_path": "backend/app/skills/builtin/scientific/writing/latex-posters",
+  "github_branch": "main"
 }

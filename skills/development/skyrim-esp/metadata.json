@@ -7,5 +7,7 @@
     "skyrim",
     "esp"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/skyrim-esp",
+  "github_branch": "main"
 }

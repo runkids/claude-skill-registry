@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:10.304348Z",
   "dir_name": "moai-context7-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-context7-integration",
+  "github_branch": "main"
 }

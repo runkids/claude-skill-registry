@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Enforce architectural patterns with ESLint rules. Block infra imports, enforce object params, prevent server/client leaks.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:48.607661Z"
+  "downloaded_at": "2026-01-06T09:10:48.607661Z",
+  "github_path": "skills/pattern-enforcement",
+  "github_branch": "main"
 }

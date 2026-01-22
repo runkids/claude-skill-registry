@@ -5,5 +5,7 @@
   "source": "github.com/sensei-hacker/inav-claude",
   "downloaded_at": "2026-01-22T02:14:36.744824Z",
   "dir_name": "wiki-search",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wiki-search",
+  "github_branch": "main"
 }

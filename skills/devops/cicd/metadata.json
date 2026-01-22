@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "CI/CD pipeline best practices including GitHub Actions, testing, and deployment strategies.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:41.918109Z"
+  "downloaded_at": "2026-01-06T09:06:41.918109Z",
+  "github_path": "src/skills/builtin/cicd",
+  "github_branch": "main"
 }

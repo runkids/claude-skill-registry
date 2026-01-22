@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Use when coordinating shoots, vendors, budgets, and compliance for video projects.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:26.937524Z"
+  "downloaded_at": "2026-01-06T08:57:26.937524Z",
+  "github_path": "plugins/video-marketing/skills/production-ops",
+  "github_branch": "main"
 }

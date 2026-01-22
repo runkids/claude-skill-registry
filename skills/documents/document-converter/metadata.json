@@ -8,5 +8,7 @@
     "converter"
   ],
   "stars": 426,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".old_claude/skills/document-converter",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Multi-repository coordination, synchronization, and architecture management with AI swarm orchestration. Coordinates repo-architect, code-analyzer, and coordinator agents across multiple repositories ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:08.963472Z"
+  "downloaded_at": "2026-01-06T09:05:08.963472Z",
+  "github_path": ".claude/skills/github-integration/when-managing-multiple-repos-use-github-multi-repo",
+  "github_branch": "main"
 }

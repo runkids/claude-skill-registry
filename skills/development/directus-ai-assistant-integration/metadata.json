@@ -9,5 +9,7 @@
     "integration"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/directus-ai-assistant-integration",
+  "github_branch": "main"
 }

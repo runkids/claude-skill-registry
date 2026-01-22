@@ -5,5 +5,7 @@
   "source": "github.com/dolsoon/my-awesome-project",
   "downloaded_at": "2026-01-22T02:19:51.030600Z",
   "dir_name": "moai-learning-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-learning-optimizer",
+  "github_branch": "main"
 }

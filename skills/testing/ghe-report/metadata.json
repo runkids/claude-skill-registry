@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Generate DETAILED reports with metrics, health checks, or epic-specific analysis. More comprehensive than quick status overview.USE THIS SKILL WHEN:- User asks for \"metrics\" or \"statistics\" or \"perfor",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:49.927081Z"
+  "downloaded_at": "2026-01-06T08:59:49.927081Z",
+  "github_path": "plugins/ghe/skills/ghe-report",
+  "github_branch": "main"
 }

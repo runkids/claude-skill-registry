@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "GitHub repository skill for bitwarden/passwordless-docs",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.290809Z"
+  "downloaded_at": "2026-01-06T09:00:26.290809Z",
+  "github_path": "INTEGRATION/processed/passwordless-docs",
+  "github_branch": "main"
 }

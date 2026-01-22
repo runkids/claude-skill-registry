@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:40.077302Z",
   "dir_name": "pop-cloud-signup",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-core/skills/pop-cloud-signup",
+  "github_branch": "main"
 }

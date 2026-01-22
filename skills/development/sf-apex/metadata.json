@@ -6,5 +6,7 @@
   "tags": [
     "apex"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "sf-apex",
+  "github_branch": "main"
 }

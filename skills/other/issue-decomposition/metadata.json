@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:57.890516Z",
   "dir_name": "issue-decomposition",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/issue-decomposition",
+  "github_branch": "main"
 }

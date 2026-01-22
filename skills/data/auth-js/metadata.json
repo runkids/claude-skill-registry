@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "auth-js"
+  "dir_name": "auth-js",
+  "github_path": "skills/auth-js",
+  "github_branch": "main"
 }

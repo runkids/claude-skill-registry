@@ -5,5 +5,7 @@
   "source": "github.com/itsmostafa/aws-agent-skills",
   "downloaded_at": "2026-01-22T02:47:19.140400Z",
   "dir_name": "s3",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/s3",
+  "github_branch": "main"
 }

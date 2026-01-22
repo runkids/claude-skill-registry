@@ -8,5 +8,7 @@
     "saver"
   ],
   "stars": 1,
-  "dir_name": "context-saver"
+  "dir_name": "context-saver",
+  "github_path": "skills/context-saver",
+  "github_branch": "main"
 }

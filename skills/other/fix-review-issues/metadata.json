@@ -5,5 +5,7 @@
   "source": "github.com/doodledood/claude-code-plugins",
   "downloaded_at": "2026-01-22T02:39:49.493617Z",
   "dir_name": "fix-review-issues",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugins/vibe-workflow/skills/fix-review-issues",
+  "github_branch": "main"
 }

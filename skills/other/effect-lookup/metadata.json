@@ -5,5 +5,7 @@
   "source": "github.com/guillempuche/ai-standards",
   "downloaded_at": "2026-01-22T04:13:10.826545Z",
   "dir_name": "effect-lookup",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/effect-lookup",
+  "github_branch": "main"
 }

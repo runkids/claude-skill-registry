@@ -7,5 +7,7 @@
     "devops"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/devops",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/MakFly/superpowers-symfony",
   "downloaded_at": "2026-01-22T04:09:16.826800Z",
   "dir_name": "form-types-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/form-types-validation",
+  "github_branch": "main"
 }

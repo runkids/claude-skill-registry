@@ -8,5 +8,7 @@
     "patterns"
   ],
   "stars": 19,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/cc10x/skills/debugging-patterns",
+  "github_branch": "main"
 }

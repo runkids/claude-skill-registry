@@ -5,5 +5,7 @@
   "source": "github.com/BenGWeeks/.claude",
   "downloaded_at": "2026-01-22T02:27:09.498618Z",
   "dir_name": "create-user-stories",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/create-user-stories",
+  "github_branch": "main"
 }

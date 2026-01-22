@@ -7,5 +7,7 @@
     "convex",
     "auth"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/convex-auth",
+  "github_branch": "main"
 }

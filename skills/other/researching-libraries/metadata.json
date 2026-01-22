@@ -5,5 +5,7 @@
   "source": "github.com/sumik5/sumik-claude-plugin",
   "downloaded_at": "2026-01-19T05:57:57.712516Z",
   "dir_name": "researching-libraries",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/researching-libraries",
+  "github_branch": "main"
 }

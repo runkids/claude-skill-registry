@@ -8,5 +8,7 @@
     "logging"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/application-logging",
+  "github_branch": "main"
 }

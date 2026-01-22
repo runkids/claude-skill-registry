@@ -5,5 +5,7 @@
   "source": "github.com/BrainBlend-AI/atomic-agents",
   "downloaded_at": "2026-01-14T01:18:33.964099Z",
   "dir_name": "atomic-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugin/atomic-agents/skills/atomic-tools",
+  "github_branch": "main"
 }

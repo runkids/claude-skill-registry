@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:02.553203Z",
   "dir_name": "web-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/web-validation",
+  "github_branch": "main"
 }

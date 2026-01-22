@@ -7,5 +7,7 @@
     "nuxt",
     "modules"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/nuxt-modules",
+  "github_branch": "main"
 }

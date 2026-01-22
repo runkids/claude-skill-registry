@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:35.760223Z",
   "dir_name": "endings",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/structure/endings",
+  "github_branch": "main"
 }

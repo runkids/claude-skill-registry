@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when implementing GraphQL resolvers with Absinthe. Covers resolver patterns, dataloader integration, batching, and error handling.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:00.316394Z"
+  "downloaded_at": "2026-01-06T08:57:00.316394Z",
+  "github_path": "jutsu/jutsu-absinthe-graphql/skills/absinthe-resolvers",
+  "github_branch": "main"
 }

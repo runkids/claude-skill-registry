@@ -8,5 +8,7 @@
     "design"
   ],
   "stars": 47860,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/frontend-design/skills/frontend-design",
+  "github_branch": "main"
 }

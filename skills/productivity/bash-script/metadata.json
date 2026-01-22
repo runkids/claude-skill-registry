@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Write robust bash scripts with proper error handling. Use when the user says \"write a script\", \"bash script\", \"shell script\", \"automate this\", \"create a backup script\", or asks to script a task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:12.496972Z"
+  "downloaded_at": "2026-01-06T09:11:12.496972Z",
+  "github_path": "claude/.claude/skills/bash-script",
+  "github_branch": "main"
 }

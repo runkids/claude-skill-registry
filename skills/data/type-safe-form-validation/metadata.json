@@ -10,5 +10,7 @@
     "validation"
   ],
   "stars": 0,
-  "dir_name": "type-safe-form-validation"
+  "dir_name": "type-safe-form-validation",
+  "github_path": "type-safe-form-validation",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Ensures project worklogs and documentation are written to an Obsidian vault with proper naming conventions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:34.036016Z"
+  "downloaded_at": "2026-01-06T09:04:34.036016Z",
+  "github_path": "home/common/shell/claude/skills/obsidian-worklog",
+  "github_branch": "main"
 }

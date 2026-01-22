@@ -5,5 +5,7 @@
   "source": "github.com/hatayama/uLoopMCP",
   "downloaded_at": "2026-01-14T03:18:20.967520Z",
   "dir_name": "runtests",
-  "category": "other"
+  "category": "other",
+  "github_path": "Packages/src/Editor/Api/McpTools/RunTests/Skill",
+  "github_branch": "main"
 }

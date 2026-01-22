@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:09.393357Z",
   "dir_name": "replit-sdk-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/replit-pack/skills/replit-sdk-patterns",
+  "github_branch": "main"
 }

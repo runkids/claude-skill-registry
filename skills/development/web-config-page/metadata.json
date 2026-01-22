@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create complete web configuration pages following Bob The Skull's aesthetic and patterns. Use when creating new config pages, adding settings pages, or extending the web configuration interface.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:31.470212Z"
+  "downloaded_at": "2026-01-06T09:09:31.470212Z",
+  "github_path": ".claude/skills/web-config-page",
+  "github_branch": "main"
 }

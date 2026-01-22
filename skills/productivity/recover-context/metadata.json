@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Extract full context of the last task from the most recent parent session shown in the session lineage. Strategically uses sub-agents to avoid bloating your own context.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:42.747618Z"
+  "downloaded_at": "2026-01-06T08:55:42.747618Z",
+  "github_path": "plugins/aichat/skills/recover-context",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:13.573566Z",
   "dir_name": "moai-essentials-review",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-essentials-review",
+  "github_branch": "main"
 }

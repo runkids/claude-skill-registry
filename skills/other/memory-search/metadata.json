@@ -5,5 +5,7 @@
   "source": "github.com/23blocks-OS/ai-maestro",
   "downloaded_at": "2026-01-22T03:57:25.143150Z",
   "dir_name": "memory-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/memory-search",
+  "github_branch": "main"
 }

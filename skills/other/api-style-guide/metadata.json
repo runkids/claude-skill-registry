@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:43.388270Z",
   "dir_name": "api-style-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/technical-writing/skills/api-style-guide",
+  "github_branch": "main"
 }

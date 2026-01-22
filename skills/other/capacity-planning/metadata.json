@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:26.210220Z",
   "dir_name": "capacity-planning",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/capacity-planning",
+  "github_branch": "main"
 }

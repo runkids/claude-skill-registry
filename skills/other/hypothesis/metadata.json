@@ -5,5 +5,7 @@
   "source": "github.com/product-on-purpose/pm-skills",
   "downloaded_at": "2026-01-22T02:42:44.853029Z",
   "dir_name": "hypothesis",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/define/hypothesis",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
   "downloaded_at": "2026-01-22T03:02:41.398954Z",
   "dir_name": "middleware-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/dapr/skills/middleware-validator",
+  "github_branch": "main"
 }

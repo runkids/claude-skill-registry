@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/cursor-dev-system",
   "downloaded_at": "2026-01-22T02:41:41.035819Z",
   "dir_name": "deployment-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/deployment-orchestrator",
+  "github_branch": "main"
 }

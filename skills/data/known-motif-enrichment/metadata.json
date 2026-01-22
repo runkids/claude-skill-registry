@@ -5,5 +5,7 @@
   "description": "This skill should be used when users need to perform known motif enrichment analysis on ChIP-seq, ATAC-seq, or other genomic peak files using HOMER (Hypergeometric Optimization of Motif EnRichment). I",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:00:35.095620Z",
-  "dir_name": "known-motif-enrichment"
+  "dir_name": "known-motif-enrichment",
+  "github_path": "13_toolBased.known-motif-enrichment",
+  "github_branch": "main"
 }

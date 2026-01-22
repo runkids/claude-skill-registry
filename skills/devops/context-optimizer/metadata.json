@@ -8,5 +8,7 @@
     "optimizer"
   ],
   "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/specweave/skills/context-optimizer",
+  "github_branch": "main"
 }

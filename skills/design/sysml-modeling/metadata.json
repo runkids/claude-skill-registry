@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Systems Modeling Language (SysML) for systems engineering and complex system design",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:06.251119Z"
+  "downloaded_at": "2026-01-06T09:00:06.251119Z",
+  "github_path": "plugins/formal-specification/skills/sysml-modeling",
+  "github_branch": "main"
 }

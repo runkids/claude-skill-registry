@@ -5,5 +5,7 @@
   "source": "github.com/NickCrew/claude-cortex",
   "downloaded_at": "2026-01-22T01:32:43.046636Z",
   "dir_name": "cqrs-event-sourcing",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude_ctx_py/assets/skills/cqrs-event-sourcing",
+  "github_branch": "main"
 }

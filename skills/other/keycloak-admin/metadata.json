@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:17.439276Z",
   "dir_name": "keycloak-admin",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/lobbi-platform-manager/skills/keycloak-admin",
+  "github_branch": "main"
 }

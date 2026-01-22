@@ -8,5 +8,7 @@
     "blocked",
     "fixture"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/test-blocked-fixture",
+  "github_branch": "main"
 }

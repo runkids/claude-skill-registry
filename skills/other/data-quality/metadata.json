@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:34.043202Z",
   "dir_name": "data-quality",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/data/data-quality",
+  "github_branch": "main"
 }

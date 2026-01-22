@@ -8,5 +8,7 @@
     "pattern"
   ],
   "stars": 0,
-  "dir_name": "pillbox-pattern"
+  "dir_name": "pillbox-pattern",
+  "github_path": ".claude/skills/pillbox-pattern",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "infrastructure",
     "monitoring"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/infrastructure-monitoring",
+  "github_branch": "main"
 }

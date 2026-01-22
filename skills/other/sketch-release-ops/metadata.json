@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:06.445709Z",
   "dir_name": "sketch-release-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/sketch-release-ops",
+  "github_branch": "main"
 }

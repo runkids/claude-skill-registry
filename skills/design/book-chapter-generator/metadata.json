@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/book-chapter-generator",
+  "github_branch": "main"
 }

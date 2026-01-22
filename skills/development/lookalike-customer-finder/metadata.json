@@ -8,5 +8,7 @@
     "customer",
     "finder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "lookalike-customer-finder",
+  "github_branch": "main"
 }

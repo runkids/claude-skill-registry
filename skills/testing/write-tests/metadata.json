@@ -7,5 +7,7 @@
     "write",
     "tests"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/write-tests",
+  "github_branch": "main"
 }

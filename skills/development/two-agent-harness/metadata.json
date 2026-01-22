@@ -8,5 +8,7 @@
     "agent",
     "harness"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "two-agent-harness",
+  "github_branch": "main"
 }

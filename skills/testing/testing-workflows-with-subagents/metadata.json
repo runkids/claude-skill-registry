@@ -9,5 +9,7 @@
     "with",
     "subagents"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/testing-workflows-with-subagents",
+  "github_branch": "main"
 }

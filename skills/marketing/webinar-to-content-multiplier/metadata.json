@@ -8,5 +8,7 @@
     "content",
     "multiplier"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "webinar-to-content-multiplier",
+  "github_branch": "main"
 }

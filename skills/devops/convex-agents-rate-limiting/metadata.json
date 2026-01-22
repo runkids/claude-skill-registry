@@ -9,5 +9,7 @@
     "rate",
     "limiting"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "convex-agents-rate-limiting",
+  "github_branch": "main"
 }

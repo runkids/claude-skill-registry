@@ -5,5 +5,7 @@
   "source": "github.com/staticWagomU/dotfiles",
   "downloaded_at": "2026-01-22T00:55:41.123510Z",
   "dir_name": "scrum-event-backlog-refinement",
-  "category": "other"
+  "category": "other",
+  "github_path": "config/claude/skills/scrum-event-backlog-refinement",
+  "github_branch": "main"
 }

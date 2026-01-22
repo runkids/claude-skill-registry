@@ -5,5 +5,7 @@
   "source": "github.com/X-School-Academy/ai-dev-swarm",
   "downloaded_at": "2026-01-14T02:33:45.109965Z",
   "dir_name": "playwright-browser-tabs",
-  "category": "other"
+  "category": "other",
+  "github_path": "dev-swarm/mcp-skills/playwright-browser-tabs",
+  "github_branch": "main"
 }

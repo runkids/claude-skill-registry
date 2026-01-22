@@ -5,5 +5,7 @@
   "source": "github.com/goldeneggg/dotfiles",
   "downloaded_at": "2026-01-22T03:11:09.713282Z",
   "dir_name": "post-impl-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-linux/.claude/skills/post-impl-validator",
+  "github_branch": "main"
 }

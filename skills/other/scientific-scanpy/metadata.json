@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:44.761975Z",
   "dir_name": "scientific-scanpy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-scanpy",
+  "github_branch": "main"
 }

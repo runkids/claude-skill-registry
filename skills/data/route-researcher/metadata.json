@@ -8,5 +8,7 @@
     "researcher"
   ],
   "stars": 1,
-  "dir_name": "route-researcher"
+  "dir_name": "route-researcher",
+  "github_path": "skills/route-researcher",
+  "github_branch": "main"
 }

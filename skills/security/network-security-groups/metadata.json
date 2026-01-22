@@ -8,5 +8,7 @@
     "security",
     "groups"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/network-security-groups",
+  "github_branch": "main"
 }

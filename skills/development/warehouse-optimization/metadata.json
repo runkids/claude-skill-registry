@@ -7,5 +7,7 @@
     "warehouse",
     "optimization"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/data/warehouse-optimization",
+  "github_branch": "main"
 }

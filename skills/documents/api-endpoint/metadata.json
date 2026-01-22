@@ -8,5 +8,7 @@
     "endpoint"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-endpoint",
+  "github_branch": "main"
 }

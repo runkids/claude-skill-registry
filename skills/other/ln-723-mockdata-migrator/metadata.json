@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:04.984211Z",
   "dir_name": "ln-723-mockdata-migrator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-723-mockdata-migrator",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "slide",
     "deck"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "template-slide-deck",
+  "github_branch": "main"
 }

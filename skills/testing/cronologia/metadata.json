@@ -2,7 +2,9 @@
   "name": "cronologia",
   "repo": "kodexArg/syv",
   "category": "testing",
-  "description": "Guardi\u00e1n de la cronolog\u00eda SyV - valida coherencia temporal, previene contradicciones, mantiene perspectiva 2178",
+  "description": "Guardián de la cronología SyV - valida coherencia temporal, previene contradicciones, mantiene perspectiva 2178",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:40.577463Z"
+  "downloaded_at": "2026-01-06T09:06:40.577463Z",
+  "github_path": "src/content/docs/.claude/skills/cronologia",
+  "github_branch": "main"
 }

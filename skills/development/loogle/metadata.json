@@ -6,5 +6,7 @@
   "tags": [
     "loogle"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".agent/skills/loogle",
+  "github_branch": "main"
 }

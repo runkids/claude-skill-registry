@@ -9,5 +9,7 @@
     "sorting"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-filtering-sorting",
+  "github_branch": "main"
 }

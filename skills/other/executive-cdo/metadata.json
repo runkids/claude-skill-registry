@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:25.625978Z",
   "dir_name": "executive-cdo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/executive-cdo",
+  "github_branch": "main"
 }

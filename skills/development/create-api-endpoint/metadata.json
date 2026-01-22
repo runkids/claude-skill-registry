@@ -2,7 +2,9 @@
   "name": "create-api-endpoint",
   "repo": "inoshiro/inuinouta-front-v3",
   "category": "development",
-  "description": "Django REST API\u3078\u306e\u30d7\u30ed\u30ad\u30b7\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u3068\u305d\u308c\u3092\u4f7f\u7528\u3059\u308bComposable\u3092\u4f5c\u6210\u3059\u308b\u624b\u9806",
+  "description": "Django REST APIへのプロキシエンドポイントとそれを使用するComposableを作成する手順",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:32.569640Z"
+  "downloaded_at": "2026-01-06T08:59:32.569640Z",
+  "github_path": ".github/skills/create-api-endpoint",
+  "github_branch": "main"
 }

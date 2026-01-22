@@ -7,5 +7,7 @@
     "webgl",
     "expert"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/webgl-expert",
+  "github_branch": "main"
 }

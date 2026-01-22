@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:34.471451Z",
   "dir_name": "graphql-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/graphql-api",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "composable-rust-production"
+  "dir_name": "composable-rust-production",
+  "github_path": ".claude/skills/composable-rust-production",
+  "github_branch": "main"
 }

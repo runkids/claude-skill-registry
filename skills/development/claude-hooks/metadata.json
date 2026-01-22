@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Claude Code hooks configuration specialist. Use when creating hooks for tool validation, logging, notifications, or custom automation in Claude Code.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:26.950698Z"
+  "downloaded_at": "2026-01-06T09:01:26.950698Z",
+  "github_path": "steve/skills/claude-hooks",
+  "github_branch": "main"
 }

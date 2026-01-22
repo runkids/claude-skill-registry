@@ -2,7 +2,9 @@
   "name": "agent-structure-design",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "Claude Code\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u306e\u69cb\u9020\u8a2d\u8a08\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u5b9a\u7fa9\u3001YAML Frontmatter\u8a2d\u8a08\u3001\u4f9d\u5b58\u30b9\u30ad\u30eb\u5f62\u5f0f\u3001\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u8a2d\u8a08\u3092\u62c5\u5f53\u3059\u308b\u3002Anchors:\u2022 \u300eThe Pragmatic Programmer\u300f\uff08Andrew Hunt, David Thomas\uff09 / \u9069\u7528: \u624b\u9806\u8a2d\u8a08\u3068\u5b9f\u88c5\u539f\u5247 / \u76ee\u7684: \u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u8a2d\u8a08\u306b\u5b9f\u8df5\u7684\u6539\u5584\u30d1\u30bf\u30fc\u30f3\u3092\u9069\u7528\u2022 18-skills",
+  "description": "Claude Codeエージェントの構造設計を専門とするスキル。エージェント定義、YAML Frontmatter設計、依存スキル形式、ワークフロー設計を担当する。Anchors:• 『The Pragmatic Programmer』（Andrew Hunt, David Thomas） / 適用: 手順設計と実装原則 / 目的: エージェント設計に実践的改善パターンを適用• 18-skills",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:39.962607Z"
+  "downloaded_at": "2026-01-06T09:00:39.962607Z",
+  "github_path": "docs/99-claude/skills/agent-structure-design",
+  "github_branch": "main"
 }

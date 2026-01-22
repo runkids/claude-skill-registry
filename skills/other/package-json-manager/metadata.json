@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:08.767511Z",
   "dir_name": "package-json-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/01-devops-basics/package-json-manager",
+  "github_branch": "main"
 }

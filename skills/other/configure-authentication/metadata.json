@@ -5,5 +5,7 @@
   "source": "github.com/speakeasy-api/speakeasy",
   "downloaded_at": "2026-01-22T01:17:37.831697Z",
   "dir_name": "configure-authentication",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/configure-authentication",
+  "github_branch": "main"
 }

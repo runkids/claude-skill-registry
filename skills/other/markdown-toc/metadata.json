@@ -5,5 +5,7 @@
   "source": "github.com/Emasoft/ghe-marketplace",
   "downloaded_at": "2026-01-17T03:27:53.535168Z",
   "dir_name": "markdown-toc",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/marketplace-utils/skills/markdown-toc",
+  "github_branch": "main"
 }

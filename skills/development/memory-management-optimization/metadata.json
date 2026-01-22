@@ -8,5 +8,7 @@
     "management",
     "optimization"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/memory-management-optimization",
+  "github_branch": "main"
 }

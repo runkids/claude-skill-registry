@@ -9,5 +9,7 @@
     "quad",
     "cortex"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/mmd-device-quad-cortex",
+  "github_branch": "main"
 }

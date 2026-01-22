@@ -8,5 +8,7 @@
     "squash",
     "commits"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/git-squash-commits",
+  "github_branch": "main"
 }

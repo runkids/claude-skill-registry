@@ -7,5 +7,7 @@
     "router",
     "template"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/router-template",
+  "github_branch": "main"
 }

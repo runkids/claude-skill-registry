@@ -5,5 +5,7 @@
   "source": "github.com/wildcard/caro",
   "downloaded_at": "2026-01-22T03:44:39.680765Z",
   "dir_name": "prompt-tuner",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/prompt-tuner",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:39.659946Z",
   "dir_name": "pop-code-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-ops/skills/pop-code-review",
+  "github_branch": "main"
 }

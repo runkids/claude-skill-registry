@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Complete Arweave Turbo ecosystem including client SDKs, core upload infrastructure, payment service backend, and CLI tools for permanent decentralized storage",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.946033Z"
+  "downloaded_at": "2026-01-06T09:00:26.946033Z",
+  "github_path": "skills/turbo-sdk",
+  "github_branch": "main"
 }

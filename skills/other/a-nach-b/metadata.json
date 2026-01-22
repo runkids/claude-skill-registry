@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:26.836096Z",
   "dir_name": "a-nach-b",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/manmal/a-nach-b",
+  "github_branch": "main"
 }

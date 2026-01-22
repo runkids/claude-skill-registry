@@ -7,5 +7,7 @@
     "computer",
     "vision"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/computer-vision",
+  "github_branch": "main"
 }

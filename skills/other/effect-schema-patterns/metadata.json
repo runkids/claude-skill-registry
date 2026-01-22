@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:53.739915Z",
   "dir_name": "effect-schema-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/effect-schema-patterns",
+  "github_branch": "main"
 }

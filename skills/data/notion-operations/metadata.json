@@ -8,5 +8,7 @@
     "operations"
   ],
   "stars": 0,
-  "dir_name": "notion-operations"
+  "dir_name": "notion-operations",
+  "github_path": ".claude/skills/notion-operations",
+  "github_branch": "main"
 }

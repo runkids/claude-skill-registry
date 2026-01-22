@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Pure logic and math testing with Vitest. Use for single-point assertions on functions, state transitions, and physics calculations. Auto-apply when editing *.test.ts files (except *Progressions.test.t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:36.285847Z"
+  "downloaded_at": "2026-01-06T09:08:36.285847Z",
+  "github_path": ".claude/skills/logic-testing",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "specifications"
   ],
   "stars": 1,
-  "dir_name": "refining-specifications"
+  "dir_name": "refining-specifications",
+  "github_path": "skills/refining-specifications",
+  "github_branch": "main"
 }

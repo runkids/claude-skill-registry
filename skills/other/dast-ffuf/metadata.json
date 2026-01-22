@@ -5,5 +5,7 @@
   "source": "github.com/AgentSecOps/SecOpsAgentKit",
   "downloaded_at": "2026-01-19T02:09:01.408783Z",
   "dir_name": "dast-ffuf",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/appsec/dast-ffuf",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "consensus",
     "vote"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/choir-consensus-vote",
+  "github_branch": "main"
 }

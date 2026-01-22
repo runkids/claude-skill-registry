@@ -8,5 +8,7 @@
     "rainbow"
   ],
   "stars": 4,
-  "dir_name": "moving-rainbow"
+  "dir_name": "moving-rainbow",
+  "github_path": "skills/moving-rainbow",
+  "github_branch": "main"
 }

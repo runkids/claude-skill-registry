@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:39:02.857530Z",
   "dir_name": "when-automating-github-actions-use-workflow-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-integration/when-automating-github-actions-use-workflow-automation",
+  "github_branch": "main"
 }

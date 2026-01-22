@@ -9,5 +9,7 @@
     "downloader"
   ],
   "stars": 0,
-  "dir_name": "youtube-transcript-downloader"
+  "dir_name": "youtube-transcript-downloader",
+  "github_path": "skills/youtube-transcript-downloader",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Bbeierle12/Skill-MCP-Claude",
   "downloaded_at": "2026-01-19T03:25:04.946053Z",
   "dir_name": "form-security",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/form-security",
+  "github_branch": "main"
 }

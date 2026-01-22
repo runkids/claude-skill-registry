@@ -5,5 +5,7 @@
   "source": "github.com/CheekyCodexConjurer/quant-lab",
   "downloaded_at": "2026-01-14T02:48:01.948803Z",
   "dir_name": "analyze-repo-capabilities",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent-docs/templates/.codex/skills/analyze_repo_capabilities",
+  "github_branch": "main"
 }

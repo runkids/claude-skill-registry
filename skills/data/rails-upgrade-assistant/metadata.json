@@ -9,5 +9,7 @@
     "assistant"
   ],
   "stars": 22,
-  "dir_name": "rails-upgrade-assistant"
+  "dir_name": "rails-upgrade-assistant",
+  "github_path": "",
+  "github_branch": "main"
 }

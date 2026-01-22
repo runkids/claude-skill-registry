@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-21T03:32:08.407574Z",
   "dir_name": "sre-incident-response",
-  "category": "other"
+  "category": "other",
+  "github_path": "do/do-site-reliability-engineering/skills/sre-incident-response",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:52.912983Z",
   "dir_name": "diagrams-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-diagrams/skills/diagrams-architect",
+  "github_branch": "main"
 }

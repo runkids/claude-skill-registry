@@ -9,5 +9,7 @@
     "analysis"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/forensic-test-analysis",
+  "github_branch": "main"
 }

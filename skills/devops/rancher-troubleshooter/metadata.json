@@ -7,5 +7,7 @@
     "rancher",
     "troubleshooter"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/rancher-troubleshooter",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "abp-entity-patterns"
+  "dir_name": "abp-entity-patterns",
+  "github_path": ".claude/skills/abp-entity-patterns",
+  "github_branch": "main"
 }

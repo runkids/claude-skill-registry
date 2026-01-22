@@ -2,7 +2,9 @@
   "name": "attention-direction",
   "repo": "dylantarre/animation-principles",
   "category": "development",
-  "description": "Use when controlling where the audience looks\u2014composing shots, choreographing action, revealing information, or any situation requiring clear visual hierarchy and focus management.",
+  "description": "Use when controlling where the audience looks—composing shots, choreographing action, revealing information, or any situation requiring clear visual hierarchy and focus management.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:14.614115Z"
+  "downloaded_at": "2026-01-06T09:05:14.614115Z",
+  "github_path": "skills/02-by-thinking-style/attention-direction",
+  "github_branch": "main"
 }

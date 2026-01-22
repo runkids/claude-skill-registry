@@ -5,5 +5,7 @@
   "source": "github.com/proffesor-for-testing/agentic-qe",
   "downloaded_at": "2026-01-22T02:46:03.084852Z",
   "dir_name": "qe-coverage-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/qe-coverage-analysis",
+  "github_branch": "main"
 }

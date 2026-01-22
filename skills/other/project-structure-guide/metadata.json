@@ -5,5 +5,7 @@
   "source": "github.com/AsiaOstrich/universal-dev-standards",
   "downloaded_at": "2026-01-22T02:27:04.171551Z",
   "dir_name": "project-structure-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "locales/zh-CN/skills/claude-code/project-structure-guide",
+  "github_branch": "main"
 }

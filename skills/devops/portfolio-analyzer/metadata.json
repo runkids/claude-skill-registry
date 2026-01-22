@@ -7,5 +7,7 @@
     "portfolio",
     "analyzer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "portfolio-analyzer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:56.955464Z",
   "dir_name": "github-modes",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/github/github-modes",
+  "github_branch": "main"
 }

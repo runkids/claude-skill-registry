@@ -5,5 +5,7 @@
   "source": "github.com/Smooth-Operation/household-expense-tracker",
   "downloaded_at": "2026-01-22T02:58:42.499575Z",
   "dir_name": "ci-templates",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workflow/ci-templates",
+  "github_branch": "main"
 }

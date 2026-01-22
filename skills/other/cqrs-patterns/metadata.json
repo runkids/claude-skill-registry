@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-20T01:39:00.684431Z",
   "dir_name": "cqrs-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cqrs-patterns",
+  "github_branch": "main"
 }

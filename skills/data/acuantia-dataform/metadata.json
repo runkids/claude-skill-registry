@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "acuantia-dataform"
+  "dir_name": "acuantia-dataform",
+  "github_path": "acuantia-dataform",
+  "github_branch": "main"
 }

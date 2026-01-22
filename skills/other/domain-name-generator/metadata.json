@@ -5,5 +5,7 @@
   "source": "github.com/ljchg12-hue/dotfiles",
   "downloaded_at": "2026-01-14T01:32:10.880460Z",
   "dir_name": "domain-name-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/domain-name-generator",
+  "github_branch": "main"
 }

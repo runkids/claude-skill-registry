@@ -5,5 +5,7 @@
   "description": "Manages database schema changes and migrations while maintaining backward compatibility",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:17.639893Z",
-  "dir_name": "schema-evolution-agent"
+  "dir_name": "schema-evolution-agent",
+  "github_path": "skills/data/schema-evolution-agent",
+  "github_branch": "main"
 }

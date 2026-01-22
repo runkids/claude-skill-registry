@@ -7,5 +7,7 @@
     "scene",
     "designer"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/scene-designer",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Security fix patterns for authentication and authorization vulnerabilities (credentials, JWT, deserialization, access control). Provides language-specific secure implementations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:21.508555Z"
+  "downloaded_at": "2026-01-06T09:03:21.508555Z",
+  "github_path": "plugins/security/skills/remediation-auth",
+  "github_branch": "main"
 }

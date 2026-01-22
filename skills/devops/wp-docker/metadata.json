@@ -6,5 +6,7 @@
   "tags": [
     "docker"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/wp-docker",
+  "github_branch": "main"
 }

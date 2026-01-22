@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:18.579801Z",
   "dir_name": "argocd-app-deployer",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/02-devops-advanced/argocd-app-deployer",
+  "github_branch": "main"
 }

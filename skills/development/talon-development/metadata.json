@@ -7,5 +7,7 @@
     "talon",
     "development"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/talon-development",
+  "github_branch": "main"
 }

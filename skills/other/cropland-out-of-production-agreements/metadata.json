@@ -5,5 +5,7 @@
   "source": "github.com/reggiechan74/vp-real-estate",
   "downloaded_at": "2026-01-22T01:59:40.348870Z",
   "dir_name": "cropland-out-of-production-agreements",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cropland-out-of-production-agreements",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:34.608459Z",
   "dir_name": "solid-cache-coder",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-rails/skills/solid-cache-coder",
+  "github_branch": "main"
 }

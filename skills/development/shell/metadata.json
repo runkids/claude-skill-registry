@@ -6,5 +6,7 @@
   "tags": [
     "shell"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugins/shell/skills/shell",
+  "github_branch": "main"
 }

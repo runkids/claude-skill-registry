@@ -2,7 +2,9 @@
   "name": "customer-analysis",
   "repo": "cna-bootcamp/aiguide",
   "category": "development",
-  "description": "JTBD(Jobs To Be Done) \ud504\ub808\uc784\uc6cc\ud06c\ub97c \uc0ac\uc6a9\ud558\uc5ec \ud0c0\uac9f \uace0\uac1d \uc720\ud615\uc744 \uc815\uc758\ud569\ub2c8\ub2e4. \uace0\uac1d \uc138\uadf8\uba3c\ud2b8\uc640 \ud575\uc2ec job\uc744 \uc774\ud574\ud560 \ub54c \uc0ac\uc6a9\ud558\uc138\uc694.",
+  "description": "JTBD(Jobs To Be Done) 프레임워크를 사용하여 타겟 고객 유형을 정의합니다. 고객 세그먼트와 핵심 job을 이해할 때 사용하세요.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.560396Z"
+  "downloaded_at": "2026-01-06T08:58:46.560396Z",
+  "github_path": ".claude/skills/02-customer-analysis",
+  "github_branch": "main"
 }

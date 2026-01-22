@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Sourdough and artisan bread expert covering fermentation, scoring, and professional baking techniques",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:18.885587Z"
+  "downloaded_at": "2026-01-06T09:00:18.885587Z",
+  "github_path": "skills/culinary/bread-baking-artisan",
+  "github_branch": "main"
 }

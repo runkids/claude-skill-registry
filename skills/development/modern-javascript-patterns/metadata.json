@@ -8,5 +8,7 @@
     "javascript",
     "patterns"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/modern-javascript-patterns",
+  "github_branch": "main"
 }

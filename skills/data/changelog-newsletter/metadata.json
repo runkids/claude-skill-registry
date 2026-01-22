@@ -9,5 +9,7 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "changelog-newsletter"
+  "dir_name": "changelog-newsletter",
+  "github_path": "changelog-newsletter",
+  "github_branch": "main"
 }

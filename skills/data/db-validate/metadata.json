@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "db-validate"
+  "dir_name": "db-validate",
+  "github_path": ".claude/skills/db-validate",
+  "github_branch": "main"
 }

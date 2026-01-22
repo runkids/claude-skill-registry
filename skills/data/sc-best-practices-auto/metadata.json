@@ -9,5 +9,7 @@
     "auto"
   ],
   "stars": 0,
-  "dir_name": "sc-best-practices-auto"
+  "dir_name": "sc-best-practices-auto",
+  "github_path": "sc-best-practices-auto",
+  "github_branch": "main"
 }

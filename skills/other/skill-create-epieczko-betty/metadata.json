@@ -5,5 +5,7 @@
   "source": "github.com/epieczko/betty",
   "downloaded_at": "2026-01-22T02:27:30.111701Z",
   "dir_name": "skill-create-epieczko-betty",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill.create",
+  "github_branch": "main"
 }

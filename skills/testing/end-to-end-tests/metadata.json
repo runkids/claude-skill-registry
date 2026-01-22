@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "after making changes, run end-to-end tests to ensure that the product still works",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:40.700208Z"
+  "downloaded_at": "2026-01-06T08:55:40.700208Z",
+  "github_path": ".claude/skills/end_to_end_tests",
+  "github_branch": "main"
 }

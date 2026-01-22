@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:09.432210Z",
   "dir_name": "cookbook-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/.wip/skills/cookbook-audit",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "detector"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/code-smell-detector",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/szweibel/claude-skills",
   "downloaded_at": "2026-01-22T02:35:24.100962Z",
   "dir_name": "worldcat-api",
-  "category": "other"
+  "category": "other",
+  "github_path": "worldcat-api",
+  "github_branch": "main"
 }

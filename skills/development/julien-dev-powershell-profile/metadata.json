@@ -9,5 +9,7 @@
     "powershell",
     "profile"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/julien-dev-powershell-profile",
+  "github_branch": "main"
 }

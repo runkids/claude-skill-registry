@@ -9,5 +9,7 @@
     "expert"
   ],
   "stars": 8,
-  "dir_name": "postgres-query-expert"
+  "dir_name": "postgres-query-expert",
+  "github_path": "skills/postgres-query-expert",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:54.032213Z",
   "dir_name": "data-anonymizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "data-anonymizer",
+  "github_branch": "main"
 }

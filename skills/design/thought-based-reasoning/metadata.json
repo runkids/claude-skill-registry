@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use when tackling complex reasoning tasks requiring step-by-step logic, multi-step arithmetic, commonsense reasoning, symbolic manipulation, or problems where simple prompting fails - provides compreh",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:31.530247Z"
+  "downloaded_at": "2026-01-06T08:56:31.530247Z",
+  "github_path": "plugins/customaize-agent/skills/thought-based-reasoning",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "mcp-server-patterns",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "MCP\u30b5\u30fc\u30d0\u30fc\u8a2d\u8a08\u30d1\u30bf\u30fc\u30f3\u3068\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3002\u30c4\u30fc\u30eb\u7d44\u7e54\u5316\u3001\u30a8\u30e9\u30fc\u30cf\u30f3\u30c9\u30ea\u30f3\u30b0\u3001\u72b6\u614b\u7ba1\u7406\u3001\u30b5\u30fc\u30d0\u30fc\u30e9\u30a4\u30d5\u30b5\u30a4\u30af\u30eb\u7ba1\u7406\u306e\u5b9f\u8a3c\u6e08\u307f\u30d1\u30bf\u30fc\u30f3\u3092\u63d0\u4f9b\u3002Anchors:\u2022 Clean Architecture / \u9069\u7528: \u30b5\u30fc\u30d0\u30fc\u69cb\u9020\u3068\u4f9d\u5b58\u95a2\u4fc2\u7ba1\u7406 / \u76ee\u7684: \u30c6\u30b9\u30c8\u53ef\u80fd\u3067\u4fdd\u5b88\u6027\u306e\u9ad8\u3044\u30b3\u30fc\u30c9\u2022 Domain-Driven Design / \u9069\u7528: \u30c4\u30fc\u30eb\u30c9\u30e1\u30a4\u30f3\u30e2\u30c7\u30ea\u30f3\u30b0\u3068\u5883\u754c\u4ed8\u304d\u30b3\u30f3\u30c6\u30ad\u30b9",
+  "description": "MCPサーバー設計パターンとアーキテクチャベストプラクティス。ツール組織化、エラーハンドリング、状態管理、サーバーライフサイクル管理の実証済みパターンを提供。Anchors:• Clean Architecture / 適用: サーバー構造と依存関係管理 / 目的: テスト可能で保守性の高いコード• Domain-Driven Design / 適用: ツールドメインモデリングと境界付きコンテキス",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:26.264224Z"
+  "downloaded_at": "2026-01-06T09:01:26.264224Z",
+  "github_path": "docs/99-claude/skills/mcp-server-patterns",
+  "github_branch": "main"
 }

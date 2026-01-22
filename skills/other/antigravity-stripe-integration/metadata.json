@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:59.507569Z",
   "dir_name": "antigravity-stripe-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-stripe-integration",
+  "github_branch": "main"
 }

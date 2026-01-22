@@ -2,7 +2,9 @@
   "name": "meta-workflow",
   "repo": "semicolon-devteam/semo",
   "category": "productivity",
-  "description": "Meta \ud658\uacbd \uae30\ubcf8 \uc6cc\ud06c\ud50c\ub85c\uc6b0. semo-system/ \uc218\uc815 \u2192 \ubc84\uc800\ub2dd \u2192 \ubc30\ud3ec \u2192 \ub85c\uceec \ub3d9\uae30\ud654 \uccb4\uc778 \uc790\ub3d9 \uc2e4\ud589.Use when (1) [Meta] \ud504\ub9ac\ud53d\uc2a4 \uc694\uccad, (2) semo-system/ \uc218\uc815 \uc644\ub8cc \ud6c4, (3) Meta \ud328\ud0a4\uc9c0 \uc124\uce58 \ud658\uacbd.",
+  "description": "Meta 환경 기본 워크플로우. semo-system/ 수정 → 버저닝 → 배포 → 로컬 동기화 체인 자동 실행.Use when (1) [Meta] 프리픽스 요청, (2) semo-system/ 수정 완료 후, (3) Meta 패키지 설치 환경.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:50.825760Z"
+  "downloaded_at": "2026-01-06T09:02:50.825760Z",
+  "github_path": "semo-system/meta/skills/meta-workflow",
+  "github_branch": "main"
 }

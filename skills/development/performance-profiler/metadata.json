@@ -7,5 +7,7 @@
     "performance",
     "profiler"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/performance-profiler",
+  "github_branch": "main"
 }

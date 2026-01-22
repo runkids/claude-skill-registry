@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:49.299791Z",
   "dir_name": "update-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/update-docs",
+  "github_branch": "main"
 }

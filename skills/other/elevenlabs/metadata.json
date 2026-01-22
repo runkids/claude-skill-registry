@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:22.943213Z",
   "dir_name": "elevenlabs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/creative/elevenlabs",
+  "github_branch": "main"
 }

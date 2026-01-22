@@ -8,5 +8,7 @@
     "commit",
     "messages"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/writing-commit-messages",
+  "github_branch": "main"
 }

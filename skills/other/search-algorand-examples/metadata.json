@@ -5,5 +5,7 @@
   "source": "github.com/gabrielkuettel/vibegallery",
   "downloaded_at": "2026-01-21T01:19:53.542259Z",
   "dir_name": "search-algorand-examples",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/search-algorand-examples",
+  "github_branch": "main"
 }

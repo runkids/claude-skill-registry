@@ -8,5 +8,7 @@
     "line",
     "breaks"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/semantic-line-breaks",
+  "github_branch": "main"
 }

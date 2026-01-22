@@ -2,7 +2,9 @@
   "name": "literature-gap-finder",
   "repo": "Data-Wise/claude-plugins",
   "category": "development",
-  "description": "Method\u00d7Setting matrices and systematic gap identification",
+  "description": "Method×Setting matrices and systematic gap identification",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:51.841007Z"
+  "downloaded_at": "2026-01-06T09:04:51.841007Z",
+  "github_path": "statistical-research/skills/research/literature-gap-finder",
+  "github_branch": "main"
 }

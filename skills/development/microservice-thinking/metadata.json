@@ -2,7 +2,9 @@
   "name": "microservice-thinking",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "development",
-  "description": "\u63d0\u4f9b\u5fae\u670d\u52a1\u5206\u5e03\u5f0f\u67b6\u6784\u601d\u8003\u6846\u67b6\uff0c\u6db5\u76d6\u670d\u52a1\u62c6\u5206\u3001\u901a\u4fe1\u673a\u5236\u3001\u57fa\u7840\u8bbe\u65bd\u3001\u6cbb\u7406\u7b56\u7565\u3001\u53ef\u89c2\u6d4b\u6027\u4e94\u5927\u7ef4\u5ea6\u3002\u5f53\u9700\u8981\u8bbe\u8ba1\u5fae\u670d\u52a1\u7cfb\u7edf\u3001\u8bc4\u5ba1\u5206\u5e03\u5f0f\u67b6\u6784\u3001\u6216\u9700\u8981\u5168\u5c40\u89c6\u89d2\u5ba1\u89c6\u670d\u52a1\u8fb9\u754c\u4e0e\u534f\u540c\u65f6\u4f7f\u7528\u3002\u652f\u6301 DDD \u9886\u57df\u5efa\u6a21\u3001\u540c\u6b65/\u5f02\u6b65\u901a\u4fe1\u3001API Gateway\u3001\u670d\u52a1\u7f51\u683c\u3001\u7194\u65ad\u964d\u7ea7\u7b49\u5206\u5e03\u5f0f\u7cfb\u7edf\u5173\u952e\u51b3\u7b56\u3002",
+  "description": "提供微服务分布式架构思考框架，涵盖服务拆分、通信机制、基础设施、治理策略、可观测性五大维度。当需要设计微服务系统、评审分布式架构、或需要全局视角审视服务边界与协同时使用。支持 DDD 领域建模、同步/异步通信、API Gateway、服务网格、熔断降级等分布式系统关键决策。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:31.650650Z"
+  "downloaded_at": "2026-01-06T09:10:31.650650Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/special/microservice-thinking",
+  "github_branch": "main"
 }

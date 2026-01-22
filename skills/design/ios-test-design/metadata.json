@@ -2,7 +2,9 @@
   "name": "ios-test-design",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "design",
-  "description": "XCTest/XCUITest\u3092\u7528\u3044\u305fiOS\u30a2\u30d7\u30ea\u306e\u30c6\u30b9\u30c8\u8a2d\u8a08\u652f\u63f4\u30b9\u30ad\u30eb\u3002\u30c6\u30b9\u30c8\u6226\u7565\u7acb\u6848\u3001\u30e2\u30c3\u30af/\u30b9\u30bf\u30d6\u8a2d\u8a08\u3001\u30c6\u30b9\u30c8\u30c7\u30fc\u30bf\u7ba1\u7406\u3001\u30ab\u30d0\u30ec\u30c3\u30b8\u5206\u6790\u3092\u5305\u62ec\u7684\u306b\u30b5\u30dd\u30fc\u30c8\u3002Use when: iOS\u30c6\u30b9\u30c8\u8a2d\u8a08\u3001XCTest\u5b9f\u88c5\u3001UITest\u4f5c\u6210\u3001\u30c6\u30b9\u30c8\u30ab\u30d0\u30ec\u30c3\u30b8\u5411\u4e0a\u3001\u30c6\u30b9\u30c8\u6226\u7565\u7acb\u6848\u3001\u30c6\u30b9\u30c8\u30c0\u30d6\u30eb\u8a2d\u8a08\u3002",
+  "description": "XCTest/XCUITestを用いたiOSアプリのテスト設計支援スキル。テスト戦略立案、モック/スタブ設計、テストデータ管理、カバレッジ分析を包括的にサポート。Use when: iOSテスト設計、XCTest実装、UITest作成、テストカバレッジ向上、テスト戦略立案、テストダブル設計。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:20.563594Z"
+  "downloaded_at": "2026-01-06T09:04:20.563594Z",
+  "github_path": "apple-platform-plugin/skills/ios-test-design",
+  "github_branch": "main"
 }

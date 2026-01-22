@@ -8,5 +8,7 @@
     "producer"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/audio-producer",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Comprehensive authorization guidance covering RBAC, ABAC, ACL, ReBAC, and policy-as-code patterns. Use when designing permission systems, implementing access control, or choosing authorization strateg",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:10.401249Z"
+  "downloaded_at": "2026-01-06T09:00:10.401249Z",
+  "github_path": "plugins/security/skills/authorization-models",
+  "github_branch": "main"
 }

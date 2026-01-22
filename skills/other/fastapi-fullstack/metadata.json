@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:05.473073Z",
   "dir_name": "fastapi-fullstack",
-  "category": "other"
+  "category": "other",
+  "github_path": "fastapi-fullstack",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "worktree",
     "manager"
   ],
-  "stars": 26
+  "stars": 26,
+  "github_path": ".claude/skills",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "matrix"
   ],
   "stars": 0,
-  "dir_name": "synthesis-matrix"
+  "dir_name": "synthesis-matrix",
+  "github_path": "skills/synthesis-matrix",
+  "github_branch": "main"
 }

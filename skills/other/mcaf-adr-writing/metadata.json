@@ -5,5 +5,7 @@
   "source": "github.com/managedcode/MCAF",
   "downloaded_at": "2026-01-22T01:43:24.513471Z",
   "dir_name": "mcaf-adr-writing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mcaf-adr-writing",
+  "github_branch": "main"
 }

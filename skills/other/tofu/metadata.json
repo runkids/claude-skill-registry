@@ -5,5 +5,7 @@
   "source": "github.com/poindexter12/waypoint",
   "downloaded_at": "2026-01-19T03:24:53.411118Z",
   "dir_name": "tofu",
-  "category": "other"
+  "category": "other",
+  "github_path": "technologies/skills/tofu",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:18.202486Z",
   "dir_name": "rule-catalog",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/hookify/skills/rule-catalog",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dralgorhythm/claude-agentic-framework",
   "downloaded_at": "2026-01-22T00:59:03.060748Z",
   "dir_name": "deploy-aws-ecs",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/operations/deploy-aws-ecs",
+  "github_branch": "main"
 }

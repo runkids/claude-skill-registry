@@ -7,5 +7,7 @@
     "update",
     "docs"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/update-docs",
+  "github_branch": "main"
 }

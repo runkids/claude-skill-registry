@@ -7,5 +7,7 @@
     "tailwind",
     "setup"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/tailwind-setup",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "reqon"
   ],
   "stars": 0,
-  "dir_name": "reqon"
+  "dir_name": "reqon",
+  "github_path": ".claude/skills/reqon",
+  "github_branch": "main"
 }

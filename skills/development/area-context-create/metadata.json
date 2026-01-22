@@ -9,5 +9,7 @@
     "create"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/area-context-create",
+  "github_branch": "main"
 }

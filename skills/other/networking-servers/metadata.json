@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
   "downloaded_at": "2026-01-19T03:01:41.940315Z",
   "dir_name": "networking-servers",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/networking-servers",
+  "github_branch": "main"
 }

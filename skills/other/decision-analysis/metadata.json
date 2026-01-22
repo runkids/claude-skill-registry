@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:33.251702Z",
   "dir_name": "decision-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/business-analysis/decision-analysis",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "SOP for retrieving, curating, and applying patterns discovered through dogfooding runs.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:48.895643Z"
+  "downloaded_at": "2026-01-06T08:58:48.895643Z",
+  "github_path": "skills/quality/sop-dogfooding-pattern-retrieval",
+  "github_branch": "main"
 }

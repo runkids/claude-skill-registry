@@ -5,5 +5,7 @@
   "source": "github.com/wade56754/AI_ad_spend02",
   "downloaded_at": "2026-01-22T03:00:38.899476Z",
   "dir_name": "ai-ad-doc-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ai-ad-doc-architect",
+  "github_branch": "main"
 }

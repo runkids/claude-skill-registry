@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:11.077046Z",
   "dir_name": "billing-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/payment-processing/skills/billing-automation",
+  "github_branch": "main"
 }

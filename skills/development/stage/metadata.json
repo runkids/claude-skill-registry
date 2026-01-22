@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Stage branch in github",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:42.459883Z"
+  "downloaded_at": "2026-01-06T09:03:42.459883Z",
+  "github_path": "plugins/dlaw/skills/stage",
+  "github_branch": "main"
 }

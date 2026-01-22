@@ -8,5 +8,7 @@
     "contracts"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/docx-contracts/skills/docx-contracts",
+  "github_branch": "main"
 }

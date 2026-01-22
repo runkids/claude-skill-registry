@@ -5,5 +5,7 @@
   "source": "github.com/NickCrew/claude-cortex",
   "downloaded_at": "2026-01-22T01:32:46.935913Z",
   "dir_name": "implementation-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude_ctx_py/assets/skills/implementation-workflow",
+  "github_branch": "main"
 }

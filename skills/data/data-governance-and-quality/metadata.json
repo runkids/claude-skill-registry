@@ -5,5 +5,7 @@
   "description": "Data governance strategy, quality validation rules, and data dictionary management for vehicle insurance platform. Use when defining data quality standards, implementing validation rules, managing fie",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:52.608063Z",
-  "dir_name": "data-governance-and-quality"
+  "dir_name": "data-governance-and-quality",
+  "github_path": ".claude/skills/_archive/data-governance-and-quality",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Skill from lapc506/flutter-agentic-boilerplate",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:19.806045Z"
+  "downloaded_at": "2026-01-08T03:29:19.806045Z",
+  "github_path": "skills/system-reliability-engineering/load-testing-performance",
+  "github_branch": "main"
 }

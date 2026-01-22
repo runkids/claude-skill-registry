@@ -5,5 +5,7 @@
   "source": "github.com/laurenj3250-debug/vethub2.0",
   "downloaded_at": "2026-01-22T04:01:44.759397Z",
   "dir_name": "style-consistency-enforcer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/style-consistency-enforcer",
+  "github_branch": "main"
 }

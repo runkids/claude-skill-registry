@@ -9,5 +9,7 @@
     "prompting"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/few-shot-prompting",
+  "github_branch": "main"
 }

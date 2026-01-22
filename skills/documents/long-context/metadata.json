@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Extend context windows of transformer models using RoPE, YaRN, ALiBi, and position interpolation techniques. Use when processing long documents (32k-128k+ tokens), extending pre-trained models beyond ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.946494Z"
+  "downloaded_at": "2026-01-06T08:56:19.946494Z",
+  "github_path": "19-emerging-techniques/long-context",
+  "github_branch": "main"
 }

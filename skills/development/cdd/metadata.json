@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Context Driven Development pipeline for release workflows",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:33.157381Z"
+  "downloaded_at": "2026-01-06T09:03:33.157381Z",
+  "github_path": ".claude/library/cdd",
+  "github_branch": "main"
 }

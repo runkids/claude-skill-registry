@@ -8,5 +8,7 @@
     "marketing"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/email-marketing",
+  "github_branch": "main"
 }

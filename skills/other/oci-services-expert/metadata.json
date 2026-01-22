@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:26.758247Z",
   "dir_name": "oci-services-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/oci-services-expert",
+  "github_branch": "main"
 }

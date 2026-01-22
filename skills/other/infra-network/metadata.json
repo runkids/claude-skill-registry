@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:25.005949Z",
   "dir_name": "infra-network",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/infra-network",
+  "github_branch": "main"
 }

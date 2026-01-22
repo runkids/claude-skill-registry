@@ -8,5 +8,7 @@
     "cli"
   ],
   "stars": 0,
-  "dir_name": "frontrange-cli"
+  "dir_name": "frontrange-cli",
+  "github_path": ".claude/skills/frontrange-cli",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "setup",
     "commands"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/validating-setup-commands",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "runner",
     "setup"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "github-runner-setup",
+  "github_branch": "main"
 }

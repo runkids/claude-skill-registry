@@ -8,5 +8,7 @@
     "code",
     "guardian"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/secure-code-guardian",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Guidance for proving mathematical properties in Coq using induction, specifically addition commutativity and similar arithmetic lemmas. This skill should be used when working with Coq proof assistants",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:19.557193Z"
+  "downloaded_at": "2026-01-06T08:58:19.557193Z",
+  "github_path": "letta/benchmarks/trajectory-only/prove-plus-comm",
+  "github_branch": "main"
 }

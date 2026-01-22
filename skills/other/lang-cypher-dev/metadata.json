@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:33.672715Z",
   "dir_name": "lang-cypher-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-cypher-dev",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Helps migrate Odoo modules and customizations between versions, specifically focusing on upgrades to/from Odoo 16.0. This skill should be used when the user requests migration help, such as \"Migrate t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:19.953089Z"
+  "downloaded_at": "2026-01-06T09:06:19.953089Z",
+  "github_path": "plugins/odoo-dev/skills/odoo-migration-assistant",
+  "github_branch": "main"
 }

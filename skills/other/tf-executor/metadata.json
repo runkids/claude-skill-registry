@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:12.405883Z",
   "dir_name": "tf-executor",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-terraform/skills/tf-executor",
+  "github_branch": "main"
 }

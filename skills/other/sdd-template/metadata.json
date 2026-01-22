@@ -5,5 +5,7 @@
   "source": "github.com/jsegov/shipspec-claude-code-plugin",
   "downloaded_at": "2026-01-21T02:42:56.137713Z",
   "dir_name": "sdd-template",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sdd-template",
+  "github_branch": "main"
 }

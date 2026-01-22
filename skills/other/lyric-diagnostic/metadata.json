@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:34.766735Z",
   "dir_name": "lyric-diagnostic",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/creative/music/lyric-diagnostic",
+  "github_branch": "main"
 }

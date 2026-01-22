@@ -7,5 +7,7 @@
     "typescript",
     "testing"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/typescript-testing",
+  "github_branch": "main"
 }

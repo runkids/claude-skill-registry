@@ -5,5 +5,7 @@
   "description": "Master Cursor Composer for multi-file AI edits. Triggers on \"cursor composer\",\"multi-file edit\", \"cursor generate files\", \"composer workflow\", \"cursor scaffold\".",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:01.011967Z",
-  "dir_name": "cursor-composer-workflows"
+  "dir_name": "cursor-composer-workflows",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-composer-workflows",
+  "github_branch": "main"
 }

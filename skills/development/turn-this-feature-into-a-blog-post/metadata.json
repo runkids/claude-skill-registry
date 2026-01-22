@@ -10,5 +10,7 @@
     "into",
     "blog"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/turn-this-feature-into-a-blog-post",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "docs",
     "creator"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "ln-114-frontend-docs-creator",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Validate WCAG compliance and accessibility standards (ARIA, keyboard navigation).Use when auditing WCAG compliance or screen reader compatibility.Trigger with phrases like \"scan accessibility\", \"check",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:52.614466Z"
+  "downloaded_at": "2026-01-06T08:55:52.614466Z",
+  "github_path": "plugins/testing/accessibility-test-scanner/skills/scanning-accessibility",
+  "github_branch": "main"
 }

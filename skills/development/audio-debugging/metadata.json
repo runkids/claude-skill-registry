@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Automatically helps debug Web Audio API issues, audio playback problems, pitch preservation, and caching issues in the VSSK-shadecn music practice app",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:26.494343Z"
+  "downloaded_at": "2026-01-06T09:08:26.494343Z",
+  "github_path": "templates/music-app/.claude/specialized/skills/audio-debugging",
+  "github_branch": "main"
 }

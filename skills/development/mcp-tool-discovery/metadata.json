@@ -8,5 +8,7 @@
     "tool",
     "discovery"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/mcp-tool-discovery",
+  "github_branch": "main"
 }

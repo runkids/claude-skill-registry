@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Define animations with @keyframes within @theme directive, use animate-{name} utilities, and implement entry animations with starting: variant. Use when creating custom animations or entry effects.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:03.915706Z"
+  "downloaded_at": "2026-01-06T09:05:03.915706Z",
+  "github_path": "tailwind-4/skills/handling-animations",
+  "github_branch": "main"
 }

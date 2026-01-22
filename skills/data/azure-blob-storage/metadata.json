@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "azure-blob-storage"
+  "dir_name": "azure-blob-storage",
+  "github_path": "skills/azure-blob-storage",
+  "github_branch": "main"
 }

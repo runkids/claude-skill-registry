@@ -5,5 +5,7 @@
   "source": "github.com/giuseppe-trisciuoglio/developer-kit",
   "downloaded_at": "2026-01-22T01:58:43.458706Z",
   "dir_name": "aws-sdk-java-v2-bedrock",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aws-java/aws-sdk-java-v2-bedrock",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:12.531651Z",
   "dir_name": "command-arguments-system",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/command-arguments-system",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "pulumi",
     "neo"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "pulumi-neo",
+  "github_branch": "main"
 }

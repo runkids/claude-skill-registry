@@ -9,5 +9,7 @@
     "analysis",
     "linear"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "ln-501-code-quality-checker",
+  "github_branch": "main"
 }

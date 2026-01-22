@@ -7,5 +7,7 @@
     "youtube",
     "embed"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "youtube-embed",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/AgentSecOps/SecOpsAgentKit",
   "downloaded_at": "2026-01-19T02:09:00.353890Z",
   "dir_name": "sca-blackduck",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/appsec/sca-blackduck",
+  "github_branch": "main"
 }

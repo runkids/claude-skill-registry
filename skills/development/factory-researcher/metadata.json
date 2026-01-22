@@ -2,7 +2,9 @@
   "name": "factory-researcher",
   "repo": "m16khb/claude-integration",
   "category": "development",
-  "description": "\uc6f9 \ubb38\uc11c \ubc0f GitHub \uc608\uc81c \ubd84\uc11d \uc804\ubb38 \uc2a4\ud0ac",
+  "description": "웹 문서 및 GitHub 예제 분석 전문 스킬",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:54.223577Z"
+  "downloaded_at": "2026-01-06T09:06:54.223577Z",
+  "github_path": "plugins/automation-tools/skills/factory-researcher",
+  "github_branch": "main"
 }

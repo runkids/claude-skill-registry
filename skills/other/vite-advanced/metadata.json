@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:12.450771Z",
   "dir_name": "vite-advanced",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vite-advanced",
+  "github_branch": "main"
 }

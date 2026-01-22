@@ -9,5 +9,7 @@
     "cluster",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "seo-keyword-cluster-builder",
+  "github_branch": "main"
 }

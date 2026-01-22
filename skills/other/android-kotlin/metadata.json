@@ -5,5 +5,7 @@
   "source": "github.com/alinaqi/claude-bootstrap",
   "downloaded_at": "2026-01-22T03:20:51.248310Z",
   "dir_name": "android-kotlin",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/android-kotlin",
+  "github_branch": "main"
 }

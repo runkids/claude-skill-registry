@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:10.370732Z",
   "dir_name": "snowflake-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/data/snowflake-expert",
+  "github_branch": "main"
 }

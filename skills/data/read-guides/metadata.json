@@ -8,5 +8,7 @@
     "guides"
   ],
   "stars": 0,
-  "dir_name": "read-guides"
+  "dir_name": "read-guides",
+  "github_path": "skills/read-guides",
+  "github_branch": "main"
 }

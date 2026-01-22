@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-22T01:49:33.851191Z",
   "dir_name": "darkit-gin",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/darkit/darkit-gin",
+  "github_branch": "main"
 }

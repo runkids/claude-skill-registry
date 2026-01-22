@@ -5,5 +5,7 @@
   "source": "github.com/FAIQahm/hackathon_I_book",
   "downloaded_at": "2026-01-14T01:00:33.037700Z",
   "dir_name": "github-pages-deploy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-pages-deploy",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-22T03:51:09.530303Z",
   "dir_name": "bazel-build-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/developer-essentials/skills/bazel-build-optimization",
+  "github_branch": "main"
 }

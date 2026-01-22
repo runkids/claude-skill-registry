@@ -5,5 +5,7 @@
   "source": "github.com/davepoon/buildwithclaude",
   "downloaded_at": "2026-01-22T03:46:02.942617Z",
   "dir_name": "obsidian-markdown",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/all-skills/skills/obsidian-markdown",
+  "github_branch": "main"
 }

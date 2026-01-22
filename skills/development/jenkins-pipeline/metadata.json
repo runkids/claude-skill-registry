@@ -7,5 +7,7 @@
     "jenkins",
     "pipeline"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/jenkins-pipeline",
+  "github_branch": "main"
 }

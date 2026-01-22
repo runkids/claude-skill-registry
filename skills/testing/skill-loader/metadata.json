@@ -7,5 +7,7 @@
     "skill",
     "loader"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "skills/skill-loader",
+  "github_branch": "main"
 }

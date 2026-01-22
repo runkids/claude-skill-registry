@@ -8,5 +8,7 @@
     "vec"
   ],
   "stars": 4,
-  "dir_name": "sqlite-vec"
+  "dir_name": "sqlite-vec",
+  "github_path": "skills/sqlite-vec",
+  "github_branch": "main"
 }

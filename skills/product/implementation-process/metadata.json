@@ -7,5 +7,7 @@
     "implementation",
     "process"
   ],
-  "stars": 29
+  "stars": 29,
+  "github_path": ".github/templates/claude/skills/implementation-process",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "batch-research",
   "repo": "miantiao-me/aigc-weekly",
   "category": "product",
-  "description": "\u6279\u91cf\u5e76\u53d1\u6267\u884c\u4fe1\u606f\u91c7\u96c6\u4efb\u52a1\u7684\u6280\u80fd\u3002",
+  "description": "批量并发执行信息采集任务的技能。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:27.862900Z"
+  "downloaded_at": "2026-01-06T08:56:27.862900Z",
+  "github_path": "agent/.opencode/skills/batch-research",
+  "github_branch": "main"
 }

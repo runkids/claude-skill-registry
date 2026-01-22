@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:35:00.960717Z",
   "dir_name": "condensed-anima-qc",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/condensed-anima-qc",
+  "github_branch": "main"
 }

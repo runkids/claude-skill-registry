@@ -8,5 +8,7 @@
     "reviewer"
   ],
   "stars": 3,
-  "dir_name": "conference-reviewer"
+  "dir_name": "conference-reviewer",
+  "github_path": "skills/conference-reviewer",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "async",
     "guardian"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/test-async-guardian",
+  "github_branch": "main"
 }

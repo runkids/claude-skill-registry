@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:32.304798Z",
   "dir_name": "monitoring-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/infra/monitoring-setup",
+  "github_branch": "main"
 }

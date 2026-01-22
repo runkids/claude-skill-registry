@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Post-process LaTeX project prose to improve readability through varied sentence and paragraph lengths. Removes filler phrases and unnecessary transitions while preserving all citations and semantic me",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:52.578213Z"
+  "downloaded_at": "2026-01-06T08:56:52.578213Z",
+  "github_path": ".codex/skills/latex-rhythm-refiner",
+  "github_branch": "main"
 }

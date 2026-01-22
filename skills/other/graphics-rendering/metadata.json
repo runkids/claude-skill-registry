@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
   "downloaded_at": "2026-01-19T03:01:42.107067Z",
   "dir_name": "graphics-rendering",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/graphics-rendering",
+  "github_branch": "main"
 }

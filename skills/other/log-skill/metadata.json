@@ -5,5 +5,7 @@
   "source": "github.com/maxoreric/sop-engine",
   "downloaded_at": "2026-01-21T01:09:37.565121Z",
   "dir_name": "log-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "$workflow.input.user_intent/skills/log-skill",
+  "github_branch": "main"
 }

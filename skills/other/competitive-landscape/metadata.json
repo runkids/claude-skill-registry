@@ -5,5 +5,7 @@
   "source": "github.com/pelan05/vscode_agents_folder",
   "downloaded_at": "2026-01-22T01:14:45.148081Z",
   "dir_name": "competitive-landscape",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/competitive-landscape",
+  "github_branch": "main"
 }

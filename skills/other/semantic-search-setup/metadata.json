@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:44:01.395009Z",
   "dir_name": "semantic-search-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/document-handling/semantic-search-setup",
+  "github_branch": "main"
 }

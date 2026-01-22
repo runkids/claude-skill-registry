@@ -7,5 +7,7 @@
     "vue",
     "expert"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/vue-expert-js",
+  "github_branch": "main"
 }

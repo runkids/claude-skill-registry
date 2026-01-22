@@ -8,5 +8,7 @@
     "seeding"
   ],
   "stars": 0,
-  "dir_name": "supabase-seeding"
+  "dir_name": "supabase-seeding",
+  "github_path": "skills/supabase-seeding",
+  "github_branch": "main"
 }

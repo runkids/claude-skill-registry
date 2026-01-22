@@ -2,7 +2,9 @@
   "name": "issue-review",
   "repo": "DennisLiuCk/claude-plugin-marketplace",
   "category": "development",
-  "description": "\u7cfb\u7d71\u5316\u7684\u554f\u984c\u5206\u6790\u5c08\u5bb6\u6280\u80fd\uff0c\u81ea\u52d5\u5354\u8abf\u4e94\u500b\u5c08\u9580\u4ee3\u7406\u9032\u884c\u6df1\u5ea6\u554f\u984c\u5206\u6790\u3002\u9069\u7528\u65bc\uff1a- \u4f7f\u7528\u8005\u6216 PM \u5831\u544a\u7684\u7dda\u4e0a\u554f\u984c- \u958b\u767c\u5718\u968a\u53cd\u6620\u7684\u6280\u8853\u554f\u984c- \u6e2c\u8a66\u767c\u73fe\u7684 bug- \u751f\u7522\u74b0\u5883\u544a\u8b66\u548c\u7570\u5e38",
+  "description": "系統化的問題分析專家技能，自動協調五個專門代理進行深度問題分析。適用於：- 使用者或 PM 報告的線上問題- 開發團隊反映的技術問題- 測試發現的 bug- 生產環境告警和異常",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:53.439338Z"
+  "downloaded_at": "2026-01-06T09:04:53.439338Z",
+  "github_path": "plugins/issue-review/skills/issue-review",
+  "github_branch": "main"
 }

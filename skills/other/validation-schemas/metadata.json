@@ -5,5 +5,7 @@
   "source": "github.com/JasonPaff/head-shakers",
   "downloaded_at": "2026-01-22T02:37:03.746085Z",
   "dir_name": "validation-schemas",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/validation-schemas",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "proposal",
     "creation"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/openspec-proposal-creation",
+  "github_branch": "main"
 }

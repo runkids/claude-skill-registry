@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:23.109599Z",
   "dir_name": "template-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/tools/plugin-cli/infrastructure-template-generator/skills/template-validation",
+  "github_branch": "main"
 }

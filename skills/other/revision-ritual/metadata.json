@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:14.611279Z",
   "dir_name": "revision-ritual",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/oss/revision-ritual",
+  "github_branch": "main"
 }

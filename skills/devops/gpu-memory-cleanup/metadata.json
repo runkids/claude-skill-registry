@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Preventing Jupyter cell hangs with explicit CuPy GPU memory cleanup",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:27.912282Z"
+  "downloaded_at": "2026-01-06T09:08:27.912282Z",
+  "github_path": "plugins/kintsugi/gpu-memory-cleanup/skills/gpu-memory-cleanup",
+  "github_branch": "main"
 }

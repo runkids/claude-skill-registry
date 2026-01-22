@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Write and debug AST-based codemods using jscodeshift for automated code transformations. Use when creating migrations, API upgrades, pattern standardization, or large-scale refactoring.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:19.119144Z"
+  "downloaded_at": "2026-01-06T09:01:19.119144Z",
+  "github_path": "opencode/skill/jscodeshift-codemods",
+  "github_branch": "main"
 }

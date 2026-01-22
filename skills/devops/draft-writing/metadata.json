@@ -8,5 +8,7 @@
     "writing"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/draft-writing",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "workflow",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/n8n-workflow-builder",
+  "github_branch": "main"
 }

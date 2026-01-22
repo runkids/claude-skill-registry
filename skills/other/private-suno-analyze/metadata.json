@@ -5,5 +5,7 @@
   "source": "github.com/takish/dotfiles",
   "downloaded_at": "2026-01-20T02:43:50.078878Z",
   "dir_name": "private-suno-analyze",
-  "category": "other"
+  "category": "other",
+  "github_path": "dot_claude/skills/private_suno-analyze",
+  "github_branch": "main"
 }

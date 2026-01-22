@@ -9,5 +9,7 @@
     "analysis"
   ],
   "stars": 3,
-  "dir_name": "report-architecture-analysis"
+  "dir_name": "report-architecture-analysis",
+  "github_path": "skills/report-architecture-analysis",
+  "github_branch": "main"
 }

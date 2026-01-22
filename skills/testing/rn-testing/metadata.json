@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Testing patterns for React Native with Jest and React Native Testing Library. Use when writing tests, mocking Expo modules, testing Zustand stores, or debugging test failures.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:31.683675Z"
+  "downloaded_at": "2026-01-06T09:04:31.683675Z",
+  "github_path": "skills/rn-testing",
+  "github_branch": "main"
 }

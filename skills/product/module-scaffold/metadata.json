@@ -7,5 +7,7 @@
     "module",
     "scaffold"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/module-scaffold",
+  "github_branch": "main"
 }

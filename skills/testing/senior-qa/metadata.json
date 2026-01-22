@@ -1,5 +1,7 @@
 {
   "name": "senior-qa",
   "repo": "alirezarezvani/claude-skills",
-  "category": "testing"
+  "category": "testing",
+  "github_path": "engineering-team/senior-qa",
+  "github_branch": "main"
 }

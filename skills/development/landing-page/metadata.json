@@ -7,5 +7,7 @@
     "landing",
     "page"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/landing-page",
+  "github_branch": "main"
 }

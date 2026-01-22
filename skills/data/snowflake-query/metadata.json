@@ -8,5 +8,7 @@
     "query"
   ],
   "stars": 0,
-  "dir_name": "snowflake-query"
+  "dir_name": "snowflake-query",
+  "github_path": "skills/snowflake-query",
+  "github_branch": "main"
 }

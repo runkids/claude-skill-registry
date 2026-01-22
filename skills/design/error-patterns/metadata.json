@@ -8,5 +8,7 @@
     "patterns"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/error-patterns",
+  "github_branch": "main"
 }

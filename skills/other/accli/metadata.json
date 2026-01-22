@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:23.068718Z",
   "dir_name": "accli",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/joargp/accli",
+  "github_branch": "main"
 }

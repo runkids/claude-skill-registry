@@ -5,5 +5,7 @@
   "description": "Validates markdown files with YAML frontmatter against JSON Schema definitions.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:53.571515Z",
-  "dir_name": "validate-md"
+  "dir_name": "validate-md",
+  "github_path": "plugins/validate-md/skills/validate-md",
+  "github_branch": "main"
 }

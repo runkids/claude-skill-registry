@@ -8,5 +8,7 @@
     "skill"
   ],
   "stars": 14,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "home-manager/modules/share/ai/.config/ai/skills/create-skill",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "theme",
     "system"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "theme-system",
+  "github_branch": "main"
 }

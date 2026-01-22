@@ -8,5 +8,7 @@
     "quick",
     "search"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/pubmed-quick-search",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "collage",
     "maker"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "photo-collage-maker",
+  "github_branch": "main"
 }

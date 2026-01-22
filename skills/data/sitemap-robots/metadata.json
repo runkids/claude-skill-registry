@@ -8,5 +8,7 @@
     "robots"
   ],
   "stars": 0,
-  "dir_name": "sitemap-robots"
+  "dir_name": "sitemap-robots",
+  "github_path": "sitemap-robots",
+  "github_branch": "main"
 }

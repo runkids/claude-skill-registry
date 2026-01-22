@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:37.831932Z",
   "dir_name": "cli-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/simbl/skills/cli-guide",
+  "github_branch": "main"
 }

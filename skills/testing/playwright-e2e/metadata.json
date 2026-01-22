@@ -7,5 +7,7 @@
     "playwright",
     "e2e"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/playwright-e2e",
+  "github_branch": "main"
 }

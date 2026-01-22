@@ -5,5 +5,7 @@
   "source": "github.com/nalyk/nalyk-skills-demo",
   "downloaded_at": "2026-01-21T01:00:08.739852Z",
   "dir_name": "auto-ralph",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/auto-ralph/skills/auto-ralph",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "repo": "ahmedasmar/devops-claude-skills",
   "category": "development",
   "tags": [],
-  "stars": 3
+  "stars": 3,
+  "github_path": "ci-cd",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:17.990711Z",
   "dir_name": "dialyzer-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-dialyzer/skills/dialyzer-integration",
+  "github_branch": "main"
 }

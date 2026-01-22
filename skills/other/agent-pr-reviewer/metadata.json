@@ -5,5 +5,7 @@
   "source": "github.com/Smith-Happens/xlightsfpptester",
   "downloaded_at": "2026-01-21T02:50:23.625633Z",
   "dir_name": "agent-pr-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/agent-pr-reviewer",
+  "github_branch": "main"
 }

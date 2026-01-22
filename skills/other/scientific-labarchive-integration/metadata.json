@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:38.735919Z",
   "dir_name": "scientific-labarchive-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-labarchive-integration",
+  "github_branch": "main"
 }

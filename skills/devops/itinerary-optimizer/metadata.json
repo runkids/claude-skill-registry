@@ -7,5 +7,7 @@
     "itinerary",
     "optimizer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "itinerary-optimizer",
+  "github_branch": "main"
 }

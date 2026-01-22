@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Orchestrates BMAD workflows for structured AI-driven development. Use when initializing BMAD in projects, checking workflow status, or routing between 4 phases (Analysis, Planning, Solutioning, Implem",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:53.616332Z"
+  "downloaded_at": "2026-01-06T08:56:53.616332Z",
+  "github_path": "bmad-skills/bmad-orchestrator",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "unit",
     "tests"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "swift-unit-tests",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:25.105346Z",
   "dir_name": "mcp-oauth-cloudflare",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mcp-oauth-cloudflare",
+  "github_branch": "main"
 }

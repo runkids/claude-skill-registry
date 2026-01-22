@@ -2,7 +2,9 @@
   "name": "api-mocking",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "E2E\u30c6\u30b9\u30c8\u304a\u3088\u3073\u30e6\u30cb\u30c3\u30c8\u30c6\u30b9\u30c8\u306b\u304a\u3051\u308bAPI\u30e2\u30c3\u30af\u6280\u8853\u30b9\u30ad\u30eb\u3002\u5916\u90e8API\u4f9d\u5b58\u3092\u6392\u9664\u3057\u3001\u30c6\u30b9\u30c8\u306e\u5b89\u5b9a\u6027\u30fb\u901f\u5ea6\u30fb\u4fe1\u983c\u6027\u3092\u5411\u4e0a\u3055\u305b\u308b\u305f\u3081\u306e\u624b\u6cd5\u3068\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3092\u63d0\u4f9b\u3057\u307e\u3059\u3002\ud83d\udcd6 \u53c2\u8003\u8cc7\u6599:\u2022 \u300eRESTful Web APIs\u300f\uff08Leonard Richardson\uff09/ \u9069\u7528: API\u30ec\u30b9\u30dd\u30f3\u30b9\u306e\u30e2\u30c3\u30af\u5316 / \u76ee\u7684: \u5916\u90e8API\u4f9d\u5b58\u3092\u6392\u9664\u3057\u3001\u30c6\u30b9\u30c8\u306e\u5b89\u5b9a\u6027\u3068\u901f\u5ea6\u3092\u5411\u4e0a\u3055\u305b\u308b\u2022 \u300eMock Servi",
+  "description": "E2EテストおよびユニットテストにおけるAPIモック技術スキル。外部API依存を排除し、テストの安定性・速度・信頼性を向上させるための手法とベストプラクティスを提供します。📖 参考資料:• 『RESTful Web APIs』（Leonard Richardson）/ 適用: APIレスポンスのモック化 / 目的: 外部API依存を排除し、テストの安定性と速度を向上させる• 『Mock Servi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.340666Z"
+  "downloaded_at": "2026-01-06T09:00:40.340666Z",
+  "github_path": "docs/99-claude/skills/api-mocking",
+  "github_branch": "main"
 }

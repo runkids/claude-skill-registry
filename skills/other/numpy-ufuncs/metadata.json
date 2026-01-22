@@ -5,5 +5,7 @@
   "source": "github.com/cuba6112/skillfactory",
   "downloaded_at": "2026-01-22T01:16:56.263722Z",
   "dir_name": "numpy-ufuncs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/numpy-ufuncs",
+  "github_branch": "main"
 }

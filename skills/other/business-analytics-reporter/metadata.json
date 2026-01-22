@@ -5,5 +5,7 @@
   "source": "github.com/mamba-mental/agent-skill-manager",
   "downloaded_at": "2026-01-14T01:45:00.112022Z",
   "dir_name": "business-analytics-reporter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/business-analytics-reporter",
+  "github_branch": "main"
 }

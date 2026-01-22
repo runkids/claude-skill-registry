@@ -7,5 +7,7 @@
     "worktree",
     "task"
   ],
-  "stars": 30
+  "stars": 30,
+  "github_path": "skills/worktree-task",
+  "github_branch": "main"
 }

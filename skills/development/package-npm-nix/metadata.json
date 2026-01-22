@@ -8,5 +8,7 @@
     "npm",
     "nix"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "package-npm-nix",
+  "github_branch": "main"
 }

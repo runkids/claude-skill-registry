@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:55.585598Z",
   "dir_name": "gitbook",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/documentation/gitbook",
+  "github_branch": "main"
 }

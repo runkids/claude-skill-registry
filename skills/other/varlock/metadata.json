@@ -5,5 +5,7 @@
   "source": "github.com/wrsmith108/varlock-claude-skill",
   "downloaded_at": "2026-01-22T03:11:14.791857Z",
   "dir_name": "varlock",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/varlock",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ZhiruiFeng/LocalAgentCrew",
   "downloaded_at": "2026-01-22T01:44:14.484830Z",
   "dir_name": "competitor-analyst",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/competitor-analyst",
+  "github_branch": "main"
 }

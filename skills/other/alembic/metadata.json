@@ -5,5 +5,7 @@
   "source": "github.com/SlanyCukr/riot-api-project",
   "downloaded_at": "2026-01-22T01:31:42.895823Z",
   "dir_name": "alembic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/backend/alembic",
+  "github_branch": "main"
 }

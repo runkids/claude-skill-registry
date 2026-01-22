@@ -5,5 +5,7 @@
   "description": "Analyzes and optimizes database queries for performance and efficiency",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:17.888099Z",
-  "dir_name": "query-optimization-agent"
+  "dir_name": "query-optimization-agent",
+  "github_path": "skills/data/query-optimization-agent",
+  "github_branch": "main"
 }

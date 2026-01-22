@@ -5,5 +5,7 @@
   "source": "github.com/maxvaega/skillkit",
   "downloaded_at": "2026-01-22T02:52:24.869342Z",
   "dir_name": "json-parser",
-  "category": "other"
+  "category": "other",
+  "github_path": "examples/skills/example-plugin/skills/json-parser",
+  "github_branch": "main"
 }

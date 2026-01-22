@@ -2,7 +2,9 @@
   "name": "parallel-jobs-gha",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "devops",
-  "description": "GitHub Actions\u306e\u4e26\u5217\u30b8\u30e7\u30d6\u5b9f\u884c\u3068\u30b8\u30e7\u30d6\u4f9d\u5b58\u95a2\u4fc2\u7ba1\u7406\u306e\u30b9\u30ad\u30eb\u3002needs\u69cb\u6587\u306b\u3088\u308b\u4f9d\u5b58\u95a2\u4fc2\u5236\u5fa1\u3001outputs/artifacts/cache\u3092\u6d3b\u7528\u3057\u305f\u30c7\u30fc\u30bf\u53d7\u3051\u6e21\u3057\u3001matrix\u6226\u7565\u306b\u3088\u308b\u4e26\u5217\u5ea6\u8abf\u6574\u3092\u63d0\u4f9b\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer (Andrew Hunt, David Thomas) - CI/CD\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3\u306e\u6bb5\u968e\u7684\u6539\u5584\u306b\u3088\u308b\u5b9f\u884c\u6642",
+  "description": "GitHub Actionsの並列ジョブ実行とジョブ依存関係管理のスキル。needs構文による依存関係制御、outputs/artifacts/cacheを活用したデータ受け渡し、matrix戦略による並列度調整を提供する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) - CI/CDパイプラインの段階的改善による実行時",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:43.868767Z"
+  "downloaded_at": "2026-01-06T09:00:43.868767Z",
+  "github_path": "docs/99-claude/skills/parallel-jobs-gha",
+  "github_branch": "main"
 }

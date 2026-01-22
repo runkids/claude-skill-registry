@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:04.871097Z",
   "dir_name": "assert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/assert",
+  "github_branch": "main"
 }

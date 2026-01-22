@@ -2,7 +2,9 @@
   "name": "scheduling",
   "repo": "wayne930242/weihung-pai",
   "category": "development",
-  "description": "\u6392\u7a0b\u4efb\u52d9\u7ba1\u7406\u3002Use when \u7528\u6236\u8981\u5efa\u7acb\u5b9a\u6642\u4efb\u52d9\u3001\u6392\u7a0b\u3001cron job\u3001\u63d0\u9192\u3001\u6216\u67e5\u8a62/\u7ba1\u7406\u73fe\u6709\u6392\u7a0b\u3002",
+  "description": "排程任務管理。Use when 用戶要建立定時任務、排程、cron job、提醒、或查詢/管理現有排程。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.913617Z"
+  "downloaded_at": "2026-01-06T09:00:26.913617Z",
+  "github_path": "pai-claude/workspace/.claude/skills/scheduling",
+  "github_branch": "main"
 }

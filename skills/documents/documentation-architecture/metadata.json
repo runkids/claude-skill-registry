@@ -2,7 +2,9 @@
   "name": "documentation-architecture",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "documents",
-  "description": "\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u69cb\u9020\u8a2d\u8a08\u30fb\u30ea\u30bd\u30fc\u30b9\u5206\u5272\u30fb\u968e\u5c64\u8a2d\u8a08\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002500\u884c\u5236\u7d04\u306b\u57fa\u3065\u304f\u9069\u5207\u306a\u30d5\u30a1\u30a4\u30eb\u5206\u5272\u3068\u30c8\u30d4\u30c3\u30af\u30d9\u30fc\u30b9\u7d44\u7e54\u5316\u306b\u3088\u308a\u3001\u4fdd\u5b88\u6027\u3068\u767a\u898b\u53ef\u80fd\u6027\u306e\u9ad8\u3044\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u3092\u5b9f\u73fe\u3059\u308b\u3002Anchors:\u2022 Information Architecture (Rosenfeld/Morville) / \u9069\u7528: \u60c5\u5831\u7d44\u7e54\u5316\u30d1\u30bf\u30fc\u30f3 / \u76ee\u7684: \u767a\u898b\u53ef\u80fd\u6027\u5411\u4e0a\u2022 Clean Architectu",
+  "description": "ドキュメント構造設計・リソース分割・階層設計を専門とするスキル。500行制約に基づく適切なファイル分割とトピックベース組織化により、保守性と発見可能性の高いドキュメントアーキテクチャを実現する。Anchors:• Information Architecture (Rosenfeld/Morville) / 適用: 情報組織化パターン / 目的: 発見可能性向上• Clean Architectu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:41.782382Z"
+  "downloaded_at": "2026-01-06T09:00:41.782382Z",
+  "github_path": "docs/99-claude/skills/documentation-architecture",
+  "github_branch": "main"
 }

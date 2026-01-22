@@ -5,5 +5,7 @@
   "source": "github.com/BerryKuipers/claude-code-toolkit",
   "downloaded_at": "2026-01-22T01:27:05.940511Z",
   "dir_name": "save-workflow-state",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/state-management/save-workflow-state",
+  "github_branch": "main"
 }

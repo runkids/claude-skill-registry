@@ -7,5 +7,7 @@
     "troubleshooting",
     "guide"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/troubleshooting-guide",
+  "github_branch": "main"
 }

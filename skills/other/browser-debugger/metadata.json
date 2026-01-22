@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:31.583599Z",
   "dir_name": "browser-debugger",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend/skills/browser-debugger",
+  "github_branch": "main"
 }

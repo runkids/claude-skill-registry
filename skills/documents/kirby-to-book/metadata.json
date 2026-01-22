@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Convert Kirby CMS content to book/document formats. Use when generating PDFs, ebooks, or structured documents from CMS content.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:03.404882Z"
+  "downloaded_at": "2026-01-06T09:04:03.404882Z",
+  "github_path": "plugins/cloodle-content-native/skills/kirby-to-book",
+  "github_branch": "main"
 }

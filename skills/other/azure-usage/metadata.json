@@ -5,5 +5,7 @@
   "source": "github.com/fcakyon/claude-codex-settings",
   "downloaded_at": "2026-01-22T03:06:13.846374Z",
   "dir_name": "azure-usage",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/azure-tools/skills/azure-usage",
+  "github_branch": "main"
 }

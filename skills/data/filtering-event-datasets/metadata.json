@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "filtering-event-datasets"
+  "dir_name": "filtering-event-datasets",
+  "github_path": "skills/filtering-event-datasets",
+  "github_branch": "main"
 }

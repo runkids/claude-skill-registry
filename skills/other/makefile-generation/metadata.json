@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:22.422262Z",
   "dir_name": "makefile-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/attune/skills/makefile-generation",
+  "github_branch": "main"
 }

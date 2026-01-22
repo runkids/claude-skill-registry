@@ -7,5 +7,7 @@
     "backlog",
     "cleaner"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/pr-backlog-cleaner",
+  "github_branch": "main"
 }

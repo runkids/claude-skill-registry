@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when elements need to leave the screen - closing modals, dismissing notifications, removing items, page transitions out, or any \"leaving view\" animation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:16.007115Z"
+  "downloaded_at": "2026-01-06T09:05:16.007115Z",
+  "github_path": "skills/05-by-animation-type/exit-animations",
+  "github_branch": "main"
 }

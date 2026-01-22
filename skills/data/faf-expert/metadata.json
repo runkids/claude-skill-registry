@@ -8,5 +8,7 @@
     "expert"
   ],
   "stars": 7,
-  "dir_name": "faf-expert"
+  "dir_name": "faf-expert",
+  "github_path": "skills/faf-expert",
+  "github_branch": "main"
 }

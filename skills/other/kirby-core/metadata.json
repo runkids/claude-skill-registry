@@ -5,5 +5,7 @@
   "source": "github.com/astoeffer/plugin-marketplace",
   "downloaded_at": "2026-01-14T03:02:32.712740Z",
   "dir_name": "kirby-core",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/cloodle-kirby-dev/skills/kirby-core",
+  "github_branch": "main"
 }

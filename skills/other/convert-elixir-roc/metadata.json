@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:36.647631Z",
   "dir_name": "convert-elixir-roc",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/convert-elixir-roc",
+  "github_branch": "main"
 }

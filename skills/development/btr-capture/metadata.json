@@ -8,5 +8,7 @@
     "capture"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/btr-capture",
+  "github_branch": "main"
 }

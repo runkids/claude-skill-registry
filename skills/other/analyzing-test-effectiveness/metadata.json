@@ -5,5 +5,7 @@
   "source": "github.com/withzombies/hyperpowers",
   "downloaded_at": "2026-01-21T01:31:45.262722Z",
   "dir_name": "analyzing-test-effectiveness",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/analyzing-test-effectiveness",
+  "github_branch": "main"
 }

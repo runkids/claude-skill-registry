@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:42.583359Z",
   "dir_name": "message-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/copywriting/skills/message-architecture",
+  "github_branch": "main"
 }

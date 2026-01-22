@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-22T02:21:53.653629Z",
   "dir_name": "tiktok-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tiktok-creator",
+  "github_branch": "main"
 }

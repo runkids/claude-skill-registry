@@ -8,5 +8,7 @@
     "data"
   ],
   "stars": 4,
-  "dir_name": "health-data"
+  "dir_name": "health-data",
+  "github_path": "health-data",
+  "github_branch": "main"
 }

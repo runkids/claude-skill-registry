@@ -5,5 +5,7 @@
   "source": "github.com/RobThePCGuy/Claude-Patent-Creator",
   "downloaded_at": "2026-01-19T03:15:26.498586Z",
   "dir_name": "index-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/index-manager",
+  "github_branch": "main"
 }

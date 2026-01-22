@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "android-engineering-core"
+  "dir_name": "android-engineering-core",
+  "github_path": "skills/android-engineering-core",
+  "github_branch": "main"
 }

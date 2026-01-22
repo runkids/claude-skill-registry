@@ -2,5 +2,7 @@
   "name": "theme-factory",
   "repo": "anthropics/skills",
   "category": "official",
-  "source": "Anthropic Official"
+  "source": "Anthropic Official",
+  "github_path": "skills/theme-factory",
+  "github_branch": "main"
 }

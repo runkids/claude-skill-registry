@@ -5,5 +5,7 @@
   "source": "github.com/freitasp1/claude-code-skills",
   "downloaded_at": "2026-01-22T01:08:22.344329Z",
   "dir_name": "strict-typescript-mode",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/strict-typescript-mode",
+  "github_branch": "main"
 }

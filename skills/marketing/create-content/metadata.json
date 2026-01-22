@@ -8,5 +8,7 @@
     "content"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/create-content",
+  "github_branch": "main"
 }

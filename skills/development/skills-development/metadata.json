@@ -2,7 +2,9 @@
   "name": "skills-development",
   "repo": "MilesChou/claude-marketplace",
   "category": "development",
-  "description": "\u5354\u52a9\u8a2d\u8a08\u548c\u958b\u767c Claude Code Skills\uff0c\u63d0\u4f9b skill \u8a2d\u8a08\u7684\u601d\u8003\u908f\u8f2f\u548c\u6700\u4f73\u5be6\u8e10",
+  "description": "協助設計和開發 Claude Code Skills，提供 skill 設計的思考邏輯和最佳實踐",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:10.218746Z"
+  "downloaded_at": "2026-01-06T09:07:10.218746Z",
+  "github_path": "plugins/plugin-dev/skills/skills-development",
+  "github_branch": "main"
 }

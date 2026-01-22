@@ -7,5 +7,7 @@
     "refactor",
     "assistant"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/refactor-assistant",
+  "github_branch": "main"
 }

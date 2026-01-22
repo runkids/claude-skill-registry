@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:55.117094Z",
   "dir_name": "agentdb-reinforcement-learning-training",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/platforms/agentdb-reinforcement-learning-training",
+  "github_branch": "main"
 }

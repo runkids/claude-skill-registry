@@ -2,7 +2,9 @@
   "name": "auto-validate",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "Next.js \ucf54\ub4dc \uc791\uc131 \ud6c4 \uc790\ub3d9 \uac80\uc99d (tsc, lint, build). Use when (1) \ucf54\ub4dc \uad6c\ud604 \uc644\ub8cc \ud6c4,(2) PR \uc0dd\uc131 \uc804, (3) \ucee4\ubc0b \uc804 \uac80\uc99d \ud544\uc694 \uc2dc. \ubaa8\ub4e0 \uac80\uc99d \ud1b5\uacfc \uc2dc\uc5d0\ub9cc \ub2e4\uc74c \ub2e8\uacc4 \uc9c4\ud589.",
+  "description": "Next.js 코드 작성 후 자동 검증 (tsc, lint, build). Use when (1) 코드 구현 완료 후,(2) PR 생성 전, (3) 커밋 전 검증 필요 시. 모든 검증 통과 시에만 다음 단계 진행.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:50.929105Z"
+  "downloaded_at": "2026-01-06T09:02:50.929105Z",
+  "github_path": "semo-system/semo-skills/auto-validate",
+  "github_branch": "main"
 }

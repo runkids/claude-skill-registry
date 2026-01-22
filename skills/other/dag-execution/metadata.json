@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:14.975211Z",
   "dir_name": "dag-execution",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/orchestrate-complex/skills/dag-execution",
+  "github_branch": "main"
 }

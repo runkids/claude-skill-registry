@@ -5,5 +5,7 @@
   "source": "github.com/manageryzy/electron",
   "downloaded_at": "2026-01-22T04:16:40.869813Z",
   "dir_name": "electron-chromium-upgrade",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/electron-chromium-upgrade",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/duc01226/EasyPlatform",
   "downloaded_at": "2026-01-22T01:20:54.781063Z",
   "dir_name": "learned-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/learned-patterns",
+  "github_branch": "main"
 }

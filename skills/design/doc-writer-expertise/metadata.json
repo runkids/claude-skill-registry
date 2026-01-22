@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Deep expertise for documentation content creation. Templates, platform formatting guides, and style principles. Auto-loads for doc-writer agent.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:59.923565Z"
+  "downloaded_at": "2026-01-06T09:03:59.923565Z",
+  "github_path": "plugin/skills/doc-writer-expertise",
+  "github_branch": "main"
 }

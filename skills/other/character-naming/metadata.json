@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:34.348462Z",
   "dir_name": "character-naming",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/character/character-naming",
+  "github_branch": "main"
 }

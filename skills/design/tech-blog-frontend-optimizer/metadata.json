@@ -2,7 +2,9 @@
   "name": "tech-blog-frontend-optimizer",
   "repo": "masayan1126/masayan-tech-blog",
   "category": "design",
-  "description": "\u30c6\u30c3\u30af\u30d6\u30ed\u30b0\u306e\u30d5\u30ed\u30f3\u30c8\u30a8\u30f3\u30c9\u6539\u5584\u3092\u7dcf\u5408\u7684\u306b\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002PV\u6570\u30fb\u6ede\u5728\u6642\u9593\u306e\u5411\u4e0a\u3001\u30e6\u30fc\u30b6\u30fc\u6e80\u8db3\u5ea6\u306e\u6539\u5584\u3001SEO\u6700\u9069\u5316\u3092\u76ee\u7684\u306b\u3001\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u3001\u30a2\u30af\u30bb\u30b7\u30d3\u30ea\u30c6\u30a3\u3001UI/UX\u3001Core Web Vitals\u306e\u6539\u5584\u63d0\u6848\u3092\u5b9f\u65bd\u3002\u300c\u30d5\u30ed\u30f3\u30c8\u30a8\u30f3\u30c9\u3092\u6539\u5584\u3057\u3066\u300d\u300c\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u3092\u6700\u9069\u5316\u300d\u300cUX\u3092\u5411\u4e0a\u3055\u305b\u305f\u3044\u300d\u306a\u3069\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u5229\u7528\u3002",
+  "description": "テックブログのフロントエンド改善を総合的に支援するスキル。PV数・滞在時間の向上、ユーザー満足度の改善、SEO最適化を目的に、パフォーマンス、アクセシビリティ、UI/UX、Core Web Vitalsの改善提案を実施。「フロントエンドを改善して」「パフォーマンスを最適化」「UXを向上させたい」などのリクエストで利用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:58.981108Z"
+  "downloaded_at": "2026-01-06T09:06:58.981108Z",
+  "github_path": ".claude/skills/frontend-optimizer",
+  "github_branch": "main"
 }

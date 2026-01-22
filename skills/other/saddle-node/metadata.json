@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-14T02:29:15.791765Z",
   "dir_name": "saddle-node",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/saddle-node",
+  "github_branch": "main"
 }

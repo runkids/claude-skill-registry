@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:57.392287Z",
   "dir_name": "antigravity-autonomous-agents",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-autonomous-agents",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "calculator"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "ab-test-calculator",
+  "github_branch": "main"
 }

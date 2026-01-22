@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:27.174738Z",
   "dir_name": "google-workspace",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/google-workspace",
+  "github_branch": "main"
 }

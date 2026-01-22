@@ -8,5 +8,7 @@
     "patterns"
   ],
   "stars": 0,
-  "dir_name": "schema-patterns"
+  "dir_name": "schema-patterns",
+  "github_path": "schema-patterns",
+  "github_branch": "main"
 }

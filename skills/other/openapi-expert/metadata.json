@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:07.716317Z",
   "dir_name": "openapi-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/api/openapi-expert",
+  "github_branch": "main"
 }

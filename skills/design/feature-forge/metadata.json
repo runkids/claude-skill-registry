@@ -7,5 +7,7 @@
     "feature",
     "forge"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/feature-forge",
+  "github_branch": "main"
 }

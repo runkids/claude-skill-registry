@@ -8,5 +8,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bigquery"
+  "dir_name": "bigquery",
+  "github_path": "bigquery",
+  "github_branch": "main"
 }

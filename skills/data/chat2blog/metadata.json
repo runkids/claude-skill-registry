@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "chat2blog"
+  "dir_name": "chat2blog",
+  "github_path": ".claude/skills/chat2blog",
+  "github_branch": "main"
 }

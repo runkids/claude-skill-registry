@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:08.440645Z",
   "dir_name": "prometheus-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/devops/prometheus-expert",
+  "github_branch": "main"
 }

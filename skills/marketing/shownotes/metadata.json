@@ -6,5 +6,7 @@
   "tags": [
     "shownotes"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "shownotes",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "application"
   ],
   "stars": 25,
-  "dir_name": "ruby-rails-application"
+  "dir_name": "ruby-rails-application",
+  "github_path": "skills/ruby-rails-application",
+  "github_branch": "main"
 }

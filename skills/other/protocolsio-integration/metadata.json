@@ -5,5 +5,7 @@
   "source": "github.com/K-Dense-AI/claude-scientific-skills",
   "downloaded_at": "2026-01-22T02:37:48.436028Z",
   "dir_name": "protocolsio-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "scientific-skills/protocolsio-integration",
+  "github_branch": "main"
 }

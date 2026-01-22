@@ -5,5 +5,7 @@
   "source": "github.com/cliangdev/specflux",
   "downloaded_at": "2026-01-22T02:16:40.262388Z",
   "dir_name": "specflux-coding",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/plugin/skills/specflux-coding",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Systematically design and validate specialist agents with evidence-based prompting, tooling contracts, and adversarial evaluation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:48.181097Z"
+  "downloaded_at": "2026-01-06T08:58:48.181097Z",
+  "github_path": "skills/foundry/agent-creation",
+  "github_branch": "main"
 }

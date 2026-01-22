@@ -7,5 +7,7 @@
     "coolify",
     "deployment"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "coolify-deployment",
+  "github_branch": "main"
 }

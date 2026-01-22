@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:31.650192Z",
   "dir_name": "api-spec-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend/skills/api-spec-analyzer",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "docs",
     "optimizer"
   ],
-  "stars": 26
+  "stars": 26,
+  "github_path": "skills/llm-docs-optimizer",
+  "github_branch": "main"
 }

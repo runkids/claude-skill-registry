@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Manages the specification-driven development workflow. Use this skill when the user runs /orbit,requests to \"define feature\", \"create plan\", \"implement\", or needs workflow guidance.It detects the curr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:17.012906Z"
+  "downloaded_at": "2026-01-06T09:04:17.012906Z",
+  "github_path": "plugins/spec/skills/managing-workflow",
+  "github_branch": "main"
 }

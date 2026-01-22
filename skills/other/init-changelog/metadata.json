@@ -5,5 +5,7 @@
   "source": "github.com/mystilleef/llm-agent-skills",
   "downloaded_at": "2026-01-20T01:23:15.939521Z",
   "dir_name": "init-changelog",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/init-changelog",
+  "github_branch": "main"
 }

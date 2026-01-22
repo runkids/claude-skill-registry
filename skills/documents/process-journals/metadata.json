@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Review journal entries and extract valuable knowledge into formal documentation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:04.737464Z"
+  "downloaded_at": "2026-01-06T09:09:04.737464Z",
+  "github_path": "skills/docent/process-journals",
+  "github_branch": "main"
 }

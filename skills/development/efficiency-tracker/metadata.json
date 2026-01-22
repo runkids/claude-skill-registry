@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Track workflow timelines, blockers, verification results, and commits in flow-report.md. Use when recording execution flow or efficiency.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:44.855035Z"
+  "downloaded_at": "2026-01-06T09:10:44.855035Z",
+  "github_path": ".claude/skills/efficiency-tracker",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/SimHacker/moollm",
   "downloaded_at": "2026-01-22T01:07:14.447767Z",
   "dir_name": "context",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/context",
+  "github_branch": "main"
 }

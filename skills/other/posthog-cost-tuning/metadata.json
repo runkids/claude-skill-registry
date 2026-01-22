@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:10.989665Z",
   "dir_name": "posthog-cost-tuning",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/posthog-pack/skills/posthog-cost-tuning",
+  "github_branch": "main"
 }

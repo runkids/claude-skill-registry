@@ -8,5 +8,7 @@
     "landing",
     "designer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/premium-landing-designer",
+  "github_branch": "main"
 }

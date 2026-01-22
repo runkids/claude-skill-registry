@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Deploy to Azure Container Apps using azd (provision + deploy workflow)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:16.231907Z"
+  "downloaded_at": "2026-01-06T09:07:16.231907Z",
+  "github_path": ".github/skills/azd-aca-deploy",
+  "github_branch": "main"
 }

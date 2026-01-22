@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "data-processing-workflows"
+  "dir_name": "data-processing-workflows",
+  "github_path": ".claude/skills/data-processing-workflows",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:14.255295Z",
   "dir_name": "banking-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/professional/banking-expert",
+  "github_branch": "main"
 }

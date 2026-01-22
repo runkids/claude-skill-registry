@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:10.195116Z",
   "dir_name": "web3-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/blockchain-web3/skills/web3-testing",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ajianaz/skills-collection",
   "downloaded_at": "2026-01-22T03:22:38.160484Z",
   "dir_name": "mobile-devops",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mobile-devops",
+  "github_branch": "main"
 }

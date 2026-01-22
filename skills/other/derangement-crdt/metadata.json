@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:35:03.468527Z",
   "dir_name": "derangement-crdt",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/derangement-crdt",
+  "github_branch": "main"
 }

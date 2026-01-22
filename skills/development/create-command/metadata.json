@@ -7,5 +7,7 @@
     "create",
     "command"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/create-command",
+  "github_branch": "main"
 }

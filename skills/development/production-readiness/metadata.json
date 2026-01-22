@@ -7,5 +7,7 @@
     "production",
     "readiness"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/production-readiness",
+  "github_branch": "main"
 }

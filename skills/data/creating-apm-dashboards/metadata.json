@@ -5,5 +5,7 @@
   "description": "This skill enables AI assistant to create application performance monitoring (apm) dashboards. it is triggered when the user requests the creation of a new apm dashboard, monitoring dashboard, or a da",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:55:49.437027Z",
-  "dir_name": "creating-apm-dashboards"
+  "dir_name": "creating-apm-dashboards",
+  "github_path": "plugins/performance/apm-dashboard-creator/skills/creating-apm-dashboards",
+  "github_branch": "main"
 }

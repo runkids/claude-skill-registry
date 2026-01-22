@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:38.050664Z",
   "dir_name": "design-token-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/design-token-validator",
+  "github_branch": "main"
 }

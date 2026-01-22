@@ -2,7 +2,9 @@
   "name": "eld-ground-pr-review",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "development",
-  "description": "PCE (Process-Context Engine) \u3092\u6d3b\u7528\u3057\u305fPR\u30ec\u30d3\u30e5\u30fc\u30b9\u30ad\u30eb\u3002Compile\u2192Execute\u2192Capture\u306e\u30d5\u30ed\u30fc\u3067\u30ec\u30d3\u30e5\u30fc\u3092\u884c\u3044\u3001\u77e5\u898b\u3092\u84c4\u7a4d\u3059\u308b\u3002LDE\uff08Law-Driven Engineering\uff09\u3068\u306e\u7d71\u5408\u306b\u3088\u308a\u3001Law\u9075\u5b88\u30fbGrounding\u691c\u8a3c\u3082\u5b9f\u884c\u3002\u30c8\u30ea\u30ac\u30fc\u6761\u4ef6:- \u300cPR\u3092\u30ec\u30d3\u30e5\u30fc\u3057\u3066\u300d- \u300cPR #123 \u3092\u78ba\u8a8d\u3057\u3066\u300d- \u300c\u5909\u66f4\u5185\u5bb9\u3092\u30c1\u30a7\u30c3\u30af\u3057\u3066\u300d- gh",
+  "description": "PCE (Process-Context Engine) を活用したPRレビュースキル。Compile→Execute→Captureのフローでレビューを行い、知見を蓄積する。LDE（Law-Driven Engineering）との統合により、Law遵守・Grounding検証も実行。トリガー条件:- 「PRをレビューして」- 「PR #123 を確認して」- 「変更内容をチェックして」- gh",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.094046Z"
+  "downloaded_at": "2026-01-06T09:04:21.094046Z",
+  "github_path": "caphtech-plugin/skills/eld-ground-pr-review",
+  "github_branch": "main"
 }

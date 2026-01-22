@@ -9,5 +9,7 @@
     "configuration"
   ],
   "stars": 25,
-  "dir_name": "security-headers-configuration"
+  "dir_name": "security-headers-configuration",
+  "github_path": "skills/security-headers-configuration",
+  "github_branch": "main"
 }

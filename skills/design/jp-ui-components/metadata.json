@@ -2,7 +2,9 @@
   "name": "jp-ui-components",
   "repo": "yumehiko/jp-ui",
   "category": "design",
-  "description": "jp-ui\u306e\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u4f5c\u6210\u3068Storybook Page\u4f5c\u6210\u306e\u30eb\u30fc\u30eb\u3092\u5b88\u308b\u305f\u3081\u306e\u30b9\u30ad\u30eb\u3002Base UI\u30e9\u30c3\u30d1\u30fc\u306e\u65b9\u91dd\u3001render/useRender\u306e\u7dad\u6301\u3001\u30ec\u30a4\u30a2\u30a6\u30c8/\u4f59\u767d/\u5e45\u30eb\u30fc\u30eb\u3092\u9069\u7528\u3059\u308b\u3002",
+  "description": "jp-uiのコンポーネント作成とStorybook Page作成のルールを守るためのスキル。Base UIラッパーの方針、render/useRenderの維持、レイアウト/余白/幅ルールを適用する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:06.261225Z"
+  "downloaded_at": "2026-01-06T09:10:06.261225Z",
+  "github_path": ".codex/skills/jp-ui-components",
+  "github_branch": "main"
 }

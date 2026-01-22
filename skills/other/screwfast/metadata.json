@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:04.131133Z",
   "dir_name": "screwfast",
-  "category": "other"
+  "category": "other",
+  "github_path": "screwfast",
+  "github_branch": "main"
 }

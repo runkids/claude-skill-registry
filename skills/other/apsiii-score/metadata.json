@@ -5,5 +5,7 @@
   "source": "github.com/hannesill/m4",
   "downloaded_at": "2026-01-22T01:18:40.677621Z",
   "dir_name": "apsiii-score",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/m4/skills/apsiii-score",
+  "github_branch": "main"
 }

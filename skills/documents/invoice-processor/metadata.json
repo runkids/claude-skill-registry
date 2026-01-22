@@ -2,7 +2,9 @@
   "name": "invoice-processor",
   "repo": "Jst-Well-Dan/Skill-Box",
   "category": "documents",
-  "description": "Automatically process invoices (\u53d1\u7968) from PDFs/images to Excel spreadsheets using AI vision recognition. Use this skill when users mention \"\u53d1\u7968\", \"invoice\", \"\u5904\u7406\u53d1\u7968\", \"\u8bc6\u522b\u53d1\u7968\", \"\u63d0\u53d6\u53d1\u7968\", or need to convert in",
+  "description": "Automatically process invoices (发票) from PDFs/images to Excel spreadsheets using AI vision recognition. Use this skill when users mention \"发票\", \"invoice\", \"处理发票\", \"识别发票\", \"提取发票\", or need to convert in",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:31.555179Z"
+  "downloaded_at": "2026-01-06T09:06:31.555179Z",
+  "github_path": "business-analyst/invoice-processor",
+  "github_branch": "main"
 }

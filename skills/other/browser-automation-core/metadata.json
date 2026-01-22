@@ -5,5 +5,7 @@
   "source": "github.com/mbosseme/computer-use-1",
   "downloaded_at": "2026-01-14T03:48:35.149799Z",
   "dir_name": "browser-automation-core",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/browser-automation-core",
+  "github_branch": "main"
 }

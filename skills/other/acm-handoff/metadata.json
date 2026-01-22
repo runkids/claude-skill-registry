@@ -5,5 +5,7 @@
   "source": "github.com/elb-pr/claudikins-automatic-context-manager",
   "downloaded_at": "2026-01-22T00:57:58.660785Z",
   "dir_name": "acm-handoff",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/acm-handoff",
+  "github_branch": "main"
 }

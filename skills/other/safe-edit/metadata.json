@@ -5,5 +5,7 @@
   "source": "github.com/Doyajin174/myskills",
   "downloaded_at": "2026-01-22T02:12:13.370635Z",
   "dir_name": "safe-edit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".public/skills/safe-edit",
+  "github_branch": "main"
 }

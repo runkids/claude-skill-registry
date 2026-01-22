@@ -9,5 +9,7 @@
     "analysis"
   ],
   "stars": 25,
-  "dir_name": "time-series-analysis"
+  "dir_name": "time-series-analysis",
+  "github_path": "skills/time-series-analysis",
+  "github_branch": "main"
 }

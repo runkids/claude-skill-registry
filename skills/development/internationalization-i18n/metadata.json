@@ -7,5 +7,7 @@
     "internationalization",
     "i18n"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/internationalization-i18n",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "layout",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/layout-builder",
+  "github_branch": "main"
 }

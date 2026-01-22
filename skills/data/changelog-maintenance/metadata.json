@@ -9,5 +9,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "changelog-maintenance"
+  "dir_name": "changelog-maintenance",
+  "github_path": "skills/changelog-maintenance",
+  "github_branch": "main"
 }

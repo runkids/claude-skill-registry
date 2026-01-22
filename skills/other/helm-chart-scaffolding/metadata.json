@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:12.943692Z",
   "dir_name": "helm-chart-scaffolding",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/kubernetes-operations/skills/helm-chart-scaffolding",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/secondsky/claude-skills",
   "downloaded_at": "2026-01-22T02:51:05.567664Z",
   "dir_name": "bun-runtime",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/bun/skills/bun-runtime",
+  "github_branch": "main"
 }

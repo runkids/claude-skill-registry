@@ -5,5 +5,7 @@
   "source": "github.com/sushichan044/dotfiles",
   "downloaded_at": "2026-01-22T01:43:52.224829Z",
   "dir_name": "prepare-issue-pr",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/prepare-issue-pr",
+  "github_branch": "main"
 }

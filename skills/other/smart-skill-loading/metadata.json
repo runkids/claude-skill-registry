@@ -5,5 +5,7 @@
   "source": "github.com/dredd-us/seashells",
   "downloaded_at": "2026-01-22T01:30:17.047382Z",
   "dir_name": "smart-skill-loading",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/smart-skill-loading",
+  "github_branch": "main"
 }

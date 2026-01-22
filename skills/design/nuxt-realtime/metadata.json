@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Real-time features with Laravel Echo and WebSockets. Use when subscribing to channels, listening for events, implementing live updates, or managing channel subscriptions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:26.891987Z"
+  "downloaded_at": "2026-01-06T09:03:26.891987Z",
+  "github_path": "skills/nuxt-realtime",
+  "github_branch": "main"
 }

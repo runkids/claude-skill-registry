@@ -7,5 +7,7 @@
     "xcstrings",
     "localizer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/xcstrings-localizer",
+  "github_branch": "main"
 }

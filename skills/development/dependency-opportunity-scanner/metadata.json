@@ -9,5 +9,7 @@
     "scanner"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "reference_prompts/skills/dependency-opportunity-scanner",
+  "github_branch": "main"
 }

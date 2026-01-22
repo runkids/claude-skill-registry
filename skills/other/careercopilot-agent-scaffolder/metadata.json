@@ -5,5 +5,7 @@
   "source": "github.com/okgoogle13/careercopilot",
   "downloaded_at": "2026-01-22T02:06:03.175050Z",
   "dir_name": "careercopilot-agent-scaffolder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/careercopilot-agent-scaffolder",
+  "github_branch": "main"
 }

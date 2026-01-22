@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Implement Vercel load testing, auto-scaling, and capacity planning strategies.Use when running performance tests, configuring horizontal scaling,or planning capacity for Vercel integrations.Trigger wi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:51.396674Z"
+  "downloaded_at": "2026-01-06T08:55:51.396674Z",
+  "github_path": "plugins/saas-packs/vercel-pack/skills/vercel-load-scale",
+  "github_branch": "main"
 }

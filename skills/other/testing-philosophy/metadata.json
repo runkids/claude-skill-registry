@@ -5,5 +5,7 @@
   "source": "github.com/phrazzld/claude-config",
   "downloaded_at": "2026-01-14T03:03:35.994449Z",
   "dir_name": "testing-philosophy",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/testing-philosophy",
+  "github_branch": "main"
 }

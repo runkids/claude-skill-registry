@@ -7,5 +7,7 @@
     "run",
     "codex"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/run-codex",
+  "github_branch": "main"
 }

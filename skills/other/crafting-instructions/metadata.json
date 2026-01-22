@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:09.275777Z",
   "dir_name": "crafting-instructions",
-  "category": "other"
+  "category": "other",
+  "github_path": "crafting-instructions",
+  "github_branch": "main"
 }

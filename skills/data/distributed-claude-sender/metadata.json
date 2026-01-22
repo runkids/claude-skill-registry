@@ -10,5 +10,7 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "distributed-claude-sender"
+  "dir_name": "distributed-claude-sender",
+  "github_path": "skills/distributed-claude-sender",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "julia",
     "development"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/julia-development",
+  "github_branch": "main"
 }

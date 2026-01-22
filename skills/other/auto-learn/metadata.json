@@ -5,5 +5,7 @@
   "source": "github.com/blueraai/bluera-base",
   "downloaded_at": "2026-01-20T02:55:22.117181Z",
   "dir_name": "auto-learn",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/auto-learn",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Workflow d'Analyse Obligatoire. Use when working with workflow analysis.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:52.386596Z"
+  "downloaded_at": "2026-01-06T08:58:52.386596Z",
+  "github_path": "Dev/i18n/pt/Common/skills/workflow-analysis",
+  "github_branch": "main"
 }

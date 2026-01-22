@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "draftify-ppt"
+  "dir_name": "draftify-ppt",
+  "github_path": "skills/draftify-ppt",
+  "github_branch": "main"
 }

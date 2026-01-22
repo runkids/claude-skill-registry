@@ -7,5 +7,7 @@
     "language",
     "detector"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "language-detector",
+  "github_branch": "main"
 }

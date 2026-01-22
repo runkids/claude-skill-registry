@@ -5,5 +5,7 @@
   "source": "github.com/Smooth-Operation/household-expense-tracker",
   "downloaded_at": "2026-01-22T02:58:43.102945Z",
   "dir_name": "pre-commit-hooks",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/safety/pre-commit-hooks",
+  "github_branch": "main"
 }

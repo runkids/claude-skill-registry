@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:15.571394Z",
   "dir_name": "suggest-model",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/suggest_model",
+  "github_branch": "main"
 }

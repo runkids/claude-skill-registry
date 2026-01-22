@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Agent with selective Gemini safety settings for specific categories",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:18.745731Z"
+  "downloaded_at": "2026-01-06T09:09:18.745731Z",
+  "github_path": "skills/examples/safe-agent-selective",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "setup"
   ],
   "stars": 0,
-  "dir_name": "supabase-fullstack-setup"
+  "dir_name": "supabase-fullstack-setup",
+  "github_path": "supabase-fullstack-setup",
+  "github_branch": "main"
 }

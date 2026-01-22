@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
   "downloaded_at": "2026-01-19T03:01:41.440708Z",
   "dir_name": "particle-systems",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/particle-systems",
+  "github_branch": "main"
 }

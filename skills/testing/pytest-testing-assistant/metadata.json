@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Write focused pytest tests as standalone functions (one test per function), avoiding test classes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:44.031402Z"
+  "downloaded_at": "2026-01-06T08:56:44.031402Z",
+  "github_path": ".codex/skills/pytest-testing-assistant",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:27.782106Z",
   "dir_name": "semgrep-rule-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/semgrep-rule-creator/skills/semgrep-rule-creator",
+  "github_branch": "main"
 }

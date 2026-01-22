@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Convert PDF to PowerPoint presentations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:08.654763Z"
+  "downloaded_at": "2026-01-06T09:05:08.654763Z",
+  "github_path": "plugins/pdf-to-pptx-tool/skills/pdf-to-pptx-tool",
+  "github_branch": "main"
 }

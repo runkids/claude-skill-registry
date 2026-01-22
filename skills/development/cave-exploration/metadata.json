@@ -8,5 +8,7 @@
     "exploration"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/cave-exploration",
+  "github_branch": "main"
 }

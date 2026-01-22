@@ -9,5 +9,7 @@
     "architect"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/design-system-architect",
+  "github_branch": "main"
 }

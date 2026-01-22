@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:06.431551Z",
   "dir_name": "git-hooks-concepts",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/git-hooks-concepts",
+  "github_branch": "main"
 }

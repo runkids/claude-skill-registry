@@ -5,5 +5,7 @@
   "source": "github.com/FortiumPartners/ai-mesh",
   "downloaded_at": "2026-01-22T02:52:09.342464Z",
   "dir_name": "jest-test",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/jest-test",
+  "github_branch": "main"
 }

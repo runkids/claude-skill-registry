@@ -6,5 +6,7 @@
   "tags": [
     "javascript"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugins/javascript/skills/javascript",
+  "github_branch": "main"
 }

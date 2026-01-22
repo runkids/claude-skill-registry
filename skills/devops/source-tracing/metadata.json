@@ -7,5 +7,7 @@
     "source",
     "tracing"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": ".claude/skills/source-tracing",
+  "github_branch": "main"
 }

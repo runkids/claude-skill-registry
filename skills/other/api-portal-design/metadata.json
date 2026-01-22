@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:09.713216Z",
   "dir_name": "api-portal-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/documentation-standards/skills/api-portal-design",
+  "github_branch": "main"
 }

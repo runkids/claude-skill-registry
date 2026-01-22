@@ -8,5 +8,7 @@
     "stack"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/edge-stack",
+  "github_branch": "main"
 }

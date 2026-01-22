@@ -5,5 +5,7 @@
   "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
   "downloaded_at": "2026-01-22T03:16:49.113617Z",
   "dir_name": "azure-emulators-2025",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/azure-to-docker-master/skills/azure-emulators-2025",
+  "github_branch": "main"
 }

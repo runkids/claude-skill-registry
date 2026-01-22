@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "draft-a-commit"
+  "dir_name": "draft-a-commit",
+  "github_path": ".claude/skills/draft-a-commit",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "flow",
     "implementation"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/react-flow-implementation",
+  "github_branch": "main"
 }

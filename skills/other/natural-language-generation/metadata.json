@@ -5,5 +5,7 @@
   "source": "github.com/flight505/storybook-assistant",
   "downloaded_at": "2026-01-19T03:34:51.967982Z",
   "dir_name": "natural-language-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/natural-language-generation",
+  "github_branch": "main"
 }

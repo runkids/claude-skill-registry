@@ -7,5 +7,7 @@
     "zai",
     "cli"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/zai-cli",
+  "github_branch": "main"
 }

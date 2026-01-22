@@ -7,5 +7,7 @@
     "dev",
     "env"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/dev-env",
+  "github_branch": "main"
 }

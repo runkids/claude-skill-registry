@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Transform research ideas into compelling, fundable grant proposals (NSF, NIH, ERC).",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:12.438708Z"
+  "downloaded_at": "2026-01-06T09:01:12.438708Z",
+  "github_path": ".codex/skills/grant",
+  "github_branch": "main"
 }

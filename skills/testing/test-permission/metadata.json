@@ -2,7 +2,9 @@
   "name": "test-permission",
   "repo": "semicolon-devteam/semo",
   "category": "testing",
-  "description": "Remote App \uad8c\ud55c \uc694\uccad UI \ud14c\uc2a4\ud2b8\uc6a9 \uc2a4\ud0ac. Use when (1) \uad8c\ud55c \uc694\uccad UI \ud14c\uc2a4\ud2b8,(2) Hook \u2192 Remote \uc5f0\ub3d9 \uac80\uc99d, (3) awaiting_type=permission \uc2dc\ubbac\ub808\uc774\uc158.",
+  "description": "Remote App 권한 요청 UI 테스트용 스킬. Use when (1) 권한 요청 UI 테스트,(2) Hook → Remote 연동 검증, (3) awaiting_type=permission 시뮬레이션.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.724346Z"
+  "downloaded_at": "2026-01-06T09:02:52.724346Z",
+  "github_path": "semo-system/semo-remote/skills/test-permission",
+  "github_branch": "main"
 }

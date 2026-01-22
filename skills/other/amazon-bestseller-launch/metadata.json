@@ -5,5 +5,7 @@
   "source": "github.com/breverdbidder/life-os",
   "downloaded_at": "2026-01-21T01:42:20.304269Z",
   "dir_name": "amazon-bestseller-launch",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/amazon-bestseller-launch",
+  "github_branch": "main"
 }

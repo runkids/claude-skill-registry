@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:56.674664Z",
   "dir_name": "transformer-lens",
-  "category": "other"
+  "category": "other",
+  "github_path": "04-mechanistic-interpretability/transformer-lens",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:08.862181Z",
   "dir_name": "windsurf-observability",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/windsurf-pack/skills/windsurf-observability",
+  "github_branch": "main"
 }

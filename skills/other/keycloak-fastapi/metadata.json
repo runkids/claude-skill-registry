@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:20.628006Z",
   "dir_name": "keycloak-fastapi",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/fastapi-backend/skills/keycloak-fastapi",
+  "github_branch": "main"
 }

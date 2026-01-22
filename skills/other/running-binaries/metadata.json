@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:51.467693Z",
   "dir_name": "running-binaries",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/running-binaries",
+  "github_branch": "main"
 }

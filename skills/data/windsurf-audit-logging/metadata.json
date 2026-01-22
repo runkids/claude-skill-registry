@@ -5,5 +5,7 @@
   "description": "Configure AI interaction audit logging for compliance. Activate when users mention\"audit logging\", \"compliance logging\", \"ai interaction logs\", \"security audit\",or \"activity tracking\". Handles complia",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:08.525801Z",
-  "dir_name": "windsurf-audit-logging"
+  "dir_name": "windsurf-audit-logging",
+  "github_path": "plugins/saas-packs/skill-databases/windsurf/skills/windsurf-audit-logging",
+  "github_branch": "main"
 }

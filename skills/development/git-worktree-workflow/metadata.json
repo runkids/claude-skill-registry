@@ -8,5 +8,7 @@
     "worktree",
     "workflow"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/git-worktree-workflow",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mlflow/mlflow",
   "downloaded_at": "2026-01-22T03:22:58.665399Z",
   "dir_name": "add-review-comment",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/add-review-comment",
+  "github_branch": "main"
 }

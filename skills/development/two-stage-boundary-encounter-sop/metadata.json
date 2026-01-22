@@ -10,5 +10,7 @@
     "encounter",
     "sop"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/two-stage-boundary-encounter-sop",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:36.644672Z",
   "dir_name": "pm",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-plugin-dev/skills/plugin-development",
+  "github_branch": "main"
 }

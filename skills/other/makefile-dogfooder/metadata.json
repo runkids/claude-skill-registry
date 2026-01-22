@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:12.509662Z",
   "dir_name": "makefile-dogfooder",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/abstract/skills/makefile-dogfooder",
+  "github_branch": "main"
 }

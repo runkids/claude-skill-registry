@@ -8,5 +8,7 @@
     "splitter"
   ],
   "stars": 0,
-  "dir_name": "sql-splitter"
+  "dir_name": "sql-splitter",
+  "github_path": "skills/sql-splitter",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "security",
     "hardening"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/infra/security-hardening",
+  "github_branch": "main"
 }

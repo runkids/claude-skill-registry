@@ -5,5 +5,7 @@
   "source": "github.com/abyssparanoia/rapid-go",
   "downloaded_at": "2026-01-22T01:37:34.987890Z",
   "dir_name": "create-pull-request",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/create-pull-request",
+  "github_branch": "main"
 }

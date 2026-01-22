@@ -7,5 +7,7 @@
     "hypr",
     "concierge"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "hypr-concierge",
+  "github_branch": "main"
 }

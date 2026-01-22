@@ -7,5 +7,7 @@
     "testing",
     "skills"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/testing-gh-skills",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "strategy",
     "synthesis"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/strategy-synthesis",
+  "github_branch": "main"
 }

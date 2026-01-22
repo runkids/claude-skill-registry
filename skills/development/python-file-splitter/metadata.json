@@ -8,5 +8,7 @@
     "file",
     "splitter"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/python-file-splitter",
+  "github_branch": "main"
 }

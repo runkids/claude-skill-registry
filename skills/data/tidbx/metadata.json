@@ -7,5 +7,7 @@
     "tidbx"
   ],
   "stars": 11,
-  "dir_name": "tidbx"
+  "dir_name": "tidbx",
+  "github_path": "skills/tidbx-kysely",
+  "github_branch": "main"
 }

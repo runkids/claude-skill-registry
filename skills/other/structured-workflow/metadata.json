@@ -5,5 +5,7 @@
   "source": "github.com/mattg101/SolidLink",
   "downloaded_at": "2026-01-22T01:26:06.369668Z",
   "dir_name": "structured-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/dev/.agent/skills/structured-workflow",
+  "github_branch": "main"
 }

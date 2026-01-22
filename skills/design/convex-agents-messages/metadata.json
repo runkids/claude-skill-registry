@@ -8,5 +8,7 @@
     "agents",
     "messages"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "convex-agents-messages",
+  "github_branch": "main"
 }

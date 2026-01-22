@@ -9,5 +9,7 @@
     "guidelines"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/backend-dev-guidelines",
+  "github_branch": "main"
 }

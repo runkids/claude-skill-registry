@@ -9,5 +9,7 @@
     "chunking"
   ],
   "stars": 0,
-  "dir_name": "intelligent-text-chunking"
+  "dir_name": "intelligent-text-chunking",
+  "github_path": ".claude/skills/intelligent-text-chunking",
+  "github_branch": "main"
 }

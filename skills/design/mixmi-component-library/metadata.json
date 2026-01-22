@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Component specifications, design patterns, and UI elements for the mixmi platform including TrackCard, grids, modals, and audio components",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:28.447687Z"
+  "downloaded_at": "2026-01-06T09:03:28.447687Z",
+  "github_path": "docs/archive/mixmi-component-library",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Apply our official brand guidelines to all presentations and documents.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:26.799446Z"
+  "downloaded_at": "2026-01-06T09:07:26.799446Z",
+  "github_path": ".claude/.skills/ops-brand-guidelines",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyze infrastructure deployment errors - categorize error types (permission/config/resource/state), search issue log for historical solutions, ranksolutions by success rate and context match, propos",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:56.592060Z"
+  "downloaded_at": "2026-01-06T09:01:56.592060Z",
+  "github_path": "plugins/faber-cloud/skills/infra-debugger",
+  "github_branch": "main"
 }

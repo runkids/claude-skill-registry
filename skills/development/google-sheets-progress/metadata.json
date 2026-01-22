@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Tracks micro-sprint completion state and progress for Google Sheets operations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:40.115166Z"
+  "downloaded_at": "2026-01-06T08:58:40.115166Z",
+  "github_path": ".claude/cfn-extras/skills/google-sheets-progress",
+  "github_branch": "main"
 }

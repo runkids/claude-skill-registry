@@ -5,5 +5,7 @@
   "source": "github.com/squirrelsoft-dev/claude-builder",
   "downloaded_at": "2026-01-14T04:00:12.037698Z",
   "dir_name": "plugin-scaffolder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plugin-scaffolder",
+  "github_branch": "main"
 }

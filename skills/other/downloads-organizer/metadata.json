@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:39.315327Z",
   "dir_name": "downloads-organizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "downloads-organizer",
+  "github_branch": "main"
 }

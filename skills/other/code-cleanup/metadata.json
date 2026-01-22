@@ -5,5 +5,7 @@
   "source": "github.com/wade56754/AI_ad_spend02",
   "downloaded_at": "2026-01-22T03:00:37.218586Z",
   "dir_name": "code-cleanup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/code-cleanup",
+  "github_branch": "main"
 }

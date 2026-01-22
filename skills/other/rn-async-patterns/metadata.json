@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:25.867384Z",
   "dir_name": "rn-async-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rn-async-patterns",
+  "github_branch": "main"
 }

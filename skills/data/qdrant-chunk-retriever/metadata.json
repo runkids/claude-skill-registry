@@ -9,5 +9,7 @@
     "retriever"
   ],
   "stars": 0,
-  "dir_name": "qdrant-chunk-retriever"
+  "dir_name": "qdrant-chunk-retriever",
+  "github_path": ".claude/skills/qdrant-chunk-retriever",
+  "github_branch": "main"
 }

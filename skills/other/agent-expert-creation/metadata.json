@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:50.114810Z",
   "dir_name": "agent-expert-creation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/agent-expert-creation",
+  "github_branch": "main"
 }

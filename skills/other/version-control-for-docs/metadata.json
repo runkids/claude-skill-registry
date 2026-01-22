@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:04.439167Z",
   "dir_name": "version-control-for-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/version-control-for-docs",
+  "github_branch": "main"
 }

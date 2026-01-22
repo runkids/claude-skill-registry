@@ -7,5 +7,7 @@
     "search",
     "repos"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/gh-search-repos",
+  "github_branch": "main"
 }

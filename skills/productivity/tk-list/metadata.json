@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Show all Tasuku tasks. Use when user says /tk:list or asks to see tasks, show tasks, list tasks, or what needs to be done.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:25.034758Z"
+  "downloaded_at": "2026-01-06T08:59:25.034758Z",
+  "github_path": "skills/tk-list",
+  "github_branch": "main"
 }

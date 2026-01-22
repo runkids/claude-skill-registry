@@ -8,5 +8,7 @@
     "dataviz"
   ],
   "stars": 1,
-  "dir_name": "python-dataviz"
+  "dir_name": "python-dataviz",
+  "github_path": "skills/python-dataviz",
+  "github_branch": "main"
 }

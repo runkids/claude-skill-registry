@@ -2,7 +2,9 @@
   "name": "taxasge-backend-dev",
   "repo": "KouemouSah/taxasge",
   "category": "development",
-  "description": "Patterns backend FastAPI architecture 3-tiers, compl\u00e8te DEV_AGENT avec best practices backend",
+  "description": "Patterns backend FastAPI architecture 3-tiers, complète DEV_AGENT avec best practices backend",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:19:41.311812Z"
+  "downloaded_at": "2026-01-08T03:19:41.311812Z",
+  "github_path": ".claude/skills/taxasge-backend-dev",
+  "github_branch": "main"
 }

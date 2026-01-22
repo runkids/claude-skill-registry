@@ -5,5 +5,7 @@
   "source": "github.com/einverne/dotfiles",
   "downloaded_at": "2026-01-22T01:46:32.922328Z",
   "dir_name": "dotfiles-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/dotfiles-manager",
+  "github_branch": "main"
 }

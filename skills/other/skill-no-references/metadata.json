@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:31.583138Z",
   "dir_name": "skill-no-references",
-  "category": "other"
+  "category": "other",
+  "github_path": "test/pm-plugin-development/plugin-maintain/fixtures/knowledge/skill-no-references",
+  "github_branch": "main"
 }

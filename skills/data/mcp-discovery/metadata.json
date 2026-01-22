@@ -8,5 +8,7 @@
     "discovery"
   ],
   "stars": 1,
-  "dir_name": "mcp-discovery"
+  "dir_name": "mcp-discovery",
+  "github_path": "skills/mcp-discovery",
+  "github_branch": "main"
 }

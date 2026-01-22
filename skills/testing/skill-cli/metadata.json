@@ -7,5 +7,7 @@
     "skill",
     "cli"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "skills/skill-cli",
+  "github_branch": "main"
 }

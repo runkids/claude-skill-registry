@@ -9,5 +9,7 @@
     "prompt"
   ],
   "stars": 0,
-  "dir_name": "generate-meta-prompt"
+  "dir_name": "generate-meta-prompt",
+  "github_path": "skills/generate-meta-prompt",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/MUmerRazzaq/fast-next-todo",
   "downloaded_at": "2026-01-22T02:08:30.990916Z",
   "dir_name": "fastapi-rest-api-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/fastapi-rest-api-skill",
+  "github_branch": "main"
 }

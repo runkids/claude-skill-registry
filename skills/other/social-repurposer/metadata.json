@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:20.395640Z",
   "dir_name": "social-repurposer",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/video-creator-workflow/.claude/skills/social-repurposer",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "analyzer"
   ],
   "stars": 10,
-  "dir_name": "sports-betting-analyzer"
+  "dir_name": "sports-betting-analyzer",
+  "github_path": "sports-betting-analyzer",
+  "github_branch": "main"
 }

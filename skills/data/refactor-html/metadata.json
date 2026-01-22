@@ -8,5 +8,7 @@
     "html"
   ],
   "stars": 0,
-  "dir_name": "refactor-html"
+  "dir_name": "refactor-html",
+  "github_path": ".claude/skills/refactor-html",
+  "github_branch": "main"
 }

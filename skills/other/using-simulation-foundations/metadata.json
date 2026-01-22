@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:06.913942Z",
   "dir_name": "using-simulation-foundations",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/yzmir-simulation-foundations/skills/using-simulation-foundations",
+  "github_branch": "main"
 }

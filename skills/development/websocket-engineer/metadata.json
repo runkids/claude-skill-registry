@@ -7,5 +7,7 @@
     "websocket",
     "engineer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/websocket-engineer",
+  "github_branch": "main"
 }

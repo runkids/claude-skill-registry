@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:03:00.124244Z",
   "dir_name": "sentry-setup-metrics",
-  "category": "other"
+  "category": "other",
+  "github_path": "external/skills/sentry-setup-metrics",
+  "github_branch": "main"
 }

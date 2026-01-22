@@ -5,5 +5,7 @@
   "source": "github.com/modu-ai/cc-plugins",
   "downloaded_at": "2026-01-19T03:57:59.771739Z",
   "dir_name": "crew-roles",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/astory-blog-writers/skills/crew-roles",
+  "github_branch": "main"
 }

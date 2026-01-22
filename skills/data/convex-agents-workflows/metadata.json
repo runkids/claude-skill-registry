@@ -9,5 +9,7 @@
     "workflows"
   ],
   "stars": 5,
-  "dir_name": "convex-agents-workflows"
+  "dir_name": "convex-agents-workflows",
+  "github_path": "convex-agents-workflows",
+  "github_branch": "main"
 }

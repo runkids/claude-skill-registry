@@ -8,5 +8,7 @@
     "setup",
     "creator"
   ],
-  "stars": 28
+  "stars": 28,
+  "github_path": "skills/plugin-setup-creator",
+  "github_branch": "main"
 }

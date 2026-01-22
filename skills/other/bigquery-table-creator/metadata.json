@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:42.241081Z",
   "dir_name": "bigquery-table-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/14-gcp-skills/bigquery-table-creator",
+  "github_branch": "main"
 }

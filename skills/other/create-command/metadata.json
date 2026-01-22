@@ -5,5 +5,7 @@
   "source": "github.com/ronnycoding/.claude",
   "downloaded_at": "2026-01-22T02:57:41.669048Z",
   "dir_name": "create-command",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/create-command",
+  "github_branch": "main"
 }

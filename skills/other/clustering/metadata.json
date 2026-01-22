@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:47.117914Z",
   "dir_name": "clustering",
-  "category": "other"
+  "category": "other",
+  "github_path": "data-visualization/heatmaps-clustering",
+  "github_branch": "main"
 }

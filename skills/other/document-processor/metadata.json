@@ -5,5 +5,7 @@
   "source": "github.com/arbgjr/satra",
   "downloaded_at": "2026-01-22T02:00:05.542463Z",
   "dir_name": "document-processor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/document-processor",
+  "github_branch": "main"
 }

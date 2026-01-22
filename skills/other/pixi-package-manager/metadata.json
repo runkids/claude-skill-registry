@@ -5,5 +5,7 @@
   "source": "github.com/robertpelloni/borg",
   "downloaded_at": "2026-01-22T03:34:16.260996Z",
   "dir_name": "pixi-package-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "agents/rse-agents/plugins/skills/pixi-package-manager",
+  "github_branch": "main"
 }

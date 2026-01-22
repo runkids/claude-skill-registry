@@ -2,7 +2,9 @@
   "name": "restapi-translations",
   "repo": "mikopbx/Core",
   "category": "development",
-  "description": "\u0423\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430\u043c\u0438 REST API \u043a\u043b\u044e\u0447\u0435\u0439 (rest_*) \u0434\u043b\u044f MikoPBX. \u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u043d\u0430\u0445\u043e\u0434\u0438\u0442 \u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044e\u0449\u0438\u0435 \u0440\u0443\u0441\u0441\u043a\u0438\u0435 \u043a\u043b\u044e\u0447\u0438 \u0432 RestApi.php \u0438 \u0441\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0438\u0440\u0443\u0435\u0442 \u0438\u0445 \u0441 \u0438\u0441\u0445\u043e\u0434\u043d\u044b\u043c \u043a\u043e\u0434\u043e\u043c. \u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u043f\u0440\u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0435 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u043e\u0432 AP",
+  "description": "Управление переводами REST API ключей (rest_*) для MikoPBX. Автоматически находит отсутствующие русские ключи в RestApi.php и синхронизирует их с исходным кодом. Использовать при проверке переводов AP",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:17.745394Z"
+  "downloaded_at": "2026-01-06T08:56:17.745394Z",
+  "github_path": ".claude/skills/restapi-translations",
+  "github_branch": "main"
 }

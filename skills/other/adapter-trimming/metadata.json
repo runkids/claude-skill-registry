@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:49.787772Z",
   "dir_name": "adapter-trimming",
-  "category": "other"
+  "category": "other",
+  "github_path": "read-qc/adapter-trimming",
+  "github_branch": "main"
 }

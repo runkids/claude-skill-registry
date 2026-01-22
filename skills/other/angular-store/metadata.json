@@ -5,5 +5,7 @@
   "source": "github.com/duc01226/EasyPlatform",
   "downloaded_at": "2026-01-14T03:30:55.236142Z",
   "dir_name": "angular-store",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/frontend-angular-store",
+  "github_branch": "main"
 }

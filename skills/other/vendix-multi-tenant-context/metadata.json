@@ -5,5 +5,7 @@
   "source": "github.com/Rzyfront/Vendix",
   "downloaded_at": "2026-01-22T02:17:48.101999Z",
   "dir_name": "vendix-multi-tenant-context",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vendix-multi-tenant-context",
+  "github_branch": "main"
 }

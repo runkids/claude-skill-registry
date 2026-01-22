@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:18.898191Z",
   "dir_name": "video-comparer",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/video-creator-workflow/.claude/skills/video-comparer",
+  "github_branch": "main"
 }

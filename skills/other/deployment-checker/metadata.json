@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:41.280241Z",
   "dir_name": "deployment-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/deployment-checker",
+  "github_branch": "main"
 }

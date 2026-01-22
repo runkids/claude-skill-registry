@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Assess credibility, bias, and reliability of sources with explicit criteria and confidence ceilings.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:49.351659Z"
+  "downloaded_at": "2026-01-06T08:58:49.351659Z",
+  "github_path": "skills/research/source-credibility-analyzer",
+  "github_branch": "main"
 }

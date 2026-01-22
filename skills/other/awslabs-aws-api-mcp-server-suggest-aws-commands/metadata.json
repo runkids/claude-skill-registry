@@ -5,5 +5,7 @@
   "source": "github.com/X-School-Academy/ai-dev-swarm",
   "downloaded_at": "2026-01-14T02:33:47.793041Z",
   "dir_name": "awslabs-aws-api-mcp-server-suggest-aws-commands",
-  "category": "other"
+  "category": "other",
+  "github_path": "dev-swarm/mcp-skills/awslabs-aws-api-mcp-server-suggest-aws-commands",
+  "github_branch": "main"
 }

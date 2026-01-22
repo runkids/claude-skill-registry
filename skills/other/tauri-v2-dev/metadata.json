@@ -5,5 +5,7 @@
   "source": "github.com/dseirz-rgb/worker",
   "downloaded_at": "2026-01-19T03:39:52.612319Z",
   "dir_name": "tauri-v2-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": ".kiro/skills/tauri-v2-dev",
+  "github_branch": "main"
 }

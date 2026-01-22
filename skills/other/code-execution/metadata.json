@@ -5,5 +5,7 @@
   "source": "github.com/mhattingpete/claude-skills-marketplace",
   "downloaded_at": "2026-01-22T02:16:33.717886Z",
   "dir_name": "code-execution",
-  "category": "other"
+  "category": "other",
+  "github_path": "code-operations-plugin/skills/code-execution",
+  "github_branch": "main"
 }

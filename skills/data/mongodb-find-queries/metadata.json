@@ -9,5 +9,7 @@
     "queries"
   ],
   "stars": 0,
-  "dir_name": "mongodb-find-queries"
+  "dir_name": "mongodb-find-queries",
+  "github_path": "skills/mongodb-find-queries",
+  "github_branch": "main"
 }

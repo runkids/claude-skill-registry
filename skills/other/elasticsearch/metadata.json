@@ -5,5 +5,7 @@
   "source": "github.com/lawless-m/Gwen",
   "downloaded_at": "2026-01-22T03:17:30.079039Z",
   "dir_name": "elasticsearch",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/Elasticsearch",
+  "github_branch": "master"
 }

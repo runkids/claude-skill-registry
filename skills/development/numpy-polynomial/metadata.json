@@ -7,5 +7,7 @@
     "numpy",
     "polynomial"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/numpy-polynomial",
+  "github_branch": "main"
 }

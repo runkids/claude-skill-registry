@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Work with Azure DevOps Product Backlog Items using az boards CLI",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:50.487427Z"
+  "downloaded_at": "2026-01-06T09:04:50.487427Z",
+  "github_path": "plugins/azure-boards/skills",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "migration-upgrade",
   "repo": "TakumiOkayasu/dotfile-work",
   "category": "development",
-  "description": "\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af\u306e\u30a2\u30c3\u30d7\u30b0\u30ec\u30fc\u30c9\u3084\u6280\u8853\u79fb\u884c\u6642\u306b\u4f7f\u7528\u3002",
+  "description": "フレームワークのアップグレードや技術移行時に使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:44.676291Z"
+  "downloaded_at": "2026-01-06T09:08:44.676291Z",
+  "github_path": "claude/skills/3-task/maintenance/migration-upgrade",
+  "github_branch": "main"
 }

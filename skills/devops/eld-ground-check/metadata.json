@@ -2,7 +2,9 @@
   "name": "eld-ground-check",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "devops",
-  "description": "LDE\uff08Law-Driven Engineering\uff09\u306e\u63a5\u5730\uff08Grounding\uff09\u691c\u8a3c\u30b9\u30ad\u30eb\u3002Law\u3068Term\u306e\u4e21\u65b9\u306b\u3064\u3044\u3066\u3001\u691c\u8a3c\u624b\u6bb5\u30fb\u89b3\u6e2c\u624b\u6bb5\u304c\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u308b\u304b\u691c\u8a3c\u3059\u308b\u3002CI/CD\u7d71\u5408\u306e\u305f\u3081\u306e\u30c1\u30a7\u30c3\u30af\u30ea\u30b9\u30c8\u3068\u30b9\u30af\u30ea\u30d7\u30c8\u3092\u63d0\u4f9b\u3002\u4f7f\u7528\u30bf\u30a4\u30df\u30f3\u30b0: (1) PR\u4f5c\u6210\u524d\u306e\u63a5\u5730\u78ba\u8a8d\u3001(2) CI/CD\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3\u3067\u306e\u81ea\u52d5\u691c\u8a3c\u3001(3) \u300cGrounding Map\u3092\u691c\u8a3c\u3057\u3066\u300d\u3001(4) Law/Term\u8ffd\u52a0\u5f8c",
+  "description": "LDE（Law-Driven Engineering）の接地（Grounding）検証スキル。LawとTermの両方について、検証手段・観測手段が設定されているか検証する。CI/CD統合のためのチェックリストとスクリプトを提供。使用タイミング: (1) PR作成前の接地確認、(2) CI/CDパイプラインでの自動検証、(3) 「Grounding Mapを検証して」、(4) Law/Term追加後",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:20.961663Z"
+  "downloaded_at": "2026-01-06T09:04:20.961663Z",
+  "github_path": "caphtech-plugin/skills/eld-ground-check",
+  "github_branch": "main"
 }

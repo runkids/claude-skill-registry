@@ -5,5 +5,7 @@
   "source": "github.com/NickCrew/claude-cortex",
   "downloaded_at": "2026-01-22T01:32:43.448864Z",
   "dir_name": "api-gateway-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude_ctx_py/assets/skills/api-gateway-patterns",
+  "github_branch": "main"
 }

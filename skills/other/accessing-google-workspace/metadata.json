@@ -5,5 +5,7 @@
   "source": "github.com/thkt/claude-config",
   "downloaded_at": "2026-01-22T00:53:37.844326Z",
   "dir_name": "accessing-google-workspace",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ja/skills/accessing-google-workspace",
+  "github_branch": "main"
 }

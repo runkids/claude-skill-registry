@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-19T03:34:36.300668Z",
   "dir_name": "orcaflex-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/sme/orcaflex-specialist",
+  "github_branch": "main"
 }

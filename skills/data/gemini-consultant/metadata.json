@@ -8,5 +8,7 @@
     "consultant"
   ],
   "stars": 3,
-  "dir_name": "gemini-consultant"
+  "dir_name": "gemini-consultant",
+  "github_path": "skills/gemini-consultant",
+  "github_branch": "main"
 }

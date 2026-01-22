@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:07.432011Z",
   "dir_name": "ln-115-devops-docs-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-115-devops-docs-creator",
+  "github_branch": "main"
 }

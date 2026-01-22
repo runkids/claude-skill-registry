@@ -5,5 +5,7 @@
   "source": "github.com/maxvaega/skillkit",
   "downloaded_at": "2026-01-22T02:52:26.078862Z",
   "dir_name": "valid-unicode",
-  "category": "other"
+  "category": "other",
+  "github_path": "tests/fixtures/skills/valid-unicode",
+  "github_branch": "main"
 }

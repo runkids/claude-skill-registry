@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Gather and analyze source material for onboarding documentation. Creates source_inventory.md and extraction_tables.md. Triggered by onboarding-start during source-material-gathering and key-informatio",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:40.492942Z"
+  "downloaded_at": "2026-01-06T09:03:40.492942Z",
+  "github_path": "skills/onboarding-doc/onboarding-analyzer",
+  "github_branch": "main"
 }

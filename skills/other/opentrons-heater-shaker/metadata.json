@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:22.335214Z",
   "dir_name": "opentrons-heater-shaker",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/laboratory/opentrons-heater-shaker",
+  "github_branch": "main"
 }

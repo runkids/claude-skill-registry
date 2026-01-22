@@ -5,5 +5,7 @@
   "source": "github.com/trabian/fluxwing-skills",
   "downloaded_at": "2026-01-22T03:46:48.647900Z",
   "dir_name": "fluxwing-enhancer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fluxwing-enhancer",
+  "github_branch": "main"
 }

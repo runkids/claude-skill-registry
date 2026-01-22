@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "broadcasting-innovation-status"
+  "dir_name": "broadcasting-innovation-status",
+  "github_path": ".claude/skills/broadcasting-innovation-status",
+  "github_branch": "main"
 }

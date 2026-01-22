@@ -5,5 +5,7 @@
   "source": "github.com/anntnzrb/agents",
   "downloaded_at": "2026-01-20T02:54:28.258600Z",
   "dir_name": "gleam",
-  "category": "other"
+  "category": "other",
+  "github_path": "assets/skills/gleam",
+  "github_branch": "main"
 }

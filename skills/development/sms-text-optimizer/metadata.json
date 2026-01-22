@@ -8,5 +8,7 @@
     "text",
     "optimizer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "sms-text-optimizer",
+  "github_branch": "main"
 }

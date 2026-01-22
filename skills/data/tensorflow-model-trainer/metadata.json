@@ -5,5 +5,7 @@
   "description": "Tensorflow Model Trainer - Auto-activating skill for ML Training.Triggers on: tensorflow model trainer, tensorflow model trainerPart of the ML Training skill category.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:04.380122Z",
-  "dir_name": "tensorflow-model-trainer"
+  "dir_name": "tensorflow-model-trainer",
+  "github_path": "planned-skills/generated/07-ml-training/tensorflow-model-trainer",
+  "github_branch": "main"
 }

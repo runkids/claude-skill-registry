@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:55.551715Z",
   "dir_name": "language-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "language-detector",
+  "github_branch": "main"
 }

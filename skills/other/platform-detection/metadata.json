@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:41.246990Z",
   "dir_name": "platform-detection",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/deployment/skills/platform-detection",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "config",
     "helper"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/json-config-helper",
+  "github_branch": "main"
 }

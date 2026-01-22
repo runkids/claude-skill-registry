@@ -2,7 +2,9 @@
   "name": "jwc-ui-shadcn-workflow",
   "repo": "OhMinsSup/jwc-platform",
   "category": "design",
-  "description": "packages/ui\uc758 shadcn/ui + Tailwind v4 \ucef4\ud3ec\ub10c\ud2b8\ub97c \ucd94\uac00/\uc218\uc815\ud560 \ub54c \uae30\uc874 \ucef4\ud3ec\ub10c\ud2b8 \uc7ac\uc0ac\uc6a9, cn()/cva \ud328\ud134, exports \uc601\ud5a5, lint/typecheck \uc808\ucc28\ub97c \ub530\ub985\ub2c8\ub2e4.",
+  "description": "packages/ui의 shadcn/ui + Tailwind v4 컴포넌트를 추가/수정할 때 기존 컴포넌트 재사용, cn()/cva 패턴, exports 영향, lint/typecheck 절차를 따릅니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:37.047699Z"
+  "downloaded_at": "2026-01-06T09:02:37.047699Z",
+  "github_path": ".github/skills/jwc-ui-shadcn-workflow",
+  "github_branch": "main"
 }

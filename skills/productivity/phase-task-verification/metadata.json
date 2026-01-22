@@ -8,5 +8,7 @@
     "task",
     "verification"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/phase-task-verification",
+  "github_branch": "main"
 }

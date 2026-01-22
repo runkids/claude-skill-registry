@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:31.765549Z",
   "dir_name": "lang-objc-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-objc-dev",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:28.177405Z",
   "dir_name": "result-type",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/patterns/result-type",
+  "github_branch": "main"
 }

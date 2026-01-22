@@ -5,5 +5,7 @@
   "source": "github.com/cosmix/loom",
   "downloaded_at": "2026-01-22T02:42:51.492689Z",
   "dir_name": "rust",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rust",
+  "github_branch": "main"
 }

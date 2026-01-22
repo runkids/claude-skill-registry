@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Generate engineering analysis reports with interactive Plotly visualizations, standard report sections, and HTML export. Use for creating dashboards, analysis summaries, and technical documentation wi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:48.022819Z"
+  "downloaded_at": "2026-01-06T09:09:48.022819Z",
+  "github_path": ".claude/skills/development/engineering-report-generator",
+  "github_branch": "main"
 }

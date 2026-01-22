@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:40.843631Z",
   "dir_name": "dead-code-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dead-code-detector",
+  "github_branch": "main"
 }

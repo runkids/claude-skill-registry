@@ -8,5 +8,7 @@
     "common",
     "pitfalls"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/pydantic-ai-common-pitfalls",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "SERP analysis techniques for intent classification, feature identification, and competitive intelligence. Use when analyzing search results for content strategy.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:29.755270Z"
+  "downloaded_at": "2026-01-06T08:56:29.755270Z",
+  "github_path": "plugins/seo/skills/serp-analysis",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:50.725872Z",
   "dir_name": "feedback-conversations",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/soft-skills/skills/feedback-conversations",
+  "github_branch": "main"
 }

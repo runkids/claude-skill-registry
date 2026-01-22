@@ -7,5 +7,7 @@
     "llm",
     "basics"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/llm-basics",
+  "github_branch": "main"
 }

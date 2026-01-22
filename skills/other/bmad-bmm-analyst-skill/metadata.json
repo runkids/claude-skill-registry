@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:17.193020Z",
   "dir_name": "bmad-bmm-analyst-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "bmad-bmm-analyst-skill",
+  "github_branch": "main"
 }

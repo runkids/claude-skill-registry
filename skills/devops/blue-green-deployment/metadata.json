@@ -9,5 +9,7 @@
     "deployment"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/blue-green-deployment",
+  "github_branch": "main"
 }

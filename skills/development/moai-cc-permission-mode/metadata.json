@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Claude Code permission configuration and policy management strategies for enterprise security. Covers permission modes, tool access control, whitelist/blacklist patterns, and enterprise deployment bes",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:35.780512Z"
+  "downloaded_at": "2026-01-08T03:20:35.780512Z",
+  "github_path": ".claude/skills/moai-cc-permission-mode",
+  "github_branch": "main"
 }

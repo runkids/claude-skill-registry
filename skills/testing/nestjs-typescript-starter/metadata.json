@@ -8,5 +8,7 @@
     "typescript",
     "starter"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "nestjs-typescript-starter",
+  "github_branch": "main"
 }

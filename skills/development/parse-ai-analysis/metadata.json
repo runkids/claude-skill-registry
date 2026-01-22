@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Parse GitHub AI analysis comment sections for architectural alignment, technical feasibility, implementation suggestions, and testing strategy",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:14.959629Z"
+  "downloaded_at": "2026-01-06T08:59:14.959629Z",
+  "github_path": ".claude/skills/github-integration/parse-ai-analysis",
+  "github_branch": "main"
 }

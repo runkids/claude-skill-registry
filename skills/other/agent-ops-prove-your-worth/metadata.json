@@ -5,5 +5,7 @@
   "source": "github.com/weholt/script-cast",
   "downloaded_at": "2026-01-22T03:27:58.001295Z",
   "dir_name": "agent-ops-prove-your-worth",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/agent-ops-prove-your-worth",
+  "github_branch": "main"
 }

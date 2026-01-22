@@ -5,5 +5,7 @@
   "source": "github.com/bitwikiorg/skills.md",
   "downloaded_at": "2026-01-22T01:15:05.157312Z",
   "dir_name": "init-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "sources/langchain/init_skill",
+  "github_branch": "main"
 }

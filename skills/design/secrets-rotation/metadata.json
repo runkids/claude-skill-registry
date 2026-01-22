@@ -7,5 +7,7 @@
     "secrets",
     "rotation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/secrets-rotation",
+  "github_branch": "main"
 }

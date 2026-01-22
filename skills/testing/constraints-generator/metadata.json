@@ -2,7 +2,9 @@
   "name": "constraints-generator",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "testing",
-  "description": "\u751f\u6210ExecSpecMasterConstraints_L*.md\u6743\u5a01\u7ea6\u675f\u6587\u4ef6\uff0c\u5b9a\u4e49Phase/SubPlan/Round\u547d\u540d\u89c4\u8303\u3001\u76ee\u5f55\u7ed3\u6784\u3001\u73af\u5883\u7b56\u7565\u548c\u8d28\u91cf\u95e8\u7981\u9608\u503c\u3002\u5f53\u9700\u8981\u521b\u5efa ExecSpec Master Plan \u7684\u7ea6\u675f\u6587\u6863\u3001\u5b9a\u4e49\u547d\u540d\u89c4\u8303\u3001\u5b9a\u4e49\u8d28\u91cf\u95e8\u7981\u3001\u5b9a\u4e49HITL\u68c0\u67e5\u70b9\u65f6\u4f7f\u7528\u3002",
+  "description": "生成ExecSpecMasterConstraints_L*.md权威约束文件，定义Phase/SubPlan/Round命名规范、目录结构、环境策略和质量门禁阈值。当需要创建 ExecSpec Master Plan 的约束文档、定义命名规范、定义质量门禁、定义HITL检查点时使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:10.222038Z"
+  "downloaded_at": "2026-01-06T09:10:10.222038Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/execspec_compile/constraints-generator",
+  "github_branch": "main"
 }

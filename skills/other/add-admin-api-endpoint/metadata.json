@@ -5,5 +5,7 @@
   "source": "github.com/iBoostAI/Ghost",
   "downloaded_at": "2026-01-22T03:38:43.383326Z",
   "dir_name": "add-admin-api-endpoint",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/add-admin-api-endpoint",
+  "github_branch": "main"
 }

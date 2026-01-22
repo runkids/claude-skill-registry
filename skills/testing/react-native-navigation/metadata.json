@@ -8,5 +8,7 @@
     "native",
     "navigation"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/react-native-navigation",
+  "github_branch": "main"
 }

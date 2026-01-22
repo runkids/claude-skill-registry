@@ -5,5 +5,7 @@
   "source": "github.com/coeus-ventures/epic-web",
   "downloaded_at": "2026-01-22T02:16:44.033395Z",
   "dir_name": "write-behavior-test",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/write-behavior-test",
+  "github_branch": "main"
 }

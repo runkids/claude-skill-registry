@@ -5,5 +5,7 @@
   "source": "github.com/doodledood/claude-code-plugins",
   "downloaded_at": "2026-01-22T02:39:46.907676Z",
   "dir_name": "clean-slop",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugins/vibe-extras/skills/clean-slop",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:18.731565Z",
   "dir_name": "clerk-debug-bundle",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/clerk-pack/skills/clerk-debug-bundle",
+  "github_branch": "main"
 }

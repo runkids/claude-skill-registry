@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build or update Node.js + LLM API workflows that replace Codex/MCP UI exploration for web automation at lower cost. Use when a user asks to productize page-structure discovery into a Node runner (Pupp",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:25.939658Z"
+  "downloaded_at": "2026-01-08T03:30:25.939658Z",
+  "github_path": ".codex/skills/node-llm-web-automation",
+  "github_branch": "main"
 }

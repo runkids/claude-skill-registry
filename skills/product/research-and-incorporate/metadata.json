@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Research external topics, create comprehensive analysis, determine project applicability, and incorporate learnings into Serena and Forgetful memory systems. Transforms knowledge into searchable, acti",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:27.415482Z"
+  "downloaded_at": "2026-01-06T09:00:27.415482Z",
+  "github_path": ".claude/skills/research-and-incorporate",
+  "github_branch": "main"
 }

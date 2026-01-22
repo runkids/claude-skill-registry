@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.573280Z",
   "dir_name": "competitive-intel",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/product-marketing/skills/competitive-intel",
+  "github_branch": "main"
 }

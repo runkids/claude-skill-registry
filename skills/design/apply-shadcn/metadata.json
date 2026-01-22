@@ -8,5 +8,7 @@
     "shadcn"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/apply-shadcn",
+  "github_branch": "main"
 }

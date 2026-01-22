@@ -5,5 +5,7 @@
   "description": "Network configuration for Bazzite. iwd WiFi backend, Wake-on-LAN, and Tailscale VPN.Use when users need to configure network services. For SSH, see bazzite-ai:configure.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:04:06.171527Z",
-  "dir_name": "network"
+  "dir_name": "network",
+  "github_path": "bazzite/skills/network",
+  "github_branch": "main"
 }

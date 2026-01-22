@@ -8,5 +8,7 @@
     "test",
     "generator"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/matlab-test-generator",
+  "github_branch": "main"
 }

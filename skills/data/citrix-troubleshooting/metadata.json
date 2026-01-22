@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "citrix-troubleshooting"
+  "dir_name": "citrix-troubleshooting",
+  "github_path": ".claude/skills/citrix-troubleshooting",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jamshu/jamshi-marketplace",
   "downloaded_at": "2026-01-22T02:53:24.047022Z",
   "dir_name": "add-odoo-model",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/odoo-pwa-generator/skills/add-odoo-model",
+  "github_branch": "main"
 }

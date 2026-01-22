@@ -5,5 +5,7 @@
   "source": "github.com/skillcreatorai/Ai-Agent-Skills",
   "downloaded_at": "2026-01-22T01:09:37.995586Z",
   "dir_name": "qa-regression",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/qa-regression",
+  "github_branch": "main"
 }

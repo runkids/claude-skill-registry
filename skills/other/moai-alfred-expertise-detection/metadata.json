@@ -5,5 +5,7 @@
   "source": "github.com/dolsoon/my-awesome-project",
   "downloaded_at": "2026-01-22T02:19:55.052570Z",
   "dir_name": "moai-alfred-expertise-detection",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-alfred-expertise-detection",
+  "github_branch": "main"
 }

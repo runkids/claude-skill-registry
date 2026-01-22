@@ -5,5 +5,7 @@
   "source": "github.com/OshanKHZ/cc-swiss-knife",
   "downloaded_at": "2026-01-22T04:07:55.948627Z",
   "dir_name": "skill-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/claude-code-forge/skills/skill-development",
+  "github_branch": "main"
 }

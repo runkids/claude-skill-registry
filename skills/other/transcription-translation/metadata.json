@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:46.706583Z",
   "dir_name": "transcription-translation",
-  "category": "other"
+  "category": "other",
+  "github_path": "sequence-manipulation/transcription-translation",
+  "github_branch": "main"
 }

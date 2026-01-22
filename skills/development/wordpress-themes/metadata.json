@@ -7,5 +7,7 @@
     "wordpress",
     "themes"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "wordpress-themes",
+  "github_branch": "main"
 }

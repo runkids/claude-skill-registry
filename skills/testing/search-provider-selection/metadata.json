@@ -8,5 +8,7 @@
     "provider",
     "selection"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/search-provider-selection",
+  "github_branch": "main"
 }

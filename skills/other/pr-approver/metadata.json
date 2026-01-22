@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:16.549559Z",
   "dir_name": "pr-approver",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-git/skills/pr-approver",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "freshdesk",
     "api"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/freshdesk-api",
+  "github_branch": "main"
 }

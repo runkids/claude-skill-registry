@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-22T01:49:33.101344Z",
   "dir_name": "spawn",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/consiliency/spawn-terminal",
+  "github_branch": "main"
 }

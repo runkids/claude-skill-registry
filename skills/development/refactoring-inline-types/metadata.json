@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Refactor inline types into reusable, well-organized type definitions using interfaces, type aliases, and generics",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:04.683389Z"
+  "downloaded_at": "2026-01-06T09:05:04.683389Z",
+  "github_path": "typescript/skills/refactoring-inline-types",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "patterns"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "ecosystem-patterns",
+  "github_branch": "main"
 }

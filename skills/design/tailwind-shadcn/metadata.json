@@ -7,5 +7,7 @@
     "tailwind",
     "shadcn"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "tailwind-shadcn",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:21.825481Z",
   "dir_name": "python-jax",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/programming/python-jax",
+  "github_branch": "main"
 }

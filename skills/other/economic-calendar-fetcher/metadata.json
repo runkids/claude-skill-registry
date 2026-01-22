@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-17T02:05:54.166529Z",
   "dir_name": "economic-calendar-fetcher",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/stock-trader-workflow/.claude/skills/weekly-trade-strategy/.claude/skills/economic-calendar-fetcher",
+  "github_branch": "main"
 }

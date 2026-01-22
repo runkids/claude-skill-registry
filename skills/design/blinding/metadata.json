@@ -7,5 +7,7 @@
     "blinding"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/blinding",
+  "github_branch": "main"
 }

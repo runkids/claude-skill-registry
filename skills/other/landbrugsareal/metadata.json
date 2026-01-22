@@ -5,5 +5,7 @@
   "source": "github.com/Klimabevaegelsen/landbruget.dk",
   "downloaded_at": "2026-01-17T02:54:40.048733Z",
   "dir_name": "landbrugsareal",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/gcs-data-catalog/landbrugsareal",
+  "github_branch": "main"
 }

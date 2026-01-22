@@ -5,5 +5,7 @@
   "source": "github.com/sgaunet/claude-plugins",
   "downloaded_at": "2026-01-22T02:13:44.730074Z",
   "dir_name": "gitlab-ci",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/go-specialist/skills/gitlab-ci",
+  "github_branch": "main"
 }

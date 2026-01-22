@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:36.868653Z",
   "dir_name": "build-cython-ext",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/build-cython-ext",
+  "github_branch": "main"
 }

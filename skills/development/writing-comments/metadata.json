@@ -7,5 +7,7 @@
     "writing",
     "comments"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/writing-comments",
+  "github_branch": "main"
 }

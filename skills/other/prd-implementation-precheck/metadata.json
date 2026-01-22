@@ -5,5 +5,7 @@
   "source": "github.com/Charon-Fan/agent-playbook",
   "downloaded_at": "2026-01-21T03:43:47.742399Z",
   "dir_name": "prd-implementation-precheck",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prd-implementation-precheck",
+  "github_branch": "main"
 }

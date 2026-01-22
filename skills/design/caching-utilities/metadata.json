@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Guide for using caching utilities in speedy_utils, including memory, disk, and hybrid caching strategies for sync and async functions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:32.036995Z"
+  "downloaded_at": "2026-01-06T09:00:32.036995Z",
+  "github_path": ".github/skills/caching-utilities",
+  "github_branch": "main"
 }

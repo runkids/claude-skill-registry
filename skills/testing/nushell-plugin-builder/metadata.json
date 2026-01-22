@@ -8,5 +8,7 @@
     "plugin",
     "builder"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "nushell-plugin-builder",
+  "github_branch": "main"
 }

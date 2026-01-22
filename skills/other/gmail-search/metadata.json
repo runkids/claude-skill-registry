@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:06.244669Z",
   "dir_name": "gmail-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/gmail-search",
+  "github_branch": "main"
 }

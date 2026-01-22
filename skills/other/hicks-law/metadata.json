@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:45.683347Z",
   "dir_name": "hicks-law",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/cognitive-laws/hicks-law",
+  "github_branch": "main"
 }

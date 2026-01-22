@@ -5,5 +5,7 @@
   "source": "github.com/czottmann/claude-code-stuff",
   "downloaded_at": "2026-01-22T01:55:30.265057Z",
   "dir_name": "issue-tracking-with-beans",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills-DISABLED/issue-tracking-with-beans",
+  "github_branch": "main"
 }

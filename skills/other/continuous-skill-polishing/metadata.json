@@ -5,5 +5,7 @@
   "source": "github.com/dredd-us/seashells",
   "downloaded_at": "2026-01-22T01:30:17.928713Z",
   "dir_name": "continuous-skill-polishing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/continuous-skill-polishing",
+  "github_branch": "main"
 }

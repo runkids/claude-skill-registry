@@ -5,5 +5,7 @@
   "source": "github.com/tenequm/claude-plugins",
   "downloaded_at": "2026-01-22T02:03:28.422627Z",
   "dir_name": "solana-compression",
-  "category": "other"
+  "category": "other",
+  "github_path": "solana/skills/solana-compression",
+  "github_branch": "main"
 }

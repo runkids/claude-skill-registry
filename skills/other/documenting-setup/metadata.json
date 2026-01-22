@@ -5,5 +5,7 @@
   "source": "github.com/thkt/claude-config",
   "downloaded_at": "2026-01-22T00:53:36.833071Z",
   "dir_name": "documenting-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ja/skills/documenting-setup",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/cursor-dev-system",
   "downloaded_at": "2026-01-22T02:41:40.461099Z",
   "dir_name": "prd-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prd-audit",
+  "github_branch": "main"
 }

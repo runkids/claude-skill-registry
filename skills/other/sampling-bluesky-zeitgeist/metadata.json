@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:08.731900Z",
   "dir_name": "sampling-bluesky-zeitgeist",
-  "category": "other"
+  "category": "other",
+  "github_path": "sampling-bluesky-zeitgeist",
+  "github_branch": "main"
 }

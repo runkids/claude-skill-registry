@@ -8,5 +8,7 @@
     "json",
     "scaffolder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "package-json-scaffolder",
+  "github_branch": "main"
 }

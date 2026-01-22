@@ -9,5 +9,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "expected-value"
+  "dir_name": "expected-value",
+  "github_path": "skills/expected-value",
+  "github_branch": "main"
 }

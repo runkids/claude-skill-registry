@@ -2,7 +2,9 @@
   "name": "reusable-workflows",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "devops",
-  "description": "GitHub Actions\u518d\u5229\u7528\u53ef\u80fd\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u306e\u5c02\u9580\u30b9\u30ad\u30eb\u3002\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u5171\u6709\u3001\u5165\u529b\u30fb\u51fa\u529b\u8a2d\u8a08\u3001\u30b7\u30fc\u30af\u30ec\u30c3\u30c8\u7ba1\u7406\u3092\u63d0\u4f9b\u3057\u307e\u3059\u3002Anchors:\u2022 \u300eContinuous Delivery\u300f\uff08Jez Humble\uff09 / \u9069\u7528: CI/CD / \u76ee\u7684: \u30d1\u30a4\u30d7\u30e9\u30a4\u30f3\u8a2d\u8a08\u3068\u81ea\u52d5\u5316\u6226\u7565Trigger:GitHub Actions\u518d\u5229\u7528\u53ef\u80fd\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u4f5c\u6210\u6642\u3001\u5171\u901aCI/CD\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3\u8a2d\u8a08\u6642\u306b\u4f7f\u7528",
+  "description": "GitHub Actions再利用可能ワークフローの専門スキル。ワークフロー共有、入力・出力設計、シークレット管理を提供します。Anchors:• 『Continuous Delivery』（Jez Humble） / 適用: CI/CD / 目的: パイプライン設計と自動化戦略Trigger:GitHub Actions再利用可能ワークフロー作成時、共通CI/CDパイプライン設計時に使用",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:44.744453Z"
+  "downloaded_at": "2026-01-06T09:00:44.744453Z",
+  "github_path": "docs/99-claude/skills/reusable-workflows",
+  "github_branch": "main"
 }

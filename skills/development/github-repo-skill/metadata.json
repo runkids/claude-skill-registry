@@ -8,5 +8,7 @@
     "repo",
     "skill"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "github-repo-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/PolicyEngine/policyengine-claude",
   "downloaded_at": "2026-01-22T02:32:13.898612Z",
   "dir_name": "l0-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/data-science/l0-skill",
+  "github_branch": "main"
 }

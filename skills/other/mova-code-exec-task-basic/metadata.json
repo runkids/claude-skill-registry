@@ -5,5 +5,7 @@
   "source": "github.com/Leryk1981/mova_wf_cycle",
   "downloaded_at": "2026-01-22T02:33:26.481457Z",
   "dir_name": "mova-code-exec-task-basic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/mova_code_exec_task_basic",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "routing"
   ],
   "stars": 0,
-  "dir_name": "routing"
+  "dir_name": "routing",
+  "github_path": ".claude/skills/routing",
+  "github_branch": "main"
 }

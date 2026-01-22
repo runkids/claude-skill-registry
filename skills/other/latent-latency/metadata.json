@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T05:42:05.512186Z",
   "dir_name": "latent-latency",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/latent-latency",
+  "github_branch": "main"
 }

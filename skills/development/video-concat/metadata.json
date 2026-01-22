@@ -7,5 +7,7 @@
     "video",
     "concat"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/video-concat",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "blog2blog"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/blog2blog",
+  "github_branch": "main"
 }

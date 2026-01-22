@@ -5,5 +5,7 @@
   "source": "github.com/bitwikiorg/skills.md",
   "downloaded_at": "2026-01-22T01:15:02.706750Z",
   "dir_name": "claude",
-  "category": "other"
+  "category": "other",
+  "github_path": "sources/vercel/claude",
+  "github_branch": "main"
 }

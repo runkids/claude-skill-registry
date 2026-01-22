@@ -5,5 +5,7 @@
   "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
   "downloaded_at": "2026-01-14T01:09:22.393704Z",
   "dir_name": "tailwindcss-framework-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tailwindcss-master/skills/tailwindcss-framework-integration",
+  "github_branch": "main"
 }

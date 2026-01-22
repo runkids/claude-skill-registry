@@ -5,5 +5,7 @@
   "source": "github.com/arvindand/agent-skills",
   "downloaded_at": "2026-01-22T00:57:40.326016Z",
   "dir_name": "maven-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/maven-tools",
+  "github_branch": "main"
 }

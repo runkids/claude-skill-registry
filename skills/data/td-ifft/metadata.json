@@ -5,5 +5,7 @@
   "description": "Inverse Fast Fourier Transform for time domain reconstruction",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:08:52.817350Z",
-  "dir_name": "td-ifft"
+  "dir_name": "td-ifft",
+  "github_path": "skills/analytics/td-ifft",
+  "github_branch": "main"
 }

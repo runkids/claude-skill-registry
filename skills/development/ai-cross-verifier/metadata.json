@@ -8,5 +8,7 @@
     "verifier"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/ai-cross-verifier",
+  "github_branch": "main"
 }

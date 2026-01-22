@@ -4,5 +4,7 @@
   "category": "development",
   "description": "GitHub repository skill for bitwarden/sdk-sm",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.412523Z"
+  "downloaded_at": "2026-01-06T09:00:26.412523Z",
+  "github_path": "INTEGRATION/processed/sdk-sm",
+  "github_branch": "main"
 }

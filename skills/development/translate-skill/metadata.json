@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use this skill when you are doing localization and translation work.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:16.751147Z"
+  "downloaded_at": "2026-01-06T08:56:16.751147Z",
+  "github_path": ".claude/skills/translate",
+  "github_branch": "main"
 }

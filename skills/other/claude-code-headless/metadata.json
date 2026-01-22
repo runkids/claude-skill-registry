@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:09.779999Z",
   "dir_name": "claude-code-headless",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/claude-code-headless",
+  "github_branch": "main"
 }

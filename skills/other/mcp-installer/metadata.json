@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:10.570036Z",
   "dir_name": "mcp-installer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-claude/skills/mcp-installer",
+  "github_branch": "main"
 }

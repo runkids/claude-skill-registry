@@ -5,5 +5,7 @@
   "description": "Create author profiles via questionnaire or transcript analysis for consistent article voice",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:00:16.219599Z",
-  "dir_name": "author-profile"
+  "dir_name": "author-profile",
+  "github_path": "article-writer/skills/author-profile",
+  "github_branch": "main"
 }

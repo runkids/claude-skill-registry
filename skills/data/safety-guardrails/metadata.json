@@ -5,5 +5,7 @@
   "description": "LLM safety guardrails and content moderation",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:46.423129Z",
-  "dir_name": "safety-guardrails"
+  "dir_name": "safety-guardrails",
+  "github_path": "skills/safety-guardrails",
+  "github_branch": "main"
 }

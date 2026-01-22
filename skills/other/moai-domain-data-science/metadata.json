@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:12.639218Z",
   "dir_name": "moai-domain-data-science",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-domain-data-science",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:43.433675Z",
   "dir_name": "scientific-dask",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-dask",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "influencer"
   ],
   "stars": 0,
-  "dir_name": "influencer-db"
+  "dir_name": "influencer-db",
+  "github_path": ".claude/skills/influencer-db",
+  "github_branch": "main"
 }

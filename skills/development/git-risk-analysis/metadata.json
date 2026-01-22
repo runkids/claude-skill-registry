@@ -8,5 +8,7 @@
     "risk",
     "analysis"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/git-risk-analysis",
+  "github_branch": "main"
 }

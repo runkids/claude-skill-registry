@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Implement GitOps workflows with ArgoCD and Flux for automated, declarative Kubernetes deployments with continuous reconciliation. Use when implementing GitOps practices, automating Kubernetes deployme",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:33.975861Z"
+  "downloaded_at": "2026-01-06T08:55:33.975861Z",
+  "github_path": "plugins/kubernetes-operations/skills/gitops-workflow",
+  "github_branch": "main"
 }

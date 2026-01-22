@@ -5,5 +5,7 @@
   "source": "github.com/hoodini/ai-agents-skills",
   "downloaded_at": "2026-01-22T02:55:39.527701Z",
   "dir_name": "mobile-responsiveness",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mobile-responsiveness",
+  "github_branch": "main"
 }

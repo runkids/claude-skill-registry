@@ -8,5 +8,7 @@
     "prompts"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/agent-prompts",
+  "github_branch": "main"
 }

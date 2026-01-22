@@ -5,5 +5,7 @@
   "source": "github.com/Synthesys-Lab/assassyn",
   "downloaded_at": "2026-01-17T01:51:51.908382Z",
   "dir_name": "document-guideline",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/document-guideline",
+  "github_branch": "main"
 }

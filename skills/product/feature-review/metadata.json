@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Feature review and prioritization with RICE/WSJF/Kano scoring. Creates GitHub issues for suggestions.Triggers: feature review, prioritization, RICE, WSJF, roadmap, backlogUse when: reviewing features ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:47.481836Z"
+  "downloaded_at": "2026-01-06T08:56:47.481836Z",
+  "github_path": "plugins/imbue/skills/feature-review",
+  "github_branch": "main"
 }

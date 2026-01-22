@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:48.845062Z",
   "dir_name": "review-synthesis",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/marketing/skills/review-synthesis",
+  "github_branch": "main"
 }

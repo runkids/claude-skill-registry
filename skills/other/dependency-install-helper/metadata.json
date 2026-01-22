@@ -5,5 +5,7 @@
   "source": "github.com/proflead/codex-skills-library",
   "downloaded_at": "2026-01-22T02:40:48.362477Z",
   "dir_name": "dependency-install-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/foundation/dependency-install-helper",
+  "github_branch": "main"
 }

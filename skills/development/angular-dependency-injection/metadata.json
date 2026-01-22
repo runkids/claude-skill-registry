@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when building modular Angular applications requiring dependency injection with providers, injectors, and services.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:00.783662Z"
+  "downloaded_at": "2026-01-06T08:57:00.783662Z",
+  "github_path": "jutsu/jutsu-angular/skills/angular-dependency-injection",
+  "github_branch": "main"
 }

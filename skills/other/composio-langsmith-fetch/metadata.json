@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-21T03:48:14.315702Z",
   "dir_name": "composio-langsmith-fetch",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/composio-langsmith-fetch",
+  "github_branch": "main"
 }

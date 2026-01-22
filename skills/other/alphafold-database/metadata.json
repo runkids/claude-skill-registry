@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:11.190799Z",
   "dir_name": "alphafold-database",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/alphafold-database",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use this skill when users need to conduct digital forensics investigations, perform timeline reconstruction, analyze memory dumps, examine artifacts, or build comprehensive forensic reports using Lima",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:46.919593Z"
+  "downloaded_at": "2026-01-06T09:08:46.919593Z",
+  "github_path": ".claude-plugin/plugins/limacharlie-skills/skills/forensic-analyst",
+  "github_branch": "main"
 }

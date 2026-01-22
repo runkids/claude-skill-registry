@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Login to the Agentuity Platform using a browser-based authentication flow. Use for managing authentication credentials",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:32.557630Z"
+  "downloaded_at": "2026-01-06T09:00:32.557630Z",
+  "github_path": "training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-auth-login",
+  "github_branch": "main"
 }

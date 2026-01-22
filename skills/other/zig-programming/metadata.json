@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:35:03.379784Z",
   "dir_name": "zig-programming",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/zig-programming",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:12.869326Z",
   "dir_name": "slack-expert-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "slack-expert-skill",
+  "github_branch": "main"
 }

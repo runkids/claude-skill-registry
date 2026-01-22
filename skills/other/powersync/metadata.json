@@ -5,5 +5,7 @@
   "source": "github.com/guillempuche/ai-standards",
   "downloaded_at": "2026-01-22T04:13:10.962275Z",
   "dir_name": "powersync",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/powersync",
+  "github_branch": "main"
 }

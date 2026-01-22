@@ -8,5 +8,7 @@
     "config"
   ],
   "stars": 3,
-  "dir_name": "wezterm-config"
+  "dir_name": "wezterm-config",
+  "github_path": "skills/wezterm-config",
+  "github_branch": "main"
 }

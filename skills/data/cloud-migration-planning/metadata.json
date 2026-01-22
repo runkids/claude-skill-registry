@@ -10,5 +10,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cloud-migration-planning"
+  "dir_name": "cloud-migration-planning",
+  "github_path": "skills/cloud-migration-planning",
+  "github_branch": "main"
 }

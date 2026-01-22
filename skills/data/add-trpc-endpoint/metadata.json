@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "add-trpc-endpoint"
+  "dir_name": "add-trpc-endpoint",
+  "github_path": ".claude/skills/add-trpc-endpoint",
+  "github_branch": "main"
 }

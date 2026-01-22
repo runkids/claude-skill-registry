@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "defining-spikes"
+  "dir_name": "defining-spikes",
+  "github_path": "skills/defining-spikes",
+  "github_branch": "main"
 }

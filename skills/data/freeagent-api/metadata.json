@@ -8,5 +8,7 @@
     "api"
   ],
   "stars": 0,
-  "dir_name": "freeagent-api"
+  "dir_name": "freeagent-api",
+  "github_path": "skills/freeagent-api",
+  "github_branch": "main"
 }

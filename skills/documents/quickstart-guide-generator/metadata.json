@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Quickstart Guide Generator - Auto-activating skill for Technical Documentation.Triggers on: quickstart guide generator, quickstart guide generatorPart of the Technical Documentation skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:10.391924Z"
+  "downloaded_at": "2026-01-06T08:56:10.391924Z",
+  "github_path": "planned-skills/generated/17-technical-docs/quickstart-guide-generator",
+  "github_branch": "main"
 }

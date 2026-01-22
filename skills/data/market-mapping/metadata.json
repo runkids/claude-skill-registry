@@ -8,5 +8,7 @@
     "mapping"
   ],
   "stars": 0,
-  "dir_name": "market-mapping"
+  "dir_name": "market-mapping",
+  "github_path": "market-mapping",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/steveyegge/beads",
   "downloaded_at": "2026-01-22T03:58:26.967189Z",
   "dir_name": "beads",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugin/skills/beads",
+  "github_branch": "main"
 }

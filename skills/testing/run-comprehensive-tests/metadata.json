@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Execute comprehensive test suite (Vitest/Jest) with coverage reporting and failure analysis. Returns structured output with test counts (total/passed/failed), coverage percentage, duration, and detail",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:14.650003Z"
+  "downloaded_at": "2026-01-06T08:59:14.650003Z",
+  "github_path": ".claude/skills/testing/run-comprehensive-tests",
+  "github_branch": "main"
 }

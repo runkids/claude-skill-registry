@@ -7,5 +7,7 @@
     "pydantic",
     "testing"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/pydantic-ai-testing",
+  "github_branch": "main"
 }

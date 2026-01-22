@@ -5,5 +5,7 @@
   "source": "github.com/CharlesWiltgen/Axiom",
   "downloaded_at": "2026-01-17T03:32:52.861626Z",
   "dir_name": "axiom-vision-ref",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude-plugin/plugins/axiom/skills/axiom-vision-ref",
+  "github_branch": "main"
 }

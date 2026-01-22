@@ -4,5 +4,7 @@
   "category": "design",
   "description": "SNAKE vs RASTER tile acquisition patterns for image stitching in KINTSUGI",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:28.160570Z"
+  "downloaded_at": "2026-01-06T09:08:28.160570Z",
+  "github_path": "plugins/kintsugi/tile-snake-pattern-stitching/skills/tile-snake-pattern-stitching",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ricable/ruvector-edge",
   "downloaded_at": "2026-01-22T01:46:07.790042Z",
   "dir_name": "worker-benchmarks",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-flow-v3/.claude/skills/worker-benchmarks",
+  "github_branch": "main"
 }

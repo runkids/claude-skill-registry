@@ -5,5 +5,7 @@
   "source": "github.com/dredd-us/seashells",
   "downloaded_at": "2026-01-22T01:30:18.056685Z",
   "dir_name": "parallel-session-orchestration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/parallel-session-orchestration",
+  "github_branch": "main"
 }

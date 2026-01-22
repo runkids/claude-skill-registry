@@ -5,5 +5,7 @@
   "source": "github.com/hoodini/ai-agents-skills",
   "downloaded_at": "2026-01-22T02:55:37.587693Z",
   "dir_name": "fal-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fal-ai",
+  "github_branch": "main"
 }

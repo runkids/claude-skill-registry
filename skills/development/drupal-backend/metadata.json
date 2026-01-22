@@ -7,5 +7,7 @@
     "drupal",
     "backend"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "drupal-backend",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/goldeneggg/dotfiles",
   "downloaded_at": "2026-01-22T03:11:09.310630Z",
   "dir_name": "skill-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-linux/.claude/skills/skill-reviewer",
+  "github_branch": "main"
 }

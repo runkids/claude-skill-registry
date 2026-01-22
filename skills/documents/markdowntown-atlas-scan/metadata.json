@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Atlas Simulator scan flow and next-step guidance for markdowntown. Use when working on folder scanning, tool detection, cwd handling, results panels, or scan-to-workbench CTAs.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:25.160460Z"
+  "downloaded_at": "2026-01-06T09:10:25.160460Z",
+  "github_path": "codex/skills/markdowntown-atlas-scan",
+  "github_branch": "main"
 }

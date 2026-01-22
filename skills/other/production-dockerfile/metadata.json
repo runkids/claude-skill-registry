@@ -5,5 +5,7 @@
   "source": "github.com/panaversity/agentfactory",
   "downloaded_at": "2026-01-22T03:41:34.345401Z",
   "dir_name": "production-dockerfile",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/_skills_archive/cold/production-dockerfile",
+  "github_branch": "main"
 }

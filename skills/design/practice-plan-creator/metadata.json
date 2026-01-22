@@ -8,5 +8,7 @@
     "plan",
     "creator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "practice-plan-creator",
+  "github_branch": "main"
 }

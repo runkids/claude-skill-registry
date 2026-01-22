@@ -4,5 +4,7 @@
   "category": "development",
   "description": "This skill should be used whenever creating git commits. It ensures commit messages follow conventional commit format, character limits, and prohibits AI attribution or branding.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:20.584821Z"
+  "downloaded_at": "2026-01-06T08:56:20.584821Z",
+  "github_path": "roles/claude/files/skills/skill-creator",
+  "github_branch": "main"
 }

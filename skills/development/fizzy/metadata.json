@@ -6,5 +6,7 @@
   "tags": [
     "fizzy"
   ],
-  "stars": 20
+  "stars": 20,
+  "github_path": "fizzy",
+  "github_branch": "main"
 }

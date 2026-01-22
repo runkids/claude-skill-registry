@@ -2,7 +2,9 @@
   "name": "principle-yagni",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "devops",
-  "description": "\u8bc6\u522b\u5e76\u6d88\u9664\u8fc7\u5ea6\u8bbe\u8ba1\uff0c\u786e\u4fdd\u53ea\u5b9e\u73b0\u5f53\u524d\u660e\u786e\u9700\u8981\u7684\u529f\u80fd\u3002\u5f53\u9700\u8981\u8bc4\u5ba1\u529f\u80fd\u8303\u56f4\u3001\u91cd\u6784\u5197\u4f59\u4ee3\u7801\u3001\u6743\u8861\u6280\u672f\u503a\u52a1\u65f6\u4f7f\u7528\u3002\u8986\u76d6\u529f\u80fd\u5fc5\u8981\u6027\u3001\u8fc7\u5ea6\u8bbe\u8ba1\u4fe1\u53f7\u3001\u6280\u672f\u503a\u52a1\u6743\u8861\u4e09\u5927\u7ef4\u5ea6\uff0c\u63d0\u4f9b\u5177\u4f53\u7684\u8bc6\u522b\u6807\u51c6\u548c\u5220\u51cf\u5efa\u8bae\u3002",
+  "description": "识别并消除过度设计，确保只实现当前明确需要的功能。当需要评审功能范围、重构冗余代码、权衡技术债务时使用。覆盖功能必要性、过度设计信号、技术债务权衡三大维度，提供具体的识别标准和删减建议。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:08.086520Z"
+  "downloaded_at": "2026-01-06T09:10:08.086520Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/common_advanced/principle-yagni",
+  "github_branch": "main"
 }

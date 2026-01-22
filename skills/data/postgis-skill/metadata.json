@@ -5,5 +5,7 @@
   "description": "PostGIS-focused SQL tips, tricks and gotchas. Use when in need of dealing with geospatial data in Postgres.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:04:35.947116Z",
-  "dir_name": "postgis-skill"
+  "dir_name": "postgis-skill",
+  "github_path": "doc",
+  "github_branch": "main"
 }

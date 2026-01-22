@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Automatically detect performance regressions in CI/CD pipelines by comparing metrics against baselines. Use when validating builds or analyzing performance trends. Trigger with phrases like \"detect pe",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:49.440298Z"
+  "downloaded_at": "2026-01-06T08:55:49.440298Z",
+  "github_path": "plugins/performance/performance-regression-detector/skills/detecting-performance-regressions",
+  "github_branch": "main"
 }

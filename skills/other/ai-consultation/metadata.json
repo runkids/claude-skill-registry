@@ -5,5 +5,7 @@
   "source": "github.com/jeffrigby/somepulp-agents",
   "downloaded_at": "2026-01-22T01:43:27.001470Z",
   "dir_name": "ai-consultation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/second-opinion/skills/ai-consultation",
+  "github_branch": "main"
 }

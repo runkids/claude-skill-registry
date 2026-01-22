@@ -8,5 +8,7 @@
     "review"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/arch-review",
+  "github_branch": "main"
 }

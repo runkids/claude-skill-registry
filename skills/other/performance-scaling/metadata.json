@@ -5,5 +5,7 @@
   "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
   "downloaded_at": "2026-01-22T04:11:03.199657Z",
   "dir_name": "performance-scaling",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/performance-scaling",
+  "github_branch": "main"
 }

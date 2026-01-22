@@ -5,5 +5,7 @@
   "source": "github.com/vibery-studio/templates",
   "downloaded_at": "2026-01-21T03:31:15.687229Z",
   "dir_name": "migration-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/migration-guide",
+  "github_branch": "main"
 }

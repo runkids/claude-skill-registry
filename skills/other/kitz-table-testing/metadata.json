@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:52.721162Z",
   "dir_name": "kitz-table-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/kitz-table-testing",
+  "github_branch": "main"
 }

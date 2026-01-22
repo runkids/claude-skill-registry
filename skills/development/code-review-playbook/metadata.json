@@ -8,5 +8,7 @@
     "review",
     "playbook"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "skills/code-review-playbook",
+  "github_branch": "main"
 }

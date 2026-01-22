@@ -5,5 +5,7 @@
   "source": "github.com/ArcBlock/agent-skills",
   "downloaded_at": "2026-01-14T03:25:37.063566Z",
   "dir_name": "blocklet-updater",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/blocklet/skills/blocklet-updater",
+  "github_branch": "main"
 }

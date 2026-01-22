@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:25.149968Z",
   "dir_name": "planning-inventory",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-workflow/skills/planning-inventory",
+  "github_branch": "main"
 }

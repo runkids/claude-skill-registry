@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:52.141167Z",
   "dir_name": "creating-diagrams",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/creating-diagrams",
+  "github_branch": "main"
 }

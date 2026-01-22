@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:57.486881Z",
   "dir_name": "litgpt",
-  "category": "other"
+  "category": "other",
+  "github_path": "01-model-architecture/litgpt",
+  "github_branch": "main"
 }

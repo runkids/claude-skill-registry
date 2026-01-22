@@ -5,5 +5,7 @@
   "source": "github.com/rand/cc-polymath",
   "downloaded_at": "2026-01-14T03:55:20.388441Z",
   "dir_name": "discover-cicd",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/discover-cicd",
+  "github_branch": "main"
 }

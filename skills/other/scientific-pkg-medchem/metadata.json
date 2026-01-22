@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:31.884108Z",
   "dir_name": "scientific-pkg-medchem",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-pkg-medchem",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dolsoon/my-awesome-project",
   "downloaded_at": "2026-01-22T02:19:57.263843Z",
   "dir_name": "moai-docs-linting",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-docs-linting",
+  "github_branch": "main"
 }

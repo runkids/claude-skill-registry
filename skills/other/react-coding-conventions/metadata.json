@@ -5,5 +5,7 @@
   "source": "github.com/JasonPaff/head-shakers",
   "downloaded_at": "2026-01-22T02:37:03.883561Z",
   "dir_name": "react-coding-conventions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/react-coding-conventions",
+  "github_branch": "main"
 }

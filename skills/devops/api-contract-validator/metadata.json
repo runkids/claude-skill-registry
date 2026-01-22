@@ -9,5 +9,7 @@
     "validator"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/api-contract-validator",
+  "github_branch": "main"
 }

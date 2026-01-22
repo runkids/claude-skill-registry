@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Game monetization strategies, in-app purchases, battle passes, ads integration,and player retention mechanics. Ethical monetization that respects players.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:45.121126Z"
+  "downloaded_at": "2026-01-06T09:02:45.121126Z",
+  "github_path": "skills/monetization-systems",
+  "github_branch": "main"
 }

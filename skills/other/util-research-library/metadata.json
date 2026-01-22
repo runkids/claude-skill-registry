@@ -5,5 +5,7 @@
   "source": "github.com/dawiddutoit/custom-claude",
   "downloaded_at": "2026-01-22T03:15:45.400540Z",
   "dir_name": "util-research-library",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/util-research-library",
+  "github_branch": "main"
 }

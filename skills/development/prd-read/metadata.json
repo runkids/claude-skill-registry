@@ -4,5 +4,7 @@
   "category": "development",
   "description": "|",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:27.798455Z"
+  "downloaded_at": "2026-01-08T03:21:27.798455Z",
+  "github_path": ".claude/skills/prd-read",
+  "github_branch": "main"
 }

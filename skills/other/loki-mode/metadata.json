@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:35.531338Z",
   "dir_name": "loki-mode",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/loki-mode",
+  "github_branch": "main"
 }

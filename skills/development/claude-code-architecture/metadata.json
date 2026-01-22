@@ -8,5 +8,7 @@
     "code",
     "architecture"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "claude-code-architecture",
+  "github_branch": "main"
 }

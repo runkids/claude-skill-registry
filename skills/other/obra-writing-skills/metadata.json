@@ -5,5 +5,7 @@
   "source": "github.com/faulkdev/github-copilot-superpowers",
   "downloaded_at": "2026-01-22T03:45:05.004857Z",
   "dir_name": "obra-writing-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/obra/obra-writing-skills",
+  "github_branch": "main"
 }

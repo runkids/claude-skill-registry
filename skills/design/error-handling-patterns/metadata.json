@@ -9,5 +9,7 @@
     "patterns"
   ],
   "stars": 49,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "droidz_installer/payloads/droid_cli/default/skills/error-handling-patterns",
+  "github_branch": "main"
 }

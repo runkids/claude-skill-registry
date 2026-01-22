@@ -5,5 +5,7 @@
   "source": "github.com/posit-dev/skills",
   "downloaded_at": "2026-01-22T02:46:56.123692Z",
   "dir_name": "critical-code-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "open-source/critical-code-reviewer",
+  "github_branch": "main"
 }

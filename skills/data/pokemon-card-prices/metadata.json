@@ -9,5 +9,7 @@
     "prices"
   ],
   "stars": 0,
-  "dir_name": "pokemon-card-prices"
+  "dir_name": "pokemon-card-prices",
+  "github_path": ".claude/skills/pokemon-card-prices",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:44.631215Z",
   "dir_name": "scientific-geniml",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-geniml",
+  "github_branch": "main"
 }

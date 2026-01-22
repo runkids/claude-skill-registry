@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:29.436453Z",
   "dir_name": "wp-wpcli-and-ops",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wp-wpcli-and-ops",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "git",
     "ops"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "claude_ctx_py/assets/skills/git-ops",
+  "github_branch": "main"
 }

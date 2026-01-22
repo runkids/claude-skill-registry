@@ -5,5 +5,7 @@
   "source": "github.com/AbdulSamad94/Hackhaton-SpecsKitPlus",
   "downloaded_at": "2026-01-22T03:28:02.333921Z",
   "dir_name": "rag",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/rag",
+  "github_branch": "main"
 }

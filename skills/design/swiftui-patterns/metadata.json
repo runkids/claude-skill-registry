@@ -7,5 +7,7 @@
     "swiftui",
     "patterns"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "swiftui-patterns",
+  "github_branch": "main"
 }

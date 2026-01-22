@@ -5,5 +5,7 @@
   "source": "github.com/lambda-curry/devagent",
   "downloaded_at": "2026-01-21T01:49:18.133206Z",
   "dir_name": "git-workspace",
-  "category": "other"
+  "category": "other",
+  "github_path": ".cursor/skills/git-workspace",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:11.409767Z",
   "dir_name": "python-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/python-development",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/creator-hian/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:40:46.275946Z",
   "dir_name": "csharp-async-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "csharp-plugin/skills/csharp-async-patterns",
+  "github_branch": "main"
 }

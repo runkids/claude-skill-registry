@@ -5,5 +5,7 @@
   "source": "github.com/arlenagreer/claude_configuration_docs",
   "downloaded_at": "2026-01-22T01:12:33.355971Z",
   "dir_name": "google-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/google-docs",
+  "github_branch": "main"
 }

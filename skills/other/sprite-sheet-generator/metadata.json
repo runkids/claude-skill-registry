@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:58.632477Z",
   "dir_name": "sprite-sheet-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "sprite-sheet-generator",
+  "github_branch": "main"
 }

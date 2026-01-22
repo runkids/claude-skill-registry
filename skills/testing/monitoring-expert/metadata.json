@@ -7,5 +7,7 @@
     "monitoring",
     "expert"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/monitoring-expert",
+  "github_branch": "main"
 }

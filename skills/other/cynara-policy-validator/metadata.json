@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T04:21:38.713714Z",
   "dir_name": "cynara-policy-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cynara-policy-validator",
+  "github_branch": "main"
 }

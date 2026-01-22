@@ -10,5 +10,7 @@
     "bugs"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/find-and-fix-bugs",
+  "github_branch": "main"
 }

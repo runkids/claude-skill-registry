@@ -5,5 +5,7 @@
   "source": "github.com/cklxx/elephant.ai",
   "downloaded_at": "2026-01-14T02:17:23.284614Z",
   "dir_name": "best-practice-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/best-practice-search",
+  "github_branch": "main"
 }

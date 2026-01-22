@@ -2,7 +2,9 @@
   "name": "authentication-flows",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "security",
-  "description": "API Key\u3001JWT\u3001OAuth 2.0\u3001mTLS \u306a\u3069\u306e\u8a8d\u8a3c\u65b9\u5f0f\u3092\u6bd4\u8f03\u3057\u3001\u9069\u5207\u306a\u30d5\u30ed\u30fc\u8a2d\u8a08\u3068\u5b9f\u88c5\u65b9\u91dd\u3092\u6574\u7406\u3059\u308b\u30b9\u30ad\u30eb\u3002\u65b9\u5f0f\u9078\u5b9a\u3001\u30c8\u30fc\u30af\u30f3\u7ba1\u7406\u3001\u7f72\u540d\u6226\u7565\u3001\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u5bfe\u7b56\u3092\u4e00\u8cab\u3057\u3066\u8a2d\u8a08\u3057\u307e\u3059\u3002Anchors:\u2022 Web Application Security / \u9069\u7528: \u8105\u5a01\u6574\u7406 / \u76ee\u7684: \u8a8d\u8a3c\u30d5\u30ed\u30fc\u306e\u30ea\u30b9\u30af\u628a\u63e1\u2022 OWASP Authentication Cheat Sheet / \u9069\u7528:",
+  "description": "API Key、JWT、OAuth 2.0、mTLS などの認証方式を比較し、適切なフロー設計と実装方針を整理するスキル。方式選定、トークン管理、署名戦略、セキュリティ対策を一貫して設計します。Anchors:• Web Application Security / 適用: 脅威整理 / 目的: 認証フローのリスク把握• OWASP Authentication Cheat Sheet / 適用:",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.517082Z"
+  "downloaded_at": "2026-01-06T09:00:40.517082Z",
+  "github_path": "docs/99-claude/skills/authentication-flows",
+  "github_branch": "main"
 }

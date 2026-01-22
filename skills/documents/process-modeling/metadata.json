@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Process modeling using BPMN notation and flowchart patterns. Creates process diagrams with activities, gateways, events, swimlanes, and decision points for workflow documentation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:58.465904Z"
+  "downloaded_at": "2026-01-06T08:59:58.465904Z",
+  "github_path": "plugins/business-analysis/skills/process-modeling",
+  "github_branch": "main"
 }

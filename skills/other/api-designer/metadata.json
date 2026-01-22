@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:01.811156Z",
   "dir_name": "api-designer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/api-designer",
+  "github_branch": "main"
 }

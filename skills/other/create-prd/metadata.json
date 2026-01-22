@@ -5,5 +5,7 @@
   "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
   "downloaded_at": "2026-01-22T03:04:56.942989Z",
   "dir_name": "create-prd",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/create-prd",
+  "github_branch": "main"
 }

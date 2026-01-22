@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Debug Maven Surefire unit tests by running them in JDWP",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:22.458906Z"
+  "downloaded_at": "2026-01-08T03:30:22.458906Z",
+  "github_path": ".codex/skills/debug-surefire",
+  "github_branch": "main"
 }

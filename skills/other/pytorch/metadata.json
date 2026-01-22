@@ -5,5 +5,7 @@
   "source": "github.com/itsmostafa/llm-engineering-skills",
   "downloaded_at": "2026-01-22T02:17:43.681605Z",
   "dir_name": "pytorch",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pytorch",
+  "github_branch": "main"
 }

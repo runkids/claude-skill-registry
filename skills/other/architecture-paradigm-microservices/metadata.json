@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:22.187199Z",
   "dir_name": "architecture-paradigm-microservices",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/archetypes/skills/architecture-paradigm-microservices",
+  "github_branch": "main"
 }

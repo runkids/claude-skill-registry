@@ -5,5 +5,7 @@
   "source": "github.com/RevTechStudio/rts-plugins",
   "downloaded_at": "2026-01-22T03:44:55.323918Z",
   "dir_name": "skill-granularity-convention",
-  "category": "other"
+  "category": "other",
+  "github_path": "rts-plugin-generator/skills/skill-granularity-convention",
+  "github_branch": "main"
 }

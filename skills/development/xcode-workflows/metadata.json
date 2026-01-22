@@ -7,5 +7,7 @@
     "xcode",
     "workflows"
   ],
-  "stars": 28
+  "stars": 28,
+  "github_path": "skills/xcode-workflows",
+  "github_branch": "main"
 }

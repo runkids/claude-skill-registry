@@ -7,5 +7,7 @@
     "llm",
     "integration"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/llm-integration",
+  "github_branch": "main"
 }

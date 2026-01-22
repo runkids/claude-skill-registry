@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Set up and manage a local Weaviate instance using Docker",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:19.455613Z"
+  "downloaded_at": "2026-01-06T08:57:19.455613Z",
+  "github_path": "weaviate-local-setup",
+  "github_branch": "main"
 }

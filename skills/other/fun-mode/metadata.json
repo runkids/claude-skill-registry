@@ -5,5 +5,7 @@
   "source": "github.com/axiomantic/spellbook",
   "downloaded_at": "2026-01-14T03:44:28.032557Z",
   "dir_name": "fun-mode",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fun-mode",
+  "github_branch": "main"
 }

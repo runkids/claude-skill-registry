@@ -9,5 +9,7 @@
     "learner"
   ],
   "stars": 0,
-  "dir_name": "sqlite-pattern-learner"
+  "dir_name": "sqlite-pattern-learner",
+  "github_path": ".claude/skills/sqlite-pattern-learner",
+  "github_branch": "main"
 }

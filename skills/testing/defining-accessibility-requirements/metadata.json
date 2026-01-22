@@ -2,7 +2,9 @@
   "name": "defining-accessibility-requirements",
   "repo": "farmanlab/ai_agent_orchestra",
   "category": "testing",
-  "description": "Defines accessibility requirements for UI elements including semantic markup, ARIA attributes, focus management, and screen reader support. Updates the \"\u30a2\u30af\u30bb\u30b7\u30d3\u30ea\u30c6\u30a3\" section in screen spec.md.",
+  "description": "Defines accessibility requirements for UI elements including semantic markup, ARIA attributes, focus management, and screen reader support. Updates the \"アクセシビリティ\" section in screen spec.md.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:51.564312Z"
+  "downloaded_at": "2026-01-06T09:01:51.564312Z",
+  "github_path": ".agents/skills/defining-accessibility-requirements",
+  "github_branch": "main"
 }

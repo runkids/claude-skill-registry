@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Lists and filters documentation files by type, status, tags, and date range with frontmatter parsing",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:55.211811Z"
+  "downloaded_at": "2026-01-06T09:01:55.211811Z",
+  "github_path": "plugins/docs/skills/doc-lister",
+  "github_branch": "main"
 }

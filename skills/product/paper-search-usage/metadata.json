@@ -4,5 +4,7 @@
   "category": "product",
   "description": "This skill should be used when user asks to \"search for papers\", \"find research papers\", \"search arXiv\", \"search PubMed\", \"find academic papers\", \"search IEEE\", \"search Scopus\", or \"look up scientific",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:26.941271Z"
+  "downloaded_at": "2026-01-06T08:56:26.941271Z",
+  "github_path": "plugins/paper-search-tools/skills/paper-search-usage",
+  "github_branch": "main"
 }

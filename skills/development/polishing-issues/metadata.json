@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when GitHub issue lacks scope, has ambiguities, or needs technical definition - researches codebase, identifies gaps, presents options with recommendations, updates issue description (project, git",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:41.710183Z"
+  "downloaded_at": "2026-01-06T09:01:41.710183Z",
+  "github_path": "ai/skills/polishing-issues",
+  "github_branch": "main"
 }

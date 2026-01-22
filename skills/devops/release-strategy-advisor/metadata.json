@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Expert in analyzing and recommending release strategies for software projects. Detects existing release patterns in brownfield projects (git tags, CI/CD workflows, changelogs, version files). Suggests",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:09.644124Z"
+  "downloaded_at": "2026-01-06T08:58:09.644124Z",
+  "github_path": "plugins/specweave-release/skills/release-strategy-advisor",
+  "github_branch": "main"
 }

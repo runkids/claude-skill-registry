@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "airflow-etl"
+  "dir_name": "airflow-etl",
+  "github_path": ".claude/skills/airflow-etl",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "meeting",
     "recorder"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "meeting-recorder",
+  "github_branch": "main"
 }

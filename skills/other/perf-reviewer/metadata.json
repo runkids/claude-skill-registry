@@ -5,5 +5,7 @@
   "source": "github.com/sunholo-data/ailang",
   "downloaded_at": "2026-01-22T03:40:47.528288Z",
   "dir_name": "perf-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/perf-reviewer",
+  "github_branch": "main"
 }

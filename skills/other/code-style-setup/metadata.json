@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:07.799921Z",
   "dir_name": "code-style-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/code-style-setup",
+  "github_branch": "main"
 }

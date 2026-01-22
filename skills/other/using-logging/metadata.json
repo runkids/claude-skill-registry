@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:06.733228Z",
   "dir_name": "using-logging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/using-logging",
+  "github_branch": "main"
 }

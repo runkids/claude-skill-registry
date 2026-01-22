@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Validate skill quality, completeness, and adherence to standards. Use before packaging to ensure skill meets quality requirements.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:57.536103Z"
+  "downloaded_at": "2026-01-06T08:56:57.536103Z",
+  "github_path": "agentic/code/addons/skill-factory/skills/quality-checker",
+  "github_branch": "main"
 }

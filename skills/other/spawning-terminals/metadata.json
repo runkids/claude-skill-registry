@@ -5,5 +5,7 @@
   "source": "github.com/GGPrompts/my-plugins",
   "downloaded_at": "2026-01-22T03:22:53.508735Z",
   "dir_name": "spawning-terminals",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tools/conductor/skills/spawning-terminals",
+  "github_branch": "main"
 }

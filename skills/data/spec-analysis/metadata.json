@@ -8,5 +8,7 @@
     "analysis"
   ],
   "stars": 1,
-  "dir_name": "spec-analysis"
+  "dir_name": "spec-analysis",
+  "github_path": "skills/spec-analysis",
+  "github_branch": "main"
 }

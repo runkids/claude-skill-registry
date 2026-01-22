@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "AWS S3 storage handler for fractary-file plugin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:58.724885Z"
+  "downloaded_at": "2026-01-06T09:01:58.724885Z",
+  "github_path": "plugins/file/skills/handler-storage-s3",
+  "github_branch": "main"
 }

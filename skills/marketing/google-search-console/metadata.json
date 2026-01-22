@@ -2,7 +2,9 @@
   "name": "google-search-console",
   "repo": "jiunbae/agent-skills",
   "category": "marketing",
-  "description": "Google Search Console API \ud1b5\ud569 \uc2a4\ud0ac. \uac80\uc0c9 \uc131\uacfc \ubd84\uc11d, URL \uac80\uc0ac, \uc0ac\uc774\ud2b8\ub9f5 \uad00\ub9ac, \uc0ac\uc774\ud2b8 \uc778\uc99d \uc9c0\uc6d0. \"GSC\", \"\uc11c\uce58\ucf58\uc194\", \"\uac80\uc0c9 \uc131\uacfc\", \"SEO \ubd84\uc11d\" \ud0a4\uc6cc\ub4dc\ub85c \ud65c\uc131\ud654.",
+  "description": "Google Search Console API 통합 스킬. 검색 성과 분석, URL 검사, 사이트맵 관리, 사이트 인증 지원. \"GSC\", \"서치콘솔\", \"검색 성과\", \"SEO 분석\" 키워드로 활성화.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:24.173718Z"
+  "downloaded_at": "2026-01-06T09:06:24.173718Z",
+  "github_path": "integrations/google-search-console",
+  "github_branch": "main"
 }

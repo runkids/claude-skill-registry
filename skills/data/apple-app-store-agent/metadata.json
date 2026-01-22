@@ -11,5 +11,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "apple-app-store-agent"
+  "dir_name": "apple-app-store-agent",
+  "github_path": ".claude/skills/apple-app-store-agent",
+  "github_branch": "main"
 }

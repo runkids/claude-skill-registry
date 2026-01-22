@@ -5,5 +5,7 @@
   "source": "github.com/trabian/fluxwing-skills",
   "downloaded_at": "2026-01-22T03:46:49.000709Z",
   "dir_name": "fluxwing-component-viewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fluxwing-component-viewer",
+  "github_branch": "main"
 }

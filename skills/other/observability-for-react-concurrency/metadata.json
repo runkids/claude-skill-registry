@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:06:01.750219Z",
   "dir_name": "observability-for-react-concurrency",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/observability-for-react-concurrency",
+  "github_branch": "main"
 }

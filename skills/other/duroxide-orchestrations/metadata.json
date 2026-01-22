@@ -5,5 +5,7 @@
   "source": "github.com/affandar/toygres",
   "downloaded_at": "2026-01-22T03:38:46.242842Z",
   "dir_name": "duroxide-orchestrations",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/duroxide-orchestrations",
+  "github_branch": "main"
 }

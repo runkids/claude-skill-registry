@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:24.305281Z",
   "dir_name": "cui-http",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-dev-java-cui/skills/cui-http",
+  "github_branch": "main"
 }

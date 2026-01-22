@@ -2,7 +2,9 @@
   "name": "prioritization-frameworks",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "product",
-  "description": "\u512a\u5148\u9806\u4f4d\u4ed8\u3051\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af\u306e\u5c02\u9580\u30b9\u30ad\u30eb\u3002MoSCoW\u6cd5\u3001RICE Scoring\u3001Kano Model\u3092\u7528\u3044\u3066\u3001\u9650\u3089\u308c\u305f\u30ea\u30bd\u30fc\u30b9\u3067\u6700\u5927\u306e\u4fa1\u5024\u3092\u63d0\u4f9b\u3059\u308b\u305f\u3081\u306e\u610f\u601d\u6c7a\u5b9a\u3092\u652f\u63f4\u3057\u307e\u3059\u3002Anchors:\u2022 \u300eInspired\u300f\uff08Marty Cagan\uff09 / \u9069\u7528: \u30d7\u30ed\u30c0\u30af\u30c8\u512a\u5148\u9806\u4f4d / \u76ee\u7684: \u4fa1\u5024\u6700\u5927\u5316\u2022 Intercom RICE Scoring\u30ac\u30a4\u30c9 / \u9069\u7528: \u5b9a\u91cf\u7684\u30b9\u30b3\u30a2\u30ea\u30f3\u30b0 / \u76ee\u7684: \u30c7",
+  "description": "優先順位付けフレームワークの専門スキル。MoSCoW法、RICE Scoring、Kano Modelを用いて、限られたリソースで最大の価値を提供するための意思決定を支援します。Anchors:• 『Inspired』（Marty Cagan） / 適用: プロダクト優先順位 / 目的: 価値最大化• Intercom RICE Scoringガイド / 適用: 定量的スコアリング / 目的: デ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:44.360854Z"
+  "downloaded_at": "2026-01-06T09:00:44.360854Z",
+  "github_path": "docs/99-claude/skills/prioritization-frameworks",
+  "github_branch": "main"
 }

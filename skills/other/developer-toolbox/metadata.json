@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:22.957591Z",
   "dir_name": "developer-toolbox",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/developer-toolbox",
+  "github_branch": "main"
 }

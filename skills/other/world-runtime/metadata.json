@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:34:50.140273Z",
   "dir_name": "world-runtime",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/world-runtime",
+  "github_branch": "main"
 }

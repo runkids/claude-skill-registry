@@ -5,5 +5,7 @@
   "source": "github.com/VitorAndTxr/Bioteca.Prism.InteroperableResearchInterfaceSystem",
   "downloaded_at": "2026-01-17T02:50:17.638481Z",
   "dir_name": "figma-desktop",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/figma-desktop",
+  "github_branch": "main"
 }

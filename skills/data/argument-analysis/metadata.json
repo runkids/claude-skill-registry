@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "argument-analysis"
+  "dir_name": "argument-analysis",
+  "github_path": "argument-analysis",
+  "github_branch": "main"
 }

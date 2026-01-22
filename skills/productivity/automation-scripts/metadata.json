@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Build automation, task runners, and scripting tools",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:02.646973Z"
+  "downloaded_at": "2026-01-06T09:11:02.646973Z",
+  "github_path": "tools-integrations/automation-scripts",
+  "github_branch": "main"
 }

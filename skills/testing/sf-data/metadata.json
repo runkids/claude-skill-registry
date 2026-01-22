@@ -6,5 +6,7 @@
   "tags": [
     "data"
   ],
-  "stars": 16
+  "stars": 16,
+  "github_path": "sf-data",
+  "github_branch": "main"
 }

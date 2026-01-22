@@ -2,7 +2,9 @@
   "name": "close-sprint",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "Sprint(Iteration) \uc885\ub8cc \ubc0f \ud68c\uace0 \uc815\ub9ac. Use when (1) Sprint \ub9c8\uac10,(2) \ud68c\uace0 \uc791\uc131, (3) /SEMO:sprint close \ucee4\ub9e8\ub4dc.",
+  "description": "Sprint(Iteration) 종료 및 회고 정리. Use when (1) Sprint 마감,(2) 회고 작성, (3) /SEMO:sprint close 커맨드.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:51.056893Z"
+  "downloaded_at": "2026-01-06T09:02:51.056893Z",
+  "github_path": "semo-system/semo-skills/close-sprint",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Statistical modeling toolkit. OLS, GLM, logistic, ARIMA, time series, hypothesis tests, diagnostics, AIC/BIC, for rigorous statistical inference and econometric analysis.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:39.316281Z"
+  "downloaded_at": "2026-01-06T08:55:39.316281Z",
+  "github_path": "cli-tool/components/skills/scientific/statsmodels",
+  "github_branch": "main"
 }

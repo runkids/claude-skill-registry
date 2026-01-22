@@ -2,7 +2,9 @@
   "name": "issue-detector",
   "repo": "YL08140921/unson-os-market-research",
   "category": "development",
-  "description": "\u30da\u30eb\u30bd\u30ca\u306e\u601d\u3044\u8fbc\u307f\u3084\u771f\u306e\u8ab2\u984c\u3092\u968e\u5c64\u7684\u306b\u5206\u6790\u3059\u308bSkill\u3002\u8ab2\u984c\u5206\u6790\u3001\u601d\u3044\u8fbc\u307f\u7279\u5b9a\u3001\u554f\u984c\u6df1\u5800\u308a\u306e\u969b\u306b\u81ea\u52d5\u8d77\u52d5\u3002",
+  "description": "ペルソナの思い込みや真の課題を階層的に分析するSkill。課題分析、思い込み特定、問題深堀りの際に自動起動。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:39.200033Z"
+  "downloaded_at": "2026-01-06T09:09:39.200033Z",
+  "github_path": ".skills/issue-detector",
+  "github_branch": "main"
 }

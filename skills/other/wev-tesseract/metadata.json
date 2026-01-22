@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:35:00.773526Z",
   "dir_name": "wev-tesseract",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wev-tesseract",
+  "github_branch": "main"
 }

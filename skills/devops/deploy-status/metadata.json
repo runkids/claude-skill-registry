@@ -2,7 +2,9 @@
   "name": "deploy-status",
   "repo": "dlehdgml5328/bodam",
   "category": "devops",
-  "description": "\ubc30\ud3ec \uc0c1\ud0dc \uc2e4\uc2dc\uac04 \ubaa8\ub2c8\ud130\ub9c1 \ubc0f Health Check. GitHub Actions \uc6cc\ud06c\ud50c\ub85c\uc6b0 \uc9c4\ud589 \uc0c1\ud669, K8s Pod \uc0c1\ud0dc, Health Check \uacb0\uacfc \ud655\uc778. \"\ubc30\ud3ec \uc0c1\ud0dc\", \"\ubc30\ud3ec \ud655\uc778\", \"\uc815\uc0c1 \ub3d9\uc791\" \uc694\uccad \uc2dc \uc0ac\uc6a9.",
+  "description": "배포 상태 실시간 모니터링 및 Health Check. GitHub Actions 워크플로우 진행 상황, K8s Pod 상태, Health Check 결과 확인. \"배포 상태\", \"배포 확인\", \"정상 동작\" 요청 시 사용.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:06.962881Z"
+  "downloaded_at": "2026-01-06T09:05:06.962881Z",
+  "github_path": ".claude/skills/deploy-status",
+  "github_branch": "main"
 }

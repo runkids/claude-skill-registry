@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:45.793661Z",
   "dir_name": "pm-closure-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave/skills/pm-closure-validation",
+  "github_branch": "main"
 }

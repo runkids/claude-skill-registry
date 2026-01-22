@@ -5,5 +5,7 @@
   "source": "github.com/proffesor-for-testing/agentic-qe",
   "downloaded_at": "2026-01-22T02:46:01.199642Z",
   "dir_name": "iterative-loop",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/iterative-loop",
+  "github_branch": "main"
 }

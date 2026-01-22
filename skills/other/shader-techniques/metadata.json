@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
   "downloaded_at": "2026-01-19T03:01:41.767809Z",
   "dir_name": "shader-techniques",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/shader-techniques",
+  "github_branch": "main"
 }

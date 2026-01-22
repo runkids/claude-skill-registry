@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-21T01:37:47.040033Z",
   "dir_name": "cloud-neural",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tools/cloud/cloud-neural",
+  "github_branch": "main"
 }

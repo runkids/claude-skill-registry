@@ -5,5 +5,7 @@
   "source": "github.com/drillan/note-mcp",
   "downloaded_at": "2026-01-22T02:13:34.682210Z",
   "dir_name": "constitution-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/constitution-checker",
+  "github_branch": "main"
 }

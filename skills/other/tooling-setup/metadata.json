@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:30.891115Z",
   "dir_name": "tooling-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend/skills/tooling-setup",
+  "github_branch": "main"
 }

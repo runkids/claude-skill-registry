@@ -8,5 +8,7 @@
     "guard"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/arch-guard",
+  "github_branch": "main"
 }

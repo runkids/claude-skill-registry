@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Unit tests for @ConfigurationProperties classes with @ConfigurationPropertiesTest. Use when validating application configuration binding and validation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:13.594059Z"
+  "downloaded_at": "2026-01-06T08:57:13.594059Z",
+  "github_path": "skills/junit-test/unit-test-config-properties",
+  "github_branch": "main"
 }

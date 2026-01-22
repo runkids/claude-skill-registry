@@ -5,5 +5,7 @@
   "source": "github.com/cameronapak/freedom-stack-v3",
   "downloaded_at": "2026-01-22T03:30:06.782039Z",
   "dir_name": "bknd-login-flow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/bknd-login-flow",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:15.059153Z",
   "dir_name": "value-object-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/value-object-patterns",
+  "github_branch": "main"
 }

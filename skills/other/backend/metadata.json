@@ -5,5 +5,7 @@
   "source": "github.com/AbdulSamad94/Hackhaton-SpecsKitPlus",
   "downloaded_at": "2026-01-22T03:28:02.836301Z",
   "dir_name": "backend",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/backend",
+  "github_branch": "main"
 }

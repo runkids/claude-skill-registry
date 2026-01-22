@@ -8,5 +8,7 @@
     "pdf",
     "generation"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/pandoc-pdf-generation",
+  "github_branch": "main"
 }

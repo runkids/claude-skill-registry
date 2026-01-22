@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:06.517881Z",
   "dir_name": "security-frameworks",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/compliance-planning/skills/security-frameworks",
+  "github_branch": "main"
 }

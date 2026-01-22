@@ -7,5 +7,7 @@
     "tool",
     "calling"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/tool-calling",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/hannesill/m4",
   "downloaded_at": "2026-01-22T01:18:40.502782Z",
   "dir_name": "oasis-score",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/m4/skills/oasis-score",
+  "github_branch": "main"
 }

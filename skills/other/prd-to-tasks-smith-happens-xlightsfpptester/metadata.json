@@ -5,5 +5,7 @@
   "source": "github.com/Smith-Happens/xlightsfpptester",
   "downloaded_at": "2026-01-21T02:50:21.636726Z",
   "dir_name": "prd-to-tasks-smith-happens-xlightsfpptester",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prd-to-tasks",
+  "github_branch": "main"
 }

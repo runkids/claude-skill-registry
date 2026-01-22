@@ -5,5 +5,7 @@
   "description": "Defines database performance monitoring strategy with slow query detection, resource usage alerts, query execution thresholds, and automated alerting. Use for \"database monitoring\", \"performance alert",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:07.591067Z",
-  "dir_name": "db-performance-watchlist"
+  "dir_name": "db-performance-watchlist",
+  "github_path": "templates/db-management/db-performance-watchlist",
+  "github_branch": "main"
 }

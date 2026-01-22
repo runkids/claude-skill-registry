@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:53.836364Z",
   "dir_name": "argo-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/argo-expert",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "scan"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/dependency-scan",
+  "github_branch": "main"
 }

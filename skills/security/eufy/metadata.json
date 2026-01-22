@@ -2,7 +2,9 @@
   "name": "eufy",
   "repo": "mbelinky/clawdis-skills",
   "category": "security",
-  "description": "Manage Eufy Security (HomeBase S380 + SoloCam S340/E340) from the `eufy` CLI\u2014capture snapshots, forward alarms to the Tuya hub, and change guard/alarm modes through eufy-security-ws.",
+  "description": "Manage Eufy Security (HomeBase S380 + SoloCam S340/E340) from the `eufy` CLI—capture snapshots, forward alarms to the Tuya hub, and change guard/alarm modes through eufy-security-ws.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:49.762604Z"
+  "downloaded_at": "2026-01-06T09:09:49.762604Z",
+  "github_path": "eufy",
+  "github_branch": "main"
 }

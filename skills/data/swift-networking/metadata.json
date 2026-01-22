@@ -8,5 +8,7 @@
     "networking"
   ],
   "stars": 1,
-  "dir_name": "swift-networking"
+  "dir_name": "swift-networking",
+  "github_path": "skills/swift-networking",
+  "github_branch": "main"
 }

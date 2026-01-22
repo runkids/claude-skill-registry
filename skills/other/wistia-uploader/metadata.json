@@ -5,5 +5,7 @@
   "source": "github.com/jeffvincent/claude-config",
   "downloaded_at": "2026-01-22T02:44:49.743785Z",
   "dir_name": "wistia-uploader",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wistia-uploader",
+  "github_branch": "main"
 }

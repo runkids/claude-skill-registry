@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when animating buttons, CTAs, or clickable action elements to create satisfying, responsive interactions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:16.780961Z"
+  "downloaded_at": "2026-01-06T09:05:16.780961Z",
+  "github_path": "skills/07-by-ui-element/buttons-ctas",
+  "github_branch": "main"
 }

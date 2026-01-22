@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:53.616074Z",
   "dir_name": "composio-webapp-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/composio-webapp-testing",
+  "github_branch": "main"
 }

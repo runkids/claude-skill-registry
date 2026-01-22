@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:26.062861Z",
   "dir_name": "rn-native-features",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rn-native-features",
+  "github_branch": "main"
 }

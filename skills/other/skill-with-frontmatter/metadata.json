@@ -5,5 +5,7 @@
   "source": "github.com/kasperjunge/agent-resources",
   "downloaded_at": "2026-01-22T01:33:46.362559Z",
   "dir_name": "skill-with-frontmatter",
-  "category": "other"
+  "category": "other",
+  "github_path": "resources/skills/_test/skill-with-frontmatter",
+  "github_branch": "main"
 }

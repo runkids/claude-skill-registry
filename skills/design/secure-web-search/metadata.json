@@ -8,5 +8,7 @@
     "web",
     "search"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/secure-web-search",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/gadievron/raptor",
   "downloaded_at": "2026-01-22T04:15:04.505683Z",
   "dir_name": "rr-debugger",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/crash-analysis/rr-debugger",
+  "github_branch": "main"
 }

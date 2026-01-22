@@ -2,7 +2,9 @@
   "name": "docs-release-notes",
   "repo": "okurawave/expo-browser",
   "category": "development",
-  "description": "docsca \u304c summary.md \u3092\u4f5c\u308a\u3001\u5fc5\u8981\u306a\u30b0\u30ed\u30fc\u30d0\u30eb\u6587\u66f8\u3092\u66f4\u65b0\u3059\u308b\u624b\u9806\u3002",
+  "description": "docsca が summary.md を作り、必要なグローバル文書を更新する手順。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:10.339175Z"
+  "downloaded_at": "2026-01-06T09:10:10.339175Z",
+  "github_path": ".github/skills/docs-release-notes",
+  "github_branch": "main"
 }

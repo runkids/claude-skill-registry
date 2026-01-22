@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:58.784463Z",
   "dir_name": "silent-failure-hunter",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/silent-failure-hunter",
+  "github_branch": "main"
 }

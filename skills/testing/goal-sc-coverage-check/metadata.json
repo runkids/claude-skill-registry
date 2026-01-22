@@ -2,7 +2,9 @@
   "name": "goal-sc-coverage-check",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "testing",
-  "description": "\u68c0\u67e5VS\u2192GOAL\u2192SC\u8986\u76d6\u5b8c\u6574\u6027\uff0c\u786e\u4fdd\u6bcf\u4e2aVS\u90fd\u6709\u5bf9\u5e94\u7684GOAL\u548cSC\u3002\u5f53GOAL\u548cSC\u521b\u5efa\u5b8c\u6210\u540e\u4f7f\u7528\uff0c\u907f\u514d\u8986\u76d6\u7f3a\u53e3\u5bfc\u81f4\u9a8c\u6536\u5931\u8d25\u3002",
+  "description": "检查VS→GOAL→SC覆盖完整性，确保每个VS都有对应的GOAL和SC。当GOAL和SC创建完成后使用，避免覆盖缺口导致验收失败。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:56.777778Z"
+  "downloaded_at": "2026-01-06T09:09:56.777778Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/implementation_planning/goal-sc-coverage-check",
+  "github_branch": "main"
 }

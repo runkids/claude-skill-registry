@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-22T01:55:42.800388Z",
   "dir_name": "s3-bucket-policy-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/13-aws-skills/s3-bucket-policy-generator",
+  "github_branch": "main"
 }

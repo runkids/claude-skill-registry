@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:43.543920Z",
   "dir_name": "nl-router",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/utils/skills/nl-router",
+  "github_branch": "main"
 }

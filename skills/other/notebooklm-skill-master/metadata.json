@@ -5,5 +5,7 @@
   "source": "github.com/huydepzai121/skill",
   "downloaded_at": "2026-01-22T01:07:23.267447Z",
   "dir_name": "notebooklm-skill-master",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/notebooklm-skill-master",
+  "github_branch": "main"
 }

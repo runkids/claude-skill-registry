@@ -9,5 +9,7 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "aso-optimizer"
+  "dir_name": "aso-optimizer",
+  "github_path": "aso-optimizer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/zircote/.claude",
   "downloaded_at": "2026-01-22T02:55:21.926721Z",
   "dir_name": "engineer-skill-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/engineer-skill-creator",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "rag",
     "implementer"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/rag-implementer",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Building table columns with proper types, inline editing components, and pre-built cell renderers",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:58.222756Z"
+  "downloaded_at": "2026-01-06T09:05:58.222756Z",
+  "github_path": ".claude/skills/table-columns",
+  "github_branch": "main"
 }

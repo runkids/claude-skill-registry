@@ -8,5 +8,7 @@
     "code",
     "cleanup"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/unused-code-cleanup",
+  "github_branch": "main"
 }

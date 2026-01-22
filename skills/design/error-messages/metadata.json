@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Error Message Style Guide for Validation Errors",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:29.543832Z"
+  "downloaded_at": "2026-01-08T03:29:29.543832Z",
+  "github_path": "skills/error-messages",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "strategies"
   ],
   "stars": 25,
-  "dir_name": "query-caching-strategies"
+  "dir_name": "query-caching-strategies",
+  "github_path": "skills/query-caching-strategies",
+  "github_branch": "main"
 }

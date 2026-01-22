@@ -5,5 +5,7 @@
   "source": "github.com/vanman2024/dev-lifecycle-marketplace",
   "downloaded_at": "2026-01-14T03:07:45.170791Z",
   "dir_name": "component-templates",
-  "category": "other"
+  "category": "other",
+  "github_path": ".archive/old-numbered-plugins/02-develop/skills/component-templates",
+  "github_branch": "main"
 }

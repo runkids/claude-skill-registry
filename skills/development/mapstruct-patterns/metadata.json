@@ -7,5 +7,7 @@
     "mapstruct",
     "patterns"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "mapstruct-patterns",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "master"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/firebase-master",
+  "github_branch": "main"
 }

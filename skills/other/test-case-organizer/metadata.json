@@ -5,5 +5,7 @@
   "source": "github.com/chaorenex1/coding-workflow",
   "downloaded_at": "2026-01-22T01:43:18.838192Z",
   "dir_name": "test-case-organizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/test-case-organizer",
+  "github_branch": "main"
 }

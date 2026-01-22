@@ -5,5 +5,7 @@
   "source": "github.com/cpa03/blueprintify",
   "downloaded_at": "2026-01-22T03:39:30.072362Z",
   "dir_name": "git-commit-standard",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/git-commit-standard",
+  "github_branch": "main"
 }

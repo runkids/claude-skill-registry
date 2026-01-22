@@ -5,5 +5,7 @@
   "source": "github.com/AJBcoding/claude-skill-eval",
   "downloaded_at": "2026-01-22T01:30:39.564133Z",
   "dir_name": "moai-alfred-agent-factory",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/moai-alfred-agent-factory",
+  "github_branch": "main"
 }

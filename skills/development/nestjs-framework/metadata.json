@@ -7,5 +7,7 @@
     "nestjs",
     "framework"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/nestjs-framework",
+  "github_branch": "main"
 }

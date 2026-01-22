@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:48.560972Z",
   "dir_name": "eslint-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/frameworks/sdlc-complete/extensions/javascript/skills/eslint-checker",
+  "github_branch": "main"
 }

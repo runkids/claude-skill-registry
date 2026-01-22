@@ -8,5 +8,7 @@
     "analytics"
   ],
   "stars": 0,
-  "dir_name": "log-analytics"
+  "dir_name": "log-analytics",
+  "github_path": ".claude/skills/log-analytics",
+  "github_branch": "main"
 }

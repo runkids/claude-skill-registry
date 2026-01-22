@@ -2,7 +2,9 @@
   "name": "firebase-emulator-workflow",
   "repo": "no-problem-dev/claude-code-plugins",
   "category": "design",
-  "description": "Firebase Emulator Suite\u306e\u8d77\u52d5\u30fb\u505c\u6b62\u30fb\u7ba1\u7406\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u3002\u300c\u30a8\u30df\u30e5\u30ec\u30fc\u30bf\u30fc\u300d\u300cFirebase\u300d\u300cFirestore\u300d\u300cAuth\u300d\u300c\u30ed\u30fc\u30ab\u30eb\u958b\u767a\u300d\u306a\u3069\u306e\u30ad\u30fc\u30ef\u30fc\u30c9\u3067\u81ea\u52d5\u9069\u7528\u3002",
+  "description": "Firebase Emulator Suiteの起動・停止・管理ワークフロー。「エミュレーター」「Firebase」「Firestore」「Auth」「ローカル開発」などのキーワードで自動適用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:23.323068Z"
+  "downloaded_at": "2026-01-06T09:07:23.323068Z",
+  "github_path": "plugins/firebase-emulator/skills/firebase-emulator-workflow",
+  "github_branch": "main"
 }

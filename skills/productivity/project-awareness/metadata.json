@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Comprehensive project context detection and state awareness. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.486824Z"
+  "downloaded_at": "2026-01-06T08:56:58.486824Z",
+  "github_path": "plugins/utils/skills/project-awareness",
+  "github_branch": "main"
 }

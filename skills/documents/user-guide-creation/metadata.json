@@ -8,5 +8,7 @@
     "guide",
     "creation"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/user-guide-creation",
+  "github_branch": "main"
 }

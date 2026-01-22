@@ -5,5 +5,7 @@
   "source": "github.com/zapabob/SO8T",
   "downloaded_at": "2026-01-19T01:57:32.738516Z",
   "dir_name": "quantization-evaluation-pipeline",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/quantization-evaluation-pipeline",
+  "github_branch": "main"
 }

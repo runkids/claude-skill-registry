@@ -7,5 +7,7 @@
     "web",
     "projects"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/web-projects",
+  "github_branch": "main"
 }

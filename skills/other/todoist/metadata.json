@@ -5,5 +5,7 @@
   "source": "github.com/tbroadley/dotfiles",
   "downloaded_at": "2026-01-22T03:05:01.245769Z",
   "dir_name": "todoist",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/todoist",
+  "github_branch": "main"
 }

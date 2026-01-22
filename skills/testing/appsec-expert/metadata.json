@@ -8,5 +8,7 @@
     "expert"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/appsec-expert",
+  "github_branch": "main"
 }

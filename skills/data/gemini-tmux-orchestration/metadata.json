@@ -9,5 +9,7 @@
     "orchestration"
   ],
   "stars": 29,
-  "dir_name": "gemini-tmux-orchestration"
+  "dir_name": "gemini-tmux-orchestration",
+  "github_path": "skills/gemini-tmux-orchestration",
+  "github_branch": "main"
 }

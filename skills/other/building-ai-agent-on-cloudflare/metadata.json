@@ -5,5 +5,7 @@
   "source": "github.com/CommandCodeAI/agent-skills",
   "downloaded_at": "2026-01-22T03:56:49.358848Z",
   "dir_name": "building-ai-agent-on-cloudflare",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/building-ai-agent-on-cloudflare",
+  "github_branch": "main"
 }

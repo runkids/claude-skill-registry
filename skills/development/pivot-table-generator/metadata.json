@@ -8,5 +8,7 @@
     "table",
     "generator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "pivot-table-generator",
+  "github_branch": "main"
 }

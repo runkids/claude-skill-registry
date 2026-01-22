@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Complex research requiring deeper analysis, multi-step reasoning, and sophisticated source evaluation for technical, academic, or specialized domain queries needing expert-level analysis, high-stakes ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:49.331607Z"
+  "downloaded_at": "2026-01-06T08:59:49.331607Z",
+  "github_path": ".opencode/skill/perplexity-researcher-pro",
+  "github_branch": "main"
 }

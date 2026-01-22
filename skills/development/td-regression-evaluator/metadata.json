@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive regression model evaluation using TD_RegressionEvaluator",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:51.137162Z"
+  "downloaded_at": "2026-01-06T09:08:51.137162Z",
+  "github_path": "skills/analytics/td-regression-evaluator",
+  "github_branch": "main"
 }

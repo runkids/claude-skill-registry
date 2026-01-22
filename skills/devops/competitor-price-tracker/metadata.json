@@ -8,5 +8,7 @@
     "price",
     "tracker"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "competitor-price-tracker",
+  "github_branch": "main"
 }

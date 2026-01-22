@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Signal detrending for baseline correction and trend removal",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:49.870941Z"
+  "downloaded_at": "2026-01-06T09:08:49.870941Z",
+  "github_path": "skills/analytics/td-detrend",
+  "github_branch": "main"
 }

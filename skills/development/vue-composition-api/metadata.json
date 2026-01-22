@@ -8,5 +8,7 @@
     "composition",
     "api"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/vue-composition-api",
+  "github_branch": "main"
 }

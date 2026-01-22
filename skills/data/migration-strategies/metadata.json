@@ -5,5 +5,7 @@
   "description": "Database migration best practices and strategies. Use when managing schema changes.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:15.746408Z",
-  "dir_name": "migration-strategies"
+  "dir_name": "migration-strategies",
+  "github_path": "tech-stacks/js/node/skills/migration-strategies",
+  "github_branch": "main"
 }

@@ -3,5 +3,7 @@
   "repo": "lawless-m/Gwen",
   "path": ".claude/skills/Qwen-Ollama/SKILL.md",
   "source": "github.com/lawless-m/Gwen",
-  "downloaded_at": "2026-01-22T03:17:29.609483Z"
+  "downloaded_at": "2026-01-22T03:17:29.609483Z",
+  "github_path": ".claude/skills/Qwen-Ollama",
+  "github_branch": "master"
 }

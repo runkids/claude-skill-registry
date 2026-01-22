@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:38:59.060462Z",
   "dir_name": "when-bridging-web-cli-use-web-cli-teleport",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workflow/when-bridging-web-cli-use-web-cli-teleport",
+  "github_branch": "main"
 }

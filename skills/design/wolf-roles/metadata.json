@@ -7,5 +7,7 @@
     "wolf",
     "roles"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "wolf-roles",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Review and improve documentation quality using best practices. Use when reviewing changelogs, documentation, or any written content to ensure clarity, accuracy, and helpfulness.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:01.706276Z"
+  "downloaded_at": "2026-01-06T09:07:01.706276Z",
+  "github_path": ".rulesync/skills/doc-quality",
+  "github_branch": "main"
 }

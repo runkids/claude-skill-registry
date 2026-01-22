@@ -8,5 +8,7 @@
     "write",
     "rulebooks"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "how-to-write-rulebooks",
+  "github_branch": "main"
 }

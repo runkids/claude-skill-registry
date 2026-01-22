@@ -5,5 +5,7 @@
   "source": "github.com/third774/dotfiles",
   "downloaded_at": "2026-01-14T02:05:23.097854Z",
   "dir_name": "jscodeshift-codemods",
-  "category": "other"
+  "category": "other",
+  "github_path": "opencode/skill/jscodeshift-codemods",
+  "github_branch": "main"
 }

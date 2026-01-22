@@ -8,5 +8,7 @@
     "compliance",
     "audit"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/security-compliance-audit",
+  "github_branch": "main"
 }

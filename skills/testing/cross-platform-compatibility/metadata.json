@@ -9,5 +9,7 @@
     "compatibility"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cross-platform-compatibility",
+  "github_branch": "main"
 }

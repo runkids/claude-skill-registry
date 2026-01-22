@@ -8,5 +8,7 @@
     "file",
     "toc"
   ],
-  "stars": 9
+  "stars": 9,
+  "github_path": "skills/large-file-toc",
+  "github_branch": "main"
 }

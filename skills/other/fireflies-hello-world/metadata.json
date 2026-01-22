@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:17.506031Z",
   "dir_name": "fireflies-hello-world",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/fireflies-pack/skills/fireflies-hello-world",
+  "github_branch": "main"
 }

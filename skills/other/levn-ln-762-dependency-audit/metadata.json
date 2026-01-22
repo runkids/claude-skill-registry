@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:55.234760Z",
   "dir_name": "levn-ln-762-dependency-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/levn-ln-762-dependency-audit",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expert academic paper review including summary, methodology critique, and practical implications",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:49.261402Z"
+  "downloaded_at": "2026-01-06T09:06:49.261402Z",
+  "github_path": "skills/research/paper-reviewer",
+  "github_branch": "main"
 }

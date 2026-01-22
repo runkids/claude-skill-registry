@@ -5,5 +5,7 @@
   "source": "github.com/fghaffar/claude-cursor-setup",
   "downloaded_at": "2026-01-22T01:23:03.431671Z",
   "dir_name": "github-code-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-code-reviewer",
+  "github_branch": "main"
 }

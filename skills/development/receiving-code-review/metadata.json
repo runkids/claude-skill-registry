@@ -2,5 +2,7 @@
   "name": "receiving-code-review",
   "repo": "obra/superpowers",
   "category": "development",
-  "source": "Superpowers"
+  "source": "Superpowers",
+  "github_path": "skills/receiving-code-review",
+  "github_branch": "main"
 }

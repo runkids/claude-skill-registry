@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:05.927968Z",
   "dir_name": "ln-130-tasks-docs-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-130-tasks-docs-creator",
+  "github_branch": "main"
 }

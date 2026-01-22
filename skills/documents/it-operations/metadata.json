@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Manages IT infrastructure, monitoring, incident response, and service reliability. Provides frameworks for ITIL service management, observability strategies, automation, backup/recovery, capacity plan",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.299952Z"
+  "downloaded_at": "2026-01-06T08:55:35.299952Z",
+  "github_path": "cli-tool/components/skills/development/it-operations",
+  "github_branch": "main"
 }

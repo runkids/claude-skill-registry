@@ -5,5 +5,7 @@
   "source": "github.com/pelan05/vscode_agents_folder",
   "downloaded_at": "2026-01-22T01:14:48.395474Z",
   "dir_name": "startup-financial-modeling",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/startup-financial-modeling",
+  "github_branch": "main"
 }

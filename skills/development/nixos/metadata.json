@@ -6,5 +6,7 @@
   "tags": [
     "nixos"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/nixos",
+  "github_branch": "main"
 }

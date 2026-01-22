@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:02.801327Z",
   "dir_name": "vastai-observability",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/vastai-pack/skills/vastai-observability",
+  "github_branch": "main"
 }

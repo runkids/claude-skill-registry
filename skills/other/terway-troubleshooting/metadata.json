@@ -5,5 +5,7 @@
   "source": "github.com/AliyunContainerService/terway",
   "downloaded_at": "2026-01-14T01:49:02.399140Z",
   "dir_name": "terway-troubleshooting",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/terway-troubleshooting",
+  "github_branch": "main"
 }

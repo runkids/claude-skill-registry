@@ -8,5 +8,7 @@
     "development"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/concept-development",
+  "github_branch": "main"
 }

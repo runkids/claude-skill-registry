@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:47.449618Z",
   "dir_name": "cv-pipeline-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-ml/skills/cv-pipeline-builder",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/liminalwarmth/StardewOutfitManager",
   "downloaded_at": "2026-01-22T01:59:59.342616Z",
   "dir_name": "sdv-mp-gamepad-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/sdv-mp-gamepad-audit",
+  "github_branch": "main"
 }

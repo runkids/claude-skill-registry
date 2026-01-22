@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Configure RPT token exchange and permission-based authorization for affolterNET.Web.Bff. Use when setting up Keycloak permissions, resource policies, or fine-grained access control.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:18.090949Z"
+  "downloaded_at": "2026-01-06T09:11:18.090949Z",
+  "github_path": "plugins/affolternet-web-bff/skills/rpt-permissions",
+  "github_branch": "main"
 }

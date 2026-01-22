@@ -6,5 +6,7 @@
   "tags": [
     "laravel"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/laravel",
+  "github_branch": "main"
 }

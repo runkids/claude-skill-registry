@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:53.158969Z",
   "dir_name": "expertise-file-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/expertise-file-design",
+  "github_branch": "main"
 }

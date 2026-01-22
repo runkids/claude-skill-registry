@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Repository pattern for pre-approved financial disclosures and claim language.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:23.051519Z"
+  "downloaded_at": "2026-01-06T08:57:23.051519Z",
+  "github_path": "plugins/financial-services/skills/compliance-statement-library",
+  "github_branch": "main"
 }

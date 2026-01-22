@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:02.618338Z",
   "dir_name": "3d-visualizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/3d-visualizer",
+  "github_branch": "main"
 }

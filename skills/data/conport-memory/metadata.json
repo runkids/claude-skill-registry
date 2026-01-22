@@ -8,5 +8,7 @@
     "memory"
   ],
   "stars": 1,
-  "dir_name": "conport-memory"
+  "dir_name": "conport-memory",
+  "github_path": "skills/conport-memory",
+  "github_branch": "main"
 }

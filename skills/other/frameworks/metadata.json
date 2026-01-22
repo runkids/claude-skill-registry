@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-typescript",
   "downloaded_at": "2026-01-22T01:49:19.660306Z",
   "dir_name": "frameworks",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/frameworks",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:18.961398Z",
   "dir_name": "multi-tenant",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/lobbi-platform-manager/skills/multi-tenant",
+  "github_branch": "main"
 }

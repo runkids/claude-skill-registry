@@ -5,5 +5,7 @@
   "source": "github.com/pwwang/immunopipe",
   "downloaded_at": "2026-01-22T03:34:34.519792Z",
   "dir_name": "seuratclustering",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/seuratclusteringofallcells",
+  "github_branch": "main"
 }

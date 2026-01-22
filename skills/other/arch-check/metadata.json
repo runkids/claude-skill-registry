@@ -5,5 +5,7 @@
   "source": "github.com/pwittchen/varun.surf",
   "downloaded_at": "2026-01-22T02:56:31.391530Z",
   "dir_name": "arch-check",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/arch-check",
+  "github_branch": "main"
 }

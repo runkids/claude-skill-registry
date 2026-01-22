@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:10.921847Z",
   "dir_name": "data-story-outliner",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/12-data-analytics/data-story-outliner",
+  "github_branch": "main"
 }

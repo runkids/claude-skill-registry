@@ -8,5 +8,7 @@
     "nextjs",
     "project"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/setting-up-nextjs-project",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cli-ninja"
+  "dir_name": "cli-ninja",
+  "github_path": "cli-ninja",
+  "github_branch": "main"
 }

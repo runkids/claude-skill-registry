@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "data-serialization"
+  "dir_name": "data-serialization",
+  "github_path": "skills/data-serialization",
+  "github_branch": "main"
 }

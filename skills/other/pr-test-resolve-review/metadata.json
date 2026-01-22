@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:55.042499Z",
   "dir_name": "pr-test-resolve-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/pr-test-resolve-review",
+  "github_branch": "main"
 }

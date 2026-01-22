@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Flux Gitops Setup - Auto-activating skill for DevOps Advanced.Triggers on: flux gitops setup, flux gitops setupPart of the DevOps Advanced skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:01.267703Z"
+  "downloaded_at": "2026-01-06T08:56:01.267703Z",
+  "github_path": "planned-skills/generated/02-devops-advanced/flux-gitops-setup",
+  "github_branch": "main"
 }

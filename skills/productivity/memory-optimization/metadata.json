@@ -7,5 +7,7 @@
     "memory",
     "optimization"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/memory-optimization",
+  "github_branch": "main"
 }

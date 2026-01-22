@@ -6,5 +6,7 @@
   "tags": [
     "reka"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/reka-ui",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
     "implementation"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/domain-review-before-implementation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/lotosbin/claude-skills",
   "downloaded_at": "2026-01-22T02:51:17.319281Z",
   "dir_name": "legal-advisor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/legal-advisor",
+  "github_branch": "main"
 }

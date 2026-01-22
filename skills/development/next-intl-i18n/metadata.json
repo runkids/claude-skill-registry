@@ -8,5 +8,7 @@
     "intl",
     "i18n"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "next-intl-i18n",
+  "github_branch": "main"
 }

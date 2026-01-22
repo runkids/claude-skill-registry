@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:15.203125Z",
   "dir_name": "alternative-agent-frameworks",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/alternative-agent-frameworks",
+  "github_branch": "main"
 }

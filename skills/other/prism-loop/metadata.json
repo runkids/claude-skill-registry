@@ -5,5 +5,7 @@
   "source": "github.com/resolve-io/.prism",
   "downloaded_at": "2026-01-14T03:09:55.380977Z",
   "dir_name": "prism-loop",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/prism-devtools/skills/prism-loop",
+  "github_branch": "main"
 }

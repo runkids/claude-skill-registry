@@ -5,5 +5,7 @@
   "source": "github.com/aws-samples/sample-strands-agents-agentskills",
   "downloaded_at": "2026-01-22T01:52:41.143634Z",
   "dir_name": "file-processing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/file-processing",
+  "github_branch": "main"
 }

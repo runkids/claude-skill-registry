@@ -8,5 +8,7 @@
     "call",
     "tracking"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/tool-call-tracking",
+  "github_branch": "main"
 }

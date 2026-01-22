@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:05.582901Z",
   "dir_name": "agent-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/agent-setup",
+  "github_branch": "main"
 }

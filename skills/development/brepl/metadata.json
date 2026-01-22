@@ -7,5 +7,7 @@
     "brepl"
   ],
   "stars": 14,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "resources/skills/brepl",
+  "github_branch": "main"
 }

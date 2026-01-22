@@ -8,5 +8,7 @@
     "integration"
   ],
   "stars": 0,
-  "dir_name": "genie-integration"
+  "dir_name": "genie-integration",
+  "github_path": ".claude/skills/genie-integration",
+  "github_branch": "main"
 }

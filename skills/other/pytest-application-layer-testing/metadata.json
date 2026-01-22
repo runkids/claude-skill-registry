@@ -5,5 +5,7 @@
   "source": "github.com/dawiddutoit/custom-claude",
   "downloaded_at": "2026-01-22T03:15:41.482415Z",
   "dir_name": "pytest-application-layer-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pytest-application-layer-testing",
+  "github_branch": "main"
 }

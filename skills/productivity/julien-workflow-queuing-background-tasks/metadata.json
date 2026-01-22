@@ -10,5 +10,7 @@
     "background",
     "tasks"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/julien-workflow-queuing-background-tasks",
+  "github_branch": "main"
 }

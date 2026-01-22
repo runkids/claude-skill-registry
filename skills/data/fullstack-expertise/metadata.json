@@ -8,5 +8,7 @@
     "expertise"
   ],
   "stars": 0,
-  "dir_name": "fullstack-expertise"
+  "dir_name": "fullstack-expertise",
+  "github_path": "skills/fullstack-expertise",
+  "github_branch": "main"
 }

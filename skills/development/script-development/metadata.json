@@ -7,5 +7,7 @@
     "script",
     "development"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "script-development",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Orchestrate skills into dynamic chains for complex tasks. Analyzes the task, discovers available skills, builds an optimal chain, explains why each skill is needed, and executes step-by-step with user",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:25.927432Z"
+  "downloaded_at": "2026-01-08T03:31:25.927432Z",
+  "github_path": ".codex/skills/00-meta-chain-flow-150",
+  "github_branch": "main"
 }

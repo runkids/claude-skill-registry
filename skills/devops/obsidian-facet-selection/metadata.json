@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Selecciona una faceta de trabajo segun la peticion y registra la decision con fuentes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:18.469972Z"
+  "downloaded_at": "2026-01-06T09:10:18.469972Z",
+  "github_path": "skills/obsidian-facet-selection",
+  "github_branch": "main"
 }

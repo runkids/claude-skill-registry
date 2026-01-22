@@ -5,5 +5,7 @@
   "source": "github.com/OhadRubin/skills",
   "downloaded_at": "2026-01-14T01:58:50.086705Z",
   "dir_name": "start-gap-finder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/gap-finder/start-gap-finder",
+  "github_branch": "main"
 }

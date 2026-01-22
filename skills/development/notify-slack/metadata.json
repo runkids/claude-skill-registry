@@ -2,7 +2,9 @@
   "name": "notify-slack",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "Slack \ucc44\ub110\uc5d0 \uba54\uc2dc\uc9c0 \uc804\uc1a1 (\uacf5\ud1b5 Skill). Use when (1) \uc774\uc288/\ud0dc\uc2a4\ud06c \uc54c\ub9bc,(2) \ub9b4\ub9ac\uc2a4 \uc54c\ub9bc, (3) /SEMO:slack \ucee4\ub9e8\ub4dc, (4) \ud300\uc6d0 \uba58\uc158 \uc694\uccad.",
+  "description": "Slack 채널에 메시지 전송 (공통 Skill). Use when (1) 이슈/태스크 알림,(2) 릴리스 알림, (3) /SEMO:slack 커맨드, (4) 팀원 멘션 요청.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.724730Z"
+  "downloaded_at": "2026-01-06T09:02:52.724730Z",
+  "github_path": "semo-system/semo-skills/notify-slack",
+  "github_branch": "main"
 }

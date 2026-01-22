@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:38.726366Z",
   "dir_name": "agile-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/development/workflow/agile-workflow",
+  "github_branch": "main"
 }

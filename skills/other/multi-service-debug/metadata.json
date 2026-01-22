@@ -5,5 +5,7 @@
   "source": "github.com/dseirz-rgb/worker",
   "downloaded_at": "2026-01-19T03:39:54.390492Z",
   "dir_name": "multi-service-debug",
-  "category": "other"
+  "category": "other",
+  "github_path": ".kiro/skills/multi-service-debug",
+  "github_branch": "main"
 }

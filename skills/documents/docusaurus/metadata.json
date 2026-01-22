@@ -7,5 +7,7 @@
     "docusaurus"
   ],
   "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/specweave-docs/skills/docusaurus",
+  "github_branch": "main"
 }

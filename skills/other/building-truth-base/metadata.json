@@ -5,5 +5,7 @@
   "source": "github.com/nuggetswise/pmos",
   "downloaded_at": "2026-01-17T01:25:02.484504Z",
   "dir_name": "building-truth-base",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/building-truth-base",
+  "github_branch": "main"
 }

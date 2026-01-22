@@ -5,5 +5,7 @@
   "source": "github.com/ingpoc/SKILLS",
   "downloaded_at": "2026-01-22T02:39:35.955065Z",
   "dir_name": "tufte-slide-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "tufte-slide-design",
+  "github_branch": "main"
 }

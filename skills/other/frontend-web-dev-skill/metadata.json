@@ -5,5 +5,7 @@
   "source": "github.com/dy9759/Text2KnowledgeCards",
   "downloaded_at": "2026-01-14T02:08:18.927012Z",
   "dir_name": "frontend-web-dev-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/core-skills/frontend-web-dev-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:52.723149Z",
   "dir_name": "github-multi-project",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-github/skills/github-multi-project",
+  "github_branch": "main"
 }

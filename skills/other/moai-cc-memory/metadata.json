@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:11.593096Z",
   "dir_name": "moai-cc-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-cc-memory",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:32.057532Z",
   "dir_name": "analytics-interpretation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/seo/skills/analytics-interpretation",
+  "github_branch": "main"
 }

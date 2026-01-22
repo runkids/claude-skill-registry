@@ -9,5 +9,7 @@
     "optimizer"
   ],
   "stars": 10,
-  "dir_name": "tax-strategy-optimizer"
+  "dir_name": "tax-strategy-optimizer",
+  "github_path": "tax-strategy-optimizer",
+  "github_branch": "main"
 }

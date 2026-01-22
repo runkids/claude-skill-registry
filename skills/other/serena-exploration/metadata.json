@@ -5,5 +5,7 @@
   "source": "github.com/aimskr/aims-claude-toolkit",
   "downloaded_at": "2026-01-14T01:10:15.533834Z",
   "dir_name": "serena-exploration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/serena-exploration",
+  "github_branch": "main"
 }

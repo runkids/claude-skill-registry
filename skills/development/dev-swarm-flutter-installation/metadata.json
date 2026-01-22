@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Install and configure Flutter SDK. Use when setting up a Flutter development environment.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:12.069115Z"
+  "downloaded_at": "2026-01-06T08:59:12.069115Z",
+  "github_path": "dev-swarm/skills/dev-swarm-flutter-installation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/lancenunes/codex-skills",
   "downloaded_at": "2026-01-22T01:08:11.617195Z",
   "dir_name": "sessions-to-blog",
-  "category": "other"
+  "category": "other",
+  "github_path": "sessions-to-blog",
+  "github_branch": "main"
 }

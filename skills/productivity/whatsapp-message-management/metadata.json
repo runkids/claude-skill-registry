@@ -8,5 +8,7 @@
     "message",
     "management"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/whatsapp-message-management",
+  "github_branch": "main"
 }

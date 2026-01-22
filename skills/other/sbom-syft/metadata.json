@@ -5,5 +5,7 @@
   "source": "github.com/AgentSecOps/SecOpsAgentKit",
   "downloaded_at": "2026-01-19T02:08:58.810554Z",
   "dir_name": "sbom-syft",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/secsdlc/sbom-syft",
+  "github_branch": "main"
 }

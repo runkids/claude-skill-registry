@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Plan and (when feasible) implement or execute user acceptance tests (UAT) /end-to-end acceptance scenarios. Converts requirements or user stories intoacceptance criteria, test cases, test data, and a ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:42.798422Z"
+  "downloaded_at": "2026-01-06T09:10:42.798422Z",
+  "github_path": "skills/acceptance-testing",
+  "github_branch": "main"
 }

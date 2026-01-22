@@ -7,5 +7,7 @@
     "numpy",
     "ufuncs"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/numpy-ufuncs",
+  "github_branch": "main"
 }

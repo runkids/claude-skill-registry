@@ -5,5 +5,7 @@
   "source": "github.com/araaking/opencode-kuli-pro",
   "downloaded_at": "2026-01-22T03:24:58.270128Z",
   "dir_name": "task-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/task-generator",
+  "github_branch": "main"
 }

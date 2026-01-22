@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Automatically activated when user mentions multi-project coordination, cross-project dependencies, portfolio management, roadmap planning, resource allocation across projects, or asks to coordinate/ma",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:40.179060Z"
+  "downloaded_at": "2026-01-06T09:01:40.179060Z",
+  "github_path": "project-manager/skills/coordinating-projects",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/shaul1991/shaul-agents-plugin",
   "downloaded_at": "2026-01-22T02:12:27.982157Z",
   "dir_name": "devops-jenkins",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devops-jenkins",
+  "github_branch": "main"
 }

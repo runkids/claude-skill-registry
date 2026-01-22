@@ -5,5 +5,7 @@
   "source": "github.com/fcakyon/claude-codex-settings",
   "downloaded_at": "2026-01-22T03:06:12.747693Z",
   "dir_name": "commit-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/github-dev/skills/commit-workflow",
+  "github_branch": "main"
 }

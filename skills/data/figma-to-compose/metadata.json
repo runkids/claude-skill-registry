@@ -8,5 +8,7 @@
     "compose"
   ],
   "stars": 1,
-  "dir_name": "figma-to-compose"
+  "dir_name": "figma-to-compose",
+  "github_path": "figma-to-compose",
+  "github_branch": "main"
 }

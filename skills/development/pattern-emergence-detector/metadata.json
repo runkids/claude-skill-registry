@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generated skill from request: pattern emergence detector",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:53.405679Z"
+  "downloaded_at": "2026-01-06T09:10:53.405679Z",
+  "github_path": ".claude/skills/generated/20260102_214104_pattern-emergence-detector",
+  "github_branch": "main"
 }

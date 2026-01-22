@@ -9,5 +9,7 @@
     "policy"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/enforce-no-duplication-policy",
+  "github_branch": "main"
 }

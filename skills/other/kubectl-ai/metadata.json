@@ -5,5 +5,7 @@
   "source": "github.com/mjunaidca/mjs-agent-skills",
   "downloaded_at": "2026-01-22T03:07:00.580845Z",
   "dir_name": "kubectl-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/taskflow-vault/skills/engineering/kubectl-ai",
+  "github_branch": "main"
 }

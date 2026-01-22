@@ -10,5 +10,7 @@
     "tools"
   ],
   "stars": 0,
-  "source": "Community Skills"
+  "source": "Community Skills",
+  "github_path": "skills/n8n-mcp-tools-expert",
+  "github_branch": "main"
 }

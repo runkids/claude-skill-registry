@@ -7,5 +7,7 @@
     "gemini",
     "visual"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/gemini-visual",
+  "github_branch": "main"
 }

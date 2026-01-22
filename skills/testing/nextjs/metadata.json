@@ -6,5 +6,7 @@
   "tags": [
     "nextjs"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/cloudflare-nextjs",
+  "github_branch": "main"
 }

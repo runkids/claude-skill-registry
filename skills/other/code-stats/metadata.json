@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:08.601924Z",
   "dir_name": "code-stats",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-stats",
+  "github_branch": "main"
 }

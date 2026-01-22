@@ -7,5 +7,7 @@
     "redis",
     "installation"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/redis-installation",
+  "github_branch": "main"
 }

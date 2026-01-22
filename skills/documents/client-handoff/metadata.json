@@ -8,5 +8,7 @@
     "handoff"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "client-handoff",
+  "github_branch": "main"
 }

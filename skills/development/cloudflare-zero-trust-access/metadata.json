@@ -10,5 +10,7 @@
     "access"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cloudflare-zero-trust-access",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "requests"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/collaboration/creating-pull-requests",
+  "github_branch": "main"
 }

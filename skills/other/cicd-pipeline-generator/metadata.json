@@ -5,5 +5,7 @@
   "source": "github.com/chaserbreitenbach/claude-skills-and-agents",
   "downloaded_at": "2026-01-22T02:09:04.754558Z",
   "dir_name": "cicd-pipeline-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tooling/cicd-pipeline-generator",
+  "github_branch": "main"
 }

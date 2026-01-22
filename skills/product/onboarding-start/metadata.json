@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Create comprehensive onboarding documentation for a codebase or feature. Use when user asks to \"create an onboarding document for X\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:39.299664Z"
+  "downloaded_at": "2026-01-06T09:03:39.299664Z",
+  "github_path": "skills/onboarding-doc/onboarding-start",
+  "github_branch": "main"
 }

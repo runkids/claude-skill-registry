@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:39.080363Z",
   "dir_name": "juce-best-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/juce-dev-team/skills/juce-best-practices",
+  "github_branch": "main"
 }

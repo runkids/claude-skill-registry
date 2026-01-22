@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:31.909387Z",
   "dir_name": "pypi-server",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/pypi-server",
+  "github_branch": "main"
 }

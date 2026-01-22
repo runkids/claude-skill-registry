@@ -5,5 +5,7 @@
   "source": "github.com/chaserbreitenbach/claude-skills-and-agents",
   "downloaded_at": "2026-01-22T02:09:05.145021Z",
   "dir_name": "api-contract-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/testing/api-contract-validator",
+  "github_branch": "main"
 }

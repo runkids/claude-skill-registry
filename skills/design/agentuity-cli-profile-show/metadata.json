@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Show the configuration of a profile",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:30.779258Z"
+  "downloaded_at": "2026-01-06T09:00:30.779258Z",
+  "github_path": "training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-profile-show",
+  "github_branch": "main"
 }

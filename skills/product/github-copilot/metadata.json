@@ -7,5 +7,7 @@
     "github",
     "copilot"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "github-copilot",
+  "github_branch": "main"
 }

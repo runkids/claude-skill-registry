@@ -5,5 +5,7 @@
   "source": "github.com/bitsoex/bitso-java",
   "downloaded_at": "2026-01-22T02:30:39.446823Z",
   "dir_name": "distributed-locking",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/distributed-locking",
+  "github_branch": "main"
 }

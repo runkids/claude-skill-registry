@@ -8,5 +8,7 @@
     "gen",
     "calculator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "lead-gen-calculator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/tjmaynes/skills",
   "downloaded_at": "2026-01-22T03:18:53.825762Z",
   "dir_name": "agent-context-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/agent-context-generator",
+  "github_branch": "main"
 }

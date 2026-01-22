@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:31.183319Z",
   "dir_name": "project-management-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/project-management-specialist",
+  "github_branch": "main"
 }

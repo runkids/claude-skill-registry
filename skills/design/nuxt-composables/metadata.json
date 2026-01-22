@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Creating custom Vue composables with proper patterns. Use when building reusable stateful logic, shared state management, or encapsulating feature-specific behavior.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:26.309723Z"
+  "downloaded_at": "2026-01-06T09:03:26.309723Z",
+  "github_path": "skills/nuxt-composables",
+  "github_branch": "main"
 }

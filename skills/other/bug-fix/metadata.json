@@ -5,5 +5,7 @@
   "source": "github.com/u9401066/rootcause-mcp",
   "downloaded_at": "2026-01-22T03:37:34.930312Z",
   "dir_name": "bug-fix",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bug-fix",
+  "github_branch": "main"
 }

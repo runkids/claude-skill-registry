@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ascii-diagram-creator"
+  "dir_name": "ascii-diagram-creator",
+  "github_path": "skills/ascii-diagram-creator",
+  "github_branch": "main"
 }

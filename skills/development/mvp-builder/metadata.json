@@ -7,5 +7,7 @@
     "mvp",
     "builder"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/mvp-builder",
+  "github_branch": "main"
 }

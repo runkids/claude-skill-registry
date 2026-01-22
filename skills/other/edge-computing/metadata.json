@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:54.846331Z",
   "dir_name": "edge-computing",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/edge-computing",
+  "github_branch": "main"
 }

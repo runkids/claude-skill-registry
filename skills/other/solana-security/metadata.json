@@ -5,5 +5,7 @@
   "source": "github.com/tenequm/claude-plugins",
   "downloaded_at": "2026-01-22T02:03:28.311579Z",
   "dir_name": "solana-security",
-  "category": "other"
+  "category": "other",
+  "github_path": "solana/skills/solana-security",
+  "github_branch": "main"
 }

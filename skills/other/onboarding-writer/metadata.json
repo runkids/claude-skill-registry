@@ -5,5 +5,7 @@
   "source": "github.com/OhadRubin/skills",
   "downloaded_at": "2026-01-14T01:58:50.242391Z",
   "dir_name": "onboarding-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/onboarding-doc/onboarding-writer",
+  "github_branch": "main"
 }

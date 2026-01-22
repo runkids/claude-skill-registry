@@ -10,5 +10,7 @@
     "predictor"
   ],
   "stars": 1,
-  "dir_name": "sap-rpt1-oss-predictor"
+  "dir_name": "sap-rpt1-oss-predictor",
+  "github_path": ".github/skills/sap-rpt1-oss-predictor",
+  "github_branch": "main"
 }

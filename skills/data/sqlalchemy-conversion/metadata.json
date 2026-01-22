@@ -5,5 +5,7 @@
   "description": "This skill should be used when the user asks to \"convert asyncpg to SQLAlchemy\", \"convert database queries\", \"migrate asyncpg code\", \"transform asyncpg patterns to SQLAlchemy\", or \"update FastAPI data",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:39.850836Z",
-  "dir_name": "sqlalchemy-conversion"
+  "dir_name": "sqlalchemy-conversion",
+  "github_path": "asyncpg-to-sqlalchemy-converter/skills/sqlalchemy-conversion",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/rdmptv/AdbAutoPlayer",
   "downloaded_at": "2026-01-22T03:58:39.458050Z",
   "dir_name": "adb-screen-detection",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/adb/adb-foundation/adb-screen-detection",
+  "github_branch": "main"
 }

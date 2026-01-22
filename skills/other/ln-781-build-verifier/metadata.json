@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:02.455157Z",
   "dir_name": "ln-781-build-verifier",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-781-build-verifier",
+  "github_branch": "main"
 }

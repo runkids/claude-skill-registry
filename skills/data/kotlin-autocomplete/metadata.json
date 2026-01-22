@@ -8,5 +8,7 @@
     "autocomplete"
   ],
   "stars": 0,
-  "dir_name": "kotlin-autocomplete"
+  "dir_name": "kotlin-autocomplete",
+  "github_path": ".claude/skills/kotlin-autocomplete",
+  "github_branch": "main"
 }

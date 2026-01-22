@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:34:56.336951Z",
   "dir_name": "keychain-secure",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/keychain-secure",
+  "github_branch": "main"
 }

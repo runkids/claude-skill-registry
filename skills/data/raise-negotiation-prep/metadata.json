@@ -9,5 +9,7 @@
     "prep"
   ],
   "stars": 10,
-  "dir_name": "raise-negotiation-prep"
+  "dir_name": "raise-negotiation-prep",
+  "github_path": "raise-negotiation-prep",
+  "github_branch": "main"
 }

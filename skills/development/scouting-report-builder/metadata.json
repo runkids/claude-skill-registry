@@ -8,5 +8,7 @@
     "report",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "scouting-report-builder",
+  "github_branch": "main"
 }

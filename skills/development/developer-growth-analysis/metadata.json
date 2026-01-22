@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyzes your recent Claude Code chat history to identify coding patterns, development gaps, and areas for improvement, curates relevant learning resources from HackerNews, and automatically sends a p",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.255790Z"
+  "downloaded_at": "2026-01-06T08:55:35.255790Z",
+  "github_path": "cli-tool/components/skills/development/developer-growth-analysis",
+  "github_branch": "main"
 }

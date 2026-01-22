@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Annotate passing code with protection levels (@protected/@immutable/@maintainable). Use when stabilizing working features to prevent regressions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:45.577150Z"
+  "downloaded_at": "2026-01-06T09:03:45.577150Z",
+  "github_path": ".claude/skills/validate-protection",
+  "github_branch": "main"
 }

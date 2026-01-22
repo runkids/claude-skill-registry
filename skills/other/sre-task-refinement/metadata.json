@@ -5,5 +5,7 @@
   "source": "github.com/withzombies/hyperpowers",
   "downloaded_at": "2026-01-21T01:31:44.547425Z",
   "dir_name": "sre-task-refinement",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sre-task-refinement",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "agent",
     "developer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".github/skills/m365-agent-developer",
+  "github_branch": "main"
 }

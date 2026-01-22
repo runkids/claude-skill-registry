@@ -7,5 +7,7 @@
     "conversation",
     "search"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/conversation-search",
+  "github_branch": "main"
 }

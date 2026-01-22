@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.519448Z",
   "dir_name": "exec-briefing-kit",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/revenue-analytics/skills/exec-briefing-kit",
+  "github_branch": "main"
 }

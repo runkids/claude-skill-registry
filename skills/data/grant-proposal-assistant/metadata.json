@@ -9,5 +9,7 @@
     "assistant"
   ],
   "stars": 8,
-  "dir_name": "grant-proposal-assistant"
+  "dir_name": "grant-proposal-assistant",
+  "github_path": "skills/grant-proposal-assistant",
+  "github_branch": "main"
 }

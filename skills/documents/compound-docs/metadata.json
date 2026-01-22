@@ -7,5 +7,7 @@
     "compound",
     "docs"
   ],
-  "stars": 29
+  "stars": 29,
+  "github_path": "skills/compound-docs",
+  "github_branch": "main"
 }

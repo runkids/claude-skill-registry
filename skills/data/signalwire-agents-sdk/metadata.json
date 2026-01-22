@@ -9,5 +9,7 @@
     "sdk"
   ],
   "stars": 0,
-  "dir_name": "signalwire-agents-sdk"
+  "dir_name": "signalwire-agents-sdk",
+  "github_path": "",
+  "github_branch": "main"
 }

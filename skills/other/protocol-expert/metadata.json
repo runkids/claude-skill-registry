@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:18.216068Z",
   "dir_name": "protocol-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos/shelby/protocol-expert",
+  "github_branch": "main"
 }

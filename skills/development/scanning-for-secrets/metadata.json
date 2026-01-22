@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Detect exposed secrets, API keys, and credentials in code. Use when auditing for secret leaks. Trigger with 'scan for secrets', 'find exposed keys', or 'check credentials'.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:52.356534Z"
+  "downloaded_at": "2026-01-06T08:55:52.356534Z",
+  "github_path": "plugins/security/secret-scanner/skills/scanning-for-secrets",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Graphical and UI/UX design improvements for SvelteKit browser games, including layout, typography, color systems, HUD design, visual polish, and dynamic effects. Use when asked to redesign or enhance ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:30.956000Z"
+  "downloaded_at": "2026-01-06T09:02:30.956000Z",
+  "github_path": ".codex/skills/svelte-game-visual-design",
+  "github_branch": "main"
 }

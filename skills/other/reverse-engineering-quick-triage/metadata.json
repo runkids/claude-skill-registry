@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:52.218009Z",
   "dir_name": "reverse-engineering-quick-triage",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/security/reverse-engineering-quick-triage",
+  "github_branch": "main"
 }

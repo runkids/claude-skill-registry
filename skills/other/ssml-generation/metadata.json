@@ -5,5 +5,7 @@
   "source": "github.com/randysalars/dreamweaving",
   "downloaded_at": "2026-01-22T02:43:18.142743Z",
   "dir_name": "ssml-generation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tier3-production/ssml-generation",
+  "github_branch": "main"
 }

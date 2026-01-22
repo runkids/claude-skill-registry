@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:59.333960Z",
   "dir_name": "verification-before-merge",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/verification-before-merge",
+  "github_branch": "main"
 }

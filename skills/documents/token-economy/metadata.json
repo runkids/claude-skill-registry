@@ -7,5 +7,7 @@
     "token",
     "economy"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/token-economy",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:44.915975Z",
   "dir_name": "scientific-flowio",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-flowio",
+  "github_branch": "main"
 }

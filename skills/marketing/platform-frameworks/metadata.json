@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Use when tailoring content formats, hooks, and publishing mechanics for each social platform.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:26.499976Z"
+  "downloaded_at": "2026-01-06T08:57:26.499976Z",
+  "github_path": "plugins/social-media/skills/platform-frameworks",
+  "github_branch": "main"
 }

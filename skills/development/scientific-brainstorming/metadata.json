@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Research ideation partner. Generate hypotheses, explore interdisciplinary connections, challenge assumptions, develop methodologies, identify research gaps, for creative scientific problem-solving.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.829532Z"
+  "downloaded_at": "2026-01-06T08:55:38.829532Z",
+  "github_path": "cli-tool/components/skills/scientific/scientific-brainstorming",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "vsa-ui-enhancer",
   "repo": "akiramei/blazor-enterprise-architecture-poc",
   "category": "testing",
-  "description": "Vertical Slice Architecture (VSA) \u5411\u3051 UI \u5f37\u5316\u30b9\u30ad\u30eb\u3002 Phase 1\uff08spec-kit + \u30ab\u30bf\u30ed\u30b0\uff09\u3067\u751f\u6210\u3055\u308c\u305f\u30d7\u30ec\u30fc\u30f3\u306a .razor \u30d5\u30a1\u30a4\u30eb\u3092\u3001 Phase 2 \u3067 MudBlazor \u30d9\u30fc\u30b9\u306e\u30ea\u30c3\u30c1\u306a UI \u306b\u5909\u63db\u3059\u308b\u3002 \u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u306b\u306f\u4e00\u5207\u624b\u3092\u89e6\u308c\u305a\u3001UI \u3060\u3051\u3092\u5f37\u5316\u3059\u308b\u3002",
+  "description": "Vertical Slice Architecture (VSA) 向け UI 強化スキル。 Phase 1（spec-kit + カタログ）で生成されたプレーンな .razor ファイルを、 Phase 2 で MudBlazor ベースのリッチな UI に変換する。 アーキテクチャには一切手を触れず、UI だけを強化する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:30.595744Z"
+  "downloaded_at": "2026-01-06T09:01:30.595744Z",
+  "github_path": "catalog/skills/vsa-ui-enhancer",
+  "github_branch": "main"
 }

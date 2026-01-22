@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Use when defining or adjusting marketing-to-sales assignment rules.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.799980Z"
+  "downloaded_at": "2026-01-06T08:57:25.799980Z",
+  "github_path": "plugins/sales-handoff-orchestration/skills/routing-logic",
+  "github_branch": "main"
 }

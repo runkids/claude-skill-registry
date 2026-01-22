@@ -9,5 +9,7 @@
     "documentation"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-reference-documentation",
+  "github_branch": "main"
 }

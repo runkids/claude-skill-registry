@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:42.956179Z",
   "dir_name": "pop-writing-plans",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-dev/skills/pop-writing-plans",
+  "github_branch": "main"
 }

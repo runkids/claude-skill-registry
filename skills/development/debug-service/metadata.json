@@ -2,7 +2,9 @@
   "name": "debug-service",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "\ub9c8\uc774\ud06c\ub85c\uc11c\ube44\uc2a4 \ub514\ubc84\uae45 \ubc0f \ub85c\uadf8 \ubd84\uc11d. Use when:(1) \uc11c\ube44\uc2a4 \uc5d0\ub7ec \ubd84\uc11d, (2) \ub85c\uadf8 \ud655\uc778, (3) \ud5ec\uc2a4\uccb4\ud06c \uc2e4\ud328 \uc6d0\uc778 \ud30c\uc545,(4) DB \uc5f0\uacb0 \uc0c1\ud0dc \ud655\uc778, (5) \ud658\uacbd\ubcc0\uc218 \uac80\uc99d.",
+  "description": "마이크로서비스 디버깅 및 로그 분석. Use when:(1) 서비스 에러 분석, (2) 로그 확인, (3) 헬스체크 실패 원인 파악,(4) DB 연결 상태 확인, (5) 환경변수 검증.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:51.440166Z"
+  "downloaded_at": "2026-01-06T09:02:51.440166Z",
+  "github_path": "semo-system/semo-skills/debug-service",
+  "github_branch": "main"
 }

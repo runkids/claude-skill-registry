@@ -5,5 +5,7 @@
   "source": "github.com/AJBcoding/claude-skill-eval",
   "downloaded_at": "2026-01-22T01:30:37.009527Z",
   "dir_name": "format-cover-letter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/format-cover-letter",
+  "github_branch": "main"
 }

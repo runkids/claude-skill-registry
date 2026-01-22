@@ -8,5 +8,7 @@
     "cause",
     "tracing"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/root-cause-tracing",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pwwang/immunopipe",
   "downloaded_at": "2026-01-22T03:34:35.416204Z",
   "dir_name": "seuratsubclustering",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/seuratsubclustering",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Expert methodology for identifying, assessing, and mitigating technical and operational risks including security, incidents, compliance, and disaster recovery.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:15.910633Z"
+  "downloaded_at": "2026-01-06T08:58:15.910633Z",
+  "github_path": "cto-risk-resilience-skill",
+  "github_branch": "main"
 }

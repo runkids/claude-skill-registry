@@ -5,5 +5,7 @@
   "source": "github.com/cuba6112/skillfactory",
   "downloaded_at": "2026-01-22T01:16:58.414202Z",
   "dir_name": "structured-outputs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/structured-outputs",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "app",
     "development"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/windows15-app-development",
+  "github_branch": "main"
 }

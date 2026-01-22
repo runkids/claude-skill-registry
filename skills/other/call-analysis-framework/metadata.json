@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.622347Z",
   "dir_name": "call-analysis-framework",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sales-calls/skills/call-analysis-framework",
+  "github_branch": "main"
 }

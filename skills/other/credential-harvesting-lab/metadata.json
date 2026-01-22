@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/SecOps-CLI-Guides",
   "downloaded_at": "2026-01-14T02:20:55.945653Z",
   "dir_name": "credential-harvesting-lab",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/credential-harvesting-lab",
+  "github_branch": "main"
 }

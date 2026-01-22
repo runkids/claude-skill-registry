@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-21T03:40:36.298200Z",
   "dir_name": "story-zoom",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fiction/structure/story-zoom",
+  "github_branch": "main"
 }

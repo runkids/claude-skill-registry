@@ -2,7 +2,9 @@
   "name": "authentication-authorization",
   "repo": "TakumiOkayasu/dotfile-work",
   "category": "security",
-  "description": "\u30ed\u30b0\u30a4\u30f3\u3001\u30bb\u30c3\u30b7\u30e7\u30f3\u3001JWT\u3001OAuth\u3001\u30a2\u30af\u30bb\u30b9\u5236\u5fa1\u3092\u5b9f\u88c5\u3059\u308b\u969b\u306b\u4f7f\u7528\u3002",
+  "description": "ログイン、セッション、JWT、OAuth、アクセス制御を実装する際に使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:44.168773Z"
+  "downloaded_at": "2026-01-06T09:08:44.168773Z",
+  "github_path": "claude/skills/2-domain/web-backend/authentication-authorization",
+  "github_branch": "main"
 }

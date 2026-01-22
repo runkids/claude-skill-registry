@@ -5,5 +5,7 @@
   "source": "github.com/sumik5/sumik-claude-plugin",
   "downloaded_at": "2026-01-19T05:57:57.310426Z",
   "dir_name": "managing-as-aramaki",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/managing-as-aramaki",
+  "github_branch": "main"
 }

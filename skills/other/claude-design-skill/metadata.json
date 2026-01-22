@@ -5,5 +5,7 @@
   "source": "github.com/yuch4/dx-selecta",
   "downloaded_at": "2026-01-22T03:45:52.331612Z",
   "dir_name": "claude-design-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/claude-design-skill",
+  "github_branch": "main"
 }

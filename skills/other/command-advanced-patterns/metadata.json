@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:12.685466Z",
   "dir_name": "command-advanced-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/command-advanced-patterns",
+  "github_branch": "main"
 }

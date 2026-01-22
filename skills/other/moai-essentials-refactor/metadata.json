@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:15.377632Z",
   "dir_name": "moai-essentials-refactor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-essentials-refactor",
+  "github_branch": "main"
 }

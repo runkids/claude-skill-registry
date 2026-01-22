@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Performs mathematical root calculations including square root, cube root, and nth roots. Use when user asks to calculate square root, cube root, nth root, or uses keywords like 'sqrt', 'root of', 'cal",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:46.418647Z"
+  "downloaded_at": "2026-01-06T09:08:46.418647Z",
+  "github_path": ".claude/skills/root-calculator",
+  "github_branch": "main"
 }

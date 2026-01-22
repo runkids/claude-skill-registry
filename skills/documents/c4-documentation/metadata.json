@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "C4 model architecture visualization and documentation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:02.364877Z"
+  "downloaded_at": "2026-01-06T09:00:02.364877Z",
+  "github_path": "plugins/documentation-standards/skills/c4-documentation",
+  "github_branch": "main"
 }

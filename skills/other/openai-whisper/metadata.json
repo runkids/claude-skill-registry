@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/clawdbot",
   "downloaded_at": "2026-01-22T03:52:10.529559Z",
   "dir_name": "openai-whisper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/openai-whisper",
+  "github_branch": "main"
 }

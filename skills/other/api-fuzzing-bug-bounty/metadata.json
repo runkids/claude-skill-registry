@@ -5,5 +5,7 @@
   "source": "github.com/sickn33/antigravity-awesome-skills",
   "downloaded_at": "2026-01-22T02:27:22.803732Z",
   "dir_name": "api-fuzzing-bug-bounty",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/api-fuzzing-bug-bounty",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-14T02:29:12.702277Z",
   "dir_name": "alice",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/alice",
+  "github_branch": "main"
 }

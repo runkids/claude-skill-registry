@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:26.003471Z",
   "dir_name": "react-performance",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/react-performance",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "wolf",
     "verification"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "wolf-verification",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ScientiaCapital/skills",
   "downloaded_at": "2026-01-19T03:08:02.800368Z",
   "dir_name": "supabase-sql-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "active/supabase-sql-skill",
+  "github_branch": "main"
 }

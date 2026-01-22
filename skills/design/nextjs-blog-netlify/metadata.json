@@ -8,5 +8,7 @@
     "blog",
     "netlify"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "nextjs-blog-netlify",
+  "github_branch": "main"
 }

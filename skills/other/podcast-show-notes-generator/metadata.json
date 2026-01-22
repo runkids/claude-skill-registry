@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:40.002371Z",
   "dir_name": "podcast-show-notes-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/podcast-show-notes-generator",
+  "github_branch": "main"
 }

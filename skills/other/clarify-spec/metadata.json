@@ -5,5 +5,7 @@
   "source": "github.com/freitasp1/claude-code-skills",
   "downloaded_at": "2026-01-22T01:08:22.763902Z",
   "dir_name": "clarify-spec",
-  "category": "other"
+  "category": "other",
+  "github_path": "clarify-spec",
+  "github_branch": "main"
 }

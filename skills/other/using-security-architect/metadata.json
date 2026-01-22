@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:05.979037Z",
   "dir_name": "using-security-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ordis-security-architect/skills/using-security-architect",
+  "github_branch": "main"
 }

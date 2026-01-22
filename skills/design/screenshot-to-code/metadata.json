@@ -7,5 +7,7 @@
     "screenshot",
     "code"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "screenshot-to-code",
+  "github_branch": "main"
 }

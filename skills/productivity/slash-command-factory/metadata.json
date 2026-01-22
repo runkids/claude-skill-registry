@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Generate custom Claude Code slash commands through intelligent 5-7 question flow. Creates powerful commands for business research, content analysis, healthcare compliance, API integration, documentati",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:44.581969Z"
+  "downloaded_at": "2026-01-06T08:56:44.581969Z",
+  "github_path": "generated-skills/slash-command-factory",
+  "github_branch": "main"
 }

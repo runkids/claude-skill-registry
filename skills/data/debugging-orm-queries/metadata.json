@@ -9,5 +9,7 @@
     "queries"
   ],
   "stars": 2,
-  "dir_name": "debugging-orm-queries"
+  "dir_name": "debugging-orm-queries",
+  "github_path": "skills/debugging-orm-queries",
+  "github_branch": "main"
 }

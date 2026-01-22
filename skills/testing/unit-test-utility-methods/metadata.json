@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Unit tests for utility/helper classes and static methods. Test pure functions and helper logic. Use when validating utility code correctness.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:13.958598Z"
+  "downloaded_at": "2026-01-06T08:57:13.958598Z",
+  "github_path": "skills/junit-test/unit-test-utility-methods",
+  "github_branch": "main"
 }

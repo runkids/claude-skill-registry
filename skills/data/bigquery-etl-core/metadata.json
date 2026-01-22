@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bigquery-etl-core"
+  "dir_name": "bigquery-etl-core",
+  "github_path": "skills/bigquery-etl-core",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:35:03.166953Z",
   "dir_name": "goose-introspection",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/goose-introspection",
+  "github_branch": "main"
 }

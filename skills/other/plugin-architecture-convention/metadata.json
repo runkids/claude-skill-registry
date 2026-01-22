@@ -5,5 +5,7 @@
   "source": "github.com/RevTechStudio/rts-plugins",
   "downloaded_at": "2026-01-22T03:44:55.538496Z",
   "dir_name": "plugin-architecture-convention",
-  "category": "other"
+  "category": "other",
+  "github_path": "rts-plugin-generator/skills/plugin-architecture-convention",
+  "github_branch": "main"
 }

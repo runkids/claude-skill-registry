@@ -7,5 +7,7 @@
     "testcontainers"
   ],
   "stars": 3,
-  "dir_name": "testcontainers-go"
+  "dir_name": "testcontainers-go",
+  "github_path": "testcontainers-go",
+  "github_branch": "main"
 }

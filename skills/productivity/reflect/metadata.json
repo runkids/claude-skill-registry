@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Analyze the current session and consolidate learnings. Use at the end of a session or task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:45.679515Z"
+  "downloaded_at": "2026-01-06T08:56:45.679515Z",
+  "github_path": ".fleet/context/system/reflect",
+  "github_branch": "main"
 }

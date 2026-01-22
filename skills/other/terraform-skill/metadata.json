@@ -5,5 +5,7 @@
   "source": "github.com/antonbabenko/terraform-skill",
   "downloaded_at": "2026-01-22T01:12:48.177499Z",
   "dir_name": "terraform-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "swift"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "generated-skills/swift-ui",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:28.172994Z",
   "dir_name": "semgrep-rule-variant-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/semgrep-rule-variant-creator/skills/semgrep-rule-variant-creator",
+  "github_branch": "main"
 }

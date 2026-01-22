@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "This skill provides access to various knowledge search tools through x-cmd CLI, including Hacker News, Wikipedia, DuckDuckGo search, RFC documents, Project Gutenberg books, and Stack Exchange. This sk",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:09.918411Z"
+  "downloaded_at": "2026-01-06T08:59:09.918411Z",
+  "github_path": "data/x-cmd/x-cmd-knowledge",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/arlenagreer/claude_configuration_docs",
   "downloaded_at": "2026-01-22T01:12:34.803225Z",
   "dir_name": "text-message",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/text-message",
+  "github_branch": "main"
 }

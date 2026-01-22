@@ -5,5 +5,7 @@
   "source": "github.com/mhattingpete/claude-skills-marketplace",
   "downloaded_at": "2026-01-22T02:16:33.790594Z",
   "dir_name": "file-operations",
-  "category": "other"
+  "category": "other",
+  "github_path": "code-operations-plugin/skills/file-operations",
+  "github_branch": "main"
 }

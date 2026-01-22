@@ -7,5 +7,7 @@
     "streaming",
     "assistant"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/streaming-assistant",
+  "github_branch": "main"
 }

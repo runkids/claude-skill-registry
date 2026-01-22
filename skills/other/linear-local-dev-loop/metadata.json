@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:05.332724Z",
   "dir_name": "linear-local-dev-loop",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/linear-pack/skills/linear-local-dev-loop",
+  "github_branch": "main"
 }

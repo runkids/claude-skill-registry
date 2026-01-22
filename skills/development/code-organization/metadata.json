@@ -8,5 +8,7 @@
     "organization"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".opencode/skills/code-organization",
+  "github_branch": "main"
 }

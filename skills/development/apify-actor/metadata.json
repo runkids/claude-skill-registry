@@ -8,5 +8,7 @@
     "actor"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "apify-actor",
+  "github_branch": "main"
 }

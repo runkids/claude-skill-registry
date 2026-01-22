@@ -5,5 +5,7 @@
   "description": "Standardized template for campaign compliance intake, reviews, and approvals.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:23.177521Z",
-  "dir_name": "compliance-briefing-kit"
+  "dir_name": "compliance-briefing-kit",
+  "github_path": "plugins/healthcare-marketing/skills/compliance-briefing-kit",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:34.202868Z",
   "dir_name": "data-governance",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/data/data-governance",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "eld-model-law-card",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "development",
-  "description": "LDE\uff08Law-Driven Engineering\uff09\u306eLaw Card\u4f5c\u6210\u30b9\u30ad\u30eb\u3002\u30d3\u30b8\u30cd\u30b9\u4e0a\u306e\u300c\u5b88\u308b\u3079\u304d\u6761\u4ef6\u300d\u3092\u6a19\u6e96\u30d5\u30a9\u30fc\u30de\u30c3\u30c8\u3067\u6587\u66f8\u5316\u3059\u308b\u3002\u4f7f\u7528\u30bf\u30a4\u30df\u30f3\u30b0: (1) \u65b0\u3057\u3044Law\u3092\u8ffd\u52a0\u3059\u308b\u6642\u3001(2) \u65e2\u5b58Law\u3092\u66f4\u65b0\u3059\u308b\u6642\u3001(3) Law Catalog\u306b\u65b0\u898f\u30a8\u30f3\u30c8\u30ea\u3092\u8ffd\u52a0\u3059\u308b\u6642\u3001(4) Grounding Map\u3092\u66f4\u65b0\u3059\u308b\u6642",
+  "description": "LDE（Law-Driven Engineering）のLaw Card作成スキル。ビジネス上の「守るべき条件」を標準フォーマットで文書化する。使用タイミング: (1) 新しいLawを追加する時、(2) 既存Lawを更新する時、(3) Law Catalogに新規エントリを追加する時、(4) Grounding Mapを更新する時",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.153564Z"
+  "downloaded_at": "2026-01-06T09:04:21.153564Z",
+  "github_path": "caphtech-plugin/skills/eld-model-law-card",
+  "github_branch": "main"
 }

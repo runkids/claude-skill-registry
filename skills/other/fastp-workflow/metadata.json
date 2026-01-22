@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:44.513076Z",
   "dir_name": "fastp-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "read-qc/fastp-workflow",
+  "github_branch": "main"
 }

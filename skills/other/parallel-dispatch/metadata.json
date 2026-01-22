@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:53.096019Z",
   "dir_name": "parallel-dispatch",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/utils/skills/parallel-dispatch",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:37.489510Z",
   "dir_name": "cicd-config-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/cicd-config-builder",
+  "github_branch": "main"
 }

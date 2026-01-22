@@ -5,5 +5,7 @@
   "source": "github.com/martinemde/skillet",
   "downloaded_at": "2026-01-22T02:20:50.274020Z",
   "dir_name": "yaml-syntax-error",
-  "category": "other"
+  "category": "other",
+  "github_path": "testdata/yaml-syntax-error",
+  "github_branch": "main"
 }

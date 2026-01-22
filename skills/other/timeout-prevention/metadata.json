@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:36.735661Z",
   "dir_name": "timeout-prevention",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/timeout-prevention",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Complete guide for CloudBase cloud storage using Web SDK (@cloudbase/js-sdk) - upload, download, temporary URLs, file management, and best practices.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:43.894352Z"
+  "downloaded_at": "2026-01-06T08:55:43.894352Z",
+  "github_path": "config/.claude/skills/cloud-storage-web",
+  "github_branch": "main"
 }

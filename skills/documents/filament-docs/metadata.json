@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Reference FilamentPHP v4 documentation for patterns, methods, and implementation examples",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:16.428700Z"
+  "downloaded_at": "2026-01-06T09:00:16.428700Z",
+  "github_path": "filament-specialist/skills/filament-docs",
+  "github_branch": "main"
 }

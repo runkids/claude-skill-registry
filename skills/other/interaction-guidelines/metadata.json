@@ -5,5 +5,7 @@
   "source": "github.com/RevTechStudio/rts-plugins",
   "downloaded_at": "2026-01-22T03:44:54.722779Z",
   "dir_name": "interaction-guidelines",
-  "category": "other"
+  "category": "other",
+  "github_path": "rts-foundation/skills/interaction-guidelines",
+  "github_branch": "main"
 }

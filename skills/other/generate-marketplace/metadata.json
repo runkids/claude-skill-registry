@@ -5,5 +5,7 @@
   "source": "github.com/epieczko/betty",
   "downloaded_at": "2026-01-22T02:27:30.987479Z",
   "dir_name": "generate-marketplace",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/generate.marketplace",
+  "github_branch": "main"
 }

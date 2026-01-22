@@ -8,5 +8,7 @@
     "optimization"
   ],
   "stars": 0,
-  "dir_name": "model-optimization"
+  "dir_name": "model-optimization",
+  "github_path": "skills/model-optimization",
+  "github_branch": "main"
 }

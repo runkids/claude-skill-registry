@@ -5,5 +5,7 @@
   "source": "github.com/nealcaren/sociology-analysis-agents",
   "downloaded_at": "2026-01-22T04:00:27.504199Z",
   "dir_name": "abductive-analyst",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/abductive-analyst/skills/abductive-analyst",
+  "github_branch": "main"
 }

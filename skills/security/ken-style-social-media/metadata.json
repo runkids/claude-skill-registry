@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Generate authentic social media content in Ken's distinctive multilingual style - mixing Cantonese, English, and Traditional Chinese for personal branding, product promotion, and educational content. ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:42.927788Z"
+  "downloaded_at": "2026-01-06T09:06:42.927788Z",
+  "github_path": "ken-style-social-media",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/doodledood/claude-code-plugins",
   "downloaded_at": "2026-01-22T02:39:48.590507Z",
   "dir_name": "ask-council",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugins/consultant/skills/ask-council",
+  "github_branch": "main"
 }

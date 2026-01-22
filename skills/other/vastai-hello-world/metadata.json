@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-17T04:00:08.621206Z",
   "dir_name": "vastai-hello-world",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/vastai-pack/skills/vastai-hello-world",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Configure Vercel enterprise SSO, role-based access control, and organization management.Use when implementing SSO integration, configuring role-based permissions,or setting up organization-level contr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:51.415870Z"
+  "downloaded_at": "2026-01-06T08:55:51.415870Z",
+  "github_path": "plugins/saas-packs/vercel-pack/skills/vercel-enterprise-rbac",
+  "github_branch": "main"
 }

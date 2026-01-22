@@ -5,5 +5,7 @@
   "source": "github.com/phrazzld/claude-config",
   "downloaded_at": "2026-01-14T03:03:36.637713Z",
   "dir_name": "commit-message-style",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/commit-message-style",
+  "github_branch": "main"
 }

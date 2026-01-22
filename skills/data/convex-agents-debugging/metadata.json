@@ -9,5 +9,7 @@
     "debugging"
   ],
   "stars": 5,
-  "dir_name": "convex-agents-debugging"
+  "dir_name": "convex-agents-debugging",
+  "github_path": "convex-agents-debugging",
+  "github_branch": "main"
 }

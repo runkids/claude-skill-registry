@@ -5,5 +5,7 @@
   "source": "github.com/RobThePCGuy/Claude-Patent-Creator",
   "downloaded_at": "2026-01-19T03:15:27.284861Z",
   "dir_name": "patent-diagrams",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/patent-diagrams",
+  "github_branch": "main"
 }

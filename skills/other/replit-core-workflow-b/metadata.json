@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:13.047003Z",
   "dir_name": "replit-core-workflow-b",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/replit-pack/skills/replit-core-workflow-b",
+  "github_branch": "main"
 }

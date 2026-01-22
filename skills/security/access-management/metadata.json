@@ -4,5 +4,7 @@
   "category": "security",
   "description": "RBAC/ABAC implementation patterns, least privilege access, row-level security, column masking, and access review workflows.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:29.733144Z"
+  "downloaded_at": "2026-01-06T09:10:29.733144Z",
+  "github_path": "plugins/databricks-governance/skills/access-management",
+  "github_branch": "main"
 }

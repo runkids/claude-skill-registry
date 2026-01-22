@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Configure SSO and enterprise authentication in Cursor. Triggers on \"cursor sso\",\"cursor saml\", \"cursor oauth\", \"enterprise cursor auth\", \"cursor okta\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:06.481548Z"
+  "downloaded_at": "2026-01-06T08:56:06.481548Z",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-sso-integration",
+  "github_branch": "main"
 }

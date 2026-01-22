@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:22.829447Z",
   "dir_name": "coredump",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/coredump",
+  "github_branch": "main"
 }

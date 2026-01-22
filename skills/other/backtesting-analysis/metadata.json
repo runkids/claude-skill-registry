@@ -5,5 +5,7 @@
   "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE",
   "downloaded_at": "2026-01-22T02:16:31.075018Z",
   "dir_name": "backtesting-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/backtesting-analysis",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/involvex/involvex-claude-marketplace",
   "downloaded_at": "2026-01-22T03:51:32.677957Z",
   "dir_name": "router-query-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/frontend/skills/router-query-integration",
+  "github_branch": "main"
 }

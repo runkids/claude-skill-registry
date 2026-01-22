@@ -5,5 +5,7 @@
   "source": "github.com/davepoon/buildwithclaude",
   "downloaded_at": "2026-01-22T03:46:00.786232Z",
   "dir_name": "server-actions",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/nextjs-expert/skills/server-actions",
+  "github_branch": "main"
 }

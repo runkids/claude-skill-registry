@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Master hiring processes, interviewing, candidate assessment, and building strong engineering teams",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:44.848968Z"
+  "downloaded_at": "2026-01-06T09:02:44.848968Z",
+  "github_path": "skills/hiring-recruitment",
+  "github_branch": "main"
 }

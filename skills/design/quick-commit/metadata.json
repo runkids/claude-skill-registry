@@ -7,5 +7,7 @@
     "quick",
     "commit"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/quick-commit",
+  "github_branch": "main"
 }

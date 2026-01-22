@@ -5,5 +5,7 @@
   "source": "github.com/QingqiShi/shiqingqi.com",
   "downloaded_at": "2026-01-22T02:14:32.064617Z",
   "dir_name": "tmdb-codegen",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tmdb-codegen",
+  "github_branch": "main"
 }

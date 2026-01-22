@@ -6,5 +6,7 @@
   "tags": [
     "crawl4ai"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/crawl4ai",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/snowmead/questionably-ultrathink",
   "downloaded_at": "2026-01-22T03:13:21.961233Z",
   "dir_name": "questionably-ultrathink-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-code/skills/questionably-ultrathink-skill",
+  "github_branch": "main"
 }

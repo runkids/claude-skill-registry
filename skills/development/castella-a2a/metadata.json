@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Connect to A2A protocol agents from Castella. Communicate with agents, display agent cards, send messages, handle responses, and stream results.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:28.182564Z"
+  "downloaded_at": "2026-01-06T08:57:28.182564Z",
+  "github_path": "skills/castella-a2a",
+  "github_branch": "main"
 }

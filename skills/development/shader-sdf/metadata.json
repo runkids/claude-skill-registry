@@ -7,5 +7,7 @@
     "shader",
     "sdf"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/shader-sdf",
+  "github_branch": "main"
 }

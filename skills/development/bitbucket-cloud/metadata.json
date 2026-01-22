@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Handle Bitbucket Cloud PR operations. Use for \"PR\", \"pull request\", \"review\" when repo is on bitbucket.org.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:59.107182Z"
+  "downloaded_at": "2026-01-06T09:09:59.107182Z",
+  "github_path": "bitbucket-plugin/skills/bitbucket-cloud",
+  "github_branch": "main"
 }

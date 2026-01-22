@@ -2,5 +2,7 @@
   "name": "verification-before-completion",
   "repo": "obra/superpowers",
   "category": "development",
-  "source": "Superpowers"
+  "source": "Superpowers",
+  "github_path": "skills/verification-before-completion",
+  "github_branch": "main"
 }

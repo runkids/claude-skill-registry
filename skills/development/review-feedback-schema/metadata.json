@@ -8,5 +8,7 @@
     "feedback",
     "schema"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/review-feedback-schema",
+  "github_branch": "main"
 }

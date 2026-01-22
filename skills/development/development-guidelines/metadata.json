@@ -8,5 +8,7 @@
     "guidelines"
   ],
   "stars": 29,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".github/templates/claude/skills/development-guidelines",
+  "github_branch": "main"
 }

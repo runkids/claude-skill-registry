@@ -5,5 +5,7 @@
   "source": "github.com/The1Studio/theone-training-skills",
   "downloaded_at": "2026-01-22T04:10:22.645812Z",
   "dir_name": "github-pr-review",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-pr-review",
+  "github_branch": "main"
 }

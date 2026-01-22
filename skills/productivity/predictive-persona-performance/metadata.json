@@ -8,5 +8,7 @@
     "persona",
     "performance"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/predictive-persona-performance",
+  "github_branch": "main"
 }

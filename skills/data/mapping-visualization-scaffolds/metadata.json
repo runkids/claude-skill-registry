@@ -9,5 +9,7 @@
     "scaffolds"
   ],
   "stars": 8,
-  "dir_name": "mapping-visualization-scaffolds"
+  "dir_name": "mapping-visualization-scaffolds",
+  "github_path": "skills/mapping-visualization-scaffolds",
+  "github_branch": "main"
 }

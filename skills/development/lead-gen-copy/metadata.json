@@ -8,5 +8,7 @@
     "gen",
     "copy"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "lead-gen-copy",
+  "github_branch": "main"
 }

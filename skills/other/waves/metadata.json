@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:52.758853Z",
   "dir_name": "waves",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/cfn-extras/skills/deprecated/cfn-docker-runtime/lib/waves",
+  "github_branch": "main"
 }

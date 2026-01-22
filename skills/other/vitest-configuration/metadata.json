@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:17.282458Z",
   "dir_name": "vitest-configuration",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-vitest/skills/vitest-configuration",
+  "github_branch": "main"
 }

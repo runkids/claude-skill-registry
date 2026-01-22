@@ -10,5 +10,7 @@
     "entities"
   ],
   "stars": 0,
-  "dir_name": "kotlin-schema-first-entities"
+  "dir_name": "kotlin-schema-first-entities",
+  "github_path": ".claude/skills/kotlin-schema-first-entities",
+  "github_branch": "main"
 }

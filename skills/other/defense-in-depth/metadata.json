@@ -5,5 +5,7 @@
   "source": "github.com/mrgoonie/xxxnaper",
   "downloaded_at": "2026-01-22T04:10:32.378495Z",
   "dir_name": "defense-in-depth",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/debugging/defense-in-depth",
+  "github_branch": "main"
 }

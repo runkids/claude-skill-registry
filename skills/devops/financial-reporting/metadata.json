@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Financial reporting workflow covering report preparation, management reporting,board presentations, and investor communications. Delivers polished, accurate reports.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:32.824399Z"
+  "downloaded_at": "2026-01-06T08:57:32.824399Z",
+  "github_path": ".archive/finance-team/skills/financial-reporting",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.251131Z",
   "dir_name": "brand-voice-glossary",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/brand-strategy/skills/brand-voice-glossary",
+  "github_branch": "main"
 }

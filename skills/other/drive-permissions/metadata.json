@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:14.878602Z",
   "dir_name": "drive-permissions",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/drive-permissions",
+  "github_branch": "main"
 }

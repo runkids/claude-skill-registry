@@ -8,5 +8,7 @@
     "discovery"
   ],
   "stars": 1,
-  "dir_name": "skill-discovery"
+  "dir_name": "skill-discovery",
+  "github_path": "skills/skill-discovery",
+  "github_branch": "main"
 }

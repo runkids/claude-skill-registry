@@ -2,7 +2,9 @@
   "name": "error-message-design",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u30e6\u30fc\u30b6\u30fc\u30d5\u30ec\u30f3\u30c9\u30ea\u30fc\u306a\u30a8\u30e9\u30fc\u30e1\u30c3\u30bb\u30fc\u30b8\u306e\u8a2d\u8a08\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u30a8\u30e9\u30fc\u30b3\u30fc\u30c9\u4f53\u7cfb\u3001\u591a\u8a00\u8a9e\u5bfe\u5fdc\uff08i18n\uff09\u3001\u30a2\u30af\u30b7\u30e7\u30f3\u6307\u5411\u306e\u30e1\u30c3\u30bb\u30fc\u30b8\u8a2d\u8a08\u3092\u63d0\u4f9b\u3002Anchors:- The Pragmatic Programmer / \u9069\u7528: \u5b9f\u8df5\u7684\u6539\u5584 / \u76ee\u7684: \u54c1\u8cea\u7dad\u6301- Nielsen Norman Group UX Guidelines / \u9069\u7528: \u30a8\u30e9\u30fc\u30e1\u30c3\u30bb\u30fc\u30b8\u8a2d\u8a08 / \u76ee\u7684: \u30e6\u30fc\u30b6\u30d3\u30ea\u30c6\u30a3\u5411\u4e0aTr",
+  "description": "ユーザーフレンドリーなエラーメッセージの設計を専門とするスキル。エラーコード体系、多言語対応（i18n）、アクション指向のメッセージ設計を提供。Anchors:- The Pragmatic Programmer / 適用: 実践的改善 / 目的: 品質維持- Nielsen Norman Group UX Guidelines / 適用: エラーメッセージ設計 / 目的: ユーザビリティ向上Tr",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.218942Z"
+  "downloaded_at": "2026-01-06T09:00:42.218942Z",
+  "github_path": "docs/99-claude/skills/error-message-design",
+  "github_branch": "main"
 }

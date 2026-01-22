@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:40.828402Z",
   "dir_name": "pop-mcp-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-core/skills/pop-mcp-generator",
+  "github_branch": "main"
 }

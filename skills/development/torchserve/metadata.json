@@ -6,5 +6,7 @@
   "tags": [
     "torchserve"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/torchserve",
+  "github_branch": "main"
 }

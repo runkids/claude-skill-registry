@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:10.100587Z",
   "dir_name": "fnox-secrets",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/fnox-secrets",
+  "github_branch": "main"
 }

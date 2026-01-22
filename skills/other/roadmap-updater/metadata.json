@@ -5,5 +5,7 @@
   "source": "github.com/u9401066/pubmed-search-mcp",
   "downloaded_at": "2026-01-22T03:59:20.403476Z",
   "dir_name": "roadmap-updater",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/roadmap-updater",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "cloudflare"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "agents/cloudflare",
+  "github_branch": "main"
 }

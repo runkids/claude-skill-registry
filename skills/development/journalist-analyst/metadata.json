@@ -7,5 +7,7 @@
     "journalist",
     "analyst"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/journalist-analyst",
+  "github_branch": "main"
 }

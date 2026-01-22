@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when reviewing UI diffs, accessibility audits, or flaky UI tests to catch a11y regressions, semantic issues, keyboard/focus problems, and to recommend minimal fixes plus role-based test selectors.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:39.990157Z"
+  "downloaded_at": "2026-01-06T09:10:39.990157Z",
+  "github_path": "skills/testing/claude-a11y-audit",
+  "github_branch": "main"
 }

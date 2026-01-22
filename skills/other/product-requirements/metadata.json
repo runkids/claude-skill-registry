@@ -5,5 +5,7 @@
   "source": "github.com/cexll/myclaude",
   "downloaded_at": "2026-01-21T01:04:08.555391Z",
   "dir_name": "product-requirements",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/product-requirements",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "weighted",
     "optimization"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/proof-weighted-optimization",
+  "github_branch": "main"
 }

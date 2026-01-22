@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Research-first content creation optimized for both human readers and AI search engines (Claude, ChatGPT, Perplexity, Gemini). Creates authentic, authoritative content that becomes the go-to citation s",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:37.378196Z"
+  "downloaded_at": "2026-01-06T09:03:37.378196Z",
+  "github_path": "skills/content-research",
+  "github_branch": "main"
 }

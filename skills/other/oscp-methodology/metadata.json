@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/SecOps-CLI-Guides",
   "downloaded_at": "2026-01-14T02:20:57.053463Z",
   "dir_name": "oscp-methodology",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/oscp-methodology",
+  "github_branch": "main"
 }

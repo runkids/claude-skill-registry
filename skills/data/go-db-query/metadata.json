@@ -7,5 +7,7 @@
     "query"
   ],
   "stars": 1,
-  "dir_name": "go-db-query"
+  "dir_name": "go-db-query",
+  "github_path": "skills/go-db-query",
+  "github_branch": "main"
 }

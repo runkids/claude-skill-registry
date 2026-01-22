@@ -5,5 +5,7 @@
   "source": "github.com/netresearch/typo3-ckeditor5-skill",
   "downloaded_at": "2026-01-22T02:25:52.322105Z",
   "dir_name": "typo3-ckeditor5",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/typo3-ckeditor5",
+  "github_branch": "main"
 }

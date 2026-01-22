@@ -7,5 +7,7 @@
     "html",
     "markup"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/html-markup",
+  "github_branch": "main"
 }

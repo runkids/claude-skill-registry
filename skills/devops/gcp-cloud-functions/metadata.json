@@ -8,5 +8,7 @@
     "cloud",
     "functions"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/gcp-cloud-functions",
+  "github_branch": "main"
 }

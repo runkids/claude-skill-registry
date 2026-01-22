@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Cross-model performance optimization and scaling configurations for autonomous agents",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.476473Z"
+  "downloaded_at": "2026-01-06T08:58:46.476473Z",
+  "github_path": "skills/performance-scaling",
+  "github_branch": "main"
 }

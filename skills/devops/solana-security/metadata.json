@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Audit Solana programs (Anchor or native Rust) for security vulnerabilities. Use when reviewing smart contract security, finding exploits, analyzing attack vectors, performing security assessments, or ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:58.114052Z"
+  "downloaded_at": "2026-01-06T08:58:58.114052Z",
+  "github_path": "solana/skills/solana-security",
+  "github_branch": "main"
 }

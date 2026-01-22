@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:10.168748Z",
   "dir_name": "reference-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/reference-builder",
+  "github_branch": "main"
 }

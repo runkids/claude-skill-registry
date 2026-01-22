@@ -7,5 +7,7 @@
     "workbench",
     "sync"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".codex/skills/workbench-sync",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "team-collaboration",
   "repo": "baz-scm/awesome-reviewers",
   "category": "development",
-  "description": "Working effectively with others in coding projects \u2013 including code reviews, clear communication, and contributing to shared or open-source codebases.",
+  "description": "Working effectively with others in coding projects – including code reviews, clear communication, and contributing to shared or open-source codebases.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:49.794728Z"
+  "downloaded_at": "2026-01-06T08:56:49.794728Z",
+  "github_path": "_skills/team-collaboration",
+  "github_branch": "main"
 }

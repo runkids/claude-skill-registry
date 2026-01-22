@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Start or stop the user-management FastAPI app. Use when you need to tun or kill the dev server.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:32.930266Z"
+  "downloaded_at": "2026-01-08T03:29:32.930266Z",
+  "github_path": "skills/start-stop-app",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-19T05:42:05.794853Z",
   "dir_name": "local-finetune",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/local-finetune",
+  "github_branch": "main"
 }

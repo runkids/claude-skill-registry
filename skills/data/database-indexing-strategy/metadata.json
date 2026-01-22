@@ -10,5 +10,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "database-indexing-strategy"
+  "dir_name": "database-indexing-strategy",
+  "github_path": "skills/database-indexing-strategy",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Generates end-to-end tests for complete user workflows",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:19.550534Z"
+  "downloaded_at": "2026-01-06T09:09:19.550534Z",
+  "github_path": "skills/testing/e2e-test-agent",
+  "github_branch": "main"
 }

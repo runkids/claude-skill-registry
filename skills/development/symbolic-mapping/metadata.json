@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Meaning engine that translates intention into safe, effective symbolic experience",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:40.141002Z"
+  "downloaded_at": "2026-01-08T03:20:40.141002Z",
+  "github_path": ".claude/skills/tier1-neural-core/symbolic-mapping",
+  "github_branch": "main"
 }

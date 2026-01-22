@@ -9,5 +9,7 @@
   ],
   "stars": 29,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "api-digest"
+  "dir_name": "api-digest",
+  "github_path": "skills/api-digest",
+  "github_branch": "main"
 }

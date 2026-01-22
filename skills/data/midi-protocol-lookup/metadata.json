@@ -9,5 +9,7 @@
     "lookup"
   ],
   "stars": 0,
-  "dir_name": "midi-protocol-lookup"
+  "dir_name": "midi-protocol-lookup",
+  "github_path": "skills/midi-protocol-lookup",
+  "github_branch": "main"
 }

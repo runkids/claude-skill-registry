@@ -8,5 +8,7 @@
     "system"
   ],
   "stars": 8,
-  "dir_name": "datum-system"
+  "dir_name": "datum-system",
+  "github_path": "skills/datum-system",
+  "github_branch": "main"
 }

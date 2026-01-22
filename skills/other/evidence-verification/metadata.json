@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-20T01:39:03.536453Z",
   "dir_name": "evidence-verification",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/evidence-verification",
+  "github_branch": "main"
 }

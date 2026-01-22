@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-14T01:33:36.652468Z",
   "dir_name": "forms-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-google/skills/forms-search",
+  "github_branch": "main"
 }

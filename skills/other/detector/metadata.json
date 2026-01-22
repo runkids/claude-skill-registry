@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:37.599501Z",
   "dir_name": "detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-ml/skills/anomaly-detector",
+  "github_branch": "main"
 }

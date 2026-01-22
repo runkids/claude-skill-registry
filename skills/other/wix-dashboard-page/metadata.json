@@ -5,5 +5,7 @@
   "source": "github.com/wix-incubator/wix-agentic-flows",
   "downloaded_at": "2026-01-20T01:16:50.570311Z",
   "dir_name": "wix-dashboard-page",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wix-dashboard-page",
+  "github_branch": "main"
 }

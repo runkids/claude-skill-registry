@@ -5,5 +5,7 @@
   "source": "github.com/parcadei/Continuous-Claude-v3",
   "downloaded_at": "2026-01-22T03:23:55.316234Z",
   "dir_name": "math-progress-monitor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/math/math-progress-monitor",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/autohandai/community-skills",
   "downloaded_at": "2026-01-22T03:12:07.654849Z",
   "dir_name": "tailwind-ui-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "tailwind-ui-patterns",
+  "github_branch": "main"
 }

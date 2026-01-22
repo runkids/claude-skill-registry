@@ -5,5 +5,7 @@
   "source": "github.com/leefowlercu/agent-kit",
   "downloaded_at": "2026-01-22T01:28:24.042199Z",
   "dir_name": "gtasks-todo-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/gtasks-todo-manager/skills/gtasks-todo-manager",
+  "github_branch": "main"
 }

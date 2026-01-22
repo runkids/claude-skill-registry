@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Route natural language requests to appropriate skills and workflows. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.434701Z"
+  "downloaded_at": "2026-01-06T08:56:58.434701Z",
+  "github_path": "plugins/utils/skills/nl-router",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:31.517159Z",
   "dir_name": "prototype-strategy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-research/prototype-strategy",
+  "github_branch": "main"
 }

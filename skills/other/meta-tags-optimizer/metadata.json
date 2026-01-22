@@ -5,5 +5,7 @@
   "source": "github.com/aaron-he-zhu/seo-geo-claude-skills",
   "downloaded_at": "2026-01-22T01:07:58.028381Z",
   "dir_name": "meta-tags-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "build/meta-tags-optimizer",
+  "github_branch": "main"
 }

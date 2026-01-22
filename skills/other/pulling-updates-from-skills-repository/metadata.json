@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:39.025091Z",
   "dir_name": "pulling-updates-from-skills-repository",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/superpowers-meta/pulling-updates-from-skills-repository",
+  "github_branch": "main"
 }

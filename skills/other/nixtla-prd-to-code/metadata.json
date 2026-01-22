@@ -5,5 +5,7 @@
   "source": "github.com/intent-solutions-io/plugins-nixtla",
   "downloaded_at": "2026-01-22T00:52:28.782317Z",
   "dir_name": "nixtla-prd-to-code",
-  "category": "other"
+  "category": "other",
+  "github_path": "003-skills/.claude/skills/nixtla-prd-to-code",
+  "github_branch": "main"
 }

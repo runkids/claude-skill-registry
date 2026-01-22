@@ -7,5 +7,7 @@
     "tutorial",
     "writing"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "skills/tutorial-writing",
+  "github_branch": "main"
 }

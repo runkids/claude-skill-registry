@@ -5,5 +5,7 @@
   "source": "github.com/githubnext/gh-aw",
   "downloaded_at": "2026-01-14T02:08:49.647887Z",
   "dir_name": "debugging-workflows",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/debugging-workflows",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Starlitnightly/omicverse",
   "downloaded_at": "2026-01-21T03:02:05.517188Z",
   "dir_name": "single-cellphone-db",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/single-cellphone-db",
+  "github_branch": "main"
 }

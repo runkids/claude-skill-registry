@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use when implementing Apollo caching strategies including cache policies, optimistic UI, cache updates, and normalization.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:00.809980Z"
+  "downloaded_at": "2026-01-06T08:57:00.809980Z",
+  "github_path": "jutsu/jutsu-apollo-graphql/skills/apollo-caching-strategies",
+  "github_branch": "main"
 }

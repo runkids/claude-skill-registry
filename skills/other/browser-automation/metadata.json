@@ -5,5 +5,7 @@
   "source": "github.com/archubbuck/workspace-architect",
   "downloaded_at": "2026-01-22T03:43:46.323108Z",
   "dir_name": "browser-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": "assets/skills/browser-automation",
+  "github_branch": "main"
 }

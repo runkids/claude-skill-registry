@@ -8,5 +8,7 @@
     "native",
     "expert"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/mobile/react-native-expert",
+  "github_branch": "main"
 }

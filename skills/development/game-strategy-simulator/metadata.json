@@ -8,5 +8,7 @@
     "strategy",
     "simulator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "game-strategy-simulator",
+  "github_branch": "main"
 }

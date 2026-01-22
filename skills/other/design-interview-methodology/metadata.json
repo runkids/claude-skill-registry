@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:12.183734Z",
   "dir_name": "design-interview-methodology",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/design-interview-methodology",
+  "github_branch": "main"
 }

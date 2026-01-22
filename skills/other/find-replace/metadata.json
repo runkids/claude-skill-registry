@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:11.113707Z",
   "dir_name": "find-replace",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/find-replace",
+  "github_branch": "main"
 }

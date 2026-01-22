@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Core Cucumber concepts, Gherkin syntax, and feature file structure",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:02.478461Z"
+  "downloaded_at": "2026-01-06T08:57:02.478461Z",
+  "github_path": "jutsu/jutsu-cucumber/skills/cucumber-fundamentals",
+  "github_branch": "main"
 }

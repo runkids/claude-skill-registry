@@ -4,5 +4,7 @@
   "category": "design",
   "description": "CSS, SCSS, and styling conventions. Use when writing, reviewing, or debugging styles and layouts.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:02.695539Z"
+  "downloaded_at": "2026-01-06T09:11:02.695539Z",
+  "github_path": ".automatasaurus/skills/css-standards",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/aemysites/sagarsane-20250826",
   "downloaded_at": "2026-01-22T04:04:10.991161Z",
   "dir_name": "building-blocks",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/building-blocks",
+  "github_branch": "main"
 }

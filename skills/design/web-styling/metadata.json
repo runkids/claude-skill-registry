@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Styling patterns for React web applications. Use when working with Tailwind CSS, CSS Modules, theming, responsive design, or component styling.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:31.874760Z"
+  "downloaded_at": "2026-01-06T09:04:31.874760Z",
+  "github_path": "skills/web-styling",
+  "github_branch": "main"
 }

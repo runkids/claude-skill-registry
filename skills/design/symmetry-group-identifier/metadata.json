@@ -8,5 +8,7 @@
     "group",
     "identifier"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/symmetry-group-identifier",
+  "github_branch": "main"
 }

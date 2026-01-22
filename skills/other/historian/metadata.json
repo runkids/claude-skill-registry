@@ -5,5 +5,7 @@
   "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
   "downloaded_at": "2026-01-22T04:09:56.150548Z",
   "dir_name": "historian",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/historian",
+  "github_branch": "main"
 }

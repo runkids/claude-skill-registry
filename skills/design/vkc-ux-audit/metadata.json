@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Run a VKC UX expert audit (Nielsen-style heuristic review + mobile-first flow check) and produce a prioritized issue list with severity and fixes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:46.544962Z"
+  "downloaded_at": "2026-01-06T09:06:46.544962Z",
+  "github_path": ".codex/skills/vkc-ux-audit",
+  "github_branch": "main"
 }

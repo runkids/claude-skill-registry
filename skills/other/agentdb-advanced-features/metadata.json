@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:54.504357Z",
   "dir_name": "agentdb-advanced-features",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/platforms/agentdb-advanced-features",
+  "github_branch": "main"
 }

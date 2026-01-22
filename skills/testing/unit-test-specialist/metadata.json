@@ -8,5 +8,7 @@
     "test",
     "specialist"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/unit-test-specialist",
+  "github_branch": "main"
 }

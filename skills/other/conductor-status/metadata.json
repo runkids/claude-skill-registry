@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:08.501536Z",
   "dir_name": "conductor-status",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/conductor-status",
+  "github_branch": "main"
 }

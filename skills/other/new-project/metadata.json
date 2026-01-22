@@ -5,5 +5,7 @@
   "source": "github.com/nathanial/lean-workspace",
   "downloaded_at": "2026-01-22T02:58:27.752225Z",
   "dir_name": "new-project",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/new-project",
+  "github_branch": "main"
 }

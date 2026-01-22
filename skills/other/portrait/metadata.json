@@ -5,5 +5,7 @@
   "source": "github.com/KvFxKaido/SENTINEL",
   "downloaded_at": "2026-01-22T01:19:00.932512Z",
   "dir_name": "portrait",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/portrait",
+  "github_branch": "main"
 }

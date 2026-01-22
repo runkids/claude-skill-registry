@@ -2,7 +2,9 @@
   "name": "predeploy",
   "repo": "dlehdgml5328/bodam",
   "category": "devops",
-  "description": "\ubc30\ud3ec \uc804 \uc885\ud569 \uac80\uc99d - \ud14c\uc2a4\ud2b8/\ub9b0\ud2b8/\ube4c\ub4dc/\ud658\uacbd \uc124\uc815\uc744 \uc790\ub3d9 \ud655\uc778\ud558\uc5ec \ubc30\ud3ec \uac00\ub2a5 \uc5ec\ubd80 \ud310\ub2e8. \ubc30\ud3ec \uc804 \ub610\ub294 \uc0ac\uc6a9\uc790\uac00 \"\ubc30\ud3ec \uac00\ub2a5\ud55c\uc9c0 \ud655\uc778\", \"\ud14c\uc2a4\ud2b8 \uc2e4\ud589\" \uc694\uccad \uc2dc \uc0ac\uc6a9.",
+  "description": "배포 전 종합 검증 - 테스트/린트/빌드/환경 설정을 자동 확인하여 배포 가능 여부 판단. 배포 전 또는 사용자가 \"배포 가능한지 확인\", \"테스트 실행\" 요청 시 사용.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:07.072235Z"
+  "downloaded_at": "2026-01-06T09:05:07.072235Z",
+  "github_path": ".claude/skills/predeploy",
+  "github_branch": "main"
 }

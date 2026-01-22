@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Clarify requirements before implementing. Do not use automatically, only when invoked explicitly.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:11.658389Z"
+  "downloaded_at": "2026-01-06T09:10:11.658389Z",
+  "github_path": "skills/ask-details",
+  "github_branch": "main"
 }

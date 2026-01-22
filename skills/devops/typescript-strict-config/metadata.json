@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Strict TypeScript configuration with all safety flags enabled. Use when initializing TypeScript projects or enforcing type safety.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:15.582127Z"
+  "downloaded_at": "2026-01-06T09:06:15.582127Z",
+  "github_path": "tech-stacks/js/common/skills/typescript-strict-config",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "setup"
   ],
   "stars": 25,
-  "dir_name": "data-replication-setup"
+  "dir_name": "data-replication-setup",
+  "github_path": "skills/data-replication-setup",
+  "github_branch": "main"
 }

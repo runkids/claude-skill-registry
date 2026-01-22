@@ -10,5 +10,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ethics-safety-impact"
+  "dir_name": "ethics-safety-impact",
+  "github_path": "skills/ethics-safety-impact",
+  "github_branch": "main"
 }

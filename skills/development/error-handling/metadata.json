@@ -8,5 +8,7 @@
     "handling"
   ],
   "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".roo/skills/error-handling",
+  "github_branch": "main"
 }

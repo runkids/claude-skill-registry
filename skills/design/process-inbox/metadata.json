@@ -7,5 +7,7 @@
     "process",
     "inbox"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "process-inbox",
+  "github_branch": "main"
 }

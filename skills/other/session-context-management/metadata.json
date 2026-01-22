@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:32.015090Z",
   "dir_name": "session-context-management",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/session-context-management",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generate optimized Dockerfiles and docker-compose.yml with best practices and multi-stage builds",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:24.282725Z"
+  "downloaded_at": "2026-01-06T09:02:24.282725Z",
+  "github_path": "skills/devops/docker-wizard",
+  "github_branch": "main"
 }

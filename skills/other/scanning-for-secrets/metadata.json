@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:05.289110Z",
   "dir_name": "scanning-for-secrets",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/security/secret-scanner/skills/scanning-for-secrets",
+  "github_branch": "main"
 }

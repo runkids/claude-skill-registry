@@ -8,5 +8,7 @@
     "lookup"
   ],
   "stars": 14334,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "cli-tool/components/skills/scientific/research-lookup",
+  "github_branch": "main"
 }

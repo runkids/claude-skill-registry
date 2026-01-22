@@ -5,5 +5,7 @@
   "source": "github.com/astoeffer/plugin-marketplace",
   "downloaded_at": "2026-01-14T03:02:32.869963Z",
   "dir_name": "wcag-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/moodle-dev-pro/skills/wcag-validator",
+  "github_branch": "main"
 }

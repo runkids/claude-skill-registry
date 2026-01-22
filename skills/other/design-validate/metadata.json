@@ -5,5 +5,7 @@
   "source": "github.com/spencerbeggs/claude-design-coordinator",
   "downloaded_at": "2026-01-22T02:41:52.758081Z",
   "dir_name": "design-validate",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/design-validate",
+  "github_branch": "main"
 }

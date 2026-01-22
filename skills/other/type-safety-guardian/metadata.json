@@ -5,5 +5,7 @@
   "source": "github.com/Dexploarer/hyper-forge",
   "downloaded_at": "2026-01-22T01:08:16.340756Z",
   "dir_name": "type-safety-guardian",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/plugins/core-dev/skills/type-safety-guardian",
+  "github_branch": "main"
 }

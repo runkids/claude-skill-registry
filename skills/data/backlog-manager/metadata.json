@@ -9,5 +9,7 @@
   ],
   "stars": 12,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "backlog-manager"
+  "dir_name": "backlog-manager",
+  "github_path": "plugins/majestic-engineer/skills/backlog-manager",
+  "github_branch": "main"
 }

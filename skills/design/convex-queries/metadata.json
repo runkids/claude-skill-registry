@@ -7,5 +7,7 @@
     "convex",
     "queries"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": "convex-queries",
+  "github_branch": "main"
 }

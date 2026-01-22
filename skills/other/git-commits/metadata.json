@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:42.941155Z",
   "dir_name": "git-commits",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/git-commits",
+  "github_branch": "main"
 }

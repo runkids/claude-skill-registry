@@ -6,5 +6,7 @@
   "tags": [
     "karpenter"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/karpenter",
+  "github_branch": "main"
 }

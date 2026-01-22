@@ -8,5 +8,7 @@
     "advanced",
     "routing"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "nextjs-advanced-routing",
+  "github_branch": "main"
 }

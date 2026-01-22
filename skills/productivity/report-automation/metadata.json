@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Master enterprise reporting automation including scheduling, distribution, templates, governance, and monitoring",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:43.700449Z"
+  "downloaded_at": "2026-01-06T09:02:43.700449Z",
+  "github_path": "skills/report-automation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:39.681341Z",
   "dir_name": "progress-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave/skills/progress-sync",
+  "github_branch": "main"
 }

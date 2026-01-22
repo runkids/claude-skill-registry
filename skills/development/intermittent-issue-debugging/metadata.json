@@ -8,5 +8,7 @@
     "issue",
     "debugging"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/intermittent-issue-debugging",
+  "github_branch": "main"
 }

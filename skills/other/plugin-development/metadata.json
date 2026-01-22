@@ -5,5 +5,7 @@
   "source": "github.com/GGPrompts/my-gg-plugins",
   "downloaded_at": "2026-01-21T01:06:44.365648Z",
   "dir_name": "plugin-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plugin-development",
+  "github_branch": "main"
 }

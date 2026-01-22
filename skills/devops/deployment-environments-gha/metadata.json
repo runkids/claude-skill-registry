@@ -2,7 +2,9 @@
   "name": "deployment-environments-gha",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "devops",
-  "description": "GitHub Actions \u306e environments \u8a2d\u8a08\u3001\u627f\u8a8d\u30d5\u30ed\u30fc\u3001\u30b7\u30fc\u30af\u30ec\u30c3\u30c8\u904b\u7528\u3092\u4f53\u7cfb\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3002\u8907\u6570\u74b0\u5883\u306e\u4fdd\u8b77\u30eb\u30fc\u30eb\u3068\u6bb5\u968e\u7684\u30c7\u30d7\u30ed\u30a4\u3092\u6574\u7406\u3059\u308b\u3002Anchors:\u2022 Release It! / \u9069\u7528: \u74b0\u5883\u5206\u96e2 / \u76ee\u7684: \u672c\u756a\u4fdd\u8b77\u2022 GitHub Actions / \u9069\u7528: environments \u3068 approval / \u76ee\u7684: \u6a19\u6e96\u7684\u306a\u904b\u7528\u8a2d\u8a08\u2022 The Pragmatic",
+  "description": "GitHub Actions の environments 設計、承認フロー、シークレット運用を体系化するスキル。複数環境の保護ルールと段階的デプロイを整理する。Anchors:• Release It! / 適用: 環境分離 / 目的: 本番保護• GitHub Actions / 適用: environments と approval / 目的: 標準的な運用設計• The Pragmatic",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:41.634091Z"
+  "downloaded_at": "2026-01-06T09:00:41.634091Z",
+  "github_path": "docs/99-claude/skills/deployment-environments-gha",
+  "github_branch": "main"
 }

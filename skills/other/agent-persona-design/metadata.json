@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-21T02:43:08.082896Z",
   "dir_name": "agent-persona-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/agent-persona-design",
+  "github_branch": "main"
 }

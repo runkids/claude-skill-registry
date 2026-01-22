@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:07.381499Z",
   "dir_name": "moai-security-owasp",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-security-owasp",
+  "github_branch": "main"
 }

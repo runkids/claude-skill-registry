@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "GraphQL mutation design including payload patterns, field-specific errors, input objects, and HTTP semantics. Use when designing or implementing GraphQL mutations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:30.995618Z"
+  "downloaded_at": "2026-01-06T09:10:30.995618Z",
+  "github_path": "plugins/cc-graphql/skills/graphql-mutations",
+  "github_branch": "main"
 }

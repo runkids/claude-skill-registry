@@ -8,5 +8,7 @@
     "generator"
   ],
   "stars": 4,
-  "dir_name": "reference-generator"
+  "dir_name": "reference-generator",
+  "github_path": "skills/reference-generator",
+  "github_branch": "main"
 }

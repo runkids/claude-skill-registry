@@ -8,5 +8,7 @@
     "conflict",
     "resolver"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/merge-conflict-resolver",
+  "github_branch": "main"
 }

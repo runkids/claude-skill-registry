@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:32.240801Z",
   "dir_name": "heuristic-evaluation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-research/heuristic-evaluation",
+  "github_branch": "main"
 }

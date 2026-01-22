@@ -10,5 +10,7 @@
     "native"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude",
+  "github_branch": "main"
 }

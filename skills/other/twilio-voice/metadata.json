@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-22T02:47:03.406777Z",
   "dir_name": "twilio-voice",
-  "category": "other"
+  "category": "other",
+  "github_path": "INTEGRATION/processed/twilio-voice",
+  "github_branch": "main"
 }

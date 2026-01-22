@@ -8,5 +8,7 @@
     "actions",
     "writer"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "github-actions-writer",
+  "github_branch": "main"
 }

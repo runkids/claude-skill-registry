@@ -5,5 +5,7 @@
   "source": "github.com/chaserbreitenbach/claude-skills-and-agents",
   "downloaded_at": "2026-01-22T02:09:04.689696Z",
   "dir_name": "safety-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/workflows/safety-architecture",
+  "github_branch": "main"
 }

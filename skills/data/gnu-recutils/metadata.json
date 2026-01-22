@@ -8,5 +8,7 @@
     "recutils"
   ],
   "stars": 1,
-  "dir_name": "gnu-recutils"
+  "dir_name": "gnu-recutils",
+  "github_path": ".claude/skills/gnu-recutils",
+  "github_branch": "main"
 }

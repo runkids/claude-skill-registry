@@ -5,5 +5,7 @@
   "source": "github.com/naporin0624/claude-plugin-hono-electron",
   "downloaded_at": "2026-01-19T01:39:21.058568Z",
   "dir_name": "jotai-reactive-atoms",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/jotai-reactive-atoms",
+  "github_branch": "main"
 }

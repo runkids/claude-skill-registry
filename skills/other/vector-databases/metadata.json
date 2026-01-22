@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:56.265520Z",
   "dir_name": "vector-databases",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/vector-databases",
+  "github_branch": "main"
 }

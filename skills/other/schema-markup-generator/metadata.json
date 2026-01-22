@@ -5,5 +5,7 @@
   "source": "github.com/aaron-he-zhu/seo-geo-claude-skills",
   "downloaded_at": "2026-01-22T01:07:58.415448Z",
   "dir_name": "schema-markup-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "build/schema-markup-generator",
+  "github_branch": "main"
 }

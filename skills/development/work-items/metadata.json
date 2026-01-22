@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Optimize and analyze work items for LLM-assisted development",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:50.683658Z"
+  "downloaded_at": "2026-01-06T09:04:50.683658Z",
+  "github_path": "plugins/work-items/skills",
+  "github_branch": "main"
 }

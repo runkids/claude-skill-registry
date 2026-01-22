@@ -9,5 +9,7 @@
     "creativity"
   ],
   "stars": 8,
-  "dir_name": "constraint-based-creativity"
+  "dir_name": "constraint-based-creativity",
+  "github_path": "skills/constraint-based-creativity",
+  "github_branch": "main"
 }

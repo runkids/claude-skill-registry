@@ -2,7 +2,9 @@
   "name": "summarizing-conversations-to-obsidian",
   "repo": "pppobear/dotfiles",
   "category": "development",
-  "description": "Use when user requests to save conversation summary to Obsidian, mentions \"\u603b\u7ed3\", \"\u4fdd\u5b58\u7b14\u8bb0\", \"\u5361\u7247\u7b14\u8bb0\", or Zettelkasten - creates atomic, well-structured notes following Zettelkasten principles without guessi",
+  "description": "Use when user requests to save conversation summary to Obsidian, mentions \"总结\", \"保存笔记\", \"卡片笔记\", or Zettelkasten - creates atomic, well-structured notes following Zettelkasten principles without guessi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:42.515849Z"
+  "downloaded_at": "2026-01-06T09:07:42.515849Z",
+  "github_path": "dot_claude/skills/summarizing-conversations-to-obsidian",
+  "github_branch": "main"
 }

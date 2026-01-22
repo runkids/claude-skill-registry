@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use migrate dev for versioned migrations; db push for rapid prototyping. Use when developing schema changes locally.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:01.450582Z"
+  "downloaded_at": "2026-01-06T09:05:01.450582Z",
+  "github_path": "prisma-6/skills/managing-dev-migrations",
+  "github_branch": "main"
 }

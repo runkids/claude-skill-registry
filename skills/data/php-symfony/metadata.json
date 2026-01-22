@@ -8,5 +8,7 @@
     "symfony"
   ],
   "stars": 1,
-  "dir_name": "php-symfony"
+  "dir_name": "php-symfony",
+  "github_path": "skills/php-symfony",
+  "github_branch": "main"
 }

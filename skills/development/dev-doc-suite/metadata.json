@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive documentation suite for generating READMEs, API references, and internal guides based on code analysis.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:05.424321Z"
+  "downloaded_at": "2026-01-06T09:11:05.424321Z",
+  "github_path": ".agent/skills/dev-doc-suite",
+  "github_branch": "main"
 }

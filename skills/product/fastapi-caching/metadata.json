@@ -4,5 +4,7 @@
   "category": "product",
   "description": "This skill should be used when the user asks to \"add caching\", \"implement Redis cache\", \"cache API response\", \"invalidate cache\", \"add cache layer\", \"optimize with caching\", or mentions Redis, caching",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:51.099650Z"
+  "downloaded_at": "2026-01-06T09:06:51.099650Z",
+  "github_path": "plugins/fastapi-backend/skills/fastapi-caching",
+  "github_branch": "main"
 }

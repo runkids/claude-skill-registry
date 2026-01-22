@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Comprehensive scientific document review and analysis. Use when Claude needs to review scientific papers, reports, preprints, or other research documents for: (1) Identifying and evaluating claims and",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:53.386313Z"
+  "downloaded_at": "2026-01-06T08:59:53.386313Z",
+  "github_path": "skills/research/scientific-reviewer",
+  "github_branch": "main"
 }

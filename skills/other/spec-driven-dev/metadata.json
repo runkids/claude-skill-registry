@@ -5,5 +5,7 @@
   "source": "github.com/AsiaOstrich/universal-dev-standards",
   "downloaded_at": "2026-01-22T02:27:03.214755Z",
   "dir_name": "spec-driven-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "locales/zh-CN/skills/claude-code/spec-driven-dev",
+  "github_branch": "main"
 }

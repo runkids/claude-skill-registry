@@ -9,5 +9,7 @@
     "locally"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/build-kit-locally",
+  "github_branch": "main"
 }

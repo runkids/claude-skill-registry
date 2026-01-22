@@ -2,7 +2,9 @@
   "name": "concurrency-control",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "devops",
-  "description": "GitHub Actions \u306e\u4e26\u884c\u5b9f\u884c\u5236\u5fa1\u3092\u8a2d\u8a08\u3057\u3001\u30ec\u30fc\u30b9\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u3092\u9632\u6b62\u3059\u308b\u30b9\u30ad\u30eb\u3002concurrency.group \u3068 cancel-in-progress \u3092\u7528\u3044\u305f\u7af6\u5408\u56de\u907f\u3068\u691c\u8a3c\u624b\u9806\u3092\u6574\u7406\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u4e26\u884c\u5b9f\u884c\u5236\u5fa1\u3068\u54c1\u8cea\u7dad\u6301 / \u76ee\u7684: \u5b9f\u8df5\u7684\u306a\u6539\u5584\u539f\u5247\u306e\u9069\u7528\u2022 GitHub Actions Concurren",
+  "description": "GitHub Actions の並行実行制御を設計し、レースコンディションを防止するスキル。concurrency.group と cancel-in-progress を用いた競合回避と検証手順を整理する。Anchors:• The Pragmatic Programmer / 適用: 並行実行制御と品質維持 / 目的: 実践的な改善原則の適用• GitHub Actions Concurren",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:41.328664Z"
+  "downloaded_at": "2026-01-06T09:00:41.328664Z",
+  "github_path": "docs/99-claude/skills/concurrency-control",
+  "github_branch": "main"
 }

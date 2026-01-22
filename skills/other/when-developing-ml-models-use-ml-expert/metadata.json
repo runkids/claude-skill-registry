@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:39:02.629874Z",
   "dir_name": "when-developing-ml-models-use-ml-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/machine-learning/when-developing-ml-models-use-ml-expert",
+  "github_branch": "main"
 }

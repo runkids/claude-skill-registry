@@ -5,5 +5,7 @@
   "source": "github.com/parcadei/Continuous-Claude-v3",
   "downloaded_at": "2026-01-22T03:23:55.833836Z",
   "dir_name": "predicate-logic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/math/mathematical-logic/predicate-logic",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/cursor-dev-system",
   "downloaded_at": "2026-01-22T02:41:41.270188Z",
   "dir_name": "implementation-verifier",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/implementation-verifier",
+  "github_branch": "main"
 }

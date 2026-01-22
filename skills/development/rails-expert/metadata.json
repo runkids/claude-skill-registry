@@ -7,5 +7,7 @@
     "rails",
     "expert"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/rails-expert",
+  "github_branch": "main"
 }

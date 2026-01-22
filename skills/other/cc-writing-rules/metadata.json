@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:51.196475Z",
   "dir_name": "cc-writing-rules",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/cc-writing-rules",
+  "github_branch": "main"
 }

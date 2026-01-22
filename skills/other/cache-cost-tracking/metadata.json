@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-19T00:58:01.946841Z",
   "dir_name": "cache-cost-tracking",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cache-cost-tracking",
+  "github_branch": "main"
 }

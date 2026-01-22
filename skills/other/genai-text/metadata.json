@@ -5,5 +5,7 @@
   "source": "github.com/Onward-Technologies/onward-google-genai",
   "downloaded_at": "2026-01-22T01:16:36.627791Z",
   "dir_name": "genai-text",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/genai-text",
+  "github_branch": "main"
 }

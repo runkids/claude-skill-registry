@@ -5,5 +5,7 @@
   "source": "github.com/pproenca/dot-skills",
   "downloaded_at": "2026-01-22T02:36:28.247327Z",
   "dir_name": "ts-google",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/.experimental/ts-google",
+  "github_branch": "main"
 }

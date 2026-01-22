@@ -5,5 +5,7 @@
   "source": "github.com/benbrastmckie/ModelChecker",
   "downloaded_at": "2026-01-17T02:43:12.465728Z",
   "dir_name": "skill-model-checker",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/skill-model-checker",
+  "github_branch": "main"
 }

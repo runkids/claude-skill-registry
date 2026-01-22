@@ -6,5 +6,7 @@
   "tags": [
     "testing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/testing-qa",
+  "github_branch": "main"
 }

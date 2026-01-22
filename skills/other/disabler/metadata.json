@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:04.446084Z",
   "dir_name": "disabler",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-plugin/skills/disabler",
+  "github_branch": "main"
 }

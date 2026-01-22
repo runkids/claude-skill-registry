@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Master Rails 7+ patterns with MVC, Active Record, Hotwire, Action Cable, and modern Rails development practices.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:59.033851Z"
+  "downloaded_at": "2026-01-06T09:02:59.033851Z",
+  "github_path": "plugins/ruby-development/skills/rails-patterns",
+  "github_branch": "main"
 }

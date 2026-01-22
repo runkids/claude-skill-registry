@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Generate comprehensive documentation from codebase analysis - creates README sections, API docs, migration guides, and examples from code",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:57.288774Z"
+  "downloaded_at": "2026-01-06T09:09:57.288774Z",
+  "github_path": "packages/popkit-core/skills/pop-auto-docs",
+  "github_branch": "main"
 }

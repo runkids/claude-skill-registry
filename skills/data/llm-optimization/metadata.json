@@ -8,5 +8,7 @@
     "optimization"
   ],
   "stars": 0,
-  "dir_name": "llm-optimization"
+  "dir_name": "llm-optimization",
+  "github_path": "llm-optimization",
+  "github_branch": "main"
 }

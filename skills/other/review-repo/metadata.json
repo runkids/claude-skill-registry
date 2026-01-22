@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:14.926620Z",
   "dir_name": "review-repo",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/review_repo",
+  "github_branch": "main"
 }

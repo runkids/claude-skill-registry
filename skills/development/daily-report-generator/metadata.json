@@ -2,7 +2,9 @@
   "name": "daily-report-generator",
   "repo": "knishioka/machine-learning-workshop",
   "category": "development",
-  "description": "Git\u30b3\u30df\u30c3\u30c8\u30ed\u30b0\u3068Calendar\u60c5\u5831\u304b\u3089\u65e5\u5831\u30fb\u9031\u5831\u3092\u81ea\u52d5\u751f\u6210\u3059\u308bSkill\u3002\u300c\u65e5\u5831\u3092\u4f5c\u3063\u3066\u300d\u300c\u9031\u5831\u3092\u66f8\u3044\u3066\u300d\u300c\u4eca\u9031\u4f55\u3084\u3063\u305f\u304b\u6559\u3048\u3066\u300d\u300c\u30b9\u30bf\u30f3\u30c9\u30a2\u30c3\u30d7\u30ce\u30fc\u30c8\u300d\u306a\u3069\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u81ea\u52d5\u767a\u706b\u3059\u308b\u3002",
+  "description": "GitコミットログとCalendar情報から日報・週報を自動生成するSkill。「日報を作って」「週報を書いて」「今週何やったか教えて」「スタンドアップノート」などのリクエストで自動発火する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:56.544514Z"
+  "downloaded_at": "2026-01-06T08:58:56.544514Z",
+  "github_path": "claude-skills/daily-report-generator",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "wuwuole-poem",
   "repo": "FlameMiss9/FlameMiss",
   "category": "development",
-  "description": "\u4ee5\"\u7a9d\u7a9d\u4e50\"\u4e3a\u9898\u521b\u4f5c\u6807\u51c6\u4e03\u8a00\u5f8b\u8bd7",
+  "description": "以\"窝窝乐\"为题创作标准七言律诗",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:35.944000Z"
+  "downloaded_at": "2026-01-06T09:10:35.944000Z",
+  "github_path": "lele-rage-plugin/skills/wuwuole-poem",
+  "github_branch": "main"
 }

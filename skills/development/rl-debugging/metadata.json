@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Systematic RL debugging - diagnose learning failures, common bugs, diagnosis trees",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:41.464508Z"
+  "downloaded_at": "2026-01-06T09:08:41.464508Z",
+  "github_path": ".claude/skills/yzmir-deep-rl/skills/rl-debugging",
+  "github_branch": "main"
 }

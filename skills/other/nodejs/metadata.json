@@ -5,5 +5,7 @@
   "source": "github.com/Squirrelfishcityhall150/claude-code-kit",
   "downloaded_at": "2026-01-22T02:56:51.755153Z",
   "dir_name": "nodejs",
-  "category": "other"
+  "category": "other",
+  "github_path": "cli/kits/nodejs/skills/nodejs",
+  "github_branch": "main"
 }

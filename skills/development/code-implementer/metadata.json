@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Implements production code for PHP/CakePHP applications based on functional design specifications",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:00.741693Z"
+  "downloaded_at": "2026-01-06T09:01:00.741693Z",
+  "github_path": "skills/typescript-react/code-implementer",
+  "github_branch": "main"
 }

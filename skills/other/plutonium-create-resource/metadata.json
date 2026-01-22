@@ -5,5 +5,7 @@
   "source": "github.com/radioactive-labs/plutonium-core",
   "downloaded_at": "2026-01-22T03:05:18.099997Z",
   "dir_name": "plutonium-create-resource",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plutonium-create-resource",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "profiler"
   ],
   "stars": 0,
-  "dir_name": "data-profiler"
+  "dir_name": "data-profiler",
+  "github_path": "skills/data-profiler",
+  "github_branch": "main"
 }

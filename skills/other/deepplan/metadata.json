@@ -5,5 +5,7 @@
   "source": "github.com/edheltzel/atlas",
   "downloaded_at": "2026-01-14T01:35:27.637748Z",
   "dir_name": "deepplan",
-  "category": "other"
+  "category": "other",
+  "github_path": ".atlasOG/exports/modules/skills/skills/DeepPlan",
+  "github_branch": "main"
 }

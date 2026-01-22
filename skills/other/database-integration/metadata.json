@@ -5,5 +5,7 @@
   "source": "github.com/bitsoex/bitso-java",
   "downloaded_at": "2026-01-22T02:30:40.071586Z",
   "dir_name": "database-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/database-integration",
+  "github_branch": "main"
 }

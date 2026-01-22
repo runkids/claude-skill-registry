@@ -6,5 +6,7 @@
   "tags": [],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "db"
+  "dir_name": "db",
+  "github_path": "skills/db",
+  "github_branch": "main"
 }

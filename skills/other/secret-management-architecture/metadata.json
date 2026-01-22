@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-20T01:41:10.672612Z",
   "dir_name": "secret-management-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/secret-management-architecture",
+  "github_branch": "main"
 }

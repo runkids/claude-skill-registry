@@ -7,5 +7,7 @@
     "sveltia",
     "cms"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/sveltia-cms",
+  "github_branch": "main"
 }

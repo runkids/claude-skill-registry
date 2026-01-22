@@ -10,5 +10,7 @@
     "development"
   ],
   "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "breenix-interrupt-syscall-development",
+  "github_branch": "main"
 }

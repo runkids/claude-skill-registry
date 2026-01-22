@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Implement agent evaluation and safety gates using MLflow 3.x. Use for creating LLM-as-Judge scorers, evaluation datasets, quality gates, tracing, and continuous evaluation. Triggers on \"evaluate agent",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:13.711712Z"
+  "downloaded_at": "2026-01-06T09:01:13.711712Z",
+  "github_path": "archive/skills/agent-evaluation-mlflow",
+  "github_branch": "main"
 }

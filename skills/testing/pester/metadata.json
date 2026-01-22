@@ -6,5 +6,7 @@
   "tags": [
     "pester"
   ],
-  "stars": 16
+  "stars": 16,
+  "github_path": ".claude/skills/pester",
+  "github_branch": "main"
 }

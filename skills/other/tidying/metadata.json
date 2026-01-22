@@ -5,5 +5,7 @@
   "source": "github.com/staticWagomU/dotfiles",
   "downloaded_at": "2026-01-22T00:55:41.694882Z",
   "dir_name": "tidying",
-  "category": "other"
+  "category": "other",
+  "github_path": "config/claude/skills/tidying",
+  "github_branch": "main"
 }

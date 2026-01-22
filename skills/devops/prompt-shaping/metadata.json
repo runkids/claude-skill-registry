@@ -7,5 +7,7 @@
     "prompt",
     "shaping"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/prompt-shaping",
+  "github_branch": "main"
 }

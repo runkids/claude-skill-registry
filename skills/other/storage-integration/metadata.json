@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:17.387833Z",
   "dir_name": "storage-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos/shelby/storage-integration",
+  "github_branch": "main"
 }

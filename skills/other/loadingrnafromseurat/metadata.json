@@ -5,5 +5,7 @@
   "source": "github.com/pwwang/immunopipe",
   "downloaded_at": "2026-01-22T03:34:35.546063Z",
   "dir_name": "loadingrnafromseurat",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/loadingrnafromseurat",
+  "github_branch": "main"
 }

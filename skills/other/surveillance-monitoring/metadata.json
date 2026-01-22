@@ -5,5 +5,7 @@
   "source": "github.com/DataKnifeAI/unifi-protect-mcp",
   "downloaded_at": "2026-01-22T01:04:35.086552Z",
   "dir_name": "surveillance-monitoring",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/surveillance-monitoring",
+  "github_branch": "main"
 }

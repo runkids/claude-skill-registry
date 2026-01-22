@@ -5,5 +5,7 @@
   "source": "github.com/Tony363/SuperClaude",
   "downloaded_at": "2026-01-22T01:21:09.879539Z",
   "dir_name": "agent-dx-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/DEPRECATED/agent-dx-optimizer",
+  "github_branch": "main"
 }

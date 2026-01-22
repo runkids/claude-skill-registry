@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:09.452751Z",
   "dir_name": "config-schema-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/config-schema-setup",
+  "github_branch": "main"
 }

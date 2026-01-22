@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:35:03.690510Z",
   "dir_name": "algebraic-rewriting",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/algebraic-rewriting",
+  "github_branch": "main"
 }

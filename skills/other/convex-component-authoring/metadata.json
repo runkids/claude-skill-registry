@@ -5,5 +5,7 @@
   "source": "github.com/waynesutton/convexskills",
   "downloaded_at": "2026-01-22T02:21:09.254462Z",
   "dir_name": "convex-component-authoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/convex-component-authoring",
+  "github_branch": "main"
 }

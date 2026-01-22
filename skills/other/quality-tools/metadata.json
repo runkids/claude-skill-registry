@@ -5,5 +5,7 @@
   "source": "github.com/TheBeardedBearSAS/claude-craft",
   "downloaded_at": "2026-01-22T04:10:46.174299Z",
   "dir_name": "quality-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "Dev/i18n/pt/Flutter/skills/quality-tools",
+  "github_branch": "main"
 }

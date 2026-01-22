@@ -5,5 +5,7 @@
   "source": "github.com/ingpoc/SKILLS",
   "downloaded_at": "2026-01-22T02:39:34.608640Z",
   "dir_name": "browser-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "browser-testing",
+  "github_branch": "main"
 }

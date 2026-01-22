@@ -5,5 +5,7 @@
   "source": "github.com/willsigmon/sigstack-site",
   "downloaded_at": "2026-01-17T02:00:48.885828Z",
   "dir_name": "xcode-build-fixer",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/xcode-build-fixer",
+  "github_branch": "main"
 }

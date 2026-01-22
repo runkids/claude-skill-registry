@@ -7,5 +7,7 @@
     "slo",
     "alerting"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/slo-alerting",
+  "github_branch": "main"
 }

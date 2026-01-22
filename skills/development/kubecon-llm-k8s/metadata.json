@@ -8,5 +8,7 @@
     "llm",
     "k8s"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "kubecon-llm-k8s",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "providers"
   ],
   "stars": 3,
-  "dir_name": "providers"
+  "dir_name": "providers",
+  "github_path": "skills/providers",
+  "github_branch": "main"
 }

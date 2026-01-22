@@ -7,5 +7,7 @@
     "spec",
     "miner"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/spec-miner",
+  "github_branch": "main"
 }

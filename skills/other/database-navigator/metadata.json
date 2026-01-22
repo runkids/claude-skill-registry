@@ -5,5 +5,7 @@
   "source": "github.com/Acurioustractor/empathy-ledger-v2",
   "downloaded_at": "2026-01-21T02:30:18.502768Z",
   "dir_name": "database-navigator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/local/database-navigator",
+  "github_branch": "main"
 }

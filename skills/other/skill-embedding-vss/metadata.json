@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:11.946327Z",
   "dir_name": "skill-embedding-vss",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-embedding-vss",
+  "github_branch": "main"
 }

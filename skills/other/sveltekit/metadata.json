@@ -5,5 +5,7 @@
   "source": "github.com/mgd34msu/goodvibes-gemini",
   "downloaded_at": "2026-01-22T01:04:05.073315Z",
   "dir_name": "sveltekit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sveltekit",
+  "github_branch": "main"
 }

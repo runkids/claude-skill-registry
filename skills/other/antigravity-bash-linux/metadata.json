@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:53.548800Z",
   "dir_name": "antigravity-bash-linux",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-bash-linux",
+  "github_branch": "main"
 }

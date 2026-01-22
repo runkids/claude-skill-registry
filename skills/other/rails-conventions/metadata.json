@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:35.104423Z",
   "dir_name": "rails-conventions",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-rails/skills/rails-conventions",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:13.932990Z",
   "dir_name": "privacy-manifests",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-cocoapods/skills/privacy-manifests",
+  "github_branch": "main"
 }

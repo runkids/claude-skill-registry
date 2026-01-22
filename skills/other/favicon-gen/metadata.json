@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:26.720299Z",
   "dir_name": "favicon-gen",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/favicon-gen",
+  "github_branch": "main"
 }

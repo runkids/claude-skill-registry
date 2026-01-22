@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:58.411992Z",
   "dir_name": "antigravity-claude-d3js-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-claude-d3js-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/thinmintdev/claude-cooker",
   "downloaded_at": "2026-01-22T04:11:55.774085Z",
   "dir_name": "agent-factory",
-  "category": "other"
+  "category": "other",
+  "github_path": "generated-skills/agent-factory",
+  "github_branch": "main"
 }

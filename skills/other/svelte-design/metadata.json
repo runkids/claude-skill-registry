@@ -5,5 +5,7 @@
   "source": "github.com/ajianaz/skills-collection",
   "downloaded_at": "2026-01-22T03:22:38.792152Z",
   "dir_name": "svelte-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/svelte-design",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "numpy",
     "indexing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/numpy-indexing",
+  "github_branch": "main"
 }

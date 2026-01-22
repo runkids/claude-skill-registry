@@ -7,5 +7,7 @@
     "repo",
     "changelog"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "generated-skills/repo-changelog",
+  "github_branch": "main"
 }

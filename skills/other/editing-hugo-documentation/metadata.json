@@ -5,5 +5,7 @@
   "source": "github.com/RogueRope/docs",
   "downloaded_at": "2026-01-21T02:32:21.843041Z",
   "dir_name": "editing-hugo-documentation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/editing-hugo-documentation",
+  "github_branch": "main"
 }

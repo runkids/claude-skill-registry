@@ -5,5 +5,7 @@
   "source": "github.com/pwittchen/varun.surf",
   "downloaded_at": "2026-01-22T02:56:31.667660Z",
   "dir_name": "check-errors",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/check-errors",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "share",
     "timeline"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/weapp-share-timeline",
+  "github_branch": "main"
 }

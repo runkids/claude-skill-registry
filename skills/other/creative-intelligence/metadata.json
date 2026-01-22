@@ -5,5 +5,7 @@
   "source": "github.com/co-cddo/innovation-sandbox-on-aws-deployer",
   "downloaded_at": "2026-01-14T01:56:26.177490Z",
   "dir_name": "creative-intelligence",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bmad/cis/creative-intelligence",
+  "github_branch": "main"
 }

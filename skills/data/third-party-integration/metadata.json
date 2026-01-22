@@ -9,5 +9,7 @@
     "integration"
   ],
   "stars": 25,
-  "dir_name": "third-party-integration"
+  "dir_name": "third-party-integration",
+  "github_path": "skills/third-party-integration",
+  "github_branch": "main"
 }

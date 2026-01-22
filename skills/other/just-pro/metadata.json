@@ -5,5 +5,7 @@
   "source": "github.com/rbergman/dark-matter-marketplace",
   "downloaded_at": "2026-01-17T02:25:51.051780Z",
   "dir_name": "just-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/language-pro/skills/just-pro",
+  "github_branch": "main"
 }

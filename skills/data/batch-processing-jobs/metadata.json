@@ -10,5 +10,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "batch-processing-jobs"
+  "dir_name": "batch-processing-jobs",
+  "github_path": "skills/batch-processing-jobs",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:04.958909Z",
   "dir_name": "cursor-known-pitfalls",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-known-pitfalls",
+  "github_branch": "main"
 }

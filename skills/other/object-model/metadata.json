@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:19.329261Z",
   "dir_name": "object-model",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos/object-model",
+  "github_branch": "main"
 }

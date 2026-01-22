@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-blockchain",
   "downloaded_at": "2026-01-14T02:23:37.133711Z",
   "dir_name": "defi-protocols",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/defi-protocols",
+  "github_branch": "main"
 }

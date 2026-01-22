@@ -11,5 +11,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "flux-kontext-prompt-engineer"
+  "dir_name": "flux-kontext-prompt-engineer",
+  "github_path": "flux-kontext-prompt-engineer",
+  "github_branch": "main"
 }

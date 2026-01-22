@@ -5,5 +5,7 @@
   "source": "github.com/modu-ai/cc-plugins",
   "downloaded_at": "2026-01-19T03:57:52.860514Z",
   "dir_name": "writing-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/astory-blog-writers/skills/writing-standards",
+  "github_branch": "main"
 }

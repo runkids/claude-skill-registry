@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:52.509070Z",
   "dir_name": "ai-governance",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/security/skills/ai-governance",
+  "github_branch": "main"
 }

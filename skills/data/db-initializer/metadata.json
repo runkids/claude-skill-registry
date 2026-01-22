@@ -5,5 +5,7 @@
   "description": "Initialize database infrastructure for new projects",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:57.110088Z",
-  "dir_name": "db-initializer"
+  "dir_name": "db-initializer",
+  "github_path": "plugins/faber-db/skills/db-initializer",
+  "github_branch": "main"
 }

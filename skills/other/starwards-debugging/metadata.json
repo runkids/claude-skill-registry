@@ -5,5 +5,7 @@
   "source": "github.com/starwards/starwards",
   "downloaded_at": "2026-01-22T03:48:49.804471Z",
   "dir_name": "starwards-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/starwards-debugging",
+  "github_branch": "main"
 }

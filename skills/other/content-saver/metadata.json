@@ -5,5 +5,7 @@
   "source": "github.com/costiash/CognivAgent",
   "downloaded_at": "2026-01-20T03:10:04.096390Z",
   "dir_name": "content-saver",
-  "category": "other"
+  "category": "other",
+  "github_path": "app/agent/resources/.claude/skills/content-saver",
+  "github_branch": "main"
 }

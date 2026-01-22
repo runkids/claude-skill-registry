@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create or update a project in the Obsidian vault Projects folder",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:11.446550Z"
+  "downloaded_at": "2026-01-06T09:09:11.446550Z",
+  "github_path": "dot-config/goose/skills/obsidian-project",
+  "github_branch": "main"
 }

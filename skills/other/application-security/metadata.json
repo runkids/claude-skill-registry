@@ -5,5 +5,7 @@
   "source": "github.com/dralgorhythm/claude-agentic-framework",
   "downloaded_at": "2026-01-22T00:59:03.796623Z",
   "dir_name": "application-security",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/security/application-security",
+  "github_branch": "main"
 }

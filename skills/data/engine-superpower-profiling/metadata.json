@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "engine-superpower-profiling"
+  "dir_name": "engine-superpower-profiling",
+  "github_path": "skills/engine-superpower-profiling",
+  "github_branch": "main"
 }

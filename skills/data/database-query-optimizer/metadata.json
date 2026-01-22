@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "database-query-optimizer"
+  "dir_name": "database-query-optimizer",
+  "github_path": "examples/intermediate/performance-skills/database-query-optimizer",
+  "github_branch": "main"
 }

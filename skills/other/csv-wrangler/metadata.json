@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:42.319142Z",
   "dir_name": "csv-wrangler",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-data/skills/csv-wrangler",
+  "github_branch": "main"
 }

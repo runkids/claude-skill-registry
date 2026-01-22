@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Master use case development with actors, scenarios, preconditions, postconditions, and detailed specifications for comprehensive requirements.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:58.132458Z"
+  "downloaded_at": "2026-01-06T09:02:58.132458Z",
+  "github_path": "plugins/business-analyst/skills/use-case-development",
+  "github_branch": "main"
 }

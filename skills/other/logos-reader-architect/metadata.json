@@ -5,5 +5,7 @@
   "source": "github.com/Spectaculous-Code/raamattu-nyt",
   "downloaded_at": "2026-01-22T03:20:46.002350Z",
   "dir_name": "logos-reader-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/logos-reader-architect",
+  "github_branch": "main"
 }

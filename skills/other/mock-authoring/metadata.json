@@ -5,5 +5,7 @@
   "source": "github.com/mpuig/raw",
   "downloaded_at": "2026-01-22T01:02:16.743681Z",
   "dir_name": "mock-authoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "builder/skills/mock-authoring",
+  "github_branch": "main"
 }

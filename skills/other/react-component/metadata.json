@@ -5,5 +5,7 @@
   "source": "github.com/vapvarun/claude-backup",
   "downloaded_at": "2026-01-19T01:00:27.734977Z",
   "dir_name": "react-component",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/react-component",
+  "github_branch": "main"
 }

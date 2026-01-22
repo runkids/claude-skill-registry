@@ -7,5 +7,7 @@
     "world",
     "operator"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/world-operator",
+  "github_branch": "main"
 }

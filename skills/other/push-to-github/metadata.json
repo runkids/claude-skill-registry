@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:01:59.215927Z",
   "dir_name": "push-to-github",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/push-to-github",
+  "github_branch": "main"
 }

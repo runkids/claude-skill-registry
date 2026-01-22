@@ -5,5 +5,7 @@
   "source": "github.com/yousufjoyian/claude-skills",
   "downloaded_at": "2026-01-14T02:24:01.865367Z",
   "dir_name": "dashcam",
-  "category": "other"
+  "category": "other",
+  "github_path": "Dashcam",
+  "github_branch": "main"
 }

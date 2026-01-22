@@ -5,5 +5,7 @@
   "description": "Master SOTA data prep for Kaggle comps: automated EDA (Sweetviz), cleaning (Pyjanitor), and feature selection (Polars + XGBoost) for medium datasets (100MB–5GB) in Colab.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:49.534361Z",
-  "dir_name": "sota-data-cleaning-feature-selection-eda"
+  "dir_name": "sota-data-cleaning-feature-selection-eda",
+  "github_path": ".github/skills/sota-data-cleaning-feature-selection-eda",
+  "github_branch": "main"
 }

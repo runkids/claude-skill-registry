@@ -5,5 +5,7 @@
   "source": "github.com/pwwang/immunopipe",
   "downloaded_at": "2026-01-22T03:34:34.902718Z",
   "dir_name": "torbcellselection",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/torbcellselection",
+  "github_branch": "main"
 }

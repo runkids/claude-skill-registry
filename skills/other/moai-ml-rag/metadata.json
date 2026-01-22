@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:11.859317Z",
   "dir_name": "moai-ml-rag",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-ml-rag",
+  "github_branch": "main"
 }

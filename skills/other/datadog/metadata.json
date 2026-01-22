@@ -5,5 +5,7 @@
   "source": "github.com/jjmartres/opencode",
   "downloaded_at": "2026-01-22T04:16:35.042697Z",
   "dir_name": "datadog",
-  "category": "other"
+  "category": "other",
+  "github_path": "opencode/skill/datadog",
+  "github_branch": "main"
 }

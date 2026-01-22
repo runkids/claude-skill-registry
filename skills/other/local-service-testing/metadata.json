@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:58.653525Z",
   "dir_name": "local-service-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/local-service-testing",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:06.765160Z",
   "dir_name": "using-systems-as-experience",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/bravos-systems-as-experience/skills/using-systems-as-experience",
+  "github_branch": "main"
 }

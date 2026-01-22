@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:14.181873Z",
   "dir_name": "rag-retrieval",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rag-retrieval",
+  "github_branch": "main"
 }

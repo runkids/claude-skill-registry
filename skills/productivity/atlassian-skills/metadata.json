@@ -8,5 +8,7 @@
     "skills"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/atlassian-skills",
+  "github_branch": "main"
 }

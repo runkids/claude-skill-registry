@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Design scalable, reliable software systems. Use when planning new systems, major features, or architecture changes. Covers C4 diagrams, trade-off analysis, and system decomposition.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:48.919195Z"
+  "downloaded_at": "2026-01-06T09:01:48.919195Z",
+  "github_path": ".claude/skills/architecture/designing-systems",
+  "github_branch": "main"
 }

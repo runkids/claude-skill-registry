@@ -5,5 +5,7 @@
   "source": "github.com/ljchg12-hue/dotfiles",
   "downloaded_at": "2026-01-14T01:32:11.710473Z",
   "dir_name": "verified-information-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/verified-information-generator",
+  "github_branch": "main"
 }

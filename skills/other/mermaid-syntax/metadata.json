@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:54.637406Z",
   "dir_name": "mermaid-syntax",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/visualization/skills/mermaid-syntax",
+  "github_branch": "main"
 }

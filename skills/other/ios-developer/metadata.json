@@ -5,5 +5,7 @@
   "source": "github.com/rmyndharis/antigravity-skills",
   "downloaded_at": "2026-01-22T01:43:06.230760Z",
   "dir_name": "ios-developer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ios-developer",
+  "github_branch": "main"
 }

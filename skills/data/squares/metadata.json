@@ -7,5 +7,7 @@
     "squares"
   ],
   "stars": 0,
-  "dir_name": "squares"
+  "dir_name": "squares",
+  "github_path": "skills/squares",
+  "github_branch": "main"
 }

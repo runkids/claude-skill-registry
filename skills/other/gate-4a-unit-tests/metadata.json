@@ -5,5 +5,7 @@
   "source": "github.com/zerobias-org/module",
   "downloaded_at": "2026-01-21T01:50:59.639846Z",
   "dir_name": "gate-4a-unit-tests",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/gate-4a-unit-tests",
+  "github_branch": "main"
 }

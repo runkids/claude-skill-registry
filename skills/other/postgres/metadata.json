@@ -5,5 +5,7 @@
   "source": "github.com/Dedalus-ERP-PAS/foundation-skills",
   "downloaded_at": "2026-01-22T02:54:26.562033Z",
   "dir_name": "postgres",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/postgres",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Creates and optimizes meta tags including title tags, meta descriptions, Open Graph tags, and Twitter cards for maximum click-through rates and social sharing engagement.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.574507Z"
+  "downloaded_at": "2026-01-06T08:57:10.574507Z",
+  "github_path": "build/meta-tags-optimizer",
+  "github_branch": "main"
 }

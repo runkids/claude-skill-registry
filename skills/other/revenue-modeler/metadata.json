@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-19T03:03:25.719018Z",
   "dir_name": "revenue-modeler",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/revenue-modeler",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bigconfig-generator"
+  "dir_name": "bigconfig-generator",
+  "github_path": "skills/bigconfig-generator",
+  "github_branch": "main"
 }

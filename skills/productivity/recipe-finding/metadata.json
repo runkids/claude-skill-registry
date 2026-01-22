@@ -7,5 +7,7 @@
     "recipe",
     "finding"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/recipe-finding",
+  "github_branch": "main"
 }

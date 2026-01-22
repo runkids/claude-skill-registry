@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:12.703176Z",
   "dir_name": "grafana-dashboards",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/observability-monitoring/skills/grafana-dashboards",
+  "github_branch": "main"
 }

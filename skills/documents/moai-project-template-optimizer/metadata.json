@@ -9,5 +9,7 @@
     "template",
     "optimizer"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-project-template-optimizer",
+  "github_branch": "main"
 }

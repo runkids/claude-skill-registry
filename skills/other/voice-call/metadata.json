@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/clawdbot",
   "downloaded_at": "2026-01-22T03:52:09.723890Z",
   "dir_name": "voice-call",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/voice-call",
+  "github_branch": "main"
 }

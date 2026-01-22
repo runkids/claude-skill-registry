@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:33.285657Z",
   "dir_name": "scientific-integration-opentrons-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-integration-opentrons-integration",
+  "github_branch": "main"
 }

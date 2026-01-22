@@ -8,5 +8,7 @@
     "agent",
     "sdk"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "claude-agent-ts-sdk",
+  "github_branch": "main"
 }

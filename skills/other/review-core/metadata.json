@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-20T01:02:15.260204Z",
   "dir_name": "review-core",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/imbue/skills/review-core",
+  "github_branch": "main"
 }

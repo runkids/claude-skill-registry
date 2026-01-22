@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:37.612341Z",
   "dir_name": "install-windows-3-11",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/install-windows-3.11",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Nuxt 4 production optimization: hydration, performance, testing with Vitest,deployment to Cloudflare/Vercel/Netlify, and v4 migration.Use when: debugging hydration mismatches, optimizing performance a",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:43.999430Z"
+  "downloaded_at": "2026-01-06T08:58:43.999430Z",
+  "github_path": "plugins/nuxt-v4/skills/nuxt-production",
+  "github_branch": "main"
 }

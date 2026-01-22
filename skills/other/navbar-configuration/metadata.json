@@ -5,5 +5,7 @@
   "source": "github.com/deomiarn/website-template",
   "downloaded_at": "2026-01-14T01:42:34.204910Z",
   "dir_name": "navbar-configuration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/navbar-configuration",
+  "github_branch": "main"
 }

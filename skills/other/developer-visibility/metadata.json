@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:50.658667Z",
   "dir_name": "developer-visibility",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/soft-skills/skills/developer-visibility",
+  "github_branch": "main"
 }

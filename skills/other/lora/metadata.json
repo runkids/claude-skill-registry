@@ -5,5 +5,7 @@
   "source": "github.com/itsmostafa/llm-engineering-skills",
   "downloaded_at": "2026-01-22T02:17:43.511214Z",
   "dir_name": "lora",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/qlora",
+  "github_branch": "main"
 }

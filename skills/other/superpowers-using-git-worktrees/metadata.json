@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-21T03:48:19.519476Z",
   "dir_name": "superpowers-using-git-worktrees",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/superpowers-using-git-worktrees",
+  "github_branch": "main"
 }

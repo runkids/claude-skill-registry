@@ -5,5 +5,7 @@
   "source": "github.com/JacobPEvans/ai-assistant-instructions",
   "downloaded_at": "2026-01-22T01:20:46.717509Z",
   "dir_name": "pr-health-check",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentsmd/skills/pr-health-check",
+  "github_branch": "main"
 }

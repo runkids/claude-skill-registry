@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Use when creating bidirectional links between code and documentation. Covers link patterns, documentation references, context preservation across artifacts, and maintaining synchronization between cod",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:06.502393Z"
+  "downloaded_at": "2026-01-06T08:57:06.502393Z",
+  "github_path": "jutsu/jutsu-notetaker/skills/documentation-linking",
+  "github_branch": "main"
 }

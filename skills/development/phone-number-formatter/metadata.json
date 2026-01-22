@@ -8,5 +8,7 @@
     "number",
     "formatter"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "phone-number-formatter",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/eug-subscription/ERP_v3",
   "downloaded_at": "2026-01-22T02:39:31.629169Z",
   "dir_name": "heroui-component",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/heroui-component",
+  "github_branch": "main"
 }

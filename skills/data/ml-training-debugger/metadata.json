@@ -5,5 +5,7 @@
   "description": "Diagnose and stabilize ML training runs, recover from failures, and deliver validated fixes.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:58:49.963247Z",
-  "dir_name": "ml-training-debugger"
+  "dir_name": "ml-training-debugger",
+  "github_path": "skills/platforms/ml-training-debugger",
+  "github_branch": "main"
 }

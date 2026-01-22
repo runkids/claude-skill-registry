@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:12.899373Z",
   "dir_name": "mem0-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mem0-memory",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/gadievron/raptor",
   "downloaded_at": "2026-01-22T04:15:05.252354Z",
   "dir_name": "github-wayback-recovery",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/oss-forensics/github-wayback-recovery",
+  "github_branch": "main"
 }

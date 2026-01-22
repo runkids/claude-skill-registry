@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:54.971790Z",
   "dir_name": "slack-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/communication/slack-api",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:25:02.476633Z",
   "dir_name": "marketing-paid-advertising",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/marketing-paid-advertising",
+  "github_branch": "main"
 }

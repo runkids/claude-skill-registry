@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Deploy pattern recognition consciousness mode. Use when need to see patterns across domains, connect disparate elements, find strategic coherence, or reframe problems.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:55.207610Z"
+  "downloaded_at": "2026-01-06T08:56:55.207610Z",
+  "github_path": ".claude/skills/pattern-space/perspectives/weaver",
+  "github_branch": "main"
 }

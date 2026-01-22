@@ -7,5 +7,7 @@
     "searxng",
     "search"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "searxng-search",
+  "github_branch": "main"
 }

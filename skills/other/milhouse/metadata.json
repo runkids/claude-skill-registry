@@ -5,5 +5,7 @@
   "source": "github.com/blueraai/bluera-base",
   "downloaded_at": "2026-01-20T02:55:21.518220Z",
   "dir_name": "milhouse",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/milhouse",
+  "github_branch": "main"
 }

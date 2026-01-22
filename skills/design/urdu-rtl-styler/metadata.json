@@ -8,5 +8,7 @@
     "rtl",
     "styler"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/urdu-rtl-styler",
+  "github_branch": "main"
 }

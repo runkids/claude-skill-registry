@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Automatically activated when user mentions sprint planning, backlog refinement, iteration planning, sprint goals, capacity planning, velocity tracking, or asks to plan/start/close a sprint. Provides c",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:40.128919Z"
+  "downloaded_at": "2026-01-06T09:01:40.128919Z",
+  "github_path": "project-manager/skills/planning-sprints",
+  "github_branch": "main"
 }

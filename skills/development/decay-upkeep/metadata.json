@@ -8,5 +8,7 @@
     "upkeep"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/decay-upkeep",
+  "github_branch": "main"
 }

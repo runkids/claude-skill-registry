@@ -5,5 +5,7 @@
   "source": "github.com/sumik5/sumik-claude-plugin",
   "downloaded_at": "2026-01-19T05:57:56.813833Z",
   "dir_name": "implement-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/implement-design",
+  "github_branch": "main"
 }

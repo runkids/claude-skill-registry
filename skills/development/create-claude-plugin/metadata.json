@@ -8,5 +8,7 @@
     "claude",
     "plugin"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/create-claude-plugin",
+  "github_branch": "main"
 }

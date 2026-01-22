@@ -5,5 +5,7 @@
   "source": "github.com/talbenmoshe/zdr-tools",
   "downloaded_at": "2026-01-22T02:41:37.811312Z",
   "dir_name": "manage-react-component-tests",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/manage-react-component-tests",
+  "github_branch": "main"
 }

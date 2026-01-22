@@ -9,5 +9,7 @@
     "ops"
   ],
   "stars": 0,
-  "dir_name": "truenas-docker-ops"
+  "dir_name": "truenas-docker-ops",
+  "github_path": ".claude/skills/truenas-docker-ops",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:06.816069Z",
   "dir_name": "ln-783-container-launcher",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-783-container-launcher",
+  "github_branch": "main"
 }

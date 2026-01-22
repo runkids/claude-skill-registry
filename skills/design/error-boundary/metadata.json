@@ -2,7 +2,9 @@
   "name": "error-boundary",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "React\u306eError Boundary\u5b9f\u88c5\u3068\u30a8\u30e9\u30fc\u30cf\u30f3\u30c9\u30ea\u30f3\u30b0\u6226\u7565\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002\u5805\u7262\u306a\u30a8\u30e9\u30fc\u51e6\u7406\u3068\u30e6\u30fc\u30b6\u30fc\u30d5\u30ec\u30f3\u30c9\u30ea\u30fc\u306a\u30d5\u30a9\u30fc\u30eb\u30d0\u30c3\u30afUI\u3092\u5b9f\u73fe\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u30a8\u30e9\u30fc\u51e6\u7406\u306e\u5b9f\u8df5\u539f\u5247 / \u76ee\u7684: \u54c1\u8cea\u7dad\u6301\u3068\u5805\u7262\u6027\u5411\u4e0a\u2022 React Error Boundary / \u9069\u7528: \u30af\u30e9\u30c3\u30b7\u30e5\u56de\u5fa9UI\u5b9f\u88c5 / \u76ee\u7684: \u4e88\u671f\u3057\u306a\u3044\u969c",
+  "description": "ReactのError Boundary実装とエラーハンドリング戦略を専門とするスキル。堅牢なエラー処理とユーザーフレンドリーなフォールバックUIを実現する。Anchors:• The Pragmatic Programmer / 適用: エラー処理の実践原則 / 目的: 品質維持と堅牢性向上• React Error Boundary / 適用: クラッシュ回復UI実装 / 目的: 予期しない障",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.164091Z"
+  "downloaded_at": "2026-01-06T09:00:42.164091Z",
+  "github_path": "docs/99-claude/skills/error-boundary",
+  "github_branch": "main"
 }

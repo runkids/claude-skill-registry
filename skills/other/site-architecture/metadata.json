@@ -5,5 +5,7 @@
   "source": "github.com/alinaqi/claude-bootstrap",
   "downloaded_at": "2026-01-22T03:20:52.050618Z",
   "dir_name": "site-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/site-architecture",
+  "github_branch": "main"
 }

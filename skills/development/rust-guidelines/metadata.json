@@ -7,5 +7,7 @@
     "rust",
     "guidelines"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/rust-guidelines",
+  "github_branch": "main"
 }

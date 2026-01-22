@@ -5,5 +5,7 @@
   "source": "github.com/AI-Original-Steak-Sauce/v2_heras_garden",
   "downloaded_at": "2026-01-22T03:58:50.869753Z",
   "dir_name": "confident-language-guard",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/confident-language-guard",
+  "github_branch": "main"
 }

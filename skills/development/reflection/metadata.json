@@ -2,7 +2,9 @@
   "name": "reflection",
   "repo": "wayne930242/weihung-pai",
   "category": "development",
-  "description": "\u81ea\u6211\u53cd\u601d\u8207\u5b78\u7fd2\u3002\u5206\u6790\u57f7\u884c\u7d50\u679c\u3001\u63d0\u53d6\u6559\u8a13\u3001\u6539\u9032\u7b56\u7565\u3002\u89f8\u767c\uff1areflect, \u53cd\u601d, \u5b78\u5230, \u6539\u9032, \u56de\u9867, \u6aa2\u8a0e",
+  "description": "自我反思與學習。分析執行結果、提取教訓、改進策略。觸發：reflect, 反思, 學到, 改進, 回顧, 檢討",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.247559Z"
+  "downloaded_at": "2026-01-06T09:00:26.247559Z",
+  "github_path": "pai-claude/workspace/.claude/skills/reflection",
+  "github_branch": "main"
 }

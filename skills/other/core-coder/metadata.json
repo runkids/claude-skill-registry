@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:53.851814Z",
   "dir_name": "core-coder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workspace-hub/core/core-coder",
+  "github_branch": "main"
 }

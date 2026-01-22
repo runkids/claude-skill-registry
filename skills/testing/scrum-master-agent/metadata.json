@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Comprehensive Scrum Master assistant for sprint planning, backlog grooming, retrospectives, capacity planning, and daily standups with intelligent context-aware reporting",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:44.561181Z"
+  "downloaded_at": "2026-01-06T08:56:44.561181Z",
+  "github_path": "generated-skills/scrum-master-agent",
+  "github_branch": "main"
 }

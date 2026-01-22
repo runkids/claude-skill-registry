@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive work session initialization orchestrator that validates environment, creates properly named branches, and prepares development environment for new tasks",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:00.502165Z"
+  "downloaded_at": "2026-01-06T09:04:00.502165Z",
+  "github_path": "skills/task-startup",
+  "github_branch": "main"
 }

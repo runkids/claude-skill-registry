@@ -5,5 +5,7 @@
   "source": "github.com/zsutxz/ClaudeLearning",
   "downloaded_at": "2026-01-22T01:05:27.109184Z",
   "dir_name": "github-ai-projects",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-ai-projects",
+  "github_branch": "main"
 }

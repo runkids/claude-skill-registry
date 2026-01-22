@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Dive into the Highrise Studio Lua API docs and answer questions.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:40.738079Z"
+  "downloaded_at": "2026-01-06T09:07:40.738079Z",
+  "github_path": "rosie/skills/research-highrise-studio-lua-api",
+  "github_branch": "main"
 }

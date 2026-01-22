@@ -5,5 +5,7 @@
   "source": "github.com/baiyongping/cowork-platform",
   "downloaded_at": "2026-01-22T03:47:00.475726Z",
   "dir_name": "no-sql-web-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/no-sql-web-sdk",
+  "github_branch": "main"
 }

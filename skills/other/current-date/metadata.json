@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:55.130501Z",
   "dir_name": "current-date",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/claude-ecosystem/skills/current-date",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "product",
   "description": "This skill should be used when the user asks to",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:28:08.379403Z"
+  "downloaded_at": "2026-01-08T03:28:08.379403Z",
+  "github_path": "skills/wireshark-analysis",
+  "github_branch": "main"
 }

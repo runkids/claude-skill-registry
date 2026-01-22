@@ -5,5 +5,7 @@
   "source": "github.com/hitoshura25/claude-devtools",
   "downloaded_at": "2026-01-22T03:26:58.056333Z",
   "dir_name": "android-playstore-pipeline",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/android-playstore-pipeline",
+  "github_branch": "main"
 }

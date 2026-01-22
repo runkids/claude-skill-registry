@@ -5,5 +5,7 @@
   "source": "github.com/knowlet/skills",
   "downloaded_at": "2026-01-22T01:19:58.301835Z",
   "dir_name": "query-sub-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/query-sub-agent",
+  "github_branch": "main"
 }

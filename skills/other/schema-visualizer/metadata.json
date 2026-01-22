@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:40.292956Z",
   "dir_name": "schema-visualizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/schema-visualizer",
+  "github_branch": "main"
 }

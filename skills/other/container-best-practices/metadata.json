@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:22.529537Z",
   "dir_name": "container-best-practices",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/container-workflow/skills/container-best-practices",
+  "github_branch": "main"
 }

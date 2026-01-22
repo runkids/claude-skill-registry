@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "analyzing-specifications"
+  "dir_name": "analyzing-specifications",
+  "github_path": ".claude/skills/analyzing-specifications",
+  "github_branch": "main"
 }

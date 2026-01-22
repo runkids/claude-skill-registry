@@ -5,5 +5,7 @@
   "source": "github.com/rknall/claude-skills",
   "downloaded_at": "2026-01-20T01:28:19.199988Z",
   "dir_name": "svg-logo-designer",
-  "category": "other"
+  "category": "other",
+  "github_path": "svg-logo-designer",
+  "github_branch": "main"
 }

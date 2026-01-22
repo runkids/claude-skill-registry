@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:21.674701Z",
   "dir_name": "pycalphad",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/programming/pycalphad",
+  "github_branch": "main"
 }

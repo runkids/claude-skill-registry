@@ -8,5 +8,7 @@
     "ios",
     "basics"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/swift-ios-basics",
+  "github_branch": "main"
 }

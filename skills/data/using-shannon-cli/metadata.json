@@ -9,5 +9,7 @@
     "cli"
   ],
   "stars": 1,
-  "dir_name": "using-shannon-cli"
+  "dir_name": "using-shannon-cli",
+  "github_path": ".claude/skills/using-shannon-cli",
+  "github_branch": "main"
 }

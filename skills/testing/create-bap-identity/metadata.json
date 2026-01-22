@@ -8,5 +8,7 @@
     "bap",
     "identity"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/create-bap-identity",
+  "github_branch": "main"
 }

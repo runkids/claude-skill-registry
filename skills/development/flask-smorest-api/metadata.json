@@ -9,5 +9,7 @@
     "api"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/flask-smorest-api",
+  "github_branch": "main"
 }

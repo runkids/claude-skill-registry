@@ -8,5 +8,7 @@
     "design"
   ],
   "stars": 8,
-  "dir_name": "cognitive-design"
+  "dir_name": "cognitive-design",
+  "github_path": "skills/cognitive-design",
+  "github_branch": "main"
 }

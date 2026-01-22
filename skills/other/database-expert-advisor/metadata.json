@@ -5,5 +5,7 @@
   "source": "github.com/ljchg12-hue/dotfiles",
   "downloaded_at": "2026-01-14T01:32:09.841187Z",
   "dir_name": "database-expert-advisor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/database-expert-advisor",
+  "github_branch": "main"
 }

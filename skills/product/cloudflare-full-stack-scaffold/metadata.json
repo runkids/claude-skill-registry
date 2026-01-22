@@ -10,5 +10,7 @@
     "scaffold"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/cloudflare-full-stack-scaffold",
+  "github_branch": "main"
 }

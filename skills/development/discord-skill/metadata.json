@@ -2,7 +2,9 @@
   "name": "discord-skill",
   "repo": "jiunbae/agent-skills",
   "category": "development",
-  "description": "Discord REST API \uc11c\ubc84/\ucc44\ub110 \uad00\ub9ac \uc2a4\ud0ac. \ucc44\ub110 CRUD, \uad8c\ud55c \uad00\ub9ac, \uba54\uc2dc\uc9c0 \uc804\uc1a1, \uc6f9\ud6c5 \uc9c0\uc6d0. \"Discord\", \"\ub514\uc2a4\ucf54\ub4dc\", \"\ucc44\ub110 \uad00\ub9ac\", \"discord bot\" \ud0a4\uc6cc\ub4dc\ub85c \ud65c\uc131\ud654.",
+  "description": "Discord REST API 서버/채널 관리 스킬. 채널 CRUD, 권한 관리, 메시지 전송, 웹훅 지원. \"Discord\", \"디스코드\", \"채널 관리\", \"discord bot\" 키워드로 활성화.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:23.971149Z"
+  "downloaded_at": "2026-01-06T09:06:23.971149Z",
+  "github_path": "integrations/discord-skill",
+  "github_branch": "main"
 }

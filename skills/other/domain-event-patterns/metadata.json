@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:12.059693Z",
   "dir_name": "domain-event-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/domain-event-patterns",
+  "github_branch": "main"
 }

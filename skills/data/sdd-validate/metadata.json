@@ -8,5 +8,7 @@
     "validate"
   ],
   "stars": 3,
-  "dir_name": "sdd-validate"
+  "dir_name": "sdd-validate",
+  "github_path": "skills/sdd-validate",
+  "github_branch": "main"
 }

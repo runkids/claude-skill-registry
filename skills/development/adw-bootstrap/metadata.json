@@ -8,5 +8,7 @@
     "bootstrap"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/adw-bootstrap",
+  "github_branch": "main"
 }

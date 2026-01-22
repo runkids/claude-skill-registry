@@ -5,5 +5,7 @@
   "source": "github.com/FortiumPartners/ensemble",
   "downloaded_at": "2026-01-22T01:50:18.621413Z",
   "dir_name": "managing-linear-issues",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/infrastructure/skills/managing-linear-issues",
+  "github_branch": "main"
 }

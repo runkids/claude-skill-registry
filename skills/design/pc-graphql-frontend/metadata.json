@@ -2,7 +2,9 @@
   "name": "pc-graphql-frontend",
   "repo": "sail-sail/nest",
   "category": "design",
-  "description": "\u524d\u7aef\u81ea\u5b9a\u4e49 GraphQL API \u63a5\u53e3\u5f00\u53d1\u3002\u5f53\u9700\u8981\u5728 Vue 3 \u524d\u7aef\u8c03\u7528\u540e\u7aef\u81ea\u5b9a\u4e49\u63a5\u53e3\uff08\u975e\u6807\u51c6 CRUD\uff09\u65f6\u4f7f\u7528\u6b64\u6280\u80fd\u3002",
+  "description": "前端自定义 GraphQL API 接口开发。当需要在 Vue 3 前端调用后端自定义接口（非标准 CRUD）时使用此技能。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:31.969589Z"
+  "downloaded_at": "2026-01-06T08:58:31.969589Z",
+  "github_path": "pc/.github/skills/pc-graphql-frontend",
+  "github_branch": "main"
 }

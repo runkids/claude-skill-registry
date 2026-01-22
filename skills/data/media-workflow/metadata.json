@@ -8,5 +8,7 @@
     "workflow"
   ],
   "stars": 0,
-  "dir_name": "media-workflow"
+  "dir_name": "media-workflow",
+  "github_path": ".claude/skills/media-workflow",
+  "github_branch": "main"
 }

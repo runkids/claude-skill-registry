@@ -5,5 +5,7 @@
   "source": "github.com/Async-IO/pierre_mcp_server",
   "downloaded_at": "2026-01-22T03:51:24.745531Z",
   "dir_name": "create-worktree",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/create-worktree",
+  "github_branch": "main"
 }

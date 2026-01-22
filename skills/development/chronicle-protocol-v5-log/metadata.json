@@ -8,5 +8,7 @@
     "protocol",
     "log"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/chronicle-protocol-v5-log",
+  "github_branch": "main"
 }

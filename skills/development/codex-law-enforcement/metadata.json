@@ -8,5 +8,7 @@
     "law",
     "enforcement"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "irp_swarm_console/skills/codex-law-enforcement",
+  "github_branch": "main"
 }

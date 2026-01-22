@@ -2,7 +2,9 @@
   "name": "authentication-authorization-security",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "security",
-  "description": "\u8a8d\u8a3c\u30fb\u8a8d\u53ef\u306e\u8a2d\u8a08\u3068\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u691c\u8a3c\uff08OAuth 2.0\u3001JWT\u3001\u30bb\u30c3\u30b7\u30e7\u30f3\u7ba1\u7406\u3001\u30a2\u30af\u30bb\u30b9\u5236\u5fa1\uff09\u306e\u5b9f\u52d9\u6307\u91dd\u3092\u63d0\u4f9b\u3059\u308b\u30b9\u30ad\u30eb\u3002\u8105\u5a01\u30e2\u30c7\u30ea\u30f3\u30b0\u3001\u30c8\u30fc\u30af\u30f3\u7ba1\u7406\u3001\u6a29\u9650\u30e2\u30c7\u30eb\u306e\u9078\u629e\u3092\u6574\u7406\u3057\u3001\u5b89\u5168\u306a\u8a8d\u8a3c\u57fa\u76e4\u306e\u8a2d\u8a08\u5224\u65ad\u3092\u652f\u63f4\u3057\u307e\u3059\u3002Anchors:\u2022 Web Application Security / \u9069\u7528: \u8105\u5a01\u30e2\u30c7\u30ea\u30f3\u30b0 / \u76ee\u7684: \u8a8d\u8a3c\u30fb\u8a8d\u53ef\u306e\u8105\u5a01\u6574\u7406\u2022 OAuth 2.0 Simplified / \u9069\u7528",
+  "description": "認証・認可の設計とセキュリティ検証（OAuth 2.0、JWT、セッション管理、アクセス制御）の実務指針を提供するスキル。脅威モデリング、トークン管理、権限モデルの選択を整理し、安全な認証基盤の設計判断を支援します。Anchors:• Web Application Security / 適用: 脅威モデリング / 目的: 認証・認可の脅威整理• OAuth 2.0 Simplified / 適用",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.312076Z"
+  "downloaded_at": "2026-01-06T09:00:40.312076Z",
+  "github_path": "docs/99-claude/skills/authentication-authorization-security",
+  "github_branch": "main"
 }

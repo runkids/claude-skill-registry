@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:56.191008Z",
   "dir_name": "currency-converter",
-  "category": "other"
+  "category": "other",
+  "github_path": "currency-converter",
+  "github_branch": "main"
 }

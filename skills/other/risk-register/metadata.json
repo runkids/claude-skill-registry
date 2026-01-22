@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:41.591251Z",
   "dir_name": "risk-register",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/enterprise-sales/skills/risk-register",
+  "github_branch": "main"
 }

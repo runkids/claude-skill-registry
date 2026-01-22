@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:31.199598Z",
   "dir_name": "spark-basics",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/data/spark-basics",
+  "github_branch": "main"
 }

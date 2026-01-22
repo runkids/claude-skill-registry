@@ -9,5 +9,7 @@
     "checklists"
   ],
   "stars": 8,
-  "dir_name": "heuristics-and-checklists"
+  "dir_name": "heuristics-and-checklists",
+  "github_path": "skills/heuristics-and-checklists",
+  "github_branch": "main"
 }

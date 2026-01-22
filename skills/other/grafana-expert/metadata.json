@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:09.439252Z",
   "dir_name": "grafana-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/devops/grafana-expert",
+  "github_branch": "main"
 }

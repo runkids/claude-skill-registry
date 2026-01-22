@@ -9,5 +9,7 @@
     "alignment"
   ],
   "stars": 1,
-  "dir_name": "check-constitutional-alignment"
+  "dir_name": "check-constitutional-alignment",
+  "github_path": "skills/check-constitutional-alignment",
+  "github_branch": "main"
 }

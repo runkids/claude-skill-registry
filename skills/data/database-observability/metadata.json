@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "database-observability"
+  "dir_name": "database-observability",
+  "github_path": "skills/database-observability",
+  "github_branch": "main"
 }

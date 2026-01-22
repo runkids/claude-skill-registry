@@ -9,5 +9,7 @@
     "containerize"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/docker-dotnet-containerize",
+  "github_branch": "main"
 }

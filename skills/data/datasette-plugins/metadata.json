@@ -9,5 +9,7 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "datasette-plugins"
+  "dir_name": "datasette-plugins",
+  "github_path": "",
+  "github_branch": "main"
 }

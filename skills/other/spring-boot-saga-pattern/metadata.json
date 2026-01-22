@@ -5,5 +5,7 @@
   "source": "github.com/giuseppe-trisciuoglio/developer-kit",
   "downloaded_at": "2026-01-22T01:58:43.609294Z",
   "dir_name": "spring-boot-saga-pattern",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/spring-boot/spring-boot-saga-pattern",
+  "github_branch": "main"
 }

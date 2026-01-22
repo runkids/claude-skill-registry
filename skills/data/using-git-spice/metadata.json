@@ -9,5 +9,7 @@
     "spice"
   ],
   "stars": 5,
-  "dir_name": "using-git-spice"
+  "dir_name": "using-git-spice",
+  "github_path": "skills/using-git-spice",
+  "github_branch": "main"
 }

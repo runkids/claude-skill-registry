@@ -5,5 +5,7 @@
   "source": "github.com/phananhtuan09/ai-agent-workflow",
   "downloaded_at": "2026-01-14T02:20:31.464968Z",
   "dir_name": "figma-design-extraction",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/figma-design-extraction",
+  "github_branch": "main"
 }

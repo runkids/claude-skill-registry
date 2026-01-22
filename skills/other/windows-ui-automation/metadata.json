@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:56.798675Z",
   "dir_name": "windows-ui-automation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/windows-ui-automation",
+  "github_branch": "main"
 }

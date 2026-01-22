@@ -4,5 +4,7 @@
   "category": "development",
   "description": "THE ONLY ENTRY POINT FOR CC10X - AUTO-LOAD AND EXECUTE when user says: build, implement, create, make, write, add, develop, code, feature, component, app, application, review, audit, check, analyze, d",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:05.129411Z"
+  "downloaded_at": "2026-01-06T08:58:05.129411Z",
+  "github_path": "plugins/cc10x/skills/cc10x-router",
+  "github_branch": "main"
 }

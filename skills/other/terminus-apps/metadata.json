@@ -5,5 +5,7 @@
   "source": "github.com/nathanial/lean-workspace",
   "downloaded_at": "2026-01-22T02:58:28.118065Z",
   "dir_name": "terminus-apps",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/terminus-apps",
+  "github_branch": "main"
 }

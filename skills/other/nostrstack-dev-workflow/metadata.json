@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:08.423669Z",
   "dir_name": "nostrstack-dev-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/nostrstack-dev-workflow",
+  "github_branch": "main"
 }

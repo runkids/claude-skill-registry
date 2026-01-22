@@ -5,5 +5,7 @@
   "source": "github.com/X-School-Academy/ai-dev-swarm",
   "downloaded_at": "2026-01-14T02:33:46.319234Z",
   "dir_name": "playwright-browser-install",
-  "category": "other"
+  "category": "other",
+  "github_path": "dev-swarm/mcp-skills/playwright-browser-install",
+  "github_branch": "main"
 }

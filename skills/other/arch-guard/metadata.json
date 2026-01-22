@@ -5,5 +5,7 @@
   "source": "github.com/knowlet/skills",
   "downloaded_at": "2026-01-22T01:19:58.093485Z",
   "dir_name": "arch-guard",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/arch-guard",
+  "github_branch": "main"
 }

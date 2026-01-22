@@ -8,5 +8,7 @@
     "post",
     "optimizer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "linkedin-post-optimizer",
+  "github_branch": "main"
 }

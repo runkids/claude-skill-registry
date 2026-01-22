@@ -8,5 +8,7 @@
     "jobs"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/background-jobs",
+  "github_branch": "main"
 }

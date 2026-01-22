@@ -5,5 +5,7 @@
   "source": "github.com/jkitchin/skillz",
   "downloaded_at": "2026-01-22T01:09:22.188038Z",
   "dir_name": "materials-properties",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/programming/materials-properties",
+  "github_branch": "main"
 }

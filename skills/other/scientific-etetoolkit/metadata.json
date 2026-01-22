@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:48.075731Z",
   "dir_name": "scientific-etetoolkit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-etetoolkit",
+  "github_branch": "main"
 }

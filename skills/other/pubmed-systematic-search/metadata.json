@@ -5,5 +5,7 @@
   "source": "github.com/u9401066/pubmed-search-mcp",
   "downloaded_at": "2026-01-22T03:59:21.558672Z",
   "dir_name": "pubmed-systematic-search",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pubmed-systematic-search",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:10.786197Z",
   "dir_name": "event-sourcing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/event-sourcing",
+  "github_branch": "main"
 }

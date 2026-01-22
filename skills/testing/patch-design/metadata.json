@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Create minimal, surgical patch plans for targeted fixes. Use when fixing specific issues from review, creating focused patches, or avoiding scope creep in fix implementations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:13.433608Z"
+  "downloaded_at": "2026-01-06T09:00:13.433608Z",
+  "github_path": "plugins/tac/skills/patch-design",
+  "github_branch": "main"
 }

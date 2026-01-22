@@ -10,5 +10,7 @@
     "setup"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/android-e2e-testing-setup",
+  "github_branch": "main"
 }

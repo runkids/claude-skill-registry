@@ -5,5 +5,7 @@
   "source": "github.com/hxk622/TokenDance",
   "downloaded_at": "2026-01-22T03:42:13.017635Z",
   "dir_name": "modal",
-  "category": "other"
+  "category": "other",
+  "github_path": "backend/app/skills/builtin/scientific/research-tools/modal",
+  "github_branch": "main"
 }

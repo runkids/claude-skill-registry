@@ -5,5 +5,7 @@
   "source": "github.com/lawless-m/Earwig",
   "downloaded_at": "2026-01-22T02:08:21.528158Z",
   "dir_name": "blog-management",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/Blog Management",
+  "github_branch": "main"
 }

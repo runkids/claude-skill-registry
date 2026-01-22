@@ -9,5 +9,7 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-code-generator"
+  "dir_name": "ai-code-generator",
+  "github_path": "skills/ai-code-generator",
+  "github_branch": "main"
 }

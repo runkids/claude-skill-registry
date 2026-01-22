@@ -2,7 +2,9 @@
   "name": "few-shot-learning-patterns",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "documents",
-  "description": "Few-Shot Learning\uff08\u5c11\u6570\u4f8b\u793a\u5b66\u7fd2\uff09\u306e\u30d1\u30bf\u30fc\u30f3\u3068\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3092\u63d0\u4f9b\u3059\u308b\u30b9\u30ad\u30eb\u3002\u52b9\u679c\u7684\u306a\u4f8b\u793a\u306e\u8a2d\u8a08\u3001\u69cb\u9020\u5316\u3001\u914d\u7f6e\u306b\u3088\u308a\u3001AI\u306e\u51fa\u529b\u54c1\u8cea\u3092\u5927\u5e45\u306b\u5411\u4e0a\u3055\u305b\u307e\u3059\u3002\u2022 The Pragmatic Programmer / \u9069\u7528: \u4f8b\u793a\u30d1\u30bf\u30fc\u30f3\u8a2d\u8a08\u306e\u54c1\u8cea\u57fa\u6e96 / \u76ee\u7684: \u5b9f\u8df5\u7684\u6539\u5584\u3068\u4e00\u8cab\u6027\u7dad\u6301\u2022 Few-Shot\u6226\u7565 / \u9069\u7528: \u6bb5\u968e\u7684\u8907\u96d1\u5ea6\u8a2d\u8a08\u3068\u6700\u9069shot\u6570\u6c7a\u5b9a / \u76ee\u7684: AI\u306e\u5b66\u7fd2",
+  "description": "Few-Shot Learning（少数例示学習）のパターンとベストプラクティスを提供するスキル。効果的な例示の設計、構造化、配置により、AIの出力品質を大幅に向上させます。• The Pragmatic Programmer / 適用: 例示パターン設計の品質基準 / 目的: 実践的改善と一貫性維持• Few-Shot戦略 / 適用: 段階的複雑度設計と最適shot数決定 / 目的: AIの学習",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:42.313198Z"
+  "downloaded_at": "2026-01-06T09:00:42.313198Z",
+  "github_path": "docs/99-claude/skills/few-shot-learning-patterns",
+  "github_branch": "main"
 }

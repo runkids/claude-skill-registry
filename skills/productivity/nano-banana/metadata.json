@@ -7,5 +7,7 @@
     "nano",
     "banana"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "nano-banana",
+  "github_branch": "main"
 }

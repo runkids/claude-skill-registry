@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Code Splitting Helper - Auto-activating skill for Frontend Development.Triggers on: code splitting helper, code splitting helperPart of the Frontend Development skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:12.867978Z"
+  "downloaded_at": "2026-01-06T08:56:12.867978Z",
+  "github_path": "planned-skills/generated/05-frontend-dev/code-splitting-helper",
+  "github_branch": "main"
 }

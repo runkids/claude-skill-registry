@@ -5,5 +5,7 @@
   "source": "github.com/rand/cc-polymath",
   "downloaded_at": "2026-01-14T03:55:19.501096Z",
   "dir_name": "anti-slop",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/anti-slop",
+  "github_branch": "main"
 }

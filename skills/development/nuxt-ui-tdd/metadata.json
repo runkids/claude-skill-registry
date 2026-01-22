@@ -7,5 +7,7 @@
     "nuxt",
     "tdd"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/nuxt-ui-tdd",
+  "github_branch": "main"
 }

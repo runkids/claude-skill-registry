@@ -2,7 +2,9 @@
   "name": "platform-architecture",
   "repo": "joaopelegrino/app-controle",
   "category": "design",
-  "description": "Conhecimento completo da arquitetura, padr\u00f5es de c\u00f3digo, estrutura de dados e conven\u00e7\u00f5es do sistema educacional Plataforma B2B de treinamento t\u00e9cnico corporativo",
+  "description": "Conhecimento completo da arquitetura, padrões de código, estrutura de dados e convenções do sistema educacional Plataforma B2B de treinamento técnico corporativo",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:24.593642Z"
+  "downloaded_at": "2026-01-06T09:06:24.593642Z",
+  "github_path": ".claude/skills/platform-architecture",
+  "github_branch": "main"
 }

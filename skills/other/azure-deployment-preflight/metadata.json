@@ -5,5 +5,7 @@
   "source": "github.com/github/awesome-copilot",
   "downloaded_at": "2026-01-22T02:05:58.915747Z",
   "dir_name": "azure-deployment-preflight",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/azure-deployment-preflight",
+  "github_branch": "main"
 }

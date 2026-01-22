@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:56.508095Z",
   "dir_name": "worker-handover",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/worker-handover",
+  "github_branch": "main"
 }

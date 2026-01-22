@@ -7,5 +7,7 @@
     "testing",
     "basics"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/testing-basics",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:38.514889Z",
   "dir_name": "estimate-complexity",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/webapp-team/skills/estimate-complexity",
+  "github_branch": "main"
 }

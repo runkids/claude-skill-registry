@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:32.859208Z",
   "dir_name": "rails-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rails-workflow",
+  "github_branch": "main"
 }

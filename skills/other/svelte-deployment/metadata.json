@@ -5,5 +5,7 @@
   "source": "github.com/spences10/svelte-skills-kit",
   "downloaded_at": "2026-01-21T02:22:57.872125Z",
   "dir_name": "svelte-deployment",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/svelte-skills/skills/svelte-deployment",
+  "github_branch": "main"
 }

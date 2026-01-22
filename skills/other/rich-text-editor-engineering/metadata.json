@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:58.992946Z",
   "dir_name": "rich-text-editor-engineering",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/rich-text-editor-engineering",
+  "github_branch": "main"
 }

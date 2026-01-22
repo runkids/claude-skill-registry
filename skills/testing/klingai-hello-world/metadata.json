@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Create your first Kling AI video generation with a simple example. Use when learning Kling AIor testing your setup. Trigger with phrases like 'kling ai hello world', 'first kling ai video','klingai qu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:57.418735Z"
+  "downloaded_at": "2026-01-06T08:55:57.418735Z",
+  "github_path": "plugins/saas-packs/klingai-pack/skills/klingai-hello-world",
+  "github_branch": "main"
 }

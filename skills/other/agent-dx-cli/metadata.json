@@ -5,5 +5,7 @@
   "source": "github.com/rbergman/dark-matter-marketplace",
   "downloaded_at": "2026-01-17T02:25:50.627829Z",
   "dir_name": "agent-dx-cli",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tooling/skills/agent-dx-cli",
+  "github_branch": "main"
 }

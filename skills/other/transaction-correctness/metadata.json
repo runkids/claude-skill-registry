@@ -5,5 +5,7 @@
   "source": "github.com/tursodatabase/turso",
   "downloaded_at": "2026-01-22T03:21:45.165867Z",
   "dir_name": "transaction-correctness",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/transaction-correctness",
+  "github_branch": "main"
 }

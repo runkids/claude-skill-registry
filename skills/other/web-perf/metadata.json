@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-14T03:02:29.306080Z",
   "dir_name": "web-perf",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/elithrar/web-perf",
+  "github_branch": "main"
 }

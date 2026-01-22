@@ -8,5 +8,7 @@
     "legacy",
     "code"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/refactor-legacy-code",
+  "github_branch": "main"
 }

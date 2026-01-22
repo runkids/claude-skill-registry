@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Complete migration validation checklist for Flow to Output SDK. Use after migration to verify completeness and correctness.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:14.489591Z"
+  "downloaded_at": "2026-01-06T09:11:14.489591Z",
+  "github_path": "plugins/outputai-flow-migrator/skills/flow-validation-checklist",
+  "github_branch": "main"
 }

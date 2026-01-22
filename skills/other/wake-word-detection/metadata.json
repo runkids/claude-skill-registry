@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:55.204005Z",
   "dir_name": "wake-word-detection",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/wake-word-detection",
+  "github_branch": "main"
 }

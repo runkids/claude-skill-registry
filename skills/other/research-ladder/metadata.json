@@ -5,5 +5,7 @@
   "source": "github.com/mbosseme/computer-use-1",
   "downloaded_at": "2026-01-14T03:48:34.976710Z",
   "dir_name": "research-ladder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/research-ladder",
+  "github_branch": "main"
 }

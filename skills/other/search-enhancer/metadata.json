@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:39.560285Z",
   "dir_name": "search-enhancer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/search-enhancer",
+  "github_branch": "main"
 }

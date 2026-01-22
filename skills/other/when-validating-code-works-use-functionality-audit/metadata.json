@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:38:59.272922Z",
   "dir_name": "when-validating-code-works-use-functionality-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/testing-quality/when-validating-code-works-use-functionality-audit",
+  "github_branch": "main"
 }

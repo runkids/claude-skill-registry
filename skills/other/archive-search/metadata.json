@@ -5,5 +5,7 @@
   "source": "github.com/claudeaceae/samara-main",
   "downloaded_at": "2026-01-21T04:14:42.505267Z",
   "dir_name": "archive-search",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/archive-search",
+  "github_branch": "main"
 }

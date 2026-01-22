@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:35.594626Z",
   "dir_name": "windows-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/windows-expert",
+  "github_branch": "main"
 }

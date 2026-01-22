@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Expert documentation analysis including quality assessment, gap detection, and improvement recommendations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:49.270469Z"
+  "downloaded_at": "2026-01-06T09:06:49.270469Z",
+  "github_path": "skills/research/documentation-analyst",
+  "github_branch": "main"
 }

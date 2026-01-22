@@ -5,5 +5,7 @@
   "source": "github.com/pwwang/immunopipe",
   "downloaded_at": "2026-01-22T03:34:35.152258Z",
   "dir_name": "celltypeannotation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/celltypeannotation",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Translate textbook chapter content into Urdu on demand while preserving technical accuracy and formatting.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:59.825879Z"
+  "downloaded_at": "2026-01-06T09:09:59.825879Z",
+  "github_path": "physical-ai-and-humanoid-robotics-textbook/.claude/skills/chapter-translation",
+  "github_branch": "main"
 }

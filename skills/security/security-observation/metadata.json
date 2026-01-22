@@ -2,7 +2,9 @@
   "name": "security-observation",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "security",
-  "description": "\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u89b3\u6e2c\u3002\u8a8d\u53ef\u6f0f\u308c\u3001\u30a4\u30f3\u30b8\u30a7\u30af\u30b7\u30e7\u30f3\u3001\u6a5f\u5bc6\u6f0f\u3048\u3044\u3001\u6697\u53f7\u8aa4\u7528\u3001\u4f9d\u5b58\u8106\u5f31\u6027\u3092\u691c\u51fa\u3002Use when: \u8a8d\u8a3c/\u8a8d\u53ef\u5b9f\u88c5\u3001\u5916\u90e8\u5165\u529b\u51e6\u7406\u3001\u4f9d\u5b58\u66f4\u65b0\u3001\u30b3\u30df\u30c3\u30c8\u524d\u30c1\u30a7\u30c3\u30af\u3001\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30ec\u30d3\u30e5\u30fc\u3057\u3066\u3001\u8105\u5a01\u5206\u6790\u304c\u5fc5\u8981\u306a\u6642\u3002",
+  "description": "セキュリティ観測。認可漏れ、インジェクション、機密漏えい、暗号誤用、依存脆弱性を検出。Use when: 認証/認可実装、外部入力処理、依存更新、コミット前チェック、セキュリティレビューして、脅威分析が必要な時。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.905906Z"
+  "downloaded_at": "2026-01-06T09:04:21.905906Z",
+  "github_path": "caphtech-plugin/skills/security-observation",
+  "github_branch": "main"
 }

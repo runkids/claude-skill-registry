@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:07.499946Z",
   "dir_name": "markdowntown-monorepo",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/markdowntown-monorepo",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-19T02:05:41.670843Z",
   "dir_name": "protocol-reverse-engineering",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/reverse-engineering/skills/protocol-reverse-engineering",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "world",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "magnus-the-world-builder",
+  "github_branch": "main"
 }

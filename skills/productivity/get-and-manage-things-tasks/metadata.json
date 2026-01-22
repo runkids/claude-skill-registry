@@ -10,5 +10,7 @@
     "things",
     "tasks"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/get-and-manage-things-tasks",
+  "github_branch": "main"
 }

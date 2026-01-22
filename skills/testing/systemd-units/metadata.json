@@ -7,5 +7,7 @@
     "systemd",
     "units"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/systemd-units",
+  "github_branch": "main"
 }

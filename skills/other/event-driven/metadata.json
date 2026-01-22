@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:20.396291Z",
   "dir_name": "event-driven",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/event_driven",
+  "github_branch": "main"
 }

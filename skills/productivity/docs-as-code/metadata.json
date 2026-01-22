@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Documentation pipeline automation and docs-as-code workflows",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:02.530843Z"
+  "downloaded_at": "2026-01-06T09:00:02.530843Z",
+  "github_path": "plugins/documentation-standards/skills/docs-as-code",
+  "github_branch": "main"
 }

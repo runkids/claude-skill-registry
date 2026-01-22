@@ -5,5 +5,7 @@
   "source": "github.com/JaveedIshaq/ai-workflow-orchestrator",
   "downloaded_at": "2026-01-22T03:59:27.538608Z",
   "dir_name": "flutter-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "templates/skills/flutter-testing",
+  "github_branch": "main"
 }

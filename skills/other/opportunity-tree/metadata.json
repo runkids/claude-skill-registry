@@ -5,5 +5,7 @@
   "source": "github.com/product-on-purpose/pm-skills",
   "downloaded_at": "2026-01-22T02:42:45.898642Z",
   "dir_name": "opportunity-tree",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/define/opportunity-tree",
+  "github_branch": "main"
 }

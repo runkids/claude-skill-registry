@@ -5,5 +5,7 @@
   "source": "github.com/nodays-off/rack-reserve",
   "downloaded_at": "2026-01-21T00:58:20.623529Z",
   "dir_name": "frontend-design-anthropic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/frontend-design-anthropic",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:24.869143Z",
   "dir_name": "oracle-adk",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/oracle-adk",
+  "github_branch": "main"
 }

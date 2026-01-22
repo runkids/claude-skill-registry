@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:16.763842Z",
   "dir_name": "slo-sli-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/slo-sli-design",
+  "github_branch": "main"
 }

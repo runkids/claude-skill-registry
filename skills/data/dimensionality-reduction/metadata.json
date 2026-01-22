@@ -9,5 +9,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "dimensionality-reduction"
+  "dir_name": "dimensionality-reduction",
+  "github_path": "skills/dimensionality-reduction",
+  "github_branch": "main"
 }

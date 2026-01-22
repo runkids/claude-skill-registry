@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:29.933899Z",
   "dir_name": "aasm-coder",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-rails/skills/aasm-coder",
+  "github_branch": "main"
 }

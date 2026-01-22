@@ -9,5 +9,7 @@
     "work"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/find-related-work",
+  "github_branch": "main"
 }

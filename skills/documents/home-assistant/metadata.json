@@ -7,5 +7,7 @@
     "home",
     "assistant"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "home-assistant",
+  "github_branch": "main"
 }

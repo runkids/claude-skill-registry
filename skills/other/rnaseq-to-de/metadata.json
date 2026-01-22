@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:50.618498Z",
   "dir_name": "rnaseq-to-de",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/rnaseq-to-de",
+  "github_branch": "main"
 }

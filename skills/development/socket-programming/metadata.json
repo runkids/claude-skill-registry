@@ -7,5 +7,7 @@
     "socket",
     "programming"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/socket-programming",
+  "github_branch": "main"
 }

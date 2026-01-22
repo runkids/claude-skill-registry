@@ -5,5 +5,7 @@
   "source": "github.com/vinnie357/claudio",
   "downloaded_at": "2026-01-14T01:19:33.175476Z",
   "dir_name": "security-stride",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/security-stride",
+  "github_branch": "main"
 }

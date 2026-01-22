@@ -8,5 +8,7 @@
     "route",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "remix-route-generator",
+  "github_branch": "main"
 }

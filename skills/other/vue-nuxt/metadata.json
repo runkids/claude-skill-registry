@@ -5,5 +5,7 @@
   "source": "github.com/martinholovsky/claude-skills-generator",
   "downloaded_at": "2026-01-21T03:41:55.754255Z",
   "dir_name": "vue-nuxt",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vue-nuxt-expert",
+  "github_branch": "main"
 }

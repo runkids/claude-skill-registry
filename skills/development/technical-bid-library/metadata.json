@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Central repository structure for manufacturing RFP responses, compliance statements, and solution modules.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:23.654773Z"
+  "downloaded_at": "2026-01-06T08:57:23.654773Z",
+  "github_path": "plugins/manufacturing-sales/skills/technical-bid-library",
+  "github_branch": "main"
 }

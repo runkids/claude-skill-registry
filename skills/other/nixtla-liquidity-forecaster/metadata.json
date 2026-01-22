@@ -5,5 +5,7 @@
   "source": "github.com/intent-solutions-io/plugins-nixtla",
   "downloaded_at": "2026-01-22T00:52:32.555401Z",
   "dir_name": "nixtla-liquidity-forecaster",
-  "category": "other"
+  "category": "other",
+  "github_path": "000-docs/000a-planned-skills/prediction-markets/nixtla-liquidity-forecaster",
+  "github_branch": "main"
 }

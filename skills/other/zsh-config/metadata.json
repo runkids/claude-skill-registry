@@ -5,5 +5,7 @@
   "source": "github.com/snkrheadz/laptop",
   "downloaded_at": "2026-01-22T02:40:50.934406Z",
   "dir_name": "zsh-config",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/zsh-config",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:15.772312Z",
   "dir_name": "hipaa-audit-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/04-security-advanced/hipaa-audit-helper",
+  "github_branch": "main"
 }

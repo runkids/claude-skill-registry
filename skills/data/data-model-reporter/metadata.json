@@ -5,5 +5,7 @@
   "description": "Standards for generating Model Cards from data analysis notebooks. Aligned with Hugging Face and ISO transparency standards.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:56.852189Z",
-  "dir_name": "data-model-reporter"
+  "dir_name": "data-model-reporter",
+  "github_path": ".agent/skills/data-model-reporter",
+  "github_branch": "main"
 }

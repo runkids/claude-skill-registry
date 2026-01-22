@@ -6,5 +6,7 @@
   "tags": [
     "mgrep"
   ],
-  "stars": 22
+  "stars": 22,
+  "github_path": "skills/mgrep",
+  "github_branch": "main"
 }

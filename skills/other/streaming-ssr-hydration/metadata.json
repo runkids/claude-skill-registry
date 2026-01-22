@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:56.787749Z",
   "dir_name": "streaming-ssr-hydration",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/streaming-ssr-hydration",
+  "github_branch": "main"
 }

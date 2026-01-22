@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when advanced RSpec features including custom matchers, shared examples, metadata, and hooks.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:08.037821Z"
+  "downloaded_at": "2026-01-06T08:57:08.037821Z",
+  "github_path": "jutsu/jutsu-rspec/skills/rspec-advanced",
+  "github_branch": "main"
 }

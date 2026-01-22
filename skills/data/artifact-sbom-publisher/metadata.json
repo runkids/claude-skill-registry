@@ -5,5 +5,7 @@
   "description": "Produces build artifacts with Software Bill of Materials (SBOM) and supply chain metadata for security and compliance. Use for \"artifact publishing\", \"SBOM generation\", \"supply chain security\", or \"bu",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:06.419190Z",
-  "dir_name": "artifact-sbom-publisher"
+  "dir_name": "artifact-sbom-publisher",
+  "github_path": "templates/ci-cd/artifact-sbom-publisher",
+  "github_branch": "main"
 }

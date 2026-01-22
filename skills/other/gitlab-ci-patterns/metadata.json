@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:10.623068Z",
   "dir_name": "gitlab-ci-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/cicd-automation/skills/gitlab-ci-patterns",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/knowlet/skills",
   "downloaded_at": "2026-01-22T01:19:58.190927Z",
   "dir_name": "analyze-frame",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/analyze-frame",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/RevTechStudio/rts-plugins",
   "downloaded_at": "2026-01-22T03:44:54.656966Z",
   "dir_name": "plugin-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "rts-plugin-generator/skills/plugin-validator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:54.993356Z",
   "dir_name": "multi-agent-observability",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/multi-agent-observability",
+  "github_branch": "main"
 }

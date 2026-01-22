@@ -5,5 +5,7 @@
   "source": "github.com/jeffrschneider/OpenHarness",
   "downloaded_at": "2026-01-21T02:49:21.055736Z",
   "dir_name": "package-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/package-agent",
+  "github_branch": "main"
 }

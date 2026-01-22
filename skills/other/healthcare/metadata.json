@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:14.392276Z",
   "dir_name": "healthcare",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/domains/healthcare",
+  "github_branch": "main"
 }

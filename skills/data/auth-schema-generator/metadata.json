@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "auth-schema-generator"
+  "dir_name": "auth-schema-generator",
+  "github_path": ".claude/skills/auth-schema-generator",
+  "github_branch": "main"
 }

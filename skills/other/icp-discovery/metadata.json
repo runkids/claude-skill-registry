@@ -5,5 +5,7 @@
   "source": "github.com/majesticlabs-dev/majestic-marketplace",
   "downloaded_at": "2026-01-19T05:04:44.175846Z",
   "dir_name": "icp-discovery",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/majestic-sales/skills/icp-discovery",
+  "github_branch": "main"
 }

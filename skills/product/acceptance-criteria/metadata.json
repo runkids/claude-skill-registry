@@ -2,7 +2,9 @@
   "name": "acceptance-criteria",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "product",
-  "description": "\u68c0\u67e5Acceptance Criteria\u683c\u5f0f\u548c\u5b8c\u6574\u6027\uff0c\u9a8c\u8bc1\u662f\u5426\u7b26\u5408Given-When-Then\u7ed3\u6784\u3001\u8986\u76d6\u6b63\u5e38\u6d41\u7a0b/\u8fb9\u754c\u6761\u4ef6/\u5f02\u5e38\u573a\u666f\u3002\u9002\u5408\u5728\u4e3aUser Story\u7f16\u5199AC\u540e\u3001\u51c6\u5907\u6d4b\u8bd5\u7528\u4f8b\u524d\u4f7f\u7528\uff0c\u5f53\u9700\u8981\u9a8c\u6536AC\u8d28\u91cf\u65f6\u3002\u5e2e\u52a9\u4e0d\u719f\u6089BDD\u7684PM/BA\u786e\u4fddAC\u660e\u786e\u3001\u53ef\u6d4b\u8bd5\u3001\u8986\u76d6\u5b8c\u6574\uff0c\u907f\u514d\u9057\u6f0f\u5173\u952e\u573a\u666f\u3002",
+  "description": "检查Acceptance Criteria格式和完整性，验证是否符合Given-When-Then结构、覆盖正常流程/边界条件/异常场景。适合在为User Story编写AC后、准备测试用例前使用，当需要验收AC质量时。帮助不熟悉BDD的PM/BA确保AC明确、可测试、覆盖完整，避免遗漏关键场景。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:29.776753Z"
+  "downloaded_at": "2026-01-06T09:10:29.776753Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/requirements/acceptance-criteria",
+  "github_branch": "main"
 }

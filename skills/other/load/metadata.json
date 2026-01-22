@@ -5,5 +5,7 @@
   "source": "github.com/bitwikiorg/skills.md",
   "downloaded_at": "2026-01-22T01:14:58.368948Z",
   "dir_name": "load",
-  "category": "other"
+  "category": "other",
+  "github_path": "sources/vercel/bundle_preload",
+  "github_branch": "main"
 }

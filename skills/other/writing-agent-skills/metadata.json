@@ -5,5 +5,7 @@
   "source": "github.com/kylehughes/knapsack",
   "downloaded_at": "2026-01-19T03:38:02.150555Z",
   "dir_name": "writing-agent-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": "dotfiles/link/claude/skills/writing-agent-skills",
+  "github_branch": "main"
 }

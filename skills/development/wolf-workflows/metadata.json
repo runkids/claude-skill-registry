@@ -7,5 +7,7 @@
     "wolf",
     "workflows"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "wolf-workflows",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/chaserbreitenbach/claude-skills-and-agents",
   "downloaded_at": "2026-01-22T02:09:05.227812Z",
   "dir_name": "test-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/testing/test-orchestrator",
+  "github_branch": "main"
 }

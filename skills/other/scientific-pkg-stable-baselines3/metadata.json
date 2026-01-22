@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:31.075458Z",
   "dir_name": "scientific-pkg-stable-baselines3",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-pkg-stable-baselines3",
+  "github_branch": "main"
 }

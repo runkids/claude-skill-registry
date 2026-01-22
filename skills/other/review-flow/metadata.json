@@ -5,5 +5,7 @@
   "source": "github.com/KanayaActa/ai-driven-dev-template",
   "downloaded_at": "2026-01-22T02:12:31.715710Z",
   "dir_name": "review-flow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/review-flow",
+  "github_branch": "main"
 }

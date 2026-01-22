@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:37.543035Z",
   "dir_name": "iterate-pr",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devops/iterate-pr",
+  "github_branch": "main"
 }

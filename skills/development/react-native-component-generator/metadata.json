@@ -9,5 +9,7 @@
     "component",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "react-native-component-generator",
+  "github_branch": "main"
 }

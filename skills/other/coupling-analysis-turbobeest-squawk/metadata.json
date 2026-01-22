@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/squawk",
   "downloaded_at": "2026-01-14T01:57:15.135682Z",
   "dir_name": "coupling-analysis-turbobeest-squawk",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/Coupling-Analysis",
+  "github_branch": "main"
 }

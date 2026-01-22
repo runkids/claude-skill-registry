@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:08.279081Z",
   "dir_name": "tableau-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/data/tableau-expert",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/JoernStoehler/msc-viterbo",
   "downloaded_at": "2026-01-22T02:23:00.874483Z",
   "dir_name": "session-handoff",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/session-handoff",
+  "github_branch": "main"
 }

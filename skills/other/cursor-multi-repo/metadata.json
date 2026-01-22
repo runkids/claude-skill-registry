@@ -5,5 +5,7 @@
   "source": "github.com/vasic-digital/SuperAgent",
   "downloaded_at": "2026-01-22T03:16:23.352938Z",
   "dir_name": "cursor-multi-repo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plugins/saas-packs/cursor-pack/cursor-multi-repo",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Aero is an EDN configuration library with reader tag extensions for profiles, environment variables, and references. Use when working with configuration files, environment-specific settings, or when y",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:47.359222Z"
+  "downloaded_at": "2026-01-06T09:07:47.359222Z",
+  "github_path": "prompts/skills/clojure-aero",
+  "github_branch": "main"
 }

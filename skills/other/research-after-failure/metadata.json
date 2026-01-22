@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:59.027366Z",
   "dir_name": "research-after-failure",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/research-after-failure",
+  "github_branch": "main"
 }

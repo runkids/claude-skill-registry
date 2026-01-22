@@ -2,7 +2,9 @@
   "name": "boundary-value-analysis",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "testing",
-  "description": "\u5883\u754c\u5024\u5206\u6790\u3068\u540c\u5024\u5206\u5272\u306b\u3088\u308b\u30c6\u30b9\u30c8\u30b1\u30fc\u30b9\u8a2d\u8a08\u3092\u4f53\u7cfb\u5316\u3059\u308b\u30b9\u30ad\u30eb\u3002\u5165\u529b\u9818\u57df\u306e\u5206\u985e\u3001\u5883\u754c\u5024\u62bd\u51fa\u3001\u30a8\u30c3\u30b8\u30b1\u30fc\u30b9\u8ffd\u52a0\u3001\u7d44\u307f\u5408\u308f\u305b\u6700\u9069\u5316\u3092\u884c\u3044\u3001\u6700\u5c0f\u306e\u30c6\u30b9\u30c8\u6570\u3067\u691c\u8a3c\u7cbe\u5ea6\u3092\u9ad8\u3081\u308b\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u30c6\u30b9\u30c8\u8a2d\u8a08 / \u76ee\u7684: \u5b9f\u8df5\u7684\u6539\u5584\u3068\u54c1\u8cea\u7dad\u6301\u2022 Software Testing (Glenford J. Myers) / \u9069\u7528: \u5883\u754c\u5024\u8a2d\u8a08 / \u76ee",
+  "description": "境界値分析と同値分割によるテストケース設計を体系化するスキル。入力領域の分類、境界値抽出、エッジケース追加、組み合わせ最適化を行い、最小のテスト数で検証精度を高める。Anchors:• The Pragmatic Programmer / 適用: テスト設計 / 目的: 実践的改善と品質維持• Software Testing (Glenford J. Myers) / 適用: 境界値設計 / 目",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.553781Z"
+  "downloaded_at": "2026-01-06T09:00:40.553781Z",
+  "github_path": "docs/99-claude/skills/boundary-value-analysis",
+  "github_branch": "main"
 }

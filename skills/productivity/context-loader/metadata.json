@@ -7,5 +7,7 @@
     "context",
     "loader"
   ],
-  "stars": 17
+  "stars": 17,
+  "github_path": "skills/context-loader",
+  "github_branch": "main"
 }

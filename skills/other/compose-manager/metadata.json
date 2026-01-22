@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:07.624480Z",
   "dir_name": "compose-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-docker/skills/compose-manager",
+  "github_branch": "main"
 }

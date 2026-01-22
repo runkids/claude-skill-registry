@@ -5,5 +5,7 @@
   "source": "github.com/Cantara/lib-electronic-components",
   "downloaded_at": "2026-01-22T02:07:19.790771Z",
   "dir_name": "cosmo",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/manufacturers/cosmo",
+  "github_branch": "main"
 }

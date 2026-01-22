@@ -8,5 +8,7 @@
     "performance",
     "audit"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/web-performance-audit",
+  "github_branch": "main"
 }

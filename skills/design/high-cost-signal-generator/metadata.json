@@ -9,5 +9,7 @@
     "signal",
     "generator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/high-cost-signal-generator",
+  "github_branch": "main"
 }

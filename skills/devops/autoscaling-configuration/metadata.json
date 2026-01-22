@@ -8,5 +8,7 @@
     "configuration"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/autoscaling-configuration",
+  "github_branch": "main"
 }

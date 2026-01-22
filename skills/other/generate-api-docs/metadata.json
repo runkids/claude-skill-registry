@@ -5,5 +5,7 @@
   "source": "github.com/mvillmow/ProjectOdyssey",
   "downloaded_at": "2026-01-22T02:46:12.690795Z",
   "dir_name": "generate-api-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tier-2/generate-api-docs",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:20.048439Z",
   "dir_name": "ddd",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/ddd",
+  "github_branch": "main"
 }

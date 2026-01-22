@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:47.787849Z",
   "dir_name": "diversity-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": "microbiome/diversity-analysis",
+  "github_branch": "main"
 }

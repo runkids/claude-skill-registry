@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "AI-powered text-to-speech CLI tool. Use for pronunciation queries, reading text aloud, generating audio files, or language practice. Triggers on \"how to pronounce\", \"say this\", \"read aloud\", \"TTS\", \"t",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:19.167927Z"
+  "downloaded_at": "2026-01-06T09:01:19.167927Z",
+  "github_path": "claude/skills/osay",
+  "github_branch": "main"
 }

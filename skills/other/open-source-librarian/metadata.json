@@ -5,5 +5,7 @@
   "source": "github.com/pcortes/swarm-attack",
   "downloaded_at": "2026-01-22T01:17:40.872392Z",
   "dir_name": "open-source-librarian",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/open-source-librarian",
+  "github_branch": "main"
 }

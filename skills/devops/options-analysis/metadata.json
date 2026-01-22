@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use when making structured decisions between multiple options - creates weighted scoring spreadsheet with systematic evaluation across considerations grouped by area",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:47.204016Z"
+  "downloaded_at": "2026-01-06T09:07:47.204016Z",
+  "github_path": "plugins/options-analysis/skills/options-analysis",
+  "github_branch": "main"
 }

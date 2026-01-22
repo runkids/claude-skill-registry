@@ -8,5 +8,7 @@
     "diorama",
     "skill"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "food-diorama-skill",
+  "github_branch": "main"
 }

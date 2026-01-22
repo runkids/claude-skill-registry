@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:10.142639Z",
   "dir_name": "spring-boot-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/frameworks/spring-boot-expert",
+  "github_branch": "main"
 }

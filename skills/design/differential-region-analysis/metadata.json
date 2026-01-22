@@ -4,5 +4,7 @@
   "category": "design",
   "description": "The differential-region-analysis pipeline identifies genomic regions exhibiting significant differences in signal intensity between experimental conditions using a count-based framework and DESeq2. It",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.748416Z"
+  "downloaded_at": "2026-01-06T09:00:35.748416Z",
+  "github_path": "8.differential-region-analysis",
+  "github_branch": "main"
 }

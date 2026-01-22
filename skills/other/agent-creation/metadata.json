@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:50.927574Z",
   "dir_name": "agent-creation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/foundry/agent-creation",
+  "github_branch": "main"
 }

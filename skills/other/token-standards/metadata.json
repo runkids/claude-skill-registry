@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:16.979137Z",
   "dir_name": "token-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos/token-standards",
+  "github_branch": "main"
 }

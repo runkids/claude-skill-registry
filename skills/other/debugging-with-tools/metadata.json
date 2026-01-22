@@ -5,5 +5,7 @@
   "source": "github.com/withzombies/hyperpowers",
   "downloaded_at": "2026-01-21T01:31:44.634848Z",
   "dir_name": "debugging-with-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/debugging-with-tools",
+  "github_branch": "main"
 }

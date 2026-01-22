@@ -7,5 +7,7 @@
     "langgraph",
     "implementation"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/langgraph-implementation",
+  "github_branch": "main"
 }

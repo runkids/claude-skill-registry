@@ -8,5 +8,7 @@
     "suggester"
   ],
   "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/anchor-suggester",
+  "github_branch": "main"
 }

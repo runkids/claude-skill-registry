@@ -5,5 +5,7 @@
   "source": "github.com/RogueRope/docs",
   "downloaded_at": "2026-01-21T02:32:21.000056Z",
   "dir_name": "tov-editor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/tov-editor",
+  "github_branch": "main"
 }

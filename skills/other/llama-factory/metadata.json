@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:57.261214Z",
   "dir_name": "llama-factory",
-  "category": "other"
+  "category": "other",
+  "github_path": "03-fine-tuning/llama-factory",
+  "github_branch": "main"
 }

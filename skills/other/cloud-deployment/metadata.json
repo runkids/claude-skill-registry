@@ -5,5 +5,7 @@
   "source": "github.com/MUmerRazzaq/fast-next-todo",
   "downloaded_at": "2026-01-22T02:08:30.139078Z",
   "dir_name": "cloud-deployment",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cloud-deployment",
+  "github_branch": "main"
 }

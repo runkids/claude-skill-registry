@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Help craft efficient Tempo trace queries, troubleshoot distributed traces, link logs and metrics (Loki/Mimir), and perform request-level root cause analysis.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:00.740877Z"
+  "downloaded_at": "2026-01-06T09:09:00.740877Z",
+  "github_path": "skills/tempo-troubleshoot",
+  "github_branch": "main"
 }

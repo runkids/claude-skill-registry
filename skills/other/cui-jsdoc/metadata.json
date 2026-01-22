@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:31.221916Z",
   "dir_name": "cui-jsdoc",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketplace/bundles/pm-dev-frontend/skills/cui-jsdoc",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Configure Spring Boot Actuator for production-grade monitoring, health probes, secured management endpoints, and Micrometer metrics across JVM services.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.222985Z"
+  "downloaded_at": "2026-01-06T08:57:14.222985Z",
+  "github_path": "skills/spring-boot/spring-boot-actuator",
+  "github_branch": "main"
 }

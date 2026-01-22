@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Automated code review for Arduino/ESP32/RP2040 projects focusing on best practices, memory safety, and common pitfalls. Use when user wants code feedback, says \"review my code\", needs help improving c",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:36.862597Z"
+  "downloaded_at": "2026-01-06T09:03:36.862597Z",
+  "github_path": "skills/code-review-facilitator",
+  "github_branch": "main"
 }

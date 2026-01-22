@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-14T01:56:20.415720Z",
   "dir_name": "beneissue",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/other/beneissue",
+  "github_branch": "main"
 }

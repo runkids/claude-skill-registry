@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:40.670954Z",
   "dir_name": "interactive-feedback-evaluator",
-  "category": "other"
+  "category": "other",
+  "github_path": "interactive-feedback-evaluator",
+  "github_branch": "main"
 }

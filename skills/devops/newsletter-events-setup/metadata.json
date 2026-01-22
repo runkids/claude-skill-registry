@@ -8,5 +8,7 @@
     "events",
     "setup"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "skills/newsletter-events-setup",
+  "github_branch": "main"
 }

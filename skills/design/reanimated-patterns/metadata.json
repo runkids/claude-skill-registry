@@ -4,5 +4,7 @@
   "category": "design",
   "description": "React Native Reanimated animation patterns. Use when implementing animations.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:16.439922Z"
+  "downloaded_at": "2026-01-06T09:06:16.439922Z",
+  "github_path": "tech-stacks/js/react-native/skills/reanimated-patterns",
+  "github_branch": "main"
 }

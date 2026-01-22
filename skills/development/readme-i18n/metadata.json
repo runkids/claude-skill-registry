@@ -7,5 +7,7 @@
     "readme",
     "i18n"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/readme-i18n",
+  "github_branch": "main"
 }

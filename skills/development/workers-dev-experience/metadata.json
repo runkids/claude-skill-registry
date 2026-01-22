@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Cloudflare Workers local development with Wrangler, Miniflare, hot reload, debugging. Use for project setup, wrangler.jsonc configuration, or encountering local dev, HMR, binding simulation errors.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:43.455214Z"
+  "downloaded_at": "2026-01-06T08:58:43.455214Z",
+  "github_path": "plugins/cloudflare-workers/skills/cloudflare-workers-dev-experience",
+  "github_branch": "main"
 }

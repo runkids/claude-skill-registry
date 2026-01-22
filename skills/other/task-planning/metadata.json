@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:13.727076Z",
   "dir_name": "task-planning",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/spec-kit/skills/task-planning",
+  "github_branch": "main"
 }

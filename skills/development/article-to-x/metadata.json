@@ -7,5 +7,7 @@
     "article"
   ],
   "stars": 14,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/article-to-x",
+  "github_branch": "main"
 }

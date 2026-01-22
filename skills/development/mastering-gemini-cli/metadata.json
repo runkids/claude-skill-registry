@@ -8,5 +8,7 @@
     "gemini",
     "cli"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "mastering-gemini-cli",
+  "github_branch": "main"
 }

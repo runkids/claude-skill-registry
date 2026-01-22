@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:49.874552Z",
   "dir_name": "agentic-layer-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/agentic-layer-audit",
+  "github_branch": "main"
 }

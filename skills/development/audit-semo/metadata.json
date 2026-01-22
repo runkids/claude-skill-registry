@@ -2,7 +2,9 @@
   "name": "audit-semo",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "\uc804\uccb4 SEMO \ud328\ud0a4\uc9c0 \ud1b5\ud569 \ud488\uc9c8 \uac10\uc0ac. Use when (1) \uc804\uccb4 \ud328\ud0a4\uc9c0 \ud488\uc9c8 \uc810\uac80, (2) Agent/Skill/Command \ud45c\uc900 \uc900\uc218 \uac80\ud1a0, (3) \ube44\ud6a8\uc728\uc801 \uad6c\uc870 \ud0d0\uc9c0, (4) \uc815\uae30 \uac10\uc0ac \uc218\ud589.",
+  "description": "전체 SEMO 패키지 통합 품질 감사. Use when (1) 전체 패키지 품질 점검, (2) Agent/Skill/Command 표준 준수 검토, (3) 비효율적 구조 탐지, (4) 정기 감사 수행.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:50.752118Z"
+  "downloaded_at": "2026-01-06T09:02:50.752118Z",
+  "github_path": "semo-system/meta/skills/audit-semo",
+  "github_branch": "main"
 }

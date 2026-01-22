@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:18.588099Z",
   "dir_name": "architecture-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/pensive/skills/architecture-review",
+  "github_branch": "main"
 }

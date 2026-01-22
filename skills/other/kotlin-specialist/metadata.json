@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:08.721213Z",
   "dir_name": "kotlin-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/kotlin-specialist",
+  "github_branch": "main"
 }

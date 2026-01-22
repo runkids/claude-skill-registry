@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Automated tooling and detection patterns for JavaScript/TypeScript code quality review",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:03.677700Z"
+  "downloaded_at": "2026-01-06T09:05:03.677700Z",
+  "github_path": "review/skills/reviewing-code-quality",
+  "github_branch": "main"
 }

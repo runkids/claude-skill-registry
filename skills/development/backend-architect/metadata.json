@@ -8,5 +8,7 @@
     "architect"
   ],
   "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "backend-architect",
+  "github_branch": "main"
 }

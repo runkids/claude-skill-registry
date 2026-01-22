@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:44.195775Z",
   "dir_name": "automl-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-ml/skills/automl-optimizer",
+  "github_branch": "main"
 }

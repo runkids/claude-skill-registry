@@ -5,5 +5,7 @@
   "source": "github.com/nickromney/n-dotfiles",
   "downloaded_at": "2026-01-22T04:02:52.333113Z",
   "dir_name": "swift-concurrency-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/swift-concurrency-expert",
+  "github_branch": "main"
 }

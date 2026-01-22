@@ -5,5 +5,7 @@
   "source": "github.com/shiiman/claude-code-plugins",
   "downloaded_at": "2026-01-17T03:40:07.194192Z",
   "dir_name": "image-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/shiiman-docker/skills/image-manager",
+  "github_branch": "main"
 }

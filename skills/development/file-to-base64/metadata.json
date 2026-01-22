@@ -7,5 +7,7 @@
     "file",
     "base64"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/file-to-base64",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Keep pull requests and issues healthy using gh CLI (list, view, comment, close).",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:33.831114Z"
+  "downloaded_at": "2026-01-06T09:02:33.831114Z",
+  "github_path": ".config/opencode/skill/gh-pr-issue",
+  "github_branch": "main"
 }

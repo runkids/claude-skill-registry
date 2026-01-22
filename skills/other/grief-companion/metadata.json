@@ -5,5 +5,7 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-22T01:02:58.502186Z",
   "dir_name": "grief-companion",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/grief-companion",
+  "github_branch": "main"
 }

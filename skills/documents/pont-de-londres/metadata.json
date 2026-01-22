@@ -7,5 +7,7 @@
     "pont",
     "londres"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "pont-de-londres",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/chaorenex1/coding-workflow",
   "downloaded_at": "2026-01-22T01:43:17.910927Z",
   "dir_name": "code-fix-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/code-fix-assistant",
+  "github_branch": "main"
 }

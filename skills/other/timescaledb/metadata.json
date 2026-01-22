@@ -5,5 +5,7 @@
   "source": "github.com/troykelly/codex-skills",
   "downloaded_at": "2026-01-22T04:02:55.423767Z",
   "dir_name": "timescaledb",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/timescaledb",
+  "github_branch": "main"
 }

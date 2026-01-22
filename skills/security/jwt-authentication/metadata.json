@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Implement secure JWT (JSON Web Token) authentication in Node.js applications with access/refresh tokens and role-based access control",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:46.083009Z"
+  "downloaded_at": "2026-01-06T09:02:46.083009Z",
+  "github_path": "skills/jwt-authentication",
+  "github_branch": "main"
 }

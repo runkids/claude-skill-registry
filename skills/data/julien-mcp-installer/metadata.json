@@ -9,5 +9,7 @@
     "installer"
   ],
   "stars": 0,
-  "dir_name": "julien-mcp-installer"
+  "dir_name": "julien-mcp-installer",
+  "github_path": "skills/julien-mcp-installer",
+  "github_branch": "main"
 }

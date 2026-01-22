@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Performance optimization strategies. Use ONLY after profiling identifies bottlenecks.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:14.753699Z"
+  "downloaded_at": "2026-01-06T09:06:14.753699Z",
+  "github_path": "tech-stacks/go/skills/optimization-techniques",
+  "github_branch": "main"
 }

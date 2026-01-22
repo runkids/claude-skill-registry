@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:35.686355Z",
   "dir_name": "lang-rust-docs-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-rust-docs-dev",
+  "github_branch": "main"
 }

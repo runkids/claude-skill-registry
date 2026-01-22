@@ -5,5 +5,7 @@
   "source": "github.com/NASA-AMMOS/slim",
   "downloaded_at": "2026-01-17T01:29:55.987228Z",
   "dir_name": "slim-changelog",
-  "category": "other"
+  "category": "other",
+  "github_path": "static/marketplace/skills/slim-changelog",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:48.759984Z",
   "dir_name": "metagenome-visualization",
-  "category": "other"
+  "category": "other",
+  "github_path": "metagenomics/metagenome-visualization",
+  "github_branch": "main"
 }

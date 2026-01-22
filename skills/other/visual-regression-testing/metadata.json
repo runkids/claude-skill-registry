@@ -5,5 +5,7 @@
   "source": "github.com/flight505/storybook-assistant",
   "downloaded_at": "2026-01-19T03:34:51.317154Z",
   "dir_name": "visual-regression-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/visual-regression-testing",
+  "github_branch": "main"
 }

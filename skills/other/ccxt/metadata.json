@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-14T01:56:13.402551Z",
   "dir_name": "ccxt",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/other/ccxt",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "sdv",
     "layout"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/sdv-ui-layout",
+  "github_branch": "main"
 }

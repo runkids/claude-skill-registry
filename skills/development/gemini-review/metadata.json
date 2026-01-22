@@ -7,5 +7,7 @@
     "gemini",
     "review"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "gemini-review",
+  "github_branch": "main"
 }

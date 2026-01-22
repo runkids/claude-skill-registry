@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:50.217914Z",
   "dir_name": "somatic-variant-pipeline",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/somatic-variant-pipeline",
+  "github_branch": "main"
 }

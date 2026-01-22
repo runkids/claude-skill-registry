@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:25.581198Z",
   "dir_name": "charger",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/borahm/charger",
+  "github_branch": "main"
 }

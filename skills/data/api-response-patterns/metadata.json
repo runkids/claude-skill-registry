@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "api-response-patterns"
+  "dir_name": "api-response-patterns",
+  "github_path": ".claude/skills/api-response-patterns",
+  "github_branch": "main"
 }

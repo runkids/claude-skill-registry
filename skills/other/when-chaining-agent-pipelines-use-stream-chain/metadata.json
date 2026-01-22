@@ -5,5 +5,7 @@
   "source": "github.com/DNYoussef/context-cascade",
   "downloaded_at": "2026-01-22T02:03:52.797591Z",
   "dir_name": "when-chaining-agent-pipelines-use-stream-chain",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/orchestration/when-chaining-agent-pipelines-use-stream-chain",
+  "github_branch": "main"
 }

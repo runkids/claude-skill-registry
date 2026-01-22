@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:16.710899Z",
   "dir_name": "deploy-monitoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/deploy_monitoring",
+  "github_branch": "main"
 }

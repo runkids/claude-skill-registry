@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-cloudflare",
   "downloaded_at": "2026-01-14T01:29:59.238546Z",
   "dir_name": "cloud-infrastructure",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cloud-infrastructure",
+  "github_branch": "main"
 }

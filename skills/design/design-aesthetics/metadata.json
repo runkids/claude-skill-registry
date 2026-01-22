@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Ensure the user interface meets premium design standards, maintains consistency with existing design tokens, and provides a polished user experience.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:28.156546Z"
+  "downloaded_at": "2026-01-06T09:05:28.156546Z",
+  "github_path": ".agent/skills/design-aesthetics",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mosif16/codex-Skills",
   "downloaded_at": "2026-01-17T03:26:31.539343Z",
   "dir_name": "build-iphone-apps",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/build-iphone-apps",
+  "github_branch": "main"
 }

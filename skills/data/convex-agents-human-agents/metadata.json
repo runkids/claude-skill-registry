@@ -10,5 +10,7 @@
     "agents"
   ],
   "stars": 5,
-  "dir_name": "convex-agents-human-agents"
+  "dir_name": "convex-agents-human-agents",
+  "github_path": "convex-agents-human-agents",
+  "github_branch": "main"
 }

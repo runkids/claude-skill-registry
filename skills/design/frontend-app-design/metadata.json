@@ -8,5 +8,7 @@
     "app",
     "design"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/frontend-app-design",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "prompt",
     "engineer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/prompt-engineer",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/itsmostafa/aws-agent-skills",
   "downloaded_at": "2026-01-22T02:47:19.242267Z",
   "dir_name": "sns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sns",
+  "github_branch": "main"
 }

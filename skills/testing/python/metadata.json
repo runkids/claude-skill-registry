@@ -6,5 +6,7 @@
   "tags": [
     "python"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugins/python/skills/python",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:08.792473Z",
   "dir_name": "doc-scanner",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/doc-scanner",
+  "github_branch": "main"
 }

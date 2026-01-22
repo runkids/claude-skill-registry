@@ -5,5 +5,7 @@
   "source": "github.com/gadievron/raptor",
   "downloaded_at": "2026-01-22T04:15:04.757453Z",
   "dir_name": "gcov-coverage",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/crash-analysis/gcov-coverage",
+  "github_branch": "main"
 }

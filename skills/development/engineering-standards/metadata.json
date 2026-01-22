@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Core software engineering principles (SOLID, DRY, YAGNI, KISS) with detection patterns and refactoring guidance. Load when reviewing code quality, planning architecture, or identifying technical debt.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:43.451424Z"
+  "downloaded_at": "2026-01-06T08:56:43.451424Z",
+  "github_path": "vs-code-agents/skills/engineering-standards",
+  "github_branch": "main"
 }

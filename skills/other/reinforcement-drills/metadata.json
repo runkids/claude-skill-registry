@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.187016Z",
   "dir_name": "reinforcement-drills",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/sales-coaching/skills/reinforcement-drills",
+  "github_branch": "main"
 }

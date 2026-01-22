@@ -5,5 +5,7 @@
   "source": "github.com/TheBushidoCollective/han",
   "downloaded_at": "2026-01-22T03:51:12.496046Z",
   "dir_name": "pulumi-stacks",
-  "category": "other"
+  "category": "other",
+  "github_path": "jutsu/jutsu-pulumi/skills/pulumi-stacks",
+  "github_branch": "main"
 }

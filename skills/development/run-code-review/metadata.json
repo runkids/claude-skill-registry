@@ -2,7 +2,9 @@
   "name": "run-code-review",
   "repo": "semicolon-devteam/semo",
   "category": "development",
-  "description": "Next.js \ud504\ub85c\uc81d\ud2b8 \ud1b5\ud569 \ub9ac\ubdf0. review-task 6\ub2e8\uacc4 + semicolon-reviewer \ucf54\ub4dc \ub9ac\ubdf0\ub97c\ud558\ub098\uc758 \uc6cc\ud06c\ud50c\ub85c\uc6b0\ub85c \ud1b5\ud569 \uc2e4\ud589\ud569\ub2c8\ub2e4. PR\uc5d0 \ub9ac\ubdf0 \ucf54\uba58\ud2b8\ub97c \uc790\ub3d9 \ub4f1\ub85d\ud569\ub2c8\ub2e4.Use when (1) \"/SEMO:review\", (2) \"\ub9ac\ubdf0\ud574\uc918\", \"PR \ub9ac\ubdf0\", (3) \"\ud0dc\uc2a4\ud06c \ub9ac\ubdf0\", \"\ucf54\ub4dc \ub9ac\ubdf0\".",
+  "description": "Next.js 프로젝트 통합 리뷰. review-task 6단계 + semicolon-reviewer 코드 리뷰를하나의 워크플로우로 통합 실행합니다. PR에 리뷰 코멘트를 자동 등록합니다.Use when (1) \"/SEMO:review\", (2) \"리뷰해줘\", \"PR 리뷰\", (3) \"태스크 리뷰\", \"코드 리뷰\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.024077Z"
+  "downloaded_at": "2026-01-06T09:02:52.024077Z",
+  "github_path": "semo-system/semo-skills/run-code-review",
+  "github_branch": "main"
 }

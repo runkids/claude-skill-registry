@@ -5,5 +5,7 @@
   "source": "github.com/axiomantic/spellbook",
   "downloaded_at": "2026-01-14T03:44:29.232834Z",
   "dir_name": "using-lsp-tools",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/using-lsp-tools",
+  "github_branch": "main"
 }

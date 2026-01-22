@@ -5,5 +5,7 @@
   "source": "github.com/KvFxKaido/SENTINEL",
   "downloaded_at": "2026-01-22T01:19:01.216086Z",
   "dir_name": "wiki-check",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wiki-check",
+  "github_branch": "main"
 }

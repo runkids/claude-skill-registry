@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "debugging-systematic"
+  "dir_name": "debugging-systematic",
+  "github_path": "skills/debugging-systematic",
+  "github_branch": "main"
 }

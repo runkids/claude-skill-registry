@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Guidance for implementing minimal GPT-2 inference in constrained environments (code golf challenges). This skill should be used when implementing neural network inference from scratch, parsing binary ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:18.658729Z"
+  "downloaded_at": "2026-01-06T08:58:18.658729Z",
+  "github_path": "letta/benchmarks/trajectory-only/gpt2-codegolf",
+  "github_branch": "main"
 }

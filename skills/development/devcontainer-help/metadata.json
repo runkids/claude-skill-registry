@@ -8,5 +8,7 @@
     "help"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".bitbot/internal/bitbot-config/.claude/skills/devcontainer-help",
+  "github_branch": "main"
 }

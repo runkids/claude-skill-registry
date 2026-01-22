@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:07.724370Z",
   "dir_name": "javascript-pro",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/javascript-pro",
+  "github_branch": "main"
 }

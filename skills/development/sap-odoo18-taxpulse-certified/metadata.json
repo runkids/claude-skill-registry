@@ -9,5 +9,7 @@
     "taxpulse",
     "certified"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/sap-odoo18-taxpulse-certified",
+  "github_branch": "main"
 }

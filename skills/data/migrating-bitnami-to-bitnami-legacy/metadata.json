@@ -10,5 +10,7 @@
     "legacy"
   ],
   "stars": 3,
-  "dir_name": "migrating-bitnami-to-bitnami-legacy"
+  "dir_name": "migrating-bitnami-to-bitnami-legacy",
+  "github_path": "migrating-bitnami-to-bitnami-legacy",
+  "github_branch": "main"
 }

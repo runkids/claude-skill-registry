@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/design-brief-generator",
+  "github_branch": "main"
 }

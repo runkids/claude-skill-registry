@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:50.418666Z",
   "dir_name": "file-name-wizard",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/file-name-wizard",
+  "github_branch": "main"
 }

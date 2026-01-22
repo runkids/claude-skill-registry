@@ -5,5 +5,7 @@
   "source": "github.com/Starlitnightly/omicverse",
   "downloaded_at": "2026-01-21T03:02:04.619809Z",
   "dir_name": "single-annotation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/single-annotation",
+  "github_branch": "main"
 }

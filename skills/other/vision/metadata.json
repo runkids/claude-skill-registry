@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-22T01:49:27.776479Z",
   "dir_name": "vision",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/alirezarezvani/senior-computer-vision",
+  "github_branch": "main"
 }

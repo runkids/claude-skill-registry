@@ -5,5 +5,7 @@
   "source": "github.com/tjmaynes/skills",
   "downloaded_at": "2026-01-22T03:18:53.559862Z",
   "dir_name": "bash-script-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/bash-script-generator",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "codex",
     "review"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/governance-docs-codex-review",
+  "github_branch": "main"
 }

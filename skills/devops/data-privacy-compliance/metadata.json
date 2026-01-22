@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Data privacy and regulatory compliance specialist for GDPR, CCPA, HIPAA, and international data protection laws. Use when implementing privacy controls, conducting data protection impact assessments, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.745374Z"
+  "downloaded_at": "2026-01-06T08:55:35.745374Z",
+  "github_path": "cli-tool/components/skills/enterprise-communication/data-privacy-compliance",
+  "github_branch": "main"
 }

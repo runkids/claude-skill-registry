@@ -10,5 +10,7 @@
     "migration"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "analyze-m1-module-for-migration",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "hint",
     "reviewer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/python-type-hint-reviewer",
+  "github_branch": "main"
 }

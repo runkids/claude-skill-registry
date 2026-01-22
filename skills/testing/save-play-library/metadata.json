@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use to catalog churn/expansion plays tied to specific signals, cohorts, and owners.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:21.423580Z"
+  "downloaded_at": "2026-01-06T08:57:21.423580Z",
+  "github_path": "plugins/customer-analytics/skills/save-play-library",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:53.533851Z",
   "dir_name": "inverse-conway",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/team-design/skills/inverse-conway",
+  "github_branch": "main"
 }

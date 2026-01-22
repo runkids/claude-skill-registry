@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:08.011535Z",
   "dir_name": "windsurf-data-handling",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/windsurf-pack/skills/windsurf-data-handling",
+  "github_branch": "main"
 }

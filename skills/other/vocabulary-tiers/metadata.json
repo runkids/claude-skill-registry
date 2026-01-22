@@ -5,5 +5,7 @@
   "source": "github.com/tkgally/je-dict-1",
   "downloaded_at": "2026-01-22T02:07:31.421839Z",
   "dir_name": "vocabulary-tiers",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/vocabulary-tiers",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "RESTful API design patterns, error handling, and documentation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:31.120668Z"
+  "downloaded_at": "2026-01-06T09:10:31.120668Z",
+  "github_path": "api-design-restful",
+  "github_branch": "main"
 }

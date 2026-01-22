@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:40.742305Z",
   "dir_name": "pop-embed-content",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-core/skills/pop-embed-content",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "curate-genome-assembly"
+  "dir_name": "curate-genome-assembly",
+  "github_path": "skills/curate-genome-assembly",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "agent",
     "architect"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".github/skills/m365-agent-architect",
+  "github_branch": "main"
 }

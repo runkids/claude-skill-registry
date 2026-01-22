@@ -7,5 +7,7 @@
     "semantic",
     "versioning"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/semantic-versioning",
+  "github_branch": "main"
 }

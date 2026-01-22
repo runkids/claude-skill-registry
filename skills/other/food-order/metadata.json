@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/clawdbot",
   "downloaded_at": "2026-01-22T03:52:09.579673Z",
   "dir_name": "food-order",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/food-order",
+  "github_branch": "main"
 }

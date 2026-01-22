@@ -2,7 +2,9 @@
   "name": "openspec",
   "repo": "ruan-cat/monorepo",
   "category": "development",
-  "description": "OpenSpec \u4e2d\u6587\u7248\u89c4\u8303\u52a9\u624b - \u89c4\u8303\u9a71\u52a8\u7684 AI \u7f16\u7a0b\u5f00\u53d1\uff0c\u5e2e\u52a9\u521d\u59cb\u5316\u3001\u521b\u5efa\u63d0\u6848\u3001\u7f16\u5199\u89c4\u683c\u3001\u6821\u9a8c\u683c\u5f0f\u5e76\u5f52\u6863\u53d8\u66f4\u3002\u89e6\u53d1\u6761\u4ef6\uff1a \u5f53\u7528\u6237\u63d0\u53ca openspec\u3001\u89c4\u8303\u6587\u6863\u3001\u9700\u6c42\u7ba1\u7406\u3001\u53d8\u66f4\u63d0\u6848\u3001spec-driven development \u7b49\u5173\u952e\u8bcd\u65f6\u4e3b\u52a8\u8c03\u7528\u3002",
+  "description": "OpenSpec 中文版规范助手 - 规范驱动的 AI 编程开发，帮助初始化、创建提案、编写规格、校验格式并归档变更。触发条件： 当用户提及 openspec、规范文档、需求管理、变更提案、spec-driven development 等关键词时主动调用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:16.453834Z"
+  "downloaded_at": "2026-01-06T09:01:16.453834Z",
+  "github_path": "claude-code-marketplace/common-tools/skills/openspec",
+  "github_branch": "main"
 }

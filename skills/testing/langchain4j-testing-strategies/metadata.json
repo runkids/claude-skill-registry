@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Testing strategies for LangChain4j-powered applications. Mock LLM responses, test retrieval chains, and validate AI workflows. Use when testing AI-powered features reliably.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:14.085008Z"
+  "downloaded_at": "2026-01-06T08:57:14.085008Z",
+  "github_path": "skills/langchain4j/langchain4j-testing-strategies",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "explanation"
   ],
   "stars": 25,
-  "dir_name": "ml-model-explanation"
+  "dir_name": "ml-model-explanation",
+  "github_path": "skills/ml-model-explanation",
+  "github_branch": "main"
 }

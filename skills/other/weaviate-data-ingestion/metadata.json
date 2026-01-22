@@ -5,5 +5,7 @@
   "source": "github.com/saskinosie/weaviate-claude-skills",
   "downloaded_at": "2026-01-22T03:53:06.814990Z",
   "dir_name": "weaviate-data-ingestion",
-  "category": "other"
+  "category": "other",
+  "github_path": "weaviate-data-ingestion",
+  "github_branch": "main"
 }

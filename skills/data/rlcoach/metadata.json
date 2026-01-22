@@ -7,5 +7,7 @@
     "rlcoach"
   ],
   "stars": 1,
-  "dir_name": "rlcoach"
+  "dir_name": "rlcoach",
+  "github_path": "skills/rlcoach",
+  "github_branch": "main"
 }

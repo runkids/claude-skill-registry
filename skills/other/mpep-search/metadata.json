@@ -5,5 +5,7 @@
   "source": "github.com/RobThePCGuy/Claude-Patent-Creator",
   "downloaded_at": "2026-01-19T03:15:25.877188Z",
   "dir_name": "mpep-search",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/mpep-search",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:12.039396Z",
   "dir_name": "domain-storytelling",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/enterprise-architecture/skills/domain-storytelling",
+  "github_branch": "main"
 }

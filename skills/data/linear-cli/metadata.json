@@ -8,5 +8,7 @@
     "cli"
   ],
   "stars": 2,
-  "dir_name": "linear-cli"
+  "dir_name": "linear-cli",
+  "github_path": "skills/linear-cli",
+  "github_branch": "main"
 }

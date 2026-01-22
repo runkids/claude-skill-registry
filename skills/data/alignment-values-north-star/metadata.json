@@ -11,5 +11,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "alignment-values-north-star"
+  "dir_name": "alignment-values-north-star",
+  "github_path": "skills/alignment-values-north-star",
+  "github_branch": "main"
 }

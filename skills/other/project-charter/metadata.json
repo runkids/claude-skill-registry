@@ -5,5 +5,7 @@
   "source": "github.com/HaRu-LLC/ai-pm_system_notebooklmuse",
   "downloaded_at": "2026-01-22T01:39:46.297478Z",
   "dir_name": "project-charter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/pm/initiating/project-charter",
+  "github_branch": "main"
 }

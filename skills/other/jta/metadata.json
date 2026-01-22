@@ -5,5 +5,7 @@
   "source": "github.com/hikanner/agent-skills",
   "downloaded_at": "2026-01-22T01:44:10.838954Z",
   "dir_name": "jta",
-  "category": "other"
+  "category": "other",
+  "github_path": "jta",
+  "github_branch": "main"
 }

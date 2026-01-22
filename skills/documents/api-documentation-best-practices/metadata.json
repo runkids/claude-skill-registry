@@ -2,7 +2,9 @@
   "name": "api-documentation-best-practices",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "documents",
-  "description": "OpenAPI\u3001Swagger\u3001RESTful API\u30c9\u30ad\u30e5\u30e1\u30f3\u30c6\u30fc\u30b7\u30e7\u30f3\u306e\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3092\u63d0\u4f9b\u3059\u308b\u5c02\u9580\u30b9\u30ad\u30eb\u3002Anchors:\u2022 \u300eRESTful Web APIs\u300f\uff08Leonard Richardson\uff09/ \u9069\u7528: REST API\u30c9\u30ad\u30e5\u30e1\u30f3\u30c6\u30fc\u30b7\u30e7\u30f3 / \u76ee\u7684: \u30ea\u30bd\u30fc\u30b9\u8a2d\u8a08\u3068HTTP\u64cd\u4f5c\u306e\u6a19\u6e96\u5316Trigger:OpenAPI/Swagger\u5b9a\u7fa9\u8a2d\u8a08\u6642\u3001API\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u4ed5\u69d8\u66f8\u4f5c\u6210\u6642\u3001",
+  "description": "OpenAPI、Swagger、RESTful APIドキュメンテーションのベストプラクティスを提供する専門スキル。Anchors:• 『RESTful Web APIs』（Leonard Richardson）/ 適用: REST APIドキュメンテーション / 目的: リソース設計とHTTP操作の標準化Trigger:OpenAPI/Swagger定義設計時、APIエンドポイント仕様書作成時、",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.254852Z"
+  "downloaded_at": "2026-01-06T09:00:40.254852Z",
+  "github_path": "docs/99-claude/skills/api-documentation-best-practices",
+  "github_branch": "main"
 }

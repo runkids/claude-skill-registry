@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Comprehensive GitHub project management with swarm-coordinated issue tracking, project board automation, and sprint planning. Coordinates planner, issue-tracker, and project-board-sync agents to autom",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:08.763147Z"
+  "downloaded_at": "2026-01-06T09:05:08.763147Z",
+  "github_path": ".claude/skills/github-integration/when-managing-github-projects-use-github-project-management",
+  "github_branch": "main"
 }

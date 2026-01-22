@@ -5,5 +5,7 @@
   "source": "github.com/instavm/coderunner",
   "downloaded_at": "2026-01-22T01:26:27.207140Z",
   "dir_name": "image-crop-rotate",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/public/image-crop-rotate",
+  "github_branch": "main"
 }

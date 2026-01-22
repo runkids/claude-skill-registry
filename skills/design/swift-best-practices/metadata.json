@@ -4,5 +4,7 @@
   "category": "design",
   "description": "This skill should be used when writing or reviewing Swift code for iOS or macOS projects. Apply modern Swift 6+ best practices, concurrency patterns, API design guidelines, and migration strategies. C",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:52.114084Z"
+  "downloaded_at": "2026-01-06T08:56:52.114084Z",
+  "github_path": "Claude/skills/swift-best-practices",
+  "github_branch": "main"
 }

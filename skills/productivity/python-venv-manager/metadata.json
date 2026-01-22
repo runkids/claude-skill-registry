@@ -8,5 +8,7 @@
     "venv",
     "manager"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": "skills/python-venv-manager",
+  "github_branch": "main"
 }

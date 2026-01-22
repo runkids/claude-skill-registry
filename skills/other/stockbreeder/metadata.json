@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:12.281990Z",
   "dir_name": "stockbreeder",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/domains/stockbreeder",
+  "github_branch": "main"
 }

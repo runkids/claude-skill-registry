@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:39.209180Z",
   "dir_name": "pop-auto-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-core/skills/pop-auto-docs",
+  "github_branch": "main"
 }

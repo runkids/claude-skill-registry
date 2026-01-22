@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:26.377398Z",
   "dir_name": "aws-ai-services",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aws-ai-services",
+  "github_branch": "main"
 }

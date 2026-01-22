@@ -5,5 +5,7 @@
   "source": "github.com/alinaqi/claude-bootstrap",
   "downloaded_at": "2026-01-22T03:20:48.951204Z",
   "dir_name": "klaviyo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/klaviyo",
+  "github_branch": "main"
 }

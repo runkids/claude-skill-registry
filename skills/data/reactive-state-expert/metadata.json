@@ -9,5 +9,7 @@
     "expert"
   ],
   "stars": 0,
-  "dir_name": "reactive-state-expert"
+  "dir_name": "reactive-state-expert",
+  "github_path": ".claude/skills/reactive-state-expert",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:03.990579Z",
   "dir_name": "whisper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/whisper",
+  "github_branch": "main"
 }

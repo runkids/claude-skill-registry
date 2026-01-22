@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:28.049535Z",
   "dir_name": "container-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/container-debugging",
+  "github_branch": "main"
 }

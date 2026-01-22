@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-14T03:53:08.380517Z",
   "dir_name": "financial-reporter",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/financial-reporter",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:14.597154Z",
   "dir_name": "architecture-paradigm-functional-core",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/archetypes/skills/architecture-paradigm-functional-core",
+  "github_branch": "main"
 }

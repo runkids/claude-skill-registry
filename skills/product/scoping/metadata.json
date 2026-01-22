@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Conduct scoping conversation with user to define research question, key findings, and constraints. Generates scope.md that guides all subsequent steps. Second step of biomedical-science-writer workflo",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:12.524562Z"
+  "downloaded_at": "2026-01-06T09:11:12.524562Z",
+  "github_path": "plugins/writer/skills/scoping",
+  "github_branch": "main"
 }

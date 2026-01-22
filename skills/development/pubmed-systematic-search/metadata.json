@@ -8,5 +8,7 @@
     "systematic",
     "search"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/pubmed-systematic-search",
+  "github_branch": "main"
 }

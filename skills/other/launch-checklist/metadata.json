@@ -5,5 +5,7 @@
   "source": "github.com/product-on-purpose/pm-skills",
   "downloaded_at": "2026-01-22T02:42:45.533507Z",
   "dir_name": "launch-checklist",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/deliver/launch-checklist",
+  "github_branch": "main"
 }

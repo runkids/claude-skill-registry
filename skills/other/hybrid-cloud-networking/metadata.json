@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:13.072362Z",
   "dir_name": "hybrid-cloud-networking",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/cloud-infrastructure/skills/hybrid-cloud-networking",
+  "github_branch": "main"
 }

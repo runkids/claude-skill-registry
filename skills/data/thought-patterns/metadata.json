@@ -8,5 +8,7 @@
     "patterns"
   ],
   "stars": 0,
-  "dir_name": "thought-patterns"
+  "dir_name": "thought-patterns",
+  "github_path": "skills/thought-patterns",
+  "github_branch": "main"
 }

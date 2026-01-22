@@ -8,5 +8,7 @@
     "rails",
     "development"
   ],
-  "stars": 18
+  "stars": 18,
+  "github_path": "ruby-on-rails-development",
+  "github_branch": "main"
 }

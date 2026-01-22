@@ -5,5 +5,7 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:07.989980Z",
   "dir_name": "github-manage",
-  "category": "other"
+  "category": "other",
+  "github_path": ".archive/skills/github-manage",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "thinker"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/deep-thinker",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/breethomas/pm-thought-partner",
   "downloaded_at": "2026-01-14T03:54:54.837424Z",
   "dir_name": "agent-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/agent-workflow",
+  "github_branch": "main"
 }

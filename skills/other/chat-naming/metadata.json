@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:05.426582Z",
   "dir_name": "chat-naming",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/chat-naming",
+  "github_branch": "main"
 }

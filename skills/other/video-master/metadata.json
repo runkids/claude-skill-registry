@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:37.297917Z",
   "dir_name": "video-master",
-  "category": "other"
+  "category": "other",
+  "github_path": "video-master",
+  "github_branch": "main"
 }

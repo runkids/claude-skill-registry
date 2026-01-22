@@ -5,5 +5,7 @@
   "source": "github.com/daffy0208/ai-dev-standards",
   "downloaded_at": "2026-01-22T04:14:01.567282Z",
   "dir_name": "customer-support-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/customer-support-builder",
+  "github_branch": "main"
 }

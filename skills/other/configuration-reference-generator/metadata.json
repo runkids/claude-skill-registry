@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:04.131284Z",
   "dir_name": "configuration-reference-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/17-technical-docs/configuration-reference-generator",
+  "github_branch": "main"
 }

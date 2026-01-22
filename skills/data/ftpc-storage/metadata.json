@@ -8,5 +8,7 @@
     "storage"
   ],
   "stars": 0,
-  "dir_name": "ftpc-storage"
+  "dir_name": "ftpc-storage",
+  "github_path": "skills/ftpc-storage-write",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "manifest",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "kubernetes-manifest-generator",
+  "github_branch": "main"
 }

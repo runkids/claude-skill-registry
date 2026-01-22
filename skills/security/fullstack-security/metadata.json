@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Security and performance - hardening, optimization, auditing",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:44.879310Z"
+  "downloaded_at": "2026-01-06T09:02:44.879310Z",
+  "github_path": "skills/fullstack-security",
+  "github_branch": "main"
 }

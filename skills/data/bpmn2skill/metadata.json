@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bpmn2skill"
+  "dir_name": "bpmn2skill",
+  "github_path": "bpmn2skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/intent-solutions-io/plugins-nixtla",
   "downloaded_at": "2026-01-22T00:52:26.325028Z",
   "dir_name": "visual-regression-tester",
-  "category": "other"
+  "category": "other",
+  "github_path": "010-archive/backups-20251108/skill-structure-cleanup-20251108-073936/plugins/testing/visual-regression-tester/skills/visual-regression-tester",
+  "github_branch": "main"
 }

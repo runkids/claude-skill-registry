@@ -7,5 +7,7 @@
     "pre",
     "commit"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "plugins/pre-commit/skills/pre-commit",
+  "github_branch": "main"
 }

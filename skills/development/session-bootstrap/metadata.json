@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Initialize a new local session log from the conversation.compact.md.template at the start of a work session.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:41.476766Z"
+  "downloaded_at": "2026-01-06T09:01:41.476766Z",
+  "github_path": ".agent/skills/session-bootstrap",
+  "github_branch": "main"
 }

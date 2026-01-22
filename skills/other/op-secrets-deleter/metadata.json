@@ -5,5 +5,7 @@
   "source": "github.com/leefowlercu/agent-kit",
   "downloaded_at": "2026-01-22T01:28:23.793832Z",
   "dir_name": "op-secrets-deleter",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/op-secrets-manager/skills/op-secrets-deleter",
+  "github_branch": "main"
 }

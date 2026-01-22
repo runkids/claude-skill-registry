@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:56.836066Z",
   "dir_name": "composio-raffle-winner-picker",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/composio-raffle-winner-picker",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "format"
   ],
   "stars": 0,
-  "dir_name": "citation-format"
+  "dir_name": "citation-format",
+  "github_path": "skills/citation-format",
+  "github_branch": "main"
 }

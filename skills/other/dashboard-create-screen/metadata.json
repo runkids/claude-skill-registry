@@ -5,5 +5,7 @@
   "source": "github.com/Automattic/wp-calypso",
   "downloaded_at": "2026-01-22T03:42:18.540318Z",
   "dir_name": "dashboard-create-screen",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dashboard-create-screen",
+  "github_branch": "main"
 }

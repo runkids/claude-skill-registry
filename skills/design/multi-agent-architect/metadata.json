@@ -8,5 +8,7 @@
     "agent",
     "architect"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/multi-agent-architect",
+  "github_branch": "main"
 }

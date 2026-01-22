@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:25.759557Z",
   "dir_name": "postgres-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/postgres-patterns",
+  "github_branch": "main"
 }

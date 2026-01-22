@@ -2,7 +2,9 @@
   "name": "working-with-figma",
   "repo": "sekka/dotfiles",
   "category": "development",
-  "description": "Figma\u30c7\u30b6\u30a4\u30f3\u3092MCP\u30c4\u30fc\u30eb\u3067\u53d6\u5f97\u3057\u3001\u65e2\u5b58\u30b3\u30fc\u30c9\u30d9\u30fc\u30b9\u3078\u6b63\u78ba\u306b\u5b9f\u88c5\u3057\u307e\u3059\u3002\u30c7\u30b6\u30a4\u30f3\u60c5\u5831\u306e\u53d6\u5f97\u304b\u3089\u5b9f\u88c5\u307e\u3067\u3092\u4e00\u8cab\u3057\u3066\u652f\u63f4\u3057\u307e\u3059\u3002Figma\u30c7\u30b6\u30a4\u30f3\u3068\u306e\u4f5c\u696d\u304c\u5fc5\u8981\u306a\u3068\u304d\u306b\u4f7f\u7528\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+  "description": "FigmaデザインをMCPツールで取得し、既存コードベースへ正確に実装します。デザイン情報の取得から実装までを一貫して支援します。Figmaデザインとの作業が必要なときに使用してください。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:12.324064Z"
+  "downloaded_at": "2026-01-06T09:08:12.324064Z",
+  "github_path": "home/.claude/skills/working-with-figma",
+  "github_branch": "main"
 }

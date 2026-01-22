@@ -8,5 +8,7 @@
     "quality",
     "workflow"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "claude_ctx_py/assets/skills/code-quality-workflow",
+  "github_branch": "main"
 }

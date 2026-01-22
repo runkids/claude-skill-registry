@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-cloudflare",
   "downloaded_at": "2026-01-14T01:29:59.035116Z",
   "dir_name": "core-development",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/core-development",
+  "github_branch": "main"
 }

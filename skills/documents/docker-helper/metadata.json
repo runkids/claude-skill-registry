@@ -8,5 +8,7 @@
     "helper"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/docker-helper",
+  "github_branch": "main"
 }

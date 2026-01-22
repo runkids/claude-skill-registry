@@ -5,5 +5,7 @@
   "source": "github.com/enuno/claude-command-and-control",
   "downloaded_at": "2026-01-14T00:52:42.993588Z",
   "dir_name": "starlight",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills-templates/starlight",
+  "github_branch": "main"
 }

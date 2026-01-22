@@ -5,5 +5,7 @@
   "source": "github.com/ovachiever/droid-tings",
   "downloaded_at": "2026-01-22T04:10:04.772467Z",
   "dir_name": "skill-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-review",
+  "github_branch": "main"
 }

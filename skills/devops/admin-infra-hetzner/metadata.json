@@ -9,5 +9,7 @@
     "hetzner"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/admin-infra-hetzner",
+  "github_branch": "main"
 }

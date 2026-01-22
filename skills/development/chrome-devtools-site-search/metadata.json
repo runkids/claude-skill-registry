@@ -9,5 +9,7 @@
     "site",
     "search"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/chrome-devtools-site-search",
+  "github_branch": "main"
 }

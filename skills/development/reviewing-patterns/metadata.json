@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Review Zod schemas for correctness, performance, and v4 best practices",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:05.741654Z"
+  "downloaded_at": "2026-01-06T09:05:05.741654Z",
+  "github_path": "zod-4/skills/reviewing-patterns",
+  "github_branch": "main"
 }

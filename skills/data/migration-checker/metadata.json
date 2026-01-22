@@ -8,5 +8,7 @@
     "checker"
   ],
   "stars": 0,
-  "dir_name": "migration-checker"
+  "dir_name": "migration-checker",
+  "github_path": "skills/migration-checker",
+  "github_branch": "main"
 }

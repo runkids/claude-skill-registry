@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when the user wants to list, configure, update, or remove installed Claude Code plugins",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:49.976446Z"
+  "downloaded_at": "2026-01-06T09:06:49.976446Z",
+  "github_path": "skills/plugin-management",
+  "github_branch": "main"
 }

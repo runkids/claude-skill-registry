@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:09.275241Z",
   "dir_name": "kafka-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/data/kafka-expert",
+  "github_branch": "main"
 }

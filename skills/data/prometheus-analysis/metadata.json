@@ -8,5 +8,7 @@
     "analysis"
   ],
   "stars": 4,
-  "dir_name": "prometheus-analysis"
+  "dir_name": "prometheus-analysis",
+  "github_path": "skills/prometheus-analysis",
+  "github_branch": "main"
 }

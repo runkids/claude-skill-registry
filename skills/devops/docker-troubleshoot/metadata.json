@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Diagnose container failures, networking issues, permissions, and port conflicts",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:16.448779Z"
+  "downloaded_at": "2026-01-06T09:00:16.448779Z",
+  "github_path": "docker-specialist/skills/docker-troubleshoot",
+  "github_branch": "main"
 }

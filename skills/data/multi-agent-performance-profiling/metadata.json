@@ -5,5 +5,7 @@
   "description": "Multi-agent parallel performance profiling workflow for identifying bottlenecks in data pipelines. Use when investigating performance issues, optimizing ingestion pipelines, profiling database operati",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:42.943450Z",
-  "dir_name": "multi-agent-performance-profiling"
+  "dir_name": "multi-agent-performance-profiling",
+  "github_path": "plugins/quality-tools/skills/multi-agent-performance-profiling",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/davila7/claude-code-templates",
   "downloaded_at": "2026-01-22T03:18:27.307844Z",
   "dir_name": "geniml",
-  "category": "other"
+  "category": "other",
+  "github_path": "cli-tool/components/skills/scientific/geniml",
+  "github_branch": "main"
 }

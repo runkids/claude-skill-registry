@@ -8,5 +8,7 @@
     "code",
     "review"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "codex-code-review",
+  "github_branch": "main"
 }

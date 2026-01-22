@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "To resize the browser window, change viewport size to test responsive layouts.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:12.679509Z"
+  "downloaded_at": "2026-01-06T08:59:12.679509Z",
+  "github_path": "dev-swarm/mcp-skills/playwright-browser-resize",
+  "github_branch": "main"
 }

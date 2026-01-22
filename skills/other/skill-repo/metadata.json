@@ -5,5 +5,7 @@
   "source": "github.com/netresearch/skill-repo-skill",
   "downloaded_at": "2026-01-22T01:23:14.592462Z",
   "dir_name": "skill-repo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/skill-repo",
+  "github_branch": "main"
 }

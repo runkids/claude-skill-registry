@@ -7,5 +7,7 @@
     "legacy",
     "modernizer"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/legacy-modernizer",
+  "github_branch": "main"
 }

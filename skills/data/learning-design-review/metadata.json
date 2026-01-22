@@ -9,5 +9,7 @@
     "review"
   ],
   "stars": 0,
-  "dir_name": "learning-design-review"
+  "dir_name": "learning-design-review",
+  "github_path": "skills/learning-design-review",
+  "github_branch": "main"
 }

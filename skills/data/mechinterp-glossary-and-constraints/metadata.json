@@ -10,5 +10,7 @@
     "constraints"
   ],
   "stars": 0,
-  "dir_name": "mechinterp-glossary-and-constraints"
+  "dir_name": "mechinterp-glossary-and-constraints",
+  "github_path": ".claude/skills/mechinterp-glossary-and-constraints",
+  "github_branch": "main"
 }

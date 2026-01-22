@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:51.124417Z",
   "dir_name": "observability-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/systems-design/skills/observability-patterns",
+  "github_branch": "main"
 }

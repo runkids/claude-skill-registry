@@ -5,5 +5,7 @@
   "source": "github.com/progressions/shot-client-next",
   "downloaded_at": "2026-01-14T01:07:40.928160Z",
   "dir_name": "deploy-shot-client-next",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/deploy-shot-client-next",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "description": "Framework for monitoring activation, engagement, and monetization guardrails.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:24.946782Z",
-  "dir_name": "usage-health-scorecard"
+  "dir_name": "usage-health-scorecard",
+  "github_path": "plugins/product-led-growth/skills/usage-health-scorecard",
+  "github_branch": "main"
 }

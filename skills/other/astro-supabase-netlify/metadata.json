@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.743014Z",
   "dir_name": "astro-supabase-netlify",
-  "category": "other"
+  "category": "other",
+  "github_path": "astro-supabase-netlify",
+  "github_branch": "main"
 }

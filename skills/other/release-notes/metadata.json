@@ -5,5 +5,7 @@
   "source": "github.com/edwardmonteiro/Aiskillinpractice",
   "downloaded_at": "2026-01-22T03:04:07.563616Z",
   "dir_name": "release-notes",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/delivery/release_notes",
+  "github_branch": "main"
 }

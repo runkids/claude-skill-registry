@@ -5,5 +5,7 @@
   "source": "github.com/horuz-ai/claude-plugins",
   "downloaded_at": "2026-01-22T03:49:55.461115Z",
   "dir_name": "website-cloner",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/website-cloner/skills/website-cloner",
+  "github_branch": "main"
 }

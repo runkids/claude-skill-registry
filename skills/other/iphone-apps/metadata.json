@@ -5,5 +5,7 @@
   "source": "github.com/utahdws/webteam-ai-tools",
   "downloaded_at": "2026-01-22T02:14:23.016830Z",
   "dir_name": "iphone-apps",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai-cli/shared/skills/expertise/iphone-apps",
+  "github_branch": "main"
 }

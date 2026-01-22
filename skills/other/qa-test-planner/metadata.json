@@ -5,5 +5,7 @@
   "source": "github.com/jamesrochabrun/skills",
   "downloaded_at": "2026-01-22T01:27:11.188724Z",
   "dir_name": "qa-test-planner",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/qa-test-planner",
+  "github_branch": "main"
 }

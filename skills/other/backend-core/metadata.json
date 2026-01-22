@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:33.929026Z",
   "dir_name": "backend-core",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/backend-core",
+  "github_branch": "main"
 }

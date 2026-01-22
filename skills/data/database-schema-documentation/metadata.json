@@ -10,5 +10,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "database-schema-documentation"
+  "dir_name": "database-schema-documentation",
+  "github_path": "skills/database-schema-documentation",
+  "github_branch": "main"
 }

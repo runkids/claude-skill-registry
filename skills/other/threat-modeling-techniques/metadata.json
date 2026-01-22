@@ -5,5 +5,7 @@
   "source": "github.com/NickCrew/claude-cortex",
   "downloaded_at": "2026-01-22T01:32:45.482169Z",
   "dir_name": "threat-modeling-techniques",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude_ctx_py/assets/skills/threat-modeling-techniques",
+  "github_branch": "main"
 }

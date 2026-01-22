@@ -5,5 +5,7 @@
   "source": "github.com/ScientiaCapital/skills",
   "downloaded_at": "2026-01-19T03:08:03.247962Z",
   "dir_name": "project-context-skill-scientiacapital-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": "stable/project-context-skill",
+  "github_branch": "main"
 }

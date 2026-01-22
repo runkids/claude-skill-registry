@@ -8,5 +8,7 @@
     "chemistry",
     "evaluator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "team-chemistry-evaluator",
+  "github_branch": "main"
 }

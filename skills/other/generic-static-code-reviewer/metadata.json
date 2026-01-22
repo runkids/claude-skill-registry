@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:34.948089Z",
   "dir_name": "generic-static-code-reviewer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/generic-static-code-reviewer",
+  "github_branch": "main"
 }

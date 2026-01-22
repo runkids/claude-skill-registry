@@ -2,7 +2,9 @@
   "name": "ba-collaboration",
   "repo": "cuipengfei/prompts",
   "category": "development",
-  "description": "BA \u534f\u4f5c - \u4e0e\u4e1a\u52a1\u5206\u6790\u5e08\u534f\u4f5c\u7684\u4e13\u4e1a\u5316\u5de5\u4f5c\u6d41\u3002\u5e2e\u52a9 BA \u7f16\u5199\u9ad8\u8d28\u91cf\u7528\u6237\u6545\u4e8b\u548c\u9a8c\u6536\u6807\u51c6\u3002",
+  "description": "BA 协作 - 与业务分析师协作的专业化工作流。帮助 BA 编写高质量用户故事和验收标准。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:28.214649Z"
+  "downloaded_at": "2026-01-06T08:59:28.214649Z",
+  "github_path": "plugins/ba-collaboration/skills/ba-collaboration",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "actions"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skill",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "continuous",
     "testing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/continuous-testing",
+  "github_branch": "main"
 }

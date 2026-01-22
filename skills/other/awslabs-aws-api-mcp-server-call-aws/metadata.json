@@ -5,5 +5,7 @@
   "source": "github.com/X-School-Academy/ai-dev-swarm",
   "downloaded_at": "2026-01-14T02:33:47.535710Z",
   "dir_name": "awslabs-aws-api-mcp-server-call-aws",
-  "category": "other"
+  "category": "other",
+  "github_path": "dev-swarm/mcp-skills/awslabs-aws-api-mcp-server-call-aws",
+  "github_branch": "main"
 }

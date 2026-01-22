@@ -8,5 +8,7 @@
     "health"
   ],
   "stars": 0,
-  "dir_name": "toolchain-health"
+  "dir_name": "toolchain-health",
+  "github_path": "toolchain-health",
+  "github_branch": "main"
 }

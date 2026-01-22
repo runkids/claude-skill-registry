@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:25.147388Z",
   "dir_name": "frontend-routing",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/frontend-routing",
+  "github_branch": "main"
 }

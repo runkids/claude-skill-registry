@@ -5,5 +5,7 @@
   "source": "github.com/serpro69/claude-starter-kit",
   "downloaded_at": "2026-01-22T01:36:31.491027Z",
   "dir_name": "analysis-process",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/templates/claude/skills/analysis-process",
+  "github_branch": "main"
 }

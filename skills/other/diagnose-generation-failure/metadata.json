@@ -5,5 +5,7 @@
   "source": "github.com/speakeasy-api/speakeasy",
   "downloaded_at": "2026-01-22T01:17:37.900994Z",
   "dir_name": "diagnose-generation-failure",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/diagnose-generation-failure",
+  "github_branch": "main"
 }

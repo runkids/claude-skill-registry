@@ -9,5 +9,7 @@
     "engineer"
   ],
   "stars": 0,
-  "dir_name": "kafka-data-engineer"
+  "dir_name": "kafka-data-engineer",
+  "github_path": ".claude/skills/kafka-data-engineer",
+  "github_branch": "main"
 }

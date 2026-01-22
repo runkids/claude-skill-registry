@@ -9,5 +9,7 @@
     "prep",
     "assistant"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "sales-call-prep-assistant",
+  "github_branch": "main"
 }

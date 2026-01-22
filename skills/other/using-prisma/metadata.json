@@ -5,5 +5,7 @@
   "source": "github.com/FortiumPartners/ensemble",
   "downloaded_at": "2026-01-22T01:50:17.740222Z",
   "dir_name": "using-prisma",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/development/skills/using-prisma",
+  "github_branch": "main"
 }

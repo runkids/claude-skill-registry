@@ -7,5 +7,7 @@
     "svelte5"
   ],
   "stars": 2,
-  "dir_name": "svelte5"
+  "dir_name": "svelte5",
+  "github_path": "skills/svelte5",
+  "github_branch": "main"
 }

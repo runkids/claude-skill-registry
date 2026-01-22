@@ -8,5 +8,7 @@
     "playwright",
     "testing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/vue-playwright-testing",
+  "github_branch": "main"
 }

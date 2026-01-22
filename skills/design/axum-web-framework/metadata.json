@@ -9,5 +9,7 @@
     "framework"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/luxor-backend-toolkit/skills/axum-web-framework",
+  "github_branch": "main"
 }

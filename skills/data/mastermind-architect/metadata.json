@@ -8,5 +8,7 @@
     "architect"
   ],
   "stars": 0,
-  "dir_name": "mastermind-architect"
+  "dir_name": "mastermind-architect",
+  "github_path": ".claude/skills/mastermind-architect",
+  "github_branch": "main"
 }

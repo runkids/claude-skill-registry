@@ -5,5 +5,7 @@
   "source": "github.com/mrgoonie/xxxnaper",
   "downloaded_at": "2026-01-22T04:10:32.298773Z",
   "dir_name": "when-stuck",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/problem-solving/when-stuck",
+  "github_branch": "main"
 }

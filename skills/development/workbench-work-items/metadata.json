@@ -8,5 +8,7 @@
     "work",
     "items"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".codex/skills/workbench-work-items",
+  "github_branch": "main"
 }

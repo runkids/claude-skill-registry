@@ -9,5 +9,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "facilitation-patterns"
+  "dir_name": "facilitation-patterns",
+  "github_path": "skills/facilitation-patterns",
+  "github_branch": "main"
 }

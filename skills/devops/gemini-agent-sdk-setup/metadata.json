@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Integrate OpenAI Agent SDK with Google Gemini backend into FastAPI service using the official Google Gemini API via OpenAI compatibility layer.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:15.503855Z"
+  "downloaded_at": "2026-01-06T09:07:15.503855Z",
+  "github_path": ".claude/skills/gemini-agent-sdk-setup",
+  "github_branch": "main"
 }

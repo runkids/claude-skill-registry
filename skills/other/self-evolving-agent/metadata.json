@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:35:03.822942Z",
   "dir_name": "self-evolving-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/self-evolving-agent",
+  "github_branch": "main"
 }

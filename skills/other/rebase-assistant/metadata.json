@@ -5,5 +5,7 @@
   "source": "github.com/lancenunes/codex-skills",
   "downloaded_at": "2026-01-22T01:08:11.536899Z",
   "dir_name": "rebase-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "rebase-assistant",
+  "github_branch": "main"
 }

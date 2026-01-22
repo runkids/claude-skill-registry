@@ -9,5 +9,7 @@
     "hook",
     "form"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "zod-react-hook-form",
+  "github_branch": "main"
 }

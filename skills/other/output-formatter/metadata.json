@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-22T02:21:51.205249Z",
   "dir_name": "output-formatter",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/output-formatter",
+  "github_branch": "main"
 }

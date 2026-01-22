@@ -9,5 +9,7 @@
     "init"
   ],
   "stars": 0,
-  "dir_name": "wolf-session-init"
+  "dir_name": "wolf-session-init",
+  "github_path": "wolf-session-init",
+  "github_branch": "main"
 }

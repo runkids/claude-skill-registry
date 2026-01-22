@@ -5,5 +5,7 @@
   "source": "github.com/lotosbin/claude-skills",
   "downloaded_at": "2026-01-22T02:51:17.025482Z",
   "dir_name": "coo",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/coo-analytics",
+  "github_branch": "main"
 }

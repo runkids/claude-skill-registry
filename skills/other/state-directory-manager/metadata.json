@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-20T03:48:07.838830Z",
   "dir_name": "state-directory-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bash/state-directory-manager",
+  "github_branch": "main"
 }

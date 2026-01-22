@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-22T03:51:05.233588Z",
   "dir_name": "spark-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/data-engineering/skills/spark-optimization",
+  "github_branch": "main"
 }

@@ -6,5 +6,7 @@
   "tags": [
     "chatwoot"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "chatwoot",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "conventions"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/api-route-conventions",
+  "github_branch": "main"
 }

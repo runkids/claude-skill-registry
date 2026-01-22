@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-17T03:34:53.356439Z",
   "dir_name": "markov-game-acset",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/markov-game-acset",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:19.041511Z",
   "dir_name": "move-language",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aptos/move-language",
+  "github_branch": "main"
 }

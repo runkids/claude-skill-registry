@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Creates production-ready UI immediately from any description. Generates complete  pages, components, and realistic mock data in FIRST response. Uses Next.js 14 +  Tailwind + shadcn/ui. Never asks ques",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:59.590993Z"
+  "downloaded_at": "2026-01-06T08:56:59.590993Z",
+  "github_path": "src/skills/ui-first-builder",
+  "github_branch": "main"
 }

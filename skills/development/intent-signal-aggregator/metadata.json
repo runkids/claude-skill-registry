@@ -8,5 +8,7 @@
     "signal",
     "aggregator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "intent-signal-aggregator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/CJHarmath/claude-agents-skills",
   "downloaded_at": "2026-01-22T03:55:25.425803Z",
   "dir_name": "expo-api-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/expo-api-audit",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Github Actions Starter - Auto-activating skill for DevOps Basics.Triggers on: github actions starter, github actions starterPart of the DevOps Basics skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:05.521027Z"
+  "downloaded_at": "2026-01-06T08:56:05.521027Z",
+  "github_path": "planned-skills/generated/01-devops-basics/github-actions-starter",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/posit-dev/skills",
   "downloaded_at": "2026-01-22T02:46:55.773172Z",
   "dir_name": "lifecycle",
-  "category": "other"
+  "category": "other",
+  "github_path": "r-lib/lifecycle",
+  "github_branch": "main"
 }

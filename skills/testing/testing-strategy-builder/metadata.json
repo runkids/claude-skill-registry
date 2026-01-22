@@ -8,5 +8,7 @@
     "strategy",
     "builder"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "skills/testing-strategy-builder",
+  "github_branch": "main"
 }

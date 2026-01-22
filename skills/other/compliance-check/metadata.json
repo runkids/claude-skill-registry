@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:59.284483Z",
   "dir_name": "compliance-check",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workspace-hub/compliance-check",
+  "github_branch": "main"
 }

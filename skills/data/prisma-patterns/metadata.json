@@ -8,5 +8,7 @@
     "patterns"
   ],
   "stars": 1,
-  "dir_name": "prisma-patterns"
+  "dir_name": "prisma-patterns",
+  "github_path": "skills/prisma-patterns",
+  "github_branch": "main"
 }

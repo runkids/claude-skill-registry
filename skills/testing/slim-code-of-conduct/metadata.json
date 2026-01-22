@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Create and implement code of conduct and collaboration policies using Contributor Covenant standards, with specialized templates for scientific research environments and academic citation. Use when es",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:28.590541Z"
+  "downloaded_at": "2026-01-06T08:57:28.590541Z",
+  "github_path": "static/marketplace/skills/slim-code-of-conduct",
+  "github_branch": "main"
 }

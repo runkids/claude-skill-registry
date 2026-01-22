@@ -8,5 +8,7 @@
     "project",
     "setup"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "ios-project-setup",
+  "github_branch": "main"
 }

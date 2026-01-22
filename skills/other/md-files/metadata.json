@@ -5,5 +5,7 @@
   "source": "github.com/fetchai/agents-aea",
   "downloaded_at": "2026-01-22T01:43:21.721951Z",
   "dir_name": "md-files",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs",
+  "github_branch": "main"
 }

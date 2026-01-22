@@ -7,5 +7,7 @@
     "playdate",
     "dev"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/playdate-dev",
+  "github_branch": "main"
 }

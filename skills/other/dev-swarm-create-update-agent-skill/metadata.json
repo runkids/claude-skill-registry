@@ -5,5 +5,7 @@
   "source": "github.com/X-School-Academy/ai-dev-swarm",
   "downloaded_at": "2026-01-14T02:33:45.464328Z",
   "dir_name": "dev-swarm-create-update-agent-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "dev-swarm/skills/dev-swarm-create-update-agent-skill",
+  "github_branch": "main"
 }

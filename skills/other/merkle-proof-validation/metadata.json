@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-22T02:09:12.401595Z",
   "dir_name": "merkle-proof-validation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/merkle-proof-validation",
+  "github_branch": "main"
 }

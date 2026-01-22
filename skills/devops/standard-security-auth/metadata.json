@@ -8,5 +8,7 @@
     "security",
     "auth"
   ],
-  "stars": 29
+  "stars": 29,
+  "github_path": "skills/standard-security-auth",
+  "github_branch": "main"
 }

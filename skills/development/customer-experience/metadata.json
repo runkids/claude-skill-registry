@@ -2,7 +2,9 @@
   "name": "customer-experience",
   "repo": "cna-bootcamp/aiguide",
   "category": "development",
-  "description": "\uc778\ud130\ubdf0, \uad00\ucc30, \uc81c\ud488 \ud14c\uc2a4\ud2b8\ub97c \ud1b5\ud574 \ud3ec\uad04\uc801\uc778 \uace0\uac1d \uacbd\ud5d8 \ub370\uc774\ud130\ub97c \uc0dd\uc131\ud569\ub2c8\ub2e4. \uace0\uac1d \uc5ec\uc815 \ub9f5 \uc791\uc131 \uc900\ube44 \uc2dc \uc0ac\uc6a9\ud558\uc138\uc694.",
+  "description": "인터뷰, 관찰, 제품 테스트를 통해 포괄적인 고객 경험 데이터를 생성합니다. 고객 여정 맵 작성 준비 시 사용하세요.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.547712Z"
+  "downloaded_at": "2026-01-06T08:58:46.547712Z",
+  "github_path": ".claude/skills/06-customer-experience",
+  "github_branch": "main"
 }

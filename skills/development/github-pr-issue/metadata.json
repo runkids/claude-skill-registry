@@ -7,5 +7,7 @@
     "github",
     "issue"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/github-pr-issue",
+  "github_branch": "main"
 }

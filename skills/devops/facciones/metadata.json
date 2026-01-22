@@ -2,7 +2,9 @@
   "name": "facciones",
   "repo": "kodexArg/syv",
   "category": "devops",
-  "description": "Dise\u00f1ador de facciones para SyV - creaci\u00f3n completa con estructura can\u00f3nica de 11 categor\u00edas, relaciones validadas y coherencia narrativa",
+  "description": "Diseñador de facciones para SyV - creación completa con estructura canónica de 11 categorías, relaciones validadas y coherencia narrativa",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:40.591886Z"
+  "downloaded_at": "2026-01-06T09:06:40.591886Z",
+  "github_path": "src/content/docs/.claude/skills/facciones",
+  "github_branch": "main"
 }

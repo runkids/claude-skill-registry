@@ -5,5 +5,7 @@
   "source": "github.com/atovk/skillx",
   "downloaded_at": "2026-01-14T02:55:10.591642Z",
   "dir_name": "batch-renamer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/02-file-operations/batch-renamer",
+  "github_branch": "main"
 }

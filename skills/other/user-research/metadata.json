@@ -5,5 +5,7 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:19.502535Z",
   "dir_name": "user-research",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/product-manager-workflow/.claude/skills/user-research",
+  "github_branch": "main"
 }

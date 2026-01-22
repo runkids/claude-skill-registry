@@ -5,5 +5,7 @@
   "source": "github.com/benchflow-ai/skillsbench",
   "downloaded_at": "2026-01-14T03:02:45.503199Z",
   "dir_name": "fuzzing-python",
-  "category": "other"
+  "category": "other",
+  "github_path": "tasks/setup-fuzzing-py/environment/skills/fuzzing-python",
+  "github_branch": "main"
 }

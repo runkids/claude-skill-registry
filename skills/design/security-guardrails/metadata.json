@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Comprehensive security implementation standards. Use when security guardrails guidance is required.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:15.892636Z"
+  "downloaded_at": "2026-01-06T08:59:15.892636Z",
+  "github_path": "skills/security-guardrails",
+  "github_branch": "main"
 }

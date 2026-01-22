@@ -7,5 +7,7 @@
     "functional",
     "testing"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/functional-testing",
+  "github_branch": "main"
 }

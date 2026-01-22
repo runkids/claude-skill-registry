@@ -8,5 +8,7 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agency"
+  "dir_name": "agency",
+  "github_path": "skills/agency",
+  "github_branch": "main"
 }

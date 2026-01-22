@@ -7,5 +7,7 @@
     "write",
     "plugin"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "plugins/RCC-dev-helper/skills/write-plugin",
+  "github_branch": "main"
 }

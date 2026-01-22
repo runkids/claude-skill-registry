@@ -5,5 +5,7 @@
   "source": "github.com/ksoichiro/ChronoDawn",
   "downloaded_at": "2026-01-22T01:22:13.258717Z",
   "dir_name": "multiversion-support",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/multiversion-support",
+  "github_branch": "main"
 }

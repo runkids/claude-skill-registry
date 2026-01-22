@@ -5,5 +5,7 @@
   "source": "github.com/metabase/metabase",
   "downloaded_at": "2026-01-22T03:46:05.190731Z",
   "dir_name": "docs-write",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/docs-write",
+  "github_branch": "main"
 }

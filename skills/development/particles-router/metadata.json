@@ -7,5 +7,7 @@
     "particles",
     "router"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/particles-router",
+  "github_branch": "main"
 }

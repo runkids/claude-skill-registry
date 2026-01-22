@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "SPARC Specification phase specialist for requirements analysis, constraint identification, use case definition, and acceptance criteria creation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:05.169186Z"
+  "downloaded_at": "2026-01-06T09:10:05.169186Z",
+  "github_path": ".claude/skills/development/sparc/sparc-specification",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:55.328873Z",
   "dir_name": "timelapse-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "timelapse-creator",
+  "github_branch": "main"
 }

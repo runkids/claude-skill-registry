@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Set up or reorganize project documentation using intent-based structure (BUILD/FIX/UNDERSTAND/LOOKUP)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:39.054403Z"
+  "downloaded_at": "2026-01-06T09:00:39.054403Z",
+  "github_path": "plugin/skills/organizing-documentation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:25.437474Z",
   "dir_name": "proxy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/patterns/proxy",
+  "github_branch": "main"
 }

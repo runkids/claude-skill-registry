@@ -7,5 +7,7 @@
     "math",
     "teacher"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/math-teacher",
+  "github_branch": "main"
 }

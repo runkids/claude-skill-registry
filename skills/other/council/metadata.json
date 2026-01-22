@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-22T02:30:29.396336Z",
   "dir_name": "council",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/am-will/llm-council",
+  "github_branch": "main"
 }

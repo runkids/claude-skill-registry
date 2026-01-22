@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Handle transaction errors properly with P-code checking and timeout configuration. Use when implementing transaction error recovery.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:01.286969Z"
+  "downloaded_at": "2026-01-06T09:05:01.286969Z",
+  "github_path": "prisma-6/skills/handling-transaction-errors",
+  "github_branch": "main"
 }

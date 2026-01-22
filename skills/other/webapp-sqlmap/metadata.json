@@ -5,5 +5,7 @@
   "source": "github.com/AgentSecOps/SecOpsAgentKit",
   "downloaded_at": "2026-01-19T02:09:00.180520Z",
   "dir_name": "webapp-sqlmap",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/offsec/webapp-sqlmap",
+  "github_branch": "main"
 }

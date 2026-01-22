@@ -8,5 +8,7 @@
     "database",
     "expert"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/graph-database-expert",
+  "github_branch": "main"
 }

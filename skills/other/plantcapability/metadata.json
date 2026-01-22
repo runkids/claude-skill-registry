@@ -5,5 +5,7 @@
   "source": "github.com/robdtaylor/personal-ai-infrastructure",
   "downloaded_at": "2026-01-22T02:08:05.088467Z",
   "dir_name": "plantcapability",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/PlantCapability",
+  "github_branch": "main"
 }

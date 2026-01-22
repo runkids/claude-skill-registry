@@ -5,5 +5,7 @@
   "source": "github.com/surfdeeper/surfing-game",
   "downloaded_at": "2026-01-22T01:25:07.069290Z",
   "dir_name": "wave-physics",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wave-physics",
+  "github_branch": "main"
 }

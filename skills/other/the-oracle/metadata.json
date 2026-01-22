@@ -5,5 +5,7 @@
   "source": "github.com/Cygnusfear/claude-stuff",
   "downloaded_at": "2026-01-22T03:05:49.130379Z",
   "dir_name": "the-oracle",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/the-oracle",
+  "github_branch": "main"
 }

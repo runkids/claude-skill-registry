@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Video generation with Veo 3.1",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:28.577460Z"
+  "downloaded_at": "2026-01-06T09:06:28.577460Z",
+  "github_path": "google/skills/veo",
+  "github_branch": "main"
 }

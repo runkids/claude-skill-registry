@@ -5,5 +5,7 @@
   "source": "github.com/rjmurillo/ai-agents",
   "downloaded_at": "2026-01-22T04:17:15.602773Z",
   "dir_name": "github-url-intercept",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/github-url-intercept",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/23blocks-OS/ai-maestro",
   "downloaded_at": "2026-01-22T03:57:24.959125Z",
   "dir_name": "graph-query",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/graph-query",
+  "github_branch": "main"
 }

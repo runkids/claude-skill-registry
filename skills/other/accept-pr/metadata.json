@@ -5,5 +5,7 @@
   "source": "github.com/doubleflannel/12-30-test-codex-ip",
   "downloaded_at": "2026-01-22T02:40:04.912758Z",
   "dir_name": "accept-pr",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/accept-pr",
+  "github_branch": "main"
 }

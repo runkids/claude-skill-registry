@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Add technical context, implementation hints, and effort estimates to user stories",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:38.470460Z"
+  "downloaded_at": "2026-01-06T08:58:38.470460Z",
+  "github_path": "user-story-system/.claude/skills/technical-annotator",
+  "github_branch": "main"
 }

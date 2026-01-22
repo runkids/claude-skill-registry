@@ -8,5 +8,7 @@
     "pull",
     "request"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "create-pull-request",
+  "github_branch": "main"
 }

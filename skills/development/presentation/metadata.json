@@ -2,7 +2,9 @@
   "name": "presentation",
   "repo": "cna-bootcamp/aiguide",
   "category": "development",
-  "description": "\ube44\uc988\ub2c8\uc2a4 \ubaa8\ub378\uc744 \uae30\ubc18\uc73c\ub85c \uc11c\ube44\uc2a4 \uae30\ud68d\uc11c \ubc1c\ud45c\uc790\ub8cc \uc2a4\ud06c\ub9bd\ud2b8\ub97c \uc791\uc131\ud569\ub2c8\ub2e4. \ubc1c\ud45c \uc790\ub8cc \uc791\uc131 \uc2dc \uc0ac\uc6a9\ud558\uc138\uc694. (project)",
+  "description": "비즈니스 모델을 기반으로 서비스 기획서 발표자료 스크립트를 작성합니다. 발표 자료 작성 시 사용하세요. (project)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.963595Z"
+  "downloaded_at": "2026-01-06T08:58:46.963595Z",
+  "github_path": ".claude/skills/13-presentation",
+  "github_branch": "main"
 }

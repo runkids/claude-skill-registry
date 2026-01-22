@@ -8,5 +8,7 @@
     "review",
     "framework"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "deal-review-framework",
+  "github_branch": "main"
 }

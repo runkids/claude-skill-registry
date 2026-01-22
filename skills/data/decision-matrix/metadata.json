@@ -9,5 +9,7 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "decision-matrix"
+  "dir_name": "decision-matrix",
+  "github_path": "skills/decision-matrix",
+  "github_branch": "main"
 }

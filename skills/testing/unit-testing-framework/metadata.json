@@ -8,5 +8,7 @@
     "testing",
     "framework"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/unit-testing-framework",
+  "github_branch": "main"
 }

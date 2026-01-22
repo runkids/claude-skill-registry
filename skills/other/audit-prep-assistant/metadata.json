@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:26.970188Z",
   "dir_name": "audit-prep-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/building-secure-contracts/skills/development-guidelines/audit-prep-assistant",
+  "github_branch": "main"
 }

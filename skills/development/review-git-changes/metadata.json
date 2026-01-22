@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyzes and refactors code changes in the current git working tree (staged, unstaged, or recent commits). Ensures changes follow best practices, coding standards, and maintain code quality. Use when ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:19.249312Z"
+  "downloaded_at": "2026-01-06T09:10:19.249312Z",
+  "github_path": "claude/skills/review-git-changes",
+  "github_branch": "main"
 }

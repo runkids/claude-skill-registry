@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Test llm-mux IR translator - cross-format API translation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:28.137075Z"
+  "downloaded_at": "2026-01-06T08:56:28.137075Z",
+  "github_path": ".opencode/skill/llm-mux-test",
+  "github_branch": "main"
 }

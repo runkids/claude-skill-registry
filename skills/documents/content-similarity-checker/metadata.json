@@ -8,5 +8,7 @@
     "similarity",
     "checker"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "content-similarity-checker",
+  "github_branch": "main"
 }

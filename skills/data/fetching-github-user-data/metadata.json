@@ -11,5 +11,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "fetching-github-user-data"
+  "dir_name": "fetching-github-user-data",
+  "github_path": "fetching-github-user-data",
+  "github_branch": "main"
 }

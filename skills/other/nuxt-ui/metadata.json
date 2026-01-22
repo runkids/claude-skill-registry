@@ -5,5 +5,7 @@
   "source": "github.com/colinmollenhour/dotfiles",
   "downloaded_at": "2026-01-22T03:42:39.025736Z",
   "dir_name": "nuxt-ui",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/nuxt-ui",
+  "github_branch": "main"
 }

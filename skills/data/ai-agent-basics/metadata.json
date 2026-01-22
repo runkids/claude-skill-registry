@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-agent-basics"
+  "dir_name": "ai-agent-basics",
+  "github_path": "skills/ai-agent-basics",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/DauQuangThanh/hanoi-rainbow",
   "downloaded_at": "2026-01-22T02:21:56.890025Z",
   "dir_name": "azure-cloud",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/azure-cloud",
+  "github_branch": "main"
 }

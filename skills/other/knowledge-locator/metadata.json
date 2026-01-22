@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-20T01:02:12.475938Z",
   "dir_name": "knowledge-locator",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/memory-palace/skills/knowledge-locator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:26.432401Z",
   "dir_name": "command",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/patterns/command",
+  "github_branch": "main"
 }

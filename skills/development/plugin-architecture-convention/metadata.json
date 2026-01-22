@@ -2,7 +2,9 @@
   "name": "plugin-architecture-convention",
   "repo": "RevTechStudio/rts-plugins",
   "category": "development",
-  "description": "\u30d7\u30e9\u30b0\u30a4\u30f3\u5168\u4f53\u306e\u69cb\u9020\u8a2d\u8a08\u539f\u5247\uff08\u8981\u7d20\u306e\u5f79\u5272\u5206\u62c5\u3001\u968e\u5c64\u69cb\u9020\u3001\u4f9d\u5b58\u95a2\u4fc2\u7ba1\u7406\uff09\u3092\u5b9a\u7fa9\u3059\u308b\u3002\u30d7\u30e9\u30b0\u30a4\u30f3\u8a2d\u8a08\u6642\u3001\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u30ec\u30d3\u30e5\u30fc\u6642\u3001\u307e\u305f\u306f\u30e6\u30fc\u30b6\u30fc\u304c\u30d7\u30e9\u30b0\u30a4\u30f3\u69cb\u9020\u3001\u8a2d\u8a08\u539f\u5247\u3001\u72ec\u7acb\u6027\u3001\u6c4e\u7528\u6027\u3001\u4f9d\u5b58\u95a2\u4fc2\u7ba1\u7406\u306b\u8a00\u53ca\u3057\u305f\u969b\u306b\u4f7f\u7528\u3059\u308b\u3002",
+  "description": "プラグイン全体の構造設計原則（要素の役割分担、階層構造、依存関係管理）を定義する。プラグイン設計時、アーキテクチャレビュー時、またはユーザーがプラグイン構造、設計原則、独立性、汎用性、依存関係管理に言及した際に使用する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:53.371967Z"
+  "downloaded_at": "2026-01-06T09:07:53.371967Z",
+  "github_path": "rts-plugin-generator/skills/plugin-architecture-convention",
+  "github_branch": "main"
 }

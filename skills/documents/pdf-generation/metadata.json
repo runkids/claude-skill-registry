@@ -7,5 +7,7 @@
     "pdf",
     "generation"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "pdf-generation",
+  "github_branch": "main"
 }

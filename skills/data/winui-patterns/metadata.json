@@ -8,5 +8,7 @@
     "patterns"
   ],
   "stars": 0,
-  "dir_name": "winui-patterns"
+  "dir_name": "winui-patterns",
+  "github_path": ".claude/skills/winui-patterns",
+  "github_branch": "main"
 }

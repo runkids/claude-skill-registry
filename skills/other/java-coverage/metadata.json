@@ -5,5 +5,7 @@
   "source": "github.com/bitsoex/bitso-java",
   "downloaded_at": "2026-01-22T02:30:39.843060Z",
   "dir_name": "java-coverage",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/java-coverage",
+  "github_branch": "main"
 }

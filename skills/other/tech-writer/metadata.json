@@ -5,5 +5,7 @@
   "source": "github.com/Denissvgn/project-team-ag",
   "downloaded_at": "2026-01-22T04:13:05.599678Z",
   "dir_name": "tech-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/tech-writer",
+  "github_branch": "main"
 }

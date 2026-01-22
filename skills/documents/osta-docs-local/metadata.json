@@ -8,5 +8,7 @@
     "docs",
     "local"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "osta-docs-local",
+  "github_branch": "main"
 }

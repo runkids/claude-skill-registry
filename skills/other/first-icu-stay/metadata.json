@@ -5,5 +5,7 @@
   "source": "github.com/hannesill/m4",
   "downloaded_at": "2026-01-22T01:18:40.916499Z",
   "dir_name": "first-icu-stay",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/m4/skills/first-icu-stay",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "framework"
   ],
   "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/api-design-framework",
+  "github_branch": "main"
 }

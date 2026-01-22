@@ -7,5 +7,7 @@
     "react",
     "expert"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/react-expert",
+  "github_branch": "main"
 }

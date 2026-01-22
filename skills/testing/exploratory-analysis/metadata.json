@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Systematic exploratory data analysis process - discover patterns in unfamiliar data, identify meaningful insights, formulate specific questions for deeper investigation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:14.568162Z"
+  "downloaded_at": "2026-01-06T09:03:14.568162Z",
+  "github_path": "plugins/datapeeker/skills/exploratory-analysis",
+  "github_branch": "main"
 }

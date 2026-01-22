@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Adapt the User Explorer (CDP-lite) prototype to new data sources by mapping input exports to the build pipeline, updating adapters/enrichments, and preserving output JSON schemas for the UI. Use when ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:10.691096Z"
+  "downloaded_at": "2026-01-06T09:08:10.691096Z",
+  "github_path": "user-explorer/skills/cdp-lite-adapter",
+  "github_branch": "main"
 }

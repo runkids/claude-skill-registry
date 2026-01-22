@@ -5,5 +5,7 @@
   "source": "github.com/evanfang0054/cc-system-creator-scripts",
   "downloaded_at": "2026-01-22T02:03:18.771746Z",
   "dir_name": "macos-cleaner",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/macos-cleaner",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "service-website-generator"
+  "dir_name": "service-website-generator",
+  "github_path": ".claude/skills/service-website-generator",
+  "github_branch": "main"
 }

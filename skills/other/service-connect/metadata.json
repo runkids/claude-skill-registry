@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:40.470616Z",
   "dir_name": "service-connect",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave/skills/service-connect",
+  "github_branch": "main"
 }

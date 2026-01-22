@@ -7,5 +7,7 @@
     "long",
     "agent"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/long-agent",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeffvincent/claude-config",
   "downloaded_at": "2026-01-22T02:44:49.816144Z",
   "dir_name": "video-transcript-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/video-transcript-analyzer",
+  "github_branch": "main"
 }

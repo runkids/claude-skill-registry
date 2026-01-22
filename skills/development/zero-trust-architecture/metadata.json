@@ -8,5 +8,7 @@
     "trust",
     "architecture"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/zero-trust-architecture",
+  "github_branch": "main"
 }

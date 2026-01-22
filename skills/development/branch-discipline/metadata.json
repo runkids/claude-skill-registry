@@ -8,5 +8,7 @@
     "discipline"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/branch-discipline",
+  "github_branch": "main"
 }

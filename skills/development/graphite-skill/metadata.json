@@ -7,5 +7,7 @@
     "graphite",
     "skill"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "graphite-skill",
+  "github_branch": "main"
 }

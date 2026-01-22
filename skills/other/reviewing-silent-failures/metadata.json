@@ -5,5 +5,7 @@
   "source": "github.com/thkt/claude-config",
   "downloaded_at": "2026-01-22T00:53:38.006941Z",
   "dir_name": "reviewing-silent-failures",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ja/skills/reviewing-silent-failures",
+  "github_branch": "main"
 }

@@ -10,5 +10,7 @@
     "database"
   ],
   "stars": 0,
-  "dir_name": "julien-infra-hostinger-database"
+  "dir_name": "julien-infra-hostinger-database",
+  "github_path": "skills/julien-infra-hostinger-database",
+  "github_branch": "main"
 }

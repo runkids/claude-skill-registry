@@ -5,5 +5,7 @@
   "source": "github.com/mattg101/SolidLink",
   "downloaded_at": "2026-01-22T01:26:05.885142Z",
   "dir_name": "gcp",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/dev/.agent/skills/gcp",
+  "github_branch": "main"
 }

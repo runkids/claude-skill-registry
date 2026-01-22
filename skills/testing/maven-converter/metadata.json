@@ -2,7 +2,9 @@
   "name": "maven-converter",
   "repo": "git-qiaozq/claude-skills",
   "category": "testing",
-  "description": "\u5c06 Java \u9879\u76ee\u8f6c\u6362\u4e3a\u6807\u51c6 Maven \u7ed3\u6784\uff0c\u81ea\u52a8\u91cd\u7ec4\u76ee\u5f55\u3001\u8f6c\u6362\u5305\u540d\uff08test\u2192example\uff09\u5e76\u751f\u6210 pom.xml\u3002\u5f53\u7528\u6237\u9700\u8981\u5c06\u975e Maven Java \u9879\u76ee\u8f6c\u6362\u4e3a Maven \u9879\u76ee\u3001\u91cd\u6784\u73b0\u6709\u9879\u76ee\u4e3a Maven \u6807\u51c6\u7ed3\u6784\uff0c\u6216\u8bf7\u6c42 Maven \u9879\u76ee\u8bbe\u7f6e/\u8f6c\u6362\u65f6\u4f7f\u7528\u6b64\u6280\u80fd\u3002",
+  "description": "将 Java 项目转换为标准 Maven 结构，自动重组目录、转换包名（test→example）并生成 pom.xml。当用户需要将非 Maven Java 项目转换为 Maven 项目、重构现有项目为 Maven 标准结构，或请求 Maven 项目设置/转换时使用此技能。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:38.648420Z"
+  "downloaded_at": "2026-01-06T09:03:38.648420Z",
+  "github_path": "claude-skills-hub/maven-converter",
+  "github_branch": "main"
 }

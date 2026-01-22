@@ -6,5 +6,7 @@
   "tags": [
     "observability"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/observability",
+  "github_branch": "main"
 }

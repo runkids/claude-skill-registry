@@ -2,7 +2,9 @@
   "name": "nextjs-app-router-guide",
   "repo": "lilpacy/dotfiles",
   "category": "design",
-  "description": "Next.js App Router\u3067\u306eServer Components / Server Actions / Route Handlers\u7b49\u306e\u4f7f\u3044\u5206\u3051\u30ac\u30a4\u30c9\u3002\u300cServer Component\u3068Client Component\u306e\u9055\u3044\u300d\u300cServer Actions\u306e\u4f7f\u3044\u65b9\u300d\u300crevalidatePath/revalidateTag\u306e\u9055\u3044\u300d\u306a\u3069\u306e\u8cea\u554f\u306b\u56de\u7b54\u3059\u308b\u969b\u306b\u53c2\u7167\u3059\u308b\u3002",
+  "description": "Next.js App RouterでのServer Components / Server Actions / Route Handlers等の使い分けガイド。「Server ComponentとClient Componentの違い」「Server Actionsの使い方」「revalidatePath/revalidateTagの違い」などの質問に回答する際に参照する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:59.486325Z"
+  "downloaded_at": "2026-01-06T09:10:59.486325Z",
+  "github_path": "claude/skills/nextjs-app-router-guide",
+  "github_branch": "main"
 }

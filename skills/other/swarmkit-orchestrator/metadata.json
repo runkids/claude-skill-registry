@@ -5,5 +5,7 @@
   "source": "github.com/brandomagnani/swarmkit",
   "downloaded_at": "2026-01-22T02:10:23.887847Z",
   "dir_name": "swarmkit-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/swarmkit-orchestrator",
+  "github_branch": "main"
 }

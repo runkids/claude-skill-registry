@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Test system resilience through controlled failures. Use when validating fault tolerance, disaster recovery, or system reliability. Covers chaos experiments.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:49.179008Z"
+  "downloaded_at": "2026-01-06T09:01:49.179008Z",
+  "github_path": ".claude/skills/operations/chaos-engineering",
+  "github_branch": "main"
 }

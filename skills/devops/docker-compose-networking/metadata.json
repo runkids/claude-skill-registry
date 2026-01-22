@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use when configuring networks and service communication in Docker Compose including bridge networks, overlay networks, service discovery, and inter-service communication.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:02.584845Z"
+  "downloaded_at": "2026-01-06T08:57:02.584845Z",
+  "github_path": "jutsu/jutsu-docker-compose/skills/docker-compose-networking",
+  "github_branch": "main"
 }

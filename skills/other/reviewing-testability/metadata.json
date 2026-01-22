@@ -5,5 +5,7 @@
   "source": "github.com/thkt/claude-config",
   "downloaded_at": "2026-01-22T00:53:36.138504Z",
   "dir_name": "reviewing-testability",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ja/skills/reviewing-testability",
+  "github_branch": "main"
 }

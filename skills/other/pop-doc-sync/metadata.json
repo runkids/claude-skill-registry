@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:38.988218Z",
   "dir_name": "pop-doc-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-core/skills/pop-doc-sync",
+  "github_branch": "main"
 }

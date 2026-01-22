@@ -8,5 +8,7 @@
     "cleanup"
   ],
   "stars": 0,
-  "dir_name": "text-cleanup"
+  "dir_name": "text-cleanup",
+  "github_path": "dist/.claude-plugin/skills/text-cleanup",
+  "github_branch": "main"
 }

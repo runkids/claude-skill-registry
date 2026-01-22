@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Async Api Caller - Auto-activating skill for API Integration.Triggers on: async api caller, async api callerPart of the API Integration skill category.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:09.713775Z"
+  "downloaded_at": "2026-01-06T08:56:09.713775Z",
+  "github_path": "planned-skills/generated/16-api-integration/async-api-caller",
+  "github_branch": "main"
 }

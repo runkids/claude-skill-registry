@@ -9,5 +9,7 @@
     "server"
   ],
   "stars": 25,
-  "dir_name": "nodejs-express-server"
+  "dir_name": "nodejs-express-server",
+  "github_path": "skills/nodejs-express-server",
+  "github_branch": "main"
 }

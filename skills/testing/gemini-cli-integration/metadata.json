@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Comprehensive guide for integrating Gemini CLI as research assistant. Use when you need to delegate research to Gemini, understand its capabilities vs Claude's, or determine the right tool for a task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:10.002133Z"
+  "downloaded_at": "2026-01-06T09:01:10.002133Z",
+  "github_path": "skills/gemini-cli-integration",
+  "github_branch": "main"
 }

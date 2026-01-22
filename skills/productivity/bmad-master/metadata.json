@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Core BMAD Method orchestrator and workflow manager",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:53.740937Z"
+  "downloaded_at": "2026-01-06T08:56:53.740937Z",
+  "github_path": "bmad-v6/skills/core/bmad-master",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Layer-Fi/bookkeeper-skill",
   "downloaded_at": "2026-01-21T02:17:32.334688Z",
   "dir_name": "bookkeeper",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/bookkeeper",
+  "github_branch": "main"
 }

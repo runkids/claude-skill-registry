@@ -5,5 +5,7 @@
   "source": "github.com/Rzyfront/Vendix",
   "downloaded_at": "2026-01-22T02:17:46.598590Z",
   "dir_name": "vendix-frontend-component",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/vendix-frontend-component",
+  "github_branch": "main"
 }

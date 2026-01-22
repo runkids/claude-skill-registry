@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:10.738713Z",
   "dir_name": "moai-ml-llm-fine-tuning",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-ml-llm-fine-tuning",
+  "github_branch": "main"
 }

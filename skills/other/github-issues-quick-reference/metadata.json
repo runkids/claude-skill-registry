@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:39.713510Z",
   "dir_name": "github-issues-quick-reference",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/github-issues/skills/github-issues-quick-reference",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "atlassian"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".opencode/skills/atlassian",
+  "github_branch": "main"
 }

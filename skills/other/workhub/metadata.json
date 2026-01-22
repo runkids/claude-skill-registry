@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-22T01:49:27.253025Z",
   "dir_name": "workhub",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dwsy/workhub",
+  "github_branch": "main"
 }

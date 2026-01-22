@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-22T03:09:15.598551Z",
   "dir_name": "makefile-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/pensive/skills/makefile-review",
+  "github_branch": "main"
 }

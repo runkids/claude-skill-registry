@@ -5,5 +5,7 @@
   "source": "github.com/stoicstudio/ClaudeConductor",
   "downloaded_at": "2026-01-22T02:34:20.979784Z",
   "dir_name": "install-local-tool",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/install-local-tool",
+  "github_branch": "main"
 }

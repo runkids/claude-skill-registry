@@ -9,5 +9,7 @@
     "agent"
   ],
   "stars": 7,
-  "dir_name": "virtuoso-support-agent"
+  "dir_name": "virtuoso-support-agent",
+  "github_path": "skills/virtuoso-support-agent",
+  "github_branch": "main"
 }

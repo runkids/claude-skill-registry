@@ -5,5 +5,7 @@
   "source": "github.com/RBozydar/rbw-claude-code",
   "downloaded_at": "2026-01-17T03:15:59.658140Z",
   "dir_name": "create-rule",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/core/skills/create-rule",
+  "github_branch": "main"
 }

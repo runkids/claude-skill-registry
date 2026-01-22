@@ -9,5 +9,7 @@
     "operations"
   ],
   "stars": 40,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/aws-cost-ops/skills/aws-cost-operations",
+  "github_branch": "main"
 }

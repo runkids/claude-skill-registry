@@ -9,5 +9,7 @@
     "corrector"
   ],
   "stars": 0,
-  "dir_name": "natural-text-corrector"
+  "dir_name": "natural-text-corrector",
+  "github_path": ".claude/skills/natural-text-corrector",
+  "github_branch": "main"
 }

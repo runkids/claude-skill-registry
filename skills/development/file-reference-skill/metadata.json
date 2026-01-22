@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Example skill demonstrating secure file reference resolution with supporting files",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:53.963964Z"
+  "downloaded_at": "2026-01-06T08:56:53.963964Z",
+  "github_path": "examples/skills/file-reference-skill",
+  "github_branch": "main"
 }

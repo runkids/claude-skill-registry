@@ -9,5 +9,7 @@
   ],
   "stars": 9,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "excel-parser"
+  "dir_name": "excel-parser",
+  "github_path": "skills/excel-parser",
+  "github_branch": "main"
 }

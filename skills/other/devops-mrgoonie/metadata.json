@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:35.724585Z",
   "dir_name": "devops-mrgoonie",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devops_mrgoonie",
+  "github_branch": "main"
 }

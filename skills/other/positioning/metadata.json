@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:41.062446Z",
   "dir_name": "positioning",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/product-marketing/skills/positioning",
+  "github_branch": "main"
 }

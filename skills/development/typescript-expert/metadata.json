@@ -7,5 +7,7 @@
     "typescript",
     "expert"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/typescript-expert",
+  "github_branch": "main"
 }

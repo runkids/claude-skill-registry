@@ -8,5 +8,7 @@
     "k8s"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/docker-k8s",
+  "github_branch": "main"
 }

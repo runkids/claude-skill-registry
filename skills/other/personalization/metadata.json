@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:43.439363Z",
   "dir_name": "personalization",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/abm-orchestration/skills/personalization",
+  "github_branch": "main"
 }

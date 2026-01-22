@@ -5,5 +5,7 @@
   "source": "github.com/Tony363/SuperClaude",
   "downloaded_at": "2026-01-22T01:21:12.403277Z",
   "dir_name": "agent-security-auditor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/DEPRECATED/agent-security-auditor",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Setup Sentry Metrics in any project. Use this when asked to add Sentry metrics, track custom metrics, setup counters/gauges/distributions, or instrument application performance metrics. Supports JavaS",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:53.410190Z"
+  "downloaded_at": "2026-01-06T09:05:53.410190Z",
+  "github_path": "skills/sentry-setup-metrics",
+  "github_branch": "main"
 }

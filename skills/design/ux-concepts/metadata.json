@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Understand and apply psychological concepts to create superior user experiences (UX) in frontend design.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:21.235000Z"
+  "downloaded_at": "2026-01-06T09:08:21.235000Z",
+  "github_path": "plugins/ux-concepts/skills/ux-concepts",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/maneeshanif/todo-spec-driven",
   "downloaded_at": "2026-01-22T02:22:53.049224Z",
   "dir_name": "conversation-management",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/conversation-management",
+  "github_branch": "main"
 }

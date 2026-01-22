@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Design swimlane UI patterns for visualizing ADW execution. Use when building observability dashboards, monitoring agent workflows, or creating real-time status displays.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.299098Z"
+  "downloaded_at": "2026-01-06T09:00:26.299098Z",
+  "github_path": "plugins/tac/skills/swimlane-visualization",
+  "github_branch": "main"
 }

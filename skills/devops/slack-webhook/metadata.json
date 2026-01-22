@@ -7,5 +7,7 @@
     "slack",
     "webhook"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "slack-webhook",
+  "github_branch": "main"
 }

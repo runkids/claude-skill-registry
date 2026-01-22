@@ -5,5 +5,7 @@
   "source": "github.com/Ronin15/SDL3_HammerEngine_Template",
   "downloaded_at": "2026-01-22T02:30:32.333489Z",
   "dir_name": "game-systems-code-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "tools/skills/game-systems-code-review",
+  "github_branch": "main"
 }

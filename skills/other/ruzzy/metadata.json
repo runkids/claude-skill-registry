@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:27.888410Z",
   "dir_name": "ruzzy",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/testing-handbook-skills/skills/ruzzy",
+  "github_branch": "main"
 }

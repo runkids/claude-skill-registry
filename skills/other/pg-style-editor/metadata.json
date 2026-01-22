@@ -5,5 +5,7 @@
   "source": "github.com/adilkalam/orca",
   "downloaded_at": "2026-01-22T01:27:24.923629Z",
   "dir_name": "pg-style-editor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/pg-style-editor",
+  "github_branch": "main"
 }

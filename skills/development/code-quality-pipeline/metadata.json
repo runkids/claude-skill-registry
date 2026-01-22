@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Systematic code quality improvement workflow combining smart-reviewer and test-generator MCP tools with Pareto 80/20 auto-fixes, severity-based review, and comprehensive test generation. Use when p...",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:18.394550Z"
+  "downloaded_at": "2026-01-06T09:06:18.394550Z",
+  "github_path": "starter-kit/template/.claude/skills/code-quality-pipeline",
+  "github_branch": "main"
 }

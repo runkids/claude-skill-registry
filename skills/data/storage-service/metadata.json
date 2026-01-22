@@ -5,5 +5,7 @@
   "description": "Patterns for persisting and retrieving application data. Use when implementing data persistence, caching, or session management.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:31.039979Z",
-  "dir_name": "storage-service"
+  "dir_name": "storage-service",
+  "github_path": ".ai/skills/storage-service",
+  "github_branch": "main"
 }

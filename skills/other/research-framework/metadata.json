@@ -5,5 +5,7 @@
   "source": "github.com/chaserbreitenbach/claude-skills-and-agents",
   "downloaded_at": "2026-01-22T02:09:04.987330Z",
   "dir_name": "research-framework",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/workflows/research-framework",
+  "github_branch": "main"
 }

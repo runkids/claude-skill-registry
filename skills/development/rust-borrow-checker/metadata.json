@@ -8,5 +8,7 @@
     "borrow",
     "checker"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/rust-borrow-checker",
+  "github_branch": "main"
 }

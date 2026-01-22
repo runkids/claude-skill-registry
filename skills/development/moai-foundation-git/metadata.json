@@ -8,5 +8,7 @@
     "foundation",
     "git"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-foundation-git",
+  "github_branch": "main"
 }

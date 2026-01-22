@@ -8,5 +8,7 @@
     "containerization"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/docker-containerization",
+  "github_branch": "main"
 }

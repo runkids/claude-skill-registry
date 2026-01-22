@@ -7,5 +7,7 @@
     "propose",
     "change"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/propose-change",
+  "github_branch": "main"
 }

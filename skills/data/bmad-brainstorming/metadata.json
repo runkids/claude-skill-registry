@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bmad-brainstorming"
+  "dir_name": "bmad-brainstorming",
+  "github_path": "skills/bmad-brainstorming",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/tikazyq/agentic-spec-forge",
   "downloaded_at": "2026-01-22T03:11:25.501213Z",
   "dir_name": "us-enrich-context",
-  "category": "other"
+  "category": "other",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/requirements/us-enrich-context",
+  "github_branch": "main"
 }

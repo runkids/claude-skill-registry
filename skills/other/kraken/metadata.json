@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/skills",
   "downloaded_at": "2026-01-14T03:02:29.836738Z",
   "dir_name": "kraken",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/thesethrose/kraken",
+  "github_branch": "main"
 }

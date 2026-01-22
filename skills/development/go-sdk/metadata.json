@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when writing Go code to interact with Gitea API - automation, bots, integrations, migrations, or programmatic git forge operations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:46.958275Z"
+  "downloaded_at": "2026-01-06T09:05:46.958275Z",
+  "github_path": "hetzner/skills/hcloud-go-sdk",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "workflows"
   ],
   "stars": 0,
-  "dir_name": "unity-workflows"
+  "dir_name": "unity-workflows",
+  "github_path": "skills/unity-workflows",
+  "github_branch": "main"
 }

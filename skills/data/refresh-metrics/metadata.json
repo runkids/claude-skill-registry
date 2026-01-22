@@ -8,5 +8,7 @@
     "metrics"
   ],
   "stars": 1,
-  "dir_name": "refresh-metrics"
+  "dir_name": "refresh-metrics",
+  "github_path": "skills/refresh-metrics",
+  "github_branch": "main"
 }

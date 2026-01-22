@@ -8,5 +8,7 @@
     "development"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/meta/plugin-dev/skills/command-development",
+  "github_branch": "main"
 }

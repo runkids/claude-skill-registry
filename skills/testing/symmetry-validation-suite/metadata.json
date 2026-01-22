@@ -8,5 +8,7 @@
     "validation",
     "suite"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/symmetry-validation-suite",
+  "github_branch": "main"
 }

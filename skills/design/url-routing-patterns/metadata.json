@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Use when designing URL structures, slug generation, SEO-friendly URLs, redirects, or localized URL patterns. Covers route configuration, URL rewriting, canonical URLs, and routing APIs for headless CM",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:00.959685Z"
+  "downloaded_at": "2026-01-06T09:00:00.959685Z",
+  "github_path": "plugins/content-management-system/skills/url-routing-patterns",
+  "github_branch": "main"
 }

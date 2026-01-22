@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-22T01:58:53.604602Z",
   "dir_name": "composable-step-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/tac/skills/composable-step-design",
+  "github_branch": "main"
 }

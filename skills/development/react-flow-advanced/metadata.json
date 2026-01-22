@@ -8,5 +8,7 @@
     "flow",
     "advanced"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "skills/react-flow-advanced",
+  "github_branch": "main"
 }

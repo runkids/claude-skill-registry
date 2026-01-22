@@ -7,5 +7,7 @@
     "contract",
     "analyzer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "contract-analyzer",
+  "github_branch": "main"
 }

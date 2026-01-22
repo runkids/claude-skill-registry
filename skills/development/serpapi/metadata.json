@@ -6,5 +6,7 @@
   "tags": [
     "serpapi"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "serpapi",
+  "github_branch": "main"
 }

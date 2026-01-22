@@ -9,5 +9,7 @@
     "price"
   ],
   "stars": 0,
-  "dir_name": "check-bsv-price"
+  "dir_name": "check-bsv-price",
+  "github_path": "skills/check-bsv-price",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "local-settings-updater",
   "repo": "shiiman/claude-code-plugins",
   "category": "development",
-  "description": "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306e .claude/settings.local.json \u3092\u66f4\u65b0\u3059\u308b\u3002\u300c\u30ed\u30fc\u30ab\u30eb\u8a2d\u5b9a\u3092\u66f4\u65b0\u3057\u3066\u300d\u300clocal settings \u3092\u5909\u66f4\u300d\u300c\u500b\u4eba\u7528\u8a2d\u5b9a\u3092\u5909\u3048\u3066\u300d\u300c\u81ea\u5206\u3060\u3051\u306e\u8a2d\u5b9a\u300d\u300c\u30ed\u30fc\u30ab\u30eb permissions \u3092\u8ffd\u52a0\u300d\u300c\u500b\u4eba\u8a2d\u5b9a\u30d5\u30a1\u30a4\u30eb\u3092\u7de8\u96c6\u300d\u300csettings.local \u3092\u66f4\u65b0\u300d\u306a\u3069\u3067\u8d77\u52d5\u3002Git \u306b\u30b3\u30df\u30c3\u30c8\u3055\u308c\u306a\u3044\u500b\u4eba\u7528\u306e Claude Code \u8a2d\u5b9a\u3092\u7ba1\u7406\u3002",
+  "description": "プロジェクトの .claude/settings.local.json を更新する。「ローカル設定を更新して」「local settings を変更」「個人用設定を変えて」「自分だけの設定」「ローカル permissions を追加」「個人設定ファイルを編集」「settings.local を更新」などで起動。Git にコミットされない個人用の Claude Code 設定を管理。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:20.035033Z"
+  "downloaded_at": "2026-01-06T09:08:20.035033Z",
+  "github_path": "plugins/shiiman-claude/skills/local-settings-updater",
+  "github_branch": "main"
 }

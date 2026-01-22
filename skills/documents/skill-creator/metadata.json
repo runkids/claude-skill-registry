@@ -7,5 +7,7 @@
     "skill",
     "creator"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/skill-creator",
+  "github_branch": "main"
 }

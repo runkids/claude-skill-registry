@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Validates PopKit security posture using concrete vulnerability patterns, automated secret scanning, and OWASP-aligned checklists",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:16.963326Z"
+  "downloaded_at": "2026-01-06T09:10:16.963326Z",
+  "github_path": "packages/popkit-ops/skills/pop-assessment-security",
+  "github_branch": "main"
 }

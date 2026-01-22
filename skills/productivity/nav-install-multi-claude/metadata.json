@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Install Navigator multi-Claude workflow orchestration scripts. Auto-invokes when user says \"install multi-Claude workflows\", \"set up multi-Claude\", or \"enable parallel execution\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.095283Z"
+  "downloaded_at": "2026-01-06T08:57:10.095283Z",
+  "github_path": "skills/nav-install-multi-claude",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Refactor MoonBit codebases by minimizing public APIs, modularizing packages, converting free functions to methods/chaining, using ArrayView/StringView pattern matching, adding Dafny-style loop specs, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:09:00.018965Z"
+  "downloaded_at": "2026-01-06T08:09:00.018965Z",
+  "github_path": "",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/cameronapak/freedom-stack-v3",
   "downloaded_at": "2026-01-22T03:30:07.636488Z",
   "dir_name": "bknd-registration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/bknd-registration",
+  "github_branch": "main"
 }

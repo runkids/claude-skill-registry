@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:45.556511Z",
   "dir_name": "hic-data-io",
-  "category": "other"
+  "category": "other",
+  "github_path": "hi-c-analysis/hic-data-io",
+  "github_branch": "main"
 }

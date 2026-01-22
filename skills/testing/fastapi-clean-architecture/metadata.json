@@ -9,5 +9,7 @@
     "architecture"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/fastapi-clean-architecture",
+  "github_branch": "main"
 }

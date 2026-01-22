@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when user asks about E2E testing, performance testing, chaos engineering, test automation, flaky tests, test data management, or quality practices - routes to specialist reference sheets with deep",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:41.182221Z"
+  "downloaded_at": "2026-01-06T08:59:41.182221Z",
+  "github_path": "plugins/ordis-quality-engineering/skills/using-quality-engineering",
+  "github_branch": "main"
 }

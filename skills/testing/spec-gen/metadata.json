@@ -2,7 +2,9 @@
   "name": "spec-gen",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "testing",
-  "description": "\u30b3\u30fc\u30c9\u304b\u3089spec\u3092\u751f\u6210\u3059\u308b\u30b9\u30ad\u30eb\u3002As-Is spec\uff08\u73fe\u72b6\u4ed5\u69d8\uff09\u3092\u6839\u62e0\u4ed8\u304d\u3067\u62bd\u51fa\u3057\u30013\u5c64\u69cb\u9020\uff08\u30a4\u30f3\u30bf\u30fc\u30d5\u30a7\u30fc\u30b9/\u632f\u308b\u821e\u3044/\u696d\u52d9\u610f\u5473\uff09\u3067\u6574\u7406\u3002\u4f7f\u7528\u30bf\u30a4\u30df\u30f3\u30b0: (1)\u300c\u30b3\u30fc\u30c9\u304b\u3089spec\u3092\u751f\u6210\u300d(2)\u300c\u4ed5\u69d8\u66f8\u3092\u4f5c\u6210\u300d(3)\u300cAPI\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u751f\u6210\u300d(4)\u300c\u73fe\u72b6\u306e\u632f\u308b\u821e\u3044\u3092\u6587\u66f8\u5316\u300d(5)\u300c\u5909\u66f4\u3067\u58ca\u308c\u305fspec\u3092\u691c\u51fa\u300d(6)\u300c\u30b3\u30fc\u30c9\u3068\u4ed5\u69d8\u306e\u4e56\u96e2\u3092\u78ba\u8a8d\u300d\u3068\u8a00\u308f\u308c\u305f\u6642\u3002\u751f\u6210\u3059\u308b\u306e\u306fAs-Is spec\uff08",
+  "description": "コードからspecを生成するスキル。As-Is spec（現状仕様）を根拠付きで抽出し、3層構造（インターフェース/振る舞い/業務意味）で整理。使用タイミング: (1)「コードからspecを生成」(2)「仕様書を作成」(3)「APIドキュメント生成」(4)「現状の振る舞いを文書化」(5)「変更で壊れたspecを検出」(6)「コードと仕様の乖離を確認」と言われた時。生成するのはAs-Is spec（",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.882192Z"
+  "downloaded_at": "2026-01-06T09:04:21.882192Z",
+  "github_path": "caphtech-plugin/skills/spec-gen",
+  "github_branch": "main"
 }

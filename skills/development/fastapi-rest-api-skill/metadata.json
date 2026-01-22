@@ -10,5 +10,7 @@
     "skill"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/fastapi-rest-api-skill",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/secondsky/claude-skills",
   "downloaded_at": "2026-01-22T02:51:09.789101Z",
   "dir_name": "ai-elements-chatbot",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ai-elements-chatbot/skills/ai-elements-chatbot",
+  "github_branch": "main"
 }

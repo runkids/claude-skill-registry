@@ -7,5 +7,7 @@
     "task",
     "orchestration"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "claude_ctx_py/assets/skills/task-orchestration",
+  "github_branch": "main"
 }

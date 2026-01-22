@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Record quality metrics baseline before refactoring or major changes, capturing audit scores, test coverage, and complexity for comparison",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:15.022882Z"
+  "downloaded_at": "2026-01-06T08:59:15.022882Z",
+  "github_path": ".claude/skills/quality/record-quality-baseline",
+  "github_branch": "main"
 }

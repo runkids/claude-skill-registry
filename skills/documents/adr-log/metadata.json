@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Document architecture decisions with ADR (Architecture Decision Records). Use when making significant technical decisions, choosing between alternatives, or when onboarding needs context on past decis",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:31.128034Z"
+  "downloaded_at": "2026-01-06T09:10:31.128034Z",
+  "github_path": ".public/skills/adr-log",
+  "github_branch": "main"
 }

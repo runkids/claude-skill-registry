@@ -5,5 +5,7 @@
   "source": "github.com/MisterClean/claude-plugins",
   "downloaded_at": "2026-01-22T03:54:06.938378Z",
   "dir_name": "housing-copywriter",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/housing-copywriter",
+  "github_branch": "main"
 }

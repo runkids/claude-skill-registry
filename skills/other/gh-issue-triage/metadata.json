@@ -5,5 +5,7 @@
   "source": "github.com/poindexter12/waypoint",
   "downloaded_at": "2026-01-19T03:24:53.741863Z",
   "dir_name": "gh-issue-triage",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflows/skills/gh-issue-triage",
+  "github_branch": "main"
 }

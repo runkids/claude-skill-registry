@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Generate the social value report from CSV inputs by detecting CSVs, anonymising them, and producing a month-by-month markdown report.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:33.938538Z"
+  "downloaded_at": "2026-01-06T09:10:33.938538Z",
+  "github_path": "skills/social-value-report",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Manages content with Contentful headless CMS and Content Delivery API. Use when building content-driven applications with structured content models, CDN delivery, and enterprise content management.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:24.658424Z"
+  "downloaded_at": "2026-01-06T09:10:24.658424Z",
+  "github_path": "plugins/goodvibes/skills/webdev/skills/contentful",
+  "github_branch": "main"
 }

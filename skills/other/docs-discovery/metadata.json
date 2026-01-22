@@ -5,5 +5,7 @@
   "source": "github.com/samhvw8/dotfiles",
   "downloaded_at": "2026-01-22T04:16:21.209002Z",
   "dir_name": "docs-discovery",
-  "category": "other"
+  "category": "other",
+  "github_path": "dot_claude/skills/docs-discovery",
+  "github_branch": "main"
 }

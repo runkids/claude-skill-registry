@@ -8,5 +8,7 @@
     "generation"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/chart-generation",
+  "github_branch": "main"
 }

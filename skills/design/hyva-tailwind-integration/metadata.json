@@ -8,5 +8,7 @@
     "tailwind",
     "integration"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "hyva-tailwind-integration",
+  "github_branch": "main"
 }

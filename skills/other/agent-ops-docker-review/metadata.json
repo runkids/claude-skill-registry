@@ -5,5 +5,7 @@
   "source": "github.com/weholt/script-cast",
   "downloaded_at": "2026-01-22T03:27:57.769296Z",
   "dir_name": "agent-ops-docker-review",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/agent-ops-docker-review",
+  "github_branch": "main"
 }

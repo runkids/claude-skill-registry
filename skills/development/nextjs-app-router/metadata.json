@@ -8,5 +8,7 @@
     "app",
     "router"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/nextjs-app-router",
+  "github_branch": "main"
 }

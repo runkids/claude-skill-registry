@@ -8,5 +8,7 @@
     "rules"
   ],
   "stars": 30,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".agents/skills/coding-rules",
+  "github_branch": "main"
 }

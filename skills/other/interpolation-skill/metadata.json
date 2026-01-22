@@ -5,5 +5,7 @@
   "source": "github.com/martinemde/skillet",
   "downloaded_at": "2026-01-22T02:20:50.473587Z",
   "dir_name": "interpolation-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "testdata/interpolation-skill",
+  "github_branch": "main"
 }

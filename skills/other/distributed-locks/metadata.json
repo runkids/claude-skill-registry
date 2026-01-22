@@ -5,5 +5,7 @@
   "source": "github.com/yonatangross/skillforge-claude-plugin",
   "downloaded_at": "2026-01-22T01:25:12.680627Z",
   "dir_name": "distributed-locks",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/distributed-locks",
+  "github_branch": "main"
 }

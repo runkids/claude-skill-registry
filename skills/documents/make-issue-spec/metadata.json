@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Create a markdown document that describes a specific task along with",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:43.024541Z"
+  "downloaded_at": "2026-01-06T08:55:43.024541Z",
+  "github_path": "plugins/workflow/skills/make-issue-spec",
+  "github_branch": "main"
 }

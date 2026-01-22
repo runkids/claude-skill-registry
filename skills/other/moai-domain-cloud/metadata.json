@@ -5,5 +5,7 @@
   "source": "github.com/jg-chalk-io/Nora-LiveKit",
   "downloaded_at": "2026-01-22T02:28:08.352679Z",
   "dir_name": "moai-domain-cloud",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-domain-cloud",
+  "github_branch": "main"
 }

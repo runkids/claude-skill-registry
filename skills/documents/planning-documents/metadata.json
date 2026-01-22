@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Naming conventions for planning documents in prompts/. Use when creating plans, PRDs, research reports, idea capture or other workflow documents. Triggers on (1) creating new planning documents, (2) n",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:48.461228Z"
+  "downloaded_at": "2026-01-06T09:07:48.461228Z",
+  "github_path": "prompts/skills/planning-documents",
+  "github_branch": "main"
 }

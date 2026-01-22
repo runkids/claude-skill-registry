@@ -5,5 +5,7 @@
   "source": "github.com/JordanGunn/nunchuck",
   "downloaded_at": "2026-01-22T03:08:00.458572Z",
   "dir_name": "prompt-forge",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/prompt/prompt-forge",
+  "github_branch": "main"
 }

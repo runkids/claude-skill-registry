@@ -5,5 +5,7 @@
   "description": "Use when discussing or working with DeepEval (the python AI evaluation framework)",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:52.119540Z",
-  "dir_name": "deepeval"
+  "dir_name": "deepeval",
+  "github_path": "Claude/skills/deepeval",
+  "github_branch": "main"
 }

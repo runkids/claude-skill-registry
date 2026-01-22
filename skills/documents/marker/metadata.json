@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Convert documents (PDF, EPUB, PPTX, DOCX, XLSX, HTML, images) to Markdown/JSON/HTML using marker-pdf with Claude Haiku LLM enhancement for accurate table, math, and form extraction. Use when user need",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:37.885189Z"
+  "downloaded_at": "2026-01-06T09:09:37.885189Z",
+  "github_path": "plugins/marker/skills/marker",
+  "github_branch": "main"
 }

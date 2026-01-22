@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-cloudflare",
   "downloaded_at": "2026-01-14T01:29:58.769307Z",
   "dir_name": "emerging-tech",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/emerging-tech",
+  "github_branch": "main"
 }

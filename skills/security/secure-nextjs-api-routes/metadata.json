@@ -9,5 +9,7 @@
     "api",
     "routes"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "secure-nextjs-api-routes",
+  "github_branch": "main"
 }

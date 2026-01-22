@@ -8,5 +8,7 @@
     "explaining",
     "code"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".github/skills/sample-explaining-code",
+  "github_branch": "main"
 }

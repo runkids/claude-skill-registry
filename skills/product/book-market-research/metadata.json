@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Assess commercial viability of book concepts for Amazon KDP self-publishing. Use when the user has a Book Concept Document and wants to understand market demand, competition, pricing, and positioning ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:55.904872Z"
+  "downloaded_at": "2026-01-06T09:07:55.904872Z",
+  "github_path": "skills/non-fiction-book-factory/book-market-research",
+  "github_branch": "main"
 }

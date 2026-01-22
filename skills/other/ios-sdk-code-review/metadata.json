@@ -5,5 +5,7 @@
   "source": "github.com/daispacy/py-claude-marketplace",
   "downloaded_at": "2026-01-22T02:43:15.234461Z",
   "dir_name": "ios-sdk-code-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "py-plugin/skills/ios-sdk-code-review",
+  "github_branch": "main"
 }

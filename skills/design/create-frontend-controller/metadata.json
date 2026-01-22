@@ -8,5 +8,7 @@
     "frontend",
     "controller"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "create-frontend-controller",
+  "github_branch": "main"
 }

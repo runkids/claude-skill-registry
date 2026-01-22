@@ -5,5 +5,7 @@
   "source": "github.com/sendaifun/skills",
   "downloaded_at": "2026-01-22T03:42:51.924528Z",
   "dir_name": "dflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/dflow",
+  "github_branch": "main"
 }

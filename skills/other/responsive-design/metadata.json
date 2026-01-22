@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-22T03:51:04.294198Z",
   "dir_name": "responsive-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ui-design/skills/responsive-design",
+  "github_branch": "main"
 }

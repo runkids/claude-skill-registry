@@ -5,5 +5,7 @@
   "source": "github.com/ArcBlock/agent-skills",
   "downloaded_at": "2026-01-14T03:25:37.150771Z",
   "dir_name": "blocklet-converter",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/blocklet/skills/blocklet-converter",
+  "github_branch": "main"
 }

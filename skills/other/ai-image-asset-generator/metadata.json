@@ -5,5 +5,7 @@
   "source": "github.com/Kartikk-26/Claude-Code-Skills",
   "downloaded_at": "2026-01-22T01:00:11.181231Z",
   "dir_name": "ai-image-asset-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/ai-image-asset-generator",
+  "github_branch": "main"
 }

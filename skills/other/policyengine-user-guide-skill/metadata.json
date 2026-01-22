@@ -5,5 +5,7 @@
   "source": "github.com/PolicyEngine/policyengine-claude",
   "downloaded_at": "2026-01-22T02:32:14.994488Z",
   "dir_name": "policyengine-user-guide-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/documentation/policyengine-user-guide-skill",
+  "github_branch": "main"
 }

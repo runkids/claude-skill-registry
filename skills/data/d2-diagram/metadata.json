@@ -8,5 +8,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "d2-diagram"
+  "dir_name": "d2-diagram",
+  "github_path": ".claude/skills/d2-diagram",
+  "github_branch": "main"
 }

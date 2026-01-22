@@ -5,5 +5,7 @@
   "source": "github.com/zircote/.claude",
   "downloaded_at": "2026-01-22T02:55:21.451585Z",
   "dir_name": "datadog-entity-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/datadog-entity-generator",
+  "github_branch": "main"
 }

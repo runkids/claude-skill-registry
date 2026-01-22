@@ -2,7 +2,9 @@
   "name": "why-verify-risk",
   "repo": "showdaiya/cr-tool",
   "category": "devops",
-  "description": "\u5b66\u7fd2\u76ee\u7684\u3067\u3001\u3042\u3089\u3086\u308b\u63d0\u6848\u5909\u66f4\u306b WHY / VERIFY / RISK \u3068\u30ed\u30fc\u30eb\u30d0\u30c3\u30af\u3092\u5fc5\u305a\u4ed8\u3051\u308b\uff08\u30b3\u30fc\u30c9\u30fb\u30b3\u30de\u30f3\u30c9\u30fbAWS\u624b\u9806\uff09\u3002WHY\u306f\u300c\u9078\u629e\u80a2\u2192\u7279\u5fb4\u2192\u7d50\u8ad6\uff08\u6700\u9069\u6848\uff09\u300d\u3067\u7d71\u4e00\u3059\u308b\u3002",
+  "description": "学習目的で、あらゆる提案変更に WHY / VERIFY / RISK とロールバックを必ず付ける（コード・コマンド・AWS手順）。WHYは「選択肢→特徴→結論（最適案）」で統一する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:57.855170Z"
+  "downloaded_at": "2026-01-06T09:09:57.855170Z",
+  "github_path": ".github/skills/why-verify-risk",
+  "github_branch": "main"
 }

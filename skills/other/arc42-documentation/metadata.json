@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:12.503243Z",
   "dir_name": "arc42-documentation",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/documentation-standards/skills/arc42-documentation",
+  "github_branch": "main"
 }

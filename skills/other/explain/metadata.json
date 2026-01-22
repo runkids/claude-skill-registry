@@ -5,5 +5,7 @@
   "source": "github.com/hereinthehive/gotrino-inclusion",
   "downloaded_at": "2026-01-22T03:02:52.642241Z",
   "dir_name": "explain",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/explain",
+  "github_branch": "main"
 }

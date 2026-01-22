@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:52.609161Z",
   "dir_name": "skill-packager",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/addons/skill-factory/skills/skill-packager",
+  "github_branch": "main"
 }

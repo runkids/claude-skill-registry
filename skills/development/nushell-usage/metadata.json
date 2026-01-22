@@ -7,5 +7,7 @@
     "nushell",
     "usage"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "nushell-usage",
+  "github_branch": "main"
 }

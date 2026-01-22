@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "use when adding API to this project that exists in numpy, especially if the user mentions a stream in the numpy-api-parity plan.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:13.643239Z"
+  "downloaded_at": "2026-01-06T09:07:13.643239Z",
+  "github_path": ".claude/skills/numpy-api-stream",
+  "github_branch": "main"
 }

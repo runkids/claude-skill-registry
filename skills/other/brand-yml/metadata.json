@@ -5,5 +5,7 @@
   "source": "github.com/posit-dev/skills",
   "downloaded_at": "2026-01-22T02:46:55.697834Z",
   "dir_name": "brand-yml",
-  "category": "other"
+  "category": "other",
+  "github_path": "brand-yml",
+  "github_branch": "main"
 }

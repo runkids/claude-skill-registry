@@ -5,5 +5,7 @@
   "source": "github.com/motoki317/dotfiles",
   "downloaded_at": "2026-01-22T02:12:34.594750Z",
   "dir_name": "c-ecosystem",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/c-ecosystem",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:43:57.432054Z",
   "dir_name": "repo-cleanup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/meta/repo-cleanup",
+  "github_branch": "main"
 }

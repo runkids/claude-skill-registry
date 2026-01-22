@@ -7,5 +7,7 @@
     "skill",
     "validator"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/skill-validator",
+  "github_branch": "main"
 }

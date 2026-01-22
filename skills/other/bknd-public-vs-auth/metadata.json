@@ -5,5 +5,7 @@
   "source": "github.com/cameronapak/freedom-stack-v3",
   "downloaded_at": "2026-01-22T03:30:08.327626Z",
   "dir_name": "bknd-public-vs-auth",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/bknd-public-vs-auth",
+  "github_branch": "main"
 }

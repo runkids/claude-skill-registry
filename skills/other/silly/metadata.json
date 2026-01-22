@@ -5,5 +5,7 @@
   "source": "github.com/gaearon/woodshed",
   "downloaded_at": "2026-01-22T04:04:04.946799Z",
   "dir_name": "silly",
-  "category": "other"
+  "category": "other",
+  "github_path": "example/skills/ascii-art/silly",
+  "github_branch": "main"
 }

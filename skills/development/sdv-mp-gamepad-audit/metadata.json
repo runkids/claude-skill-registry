@@ -8,5 +8,7 @@
     "gamepad",
     "audit"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/sdv-mp-gamepad-audit",
+  "github_branch": "main"
 }

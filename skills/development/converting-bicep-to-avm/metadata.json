@@ -8,5 +8,7 @@
     "bicep",
     "avm"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".github/skills/converting-bicep-to-avm",
+  "github_branch": "main"
 }

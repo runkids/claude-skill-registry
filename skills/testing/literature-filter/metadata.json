@@ -2,7 +2,9 @@
   "name": "literature-filter",
   "repo": "u9401066/copilot-capability-manager",
   "category": "testing",
-  "description": "Filter, validate and organize literature search results.LOAD THIS SKILL WHEN: User has search results and needs to \"\u904e\u6ffe\", \"\u7be9\u9078\", \"filter\", \"\u9078\u64c7\u6587\u737b\" | reviewing search results | narrowing down papers.CAPAB",
+  "description": "Filter, validate and organize literature search results.LOAD THIS SKILL WHEN: User has search results and needs to \"過濾\", \"篩選\", \"filter\", \"選擇文獻\" | reviewing search results | narrowing down papers.CAPAB",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:16.429064Z"
+  "downloaded_at": "2026-01-06T09:09:16.429064Z",
+  "github_path": ".claude/skills/literature-filter",
+  "github_branch": "main"
 }

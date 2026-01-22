@@ -5,5 +5,7 @@
   "source": "github.com/speakeasy-api/speakeasy",
   "downloaded_at": "2026-01-22T01:17:37.230127Z",
   "dir_name": "regenerate-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/regenerate-sdk",
+  "github_branch": "main"
 }

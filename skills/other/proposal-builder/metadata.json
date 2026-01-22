@@ -5,5 +5,7 @@
   "source": "github.com/Atemndobs/nebula-rfp",
   "downloaded_at": "2026-01-22T02:30:08.896259Z",
   "dir_name": "proposal-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/proposal-builder",
+  "github_branch": "main"
 }

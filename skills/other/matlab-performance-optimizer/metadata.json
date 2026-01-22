@@ -5,5 +5,7 @@
   "source": "github.com/matlab/skills",
   "downloaded_at": "2026-01-22T02:22:06.300150Z",
   "dir_name": "matlab-performance-optimizer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/matlab-performance-optimizer",
+  "github_branch": "main"
 }

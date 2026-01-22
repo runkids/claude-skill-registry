@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:36.495881Z",
   "dir_name": "convert-objc-swift",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/convert-objc-swift",
+  "github_branch": "main"
 }

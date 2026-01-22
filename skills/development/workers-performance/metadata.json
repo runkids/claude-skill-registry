@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Cloudflare Workers performance optimization with CPU, memory, caching, bundle size. Use for slow workers, high latency, cold starts, or encountering CPU limits, memory issues, timeout errors.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:43.615426Z"
+  "downloaded_at": "2026-01-06T08:58:43.615426Z",
+  "github_path": "plugins/cloudflare-workers/skills/cloudflare-workers-performance",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "guide"
   ],
   "stars": 0,
-  "dir_name": "tome-guide"
+  "dir_name": "tome-guide",
+  "github_path": "skills/tome-guide",
+  "github_branch": "main"
 }

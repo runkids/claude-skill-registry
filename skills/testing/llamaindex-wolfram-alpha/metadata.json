@@ -8,5 +8,7 @@
     "wolfram",
     "alpha"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/llamaindex-wolfram-alpha",
+  "github_branch": "main"
 }

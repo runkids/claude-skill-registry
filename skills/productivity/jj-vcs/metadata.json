@@ -6,5 +6,7 @@
   "tags": [
     "vcs"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/jj-vcs",
+  "github_branch": "main"
 }

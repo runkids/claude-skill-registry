@@ -2,7 +2,9 @@
   "name": "git-flow",
   "repo": "taptap/claude-plugins-marketplace",
   "category": "development",
-  "description": "\u5f53\u7528\u6237\u7528\u81ea\u7136\u8bed\u8a00\u8bf7\u6c42\u63d0\u4ea4\u4ee3\u7801\u65f6\u89e6\u53d1\uff08\u5982\u300c\u5e2e\u6211\u63d0\u4ea4\u300d\u300ccommit \u4e00\u4e0b\u300d\u300c\u63d0\u4ea4\u4ee3\u7801\u300d\uff09\u3002\u81ea\u52a8\u5e94\u7528 Git \u63d0\u4ea4\u89c4\u8303\uff0c\u4ece\u5206\u652f\u540d\u63d0\u53d6\u4efb\u52a1 ID\uff0c\u751f\u6210\u7b26\u5408\u89c4\u8303\u7684\u63d0\u4ea4\u4fe1\u606f\u3002",
+  "description": "当用户用自然语言请求提交代码时触发（如「帮我提交」「commit 一下」「提交代码」）。自动应用 Git 提交规范，从分支名提取任务 ID，生成符合规范的提交信息。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:45.007153Z"
+  "downloaded_at": "2026-01-06T09:08:45.007153Z",
+  "github_path": "plugins/git/skills/git-flow",
+  "github_branch": "main"
 }

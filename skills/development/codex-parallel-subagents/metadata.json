@@ -8,5 +8,7 @@
     "parallel",
     "subagents"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/codex-parallel-subagents",
+  "github_branch": "main"
 }

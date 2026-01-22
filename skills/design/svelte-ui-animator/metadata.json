@@ -7,5 +7,7 @@
     "svelte",
     "animator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/svelte-ui-animator",
+  "github_branch": "main"
 }

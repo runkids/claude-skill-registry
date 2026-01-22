@@ -5,5 +5,7 @@
   "source": "github.com/cxxxr/.claude",
   "downloaded_at": "2026-01-22T03:14:22.230638Z",
   "dir_name": "cl-clos-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cl-clos-patterns",
+  "github_branch": "main"
 }

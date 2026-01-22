@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:13.163791Z",
   "dir_name": "multipart-upload",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/multipart-upload",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "agent-persona-design",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "\u5b9f\u5728\u3059\u308b\u5c02\u9580\u5bb6\u306e\u601d\u60f3\u3092\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u306b\u79fb\u690d\u3057\u3001\u305d\u306e\u5c02\u9580\u6027\u3068\u601d\u8003\u30d1\u30bf\u30fc\u30f3\u3092\u518d\u73fe\u3059\u308b\u30b9\u30ad\u30eb\u3002Anchors:\u2022 \u300e\u5fc3\u306e\u793e\u4f1a\u300f\uff08Marvin Minsky\uff09 / \u9069\u7528: \u8907\u96d1\u7cfb\u3068\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u30b7\u30b9\u30c6\u30e0 / \u76ee\u7684: \u5c0f\u898f\u6a21\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u306e\u96c6\u5408\u77e5\u5b9f\u73fe\u2022 \u300e\u30d5\u30a1\u30b9\u30c8&\u30b9\u30ed\u30fc\u300f\uff08Daniel Kahneman\uff09 / \u9069\u7528: \u610f\u601d\u6c7a\u5b9a\u3068\u601d\u8003\u30d1\u30bf\u30fc\u30f3 / \u76ee\u7684: \u5c02\u9580\u5bb6\u306e\u76f4\u611f\u3068\u8ad6\u7406\u306e\u7d71\u5408Trigger:Use when ",
+  "description": "実在する専門家の思想をエージェントに移植し、その専門性と思考パターンを再現するスキル。Anchors:• 『心の社会』（Marvin Minsky） / 適用: 複雑系とエージェントシステム / 目的: 小規模エージェントの集合知実現• 『ファスト&スロー』（Daniel Kahneman） / 適用: 意思決定と思考パターン / 目的: 専門家の直感と論理の統合Trigger:Use when ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:39.955300Z"
+  "downloaded_at": "2026-01-06T09:00:39.955300Z",
+  "github_path": "docs/99-claude/skills/agent-persona-design",
+  "github_branch": "main"
 }

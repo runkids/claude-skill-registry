@@ -8,5 +8,7 @@
     "skill"
   ],
   "stars": 0,
-  "dir_name": "template-skill-cn"
+  "dir_name": "template-skill-cn",
+  "github_path": "skills/template-skill-cn",
+  "github_branch": "main"
 }

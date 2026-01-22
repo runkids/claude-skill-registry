@@ -5,5 +5,7 @@
   "source": "github.com/thinmintdev/claude-cooker",
   "downloaded_at": "2026-01-22T04:11:56.970481Z",
   "dir_name": "aws-solution-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "generated-skills/aws-solution-architect",
+  "github_branch": "main"
 }

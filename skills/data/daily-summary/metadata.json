@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "daily-summary"
+  "dir_name": "daily-summary",
+  "github_path": "daily-summary",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "foresight"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/environmental-scanning-foresight",
+  "github_branch": "main"
 }

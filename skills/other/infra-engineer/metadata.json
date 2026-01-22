@@ -5,5 +5,7 @@
   "source": "github.com/samhvw8/dotfiles",
   "downloaded_at": "2026-01-22T04:16:21.784484Z",
   "dir_name": "infra-engineer",
-  "category": "other"
+  "category": "other",
+  "github_path": "dot_claude/skills/infra-engineer",
+  "github_branch": "main"
 }

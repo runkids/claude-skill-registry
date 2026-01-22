@@ -9,5 +9,7 @@
     "scrape"
   ],
   "stars": 0,
-  "dir_name": "comp-scout-scrape"
+  "dir_name": "comp-scout-scrape",
+  "github_path": "skills/comp-scout-scrape",
+  "github_branch": "main"
 }

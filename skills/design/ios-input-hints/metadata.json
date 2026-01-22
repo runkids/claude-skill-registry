@@ -8,5 +8,7 @@
     "input",
     "hints"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/ios-input-hints",
+  "github_branch": "main"
 }

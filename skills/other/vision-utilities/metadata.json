@@ -5,5 +5,7 @@
   "source": "github.com/anhvth/speedy_utils",
   "downloaded_at": "2026-01-22T01:40:55.060096Z",
   "dir_name": "vision-utilities",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/vision-utilities",
+  "github_branch": "main"
 }

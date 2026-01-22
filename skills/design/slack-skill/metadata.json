@@ -2,7 +2,9 @@
   "name": "slack-skill",
   "repo": "jiunbae/agent-skills",
   "category": "design",
-  "description": "Slack \uc571 \uac1c\ubc1c \ubc0f API \ud1b5\ud569 \uc2a4\ud0ac. Bolt \ud504\ub808\uc784\uc6cc\ud06c, Block Kit UI, \uc774\ubca4\ud2b8 \ucc98\ub9ac, \uc2ac\ub798\uc2dc \ucee4\ub9e8\ub4dc \uc9c0\uc6d0. \"Slack\", \"\uc2ac\ub799\", \"\ubd07\", \"webhook\" \ud0a4\uc6cc\ub4dc\ub85c \ud65c\uc131\ud654.",
+  "description": "Slack 앱 개발 및 API 통합 스킬. Bolt 프레임워크, Block Kit UI, 이벤트 처리, 슬래시 커맨드 지원. \"Slack\", \"슬랙\", \"봇\", \"webhook\" 키워드로 활성화.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:24.129898Z"
+  "downloaded_at": "2026-01-06T09:06:24.129898Z",
+  "github_path": "integrations/slack-skill",
+  "github_branch": "main"
 }

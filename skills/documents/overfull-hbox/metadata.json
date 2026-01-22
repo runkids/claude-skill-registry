@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Guidance for fixing LaTeX overfull hbox warnings by replacing words with shorter synonyms from an allowed list. This skill applies when tasks involve modifying LaTeX documents to eliminate typographic",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:19.318412Z"
+  "downloaded_at": "2026-01-06T08:58:19.318412Z",
+  "github_path": "letta/benchmarks/trajectory-only/overfull-hbox",
+  "github_branch": "main"
 }

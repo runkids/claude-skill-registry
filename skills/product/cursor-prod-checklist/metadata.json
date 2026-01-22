@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Production readiness checklist for Cursor IDE setup. Triggers on \"cursor production\",\"cursor ready\", \"cursor checklist\", \"optimize cursor setup\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:59.961864Z"
+  "downloaded_at": "2026-01-06T08:55:59.961864Z",
+  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-prod-checklist",
+  "github_branch": "main"
 }

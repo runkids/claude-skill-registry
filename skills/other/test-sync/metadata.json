@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:53.306578Z",
   "dir_name": "test-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/addons/testing-quality/skills/test-sync",
+  "github_branch": "main"
 }

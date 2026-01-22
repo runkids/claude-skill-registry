@@ -10,5 +10,7 @@
     "cartridge"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/curriculum-package-common-cartridge",
+  "github_branch": "main"
 }

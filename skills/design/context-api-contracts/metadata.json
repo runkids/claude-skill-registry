@@ -9,5 +9,7 @@
     "contracts"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/context-api-contracts",
+  "github_branch": "main"
 }

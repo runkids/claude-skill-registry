@@ -8,5 +8,7 @@
     "watchos",
     "version"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/create-watchos-version",
+  "github_branch": "main"
 }

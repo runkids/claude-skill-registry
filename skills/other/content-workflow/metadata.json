@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:11.060792Z",
   "dir_name": "content-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/content-management-system/skills/content-workflow",
+  "github_branch": "main"
 }

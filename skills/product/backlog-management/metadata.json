@@ -2,7 +2,9 @@
   "name": "backlog-management",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "product",
-  "description": "\u30d7\u30ed\u30c0\u30af\u30c8\u30d0\u30c3\u30af\u30ed\u30b0\u306e\u4f5c\u6210\u30fb\u6574\u7406\u30fb\u512a\u5148\u9806\u4f4d\u4ed8\u3051\u3092\u884c\u3046\u305f\u3081\u306e\u30b9\u30ad\u30eb\u3002\u30e6\u30fc\u30b6\u30fc\u30b9\u30c8\u30fc\u30ea\u30fc\u4f5c\u6210\u3001DEEP\u539f\u5247\u306e\u9069\u7528\u3001\u5065\u5168\u6027\u5206\u6790\u3092\u901a\u3058\u3066\u5b9f\u88c5\u53ef\u80fd\u306a\u72b6\u614b\u3092\u7dad\u6301\u3057\u307e\u3059\u3002Anchors:\u2022 Agile Estimating and Planning / \u9069\u7528: \u898b\u7a4d\u3082\u308a\u3068\u512a\u5148\u5ea6 / \u76ee\u7684: \u8a08\u753b\u7cbe\u5ea6\u306e\u5411\u4e0a\u2022 User Stories Applied / \u9069\u7528: \u30b9\u30c8\u30fc\u30ea\u30fc\u4f5c\u6210 / \u76ee\u7684: \u8981\u4ef6\u306e\u660e\u78ba\u5316\u2022 The",
+  "description": "プロダクトバックログの作成・整理・優先順位付けを行うためのスキル。ユーザーストーリー作成、DEEP原則の適用、健全性分析を通じて実装可能な状態を維持します。Anchors:• Agile Estimating and Planning / 適用: 見積もりと優先度 / 目的: 計画精度の向上• User Stories Applied / 適用: ストーリー作成 / 目的: 要件の明確化• The",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.480320Z"
+  "downloaded_at": "2026-01-06T09:00:40.480320Z",
+  "github_path": "docs/99-claude/skills/backlog-management",
+  "github_branch": "main"
 }

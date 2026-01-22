@@ -9,5 +9,7 @@
     "components",
     "framework"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "skills/react-server-components-framework",
+  "github_branch": "main"
 }

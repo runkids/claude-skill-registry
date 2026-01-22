@@ -5,5 +5,7 @@
   "source": "github.com/samhvw8/dotfiles",
   "downloaded_at": "2026-01-22T04:16:23.939482Z",
   "dir_name": "payment-integration-samhvw8-dotfiles",
-  "category": "other"
+  "category": "other",
+  "github_path": "dot_claude/skills/payment-integration",
+  "github_branch": "main"
 }

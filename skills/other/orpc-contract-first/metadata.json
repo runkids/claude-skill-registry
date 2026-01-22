@@ -5,5 +5,7 @@
   "source": "github.com/langgenius/dify",
   "downloaded_at": "2026-01-21T03:45:54.385633Z",
   "dir_name": "orpc-contract-first",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/orpc-contract-first",
+  "github_branch": "main"
 }

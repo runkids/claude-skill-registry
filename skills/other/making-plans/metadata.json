@@ -5,5 +5,7 @@
   "source": "github.com/czottmann/claude-code-stuff",
   "downloaded_at": "2026-01-22T01:55:29.745405Z",
   "dir_name": "making-plans",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/making-plans",
+  "github_branch": "main"
 }

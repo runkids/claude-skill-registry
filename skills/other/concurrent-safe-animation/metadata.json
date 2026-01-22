@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:57.605178Z",
   "dir_name": "concurrent-safe-animation",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/concurrent-safe-animation",
+  "github_branch": "main"
 }

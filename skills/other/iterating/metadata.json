@@ -5,5 +5,7 @@
   "source": "github.com/oaustegard/claude-skills",
   "downloaded_at": "2026-01-22T02:23:07.575120Z",
   "dir_name": "iterating",
-  "category": "other"
+  "category": "other",
+  "github_path": "iterating",
+  "github_branch": "main"
 }

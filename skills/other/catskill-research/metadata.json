@@ -5,5 +5,7 @@
   "source": "github.com/aniketpanjwani/automated_catskill_crew",
   "downloaded_at": "2026-01-22T01:57:52.121228Z",
   "dir_name": "catskill-research",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/catskill-research",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/gabrielkuettel/vibegallery",
   "downloaded_at": "2026-01-21T01:19:53.304681Z",
   "dir_name": "build-smart-contracts",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/build-smart-contracts",
+  "github_branch": "main"
 }

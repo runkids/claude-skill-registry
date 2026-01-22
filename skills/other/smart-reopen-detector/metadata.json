@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:45.617767Z",
   "dir_name": "smart-reopen-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave/skills/smart-reopen-detector",
+  "github_branch": "main"
 }

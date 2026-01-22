@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:12.644031Z",
   "dir_name": "manufacturing-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/domains/manufacturing-expert",
+  "github_branch": "main"
 }

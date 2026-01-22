@@ -8,5 +8,7 @@
     "learner"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/error-learner",
+  "github_branch": "main"
 }

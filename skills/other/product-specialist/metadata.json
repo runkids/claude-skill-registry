@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:28.890158Z",
   "dir_name": "product-specialist",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/product-specialist",
+  "github_branch": "main"
 }

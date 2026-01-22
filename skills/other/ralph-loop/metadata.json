@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:50.918132Z",
   "dir_name": "ralph-loop",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/addons/ralph/skills/ralph-loop",
+  "github_branch": "main"
 }

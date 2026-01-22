@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expand a quest hub with recurring NPC voices, items, and artifacts.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:32:13.689990Z"
+  "downloaded_at": "2026-01-08T03:32:13.689990Z",
+  "github_path": ".codex/skills/quest-hub-stitcher",
+  "github_branch": "main"
 }

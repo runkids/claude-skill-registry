@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Intelligent multi-project specification splitting and organization. Analyzes user stories to map them to correct projects (FE, BE, MOBILE, INFRA) based on content, tech stack, and component architectu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:10.012546Z"
+  "downloaded_at": "2026-01-06T08:58:10.012546Z",
+  "github_path": "plugins/specweave/skills/multi-project-spec-mapper",
+  "github_branch": "main"
 }

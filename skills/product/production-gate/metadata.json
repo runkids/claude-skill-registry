@@ -2,7 +2,9 @@
   "name": "production-gate",
   "repo": "semicolon-devteam/semo",
   "category": "product",
-  "description": "\ud504\ub85c\ub355\uc158 \ubc30\ud3ec \uac8c\uc774\ud2b8 \ud655\uc778. Use when:(1) \ud504\ub85c\ub355\uc158 \ubc30\ud3ec \uac00\ub2a5 \uc5ec\ubd80 \ud655\uc778, (2) \ubbf8\uc644\ub8cc \ud14c\uc2a4\ud2b8 \uc774\uc288 \uccb4\ud06c,(3) \ubc30\ud3ec \uc900\ube44 \uc0c1\ud0dc \ub9ac\ud3ec\ud2b8.",
+  "description": "프로덕션 배포 게이트 확인. Use when:(1) 프로덕션 배포 가능 여부 확인, (2) 미완료 테스트 이슈 체크,(3) 배포 준비 상태 리포트.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:52.052136Z"
+  "downloaded_at": "2026-01-06T09:02:52.052136Z",
+  "github_path": "semo-system/semo-skills/production-gate",
+  "github_branch": "main"
 }

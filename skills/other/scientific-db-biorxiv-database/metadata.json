@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:26.598662Z",
   "dir_name": "scientific-db-biorxiv-database",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/scientific-db-biorxiv-database",
+  "github_branch": "main"
 }

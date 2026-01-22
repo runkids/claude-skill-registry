@@ -7,5 +7,7 @@
     "refactor",
     "code"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/refactor-code",
+  "github_branch": "main"
 }

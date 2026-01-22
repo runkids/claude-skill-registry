@@ -5,5 +5,7 @@
   "source": "github.com/audunstrand/status-app",
   "downloaded_at": "2026-01-14T01:52:03.913900Z",
   "dir_name": "critical-peer-personality",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/critical-peer-personality",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
   "downloaded_at": "2026-01-22T02:59:33.842386Z",
   "dir_name": "swot-pestle-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/business-analysis/swot-pestle-analysis",
+  "github_branch": "main"
 }

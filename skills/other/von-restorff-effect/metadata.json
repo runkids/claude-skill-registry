@@ -5,5 +5,7 @@
   "source": "github.com/vjrivmon/handwriting-ocr",
   "downloaded_at": "2026-01-22T03:24:44.022185Z",
   "dir_name": "von-restorff-effect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ux-ui/behavioral-effects/von-restorff-effect",
+  "github_branch": "main"
 }

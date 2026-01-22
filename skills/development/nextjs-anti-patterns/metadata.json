@@ -8,5 +8,7 @@
     "anti",
     "patterns"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "nextjs-anti-patterns",
+  "github_branch": "main"
 }

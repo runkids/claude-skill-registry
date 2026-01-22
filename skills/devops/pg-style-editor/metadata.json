@@ -7,5 +7,7 @@
     "style",
     "editor"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/pg-style-editor",
+  "github_branch": "main"
 }

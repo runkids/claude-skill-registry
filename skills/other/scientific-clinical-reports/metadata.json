@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:42.554445Z",
   "dir_name": "scientific-clinical-reports",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-clinical-reports",
+  "github_branch": "main"
 }

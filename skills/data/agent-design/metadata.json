@@ -9,5 +9,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-design"
+  "dir_name": "agent-design",
+  "github_path": "skills/agent-design",
+  "github_branch": "main"
 }

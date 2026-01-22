@@ -5,5 +5,7 @@
   "source": "github.com/skillcreatorai/Ai-Agent-Skills",
   "downloaded_at": "2026-01-22T01:09:36.996825Z",
   "dir_name": "upgrading-expo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/upgrading-expo",
+  "github_branch": "main"
 }

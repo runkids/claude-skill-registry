@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Regenerate test snapshot files after intentional markdown output changes. Use after modifying templates or rendering logic.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:40.437149Z"
+  "downloaded_at": "2026-01-06T09:02:40.437149Z",
+  "github_path": ".github/skills/update-test-snapshots",
+  "github_branch": "main"
 }

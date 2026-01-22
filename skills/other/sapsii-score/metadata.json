@@ -5,5 +5,7 @@
   "source": "github.com/hannesill/m4",
   "downloaded_at": "2026-01-22T01:18:40.756978Z",
   "dir_name": "sapsii-score",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/m4/skills/sapsii-score",
+  "github_branch": "main"
 }

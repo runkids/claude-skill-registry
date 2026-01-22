@@ -8,5 +8,7 @@
     "issue",
     "maker"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/sub-issue-maker",
+  "github_branch": "main"
 }

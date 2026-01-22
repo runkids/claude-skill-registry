@@ -9,5 +9,7 @@
     "architect"
   ],
   "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/DEPRECATED/agent-angular-architect",
+  "github_branch": "main"
 }

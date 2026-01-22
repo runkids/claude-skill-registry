@@ -5,5 +5,7 @@
   "source": "github.com/bitwikiorg/skills.md",
   "downloaded_at": "2026-01-22T01:15:03.746035Z",
   "dir_name": "spec-parsing",
-  "category": "other"
+  "category": "other",
+  "github_path": "sources/openai/spec_parsing",
+  "github_branch": "main"
 }

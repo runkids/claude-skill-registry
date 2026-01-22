@@ -5,5 +5,7 @@
   "source": "github.com/plurigrid/asi",
   "downloaded_at": "2026-01-20T01:35:01.636516Z",
   "dir_name": "atproto-ingest",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/atproto-ingest",
+  "github_branch": "main"
 }

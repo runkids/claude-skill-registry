@@ -7,5 +7,7 @@
     "nuxthub"
   ],
   "stars": 12,
-  "dir_name": "nuxthub"
+  "dir_name": "nuxthub",
+  "github_path": "skills/nuxthub",
+  "github_branch": "main"
 }

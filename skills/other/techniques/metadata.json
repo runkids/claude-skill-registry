@@ -5,5 +5,7 @@
   "source": "github.com/mgreenly/ikigai",
   "downloaded_at": "2026-01-19T04:08:28.939530Z",
   "dir_name": "techniques",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/library/refactoring/techniques",
+  "github_branch": "main"
 }

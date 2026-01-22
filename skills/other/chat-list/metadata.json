@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:05.011008Z",
   "dir_name": "chat-list",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/chat-list",
+  "github_branch": "main"
 }

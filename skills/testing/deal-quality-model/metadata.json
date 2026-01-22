@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Scoring system for opportunity hygiene, win likelihood, and inspection prioritization.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.134875Z"
+  "downloaded_at": "2026-01-06T08:57:25.134875Z",
+  "github_path": "plugins/revenue-analytics/skills/deal-quality-model",
+  "github_branch": "main"
 }

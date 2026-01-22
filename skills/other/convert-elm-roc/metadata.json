@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:33.269611Z",
   "dir_name": "convert-elm-roc",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/convert-elm-roc",
+  "github_branch": "main"
 }

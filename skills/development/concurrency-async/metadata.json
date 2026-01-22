@@ -2,7 +2,9 @@
   "name": "concurrency-async",
   "repo": "TakumiOkayasu/dotfile-work",
   "category": "development",
-  "description": "\u4e26\u884c\u51e6\u7406\u3084\u975e\u540c\u671f\u64cd\u4f5c\u3092\u5b9f\u88c5\u3059\u308b\u969b\u306b\u4f7f\u7528\u3002",
+  "description": "並行処理や非同期操作を実装する際に使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:44.303855Z"
+  "downloaded_at": "2026-01-06T09:08:44.303855Z",
+  "github_path": "claude/skills/3-task/development/concurrency-async",
+  "github_branch": "main"
 }

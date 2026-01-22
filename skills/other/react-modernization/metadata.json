@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:11.774681Z",
   "dir_name": "react-modernization",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/framework-migration/skills/react-modernization",
+  "github_branch": "main"
 }

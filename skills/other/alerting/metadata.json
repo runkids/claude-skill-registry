@@ -5,5 +5,7 @@
   "source": "github.com/hsudatalks/univers-container",
   "downloaded_at": "2026-01-22T01:39:57.727463Z",
   "dir_name": "alerting",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/alerting",
+  "github_branch": "main"
 }

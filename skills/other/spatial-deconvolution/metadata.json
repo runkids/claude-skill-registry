@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:49.644760Z",
   "dir_name": "spatial-deconvolution",
-  "category": "other"
+  "category": "other",
+  "github_path": "spatial-transcriptomics/spatial-deconvolution",
+  "github_branch": "main"
 }

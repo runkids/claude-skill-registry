@@ -10,5 +10,7 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "diagram-reports-generator"
+  "dir_name": "diagram-reports-generator",
+  "github_path": "skills/diagram-reports-generator",
+  "github_branch": "main"
 }

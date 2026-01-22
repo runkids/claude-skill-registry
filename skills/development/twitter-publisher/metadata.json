@@ -2,7 +2,9 @@
   "name": "twitter-publisher",
   "repo": "refly-ai/skill-to-workflow",
   "category": "development",
-  "description": "\u901a\u8fc7 bird CLI \u53d1\u5e03\u548c\u7ba1\u7406 Twitter/X \u5185\u5bb9\u3002\u4f7f\u7528\u6b64 skill \u5f53\u7528\u6237\u9700\u8981\uff1a(1) \u53d1\u5e03\u63a8\u6587\u6216\u5e16\u5b50\uff0c(2) \u56de\u590d\u63a8\u6587\uff0c(3) \u8bfb\u53d6\u6216\u83b7\u53d6\u63a8\u6587\u5185\u5bb9\uff0c(4) \u641c\u7d22\u63a8\u6587\uff0c(5) \u67e5\u770b mentions/bookmarks/likes\uff0c(6) \u9644\u5e26\u56fe\u7247\u6216\u89c6\u9891\u53d1\u63a8\u3002\u89e6\u53d1\u8bcd\u5305\u62ec\uff1a\u53d1\u63a8\u3001tweet\u3001\u53d1\u5e16\u3001\u56de\u590d\u63a8\u6587\u3001\u8bfb\u53d6\u63a8\u6587\u3001Twitter\u3001X \u5e73\u53f0\u3002",
+  "description": "通过 bird CLI 发布和管理 Twitter/X 内容。使用此 skill 当用户需要：(1) 发布推文或帖子，(2) 回复推文，(3) 读取或获取推文内容，(4) 搜索推文，(5) 查看 mentions/bookmarks/likes，(6) 附带图片或视频发推。触发词包括：发推、tweet、发帖、回复推文、读取推文、Twitter、X 平台。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:35.137420Z"
+  "downloaded_at": "2026-01-06T09:03:35.137420Z",
+  "github_path": "skills-source/zijiebijiben/twitter-publisher",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/raintree-technology/claude-starter",
   "downloaded_at": "2026-01-22T02:31:18.971534Z",
   "dir_name": "transactions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plaid/transactions",
+  "github_branch": "main"
 }

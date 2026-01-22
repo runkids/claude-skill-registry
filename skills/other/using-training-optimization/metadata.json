@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:06.617143Z",
   "dir_name": "using-training-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/yzmir-training-optimization/skills/using-training-optimization",
+  "github_branch": "main"
 }

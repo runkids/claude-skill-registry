@@ -2,7 +2,9 @@
   "name": "us-readability-check",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "product",
-  "description": "\u68c0\u67e5User Story\u662f\u5426\u5bf9\u975e\u6280\u672f\u4eba\u5458\u53cb\u597d\uff0c\u68c0\u6d4b\u6280\u672f\u672f\u8bed\u6b8b\u7559\u3001\u8fc7\u4e8e\u7cbe\u70bc\u7684\u8868\u8fbe\u3001\u7f3a\u4e4f\u573a\u666f\u611f\u7b49\u95ee\u9898\u3002\u9002\u5408\u5728US\u521d\u7a3f\u5b8c\u6210\u540e\u3001\u51c6\u5907\u63d0\u4ea4\u9a8c\u6536\u524d\u4f7f\u7528\uff0c\u5f53\u9700\u8981\u8d28\u91cf\u68c0\u67e5\u65f6\u3002\u5e2e\u52a9\u654f\u6377\u65b0\u624b\u81ea\u6211\u68c0\u67e5\uff0c\u77e5\u9053\u81ea\u5df1\u5199\u7684US\u54ea\u91cc\u9700\u8981\u6539\u8fdb\uff0c\u7ed9\u51fa\u5177\u4f53\u53ef\u64cd\u4f5c\u7684\u6539\u8fdb\u5efa\u8bae\u3002",
+  "description": "检查User Story是否对非技术人员友好，检测技术术语残留、过于精炼的表达、缺乏场景感等问题。适合在US初稿完成后、准备提交验收前使用，当需要质量检查时。帮助敏捷新手自我检查，知道自己写的US哪里需要改进，给出具体可操作的改进建议。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:24.782705Z"
+  "downloaded_at": "2026-01-06T09:10:24.782705Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/requirements/us-readability-check",
+  "github_branch": "main"
 }

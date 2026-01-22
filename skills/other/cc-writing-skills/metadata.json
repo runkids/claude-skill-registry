@@ -5,5 +5,7 @@
   "source": "github.com/jasonkuhrt/dotfiles",
   "downloaded_at": "2026-01-17T02:34:52.001237Z",
   "dir_name": "cc-writing-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/cc-writing-skills",
+  "github_branch": "main"
 }

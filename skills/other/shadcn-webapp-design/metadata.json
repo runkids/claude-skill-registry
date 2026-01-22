@@ -5,5 +5,7 @@
   "source": "github.com/brandomagnani/swarmkit",
   "downloaded_at": "2026-01-22T02:10:24.290155Z",
   "dir_name": "shadcn-webapp-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/shadcn-webapp-design",
+  "github_branch": "main"
 }

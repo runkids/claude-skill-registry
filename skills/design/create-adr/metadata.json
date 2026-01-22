@@ -8,5 +8,7 @@
     "adr"
   ],
   "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "plugins/majestic-engineer/skills/create-adr",
+  "github_branch": "main"
 }

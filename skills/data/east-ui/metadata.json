@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "east-ui"
+  "dir_name": "east-ui",
+  "github_path": "skills/east-ui",
+  "github_branch": "main"
 }

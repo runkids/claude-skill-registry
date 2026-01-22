@@ -5,5 +5,7 @@
   "source": "github.com/chiraitori/paperand",
   "downloaded_at": "2026-01-19T03:47:21.461240Z",
   "dir_name": "theming",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/theming",
+  "github_branch": "main"
 }

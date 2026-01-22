@@ -7,5 +7,7 @@
     "wallet",
     "brc100"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/wallet-brc100-go",
+  "github_branch": "main"
 }

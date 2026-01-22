@@ -6,5 +6,7 @@
   "tags": [
     "vue"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/vueuse",
+  "github_branch": "main"
 }

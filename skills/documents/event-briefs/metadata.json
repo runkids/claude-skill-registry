@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Use when documenting event objectives, requirements, and alignment across stakeholders.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:22.932688Z"
+  "downloaded_at": "2026-01-06T08:57:22.932688Z",
+  "github_path": "plugins/event-marketing/skills/event-briefs",
+  "github_branch": "main"
 }

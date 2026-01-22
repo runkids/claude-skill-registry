@@ -5,5 +5,7 @@
   "source": "github.com/Jeffallan/claude-skills",
   "downloaded_at": "2026-01-22T02:05:07.825895Z",
   "dir_name": "flutter-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/flutter-expert",
+  "github_branch": "main"
 }

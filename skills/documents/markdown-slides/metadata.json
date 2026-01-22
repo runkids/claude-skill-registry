@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Create presentation slides in Markdown format (Deckset/Marp compatible). Use when user requests to create slides, presentations, or convert documents to slide format. Handles image positioning, speake",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:16.597588Z"
+  "downloaded_at": "2026-01-06T08:58:16.597588Z",
+  "github_path": "markdown-slides",
+  "github_branch": "main"
 }

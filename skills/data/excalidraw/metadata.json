@@ -8,5 +8,7 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "excalidraw"
+  "dir_name": "excalidraw",
+  "github_path": "skills/excalidraw",
+  "github_branch": "main"
 }

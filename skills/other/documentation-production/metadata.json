@@ -5,5 +5,7 @@
   "source": "github.com/NickCrew/claude-cortex",
   "downloaded_at": "2026-01-22T01:32:45.114360Z",
   "dir_name": "documentation-production",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude_ctx_py/assets/skills/documentation-production",
+  "github_branch": "main"
 }

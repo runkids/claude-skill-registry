@@ -8,5 +8,7 @@
     "leak",
     "detection"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/memory-leak-detection",
+  "github_branch": "main"
 }

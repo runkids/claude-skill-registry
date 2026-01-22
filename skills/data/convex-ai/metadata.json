@@ -7,5 +7,7 @@
     "convex"
   ],
   "stars": 0,
-  "dir_name": "convex-ai"
+  "dir_name": "convex-ai",
+  "github_path": "skills/convex-ai",
+  "github_branch": "main"
 }

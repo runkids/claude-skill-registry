@@ -8,5 +8,7 @@
     "task",
     "debugger"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/steeb-task-debugger",
+  "github_branch": "main"
 }

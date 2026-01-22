@@ -5,5 +5,7 @@
   "source": "github.com/clawdbot/clawdbot",
   "downloaded_at": "2026-01-22T03:52:07.988619Z",
   "dir_name": "notion",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/notion",
+  "github_branch": "main"
 }

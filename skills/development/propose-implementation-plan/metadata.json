@@ -8,5 +8,7 @@
     "implementation",
     "plan"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/propose-implementation-plan",
+  "github_branch": "main"
 }

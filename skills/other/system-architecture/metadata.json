@@ -5,5 +5,7 @@
   "source": "github.com/mpuig/raw",
   "downloaded_at": "2026-01-22T01:02:16.811667Z",
   "dir_name": "system-architecture",
-  "category": "other"
+  "category": "other",
+  "github_path": "builder/skills/system-architecture",
+  "github_branch": "main"
 }

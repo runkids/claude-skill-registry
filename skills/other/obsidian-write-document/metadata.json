@@ -5,5 +5,7 @@
   "source": "github.com/BreakerOfStems/claude-skills",
   "downloaded_at": "2026-01-19T02:13:27.136485Z",
   "dir_name": "obsidian-write-document",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/obsidian-write-document",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "mocker"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "api-response-mocker",
+  "github_branch": "main"
 }

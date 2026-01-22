@@ -5,5 +5,7 @@
   "source": "github.com/rbergman/dark-matter-marketplace",
   "downloaded_at": "2026-01-17T02:25:51.733751Z",
   "dir_name": "dialectical-refinement",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/workflow/skills/dialectical-refinement",
+  "github_branch": "main"
 }

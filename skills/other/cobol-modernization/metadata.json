@@ -5,5 +5,7 @@
   "source": "github.com/letta-ai/skills",
   "downloaded_at": "2026-01-14T00:54:36.578597Z",
   "dir_name": "cobol-modernization",
-  "category": "other"
+  "category": "other",
+  "github_path": "letta/benchmarks/trajectory-only/cobol-modernization",
+  "github_branch": "main"
 }

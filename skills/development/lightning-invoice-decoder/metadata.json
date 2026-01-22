@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when implementing BOLT11 Lightning invoice decoding - provides complete patterns for decoding invoice amounts, validating invoice format, and extracting satoshi values from Lightning invoices",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:30.050309Z"
+  "downloaded_at": "2026-01-06T09:07:30.050309Z",
+  "github_path": "skills/lightning-invoice-decoder",
+  "github_branch": "main"
 }

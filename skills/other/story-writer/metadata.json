@@ -5,5 +5,7 @@
   "source": "github.com/eddiebe147/claude-settings",
   "downloaded_at": "2026-01-22T02:21:53.215110Z",
   "dir_name": "story-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/story-writer",
+  "github_branch": "main"
 }

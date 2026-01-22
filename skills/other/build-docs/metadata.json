@@ -5,5 +5,7 @@
   "source": "github.com/tatsuki-washimi/gwexpy",
   "downloaded_at": "2026-01-20T03:09:14.659349Z",
   "dir_name": "build-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/build_docs",
+  "github_branch": "main"
 }

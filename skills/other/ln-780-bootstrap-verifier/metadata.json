@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:05.773687Z",
   "dir_name": "ln-780-bootstrap-verifier",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-780-bootstrap-verifier",
+  "github_branch": "main"
 }

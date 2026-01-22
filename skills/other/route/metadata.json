@@ -5,5 +5,7 @@
   "source": "github.com/aiskillstore/marketplace",
   "downloaded_at": "2026-01-22T01:49:27.170561Z",
   "dir_name": "route",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/automattic/wordpress-router",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Emasoft/ghe-marketplace",
   "downloaded_at": "2026-01-17T03:27:53.395731Z",
   "dir_name": "ghe-transition",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ghe/skills/ghe-transition",
+  "github_branch": "main"
 }

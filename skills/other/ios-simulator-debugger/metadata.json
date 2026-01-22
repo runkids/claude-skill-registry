@@ -5,5 +5,7 @@
   "source": "github.com/willsigmon/sigstack-site",
   "downloaded_at": "2026-01-17T02:00:42.449589Z",
   "dir_name": "ios-simulator-debugger",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/skills/ios-simulator-debugger",
+  "github_branch": "main"
 }

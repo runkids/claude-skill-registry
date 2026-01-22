@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:49.091127Z",
   "dir_name": "snakemake-workflows",
-  "category": "other"
+  "category": "other",
+  "github_path": "workflow-management/snakemake-workflows",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-20T01:41:11.702348Z",
   "dir_name": "rbac-implementation",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/rbac-implementation",
+  "github_branch": "main"
 }

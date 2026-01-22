@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when planning programs, rituals, and response frameworks for owned or partner communities.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:26.542422Z"
+  "downloaded_at": "2026-01-06T08:57:26.542422Z",
+  "github_path": "plugins/social-media/skills/community-engagement",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Create interactive data visualizations using Vega-Lite declarative JSON grammar. Supports 20+ chart types (bar, line, scatter, histogram, boxplot, grouped/stacked variations, etc.) via templates and p",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:54.672724Z"
+  "downloaded_at": "2026-01-06T08:57:54.672724Z",
+  "github_path": "charting-vega-lite",
+  "github_branch": "main"
 }

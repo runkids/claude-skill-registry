@@ -5,5 +5,7 @@
   "source": "github.com/parcadei/Continuous-Claude-v3",
   "downloaded_at": "2026-01-22T03:23:55.680821Z",
   "dir_name": "interpolation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/math/numerical-methods/interpolation",
+  "github_branch": "main"
 }

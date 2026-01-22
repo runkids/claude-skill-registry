@@ -5,5 +5,7 @@
   "source": "github.com/lawless-m/Gwen",
   "downloaded_at": "2026-01-22T03:17:30.454851Z",
   "dir_name": "whisper-transcription",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/Whisper-Transcription",
+  "github_branch": "master"
 }

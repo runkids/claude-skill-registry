@@ -5,5 +5,7 @@
   "source": "github.com/shwilliamson/automatasaurus",
   "downloaded_at": "2026-01-14T03:19:15.166007Z",
   "dir_name": "javascript-standards",
-  "category": "other"
+  "category": "other",
+  "github_path": "template/skills/javascript-standards",
+  "github_branch": "main"
 }

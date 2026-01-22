@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Expert guidance for Rust CLI and TUI development with official examples from clap, inquire, and ratatui libraries. Use when building command-line interfaces, terminal user interfaces, or console appli",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:30.212027Z"
+  "downloaded_at": "2026-01-06T09:03:30.212027Z",
+  "github_path": "rust-cli-tui-developer",
+  "github_branch": "main"
 }

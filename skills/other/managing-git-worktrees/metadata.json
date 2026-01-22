@@ -5,5 +5,7 @@
   "source": "github.com/sumik5/sumik-claude-plugin",
   "downloaded_at": "2026-01-19T05:57:57.797195Z",
   "dir_name": "managing-git-worktrees",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/managing-git-worktrees",
+  "github_branch": "main"
 }

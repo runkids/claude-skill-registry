@@ -5,5 +5,7 @@
   "source": "github.com/antoncoding/monarch",
   "downloaded_at": "2026-01-19T02:21:44.807088Z",
   "dir_name": "transaction-hooks",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/transaction-hooks",
+  "github_branch": "main"
 }

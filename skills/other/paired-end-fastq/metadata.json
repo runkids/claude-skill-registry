@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:47.487716Z",
   "dir_name": "paired-end-fastq",
-  "category": "other"
+  "category": "other",
+  "github_path": "sequence-io/paired-end-fastq",
+  "github_branch": "main"
 }

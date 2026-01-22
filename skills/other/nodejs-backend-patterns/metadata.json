@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/dotfiles",
   "downloaded_at": "2026-01-22T03:54:13.280633Z",
   "dir_name": "nodejs-backend-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ai/plugins/javascript-typescript/skills/nodejs-backend-patterns",
+  "github_branch": "main"
 }

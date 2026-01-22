@@ -5,5 +5,7 @@
   "source": "github.com/beshkenadze/claude-skills-marketplace",
   "downloaded_at": "2026-01-14T01:46:10.750534Z",
   "dir_name": "research-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/development/research-guide",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/404kidwiz/claude-supercode-skills",
   "downloaded_at": "2026-01-22T02:04:16.601901Z",
   "dir_name": "wordpress-master-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "wordpress-master-skill",
+  "github_branch": "main"
 }

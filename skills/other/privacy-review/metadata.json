@@ -5,5 +5,7 @@
   "source": "github.com/emliunix/home.conf",
   "downloaded_at": "2026-01-22T01:12:22.804383Z",
   "dir_name": "privacy-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/privacy-review",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "report"
   ],
   "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/agent-report",
+  "github_branch": "main"
 }

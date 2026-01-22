@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Analyzes Claude Code session history to identify repeated workflows and suggest slash commands to automate them",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:42.948758Z"
+  "downloaded_at": "2026-01-06T09:07:42.948758Z",
+  "github_path": "learnfrompast/skills/workflow-analyzer",
+  "github_branch": "main"
 }

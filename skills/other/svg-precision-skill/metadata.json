@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:56.572081Z",
   "dir_name": "svg-precision-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "svg-precision-skill",
+  "github_branch": "main"
 }

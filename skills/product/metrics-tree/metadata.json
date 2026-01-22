@@ -7,5 +7,7 @@
     "metrics",
     "tree"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/metrics-tree",
+  "github_branch": "main"
 }

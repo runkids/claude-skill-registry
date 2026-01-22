@@ -5,5 +5,7 @@
   "source": "github.com/alinaqi/claude-bootstrap",
   "downloaded_at": "2026-01-22T03:20:50.998444Z",
   "dir_name": "ms-teams-apps",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/ms-teams-apps",
+  "github_branch": "main"
 }

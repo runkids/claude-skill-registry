@@ -8,5 +8,7 @@
     "analyzer"
   ],
   "stars": 0,
-  "dir_name": "screen-analyzer"
+  "dir_name": "screen-analyzer",
+  "github_path": ".claude/skills/screen-analyzer",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "reviewer"
   ],
   "stars": 3,
-  "dir_name": "pr-author-reviewer"
+  "dir_name": "pr-author-reviewer",
+  "github_path": "skills/pr-author-reviewer",
+  "github_branch": "main"
 }

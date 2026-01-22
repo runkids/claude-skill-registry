@@ -4,5 +4,7 @@
   "repo": "maragudk/skills",
   "category": "development",
   "tags": [],
-  "stars": 17
+  "stars": 17,
+  "github_path": "go",
+  "github_branch": "main"
 }

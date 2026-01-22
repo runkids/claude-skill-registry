@@ -5,5 +5,7 @@
   "source": "github.com/giuseppe-trisciuoglio/developer-kit",
   "downloaded_at": "2026-01-22T01:58:42.039822Z",
   "dir_name": "langchain4j-testing-strategies",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/langchain4j/langchain4j-testing-strategies",
+  "github_branch": "main"
 }

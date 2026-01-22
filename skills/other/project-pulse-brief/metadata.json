@@ -5,5 +5,7 @@
   "source": "github.com/christopheryeo/claude-skills",
   "downloaded_at": "2026-01-19T01:03:15.626956Z",
   "dir_name": "project-pulse-brief",
-  "category": "other"
+  "category": "other",
+  "github_path": "project-pulse-brief",
+  "github_branch": "main"
 }

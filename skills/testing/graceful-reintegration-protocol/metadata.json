@@ -8,5 +8,7 @@
     "reintegration",
     "protocol"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/graceful-reintegration-protocol",
+  "github_branch": "main"
 }

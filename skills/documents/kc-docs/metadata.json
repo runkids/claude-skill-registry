@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Generate intelligent Python project documentation with UML class diagrams, architecture diagrams, and code analysis. Analyzes codebase structure to recommend and create appropriate visualizations for ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:57.454049Z"
+  "downloaded_at": "2026-01-06T09:06:57.454049Z",
+  "github_path": "skills/kc-docs",
+  "github_branch": "main"
 }

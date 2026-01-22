@@ -10,5 +10,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "aether-temporal-collective"
+  "dir_name": "aether-temporal-collective",
+  "github_path": "skills/aether-temporal-collective",
+  "github_branch": "main"
 }

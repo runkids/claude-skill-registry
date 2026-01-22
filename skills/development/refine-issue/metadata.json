@@ -7,5 +7,7 @@
     "refine",
     "issue"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "plugins/refine-issue/skills/refine-issue",
+  "github_branch": "main"
 }

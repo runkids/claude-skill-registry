@@ -5,5 +5,7 @@
   "source": "github.com/majiayu000/claude-skill-registry",
   "downloaded_at": "2026-01-22T03:56:35.630998Z",
   "dir_name": "omo",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/design/autonomous-ui-inspection",
+  "github_branch": "main"
 }

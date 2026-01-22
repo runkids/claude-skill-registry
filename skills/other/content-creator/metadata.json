@@ -5,5 +5,7 @@
   "source": "github.com/alirezarezvani/claude-skills",
   "downloaded_at": "2026-01-22T03:57:34.543066Z",
   "dir_name": "content-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "marketing-skill/content-creator",
+  "github_branch": "main"
 }

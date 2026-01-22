@@ -5,5 +5,7 @@
   "source": "github.com/athola/claude-night-market",
   "downloaded_at": "2026-01-20T01:02:10.932570Z",
   "dir_name": "escalation-governance",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/abstract/skills/escalation-governance",
+  "github_branch": "main"
 }

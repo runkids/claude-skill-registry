@@ -8,5 +8,7 @@
     "quality",
     "validator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skill-quality-validator",
+  "github_branch": "main"
 }

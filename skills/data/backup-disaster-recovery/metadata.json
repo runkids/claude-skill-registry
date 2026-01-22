@@ -10,5 +10,7 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "backup-disaster-recovery"
+  "dir_name": "backup-disaster-recovery",
+  "github_path": "skills/backup-disaster-recovery",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "onboarding",
     "risk"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/forensic-onboarding-risk",
+  "github_branch": "main"
 }

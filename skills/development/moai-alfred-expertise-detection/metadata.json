@@ -9,5 +9,7 @@
     "expertise",
     "detection"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-alfred-expertise-detection",
+  "github_branch": "main"
 }

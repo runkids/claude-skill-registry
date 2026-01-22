@@ -5,5 +5,7 @@
   "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
   "downloaded_at": "2026-01-21T03:29:06.056526Z",
   "dir_name": "internal-red-team-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": "irp_swarm_console/skills/internal-red-team-audit",
+  "github_branch": "main"
 }

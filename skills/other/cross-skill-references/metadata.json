@@ -5,5 +5,7 @@
   "source": "github.com/cuioss/plan-marshall",
   "downloaded_at": "2026-01-14T03:33:31.755759Z",
   "dir_name": "cross-skill-references",
-  "category": "other"
+  "category": "other",
+  "github_path": "test/pm-plugin-development/plugin-doctor/fixtures/skill-structure/cross-skill-references",
+  "github_branch": "main"
 }

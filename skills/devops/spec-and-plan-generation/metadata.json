@@ -9,5 +9,7 @@
     "plan",
     "generation"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/spec-and-plan-generation",
+  "github_branch": "main"
 }

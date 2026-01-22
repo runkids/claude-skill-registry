@@ -5,5 +5,7 @@
   "source": "github.com/terraphim/codex-skills",
   "downloaded_at": "2026-01-22T02:22:57.605948Z",
   "dir_name": "disciplined-quality-evaluation",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/disciplined-quality-evaluation",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Leryk1981/mova_wf_cycle",
   "downloaded_at": "2026-01-22T02:33:25.504096Z",
   "dir_name": "mova-run-gates",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/mova_run_gates",
+  "github_branch": "main"
 }

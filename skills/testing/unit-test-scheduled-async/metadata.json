@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Unit tests for scheduled and async tasks using @Scheduled and @Async. Mock task execution and timing. Use when validating asynchronous operations and scheduling behavior.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:13.832427Z"
+  "downloaded_at": "2026-01-06T08:57:13.832427Z",
+  "github_path": "skills/junit-test/unit-test-scheduled-async",
+  "github_branch": "main"
 }

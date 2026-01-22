@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Implements real-time features with Pusher Channels for WebSocket-based pub/sub messaging. Use when adding live updates, notifications, chat, presence indicators, or collaborative features.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:16.248457Z"
+  "downloaded_at": "2026-01-06T09:10:16.248457Z",
+  "github_path": "plugins/goodvibes/skills/webdev/skills/pusher",
+  "github_branch": "main"
 }

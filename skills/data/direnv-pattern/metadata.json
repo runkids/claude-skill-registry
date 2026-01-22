@@ -8,5 +8,7 @@
     "pattern"
   ],
   "stars": 8,
-  "dir_name": "direnv-pattern"
+  "dir_name": "direnv-pattern",
+  "github_path": "skills/direnv-pattern",
+  "github_branch": "main"
 }

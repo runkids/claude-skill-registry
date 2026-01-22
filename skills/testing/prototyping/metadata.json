@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Master prototyping with interactive mockups, user flows, animations, and high-fidelity prototypes for user testing.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:59.588214Z"
+  "downloaded_at": "2026-01-06T09:02:59.588214Z",
+  "github_path": "plugins/ux-designer/skills/prototyping",
+  "github_branch": "main"
 }

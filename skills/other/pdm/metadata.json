@@ -5,5 +5,7 @@
   "source": "github.com/paunchygent/skriptoteket",
   "downloaded_at": "2026-01-22T01:47:30.896199Z",
   "dir_name": "pdm",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pdm",
+  "github_branch": "main"
 }

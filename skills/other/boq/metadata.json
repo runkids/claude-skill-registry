@@ -5,5 +5,7 @@
   "source": "github.com/POBIM/Claude-Skill-Teach",
   "downloaded_at": "2026-01-22T01:02:01.892124Z",
   "dir_name": "boq",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/boq",
+  "github_branch": "main"
 }

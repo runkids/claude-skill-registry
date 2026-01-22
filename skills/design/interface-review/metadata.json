@@ -7,5 +7,7 @@
     "interface",
     "review"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": ".claude/skills/interface-review",
+  "github_branch": "main"
 }

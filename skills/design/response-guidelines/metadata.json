@@ -2,7 +2,9 @@
   "name": "response-guidelines",
   "repo": "cuipengfei/prompts",
   "category": "design",
-  "description": "\u54cd\u5e94\u6307\u5357 - \u7b80\u6d01\u54cd\u5e94 + \u6309\u9700\u63d0\u793a\u8bcd\u589e\u5f3a\u3002\u6838\u5fc3\u94c1\u5f8b\uff1a\u7b80\u6d01\u4f18\u5148\uff0c\u4fdd\u771f\u539f\u610f\uff0c\u7981\u6b62\u6269\u5c55\u8303\u56f4\u3002",
+  "description": "响应指南 - 简洁响应 + 按需提示词增强。核心铁律：简洁优先，保真原意，禁止扩展范围。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:28.075969Z"
+  "downloaded_at": "2026-01-06T08:59:28.075969Z",
+  "github_path": "plugins/response-guidelines/skills/response-guidelines",
+  "github_branch": "main"
 }

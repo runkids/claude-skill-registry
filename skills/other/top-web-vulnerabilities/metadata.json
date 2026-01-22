@@ -5,5 +5,7 @@
   "source": "github.com/zebbern/claude-code-guide",
   "downloaded_at": "2026-01-22T01:00:55.065473Z",
   "dir_name": "top-web-vulnerabilities",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/top-web-vulnerabilities",
+  "github_branch": "main"
 }

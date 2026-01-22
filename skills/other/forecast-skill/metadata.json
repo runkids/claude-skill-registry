@@ -5,5 +5,7 @@
   "source": "github.com/kevinl95/ForecastSkill",
   "downloaded_at": "2026-01-22T01:23:06.117126Z",
   "dir_name": "forecast-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "forecast_skill",
+  "github_branch": "main"
 }

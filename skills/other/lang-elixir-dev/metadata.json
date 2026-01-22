@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:32.965829Z",
   "dir_name": "lang-elixir-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-elixir-dev",
+  "github_branch": "main"
 }

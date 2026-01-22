@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:35.310751Z",
   "dir_name": "convert-elm-fsharp",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/convert-elm-fsharp",
+  "github_branch": "main"
 }

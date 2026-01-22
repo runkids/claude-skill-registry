@@ -8,5 +8,7 @@
     "repository",
     "orchestrator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/multi-repository-orchestrator",
+  "github_branch": "main"
 }

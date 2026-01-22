@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-22T02:36:50.409651Z",
   "dir_name": "override-mechanisms",
-  "category": "other"
+  "category": "other",
+  "github_path": "44-ai-governance/override-mechanisms",
+  "github_branch": "main"
 }

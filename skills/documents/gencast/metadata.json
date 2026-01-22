@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Auto-invoke gencast to generate podcasts from documents when user mentions podcast, audio, or dialogue generation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:19.761952Z"
+  "downloaded_at": "2026-01-06T09:04:19.761952Z",
+  "github_path": "plugins/gencast/skills/gencast",
+  "github_branch": "main"
 }

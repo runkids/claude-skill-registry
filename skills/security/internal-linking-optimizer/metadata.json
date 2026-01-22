@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Analyzes and optimizes internal link structure to improve site architecture, distribute page authority, and help search engines understand content relationships. Creates strategic internal linking pla",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.728720Z"
+  "downloaded_at": "2026-01-06T08:57:10.728720Z",
+  "github_path": "optimize/internal-linking-optimizer",
+  "github_branch": "main"
 }

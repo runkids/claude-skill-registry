@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Apply Google Style documentation standards to Python, Go, and Terraform code. Use when writing or reviewing code that needs docstrings/comments, when asked to \"document this code\", \"add docstrings\", \"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:29.102656Z"
+  "downloaded_at": "2026-01-06T09:03:29.102656Z",
+  "github_path": "opencode/skill/code-docs",
+  "github_branch": "main"
 }

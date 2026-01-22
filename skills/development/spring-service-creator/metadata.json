@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Creates Spring Service classes following best practices.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:19.577199Z"
+  "downloaded_at": "2026-01-06T08:57:19.577199Z",
+  "github_path": "plugins/spring-boot-dev/skills/spring-service-creator",
+  "github_branch": "main"
 }

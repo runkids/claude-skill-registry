@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Feature-first development approach that organizes code by features rather than technical layers, promoting cohesion and reducing coupling",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:14.633162Z"
+  "downloaded_at": "2026-01-06T09:06:14.633162Z",
+  "github_path": "code-principles/skills/feature-slicing",
+  "github_branch": "main"
 }

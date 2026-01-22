@@ -5,5 +5,7 @@
   "source": "github.com/mjunaidca/mjs-agent-skills",
   "downloaded_at": "2026-01-22T03:06:58.492631Z",
   "dir_name": "kubernetes-essentials",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/taskflow-vault/skills/engineering/kubernetes-essentials",
+  "github_branch": "main"
 }

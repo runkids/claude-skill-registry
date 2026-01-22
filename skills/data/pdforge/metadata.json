@@ -7,5 +7,7 @@
     "pdforge"
   ],
   "stars": 8,
-  "dir_name": "pdforge"
+  "dir_name": "pdforge",
+  "github_path": "pdforge",
+  "github_branch": "main"
 }

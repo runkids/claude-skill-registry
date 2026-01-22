@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:24.485093Z",
   "dir_name": "release-planning",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/release-planning",
+  "github_branch": "main"
 }

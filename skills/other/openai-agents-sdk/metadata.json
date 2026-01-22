@@ -5,5 +5,7 @@
   "source": "github.com/Salmanferozkhan/Cloud-and-fast-api",
   "downloaded_at": "2026-01-22T02:18:40.300888Z",
   "dir_name": "openai-agents-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/openai-agents-sdk",
+  "github_branch": "main"
 }

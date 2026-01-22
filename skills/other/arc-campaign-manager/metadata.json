@@ -5,5 +5,7 @@
   "source": "github.com/breverdbidder/life-os",
   "downloaded_at": "2026-01-21T01:42:19.761171Z",
   "dir_name": "arc-campaign-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/arc-campaign-manager",
+  "github_branch": "main"
 }

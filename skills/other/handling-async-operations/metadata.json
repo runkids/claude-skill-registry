@@ -5,5 +5,7 @@
   "source": "github.com/christian289/dotnet-with-claudecode",
   "downloaded_at": "2026-01-22T02:11:41.069309Z",
   "dir_name": "handling-async-operations",
-  "category": "other"
+  "category": "other",
+  "github_path": "wpf-dev-pack/skills/handling-async-operations",
+  "github_branch": "main"
 }

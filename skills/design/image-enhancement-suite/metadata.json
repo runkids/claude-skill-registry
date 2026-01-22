@@ -8,5 +8,7 @@
     "enhancement",
     "suite"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "image-enhancement-suite",
+  "github_branch": "main"
 }

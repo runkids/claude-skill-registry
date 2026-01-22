@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Expert assistance with GraphPad Prism scientific graphing and statistics software, specializing in Prism scripting for automation, batch processing, and data analysis workflows.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:47.927651Z"
+  "downloaded_at": "2026-01-06T09:09:47.927651Z",
+  "github_path": "graphpad-prism/skills/graphpad-prism-skill",
+  "github_branch": "main"
 }

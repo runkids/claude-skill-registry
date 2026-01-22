@@ -2,7 +2,9 @@
   "name": "automation-scripting",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "devops",
-  "description": "\u81ea\u52d5\u5316\u30b9\u30af\u30ea\u30d7\u30c8\uff08Bash/Python/Node\uff09\u306e\u8a2d\u8a08\u30fb\u5b9f\u88c5\u30fb\u904b\u7528\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002\u51aa\u7b49\u6027\u3001\u30a8\u30e9\u30fc\u30cf\u30f3\u30c9\u30ea\u30f3\u30b0\u3001\u30ed\u30b0\u8a2d\u8a08\u3001CI/CD\u7d71\u5408\u306e\u6307\u91dd\u3092\u6574\u7406\u3057\u307e\u3059\u3002Anchors:\u2022 The Pragmatic Programmer / \u9069\u7528: \u81ea\u52d5\u5316\u306e\u5b9f\u52d9 / \u76ee\u7684: \u518d\u73fe\u6027\u306e\u9ad8\u3044\u30b9\u30af\u30ea\u30d7\u30c8\u8a2d\u8a08\u2022 Automation Pipeline Patterns / \u9069\u7528: \u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u8a2d\u8a08 / \u76ee\u7684: \u53cd",
+  "description": "自動化スクリプト（Bash/Python/Node）の設計・実装・運用を支援するスキル。冪等性、エラーハンドリング、ログ設計、CI/CD統合の指針を整理します。Anchors:• The Pragmatic Programmer / 適用: 自動化の実務 / 目的: 再現性の高いスクリプト設計• Automation Pipeline Patterns / 適用: ワークフロー設計 / 目的: 反",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.485388Z"
+  "downloaded_at": "2026-01-06T09:00:40.485388Z",
+  "github_path": "docs/99-claude/skills/automation-scripting",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Agent with comprehensive Gemini safety settings configured for all categories",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:18.958376Z"
+  "downloaded_at": "2026-01-06T09:09:18.958376Z",
+  "github_path": "skills/examples/safe-agent-comprehensive",
+  "github_branch": "main"
 }

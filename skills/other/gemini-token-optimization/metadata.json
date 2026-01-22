@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:11.450056Z",
   "dir_name": "gemini-token-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/google-ecosystem/skills/gemini-token-optimization",
+  "github_branch": "main"
 }

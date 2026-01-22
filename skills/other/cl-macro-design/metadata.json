@@ -5,5 +5,7 @@
   "source": "github.com/cxxxr/.claude",
   "downloaded_at": "2026-01-22T03:14:21.956837Z",
   "dir_name": "cl-macro-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cl-macro-design",
+  "github_branch": "main"
 }

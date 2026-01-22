@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Parameterized testing patterns with @ParameterizedTest, @ValueSource, @CsvSource. Run single test method with multiple input combinations. Use when testing multiple scenarios with similar logic.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:13.797299Z"
+  "downloaded_at": "2026-01-06T08:57:13.797299Z",
+  "github_path": "skills/junit-test/unit-test-parameterized",
+  "github_branch": "main"
 }

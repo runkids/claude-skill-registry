@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:14.098992Z",
   "dir_name": "websocket-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/websocket-patterns",
+  "github_branch": "main"
 }

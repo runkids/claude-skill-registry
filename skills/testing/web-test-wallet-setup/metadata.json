@@ -9,5 +9,7 @@
     "wallet",
     "setup"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "web-test-wallet-setup",
+  "github_branch": "main"
 }

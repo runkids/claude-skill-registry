@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:10.221467Z",
   "dir_name": "ln-782-test-runner",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-782-test-runner",
+  "github_branch": "main"
 }

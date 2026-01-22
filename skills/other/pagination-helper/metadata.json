@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:08.111742Z",
   "dir_name": "pagination-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/15-api-development/pagination-helper",
+  "github_branch": "main"
 }

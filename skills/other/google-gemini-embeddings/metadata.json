@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:26.056108Z",
   "dir_name": "google-gemini-embeddings",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/google-gemini-embeddings",
+  "github_branch": "main"
 }

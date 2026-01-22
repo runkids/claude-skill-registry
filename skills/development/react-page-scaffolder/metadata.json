@@ -4,5 +4,7 @@
   "category": "development",
   "description": "\"Scaffolds a complete React page directory in 'src/pages/' using a script. Use when asked to create a new page or view.\"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-08T02:53:47.857677Z"
+  "downloaded_at": "2026-01-08T02:53:47.857677Z",
+  "github_path": ".claude/skills/react-page-scaffolder",
+  "github_branch": "main"
 }

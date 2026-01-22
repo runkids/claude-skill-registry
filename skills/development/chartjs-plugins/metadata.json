@@ -8,5 +8,7 @@
     "plugins"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/chartjs-plugins",
+  "github_branch": "main"
 }

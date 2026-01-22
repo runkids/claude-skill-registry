@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:32.293110Z",
   "dir_name": "websockets-realtime",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/websockets-realtime",
+  "github_branch": "main"
 }

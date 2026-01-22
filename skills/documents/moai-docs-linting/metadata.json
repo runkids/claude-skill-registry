@@ -8,5 +8,7 @@
     "docs",
     "linting"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-docs-linting",
+  "github_branch": "main"
 }

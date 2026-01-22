@@ -9,5 +9,7 @@
     "red",
     "teaming"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/deliberation-debate-red-teaming",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/adilkalam/orca",
   "downloaded_at": "2026-01-22T01:27:23.942842Z",
   "dir_name": "orca-confirm",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/orca-confirm",
+  "github_branch": "main"
 }

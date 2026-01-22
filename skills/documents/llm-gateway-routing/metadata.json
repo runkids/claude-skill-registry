@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "LLM gateway and routing configuration using OpenRouter and LiteLLM.Invoke when:- Setting up multi-model access (OpenRouter, LiteLLM)- Configuring model fallbacks and reliability- Implementing cost-bas",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:10.105041Z"
+  "downloaded_at": "2026-01-06T09:01:10.105041Z",
+  "github_path": "skills/llm-gateway-routing",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cv-writer"
+  "dir_name": "cv-writer",
+  "github_path": "cv-writer",
+  "github_branch": "main"
 }

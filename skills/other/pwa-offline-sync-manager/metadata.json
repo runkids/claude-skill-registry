@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:57.352296Z",
   "dir_name": "pwa-offline-sync-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/pwa-offline-sync-manager",
+  "github_branch": "main"
 }

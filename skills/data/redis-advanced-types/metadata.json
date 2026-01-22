@@ -9,5 +9,7 @@
     "types"
   ],
   "stars": 1,
-  "dir_name": "redis-advanced-types"
+  "dir_name": "redis-advanced-types",
+  "github_path": "skills/redis-advanced-types",
+  "github_branch": "main"
 }

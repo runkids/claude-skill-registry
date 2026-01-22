@@ -5,5 +5,7 @@
   "source": "github.com/Knuckles-Team/gitlab-api",
   "downloaded_at": "2026-01-22T00:53:32.180362Z",
   "dir_name": "gitlab-environments",
-  "category": "other"
+  "category": "other",
+  "github_path": "gitlab_api/skills/gitlab-environments",
+  "github_branch": "main"
 }

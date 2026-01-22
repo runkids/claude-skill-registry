@@ -7,5 +7,7 @@
     "task",
     "executing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "task-executing",
+  "github_branch": "main"
 }

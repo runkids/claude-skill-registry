@@ -5,5 +5,7 @@
   "source": "github.com/gtmagents/gtm-agents",
   "downloaded_at": "2026-01-22T03:37:44.733831Z",
   "dir_name": "customer-insights",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/customer-marketing/skills/customer-insights",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Performs data cleaning and removal operations. This skill takes a raw BAM and creates a new, \"clean\" BAM file by actively removing artifacts: mitochondrial reads, blacklisted regions, PCR duplicates, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.166921Z"
+  "downloaded_at": "2026-01-06T09:00:35.166921Z",
+  "github_path": "2.BAM-filtration",
+  "github_branch": "main"
 }

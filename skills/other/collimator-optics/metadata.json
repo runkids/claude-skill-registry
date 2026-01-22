@@ -5,5 +5,7 @@
   "source": "github.com/nathanial/lean-workspace",
   "downloaded_at": "2026-01-22T02:58:28.355315Z",
   "dir_name": "collimator-optics",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/collimator-optics",
+  "github_branch": "main"
 }

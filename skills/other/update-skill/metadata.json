@@ -5,5 +5,7 @@
   "source": "github.com/asnar00/miso",
   "downloaded_at": "2026-01-22T03:05:23.370938Z",
   "dir_name": "update-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/update-skill",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Discovers and finds connection details for Model Context Protocol (MCP) servers through research and documentation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:37.665968Z"
+  "downloaded_at": "2026-01-06T09:08:37.665968Z",
+  "github_path": "openai-agents-mcp-server/skills/mcp-server-discovery",
+  "github_branch": "main"
 }

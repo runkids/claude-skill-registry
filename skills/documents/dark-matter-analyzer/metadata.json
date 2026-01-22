@@ -9,5 +9,7 @@
     "analyzer"
   ],
   "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/dark-matter-analyzer",
+  "github_branch": "main"
 }

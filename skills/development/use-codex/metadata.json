@@ -2,7 +2,9 @@
   "name": "use-codex",
   "repo": "masseater/claude-code-plugin",
   "category": "development",
-  "description": "Codex CLI \u3092\u6d3b\u7528\u3059\u308b\u30b9\u30ad\u30eb\u3002Web\u691c\u7d22\u3084\u30d5\u30a1\u30a4\u30eb\u30ec\u30d3\u30e5\u30fc\u306a\u3069\u306e\u30bf\u30b9\u30af\u3092 Codex \u306b\u59d4\u8b72\u3059\u308b\u3002",
+  "description": "Codex CLI を活用するスキル。Web検索やファイルレビューなどのタスクを Codex に委譲する。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:00.171205Z"
+  "downloaded_at": "2026-01-06T09:11:00.171205Z",
+  "github_path": "plugins/use-codex/skills/use-codex",
+  "github_branch": "main"
 }

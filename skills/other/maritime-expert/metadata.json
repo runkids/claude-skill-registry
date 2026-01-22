@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:09.595526Z",
   "dir_name": "maritime-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/domains/maritime-expert",
+  "github_branch": "main"
 }

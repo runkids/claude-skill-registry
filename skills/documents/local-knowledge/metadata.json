@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Leverage personal notes and documentation through Terraphim's role-based search.AI agents can search developer's local knowledge organized by domain (Rust, frontend, architecture)using the terraphim-a",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:01.895256Z"
+  "downloaded_at": "2026-01-06T09:11:01.895256Z",
+  "github_path": "skills/local-knowledge",
+  "github_branch": "main"
 }

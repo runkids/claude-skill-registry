@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:18.224032Z",
   "dir_name": "aws-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/aws_architect",
+  "github_branch": "main"
 }

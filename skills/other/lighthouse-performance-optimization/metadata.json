@@ -5,5 +5,7 @@
   "source": "github.com/Smooth-Operation/household-expense-tracker",
   "downloaded_at": "2026-01-22T02:58:44.624494Z",
   "dir_name": "lighthouse-performance-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/testing/lighthouse-performance-optimization",
+  "github_branch": "main"
 }

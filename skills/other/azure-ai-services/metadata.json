@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/ai-architect",
   "downloaded_at": "2026-01-19T02:09:25.228351Z",
   "dir_name": "azure-ai-services",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/azure-ai-services",
+  "github_branch": "main"
 }

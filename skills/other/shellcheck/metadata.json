@@ -5,5 +5,7 @@
   "source": "github.com/mhalder/dotfiles",
   "downloaded_at": "2026-01-17T02:23:59.207884Z",
   "dir_name": "shellcheck",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude/.claude/skills/shellcheck",
+  "github_branch": "main"
 }

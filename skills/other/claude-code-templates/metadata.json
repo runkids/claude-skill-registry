@@ -5,5 +5,7 @@
   "source": "github.com/0xDarkMatter/claude-mods",
   "downloaded_at": "2026-01-14T02:35:09.964497Z",
   "dir_name": "claude-code-templates",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/claude-code-templates",
+  "github_branch": "main"
 }

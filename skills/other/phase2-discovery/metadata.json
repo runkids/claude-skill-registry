@@ -5,5 +5,7 @@
   "source": "github.com/turbobeest/cursor-dev-system",
   "downloaded_at": "2026-01-22T02:41:40.886327Z",
   "dir_name": "phase2-discovery",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/phase2-discovery",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "rails",
     "devops"
   ],
-  "stars": 18
+  "stars": 18,
+  "github_path": "rails-devops",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:10.954622Z",
   "dir_name": "php-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/languages/php-expert",
+  "github_branch": "main"
 }

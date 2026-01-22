@@ -5,5 +5,7 @@
   "source": "github.com/sumik5/sumik-claude-plugin",
   "downloaded_at": "2026-01-19T05:57:57.072985Z",
   "dir_name": "developing-nextjs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/developing-nextjs",
+  "github_branch": "main"
 }

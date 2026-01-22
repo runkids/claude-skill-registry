@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Expert SuperClaude prompt engineering assistant that analyzes user needs and crafts optimal prompts using the full SuperClaude framework - commands, flags, personas, MCP servers, wave orchestration, p",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:00.569989Z"
+  "downloaded_at": "2026-01-06T09:04:00.569989Z",
+  "github_path": "skills/superclaude-prompt-generator",
+  "github_branch": "main"
 }

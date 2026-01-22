@@ -5,5 +5,7 @@
   "source": "github.com/jackspace/ClaudeSkillz",
   "downloaded_at": "2026-01-22T02:34:23.741653Z",
   "dir_name": "tdd-reference",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/tdd-reference",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anntnzrb/agents",
   "downloaded_at": "2026-01-20T02:54:28.182642Z",
   "dir_name": "nix",
-  "category": "other"
+  "category": "other",
+  "github_path": "assets/skills/nix",
+  "github_branch": "main"
 }

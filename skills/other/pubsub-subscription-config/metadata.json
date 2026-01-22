@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:09.023923Z",
   "dir_name": "pubsub-subscription-config",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/14-gcp-skills/pubsub-subscription-config",
+  "github_branch": "main"
 }

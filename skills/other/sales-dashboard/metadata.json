@@ -5,5 +5,7 @@
   "source": "github.com/adrianwedd/lemonsqueezy-claude-skills",
   "downloaded_at": "2026-01-22T02:06:14.301920Z",
   "dir_name": "sales-dashboard",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/sales-dashboard",
+  "github_branch": "main"
 }

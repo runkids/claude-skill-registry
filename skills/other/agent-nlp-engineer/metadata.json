@@ -5,5 +5,7 @@
   "source": "github.com/Tony363/SuperClaude",
   "downloaded_at": "2026-01-22T01:21:09.308029Z",
   "dir_name": "agent-nlp-engineer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/DEPRECATED/agent-nlp-engineer",
+  "github_branch": "main"
 }

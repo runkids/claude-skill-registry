@@ -5,5 +5,7 @@
   "source": "github.com/chiraitori/paperand",
   "downloaded_at": "2026-01-19T03:47:22.265374Z",
   "dir_name": "extensions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/extensions",
+  "github_branch": "main"
 }

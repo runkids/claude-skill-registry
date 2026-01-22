@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Display git changes in GitHub-style unified diff format with colored terminal output. Shows both staged (--cached) and unstaged changes with two-column line numbers, red/green highlighting, and chunk ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:33.422650Z"
+  "downloaded_at": "2026-01-06T09:10:33.422650Z",
+  "github_path": "git-diff/skills/git-diff",
+  "github_branch": "main"
 }

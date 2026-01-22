@@ -8,5 +8,7 @@
     "imgur"
   ],
   "stars": 0,
-  "dir_name": "uploading-to-imgur"
+  "dir_name": "uploading-to-imgur",
+  "github_path": "uploading-to-imgur",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:27.015471Z",
   "dir_name": "snowflake-platform",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/snowflake-platform",
+  "github_branch": "main"
 }

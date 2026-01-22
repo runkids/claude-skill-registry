@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:49.211981Z",
   "dir_name": "scientific-pptx-posters",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/scientific-pptx-posters",
+  "github_branch": "main"
 }

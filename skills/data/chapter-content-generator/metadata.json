@@ -10,5 +10,7 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "chapter-content-generator"
+  "dir_name": "chapter-content-generator",
+  "github_path": "skills/chapter-content-generator",
+  "github_branch": "main"
 }

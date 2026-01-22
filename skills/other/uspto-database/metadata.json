@@ -5,5 +5,7 @@
   "source": "github.com/hxk622/TokenDance",
   "downloaded_at": "2026-01-22T03:42:12.025333Z",
   "dir_name": "uspto-database",
-  "category": "other"
+  "category": "other",
+  "github_path": "backend/app/skills/builtin/scientific/database/uspto-database",
+  "github_branch": "main"
 }

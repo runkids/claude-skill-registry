@@ -5,5 +5,7 @@
   "source": "github.com/christopheryeo/claude-skills",
   "downloaded_at": "2026-01-19T01:03:16.808380Z",
   "dir_name": "news-snapshot",
-  "category": "other"
+  "category": "other",
+  "github_path": "news-snapshot",
+  "github_branch": "main"
 }

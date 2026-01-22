@@ -5,5 +5,7 @@
   "source": "github.com/thoeltig/claude-code-toolkit",
   "downloaded_at": "2026-01-14T01:04:51.767773Z",
   "dir_name": "managing-session-continuity",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/session-protocol/skills/managing-session-continuity",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/fwdslsh/crosstrain",
   "downloaded_at": "2026-01-22T01:36:34.247285Z",
   "dir_name": "demo-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "demo/marketplaces/demo-marketplace/example-plugin/skills/demo-skill",
+  "github_branch": "main"
 }

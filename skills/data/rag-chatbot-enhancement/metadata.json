@@ -9,5 +9,7 @@
     "enhancement"
   ],
   "stars": 0,
-  "dir_name": "rag-chatbot-enhancement"
+  "dir_name": "rag-chatbot-enhancement",
+  "github_path": ".claude/skills/rag-chatbot-enhancement",
+  "github_branch": "main"
 }

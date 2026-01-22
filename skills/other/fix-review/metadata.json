@@ -5,5 +5,7 @@
   "source": "github.com/trailofbits/skills",
   "downloaded_at": "2026-01-22T03:09:26.083832Z",
   "dir_name": "fix-review",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/fix-review/skills/fix-review",
+  "github_branch": "main"
 }

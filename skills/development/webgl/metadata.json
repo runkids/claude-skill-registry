@@ -6,5 +6,7 @@
   "tags": [
     "webgl"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/webgl",
+  "github_branch": "main"
 }

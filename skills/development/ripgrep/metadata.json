@@ -6,5 +6,7 @@
   "tags": [
     "ripgrep"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/ripgrep",
+  "github_branch": "main"
 }

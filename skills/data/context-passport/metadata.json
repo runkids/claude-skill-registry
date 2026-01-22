@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "context-passport"
+  "dir_name": "context-passport",
+  "github_path": "context-passport",
+  "github_branch": "main"
 }

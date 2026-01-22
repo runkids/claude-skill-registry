@@ -8,5 +8,7 @@
     "security"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "astro-security",
+  "github_branch": "main"
 }

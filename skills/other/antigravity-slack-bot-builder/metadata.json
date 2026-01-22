@@ -5,5 +5,7 @@
   "source": "github.com/boisenoise/skills-collections",
   "downloaded_at": "2026-01-22T00:59:57.120922Z",
   "dir_name": "antigravity-slack-bot-builder",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/antigravity-slack-bot-builder",
+  "github_branch": "main"
 }

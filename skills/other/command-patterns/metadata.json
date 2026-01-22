@@ -5,5 +5,7 @@
   "source": "github.com/vinnie357/claudio",
   "downloaded_at": "2026-01-14T01:19:33.271727Z",
   "dir_name": "command-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/command-patterns",
+  "github_branch": "main"
 }

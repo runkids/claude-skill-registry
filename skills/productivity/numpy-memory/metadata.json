@@ -7,5 +7,7 @@
     "numpy",
     "memory"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/numpy-memory",
+  "github_branch": "main"
 }

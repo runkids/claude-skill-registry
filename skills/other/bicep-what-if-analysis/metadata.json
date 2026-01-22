@@ -5,5 +5,7 @@
   "source": "github.com/torumakabe/aks-chaos-lab",
   "downloaded_at": "2026-01-19T02:30:15.162844Z",
   "dir_name": "bicep-what-if-analysis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/bicep-what-if-analysis",
+  "github_branch": "main"
 }

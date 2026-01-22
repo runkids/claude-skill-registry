@@ -7,5 +7,7 @@
     "monitoring",
     "setup"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/infra/monitoring-setup",
+  "github_branch": "main"
 }

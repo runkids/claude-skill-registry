@@ -9,5 +9,7 @@
   ],
   "stars": 22,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "crucible-outliner"
+  "dir_name": "crucible-outliner",
+  "github_path": "skills/crucible-outliner",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:43:00.167787Z",
   "dir_name": "json",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cfn-validation-framework/lib/json",
+  "github_branch": "main"
 }

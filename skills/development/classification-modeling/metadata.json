@@ -7,5 +7,7 @@
     "classification",
     "modeling"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/classification-modeling",
+  "github_branch": "main"
 }

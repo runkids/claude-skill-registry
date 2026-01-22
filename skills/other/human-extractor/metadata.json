@@ -5,5 +5,7 @@
   "source": "github.com/yousufjoyian/claude-skills",
   "downloaded_at": "2026-01-14T02:24:05.127093Z",
   "dir_name": "human-extractor",
-  "category": "other"
+  "category": "other",
+  "github_path": "human-extractor",
+  "github_branch": "main"
 }

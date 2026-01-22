@@ -7,5 +7,7 @@
     "pytorch",
     "geometric"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/pytorch-geometric",
+  "github_branch": "main"
 }

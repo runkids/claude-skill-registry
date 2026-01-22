@@ -2,7 +2,9 @@
   "name": "docker-setup",
   "repo": "Leavesfly/Jimi",
   "category": "devops",
-  "description": "Docker \u5bb9\u5668\u5316\u914d\u7f6e\u6307\u5357",
+  "description": "Docker 容器化配置指南",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:30.355515Z"
+  "downloaded_at": "2026-01-06T08:56:30.355515Z",
+  "github_path": "src/main/resources/skills/docker-setup",
+  "github_branch": "main"
 }

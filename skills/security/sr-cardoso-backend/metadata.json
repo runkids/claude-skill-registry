@@ -4,5 +4,7 @@
   "category": "security",
   "description": "Backend Cloud Run/Express/Firestore do Sr Cardoso. Use quando criar ou alterar endpoints, auth JWT, regras de agenda, financeiro, branding, WhatsApp, cron jobs, ou modelagem Firestore.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:19.257236Z"
+  "downloaded_at": "2026-01-06T09:10:19.257236Z",
+  "github_path": ".codex/skills/sr-cardoso-backend",
+  "github_branch": "main"
 }

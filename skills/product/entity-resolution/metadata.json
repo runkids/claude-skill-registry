@@ -4,5 +4,7 @@
   "category": "product",
   "description": "Identifies and merges duplicate entities in Knowledge Graph projects. Use after extraction to consolidate duplicate entities, or when users ask about potential duplicates. Supports automatic merging f",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:29.737203Z"
+  "downloaded_at": "2026-01-06T08:59:29.737203Z",
+  "github_path": "app/agent/resources/.claude/skills/entity-resolution",
+  "github_branch": "main"
 }

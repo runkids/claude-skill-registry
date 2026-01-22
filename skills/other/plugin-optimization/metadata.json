@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-design-system",
   "downloaded_at": "2026-01-14T03:12:02.377349Z",
   "dir_name": "plugin-optimization",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/plugin-optimization",
+  "github_branch": "main"
 }

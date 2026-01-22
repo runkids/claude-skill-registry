@@ -5,5 +5,7 @@
   "source": "github.com/CuriousLearner/devkit",
   "downloaded_at": "2026-01-20T03:39:39.225179Z",
   "dir_name": "webhook-tester",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/webhook-tester",
+  "github_branch": "main"
 }

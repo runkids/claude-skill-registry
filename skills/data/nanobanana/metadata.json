@@ -7,5 +7,7 @@
     "nanobanana"
   ],
   "stars": 17,
-  "dir_name": "nanobanana"
+  "dir_name": "nanobanana",
+  "github_path": "nanobanana",
+  "github_branch": "main"
 }

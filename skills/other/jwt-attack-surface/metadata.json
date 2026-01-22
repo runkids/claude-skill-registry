@@ -5,5 +5,7 @@
   "source": "github.com/MAF2414/kyco",
   "downloaded_at": "2026-01-22T01:22:53.522747Z",
   "dir_name": "jwt-attack-surface",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/jwt-attack-surface",
+  "github_branch": "main"
 }

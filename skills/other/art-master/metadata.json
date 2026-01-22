@@ -5,5 +5,7 @@
   "source": "github.com/ttmouse/skills",
   "downloaded_at": "2026-01-22T03:40:37.156174Z",
   "dir_name": "art-master",
-  "category": "other"
+  "category": "other",
+  "github_path": "art-master",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Build and debug Flutter/Dart apps with Riverpod (codegen), Freezed, and GoRouter. Use when implementing Flutter features, running apps, hot reload/restart, or debugging UI.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:35.467360Z"
+  "downloaded_at": "2026-01-06T09:10:35.467360Z",
+  "github_path": "flutter-std",
+  "github_branch": "main"
 }

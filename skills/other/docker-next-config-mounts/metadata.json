@@ -5,5 +5,7 @@
   "source": "github.com/CleanExpo/Unite-Hub",
   "downloaded_at": "2026-01-22T01:27:32.933446Z",
   "dir_name": "docker-next-config-mounts",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/docker-next-config-mounts",
+  "github_branch": "main"
 }

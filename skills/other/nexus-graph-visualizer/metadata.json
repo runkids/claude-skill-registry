@@ -5,5 +5,7 @@
   "source": "github.com/agentgptsmith/MonadFramework",
   "downloaded_at": "2026-01-22T02:09:22.069829Z",
   "dir_name": "nexus-graph-visualizer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/Nexus-MC/nexus-graph-visualizer",
+  "github_branch": "main"
 }

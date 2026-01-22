@@ -8,5 +8,7 @@
     "base",
     "builder"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "knowledge-base-builder",
+  "github_branch": "main"
 }

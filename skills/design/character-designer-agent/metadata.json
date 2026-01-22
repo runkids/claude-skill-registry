@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Generates NanoBanana PRO image prompts for 3D cat characters. Combines base Pixar style with ticker-specific traits, sector themes, and market-driven expressions. Supports 300+ tickers with fallback l",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:45.582759Z"
+  "downloaded_at": "2026-01-06T09:07:45.582759Z",
+  "github_path": "backend/ai/skills/video-production/character-designer-agent",
+  "github_branch": "main"
 }

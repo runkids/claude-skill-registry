@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Vector distance calculations for similarity analysis",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:52.044656Z"
+  "downloaded_at": "2026-01-06T09:08:52.044656Z",
+  "github_path": "skills/analytics/td-vector-distance",
+  "github_branch": "main"
 }

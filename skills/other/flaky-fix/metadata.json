@@ -5,5 +5,7 @@
   "source": "github.com/jmagly/ai-writing-guide",
   "downloaded_at": "2026-01-22T03:04:51.210300Z",
   "dir_name": "flaky-fix",
-  "category": "other"
+  "category": "other",
+  "github_path": "agentic/code/addons/testing-quality/skills/flaky-fix",
+  "github_branch": "main"
 }

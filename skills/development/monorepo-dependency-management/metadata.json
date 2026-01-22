@@ -2,7 +2,9 @@
   "name": "monorepo-dependency-management",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "\u30e2\u30ce\u30ec\u30dd\u74b0\u5883\u3067\u306e\u4f9d\u5b58\u95a2\u4fc2\u7ba1\u7406\u3001\u30ef\u30fc\u30af\u30b9\u30da\u30fc\u30b9\u9593\u306e\u6574\u5408\u6027\u7dad\u6301\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002pnpm workspaces\u3001\u5909\u66f4\u5f71\u97ff\u5206\u6790\u3001\u30d1\u30c3\u30b1\u30fc\u30b8\u9593\u30d0\u30fc\u30b8\u30e7\u30f3\u540c\u671f\u3001\u5faa\u74b0\u4f9d\u5b58\u691c\u51fa\u306e\u65b9\u6cd5\u8ad6\u3092\u63d0\u4f9b\u3059\u308b\u3002Anchors:\u2022 The Pragmatic Programmer (Andrew Hunt) / \u9069\u7528: \u5b9f\u8df5\u7684\u6539\u5584\u3068\u54c1\u8cea\u7dad\u6301 / \u76ee\u7684: \u30e2\u30ce\u30ec\u30dd\u306e\u6bb5\u968e\u7684\u69cb\u7bc9\u3068\u4fdd\u5b88\u6027\u5411\u4e0a\u2022 Program Developmen",
+  "description": "モノレポ環境での依存関係管理、ワークスペース間の整合性維持を専門とするスキル。pnpm workspaces、変更影響分析、パッケージ間バージョン同期、循環依存検出の方法論を提供する。Anchors:• The Pragmatic Programmer (Andrew Hunt) / 適用: 実践的改善と品質維持 / 目的: モノレポの段階的構築と保守性向上• Program Developmen",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:43.521375Z"
+  "downloaded_at": "2026-01-06T09:00:43.521375Z",
+  "github_path": "docs/99-claude/skills/monorepo-dependency-management",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "obo",
     "ontologies"
   ],
-  "stars": 14
+  "stars": 14,
+  "github_path": "editing-obo-ontologies",
+  "github_branch": "main"
 }

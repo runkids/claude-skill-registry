@@ -5,5 +5,7 @@
   "source": "github.com/codatta/ai-content-studio",
   "downloaded_at": "2026-01-14T01:39:32.544082Z",
   "dir_name": "social-monitoring",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/social-monitoring",
+  "github_branch": "main"
 }

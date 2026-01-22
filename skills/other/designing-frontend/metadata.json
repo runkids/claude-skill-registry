@@ -5,5 +5,7 @@
   "source": "github.com/Byunk/claude-code-essentials",
   "downloaded_at": "2026-01-22T03:14:27.259616Z",
   "dir_name": "designing-frontend",
-  "category": "other"
+  "category": "other",
+  "github_path": "essentials/skills/designing-frontend",
+  "github_branch": "main"
 }

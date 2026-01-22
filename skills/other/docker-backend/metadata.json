@@ -5,5 +5,7 @@
   "source": "github.com/leonj1/external-claude-skills",
   "downloaded_at": "2026-01-21T01:00:53.600668Z",
   "dir_name": "docker-backend",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/docker-backend",
+  "github_branch": "main"
 }

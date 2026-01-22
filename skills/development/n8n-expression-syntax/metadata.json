@@ -9,5 +9,7 @@
     "expressions",
     "workflow"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/n8n-expression-syntax",
+  "github_branch": "main"
 }

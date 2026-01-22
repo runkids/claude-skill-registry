@@ -5,5 +5,7 @@
   "description": "Edits that never fail. Find functions by name, not text matching.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:08:46.418501Z",
-  "dir_name": "syntax"
+  "dir_name": "syntax",
+  "github_path": ".claude/skills/syntax",
+  "github_branch": "main"
 }

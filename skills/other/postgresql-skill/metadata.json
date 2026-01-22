@@ -5,5 +5,7 @@
   "source": "github.com/ingpoc/SKILLS",
   "downloaded_at": "2026-01-22T02:39:34.768242Z",
   "dir_name": "postgresql-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "postgresql-skill",
+  "github_branch": "main"
 }

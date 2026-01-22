@@ -8,5 +8,7 @@
     "lists",
     "sets"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/redis-lists-sets",
+  "github_branch": "main"
 }

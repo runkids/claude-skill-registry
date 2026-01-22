@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:35.613642Z",
   "dir_name": "meta-convert-guide",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/meta-convert-guide",
+  "github_branch": "main"
 }

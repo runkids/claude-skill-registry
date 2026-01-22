@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:37.973116Z",
   "dir_name": "seo-metadata-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/seo-metadata-generator",
+  "github_branch": "main"
 }

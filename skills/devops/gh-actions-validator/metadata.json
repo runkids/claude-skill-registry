@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Use when validating GitHub Actions workflows for Google Cloud and Vertex AI deployments. Trigger with phrases like \"validate github actions\", \"setup workload identity federation\", \"github actions secu",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:48.498551Z"
+  "downloaded_at": "2026-01-06T08:55:48.498551Z",
+  "github_path": "plugins/devops/jeremy-github-actions-gcp/skills/gh-actions-validator",
+  "github_branch": "main"
 }

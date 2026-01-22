@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when creating or modifying NestJS service files that interact with MikroORM.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:37.380148Z"
+  "downloaded_at": "2026-01-06T09:01:37.380148Z",
+  "github_path": ".cursor/skills/nest-mikro-orm-service",
+  "github_branch": "main"
 }

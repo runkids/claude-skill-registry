@@ -5,5 +5,7 @@
   "source": "github.com/hatayama/uLoopMCP",
   "downloaded_at": "2026-01-14T03:18:21.045642Z",
   "dir_name": "getversion",
-  "category": "other"
+  "category": "other",
+  "github_path": "Assets/Editor/CustomCommandSamples/GetVersion/Skill",
+  "github_branch": "main"
 }

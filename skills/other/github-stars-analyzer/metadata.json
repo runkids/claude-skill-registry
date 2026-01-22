@@ -5,5 +5,7 @@
   "source": "github.com/chaorenex1/coding-workflow",
   "downloaded_at": "2026-01-22T01:43:18.150333Z",
   "dir_name": "github-stars-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/github-stars-analyzer",
+  "github_branch": "main"
 }

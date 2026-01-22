@@ -9,5 +9,7 @@
     "tools"
   ],
   "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/debugging-with-tools",
+  "github_branch": "main"
 }

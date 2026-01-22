@@ -5,5 +5,7 @@
   "source": "github.com/bitsoex/bitso-java",
   "downloaded_at": "2026-01-22T02:30:40.597565Z",
   "dir_name": "structured-logging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/structured-logging",
+  "github_branch": "main"
 }

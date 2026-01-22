@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "etl-tools"
+  "dir_name": "etl-tools",
+  "github_path": "skills/etl-tools",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/anton-abyzov/specweave",
   "downloaded_at": "2026-01-14T03:26:54.367482Z",
   "dir_name": "cloud-pricing",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/specweave-cost-optimizer/skills/cloud-pricing",
+  "github_branch": "main"
 }

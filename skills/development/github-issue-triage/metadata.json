@@ -8,5 +8,7 @@
     "issue",
     "triage"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/github-issue-triage",
+  "github_branch": "main"
 }

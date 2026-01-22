@@ -9,5 +9,7 @@
     "messages"
   ],
   "stars": 0,
-  "dir_name": "writing-commit-messages"
+  "dir_name": "writing-commit-messages",
+  "github_path": "writing-commit-messages",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/ingpoc/SKILLS",
   "downloaded_at": "2026-01-22T02:39:34.840320Z",
   "dir_name": "two-agent-harness",
-  "category": "other"
+  "category": "other",
+  "github_path": "two-agent-harness",
+  "github_branch": "main"
 }

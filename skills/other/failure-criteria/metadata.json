@@ -5,5 +5,7 @@
   "source": "github.com/zerobias-org/module",
   "downloaded_at": "2026-01-21T01:50:56.617836Z",
   "dir_name": "failure-criteria",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/failure-criteria",
+  "github_branch": "main"
 }

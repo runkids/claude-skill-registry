@@ -5,5 +5,7 @@
   "source": "github.com/daispacy/py-claude-marketplace",
   "downloaded_at": "2026-01-22T02:43:14.537497Z",
   "dir_name": "mcp-tool-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "py-plugin/skills/mcp-tool-generator",
+  "github_branch": "main"
 }

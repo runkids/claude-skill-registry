@@ -9,5 +9,7 @@
     "architecture"
   ],
   "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "claude_ctx_py/assets/skills/event-driven-architecture",
+  "github_branch": "main"
 }

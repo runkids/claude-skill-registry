@@ -9,5 +9,7 @@
     "rbac"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/access-control-rbac",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "pnpm-workspace-generator"
+  "dir_name": "pnpm-workspace-generator",
+  "github_path": "pnpm-workspace-generator",
+  "github_branch": "main"
 }

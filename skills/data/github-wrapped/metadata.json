@@ -8,5 +8,7 @@
     "wrapped"
   ],
   "stars": 2,
-  "dir_name": "github-wrapped"
+  "dir_name": "github-wrapped",
+  "github_path": "skills/github-wrapped",
+  "github_branch": "main"
 }

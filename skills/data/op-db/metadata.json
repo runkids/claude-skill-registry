@@ -5,5 +5,7 @@
   "description": "提供通用的SQL查询方法和数据库查询基础。使用 exec_sql 工具执行查询。",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:08:17.163239Z",
-  "dir_name": "op-db"
+  "dir_name": "op-db",
+  "github_path": "plugins/op-plugin/skills/op-db-metadata",
+  "github_branch": "main"
 }

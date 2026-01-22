@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "alchemy-cloudflare"
+  "dir_name": "alchemy-cloudflare",
+  "github_path": ".claude/skills/alchemy-cloudflare",
+  "github_branch": "main"
 }

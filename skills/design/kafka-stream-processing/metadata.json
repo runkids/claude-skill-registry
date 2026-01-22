@@ -4,5 +4,7 @@
   "category": "design",
   "description": "Complete guide for Apache Kafka stream processing including producers, consumers, Kafka Streams, connectors, schema registry, and production deployment",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:36.947921Z"
+  "downloaded_at": "2026-01-06T08:58:36.947921Z",
+  "github_path": "plugins/luxor-data-engineering/skills/kafka-stream-processing",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "api",
     "design"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "rest-api-design",
+  "github_branch": "main"
 }

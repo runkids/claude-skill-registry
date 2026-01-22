@@ -9,5 +9,7 @@
     "copywriter"
   ],
   "stars": 3,
-  "dir_name": "tomique-linkedin-copywriter"
+  "dir_name": "tomique-linkedin-copywriter",
+  "github_path": "tomique-linkedin-copywriter",
+  "github_branch": "main"
 }

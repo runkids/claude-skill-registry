@@ -5,5 +5,7 @@
   "source": "github.com/AIPexStudio/AIPex",
   "downloaded_at": "2026-01-22T02:35:21.485527Z",
   "dir_name": "skill-creator-browser",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/browser-runtime/src/skill/built-in/skill-creator-browser",
+  "github_branch": "main"
 }

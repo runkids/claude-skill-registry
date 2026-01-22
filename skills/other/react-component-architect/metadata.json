@@ -5,5 +5,7 @@
   "source": "github.com/WesleySmits/agent-skills",
   "downloaded_at": "2026-01-22T02:13:39.196706Z",
   "dir_name": "react-component-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/react-component-architect",
+  "github_branch": "main"
 }

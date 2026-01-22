@@ -5,5 +5,7 @@
   "source": "github.com/openai/skills",
   "downloaded_at": "2026-01-19T08:13:25.667763Z",
   "dir_name": "create-plan-openai-skills",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/.experimental/create-plan",
+  "github_branch": "main"
 }

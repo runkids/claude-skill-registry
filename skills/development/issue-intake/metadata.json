@@ -2,7 +2,9 @@
   "name": "issue-intake",
   "repo": "CAPHTECH/claude-marketplace",
   "category": "development",
-  "description": "Issue\u306e\u521d\u671f\u30c8\u30ea\u30a2\u30fc\u30b8\u30b9\u30ad\u30eb\u3002Issue\u3092\u53d7\u3051\u53d6\u308a\u3001\u6a19\u6e96\u5316\u3055\u308c\u305f\u5206\u6790\u7d50\u679c\uff08\u5206\u985e\u30fb\u6df1\u523b\u5ea6\u30fb\u5f71\u97ff\u30b9\u30b3\u30fc\u30d7\u30fb\u4e0d\u78ba\u5b9f\u6027\u30fb\u6b21\u30a2\u30af\u30b7\u30e7\u30f3\u53c2\u7167\uff09\u3092\u751f\u6210\u3059\u308b\u3002GitHub/Jira/Linear\u7b49\u306e\u30c8\u30e9\u30c3\u30ab\u30fc\u304b\u3089issue_payload\u5f62\u5f0f\u3067\u53d7\u3051\u53d6\u308b\u3002\u30c8\u30ea\u30ac\u30fc\u6761\u4ef6:- \u300cIssue #N \u3092\u5206\u6790\u3057\u3066\u300d\u300c\u3053\u306eIssue\u306e\u6df1\u523b\u5ea6\u306f\uff1f\u300d\u300c\u3053\u306e\u30d0\u30b0\u306fCritical\uff1f\u300d- \u300cIssue\u672c\u6587\u3092\u521d\u671f\u30c8\u30ea\u30a2\u30fc\u30b8\u3057\u3066\u300d\u300cI",
+  "description": "Issueの初期トリアージスキル。Issueを受け取り、標準化された分析結果（分類・深刻度・影響スコープ・不確実性・次アクション参照）を生成する。GitHub/Jira/Linear等のトラッカーからissue_payload形式で受け取る。トリガー条件:- 「Issue #N を分析して」「このIssueの深刻度は？」「このバグはCritical？」- 「Issue本文を初期トリアージして」「I",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:21.564954Z"
+  "downloaded_at": "2026-01-06T09:04:21.564954Z",
+  "github_path": "caphtech-plugin/skills/issue-intake",
+  "github_branch": "main"
 }

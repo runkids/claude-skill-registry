@@ -8,5 +8,7 @@
     "html"
   ],
   "stars": 0,
-  "dir_name": "markdown-to-html"
+  "dir_name": "markdown-to-html",
+  "github_path": "skills/markdown-to-html",
+  "github_branch": "main"
 }

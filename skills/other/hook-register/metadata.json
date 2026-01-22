@@ -5,5 +5,7 @@
   "source": "github.com/epieczko/betty",
   "downloaded_at": "2026-01-22T02:27:34.581321Z",
   "dir_name": "hook-register",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/hook.register",
+  "github_branch": "main"
 }

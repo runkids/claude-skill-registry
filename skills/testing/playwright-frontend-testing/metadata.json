@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Use when testing frontend applications. AI-assisted browser testing with Playwright MCP. Fast, deterministic, no vision models needed.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:48.536532Z"
+  "downloaded_at": "2026-01-06T09:06:48.536532Z",
+  "github_path": "skills/testing/playwright-frontend-testing",
+  "github_branch": "main"
 }

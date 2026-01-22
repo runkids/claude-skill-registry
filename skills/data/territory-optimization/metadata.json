@@ -5,5 +5,7 @@
   "description": "Use to score territory scenarios for fairness, whitespace, and productivity.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:57:25.870046Z",
-  "dir_name": "territory-optimization"
+  "dir_name": "territory-optimization",
+  "github_path": "plugins/sales-operations/skills/territory-optimization",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pathvanasoftware/IOSStorageCleaner",
   "downloaded_at": "2026-01-22T04:03:37.648364Z",
   "dir_name": "property-based-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/trailofbits-property-based-testing/skills/property-based-testing",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "from",
     "scratch"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/implement-paper-from-scratch",
+  "github_branch": "main"
 }

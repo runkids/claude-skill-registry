@@ -8,5 +8,7 @@
     "generation"
   ],
   "stars": 0,
-  "dir_name": "prose-generation"
+  "dir_name": "prose-generation",
+  "github_path": ".cursor/skills/prose-generation",
+  "github_branch": "main"
 }

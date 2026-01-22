@@ -5,5 +5,7 @@
   "source": "github.com/harborgrid-justin/lexiflow-premium",
   "downloaded_at": "2026-01-22T03:05:59.775717Z",
   "dir_name": "audio-visualization-scheduling",
-  "category": "other"
+  "category": "other",
+  "github_path": "frontend/.github-skills/audio-visualization-scheduling",
+  "github_branch": "main"
 }

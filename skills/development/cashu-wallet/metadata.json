@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use when implementing Cashu token wallet functionality - provides complete patterns for sending and receiving Cashu tokens, token QR codes, automatic mint management, and integrating with Lightning wa",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:29.958569Z"
+  "downloaded_at": "2026-01-06T09:07:29.958569Z",
+  "github_path": "skills/cashu-wallet",
+  "github_branch": "main"
 }

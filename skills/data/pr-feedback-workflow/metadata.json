@@ -8,5 +8,7 @@
     "workflow"
   ],
   "stars": 0,
-  "dir_name": "pr-feedback-workflow"
+  "dir_name": "pr-feedback-workflow",
+  "github_path": "pr-feedback-workflow",
+  "github_branch": "main"
 }

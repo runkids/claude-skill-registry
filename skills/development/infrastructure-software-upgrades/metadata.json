@@ -8,5 +8,7 @@
     "software",
     "upgrades"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "infrastructure-software-upgrades",
+  "github_branch": "main"
 }

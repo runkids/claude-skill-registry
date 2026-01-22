@@ -5,5 +5,7 @@
   "source": "github.com/The1Studio/theone-training-skills",
   "downloaded_at": "2026-01-22T04:10:22.280864Z",
   "dir_name": "aesthetic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aesthetic",
+  "github_branch": "main"
 }

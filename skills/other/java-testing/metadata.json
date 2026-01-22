@@ -5,5 +5,7 @@
   "source": "github.com/bitsoex/bitso-java",
   "downloaded_at": "2026-01-22T02:30:39.951722Z",
   "dir_name": "java-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/java-testing",
+  "github_branch": "main"
 }

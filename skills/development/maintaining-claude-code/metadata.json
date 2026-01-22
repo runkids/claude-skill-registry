@@ -8,5 +8,7 @@
     "claude",
     "code"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/maintaining-claude-code",
+  "github_branch": "main"
 }

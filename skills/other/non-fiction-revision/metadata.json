@@ -5,5 +5,7 @@
   "source": "github.com/jwynia/agent-skills",
   "downloaded_at": "2026-01-19T03:36:28.663540Z",
   "dir_name": "non-fiction-revision",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/writing/revision/non-fiction-revision",
+  "github_branch": "main"
 }

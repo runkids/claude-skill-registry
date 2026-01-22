@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:59.639647Z",
   "dir_name": "video-metadata-inspector",
-  "category": "other"
+  "category": "other",
+  "github_path": "video-metadata-inspector",
+  "github_branch": "main"
 }

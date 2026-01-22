@@ -4,5 +4,7 @@
   "category": "productivity",
   "description": "Manage architecture changes with impact analysis, ADR generation, and migration planning. Use when relevant to the task.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:58.094160Z"
+  "downloaded_at": "2026-01-06T08:56:58.094160Z",
+  "github_path": "plugins/sdlc/skills/architecture-evolution",
+  "github_branch": "main"
 }

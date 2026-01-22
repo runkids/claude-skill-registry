@@ -5,5 +5,7 @@
   "source": "github.com/jrc1883/popkit-claude",
   "downloaded_at": "2026-01-14T02:05:39.902658Z",
   "dir_name": "pop-next-action",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/popkit-dev/skills/pop-next-action",
+  "github_branch": "main"
 }

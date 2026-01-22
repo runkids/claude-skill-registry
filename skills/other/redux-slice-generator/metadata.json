@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:08.099475Z",
   "dir_name": "redux-slice-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/05-frontend-dev/redux-slice-generator",
+  "github_branch": "main"
 }

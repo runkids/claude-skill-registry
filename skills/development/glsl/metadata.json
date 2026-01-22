@@ -6,5 +6,7 @@
   "tags": [
     "glsl"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/glsl",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bi-fundamentals"
+  "dir_name": "bi-fundamentals",
+  "github_path": "skills/bi-fundamentals",
+  "github_branch": "main"
 }

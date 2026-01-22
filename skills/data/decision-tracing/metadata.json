@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "decision-tracing"
+  "dir_name": "decision-tracing",
+  "github_path": "skills/decision-tracing",
+  "github_branch": "main"
 }

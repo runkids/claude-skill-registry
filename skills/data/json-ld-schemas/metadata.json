@@ -8,5 +8,7 @@
     "schemas"
   ],
   "stars": 0,
-  "dir_name": "json-ld-schemas"
+  "dir_name": "json-ld-schemas",
+  "github_path": "json-ld-schemas",
+  "github_branch": "main"
 }

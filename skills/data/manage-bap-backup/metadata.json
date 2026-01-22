@@ -9,5 +9,7 @@
     "backup"
   ],
   "stars": 0,
-  "dir_name": "manage-bap-backup"
+  "dir_name": "manage-bap-backup",
+  "github_path": "skills/manage-bap-backup",
+  "github_branch": "main"
 }

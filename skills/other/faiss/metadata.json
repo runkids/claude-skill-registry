@@ -5,5 +5,7 @@
   "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
   "downloaded_at": "2026-01-22T02:38:53.860669Z",
   "dir_name": "faiss",
-  "category": "other"
+  "category": "other",
+  "github_path": "15-rag/faiss",
+  "github_branch": "main"
 }

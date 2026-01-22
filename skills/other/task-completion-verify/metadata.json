@@ -5,5 +5,7 @@
   "source": "github.com/srnnkls/tropos",
   "downloaded_at": "2026-01-21T02:14:34.457479Z",
   "dir_name": "task-completion-verify",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/task-completion-verify",
+  "github_branch": "main"
 }

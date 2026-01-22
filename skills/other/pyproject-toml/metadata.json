@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-22T03:44:00.312314Z",
   "dir_name": "pyproject-toml",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/devtools/pyproject-toml",
+  "github_branch": "main"
 }

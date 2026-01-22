@@ -5,5 +5,7 @@
   "source": "github.com/travisjneuman/.claude",
   "downloaded_at": "2026-01-22T04:01:27.678364Z",
   "dir_name": "devops-cloud",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/devops-cloud",
+  "github_branch": "main"
 }

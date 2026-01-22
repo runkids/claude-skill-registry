@@ -5,5 +5,7 @@
   "source": "github.com/Tahir-yamin/dev-engineering-playbook",
   "downloaded_at": "2026-01-22T03:41:48.360025Z",
   "dir_name": "analyzing-projects",
-  "category": "other"
+  "category": "other",
+  "github_path": "agents/cloudai/skills/analyzing-projects",
+  "github_branch": "main"
 }

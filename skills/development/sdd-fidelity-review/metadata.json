@@ -8,5 +8,7 @@
     "fidelity",
     "review"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/sdd-fidelity-review",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/mauryaland/mcp-magistrat-civil",
   "downloaded_at": "2026-01-19T03:34:20.159441Z",
   "dir_name": "raisonnement-juridique",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/raisonnement-juridique",
+  "github_branch": "main"
 }

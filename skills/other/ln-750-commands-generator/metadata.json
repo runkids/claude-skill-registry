@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:06.492711Z",
   "dir_name": "ln-750-commands-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-750-commands-generator",
+  "github_branch": "main"
 }

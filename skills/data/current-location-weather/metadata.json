@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "current-location-weather"
+  "dir_name": "current-location-weather",
+  "github_path": "current-location-weather",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/seabbs/claude-code-config",
   "downloaded_at": "2026-01-14T03:01:36.352257Z",
   "dir_name": "grant-compliance-checking",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/grant-compliance-checking",
+  "github_branch": "main"
 }

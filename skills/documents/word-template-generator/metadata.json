@@ -8,5 +8,7 @@
     "template",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/word-template-generator",
+  "github_branch": "main"
 }

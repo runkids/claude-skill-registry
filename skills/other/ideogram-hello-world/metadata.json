@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:06.086287Z",
   "dir_name": "ideogram-hello-world",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/ideogram-pack/skills/ideogram-hello-world",
+  "github_branch": "main"
 }

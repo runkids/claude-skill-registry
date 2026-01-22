@@ -8,5 +8,7 @@
     "image",
     "generator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "gemini-image-generator",
+  "github_branch": "main"
 }

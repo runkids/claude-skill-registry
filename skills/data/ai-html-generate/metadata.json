@@ -5,5 +5,7 @@
   "description": "Use AI to recreate PDF page as semantic HTML. Consumes three inputs (PNG image, parsed text, ASCII preview) for complete contextual understanding and accurate generation.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:44.798524Z",
-  "dir_name": "ai-html-generate"
+  "dir_name": "ai-html-generate",
+  "github_path": ".claude/skills/calypso/ai-html-generate",
+  "github_branch": "main"
 }

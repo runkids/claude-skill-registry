@@ -2,7 +2,9 @@
   "name": "generate-apis",
   "repo": "zwmmm/k12-skills",
   "category": "development",
-  "description": "\u57fa\u4e8e yapi mcp \u8fd4\u56de\u7684\u6570\u636e\u751f\u6210\u5bf9\u5e94\u7684 API \u6587\u4ef6",
+  "description": "基于 yapi mcp 返回的数据生成对应的 API 文件",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:47.898996Z"
+  "downloaded_at": "2026-01-06T09:09:47.898996Z",
+  "github_path": "skills/api-specification",
+  "github_branch": "main"
 }

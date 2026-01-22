@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:45.100832Z",
   "dir_name": "crispresso-editing",
-  "category": "other"
+  "category": "other",
+  "github_path": "crispr-screens/crispresso-editing",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Comprehensive guidance for writing Pest v4 tests in Laravel applications, including feature tests, unit tests, and browser tests. Use this skill when writing tests, implementing test-driven developmen",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:01.632924Z"
+  "downloaded_at": "2026-01-06T09:07:01.632924Z",
+  "github_path": "pest-testing",
+  "github_branch": "main"
 }

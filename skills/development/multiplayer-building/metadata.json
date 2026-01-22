@@ -7,5 +7,7 @@
     "multiplayer",
     "building"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/multiplayer-building",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/chatgpt-skills",
   "downloaded_at": "2026-01-22T03:03:53.000574Z",
   "dir_name": "video-clipper",
-  "category": "other"
+  "category": "other",
+  "github_path": "video-clipper",
+  "github_branch": "main"
 }

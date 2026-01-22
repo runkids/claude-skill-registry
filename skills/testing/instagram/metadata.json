@@ -6,5 +6,7 @@
   "tags": [
     "instagram"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "instagram",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Generate Slovak VAT Act 2025 compliant reports for business trip tax deductions with automatic validation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:23.601236Z"
+  "downloaded_at": "2026-01-06T09:04:23.601236Z",
+  "github_path": "claude_skills/report-generation",
+  "github_branch": "main"
 }

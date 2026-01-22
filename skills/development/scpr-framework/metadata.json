@@ -7,5 +7,7 @@
     "scpr",
     "framework"
   ],
-  "stars": 4
+  "stars": 4,
+  "github_path": "scpr-framework",
+  "github_branch": "main"
 }

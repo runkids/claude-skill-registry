@@ -5,5 +5,7 @@
   "source": "github.com/Mineru98/skills-store",
   "downloaded_at": "2026-01-22T04:05:59.469551Z",
   "dir_name": "frontend-master",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/frontend-master",
+  "github_branch": "main"
 }

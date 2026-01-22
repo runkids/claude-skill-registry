@@ -8,5 +8,7 @@
     "lead",
     "qualifier"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": "inbound-lead-qualifier",
+  "github_branch": "main"
 }

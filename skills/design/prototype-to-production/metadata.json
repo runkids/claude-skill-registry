@@ -7,5 +7,7 @@
     "prototype",
     "production"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "skills/prototype-to-production",
+  "github_branch": "main"
 }

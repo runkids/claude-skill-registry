@@ -7,5 +7,7 @@
     "worker",
     "protocol"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/worker-protocol",
+  "github_branch": "main"
 }

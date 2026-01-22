@@ -5,5 +5,7 @@
   "source": "github.com/leonj1/external-claude-skills",
   "downloaded_at": "2026-01-21T01:00:54.166307Z",
   "dir_name": "context-initializer",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/context-initializer",
+  "github_branch": "main"
 }

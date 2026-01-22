@@ -5,5 +5,7 @@
   "source": "github.com/spaarke-dev/spaarke",
   "downloaded_at": "2026-01-22T02:01:58.148171Z",
   "dir_name": "adr-check",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/adr-check",
+  "github_branch": "main"
 }

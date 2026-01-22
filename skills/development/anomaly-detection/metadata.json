@@ -8,5 +8,7 @@
     "detection"
   ],
   "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/anomaly-detection",
+  "github_branch": "main"
 }

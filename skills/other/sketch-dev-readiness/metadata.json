@@ -5,5 +5,7 @@
   "source": "github.com/joelklabo/markdowntown-cli",
   "downloaded_at": "2026-01-19T03:03:06.742573Z",
   "dir_name": "sketch-dev-readiness",
-  "category": "other"
+  "category": "other",
+  "github_path": "codex/skills/sketch-dev-readiness",
+  "github_branch": "main"
 }

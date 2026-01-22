@@ -8,5 +8,7 @@
     "testing",
     "patterns"
   ],
-  "stars": 28
+  "stars": 28,
+  "github_path": "skills/ios-testing-patterns",
+  "github_branch": "main"
 }

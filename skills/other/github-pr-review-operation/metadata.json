@@ -5,5 +5,7 @@
   "source": "github.com/sushichan044/dotfiles",
   "downloaded_at": "2026-01-22T01:43:52.457121Z",
   "dir_name": "github-pr-review-operation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agent/skills/github-pr-review-operation",
+  "github_branch": "main"
 }

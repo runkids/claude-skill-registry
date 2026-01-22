@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Use to capture, tag, and distribute call clips for coaching and enablement programs.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.568314Z"
+  "downloaded_at": "2026-01-06T08:57:25.568314Z",
+  "github_path": "plugins/sales-coaching/skills/call-highlights",
+  "github_branch": "main"
 }

@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Automated model selection and comparison for optimal forecasting",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:50.467906Z"
+  "downloaded_at": "2026-01-06T09:08:50.467906Z",
+  "github_path": "skills/analytics/td-model-selection",
+  "github_branch": "main"
 }

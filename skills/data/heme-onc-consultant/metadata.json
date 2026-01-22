@@ -9,5 +9,7 @@
     "consultant"
   ],
   "stars": 0,
-  "dir_name": "heme-onc-consultant"
+  "dir_name": "heme-onc-consultant",
+  "github_path": "heme-onc-consultant",
+  "github_branch": "main"
 }

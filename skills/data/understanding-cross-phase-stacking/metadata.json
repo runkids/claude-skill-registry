@@ -10,5 +10,7 @@
     "stacking"
   ],
   "stars": 5,
-  "dir_name": "understanding-cross-phase-stacking"
+  "dir_name": "understanding-cross-phase-stacking",
+  "github_path": "skills/understanding-cross-phase-stacking",
+  "github_branch": "main"
 }

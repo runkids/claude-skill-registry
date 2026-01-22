@@ -4,5 +4,7 @@
   "category": "documents",
   "description": "Search GitHub Issues and PRs with 30+ qualifiers including labels, dates, users, state, milestones, and content. Use when searching for issues by keywords, metadata, or complex filters.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:14.525723Z"
+  "downloaded_at": "2026-01-06T09:03:14.525723Z",
+  "github_path": "skills/github-issues/searching-issues",
+  "github_branch": "main"
 }

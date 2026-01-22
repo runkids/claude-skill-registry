@@ -9,5 +9,7 @@
     "map"
   ],
   "stars": 8,
-  "dir_name": "research-claim-map"
+  "dir_name": "research-claim-map",
+  "github_path": "skills/research-claim-map",
+  "github_branch": "main"
 }

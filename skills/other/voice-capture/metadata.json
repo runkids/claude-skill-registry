@@ -5,5 +5,7 @@
   "source": "github.com/robertguss/claude-code-toolkit",
   "downloaded_at": "2026-01-22T02:47:23.804685Z",
   "dir_name": "voice-capture",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/compound-writing/skills/voice-capture",
+  "github_branch": "main"
 }

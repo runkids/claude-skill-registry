@@ -5,5 +5,7 @@
   "source": "github.com/giuseppe-trisciuoglio/developer-kit",
   "downloaded_at": "2026-01-22T01:58:43.356248Z",
   "dir_name": "typescript-docs",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/typescript-docs",
+  "github_branch": "main"
 }

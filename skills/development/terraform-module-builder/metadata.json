@@ -8,5 +8,7 @@
     "module",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "terraform-module-builder",
+  "github_branch": "main"
 }

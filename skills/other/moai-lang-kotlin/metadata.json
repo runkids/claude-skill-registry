@@ -5,5 +5,7 @@
   "source": "github.com/zellycloud/zyflow",
   "downloaded_at": "2026-01-22T04:03:52.926594Z",
   "dir_name": "moai-lang-kotlin",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-lang-kotlin",
+  "github_branch": "main"
 }

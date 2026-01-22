@@ -5,5 +5,7 @@
   "source": "github.com/kingpinzs/claude_parallel_templates",
   "downloaded_at": "2026-01-22T03:09:58.377522Z",
   "dir_name": "parallel-executor",
-  "category": "other"
+  "category": "other",
+  "github_path": "base/.claude/skills/parallel-executor",
+  "github_branch": "main"
 }

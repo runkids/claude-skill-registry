@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:49.404847Z",
   "dir_name": "linkage-disequilibrium",
-  "category": "other"
+  "category": "other",
+  "github_path": "population-genetics/linkage-disequilibrium",
+  "github_branch": "main"
 }

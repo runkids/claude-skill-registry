@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:11.691047Z",
   "dir_name": "linear-prod-checklist",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/linear-pack/skills/linear-prod-checklist",
+  "github_branch": "main"
 }

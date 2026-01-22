@@ -5,5 +5,7 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:15.912351Z",
   "dir_name": "agent-dependency-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "docs/99-claude/skills/agent-dependency-design",
+  "github_branch": "main"
 }

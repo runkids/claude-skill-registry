@@ -9,5 +9,7 @@
     "canvas"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": "skills/anthropic-design-canvas",
+  "github_branch": "main"
 }

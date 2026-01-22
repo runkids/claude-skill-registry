@@ -7,5 +7,7 @@
     "container",
     "debugging"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/container-debugging",
+  "github_branch": "main"
 }

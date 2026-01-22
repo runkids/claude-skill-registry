@@ -5,5 +5,7 @@
   "source": "github.com/maxvaega/skillkit",
   "downloaded_at": "2026-01-22T02:52:24.597732Z",
   "dir_name": "file-reference-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": "examples/skills/file-reference-skill",
+  "github_branch": "main"
 }

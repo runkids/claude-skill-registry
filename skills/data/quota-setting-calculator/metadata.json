@@ -9,5 +9,7 @@
     "calculator"
   ],
   "stars": 10,
-  "dir_name": "quota-setting-calculator"
+  "dir_name": "quota-setting-calculator",
+  "github_path": "quota-setting-calculator",
+  "github_branch": "main"
 }

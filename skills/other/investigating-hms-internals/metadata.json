@@ -5,5 +5,7 @@
   "source": "github.com/gpt-cmdr/hms-commander",
   "downloaded_at": "2026-01-22T01:42:08.785732Z",
   "dir_name": "investigating-hms-internals",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/investigating-hms-internals",
+  "github_branch": "main"
 }

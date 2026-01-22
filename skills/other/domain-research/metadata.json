@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:09.265843Z",
   "dir_name": "domain-research",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/requirements-elicitation/skills/domain-research",
+  "github_branch": "main"
 }

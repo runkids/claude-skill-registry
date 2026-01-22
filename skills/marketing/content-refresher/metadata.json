@@ -4,5 +4,7 @@
   "category": "marketing",
   "description": "Identifies and updates outdated content to restore and improve search rankings. Analyzes content freshness, adds new information, updates statistics, and optimizes for current SEO and GEO best practic",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.676813Z"
+  "downloaded_at": "2026-01-06T08:57:10.676813Z",
+  "github_path": "optimize/content-refresher",
+  "github_branch": "main"
 }

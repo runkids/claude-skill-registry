@@ -5,5 +5,7 @@
   "source": "github.com/zzstoatzz/plyr-python-client",
   "downloaded_at": "2026-01-22T03:51:22.143227Z",
   "dir_name": "cli",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/plyrfm-mcp/skills/cli",
+  "github_branch": "main"
 }

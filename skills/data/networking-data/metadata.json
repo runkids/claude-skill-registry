@@ -8,5 +8,7 @@
     "data"
   ],
   "stars": 1,
-  "dir_name": "networking-data"
+  "dir_name": "networking-data",
+  "github_path": "networking-data",
+  "github_branch": "main"
 }

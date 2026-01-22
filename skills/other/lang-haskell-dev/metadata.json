@@ -5,5 +5,7 @@
   "source": "github.com/aRustyDev/ai",
   "downloaded_at": "2026-01-22T02:35:34.031406Z",
   "dir_name": "lang-haskell-dev",
-  "category": "other"
+  "category": "other",
+  "github_path": "components/skills/lang-haskell-dev",
+  "github_branch": "main"
 }

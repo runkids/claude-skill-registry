@@ -9,5 +9,7 @@
     "forwarder"
   ],
   "stars": 0,
-  "dir_name": "outlook-email-forwarder"
+  "dir_name": "outlook-email-forwarder",
+  "github_path": "outlook-email-forwarder",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/personamanagmentlayer/pcl",
   "downloaded_at": "2026-01-22T04:02:09.194945Z",
   "dir_name": "redis-expert-personamanagmentlaye-pcl",
-  "category": "other"
+  "category": "other",
+  "github_path": "stdlib/data/redis-expert",
+  "github_branch": "main"
 }

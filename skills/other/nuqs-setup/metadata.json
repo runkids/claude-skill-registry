@@ -5,5 +5,7 @@
   "source": "github.com/andrelandgraf/fullstackrecipes",
   "downloaded_at": "2026-01-19T01:09:05.300431Z",
   "dir_name": "nuqs-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".agents/skills/nuqs-setup",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/bitwikiorg/skills.md",
   "downloaded_at": "2026-01-22T01:15:04.155933Z",
   "dir_name": "thumbnail",
-  "category": "other"
+  "category": "other",
+  "github_path": "sources/anthropic/thumbnail",
+  "github_branch": "main"
 }

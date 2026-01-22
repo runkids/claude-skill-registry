@@ -5,5 +5,7 @@
   "source": "github.com/vasilyu1983/AI-Agents-public",
   "downloaded_at": "2026-01-21T03:24:58.173866Z",
   "dir_name": "ai-mlops",
-  "category": "other"
+  "category": "other",
+  "github_path": "frameworks/shared-skills/skills/ai-mlops",
+  "github_branch": "main"
 }

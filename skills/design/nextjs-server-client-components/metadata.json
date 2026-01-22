@@ -9,5 +9,7 @@
     "client",
     "components"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "nextjs-server-client-components",
+  "github_branch": "main"
 }

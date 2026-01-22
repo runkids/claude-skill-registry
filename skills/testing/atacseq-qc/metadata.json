@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Performs ATAC-specific biological validation. It calculates metrics unique to chromatin accessibility assays, such as TSS enrichment scores and fragment size distributions (nucleosome banding patterns",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:35.723657Z"
+  "downloaded_at": "2026-01-06T09:00:35.723657Z",
+  "github_path": "4.ATACseq-QC",
+  "github_branch": "main"
 }

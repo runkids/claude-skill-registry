@@ -5,5 +5,7 @@
   "source": "github.com/jasonmichaelbell78-creator/sonash-v0",
   "downloaded_at": "2026-01-22T03:33:07.332118Z",
   "dir_name": "audit-performance",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/audit-performance",
+  "github_branch": "main"
 }

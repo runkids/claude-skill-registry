@@ -5,5 +5,7 @@
   "source": "github.com/wshobson/agents",
   "downloaded_at": "2026-01-22T03:51:06.102006Z",
   "dir_name": "gdpr-data-handling",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/hr-legal-compliance/skills/gdpr-data-handling",
+  "github_branch": "main"
 }

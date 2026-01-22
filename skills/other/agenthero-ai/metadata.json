@@ -5,5 +5,7 @@
   "source": "github.com/Interstellar-code/claud-skills",
   "downloaded_at": "2026-01-22T01:05:04.037151Z",
   "dir_name": "agenthero-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/agenthero-ai",
+  "github_branch": "main"
 }

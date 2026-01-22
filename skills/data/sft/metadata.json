@@ -5,5 +5,7 @@
   "description": "Supervised Fine-Tuning with SFTTrainer and Unsloth. Covers dataset preparation,chat template formatting, training configuration, and Unsloth optimizationsfor 2x faster instruction tuning. Includes thi",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:11:17.661868Z",
-  "dir_name": "sft"
+  "dir_name": "sft",
+  "github_path": "bazzite-ai-jupyter/skills/sft",
+  "github_branch": "main"
 }

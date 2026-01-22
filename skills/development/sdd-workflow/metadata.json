@@ -2,7 +2,9 @@
   "name": "sdd-workflow",
   "repo": "dlddu/claude-plugin-marketplace",
   "category": "development",
-  "description": "SDD(Spec Driven Development) \uc790\ub3d9\ud654 \uc6cc\ud06c\ud50c\ub85c\uc6b0\ub97c \uc2e4\ud589\ud569\ub2c8\ub2e4. \uc0ac\uc6a9\uc790\uac00 \"\ub2e4\uc74c \uc791\uc5c5 \uc9c4\ud589\ud574\uc918\", \"\uad6c\ud604 \uc2dc\uc791\ud574\uc918\", \"SDD \uc6cc\ud06c\ud50c\ub85c\uc6b0 \uc2e4\ud589\" \ub4f1\uc744 \uc694\uccad\ud560 \ub54c \ud65c\uc131\ud654\ub429\ub2c8\ub2e4. \uc791\uc5c5 \ubd84\ud560, \uacc4\ud68d\uc11c \uc791\uc131, \uad6c\ud604, CI \uac80\uc99d\uae4c\uc9c0 \uc790\ub3d9\uc73c\ub85c \uc9c4\ud589\ud569\ub2c8\ub2e4.",
+  "description": "SDD(Spec Driven Development) 자동화 워크플로우를 실행합니다. 사용자가 \"다음 작업 진행해줘\", \"구현 시작해줘\", \"SDD 워크플로우 실행\" 등을 요청할 때 활성화됩니다. 작업 분할, 계획서 작성, 구현, CI 검증까지 자동으로 진행합니다.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:06.640843Z"
+  "downloaded_at": "2026-01-06T09:05:06.640843Z",
+  "github_path": "plugins/sdd-workflow/skills/sdd-workflow",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:17.525959Z",
   "dir_name": "luminor-wisdom",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/arcanea/luminor-wisdom",
+  "github_branch": "main"
 }

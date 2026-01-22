@@ -5,5 +5,7 @@
   "source": "github.com/rdmptv/AdbAutoPlayer",
   "downloaded_at": "2026-01-22T03:58:40.054189Z",
   "dir_name": "adb-workflow-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/adb/adb-foundation/adb-workflow-orchestrator",
+  "github_branch": "main"
 }

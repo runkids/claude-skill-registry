@@ -8,5 +8,7 @@
     "paper",
     "exploration"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/pubmed-paper-exploration",
+  "github_branch": "main"
 }

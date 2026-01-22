@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Central authority for Claude Code subagents (sub-agents). Covers agent file format, YAML frontmatter, tool access configuration, model selection (inherit, sonnet, haiku, opus), automatic delegation, a",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:59.860894Z"
+  "downloaded_at": "2026-01-06T08:59:59.860894Z",
+  "github_path": "plugins/claude-ecosystem/skills/subagent-development",
+  "github_branch": "main"
 }

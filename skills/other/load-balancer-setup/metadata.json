@@ -5,5 +5,7 @@
   "source": "github.com/aj-geddes/useful-ai-prompts",
   "downloaded_at": "2026-01-22T01:10:28.733927Z",
   "dir_name": "load-balancer-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/load-balancer-setup",
+  "github_branch": "main"
 }

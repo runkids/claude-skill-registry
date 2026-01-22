@@ -7,5 +7,7 @@
     "context",
     "manager"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": "skills/context-manager",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/Smith-Happens/xlightsfpptester",
   "downloaded_at": "2026-01-21T02:50:22.433638Z",
   "dir_name": "visual-regression-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/visual-regression-validator",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/fcakyon/claude-codex-settings",
   "downloaded_at": "2026-01-22T03:06:13.250607Z",
   "dir_name": "supabase-usage",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/supabase-tools/skills/supabase-usage",
+  "github_branch": "main"
 }

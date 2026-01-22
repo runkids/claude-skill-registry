@@ -5,5 +5,7 @@
   "source": "github.com/lovedragonball/power-ranger-toolkit",
   "downloaded_at": "2026-01-19T01:38:21.506598Z",
   "dir_name": "design-mastery",
-  "category": "other"
+  "category": "other",
+  "github_path": "src/skills/design-mastery",
+  "github_branch": "main"
 }

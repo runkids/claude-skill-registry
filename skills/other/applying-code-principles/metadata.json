@@ -5,5 +5,7 @@
   "source": "github.com/thkt/claude-config",
   "downloaded_at": "2026-01-22T00:53:37.290395Z",
   "dir_name": "applying-code-principles",
-  "category": "other"
+  "category": "other",
+  "github_path": ".ja/skills/applying-code-principles",
+  "github_branch": "main"
 }

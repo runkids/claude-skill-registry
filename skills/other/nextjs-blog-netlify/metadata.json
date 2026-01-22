@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:06.198980Z",
   "dir_name": "nextjs-blog-netlify",
-  "category": "other"
+  "category": "other",
+  "github_path": "nextjs-blog-netlify",
+  "github_branch": "main"
 }

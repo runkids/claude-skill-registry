@@ -5,5 +5,7 @@
   "source": "github.com/doodledood/claude-code-plugins",
   "downloaded_at": "2026-01-22T02:39:48.761890Z",
   "dir_name": "craft-author-voice",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-plugins/solo-dev/skills/craft-author-voice",
+  "github_branch": "main"
 }

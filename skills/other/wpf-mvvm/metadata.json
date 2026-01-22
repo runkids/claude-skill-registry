@@ -5,5 +5,7 @@
   "source": "github.com/YosrBennagra/3SC",
   "downloaded_at": "2026-01-17T03:18:53.079202Z",
   "dir_name": "wpf-mvvm",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/wpf-mvvm",
+  "github_branch": "main"
 }

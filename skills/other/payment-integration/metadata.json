@@ -5,5 +5,7 @@
   "source": "github.com/vuralserhat86/antigravity-agentic-skills",
   "downloaded_at": "2026-01-14T04:00:18.310710Z",
   "dir_name": "payment-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/payment_integration",
+  "github_branch": "main"
 }

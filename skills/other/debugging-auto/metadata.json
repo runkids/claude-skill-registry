@@ -5,5 +5,7 @@
   "source": "github.com/timequity/vibe-coder",
   "downloaded_at": "2026-01-22T03:40:30.971790Z",
   "dir_name": "debugging-auto",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/debugging-auto",
+  "github_branch": "main"
 }

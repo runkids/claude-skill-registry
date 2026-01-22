@@ -8,5 +8,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "databento"
+  "dir_name": "databento",
+  "github_path": "databento",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "skill",
     "evaluator"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "skill-evaluator",
+  "github_branch": "main"
 }

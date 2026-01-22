@@ -8,5 +8,7 @@
     "cloud",
     "generator"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "word-cloud-generator",
+  "github_branch": "main"
 }

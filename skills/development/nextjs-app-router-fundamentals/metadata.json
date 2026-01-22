@@ -9,5 +9,7 @@
     "router",
     "fundamentals"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": "nextjs-app-router-fundamentals",
+  "github_branch": "main"
 }

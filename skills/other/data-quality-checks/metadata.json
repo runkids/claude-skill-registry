@@ -5,5 +5,7 @@
   "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
   "downloaded_at": "2026-01-17T03:41:48.438631Z",
   "dir_name": "data-quality-checks",
-  "category": "other"
+  "category": "other",
+  "github_path": "53-data-engineering/data-quality-checks",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "file-analyzer",
   "repo": "automacoescomerciaisintegradas/PAGIA",
   "category": "design",
-  "description": "Analisa arquivos e diret\u00f3rios usando ferramentas MCP para fornecer insights sobre estrutura de c\u00f3digo e projetos",
+  "description": "Analisa arquivos e diretórios usando ferramentas MCP para fornecer insights sobre estrutura de código e projetos",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:06.636057Z"
+  "downloaded_at": "2026-01-06T09:04:06.636057Z",
+  "github_path": ".pagia/skills/file-analyzer",
+  "github_branch": "main"
 }

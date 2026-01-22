@@ -5,5 +5,7 @@
   "source": "github.com/addyosmani/web-quality-skills",
   "downloaded_at": "2026-01-22T01:41:49.600507Z",
   "dir_name": "core-web-vitals",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/core-web-vitals",
+  "github_branch": "main"
 }

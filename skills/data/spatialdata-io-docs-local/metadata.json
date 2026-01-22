@@ -9,5 +9,7 @@
     "local"
   ],
   "stars": 0,
-  "dir_name": "spatialdata-io-docs-local"
+  "dir_name": "spatialdata-io-docs-local",
+  "github_path": "spatialdata-io-docs-local",
+  "github_branch": "main"
 }

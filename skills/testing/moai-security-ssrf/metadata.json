@@ -8,5 +8,7 @@
     "security",
     "ssrf"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/moai-security-ssrf",
+  "github_branch": "main"
 }

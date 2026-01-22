@@ -7,5 +7,7 @@
     "progressive",
     "disclosure"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": "skills/progressive-disclosure",
+  "github_branch": "main"
 }

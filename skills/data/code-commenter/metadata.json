@@ -9,5 +9,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "code-commenter"
+  "dir_name": "code-commenter",
+  "github_path": "skills/code-commenter",
+  "github_branch": "main"
 }

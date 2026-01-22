@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Create and run Ralph loops for structured AI-driven development. Triggered by \"create a ralph loop for X\" or \"ralph plan for X\". Uses interview to clarify requirements, creates phased task plans, and ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:59.361041Z"
+  "downloaded_at": "2026-01-06T09:09:59.361041Z",
+  "github_path": "pi-integration/skill",
+  "github_branch": "main"
 }

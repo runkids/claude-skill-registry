@@ -5,5 +5,7 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:17.144519Z",
   "dir_name": "mern-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/lobbi-platform-manager/skills/mern-patterns",
+  "github_branch": "main"
 }

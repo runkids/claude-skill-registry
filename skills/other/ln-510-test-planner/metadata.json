@@ -5,5 +5,7 @@
   "source": "github.com/levnikolaevich/claude-code-skills",
   "downloaded_at": "2026-01-22T02:43:10.504848Z",
   "dir_name": "ln-510-test-planner",
-  "category": "other"
+  "category": "other",
+  "github_path": "ln-510-test-planner",
+  "github_branch": "main"
 }

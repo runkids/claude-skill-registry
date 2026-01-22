@@ -5,5 +5,7 @@
   "source": "github.com/JasonPaff/head-shakers",
   "downloaded_at": "2026-01-22T02:37:02.860386Z",
   "dir_name": "unit-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/unit-testing",
+  "github_branch": "main"
 }

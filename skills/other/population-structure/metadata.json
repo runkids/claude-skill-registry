@@ -5,5 +5,7 @@
   "source": "github.com/GPTomics/bioSkills",
   "downloaded_at": "2026-01-22T02:30:46.560848Z",
   "dir_name": "population-structure",
-  "category": "other"
+  "category": "other",
+  "github_path": "population-genetics/population-structure",
+  "github_branch": "main"
 }

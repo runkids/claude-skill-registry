@@ -8,5 +8,7 @@
     "analysis",
     "triz"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": "skills/morphological-analysis-triz",
+  "github_branch": "main"
 }

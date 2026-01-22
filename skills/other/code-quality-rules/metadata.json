@@ -5,5 +5,7 @@
   "source": "github.com/takemo101/compose-workflow",
   "downloaded_at": "2026-01-22T02:45:12.545584Z",
   "dir_name": "code-quality-rules",
-  "category": "other"
+  "category": "other",
+  "github_path": ".opencode/skill/code-quality-rules",
+  "github_branch": "main"
 }

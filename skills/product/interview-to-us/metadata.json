@@ -2,7 +2,9 @@
   "name": "interview-to-us",
   "repo": "tikazyq/agentic-spec-forge",
   "category": "product",
-  "description": "\u5c06\u8bbf\u8c08\u8bb0\u5f55\u3001\u4f1a\u8bae\u7eaa\u8981\u3001\u90ae\u4ef6\u6c9f\u901a\u7b49\u975e\u7ed3\u6784\u5316\u5185\u5bb9\u5feb\u901f\u8f6c\u6362\u4e3a\u7b26\u5408CRAFT\u6807\u51c6\u7684User Story\u8349\u7a3f\u3002\u9002\u5408\u5728\u9700\u6c42\u8c03\u7814\u9636\u6bb5\u4f7f\u7528\uff0c\u5f53\u6709\u5927\u91cf\u8bbf\u8c08\u7b14\u8bb0\u9700\u8981\u7ed3\u6784\u5316\u65f6\u3002\u5e2e\u52a9\u4e0d\u4f1a\u5199US\u7684PM/BA\u5feb\u901f\u4e0a\u624b\uff0c\u4ece\u81ea\u7136\u8bed\u8a00\u8bbf\u8c08\u8bb0\u5f55\u81ea\u52a8\u63d0\u53d6As-Want-So\u7ed3\u6784\uff0c\u8282\u7701\u624b\u52a8\u6574\u7406\u65f6\u95f4\uff081\u5c0f\u65f6\u219210\u5206\u949f\uff09\u3002",
+  "description": "将访谈记录、会议纪要、邮件沟通等非结构化内容快速转换为符合CRAFT标准的User Story草稿。适合在需求调研阶段使用，当有大量访谈笔记需要结构化时。帮助不会写US的PM/BA快速上手，从自然语言访谈记录自动提取As-Want-So结构，节省手动整理时间（1小时→10分钟）。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:01.033700Z"
+  "downloaded_at": "2026-01-06T09:10:01.033700Z",
+  "github_path": "AGENTIC_SPEC_FORGE/spec_stage_skill/requirements/interview-to-us",
+  "github_branch": "main"
 }

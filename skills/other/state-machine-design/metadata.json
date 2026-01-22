@@ -5,5 +5,7 @@
   "source": "github.com/melodic-software/claude-code-plugins",
   "downloaded_at": "2026-01-17T01:53:10.382334Z",
   "dir_name": "state-machine-design",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/formal-specification/skills/state-machine-design",
+  "github_branch": "main"
 }

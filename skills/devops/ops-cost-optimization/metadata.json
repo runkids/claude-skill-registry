@@ -4,5 +4,7 @@
   "category": "devops",
   "description": "Structured workflow for cloud cost analysis and optimization includingrightsizing, reserved capacity planning, and FinOps practices.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:33.124614Z"
+  "downloaded_at": "2026-01-06T08:57:33.124614Z",
+  "github_path": ".archive/ops-team/skills/ops-cost-optimization",
+  "github_branch": "main"
 }

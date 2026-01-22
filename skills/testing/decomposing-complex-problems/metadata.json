@@ -2,7 +2,9 @@
   "name": "decomposing-complex-problems",
   "repo": "pianzhu/my-claude-skills",
   "category": "testing",
-  "description": "Deconstructs complex problems using the 'Polymath Investor' framework with a 5-step cognitive chain (First Principles \u2192 Modular Isolation \u2192 Pareto Filtering \u2192 Cross-Domain Mapping \u2192 Dynamic Zooming). ",
+  "description": "Deconstructs complex problems using the 'Polymath Investor' framework with a 5-step cognitive chain (First Principles → Modular Isolation → Pareto Filtering → Cross-Domain Mapping → Dynamic Zooming). ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:30.698913Z"
+  "downloaded_at": "2026-01-06T09:07:30.698913Z",
+  "github_path": "decomposing-complex-problems",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "module-discovery",
   "repo": "taptap/claude-plugins-marketplace",
   "category": "development",
-  "description": "\u6392\u67e5\u95ee\u9898\u3001\u4fee\u590d BUG\u3001\u5b9a\u4f4d\u4ee3\u7801\u3001\u67e5\u627e\u6a21\u5757\u3001\u529f\u80fd\u5f00\u53d1\u524d\uff0c\u5fc5\u987b\u5148\u8bfb\u53d6\u6b64 SKILL \u5e76\u4f7f\u7528\u6a21\u5757\u7d22\u5f15\u5b9a\u4f4d\u76ee\u6807\uff0c\u4e0d\u53ef\u8df3\u8fc7",
+  "description": "排查问题、修复 BUG、定位代码、查找模块、功能开发前，必须先读取此 SKILL 并使用模块索引定位目标，不可跳过",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:45.129730Z"
+  "downloaded_at": "2026-01-06T09:08:45.129730Z",
+  "github_path": "plugins/spec/skills/module-discovery",
+  "github_branch": "main"
 }

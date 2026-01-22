@@ -10,5 +10,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "braiins-cache-strategist"
+  "dir_name": "braiins-cache-strategist",
+  "github_path": ".claude/skills/braiins-cache-strategist",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "orchestration",
     "planner"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": "skills/orchestration-planner",
+  "github_branch": "main"
 }

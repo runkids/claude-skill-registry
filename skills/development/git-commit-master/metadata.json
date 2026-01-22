@@ -2,7 +2,9 @@
   "name": "git-commit-master",
   "repo": "lordhamster-dev/dotfiles",
   "category": "development",
-  "description": "\u6309\u7167 Conventional Commits \u89c4\u8303\u6267\u884c\u9ad8\u8d28\u91cf\u7684 git \u63d0\u4ea4\uff0c\u5904\u7406\u6682\u5b58\u3001\u6d88\u606f\u751f\u6210\u53ca\u94a9\u5b50\u4fee\u590d\u3002",
+  "description": "按照 Conventional Commits 规范执行高质量的 git 提交，处理暂存、消息生成及钩子修复。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:52.642876Z"
+  "downloaded_at": "2026-01-06T09:06:52.642876Z",
+  "github_path": "crush/skills/git-commit-master",
+  "github_branch": "main"
 }

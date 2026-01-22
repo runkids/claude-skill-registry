@@ -5,5 +5,7 @@
   "source": "github.com/kevintsengtw/dotnet-testing-agent-skills",
   "downloaded_at": "2026-01-22T03:32:20.575353Z",
   "dir_name": "filesystem-testing-abstractions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".github/skills/dotnet-testing/filesystem-testing-abstractions",
+  "github_branch": "main"
 }

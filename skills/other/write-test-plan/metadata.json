@@ -5,5 +5,7 @@
   "source": "github.com/yebot/rad-cc-plugins",
   "downloaded_at": "2026-01-22T02:38:40.347266Z",
   "dir_name": "write-test-plan",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/webapp-team/skills/write-test-plan",
+  "github_branch": "main"
 }

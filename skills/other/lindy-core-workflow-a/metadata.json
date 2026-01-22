@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-20T01:16:04.000831Z",
   "dir_name": "lindy-core-workflow-a",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/saas-packs/lindy-pack/skills/lindy-core-workflow-a",
+  "github_branch": "main"
 }

@@ -8,5 +8,7 @@
     "card",
     "generation"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/convex-ai-card-generation",
+  "github_branch": "main"
 }

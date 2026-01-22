@@ -5,5 +5,7 @@
   "source": "github.com/wade56754/AI_ad_spend02",
   "downloaded_at": "2026-01-22T03:00:37.708674Z",
   "dir_name": "ai-ad-code-adapter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ai-ad-code-adapter",
+  "github_branch": "main"
 }

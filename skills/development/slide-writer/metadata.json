@@ -2,7 +2,9 @@
   "name": "slide-writer",
   "repo": "imagepit/text-lint-plugin",
   "category": "development",
-  "description": "\u6280\u8853\u7814\u4fee\u30b9\u30e9\u30a4\u30c9\u6559\u6750\u3092Marp\u5f62\u5f0f\u3067\u57f7\u7b46\u30021\u30b9\u30e9\u30a4\u30c91\u30c8\u30d4\u30c3\u30af\u3001\u7b87\u6761\u66f8\u304d\u4e2d\u5fc3\u306e\u7c21\u6f54\u306a\u69cb\u6210\u3002\u30b9\u30e9\u30a4\u30c9\u6559\u6750\u3001\u30d7\u30ec\u30bc\u30f3\u30c6\u30fc\u30b7\u30e7\u30f3\u4f5c\u6210\u6642\u306b\u4f7f\u7528\u3002",
+  "description": "技術研修スライド教材をMarp形式で執筆。1スライド1トピック、箇条書き中心の簡潔な構成。スライド教材、プレゼンテーション作成時に使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:09.916323Z"
+  "downloaded_at": "2026-01-06T09:06:09.916323Z",
+  "github_path": "skills/slide-writer",
+  "github_branch": "main"
 }

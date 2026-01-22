@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-19T03:34:30.605204Z",
   "dir_name": "planning-code-goal",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/development/planning/planning-code-goal",
+  "github_branch": "main"
 }

@@ -2,7 +2,9 @@
   "name": "architechture",
   "repo": "schneiderlin/synapse",
   "category": "design",
-  "description": "\u672c\u9879\u76ee\u91cc\u9762\u7684\u5404\u79cd\u67b6\u6784\u8bbe\u8ba1, \u8bbe\u8ba1\u4e2d\u7528\u5230\u7684\u5404\u79cd\u6982\u5ff5\u4f8b\u5982 system, action, view-function, action-function, action-handler, base, component \u7b49\u7684\u89e3\u91ca",
+  "description": "本项目里面的各种架构设计, 设计中用到的各种概念例如 system, action, view-function, action-function, action-handler, base, component 等的解释",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:09.214050Z"
+  "downloaded_at": "2026-01-06T09:08:09.214050Z",
+  "github_path": ".claude/skills/architecture",
+  "github_branch": "main"
 }

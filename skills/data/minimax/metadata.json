@@ -7,5 +7,7 @@
     "minimax"
   ],
   "stars": 8,
-  "dir_name": "minimax"
+  "dir_name": "minimax",
+  "github_path": "minimax",
+  "github_branch": "main"
 }

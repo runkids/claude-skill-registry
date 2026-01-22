@@ -8,5 +8,7 @@
     "project",
     "scaffolder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": "skills/kiro-project-scaffolder",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "write",
     "claude"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": "plugins/ACE-core/skills/write-claude-md",
+  "github_branch": "main"
 }

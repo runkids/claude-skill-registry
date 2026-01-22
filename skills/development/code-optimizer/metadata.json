@@ -2,7 +2,9 @@
   "name": "code-optimizer",
   "repo": "automacoescomerciaisintegradas/PAGIA",
   "category": "development",
-  "description": "Otimizador autom\u00e1tico de c\u00f3digo usando an\u00e1lise evolutiva GEPA para melhorar qualidade, performance e manutenibilidade",
+  "description": "Otimizador automático de código usando análise evolutiva GEPA para melhorar qualidade, performance e manutenibilidade",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:06.225282Z"
+  "downloaded_at": "2026-01-06T09:04:06.225282Z",
+  "github_path": ".pagia/skills/code-optimizer",
+  "github_branch": "main"
 }

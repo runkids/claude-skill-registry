@@ -5,5 +5,7 @@
   "source": "github.com/Leryk1981/mova_wf_cycle",
   "downloaded_at": "2026-01-22T02:33:26.243155Z",
   "dir_name": "mova-station-cycle-v1",
-  "category": "other"
+  "category": "other",
+  "github_path": ".codex/skills/mova_station_cycle_v1",
+  "github_branch": "main"
 }

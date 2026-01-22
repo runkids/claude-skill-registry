@@ -5,5 +5,7 @@
   "source": "github.com/alinaqi/claude-bootstrap",
   "downloaded_at": "2026-01-22T03:20:48.894210Z",
   "dir_name": "medusa",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/medusa",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-14T02:49:15.500685Z",
   "dir_name": "sequelize-model-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "planned-skills/generated/06-backend-dev/sequelize-model-creator",
+  "github_branch": "main"
 }

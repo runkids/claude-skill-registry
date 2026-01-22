@@ -7,5 +7,7 @@
     "penetration",
     "testing"
   ],
-  "stars": 25
+  "stars": 25,
+  "github_path": "skills/penetration-testing",
+  "github_branch": "main"
 }

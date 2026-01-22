@@ -2,7 +2,9 @@
   "name": "apple-hig-guidelines",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "design",
-  "description": "Apple Human Interface Guidelines\uff08HIG\uff09\u306b\u57fa\u3065\u304fUI\u8a2d\u8a08\u539f\u5247\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002**Anchors**:\u2022 Apple Human Interface Guidelines (Official) / \u9069\u7528: iOS\u30fbmacOS\u30fbwatchOS\u30fbtvOS UI\u8a2d\u8a08 / \u76ee\u7684: Apple\u6a19\u6e96UI\u539f\u5247\u2022 \u300eDon't Make Me Think\u300f\uff08Steve Krug",
+  "description": "Apple Human Interface Guidelines（HIG）に基づくUI設計原則を専門とするスキル。**Anchors**:• Apple Human Interface Guidelines (Official) / 適用: iOS・macOS・watchOS・tvOS UI設計 / 目的: Apple標準UI原則• 『Don't Make Me Think』（Steve Krug",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:40.370726Z"
+  "downloaded_at": "2026-01-06T09:00:40.370726Z",
+  "github_path": "docs/99-claude/skills/apple-hig-guidelines",
+  "github_branch": "main"
 }

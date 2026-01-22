@@ -11,5 +11,7 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "daily-blog-post-composer"
+  "dir_name": "daily-blog-post-composer",
+  "github_path": "daily-blog-post-composer",
+  "github_branch": "main"
 }

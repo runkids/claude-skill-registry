@@ -5,5 +5,7 @@
   "source": "github.com/ilude/claude-code-config",
   "downloaded_at": "2026-01-22T01:09:33.409973Z",
   "dir_name": "rust-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/rust-workflow",
+  "github_branch": "main"
 }

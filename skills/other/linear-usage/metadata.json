@@ -5,5 +5,7 @@
   "source": "github.com/fcakyon/claude-codex-settings",
   "downloaded_at": "2026-01-22T03:06:11.985829Z",
   "dir_name": "linear-usage",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/linear-tools/skills/linear-usage",
+  "github_branch": "main"
 }

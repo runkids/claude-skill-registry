@@ -4,5 +4,7 @@
   "category": "development",
   "description": "http-kit is a HTTP client and server for Clojure with Ring compatibility. Use when working with http-kit client or server",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:48.066387Z"
+  "downloaded_at": "2026-01-06T09:07:48.066387Z",
+  "github_path": "prompts/skills/clojure-http-kit",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/AJBcoding/claude-skill-eval",
   "downloaded_at": "2026-01-21T03:35:46.469573Z",
   "dir_name": "using-linear",
-  "category": "other"
+  "category": "other",
+  "github_path": "claude-code-stuff-main/skills/using-linear",
+  "github_branch": "main"
 }

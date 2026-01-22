@@ -5,5 +5,7 @@
   "source": "github.com/FortiumPartners/ensemble",
   "downloaded_at": "2026-01-22T01:50:17.980727Z",
   "dir_name": "using-anthropic-platform",
-  "category": "other"
+  "category": "other",
+  "github_path": "packages/ai/skills/using-anthropic-platform",
+  "github_branch": "main"
 }

@@ -5,5 +5,7 @@
   "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
   "downloaded_at": "2026-01-19T03:01:42.412890Z",
   "dir_name": "game-design-theory",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/game-design-theory",
+  "github_branch": "main"
 }

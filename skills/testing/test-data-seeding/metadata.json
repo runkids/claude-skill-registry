@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "A skill for generating and seeding realistic test data into a database. Use this skill for tasks related to database seeding, test data generation, and populating a database for development, testing, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:14.894237Z"
+  "downloaded_at": "2026-01-06T09:07:14.894237Z",
+  "github_path": ".claude/skills/test-data-seeding",
+  "github_branch": "main"
 }

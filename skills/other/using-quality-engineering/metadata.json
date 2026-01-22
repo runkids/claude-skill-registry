@@ -5,5 +5,7 @@
   "source": "github.com/tachyon-beep/skillpacks",
   "downloaded_at": "2026-01-22T03:50:06.269689Z",
   "dir_name": "using-quality-engineering",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/ordis-quality-engineering/skills/using-quality-engineering",
+  "github_branch": "main"
 }

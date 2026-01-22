@@ -5,5 +5,7 @@
   "source": "github.com/frankxai/arcanea",
   "downloaded_at": "2026-01-22T04:16:17.673929Z",
   "dir_name": "arcanea-creator-academy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/arcanea/arcanea-creator-academy",
+  "github_branch": "main"
 }

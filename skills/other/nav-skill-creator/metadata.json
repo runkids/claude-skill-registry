@@ -5,5 +5,7 @@
   "source": "github.com/dkyazzentwatwa/SuperNavigator",
   "downloaded_at": "2026-01-22T03:25:15.189109Z",
   "dir_name": "nav-skill-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/os-layer/documentation/nav-skill-creator",
+  "github_branch": "main"
 }

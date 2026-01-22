@@ -5,5 +5,7 @@
   "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
   "downloaded_at": "2026-01-19T01:50:04.652157Z",
   "dir_name": "firebase-vertex-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": "plugins/community/jeremy-firebase/skills/firebase-vertex-ai",
+  "github_branch": "main"
 }

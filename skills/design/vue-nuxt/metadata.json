@@ -7,5 +7,7 @@
     "vue",
     "nuxt"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": "skills/vue-nuxt",
+  "github_branch": "main"
 }

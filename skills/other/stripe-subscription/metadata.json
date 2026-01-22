@@ -5,5 +5,7 @@
   "source": "github.com/rebyteai-template/rebyte-skills",
   "downloaded_at": "2026-01-22T01:19:05.833783Z",
   "dir_name": "stripe-subscription",
-  "category": "other"
+  "category": "other",
+  "github_path": "stripe-subscription",
+  "github_branch": "main"
 }

@@ -9,5 +9,7 @@
     "check"
   ],
   "stars": 14,
-  "dir_name": "video-thumbnail-check"
+  "dir_name": "video-thumbnail-check",
+  "github_path": "skills/video-thumbnail-check",
+  "github_branch": "main"
 }

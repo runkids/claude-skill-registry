@@ -5,5 +5,7 @@
   "source": "github.com/vamseeachanta/workspace-hub",
   "downloaded_at": "2026-01-21T01:37:43.505877Z",
   "dir_name": "python-project-template",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/workspace-hub/python-project-template",
+  "github_branch": "main"
 }

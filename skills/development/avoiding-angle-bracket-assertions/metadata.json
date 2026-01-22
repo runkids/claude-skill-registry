@@ -4,5 +4,7 @@
   "category": "development",
   "description": "Avoid angle-bracket type assertions (<Type>) and use 'as Type' syntax instead",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:04.612814Z"
+  "downloaded_at": "2026-01-06T09:05:04.612814Z",
+  "github_path": "typescript/skills/avoiding-angle-bracket-assertions",
+  "github_branch": "main"
 }

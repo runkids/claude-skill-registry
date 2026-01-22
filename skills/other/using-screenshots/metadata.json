@@ -5,5 +5,7 @@
   "source": "github.com/tilework-tech/nori-cli",
   "downloaded_at": "2026-01-22T01:03:20.772137Z",
   "dir_name": "using-screenshots",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/using-screenshots",
+  "github_branch": "main"
 }

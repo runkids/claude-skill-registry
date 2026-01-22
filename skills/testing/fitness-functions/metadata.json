@@ -4,5 +4,7 @@
   "category": "testing",
   "description": "Architecture test guidance for .NET using NetArchTest and ArchUnitNET. Use when enforcing architectural boundaries, testing module dependencies, validating layer constraints, or creating performance f",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:06.421628Z"
+  "downloaded_at": "2026-01-06T09:00:06.421628Z",
+  "github_path": "plugins/enterprise-architecture/skills/fitness-functions",
+  "github_branch": "main"
 }

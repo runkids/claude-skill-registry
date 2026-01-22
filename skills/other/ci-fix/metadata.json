@@ -5,5 +5,7 @@
   "source": "github.com/lancenunes/codex-skills",
   "downloaded_at": "2026-01-22T01:08:10.376796Z",
   "dir_name": "ci-fix",
-  "category": "other"
+  "category": "other",
+  "github_path": "ci-fix",
+  "github_branch": "main"
 }

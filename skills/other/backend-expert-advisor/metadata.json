@@ -5,5 +5,7 @@
   "source": "github.com/ljchg12-hue/dotfiles",
   "downloaded_at": "2026-01-14T01:32:10.960209Z",
   "dir_name": "backend-expert-advisor",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/backend-expert-advisor",
+  "github_branch": "main"
 }

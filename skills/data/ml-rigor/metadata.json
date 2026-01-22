@@ -5,5 +5,7 @@
   "description": "Enforces baseline comparisons, cross-validation, interpretation, and leakage prevention for ML pipelines",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:59.724827Z",
-  "dir_name": "ml-rigor"
+  "dir_name": "ml-rigor",
+  "github_path": "skills/ml-rigor",
+  "github_branch": "main"
 }

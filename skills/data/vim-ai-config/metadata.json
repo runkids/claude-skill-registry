@@ -8,5 +8,7 @@
     "config"
   ],
   "stars": 3,
-  "dir_name": "vim-ai-config"
+  "dir_name": "vim-ai-config",
+  "github_path": "skills/vim-ai-config",
+  "github_branch": "main"
 }

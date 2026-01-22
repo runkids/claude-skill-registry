@@ -8,5 +8,7 @@
     "feature",
     "design"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": "skills/propose-feature-design",
+  "github_branch": "main"
 }

@@ -7,5 +7,7 @@
     "mechinterp",
     "runner"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/mechinterp-runner",
+  "github_branch": "main"
 }

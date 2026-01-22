@@ -5,5 +5,7 @@
   "source": "github.com/sunholo-data/ailang",
   "downloaded_at": "2026-01-22T03:40:48.818247Z",
   "dir_name": "coordinator-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/coordinator-helper",
+  "github_branch": "main"
 }
