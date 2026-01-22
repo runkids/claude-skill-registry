@@ -14,6 +14,7 @@ import asyncio
 import aiohttp
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Optional, Dict, List, Set, Tuple
@@ -21,6 +22,21 @@ from datetime import datetime
 from collections import defaultdict
 import time
 import logging
+
+
+def normalize_name(name: str) -> str:
+    """Normalize skill name: lowercase, hyphens, max 64 chars.
+
+    This prevents case-sensitivity issues on macOS/Windows filesystems.
+    """
+    if not name:
+        return "unknown"
+    # Convert to lowercase, replace non-alphanumeric with hyphens
+    name = re.sub(r'[^a-z0-9]+', '-', name.lower())
+    # Strip leading/trailing hyphens, collapse consecutive hyphens
+    name = re.sub(r'-+', '-', name).strip('-')
+    # Max 64 chars
+    return name[:64] if name else "unknown"
 
 # Configuration
 MAX_CONCURRENT = 100
@@ -317,7 +333,7 @@ async def download_skill(
     if skill_key in downloaded_set:
         return False
 
-    skill_dir = output_dir / "data" / name
+    skill_dir = output_dir / "data" / normalize_name(name)
     skill_file = skill_dir / "SKILL.md"
 
     if skill_file.exists():
