@@ -579,7 +579,7 @@ function displayResults() {
 }
 
 // Show skill detail modal with similar skills
-function showSkillDetail(card) {
+async function showSkillDetail(card) {
     const install = card.dataset.install;
 
     // Find skill in index
@@ -628,6 +628,15 @@ function showSkillDetail(card) {
 
         ${tagsHtml ? `<div style="margin-bottom: 1rem;">${tagsHtml}</div>` : ''}
 
+        <!-- Community Stats -->
+        <div class="community-stats" id="community-stats-${escapeHtml(install).replace(/[^a-zA-Z0-9]/g, '-')}">
+            <button class="like-btn" id="like-btn" onclick="handleLike('${escapeHtml(install)}')">
+                <span class="like-icon">👍</span>
+                <span class="like-count" id="like-count">0</span>
+            </button>
+            <span class="comment-count" id="comment-count-display">💬 0 comments</span>
+        </div>
+
         <div style="margin-top: 1.5rem;">
             <strong>Install:</strong>
             <div class="install-cmd" style="margin-top: 0.5rem;">
@@ -644,9 +653,183 @@ function showSkillDetail(card) {
         </div>
 
         ${similarHtml}
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h4>💬 Comments</h4>
+            <div class="comment-form">
+                <input type="text" id="comment-nickname" placeholder="Nickname (optional)" maxlength="30">
+                <div class="rating-input" id="rating-input">
+                    <span class="rating-star" data-rating="1">☆</span>
+                    <span class="rating-star" data-rating="2">☆</span>
+                    <span class="rating-star" data-rating="3">☆</span>
+                    <span class="rating-star" data-rating="4">☆</span>
+                    <span class="rating-star" data-rating="5">☆</span>
+                </div>
+                <textarea id="comment-content" placeholder="Share your thoughts about this skill..." maxlength="500"></textarea>
+                <button class="submit-comment-btn" onclick="handleSubmitComment('${escapeHtml(install)}')">Post Comment</button>
+            </div>
+            <div class="comments-list" id="comments-list">
+                <div class="loading-comments">Loading comments...</div>
+            </div>
+        </div>
     `;
 
     elements.modal.classList.remove('hidden');
+
+    // Load community stats and comments
+    loadCommunityData(install);
+}
+
+// Load community data (stats + comments)
+async function loadCommunityData(install) {
+    if (!window.SkillsDB) return;
+
+    try {
+        // Load stats
+        const stats = await window.SkillsDB.getSkillStats(install);
+        const likeBtn = document.getElementById('like-btn');
+        const likeCount = document.getElementById('like-count');
+        const commentCountDisplay = document.getElementById('comment-count-display');
+
+        if (likeBtn && likeCount) {
+            likeCount.textContent = stats.likes_count || 0;
+            if (stats.liked) {
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('.like-icon').textContent = '👍';
+            }
+        }
+        if (commentCountDisplay) {
+            commentCountDisplay.textContent = `💬 ${stats.comments_count || 0} comments`;
+        }
+
+        // Load comments
+        const comments = await window.SkillsDB.getComments(install);
+        renderComments(comments);
+
+    } catch (error) {
+        console.error('Error loading community data:', error);
+    }
+}
+
+// Handle like button click
+async function handleLike(install) {
+    if (!window.SkillsDB) return;
+
+    const likeBtn = document.getElementById('like-btn');
+    const likeCount = document.getElementById('like-count');
+
+    // Optimistic UI update
+    const wasLiked = likeBtn.classList.contains('liked');
+    likeBtn.classList.toggle('liked');
+    const currentCount = parseInt(likeCount.textContent) || 0;
+    likeCount.textContent = wasLiked ? Math.max(0, currentCount - 1) : currentCount + 1;
+
+    // API call
+    const result = await window.SkillsDB.toggleLike(install);
+    if (result) {
+        likeCount.textContent = result.count;
+        likeBtn.classList.toggle('liked', result.liked);
+    }
+}
+
+// Rating state
+let currentRating = 0;
+
+// Handle rating click
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('rating-star')) {
+        const rating = parseInt(e.target.dataset.rating);
+        currentRating = rating;
+        updateRatingDisplay(rating);
+    }
+});
+
+function updateRatingDisplay(rating) {
+    document.querySelectorAll('.rating-star').forEach((star, index) => {
+        star.textContent = index < rating ? '★' : '☆';
+        star.classList.toggle('active', index < rating);
+    });
+}
+
+// Handle comment submission
+async function handleSubmitComment(install) {
+    if (!window.SkillsDB) return;
+
+    const nicknameInput = document.getElementById('comment-nickname');
+    const contentInput = document.getElementById('comment-content');
+    const submitBtn = document.querySelector('.submit-comment-btn');
+
+    const content = contentInput.value.trim();
+    if (!content) {
+        alert('Please enter a comment');
+        return;
+    }
+
+    const nickname = nicknameInput.value.trim() || 'Anonymous';
+
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Posting...';
+
+    try {
+        const result = await window.SkillsDB.addComment(install, content, nickname, currentRating || null);
+
+        if (result.success) {
+            // Clear form
+            contentInput.value = '';
+            nicknameInput.value = '';
+            currentRating = 0;
+            updateRatingDisplay(0);
+
+            // Reload comments
+            const comments = await window.SkillsDB.getComments(install);
+            renderComments(comments);
+
+            // Update comment count
+            const commentCountDisplay = document.getElementById('comment-count-display');
+            if (commentCountDisplay) {
+                const count = parseInt(commentCountDisplay.textContent.match(/\d+/)?.[0] || 0) + 1;
+                commentCountDisplay.textContent = `💬 ${count} comments`;
+            }
+        } else {
+            alert('Failed to post comment. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error posting comment:', error);
+        alert('Failed to post comment. Please try again.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Post Comment';
+    }
+}
+
+// Render comments
+function renderComments(comments) {
+    const commentsList = document.getElementById('comments-list');
+    if (!commentsList) return;
+
+    if (!comments || comments.length === 0) {
+        commentsList.innerHTML = '<div class="no-comments">No comments yet. Be the first to share your thoughts!</div>';
+        return;
+    }
+
+    commentsList.innerHTML = comments.map(comment => {
+        const date = new Date(comment.created_at).toLocaleDateString();
+        const ratingHtml = comment.rating ?
+            `<span class="comment-rating">${'★'.repeat(comment.rating)}${'☆'.repeat(5 - comment.rating)}</span>` : '';
+
+        return `
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span class="comment-author">${escapeHtml(comment.nickname)}</span>
+                    ${ratingHtml}
+                    <span class="comment-date">${date}</span>
+                </div>
+                <p class="comment-text">${escapeHtml(comment.content)}</p>
+            </div>
+        `;
+    }).join('');
 }
 
 // Find similar skills based on tags and category
