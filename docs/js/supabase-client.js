@@ -1,6 +1,7 @@
 /**
  * Supabase Client for Claude Skills Registry
  * 社区功能：点赞、评论、收藏同步
+ * 使用 Supabase Anonymous Auth 实现无感匿名用户
  */
 
 const SUPABASE_URL = 'https://gyrtkwwnghfwesvdiwap.supabase.co';
@@ -9,8 +10,52 @@ const SUPABASE_ANON_KEY = 'sb_publishable_gAuZcQ3joPqZAnmjdMBckg_WC4DL4Sl';
 // 初始化 Supabase 客户端
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// 获取或生成设备ID（匿名用户标识）
-function getDeviceId() {
+// 用户状态
+let currentUser = null;
+let isInitialized = false;
+
+// 获取当前用户ID（兼容匿名和登录用户）
+function getUserId() {
+    return currentUser?.id || localStorage.getItem('deviceId') || 'anonymous';
+}
+
+// 初始化匿名认证
+async function initAuth() {
+    if (isInitialized) return currentUser;
+
+    try {
+        // 检查是否已有会话
+        const { data: { session } } = await supabaseClient.auth.getSession();
+
+        if (session?.user) {
+            currentUser = session.user;
+            console.log('Existing session found:', currentUser.id);
+        } else {
+            // 自动创建匿名用户
+            const { data, error } = await supabaseClient.auth.signInAnonymously();
+
+            if (error) {
+                console.warn('Anonymous auth failed, falling back to device ID:', error.message);
+                // 降级到 device ID
+                currentUser = { id: getDeviceIdFallback() };
+            } else {
+                currentUser = data.user;
+                console.log('Anonymous user created:', currentUser.id);
+            }
+        }
+
+        isInitialized = true;
+        return currentUser;
+    } catch (error) {
+        console.error('Auth init error:', error);
+        currentUser = { id: getDeviceIdFallback() };
+        isInitialized = true;
+        return currentUser;
+    }
+}
+
+// 降级方案：设备ID
+function getDeviceIdFallback() {
     let deviceId = localStorage.getItem('deviceId');
     if (!deviceId) {
         deviceId = 'device_' + crypto.randomUUID();
@@ -19,7 +64,54 @@ function getDeviceId() {
     return deviceId;
 }
 
-const DEVICE_ID = getDeviceId();
+// 监听认证状态变化
+supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (session?.user) {
+        currentUser = session.user;
+        console.log('Auth state changed:', event, currentUser.id);
+    }
+});
+
+// 绑定 GitHub 账户（升级匿名用户）
+async function linkGitHub() {
+    const { data, error } = await supabaseClient.auth.linkIdentity({
+        provider: 'github',
+        options: {
+            redirectTo: window.location.origin
+        }
+    });
+
+    if (error) {
+        console.error('Link GitHub error:', error);
+        return { success: false, error: error.message };
+    }
+
+    return { success: true, data };
+}
+
+// 登出
+async function signOut() {
+    const { error } = await supabaseClient.auth.signOut();
+    if (!error) {
+        currentUser = null;
+        // 重新创建匿名用户
+        await initAuth();
+    }
+    return { success: !error };
+}
+
+// 检查是否是匿名用户
+function isAnonymous() {
+    return currentUser?.is_anonymous === true;
+}
+
+// 获取用户信息
+function getUser() {
+    return currentUser;
+}
+
+// 兼容旧代码的 DEVICE_ID
+const DEVICE_ID = getDeviceIdFallback();
 
 // ═══════════════════════════════════════════════════════════
 // 点赞功能
@@ -32,10 +124,13 @@ const DEVICE_ID = getDeviceId();
  */
 async function toggleLike(skillInstall) {
     try {
+        await initAuth(); // 确保已初始化
+        const userId = getUserId();
+
         const { data, error } = await supabaseClient
             .rpc('toggle_like', {
                 p_skill_install: skillInstall,
-                p_device_id: DEVICE_ID
+                p_device_id: userId
             });
 
         if (error) throw error;
@@ -69,11 +164,14 @@ function toggleLikeLocal(skillInstall) {
  */
 async function isLiked(skillInstall) {
     try {
+        await initAuth();
+        const userId = getUserId();
+
         const { data, error } = await supabaseClient
             .from('skill_likes')
             .select('id')
             .eq('skill_install', skillInstall)
-            .eq('device_id', DEVICE_ID)
+            .eq('device_id', userId)
             .single();
 
         if (error && error.code !== 'PGRST116') throw error;
@@ -119,10 +217,13 @@ async function getLikesCount(skillInstall) {
  */
 async function addComment(skillInstall, content, nickname = 'Anonymous', rating = null) {
     try {
+        await initAuth();
+        const userId = getUserId();
+
         const { data, error } = await supabaseClient
             .rpc('add_comment', {
                 p_skill_install: skillInstall,
-                p_device_id: DEVICE_ID,
+                p_device_id: userId,
                 p_content: content,
                 p_nickname: nickname,
                 p_rating: rating
@@ -168,11 +269,14 @@ async function getComments(skillInstall, limit = 20, offset = 0) {
  */
 async function deleteComment(commentId) {
     try {
+        await initAuth();
+        const userId = getUserId();
+
         const { error } = await supabaseClient
             .from('skill_comments')
             .update({ is_deleted: true })
             .eq('id', commentId)
-            .eq('device_id', DEVICE_ID);
+            .eq('device_id', userId);
 
         if (error) throw error;
         return true;
@@ -193,12 +297,15 @@ async function deleteComment(commentId) {
  */
 async function toggleFavoriteCloud(skillInstall) {
     try {
+        await initAuth();
+        const userId = getUserId();
+
         // 检查是否已收藏
         const { data: existing } = await supabaseClient
             .from('user_favorites')
             .select('id')
             .eq('skill_install', skillInstall)
-            .eq('device_id', DEVICE_ID)
+            .eq('device_id', userId)
             .single();
 
         if (existing) {
@@ -216,7 +323,8 @@ async function toggleFavoriteCloud(skillInstall) {
                 .from('user_favorites')
                 .insert({
                     skill_install: skillInstall,
-                    device_id: DEVICE_ID
+                    device_id: userId,
+                    user_id: currentUser?.is_anonymous === false ? currentUser.id : null
                 });
 
             if (error) throw error;
@@ -251,10 +359,13 @@ function toggleFavoriteLocal(skillInstall) {
  */
 async function getFavorites() {
     try {
+        await initAuth();
+        const userId = getUserId();
+
         const { data, error } = await supabaseClient
             .from('user_favorites')
             .select('skill_install')
-            .eq('device_id', DEVICE_ID);
+            .eq('device_id', userId);
 
         if (error) throw error;
         return (data || []).map(f => f.skill_install);
@@ -272,6 +383,9 @@ async function syncFavoritesToCloud() {
     if (localFavorites.length === 0) return;
 
     try {
+        await initAuth();
+        const userId = getUserId();
+
         // 获取云端收藏
         const cloudFavorites = await getFavorites();
 
@@ -284,7 +398,7 @@ async function syncFavoritesToCloud() {
                 .upsert(
                     toSync.map(skill_install => ({
                         skill_install,
-                        device_id: DEVICE_ID
+                        device_id: userId
                     })),
                     { onConflict: 'skill_install,device_id' }
                 );
@@ -308,10 +422,13 @@ async function syncFavoritesToCloud() {
  */
 async function getSkillStats(skillInstall) {
     try {
+        await initAuth();
+        const userId = getUserId();
+
         const { data, error } = await supabaseClient
             .rpc('get_skill_stats', {
                 p_skill_install: skillInstall,
-                p_device_id: DEVICE_ID
+                p_device_id: userId
             });
 
         if (error) throw error;
@@ -372,24 +489,45 @@ async function getBatchStats(skillInstalls) {
 // 初始化
 // ═══════════════════════════════════════════════════════════
 
-// 页面加载时同步收藏
-document.addEventListener('DOMContentLoaded', () => {
-    // 延迟同步，不阻塞页面加载
+// 页面加载时初始化认证并同步收藏
+document.addEventListener('DOMContentLoaded', async () => {
+    // 初始化匿名认证
+    await initAuth();
+    console.log('Auth initialized, user:', getUserId());
+
+    // 延迟同步收藏
     setTimeout(syncFavoritesToCloud, 2000);
 });
 
 // 导出给全局使用
 window.SkillsDB = {
+    // 认证相关
+    initAuth,
+    getUser,
+    getUserId,
+    isAnonymous,
+    linkGitHub,
+    signOut,
+
+    // 点赞
     toggleLike,
     isLiked,
     getLikesCount,
+
+    // 评论
     addComment,
     getComments,
     deleteComment,
+
+    // 收藏
     toggleFavorite: toggleFavoriteCloud,
     getFavorites,
+
+    // 统计
     getSkillStats,
     getTrendingSkills,
     getBatchStats,
-    DEVICE_ID
+
+    // Supabase 客户端（高级用法）
+    client: supabaseClient
 };
