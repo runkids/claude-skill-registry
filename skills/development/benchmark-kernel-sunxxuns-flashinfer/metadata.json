@@ -1,0 +1,10 @@
+{
+  "name": "benchmark-kernel-sunxxuns-flashinfer",
+  "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
+  "category": "development",
+  "repo": "sunxxuns/flashinfer",
+  "path": ".claude/skills/benchmark-kernel/SKILL.md",
+  "stars": 0,
+  "source": "github.com/sunxxuns/flashinfer",
+  "downloaded_at": "2026-01-24T16:15:54.806758Z"
+}

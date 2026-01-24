@@ -1,0 +1,10 @@
+{
+  "name": "gh-address-comments-jibaxzzz-codex-root-configurat",
+  "description": "Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in.",
+  "category": "development",
+  "repo": "jibaxZZZ/codex-root-configuration",
+  "path": ".codex/skills/gh-address-comments/SKILL.md",
+  "stars": 0,
+  "source": "github.com/jibaxZZZ/codex-root-configuration",
+  "downloaded_at": "2026-01-24T16:15:10.031818Z"
+}

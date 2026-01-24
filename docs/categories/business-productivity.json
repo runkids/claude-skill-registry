@@ -1,0 +1,20 @@
+{
+  "category": "business-productivity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:37.473885Z",
+  "skills": [
+    {
+      "name": "content",
+      "description": "Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing proc",
+      "repo": "davepoon/buildwithclaude",
+      "path": "",
+      "branch": "main",
+      "category": "business-productivity",
+      "tags": [],
+      "stars": 2299,
+      "install": "davepoon/buildwithclaude",
+      "source": "github.com/davepoon/buildwithclaude"
+    }
+  ]
+}

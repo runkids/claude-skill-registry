@@ -1,0 +1,10 @@
+{
+  "name": "design-principles-mixtapesoftware-pop-stash",
+  "description": "Enforce a precise, minimal design system inspired by Linear, Notion, and Stripe. Use this skill when building dashboards, admin interfaces, or any UI that needs Jony Ive-level precision - clean, moder",
+  "category": "devops",
+  "repo": "MixTapeSoftware/pop_stash",
+  "path": ".claude/skills/design-principles/skill.md",
+  "stars": 2,
+  "source": "github.com/MixTapeSoftware/pop_stash",
+  "downloaded_at": "2026-01-24T16:15:30.901010Z"
+}

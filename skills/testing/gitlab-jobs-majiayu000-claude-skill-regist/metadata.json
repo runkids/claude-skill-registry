@@ -1,0 +1,10 @@
+{
+  "name": "gitlab-jobs-majiayu000-claude-skill-regist",
+  "description": "Manages GitLab CI jobs. Use for listing, logs, canceling, retrying, or erasing jobs. Triggers: CI builds, job status.",
+  "category": "testing",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/gitlab-jobs/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:20.623143Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "blucli-clawdbot-skills",
+  "description": "BluOS CLI (blu) for discovery, playback, grouping, and volume.",
+  "category": "development",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/blucli/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:27.560745Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "skill-creator-thalesmms-vllm-config",
+  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflo",
+  "category": "development",
+  "repo": "ThalesMMS/vLLM-config",
+  "path": ".codex/skills/.system/skill-creator/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ThalesMMS/vLLM-config",
+  "downloaded_at": "2026-01-24T16:15:28.394100Z"
+}

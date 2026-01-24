@@ -1,0 +1,10 @@
+{
+  "name": "skill-creator-moorestech-moorestech",
+  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+  "category": "development",
+  "repo": "moorestech/moorestech",
+  "path": ".codex/skills/skill-creator/SKILL.md",
+  "stars": 54,
+  "source": "github.com/moorestech/moorestech",
+  "downloaded_at": "2026-01-24T16:15:55.789551Z"
+}

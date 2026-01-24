@@ -1,0 +1,10 @@
+{
+  "name": "clinpgx-database-sologa-codex-pipeline",
+  "description": "Access ClinPGx pharmacogenomics data (successor to PharmGKB). Query gene-drug interactions, CPIC guidelines, allele functions, for precision medicine and genotype-guided dosing decisions.",
+  "category": "development",
+  "repo": "Sologa/codex-pipeline",
+  "path": ".codex/skills/clinpgx-database/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Sologa/codex-pipeline",
+  "downloaded_at": "2026-01-24T16:15:06.643842Z"
+}

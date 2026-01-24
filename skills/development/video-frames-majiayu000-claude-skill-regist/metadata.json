@@ -1,0 +1,10 @@
+{
+  "name": "video-frames-majiayu000-claude-skill-regist",
+  "description": "Extract frames or short clips from videos using ffmpeg.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/development/video-frames/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:05.551656Z"
+}

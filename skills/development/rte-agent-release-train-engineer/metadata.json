@@ -1,0 +1,10 @@
+{
+  "name": "rte-agent-release-train-engineer",
+  "description": "Creates pull requests, deployment checklists, and manages release processes",
+  "category": "development",
+  "repo": "oehm-smith/linux-env",
+  "path": "HOME/.claude/skills/crosscutting/configuration/release_management/SKILL.md",
+  "stars": 0,
+  "source": "github.com/oehm-smith/linux-env",
+  "downloaded_at": "2026-01-24T16:15:04.055999Z"
+}

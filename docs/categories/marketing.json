@@ -1,8 +1,8 @@
 {
   "category": "marketing",
   "code": "mkt",
-  "count": 363,
-  "updated_at": "2026-01-24T15:00:10.747838Z",
+  "count": 369,
+  "updated_at": "2026-01-24T16:17:38.141340Z",
   "skills": [
     {
       "name": "digital",
@@ -33,6 +33,18 @@
       "stars": 3797,
       "install": "EpicenterHQ/epicenter/skills/social-media",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "baoyu",
+      "description": "Generates professional slide deck images from content. Creates outlines with style instructions, then generates individual slide images. Use when user asks to \"create slides\", \"make a presentation\", \"",
+      "repo": "JimLiu/baoyu-skills",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 2371,
+      "install": "JimLiu/baoyu-skills",
+      "source": "github.com/JimLiu/baoyu-skills"
     },
     {
       "name": "firecrawl",
@@ -202,6 +214,30 @@
       "stars": 45,
       "install": "aaron-he-zhu/seo-geo-claude-skills/research/competitor-analysis",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "readme",
+      "description": "ダウンロード",
+      "repo": "nuun888/MZ",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 33,
+      "install": "nuun888/MZ",
+      "source": "github.com/nuun888/MZ"
+    },
+    {
+      "name": "readme",
+      "description": "ダウンロード",
+      "repo": "nuun888/MZ",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 33,
+      "install": "nuun888/MZ",
+      "source": "github.com/nuun888/MZ"
     },
     {
       "name": "content",
@@ -1673,6 +1709,18 @@
       "source": "downloaded"
     },
     {
+      "name": "screaming",
+      "description": "Crawl and analyze websites with Screaming Frog SEO Spider.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    },
+    {
       "name": "apex",
       "description": "Apex - Senior Product Marketing Manager & CSO specializing in B2B/B2C IT Products & SaaS. Use for Go-To-Market strategies, product positioning, growth funnels, IT product copywriting, SEO content stra",
       "repo": "olehsvyrydov/AI-development-team",
@@ -1794,6 +1842,18 @@
       "stars": 0,
       "install": "uukuguy/claude-agent-framework/examples/production/03_marketing_content/.claude/skills/content-generation",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "baoyu",
+      "description": "Generates professional slide deck images from content. Creates outlines with style instructions, then generates individual slide images. Use when user asks to \"create slides\", \"make a presentation\", \"",
+      "repo": "Dknight203/AesopIDE",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Dknight203/AesopIDE",
+      "source": "github.com/Dknight203/AesopIDE"
     },
     {
       "name": "focus",
@@ -4003,6 +4063,18 @@
       "stars": 0,
       "install": "rajshah4/my-agent-skills/skills/annotate-talk",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "baoyu",
+      "description": "Generates professional slide deck images from content. Creates outlines with style instructions, then generates individual slide images. Use when user asks to \"create slides\", \"make a presentation\", \"",
+      "repo": "Dknight203/AesopIDE",
+      "path": "",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "Dknight203/AesopIDE",
+      "source": "github.com/Dknight203/AesopIDE"
     },
     {
       "name": "marketing",

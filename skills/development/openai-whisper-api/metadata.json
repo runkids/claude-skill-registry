@@ -1,0 +1,10 @@
+{
+  "name": "openai-whisper-api",
+  "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+  "category": "development",
+  "repo": "drshailesh88/Krypto",
+  "path": "skills/openai-whisper-api/SKILL.md",
+  "stars": 0,
+  "source": "github.com/drshailesh88/Krypto",
+  "downloaded_at": "2026-01-24T16:15:02.326817Z"
+}

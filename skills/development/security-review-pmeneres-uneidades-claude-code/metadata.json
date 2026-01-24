@@ -1,0 +1,10 @@
+{
+  "name": "security-review-pmeneres-uneidades-claude-code",
+  "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and ",
+  "category": "development",
+  "repo": "pmeneres-uneidades/claude-code-arsenal",
+  "path": "skills/security-review/SKILL.md",
+  "stars": 0,
+  "source": "github.com/pmeneres-uneidades/claude-code-arsenal",
+  "downloaded_at": "2026-01-24T16:15:15.787862Z"
+}

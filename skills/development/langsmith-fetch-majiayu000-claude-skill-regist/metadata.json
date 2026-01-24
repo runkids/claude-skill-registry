@@ -1,0 +1,10 @@
+{
+  "name": "langsmith-fetch-majiayu000-claude-skill-regist",
+  "description": "Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or e",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/development/langsmith-fetch/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:14.210730Z"
+}

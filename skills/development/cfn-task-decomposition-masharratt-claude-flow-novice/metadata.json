@@ -1,0 +1,10 @@
+{
+  "name": "cfn-task-decomposition-masharratt-claude-flow-novice",
+  "description": "",
+  "category": "development",
+  "repo": "masharratt/claude-flow-novice",
+  "path": ".claude/skills/cfn-task-decomposition/SKILL.md",
+  "stars": 14,
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-24T16:15:53.045346Z"
+}

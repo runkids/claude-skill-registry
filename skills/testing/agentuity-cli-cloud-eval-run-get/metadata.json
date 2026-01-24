@@ -1,0 +1,10 @@
+{
+  "name": "agentuity-cli-cloud-eval-run-get",
+  "description": "Get details about a specific eval run. Requires authentication. Use for Agentuity cloud platform operations",
+  "category": "testing",
+  "repo": "agentuity/docs",
+  "path": "doc-agents/.agents/skills/agentuity-cli-cloud-eval-run-get/SKILL.md",
+  "stars": 4,
+  "source": "github.com/agentuity/docs",
+  "downloaded_at": "2026-01-24T16:15:15.278565Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "model-usage-drshailesh88-krypto",
+  "description": "Use CodexBar CLI local cost usage to summarize per-model usage for Codex or Claude, including the current (most recent) model or a full model breakdown. Trigger when asked for model-level usage/cost d",
+  "category": "development",
+  "repo": "drshailesh88/Krypto",
+  "path": "skills/model-usage/SKILL.md",
+  "stars": 0,
+  "source": "github.com/drshailesh88/Krypto",
+  "downloaded_at": "2026-01-24T16:15:03.999535Z"
+}

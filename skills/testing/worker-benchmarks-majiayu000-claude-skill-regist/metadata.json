@@ -1,0 +1,10 @@
+{
+  "name": "worker-benchmarks-majiayu000-claude-skill-regist",
+  "description": "Run comprehensive worker system benchmarks and performance analysis",
+  "category": "testing",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/worker-benchmarks/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:47.684959Z"
+}

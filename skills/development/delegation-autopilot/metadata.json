@@ -1,0 +1,10 @@
+{
+  "name": "delegation-autopilot",
+  "description": "In Codex interactive mode, call delegate_autopilot automatically for multi-step or cross-cutting requests (including research-only), otherwise work normally.",
+  "category": "development",
+  "repo": "hou27/codex-specialized-subagents",
+  "path": ".codex/skills/delegation-autopilot/SKILL.md",
+  "stars": 0,
+  "source": "github.com/hou27/codex-specialized-subagents",
+  "downloaded_at": "2026-01-24T16:15:34.133107Z"
+}

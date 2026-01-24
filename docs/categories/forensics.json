@@ -1,0 +1,32 @@
+{
+  "category": "forensics",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-01-24T16:17:38.127980Z",
+  "skills": [
+    {
+      "name": "email",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "forensics",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "email",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "forensics",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

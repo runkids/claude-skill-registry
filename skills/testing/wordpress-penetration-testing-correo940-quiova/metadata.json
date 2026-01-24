@@ -1,0 +1,10 @@
+{
+  "name": "wordpress-penetration-testing-correo940-quiova",
+  "description": "This skill should be used when the user asks to \"pentest WordPress sites\", \"scan WordPress for vulnerabilities\", \"enumerate WordPress users, themes, or plugins\", \"exploit WordPress vulnerabilities\", o",
+  "category": "testing",
+  "repo": "correo940/Quiova",
+  "path": ".agent/skills/wordpress-penetration-testing/SKILL.md",
+  "stars": 0,
+  "source": "github.com/correo940/Quiova",
+  "downloaded_at": "2026-01-24T16:15:49.171677Z"
+}

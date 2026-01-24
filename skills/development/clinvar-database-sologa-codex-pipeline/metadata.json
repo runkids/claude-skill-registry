@@ -1,0 +1,10 @@
+{
+  "name": "clinvar-database-sologa-codex-pipeline",
+  "description": "Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP, annotate VCFs, for genomic medicine.",
+  "category": "development",
+  "repo": "Sologa/codex-pipeline",
+  "path": ".codex/skills/clinvar-database/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Sologa/codex-pipeline",
+  "downloaded_at": "2026-01-24T16:16:04.286634Z"
+}

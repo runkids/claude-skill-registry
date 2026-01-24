@@ -1,0 +1,10 @@
+{
+  "name": "dapr-integration-maneeshanif-todo-spec-driven",
+  "description": "Integrate Dapr building blocks for event-driven microservices - Pub/Sub, State Management, Secrets, Service Invocation, and Jobs API. Use when implementing event-driven architecture for Phase 5. (proj",
+  "category": "development",
+  "repo": "maneeshanif/todo-spec-driven",
+  "path": ".claude/skills/dapr-integration/SKILL.md",
+  "stars": 0,
+  "source": "github.com/maneeshanif/todo-spec-driven",
+  "downloaded_at": "2026-01-24T16:16:09.621679Z"
+}

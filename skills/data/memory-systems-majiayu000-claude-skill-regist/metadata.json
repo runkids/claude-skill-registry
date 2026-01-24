@@ -1,0 +1,10 @@
+{
+  "name": "memory-systems-majiayu000-claude-skill-regist",
+  "description": "This skill should be used when the user asks to \"implement agent memory\", \"persist state across sessions\", \"build knowledge graph\", \"track entities\", or mentions memory architecture, temporal knowledg",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/memory-systems/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:08.384423Z"
+}

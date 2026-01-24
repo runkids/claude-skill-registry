@@ -1,0 +1,10 @@
+{
+  "name": "blogwatcher-harleycoops-clawdbot",
+  "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/blogwatcher/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:16:07.951020Z"
+}

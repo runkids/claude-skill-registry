@@ -1,0 +1,10 @@
+{
+  "name": "neuropixels-analysis-sologa-codex-pipeline",
+  "description": "Neuropixels neural recording analysis. Load SpikeGLX/OpenEphys data, preprocess, motion correction, Kilosort4 spike sorting, quality metrics, Allen/IBL curation, AI-assisted visual analysis, for Neuro",
+  "category": "development",
+  "repo": "Sologa/codex-pipeline",
+  "path": ".codex/skills/neuropixels-analysis/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Sologa/codex-pipeline",
+  "downloaded_at": "2026-01-24T16:15:45.678380Z"
+}

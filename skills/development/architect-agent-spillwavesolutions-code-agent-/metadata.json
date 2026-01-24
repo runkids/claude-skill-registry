@@ -1,0 +1,10 @@
+{
+  "name": "architect-agent-spillwavesolutions-code-agent-",
+  "description": "Coordinates planning, delegation, and evaluation across architect and code agent workspaces. Use when asked to \"write instructions for code agent\", \"initialize architect workspace\", \"grade code agent ",
+  "category": "development",
+  "repo": "SpillwaveSolutions/code_agent_context_hooks",
+  "path": ".skilz/skills/architect-agent/SKILL.md",
+  "stars": 1,
+  "source": "github.com/SpillwaveSolutions/code_agent_context_hooks",
+  "downloaded_at": "2026-01-24T16:16:03.805176Z"
+}

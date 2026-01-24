@@ -1,0 +1,10 @@
+{
+  "name": "query-optimization-agent-unicorn-radium",
+  "description": "Analyzes and optimizes database queries for performance and efficiency",
+  "category": "data",
+  "repo": "Unicorn/Radium",
+  "path": "skills/data/query-optimization-agent/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Unicorn/Radium",
+  "downloaded_at": "2026-01-24T16:16:06.789701Z"
+}

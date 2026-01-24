@@ -1,0 +1,10 @@
+{
+  "name": "ddd-check",
+  "description": "DDD設計原則チェッカー（AIDLC ドキュメントと実装コードの一貫性を検証）",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/ddd-check/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:58.612541Z"
+}

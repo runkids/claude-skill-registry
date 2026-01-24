@@ -1,0 +1,10 @@
+{
+  "name": "writing-hookify-rules",
+  "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+  "category": "testing",
+  "repo": "kgadek/kgadek-claude-plugin",
+  "path": "ai-spec/2026-01-21-sdd-inspirations/references/anthropics-claude-plugins-official/plugins/hookify/skills/writing-rules/SKILL.md",
+  "stars": 0,
+  "source": "github.com/kgadek/kgadek-claude-plugin",
+  "downloaded_at": "2026-01-24T16:15:34.132146Z"
+}

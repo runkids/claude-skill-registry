@@ -1,0 +1,10 @@
+{
+  "name": "add-agent-property",
+  "description": "Add a new property to the AI agents database. Use when the user wants to add, create, or introduce a new column, property, field, or feature to track across all agents in the comparison matrix. Handle",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/add-agent-property/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:26.263592Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "idapython",
+  "description": "IDA Pro Python scripting for reverse engineering. Use when writing IDAPython scripts, analyzing binaries, working with IDA's API for disassembly, decompilation (Hex-Rays), type systems, cross-referenc",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/idapython/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:09.395759Z"
+}

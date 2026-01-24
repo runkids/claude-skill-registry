@@ -1,0 +1,10 @@
+{
+  "name": "create-feature-branch-berrykuipers-claude-code-toolk",
+  "description": "Create properly named feature branch from development with remote tracking, following WescoBar naming conventions and git best practices",
+  "category": "development",
+  "repo": "BerryKuipers/claude-code-toolkit",
+  "path": ".claude/skills/git-workflows/create-feature-branch/SKILL.md",
+  "stars": 5,
+  "source": "github.com/BerryKuipers/claude-code-toolkit",
+  "downloaded_at": "2026-01-24T16:15:14.898904Z"
+}

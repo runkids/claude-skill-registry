@@ -1,0 +1,10 @@
+{
+  "name": "pathml-sologa-codex-pipeline",
+  "description": "Full-featured computational pathology toolkit. Use for advanced WSI analysis including multiplexed immunofluorescence (CODEX, Vectra), nucleus segmentation, tissue graph construction, and ML model tra",
+  "category": "development",
+  "repo": "Sologa/codex-pipeline",
+  "path": ".codex/skills/pathml/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Sologa/codex-pipeline",
+  "downloaded_at": "2026-01-24T16:15:28.137118Z"
+}

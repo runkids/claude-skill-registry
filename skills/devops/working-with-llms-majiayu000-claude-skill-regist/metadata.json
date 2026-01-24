@@ -1,0 +1,10 @@
+{
+  "name": "working-with-llms-majiayu000-claude-skill-regist",
+  "description": "Mandatory workflow for creating LLM-facing content. Follow the 4-step process (objective → draft → verify → adjust) before writing any prompt, skill, tool description, or system instruction. Triggers ",
+  "category": "devops",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/working-with-llms/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:47.632622Z"
+}

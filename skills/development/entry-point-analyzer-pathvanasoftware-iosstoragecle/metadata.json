@@ -1,0 +1,10 @@
+{
+  "name": "entry-point-analyzer-pathvanasoftware-iosstoragecle",
+  "description": "Analyzes smart contract codebases to identify state-changing entry points for security auditing. Detects externally callable functions that modify state, categorizes them by access level (public, admi",
+  "category": "development",
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/trailofbits-entry-point-analyzer/skills/entry-point-analyzer/SKILL.md",
+  "stars": 0,
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-24T16:15:36.549801Z"
+}

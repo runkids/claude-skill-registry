@@ -1,0 +1,10 @@
+{
+  "name": "infographic-template-updater-majiayu000-claude-skill-regist",
+  "description": "Update template catalogs and UI prompts after adding new infographic templates (src/templates/*.ts), including SKILL.md template list, site gallery template mappings, and the AIPlayground prompt list.",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/infographic-template-updater/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:46.649054Z"
+}

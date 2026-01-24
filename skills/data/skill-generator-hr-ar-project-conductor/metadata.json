@@ -1,0 +1,10 @@
+{
+  "name": "skill-generator-hr-ar-project-conductor",
+  "description": "Meta-skill that creates new skills. Use when user repeatedly explains the same workflow, or mentions \"save this as a skill\", \"remember this process\", or \"create a skill for this\".",
+  "category": "data",
+  "repo": "HR-AR/Project-Conductor",
+  "path": ".claude/skills/skill-generator/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HR-AR/Project-Conductor",
+  "downloaded_at": "2026-01-24T16:15:55.823260Z"
+}

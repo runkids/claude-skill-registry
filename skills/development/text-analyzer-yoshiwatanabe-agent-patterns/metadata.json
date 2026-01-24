@@ -1,0 +1,10 @@
+{
+  "name": "text-analyzer-yoshiwatanabe-agent-patterns",
+  "description": "Comprehensive text analysis coordinator. Execute Python script for multi-aspect text analysis. Use when you need grammar, sentiment, readability, and SEO analysis combined.",
+  "category": "development",
+  "repo": "yoshiwatanabe/agent-patterns",
+  "path": ".claude/skills/text-analyzer/SKILL.md",
+  "stars": 1,
+  "source": "github.com/yoshiwatanabe/agent-patterns",
+  "downloaded_at": "2026-01-24T16:15:17.579687Z"
+}

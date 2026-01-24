@@ -1,0 +1,10 @@
+{
+  "name": "pdf-majiayu000-claude-skill-regist",
+  "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/documents/pdf/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:51.174844Z"
+}

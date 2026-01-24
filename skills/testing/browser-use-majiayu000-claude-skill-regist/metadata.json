@@ -1,0 +1,10 @@
+{
+  "name": "browser-use-majiayu000-claude-skill-regist",
+  "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or ",
+  "category": "testing",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/browser-use/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:48.640406Z"
+}

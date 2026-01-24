@@ -1,0 +1,10 @@
+{
+  "name": "agent-memory-morixxfoxdata-morixx-dev",
+  "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
+  "category": "other",
+  "repo": "morixxfoxdata/morixx_dev",
+  "path": ".claude/skills/agent-memory/SKILL.md",
+  "stars": 0,
+  "source": "github.com/morixxfoxdata/morixx_dev",
+  "downloaded_at": "2026-01-24T16:15:13.836068Z"
+}

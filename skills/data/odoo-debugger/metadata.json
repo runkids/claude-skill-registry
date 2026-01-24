@@ -1,0 +1,10 @@
+{
+  "name": "odoo-debugger",
+  "description": "Analyzes and resolves Odoo 16.0 issues including SVL linking problems, queue job failures, view errors, and business logic bugs. This skill should be used when the user reports problems such as \"Debug",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/odoo-debugger/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:06.386464Z"
+}

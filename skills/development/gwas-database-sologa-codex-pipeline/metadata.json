@@ -1,0 +1,10 @@
+{
+  "name": "gwas-database-sologa-codex-pipeline",
+  "description": "Query NHGRI-EBI GWAS Catalog for SNP-trait associations. Search variants by rs ID, disease/trait, gene, retrieve p-values and summary statistics, for genetic epidemiology and polygenic risk scores.",
+  "category": "development",
+  "repo": "Sologa/codex-pipeline",
+  "path": ".codex/skills/gwas-database/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Sologa/codex-pipeline",
+  "downloaded_at": "2026-01-24T16:15:47.480865Z"
+}

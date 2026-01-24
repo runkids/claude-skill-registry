@@ -1,0 +1,10 @@
+{
+  "name": "eightctl-harleycoops-clawdbot",
+  "description": "Control Eight Sleep pods (status, temperature, alarms, schedules).",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/eightctl/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:15.442231Z"
+}

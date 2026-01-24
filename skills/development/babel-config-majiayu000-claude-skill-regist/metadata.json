@@ -1,0 +1,10 @@
+{
+  "name": "babel-config-majiayu000-claude-skill-regist",
+  "description": "Generates Babel configuration for JavaScript transpilation in tests. Creates babel.config.js file.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/babel-config/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:45.610923Z"
+}

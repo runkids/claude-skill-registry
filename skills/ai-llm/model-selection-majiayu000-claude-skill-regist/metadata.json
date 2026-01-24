@@ -1,0 +1,10 @@
+{
+  "name": "model-selection-majiayu000-claude-skill-regist",
+  "description": "Automatically applies when choosing LLM models and providers. Ensures proper model comparison, provider selection, cost optimization, fallback patterns, and multi-model strategies.",
+  "category": "ai-llm",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/model-selection/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:08.399377Z"
+}

@@ -1,0 +1,56 @@
+{
+  "category": "planning",
+  "code": "oth",
+  "count": 4,
+  "updated_at": "2026-01-24T16:17:38.438070Z",
+  "skills": [
+    {
+      "name": "brainstorming",
+      "description": "Use when rough ideas need design before code, requirements are fuzzy, multiple approaches exist, or you need to explore options before implementation",
+      "repo": "TechNickAI/ai-coding-config",
+      "path": "",
+      "branch": "main",
+      "category": "planning",
+      "tags": [],
+      "stars": 16,
+      "install": "TechNickAI/ai-coding-config",
+      "source": "github.com/TechNickAI/ai-coding-config"
+    },
+    {
+      "name": "brainstorming",
+      "description": "Use when rough ideas need design before code, requirements are fuzzy, multiple approaches exist, or you need to explore options before implementation",
+      "repo": "Light-Brands/lawless-ai",
+      "path": "",
+      "branch": "main",
+      "category": "planning",
+      "tags": [],
+      "stars": 0,
+      "install": "Light-Brands/lawless-ai",
+      "source": "github.com/Light-Brands/lawless-ai"
+    },
+    {
+      "name": "brainstorming",
+      "description": "Use when rough ideas need design before code, requirements are fuzzy, multiple approaches exist, or you need to explore options before implementation",
+      "repo": "Light-Brands/lawless-ai-v1",
+      "path": "",
+      "branch": "main",
+      "category": "planning",
+      "tags": [],
+      "stars": 0,
+      "install": "Light-Brands/lawless-ai-v1",
+      "source": "github.com/Light-Brands/lawless-ai-v1"
+    },
+    {
+      "name": "brainstorming",
+      "description": "Use when rough ideas need design before code, requirements are fuzzy, multiple approaches exist, or you need to explore options before implementation",
+      "repo": "Light-Brands/base-ai",
+      "path": "",
+      "branch": "main",
+      "category": "planning",
+      "tags": [],
+      "stars": 0,
+      "install": "Light-Brands/base-ai",
+      "source": "github.com/Light-Brands/base-ai"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "privacy-risk-assessment-majiayu000-claude-skill-regist",
+  "description": "Assess data privacy and compliance risks in pilot data workflows and outputs. Use when evaluating data handling practices, consent requirements, and privacy regulations for pilot initiatives.",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/privacy-risk-assessment/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:45.176820Z"
+}

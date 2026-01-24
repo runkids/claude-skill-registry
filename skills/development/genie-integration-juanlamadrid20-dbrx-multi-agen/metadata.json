@@ -1,0 +1,10 @@
+{
+  "name": "genie-integration-juanlamadrid20-dbrx-multi-agen",
+  "description": "Integrate Databricks Genie rooms as tools in agent workflows. Use when integrating Genie spaces with AI agents, querying Genie rooms programmatically via SDK or MCP, managing Genie conversations and p",
+  "category": "development",
+  "repo": "juanlamadrid20/dbrx-multi-agent-retail-intelligence",
+  "path": ".claude/skills/genie-integration/SKILL.md",
+  "stars": 0,
+  "source": "github.com/juanlamadrid20/dbrx-multi-agent-retail-intelligence",
+  "downloaded_at": "2026-01-24T16:15:34.996419Z"
+}

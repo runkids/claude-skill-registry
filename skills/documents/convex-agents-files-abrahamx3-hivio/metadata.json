@@ -1,0 +1,10 @@
+{
+  "name": "convex-agents-files-abrahamx3-hivio",
+  "description": "Handles file uploads, image attachments, and media processing in agent conversations. Use this when agents analyze images, process documents, or generate files.",
+  "category": "documents",
+  "repo": "AbrahamX3/hivio",
+  "path": ".cursor/skills/convex-agents-files/SKILL.md",
+  "stars": 0,
+  "source": "github.com/AbrahamX3/hivio",
+  "downloaded_at": "2026-01-24T16:15:57.349929Z"
+}

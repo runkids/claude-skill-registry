@@ -1,0 +1,10 @@
+{
+  "name": "commands-nm7-jp-morpheus-operator",
+  "description": "スキルを作成し、レビュー・自動修正まで行う",
+  "category": "development",
+  "repo": "nm7-jp/morpheus-operator",
+  "path": ".claude/commands/create-skill.md",
+  "stars": 0,
+  "source": "github.com/nm7-jp/morpheus-operator",
+  "downloaded_at": "2026-01-24T16:15:23.464498Z"
+}

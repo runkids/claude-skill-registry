@@ -1,0 +1,32 @@
+{
+  "category": "api",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-01-24T16:17:37.473177Z",
+  "skills": [
+    {
+      "name": "sse",
+      "description": "Redis-backed SSE stream management with stream registry, heartbeat monitoring, completion store for terminal events, and automatic orphan cleanup via background guardian process.",
+      "repo": "dadbodgeoff/drift",
+      "path": "",
+      "branch": "main",
+      "category": "api",
+      "tags": [],
+      "stars": 169,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    },
+    {
+      "name": "sse",
+      "description": "Redis-backed SSE stream management with stream registry, heartbeat monitoring, completion store for terminal events, and automatic orphan cleanup via background guardian process.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "api",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "astro-frontend-ui",
+  "description": "Build the Astro frontend with Tailwind CSS v4 via the Vite plugin, a WPGraphQL data layer, and React islands (shadcn/ui) only where needed. Use when implementing or fixing frontend files under fronten",
+  "category": "development",
+  "repo": "cdryampi/wordpress_headless",
+  "path": ".codex/skills/astro-frontend-ui/SKILL.md",
+  "stars": 0,
+  "source": "github.com/cdryampi/wordpress_headless",
+  "downloaded_at": "2026-01-24T16:15:13.837154Z"
+}

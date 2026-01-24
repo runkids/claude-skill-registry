@@ -1,0 +1,10 @@
+{
+  "name": "agent-browser-camflan-dotfiles",
+  "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+  "category": "testing",
+  "repo": "camflan/dotfiles",
+  "path": "config/claude/skills/agent-browser/SKILL.md",
+  "stars": 2,
+  "source": "github.com/camflan/dotfiles",
+  "downloaded_at": "2026-01-24T16:15:25.777696Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "verification-before-completion-alabamamike-copilot-agents",
+  "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence",
+  "category": "development",
+  "repo": "AlabamaMike/copilot-agents",
+  "path": ".codex/superpowers/skills/verification-before-completion/SKILL.md",
+  "stars": 0,
+  "source": "github.com/AlabamaMike/copilot-agents",
+  "downloaded_at": "2026-01-24T16:15:47.476288Z"
+}

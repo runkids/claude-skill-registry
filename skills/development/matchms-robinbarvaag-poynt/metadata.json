@@ -1,0 +1,10 @@
+{
+  "name": "matchms-robinbarvaag-poynt",
+  "description": "Mass spectrometry analysis. Process mzML/MGF/MSP, spectral similarity (cosine, modified cosine), metadata harmonization, compound ID, for metabolomics and MS data processing.",
+  "category": "development",
+  "repo": "robinbarvaag/poynt",
+  "path": ".github/skills/matchms/SKILL.md",
+  "stars": 0,
+  "source": "github.com/robinbarvaag/poynt",
+  "downloaded_at": "2026-01-24T16:16:05.655215Z"
+}

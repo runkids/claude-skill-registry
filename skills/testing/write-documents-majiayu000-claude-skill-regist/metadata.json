@@ -1,0 +1,10 @@
+{
+  "name": "write-documents-majiayu000-claude-skill-regist",
+  "description": "Apply when creating or editing INFO, SPEC, IMPL, TEST, FIX documents, or STRUT plans",
+  "category": "testing",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/write-documents/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:44.834962Z"
+}

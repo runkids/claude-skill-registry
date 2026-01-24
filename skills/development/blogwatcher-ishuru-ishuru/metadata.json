@@ -1,0 +1,10 @@
+{
+  "name": "blogwatcher-ishuru-ishuru",
+  "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+  "category": "development",
+  "repo": "ishuru/ishuru",
+  "path": "skills/blogwatcher/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ishuru/ishuru",
+  "downloaded_at": "2026-01-24T16:16:10.593207Z"
+}

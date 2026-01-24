@@ -1,0 +1,10 @@
+{
+  "name": "trello",
+  "description": "Manage Trello boards, lists, and cards via the Trello REST API.",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/trello/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:11.592228Z"
+}

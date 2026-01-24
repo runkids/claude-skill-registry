@@ -1,0 +1,10 @@
+{
+  "name": "fx-explore-majiayu000-claude-skill-regist",
+  "description": "Discover available effects, actions, and placeholders in a Sandestin project. Use when asking what effects exist, searching for functionality, or needing example invocations. Keywords: effects, action",
+  "category": "documents",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/fx-explore/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:19.925398Z"
+}

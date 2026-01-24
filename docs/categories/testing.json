@@ -1,9 +1,93 @@
 {
   "category": "testing",
   "code": "tst",
-  "count": 3092,
-  "updated_at": "2026-01-24T15:00:11.328533Z",
+  "count": 3409,
+  "updated_at": "2026-01-24T16:17:38.531650Z",
   "skills": [
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "langgenius/dify",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 127079,
+      "install": "langgenius/dify",
+      "source": "github.com/langgenius/dify"
+    },
+    {
+      "name": "frontend",
+      "description": "Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review",
+      "repo": "langgenius/dify",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 127079,
+      "install": "langgenius/dify",
+      "source": "github.com/langgenius/dify"
+    },
+    {
+      "name": "browser",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or",
+      "repo": "browser-use/browser-use",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 76633,
+      "install": "browser-use/browser-use",
+      "source": "github.com/browser-use/browser-use"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "tldraw/tldraw",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 44845,
+      "install": "tldraw/tldraw",
+      "source": "github.com/tldraw/tldraw"
+    },
+    {
+      "name": "resources",
+      "description": "You are an expert technical writer specializing in reference documentation for the Medusa ecommerce platform.",
+      "repo": "medusajs/medusa",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 31827,
+      "install": "medusajs/medusa",
+      "source": "github.com/medusajs/medusa"
+    },
+    {
+      "name": "ui",
+      "description": "You are an expert technical writer specializing in UI component library documentation for the Medusa UI design system.",
+      "repo": "medusajs/medusa",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 31827,
+      "install": "medusajs/medusa",
+      "source": "github.com/medusajs/medusa"
+    },
+    {
+      "name": "clickhouse",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
     {
       "name": "webapp",
       "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
@@ -18,6 +102,54 @@
       "stars": 24530,
       "install": "anthropics/skills/skills/webapp-testing",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "prd",
+      "description": "Generate high-quality Product Requirements Documents (PRDs) for software systems and AI-powered features. Includes executive summaries, user stories, technical specifications, and risk analysis.",
+      "repo": "github/awesome-copilot",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 18792,
+      "install": "github/awesome-copilot",
+      "source": "github.com/github/awesome-copilot"
+    },
+    {
+      "name": "webapp",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
+      "repo": "github/awesome-copilot",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 18792,
+      "install": "github/awesome-copilot",
+      "source": "github.com/github/awesome-copilot"
+    },
+    {
+      "name": "neuropixels",
+      "description": "Neuropixels neural recording analysis. Load SpikeGLX/OpenEphys data, preprocess, motion correction, Kilosort4 spike sorting, quality metrics, Allen/IBL curation, AI-assisted visual analysis, for Neuro",
+      "repo": "davila7/claude-code-templates",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 18218,
+      "install": "davila7/claude-code-templates",
+      "source": "github.com/davila7/claude-code-templates"
+    },
+    {
+      "name": "commands",
+      "description": "Scan package tests, update @.claude/rules/testing.mdc with new patterns. Follow writing-skills: DRY, ultra-concise, token-efficient.",
+      "repo": "udecode/plate",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 15831,
+      "install": "udecode/plate",
+      "source": "github.com/udecode/plate"
     },
     {
       "name": "market",
@@ -51,6 +183,78 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "worker",
+      "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+      "repo": "ruvnet/claude-flow",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 12799,
+      "install": "ruvnet/claude-flow",
+      "source": "github.com/ruvnet/claude-flow"
+    },
+    {
+      "name": "worker",
+      "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+      "repo": "ruvnet/claude-flow",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 12799,
+      "install": "ruvnet/claude-flow",
+      "source": "github.com/ruvnet/claude-flow"
+    },
+    {
+      "name": "worker",
+      "description": "Run comprehensive worker system benchmarks and performance analysis",
+      "repo": "ruvnet/claude-flow",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 12799,
+      "install": "ruvnet/claude-flow",
+      "source": "github.com/ruvnet/claude-flow"
+    },
+    {
+      "name": "skill",
+      "description": ">",
+      "repo": "prowler-cloud/prowler",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 12795,
+      "install": "prowler-cloud/prowler",
+      "source": "github.com/prowler-cloud/prowler"
+    },
+    {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "vercel-labs/agent-browser",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 10131,
+      "install": "vercel-labs/agent-browser",
+      "source": "github.com/vercel-labs/agent-browser"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "iOfficeAI/AionUi",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 10065,
+      "install": "iOfficeAI/AionUi",
+      "source": "github.com/iOfficeAI/AionUi"
+    },
+    {
       "name": "swarm",
       "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
       "repo": "ruvnet/claude-flow",
@@ -82,6 +286,54 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "baptisteArno/typebot.io",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 9614,
+      "install": "baptisteArno/typebot.io",
+      "source": "github.com/baptisteArno/typebot.io"
+    },
+    {
+      "name": "phoenix",
+      "description": "Debug LLM applications using the Phoenix CLI. Fetch traces, analyze errors, review experiments, and inspect datasets. Use when debugging AI/LLM applications, analyzing trace data, working with Phoenix",
+      "repo": "Arize-ai/phoenix",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 8346,
+      "install": "Arize-ai/phoenix",
+      "source": "github.com/Arize-ai/phoenix"
+    },
+    {
+      "name": "prd",
+      "description": "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan thi",
+      "repo": "snarktank/ralph",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 7400,
+      "install": "snarktank/ralph",
+      "source": "github.com/snarktank/ralph"
+    },
+    {
+      "name": "browser",
+      "description": "Browser automation via HTTP server. Supports multiple concurrent sessions for multi-user testing, saved flows, and profile-based auth persistence.",
+      "repo": "civitai/civitai",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 6994,
+      "install": "civitai/civitai",
+      "source": "github.com/civitai/civitai"
+    },
+    {
       "name": "backend",
       "description": "Comprehensive backend development guide for Node.js/Express/TypeScript microservices. Use when creating routes, controllers, services, repositories, middleware, or working with Express APIs, Prisma da",
       "repo": "diet103/claude-code-infrastructure-showcase",
@@ -111,6 +363,42 @@
       "stars": 6654,
       "install": "diet103/claude-code-infrastructure-showcase/.claude/skills/route-tester",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "council",
+      "description": "Multi-agent debate system. USE WHEN council, debate, perspectives, agents discuss. SkillSearch('council') for docs.",
+      "repo": "danielmiessler/Personal_AI_Infrastructure",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 5704,
+      "install": "danielmiessler/Personal_AI_Infrastructure",
+      "source": "github.com/danielmiessler/Personal_AI_Infrastructure"
+    },
+    {
+      "name": "redteam",
+      "description": "Adversarial analysis with 32 agents. USE WHEN red team, attack idea, counterarguments, critique, stress test. SkillSearch('redteam') for docs.",
+      "repo": "danielmiessler/Personal_AI_Infrastructure",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 5704,
+      "install": "danielmiessler/Personal_AI_Infrastructure",
+      "source": "github.com/danielmiessler/Personal_AI_Infrastructure"
+    },
+    {
+      "name": "council",
+      "description": "Multi-agent debate system. USE WHEN council, debate, perspectives, agents discuss. SkillSearch('council') for docs.",
+      "repo": "danielmiessler/Personal_AI_Infrastructure",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 5704,
+      "install": "danielmiessler/Personal_AI_Infrastructure",
+      "source": "github.com/danielmiessler/Personal_AI_Infrastructure"
     },
     {
       "name": "web",
@@ -155,6 +443,30 @@
       "stars": 3797,
       "install": "EpicenterHQ/epicenter/skills/github-issues",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "release",
+      "description": "Release preparation workflow - security audit → E2E tests → review → changelog → docs",
+      "repo": "parcadei/Continuous-Claude-v3",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 3392,
+      "install": "parcadei/Continuous-Claude-v3",
+      "source": "github.com/parcadei/Continuous-Claude-v3"
+    },
+    {
+      "name": "fix",
+      "description": "Meta-skill workflow orchestrator for bug investigation and resolution. Routes to debug, implement, test, and commit based on scope.",
+      "repo": "parcadei/Continuous-Claude-v3",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 3392,
+      "install": "parcadei/Continuous-Claude-v3",
+      "source": "github.com/parcadei/Continuous-Claude-v3"
     },
     {
       "name": "test",
@@ -218,6 +530,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "wordpress",
+      "description": "This skill should be used when the user asks to \"pentest WordPress sites\", \"scan WordPress for vulnerabilities\", \"enumerate WordPress users, themes, or plugins\", \"exploit WordPress vulnerabilities\", o",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2180,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    },
+    {
       "name": "testing",
       "description": "Run and troubleshoot tests for DBHub, including unit tests, integration tests with Testcontainers, and database-specific tests. Use when asked to run tests, fix test failures, debug integration tests,",
       "repo": "bytebase/dbhub",
@@ -230,6 +554,30 @@
       "stars": 1820,
       "install": "bytebase/dbhub/.claude/skills/testing",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective Agent Skills. Use when users want to create a new skill (or update an existing skill) that extends an AI agent's capabilities with specialized knowledge, workflows, or too",
+      "repo": "hashintel/hash",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1401,
+      "install": "hashintel/hash",
+      "source": "github.com/hashintel/hash"
+    },
+    {
+      "name": "add",
+      "description": "Use this skill when adding a new NodeBridge handler to src/nodeBridge.ts, including updating types in src/nodeBridge.types.ts and optionally testing with scripts/test-nodebridge.ts",
+      "repo": "neovateai/neovate-code",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1393,
+      "install": "neovateai/neovate-code",
+      "source": "github.com/neovateai/neovate-code"
     },
     {
       "name": "external",
@@ -246,6 +594,54 @@
       "stars": 1265,
       "install": "MadAppGang/dingo/.claude/skills/external-model-selection",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "yaml",
+      "description": "|",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1061,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    },
+    {
+      "name": "providing",
+      "description": "|",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1061,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    },
+    {
+      "name": "dart",
+      "description": "DART testing patterns - unit tests, integration tests, CI validation",
+      "repo": "dartsim/dart",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1046,
+      "install": "dartsim/dart",
+      "source": "github.com/dartsim/dart"
+    },
+    {
+      "name": "descriptions",
+      "description": "Load or unload skills into the agent's memory.",
+      "repo": "letta-ai/letta-code",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 883,
+      "install": "letta-ai/letta-code",
+      "source": "github.com/letta-ai/letta-code"
     },
     {
       "name": "debug",
@@ -310,6 +706,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "federation",
+      "description": "ActivityPub protocol specification and federation concepts. Use when working with ActivityPub activities, understanding federation mechanics, implementing protocol features, or debugging federation is",
+      "repo": "Automattic/wordpress-activitypub",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 558,
+      "install": "Automattic/wordpress-activitypub",
+      "source": "github.com/Automattic/wordpress-activitypub"
+    },
+    {
       "name": "activitypub",
       "description": "Testing patterns for PHPUnit and Playwright E2E tests. Use when writing tests, debugging test failures, setting up test coverage, or implementing test patterns for ActivityPub features.",
       "repo": "Automattic/wordpress-activitypub",
@@ -323,6 +731,18 @@
       "stars": 556,
       "install": "Automattic/wordpress-activitypub",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "reusable",
+      "description": "Guidelines for creating reusable, portable UI components with native-first design, compound patterns, and accessibility",
+      "repo": "EvanBacon/crispy",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 547,
+      "install": "EvanBacon/crispy",
+      "source": "github.com/EvanBacon/crispy"
     },
     {
       "name": "test",
@@ -382,6 +802,18 @@
       "stars": 417,
       "install": "jasonkneen/kiro/skills/quality-assurance",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "snarktank/amp-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 371,
+      "install": "snarktank/amp-skills",
+      "source": "github.com/snarktank/amp-skills"
     },
     {
       "name": "onvifscan",
@@ -536,6 +968,42 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "analyzing",
+      "description": "This skill provides a way to retrieve information from the Agentica library for analysis and decision-making.",
+      "repo": "shibing624/agentica",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 235,
+      "install": "shibing624/agentica",
+      "source": "github.com/shibing624/agentica"
+    },
+    {
+      "name": "hitchhikers",
+      "description": "미래교육의 화두, 배우는 법을 배우기",
+      "repo": "innovationacademy-kr/hitchhikers_guide",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 220,
+      "install": "innovationacademy-kr/hitchhikers_guide",
+      "source": "github.com/innovationacademy-kr/hitchhikers_guide"
+    },
+    {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "rohunj/claude-build-workflow",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 211,
+      "install": "rohunj/claude-build-workflow",
+      "source": "github.com/rohunj/claude-build-workflow"
+    },
+    {
       "name": "a11y",
       "description": "Use when reviewing UI diffs, accessibility audits, or flaky UI tests to catch a11y regressions, semantic issues, keyboard/focus problems, and to recommend minimal fixes plus role-based test selectors.",
       "repo": "SwitchbackTech/compass",
@@ -646,6 +1114,90 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "integration",
+      "description": "Designs integration and E2E tests with mock boundaries and behavior verification rules. Use when writing E2E or integration tests.",
+      "repo": "shinpr/ai-coding-project-boilerplate",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 163,
+      "install": "shinpr/ai-coding-project-boilerplate",
+      "source": "github.com/shinpr/ai-coding-project-boilerplate"
+    },
+    {
+      "name": "quality",
+      "description": "Systematic validation methodology for ResearchPacks and Implementation Plans. Provides scoring rubrics and quality gates to ensure outputs meet standards before proceeding to next phase. Prevents garb",
+      "repo": "VAMFI/claude-user-memory",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 134,
+      "install": "VAMFI/claude-user-memory",
+      "source": "github.com/VAMFI/claude-user-memory"
+    },
+    {
+      "name": "session",
+      "description": "Apply task-specific templates to AI session plans using ai-update-plan. Use when starting a new task to load appropriate plan structure (feature, bugfix, refactor, documentation, security).",
+      "repo": "aiskillstore/marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 114,
+      "install": "aiskillstore/marketplace",
+      "source": "github.com/aiskillstore/marketplace"
+    },
+    {
+      "name": "neuropixels",
+      "description": "Neuropixels neural recording analysis. Load SpikeGLX/OpenEphys data, preprocess, motion correction, Kilosort4 spike sorting, quality metrics, Allen/IBL curation, AI-assisted visual analysis, for Neuro",
+      "repo": "aiskillstore/marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 114,
+      "install": "aiskillstore/marketplace",
+      "source": "github.com/aiskillstore/marketplace"
+    },
+    {
+      "name": "test",
+      "description": "Coordinates testing strategy and execution across all test types. Use when creating test plans, implementing tests (unit/integration/E2E), or enforcing coverage requirements (80% minimum). Applies tes",
+      "repo": "aiskillstore/marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 114,
+      "install": "aiskillstore/marketplace",
+      "source": "github.com/aiskillstore/marketplace"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "aiskillstore/marketplace",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 114,
+      "install": "aiskillstore/marketplace",
+      "source": "github.com/aiskillstore/marketplace"
+    },
+    {
+      "name": "vercel",
+      "description": "Purpose: One-click deployment to Vercel with transferable ownership.",
+      "repo": "MeltedMindz/AppFactory",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 112,
+      "install": "MeltedMindz/AppFactory",
+      "source": "github.com/MeltedMindz/AppFactory"
+    },
+    {
       "name": "qa",
       "description": "This skill should be used when establishing comprehensive QA testing processes for any software project. Use when creating test strategies, writing test cases following Google Testing Standards, execu",
       "repo": "daymade/claude-code-skills",
@@ -734,6 +1286,18 @@
       "stars": 109,
       "install": "jezweb/claude-skills/skills/clerk-auth",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "bio",
+      "description": "Convert raw Nanopore signal data (FAST5/POD5) to nucleotide sequences using Dorado basecaller. Covers model selection, GPU acceleration, modified base detection, and quality filtering. Use when proces",
+      "repo": "GPTomics/bioSkills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 108,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
     },
     {
       "name": "mcp",
@@ -1581,6 +2145,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "commands",
+      "description": "Create a new Agent Skill for specialized tasks.",
+      "repo": "fltman/project-scaffolder",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 81,
+      "install": "fltman/project-scaffolder",
+      "source": "github.com/fltman/project-scaffolder"
+    },
+    {
       "name": "update",
       "description": "A skill to automatically download and install the latest ButterCut version from GitHub while preserving libraries. Use when user wants to check for updates or update their installation for new feature",
       "repo": "barefootford/buttercut",
@@ -1706,6 +2282,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "issue",
+      "description": "Systematically diagnose and fix bugs through triage, reproduction, root cause analysis, and verified fixes. Use when resolving bugs, errors, failing tests, or investigating unexpected behavior.",
+      "repo": "draphonix/skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 49,
+      "install": "draphonix/skills",
+      "source": "github.com/draphonix/skills"
+    },
+    {
       "name": "e2e",
       "description": "Write comprehensive end-to-end tests that verify complete user workflows, integration between components, and system behavior from user perspective using Playwright, Cypress, or similar frameworks. Us",
       "repo": "korallis/Droidz",
@@ -1719,6 +2307,1026 @@
       "stars": 49,
       "install": "korallis/Droidz/droidz_installer/payloads/droid_cli/default/skills/e2e-testing",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "bio",
+      "description": "Convert raw Nanopore signal data (FAST5/POD5) to nucleotide sequences using Dorado basecaller. Covers model selection, GPU acceleration, modified base detection, and quality filtering. Use when proces",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "comprehensive",
+      "description": "TDD planning with agent-per-file execution. Planning is verbose. Agent files are minimal execution context.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "nano",
+      "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "gitbook",
+      "description": "Validates GitBook markdown syntax, helps create properly formatted blocks, and ensures documentation quality",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "session",
+      "description": "Apply task-specific templates to AI session plans using ai-update-plan. Use when starting a new task to load appropriate plan structure (feature, bugfix, refactor, documentation, security).",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "persian",
+      "description": "Translate English language text into high quality, accurate Persian (Farsi) text",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "debate",
+      "description": "Multi-agent debate with 3-phase workflow. Optional --deep mode for feedback loop.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "thoroughness",
+      "description": "Use when implementing complex multi-step tasks, fixing critical bugs, or when quality and completeness matter more than speed - ensures comprehensive implementation without shortcuts through systemati",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "voice",
+      "description": "Start voice calls via the Clawdbot voice-call plugin.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "gh",
+      "description": "Create, update, and comment on GitHub pull requests with focus on material impact, safety, and human reviewability",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "revision",
+      "description": "Specialized agent for systematic prose revision using 3-column method and house-rulebook enforcement. Reviews structure, style, and mechanics top-down. Use when user asks to \"revise\", \"edit\", \"improve",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "harness",
+      "description": "Run WaveCap-SDR test harness with automated parameter sweeps and validation. Use when regression testing, validating audio quality across configurations, testing SDR hardware, or benchmarking demodula",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "thoroughness",
+      "description": "Use when implementing complex multi-step tasks, fixing critical bugs, or when quality and completeness matter more than speed - ensures comprehensive implementation without shortcuts through systemati",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "nvim",
+      "description": "Add and configure Neovim plugins in this dotfiles repo using lazy.nvim. Use when asked to install a plugin, create its config module, update lazy.nvim imports, read plugin README/docs, and add keymaps",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moonbit",
+      "description": "Guide for writing, refactoring, and testing MoonBit projects. Use when working in MoonBit modules or packages, organizing MoonBit files, using moon tooling (build/check/test/doc/ide), or following Moo",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "claude",
+      "description": "Speak text aloud using high-quality AI voice synthesis (Kokoro TTS on Apple Silicon). Use when user asks to vocalize, narrate, or speak text out loud.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "budget",
+      "description": "Componentes de UI para orçamentos seguindo o padrão de components do Easy Budget.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "providing",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert research analyst specializing in comprehensive information gathering, synthesis, and insight generation. Masters research methodologies, data analysis, and report creation with focus on deliver",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moai",
+      "description": "Authoring CLAUDE.md Project Instructions. Design project-specific AI guidance, document workflows, define architecture patterns. Use when creating CLAUDE.md files for projects, documenting team standa",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert QA engineer specializing in comprehensive quality assurance, test strategy, and quality metrics. Masters manual and automated testing, test planning, and quality processes with focus on deliver",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agentuity",
+      "description": "Get details about a specific eval run. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "prompt",
+      "description": "This skill should be used when users request help optimizing, improving, or refining their prompts or instructions for AI models. Use this skill when users provide vague, unclear, or poorly structured",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "dictation",
+      "description": "Fix speech-to-text errors and improve text clarity in dictated content related to GitHub Agentic Workflows",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "i18n",
+      "description": "Automate internationalization and localization workflows for web applications with translation, key generation, and library setup",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert LLM architect specializing in large language model architecture, deployment, and optimization. Masters LLM system design, fine-tuning strategies, and production serving with focus on building s",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert research analyst specializing in comprehensive information gathering, synthesis, and insight generation. Masters research methodologies, data analysis, and report creation with focus on deliver",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "gitlab",
+      "description": "Manages GitLab CI jobs. Use for listing, logs, canceling, retrying, or erasing jobs. Triggers: CI builds, job status.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "multi",
+      "description": "Build multi-agent systems - orchestration, coordination, workflows, and distributed architectures",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "multi",
+      "description": "Conduct comprehensive research on any topic by coordinating 2-4 specialized researcher agents in parallel, then synthesizing findings into a detailed report via mandatory report-writer agent delegatio",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "fix",
+      "description": "Meta-skill workflow orchestrator for bug investigation and resolution. Routes to debug, implement, test, and commit based on scope.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "ghe",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moai",
+      "description": "Enhanced docs unified with AI-powered features. Enhanced with Context7 MCP for up-to-date documentation.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "analyze",
+      "description": "Analyze failed GitHub Action jobs for a pull request.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "oauth",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "sqlite",
+      "description": "Detect agent capabilities and manage context intelligently",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agents",
+      "description": "List all AI agents with versions and deployment status. Use when checking agent health, versions, or deployment state.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert LLM architect specializing in large language model architecture, deployment, and optimization. Masters LLM system design, fine-tuning strategies, and production serving with focus on building s",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "browser",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "local",
+      "description": "Run local QA for the repository. Use when asked to run formatting, linting, or pre-commit checks, when verifying local QA, or whenever any file has been updated and local QA should be re-run.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "providing",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "multi",
+      "description": "Conduct comprehensive research on any topic by coordinating 2-4 specialized researcher agents in parallel, then synthesizing findings into a detailed report via mandatory report-writer agent delegatio",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert multi-agent coordinator specializing in complex workflow orchestration, inter-agent communication, and distributed system coordination. Masters parallel execution, dependency management, and fa",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "clawdhub",
+      "description": "Use the ClawdHub CLI to search, install, update, and publish agent skills from clawdhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "fix",
+      "description": "Use when you have lint errors but can't modify the source spec, or need to add missing descriptions/tags via overlay",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "xiaohongshu",
+      "description": "用于在小红书上发布高质量的 AI 相关岗位招聘帖子。包含自动生成极客风格的招聘封面图和详情图，并提供自动化发布脚本。当用户需要发布招聘信息、寻找 Agent 设计师或其他 AI 领域人才时使用。",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "time",
+      "description": "name: Time System & Loop Mechanics",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "act",
+      "description": "Use when configuring Docker environments for act, selecting runner images, managing container resources, or troubleshooting Docker-related issues with local GitHub Actions testing.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "write",
+      "description": "Apply when creating or editing INFO, SPEC, IMPL, TEST, FIX documents, or STRUT plans",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "sdd",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "write",
+      "description": "Create comprehensive test plans for features and changes",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "gh",
+      "description": "Create, update, and comment on GitHub pull requests with focus on material impact, safety, and human reviewability",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Implement agent evaluation and safety gates using MLflow 3.x. Use for creating LLM-as-Judge scorers, evaluation datasets, quality gates, tracing, and continuous evaluation. Triggers on \"evaluate agent",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "new",
+      "description": "Create a new AI agent from template. Use when adding a new agent to the cluster, starting a new monitoring or automation project.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "gitbook",
+      "description": "Validates GitBook markdown syntax, helps create properly formatted blocks, and ensures documentation quality",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "ai",
+      "description": "Generate draw.io diagrams from natural language and render in browser",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "gitlab",
+      "description": "Manages GitLab CI jobs. Use for listing, logs, canceling, retrying, or erasing jobs. Triggers: CI builds, job status.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "selecting",
+      "description": "Decision guide for choosing the right specialized agent for each task type",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moonbit",
+      "description": "Guide for writing, refactoring, and testing MoonBit projects. Use when working in MoonBit modules or packages, organizing MoonBit files, using moon tooling (build/check/test/doc/ide), or following Moo",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "gemma",
+      "description": "Gemma Domain Trainer (Prototype)",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "skill",
+      "description": "Install or update Agent Skills (skill folders with SKILL.md) across agent harnesses. Use when the user says install a skill, add this skill to my machine or repo, update a skill, move a skill between",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moai",
+      "description": "Enhanced docs unified with AI-powered features. Enhanced with Context7 MCP for up-to-date documentation.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "alignfirst",
+      "description": "Collaborative problem-solving protocols: write technical specifications (spec, or alspec), create implementation plans (plan, or alplan), or use Align-and-Do Protocol (AAD). Also generates PR/MR descr",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "test",
+      "description": "Coordinates testing strategy and execution across all test types. Use when creating test plans, implementing tests (unit/integration/E2E), or enforcing coverage requirements (80% minimum). Applies tes",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "persian",
+      "description": "Translate English language text into high quality, accurate Persian (Farsi) text",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "worker",
+      "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "subagents",
+      "description": "Guide for defining and using Claude subagents effectively. Use when (1) creating new subagent types, (2) learning how to delegate work to specialized subagents, (3) improving subagent delegation promp",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert Git workflow manager specializing in branching strategies, automation, and team collaboration. Masters Git workflows, merge conflict resolution, and repository management with focus on enabling",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moai",
+      "description": "SPEC document management - lifecycle, versioning, approval workflows, 50+ references, SPEC-first TDD integration",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Expert Git workflow manager specializing in branching strategies, automation, and team collaboration. Masters Git workflows, merge conflict resolution, and repository management with focus on enabling",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "worker",
+      "description": "Run comprehensive worker system benchmarks and performance analysis",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "clawdhub",
+      "description": "Use the ClawdHub CLI to search, install, update, and publish agent skills from clawdhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "mobile",
+      "description": "Comprehensive mobile app testing strategies for iOS and Android. Covers unit tests, UI tests, integration tests, performance testing, and test automation with Detox, Appium, and XCTest.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "react",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "budget",
+      "description": "Componentes de UI para orçamentos seguindo o padrão de components do Easy Budget.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "nvim",
+      "description": "Add and configure Neovim plugins in this dotfiles repo using lazy.nvim. Use when asked to install a plugin, create its config module, update lazy.nvim imports, read plugin README/docs, and add keymaps",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "filament",
+      "description": "Automated Filament resource generation with correct namespace imports (Schemas vs Forms), Vietnamese labels, standard structure, Observer patterns, ImagesRelationManager integration. USE WHEN user say",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "qa",
+      "description": "Resilience engineering for QA: failure mode testing (timeouts/retries/dependency failures), chaos experiments with blast-radius controls, degraded-mode UX expectations, and reliability gates.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "wordpress",
+      "description": "This skill should be used when the user asks to \"pentest WordPress sites\", \"scan WordPress for vulnerabilities\", \"enumerate WordPress users, themes, or plugins\", \"exploit WordPress vulnerabilities\", o",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "write",
+      "description": "Apply when creating or editing INFO, SPEC, IMPL, TEST, FIX documents, or STRUT plans",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "subagents",
+      "description": "Guide for defining and using Claude subagents effectively. Use when (1) creating new subagent types, (2) learning how to delegate work to specialized subagents, (3) improving subagent delegation promp",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "voice",
+      "description": "Start voice calls via the Clawdbot voice-call plugin.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Guide for authoring specialized AI agents. Use when creating, updating, or improving agents, choosing models, defining focus areas, configuring tools, or learning agent best practices.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "prompt",
+      "description": "This skill should be used when users request help optimizing, improving, or refining their prompts or instructions for AI models. Use this skill when users provide vague, unclear, or poorly structured",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
       "name": "plugin",
@@ -1795,6 +3403,18 @@
       "stars": 45,
       "install": "nanorepublica/django-prodserver/.claude/skills/testing-unit-tests",
       "source": "downloaded"
+    },
+    {
+      "name": "mobile",
+      "description": "Comprehensive mobile app testing strategies for iOS and Android. Covers unit tests, UI tests, integration tests, performance testing, and test automation with Detox, Appium, and XCTest.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 45,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
     },
     {
       "name": "testing",
@@ -2862,6 +4482,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "examples",
+      "description": "This is a production-ready skill that demonstrates all key concepts of Jazz's Agent Skills system.",
+      "repo": "lvndry/jazz",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 22,
+      "install": "lvndry/jazz",
+      "source": "github.com/lvndry/jazz"
+    },
+    {
       "name": "angular",
       "description": "Use when writing unit tests for Angular components, services, pipes, or directives. Triggers on requests to \"write tests\", \"add tests\", \"create spec\", \"test this component\", or when test files need to",
       "repo": "danielsogl/copilot-workflow-demo",
@@ -2875,6 +4507,54 @@
       "stars": 21,
       "install": "danielsogl/copilot-workflow-demo/.claude/skills/angular-testing",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. Use this skill when you want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "integration",
+      "description": "RAN system integration with microservices architecture, cognitive consciousness, and intelligent orchestration for seamless network integration. Use when integrating RAN systems, implementing microser",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "react",
+      "description": "|",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "persona",
+      "description": "Comprehensive persona journey testing and UX verification across all personas",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
     },
     {
       "name": "analyzing",
@@ -2891,6 +4571,186 @@
       "stars": 20,
       "install": "saleor/configurator/.claude/skills/analyzing-test-coverage",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "effect",
+      "description": "Define services, provide layers, compose dependencies, and switch live/test. Use for DI boundaries and app composition.",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "gemma",
+      "description": "Gemma Domain Trainer (Prototype)",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "deploy",
+      "description": "Deploy the Light Bot application to the staging server using SSH and Docker Compose.",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "test",
+      "description": "Coordinates testing strategy and execution across all test types. Use when creating test plans, implementing tests (unit/integration/E2E), or enforcing coverage requirements (80% minimum). Applies tes",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "claude",
+      "description": "|",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "documentation",
+      "description": "Create or augment skills and documentation. Use when writing new skills, updating existing skills, or modifying project documentation like AGENTS.md.",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "i18n",
+      "description": "Automate internationalization and localization workflows for web applications with translation, key generation, and library setup",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "moai",
+      "description": "Enhanced docs unified with AI-powered features. Enhanced with Context7 MCP for up-to-date documentation.",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "playwright",
+      "description": "Iterative UI testing using Playwright MCP server for automated browser interaction and visual verification",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "claude",
+      "description": "|",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "cli",
+      "description": "This skill should be used when creating a skill for a CLI tool. Use when users ask to document a command-line tool, create CLI guidance, or build a skill for terminal commands. Essential for systemati",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "harness",
+      "description": "Run WaveCap-SDR test harness with automated parameter sweeps and validation. Use when regression testing, validating audio quality across configurations, testing SDR hardware, or benchmarking demodula",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "bazinga",
+      "description": "Validates BAZINGA completion claims with independent verification. Spawned ONLY when PM sends BAZINGA. Acts as final quality gate - verifies test failures, coverage, evidence, and criteria independent",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "perform",
+      "description": "Design, configure, launch, and analyze ablation sweeps for GRPO training. Use for hypothesis testing, hyperparameter experiments, and systematic comparisons.",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "executive",
+      "description": "Strategic leadership for GabeDA - refines requirements, orchestrates skills, makes architectural decisions, and ensures project coherence. Acts as CEO/CTO/PM to bridge vision and execution.",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
     },
     {
       "name": "constitution",
@@ -3026,6 +4886,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "default-anton/dotfiles",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 17,
+      "install": "default-anton/dotfiles",
+      "source": "github.com/default-anton/dotfiles"
+    },
+    {
       "name": "shellspec",
       "description": "Comprehensive unit testing framework for Bash and POSIX shell scripts using ShellSpec with TDD/BDD best practices. Use when writing tests for shell scripts, debugging test failures, refactoring script",
       "repo": "OleksandrKucherenko/e-bash",
@@ -3139,6 +5011,18 @@
       "source": "downloaded"
     },
     {
+      "name": "quality",
+      "description": "Overview of protected quality thresholds and quick reference for all quality tools. Use when you need to understand quality metrics, run comprehensive quality checks, or learn which specialized skill",
+      "repo": "VilnaCRM-Org/user-service",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 16,
+      "install": "VilnaCRM-Org/user-service",
+      "source": "github.com/VilnaCRM-Org/user-service"
+    },
+    {
       "name": "methodology",
       "description": "Apply Bootstrapped AI Methodology Engineering (BAIME) to develop project-specific methodologies through systematic Observe-Codify-Automate cycles with dual-layer value functions (instance quality + me",
       "repo": "yaleh/meta-cc",
@@ -3185,6 +5069,18 @@
       "stars": 15,
       "install": "AnySoftKeyboard/janus/.claude/skills/create-unit-test",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "prompt",
+      "description": "This skill should be used when users request help optimizing, improving, or refining their prompts or instructions for AI models. Use this skill when users provide vague, unclear, or poorly structured",
+      "repo": "hikanner/agent-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 14,
+      "install": "hikanner/agent-skills",
+      "source": "github.com/hikanner/agent-skills"
     },
     {
       "name": "generate",
@@ -3278,6 +5174,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent",
+      "description": "Expert Git workflow manager specializing in branching strategies, automation, and team collaboration. Masters Git workflows, merge conflict resolution, and repository management with focus on enabling",
+      "repo": "Tony363/SuperClaude",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 13,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    },
+    {
       "name": "component",
       "description": "Run Vitest tests for a specific component with coverage. Use when making changes to React components to ensure tests pass and coverage is maintained.",
       "repo": "sgcarstrends/sgcarstrends",
@@ -3309,6 +5217,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent",
+      "description": "Expert multi-agent coordinator specializing in complex workflow orchestration, inter-agent communication, and distributed system coordination. Masters parallel execution, dependency management, and fa",
+      "repo": "Tony363/SuperClaude",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 13,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    },
+    {
       "name": "python",
       "description": "Specialized skill for designing, architecting, and reviewing production-grade Python libraries. Guide library structure, API design, testing strategies, and implementation. Use when designing new libr",
       "repo": "maxvaega/awesome-skills",
@@ -3322,6 +5242,18 @@
       "stars": 13,
       "install": "maxvaega/awesome-skills/python-architect",
       "source": "downloaded"
+    },
+    {
+      "name": "prompts",
+      "description": "Please generate a new skill for creating multiple choice quizes.",
+      "repo": "dmccreary/intelligent-textbooks",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 13,
+      "install": "dmccreary/intelligent-textbooks",
+      "source": "github.com/dmccreary/intelligent-textbooks"
     },
     {
       "name": "dependency",
@@ -3672,6 +5604,18 @@
       "source": "downloaded"
     },
     {
+      "name": "songsee",
+      "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+      "repo": "clawdbot/skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 11,
+      "install": "clawdbot/skills",
+      "source": "github.com/clawdbot/skills"
+    },
+    {
       "name": "deployment",
       "description": "Deployment workflows, pre-deploy validation, and smoke testing patterns. Use when deploying to staging or production, running smoke tests, or validating deployments.",
       "repo": "bybren-llc/wtfb-safe-agentic-workflow",
@@ -3687,6 +5631,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "video",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "repo": "clawdbot/skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 11,
+      "install": "clawdbot/skills",
+      "source": "github.com/clawdbot/skills"
+    },
+    {
       "name": "stripe",
       "description": "Stripe payment integration patterns. Use when implementing payment flows, handling webhooks, or working with subscriptions. Routes to existing patterns and provides evidence templates for payment test",
       "repo": "bybren-llc/wtfb-safe-agentic-workflow",
@@ -3700,6 +5656,30 @@
       "stars": 11,
       "install": "bybren-llc/wtfb-safe-agentic-workflow/.claude/skills/stripe-patterns",
       "source": "downloaded"
+    },
+    {
+      "name": "selecting",
+      "description": "Decision guide for choosing the right specialized agent for each task type",
+      "repo": "cipherstash/cipherpowers",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 11,
+      "install": "cipherstash/cipherpowers",
+      "source": "github.com/cipherstash/cipherpowers"
+    },
+    {
+      "name": "nano",
+      "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+      "repo": "clawdbot/skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 11,
+      "install": "clawdbot/skills",
+      "source": "github.com/clawdbot/skills"
     },
     {
       "name": "backend",
@@ -4478,6 +6458,18 @@
       "source": "downloaded"
     },
     {
+      "name": "build",
+      "description": "Build, test, and serve the documentation site using Zensical (recommended) or MkDocs.",
+      "repo": "BA-CalderonMorales/my-life-as-a-dev",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 8,
+      "install": "BA-CalderonMorales/my-life-as-a-dev",
+      "source": "github.com/BA-CalderonMorales/my-life-as-a-dev"
+    },
+    {
       "name": "synthesis",
       "description": "Use when synthesizing information from multiple sources (literature review, stakeholder feedback, research findings, data from different systems), creating or evaluating analogies for explanation or p",
       "repo": "lyndonkl/claude",
@@ -4605,6 +6597,18 @@
       "stars": 8,
       "install": "ratacat/claude-skills/skills/modern-web-app-architecture",
       "source": "downloaded"
+    },
+    {
+      "name": "docker",
+      "description": "Expert helper for Docker containers, Docker Compose, and container optimization",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 8,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
     },
     {
       "name": "morphological",
@@ -4757,6 +6761,18 @@
       "source": "downloaded"
     },
     {
+      "name": "ui",
+      "description": "Plaited UI patterns for templates, behavioral elements, and styling. Use when creating bElements or FunctionalTemplates, writing stories for testing, using createStyles, building form controls, or coo",
+      "repo": "plaited/plaited",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 7,
+      "install": "plaited/plaited",
+      "source": "github.com/plaited/plaited"
+    },
+    {
       "name": "fuzzing",
       "description": "Fuzzing strategist persona specializing in dynamic testing guidance, fuzzing strategy development, and crash analysis",
       "repo": "jpoley/flowspec",
@@ -4770,6 +6786,18 @@
       "stars": 7,
       "install": "jpoley/flowspec/.claude/skills/fuzzing-strategist",
       "source": "downloaded"
+    },
+    {
+      "name": "debug",
+      "description": "Comprehensive debugging toolkit for complex issues - diagnosis, reproduction, log analysis, performance, and memory debugging",
+      "repo": "dhofheinz/open-plugins",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 7,
+      "install": "dhofheinz/open-plugins",
+      "source": "github.com/dhofheinz/open-plugins"
     },
     {
       "name": "qa",
@@ -5501,6 +7529,18 @@
       "source": "downloaded"
     },
     {
+      "name": "session",
+      "description": "Apply task-specific templates to AI session plans using ai-update-plan. Use when starting a new task to load appropriate plan structure (feature, bugfix, refactor, documentation, security).",
+      "repo": "Atyantik/python-modern-template",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 5,
+      "install": "Atyantik/python-modern-template",
+      "source": "github.com/Atyantik/python-modern-template"
+    },
+    {
       "name": "family",
       "description": "Creates beautiful, protein-focused weekly dinner menus for families with research capabilities. Generates printer-ready PDFs (8.5x11) with random design styles, identifies leftover opportunities, sugg",
       "repo": "toddward/claude-skills-playground",
@@ -5576,6 +7616,18 @@
       "stars": 5,
       "install": "duongdev/ccpm/skills/docs-seeker",
       "source": "downloaded"
+    },
+    {
+      "name": "hypogenic",
+      "description": "Automated hypothesis generation and testing using large language models. Use this skill when generating scientific hypotheses from datasets, combining literature insights with empirical data, testing",
+      "repo": "sanand0/scientific-research",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 5,
+      "install": "sanand0/scientific-research",
+      "source": "github.com/sanand0/scientific-research"
     },
     {
       "name": "ipynb",
@@ -5701,6 +7753,18 @@
       "stars": 5,
       "install": "ddttom/webcomponents-with-eds/.claude/skills/jupyter-notebook-testing",
       "source": "downloaded"
+    },
+    {
+      "name": "version",
+      "description": "[//]: # (keyword|concepttransport)",
+      "repo": "gama-platform/gama-platform.github.io",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 4,
+      "install": "gama-platform/gama-platform.github.io",
+      "source": "github.com/gama-platform/gama-platform.github.io"
     },
     {
       "name": "ruby",
@@ -5845,6 +7909,30 @@
       "source": "downloaded"
     },
     {
+      "name": "agentuity",
+      "description": "Get details about a specific eval run. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/docs",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 4,
+      "install": "agentuity/docs",
+      "source": "github.com/agentuity/docs"
+    },
+    {
+      "name": "version",
+      "description": "[//]: # (keyword|concepttransport)",
+      "repo": "gama-platform/gama-platform.github.io",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 4,
+      "install": "gama-platform/gama-platform.github.io",
+      "source": "github.com/gama-platform/gama-platform.github.io"
+    },
+    {
       "name": "manage",
       "description": "Create or update test files for React hooks. Use when user asks to \"create hook tests\", \"test useMyHook\", \"generate tests for hook\", \"update hook tests\", or mentions needing tests for a React hook. Ge",
       "repo": "talbenmoshe/zdr-tools",
@@ -5875,6 +7963,18 @@
       "stars": 4,
       "install": "existential-birds/beagle/skills/pydantic-ai-testing",
       "source": "downloaded"
+    },
+    {
+      "name": "version",
+      "description": "[//]: # (keyword|concepttransport)",
+      "repo": "gama-platform/gama-platform.github.io",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 4,
+      "install": "gama-platform/gama-platform.github.io",
+      "source": "github.com/gama-platform/gama-platform.github.io"
     },
     {
       "name": "quality",
@@ -5936,6 +8036,18 @@
       "stars": 4,
       "install": "carlheath/ogmios/.claude/skills/architecture",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "version",
+      "description": "[//]: # (keyword|concepttransport)",
+      "repo": "gama-platform/gama-platform.github.io",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 4,
+      "install": "gama-platform/gama-platform.github.io",
+      "source": "github.com/gama-platform/gama-platform.github.io"
     },
     {
       "name": "feature",
@@ -6015,6 +8127,18 @@
       "source": "downloaded"
     },
     {
+      "name": "version",
+      "description": "[//]: # (keyword|concepttransport)",
+      "repo": "gama-platform/gama-platform.github.io",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 4,
+      "install": "gama-platform/gama-platform.github.io",
+      "source": "github.com/gama-platform/gama-platform.github.io"
+    },
+    {
       "name": "websearch",
       "description": "\"ChatGPT-style deep research strategy with problem decomposition, multi-query generation (3-5 variations per sub-question), evidence synthesis with source ranking, numbered citations, and iterative re",
       "repo": "thomasholknielsen/claude-code-config",
@@ -6028,6 +8152,18 @@
       "stars": 4,
       "install": "thomasholknielsen/claude-code-config/skills/websearch-deep",
       "source": "downloaded"
+    },
+    {
+      "name": "version",
+      "description": "[//]: # (keyword|concepttransport)",
+      "repo": "gama-platform/gama-platform.github.io",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 4,
+      "install": "gama-platform/gama-platform.github.io",
+      "source": "github.com/gama-platform/gama-platform.github.io"
     },
     {
       "name": "backend",
@@ -6243,6 +8379,18 @@
       "source": "downloaded"
     },
     {
+      "name": "scale",
+      "description": "Test at extremes (1000x bigger/smaller, instant/year-long) to expose fundamental truths hidden at normal scales",
+      "repo": "huydepzai121/skill",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 3,
+      "install": "huydepzai121/skill",
+      "source": "github.com/huydepzai121/skill"
+    },
+    {
       "name": "dbus",
       "description": "\"Expert in D-Bus IPC (Inter-Process Communication) on Linux systems. Specializes in secure service communication, method calls, signal handling, and system integration. HIGH-RISK skill due to system s",
       "repo": "martinholovsky/claude-skills-generator",
@@ -6286,6 +8434,18 @@
       "stars": 3,
       "install": "xtone/ai_development_tools/.claude/skills/android-test-runner",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "peekaboo",
+      "description": "Capture and automate macOS UI with the Peekaboo CLI.",
+      "repo": "clawdbot/nix-steipete-tools",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 3,
+      "install": "clawdbot/nix-steipete-tools",
+      "source": "github.com/clawdbot/nix-steipete-tools"
     },
     {
       "name": "testing",
@@ -6347,6 +8507,18 @@
       "stars": 3,
       "install": "alexanderop/workoutTracker/.claude/skills/testing-conventions",
       "source": "downloaded"
+    },
+    {
+      "name": "effect",
+      "description": "Define services, provide layers, compose dependencies, and switch live/test. Use for DI boundaries and app composition.",
+      "repo": "mepuka/effect-ontology",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 3,
+      "install": "mepuka/effect-ontology",
+      "source": "github.com/mepuka/effect-ontology"
     },
     {
       "name": "pricing",
@@ -6438,6 +8610,18 @@
       "stars": 3,
       "install": "alexanderop/workoutTracker/.claude/skills/vue-composable-testing",
       "source": "downloaded"
+    },
+    {
+      "name": "agent",
+      "description": "Design and generate Glean Agent specifications. Use when creating new agents, speccing out agent requirements, or generating JSON for Agent Builder import. Triggers on: 'create an agent', 'design an a",
+      "repo": "ken-cavanagh-glean/fieldkit",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 3,
+      "install": "ken-cavanagh-glean/fieldkit",
+      "source": "github.com/ken-cavanagh-glean/fieldkit"
     },
     {
       "name": "code",
@@ -6653,6 +8837,18 @@
       "source": "downloaded"
     },
     {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "vibery-studio/templates",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "vibery-studio/templates",
+      "source": "github.com/vibery-studio/templates"
+    },
+    {
       "name": "spec",
       "description": "Validates specification quality for technology-agnosticism, testability, and completeness. Automatically invoked when reviewing specs, checking requirements, or before transitioning from specify to pl",
       "repo": "jmanhype/speckit",
@@ -6726,6 +8922,18 @@
       "source": "downloaded"
     },
     {
+      "name": "odoo",
+      "description": "This skill analyzes Odoo model inheritance chains and fields, showing \"who stands on whom\" with complete inheritance hierarchy including all fields and methods from all modules. Should be used when un",
+      "repo": "straga/ai-assistant-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "straga/ai-assistant-skills",
+      "source": "github.com/straga/ai-assistant-skills"
+    },
+    {
       "name": "coverage",
       "description": "Generate and analyze test coverage reports. Use to identify coverage gaps, track coverage trends, and ensure quality thresholds are met.",
       "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
@@ -6770,6 +8978,18 @@
       "stars": 2,
       "install": "EdanStarfire/claudecode_webui/.claude/skills/backend-tester",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "e2e",
+      "description": "Enforces project E2E testing conventions using Playwright with custom fixtures, Page Object Model, and authentication contexts.",
+      "repo": "JasonPaff/head-shakers",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "JasonPaff/head-shakers",
+      "source": "github.com/JasonPaff/head-shakers"
     },
     {
       "name": "python",
@@ -6862,6 +9082,18 @@
       "source": "downloaded"
     },
     {
+      "name": "avaamo",
+      "description": "In the Agent page, navigate to the Skills option in the left navigation menu, click Add skill button in the Agent skills page.",
+      "repo": "roboalchemist/llm-code-docs",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "roboalchemist/llm-code-docs",
+      "source": "github.com/roboalchemist/llm-code-docs"
+    },
+    {
       "name": "feature",
       "description": "Feature flag patterns for controlled rollouts, A/B testing, and kill switches. Use when implementing feature toggles, gradual rollouts, canary releases, percentage-based features, user targeting, or e",
       "repo": "cosmix/claude-code-setup",
@@ -6875,6 +9107,42 @@
       "stars": 2,
       "install": "cosmix/claude-code-setup/skills/feature-flags",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "bel",
+      "description": "This skill should be used when moving a single email message to the Archive folder in Microsoft 365 Mail. It provides a clean interface to move one specific email using its messageId without polluting",
+      "repo": "bennoloeffler/bassi",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "bennoloeffler/bassi",
+      "source": "github.com/bennoloeffler/bassi"
+    },
+    {
+      "name": "moai",
+      "description": "Enhanced docs unified with AI-powered features. Enhanced with Context7 MCP for up-to-date documentation.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    },
+    {
+      "name": "workflows",
+      "description": "Create a new AI agent skill following the Agent Skills specification",
+      "repo": "CeamKrier/file-concat",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "CeamKrier/file-concat",
+      "source": "github.com/CeamKrier/file-concat"
     },
     {
       "name": "dspy",
@@ -7078,6 +9346,18 @@
       "source": "downloaded"
     },
     {
+      "name": "release",
+      "description": "Release preparation workflow - security audit → E2E tests → review → changelog → docs",
+      "repo": "namesreallyblank/Clorch",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    },
+    {
       "name": "coverport",
       "description": "Integrate coverport into Go repositories with Tekton pipelines to enable e2e test coverage collection and upload to Codecov. Use this skill when users ask to integrate coverport, add e2e coverage trac",
       "repo": "konflux-ci/coverport",
@@ -7202,6 +9482,18 @@
       "source": "downloaded"
     },
     {
+      "name": "workflows",
+      "description": "Purpose: Audit existing skill for compliance with canonical PAI architectural standards",
+      "repo": "multicam/qara",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "multicam/qara",
+      "source": "github.com/multicam/qara"
+    },
+    {
       "name": "github",
       "description": "Create well-structured GitHub issues focused on user problems and outcomes, not implementation. Use when user reports bugs or requests features to ensure clear, testable requirements without premature",
       "repo": "EdanStarfire/claudecode_webui",
@@ -7247,6 +9539,18 @@
       "stars": 2,
       "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/.claude/skills/test-scenario-framework",
       "source": "downloaded"
+    },
+    {
+      "name": "commands",
+      "description": "Load skill knowledge via skill-summarizer agent",
+      "repo": "bsamiee/Parametric_Forge",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "bsamiee/Parametric_Forge",
+      "source": "github.com/bsamiee/Parametric_Forge"
     },
     {
       "name": "testing",
@@ -7311,6 +9615,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent",
+      "description": "Implement agent evaluation and safety gates using MLflow 3.x. Use for creating LLM-as-Judge scorers, evaluation datasets, quality gates, tracing, and continuous evaluation. Triggers on \"evaluate agent",
+      "repo": "raphaelmansuy/k8s-agent-stack",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "raphaelmansuy/k8s-agent-stack",
+      "source": "github.com/raphaelmansuy/k8s-agent-stack"
+    },
+    {
       "name": "bellog",
       "description": "Provides Notion CMS integration patterns and best practices for Bellog. Triggers when working with Notion data or implementing Notion-based features.",
       "repo": "whddltjdwhd/bellog",
@@ -7324,6 +9640,18 @@
       "stars": 2,
       "install": "whddltjdwhd/bellog/.claude/skills/bellog-notion",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "yaml",
+      "description": "|",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
     },
     {
       "name": "functional",
@@ -7369,6 +9697,18 @@
       "stars": 2,
       "install": "rot1024/honyo/.claude/skills/update-ai-models",
       "source": "downloaded"
+    },
+    {
+      "name": "moai",
+      "description": "SPEC document management - lifecycle, versioning, approval workflows, 50+ references, SPEC-first TDD integration",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
     },
     {
       "name": "r3f",
@@ -7481,6 +9821,54 @@
       "source": "downloaded"
     },
     {
+      "name": "providing",
+      "description": "|",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    },
+    {
+      "name": "local",
+      "description": "Run local QA for the repository. Use when asked to run formatting, linting, or pre-commit checks, when verifying local QA, or whenever any file has been updated and local QA should be re-run.",
+      "repo": "dceoy/gh-actions-for-devops",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "dceoy/gh-actions-for-devops",
+      "source": "github.com/dceoy/gh-actions-for-devops"
+    },
+    {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "camflan/dotfiles",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "camflan/dotfiles",
+      "source": "github.com/camflan/dotfiles"
+    },
+    {
+      "name": "fix",
+      "description": "Meta-skill workflow orchestrator for bug investigation and resolution. Routes to debug, implement, test, and commit based on scope.",
+      "repo": "namesreallyblank/Clorch",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    },
+    {
       "name": "claude",
       "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
       "repo": "ManuelKugelmann/BitBot",
@@ -7526,6 +9914,18 @@
       "stars": 2,
       "install": "urjitbhatia/tpm-mcp/skills/tpm-report",
       "source": "downloaded"
+    },
+    {
+      "name": "skill",
+      "description": "Clear, specific description of what this skill does and when Claude should use it. Include trigger terms users would naturally say. Maximum 1024 characters.",
+      "repo": "rayk/lucid-toolkit",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 2,
+      "install": "rayk/lucid-toolkit",
+      "source": "github.com/rayk/lucid-toolkit"
     },
     {
       "name": "market",
@@ -7601,6 +10001,18 @@
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-javascript/skills/ecosystem",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skills",
+      "description": "Purpose: Autonomous overnight research to identify new shipping leads from target industries.",
+      "repo": "WalkerVVV/firstmile-deals-pipeline",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "WalkerVVV/firstmile-deals-pipeline",
+      "source": "github.com/WalkerVVV/firstmile-deals-pipeline"
     },
     {
       "name": "contract",
@@ -7911,6 +10323,18 @@
       "source": "downloaded"
     },
     {
+      "name": "clickhouse",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "repo": "MiguelAguiarDEV/baymax",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "MiguelAguiarDEV/baymax",
+      "source": "github.com/MiguelAguiarDEV/baymax"
+    },
+    {
       "name": "twilio",
       "description": "Test and validate Twilio Voice API integration with ElevenLabs ConversationRelay for outbound calling. Use when setting up Twilio integration, testing outbound calls, validating audio quality, configu",
       "repo": "onesmartguy/next-level-real-estate",
@@ -7941,6 +10365,18 @@
       "source": "downloaded"
     },
     {
+      "name": "neuropixels",
+      "description": "Neuropixels neural recording analysis. Load SpikeGLX/OpenEphys data, preprocess, motion correction, Kilosort4 spike sorting, quality metrics, Allen/IBL curation, AI-assisted visual analysis, for Neuro",
+      "repo": "pur3v4d3r/pur3-pkb-codebase",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "pur3v4d3r/pur3-pkb-codebase",
+      "source": "github.com/pur3v4d3r/pur3-pkb-codebase"
+    },
+    {
       "name": "testing",
       "description": "Apply when mocking API calls in tests or development: intercepting requests, simulating error states, and testing loading states.",
       "repo": "CoderMariusz/MonoPilot",
@@ -7956,6 +10392,18 @@
       "source": "downloaded"
     },
     {
+      "name": "clickhouse",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "repo": "catyyy/everything-antigravity",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "catyyy/everything-antigravity",
+      "source": "github.com/catyyy/everything-antigravity"
+    },
+    {
       "name": "schema",
       "description": "Schema.org research assistant for Logseq Template Graph. Investigates Schema.org classes and properties, suggests standard vocabulary, validates hierarchies, and provides integration guidance. Use whe",
       "repo": "C0ntr0lledCha0s/logseq-template-graph",
@@ -7969,6 +10417,18 @@
       "stars": 1,
       "install": "C0ntr0lledCha0s/logseq-template-graph/.claude/skills/schema-research",
       "source": "downloaded"
+    },
+    {
+      "name": "test",
+      "description": "Purpose: Creates and maintains comprehensive test coverage. No stubs, no fakes, no empty files.",
+      "repo": "CleanExpo/Unite-Hub",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "CleanExpo/Unite-Hub",
+      "source": "github.com/CleanExpo/Unite-Hub"
     },
     {
       "name": "cognitive",
@@ -8032,6 +10492,18 @@
       "stars": 1,
       "install": "tech-with-seth/iridium/.github/skills/create-e2e-test",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skills",
+      "description": "This skill provides expert guidance on user experience (UX) design, product strategy, user research, and interface optimization. Use this skill when designing new features, improving existing workf...",
+      "repo": "mkelam/PDFLab",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "mkelam/PDFLab",
+      "source": "github.com/mkelam/PDFLab"
     },
     {
       "name": "playwright",
@@ -8266,6 +10738,18 @@
       "source": "downloaded"
     },
     {
+      "name": "scientific",
+      "description": "Create publication-quality scientific diagrams using Nano Banana Pro AI with smart iterative refinement. Uses Gemini 3 Pro for quality review. Only regenerates if quality is below threshold for your d",
+      "repo": "pur3v4d3r/pur3-pkb-codebase",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "pur3v4d3r/pur3-pkb-codebase",
+      "source": "github.com/pur3v4d3r/pur3-pkb-codebase"
+    },
+    {
       "name": "test",
       "description": "answers with the secret",
       "repo": "uptownhr/claude-code-agent",
@@ -8343,6 +10827,18 @@
       "source": "downloaded"
     },
     {
+      "name": "seoulsemi",
+      "description": "Seoul Semiconductor LED MPN encoding patterns, series identification, package extraction, and color decoding. Use when working with Seoul Semi LEDs or SeoulSemiHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    },
+    {
       "name": "feedback",
       "description": "Use when receiving UAT feedback, bug reports, user testing results, stakeholder feedback, QA findings, or any batch of issues to investigate. Investigates each item BEFORE creating issues, classifies",
       "repo": "troykelly/claude-skills",
@@ -8384,6 +10880,18 @@
       "stars": 1,
       "install": "CleanExpo/Unite-Hub/.claude/skills/ai-phill",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "20251026",
+      "description": "Status: GREEN phase complete, needs REFACTOR + Deployment",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "WesleyMFrederick/cc-workflows",
+      "source": "github.com/WesleyMFrederick/cc-workflows"
     },
     {
       "name": "vla",
@@ -8507,6 +11015,18 @@
       "stars": 1,
       "install": "dkyazzentwatwa/chatgpt-skills/lorem-ipsum-generator",
       "source": "downloaded"
+    },
+    {
+      "name": "skill",
+      "description": ">",
+      "repo": "professor-moody/cloud-tools",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "professor-moody/cloud-tools",
+      "source": "github.com/professor-moody/cloud-tools"
     },
     {
       "name": "testing",
@@ -8896,6 +11416,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "multi",
+      "description": "Build multi-agent systems - orchestration, coordination, workflows, and distributed architectures",
+      "repo": "pluginagentmarketplace/custom-plugin-ai-agents",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "pluginagentmarketplace/custom-plugin-ai-agents",
+      "source": "github.com/pluginagentmarketplace/custom-plugin-ai-agents"
+    },
+    {
       "name": "test",
       "description": ">",
       "repo": "basher83/agent-auditor",
@@ -9036,6 +11568,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "mr-phariyawit/JECOPLUS",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "mr-phariyawit/JECOPLUS",
+      "source": "github.com/mr-phariyawit/JECOPLUS"
+    },
+    {
       "name": "statistical",
       "description": "Use when asked to calculate statistical power, determine sample size, or plan experiments for hypothesis testing.",
       "repo": "dkyazzentwatwa/chatgpt-skills",
@@ -9066,6 +11610,18 @@
       "stars": 1,
       "install": "harrysayers7/claudelife/.claude/skills/australian-tax-intelligence",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "scale",
+      "description": "Test at extremes (1000x bigger/smaller, instant/year-long) to expose fundamental truths hidden at normal scales",
+      "repo": "alex-tgk/saasquatch",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "alex-tgk/saasquatch",
+      "source": "github.com/alex-tgk/saasquatch"
     },
     {
       "name": "kotlin",
@@ -9263,6 +11819,18 @@
       "stars": 1,
       "install": "X-McKay/kubani/.claude/skills/bootstrap-node",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "spacing",
+      "description": "\"Fix the spacing on this component. The cards feel disconnected, like they're floating islands instead of a related group.\"",
+      "repo": "rohunvora/taste-library",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "rohunvora/taste-library",
+      "source": "github.com/rohunvora/taste-library"
     },
     {
       "name": "rust",
@@ -9497,6 +12065,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "prd",
+      "description": "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan thi",
+      "repo": "moeghashim/agent-orchestrator",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "moeghashim/agent-orchestrator",
+      "source": "github.com/moeghashim/agent-orchestrator"
+    },
+    {
       "name": "implement",
       "description": "Use when spec exists and is validated - generates implementation plan FROM spec, executes with TDD, and verifies spec compliance throughout",
       "repo": "rhuss/cc-superpowers-sdd",
@@ -9619,6 +12199,18 @@
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/gandalf-the-prompt",
       "source": "downloaded"
+    },
+    {
+      "name": "neuropixels",
+      "description": "Neuropixels neural recording analysis. Load SpikeGLX/OpenEphys data, preprocess, motion correction, Kilosort4 spike sorting, quality metrics, Allen/IBL curation, AI-assisted visual analysis, for Neuro",
+      "repo": "pur3v4d3r/pur3-pkb-codebase",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "pur3v4d3r/pur3-pkb-codebase",
+      "source": "github.com/pur3v4d3r/pur3-pkb-codebase"
     },
     {
       "name": "skill",
@@ -10112,6 +12704,18 @@
       "source": "downloaded"
     },
     {
+      "name": "commit",
+      "description": "Generates clear, conventional commit messages from git diffs. Use when writing commit messages or reviewing staged changes.",
+      "repo": "fwdslsh/crosstrain",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 1,
+      "install": "fwdslsh/crosstrain",
+      "source": "github.com/fwdslsh/crosstrain"
+    },
+    {
       "name": "run",
       "description": "Run the project's test suite and fix any failures. If no test runner is configured, sets up best-in-class testing infrastructure for the project's language/framework. Ensures all tests pass before com",
       "repo": "samjhecht/wrangler",
@@ -10479,6 +13083,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "nano",
+      "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+      "repo": "HarleyCoops/CLAWDBOT",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "HarleyCoops/CLAWDBOT",
+      "source": "github.com/HarleyCoops/CLAWDBOT"
+    },
+    {
       "name": "storekit",
       "description": "Use when implementing in-app purchases, StoreKit 2 subscriptions, consumables, non-consumables, or transaction handling. Covers testing-first workflow with .storekit configuration, StoreManager archit",
       "repo": "johnrogers/claude-swift-engineering",
@@ -10691,6 +13307,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "sp",
+      "description": "Create new skills with TDD approach, testing before writing",
+      "repo": "buckstrdr/claude-workflow-system",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "buckstrdr/claude-workflow-system",
+      "source": "github.com/buckstrdr/claude-workflow-system"
+    },
+    {
       "name": "prompt",
       "description": "Active diagnostic tool for analyzing skill prompts to identify token waste, anti-patterns, trigger issues, and optimization opportunities. Use when reviewing skill prompts, debugging why skills aren't",
       "repo": "Exploration-labs/Nates-Substack-Skills",
@@ -10805,6 +13433,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "jeninh/ampskills-dotfile",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jeninh/ampskills-dotfile",
+      "source": "github.com/jeninh/ampskills-dotfile"
+    },
+    {
       "name": "connection",
       "description": "Connection Pool Analyzer - Auto-activating skill for Performance Testing.Triggers on: connection pool analyzer, connection pool analyzerPart of the Performance Testing skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -10863,6 +13503,18 @@
       "stars": 0,
       "install": "jpoutrin/product-forge/plugins/product-design/skills/parallel-prompt-generator",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "mobile",
+      "description": "Mobile-first design thinking and decision-making for iOS and Android apps. Touch interaction, performance patterns, platform conventions. Teaches principles, not fixed values. Use when building React",
+      "repo": "GrupoUS/projeto-convex",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "GrupoUS/projeto-convex",
+      "source": "github.com/GrupoUS/projeto-convex"
     },
     {
       "name": "lecture",
@@ -10941,6 +13593,18 @@
       "stars": 0,
       "install": "JamesPrial/go-reddit-api-wrapper/.claude/skills/playwright-mcp",
       "source": "downloaded"
+    },
+    {
+      "name": "mobile",
+      "description": "Mobile-first design thinking and decision-making for iOS and Android apps. Touch interaction, performance patterns, platform conventions. Teaches principles, not fixed values. Use when building React",
+      "repo": "GrupoUS/projeto-hono-neondb",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "GrupoUS/projeto-hono-neondb",
+      "source": "github.com/GrupoUS/projeto-hono-neondb"
     },
     {
       "name": "analyzing",
@@ -11365,6 +14029,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "sqlite",
+      "description": "Detect agent capabilities and manage context intelligently",
+      "repo": "codetalcott/fixiplug",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "codetalcott/fixiplug",
+      "source": "github.com/codetalcott/fixiplug"
+    },
+    {
       "name": "read",
       "description": "Reads Vintage Story logs after manual testing by the user.",
       "repo": "Baughn/sparky",
@@ -11594,6 +14270,18 @@
       "stars": 0,
       "install": "fercracix33/poli2-clean-architecture/.claude/skills/implementer-agent-skill",
       "source": "downloaded"
+    },
+    {
+      "name": "prd",
+      "description": "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan thi",
+      "repo": "ibrahimhassaan/ralph-h",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ibrahimhassaan/ralph-h",
+      "source": "github.com/ibrahimhassaan/ralph-h"
     },
     {
       "name": "wp",
@@ -11951,6 +14639,18 @@
       "source": "downloaded"
     },
     {
+      "name": "builder",
+      "description": "|",
+      "repo": "tjdwls101010/Seongjin_Obsidian-ClaudeCode",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "tjdwls101010/Seongjin_Obsidian-ClaudeCode",
+      "source": "github.com/tjdwls101010/Seongjin_Obsidian-ClaudeCode"
+    },
+    {
       "name": "vanilla",
       "description": "Use when planning Rails features or breaking down work into PRs - enforces 2-5 file PRs, bug fix separation, and one-sentence scope test",
       "repo": "ZempTime/zemptime-marketplace",
@@ -12269,6 +14969,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "Kjdragan/universal_agent",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Kjdragan/universal_agent",
+      "source": "github.com/Kjdragan/universal_agent"
+    },
+    {
       "name": "harness",
       "description": "Harness CI (Continuous Integration) for container-native builds with test intelligence, caching, parallelization, and build infrastructure management",
       "repo": "Lobbi-Docs/claude",
@@ -12545,6 +15257,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "clickhouse",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "repo": "TatTran22/claude-code-1",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "TatTran22/claude-code-1",
+      "source": "github.com/TatTran22/claude-code-1"
+    },
+    {
+      "name": "peekaboo",
+      "description": "Capture and automate macOS UI with the Peekaboo CLI.",
+      "repo": "HarleyCoops/CLAWDBOT",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "HarleyCoops/CLAWDBOT",
+      "source": "github.com/HarleyCoops/CLAWDBOT"
+    },
+    {
       "name": "allra",
       "description": "Allra 백엔드 테스트 작성 표준. Use when writing test code, choosing test helpers, generating test data with Fixture Monkey, or verifying test coverage.",
       "repo": "Allra-Fintech/allra-ai-skills",
@@ -12781,6 +15517,18 @@
       "stars": 0,
       "install": "YoungLeadersDotTech/young-leaders-tech-marketplace",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, tes",
+      "repo": "seflless/dot-agents",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "seflless/dot-agents",
+      "source": "github.com/seflless/dot-agents"
     },
     {
       "name": "shfmt",
@@ -13195,6 +15943,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "worker",
+      "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+      "repo": "QUXTech/claude-flow",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "QUXTech/claude-flow",
+      "source": "github.com/QUXTech/claude-flow"
+    },
+    {
       "name": "vercel",
       "description": "Deploy Vercel integrations to Vercel, Fly.io, and Cloud Run platforms.Use when deploying Vercel-powered applications to production,configuring platform-specific secrets, or setting up deployment pipel",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -13234,6 +15994,18 @@
       "stars": 0,
       "install": "LitheScript/incident-root-cause-analyzer",
       "source": "downloaded"
+    },
+    {
+      "name": "peekaboo",
+      "description": "Capture and automate macOS UI with the Peekaboo CLI.",
+      "repo": "drshailesh88/Krypto",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "drshailesh88/Krypto",
+      "source": "github.com/drshailesh88/Krypto"
     },
     {
       "name": "load",
@@ -13441,6 +16213,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "deadronos/voxel-celebration",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "deadronos/voxel-celebration",
+      "source": "github.com/deadronos/voxel-celebration"
+    },
+    {
       "name": "zachman",
       "description": "Apply Zachman Framework perspective analysis with honest limitations. Analyze architecture from specific row/column perspectives.",
       "repo": "melodic-software/claude-code-plugins",
@@ -13520,6 +16304,18 @@
       "stars": 0,
       "install": "bencassie/flywheel",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "testing",
+      "description": "|",
+      "repo": "ryu-qqq/AuthHub",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ryu-qqq/AuthHub",
+      "source": "github.com/ryu-qqq/AuthHub"
     },
     {
       "name": "cui",
@@ -13818,6 +16614,18 @@
       "source": "downloaded"
     },
     {
+      "name": "epic",
+      "description": "Generate comprehensive walkthrough documentation and trigger self-improvement for epic workflows.",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    },
+    {
       "name": "stakeholder",
       "description": "Generic stakeholder discovery template for creating new project-specific stakeholder skills. Auto-invoke when user requests stakeholder skill creation, stakeholder analysis framework, or team context",
       "repo": "YoungLeadersDotTech/young-leaders-tech-marketplace",
@@ -14063,6 +16871,18 @@
       "stars": 0,
       "install": "alongor666/daylyreport/.claude/skills/api-endpoint-design",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent",
+      "description": "<figure><img src=\"../../.gitbook/assets/image (6) (1) (1) (1).png\" alt=\"\"><figcaption></figcaption></figure>",
+      "repo": "raia-ai/raia-v2-docs",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "raia-ai/raia-v2-docs",
+      "source": "github.com/raia-ai/raia-v2-docs"
     },
     {
       "name": "blockchain",
@@ -14792,6 +17612,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "database",
+      "description": "Guidelines for designing, implementing, and maintaining high-quality data models, ensuring data integrity, performance, and scalability.",
+      "repo": "MGPowerlytics/nhlstats",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "MGPowerlytics/nhlstats",
+      "source": "github.com/MGPowerlytics/nhlstats"
+    },
+    {
       "name": "deepagent",
       "description": "Expert guidance for DeepAgents framework - simplified agent creation with tool integration for LangChain/LangGraph workflows.",
       "repo": "htooayelwinict/claude-config",
@@ -15172,6 +18004,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "webapp",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
+      "repo": "schuttpj/baseline-app",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "schuttpj/baseline-app",
+      "source": "github.com/schuttpj/baseline-app"
+    },
+    {
       "name": "bun",
       "description": "Use for test lifecycle hooks: beforeAll, afterAll, beforeEach, afterEach, fixtures, preload.",
       "repo": "secondsky/claude-skills",
@@ -15341,6 +18185,18 @@
       "stars": 0,
       "install": "terrylica/cc-skills/plugins/quality-tools/skills/multi-agent-e2e-validation",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "worker",
+      "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+      "repo": "ricable/ruvector-edge",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ricable/ruvector-edge",
+      "source": "github.com/ricable/ruvector-edge"
     },
     {
       "name": "go",
@@ -15761,6 +18617,18 @@
       "stars": 0,
       "install": "marromugi/magi-ui/.claude/skills/component-test-runner",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "improve",
+      "description": "Iteratively improve an existing skill or command based on feedback",
+      "repo": "birdcar/claude-plugins",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "birdcar/claude-plugins",
+      "source": "github.com/birdcar/claude-plugins"
     },
     {
       "name": "call",
@@ -16383,6 +19251,18 @@
       "source": "downloaded"
     },
     {
+      "name": "archive",
+      "description": "Step-by-step guide for testing the launchd service skill on existing nahuatl projects.",
+      "repo": "pborenstein/plinth",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "pborenstein/plinth",
+      "source": "github.com/pborenstein/plinth"
+    },
+    {
       "name": "my",
       "description": "A skill with nested file structure for testing",
       "repo": "NikiforovAll/LazyOpenCode",
@@ -16393,6 +19273,18 @@
       "stars": 0,
       "install": "NikiforovAll/LazyOpenCode",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "grove",
+      "description": "Write and validate Grove technical specifications with consistent formatting, ASCII art headers, diagrams, and the Grove voice. Use when creating new specs, reviewing existing specs for completeness,",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
     },
     {
       "name": "complete",
@@ -16987,6 +19879,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "skill",
+      "description": "Guide for creating effective skills. Use this skill when you want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool",
+      "repo": "Holo00/IdeaForge",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Holo00/IdeaForge",
+      "source": "github.com/Holo00/IdeaForge"
+    },
+    {
       "name": "monetization",
       "description": "Game monetization strategies, in-app purchases, battle passes, ads integration,and player retention mechanics. Ethical monetization that respects players.",
       "repo": "pluginagentmarketplace/custom-plugin-game-developer",
@@ -17256,6 +20160,18 @@
       "source": "downloaded"
     },
     {
+      "name": "test",
+      "description": "Run tests and systematically fix all failing tests using smart error grouping. Use when user asks to fix failing tests, mentions test failures, runs test suite and failures occur, or requests to make",
+      "repo": "hueyjeong/ForkLore",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "hueyjeong/ForkLore",
+      "source": "github.com/hueyjeong/ForkLore"
+    },
+    {
       "name": "opentrons",
       "description": "Opentrons Absorbance Plate Reader Module for Flex - on-deck microplate spectrophotometry with single/multi-wavelength reading (450, 562, 600, 650nm), automated lid control, and CSV data export for ELI",
       "repo": "jkitchin/skillz",
@@ -17454,6 +20370,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "skill",
+      "description": ">",
+      "repo": "carlos-ASG/tu-voz-en-ruta",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "carlos-ASG/tu-voz-en-ruta",
+      "source": "github.com/carlos-ASG/tu-voz-en-ruta"
+    },
+    {
       "name": "unity",
       "description": "This skill should be used when the user asks about \"MCP tools\", \"Unity MCP\", \"enable tool groups\", \"which MCP tools\", \"create GameObject\", \"add component\", \"run Unity tests\", \"check scene hierarchy\",",
       "repo": "jwmyers/vui-vux-plugins",
@@ -17522,6 +20450,18 @@
       "stars": 0,
       "install": "ZeroGravitySkin-Ron/Claude/skills/image-processor-guidelines",
       "source": "downloaded"
+    },
+    {
+      "name": "skills",
+      "description": "There are four different project variants:",
+      "repo": "aswitalski/pls",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "aswitalski/pls",
+      "source": "github.com/aswitalski/pls"
     },
     {
       "name": "acceptance",
@@ -18596,6 +21536,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "gray",
+      "description": "Execute Gray Swan Wave 3 MITM challenges across 10 challenges and 90 AI models using Playwright automation, tiered execution strategy, and compliance framing. Use for Wave 3 healthcare, critical infra",
+      "repo": "RazonIn4K/Red-Team-Learning",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "RazonIn4K/Red-Team-Learning",
+      "source": "github.com/RazonIn4K/Red-Team-Learning"
+    },
+    {
       "name": "emerging",
       "description": "Master emerging technologies including blockchain, cybersecurity, QA testing, and specialized tech roles. Stay ahead with cutting-edge technologies.",
       "repo": "pluginagentmarketplace/custom-plugin-nextjs",
@@ -18606,6 +21558,18 @@
       "stars": 0,
       "install": "pluginagentmarketplace/custom-plugin-nextjs",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "scale",
+      "description": "Test at extremes (1000x bigger/smaller, instant/year-long) to expose fundamental truths hidden at normal scales",
+      "repo": "kienhaminh/speed-reader",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "kienhaminh/speed-reader",
+      "source": "github.com/kienhaminh/speed-reader"
     },
     {
       "name": "stripe",
@@ -18720,6 +21684,18 @@
       "stars": 0,
       "install": "sandraschi/advanced-memory-mcp",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "nano",
+      "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+      "repo": "drshailesh88/Krypto",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "drshailesh88/Krypto",
+      "source": "github.com/drshailesh88/Krypto"
     },
     {
       "name": "quality",
@@ -18888,6 +21864,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "create",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "erwinkn/ai-config",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "erwinkn/ai-config",
+      "source": "github.com/erwinkn/ai-config"
+    },
+    {
       "name": "write",
       "description": "Generate behavioral unit tests from functional specifications using PreDB/PostDB pattern. Use when user provides specs with Preconditions/Workflow/Postconditions structure or asks to write tests for a",
       "repo": "edmar/dap-client",
@@ -19053,6 +22041,18 @@
       "source": "downloaded"
     },
     {
+      "name": "effect",
+      "description": "Define services, provide layers, compose dependencies, and switch live/test. Use for DI boundaries and app composition.",
+      "repo": "mepuka/adjunct",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/adjunct",
+      "source": "github.com/mepuka/adjunct"
+    },
+    {
       "name": "backend",
       "description": "This skill should be used when the user asks to \"debug backend tests\", \"fix pytest failures\", \"analyze Python errors\", \"fix FastAPI bugs\", or mentions keywords like \"pytest\", \"IntegrityError\", \"Valida",
       "repo": "penkzhou/swiss-army-knife-plugin",
@@ -19211,6 +22211,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "networking",
+      "description": "Implements networking and replication systems including RemoteEvent optimization, custom replication, lag compensation, client prediction, and bandwidth optimization. Use when building multiplayer gam",
+      "repo": "taozhuo/game-dev-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "taozhuo/game-dev-skills",
+      "source": "github.com/taozhuo/game-dev-skills"
+    },
+    {
       "name": "clojure",
       "description": "Ring specification for HTTP server applications in Clojure. Use when working with: (1) Ring handlers (sync or async), (2) Ring request maps and their keys, (3) Ring response maps and their keys, (4) R",
       "repo": "Ramblurr/nix-devenv",
@@ -19307,6 +22319,18 @@
       "stars": 0,
       "install": "melodic-software/claude-code-plugins/plugins/requirements-elicitation/skills/stakeholder-simulation",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "dispatching",
+      "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+      "repo": "ederheisler/agent-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ederheisler/agent-skills",
+      "source": "github.com/ederheisler/agent-skills"
     },
     {
       "name": "project",
@@ -19437,6 +22461,18 @@
       "stars": 0,
       "install": "FortiumPartners/ai-mesh",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "rules",
+      "description": "A skill is an area of specialization associated with an ability check. If you have [[proficiency]] in a skill, you can add your Proficiency Bonus when you make an ability check associated with that...",
+      "repo": "OddBallYT/ms_Obsidian.Projects",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "OddBallYT/ms_Obsidian.Projects",
+      "source": "github.com/OddBallYT/ms_Obsidian.Projects"
     },
     {
       "name": "executing",
@@ -19828,6 +22864,18 @@
       "stars": 0,
       "install": "SmidigStorm/regelverk-python/.claude/skills/requirements-writing",
       "source": "downloaded"
+    },
+    {
+      "name": "pdf",
+      "description": "Generate professional PDF lead magnets (ebooks, checklists, cheatsheets) with consistent branding and high-quality typography.",
+      "repo": "xavierfuentes/xavierfuentes.com",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "xavierfuentes/xavierfuentes.com",
+      "source": "github.com/xavierfuentes/xavierfuentes.com"
     },
     {
       "name": "pmc",
@@ -20507,6 +23555,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "tdd",
+      "description": "TDDワークフローを強制し、テストファースト開発を支援します。新機能実装時に自動起動し、Red-Green-Refactorサイクルを確実に実行します。",
+      "repo": "drillan/note-mcp",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "drillan/note-mcp",
+      "source": "github.com/drillan/note-mcp"
+    },
+    {
       "name": "using",
       "description": "Create and modify Argcfiles using the special syntax required. Use this when editing Argcfile.sh, @argc, or any shell script that contains `argc --argc-eval`.",
       "repo": "CGamesPlay/dotfiles",
@@ -20529,6 +23589,18 @@
       "stars": 0,
       "install": "nikhilvallishayee/universal-pattern-space",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "joshkellett87/useful-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "joshkellett87/useful-skills",
+      "source": "github.com/joshkellett87/useful-skills"
     },
     {
       "name": "nixos",
@@ -20822,6 +23894,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "agent",
+      "description": "Browser automation CLI for AI-driven UI testing and review. Use when asked to \"test the UI\", \"review the website\", \"check the site visually\", \"audit the frontend\", or perform automated browser testing",
+      "repo": "rickoslyder/TraitorSim",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "rickoslyder/TraitorSim",
+      "source": "github.com/rickoslyder/TraitorSim"
+    },
+    {
       "name": "chipseq",
       "description": "Performs ChIP-specific biological validation. It calculates metrics unique to protein-binding assays, such as Cross-correlation (NSC/RSC) and FRiP. Use this when you have filtered the BAM file and cal",
       "repo": "BIsnake2001/ChromSkills",
@@ -20892,6 +23976,18 @@
       "stars": 0,
       "install": "dolsoon/my-awesome-project/.claude/skills/moai-foundation-specs",
       "source": "downloaded"
+    },
+    {
+      "name": "test",
+      "description": "Test the complete lead submission flow using browser automation. Fills out the form with test data, submits, and captures PING/POST network requests to verify the lead flow works correctly.",
+      "repo": "gabe-almeida/next-js-my-contractor-now",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "gabe-almeida/next-js-my-contractor-now",
+      "source": "github.com/gabe-almeida/next-js-my-contractor-now"
     },
     {
       "name": "data",
@@ -21500,6 +24596,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "mr-phariyawit/startup",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mr-phariyawit/startup",
+      "source": "github.com/mr-phariyawit/startup"
+    },
+    {
       "name": "ios",
       "description": "Test iOS apps using AXe CLI for accessibility auditing, UI automation, and simulator control. Use when testing iOS Simulator apps, automating UI interactions, recording test videos, or auditing access",
       "repo": "ckorhonen/claude-skills",
@@ -21706,6 +24814,18 @@
       "stars": 0,
       "install": "DYAI2025/Skill-chromeEXT",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "Dknight203/AesopIDE",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Dknight203/AesopIDE",
+      "source": "github.com/Dknight203/AesopIDE"
     },
     {
       "name": "testresultanalyzer",
@@ -22225,6 +25345,18 @@
       "source": "downloaded"
     },
     {
+      "name": "debug",
+      "description": "Investigate and fix a bug systematically",
+      "repo": "WhatIfWeDigDeeper/application-tracker",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/application-tracker",
+      "source": "github.com/WhatIfWeDigDeeper/application-tracker"
+    },
+    {
       "name": "run",
       "description": "Start the Gambit game server on 0.0.0.0:1234. Use when the user wants to run just the server, test server functionality, or manually test with clients.",
       "repo": "FWFsoft/gambit",
@@ -22274,6 +25406,18 @@
       "stars": 0,
       "install": "NB993/olhaeolhae/.claude/skills/infra-tdd",
       "source": "downloaded"
+    },
+    {
+      "name": "songsee",
+      "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+      "repo": "ishuru/ishuru",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ishuru/ishuru",
+      "source": "github.com/ishuru/ishuru"
     },
     {
       "name": "claude",
@@ -22393,6 +25537,18 @@
       "stars": 0,
       "install": "CharlesKozel/vulhub_automated_pentester",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "songsee",
+      "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+      "repo": "drshailesh88/Krypto",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "drshailesh88/Krypto",
+      "source": "github.com/drshailesh88/Krypto"
     },
     {
       "name": "disciplined",
@@ -23599,6 +26755,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "mechanics",
+      "description": "Executes another MetaSkill, which must be located in",
+      "repo": "iceBear67/mythicmobswiki",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "iceBear67/mythicmobswiki",
+      "source": "github.com/iceBear67/mythicmobswiki"
+    },
+    {
       "name": "junit",
       "description": "Use when jUnit fundamentals including annotations, assertions, and test lifecycle for Java testing.",
       "repo": "TheBushidoCollective/han",
@@ -23780,6 +26948,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "wordpress",
+      "description": "This skill should be used when the user asks to \"pentest WordPress sites\", \"scan WordPress for vulnerabilities\", \"enumerate WordPress users, themes, or plugins\", \"exploit WordPress vulnerabilities\", o",
+      "repo": "PohLee/go-echo-ai-boilerplate",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "PohLee/go-echo-ai-boilerplate",
+      "source": "github.com/PohLee/go-echo-ai-boilerplate"
+    },
+    {
       "name": "spec",
       "description": "仕様書（docs/spec）と受け入れ基準の更新手順を指示するスキル。画面/機能/権限に変更がある作業で使う。",
       "repo": "knomura03/TEPPENMEO",
@@ -23790,6 +26970,18 @@
       "stars": 0,
       "install": "knomura03/TEPPENMEO/.codex/skills/spec-maintenance",
       "source": "GitHub Search API"
+    },
+    {
+      "name": "frontend",
+      "description": "Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review",
+      "repo": "oleksandrmelnychenko/ecliptix-protected-protocol",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "oleksandrmelnychenko/ecliptix-protected-protocol",
+      "source": "github.com/oleksandrmelnychenko/ecliptix-protected-protocol"
     },
     {
       "name": "nativephp",
@@ -23905,6 +27097,18 @@
       "stars": 0,
       "install": "AcceleratedIndustries/gasp/skill/gasp-diagnostics",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "d3",
+      "description": "To use these resources, read the relevant files when detailed guidance",
+      "repo": "PXMYH/Awesome-Claude",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "PXMYH/Awesome-Claude",
+      "source": "github.com/PXMYH/Awesome-Claude"
     },
     {
       "name": "ag",
@@ -24492,6 +27696,18 @@
       "stars": 0,
       "install": "getsentry/sentry-for-claude/skills/sentry-setup-ai-monitoring",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "video",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "repo": "HarleyCoops/CLAWDBOT",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "HarleyCoops/CLAWDBOT",
+      "source": "github.com/HarleyCoops/CLAWDBOT"
     },
     {
       "name": "scvi",
@@ -25194,6 +28410,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "list",
+      "description": "Display the list of files in the current directory with optional detailed information.",
+      "repo": "avb7/codeine",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "avb7/codeine",
+      "source": "github.com/avb7/codeine"
+    },
+    {
       "name": "android",
       "description": "Setup UI Automator 2.4 smoke test for validating app launches (works with debug and release builds)",
       "repo": "hitoshura25/claude-devtools",
@@ -25395,6 +28623,18 @@
       "stars": 0,
       "install": "gofastskill/fastskill/tests/fixtures/test-skill-registry-publish",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "oauth",
+      "description": "|",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone",
+      "source": "github.com/dennislee928/Smart_Zone"
     },
     {
       "name": "superbpe",
@@ -26562,6 +29802,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "agent",
+      "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction.",
+      "repo": "Fohlio/ai-tools",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Fohlio/ai-tools",
+      "source": "github.com/Fohlio/ai-tools"
+    },
+    {
       "name": "infra",
       "description": "Test infrastructure configurations and deployments - security scanning withCheckov/tfsec, cost estimation analysis, pre-deployment validation, post-deployment verification, integration testing, genera",
       "repo": "fractary/claude-plugins",
@@ -26687,6 +29939,18 @@
       "stars": 0,
       "install": "sunholo-data/ailang/.claude/skills/test-coverage-guardian",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "jhoshim89/hhjhbudget",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jhoshim89/hhjhbudget",
+      "source": "github.com/jhoshim89/hhjhbudget"
     },
     {
       "name": "cucumber",
@@ -26971,6 +30235,18 @@
       "stars": 0,
       "install": "regenrek/agent-skills/skills/homebrew-publish",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skills",
+      "description": "21 production-ready scripts for iOS app testing, building, and automation. Provides semantic UI navigation, build automation, accessibility testing, and simulator lifecycle management. Optimized for A",
+      "repo": "synqing/SpectraSynq.trinity",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "synqing/SpectraSynq.trinity",
+      "source": "github.com/synqing/SpectraSynq.trinity"
     },
     {
       "name": "write",
@@ -27394,6 +30670,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "wordpress",
+      "description": "This skill should be used when the user asks to \"pentest WordPress sites\", \"scan WordPress for vulnerabilities\", \"enumerate WordPress users, themes, or plugins\", \"exploit WordPress vulnerabilities\", o",
+      "repo": "correo940/Quiova",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "correo940/Quiova",
+      "source": "github.com/correo940/Quiova"
+    },
+    {
       "name": "unity",
       "description": "Manage Unity Catalog metadata tags for data governance and classification. Use when applying tags to tables and columns, classifying data sensitivity (PII, PHI), marking data quality attributes, or wh",
       "repo": "fusionet24/AISkills",
@@ -27459,6 +30747,18 @@
       "stars": 0,
       "install": "pcortes/swarm-attack/.claude/skills/backlog-champion",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "Ermianr/fobos",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Ermianr/fobos",
+      "source": "github.com/Ermianr/fobos"
     },
     {
       "name": "api",
@@ -27910,6 +31210,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "test",
+      "description": "Generate real Cassandra 5.0 test data using Docker containers, export SSTables with proper directory structure, validate parsing against sstabledump, and manage test datasets. Use when working with te",
+      "repo": "pmcfadin/cqlite",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "pmcfadin/cqlite",
+      "source": "github.com/pmcfadin/cqlite"
+    },
+    {
       "name": "swift",
       "description": "Testing conventions for Swift/SwiftUI projects using Clean Architecture. Covers Swift Testing framework for unit/integration tests, XCUITest for UI and E2E tests, manual protocol-based mocking, async",
       "repo": "benaor/claude-config",
@@ -28160,6 +31472,18 @@
       "stars": 0,
       "install": "CJHarmath/claude-agents-skills/skills/rn-testing",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "literature",
+      "description": "/literature-review [phase]",
+      "repo": "jenniferied/everything-machine",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "jenniferied/everything-machine",
+      "source": "github.com/jenniferied/everything-machine"
     },
     {
       "name": "e2e",
@@ -29001,6 +32325,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "test",
+      "description": "Coordinates testing strategy and execution across all test types. Use when creating test plans, implementing tests (unit/integration/E2E), or enforcing coverage requirements (80% minimum). Applies tes",
+      "repo": "Brownbull/ayni_core",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Brownbull/ayni_core",
+      "source": "github.com/Brownbull/ayni_core"
+    },
+    {
       "name": "systematic",
       "description": "Safe refactoring workflow for replacing old types with new type-safe implementations through integration-test-first, file-by-file migration with incremental verification",
       "repo": "cipherstash/cipherpowers",
@@ -29351,6 +32687,30 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/crypto/defi-yield-optimizer/skills/optimizing-defi-yields",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "mokbhai/claude",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mokbhai/claude",
+      "source": "github.com/mokbhai/claude"
+    },
+    {
+      "name": "write",
+      "description": "Apply when creating or editing INFO, SPEC, IMPL, TEST, FIX documents, or STRUT plans",
+      "repo": "karstenheld3/SharePoint-GPT-Middleware",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "karstenheld3/SharePoint-GPT-Middleware",
+      "source": "github.com/karstenheld3/SharePoint-GPT-Middleware"
     },
     {
       "name": "tracking",
@@ -29725,6 +33085,18 @@
       "source": "downloaded"
     },
     {
+      "name": "prd",
+      "description": "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan thi",
+      "repo": "Moty/ralph_test_1",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Moty/ralph_test_1",
+      "source": "github.com/Moty/ralph_test_1"
+    },
+    {
       "name": "rca",
       "description": "Structured root cause analysis methodology with three-test isolation and prevention analysis",
       "repo": "violetio/violet-ai-plugins",
@@ -29807,6 +33179,18 @@
       "stars": 0,
       "install": "89jobrien/steve/steve/skills/agile-ceremonies",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "research",
+      "description": "Validates medical claims with external evidence using web search, providing citations for the final report.",
+      "repo": "n1healthcare/easy-chr",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "n1healthcare/easy-chr",
+      "source": "github.com/n1healthcare/easy-chr"
     },
     {
       "name": "arguments",
@@ -29907,6 +33291,18 @@
       "stars": 0,
       "install": "giuseppe-trisciuoglio/developer-kit/skills/junit-test/unit-test-wiremock-rest-api",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "senior",
+      "description": "Comprehensive QA and testing skill for quality assurance, test automation, and testing strategies for ReactJS, NextJS, NodeJS applications. Includes test suite generation, coverage analysis, E2E testi",
+      "repo": "LRYuChi/TAHZAN-ARCHIVE",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "LRYuChi/TAHZAN-ARCHIVE",
+      "source": "github.com/LRYuChi/TAHZAN-ARCHIVE"
     },
     {
       "name": "remediation",
@@ -30358,6 +33754,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "quality",
+      "description": "Systematic validation methodology for ResearchPacks and Implementation Plans. Provides scoring rubrics and quality gates to ensure outputs meet standards before proceeding to next phase. Prevents garb",
+      "repo": "zonta99/realestate-frontend",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "zonta99/realestate-frontend",
+      "source": "github.com/zonta99/realestate-frontend"
+    },
+    {
       "name": "bug",
       "description": "Systematically uncover and fix bugs using language-specific expertise andreproducible evidence.Triggers: bug hunting, defect detection, debugging, fix verification, bug fix,regression check, error inv",
       "repo": "athola/claude-night-market",
@@ -30539,6 +33947,18 @@
       "stars": 0,
       "install": "marcusgoll/robinhood-algo-trading-bot/.claude/skills/task-breakdown-phase",
       "source": "downloaded"
+    },
+    {
+      "name": "web",
+      "description": "Search the web and known data registries for data sources",
+      "repo": "kurtjameshayes/drs",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "kurtjameshayes/drs",
+      "source": "github.com/kurtjameshayes/drs"
     },
     {
       "name": "complex",
@@ -30827,6 +34247,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "mobile",
+      "description": "Mobile-first design thinking and decision-making for iOS and Android apps. Touch interaction, performance patterns, platform conventions. Teaches principles, not fixed values. Use when building React",
+      "repo": "GrupoUS/gpus",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "GrupoUS/gpus",
+      "source": "github.com/GrupoUS/gpus"
+    },
+    {
       "name": "scvitools",
       "description": "Comprehensive skill for scvi-tools - Deep probabilistic models for single-cell omics analysis. Use for scVI, scANVI, totalVI, MultiVI models, single-cell RNA-seq integration, batch correction, differe",
       "repo": "Ketomihine/my_skills",
@@ -30879,6 +34311,18 @@
       "stars": 0,
       "install": "zenobi-us/dotfiles/ai/files/skills/experts/meta-orchestration/performance-monitor",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "writing",
+      "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+      "repo": "kgadek/kgadek-claude-plugin",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "kgadek/kgadek-claude-plugin",
+      "source": "github.com/kgadek/kgadek-claude-plugin"
     },
     {
       "name": "pytest",
@@ -31043,6 +34487,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "rspress",
+      "description": "Configure RSPress frontmatter for documentation pages. Use when setting up page metadata, controlling layout options, or configuring home page hero/features sections.",
+      "repo": "savvy-web/rslib-builder",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "savvy-web/rslib-builder",
+      "source": "github.com/savvy-web/rslib-builder"
+    },
+    {
       "name": "code",
       "description": "Defines project-wide code conventions for magic number elimination, constant usage, performance optimization, and coordinate system separation. Use when implementing, testing, or reviewing code to ens",
       "repo": "shiroinock/Darts-Score-Trainer",
@@ -31116,6 +34572,18 @@
       "stars": 0,
       "install": "hydershah/advance-appliance/.claude/skills/testing-best-practices",
       "source": "downloaded"
+    },
+    {
+      "name": "skill",
+      "description": ">",
+      "repo": "sernafernando/pricing-app",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "sernafernando/pricing-app",
+      "source": "github.com/sernafernando/pricing-app"
     },
     {
       "name": "test",
@@ -31793,6 +35261,18 @@
       "source": "downloaded"
     },
     {
+      "name": "make",
+      "description": "Create new Agent Skills for GitHub Copilot from prompts or by duplicating this template. Use when asked to \"create a skill\", \"make a new skill\", \"scaffold a skill\", or when building specialized AI ...",
+      "repo": "alexandereiseghohi/ComicWise",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "alexandereiseghohi/ComicWise",
+      "source": "github.com/alexandereiseghohi/ComicWise"
+    },
+    {
       "name": "graphics",
       "description": "Visualize graphics output from unit tests to verify visual correctness of shapes, paths, and rendering",
       "repo": "paleoterra/PaleoRose",
@@ -31927,6 +35407,18 @@
       "stars": 0,
       "install": "TheCardGoat/tcg-engines/.claude/skills/lorcana-test-generation",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "sp",
+      "description": "Test skills with subagents before deployment to resist rationalization",
+      "repo": "buckstrdr/claude-workflow-system",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "buckstrdr/claude-workflow-system",
+      "source": "github.com/buckstrdr/claude-workflow-system"
     },
     {
       "name": "gsap",
@@ -32198,6 +35690,18 @@
       "stars": 0,
       "install": "johannesfritz/autonomous-orchestration/.claude/skills/run-test-suite",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "rules",
+      "description": "A skill is an area of specialization associated with an ability check. If you have [[proficiency]] in a skill, you can add your Proficiency Bonus when you make an ability check associated with that...",
+      "repo": "OddBallYT/ms_Obsidian.Projects",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "OddBallYT/ms_Obsidian.Projects",
+      "source": "github.com/OddBallYT/ms_Obsidian.Projects"
     },
     {
       "name": "mcp",
@@ -32745,6 +36249,18 @@
       "stars": 0,
       "install": "sfmskywalker/agentskillsdotnet/fixtures/skills/large-instructions-skill",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "moai",
+      "description": "SPEC document management - lifecycle, versioning, approval workflows, 50+ references, SPEC-first TDD integration",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project",
+      "source": "github.com/dolsoon/my-awesome-project"
     },
     {
       "name": "bi",
@@ -33547,6 +37063,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "video",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "repo": "drshailesh88/Krypto",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "drshailesh88/Krypto",
+      "source": "github.com/drshailesh88/Krypto"
+    },
+    {
       "name": "sentence",
       "description": "Framework for state-of-the-art sentence, text, and image embeddings. Provides 5000+ pre-trained models for semantic similarity, clustering, and retrieval. Supports multilingual, domain-specific, and m",
       "repo": "zechenzhangAGI/AI-research-SKILLs",
@@ -33711,6 +37239,18 @@
       "stars": 0,
       "install": "amattas/agentic-coding/development/.claude/skills/domain-glossary",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "worker",
+      "description": "Run comprehensive worker system benchmarks and performance analysis",
+      "repo": "ricable/ruvector-edge",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ricable/ruvector-edge",
+      "source": "github.com/ricable/ruvector-edge"
     },
     {
       "name": "configuring",
@@ -34106,6 +37646,18 @@
       "source": "downloaded"
     },
     {
+      "name": "skills",
+      "description": "Skill: skills",
+      "repo": "Eibon7/roastr-ai",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Eibon7/roastr-ai",
+      "source": "github.com/Eibon7/roastr-ai"
+    },
+    {
       "name": "your",
       "description": "Use when [specific triggering conditions and symptoms] - [what the skill does and how it helps, written in third person]",
       "repo": "yangsi7/skill-builder",
@@ -34331,6 +37883,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "worker",
+      "description": "Run comprehensive worker system benchmarks and performance analysis",
+      "repo": "QUXTech/claude-flow",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "QUXTech/claude-flow",
+      "source": "github.com/QUXTech/claude-flow"
+    },
+    {
       "name": "moai",
       "description": "\"Enterprise testing framework with pytest 8.4.x, Vitest 4.x, Playwright 1.48.x, Testing Library 15.x, httpx 0.28.x, k6 load testing, and accessibility testing\"",
       "repo": "dolsoon/my-awesome-project",
@@ -34508,6 +38072,18 @@
       "stars": 0,
       "install": "Eng0AI/eng0-template-skills/express-typescript-starter",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "after",
+      "description": "\"Create a new component to display a user's activity history with their recent reviews, photos, and favorites\"",
+      "repo": "janekm/reviews",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "janekm/reviews",
+      "source": "github.com/janekm/reviews"
     },
     {
       "name": "windsurf",
@@ -35099,6 +38675,18 @@
       "source": "downloaded"
     },
     {
+      "name": "ai",
+      "description": "Here’s a complete breakdown of how to configure and set up the Scoring Skill in raiaAI’s Launch Pad. This skill allows your AI agent to evaluate the quality of its conversations and assign a Conver...",
+      "repo": "raia-ai/raia-v2-docs",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "raia-ai/raia-v2-docs",
+      "source": "github.com/raia-ai/raia-v2-docs"
+    },
+    {
       "name": "unit",
       "description": "Comprehensive unit testing expertise covering Vitest, Jest, test-driven development (TDD), mocking strategies, test coverage, snapshot testing, test architecture, testing patterns, dependency injectio",
       "repo": "anton-abyzov/specweave",
@@ -35540,6 +39128,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "songsee",
+      "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+      "repo": "HarleyCoops/CLAWDBOT",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "HarleyCoops/CLAWDBOT",
+      "source": "github.com/HarleyCoops/CLAWDBOT"
+    },
+    {
       "name": "spawning",
       "description": "Use when subagents need to delegate work but can't use Task tool, or when needing to test skills in isolated context - spawns Claude instances via CLI backgrounding with JSON responses",
       "repo": "snits/claude-files",
@@ -35803,6 +39403,18 @@
       "stars": 0,
       "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-sales/skills/outbound-sequences",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "Woochang4862/etf-trading-project",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Woochang4862/etf-trading-project",
+      "source": "github.com/Woochang4862/etf-trading-project"
     },
     {
       "name": "distribution",
@@ -36126,6 +39738,18 @@
       "stars": 0,
       "install": "el-feo/ai-context/plugins/ruby-rails/skills/rspec",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "frontend",
+      "description": "Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review",
+      "repo": "Dknight203/AesopIDE",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Dknight203/AesopIDE",
+      "source": "github.com/Dknight203/AesopIDE"
     },
     {
       "name": "script",
@@ -36950,6 +40574,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "prd",
+      "description": "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan thi",
+      "repo": "Hulkermon/korol.uk",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Hulkermon/korol.uk",
+      "source": "github.com/Hulkermon/korol.uk"
+    },
+    {
       "name": "symfonye2e",
       "description": "Write end-to-end tests with Symfony Panther for browser automation or Playwright for complex scenarios",
       "repo": "MakFly/superpowers-symfony",
@@ -37079,6 +40715,18 @@
       "stars": 0,
       "install": "pauleveritt/svcs-di/.claude/skills/testing-sybil",
       "source": "downloaded"
+    },
+    {
+      "name": "skill",
+      "description": ">",
+      "repo": "adbertram/Devolutions-CIEM",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "adbertram/Devolutions-CIEM",
+      "source": "github.com/adbertram/Devolutions-CIEM"
     },
     {
       "name": "retrospective",
@@ -37660,6 +41308,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "skills",
+      "description": "actor: qa | mandate: Verify end-to-end user journeys | bounds: No performance optimization",
+      "repo": "oleksandr-rud/aura-sdd",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "oleksandr-rud/aura-sdd",
+      "source": "github.com/oleksandr-rud/aura-sdd"
+    },
+    {
       "name": "component",
       "description": "Intelligently identify missing test coverage based on component type",
       "repo": "openshift-eng/ai-helpers",
@@ -37879,6 +41539,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "analyze",
+      "description": "Analyze failed GitHub Action jobs for a pull request.",
+      "repo": "mlflow/dev",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mlflow/dev",
+      "source": "github.com/mlflow/dev"
+    },
+    {
       "name": "testing",
       "description": "Expert guide for testing Next.js applications with Playwright, Jest, and React Testing Library. Use when writing tests, debugging test failures, or setting up test infrastructure.",
       "repo": "eddiebe147/claude-settings",
@@ -37918,6 +41590,18 @@
       "stars": 0,
       "install": "VilnaCRM-Org/core-service/.claude/skills/testing-workflow",
       "source": "downloaded"
+    },
+    {
+      "name": "dynamic",
+      "description": "This skill enables Claude to dynamically generate form specifications within chat conversations based on the type of item or project the user wants to build. Instead of providing text responses, Claud",
+      "repo": "dmdorta1111/jac-v1",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "dmdorta1111/jac-v1",
+      "source": "github.com/dmdorta1111/jac-v1"
     },
     {
       "name": "symfonyfunctional",
@@ -38567,6 +42251,18 @@
       "stars": 0,
       "install": "enuno/dokploy/.claude/skills/dokploy-cloudflare-integration",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "scale",
+      "description": "Test at extremes (1000x bigger/smaller, instant/year-long) to expose fundamental truths hidden at normal scales",
+      "repo": "laurenj3250-debug/vethub2.0",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "laurenj3250-debug/vethub2.0",
+      "source": "github.com/laurenj3250-debug/vethub2.0"
     },
     {
       "name": "story",
@@ -39236,6 +42932,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "mobile",
+      "description": "Mobile-first design thinking and decision-making for iOS and Android apps. Touch interaction, performance patterns, platform conventions. Teaches principles, not fixed values. Use when building React",
+      "repo": "chrissargent48/weekly_report",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "chrissargent48/weekly_report",
+      "source": "github.com/chrissargent48/weekly_report"
+    },
+    {
       "name": "detox",
       "description": "Эксперт Detox тестирования. Используй для React Native E2E tests и mobile automation.",
       "repo": "dengineproblem/agents-monorepo",
@@ -39262,6 +42970,18 @@
       "stars": 0,
       "install": "toneron2/SFH-OS/.claude/skills/sfh-qa",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "mobile",
+      "description": "Mobile-first design thinking and decision-making for iOS and Android apps. Touch interaction, performance patterns, platform conventions. Teaches principles, not fixed values. Use when building React",
+      "repo": "hongluu92/book-tts",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "hongluu92/book-tts",
+      "source": "github.com/hongluu92/book-tts"
     },
     {
       "name": "testing",
@@ -39488,6 +43208,18 @@
       "stars": 0,
       "install": "matthew-bram/enterprise-confluent-test-probe/.claude/skills/vibe-mode",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "ai",
+      "description": "The retriever skill is a mechanism that allows the system (an agent) to fetch contextual information from an external vector database, such as Pinecone, in real time. The retrieved data is then pas...",
+      "repo": "raia-ai/raia-v2-docs",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "raia-ai/raia-v2-docs",
+      "source": "github.com/raia-ai/raia-v2-docs"
     },
     {
       "name": "vercel",
@@ -39863,6 +43595,18 @@
       "source": "downloaded"
     },
     {
+      "name": "clickhouse",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "repo": "WorldFlowAI/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "WorldFlowAI/everything-claude-code",
+      "source": "github.com/WorldFlowAI/everything-claude-code"
+    },
+    {
       "name": "shopify",
       "description": "Common Shopify Admin GraphQL API patterns for product queries, metafield operations, webhooks, and bulk operations. Auto-invoked when working with Shopify API integration.",
       "repo": "sarojpunde/shopify-dev-toolkit-claude-plugins",
@@ -40118,6 +43862,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "skill",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends the agent's capabilities with specialized knowledge, wor",
+      "repo": "ceshine/ceshine-agent-skills",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ceshine/ceshine-agent-skills",
+      "source": "github.com/ceshine/ceshine-agent-skills"
+    },
+    {
       "name": "interview",
       "description": "Interview the user to clarify provided spec.",
       "repo": "moughxyz/skills",
@@ -40231,6 +43987,18 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/skill-databases/windsurf/skills/windsurf-test-generation",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "webapp",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
+      "repo": "schuttpj/next15-template-pjs",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "schuttpj/next15-template-pjs",
+      "source": "github.com/schuttpj/next15-template-pjs"
     },
     {
       "name": "golang",
@@ -40372,6 +44140,18 @@
       "stars": 0,
       "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/.github/agents/app-starter/agents-context/skills/jest-config",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "peekaboo",
+      "description": "Capture and automate macOS UI with the Peekaboo CLI.",
+      "repo": "ishuru/ishuru",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "ishuru/ishuru",
+      "source": "github.com/ishuru/ishuru"
     },
     {
       "name": "symfonyapi",
@@ -40661,6 +44441,18 @@
       "source": "downloaded"
     },
     {
+      "name": "add",
+      "description": "Add new feature with full validation: $ARGUMENTS (feature name)",
+      "repo": "WhatIfWeDigDeeper/claude-code-coursera",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/claude-code-coursera",
+      "source": "github.com/WhatIfWeDigDeeper/claude-code-coursera"
+    },
+    {
       "name": "special",
       "description": "A skill for testing special characters and injection patterns",
       "repo": "maxvaega/skillkit",
@@ -40734,6 +44526,18 @@
       "stars": 0,
       "install": "IvanTorresEdge/molcajete.ai/tech-stacks/js/react-native/skills/component-testing-mobile",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "debug",
+      "description": "Investigate and fix a bug systematically",
+      "repo": "WhatIfWeDigDeeper/claude-template",
+      "path": "",
+      "branch": "main",
+      "category": "testing",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/claude-template",
+      "source": "github.com/WhatIfWeDigDeeper/claude-template"
     },
     {
       "name": "otel",

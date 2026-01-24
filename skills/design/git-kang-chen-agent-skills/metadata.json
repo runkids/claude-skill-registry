@@ -1,0 +1,10 @@
+{
+  "name": "git-kang-chen-agent-skills",
+  "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
+  "category": "design",
+  "repo": "Kang-chen/Agent-skills",
+  "path": "git/SKILL.md",
+  "stars": 1,
+  "source": "github.com/Kang-chen/Agent-skills",
+  "downloaded_at": "2026-01-24T16:15:02.778808Z"
+}

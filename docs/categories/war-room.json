@@ -1,0 +1,32 @@
+{
+  "category": "war-room",
+  "code": "oth",
+  "count": 2,
+  "updated_at": "2026-01-24T16:17:38.573427Z",
+  "skills": [
+    {
+      "name": "macro",
+      "description": "Macroeconomic and market regime analyst. Monitors Fed policy, inflation, GDP, unemployment, and global economic trends to determine overall market risk appetite and sector rotation strategies.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "war-room",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "macro",
+      "description": "Macroeconomic and market regime analyst. Monitors Fed policy, inflation, GDP, unemployment, and global economic trends to determine overall market risk appetite and sector rotation strategies.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "war-room",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

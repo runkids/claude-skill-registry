@@ -1,0 +1,10 @@
+{
+  "name": "claude-get-session-info",
+  "description": "Shared utility script for getting Claude PID and Session ID. Source this in other scripts to access CLAUDE_PID and SESSION_ID variables.",
+  "category": "data",
+  "repo": "ManuelKugelmann/BitBot",
+  "path": "container/templates/bitbot-base/.claude/skills/claude-get-session-info/SKILL.md",
+  "stars": 2,
+  "source": "github.com/ManuelKugelmann/BitBot",
+  "downloaded_at": "2026-01-24T16:16:09.622834Z"
+}

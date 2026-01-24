@@ -1,0 +1,10 @@
+{
+  "name": "launchd-manage-majiayu000-claude-skill-regist",
+  "description": "auto-sync launchd管理。dotfiles自動同期の状態確認・起動・停止・ログ確認。トリガー: launchd, auto-sync, 自動同期, 同期, sync agent",
+  "category": "other",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/launchd-manage/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:08.796852Z"
+}

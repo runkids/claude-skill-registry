@@ -1,0 +1,10 @@
+{
+  "name": "pytdc-blurjp-imageprepmcp",
+  "description": "Therapeutics Data Commons. AI-ready drug discovery datasets (ADME, toxicity, DTI), benchmarks, scaffold splits, molecular oracles, for therapeutic ML and pharmacological prediction.",
+  "category": "development",
+  "repo": "Blurjp/ImagePrepMCP",
+  "path": ".claude/skills/scientific-pytdc/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Blurjp/ImagePrepMCP",
+  "downloaded_at": "2026-01-24T16:15:41.446662Z"
+}

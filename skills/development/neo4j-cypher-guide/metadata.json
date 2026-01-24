@@ -1,0 +1,10 @@
+{
+  "name": "neo4j-cypher-guide",
+  "description": "Comprehensive guide for writing modern Neo4j Cypher read queries. Essential for text2cypher MCP tools and LLMs generating Cypher queries. Covers removed/deprecated syntax, modern replacements, CALL su",
+  "category": "development",
+  "repo": "Berkay2002/agentic-rag-test-scope-analysis",
+  "path": ".codex/skills/neo4j-cypher-guide/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Berkay2002/agentic-rag-test-scope-analysis",
+  "downloaded_at": "2026-01-24T16:15:30.386486Z"
+}

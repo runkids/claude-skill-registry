@@ -1,0 +1,10 @@
+{
+  "name": "url-routing-patterns-melodic-software-claude-code-p",
+  "description": "Use when designing URL structures, slug generation, SEO-friendly URLs, redirects, or localized URL patterns. Covers route configuration, URL rewriting, canonical URLs, and routing APIs for headless CM",
+  "category": "development",
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/content-management-system/skills/url-routing-patterns/SKILL.md",
+  "stars": 12,
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-24T16:16:01.773274Z"
+}

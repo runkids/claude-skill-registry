@@ -1,0 +1,80 @@
+{
+  "category": "system",
+  "code": "oth",
+  "count": 6,
+  "updated_at": "2026-01-24T16:17:38.530701Z",
+  "skills": [
+    {
+      "name": "portfolio",
+      "description": "Portfolio allocation and rebalancing optimizer. Manages asset allocation across stocks/cash/bonds, performs periodic rebalancing, and ensures diversification according to market regime and risk tolera",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "system",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "portfolio",
+      "description": "Portfolio allocation and rebalancing optimizer. Manages asset allocation across stocks/cash/bonds, performs periodic rebalancing, and ensures diversification according to market regime and risk tolera",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "system",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "constitution",
+      "description": "Constitutional compliance validator. Enforces all 5 Constitutional Articles to ensure AI trading decisions comply with human-defined rules. Works as second line of defense alongside Risk Agent.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "system",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "constitution",
+      "description": "Constitutional compliance validator. Enforces all 5 Constitutional Articles to ensure AI trading decisions comply with human-defined rules. Works as second line of defense alongside Risk Agent.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "system",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "create",
+      "description": "Interactive wizard to create a new skill for specialized, reusable workflows and domain-specific expertise",
+      "repo": "qazuor/hospeda",
+      "path": "",
+      "branch": "main",
+      "category": "system",
+      "tags": [],
+      "stars": 1,
+      "install": "qazuor/hospeda",
+      "source": "github.com/qazuor/hospeda"
+    },
+    {
+      "name": "create",
+      "description": "Interactive wizard to create reusable skills for specialized workflows",
+      "repo": "qazuor/qzpay",
+      "path": "",
+      "branch": "main",
+      "category": "system",
+      "tags": [],
+      "stars": 0,
+      "install": "qazuor/qzpay",
+      "source": "github.com/qazuor/qzpay"
+    }
+  ]
+}

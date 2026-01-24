@@ -1,0 +1,10 @@
+{
+  "name": "moai-platform-firestore",
+  "description": "Firebase Firestore specialist covering NoSQL patterns, real-time sync, offline caching, and Security Rules. Use when building mobile-first apps with offline support, implementing real-time listeners, ",
+  "category": "platform",
+  "repo": "yarang/chatbot_ai_assistant_v2",
+  "path": ".claude/skills/moai-platform-firestore/SKILL.md",
+  "stars": 0,
+  "source": "github.com/yarang/chatbot_ai_assistant_v2",
+  "downloaded_at": "2026-01-24T16:15:42.739698Z"
+}

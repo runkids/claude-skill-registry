@@ -1,0 +1,10 @@
+{
+  "name": "tdd-workflow-drillan-note-mcp",
+  "description": "TDDワークフローを強制し、テストファースト開発を支援します。新機能実装時に自動起動し、Red-Green-Refactorサイクルを確実に実行します。",
+  "category": "testing",
+  "repo": "drillan/note-mcp",
+  "path": ".claude/skills/tdd-workflow/SKILL.md",
+  "stars": 0,
+  "source": "github.com/drillan/note-mcp",
+  "downloaded_at": "2026-01-24T16:15:48.079653Z"
+}

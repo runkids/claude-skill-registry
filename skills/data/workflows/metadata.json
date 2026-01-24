@@ -1,0 +1,10 @@
+{
+  "name": "workflows",
+  "description": "Create or edit a Cline Skill with guided assistance and best practices",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/Workflows/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:14.495397Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "writing-hookify-rules-dknight203-aesopide",
+  "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+  "category": "documents",
+  "repo": "Dknight203/AesopIDE",
+  "path": ".cursor/skills/Writing Hookify Rules/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Dknight203/AesopIDE",
+  "downloaded_at": "2026-01-24T16:15:31.803676Z"
+}

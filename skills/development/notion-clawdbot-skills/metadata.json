@@ -1,0 +1,10 @@
+{
+  "name": "notion-clawdbot-skills",
+  "description": "Notion API for creating and managing pages, databases, and blocks.",
+  "category": "development",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/notion/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:27.600764Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "gemini-clawdbot-skills",
+  "description": "Gemini CLI for one-shot Q&A, summaries, and generation.",
+  "category": "development",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/gemini/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:28.123940Z"
+}

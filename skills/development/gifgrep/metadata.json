@@ -1,0 +1,10 @@
+{
+  "name": "gifgrep",
+  "description": "Search GIF providers with CLI/TUI, download results, and extract stills/sheets.",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/gifgrep/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:13.677338Z"
+}

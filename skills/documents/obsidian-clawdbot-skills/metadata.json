@@ -1,0 +1,10 @@
+{
+  "name": "obsidian-clawdbot-skills",
+  "description": "Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.",
+  "category": "documents",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/obsidian/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:30.891435Z"
+}

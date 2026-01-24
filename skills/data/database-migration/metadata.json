@@ -1,0 +1,10 @@
+{
+  "name": "database-migration",
+  "description": "Guides database migration projects including engine changes (MySQL to PostgreSQL, Oracle to PostgreSQL, SQL Server to PostgreSQL), version upgrades, cloud migrations (on-premise to RDS/Cloud SQL/Azure",
+  "category": "data",
+  "repo": "DauQuangThanh/hanoi-rainbow",
+  "path": "skills/database-migration/SKILL.md",
+  "stars": 2,
+  "source": "github.com/DauQuangThanh/hanoi-rainbow",
+  "downloaded_at": "2026-01-24T16:15:54.460619Z"
+}

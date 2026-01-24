@@ -1,0 +1,10 @@
+{
+  "name": "goplaces",
+  "description": "Query Google Places API (New) via the goplaces CLI for text search, place details, resolve, and reviews. Use for human-friendly place lookup or JSON output for scripts.",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/goplaces/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:15.271296Z"
+}

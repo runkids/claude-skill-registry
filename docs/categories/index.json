@@ -1,45 +1,210 @@
 {
-  "updated_at": "2026-01-24T15:00:10.387825Z",
+  "updated_at": "2026-01-24T16:17:37.466011Z",
   "categories": [
+    {
+      "name": "adb-meta-automation",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "agent",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "agent-coordination",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "ai-llm",
+      "code": "oth",
+      "count": 3
+    },
+    {
+      "name": "ai-ml",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "analysis",
+      "code": "oth",
+      "count": 5
+    },
+    {
+      "name": "analysis-methods",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "api",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "applied",
+      "code": "oth",
+      "count": 7
+    },
+    {
+      "name": "artifact-generation",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "bash",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "business-monetization",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "business-productivity",
+      "code": "oth",
+      "count": 1
+    },
     {
       "name": "c-level",
       "code": "oth",
       "count": 8
     },
     {
+      "name": "context-management",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "core",
+      "code": "oth",
+      "count": 4
+    },
+    {
       "name": "data",
       "code": "dat",
-      "count": 2730
+      "count": 2954
+    },
+    {
+      "name": "data-access",
+      "code": "oth",
+      "count": 2
     },
     {
       "name": "design",
       "code": "des",
-      "count": 3894
+      "count": 3958
+    },
+    {
+      "name": "design-principles",
+      "code": "oth",
+      "count": 1
     },
     {
       "name": "development",
       "code": "dev",
-      "count": 12614
+      "count": 15037
+    },
+    {
+      "name": "development-code",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "development-tools",
+      "code": "oth",
+      "count": 1
     },
     {
       "name": "devops",
       "code": "ops",
-      "count": 2086
+      "count": 2322
+    },
+    {
+      "name": "docs",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "document-processing",
+      "code": "oth",
+      "count": 2
     },
     {
       "name": "documents",
       "code": "doc",
-      "count": 2064
+      "count": 2198
+    },
+    {
+      "name": "domains",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "examples",
+      "code": "oth",
+      "count": 3
+    },
+    {
+      "name": "extended",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "forensics",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "foundation",
+      "code": "oth",
+      "count": 8
+    },
+    {
+      "name": "framework",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "gaming",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "generation",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "github-integration",
+      "code": "oth",
+      "count": 3
     },
     {
       "name": "integration",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "language",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "local-ai-infrastructure",
       "code": "oth",
       "count": 1
     },
     {
       "name": "marketing",
       "code": "mkt",
-      "count": 363
+      "count": 369
+    },
+    {
+      "name": "meta",
+      "code": "oth",
+      "count": 2
     },
     {
       "name": "official",
@@ -47,29 +212,154 @@
       "count": 16
     },
     {
+      "name": "orchestration",
+      "code": "oth",
+      "count": 6
+    },
+    {
       "name": "other",
       "code": "oth",
-      "count": 21432
+      "count": 21488
+    },
+    {
+      "name": "performance",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "planning",
+      "code": "oth",
+      "count": 4
+    },
+    {
+      "name": "platform",
+      "code": "oth",
+      "count": 5
     },
     {
       "name": "product",
       "code": "prd",
-      "count": 838
+      "count": 841
     },
     {
       "name": "productivity",
       "code": "pro",
-      "count": 1207
+      "count": 1226
+    },
+    {
+      "name": "programming-languages",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "project",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "quality",
+      "code": "oth",
+      "count": 7
+    },
+    {
+      "name": "research-analysis",
+      "code": "oth",
+      "count": 2
     },
     {
       "name": "security",
       "code": "sec",
-      "count": 505
+      "count": 571
+    },
+    {
+      "name": "security-compliance",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "security-operations",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "skills",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "specialized",
+      "code": "oth",
+      "count": 3
+    },
+    {
+      "name": "specialized-testing",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "story-analysis",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "string",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "system",
+      "code": "oth",
+      "count": 6
+    },
+    {
+      "name": "technical-integration",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "test",
+      "code": "oth",
+      "count": 1
     },
     {
       "name": "testing",
       "code": "tst",
-      "count": 3092
+      "count": 3409
+    },
+    {
+      "name": "testing-methodologies",
+      "code": "oth",
+      "count": 5
+    },
+    {
+      "name": "travel",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "utility",
+      "code": "oth",
+      "count": 3
+    },
+    {
+      "name": "war-room",
+      "code": "oth",
+      "count": 2
+    },
+    {
+      "name": "wix-extensions",
+      "code": "oth",
+      "count": 1
+    },
+    {
+      "name": "workflow",
+      "code": "oth",
+      "count": 5
+    },
+    {
+      "name": "writing",
+      "code": "oth",
+      "count": 1
     }
   ]
 }

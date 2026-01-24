@@ -1,0 +1,10 @@
+{
+  "name": "openai-whisper-drshailesh88-krypto",
+  "description": "Local speech-to-text with the Whisper CLI (no API key).",
+  "category": "development",
+  "repo": "drshailesh88/Krypto",
+  "path": "skills/openai-whisper/SKILL.md",
+  "stars": 0,
+  "source": "github.com/drshailesh88/Krypto",
+  "downloaded_at": "2026-01-24T16:15:16.088714Z"
+}

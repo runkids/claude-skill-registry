@@ -1,0 +1,10 @@
+{
+  "name": "writing-hookify-rules-akiojin-playfab-mcp-server",
+  "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+  "category": "documents",
+  "repo": "akiojin/playfab-mcp-server",
+  "path": ".claude/skills/writing-rules/SKILL.md",
+  "stars": 2,
+  "source": "github.com/akiojin/playfab-mcp-server",
+  "downloaded_at": "2026-01-24T16:15:55.814720Z"
+}

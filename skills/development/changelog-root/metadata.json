@@ -1,0 +1,10 @@
+{
+  "name": "changelog-root",
+  "description": "Update the repository root ChangeLog and keep the root release version metadata in sync. Use when updating the root version or syncing subsystem/package version lists in ChangeLog; touches ChangeLog a",
+  "category": "development",
+  "repo": "ts-klassen/qrpc",
+  "path": ".codex/skills/changelog-root/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ts-klassen/qrpc",
+  "downloaded_at": "2026-01-24T16:15:17.427894Z"
+}

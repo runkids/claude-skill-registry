@@ -1,0 +1,20 @@
+{
+  "category": "string",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:38.530542Z",
+  "skills": [
+    {
+      "name": "string",
+      "description": "string",
+      "repo": "dot-do/mdx",
+      "path": "",
+      "branch": "main",
+      "category": "string",
+      "tags": [],
+      "stars": 3,
+      "install": "dot-do/mdx",
+      "source": "github.com/dot-do/mdx"
+    }
+  ]
+}

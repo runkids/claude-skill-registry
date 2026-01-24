@@ -1,0 +1,10 @@
+{
+  "name": "multi-ai-cskwork-llm-review",
+  "description": "Start the multi-AI pipeline with a given request. Guides through plan -> review -> implement -> review workflow.",
+  "category": "documents",
+  "repo": "cskwork/llm-review",
+  "path": "skill/multi-ai/SKILL.md",
+  "stars": 0,
+  "source": "github.com/cskwork/llm-review",
+  "downloaded_at": "2026-01-24T16:16:08.480344Z"
+}

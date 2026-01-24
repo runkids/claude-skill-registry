@@ -1,9 +1,33 @@
 {
   "category": "productivity",
   "code": "pro",
-  "count": 1207,
-  "updated_at": "2026-01-24T15:00:11.290224Z",
+  "count": 1226,
+  "updated_at": "2026-01-24T16:17:38.500224Z",
   "skills": [
+    {
+      "name": "commit",
+      "description": "Help create git commits and PRs with properly formatted messages and release notes following CockroachDB conventions. Use when committing changes or creating pull requests.",
+      "repo": "cockroachdb/cockroach",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 31777,
+      "install": "cockroachdb/cockroach",
+      "source": "github.com/cockroachdb/cockroach"
+    },
+    {
+      "name": "strategic",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 24605,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    },
     {
       "name": "agent",
       "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
@@ -18,6 +42,18 @@
       "stars": 20912,
       "install": "yamadashy/repomix/.claude/skills/agent-memory",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "release",
+      "description": "Release the screenpipe monorepo. Bumps versions, generates changelog, triggers GitHub Actions for app, CLI, MCP, and JS packages.",
+      "repo": "mediar-ai/screenpipe",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 16501,
+      "install": "mediar-ai/screenpipe",
+      "source": "github.com/mediar-ai/screenpipe"
     },
     {
       "name": "agent",
@@ -127,6 +163,18 @@
       "stars": 9856,
       "install": "ruvnet/claude-flow/.claude/skills/github-project-management",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "ralph",
+      "description": "Autonomous agent for tackling big projects. Create PRDs with user stories, then run them via the CLI. Sessions persist across restarts with pause/resume and real-time monitoring.",
+      "repo": "civitai/civitai",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 6994,
+      "install": "civitai/civitai",
+      "source": "github.com/civitai/civitai"
     },
     {
       "name": "context",
@@ -281,6 +329,18 @@
       "stars": 456,
       "install": "khaphanspace/gonhanh.org/.claude/skills/github-assistant",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill",
+      "description": "Route commands to appropriate workflows based on task language and status. Invoke when executing /task, /research, /plan, /implement commands.",
+      "repo": "benbrastmckie/.config",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 432,
+      "install": "benbrastmckie/.config",
+      "source": "github.com/benbrastmckie/.config"
     },
     {
       "name": "planner",
@@ -855,6 +915,66 @@
       "stars": 50,
       "install": "arpitnath/super-claude-kit/skills/task-router",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "ralph",
+      "description": "Autonomous agent for tackling big projects. Create PRDs with user stories, then run them via the CLI. Sessions persist across restarts with pause/resume and real-time monitoring.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "workflow",
+      "description": "作業フローや手順を分析し、自動化可能な要素を特定する。ワークフロー分析時、自動化検討時、業務プロセス改善時、またはユーザーが作業フロー分析、自動化要素、業務手順、プロセス最適化に言及した際に使用する。",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "spawn",
+      "description": "정보 수집이 필요할 때 검색 에이전트 활용 가이드. 코드 탐색, 레퍼런스, 웹검색",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "task",
+      "description": "Generate user-story-organized task lists from implementation plans. Use when plan exists and user is ready for implementation, mentions \"create tasks\", \"break down work\", or asks \"what tasks are neede",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "nix",
+      "description": "Run janitorial cleanup for this flake: flake check, statix/deadnix linting, and safe hygiene fixes.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
       "name": "book",
@@ -1476,6 +1596,18 @@
       "source": "downloaded"
     },
     {
+      "name": "task",
+      "description": "Generate user-story-organized task lists from implementation plans. Use when plan exists and user is ready for implementation, mentions \"create tasks\", \"break down work\", or asks \"what tasks are neede",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
       "name": "rails",
       "description": "Business and systems analyst for Rails projects. Use when decomposing features into tasks, estimating complexity, describing architecture, writing JTBD (Jobs To Be Done), creating use cases, identifyi",
       "repo": "alec-c4/claude-skills-rails-dev",
@@ -2082,6 +2214,18 @@
       "stars": 10,
       "install": "Tony363/SuperClaude/.claude/skills/sc-workflow",
       "source": "downloaded"
+    },
+    {
+      "name": "gh",
+      "description": "一站式 GitHub 仓库配置初始化工具。",
+      "repo": "Prorise-cool/prorise-claude-skills",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 9,
+      "install": "Prorise-cool/prorise-claude-skills",
+      "source": "github.com/Prorise-cool/prorise-claude-skills"
     },
     {
       "name": "flow",
@@ -4277,6 +4421,18 @@
       "source": "downloaded"
     },
     {
+      "name": "fixing",
+      "description": "Fetches a GitHub issue, implements the fix, and verifies it. Use when: user wants to fix an issue, implement issue changes, or resolve a bug.",
+      "repo": "sasamuku/dotfiles",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 2,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    },
+    {
       "name": "task",
       "description": "Provides stable task list sorting across four dimensions (Priority, Due Date, Created Date, Alphabetical) with ascending/descending toggles, tie-breaking rules, and visual sort indicators. Default sor",
       "repo": "Syedaashnaghazanfar/full-stack-todo-app",
@@ -5838,6 +5994,18 @@
       "stars": 1,
       "install": "forztf/open-skilled-sdd/skills/speckit-analyze-zh",
       "source": "downloaded"
+    },
+    {
+      "name": "strategic",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "repo": "catyyy/everything-antigravity",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 1,
+      "install": "catyyy/everything-antigravity",
+      "source": "github.com/catyyy/everything-antigravity"
     },
     {
       "name": "automation",
@@ -8912,6 +9080,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "strategic",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "repo": "TatTran22/claude-code-1",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "TatTran22/claude-code-1",
+      "source": "github.com/TatTran22/claude-code-1"
+    },
+    {
       "name": "kanban",
       "description": "Manages the Anubis Issue Tracker GitHub project board. Use when you need to organize issues by difficulty/status, move issues through workflow stages, or generate board status reports.",
       "repo": "forrestthewoods/anubis",
@@ -9540,6 +9720,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "strategic",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "repo": "WorldFlowAI/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "WorldFlowAI/everything-claude-code",
+      "source": "github.com/WorldFlowAI/everything-claude-code"
+    },
+    {
       "name": "svg",
       "description": "When creating vector artwork, illustrations, or SVG graphics for creative expression - provides iterative drawing workflow with visual feedback using render-svg tool",
       "repo": "possumworx/claude-autonomy-platform",
@@ -10156,6 +10348,18 @@
       "stars": 0,
       "install": "frr149/mot/.claude/skills/archive-tasks",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "strategic",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "repo": "ysyecust/everything-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "ysyecust/everything-claude-code",
+      "source": "github.com/ysyecust/everything-claude-code"
     },
     {
       "name": "project",
@@ -11372,6 +11576,18 @@
       "stars": 0,
       "install": "semicolon-devteam/semo/semo-system/semo-skills/task-progress",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "notion",
+      "description": "Enables Claude to create, edit, and manage pages and databases in Notion via MCP and Playwright",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
     },
     {
       "name": "gns3",
@@ -13996,6 +14212,18 @@
       "stars": 0,
       "install": "dirien/claude-skills/pulumi-neo",
       "source": "downloaded"
+    },
+    {
+      "name": "clean",
+      "description": "|",
+      "repo": "boaznahum/cubesolve",
+      "path": "",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "boaznahum/cubesolve",
+      "source": "github.com/boaznahum/cubesolve"
     },
     {
       "name": "workflow",

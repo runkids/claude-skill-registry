@@ -1,0 +1,10 @@
+{
+  "name": "kanji-index-tkgally-je-dict-1",
+  "description": "Guidelines for maintaining the kanji index feature. Covers kanji ID assignment, index updates, and troubleshooting.",
+  "category": "documents",
+  "repo": "tkgally/je-dict-1",
+  "path": ".claude/skills/kanji-index/SKILL.md",
+  "stars": 0,
+  "source": "github.com/tkgally/je-dict-1",
+  "downloaded_at": "2026-01-24T16:15:40.635530Z"
+}

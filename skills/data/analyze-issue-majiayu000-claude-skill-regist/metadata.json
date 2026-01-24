@@ -1,0 +1,10 @@
+{
+  "name": "analyze-issue-majiayu000-claude-skill-regist",
+  "description": "Analyze a GitHub issue and create detailed analysis in workflows/",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/analyze-issue/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:23.885841Z"
+}

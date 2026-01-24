@@ -1,0 +1,10 @@
+{
+  "name": "camsnap-clawdbot-skills",
+  "description": "Capture frames or clips from RTSP/ONVIF cameras.",
+  "category": "data",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/camsnap/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:28.880147Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "rag-implementation-dknight203-aesopide",
+  "description": "Build Retrieval-Augmented Generation (RAG) systems for LLM applications with vector databases and semantic search. Use when implementing knowledge-grounded AI, building document Q&A systems, or integr",
+  "category": "documents",
+  "repo": "Dknight203/AesopIDE",
+  "path": ".agents/skills/rag-implementation/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Dknight203/AesopIDE",
+  "downloaded_at": "2026-01-24T16:16:03.315966Z"
+}

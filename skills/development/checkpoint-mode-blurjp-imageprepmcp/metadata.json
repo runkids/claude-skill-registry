@@ -1,0 +1,10 @@
+{
+  "name": "checkpoint-mode-blurjp-imageprepmcp",
+  "description": "Pause for review every N tasks - selective autonomy pattern",
+  "category": "development",
+  "repo": "Blurjp/ImagePrepMCP",
+  "path": ".claude/skills/loki-mode/agent-skills/checkpoint-mode/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Blurjp/ImagePrepMCP",
+  "downloaded_at": "2026-01-24T16:16:02.279412Z"
+}

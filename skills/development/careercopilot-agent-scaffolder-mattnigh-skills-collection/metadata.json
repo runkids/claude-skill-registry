@@ -1,0 +1,10 @@
+{
+  "name": "careercopilot-agent-scaffolder-mattnigh-skills-collection",
+  "description": "Scaffolds a new Python agent for autonomous AI tasks in 'src/agents/'. Agents are autonomous components that handle complex operations (resume analysis, job matching, KSC generation). Use when asked t",
+  "category": "development",
+  "repo": "mattnigh/skills_collection",
+  "path": "collection/okgoogle13__careercopilot__claude__skills__careercopilot-agent-scaffolder__SKILL.md",
+  "stars": 20,
+  "source": "github.com/mattnigh/skills_collection",
+  "downloaded_at": "2026-01-24T16:15:46.236641Z"
+}

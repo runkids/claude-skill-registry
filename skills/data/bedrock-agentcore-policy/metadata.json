@@ -1,0 +1,10 @@
+{
+  "name": "bedrock-agentcore-policy",
+  "description": "Amazon Bedrock AgentCore Policy for defining agent boundaries using natural language and Cedar. Deterministic policy enforcement at the Gateway level. Use when setting agent guardrails, access control",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/bedrock-agentcore-policy/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:12.880824Z"
+}

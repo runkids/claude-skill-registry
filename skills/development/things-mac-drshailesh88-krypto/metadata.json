@@ -1,0 +1,10 @@
+{
+  "name": "things-mac-drshailesh88-krypto",
+  "description": "Manage Things 3 via the `things` CLI on macOS (add/update projects+todos via URL scheme; read/search/list from the local Things database). Use when a user asks Clawdbot to add a task to Things, list i",
+  "category": "development",
+  "repo": "drshailesh88/Krypto",
+  "path": "skills/things-mac/SKILL.md",
+  "stars": 0,
+  "source": "github.com/drshailesh88/Krypto",
+  "downloaded_at": "2026-01-24T16:16:04.709624Z"
+}

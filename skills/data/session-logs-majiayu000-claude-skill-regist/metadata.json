@@ -1,0 +1,10 @@
+{
+  "name": "session-logs-majiayu000-claude-skill-regist",
+  "description": "Search and analyze your own session logs (older/parent conversations) using jq.",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/session-logs/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:06.409863Z"
+}

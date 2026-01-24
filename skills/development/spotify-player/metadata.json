@@ -1,0 +1,10 @@
+{
+  "name": "spotify-player",
+  "description": "Terminal Spotify playback/search via spogo (preferred) or spotify_player.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/spotify-player/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:07.933903Z"
+}

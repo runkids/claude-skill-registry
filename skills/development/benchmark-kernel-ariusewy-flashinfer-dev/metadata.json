@@ -1,0 +1,10 @@
+{
+  "name": "benchmark-kernel-ariusewy-flashinfer-dev",
+  "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
+  "category": "development",
+  "repo": "ariusewy/flashinfer_dev",
+  "path": ".claude/skills/benchmark-kernel/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ariusewy/flashinfer_dev",
+  "downloaded_at": "2026-01-24T16:15:55.842636Z"
+}

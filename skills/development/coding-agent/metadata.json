@@ -1,0 +1,10 @@
+{
+  "name": "coding-agent",
+  "description": "Run Codex CLI, Claude Code, OpenCode, or Pi Coding Agent via background process for programmatic control.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/coding-agent/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:05.988239Z"
+}

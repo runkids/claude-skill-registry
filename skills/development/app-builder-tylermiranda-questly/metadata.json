@@ -1,0 +1,10 @@
+{
+  "name": "app-builder-tylermiranda-questly",
+  "description": "Main application building orchestrator. Creates full-stack applications from natural language requests. Determines project type, selects tech stack, coordinates agents.",
+  "category": "development",
+  "repo": "tylermiranda/Questly",
+  "path": ".codex/skills/app-builder/SKILL.md",
+  "stars": 0,
+  "source": "github.com/tylermiranda/Questly",
+  "downloaded_at": "2026-01-24T16:15:16.163230Z"
+}

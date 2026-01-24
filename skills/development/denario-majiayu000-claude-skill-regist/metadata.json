@@ -1,0 +1,10 @@
+{
+  "name": "denario-majiayu000-claude-skill-regist",
+  "description": "Multiagent AI system for scientific research assistance that automates research workflows from data analysis to publication. This skill should be used when generating research ideas from datasets, dev",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/scientific-denario/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:57.275616Z"
+}

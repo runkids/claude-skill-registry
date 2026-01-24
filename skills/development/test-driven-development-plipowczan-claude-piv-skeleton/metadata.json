@@ -1,0 +1,10 @@
+{
+  "name": "test-driven-development-plipowczan-claude-piv-skeleton",
+  "description": "Enforces TDD RED-GREEN-REFACTOR cycle",
+  "category": "development",
+  "repo": "plipowczan/claude-piv-skeleton",
+  "path": ".claude/skills/test-driven-development/SKILL.md",
+  "stars": 0,
+  "source": "github.com/plipowczan/claude-piv-skeleton",
+  "downloaded_at": "2026-01-24T16:15:49.165671Z"
+}

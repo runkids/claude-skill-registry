@@ -1,0 +1,10 @@
+{
+  "name": "writing-hookify-rules",
+  "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+  "category": "devops",
+  "repo": "park-kyungchan/palantir",
+  "path": ".claude/plugins/cache/claude-plugins-official/hookify/e30768372b41/skills/writing-rules/SKILL.md",
+  "stars": 0,
+  "source": "github.com/park-kyungchan/palantir",
+  "downloaded_at": "2026-01-24T16:16:05.183736Z"
+}

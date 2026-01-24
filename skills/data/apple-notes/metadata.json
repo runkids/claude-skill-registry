@@ -1,0 +1,10 @@
+{
+  "name": "apple-notes",
+  "description": "Manage Apple Notes via the `memo` CLI on macOS (create, view, edit, delete, search, move, and export notes). Use when a user asks Clawdbot to add a note, list notes, search notes, or manage note folde",
+  "category": "data",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/apple-notes/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:05.096112Z"
+}

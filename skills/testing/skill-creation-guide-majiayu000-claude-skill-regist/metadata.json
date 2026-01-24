@@ -1,0 +1,10 @@
+{
+  "name": "skill-creation-guide-majiayu000-claude-skill-regist",
+  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+  "category": "testing",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/skill-creation-guide/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:57.109293Z"
+}

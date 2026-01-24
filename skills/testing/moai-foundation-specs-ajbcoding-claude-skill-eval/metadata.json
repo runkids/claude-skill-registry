@@ -1,0 +1,10 @@
+{
+  "name": "moai-foundation-specs-ajbcoding-claude-skill-eval",
+  "description": "SPEC document management - lifecycle, versioning, approval workflows, 50+ references, SPEC-first TDD integration",
+  "category": "testing",
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-foundation-specs/SKILL.md",
+  "stars": 2,
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-24T16:15:54.912763Z"
+}

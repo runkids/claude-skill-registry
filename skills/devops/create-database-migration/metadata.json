@@ -1,0 +1,10 @@
+{
+  "name": "create-database-migration",
+  "description": "Create a database migration to add a table, add columns to an existing table, add a setting, or otherwise change the schema of Ghost's MySQL database.",
+  "category": "devops",
+  "repo": "GregBaron/ghost-mysandbox",
+  "path": ".claude/skills/create-database-migration/SKILL.md",
+  "stars": 0,
+  "source": "github.com/GregBaron/ghost-mysandbox",
+  "downloaded_at": "2026-01-24T16:15:56.496064Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "skill-generator-mattnigh-skills-collection",
+  "description": "Meta-skill that creates new skills. Use when user repeatedly explains the same workflow, or mentions \"save this as a skill\", \"remember this process\", or \"create a skill for this\".",
+  "category": "data",
+  "repo": "mattnigh/skills_collection",
+  "path": "collection/HR-AR__Project-Conductor__claude__skills__skill-generator__SKILL.md",
+  "stars": 20,
+  "source": "github.com/mattnigh/skills_collection",
+  "downloaded_at": "2026-01-24T16:15:20.047620Z"
+}

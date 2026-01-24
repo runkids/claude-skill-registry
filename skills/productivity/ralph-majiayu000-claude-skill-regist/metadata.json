@@ -1,0 +1,10 @@
+{
+  "name": "ralph-majiayu000-claude-skill-regist",
+  "description": "Autonomous agent for tackling big projects. Create PRDs with user stories, then run them via the CLI. Sessions persist across restarts with pause/resume and real-time monitoring.",
+  "category": "productivity",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/ralph/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:37.107989Z"
+}

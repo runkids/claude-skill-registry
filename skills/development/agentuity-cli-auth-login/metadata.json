@@ -1,0 +1,10 @@
+{
+  "name": "agentuity-cli-auth-login",
+  "description": "Login to the Agentuity Platform using a browser-based authentication flow. Use for managing authentication credentials",
+  "category": "development",
+  "repo": "agentuity/examples",
+  "path": "training-v1/deep-research-v1/.agents/skills/agentuity-cli-auth-login/SKILL.md",
+  "stars": 3,
+  "source": "github.com/agentuity/examples",
+  "downloaded_at": "2026-01-24T16:15:26.138314Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "quality-metrics",
+  "description": "Measure quality effectively with actionable metrics. Use when establishing quality dashboards, defining KPIs, or evaluating test effectiveness.",
+  "category": "testing-methodologies",
+  "repo": "DreamLab-AI/UE5-3DGS",
+  "path": ".claude/skills/quality-metrics/SKILL.md",
+  "stars": 1,
+  "source": "github.com/DreamLab-AI/UE5-3DGS",
+  "downloaded_at": "2026-01-24T16:15:11.650613Z"
+}

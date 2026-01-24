@@ -1,0 +1,10 @@
+{
+  "name": "continuous-learning-tattran22-claude-code-1",
+  "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+  "category": "development",
+  "repo": "TatTran22/claude-code-1",
+  "path": "skills/continuous-learning/SKILL.md",
+  "stars": 0,
+  "source": "github.com/TatTran22/claude-code-1",
+  "downloaded_at": "2026-01-24T16:15:27.459253Z"
+}

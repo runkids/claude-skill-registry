@@ -1,0 +1,10 @@
+{
+  "name": "oracle-clawdbot-nix-steipete-tools",
+  "description": "Best practices for using the oracle CLI (prompt + file bundling, engines, sessions, and file attachment patterns).",
+  "category": "development",
+  "repo": "clawdbot/nix-steipete-tools",
+  "path": "tools/oracle/skills/oracle/SKILL.md",
+  "stars": 3,
+  "source": "github.com/clawdbot/nix-steipete-tools",
+  "downloaded_at": "2026-01-24T16:15:31.803314Z"
+}

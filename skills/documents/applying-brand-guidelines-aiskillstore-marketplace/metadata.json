@@ -1,0 +1,10 @@
+{
+  "name": "applying-brand-guidelines-aiskillstore-marketplace",
+  "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging",
+  "category": "documents",
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/anthropics/applying-brand-guidelines/SKILL.md",
+  "stars": 114,
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-24T16:15:37.099927Z"
+}

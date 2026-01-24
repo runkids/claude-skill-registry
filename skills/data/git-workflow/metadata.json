@@ -1,0 +1,10 @@
+{
+  "name": "git-workflow",
+  "description": "Git worktree workflow, conventional commits, commit trailers, and PR guidelines. Activated during git operations and commits.",
+  "category": "data",
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/cain96/git-workflow/SKILL.md",
+  "stars": 114,
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-24T16:15:38.048686Z"
+}

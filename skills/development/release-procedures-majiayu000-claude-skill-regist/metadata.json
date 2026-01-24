@@ -1,0 +1,10 @@
+{
+  "name": "release-procedures-majiayu000-claude-skill-regist",
+  "description": "Version management, release verification, and deployment procedures for software releases. Includes semver guidance, version consistency checks, and platform-specific constraints.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/release-procedures/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:22.007967Z"
+}

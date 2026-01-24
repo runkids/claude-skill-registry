@@ -1,0 +1,10 @@
+{
+  "name": "songsee",
+  "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+  "category": "testing",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/songsee/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:13.259334Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "testing-inocan-group-inferred-types",
+  "description": "Provides expertise on how to write effective unit tests (runtime and type tests), make testing decisions, and incorporate TDD into development workflows",
+  "category": "development",
+  "repo": "inocan-group/inferred-types",
+  "path": ".claude/skills/testing/SKILL.md",
+  "stars": 18,
+  "source": "github.com/inocan-group/inferred-types",
+  "downloaded_at": "2026-01-24T16:15:44.974951Z"
+}

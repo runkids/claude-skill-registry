@@ -1,0 +1,10 @@
+{
+  "name": "continuous-learning",
+  "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+  "category": "development",
+  "repo": "catyyy/everything-antigravity",
+  "path": "skills/continuous-learning/SKILL.md",
+  "stars": 1,
+  "source": "github.com/catyyy/everything-antigravity",
+  "downloaded_at": "2026-01-24T16:15:06.389414Z"
+}

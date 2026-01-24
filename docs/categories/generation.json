@@ -1,0 +1,20 @@
+{
+  "category": "generation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:38.132971Z",
+  "skills": [
+    {
+      "name": "generate",
+      "description": "Create docstrings for functions and classes. Use when documenting code APIs.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "generation",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

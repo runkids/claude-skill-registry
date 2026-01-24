@@ -1,0 +1,10 @@
+{
+  "name": "add-cuda-kernel-sunxxuns-flashinfer",
+  "description": "Step-by-step tutorial for adding new CUDA kernels to FlashInfer",
+  "category": "development",
+  "repo": "sunxxuns/flashinfer",
+  "path": ".claude/skills/add-cuda-kernel/SKILL.md",
+  "stars": 0,
+  "source": "github.com/sunxxuns/flashinfer",
+  "downloaded_at": "2026-01-24T16:15:59.550614Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "project-operator-acskamloops-shs-engine",
+  "description": "Operates and debugs the local stack (API/worker/frontend); focuses on observability, logs, and safe automation.",
+  "category": "development",
+  "repo": "ACSKamloops/shs-engine",
+  "path": ".codex/skills/project-operator/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ACSKamloops/shs-engine",
+  "downloaded_at": "2026-01-24T16:15:37.077229Z"
+}

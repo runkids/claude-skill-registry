@@ -1,0 +1,10 @@
+{
+  "name": "wp-wpcli-and-ops",
+  "description": "Use when working with WP-CLI (wp) for WordPress operations: safe search-replace, db export/import, plugin/theme/user/content management, cron, cache flushing, multisite, and scripting/automation with ",
+  "category": "development",
+  "repo": "WPdoaction/animal-shelter",
+  "path": ".codex/skills/wp-wpcli-and-ops/SKILL.md",
+  "stars": 8,
+  "source": "github.com/WPdoaction/animal-shelter",
+  "downloaded_at": "2026-01-24T16:15:34.831787Z"
+}

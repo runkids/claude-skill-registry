@@ -1,0 +1,10 @@
+{
+  "name": "langgraph-patterns-expert-rozwer-cross2b-pro",
+  "description": "Use for LangGraph agent design and refactors. Prefer explicit state, small nodes, and clear transitions.",
+  "category": "development",
+  "repo": "rozwer/cross2B-Pro",
+  "path": ".codex/skills/langgraph-patterns-expert/SKILL.md",
+  "stars": 0,
+  "source": "github.com/rozwer/cross2B-Pro",
+  "downloaded_at": "2026-01-24T16:16:05.994458Z"
+}

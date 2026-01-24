@@ -1,0 +1,10 @@
+{
+  "name": "cfn-error-management-mattnigh-skills-collection",
+  "description": "Unified error handling, batching, and logging for CFN Loop. Use when you need to capture agent errors, batch multiple errors for processing, log structured error data, or categorize and recover from a",
+  "category": "development",
+  "repo": "mattnigh/skills_collection",
+  "path": "collection/masharratt__claude-flow-novice__claude__skills__cfn-error-management__SKILL.md",
+  "stars": 20,
+  "source": "github.com/mattnigh/skills_collection",
+  "downloaded_at": "2026-01-24T16:15:24.708097Z"
+}

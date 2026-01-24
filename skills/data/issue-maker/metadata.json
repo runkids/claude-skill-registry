@@ -1,0 +1,10 @@
+{
+  "name": "issue-maker",
+  "description": "Create GitHub issues following Pollinations team conventions. Use when asked to create issues, track work, or plan features.",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/issue-maker/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:04.503022Z"
+}

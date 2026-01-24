@@ -1,0 +1,10 @@
+{
+  "name": "wacli-majiayu000-claude-skill-regist",
+  "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats).",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/wacli/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:53.194988Z"
+}

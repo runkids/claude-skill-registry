@@ -1,8 +1,8 @@
 {
   "category": "product",
   "code": "prd",
-  "count": 838,
-  "updated_at": "2026-01-24T15:00:11.276988Z",
+  "count": 841,
+  "updated_at": "2026-01-24T16:17:38.490240Z",
   "skills": [
     {
       "name": "using",
@@ -110,6 +110,18 @@
       "stars": 70,
       "install": "pr-pm/prpm/.claude/skills/creating-kiro-packages",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "convex",
+      "description": "Tracks LLM token consumption and usage metrics for billing, monitoring, and optimization. Use this to log token usage, calculate costs, generate invoices, and understand which agents or users consume",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
       "name": "server",
@@ -4600,6 +4612,18 @@
       "stars": 0,
       "install": "Tony363/SuperClaude",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "disk",
+      "description": "Mac 智能磁盘清理助手，基于 Mole (https://github.com/tw93/Mole) 的用户友好包装器",
+      "repo": "crazynomad/skills",
+      "path": "",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "crazynomad/skills",
+      "source": "github.com/crazynomad/skills"
     },
     {
       "name": "auto",
@@ -9110,6 +9134,18 @@
       "stars": 0,
       "install": "zanecole10/software-tailor-skills/09-software-demonstration-script",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "astro",
+      "description": "Use astro:assets for all images. This enables automatic optimization (resizing, WebP/AVIF conversion, lazy loading).",
+      "repo": "joshribakoff/fightingwithai.com",
+      "path": "",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/fightingwithai.com",
+      "source": "github.com/joshribakoff/fightingwithai.com"
     },
     {
       "name": "jql",

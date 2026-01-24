@@ -1,0 +1,10 @@
+{
+  "name": "skill-creator-vibery-studio-templates",
+  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+  "category": "testing",
+  "repo": "vibery-studio/templates",
+  "path": "skills/skill-creator/SKILL.md",
+  "stars": 2,
+  "source": "github.com/vibery-studio/templates",
+  "downloaded_at": "2026-01-24T16:15:54.002000Z"
+}

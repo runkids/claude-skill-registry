@@ -1,0 +1,10 @@
+{
+  "name": "sequential-thinking-vumichien-bi-agent",
+  "description": "Apply structured, reflective problem-solving for complex tasks requiring multi-step analysis, revision capability, and hypothesis verification. Use for complex problem decomposition, adaptive planning",
+  "category": "design",
+  "repo": "vumichien/bi-agent",
+  "path": ".claude/skills/sequential-thinking/SKILL.md",
+  "stars": 0,
+  "source": "github.com/vumichien/bi-agent",
+  "downloaded_at": "2026-01-24T16:15:34.996067Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "claude-code-meta-artimath-surf-market",
+  "description": "Build Claude Code extensions - skills, agents, hooks, plugins, marketplaces, slash commands. Use when creating Claude Code components, building new skills, writing agents, creating hooks, making plugi",
+  "category": "development",
+  "repo": "artimath/surf-market",
+  "path": "plugins/claude-code-meta/skills/claude-code-meta/SKILL.md",
+  "stars": 0,
+  "source": "github.com/artimath/surf-market",
+  "downloaded_at": "2026-01-24T16:16:06.538262Z"
+}

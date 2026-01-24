@@ -1,0 +1,10 @@
+{
+  "name": "himalaya-clawdbot-skills",
+  "description": "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIM",
+  "category": "data",
+  "repo": "clawdbot/skills",
+  "path": "skills/lamelas/himalaya/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:30.397469Z"
+}

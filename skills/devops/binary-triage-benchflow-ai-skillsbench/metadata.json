@@ -1,0 +1,10 @@
+{
+  "name": "binary-triage-benchflow-ai-skillsbench",
+  "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
+  "category": "devops",
+  "repo": "benchflow-ai/skillsbench",
+  "path": "registry/terminal_bench_2.0/full_batch_reviewed/terminal_bench_2_0_path-tracing-reverse/environment/skills/binary-triage/SKILL.md",
+  "stars": 259,
+  "source": "github.com/benchflow-ai/skillsbench",
+  "downloaded_at": "2026-01-24T16:15:21.527248Z"
+}

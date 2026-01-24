@@ -1,0 +1,10 @@
+{
+  "name": "quality-metrics-proffesor-for-testing-sentinel",
+  "description": "Measure quality effectively with actionable metrics. Use when establishing quality dashboards, defining KPIs, or evaluating test effectiveness.",
+  "category": "testing-methodologies",
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/quality-metrics/SKILL.md",
+  "stars": 33,
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-24T16:15:48.648302Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "weather-harleycoops-clawdbot",
+  "description": "Get current weather and forecasts (no API key required).",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/weather/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:14.073203Z"
+}

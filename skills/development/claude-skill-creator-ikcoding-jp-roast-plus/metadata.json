@@ -1,0 +1,10 @@
+{
+  "name": "claude-skill-creator-ikcoding-jp-roast-plus",
+  "description": "Guide for creating effective Claude Code skills with proper YAML frontmatter, directory structure, and best practices. Use when creating new skills, updating existing skills, or learning about skill d",
+  "category": "development",
+  "repo": "IKcoding-jp/Roast-Plus",
+  "path": ".codex/skills/claude-skill-creator/SKILL.md",
+  "stars": 0,
+  "source": "github.com/IKcoding-jp/Roast-Plus",
+  "downloaded_at": "2026-01-24T16:16:06.576264Z"
+}

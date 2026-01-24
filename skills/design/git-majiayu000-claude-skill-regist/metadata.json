@@ -1,0 +1,10 @@
+{
+  "name": "git-majiayu000-claude-skill-regist",
+  "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
+  "category": "design",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/design/git/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:09.644900Z"
+}

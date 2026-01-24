@@ -1,0 +1,10 @@
+{
+  "name": "validation-api-engineer-role-mattnigh-skills-collection",
+  "description": "Role assignment for Claude Agent #5 - Contact validation API engineer. Build ONLY the validation Edge Function (4-layer validation, business pattern matching). Do NOT build database, ingestion API, or",
+  "category": "development",
+  "repo": "mattnigh/skills_collection",
+  "path": "collection/AIBPM42__hodgesfooshee-site-spark__claude__skills__validation-api-engineer-role__SKILL.md",
+  "stars": 20,
+  "source": "github.com/mattnigh/skills_collection",
+  "downloaded_at": "2026-01-24T16:15:18.562430Z"
+}

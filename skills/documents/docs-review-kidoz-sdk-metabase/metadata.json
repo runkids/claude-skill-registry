@@ -1,0 +1,10 @@
+{
+  "name": "docs-review-kidoz-sdk-metabase",
+  "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
+  "category": "documents",
+  "repo": "Kidoz-SDK/metabase",
+  "path": ".claude/skills/docs-review/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Kidoz-SDK/metabase",
+  "downloaded_at": "2026-01-24T16:15:45.493553Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "task-execution-engine-aiskillstore-marketplace",
+  "description": "Execute implementation tasks from design documents using markdown checkboxes. Use when (1) implementing features from feature-design-assistant output, (2) resuming interrupted work, (3) batch executin",
+  "category": "documents",
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/notedit/task-execution-engine/SKILL.md",
+  "stars": 114,
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-24T16:15:38.646118Z"
+}

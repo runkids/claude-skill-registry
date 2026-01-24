@@ -1,0 +1,10 @@
+{
+  "name": "implementing-agent-modes",
+  "description": "Guidelines to create/update a new mode for PostHog AI agent. Modes are a way to limit what tools, prompts, and prompt injections are applied and under what conditions. Achieve better results using you",
+  "category": "data",
+  "repo": "PostHog/posthog-foss",
+  "path": ".claude/skills/implementing-agent-modes/SKILL.md",
+  "stars": 442,
+  "source": "github.com/PostHog/posthog-foss",
+  "downloaded_at": "2026-01-24T16:15:17.411020Z"
+}

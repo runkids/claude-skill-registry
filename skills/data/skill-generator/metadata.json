@@ -1,0 +1,10 @@
+{
+  "name": "skill-generator",
+  "description": "Meta-skill that creates new skills. Use when user repeatedly explains the same workflow, or mentions \"save this as a skill\", \"remember this process\", or \"create a skill for this\".",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/skill-generator/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:02.938440Z"
+}

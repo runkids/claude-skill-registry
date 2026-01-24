@@ -1,0 +1,10 @@
+{
+  "name": "auth-implementation-patterns",
+  "description": "Master authentication and authorization patterns including JWT, OAuth2, session management, and RBAC to build secure, scalable access control systems. Use when implementing auth systems, securing APIs",
+  "category": "development",
+  "repo": "goodnight000/KittyCourt",
+  "path": ".codex/skills/auth-implementation-patterns/SKILL.md",
+  "stars": 0,
+  "source": "github.com/goodnight000/KittyCourt",
+  "downloaded_at": "2026-01-24T16:16:08.022736Z"
+}

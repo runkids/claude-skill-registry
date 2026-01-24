@@ -1,0 +1,10 @@
+{
+  "name": "size-guard-cheekycodexconjurer-quant-lab",
+  "description": "Enforce line budgets and rotate or split large context files.",
+  "category": "development",
+  "repo": "CheekyCodexConjurer/quant-lab",
+  "path": ".codex/skills/size_guard/SKILL.md",
+  "stars": 0,
+  "source": "github.com/CheekyCodexConjurer/quant-lab",
+  "downloaded_at": "2026-01-24T16:15:29.768529Z"
+}

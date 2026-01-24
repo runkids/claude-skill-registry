@@ -1,0 +1,10 @@
+{
+  "name": "memory-systems",
+  "description": "This skill should be used when the user asks to \"implement agent memory\", \"persist state across sessions\", \"build knowledge graph\", \"track entities\", or mentions memory architecture, temporal knowledg",
+  "category": "data",
+  "repo": "SyntaxAsSpiral/zk-context-vault",
+  "path": "skills/memory-systems/SKILL.md",
+  "stars": 1,
+  "source": "github.com/SyntaxAsSpiral/zk-context-vault",
+  "downloaded_at": "2026-01-24T16:15:06.753934Z"
+}

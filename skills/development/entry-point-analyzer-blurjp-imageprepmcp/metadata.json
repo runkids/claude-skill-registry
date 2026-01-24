@@ -1,0 +1,10 @@
+{
+  "name": "entry-point-analyzer-blurjp-imageprepmcp",
+  "description": "Analyzes smart contract codebases to identify state-changing entry points for security auditing. Detects externally callable functions that modify state, categorizes them by access level (public, admi",
+  "category": "development",
+  "repo": "Blurjp/ImagePrepMCP",
+  "path": ".claude/skills/trailofbits-entry-point-analyzer/skills/entry-point-analyzer/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Blurjp/ImagePrepMCP",
+  "downloaded_at": "2026-01-24T16:15:44.086689Z"
+}

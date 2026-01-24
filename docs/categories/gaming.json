@@ -1,0 +1,20 @@
+{
+  "category": "gaming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:38.132780Z",
+  "skills": [
+    {
+      "name": "discord",
+      "description": "Manage Discord Nitro subscription, server boosts, and premium features",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "",
+      "branch": "main",
+      "category": "gaming",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

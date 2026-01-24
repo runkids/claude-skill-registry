@@ -1,0 +1,10 @@
+{
+  "name": "debug-cuda-crash-aiskillstore-marketplace",
+  "description": "Tutorial for debugging CUDA crashes using API logging",
+  "category": "development",
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/flashinfer-ai/debug-cuda-crash/SKILL.md",
+  "stars": 114,
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-24T16:15:39.892884Z"
+}

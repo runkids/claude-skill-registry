@@ -1,0 +1,10 @@
+{
+  "name": "local-places-harleycoops-clawdbot",
+  "description": "Search for places (restaurants, cafes, etc.) via Google Places API proxy on localhost.",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/local-places/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:10.044210Z"
+}

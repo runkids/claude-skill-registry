@@ -1,0 +1,10 @@
+{
+  "name": "text-analyzer-majiayu000-claude-skill-regist",
+  "description": "Comprehensive text analysis coordinator. Execute Python script for multi-aspect text analysis. Use when you need grammar, sentiment, readability, and SEO analysis combined.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/marketing/text-analyzer/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:15.950031Z"
+}

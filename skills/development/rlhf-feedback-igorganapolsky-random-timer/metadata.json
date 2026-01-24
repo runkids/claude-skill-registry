@@ -1,0 +1,10 @@
+{
+  "name": "rlhf-feedback-igorganapolsky-random-timer",
+  "description": "Autonomous RLHF feedback capture - Claude self-captures mistakes and successes",
+  "category": "development",
+  "repo": "IgorGanapolsky/Random-Timer",
+  "path": ".claude/skills/rlhf-feedback/SKILL.md",
+  "stars": 0,
+  "source": "github.com/IgorGanapolsky/Random-Timer",
+  "downloaded_at": "2026-01-24T16:15:44.107707Z"
+}

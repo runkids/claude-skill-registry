@@ -1,0 +1,10 @@
+{
+  "name": "add-cuda-kernel-aiskillstore-marketplace",
+  "description": "Step-by-step tutorial for adding new CUDA kernels to FlashInfer",
+  "category": "development",
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/flashinfer-ai/add-cuda-kernel/SKILL.md",
+  "stars": 114,
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-24T16:15:39.977555Z"
+}

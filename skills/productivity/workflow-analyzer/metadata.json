@@ -1,0 +1,10 @@
+{
+  "name": "workflow-analyzer",
+  "description": "作業フローや手順を分析し、自動化可能な要素を特定する。ワークフロー分析時、自動化検討時、業務プロセス改善時、またはユーザーが作業フロー分析、自動化要素、業務手順、プロセス最適化に言及した際に使用する。",
+  "category": "productivity",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/workflow-analyzer/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:52.697025Z"
+}

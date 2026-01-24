@@ -1,0 +1,10 @@
+{
+  "name": "songsee-ishuru-ishuru",
+  "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+  "category": "testing",
+  "repo": "ishuru/ishuru",
+  "path": "skills/songsee/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ishuru/ishuru",
+  "downloaded_at": "2026-01-24T16:15:13.384052Z"
+}

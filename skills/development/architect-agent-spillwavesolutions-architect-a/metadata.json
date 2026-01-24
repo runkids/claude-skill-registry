@@ -1,0 +1,10 @@
+{
+  "name": "architect-agent-spillwavesolutions-architect-a",
+  "description": "Coordinates planning, delegation, and evaluation across architect and code agent workspaces. Use when asked to \"write instructions for code agent\", \"initialize architect workspace\", \"grade code agent ",
+  "category": "development",
+  "repo": "SpillwaveSolutions/architect-agent",
+  "path": "SKILL.md",
+  "stars": 9,
+  "source": "github.com/SpillwaveSolutions/architect-agent",
+  "downloaded_at": "2026-01-24T16:15:33.084706Z"
+}

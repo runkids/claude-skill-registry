@@ -1,0 +1,10 @@
+{
+  "name": "scale-game-kienhaminh-speed-reader",
+  "description": "Test at extremes (1000x bigger/smaller, instant/year-long) to expose fundamental truths hidden at normal scales",
+  "category": "testing",
+  "repo": "kienhaminh/speed-reader",
+  "path": ".claude/skills/problem-solving/scale-game/SKILL.md",
+  "stars": 0,
+  "source": "github.com/kienhaminh/speed-reader",
+  "downloaded_at": "2026-01-24T16:15:38.965662Z"
+}

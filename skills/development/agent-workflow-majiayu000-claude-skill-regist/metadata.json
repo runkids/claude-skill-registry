@@ -1,0 +1,10 @@
+{
+  "name": "agent-workflow-majiayu000-claude-skill-regist",
+  "description": "Complete workflow for building, implementing, and testing goal-driven agents. Orchestrates building-agents-* and testing-agent skills. Use when starting a new agent project, unsure which skill to use,",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/agent-workflow/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:58.612007Z"
+}

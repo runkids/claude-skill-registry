@@ -1,0 +1,10 @@
+{
+  "name": "security-analyzer-majiayu000-claude-skill-regist",
+  "description": "Comprehensive security vulnerability analysis for codebases and infrastructure. Scans dependencies (npm, pip, gem, go, cargo), containers (Docker, Kubernetes), cloud IaC (Terraform, CloudFormation), a",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/devops/security-analyzer/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:41.446182Z"
+}

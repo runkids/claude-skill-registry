@@ -1,0 +1,10 @@
+{
+  "name": "binary-triage-th3w1zard1-reverse-engineering",
+  "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
+  "category": "devops",
+  "repo": "th3w1zard1/reverse-engineering-assistant",
+  "path": "ReVa/skills/binary-triage/SKILL.md",
+  "stars": 1,
+  "source": "github.com/th3w1zard1/reverse-engineering-assistant",
+  "downloaded_at": "2026-01-24T16:16:08.504516Z"
+}

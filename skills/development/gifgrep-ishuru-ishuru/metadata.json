@@ -1,0 +1,10 @@
+{
+  "name": "gifgrep-ishuru-ishuru",
+  "description": "Search GIF providers with CLI/TUI, download results, and extract stills/sheets.",
+  "category": "development",
+  "repo": "ishuru/ishuru",
+  "path": "skills/gifgrep/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ishuru/ishuru",
+  "downloaded_at": "2026-01-24T16:15:14.067441Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "detect-commands-cheekycodexconjurer-quant-lab",
+  "description": "Infer and verify install/test/lint/build commands for the repo.",
+  "category": "development",
+  "repo": "CheekyCodexConjurer/quant-lab",
+  "path": ".codex/skills/detect_commands/SKILL.md",
+  "stars": 0,
+  "source": "github.com/CheekyCodexConjurer/quant-lab",
+  "downloaded_at": "2026-01-24T16:16:06.014383Z"
+}

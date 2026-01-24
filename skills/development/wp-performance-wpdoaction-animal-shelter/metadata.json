@@ -1,0 +1,10 @@
+{
+  "name": "wp-performance-wpdoaction-animal-shelter",
+  "description": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimiz",
+  "category": "development",
+  "repo": "WPdoaction/animal-shelter",
+  "path": ".codex/skills/wp-performance/SKILL.md",
+  "stars": 8,
+  "source": "github.com/WPdoaction/animal-shelter",
+  "downloaded_at": "2026-01-24T16:16:08.487844Z"
+}

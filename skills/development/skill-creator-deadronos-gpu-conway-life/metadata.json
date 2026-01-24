@@ -1,0 +1,10 @@
+{
+  "name": "skill-creator-deadronos-gpu-conway-life",
+  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+  "category": "development",
+  "repo": "deadronos/gpu-conway-life",
+  "path": ".codex/skills/skill-creator/SKILL.md",
+  "stars": 0,
+  "source": "github.com/deadronos/gpu-conway-life",
+  "downloaded_at": "2026-01-24T16:15:04.134898Z"
+}

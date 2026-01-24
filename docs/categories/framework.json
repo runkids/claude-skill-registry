@@ -1,0 +1,20 @@
+{
+  "category": "framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:38.132442Z",
+  "skills": [
+    {
+      "name": "example",
+      "description": "Example of a properly self-contained skill following all best practices",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "framework",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    }
+  ]
+}

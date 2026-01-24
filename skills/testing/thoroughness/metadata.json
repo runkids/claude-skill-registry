@@ -1,0 +1,10 @@
+{
+  "name": "thoroughness",
+  "description": "Use when implementing complex multi-step tasks, fixing critical bugs, or when quality and completeness matter more than speed - ensures comprehensive implementation without shortcuts through systemati",
+  "category": "testing",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/thoroughness/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:05.032274Z"
+}

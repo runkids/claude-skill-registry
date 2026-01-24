@@ -1,0 +1,10 @@
+{
+  "name": "full-auth",
+  "description": "When explicitly authorized, execute end-to-end with a phased plan in one run until Definition of Done is met.",
+  "category": "development",
+  "repo": "CheekyCodexConjurer/aera-chart-engine",
+  "path": ".codex/skills/full_auth/SKILL.md",
+  "stars": 0,
+  "source": "github.com/CheekyCodexConjurer/aera-chart-engine",
+  "downloaded_at": "2026-01-24T16:15:13.688213Z"
+}

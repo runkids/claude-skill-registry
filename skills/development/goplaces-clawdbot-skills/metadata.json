@@ -1,0 +1,10 @@
+{
+  "name": "goplaces-clawdbot-skills",
+  "description": "Query Google Places API (New) via the goplaces CLI for text search, place details, resolve, and reviews. Use for human-friendly place lookup or JSON output for scripts.",
+  "category": "development",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/goplaces/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:29.797024Z"
+}

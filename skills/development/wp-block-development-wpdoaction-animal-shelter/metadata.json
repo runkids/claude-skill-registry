@@ -1,0 +1,10 @@
+{
+  "name": "wp-block-development-wpdoaction-animal-shelter",
+  "description": "Use when developing WordPress (Gutenberg) blocks: block.json metadata, register_block_type(_from_metadata), attributes/serialization, supports, dynamic rendering (render.php/render_callback), deprecat",
+  "category": "development",
+  "repo": "WPdoaction/animal-shelter",
+  "path": ".codex/skills/wp-block-development/SKILL.md",
+  "stars": 8,
+  "source": "github.com/WPdoaction/animal-shelter",
+  "downloaded_at": "2026-01-24T16:15:37.645260Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "cyntec",
+  "description": "Cyntec power inductor MPN encoding patterns, value decoding, and handler guidance. Use when working with Cyntec inductors or CyntecHandler.",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/cyntec/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:12.555013Z"
+}

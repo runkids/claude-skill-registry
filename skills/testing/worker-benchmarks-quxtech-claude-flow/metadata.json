@@ -1,0 +1,10 @@
+{
+  "name": "worker-benchmarks-quxtech-claude-flow",
+  "description": "Run comprehensive worker system benchmarks and performance analysis",
+  "category": "testing",
+  "repo": "QUXTech/claude-flow",
+  "path": ".claude/skills/worker-benchmarks/skill.md",
+  "stars": 0,
+  "source": "github.com/QUXTech/claude-flow",
+  "downloaded_at": "2026-01-24T16:15:25.132773Z"
+}

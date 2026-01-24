@@ -1,0 +1,10 @@
+{
+  "name": "weather-clawdbot-skills",
+  "description": "Get current weather and forecasts (no API key required).",
+  "category": "development",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/weather/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:29.047353Z"
+}

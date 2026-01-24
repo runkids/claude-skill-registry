@@ -1,0 +1,44 @@
+{
+  "category": "specialized",
+  "code": "oth",
+  "count": 3,
+  "updated_at": "2026-01-24T16:17:38.529834Z",
+  "skills": [
+    {
+      "name": "reviewer",
+      "description": "Code review and audit agent for pull requests and code quality",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "specialized",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "reviewer",
+      "description": "Code review and audit agent for pull requests and code quality",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "specialized",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "reviewer",
+      "description": "Code review and audit agent for pull requests and code quality",
+      "repo": "Unicorn/Radium",
+      "path": "",
+      "branch": "main",
+      "category": "specialized",
+      "tags": [],
+      "stars": 0,
+      "install": "Unicorn/Radium",
+      "source": "github.com/Unicorn/Radium"
+    }
+  ]
+}

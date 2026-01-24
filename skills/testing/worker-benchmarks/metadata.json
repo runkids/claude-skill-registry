@@ -1,0 +1,10 @@
+{
+  "name": "worker-benchmarks",
+  "description": "Run comprehensive worker system benchmarks and performance analysis",
+  "category": "testing",
+  "repo": "ricable/ruvector-edge",
+  "path": "claude-flow-v3/.claude/skills/worker-benchmarks/skill.md",
+  "stars": 0,
+  "source": "github.com/ricable/ruvector-edge",
+  "downloaded_at": "2026-01-24T16:15:19.443117Z"
+}

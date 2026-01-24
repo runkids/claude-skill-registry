@@ -1,0 +1,10 @@
+{
+  "name": "slack-ishuru-ishuru",
+  "description": "Use when you need to control Slack from Clawdbot via the slack tool, including reacting to messages or pinning/unpinning items in Slack channels or DMs.",
+  "category": "development",
+  "repo": "ishuru/ishuru",
+  "path": "skills/slack/SKILL.md",
+  "stars": 0,
+  "source": "github.com/ishuru/ishuru",
+  "downloaded_at": "2026-01-24T16:15:10.792384Z"
+}

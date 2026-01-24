@@ -1,0 +1,10 @@
+{
+  "name": "agent-output-formats-majiayu000-claude-skill-regist",
+  "description": "Standardized output formats for research, planning, implementation, and review agents. Use when generating agent outputs or parsing agent responses.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/development/agent-output-formats/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:16:02.301311Z"
+}

@@ -1,0 +1,20 @@
+{
+  "category": "wix-extensions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:38.573594Z",
+  "skills": [
+    {
+      "name": "wix",
+      "description": "Creates custom element widgets (site widgets) for Wix sites with React components and built-in settings panels. Generates interactive widgets that site owners can add to pages via the Wix Editor, with",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "wix-extensions",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "worktree-parallel-skarian-florence-2025",
+  "description": "Create and manage a git worktree for parallel feature development, then open the new worktree in the editor (code/Cursor) for a second Codex session. Use when the user asks to work on another feature ",
+  "category": "development",
+  "repo": "Skarian/florence_2025",
+  "path": ".codex/skills/worktree-parallel/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Skarian/florence_2025",
+  "downloaded_at": "2026-01-24T16:15:27.591080Z"
+}

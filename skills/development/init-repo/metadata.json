@@ -1,0 +1,10 @@
+{
+  "name": "init-repo",
+  "description": "Initialize a fork of GoodDocs with fork-specific defaults and a customized doc type.",
+  "category": "development",
+  "repo": "SidU/GoodDocs-Sample4",
+  "path": ".codex/skills/init-repo/SKILL.md",
+  "stars": 0,
+  "source": "github.com/SidU/GoodDocs-Sample4",
+  "downloaded_at": "2026-01-24T16:15:36.065162Z"
+}

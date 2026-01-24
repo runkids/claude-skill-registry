@@ -1,0 +1,10 @@
+{
+  "name": "matchms-overtimepog-agenttheo",
+  "description": "Mass spectrometry analysis. Process mzML/MGF/MSP, spectral similarity (cosine, modified cosine), metadata harmonization, compound ID, for metabolomics and MS data processing.",
+  "category": "development",
+  "repo": "overtimepog/AgentTheo",
+  "path": ".claude/skills/scientific-skills/matchms/SKILL.md",
+  "stars": 0,
+  "source": "github.com/overtimepog/AgentTheo",
+  "downloaded_at": "2026-01-24T16:16:07.395598Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "example-minimal-skill",
+  "description": "This skill should be used when the user asks to \"do something simple\", \"perform basic task\", or needs minimal guidance. Demonstrates the simplest possible skill structure.",
+  "category": "development",
+  "repo": "helmecke/dotfiles",
+  "path": "dot_config/opencode/skill/skill-development/examples/minimal-skill/SKILL.md",
+  "stars": 1,
+  "source": "github.com/helmecke/dotfiles",
+  "downloaded_at": "2026-01-24T16:15:02.940139Z"
+}

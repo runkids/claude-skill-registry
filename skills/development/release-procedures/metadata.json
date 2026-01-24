@@ -1,0 +1,10 @@
+{
+  "name": "release-procedures",
+  "description": "Version management, release verification, and deployment procedures for software releases. Includes semver guidance, version consistency checks, and platform-specific constraints.",
+  "category": "development",
+  "repo": "seanspiesman/Agents-and-Workflows",
+  "path": "custom-agents/skills/release-procedures/SKILL.md",
+  "stars": 0,
+  "source": "github.com/seanspiesman/Agents-and-Workflows",
+  "downloaded_at": "2026-01-24T16:15:03.491123Z"
+}

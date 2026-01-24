@@ -1,0 +1,68 @@
+{
+  "category": "workflow",
+  "code": "oth",
+  "count": 5,
+  "updated_at": "2026-01-24T16:17:38.573737Z",
+  "skills": [
+    {
+      "name": "moai",
+      "description": "Domain-Driven Development workflow specialist using ANALYZE-PRESERVE-IMPROVE cycle for behavior-preserving code transformation",
+      "repo": "modu-ai/moai-adk",
+      "path": "",
+      "branch": "main",
+      "category": "workflow",
+      "tags": [],
+      "stars": 568,
+      "install": "modu-ai/moai-adk",
+      "source": "github.com/modu-ai/moai-adk"
+    },
+    {
+      "name": "safety",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "workflow",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "safety",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "workflow",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moai",
+      "description": "Enterprise template management with code boilerplates, feedback templates, and project optimization workflows",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "workflow",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "feature",
+      "description": "Complete feature development workflow orchestrating multiple skills from planning to deployment. Triggers: FD, 新功能, 開發功能, feature, implement, 實作, 實現, 建立功能, create feature, develop, 開發新, add feature, 加",
+      "repo": "u9401066/template-is-all-you-need",
+      "path": "",
+      "branch": "main",
+      "category": "workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "u9401066/template-is-all-you-need",
+      "source": "github.com/u9401066/template-is-all-you-need"
+    }
+  ]
+}

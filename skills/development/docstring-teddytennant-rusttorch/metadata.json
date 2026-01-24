@@ -1,0 +1,10 @@
+{
+  "name": "docstring-teddytennant-rusttorch",
+  "description": "Write docstrings for PyTorch functions and methods following PyTorch conventions. Use when writing or updating docstrings in PyTorch code.",
+  "category": "development",
+  "repo": "teddytennant/rusttorch",
+  "path": ".claude/skills/docstring/SKILL.md",
+  "stars": 1,
+  "source": "github.com/teddytennant/rusttorch",
+  "downloaded_at": "2026-01-24T16:15:10.371188Z"
+}

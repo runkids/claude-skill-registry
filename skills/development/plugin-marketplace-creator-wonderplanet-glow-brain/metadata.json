@@ -1,0 +1,10 @@
+{
+  "name": "plugin-marketplace-creator-wonderplanet-glow-brain",
+  "description": "Plugin Marketplace構造を対話的に生成し、marketplace.json、plugin.json、ディレクトリ構造を自動作成するスキル。Use when users mention \"plugin marketplace\", \"marketplace作成\", \"プラグインカタログ\", \"複数のプラグインを管理\", \"チーム向けプラグイン配布\", or need to create",
+  "category": "development",
+  "repo": "Wonderplanet/glow-brain",
+  "path": ".claude/skills/plugin-marketplace-creator/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Wonderplanet/glow-brain",
+  "downloaded_at": "2026-01-24T16:16:02.285519Z"
+}

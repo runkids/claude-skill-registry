@@ -1,0 +1,10 @@
+{
+  "name": "hook-development-cantagestudio-cosmicatlaspacke",
+  "description": "[Utility] Guide for developing Claude Code hooks - shell commands that execute automatically in response to tool calls and notifications. Use this when users want to create, debug, or optimize hooks f",
+  "category": "development",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "path": ".claude/skills/hook-development/SKILL.md",
+  "stars": 2,
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-24T16:15:56.359519Z"
+}

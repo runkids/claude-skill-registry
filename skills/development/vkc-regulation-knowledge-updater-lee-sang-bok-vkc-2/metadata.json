@@ -1,0 +1,10 @@
+{
+  "name": "vkc-regulation-knowledge-updater-lee-sang-bok-vkc-2",
+  "description": "Build the regulation/knowledge update pipeline (official sources -> snapshots -> structured rulesets/templates -> admin approval -> active). Use for keeping visa rules and document requirements up-to-",
+  "category": "development",
+  "repo": "LEE-SANG-BOK/VKC-2-",
+  "path": ".codex/skills/vkc-regulation-knowledge-updater/SKILL.md",
+  "stars": 0,
+  "source": "github.com/LEE-SANG-BOK/VKC-2-",
+  "downloaded_at": "2026-01-24T16:15:49.162226Z"
+}

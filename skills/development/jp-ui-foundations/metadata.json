@@ -1,0 +1,10 @@
+{
+  "name": "jp-ui-foundations",
+  "description": "jp-uiのFoundation（色/タイポ/アイコン/形状/影）を参照して実装するためのスキル。Foundationトークンや関連ファイルが更新されたらこのスキルも更新する。",
+  "category": "development",
+  "repo": "yumehiko/jp-ui",
+  "path": ".codex/skills/jp-ui-foundations/SKILL.md",
+  "stars": 0,
+  "source": "github.com/yumehiko/jp-ui",
+  "downloaded_at": "2026-01-24T16:16:10.558905Z"
+}

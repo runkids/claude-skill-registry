@@ -1,0 +1,10 @@
+{
+  "name": "rspress-frontmatter",
+  "description": "Configure RSPress frontmatter for documentation pages. Use when setting up page metadata, controlling layout options, or configuring home page hero/features sections.",
+  "category": "testing",
+  "repo": "savvy-web/rslib-builder",
+  "path": ".claude/skills/rspress-frontmatter/SKILL.md",
+  "stars": 0,
+  "source": "github.com/savvy-web/rslib-builder",
+  "downloaded_at": "2026-01-24T16:15:35.498099Z"
+}

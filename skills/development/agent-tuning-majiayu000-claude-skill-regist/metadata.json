@@ -1,0 +1,10 @@
+{
+  "name": "agent-tuning-majiayu000-claude-skill-regist",
+  "description": "Configure and optimize AI coding agents (OpenCode/Claude). Use when setting up or improving agent behavior.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/agent-tuning/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:34.033402Z"
+}

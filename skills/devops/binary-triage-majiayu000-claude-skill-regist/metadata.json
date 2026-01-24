@@ -1,0 +1,10 @@
+{
+  "name": "binary-triage-majiayu000-claude-skill-regist",
+  "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
+  "category": "devops",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/binary-triage/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:22.932930Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "grove-spec-writing",
+  "description": "Write and validate Grove technical specifications with consistent formatting, ASCII art headers, diagrams, and the Grove voice. Use when creating new specs, reviewing existing specs for completeness, ",
+  "category": "testing",
+  "repo": "AutumnsGrove/GroveScout",
+  "path": ".claude/skills/grove-spec-writing/SKILL.md",
+  "stars": 0,
+  "source": "github.com/AutumnsGrove/GroveScout",
+  "downloaded_at": "2026-01-24T16:15:34.995675Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "create-prompt-cedricfressin-claude-config",
+  "description": "Expert prompt engineering for creating effective prompts for Claude, GPT, and other LLMs. Use when writing system prompts, user prompts, few-shot examples, or optimizing existing prompts for better pe",
+  "category": "data",
+  "repo": "cedricfressin/claude-config",
+  "path": "skills/create-prompt/SKILL.md",
+  "stars": 0,
+  "source": "github.com/cedricfressin/claude-config",
+  "downloaded_at": "2026-01-24T16:15:45.456619Z"
+}

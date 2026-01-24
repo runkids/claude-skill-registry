@@ -1,0 +1,10 @@
+{
+  "name": "oe-project-orientation-shami-ah-openevent-ai",
+  "description": "Repo navigation and “where do I start?” guide for OpenEvent-AI. Use when an agent/dev is lost, needs an overview of the project or a subsystem, or needs pointers to the most important docs, entrypoint",
+  "category": "development",
+  "repo": "shami-ah/OpenEvent-AI",
+  "path": ".codex/skills/oe-project-orientation/SKILL.md",
+  "stars": 0,
+  "source": "github.com/shami-ah/OpenEvent-AI",
+  "downloaded_at": "2026-01-24T16:15:11.234853Z"
+}

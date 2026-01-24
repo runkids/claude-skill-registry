@@ -1,0 +1,10 @@
+{
+  "name": "creating-skills-aiskillstore-marketplace",
+  "description": "Use when creating new Claude Code skills or improving existing ones - ensures skills are discoverable, scannable, and effective through proper structure, CSO optimization, and real examples",
+  "category": "development",
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/agentworkforce/creating-skills/SKILL.md",
+  "stars": 114,
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-24T16:15:37.628326Z"
+}

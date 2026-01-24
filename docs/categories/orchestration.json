@@ -1,0 +1,80 @@
+{
+  "category": "orchestration",
+  "code": "oth",
+  "count": 6,
+  "updated_at": "2026-01-24T16:17:38.149789Z",
+  "skills": [
+    {
+      "name": "agent",
+      "description": "Comprehensive inter-agent messaging and coordination system providing protocol-based communication, shared context management, event broadcasting with subscriptions, automated handoff documentation...",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "orchestration",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "auxiliary",
+      "description": "Auxiliary script management rules for Ralph agents",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "orchestration",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Comprehensive inter-agent messaging and coordination system providing protocol-based communication, shared context management, event broadcasting with subscriptions, automated handoff documentation...",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "orchestration",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "agent",
+      "description": "Comprehensive inter-agent messaging and coordination system providing protocol-based communication, shared context management, event broadcasting with subscriptions, automated handoff documentation...",
+      "repo": "enuno/claude-command-and-control",
+      "path": "",
+      "branch": "main",
+      "category": "orchestration",
+      "tags": [],
+      "stars": 6,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    },
+    {
+      "name": "auxiliary",
+      "description": "Auxiliary script management rules for Ralph agents",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "",
+      "branch": "main",
+      "category": "orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    },
+    {
+      "name": "agent",
+      "description": "Assemble and coordinate multi-agent teams: decompose tasks, select skills/agents, design workflows, and manage execution with monitoring and recovery.",
+      "repo": "Masked-Kunsiquat/crm-orbit2",
+      "path": "",
+      "branch": "main",
+      "category": "orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "Masked-Kunsiquat/crm-orbit2",
+      "source": "github.com/Masked-Kunsiquat/crm-orbit2"
+    }
+  ]
+}

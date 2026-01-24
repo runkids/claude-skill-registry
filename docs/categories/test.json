@@ -1,0 +1,20 @@
+{
+  "category": "test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:38.531013Z",
+  "skills": [
+    {
+      "name": "test",
+      "description": "Valid skills element",
+      "repo": "mickdarling/dollhouse-portfolio",
+      "path": "",
+      "branch": "main",
+      "category": "test",
+      "tags": [],
+      "stars": 1,
+      "install": "mickdarling/dollhouse-portfolio",
+      "source": "github.com/mickdarling/dollhouse-portfolio"
+    }
+  ]
+}

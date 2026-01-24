@@ -1,0 +1,10 @@
+{
+  "name": "gh-fix-ci-jskjw157-fanpulse",
+  "description": "Inspect GitHub PR checks with gh, pull failing GitHub Actions logs, summarize failure context, then create a fix plan and implement after user approval. Use when a user asks to debug or fix failing PR",
+  "category": "development",
+  "repo": "jskjw157/FanPulse",
+  "path": ".codex/skills/gh-fix-ci/SKILL.md",
+  "stars": 0,
+  "source": "github.com/jskjw157/FanPulse",
+  "downloaded_at": "2026-01-24T16:16:08.989266Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "writing-hookify-rules-activer007-ordinary-claude-ski",
+  "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+  "category": "development",
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_categorized/mobile/rule-identifier/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-24T16:15:30.461553Z"
+}

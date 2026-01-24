@@ -1,0 +1,10 @@
+{
+  "name": "digital-brain-yeeehaooo-agent-kit",
+  "description": "This skill should be used when the user asks to \"write a post\", \"check my voice\", \"look up contact\", \"prepare for meeting\", \"weekly review\", \"track goals\", or mentions personal brand, content creation",
+  "category": "development",
+  "repo": "yeeehaooo/agent-kit",
+  "path": ".agent-skills/examples/digital-brain-skill/SKILL.md",
+  "stars": 0,
+  "source": "github.com/yeeehaooo/agent-kit",
+  "downloaded_at": "2026-01-24T16:15:55.093851Z"
+}

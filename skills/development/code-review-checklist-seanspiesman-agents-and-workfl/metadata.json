@@ -1,0 +1,10 @@
+{
+  "name": "code-review-checklist-seanspiesman-agents-and-workfl",
+  "description": "Structured code review criteria for pre-implementation plan review (Critic) and post-implementation security/quality review. Covers security, performance, maintainability, and correctness with severit",
+  "category": "development",
+  "repo": "seanspiesman/Agents-and-Workflows",
+  "path": "custom-agents/skills/code-review-checklist/SKILL.md",
+  "stars": 0,
+  "source": "github.com/seanspiesman/Agents-and-Workflows",
+  "downloaded_at": "2026-01-24T16:15:11.231993Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "obsidian-daily-clawdbot-skills",
+  "description": "Manage Obsidian Daily Notes via obsidian-cli. Create and open daily notes, append entries (journals, logs, tasks, links), read past notes by date, and search vault content. Handles relative dates like",
+  "category": "development",
+  "repo": "clawdbot/skills",
+  "path": "skills/bastos/obsidian-daily/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:27.193888Z"
+}

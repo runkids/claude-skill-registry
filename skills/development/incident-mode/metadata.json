@@ -1,0 +1,10 @@
+{
+  "name": "incident-mode",
+  "description": "Triage a production incident with safe, minimal changes and rollback guidance.",
+  "category": "development",
+  "repo": "jibaxZZZ/codex-root-configuration",
+  "path": ".codex/skills/incident-mode/SKILL.md",
+  "stars": 0,
+  "source": "github.com/jibaxZZZ/codex-root-configuration",
+  "downloaded_at": "2026-01-24T16:15:20.664076Z"
+}

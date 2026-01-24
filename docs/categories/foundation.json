@@ -1,0 +1,104 @@
+{
+  "category": "foundation",
+  "code": "oth",
+  "count": 8,
+  "updated_at": "2026-01-24T16:17:38.131732Z",
+  "skills": [
+    {
+      "name": "moai",
+      "description": "MoAI-ADK's foundational principles - TRUST 5, SPEC-First TDD, delegation patterns, token optimization, progressive disclosure, modular architecture, agent catalog, command reference, and execution rul",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "moai",
+      "description": "Enterprise context and session management with token budget optimization and state persistence",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "moai",
+      "description": "Canonical Claude Code skill authoring kit covering agent Skills, sub-agent templates, custom slash commands, orchestration patterns, hooks, memory, settings, and IAM permission rules aligned with offi",
+      "repo": "mattnigh/skills_collection",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 20,
+      "install": "mattnigh/skills_collection",
+      "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "moai",
+      "description": "MoAI-ADK's foundational principles - TRUST 5, SPEC-First TDD, delegation patterns, token optimization, progressive disclosure, modular architecture, agent catalog, command reference, and execution rul",
+      "repo": "modu-ai/moai-rank",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 16,
+      "install": "modu-ai/moai-rank",
+      "source": "github.com/modu-ai/moai-rank"
+    },
+    {
+      "name": "moai",
+      "description": "MoAI-ADK's foundational principles - TRUST 5, SPEC-First TDD, delegation patterns, token optimization, progressive disclosure, modular architecture, agent catalog, command reference, and execution rul",
+      "repo": "windysky/claude_notification_wsl2",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 0,
+      "install": "windysky/claude_notification_wsl2",
+      "source": "github.com/windysky/claude_notification_wsl2"
+    },
+    {
+      "name": "moai",
+      "description": "MoAI-ADK's foundational principles - TRUST 5, SPEC-First TDD, delegation patterns, token optimization, progressive disclosure, modular architecture, agent catalog, command reference, and execution rul",
+      "repo": "yarang/chatbot_ai_assistant_v2",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 0,
+      "install": "yarang/chatbot_ai_assistant_v2",
+      "source": "github.com/yarang/chatbot_ai_assistant_v2"
+    },
+    {
+      "name": "moai",
+      "description": "MoAI-ADK's foundational principles - TRUST 5, SPEC-First TDD, delegation patterns, token optimization, progressive disclosure, modular architecture, agent catalog, command reference, and execution rul",
+      "repo": "binee108/PasteTrader",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 0,
+      "install": "binee108/PasteTrader",
+      "source": "github.com/binee108/PasteTrader"
+    },
+    {
+      "name": "moai",
+      "description": "MoAI-ADK's foundational principles - TRUST 5, SPEC-First TDD, delegation patterns, token optimization, progressive disclosure, modular architecture, agent catalog, command reference, and execution rul",
+      "repo": "hnabyz-bot/fpga-work",
+      "path": "",
+      "branch": "main",
+      "category": "foundation",
+      "tags": [],
+      "stars": 0,
+      "install": "hnabyz-bot/fpga-work",
+      "source": "github.com/hnabyz-bot/fpga-work"
+    }
+  ]
+}

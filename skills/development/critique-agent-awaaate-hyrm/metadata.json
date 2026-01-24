@@ -1,0 +1,10 @@
+{
+  "name": "critique-agent-awaaate-hyrm",
+  "description": "Specialized agent for code review, debugging critique, and quality assessment",
+  "category": "development",
+  "repo": "awaaate/Hyrm",
+  "path": ".opencode/skill/critique-agent/SKILL.md",
+  "stars": 0,
+  "source": "github.com/awaaate/Hyrm",
+  "downloaded_at": "2026-01-24T16:15:28.135299Z"
+}

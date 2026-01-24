@@ -1,0 +1,10 @@
+{
+  "name": "docs-write-gregbaron-metabase-mysandbox",
+  "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
+  "category": "documents",
+  "repo": "GregBaron/metabase-mysandbox",
+  "path": ".claude/skills/docs-write/SKILL.md",
+  "stars": 0,
+  "source": "github.com/GregBaron/metabase-mysandbox",
+  "downloaded_at": "2026-01-24T16:15:40.631132Z"
+}

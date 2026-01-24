@@ -1,0 +1,10 @@
+{
+  "name": "package-agent",
+  "description": "Generate a complete OAF-compliant agent package from an Agent Case (requirements) and Agent Design (architecture). Use when asked to \"package an agent\", \"generate an agent package\", \"create an agent f",
+  "category": "data",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/package-agent/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:50.031668Z"
+}

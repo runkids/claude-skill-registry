@@ -1,0 +1,10 @@
+{
+  "name": "evaluation-guanyang-antigravity-skills",
+  "description": "This skill should be used when the user asks to \"evaluate agent performance\", \"build test framework\", \"measure agent quality\", \"create evaluation rubrics\", or mentions LLM-as-judge, multi-dimensional ",
+  "category": "development",
+  "repo": "guanyang/antigravity-skills",
+  "path": "skills/evaluation/SKILL.md",
+  "stars": 59,
+  "source": "github.com/guanyang/antigravity-skills",
+  "downloaded_at": "2026-01-24T16:15:31.520417Z"
+}

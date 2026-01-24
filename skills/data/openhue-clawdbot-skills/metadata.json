@@ -1,0 +1,10 @@
+{
+  "name": "openhue-clawdbot-skills",
+  "description": "Control Philips Hue lights/scenes via the OpenHue CLI.",
+  "category": "data",
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/openhue/SKILL.md",
+  "stars": 11,
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-24T16:15:29.036398Z"
+}

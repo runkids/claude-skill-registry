@@ -1,0 +1,10 @@
+{
+  "name": "tmux-harivansh-afk-claude-code-vert",
+  "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+  "category": "development",
+  "repo": "harivansh-afk/claude-code-vertical",
+  "path": "skill-index/skills/tmux/SKILL.md",
+  "stars": 2,
+  "source": "github.com/harivansh-afk/claude-code-vertical",
+  "downloaded_at": "2026-01-24T16:16:02.283361Z"
+}

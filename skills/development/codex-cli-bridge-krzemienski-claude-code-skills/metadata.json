@@ -1,0 +1,10 @@
+{
+  "name": "codex-cli-bridge-krzemienski-claude-code-skills",
+  "description": "Bridge between Claude Code and OpenAI Codex CLI - generates AGENTS.md from CLAUDE.md, provides Codex CLI execution helpers, and enables seamless interoperability between both tools",
+  "category": "development",
+  "repo": "krzemienski/claude-code-skills-factory",
+  "path": "generated-skills/codex-cli-bridge/SKILL.md",
+  "stars": 0,
+  "source": "github.com/krzemienski/claude-code-skills-factory",
+  "downloaded_at": "2026-01-24T16:15:24.730263Z"
+}

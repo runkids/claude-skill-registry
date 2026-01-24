@@ -1,0 +1,10 @@
+{
+  "name": "agent-sdk-majiayu000-claude-skill-regist",
+  "description": "Expert in Claude Agent SDK development. Use when users ask about SDK API, agent configuration, MCP servers, hooks, permissions, file checkpointing, or when they mention @AGENT_SDK_DOCS.md. Provides ac",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/development/agent-sdk/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:43.687985Z"
+}

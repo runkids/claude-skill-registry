@@ -1,0 +1,10 @@
+{
+  "name": "web-design-guidelines-gellify-acme-app",
+  "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
+  "category": "development",
+  "repo": "GELLIFY/acme-app",
+  "path": ".codex/skills/web-design-guidelines/SKILL.md",
+  "stars": 6,
+  "source": "github.com/GELLIFY/acme-app",
+  "downloaded_at": "2026-01-24T16:15:11.683163Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "minimalist-surgical-development-faulkdev-github-copilot-superp",
+  "description": "Use when editing an existing codebase and the goal is minimal, standard, and non-invasive changes - prioritizes simplest solution, standard libraries first, and surgical modification without unsolicit",
+  "category": "development",
+  "repo": "faulkdev/github-copilot-superpowers",
+  "path": ".github/skills/minimalist-surgical-development/SKILL.md",
+  "stars": 0,
+  "source": "github.com/faulkdev/github-copilot-superpowers",
+  "downloaded_at": "2026-01-24T16:16:03.807497Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "updatekfg-majiayu000-claude-skill-regist",
+  "description": "Synchronizacja KFG między urządzeniami (Windows/Android). Triggers: sync KFG, updatekfg, zaktualizuj",
+  "category": "other",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/updatekfg/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:04.134077Z"
+}

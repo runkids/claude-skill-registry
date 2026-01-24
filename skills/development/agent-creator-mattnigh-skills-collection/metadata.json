@@ -1,0 +1,10 @@
+{
+  "name": "agent-creator-mattnigh-skills-collection",
+  "description": "Use this skill when architecting new Claude Code agents following Anthropic best practices. Guides through YAML frontmatter creation, agent structure definition, role boundaries, and validation. Criti",
+  "category": "development",
+  "repo": "mattnigh/skills_collection",
+  "path": "collection/fercracix33__poli2-clean-architecture__claude__skills__agent-creator__SKILL.md",
+  "stars": 20,
+  "source": "github.com/mattnigh/skills_collection",
+  "downloaded_at": "2026-01-24T16:15:43.720012Z"
+}

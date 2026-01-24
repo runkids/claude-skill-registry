@@ -1,0 +1,10 @@
+{
+  "name": "hosted-agents-boisenoise-skills-collections",
+  "description": "This skill should be used when the user asks to \"build background agent\", \"create hosted coding agent\", \"set up sandboxed execution\", \"implement multiplayer agent\", or mentions background agents, sand",
+  "category": "design",
+  "repo": "boisenoise/skills-collections",
+  "path": "skills/context-eng-hosted-agents/SKILL.md",
+  "stars": 0,
+  "source": "github.com/boisenoise/skills-collections",
+  "downloaded_at": "2026-01-24T16:15:14.468111Z"
+}

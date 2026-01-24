@@ -1,0 +1,20 @@
+{
+  "category": "local-ai-infrastructure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T16:17:38.138950Z",
+  "skills": [
+    {
+      "name": "skills",
+      "description": "Expertise in calculating and specifying hardware requirements for local AI deployments, including GPU selection, server configuration, storage, and network planning based on workload characteristic...",
+      "repo": "mitkox/fteplusai",
+      "path": "",
+      "branch": "main",
+      "category": "local-ai-infrastructure",
+      "tags": [],
+      "stars": 80,
+      "install": "mitkox/fteplusai",
+      "source": "github.com/mitkox/fteplusai"
+    }
+  ]
+}

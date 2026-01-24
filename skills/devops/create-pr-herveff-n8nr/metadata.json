@@ -1,0 +1,10 @@
+{
+  "name": "create-pr-herveff-n8nr",
+  "description": "Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to creat",
+  "category": "devops",
+  "repo": "Herveff/n8nr",
+  "path": ".claude/skills/create-pr/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Herveff/n8nr",
+  "downloaded_at": "2026-01-24T16:15:34.186520Z"
+}

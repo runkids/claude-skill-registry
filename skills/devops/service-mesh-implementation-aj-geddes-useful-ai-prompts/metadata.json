@@ -1,0 +1,10 @@
+{
+  "name": "service-mesh-implementation-aj-geddes-useful-ai-prompts",
+  "description": "Implement service mesh (Istio, Linkerd) for service-to-service communication, traffic management, security, and observability.",
+  "category": "devops",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/service-mesh-implementation/SKILL.md",
+  "stars": 45,
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-24T16:15:45.068942Z"
+}

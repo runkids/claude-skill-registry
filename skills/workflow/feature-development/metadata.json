@@ -1,0 +1,10 @@
+{
+  "name": "feature-development",
+  "description": "Complete feature development workflow orchestrating multiple skills from planning to deployment. Triggers: FD, 新功能, 開發功能, feature, implement, 實作, 實現, 建立功能, create feature, develop, 開發新, add feature, 加",
+  "category": "workflow",
+  "repo": "u9401066/template-is-all-you-need",
+  "path": ".claude/skills/feature-development/SKILL.md",
+  "stars": 0,
+  "source": "github.com/u9401066/template-is-all-you-need",
+  "downloaded_at": "2026-01-24T16:15:34.995117Z"
+}

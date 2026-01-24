@@ -1,0 +1,10 @@
+{
+  "name": "openai-whisper-api-harleycoops-clawdbot",
+  "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+  "category": "development",
+  "repo": "HarleyCoops/CLAWDBOT",
+  "path": "skills/openai-whisper-api/SKILL.md",
+  "stars": 0,
+  "source": "github.com/HarleyCoops/CLAWDBOT",
+  "downloaded_at": "2026-01-24T16:15:02.340622Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "add-malli-schemas-gregbaron-metabase-mysandbox",
+  "description": "Efficiently add Malli schemas to API endpoints in the Metabase codebase with proper patterns, validation timing, and error handling",
+  "category": "development",
+  "repo": "GregBaron/metabase-mysandbox",
+  "path": ".claude/skills/add-malli-schemas/SKILL.md",
+  "stars": 0,
+  "source": "github.com/GregBaron/metabase-mysandbox",
+  "downloaded_at": "2026-01-24T16:15:59.101938Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "worker-integration-ricable-ruvector-edge",
+  "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+  "category": "testing",
+  "repo": "ricable/ruvector-edge",
+  "path": "claude-flow-v3/.claude/skills/worker-integration/skill.md",
+  "stars": 0,
+  "source": "github.com/ricable/ruvector-edge",
+  "downloaded_at": "2026-01-24T16:15:36.051981Z"
+}

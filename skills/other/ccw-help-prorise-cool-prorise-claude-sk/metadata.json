@@ -1,0 +1,10 @@
+{
+  "name": "ccw-help-prorise-cool-prorise-claude-sk",
+  "description": "CCW command help system. Search, browse, recommend commands. Triggers \"ccw-help\", \"ccw-issue\".",
+  "category": "other",
+  "repo": "Prorise-cool/prorise-claude-skills",
+  "path": ".claude/skills/ccw-help/SKILL.md",
+  "stars": 9,
+  "source": "github.com/Prorise-cool/prorise-claude-skills",
+  "downloaded_at": "2026-01-24T16:15:28.604386Z"
+}

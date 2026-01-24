@@ -1,0 +1,10 @@
+{
+  "name": "math-router-namesreallyblank-clorch",
+  "description": "Deterministic router for math cognitive stack - maps user intent to exact CLI commands",
+  "category": "documents",
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/v3/math-router/SKILL.md",
+  "stars": 2,
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-24T16:15:57.829225Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "typescript-review-gregbaron-metabase-mysandbox",
+  "description": "Review TypeScript and JavaScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing TypeScript/",
+  "category": "development",
+  "repo": "GregBaron/metabase-mysandbox",
+  "path": ".claude/skills/typescript-review/SKILL.md",
+  "stars": 0,
+  "source": "github.com/GregBaron/metabase-mysandbox",
+  "downloaded_at": "2026-01-24T16:15:27.077024Z"
+}

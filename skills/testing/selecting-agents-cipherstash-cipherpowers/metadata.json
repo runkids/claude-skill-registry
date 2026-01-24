@@ -1,0 +1,10 @@
+{
+  "name": "selecting-agents-cipherstash-cipherpowers",
+  "description": "Decision guide for choosing the right specialized agent for each task type",
+  "category": "testing",
+  "repo": "cipherstash/cipherpowers",
+  "path": "plugin/skills/selecting-agents/SKILL.md",
+  "stars": 11,
+  "source": "github.com/cipherstash/cipherpowers",
+  "downloaded_at": "2026-01-24T16:15:36.069528Z"
+}

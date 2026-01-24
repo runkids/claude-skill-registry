@@ -1,0 +1,10 @@
+{
+  "name": "ffmpeg-aia-11-hn-mib-mib-mockintervie",
+  "description": "Guide for using FFmpeg - a comprehensive multimedia framework for video/audio encoding, conversion, streaming, and filtering. Use when processing media files, converting formats, extracting audio, cre",
+  "category": "development",
+  "repo": "AIA-11-HN-MIB/MIB-MockInterviewAIBot",
+  "path": ".claude/skills/ffmpeg/SKILL.md",
+  "stars": 1,
+  "source": "github.com/AIA-11-HN-MIB/MIB-MockInterviewAIBot",
+  "downloaded_at": "2026-01-24T16:15:40.666505Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "dispatching-parallel-agents-doyajin174-myskills",
+  "description": "Use when facing 3+ independent failures that can be investigated without shared state or dependencies. Dispatches multiple Claude agents to investigate and fix independent problems concurrently.",
+  "category": "devops",
+  "repo": "Doyajin174/myskills",
+  "path": ".public/skills/dispatching-parallel-agents/SKILL.md",
+  "stars": 0,
+  "source": "github.com/Doyajin174/myskills",
+  "downloaded_at": "2026-01-24T16:15:12.114324Z"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "worker-integration-ruvnet-claude-flow",
+  "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+  "category": "testing",
+  "repo": "ruvnet/claude-flow",
+  "path": ".claude/skills/worker-integration/skill.md",
+  "stars": 12799,
+  "source": "github.com/ruvnet/claude-flow",
+  "downloaded_at": "2026-01-24T16:15:25.461057Z"
+}

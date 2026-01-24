@@ -1,0 +1,10 @@
+{
+  "name": "bats-testing-patterns-majiayu000-claude-skill-regist",
+  "description": "Master Bash Automated Testing System (Bats) for comprehensive shell script testing. Use when writing tests for shell scripts, CI/CD pipelines, or requiring test-driven development of shell utilities.",
+  "category": "development",
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/bats-testing-patterns/SKILL.md",
+  "stars": 48,
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-24T16:15:51.015952Z"
+}
