@@ -1,6 +1,11 @@
 {
-  "updated_at": "2026-01-24T17:42:23.951613Z",
+  "updated_at": "2026-01-24T17:44:28.165447Z",
   "categories": [
+    {
+      "name": ".template",
+      "code": "oth",
+      "count": 1
+    },
     {
       "name": "adb-meta-automation",
       "code": "oth",
@@ -84,7 +89,7 @@
     {
       "name": "data",
       "code": "dat",
-      "count": 2763
+      "count": 2742
     },
     {
       "name": "data-access",
@@ -94,7 +99,7 @@
     {
       "name": "design",
       "code": "des",
-      "count": 3782
+      "count": 3776
     },
     {
       "name": "design-principles",
@@ -104,7 +109,7 @@
     {
       "name": "development",
       "code": "dev",
-      "count": 12994
+      "count": 12954
     },
     {
       "name": "development-code",
@@ -119,7 +124,7 @@
     {
       "name": "devops",
       "code": "ops",
-      "count": 2141
+      "count": 2136
     },
     {
       "name": "docs",
@@ -134,7 +139,7 @@
     {
       "name": "documents",
       "code": "doc",
-      "count": 1790
+      "count": 1690
     },
     {
       "name": "domains",
@@ -199,7 +204,7 @@
     {
       "name": "marketing",
       "code": "mkt",
-      "count": 284
+      "count": 276
     },
     {
       "name": "meta",
@@ -214,7 +219,7 @@
     {
       "name": "other",
       "code": "oth",
-      "count": 15705
+      "count": 14926
     },
     {
       "name": "performance",
@@ -234,12 +239,12 @@
     {
       "name": "product",
       "code": "prd",
-      "count": 692
+      "count": 670
     },
     {
       "name": "productivity",
       "code": "pro",
-      "count": 1006
+      "count": 954
     },
     {
       "name": "programming-languages",
@@ -264,7 +269,7 @@
     {
       "name": "security",
       "code": "sec",
-      "count": 522
+      "count": 518
     },
     {
       "name": "security-compliance",
@@ -319,7 +324,7 @@
     {
       "name": "testing",
       "code": "tst",
-      "count": 2669
+      "count": 2557
     },
     {
       "name": "testing-methodologies",

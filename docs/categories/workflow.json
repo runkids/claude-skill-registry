@@ -2,42 +2,42 @@
   "category": "workflow",
   "code": "oth",
   "count": 3,
-  "updated_at": "2026-01-24T17:42:25.415120Z",
+  "updated_at": "2026-01-24T17:44:30.083371Z",
   "skills": [
     {
-      "name": "moai",
+      "name": "moai-workflow-ddd",
       "description": "Domain-Driven Development workflow specialist using ANALYZE-PRESERVE-IMPROVE cycle for behavior-preserving code transformation",
       "repo": "modu-ai/moai-adk",
-      "path": "",
+      "path": "workflow/moai-workflow-ddd",
       "branch": "main",
       "category": "workflow",
       "tags": [],
       "stars": 568,
-      "install": "modu-ai/moai-adk",
+      "install": "modu-ai/moai-adk/workflow/moai-workflow-ddd",
       "source": "github.com/modu-ai/moai-adk"
     },
     {
-      "name": "safety",
+      "name": "safety-architecture",
       "description": "|",
       "repo": "majiayu000/claude-skill-registry",
-      "path": "",
+      "path": "workflow/safety-architecture",
       "branch": "main",
       "category": "workflow",
       "tags": [],
       "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
+      "install": "majiayu000/claude-skill-registry/workflow/safety-architecture",
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "moai",
+      "name": "moai-workflow-templates",
       "description": "Enterprise template management with code boilerplates, feedback templates, and project optimization workflows",
       "repo": "mattnigh/skills_collection",
-      "path": "",
+      "path": "workflow/moai-workflow-templates",
       "branch": "main",
       "category": "workflow",
       "tags": [],
       "stars": 20,
-      "install": "mattnigh/skills_collection",
+      "install": "mattnigh/skills_collection/workflow/moai-workflow-templates",
       "source": "github.com/mattnigh/skills_collection"
     }
   ]

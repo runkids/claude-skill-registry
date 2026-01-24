@@ -2,18 +2,18 @@
   "category": "research-analysis",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:25.285879Z",
+  "updated_at": "2026-01-24T17:44:29.902679Z",
   "skills": [
     {
-      "name": "product",
+      "name": "product-appeal-analyzer",
       "description": "Evaluate product desirability, market positioning, and emotional resonance—the complement to friction analysis. Assess whether users will WANT a product (not just use it), identity fit, trust signals,",
       "repo": "majiayu000/claude-skill-registry",
-      "path": "",
+      "path": "research-analysis/product-appeal-analyzer",
       "branch": "main",
       "category": "research-analysis",
       "tags": [],
       "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
+      "install": "majiayu000/claude-skill-registry/research-analysis/product-appeal-analyzer",
       "source": "github.com/majiayu000/claude-skill-registry"
     }
   ]

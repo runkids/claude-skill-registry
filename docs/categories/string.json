@@ -2,18 +2,18 @@
   "category": "string",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:25.303043Z",
+  "updated_at": "2026-01-24T17:44:29.977921Z",
   "skills": [
     {
       "name": "string",
       "description": "string",
       "repo": "dot-do/mdx",
-      "path": "",
+      "path": "string/string",
       "branch": "main",
       "category": "string",
       "tags": [],
       "stars": 3,
-      "install": "dot-do/mdx",
+      "install": "dot-do/mdx/string/string",
       "source": "github.com/dot-do/mdx"
     }
   ]

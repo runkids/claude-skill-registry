@@ -2,18 +2,18 @@
   "category": "forensics",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:24.773958Z",
+  "updated_at": "2026-01-24T17:44:29.427398Z",
   "skills": [
     {
-      "name": "email",
+      "name": "email-forensics",
       "description": "|",
       "repo": "majiayu000/claude-skill-registry",
-      "path": "",
+      "path": "forensics/email-forensics",
       "branch": "main",
       "category": "forensics",
       "tags": [],
       "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
+      "install": "majiayu000/claude-skill-registry/forensics/email-forensics",
       "source": "github.com/majiayu000/claude-skill-registry"
     }
   ]

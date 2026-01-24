@@ -41,8 +41,8 @@ jobs:
 
       - name: Build search index
         run: |
-          echo "Building search index..."
-          python scripts/build_search_index.py --registry registry.json --output docs
+          echo "Building search index from registry.json (deduplicated)..."
+          python scripts/build_search_index.py --use-registry --registry registry.json --output docs
 
           echo ""
           echo "Index files generated:"

@@ -2,18 +2,18 @@
   "category": "domains",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:24.768776Z",
+  "updated_at": "2026-01-24T17:44:29.422708Z",
   "skills": [
     {
-      "name": "insurance",
+      "name": "insurance-expert",
       "description": "Expert-level insurance systems, underwriting, claims processing, actuarial analysis, risk assessment, and insurtech solutions",
       "repo": "majiayu000/claude-skill-registry",
-      "path": "",
+      "path": "domains/insurance-expert",
       "branch": "main",
       "category": "domains",
       "tags": [],
       "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
+      "install": "majiayu000/claude-skill-registry/domains/insurance-expert",
       "source": "github.com/majiayu000/claude-skill-registry"
     }
   ]

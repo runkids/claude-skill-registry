@@ -2,18 +2,18 @@
   "category": "specialized-testing",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:25.302819Z",
+  "updated_at": "2026-01-24T17:44:29.977492Z",
   "skills": [
     {
-      "name": "mobile",
+      "name": "mobile-testing",
       "description": "Comprehensive mobile testing for iOS and Android platforms including gestures, sensors, permissions, device fragmentation, and performance. Use when testing native apps, hybrid apps, or mobile web, en",
       "repo": "proffesor-for-testing/agentic-qe",
-      "path": "",
+      "path": "specialized-testing/mobile-testing",
       "branch": "main",
       "category": "specialized-testing",
       "tags": [],
       "stars": 140,
-      "install": "proffesor-for-testing/agentic-qe",
+      "install": "proffesor-for-testing/agentic-qe/specialized-testing/mobile-testing",
       "source": "github.com/proffesor-for-testing/agentic-qe"
     }
   ]

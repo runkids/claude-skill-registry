@@ -2,18 +2,18 @@
   "category": "security-compliance",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:25.302126Z",
+  "updated_at": "2026-01-24T17:44:29.928669Z",
   "skills": [
     {
-      "name": "container",
+      "name": "container-security-scanner",
       "description": "Scan images and runtime for CVEs and policy violations.",
       "repo": "majiayu000/claude-skill-registry",
-      "path": "",
+      "path": "security-compliance/container-security-scanner",
       "branch": "main",
       "category": "security-compliance",
       "tags": [],
       "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
+      "install": "majiayu000/claude-skill-registry/security-compliance/container-security-scanner",
       "source": "github.com/majiayu000/claude-skill-registry"
     }
   ]

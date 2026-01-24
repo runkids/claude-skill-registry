@@ -2,18 +2,18 @@
   "category": "context-management",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:23.955386Z",
+  "updated_at": "2026-01-24T17:44:28.190607Z",
   "skills": [
     {
-      "name": "claude",
+      "name": "claude-code-tips",
       "description": "> [!tweet] @zeroxBigBoss · Dec 26, 2025",
       "repo": "januff/claude-code-tips",
-      "path": "",
+      "path": "context-management/claude-code-tips",
       "branch": "main",
       "category": "context-management",
       "tags": [],
       "stars": 1,
-      "install": "januff/claude-code-tips",
+      "install": "januff/claude-code-tips/context-management/claude-code-tips",
       "source": "github.com/januff/claude-code-tips"
     }
   ]

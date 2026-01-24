@@ -2,18 +2,18 @@
   "category": "performance",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:25.216142Z",
+  "updated_at": "2026-01-24T17:44:29.819480Z",
   "skills": [
     {
-      "name": "database",
+      "name": "database-optimizer",
       "description": "Analyze and improve database performance through safe, measurable query, index, and configuration optimizations.",
       "repo": "Masked-Kunsiquat/crm-orbit2",
-      "path": "",
+      "path": "performance/database-optimizer",
       "branch": "main",
       "category": "performance",
       "tags": [],
       "stars": 0,
-      "install": "Masked-Kunsiquat/crm-orbit2",
+      "install": "Masked-Kunsiquat/crm-orbit2/performance/database-optimizer",
       "source": "github.com/Masked-Kunsiquat/crm-orbit2"
     }
   ]

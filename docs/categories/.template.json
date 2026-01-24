@@ -1,0 +1,20 @@
+{
+  "category": ".template",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T17:44:28.165597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brief description of what this skill does and provides. Use when [clear trigger condition that indicates this skill should activate]. Keep under 200 words.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "claude_ctx_py/assets/skills/community/.template",
+      "branch": "main",
+      "category": ".template",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/claude_ctx_py/assets/skills/community/.template",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

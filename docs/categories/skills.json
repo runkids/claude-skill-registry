@@ -2,18 +2,18 @@
   "category": "skills",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:25.302548Z",
+  "updated_at": "2026-01-24T17:44:29.951066Z",
   "skills": [
     {
       "name": "skills",
-      "description": "Procedures for creating comprehensive API documentation.",
+      "description": "=== PURPOSE ===",
       "repo": "plannededge/codebook",
-      "path": "",
+      "path": "skills/skills",
       "branch": "main",
       "category": "skills",
       "tags": [],
       "stars": 1,
-      "install": "plannededge/codebook",
+      "install": "plannededge/codebook/skills/skills",
       "source": "github.com/plannededge/codebook"
     }
   ]

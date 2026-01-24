@@ -2,18 +2,18 @@
   "category": "project",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-24T17:42:25.285601Z",
+  "updated_at": "2026-01-24T17:44:29.898353Z",
   "skills": [
     {
       "name": "resume",
-      "description": "Architected and developed OpenSkill Pro, a resume optimization platform leveraging AI to bridge the gap between candidate profiles and employer expectations. Key features include resume parsing, ma...",
+      "description": "Architected and developed OpenSkill Pro, a resume optimization platform leveraging AI to bridge the gap between candidate profiles and employer expectations. Key features include resume parsing, marke",
       "repo": "cbillowes/curious-programmer-tungsten",
-      "path": "",
+      "path": "project/resume",
       "branch": "main",
       "category": "project",
       "tags": [],
       "stars": 4,
-      "install": "cbillowes/curious-programmer-tungsten",
+      "install": "cbillowes/curious-programmer-tungsten/project/resume",
       "source": "github.com/cbillowes/curious-programmer-tungsten"
     }
   ]

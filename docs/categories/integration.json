@@ -2,30 +2,30 @@
   "category": "integration",
   "code": "oth",
   "count": 2,
-  "updated_at": "2026-01-24T17:42:24.787094Z",
+  "updated_at": "2026-01-24T17:44:29.432914Z",
   "skills": [
     {
-      "name": "web3",
+      "name": "web3-manager",
       "description": "Manages blockchain interactions, wallet monitoring, and smart contract execution for the Kingdom's digital assets.",
       "repo": "majiayu000/claude-skill-registry",
-      "path": "",
+      "path": "integration/web3-manager",
       "branch": "main",
       "category": "integration",
       "tags": [],
       "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
+      "install": "majiayu000/claude-skill-registry/integration/web3-manager",
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "google",
+      "name": "google-calendar-sync",
       "description": "Wizard to set up Google Calendar API integration with service account authentication and domain-wide delegation",
       "repo": "",
-      "path": "",
+      "path": "integration/google-calendar-sync",
       "branch": "main",
       "category": "integration",
       "tags": [],
       "stars": 0,
-      "install": "unknown/google",
+      "install": "/integration/google-calendar-sync",
       "source": "github.com/badass-courses/course-builder"
     }
   ]
