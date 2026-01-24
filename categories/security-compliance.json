@@ -1,0 +1,19 @@
+{
+  "category": "security-compliance",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.208716Z",
+  "skills": [
+    {
+      "name": "container-security-scanner",
+      "description": "Scan images and runtime for CVEs and policy violations.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "security-compliance/container-security-scanner",
+      "branch": "main",
+      "category": "security-compliance",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "travel",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.290331Z",
+  "skills": [
+    {
+      "name": "skiplagged",
+      "description": "Find hidden-city flight deals and significantly cheaper airfares using Skiplagged's fare discovery",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "travel/skiplagged",
+      "branch": "main",
+      "category": "travel",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "domains",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.209380Z",
+  "skills": [
+    {
+      "name": "insurance-expert",
+      "description": "Expert-level insurance systems, underwriting, claims processing, actuarial analysis, risk assessment, and insurtech solutions",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "domains/insurance-expert",
+      "branch": "main",
+      "category": "domains",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

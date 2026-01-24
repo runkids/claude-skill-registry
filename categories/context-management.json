@@ -1,0 +1,19 @@
+{
+  "category": "context-management",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.283460Z",
+  "skills": [
+    {
+      "name": "claude-code-tips",
+      "description": "> [!tweet] @zeroxBigBoss · Dec 26, 2025",
+      "repo": "januff/claude-code-tips",
+      "path": "context-management/claude-code-tips",
+      "branch": "main",
+      "category": "context-management",
+      "tags": [],
+      "stars": 1,
+      "install": "januff/claude-code-tips",
+      "source": "github.com/januff/claude-code-tips"
+    }
+  ]
+}

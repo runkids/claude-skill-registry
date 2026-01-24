@@ -1,0 +1,19 @@
+{
+  "category": "planning",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.282234Z",
+  "skills": [
+    {
+      "name": "brainstorming-technickai-ai-coding-config",
+      "description": "Use when rough ideas need design before code, requirements are fuzzy, multiple approaches exist, or you need to explore options before implementation",
+      "repo": "TechNickAI/ai-coding-config",
+      "path": "planning/brainstorming-technickai-ai-coding-config",
+      "branch": "main",
+      "category": "planning",
+      "tags": [],
+      "stars": 16,
+      "install": "TechNickAI/ai-coding-config",
+      "source": "github.com/TechNickAI/ai-coding-config"
+    }
+  ]
+}

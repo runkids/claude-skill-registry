@@ -1,13 +1,13 @@
 # Claude Skills Registry
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Skills-44,000+-purple?style=flat-square" alt="Skills">
+  <img src="https://img.shields.io/badge/Skills-44,432-purple?style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
   <a href="https://majiayu000.github.io/claude-skill-registry/"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
 </p>
 
-> The most comprehensive Claude Code skills registry - **44,000+ unique skills indexed**
+> The most comprehensive Claude Code skills registry - **44,432 unique skills indexed**
 
 ## What is this?
 

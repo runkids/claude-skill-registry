@@ -1,0 +1,19 @@
+{
+  "category": "platform",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.282466Z",
+  "skills": [
+    {
+      "name": "moai-platform-firestore-modu-ai-moai-rank",
+      "description": "Firebase Firestore specialist covering NoSQL patterns, real-time sync, offline caching, and Security Rules. Use when building mobile-first apps with offline support, implementing real-time listeners, ",
+      "repo": "modu-ai/moai-rank",
+      "path": "platform/moai-platform-firestore-modu-ai-moai-rank",
+      "branch": "main",
+      "category": "platform",
+      "tags": [],
+      "stars": 16,
+      "install": "modu-ai/moai-rank",
+      "source": "github.com/modu-ai/moai-rank"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "business-productivity",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.205733Z",
+  "skills": [
+    {
+      "name": "content-research-writer",
+      "description": "Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing proc",
+      "repo": "davepoon/buildwithclaude",
+      "path": "business-productivity/content-research-writer",
+      "branch": "main",
+      "category": "business-productivity",
+      "tags": [],
+      "stars": 2299,
+      "install": "davepoon/buildwithclaude",
+      "source": "github.com/davepoon/buildwithclaude"
+    }
+  ]
+}

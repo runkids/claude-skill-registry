@@ -1,0 +1,19 @@
+{
+  "category": "api",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.206628Z",
+  "skills": [
+    {
+      "name": "sse-resilience-dadbodgeoff-drift",
+      "description": "Redis-backed SSE stream management with stream registry, heartbeat monitoring, completion store for terminal events, and automatic orphan cleanup via background guardian process.",
+      "repo": "dadbodgeoff/drift",
+      "path": "api/sse-resilience-dadbodgeoff-drift",
+      "branch": "main",
+      "category": "api",
+      "tags": [],
+      "stars": 169,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

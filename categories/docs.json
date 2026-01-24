@@ -1,0 +1,19 @@
+{
+  "category": "docs",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.283340Z",
+  "skills": [
+    {
+      "name": "agent-ops-versioning",
+      "description": "Manage semantic versioning, changelog generation, and release notes. Auto-generates entries from completed issues or git diff.",
+      "repo": "weholt/script-cast",
+      "path": "docs/agent-ops-versioning",
+      "branch": "main",
+      "category": "docs",
+      "tags": [],
+      "stars": 1,
+      "install": "weholt/script-cast",
+      "source": "github.com/weholt/script-cast"
+    }
+  ]
+}

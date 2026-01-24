@@ -1,0 +1,19 @@
+{
+  "category": "project",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.282856Z",
+  "skills": [
+    {
+      "name": "resume",
+      "description": "Architected and developed OpenSkill Pro, a resume optimization platform leveraging AI to bridge the gap between candidate profiles and employer expectations. Key features include resume parsing, marke",
+      "repo": "cbillowes/curious-programmer-tungsten",
+      "path": "project/resume",
+      "branch": "main",
+      "category": "project",
+      "tags": [],
+      "stars": 4,
+      "install": "cbillowes/curious-programmer-tungsten",
+      "source": "github.com/cbillowes/curious-programmer-tungsten"
+    }
+  ]
+}

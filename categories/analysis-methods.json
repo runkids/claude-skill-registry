@@ -1,0 +1,19 @@
+{
+  "category": "analysis-methods",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.208873Z",
+  "skills": [
+    {
+      "name": "diff-analysis",
+      "description": "|",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "analysis-methods/diff-analysis",
+      "branch": "main",
+      "category": "analysis-methods",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

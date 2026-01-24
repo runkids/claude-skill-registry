@@ -1,0 +1,19 @@
+{
+  "category": "skills",
+  "count": 1,
+  "updated_at": "2026-01-24T17:41:35.286022Z",
+  "skills": [
+    {
+      "name": "skills",
+      "description": "=== PURPOSE ===",
+      "repo": "plannededge/codebook",
+      "path": "skills/skills",
+      "branch": "main",
+      "category": "skills",
+      "tags": [],
+      "stars": 1,
+      "install": "plannededge/codebook",
+      "source": "github.com/plannededge/codebook"
+    }
+  ]
+}

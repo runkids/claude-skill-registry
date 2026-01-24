@@ -176,13 +176,32 @@ def main():
     print(f"Found {len(skills)} skills")
     print()
 
-    # Remove duplicates by name
+    # Remove duplicates by repo:path (more accurate than name-only)
+    # This prevents losing skills with same name but different sources
     seen = set()
     unique_skills = []
+    duplicates_removed = 0
+
     for s in skills:
-        if s["name"] not in seen:
-            seen.add(s["name"])
+        # Use repo:path as unique key (most accurate)
+        repo = s.get("repo", "")
+        path = s.get("path", "")
+
+        if repo and path:
+            key = f"{repo}:{path}"
+        elif repo:
+            key = repo
+        else:
+            # Fallback to category:name for local skills without repo
+            key = f"{s.get('category', 'other')}:{s['name']}"
+
+        if key not in seen:
+            seen.add(key)
             unique_skills.append(s)
+        else:
+            duplicates_removed += 1
+
+    print(f"Duplicates removed: {duplicates_removed}")
 
     print(f"Unique skills: {len(unique_skills)}")
     print()
