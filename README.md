@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Skills-43,284-purple?style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
-  <a href="https://majiayu000.github.io/claude-skill-registry/"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
+  <a href="https://skills-registry-web.vercel.app"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
 </p>
 
 > The most comprehensive Claude Code skills registry - **43,284 unique skills indexed**
@@ -14,7 +14,7 @@
 The largest searchable index of Claude Code skills, aggregated from GitHub and community sources.
 
 **Three ways to use:**
-1. **[Web Search](https://majiayu000.github.io/claude-skill-registry/)** - Fast browser-based search
+1. **[Web Search](https://skills-registry-web.vercel.app/)** - Fast browser-based search
 2. **[sk CLI](https://github.com/majiayu000/caude-skill-manager)** - Terminal package manager
 3. **API** - Direct JSON access
 
@@ -30,7 +30,7 @@ The largest searchable index of Claude Code skills, aggregated from GitHub and c
 
 ### Option 1: Web Search
 
-Visit [https://majiayu000.github.io/claude-skill-registry/](https://majiayu000.github.io/claude-skill-registry/)
+Visit [https://skills-registry-web.vercel.app/](https://skills-registry-web.vercel.app/)
 
 ### Option 2: CLI (sk)
 
@@ -51,13 +51,13 @@ sk install anthropics/skills/docx
 
 ```bash
 # Lightweight search index (~1MB gzip)
-curl https://majiayu000.github.io/claude-skill-registry/search-index.json
+curl https://skills-registry-web.vercel.app/search-index.json
 
 # Full registry
 curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry/main/registry.json
 
 # Specific category
-curl https://majiayu000.github.io/claude-skill-registry/categories/development.json
+curl https://skills-registry-web.vercel.app/categories/development.json
 ```
 
 ---
