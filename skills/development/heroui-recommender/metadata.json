@@ -1,7 +1,0 @@
-{
-  "name": "heroui-recommender",
-  "description": "Recommend appropriate HeroUI components for new features and ensure proper usage. Use when implementing new UI features or migrating from shadcn/ui to HeroUI.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.553428Z"
-}

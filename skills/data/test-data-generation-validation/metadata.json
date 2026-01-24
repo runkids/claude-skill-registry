@@ -1,9 +1,0 @@
-{
-  "name": "test-data-generation-validation",
-  "repo": "pmcfadin/cqlite",
-  "category": "data",
-  "description": "Generate real Cassandra 5.0 test data using Docker containers, export SSTables with proper directory structure, validate parsing against sstabledump, and manage test datasets. Use when working with te",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:40.482445Z",
-  "dir_name": "test-data-generation-validation"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "mcp-cli",
-  "description": "Use MCP servers on-demand via the mcp CLI tool - discover tools, resources, and prompts without polluting context with pre-loaded MCP integrations",
-  "category": "development",
-  "source": "github.com/obra/superpowers-lab",
-  "imported_at": "2026-01-24T14:54:13.798216Z"
-}

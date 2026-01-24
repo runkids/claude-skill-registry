@@ -1,7 +1,0 @@
-{
-  "name": "statsmodels-davila7-claude-code-templates",
-  "description": "Statistical modeling toolkit. OLS, GLM, logistic, ARIMA, time series, hypothesis tests, diagnostics, AIC/BIC, for rigorous statistical inference and econometric analysis.",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:23.384898Z"
-}

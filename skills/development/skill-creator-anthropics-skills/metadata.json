@@ -1,7 +1,0 @@
-{
-  "name": "skill-creator-anthropics-skills",
-  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
-  "category": "development",
-  "source": "github.com/anthropics/skills",
-  "imported_at": "2026-01-24T14:54:16.450669Z"
-}

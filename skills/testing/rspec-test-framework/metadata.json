@@ -1,8 +1,0 @@
-{
-  "name": "rspec-test-framework",
-  "repo": "FortiumPartners/ai-mesh",
-  "category": "testing",
-  "description": "Execute and generate RSpec tests for Ruby projects with let bindings, before hooks, and mocking support",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:17.287725Z"
-}

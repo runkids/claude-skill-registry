@@ -1,8 +1,8 @@
 {
   "category": "data-access",
   "code": "oth",
-  "count": 2,
-  "updated_at": "2026-01-24T16:17:37.523811Z",
+  "count": 1,
+  "updated_at": "2026-01-24T17:29:05.316396Z",
   "skills": [
     {
       "name": "deduplication",
@@ -15,18 +15,6 @@
       "stars": 169,
       "install": "dadbodgeoff/drift",
       "source": "github.com/dadbodgeoff/drift"
-    },
-    {
-      "name": "deduplication",
-      "description": "Event deduplication with canonical selection, reputation scoring, and hash-based grouping for multi-source data aggregation. Handles both ID-based and content-based deduplication.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "data-access",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
     }
   ]
 }

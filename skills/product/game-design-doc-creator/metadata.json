@@ -1,8 +1,0 @@
-{
-  "name": "game-design-doc-creator",
-  "repo": "sunholo-data/stapledons_voyage",
-  "category": "product",
-  "description": "Create design documents for Stapledons Voyage game features. Use when user asks to create a design doc, plan a feature, or document game mechanics. Handles both planned/ and implemented/ docs.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:35.714548Z"
-}

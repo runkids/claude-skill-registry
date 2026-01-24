@@ -1,7 +1,0 @@
-{
-  "name": "skypilot-multi-cloud-orchestration",
-  "description": "Multi-cloud orchestration for ML workloads with automatic cost optimization. Use when you need to run training or batch jobs across multiple clouds, leverage spot instances with auto-recovery, or opti",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.832539Z"
-}

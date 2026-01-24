@@ -1,7 +1,0 @@
-{
-  "name": "pulling-updates-from-skills-repository-obra-superpowers-skills",
-  "description": "Sync local skills repository with upstream changes from obra/superpowers-skills",
-  "category": "development",
-  "source": "github.com/obra/superpowers-skills",
-  "imported_at": "2026-01-24T14:54:12.466873Z"
-}

@@ -1,8 +1,0 @@
-{
-  "name": "mcp-testing-incognito-mode",
-  "repo": "Lucasdoreac/mutuapix-workspace",
-  "category": "development",
-  "description": "Automated testing with Chrome DevTools MCP server ALWAYS in incognito mode to avoid cache issues",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:53.140300Z"
-}

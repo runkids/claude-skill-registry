@@ -1,9 +1,0 @@
-{
-  "name": "pdf",
-  "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/skills",
-  "source_path": "skills/pdf/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.765827Z"
-}

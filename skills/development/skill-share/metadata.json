@@ -1,7 +1,0 @@
-{
-  "name": "skill-share",
-  "description": "A skill that creates new Claude skills and automatically shares them on Slack using Rube for seamless team collaboration and skill discovery.",
-  "category": "development",
-  "source": "github.com/ComposioHQ/awesome-claude-skills",
-  "imported_at": "2026-01-24T14:54:19.022567Z"
-}

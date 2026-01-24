@@ -1,36 +1,12 @@
 {
   "category": "system",
   "code": "oth",
-  "count": 6,
-  "updated_at": "2026-01-24T16:17:38.530701Z",
+  "count": 4,
+  "updated_at": "2026-01-24T17:29:06.285364Z",
   "skills": [
     {
       "name": "portfolio",
       "description": "Portfolio allocation and rebalancing optimizer. Manages asset allocation across stocks/cash/bonds, performs periodic rebalancing, and ensures diversification according to market regime and risk tolera",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "system",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "portfolio",
-      "description": "Portfolio allocation and rebalancing optimizer. Manages asset allocation across stocks/cash/bonds, performs periodic rebalancing, and ensures diversification according to market regime and risk tolera",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "system",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "constitution",
-      "description": "Constitutional compliance validator. Enforces all 5 Constitutional Articles to ensure AI trading decisions comply with human-defined rules. Works as second line of defense alongside Risk Agent.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",

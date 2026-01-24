@@ -1,8 +1,0 @@
-{
-  "name": "jirawork",
-  "repo": "Lobbi-Docs/claude",
-  "category": "development",
-  "description": "Start working on a Jira issue with optimized tiered orchestration. Begins with intelligent question-gathering to ensure complete understanding before implementation.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:50.806806Z"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "ddd-bounded-context-generator",
-  "repo": "RomualdP/hoki",
-  "category": "data",
-  "description": "Génère des bounded contexts DDD complets avec architecture en couches (Domain, Application, Infrastructure, Presentation). À utiliser lors de la création de nouvelles features backend, bounded context",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.102249Z",
-  "dir_name": "ddd-bounded-context-generator"
-}

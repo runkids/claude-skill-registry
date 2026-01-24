@@ -1,7 +1,0 @@
-{
-  "name": "skill-share-davila7-claude-code-templates",
-  "description": "A skill that creates new Claude skills and automatically shares them on Slack using Rube for seamless team collaboration and skill discovery.",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.980284Z"
-}

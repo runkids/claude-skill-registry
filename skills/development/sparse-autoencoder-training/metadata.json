@@ -1,8 +1,0 @@
-{
-  "name": "sparse-autoencoder-training",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "development",
-  "description": "Provides guidance for training and analyzing Sparse Autoencoders (SAEs) using SAELens to decompose neural network activations into interpretable features. Use when discovering interpretable features, ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:18.240632Z"
-}

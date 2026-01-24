@@ -1,8 +1,0 @@
-{
-  "name": "segment-anything-model",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "development",
-  "description": "Foundation model for image segmentation with zero-shot transfer. Use when you need to segment any object in images using points, boxes, or masks as prompts, or automatically generate all object masks ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.909592Z"
-}

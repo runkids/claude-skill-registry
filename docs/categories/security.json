@@ -1,8 +1,8 @@
 {
   "category": "security",
   "code": "sec",
-  "count": 571,
-  "updated_at": "2026-01-24T16:17:38.515427Z",
+  "count": 522,
+  "updated_at": "2026-01-24T17:29:06.252445Z",
   "skills": [
     {
       "name": "git",
@@ -27,21 +27,6 @@
       "stars": 31757,
       "install": "anthropics/claude-cookbooks",
       "source": "github.com/anthropics/claude-cookbooks"
-    },
-    {
-      "name": "cookbook",
-      "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
-      "repo": "anthropics/claude-cookbooks",
-      "path": ".claude/skills/cookbook-audit",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "cookbook",
-        "audit"
-      ],
-      "stars": 28337,
-      "install": "anthropics/claude-cookbooks/.claude/skills/cookbook-audit",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "langchain",
@@ -189,30 +174,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "single",
-      "description": "ENFORCEMENT tool that detects when Skills automation is duplicated in agent definitions, lessons learned, or process docs. Prevents \"single source of truth nightmare\" by finding bash commands, step-by",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "security",
-      "description": "Performs comprehensive security audits of codebases, identifying vulnerabilities and security best practices",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "prediction",
       "description": "Track and evaluate AI predictions over time to assess accuracy. Use when reviewing past predictions to determine if they came true, failed, or remain uncertain.",
       "repo": "majiayu000/claude-skill-registry",
@@ -285,30 +246,6 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "aqe",
-      "description": "Migrate Agentic QE projects from v2 to v3 with zero data loss",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "audit",
-      "description": "Audit and refactor CSS to comply with Game Loopers design system and BEM methodology",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "cfn",
       "description": "Unified agent management from selection through completion - spawning, execution, output processing. Use when selecting agents for tasks, spawning agents with dependency validation, processing agent o",
       "repo": "majiayu000/claude-skill-registry",
@@ -335,18 +272,6 @@
     {
       "name": "rodauth",
       "description": "Plutonium Rodauth integration - authentication setup, account types, and configuration",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "voice",
-      "description": "Analyze writing samples to create a comprehensive voice DNA profile. Use when the user wants to capture their unique writing voice, needs to create a voice profile for AI content, or is setting up a n",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -419,18 +344,6 @@
     {
       "name": "gh",
       "description": "Use when gh CLI is not installed, not configured, or authentication fails - provides installation steps, authentication methods, and troubleshooting for all platforms",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "prediction",
-      "description": "Track and evaluate AI predictions over time to assess accuracy. Use when reviewing past predictions to determine if they came true, failed, or remain uncertain.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -623,22 +536,6 @@
       "source": "downloaded"
     },
     {
-      "name": "service",
-      "description": "Implement service mesh (Istio, Linkerd) for service-to-service communication, traffic management, security, and observability.",
-      "repo": "aj-geddes/useful-ai-prompts",
-      "path": "skills/service-mesh-implementation",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "service",
-        "mesh",
-        "implementation"
-      ],
-      "stars": 25,
-      "install": "aj-geddes/useful-ai-prompts/skills/service-mesh-implementation",
-      "source": "downloaded"
-    },
-    {
       "name": "vulnerability",
       "description": "Automated vulnerability detection using OWASP tools, CVE databases, and security scanners. Use when performing security audits, compliance checks, or continuous security monitoring.",
       "repo": "aj-geddes/useful-ai-prompts",
@@ -762,18 +659,6 @@
     {
       "name": "file",
       "description": "Comprehensive file organization workflow for SORT/ directory. Validates filenames, renames to CLAUDE.md standards, relocates to correct directories, runs OPSEC agents, and generates detailed reports.",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
-      "name": "cfn",
-      "description": "Unified agent management from selection through completion - spawning, execution, output processing. Use when selecting agents for tasks, spawning agents with dependency validation, processing agent o",
       "repo": "mattnigh/skills_collection",
       "path": "",
       "branch": "main",
@@ -1244,21 +1129,6 @@
       "source": "downloaded"
     },
     {
-      "name": "authentication",
-      "description": "Автоматизация JWT аутентификации, Telegram OAuth и security middleware",
-      "repo": "ikeniborn/familyBudget",
-      "path": ".claude/skills/authentication-security",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "authentication",
-        "security"
-      ],
-      "stars": 4,
-      "install": "ikeniborn/familyBudget/.claude/skills/authentication-security",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "security",
       "description": "Use when generating comprehensive security audit reports, analyzing security scan results, calculating security posture, or creating OWASP Top 10 compliance assessments. Invoked for security reporting",
       "repo": "jpoley/jp-spec-kit",
@@ -1524,21 +1394,6 @@
       ],
       "stars": 2,
       "install": "mehdic/bazinga/.claude/skills/security-scan",
-      "source": "downloaded"
-    },
-    {
-      "name": "global",
-      "description": "Your approach to handling global security. Use this skill when working on files where global security comes into play.",
-      "repo": "jaypaulb/CanvusAPI-LLMDemo",
-      "path": ".claude/skills/global-security",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "global",
-        "security"
-      ],
-      "stars": 2,
-      "install": "jaypaulb/CanvusAPI-LLMDemo/.claude/skills/global-security",
       "source": "downloaded"
     },
     {
@@ -2033,18 +1888,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "lindy",
-      "description": "|",
-      "repo": "HelixDevelopment/HelixAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "HelixDevelopment/HelixAgent",
-      "source": "github.com/HelixDevelopment/HelixAgent"
-    },
-    {
       "name": "google",
       "description": "Export Google Docs and Google Sheets (spreadsheets) to Markdown files or stdout. Use when asked to fetch, download, or ingest Google Docs/Sheets content for summarization, analysis, or context loading",
       "repo": "mir/maratai",
@@ -2350,18 +2193,6 @@
       "stars": 0,
       "install": "visgwu/python_web_app",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "clerk",
-      "description": "|",
-      "repo": "byteworthy/Upstream",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "byteworthy/Upstream",
-      "source": "github.com/byteworthy/Upstream"
     },
     {
       "name": "picocom",
@@ -3107,18 +2938,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "workers",
-      "description": "Cloudflare Workers Runtime APIs including Fetch, Streams, Crypto, Cache, WebSockets, and Encoding. Use for HTTP requests, streaming, encryption, caching, real-time connections, or encountering API com",
-      "repo": "secondsky/claude-skills",
-      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-runtime-apis",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/plugins/cloudflare-workers/skills/cloudflare-workers-runtime-apis",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "wheels",
       "description": "Generate Wheels MVC controllers with CRUD actions, filters, parameter verification, and proper rendering. Use when creating or modifying controllers, adding actions, implementing filters for authentic",
       "repo": "wheels-dev/wheels",
@@ -3352,18 +3171,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "vulnerability",
-      "description": "Scans codebases and dependencies for known vulnerabilities and security issues",
-      "repo": "Unicorn/Radium",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "Unicorn/Radium",
-      "source": "github.com/Unicorn/Radium"
-    },
-    {
       "name": "white",
       "description": "Complete WordPress white-labeling using FREE plugins only - ASE, Branda, White Label CMS, Admin Menu Editor. Covers login page branding, admin cleanup, security hardening, and client handoff preparati",
       "repo": "CrazySwami/wordpress-dev-skills",
@@ -3389,18 +3196,6 @@
       "stars": 0,
       "install": "dpalfery/outline-wiki-cli/.factory/skills/outline-cli",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "windsurf",
-      "description": "|",
-      "repo": "vasic-digital/SuperAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "vasic-digital/SuperAgent",
-      "source": "github.com/vasic-digital/SuperAgent"
     },
     {
       "name": "comfort",
@@ -3651,18 +3446,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "langchain",
-      "description": "|",
-      "repo": "byteworthy/Upstream",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "byteworthy/Upstream",
-      "source": "github.com/byteworthy/Upstream"
-    },
-    {
       "name": "remediation",
       "description": "Security fix patterns for authentication and authorization vulnerabilities (credentials, JWT, deserialization, access control). Provides language-specific secure implementations.",
       "repo": "Zate/cc-plugins",
@@ -3696,18 +3479,6 @@
       "tags": [],
       "stars": 0,
       "install": "takemi-ohama/ai-agent-marketplace/plugins/ndf/skills/qa-security-scan",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "securitysecrets",
-      "description": "Secrets Management security skill",
-      "repo": "mgreenly/ikigai",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "mgreenly/ikigai",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3901,18 +3672,6 @@
       "stars": 0,
       "install": "JacbK/persona/.agent/skills/content",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sqlmodel",
-      "description": "This skill should be used when defining a robust, type-safe, and async-compatible database schema for the Todo application using SQLModel, ensuring compatibility with Better Auth and optimized for Pos",
-      "repo": "Sobansaud/Hackhathon---2",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "Sobansaud/Hackhathon---2",
-      "source": "github.com/Sobansaud/Hackhathon---2"
     },
     {
       "name": "optimization",
@@ -4168,21 +3927,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "authentication",
-      "description": "Manages authentication flow for MutuaPIX (Laravel Sanctum + Next.js), handles mock mode security, and validates environment configurations",
-      "repo": "Lucasdoreac/mutuapix-workspace",
-      "path": ".claude/skills/authentication-management",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "authentication",
-        "management"
-      ],
-      "stars": 0,
-      "install": "Lucasdoreac/mutuapix-workspace/.claude/skills/authentication-management",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "code",
       "description": "Expert code reviewer that enforces best practices, clean code principles, strong typing (TypeScript), architecture guidelines, and security standards. Reviews PRs and code snippets for bugs, code smel",
       "repo": "sitechfromgeorgia/georgian-distribution-system",
@@ -4233,21 +3977,6 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/04-security-advanced/encryption-at-rest-checker",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "deep",
-      "description": "Analytical thinking patterns for comprehensive evaluation, code audits, security analysis, and performance reviews. Provides structured templates for thorough investigation with extended thinking supp",
-      "repo": "Lobbi-Docs/claude",
-      "path": ".claude/skills/deep-analysis",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "deep",
-        "analysis"
-      ],
-      "stars": 0,
-      "install": "Lobbi-Docs/claude/.claude/skills/deep-analysis",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "jwt",
@@ -4361,18 +4090,6 @@
       "tags": [],
       "stars": 0,
       "install": "mgd34msu/goodvibes-plugin/plugins/goodvibes/skills/webdev/authentication/firebase-auth",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "securityfilesystem",
-      "description": "Filesystem Security security skill",
-      "repo": "mgreenly/ikigai",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "mgreenly/ikigai",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4519,18 +4236,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "securitymemory",
-      "description": "Memory Safety security skill",
-      "repo": "mgreenly/ikigai",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "mgreenly/ikigai",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "threat",
       "description": "Map identified threats to appropriate security controls and mitigations. Use when prioritizing security investments, creating remediation plans, or validating control effectiveness.",
       "repo": "wshobson/agents",
@@ -4576,18 +4281,6 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/enterprise-sales/skills/procurement-playbook",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "idor",
-      "description": "This skill should be used when the user asks to \"test for insecure direct object references,\" \"find IDOR vulnerabilities,\" \"exploit broken access control,\" \"enumerate user IDs or object references,\" o",
-      "repo": "zebbern/claude-code-guide",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4767,18 +4460,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "langchain",
-      "description": "|",
-      "repo": "vasic-digital/SuperAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "vasic-digital/SuperAgent",
-      "source": "github.com/vasic-digital/SuperAgent"
-    },
-    {
       "name": "wordpress",
       "description": "WordPress security best practices and vulnerability prevention patterns. Use when reviewing WordPress code for security issues, writing secure WordPress code, or checking for common vulnerabilities li",
       "repo": "mattcowan/claude-wordpress-utilities",
@@ -4853,18 +4534,6 @@
       "stars": 0,
       "install": "linehaul-ai/linehaulai-claude-marketplace/plugins/goth-oauth/skills/goth-echo-security",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "lindy",
-      "description": "|",
-      "repo": "vasic-digital/SuperAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "vasic-digital/SuperAgent",
-      "source": "github.com/vasic-digital/SuperAgent"
     },
     {
       "name": "laravel",
@@ -5118,18 +4787,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "security",
-      "description": "Performs comprehensive security audits of codebases, identifying vulnerabilities and security best practices",
-      "repo": "Unicorn/Radium",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "Unicorn/Radium",
-      "source": "github.com/Unicorn/Radium"
-    },
-    {
       "name": "detecting",
       "description": "Detects unsafe signed/unsigned integer conversions that can lead to integer overflow and security check bypasses. Use when analyzing integer operations, comparisons, or investigating conversion-relate",
       "repo": "waiwai24/BinaryX-Agent",
@@ -5157,18 +4814,6 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/03-security-fundamentals/insecure-deserialization-checker",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "juicebox",
-      "description": "|",
-      "repo": "HelixDevelopment/HelixAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "HelixDevelopment/HelixAgent",
-      "source": "github.com/HelixDevelopment/HelixAgent"
     },
     {
       "name": "iot",
@@ -5207,21 +4852,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "security",
-      "description": "Comprehensive security and authentication workflow that orchestrates security architecture, identity management, access control, and compliance implementation. Handles everything from authentication s",
-      "repo": "ajianaz/skills-collection",
-      "path": "skills/security-auth",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "security",
-        "auth"
-      ],
-      "stars": 0,
-      "install": "ajianaz/skills-collection/skills/security-auth",
-      "source": "downloaded"
-    },
-    {
       "name": "nick",
       "description": "Talk to Nick Theriot Youtuber about their expertise. Nick Theriot Youtuber provides authentic advice using their mental models, core beliefs, and real-world examples.",
       "repo": "blicktz/knowledge_base_repo",
@@ -5256,18 +4886,6 @@
       "stars": 0,
       "install": "joaopelegrino/hello-word-closure/.claude-plugin/clojure-vertex-adk/skills/cva-setup-vertex",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sqlmodel",
-      "description": "This skill should be used when defining a robust, type-safe, and async-compatible database schema for the Todo application using SQLModel, ensuring compatibility with Better Auth and optimized for Pos",
-      "repo": "SyedaNabila559/phase2-todo-full-web",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "SyedaNabila559/phase2-todo-full-web",
-      "source": "github.com/SyedaNabila559/phase2-todo-full-web"
     },
     {
       "name": "use",
@@ -5352,18 +4970,6 @@
       "stars": 0,
       "install": "mjunaidca/mjs-agent-skills/docs/taskflow-vault/skills/engineering/better-auth-sso",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "clerk",
-      "description": "|",
-      "repo": "vasic-digital/SuperAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "vasic-digital/SuperAgent",
-      "source": "github.com/vasic-digital/SuperAgent"
     },
     {
       "name": "performing",
@@ -5471,18 +5077,6 @@
       "tags": [],
       "stars": 0,
       "install": "dy9759/Text2KnowledgeCards/skills/missing-skills/security/security-audit-expert",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "burp",
-      "description": "This skill should be used when the user asks to \"intercept HTTP traffic\", \"modify web requests\", \"use Burp Suite for testing\", \"perform web vulnerability scanning\", \"test with Burp Repeater\", \"analyze",
-      "repo": "zebbern/claude-code-guide",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5656,21 +5250,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "dependency",
-      "description": "Analyze and update Python dependencies in pyproject.toml, checking for compatibility and security vulnerabilities. Use when: updating dependencies, checking security issues, dependency analysis, versi",
-      "repo": "omerlefaruk/CasareRPA",
-      "path": ".claude/skills/dependency-updater",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "dependency",
-        "updater"
-      ],
-      "stars": 0,
-      "install": "omerlefaruk/CasareRPA/.claude/skills/dependency-updater",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "pinpoint",
       "description": "Security patterns, CSP nonces, input validation, auth checks, Supabase SSR patterns. Use when implementing authentication, forms, security features, or when user mentions security/validation/auth.",
       "repo": "timothyfroehlich/PinPoint",
@@ -5733,21 +5312,6 @@
       "stars": 0,
       "install": "naporin0624/claude-web-audit-plugins/skills/attack-methods-lookup",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "security",
-      "description": "Automatic OWASP security checks on generated code.Use when: any code is generated in the pipeline.Triggers: internal use only.",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/security-check",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "security",
-        "check"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/security-check",
-      "source": "downloaded"
     },
     {
       "name": "github",
@@ -5841,18 +5405,6 @@
       "source": "downloaded"
     },
     {
-      "name": "auth",
-      "description": "Use when you need to implement CloudBase Auth v2 over raw HTTP endpoints (login/signup, tokens, user operations) from backends or scripts that are not using the Web or Node SDKs.",
-      "repo": "TencentCloudBase/awesome-cloudbase-examples",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "TencentCloudBase/awesome-cloudbase-examples",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "google",
       "description": "Connect to Google Workspace services (Gmail, Docs, Sheets, Calendar, Drive, Tasks, Slides). Load when user mentions 'connect google', 'setup google', 'configure google', 'google integration', or needs",
       "repo": "abdullahbeam/nexus-design-abdullah",
@@ -5889,18 +5441,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cookbook",
-      "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
-      "repo": "KimJiHan/claude-cookbooks",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "KimJiHan/claude-cookbooks",
-      "source": "github.com/KimJiHan/claude-cookbooks"
-    },
-    {
       "name": "code",
       "description": "Review code changes for correctness, security, performance, and maintainability. Use for PR reviews,code audits, pre-merge checks, or quality validation of Laravel + React code. EXCLUSIVE to reviewer",
       "repo": "htooayelwinict/claude-config",
@@ -5915,18 +5455,6 @@
       "stars": 0,
       "install": "htooayelwinict/claude-config/skills/code-review-checklist",
       "source": "downloaded"
-    },
-    {
-      "name": "securitysecure",
-      "description": "Secure C Coding security skill",
-      "repo": "mgreenly/ikigai",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "mgreenly/ikigai",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "https",
@@ -6110,18 +5638,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "juicebox",
-      "description": "|",
-      "repo": "vasic-digital/SuperAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "vasic-digital/SuperAgent",
-      "source": "github.com/vasic-digital/SuperAgent"
-    },
-    {
       "name": "security",
       "description": "Application security specialist covering OWASP top 10, secure coding, and vulnerability prevention",
       "repo": "sandraschi/advanced-memory-mcp",
@@ -6158,21 +5674,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "chezmoi",
-      "description": "Secure dotfiles management with chezmoi. Use when helping users initialize chezmoi repositories, add/manage dotfiles, handle secrets with age encryption, create templates for multi-machine configs, tr",
-      "repo": "rghamilton3/dotfiles",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "chezmoi",
-        "dotfiles"
-      ],
-      "stars": 0,
-      "install": "rghamilton3/dotfiles",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "mongodb",
       "description": "Master MongoDB security, authentication, authorization, encryption, and backup. Learn role-based access control, TLS/SSL, encryption, and disaster recovery. Use when securing deployments, managing use",
       "repo": "pluginagentmarketplace/custom-plugin-mongodb",
@@ -6206,18 +5707,6 @@
       "tags": [],
       "stars": 0,
       "install": "vanman2024/ai-dev-marketplace/plugins/clerk/skills/middleware-protection",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "security",
-      "description": "Activate when conducting security analysis using STRIDE threat modeling, vulnerability assessment, and security architecture evaluation",
-      "repo": "vinnie357/claudio",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "vinnie357/claudio",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6360,18 +5849,6 @@
       "stars": 0,
       "install": "gekko68/my-first-plugin/skills/bash-executor",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "building",
-      "description": "|",
-      "repo": "Asmayaseen/hackathon-2",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "Asmayaseen/hackathon-2",
-      "source": "github.com/Asmayaseen/hackathon-2"
     },
     {
       "name": "jwt",
@@ -6551,18 +6028,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "windsurf",
-      "description": "|",
-      "repo": "HelixDevelopment/HelixAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "HelixDevelopment/HelixAgent",
-      "source": "github.com/HelixDevelopment/HelixAgent"
-    },
-    {
       "name": "symfonyapi",
       "description": "Secure API Platform resources with security expressions, voters, and operation-level access control",
       "repo": "MakFly/superpowers-symfony",
@@ -6686,18 +6151,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "soc2",
-      "description": "Soc2 Compliance Checker - Auto-activating skill for Security Advanced.Triggers on: soc2 compliance checker, soc2 compliance checkerPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "planned-skills/generated/04-security-advanced/soc2-compliance-checker",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/04-security-advanced/soc2-compliance-checker",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "django",
       "description": "Django framework best practices including project structure, ORM, and security.",
       "repo": "kprsnt2/MyLocalCLI",
@@ -6746,18 +6199,6 @@
       "stars": 0,
       "install": "markus41/lobbi-design-system/.claude/skills/authentication",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "keycloak",
-      "description": "This skill should be used when the user asks to \"add Keycloak authentication\", \"implement OIDC\", \"configure SSO\", \"validate JWT token\", \"add role-based access\", \"protect API endpoint\", or mentions Key",
-      "repo": "Lobbi-Docs/claude",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "Lobbi-Docs/claude",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "pr",
@@ -6839,18 +6280,6 @@
       "source": "downloaded"
     },
     {
-      "name": "security",
-      "description": "This skill should be used when the user asks to \"perform vulnerability scanning\", \"scan networks for open ports\", \"assess web application security\", \"scan wireless networks\", \"detect malware\", \"check",
-      "repo": "zebbern/claude-code-guide",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cursor",
       "description": "Install Cursor IDE and configure authentication. Triggers on \"install cursor\",\"setup cursor\", \"cursor authentication\", \"cursor login\", \"cursor license\".",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -6897,18 +6326,6 @@
       "stars": 0,
       "install": "mbelinky/clawdis-skills/eufy",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "langchain",
-      "description": "|",
-      "repo": "HelixDevelopment/HelixAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "HelixDevelopment/HelixAgent",
-      "source": "github.com/HelixDevelopment/HelixAgent"
     },
     {
       "name": "macos",
@@ -7025,18 +6442,6 @@
       "source": "downloaded"
     },
     {
-      "name": "vulnerability",
-      "description": "Scans codebases and dependencies for known vulnerabilities and security issues",
-      "repo": "Unicorn/Radium",
-      "path": "skills/security/vulnerability-scan-agent",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "Unicorn/Radium/skills/security/vulnerability-scan-agent",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "tacosdedatos",
       "description": "Use this skill when helping write content for tacosdedatos newsletter/blog. Provides complete voice analysis, structural patterns, engagement mechanics, and writing principles for the distinctive bili",
       "repo": "chekos/bns-marketplace",
@@ -7122,18 +6527,6 @@
       "stars": 0,
       "install": "lakowske/network-admin/skills/reverse-proxy",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "convex",
-      "description": "How to create, structure, and publish self-contained Convex components with proper isolation, exports, and dependency management",
-      "repo": "cgRGM/rivercitymd",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "cgRGM/rivercitymd",
-      "source": "github.com/cgRGM/rivercitymd"
     },
     {
       "name": "auth",
@@ -7321,18 +6714,6 @@
       "stars": 0,
       "install": "dwmkerr/ark-claude-code-marketplace",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "clerk",
-      "description": "|",
-      "repo": "HelixDevelopment/HelixAgent",
-      "path": "",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "HelixDevelopment/HelixAgent",
-      "source": "github.com/HelixDevelopment/HelixAgent"
     },
     {
       "name": "vulnerability",

@@ -1,7 +1,0 @@
-{
-  "name": "plaid-expert",
-  "description": "Expert guidance for Plaid banking API integration including Link, Auth, Transactions, Identity, and webhook handling. Invoke when user mentions Plaid, bank connections, financial data, ACH, or banking",
-  "category": "development",
-  "source": "github.com/raintree-technology/claude-starter",
-  "imported_at": "2026-01-24T14:54:00.962443Z"
-}

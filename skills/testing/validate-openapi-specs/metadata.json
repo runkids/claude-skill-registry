@@ -1,8 +1,0 @@
-{
-  "name": "validate-openapi-specs",
-  "repo": "epieczko/betty",
-  "category": "testing",
-  "description": "Validates and registers hook manifest files (YAML) in the Hook Registry for versioned hook management.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:27.729663Z"
-}

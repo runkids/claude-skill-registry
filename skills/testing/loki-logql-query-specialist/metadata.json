@@ -1,8 +1,0 @@
-{
-  "name": "loki-logql-query-specialist",
-  "repo": "paunchygent/skriptoteket",
-  "category": "testing",
-  "description": "Query and analyze logs using Loki and LogQL. Provides patterns for correlation ID tracing, error investigation, and service debugging using HuleEdu's structured logging. Integrates with Context7 for l",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:28.935585Z"
-}

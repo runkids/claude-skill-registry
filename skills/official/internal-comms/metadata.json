@@ -1,8 +1,0 @@
-{
-  "name": "internal-comms",
-  "repo": "anthropics/skills",
-  "category": "official",
-  "source": "Anthropic Official",
-  "github_path": "skills/internal-comms",
-  "github_branch": "main"
-}

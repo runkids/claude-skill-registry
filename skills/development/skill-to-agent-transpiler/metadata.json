@@ -1,8 +1,0 @@
-{
-  "name": "skill-to-agent-transpiler",
-  "repo": "Cloudhabil/AGI-Server",
-  "category": "development",
-  "description": "Compile a skill entry into a provisioned agent request with strict guardrails (approval, quotas, TTL). Use when translating skills into runnable agents or when you need a controlled Skill\u2192Agent path.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:30.082299Z"
-}

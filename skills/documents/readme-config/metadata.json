@@ -1,8 +1,0 @@
-{
-  "name": "readme-config",
-  "repo": "metasaver/metasaver-marketplace",
-  "category": "documents",
-  "description": "README.md documentation templates and validation logic for MetaSaver monorepos. Includes repository type detection (library vs consumer), required sections (Title, Description, Installation, Usage, Sc",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:06.837330Z"
-}

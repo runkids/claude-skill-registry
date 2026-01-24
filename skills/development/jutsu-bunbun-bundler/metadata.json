@@ -1,8 +1,0 @@
-{
-  "name": "jutsu-bunbun-bundler",
-  "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "description": "Use when bundling JavaScript/TypeScript code with Bun's fast bundler. Covers building for different targets, tree-shaking, code splitting, and optimization strategies.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:01.256407Z"
-}

@@ -1,8 +1,0 @@
-{
-  "name": "cqrs-command-query-generator",
-  "repo": "RomualdP/hoki",
-  "category": "design",
-  "description": "G\u00e9n\u00e8re des Commands, Queries et Handlers suivant le pattern CQRS (Command Query Responsibility Segregation). \u00c0 utiliser lors de la cr\u00e9ation de use cases, commands, queries, handlers, read models, ou q",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.189052Z"
-}

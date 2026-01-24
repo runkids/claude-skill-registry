@@ -1,8 +1,0 @@
-{
-  "name": "dapr-code-generator",
-  "repo": "Sahib-Sawhney-WH/dapr-claude-plugin",
-  "category": "development",
-  "description": "Generate Python boilerplate code for DAPR microservices, workflows, and actors. Creates properly structured services with DAPR SDK integration, health endpoints, logging, and best practices. Use when ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:49.783335Z"
-}

@@ -1,8 +1,8 @@
 {
   "category": "productivity",
   "code": "pro",
-  "count": 1226,
-  "updated_at": "2026-01-24T16:17:38.500224Z",
+  "count": 1006,
+  "updated_at": "2026-01-24T17:29:06.225416Z",
   "skills": [
     {
       "name": "commit",
@@ -917,42 +917,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "ralph",
-      "description": "Autonomous agent for tackling big projects. Create PRDs with user stories, then run them via the CLI. Sessions persist across restarts with pause/resume and real-time monitoring.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "workflow",
-      "description": "作業フローや手順を分析し、自動化可能な要素を特定する。ワークフロー分析時、自動化検討時、業務プロセス改善時、またはユーザーが作業フロー分析、自動化要素、業務手順、プロセス最適化に言及した際に使用する。",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "spawn",
-      "description": "정보 수집이 필요할 때 검색 에이전트 활용 가이드. 코드 탐색, 레퍼런스, 웹검색",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "task",
       "description": "Generate user-story-organized task lists from implementation plans. Use when plan exists and user is ready for implementation, mentions \"create tasks\", \"break down work\", or asks \"what tasks are neede",
       "repo": "majiayu000/claude-skill-registry",
@@ -1111,21 +1075,6 @@
       "source": "downloaded"
     },
     {
-      "name": "planning",
-      "description": "Guide OAK strategic implementation planning with structured phases, constitution alignment, and the oak.plan-* command workflow. Use when creating plans, understanding OAK planning conventions, or str",
-      "repo": "sirkirby/unifi-network-rules",
-      "path": ".claude/skills/planning-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "planning",
-        "workflow"
-      ],
-      "stars": 43,
-      "install": "sirkirby/unifi-network-rules/.claude/skills/planning-workflow",
-      "source": "downloaded"
-    },
-    {
       "name": "qcc",
       "description": "Use for version release, GoReleaser automation, and publishing workflows in qcc_plus project",
       "repo": "yxhpy/qcc_plus",
@@ -1141,21 +1090,6 @@
       "source": "downloaded"
     },
     {
-      "name": "research",
-      "description": "Synthesize research findings for OAK planning using the oak.plan-research workflow. Use when consolidating findings from codebase exploration, comparing approaches, or creating research/*.md documents",
-      "repo": "sirkirby/unifi-network-rules",
-      "path": ".claude/skills/research-synthesis",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "research",
-        "synthesis"
-      ],
-      "stars": 43,
-      "install": "sirkirby/unifi-network-rules/.claude/skills/research-synthesis",
-      "source": "downloaded"
-    },
-    {
       "name": "qcc",
       "description": "Use for Git workflow, branch strategy, and commit conventions in qcc_plus project",
       "repo": "yxhpy/qcc_plus",
@@ -1168,21 +1102,6 @@
       ],
       "stars": 43,
       "install": "yxhpy/qcc_plus/.claude/skills/qcc-git",
-      "source": "downloaded"
-    },
-    {
-      "name": "task",
-      "description": "Break down OAK plans into structured tasks using oak.plan-tasks conventions. Use when generating tasks.md, structuring work for export to GitHub/ADO, or organizing implementation phases.",
-      "repo": "sirkirby/unifi-network-rules",
-      "path": ".claude/skills/task-decomposition",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "decomposition"
-      ],
-      "stars": 43,
-      "install": "sirkirby/unifi-network-rules/.claude/skills/task-decomposition",
       "source": "downloaded"
     },
     {
@@ -1596,18 +1515,6 @@
       "source": "downloaded"
     },
     {
-      "name": "task",
-      "description": "Generate user-story-organized task lists from implementation plans. Use when plan exists and user is ready for implementation, mentions \"create tasks\", \"break down work\", or asks \"what tasks are neede",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
       "name": "rails",
       "description": "Business and systems analyst for Rails projects. Use when decomposing features into tasks, estimating complexity, describing architecture, writing JTBD (Jobs To Be Done), creating use cases, identifyi",
       "repo": "alec-c4/claude-skills-rails-dev",
@@ -1679,22 +1586,6 @@
       "stars": 17,
       "install": "pilotparpikhodjaev/conductor_cc/skills/context-loader",
       "source": "downloaded"
-    },
-    {
-      "name": "create",
-      "description": "Create optimized prompts for Claude-to-Claude pipelines with research, planning, and execution stages. Use when building prompts that produce outputs for other prompts to consume, or when running mult",
-      "repo": "marcusgoll/Spec-Flow",
-      "path": ".claude/skills/create-meta-prompts",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "create",
-        "meta",
-        "prompts"
-      ],
-      "stars": 16,
-      "install": "marcusgoll/Spec-Flow/.claude/skills/create-meta-prompts",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "add",
@@ -2034,21 +1925,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "agent",
-      "description": "Expert developer experience optimizer specializing in build performance, tooling efficiency, and workflow automation. Masters development environment optimization with focus on reducing friction, acce",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-dx-optimizer",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agent",
-        "optimizer"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-dx-optimizer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "sc",
       "description": "Git operations with intelligent commit messages and workflow optimization. Use when committing changes, managing branches, or optimizing git workflows.",
       "repo": "Tony363/SuperClaude",
@@ -2168,23 +2044,6 @@
       "stars": 10,
       "install": "chaingraphlabs/chaingraph/.claude/skills/trpc-execution",
       "source": "downloaded"
-    },
-    {
-      "name": "agent",
-      "description": "Expert Git workflow manager specializing in branching strategies, automation, and team collaboration. Masters Git workflows, merge conflict resolution, and repository management with focus on enabling",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-git-workflow-manager",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agent",
-        "git",
-        "workflow",
-        "manager"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-git-workflow-manager",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "investigation",
@@ -2908,21 +2767,6 @@
       "stars": 5,
       "install": "duongdev/ccpm/skills/pm-workflow-guide",
       "source": "downloaded"
-    },
-    {
-      "name": "cascade",
-      "description": "Creates sophisticated workflow cascades coordinating multiple micro-skills with sequential pipelines, parallel execution, conditional branching, and Codex sandbox iteration. Enhanced with multi-model",
-      "repo": "DNYoussef/context-cascade",
-      "path": "skills/orchestration/cascade-orchestrator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "cascade",
-        "orchestrator"
-      ],
-      "stars": 5,
-      "install": "DNYoussef/context-cascade/skills/orchestration/cascade-orchestrator",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "planning",
@@ -4147,21 +3991,6 @@
       "source": "downloaded"
     },
     {
-      "name": "agent",
-      "description": "Create custom Task subagents. Use when creating files in ~/.claude/agents/, when user asks to \"create an agent\", \"add a subagent\", \"make a new agent\", or when defining a new subagent_type.",
-      "repo": "HTRamsey/claude-config",
-      "path": "skills/agent-creator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agent",
-        "creator"
-      ],
-      "stars": 2,
-      "install": "HTRamsey/claude-config/skills/agent-creator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "brainwriting",
       "description": "Facilitate structured brainstorming using parallel sub-agents to explore idea spaces. Use for IDEATION/CONCEPTUAL WORK ONLY, NOT for implementation planning or task breakdown. Use when user wants to b",
       "repo": "otrebu/all-agents",
@@ -4504,21 +4333,6 @@
       "stars": 1,
       "install": "samjhecht/wrangler/skills/housekeeping",
       "source": "downloaded"
-    },
-    {
-      "name": "beads",
-      "description": "Beads issue tracking and workflow management with automatic git branch creation. MUST BE USED for Beads operations.Handles full epic→branch→work lifecycle, dependencies, and ready task queries.Use whe",
-      "repo": "stars-end/affordabot",
-      "path": ".claude/skills/beads-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "beads",
-        "workflow"
-      ],
-      "stars": 1,
-      "install": "stars-end/affordabot/.claude/skills/beads-workflow",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "updating",
@@ -5103,22 +4917,6 @@
       "source": "downloaded"
     },
     {
-      "name": "executing",
-      "description": "Executes HEC-HMS simulations using HmsCmdr.compute_run(), handles parallelexecution across multiple runs, and manages Jython script generation. Use whenrunning HMS simulations, executing runs, computi",
-      "repo": "gpt-cmdr/hms-commander",
-      "path": ".claude/skills/executing-hms-runs",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "executing",
-        "hms",
-        "runs"
-      ],
-      "stars": 1,
-      "install": "gpt-cmdr/hms-commander/.claude/skills/executing-hms-runs",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "automation",
       "description": "Best practices for writing reliable browser automation scripts with Intuned. Use when writing, reviewing, or editing automation code, scraping scripts, or browser-based workflows. Provides guidance on",
       "repo": "Intuned/cookbook",
@@ -5146,21 +4944,6 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-go/skills/go-performance",
-      "source": "downloaded"
-    },
-    {
-      "name": "project",
-      "description": "Helps with common project tasks like setup, configuration, and troubleshooting. Use when user asks about project structure, dependencies, common issues, or says \"help me understand this project\".",
-      "repo": "romiluz13/claude-code-excellence-audit",
-      "path": "examples/perfect-setup/.claude/skills/project-helper",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "project",
-        "helper"
-      ],
-      "stars": 1,
-      "install": "romiluz13/claude-code-excellence-audit/examples/perfect-setup/.claude/skills/project-helper",
       "source": "downloaded"
     },
     {
@@ -5996,18 +5779,6 @@
       "source": "downloaded"
     },
     {
-      "name": "strategic",
-      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
-      "repo": "catyyy/everything-antigravity",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 1,
-      "install": "catyyy/everything-antigravity",
-      "source": "github.com/catyyy/everything-antigravity"
-    },
-    {
       "name": "automation",
       "description": "Workflow builder for Power Automate, n8n, Make, Zapier and other platforms. Generates complete, production-ready workflow JSON from implementation plans or requirements. Uses flow-builder sub-agent to",
       "repo": "MacroMan5/AutomationHelper_plugins",
@@ -6292,18 +6063,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "planning",
-      "description": "Transforms workflow to use Manus-style persistent markdown files for planning, progress tracking, and knowledge storage. Use when starting complex tasks, multi-step projects, research tasks, or when t",
-      "repo": "OthmanAdi/planning-with-files",
-      "path": ".cursor/skills/planning-with-files",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "OthmanAdi/planning-with-files/.cursor/skills/planning-with-files",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "conducting",
       "description": "Complete workflow for evaluating implementation plans before execution with quality checklist and structured feedback",
       "repo": "cipherstash/cipherpowers",
@@ -6481,30 +6240,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "python",
-      "description": "Interactive Python REPL automation with common helpers and best practices",
-      "repo": "gptme/gptme",
-      "path": "gptme/lessons/skills/python-repl",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "gptme/gptme/gptme/lessons/skills/python-repl",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "git",
-      "description": "MANDATORY: Use gh (GitHub) or glab (GitLab) CLI for ALL issue/task management. Unified workflow across platforms.",
-      "repo": "liauw-media/CodeAssist",
-      "path": "skills/workflow/git-platform-cli",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "liauw-media/CodeAssist/skills/workflow/git-platform-cli",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "atlas",
       "description": "Orchestrates Atlas workflow tier selection for software development tasks",
       "repo": "ajstack22/StackMap",
@@ -6514,18 +6249,6 @@
       "tags": [],
       "stars": 0,
       "install": "ajstack22/StackMap/atlas-skills/atlas-meta",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "when",
-      "description": "Complex multi-agent swarm orchestration with task decomposition, distributed execution, and result synthesis",
-      "repo": "DNYoussef/ai-chrome-extension",
-      "path": ".claude/skills/workflow/when-orchestrating-swarm-use-swarm-orchestration",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "DNYoussef/ai-chrome-extension/.claude/skills/workflow/when-orchestrating-swarm-use-swarm-orchestration",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6551,21 +6274,6 @@
       "stars": 0,
       "install": "memorysaver/looplia-core/plugins/looplia-core/skills/workflow-executor",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "agentic",
-      "description": "Workflow for long-running agentic development across multiple context windows. Use when working on multi-phase projects, complex feature implementations, or any development task spanning multiple sess",
-      "repo": "samasastudio/basilisk-av",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agentic",
-        "development"
-      ],
-      "stars": 0,
-      "install": "samasastudio/basilisk-av",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "worker",
@@ -6662,18 +6370,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "oe",
-      "description": "Debug common manager/HIL + billing/deposit regressions: tasks not appearing in the panel, approve/reject button failures, billing capture loops, and “deposit paid but workflow stuck”. Produces a targe",
-      "repo": "shami-ah/OpenEvent-AI",
-      "path": ".claude/skills/oe-hil-and-billing-triage",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "shami-ah/OpenEvent-AI/.claude/skills/oe-hil-and-billing-triage",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "terminal",
       "description": "Manages terminal panes and tabs for multi-instance workflows. Use when spawning multiple instances, creating new panes/tabs, running commands in separate terminals, splitting the terminal, or when the",
       "repo": "biwsantang/dotfiles",
@@ -6683,18 +6379,6 @@
       "tags": [],
       "stars": 0,
       "install": "biwsantang/dotfiles",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "background",
-      "description": "To start a long-running background task, launch a managed process such as a server or watcher and keep it tracked.",
-      "repo": "X-School-Academy/ai-dev-swarm",
-      "path": "dev-swarm/mcp-skills/background-process-start-process",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "X-School-Academy/ai-dev-swarm/dev-swarm/mcp-skills/background-process-start-process",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6821,18 +6505,6 @@
       "source": "downloaded"
     },
     {
-      "name": "creating",
-      "description": "Expert at creating continuous improvement feedback loops for Claude's responses. Use when establishing self-improvement processes, tracking progress over time, or implementing iterative refinement wor",
-      "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
-      "path": "self-improvement/skills/creating-feedback-loops",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "C0ntr0lledCha0s/claude-code-plugin-automations/self-improvement/skills/creating-feedback-loops",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "estimate",
       "description": "Estimate Epic timeline by summing all Task points. Use when (1) tasks.md 생성 후,(2) Epic 전체 일정 예측 필요, (3) 병렬/순차 작업 및 Critical Path 분석.",
       "repo": "semicolon-devteam/semo",
@@ -6843,34 +6515,6 @@
       "stars": 0,
       "install": "semicolon-devteam/semo/semo-system/semo-skills/estimate-epic-timeline",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "crewai",
-      "description": "When to use this skill: When you need help with CrewAI - building collaborative AI agents, crews, and workflows. Use for agent orchestration, task automation, multi-agent systems, flow management, and",
-      "repo": "Ketomihine/my_skills",
-      "path": "crewai",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "crewai"
-      ],
-      "stars": 0,
-      "install": "Ketomihine/my_skills/crewai",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "scrum",
-      "description": "Scrum methodology including sprints, ceremonies, backlog management, and agile practices. Activate for sprint planning, standups, retrospectives, and agile workflows.",
-      "repo": "Lobbi-Docs/claude",
-      "path": ".claude/skills/scrum",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "scrum"
-      ],
-      "stars": 0,
-      "install": "Lobbi-Docs/claude/.claude/skills/scrum",
-      "source": "downloaded"
     },
     {
       "name": "dx",
@@ -6929,23 +6573,6 @@
       "source": "downloaded"
     },
     {
-      "name": "ln",
-      "description": "Epic creation and management for Agile workflows",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-210-epic-coordinator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agile",
-        "epic",
-        "planning",
-        "linear"
-      ],
-      "stars": 0,
-      "install": "levnikolaevich/claude-code-skills/ln-210-epic-coordinator",
-      "source": "downloaded"
-    },
-    {
       "name": "kpi",
       "description": "Kpi Dashboard Template - Auto-activating skill for Enterprise Workflows.Triggers on: kpi dashboard template, kpi dashboard templatePart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -6970,18 +6597,6 @@
       "stars": 0,
       "install": "synapz-org/typefully-claude-skill",
       "source": "downloaded"
-    },
-    {
-      "name": "when",
-      "description": "Comprehensive GitHub project management with swarm-coordinated issue tracking, project board automation, and sprint planning. Coordinates planner, issue-tracker, and project-board-sync agents to autom",
-      "repo": "DNYoussef/ai-chrome-extension",
-      "path": ".claude/skills/github-integration/when-managing-github-projects-use-github-project-management",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "DNYoussef/ai-chrome-extension/.claude/skills/github-integration/when-managing-github-projects-use-github-project-management",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "maker",
@@ -7014,21 +6629,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "capacity",
-      "description": "\"RAN capacity planning with traffic forecasting, cognitive consciousness, and intelligent resource scaling for optimal network capacity management. Use when planning network capacity, forecasting traf",
-      "repo": "ricable/ericsson-ran-automation-agentdb",
-      "path": ".claude/skills/capacity-planner",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "capacity",
-        "planner"
-      ],
-      "stars": 0,
-      "install": "ricable/ericsson-ran-automation-agentdb/.claude/skills/capacity-planner",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "cloudflare",
       "description": "Complete knowledge domain for Cloudflare Browser Rendering - Headless Chrome automationwith Puppeteer and Playwright on Cloudflare Workers for screenshots, PDFs, web scraping,and browser automation wo",
       "repo": "jackspace/ClaudeSkillz",
@@ -7058,30 +6658,6 @@
       "stars": 0,
       "install": "7Sageer/cc-assistant/.claude/skills/mac-automation",
       "source": "downloaded"
-    },
-    {
-      "name": "project",
-      "description": "Sets up new projects or improves existing projects with development best practices, tooling, documentation, and workflow automation. Use when user wants to start a new project, improve project structu",
-      "repo": "mhattingpete/claude-skills-marketplace",
-      "path": "productivity-skills-plugin/skills/project-bootstrapper",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "mhattingpete/claude-skills-marketplace/productivity-skills-plugin/skills/project-bootstrapper",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nav",
-      "description": "Analyze codebase patterns and create custom skills for repetitive workflows. Use when project needs automation or pattern enforcement. Auto-invoke when user says \"create a skill for...\", \"automate thi",
-      "repo": "alekspetrov/navigator",
-      "path": "skills/nav-skill-creator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "alekspetrov/navigator/skills/nav-skill-creator",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "ci",
@@ -7142,18 +6718,6 @@
       "source": "downloaded"
     },
     {
-      "name": "todowrite",
-      "description": "Track progress in multi-phase workflows with TodoWrite. Use when orchestrating 5+ phase commands, managing iteration loops, tracking parallel tasks, or providing real-time progress visibility. Trigger",
-      "repo": "MadAppGang/claude-code",
-      "path": "plugins/orchestration/skills/todowrite-orchestration",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "MadAppGang/claude-code/plugins/orchestration/skills/todowrite-orchestration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "sdk",
       "description": "Use when user wants to \"hand off to SDK\", \"run autonomous agent\", \"bridge CLI and SDK\", \"long-running tasks\", \"autonomous development\", or mentions SDK bridge workflows. Provides comprehensive pattern",
       "repo": "flight505/sdk-bridge-marketplace",
@@ -7163,44 +6727,6 @@
       "tags": [],
       "stars": 0,
       "install": "flight505/sdk-bridge-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "peekaboo",
-      "description": "macOS UI automation and screenshot capture tool. Use when working with macOS applications and needing to: (1) Capture screenshots with UI element annotations, (2) Automate UI interactions (clicking, t",
-      "repo": "diegopetrucci/ios-agents-skills",
-      "path": "peekaboo",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "peekaboo"
-      ],
-      "stars": 0,
-      "install": "diegopetrucci/ios-agents-skills/peekaboo",
-      "source": "downloaded"
-    },
-    {
-      "name": "group",
-      "description": "Best practices for inter-group communication, knowledge sharing, and collaborative workflows in four-tier architecture",
-      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-      "path": "skills/group-collaboration",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude/skills/group-collaboration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "background",
-      "description": "To stop a managed background task, terminate a running process by ID to shut it down cleanly.",
-      "repo": "X-School-Academy/ai-dev-swarm",
-      "path": "dev-swarm/mcp-skills/background-process-stop-process",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "X-School-Academy/ai-dev-swarm/dev-swarm/mcp-skills/background-process-stop-process",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7217,18 +6743,6 @@
       "stars": 0,
       "install": "01000001-01001110/agent-jira-skills/jira-transitions",
       "source": "downloaded"
-    },
-    {
-      "name": "lindquist",
-      "description": "Manage GitHub issues using gh CLI - create, list, view, update, close, and assign issues. Use when working with GitHub issues, bug tracking, or project management tasks.",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/lindquist",
-      "source": "https://github.com/johnlindquist/claude-workshop-skills"
     },
     {
       "name": "image",
@@ -7301,62 +6815,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "parallel",
-      "description": "Generic parallel agent orchestration utility for launching multiple agents concurrently. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/utils/skills/parallel-dispatch",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/utils/skills/parallel-dispatch",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mobile",
-      "description": "Complete workflow for implementing mobile bottom navigation with FAB (Floating Action Button) for Next.js/React applications. Use when creating mobile-responsive navigation with bottom nav bar, FAB me",
-      "repo": "JKKN-Institutions/Kenavo",
-      "path": ".claude/skills/mobile-fab-navigation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "mobile",
-        "fab",
-        "navigation"
-      ],
-      "stars": 0,
-      "install": "JKKN-Institutions/Kenavo/.claude/skills/mobile-fab-navigation",
-      "source": "downloaded"
-    },
-    {
-      "name": "review",
-      "description": "Aggregate multi-reviewer feedback into consolidated, actionable recommendations. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/marketing/skills/review-synthesis",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/marketing/skills/review-synthesis",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "task",
-      "description": "Git workflow patterns for agents. Invoke at session start when working in a git repository, before any git operations (status, add, commit, push, rebase), when making code changes, or when the user as",
-      "repo": "Anveio/conveaux",
-      "path": ".claude/skills/task-effective-git",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "effective",
-        "git"
-      ],
-      "stars": 0,
-      "install": "Anveio/conveaux/.claude/skills/task-effective-git",
-      "source": "downloaded"
-    },
-    {
       "name": "superthink",
       "description": "Deep reasoning framework for complex tasks with confidence validation, context gathering, and systematic planning",
       "repo": "agio-digital/session-keys-demo",
@@ -7384,21 +6842,6 @@
       ],
       "stars": 0,
       "install": "nexus-labs-automation/agent-observability/skills/memory-rag-instrumentation",
-      "source": "downloaded"
-    },
-    {
-      "name": "observability",
-      "description": "Comprehensive observability and monitoring workflow that orchestrates metrics collection, logging, distributed tracing, and alerting systems. Handles everything from monitoring architecture design and",
-      "repo": "ajianaz/skills-collection",
-      "path": "skills/observability-monitor",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "observability",
-        "monitor"
-      ],
-      "stars": 0,
-      "install": "ajianaz/skills-collection/skills/observability-monitor",
       "source": "downloaded"
     },
     {
@@ -7445,18 +6888,6 @@
       "source": "downloaded"
     },
     {
-      "name": "workflow",
-      "description": "n8nで業務フローを設計・実装する。トリガー→処理→例外→通知まで一気通貫で提案する時に使う。",
-      "repo": "taiyousan15/taisun_agent",
-      "path": ".claude/skills/workflow-automation-n8n",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "taiyousan15/taisun_agent/.claude/skills/workflow-automation-n8n",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "plan",
       "description": "Track working plans and tasks using Miller's mutable plan system. Activates when planning work, tracking progress, or managing multiple tasks. Provides working memory with atomic updates and one activ",
       "repo": "anortham/miller",
@@ -7472,18 +6903,6 @@
       "source": "downloaded"
     },
     {
-      "name": "defensive",
-      "description": "Production-grade defensive Bash scripting for server automation, monitoring, and DevOps tasks. Emphasizes safety, error handling, idempotency, and logging.",
-      "repo": "astoeffer/plugin-marketplace",
-      "path": "plugins/server-ops/skills/defensive-bash",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "astoeffer/plugin-marketplace/plugins/server-ops/skills/defensive-bash",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "calendar",
       "description": "Balance the 4 types of professional time (Management, Creation, Consumption, Ideation). Use when discussing productivity, calendar management, time allocation, or work-life balance.",
       "repo": "majesticlabs-dev/majestic-marketplace",
@@ -7493,18 +6912,6 @@
       "tags": [],
       "stars": 0,
       "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-founder/skills/calendar-optimization",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "core",
-      "description": "Strategic planning and task orchestration agent for breaking down complex tasks into actionable execution plans",
-      "repo": "vamseeachanta/workspace-hub",
-      "path": ".claude/skills/workspace-hub/core/core-planner",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "vamseeachanta/workspace-hub/.claude/skills/workspace-hub/core/core-planner",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7581,36 +6988,6 @@
       "stars": 0,
       "install": "pwarnock/liaison-toolkit/.skills/liaison-workflows",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "multi",
-      "description": "Multi-agent sistem mimarisi referansi. Use when working with agents, pipelines, or understanding the content generation workflow.",
-      "repo": "olivenet-iot/olivenet-social-bot",
-      "path": ".claude/skills/multi-agent-architecture",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "multi",
-        "agent",
-        "architecture"
-      ],
-      "stars": 0,
-      "install": "olivenet-iot/olivenet-social-bot/.claude/skills/multi-agent-architecture",
-      "source": "downloaded"
-    },
-    {
-      "name": "checkpoint",
-      "description": "Robust workflow checkpoint and resume. Handles session interruption, state recovery, and safe resume across all workflow phases.",
-      "repo": "Clouder0/dotagent",
-      "path": ".claude/skills/checkpoint",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "checkpoint"
-      ],
-      "stars": 0,
-      "install": "Clouder0/dotagent/.claude/skills/checkpoint",
-      "source": "downloaded"
     },
     {
       "name": "log",
@@ -7704,18 +7081,6 @@
       "stars": 0,
       "install": "marcusgoll/robinhood-algo-trading-bot/.claude/skills/finalize-phase",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "approval",
-      "description": "Multi-stakeholder approval routing with status tracking and escalation. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/marketing/skills/approval-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/marketing/skills/approval-workflow",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "run",
@@ -7826,38 +7191,6 @@
       "source": "downloaded"
     },
     {
-      "name": "ln",
-      "description": "Story operations coordinator for Agile teams",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-220-story-coordinator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agile",
-        "stories",
-        "planning",
-        "linear"
-      ],
-      "stars": 0,
-      "install": "levnikolaevich/claude-code-skills/ln-220-story-coordinator",
-      "source": "downloaded"
-    },
-    {
-      "name": "context",
-      "description": "Optimizes token usage and context management for large tasks, cleanup operations, multi-step workflows, code audits, and complex agent operations. Automatically triggers when handling cleanup commands",
-      "repo": "mikev10/EchoGraph",
-      "path": ".claude/skills/context-optimizer",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "context",
-        "optimizer"
-      ],
-      "stars": 0,
-      "install": "mikev10/EchoGraph/.claude/skills/context-optimizer",
-      "source": "downloaded"
-    },
-    {
       "name": "pm",
       "description": "Branch protection and PR creation workflow",
       "repo": "bobmatnyc/claude-mpm",
@@ -7868,33 +7201,6 @@
       "stars": 0,
       "install": "bobmatnyc/claude-mpm/src/claude_mpm/skills/bundled/pm/mpm-pr-workflow",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "subagent",
-      "description": "Orchestrate baselayer subagents for complex tasks. Defines available agents, their skills, and workflows for multi-agent scenarios. Load when coordinating work across agents, delegating tasks, or deci",
-      "repo": "outfitter-dev/agents",
-      "path": "baselayer/skills/subagent-coordination",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "outfitter-dev/agents/baselayer/skills/subagent-coordination",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "effect",
-      "description": "Core Effect foundations and style for a coding agent. Use when starting an Effect task, choosing operators, or structuring a small pipeline.",
-      "repo": "mepuka/effect-ontology",
-      "path": ".claude/skills/effect-foundations",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "effect",
-        "foundations"
-      ],
-      "stars": 0,
-      "install": "mepuka/effect-ontology/.claude/skills/effect-foundations",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "workflow",
@@ -7989,21 +7295,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "snd",
-      "description": "Use this skill when implementing Cosmic Exploration automation in SND macros using the Ice plugin. Covers starting/stopping Ice, IPC API, and integration with leveling workflows.",
-      "repo": "vaoan/SND",
-      "path": ".claude/skills/snd-ice",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "snd",
-        "ice"
-      ],
-      "stars": 0,
-      "install": "vaoan/SND/.claude/skills/snd-ice",
-      "source": "downloaded"
-    },
-    {
       "name": "scraper",
       "description": "Use this skill when implementing, modifying, or fixing ANY scraper, discovery, or extraction code in the packages/scrapers directory. Triggers for tasks involving SmartDiscoveryAgent, SmartDishFinderA",
       "repo": "cgjen-box/planted-website",
@@ -8076,46 +7367,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "nav",
-      "description": "Install Navigator multi-Claude workflow orchestration scripts. Auto-invokes when user says \"install multi-Claude workflows\", \"set up multi-Claude\", or \"enable parallel execution\".",
-      "repo": "alekspetrov/navigator",
-      "path": "skills/nav-install-multi-claude",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "alekspetrov/navigator/skills/nav-install-multi-claude",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "codebase",
-      "description": "This sop analyzes a codebase and generates comprehensive documentation including structured metadata files that describe the system architecture, components, interfaces, and workflows. It can create t",
-      "repo": "forest/dotfiles",
-      "path": "claude/skills/codebase-summary",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "forest/dotfiles/claude/skills/codebase-summary",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "grok",
-      "description": "Route Twitter/X prompts to Grok-4 Live Search",
-      "repo": "mikedemarais/grok-skill",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "grok",
-        "twitter",
-        "search"
-      ],
-      "stars": 0,
-      "install": "mikedemarais/grok-skill",
-      "source": "downloaded"
-    },
-    {
       "name": "atlassian",
       "description": "Execute Atlassian CLI (acli) commands for Jira work items, projects, sprints, boards, and organization administration. Use when the user wants to manage Jira issues, projects, sprints, or perform Atla",
       "repo": "doug-skinner/acli-claude-skill",
@@ -8184,18 +7435,6 @@
       "stars": 0,
       "install": "jhlee0409/eureka/.claude/skills/wbs-gantt-management",
       "source": "downloaded"
-    },
-    {
-      "name": "voice",
-      "description": "Combine multiple voice profiles with weighted mixing to create hybrid voices. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/voice/skills/voice-blend",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/voice/skills/voice-blend",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "workflow",
@@ -8273,18 +7512,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "snd",
-      "description": "Use this skill when working with the Saucy plugin. Covers Gold Saucer mini-game automation (Cuff-a-cur, Triple Triad).",
-      "repo": "vaoan/SND",
-      "path": ".claude/skills/snd-saucy",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "vaoan/SND/.claude/skills/snd-saucy",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "agent",
       "description": "Ready-to-use prompt templates for specialized agents. Use when building n8n workflows, AI integrations, or sales materials. Contains structured prompts for automation-architect, llm-engineer, and sale",
       "repo": "dvorkinguy/claude-skills-agents",
@@ -8297,22 +7524,6 @@
       ],
       "stars": 0,
       "install": "dvorkinguy/claude-skills-agents/skills/agent-prompts",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "azure",
-      "description": "Manage Azure Boards work items including user stories, tasks, and bugs with WIQL queries. Use when managing Azure Boards work items or creating sprint backlogs.",
-      "repo": "ntaksh42/agents",
-      "path": ".claude/skills/azure-boards-helper",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "azure",
-        "boards",
-        "helper"
-      ],
-      "stars": 0,
-      "install": "ntaksh42/agents/.claude/skills/azure-boards-helper",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -8352,18 +7563,6 @@
       "tags": [],
       "stars": 0,
       "install": "minukHwang/claude-plugins/plugins/workflow/skills/one-pr-one-issue",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "project",
-      "description": "Comprehensive project context detection and state awareness. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/utils/skills/project-awareness",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/utils/skills/project-awareness",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8516,21 +7715,6 @@
       "source": "downloaded"
     },
     {
-      "name": "automation",
-      "description": "\"RAN automation engineering with workflow creation, cognitive consciousness, and autonomous orchestration for intelligent network automation. Use when designing RAN automation workflows, implementing",
-      "repo": "ricable/ericsson-ran-automation-agentdb",
-      "path": ".claude/skills/automation-engineer",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "automation",
-        "engineer"
-      ],
-      "stars": 0,
-      "install": "ricable/ericsson-ran-automation-agentdb/.claude/skills/automation-engineer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "workflow",
       "description": "Demonstrates script and custom tool working together with console output",
       "repo": "darrenhinde/Opencode-skills-example",
@@ -8588,18 +7772,6 @@
       "tags": [],
       "stars": 0,
       "install": "harrysayers7/claudelife",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "production",
-      "description": "Use to convert creative briefs into actionable task plans with owners and SLAs.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/design-creative/skills/production-playbook",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/design-creative/skills/production-playbook",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8673,21 +7845,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "managing",
-      "description": "Organize incoming files and track import status through the file staging workflow",
-      "repo": "AJBcoding/claude-skill-eval",
-      "path": ".claude/skills/managing-imports",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "managing",
-        "imports"
-      ],
-      "stars": 0,
-      "install": "AJBcoding/claude-skill-eval/.claude/skills/managing-imports",
-      "source": "downloaded"
-    },
-    {
       "name": "add",
       "description": "Use this skill whenever important information is learned during a task or when the user explicitly asks to store something. Use when users ask to remember. Triggers on \"remember this\", \"update memory\"",
       "repo": "timbuchinger/loadout",
@@ -8712,18 +7869,6 @@
       "tags": [],
       "stars": 0,
       "install": "iheanyi/tasuku/skills/tk-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "audio",
-      "description": "FFmpeg audio processing, batch editing, normalization, mixing, and automated audio production workflows. Use when processing audio at scale, automating editing tasks, or building audio pipelines.",
-      "repo": "onesmartguy/next-level-real-estate",
-      "path": ".claude/skills/ai-voice-audio/skills/audio-editing-automation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "onesmartguy/next-level-real-estate/.claude/skills/ai-voice-audio/skills/audio-editing-automation",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8910,35 +8055,6 @@
       "source": "downloaded"
     },
     {
-      "name": "moai",
-      "description": "Claude Code context window optimization strategies, JIT retrieval, progressive loading, memory file patterns, and cleanup practices. Use when optimizing context usage, managing large projects, or impl",
-      "repo": "kivo360/quickhooks",
-      "path": ".claude/skills/moai-alfred-context-budget",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "moai",
-        "alfred",
-        "context",
-        "budget"
-      ],
-      "stars": 0,
-      "install": "kivo360/quickhooks/.claude/skills/moai-alfred-context-budget",
-      "source": "downloaded"
-    },
-    {
-      "name": "recover",
-      "description": "Extract full context of the last task from the most recent parent session shown in the session lineage. Strategically uses sub-agents to avoid bloating your own context.",
-      "repo": "pchalasani/claude-code-tools",
-      "path": "plugins/aichat/skills/recover-context",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "pchalasani/claude-code-tools/plugins/aichat/skills/recover-context",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "linear",
       "description": "Skill for Linear project management tasks including creating projects, creating issues, and reviewing project structures. Use when working with Linear project setup, issue creation, project planning,",
       "repo": "RasmusGodske/dev-agent-workflow",
@@ -8948,18 +8064,6 @@
       "tags": [],
       "stars": 0,
       "install": "RasmusGodske/dev-agent-workflow/project-roles/skills/linear-project-management",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "compliance",
-      "description": "ACGME & institutional rule checking with systematic audit workflows, historical analysis, and violation remediation. Use for compliance audits, violation investigation, and regulatory reporting.",
-      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9006,30 +8110,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "loop",
-      "description": "Execute workflow agents iteratively for refinement and progressive improvement. Use when tasks require repetitive refinement, multi-iteration improvements, progressive optimization, or feedback loops",
-      "repo": "d-o-hub/rust-self-learning-memory",
-      "path": ".claude/skills/loop-agent",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "d-o-hub/rust-self-learning-memory/.claude/skills/loop-agent",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "reference",
-      "description": "Use to manage workflows, compliance, and measurement for customer references.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/customer-advocacy-orchestration/skills/reference-ops",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/customer-advocacy-orchestration/skills/reference-ops",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "bear",
       "description": "Interacts with Bear note-taking app on macOS via X-Callback-URL. Use when user asks to create Bear notes, search notes, add text to notes, manage tags, capture web pages to Bear, or perform any other",
       "repo": "eanair/agent-skills",
@@ -9042,18 +8122,6 @@
       "stars": 0,
       "install": "eanair/agent-skills/bear",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "project",
-      "description": "Guides correct usage of @j0kz/mcp-agents standardization and automation scripts including version.json single source of truth, test count automation, URL casing rules, and critical workflow pattern...",
-      "repo": "j0KZ/mcp-agents",
-      "path": "starter-kit/template/.claude/skills/project-standardization",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "j0KZ/mcp-agents/starter-kit/template/.claude/skills/project-standardization",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "dashlane",
@@ -9078,47 +8146,6 @@
       "stars": 0,
       "install": "CAPHTECH/claude-marketplace/caphtech-plugin/skills/eld-sense-task-decomposition",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "strategic",
-      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
-      "repo": "TatTran22/claude-code-1",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "TatTran22/claude-code-1",
-      "source": "github.com/TatTran22/claude-code-1"
-    },
-    {
-      "name": "kanban",
-      "description": "Manages the Anubis Issue Tracker GitHub project board. Use when you need to organize issues by difficulty/status, move issues through workflow stages, or generate board status reports.",
-      "repo": "forrestthewoods/anubis",
-      "path": ".claude/skills/kanban-management",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "forrestthewoods/anubis/.claude/skills/kanban-management",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ln",
-      "description": "Full decomposition orchestrator for Agile planning",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-200-scope-decomposer",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agile",
-        "planning",
-        "decomposition",
-        "linear"
-      ],
-      "stars": 0,
-      "install": "levnikolaevich/claude-code-skills/ln-200-scope-decomposer",
-      "source": "downloaded"
     },
     {
       "name": "report",
@@ -9175,18 +8202,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "hook",
-      "description": "Generate production-ready Claude Code hooks with interactive Q&A, automated installation, and enhanced validation. Supports 10 templates across 7 event types for comprehensive workflow automation.",
-      "repo": "alirezarezvani/claude-code-skill-factory",
-      "path": "generated-skills/hook-factory",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "alirezarezvani/claude-code-skill-factory/generated-skills/hook-factory",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "prompt",
       "description": "Use when creating prompts for Claude or other LLMs, need help structuring prompts effectively, want to improve prompt quality, or need templates for simple or complex prompting tasks. Provides Anthrop",
       "repo": "laurenj3250-debug/vethub2.0",
@@ -9200,18 +8215,6 @@
       "stars": 0,
       "install": "laurenj3250-debug/vethub2.0/.claude/skills/prompt-engineering",
       "source": "downloaded"
-    },
-    {
-      "name": "todo",
-      "description": "Synchronize sprint tasks with the TodoWrite tool to provide real-time visibility into task progress. Use when starting a sprint task (create todos), breaking down work (add sub-tasks), or completing w",
-      "repo": "AlexBaum-ai/NEURM",
-      "path": ".claude/skills/todo-sync",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "AlexBaum-ai/NEURM/.claude/skills/todo-sync",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "protocolsio",
@@ -9250,22 +8253,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "task",
-      "description": "Author pull requests and respond to review feedback. Use when creating PRs, requesting reviews, reading comments, addressing feedback, or merging changes.",
-      "repo": "Anveio/conveaux",
-      "path": ".claude/skills/task-pull-request",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "pull",
-        "request"
-      ],
-      "stars": 0,
-      "install": "Anveio/conveaux/.claude/skills/task-pull-request",
-      "source": "downloaded"
-    },
-    {
       "name": "execution",
       "description": "This skill should be used when the user asks to \"execute task\", \"implement feature\", \"delegate work\", \"run workflow\", \"review code\", \"code quality check\", or needs task orchestration and code review g",
       "repo": "takeokunn/nixos-configuration",
@@ -9302,18 +8289,6 @@
       "tags": [],
       "stars": 0,
       "install": "outfitter-dev/agents",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "roe",
-      "description": "Use to codify sales rules of engagement, escalation paths, and exception workflows.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/sales-operations/skills/roe-governance",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/sales-operations/skills/roe-governance",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9480,18 +8455,6 @@
       "source": "downloaded"
     },
     {
-      "name": "manager",
-      "description": "Orchestrates Pukaist agents, enforces plan-first workflow, runs integrity tests, and delegates tasks; use for coordination or system audits.",
-      "repo": "ACSKamloops/shs-engine",
-      "path": ".codex/skills/manager-planner",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "ACSKamloops/shs-engine/.codex/skills/manager-planner",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "blender",
       "description": "Blender automation with geometry creation, materials, modifiers, and Mixamo animation retargeting.Core Features: WebSocket-based real-time control, automatic bone mapping with UI review, two-phase con",
       "repo": "Dev-GOM/claude-code-marketplace",
@@ -9531,18 +8494,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "work",
-      "description": "Transform any intellectual work into AI-promptable systems. Use when user wants to automate business processes, create multi-agent workflows, decompose complex work into AI-delegatable tasks, or build",
-      "repo": "merllinsbeard/ai-claude-skills-collection",
-      "path": "meta/work-decomposer",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "merllinsbeard/ai-claude-skills-collection/meta/work-decomposer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "advanced",
       "description": "Multi-tool orchestration patterns for complex Bluera Knowledge operations. Teaches progressive library exploration, adding libraries with job monitoring, handling large result sets, multi-store search",
       "repo": "blueraai/bluera-knowledge",
@@ -9565,32 +8516,6 @@
       "stars": 0,
       "install": "Cloudhabil/AGI-Server",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "claudekit",
-      "description": "Master context engineering for AI agent systems. Use when designing agent architectures, debugging context failures, optimizing token usage, implementing memory systems, building multi-agent coordi...",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/claudekit",
-      "source": "https://github.com/mrgoonie/claudekit-skills"
-    },
-    {
-      "name": "blitz",
-      "description": "This skill should be used when parallelizing multi-issue sprints using git worktrees and parallel Claude agents. Use when tackling multiple GitHub issues simultaneously, when the user mentions \"blitz\"",
-      "repo": "Cygnusfear/claude-stuff",
-      "path": "skills/blitz",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "blitz"
-      ],
-      "stars": 0,
-      "install": "Cygnusfear/claude-stuff/skills/blitz",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "omnifocus",
@@ -9632,30 +8557,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "voice",
-      "description": "Generate custom voice profiles from natural language descriptions. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/voice/skills/voice-create",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/voice/skills/voice-create",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "voice",
-      "description": "Reverse-engineer voice profiles from sample content by analyzing writing patterns. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/voice/skills/voice-analyze",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/voice/skills/voice-analyze",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "select",
       "description": "Determine risk level and select appropriate stakeholder agents for a task",
       "repo": "cowwoc/styler",
@@ -9665,18 +8566,6 @@
       "tags": [],
       "stars": 0,
       "install": "cowwoc/styler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "handle",
-      "description": "Use this skill to split large plans into smaller chunks. This skill manages your context window for large tasks. Use it when a task will take a long time and cause context issues.",
-      "repo": "tilework-tech/nori-profiles",
-      "path": "src/cli/features/claude-code/profiles/config/product-manager/skills/handle-large-tasks",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "tilework-tech/nori-profiles/src/cli/features/claude-code/profiles/config/product-manager/skills/handle-large-tasks",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9706,30 +8595,6 @@
       "stars": 0,
       "install": "waiwai24/BinaryX-Agent/.claude/skills/detecting-arbitrary-read",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "opentrons",
-      "description": "Opentrons Thermocycler Module - automated PCR thermal cycling with independent block (4-99°C) and lid (37-110°C) temperature control, profile execution, and auto-sealing lid support (GEN2) for high-th",
-      "repo": "jkitchin/skillz",
-      "path": "skills/laboratory/opentrons-thermocycler",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jkitchin/skillz/skills/laboratory/opentrons-thermocycler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "strategic",
-      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
-      "repo": "WorldFlowAI/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "WorldFlowAI/everything-claude-code",
-      "source": "github.com/WorldFlowAI/everything-claude-code"
     },
     {
       "name": "svg",
@@ -9797,18 +8662,6 @@
       "source": "downloaded"
     },
     {
-      "name": "agile",
-      "description": "Orchestrate agile development workflows by invoking commands in sequence with checkpoint-based flow control. This skill should be used when the user asks to 'run the workflow', 'continue working', 'wh",
-      "repo": "jwynia/agent-skills",
-      "path": "skills/development/workflow/agile-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jwynia/agent-skills/skills/development/workflow/agile-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "workflow",
       "description": "This skill should be used when the user asks to \"create a workflow\", \"make a slash command\", \"add a command\", \"automate a task with a command\", \"workflow vs plugin\", \"should this be a workflow or plug",
       "repo": "FrancisVarga/coconut-claude-code-plugins",
@@ -9818,58 +8671,6 @@
       "tags": [],
       "stars": 0,
       "install": "FrancisVarga/coconut-claude-code-plugins/coconut-workflow/skills/workflow-creation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "spring",
-      "description": "Dependency injection workflow for Spring Boot projects covering constructor-first patterns, optional collaborator handling, bean selection, and validation practices.",
-      "repo": "giuseppe-trisciuoglio/developer-kit",
-      "path": "skills/spring-boot/spring-boot-dependency-injection",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "giuseppe-trisciuoglio/developer-kit/skills/spring-boot/spring-boot-dependency-injection",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "adhd",
-      "description": "ADHD-optimized task tracking and intervention system. Use when tracking tasks, detecting context switches, providing accountability interventions, or managing ADHD-specific productivity patterns for A",
-      "repo": "breverdbidder/life-os",
-      "path": ".claude/skills/adhd-task-management",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "adhd",
-        "task",
-        "management"
-      ],
-      "stars": 0,
-      "install": "breverdbidder/life-os/.claude/skills/adhd-task-management",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "brand",
-      "description": "Unified brand compliance validation across visual, verbal, and legal dimensions. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/marketing/skills/brand-compliance",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/marketing/skills/brand-compliance",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "using",
-      "description": "Use when working with Linear tickets/issues - establishes workflows for creating and updating tickets (issues)",
-      "repo": "AJBcoding/claude-skill-eval",
-      "path": "claude-code-stuff-main/skills/using-linear",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "AJBcoding/claude-skill-eval/claude-code-stuff-main/skills/using-linear",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9920,21 +8721,6 @@
       ],
       "stars": 0,
       "install": "SecKatie/katies-ai-skills/skills/just",
-      "source": "downloaded"
-    },
-    {
-      "name": "i18n",
-      "description": "Automate internationalization and localization workflows for web applications with translation, key generation, and library setup",
-      "repo": "DNYoussef/ai-chrome-extension",
-      "path": ".claude/skills/i18n-automation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "i18n",
-        "automation"
-      ],
-      "stars": 0,
-      "install": "DNYoussef/ai-chrome-extension/.claude/skills/i18n-automation",
       "source": "downloaded"
     },
     {
@@ -9989,18 +8775,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "learning",
-      "description": "Recognize and capture reusable patterns, workflows, and domain knowledge from work sessions into new skills. Use when completing tasks that involve novel approaches repeated 2+ times, synthesizing com",
-      "repo": "Exploration-labs/Nates-Substack-Skills",
-      "path": "learning-capture",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "Exploration-labs/Nates-Substack-Skills/learning-capture",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "barrel",
       "description": "Expert in barrel file generation and import organization. Use when user creates index.ts/tsx files, needs clean import paths, wants to organize exports, or mentions barrel files. Examples - \"create ba",
       "repo": "marcioaltoe/claude-craftkit",
@@ -10029,21 +8803,6 @@
       "stars": 0,
       "install": "theflysurfer/claude-skills-marketplace/skills/julien-workflow-queuing-background-tasks",
       "source": "downloaded"
-    },
-    {
-      "name": "adhd",
-      "description": "ADHD-optimized productivity techniques and interventions. Invoke when user shows signs of task abandonment, context switching, or needs focus assistance.",
-      "repo": "breverdbidder/life-os",
-      "path": ".claude/skills/adhd-productivity",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "adhd",
-        "productivity"
-      ],
-      "stars": 0,
-      "install": "breverdbidder/life-os/.claude/skills/adhd-productivity",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "policyengine",
@@ -10160,30 +8919,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "autogpt",
-      "description": "Autonomous AI agent platform for building and deploying continuous agents. Use when creating visual workflow agents, deploying persistent autonomous agents, or building complex multi-step AI automatio",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "current",
-      "description": "Gets, checks, and verifies the current UTC date and time for unambiguous temporal reference. Use when starting tasks, verifying temporal context, ensuring date awareness before time-sensitive operatio",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "plugins/claude-ecosystem/skills/current-date",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/current-date",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "license",
       "description": "Open source license compliance including compatibility analysis, obligations tracking, and compliance workflows",
       "repo": "melodic-software/claude-code-plugins",
@@ -10193,18 +8928,6 @@
       "tags": [],
       "stars": 0,
       "install": "melodic-software/claude-code-plugins/plugins/compliance-planning/skills/license-compliance",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "multi",
-      "description": "Long-running autonomous workflow for feature implementation. Runs until complete with minimal human intervention.",
-      "repo": "DoubleslashSE/claude-workflows",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "DoubleslashSE/claude-workflows",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -10263,18 +8986,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "rpa",
-      "description": "Common RPA automation patterns (retry, polling, circuit breaker) for resilient automation. Use when: implementing RPA workflows, error handling, resilient automation, retry with backoff, polling for c",
-      "repo": "omerlefaruk/CasareRPA",
-      "path": ".claude/skills/rpa-patterns",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "omerlefaruk/CasareRPA/.claude/skills/rpa-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "roadmap",
       "description": "Roadmap Generator - Auto-activating skill for Enterprise Workflows.Triggers on: roadmap generator, roadmap generatorPart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -10323,18 +9034,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "token",
-      "description": "Proactive token budget assessment and task chunking strategy. Use this skill when queries involve multiple large file uploads, requests for comprehensive multi-document analysis, complex multi-step wo",
-      "repo": "Exploration-labs/Nates-Substack-Skills",
-      "path": "token-budget-advisor",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "Exploration-labs/Nates-Substack-Skills/token-budget-advisor",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "archive",
       "description": "Archiva tareas completadas de TASKS.md a TASKS-DONE.md. Usar automáticamente cuando TASKS.md tenga muchas tareas completadas o supere 20K tokens.",
       "repo": "frr149/mot",
@@ -10348,18 +9047,6 @@
       "stars": 0,
       "install": "frr149/mot/.claude/skills/archive-tasks",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "strategic",
-      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
-      "repo": "ysyecust/everything-claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "ysyecust/everything-claude-code",
-      "source": "github.com/ysyecust/everything-claude-code"
     },
     {
       "name": "project",
@@ -10398,18 +9085,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "markdowntown",
-      "description": "Beads (bd) issue workflow and repo operations for markdowntown. Use when creating bd tasks, updating status, adding dependencies, running required tests, committing, and pushing to main.",
-      "repo": "joelklabo/markdowntown-cli",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "joelklabo/markdowntown-cli",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "generate",
       "description": "Execute SDD Phase 1-5 workflow (specify → clarify → plan → checklist → tasks).Use when (1) Epic이 있고 상세 명세 필요, (2) 명확한 기능 요청이 있을 때,(3) spec.md/plan.md/tasks.md 생성 필요 시.러프한 아이디어는 ideate 스킬 사용 권장.",
       "repo": "semicolon-devteam/semo",
@@ -10443,18 +9118,6 @@
       "tags": [],
       "stars": 0,
       "install": "hiroshi75/ccplugins/blog-manager-plugin/skills/blog-manager",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "obsidian",
-      "description": "This skill should be used when managing documentation files in an Obsidian vault, including creating session artifacts, moving planning documents from project directories to the vault, updating docume",
-      "repo": "arlenagreer/claude_configuration_docs",
-      "path": "skills/obsidian-file-manager",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "arlenagreer/claude_configuration_docs/skills/obsidian-file-manager",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -10495,30 +9158,6 @@
       "stars": 0,
       "install": "rodrigolagodev/SandoDesignSystem/.claude/skills/command-creator",
       "source": "downloaded"
-    },
-    {
-      "name": "ccw",
-      "description": "Stateless workflow orchestrator that automatically selects and executes the optimal workflow combination based on task intent. Supports rapid (lite-plan+execute), full (brainstorm+plan+execute), coupl",
-      "repo": "catlog22/Claude-Code-Workflow",
-      "path": ".claude/skills/ccw",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "catlog22/Claude-Code-Workflow/.claude/skills/ccw",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mailman",
-      "description": "Guidance for setting up and configuring mailing list servers with Postfix and Mailman3. This skill should be used when tasks involve configuring email servers, mailing list management, LMTP integratio",
-      "repo": "letta-ai/skills",
-      "path": "letta/benchmarks/trajectory-only/mailman",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "letta-ai/skills/letta/benchmarks/trajectory-only/mailman",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "forensic",
@@ -10604,18 +9243,6 @@
       "source": "downloaded"
     },
     {
-      "name": "yaml",
-      "description": "Execute configuration-driven analysis workflows from YAML files. Use for running analysis pipelines, data processing tasks, and automation workflows defined in YAML configuration.",
-      "repo": "vamseeachanta/workspace-hub",
-      "path": ".claude/skills/development/yaml-workflow-executor",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "vamseeachanta/workspace-hub/.claude/skills/development/yaml-workflow-executor",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "restate",
       "description": "Restate durable execution for fault-tolerant services and workflows. Triggers on restate, durable, ctx.run, ctx.sleep, awakeable.",
       "repo": "settlemint/agent-marketplace",
@@ -10640,21 +9267,6 @@
       ],
       "stars": 0,
       "install": "Wesley1600/ClaudeCodeFrameWork/.claude/skills/chain-of-thought",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "ai",
-      "description": "Эксперт по оркестрации AI агентов. Используй для multi-agent systems, agent coordination, task delegation и agent workflows.",
-      "repo": "dengineproblem/agents-monorepo",
-      "path": ".claude/skills/ai-agent-orchestrator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agent",
-        "orchestrator"
-      ],
-      "stars": 0,
-      "install": "dengineproblem/agents-monorepo/.claude/skills/ai-agent-orchestrator",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -10698,18 +9310,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "parallel",
-      "description": "Automatic task decomposition with parallel agent execution. Use when: breaking down complex tasks, parallel agent work, multi-file changes, optimizing execution time, task decomposition, understanding",
-      "repo": "omerlefaruk/CasareRPA",
-      "path": ".claude/skills/parallel-exec",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "omerlefaruk/CasareRPA/.claude/skills/parallel-exec",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "partner",
       "description": "Use to manage partner onboarding, enablement, and compliance workflows for referral programs.",
       "repo": "gtmagents/gtm-agents",
@@ -10734,18 +9334,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "chatgpt",
-      "description": "Send prompts to ChatGPT Pro via Playwriter browser automation. Use for cross-validation, second opinions, or leveraging GPT-5.2 Pro's research-grade intelligence.",
-      "repo": "erwinkn/pulse-ui",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "erwinkn/pulse-ui",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "save",
       "description": "Use this skill when the user wants to save session progress before running /clear, or when you notice significant progress has been made that should be saved to TASKS.md and committed to git (project)",
       "repo": "jmiller94102/Hypothesis_Pro_McKinsey_Replacement",
@@ -10761,18 +9349,6 @@
       "source": "downloaded"
     },
     {
-      "name": "opentrons",
-      "description": "Lab automation platform for Flex/OT-2 robots. Write Protocol API v2 protocols, liquid handling, hardware modules (heater-shaker, thermocycler), labware management, for automated pipetting workflows.",
-      "repo": "davila7/claude-code-templates",
-      "path": "cli-tool/components/skills/scientific/opentrons-integration",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/opentrons-integration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "hive",
       "description": "Issue tracking and task management using the hive system. Use when creating, updating, or managing work items. Use when you need to track bugs, features, tasks, or epics. Do NOT use for simple one-off",
       "repo": "joelhooks/swarm-tools",
@@ -10783,21 +9359,6 @@
       "stars": 0,
       "install": "joelhooks/swarm-tools/packages/opencode-swarm-plugin/examples/skill/hive-workflow",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "trello",
-      "description": "Manage Trello boards, lists, and cards. Use this skill when the user wants to view, create, or update their Trello tasks, boards, or project status.",
-      "repo": "kedbin/opencode-skills",
-      "path": "skills/trello-manager",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "trello",
-        "manager"
-      ],
-      "stars": 0,
-      "install": "kedbin/opencode-skills/skills/trello-manager",
-      "source": "downloaded"
     },
     {
       "name": "planner",
@@ -10855,18 +9416,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "cfn",
-      "description": "Skill from masharratt/claude-flow-novice",
-      "repo": "masharratt/claude-flow-novice",
-      "path": ".claude/skills/cfn-task-decomposition",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "masharratt/claude-flow-novice/.claude/skills/cfn-task-decomposition",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "dev",
       "description": "Orchestrate PRD creation, task generation, and gated task processing with user confirmations between phases.",
       "repo": "dundas/teleportation-cli",
@@ -10895,22 +9444,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "blog",
-      "description": "Central coordinator for blog writing workflow with multi-agent execution. USE WHEN user says 'write a blog post', 'create blog content', 'start blog workflow', OR user wants to orchestrate the full bl",
-      "repo": "Zura1555/agents",
-      "path": ".claude/skills/blog-master-orchestrator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "blog",
-        "master",
-        "orchestrator"
-      ],
-      "stars": 0,
-      "install": "Zura1555/agents/.claude/skills/blog-master-orchestrator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "schema",
       "description": "Multi-phase schema optimization workflow orchestrator. Creates session directories,spawns phase agents sequentially, validates outputs, aggregates results.Trigger: \"run schema optimization\", \"optimize",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -10923,18 +9456,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "workspace",
-      "description": "Assesses workspace alignment and suggests cleanup or realignment actions at key transition points. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "automation",
       "description": "Analyze codebases and generate Claude Code automation infrastructure including commands, scripts, and templates for systematic task execution. Use when the user wants to create reusable automation wor",
       "repo": "ddunnock/claude-plugins",
@@ -10944,30 +9465,6 @@
       "tags": [],
       "stars": 0,
       "install": "ddunnock/claude-plugins/_examples/automation-builder",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "superpowers",
-      "description": "Bootstrap skill - Loads Superpowers SDLC workflow into every session",
-      "repo": "cncorp/arsenal",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "cncorp/arsenal",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "process",
-      "description": "Map workflows, extract SOPs, and identify automation opportunities through systematic process capture and AI tractability assessment. Use when documenting workflows, creating SOPs, conducting process",
-      "repo": "leegonzales/AISkills",
-      "path": "ProcessMapper/process-mapper",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "leegonzales/AISkills/ProcessMapper/process-mapper",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -11062,18 +9559,6 @@
       "source": "downloaded"
     },
     {
-      "name": "vasp",
-      "description": "Expert assistant for VASP (Vienna Ab initio Simulation Package) calculations - input file generation, parameter selection, workflow setup, and best practices for accurate DFT calculations",
-      "repo": "jkitchin/skillz",
-      "path": "skills/programming/vasp",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jkitchin/skillz/skills/programming/vasp",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "beads",
       "description": "Safe Beads workflow helper (warning-only). Use before bd sync/close/create toavoid JSONL conflicts. Ensures you are on a feature branch, up to date withorigin/master, and stages Beads files cleanly wi",
       "repo": "stars-end/agent-skills",
@@ -11127,34 +9612,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "product",
-      "description": "Product workflows router. Use when user mentions \"PRD\", \"competitive analysis\", \"metrics\", \"OKRs\", \"cohort\", \"requirements\", or \"technical debt\". Triggers on product management and strategy tasks.",
-      "repo": "saadshahd/moo.md",
-      "path": "product/skills/product",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "saadshahd/moo.md/product/skills/product",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "change",
-      "description": "Эксперт по заявкам на изменения. Используй для форм CR, impact analysis, approval workflows и change control.",
-      "repo": "dengineproblem/agents-monorepo",
-      "path": ".claude/skills/change-request-form",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "change",
-        "request",
-        "form"
-      ],
-      "stars": 0,
-      "install": "dengineproblem/agents-monorepo/.claude/skills/change-request-form",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "post",
       "description": "Handle post-ticket completion tasks including test exports, planning doc updates, and learning reflection. Use this skill after a ticket's tests all pass and 6-final.md exists.",
       "repo": "jayprimer/ppt",
@@ -11169,33 +9626,6 @@
       "stars": 0,
       "install": "jayprimer/ppt",
       "source": "downloaded"
-    },
-    {
-      "name": "pareto",
-      "description": "Identify the vital 20% of activities that produce 80% of results using real case studies and proven patterns. Use when optimizing business, learning, productivity, or any area where focus matters.",
-      "repo": "majesticlabs-dev/majestic-marketplace",
-      "path": "plugins/majestic-founder/skills/pareto",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-founder/skills/pareto",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "error",
-      "description": "RPA error handling patterns (fallback, retry, skip, user notification) for resilient automation workflows. Use when: handling errors in RPA workflows, error recovery strategies, retry patterns, gracef",
-      "repo": "omerlefaruk/CasareRPA",
-      "path": ".claude/skills/error-recovery",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "error",
-        "recovery"
-      ],
-      "stars": 0,
-      "install": "omerlefaruk/CasareRPA/.claude/skills/error-recovery",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "frankx",
@@ -11339,18 +9769,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "spawn",
-      "description": "태스크 관리 작업을 task-manager-agent에 위임",
-      "repo": "Zeliper/z-coder",
-      "path": ".claude/skills/spawn-task-manager",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "Zeliper/z-coder/.claude/skills/spawn-task-manager",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "n8n",
       "description": "n8n workflow automation for building analytics including SkySpark multi-agent systems, FastAPI tool servers, workflow orchestration, and automated building system alert triage",
       "repo": "mbcoalson/skills",
@@ -11432,22 +9850,6 @@
       "source": "downloaded"
     },
     {
-      "name": "detecting",
-      "description": "Detects memory leak vulnerabilities by identifying unfreed memory allocations and missing cleanup in error paths. Use when analyzing long-running processes, resource management, or investigating memor",
-      "repo": "waiwai24/BinaryX-Agent",
-      "path": ".claude/skills/detecting-memory-leaks",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "detecting",
-        "memory",
-        "leaks"
-      ],
-      "stars": 0,
-      "install": "waiwai24/BinaryX-Agent/.claude/skills/detecting-memory-leaks",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "freight",
       "description": "Coordinate all freight intelligence gathering and campaign execution for systematic RFP inclusion. Use for daily workflow planning, weekly analysis, lead prioritization, and orchestrating all intellig",
       "repo": "ernijsansons/freight",
@@ -11501,18 +9903,6 @@
       "stars": 0,
       "install": "alavida-ai/vf-owwo/.claude/skills/agentic-orchestrating",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "bash",
-      "description": "Write Bash scripts following best practices. Use when creating shell scripts, automation, or CLI tools. Covers safe scripting patterns.",
-      "repo": "dralgorhythm/claude-agentic-framework",
-      "path": ".claude/skills/languages/bash",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "dralgorhythm/claude-agentic-framework/.claude/skills/languages/bash",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "implementing",
@@ -11600,20 +9990,6 @@
       "stars": 0,
       "install": "ChistokhinSV/gns3-mcp/skill",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ghost",
-      "description": "Publish and manage content in Ghost CMS. Use for publishing posts, validating frontmatter, and understanding the Ghost sync workflow. Includes /publish and /validate commands.",
-      "repo": "xavierfuentes/xavierfuentes.com",
-      "path": ".claude/skills/ghost",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "ghost"
-      ],
-      "stars": 0,
-      "install": "xavierfuentes/xavierfuentes.com/.claude/skills/ghost",
-      "source": "downloaded"
     },
     {
       "name": "bash",
@@ -11716,42 +10092,6 @@
       "source": "downloaded"
     },
     {
-      "name": "task",
-      "description": "\"Delegate tasks to specialized agents and coordinate multi-agent workflows for parallel test generation\"",
-      "repo": "okgoogle13/careercopilot",
-      "path": ".claude/skills/task-delegator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "okgoogle13/careercopilot/.claude/skills/task-delegator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "speckit",
-      "description": "GitHub Spec Kit 5-phase workflow. Use when following the Constitution → Specify → Plan → Tasks → Implement cycle. Provides phase guidance, file templates, and workflow orchestration.",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "plugins/spec-driven-development/skills/speckit-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "melodic-software/claude-code-plugins/plugins/spec-driven-development/skills/speckit-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "moc",
-      "description": "Suggest MOC updates and new MOCs based on semantic clustering.Use when asked to \"curate MOCs\", \"update maps\", \"find clusters\",\"what MOCs need updating\", or \"organize my notes\".",
-      "repo": "alexanderop/second-brain-nuxt",
-      "path": ".claude/skills/moc-curator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "alexanderop/second-brain-nuxt/.claude/skills/moc-curator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "bootstrapping",
       "description": "Automates GitHub Projects V2 setup with standardized workflow boards. Creates custom fields (Status/Value/Effort), configures automations, generates semantic repository labels, and aligns project name",
       "repo": "kynoptic/markdownlint-trap",
@@ -11844,33 +10184,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "plan",
-      "description": "Planning and architecture decision domain expert.Knows about:- Creating ADRs (Architecture Decision Records)- Creating technical specifications- Listing and discovering planning artifacts- Transformin",
-      "repo": "nathanvale/vtm-cli",
-      "path": ".claude/skills/plan-expert",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "plan",
-        "expert"
-      ],
-      "stars": 0,
-      "install": "nathanvale/vtm-cli/.claude/skills/plan-expert",
-      "source": "downloaded"
-    },
-    {
-      "name": "crewai",
-      "description": "Multi-agent orchestration framework for autonomous AI collaboration. Use when building teams of specialized agents working together on complex tasks, when you need role-based agent collaboration with",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "nrpg",
       "description": "Use when working on NRPG Platform tasks to follow repo conventions (NextAuth cookie sessions, tenant safety, and contractor privacy) and to run the correct checks.",
       "repo": "CleanExpo/Disaster-Recovery",
@@ -11939,21 +10252,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "experience",
-      "description": "Capture task outcomes, score performance, and derive rules as token priors for continual learning without model weight changes. Use for post-task feedback, experience capture, pattern extraction, and",
-      "repo": "dredd-us/seashells",
-      "path": ".claude/skills/experience-library",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "experience",
-        "library"
-      ],
-      "stars": 0,
-      "install": "dredd-us/seashells/.claude/skills/experience-library",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "wm",
       "description": "Workspace orchestration automation for the wm CLI multi-repo workflow. Use when user wants to start, resume, extend, or manage engineering workspaces with Git worktrees. Handles intent parsing (\"start",
       "repo": "jonmagic/skills",
@@ -12002,22 +10300,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "android",
-      "description": "Setup automated screenshot capture for Play Store using Fastlane Screengrab",
-      "repo": "hitoshura25/claude-devtools",
-      "path": "skills/android-screenshot-automation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "android",
-        "screenshot",
-        "automation"
-      ],
-      "stars": 0,
-      "install": "hitoshura25/claude-devtools/skills/android-screenshot-automation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "oauth",
       "description": "Use when OAuth tokens expire frequently, need automatic token refresh, YouTube/Google API integration, or when workflows fail due to expired credentials",
       "repo": "aixier/n8n-automation-hub",
@@ -12042,18 +10324,6 @@
       "tags": [],
       "stars": 0,
       "install": "HermeticOrmus/LibreUIUX-Claude-Code/plugins/agent-orchestration/skills/ui-agent-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "docs",
-      "description": "Documentation pipeline automation and docs-as-code workflows",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "plugins/documentation-standards/skills/docs-as-code",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "melodic-software/claude-code-plugins/plugins/documentation-standards/skills/docs-as-code",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12121,18 +10391,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "principal",
-      "description": "Run the AWK principal workflow (awkit kickoff, principal loop, dispatch worker, check results, review/merge PR). Triggers: awkit kickoff, start-work, NEXT_ACTION, review pr, dispatch worker, autonomou",
-      "repo": "silver2dream/ai-workflow-kit",
-      "path": ".ai/skills/principal-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "silver2dream/ai-workflow-kit/.ai/skills/principal-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cloudflare",
       "description": "Comprehensive guide for Cloudflare Durable Objects - globally unique, stateful objects for coordination, real-time communication, and persistent state management.Use when: building real-time applicati",
       "repo": "jackspace/ClaudeSkillz",
@@ -12187,30 +10445,6 @@
       "stars": 0,
       "install": "HundredBillion/promiseKits",
       "source": "downloaded"
-    },
-    {
-      "name": "nl",
-      "description": "Route natural language requests to appropriate skills and workflows. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/utils/skills/nl-router",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/utils/skills/nl-router",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "improve",
-      "description": "This skill should be used when users drop off mid-task, motivation fades, or experiences feel flat. Applies Peak-End Rule, Goal-Gradient Effect, and Zeigarnik Effect.",
-      "repo": "rohunvora/my-claude-skills",
-      "path": ".claude/skills/improve-flow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "rohunvora/my-claude-skills/.claude/skills/improve-flow",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "jj",
@@ -12305,33 +10539,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "using",
-      "description": "Use when coordinating dependency-aware task planning with beads (bd) CLI and bv graph sidecar - covers ready work selection, priority management, and robot flags for deterministic outputs",
-      "repo": "AgentWorkforce/relay",
-      "path": ".claude/skills/using-beads-bv",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "AgentWorkforce/relay/.claude/skills/using-beads-bv",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "4",
-      "description": "Coordinator workflow for orchestrating dockeragents through fix-review-iterate-present loop. Use when delegating any task that produces code changes. Ensures agents achieve 10/10 quality before presen",
-      "repo": "Cygnusfear/claude-stuff",
-      "path": "skills/4-step-program",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "step",
-        "program"
-      ],
-      "stars": 0,
-      "install": "Cygnusfear/claude-stuff/skills/4-step-program",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "ptk",
       "description": "This skill should be used when the user asks about \"prompt_toolkit Validator\", \"validation\", \"input validation\", \"ValidationError\", \"History\", \"FileHistory\", \"InMemoryHistory\", \"auto_suggest\", \"AutoSu",
       "repo": "willibrandon/pgtail",
@@ -12362,18 +10569,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "context",
-      "description": "Universal context management and planning system. PROACTIVELY activate for: (1) ANY complex task requiring planning, (2) Multi-file projects/websites/apps, (3) Architecture decisions, (4) Research tas",
-      "repo": "JosiahSiegel/claude-plugin-marketplace",
-      "path": "plugins/context-master/skills/context-master",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "JosiahSiegel/claude-plugin-marketplace/plugins/context-master/skills/context-master",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "forking",
       "description": "Use when user wants to create new autonomy branch with dedicated worktree for parallel agent workflows",
       "repo": "tilmon-engineering/claude-skills",
@@ -12383,33 +10578,6 @@
       "tags": [],
       "stars": 0,
       "install": "tilmon-engineering/claude-skills/plugins/autonomy/skills/forking-worktree",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "numpy",
-      "description": "Advanced indexing techniques including slicing, fancy indexing, and boolean masks, along with memory implications of views vs. copies. Triggers: indexing, slicing, fancy indexing, boolean mask, np.whe",
-      "repo": "cuba6112/skillfactory",
-      "path": "skills/numpy-indexing",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "numpy",
-        "indexing"
-      ],
-      "stars": 0,
-      "install": "cuba6112/skillfactory/skills/numpy-indexing",
-      "source": "downloaded"
-    },
-    {
-      "name": "data",
-      "description": "Orchestrate marketing data collection, transformation, and reporting workflows. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/marketing/skills/data-pipeline",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/marketing/skills/data-pipeline",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12425,21 +10593,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "daily",
-      "description": "Generate comprehensive daily status reports after solving AoC puzzles. Documents success/failure, challenges faced, retry attempts, execution time, and insights for workflow tuning. Use after completi",
-      "repo": "magnusrodseth/aoc-2025",
-      "path": ".claude/skills/daily-reporter",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "daily",
-        "reporter"
-      ],
-      "stars": 0,
-      "install": "magnusrodseth/aoc-2025/.claude/skills/daily-reporter",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "confluence",
       "description": "Confluence Page Generator - Auto-activating skill for Enterprise Workflows.Triggers on: confluence page generator, confluence page generatorPart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -12450,22 +10603,6 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/20-enterprise-workflows/confluence-page-generator",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "effect",
-      "description": "Concurrency with Effect.all, forEach concurrency, Fiber lifecycle, race and timeouts. Use for parallelizing tasks safely.",
-      "repo": "mepuka/effect-ontology",
-      "path": ".claude/skills/effect-concurrency-fibers",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "effect",
-        "concurrency",
-        "fibers"
-      ],
-      "stars": 0,
-      "install": "mepuka/effect-ontology/.claude/skills/effect-concurrency-fibers",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "copilot",
@@ -12511,18 +10648,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "slash",
-      "description": "Generate custom Claude Code slash commands through intelligent 5-7 question flow. Creates powerful commands for business research, content analysis, healthcare compliance, API integration, documentati",
-      "repo": "alirezarezvani/claude-code-skill-factory",
-      "path": "generated-skills/slash-command-factory",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "alirezarezvani/claude-code-skill-factory/generated-skills/slash-command-factory",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "framework",
       "description": "Detects Solidity development framework (Foundry, Hardhat, or Hybrid) and adapts workflows accordingly. Use at the start of any Solidity development task to determine which tools and commands to use.",
       "repo": "IvanTorresEdge/molcajete.ai",
@@ -12551,21 +10676,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "wavecap",
-      "description": "Review and correct WaveCap transcriptions. Use when the user wants to mark transcriptions as verified, add corrections, or manage the review workflow.",
-      "repo": "TobiasWooldridge/WaveCap",
-      "path": ".claude/skills/wavecap-review",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "wavecap",
-        "review"
-      ],
-      "stars": 0,
-      "install": "TobiasWooldridge/WaveCap/.claude/skills/wavecap-review",
-      "source": "downloaded"
-    },
-    {
       "name": "jira",
       "description": "Jira Ticket Generator - Auto-activating skill for Enterprise Workflows.Triggers on: jira ticket generator, jira ticket generatorPart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -12587,18 +10697,6 @@
       "tags": [],
       "stars": 0,
       "install": "Lobbi-Docs/claude",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "risk",
-      "description": "Continuous risk identification, assessment, tracking, and retirement throughout SDLC. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/sdlc/skills/risk-cycle",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/sdlc/skills/risk-cycle",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12677,21 +10775,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "vtm",
-      "description": "Virtual Task Manager domain expert.Knows about:- Next, Context, Task, Start, Complete, Stats, List operationsUse when:- User asks about task management operations- Context needed before starting work-",
-      "repo": "nathanvale/vtm-cli",
-      "path": ".claude/skills/vtm-expert",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "vtm",
-        "expert"
-      ],
-      "stars": 0,
-      "install": "nathanvale/vtm-cli/.claude/skills/vtm-expert",
-      "source": "downloaded"
-    },
-    {
       "name": "notes",
       "description": "Note-taking workflow using denote format and org-mode. USE WHEN user wants to create notes, organize knowledge, document learnings, or work with denote/org-mode files.",
       "repo": "vdemeester/home",
@@ -12729,21 +10812,6 @@
       ],
       "stars": 0,
       "install": "nexus-labs-automation/agent-observability/skills/multi-agent-coordination",
-      "source": "downloaded"
-    },
-    {
-      "name": "marketing",
-      "description": "Эксперт по автоматизации маркетинга. Используй для настройки HubSpot, Marketo, email sequences, lead scoring и workflows.",
-      "repo": "dengineproblem/agents-monorepo",
-      "path": ".claude/skills/marketing-automation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "marketing",
-        "automation"
-      ],
-      "stars": 0,
-      "install": "dengineproblem/agents-monorepo/.claude/skills/marketing-automation",
       "source": "downloaded"
     },
     {
@@ -12870,18 +10938,6 @@
       "source": "SkillsMP (cached JSON)"
     },
     {
-      "name": "your",
-      "description": "Create and manage specialized Claude Code subagents for task-specific workflows. Use when delegating work to specialized agents, configuring agent permissions, or understanding subagent architecture a",
-      "repo": "CaptainCrouton89/.claude",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "CaptainCrouton89/.claude",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "scout",
       "description": "Build agentic AI applications with multi-step task orchestration, tool calling, and state management. Use when creating AI agents that autonomously perform complex workflows like the Scout Travel Conc",
       "repo": "n8liu/scout-itinerary",
@@ -12924,48 +10980,6 @@
       "source": "downloaded"
     },
     {
-      "name": "estimation",
-      "description": "Estimation techniques including analogous, parametric, three-point, and expert judgment methods. Provides effort, cost, duration, and complexity estimates for projects, features, and tasks.",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "plugins/business-analysis/skills/estimation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "melodic-software/claude-code-plugins/plugins/business-analysis/skills/estimation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "adhd",
-      "description": "ADHD-optimized accountability for task tracking, abandonment detection, and interventions. Use when tracking tasks, detecting context switches, or providing accountability support.",
-      "repo": "breverdbidder/life-os",
-      "path": ".claude/skills/adhd-accountability",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "adhd",
-        "accountability"
-      ],
-      "stars": 0,
-      "install": "breverdbidder/life-os/.claude/skills/adhd-accountability",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "agent",
-      "description": "Multi-agent development workflow system. Load when orchestrating development tasks, spawning subagents, or managing workflow phases.",
-      "repo": "Clouder0/dotagent",
-      "path": ".claude/skills/agent-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agent",
-        "workflow"
-      ],
-      "stars": 0,
-      "install": "Clouder0/dotagent/.claude/skills/agent-workflow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "colab",
       "description": "Colab file paths after unzipping repo. Trigger when: (1) API key file not found, (2) file path errors in Colab, (3) configuring notebook paths, (4) 'yfinance fallback' despite keys existing.",
       "repo": "smith6jt-cop/Skills_Registry",
@@ -12975,50 +10989,6 @@
       "tags": [],
       "stars": 0,
       "install": "smith6jt-cop/Skills_Registry/plugins/trading/colab-unzip-workflow/skills/colab-unzip-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "android",
-      "description": "Complete Play Store setup - orchestrates scanning, privacy policy, version management, Fastlane, and workflows (Internal track only)",
-      "repo": "hitoshura25/claude-devtools",
-      "path": "skills/android-playstore-setup",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "android",
-        "playstore",
-        "setup"
-      ],
-      "stars": 0,
-      "install": "hitoshura25/claude-devtools/skills/android-playstore-setup",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "parallel",
-      "description": "Run multiple agent tasks in parallel cloud sandboxes with real-time progress monitoring, achieving 2x throughput vs sequential execution. Use for multi-repo tasks, independent bug fixes, concurrent fe",
-      "repo": "dredd-us/seashells",
-      "path": ".claude/skills/parallel-session-orchestration",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "parallel",
-        "session",
-        "orchestration"
-      ],
-      "stars": 0,
-      "install": "dredd-us/seashells/.claude/skills/parallel-session-orchestration",
-      "source": "downloaded"
-    },
-    {
-      "name": "omnifocus",
-      "description": "Manage OmniFocus projects and tasks programmatically. This skill should be used when creating, reading, updating, or listing OmniFocus tasks and projects. Supports all OmniFocus versions through intel",
-      "repo": "arlenagreer/claude_configuration_docs",
-      "path": "skills/omnifocus",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "arlenagreer/claude_configuration_docs/skills/omnifocus",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13062,21 +11032,6 @@
       "source": "downloaded"
     },
     {
-      "name": "snd",
-      "description": "Use this skill when implementing quest automation in SND macros using the Questionable plugin. Covers command usage and integration with leveling workflows.",
-      "repo": "vaoan/SND",
-      "path": ".claude/skills/snd-questionable",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "snd",
-        "questionable"
-      ],
-      "stars": 0,
-      "install": "vaoan/SND/.claude/skills/snd-questionable",
-      "source": "downloaded"
-    },
-    {
       "name": "worker",
       "description": "Use for workflow guidance on HOW to work effectively. Covers task execution, decision escalation, and team coordination.",
       "repo": "RoM4iK/tinker-public",
@@ -13116,18 +11071,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "metacognition",
-      "description": "Validates approach and checks assumptions before/after tasks. Use when: starting work, encountering errors, or switching phases.",
-      "repo": "shinpr/agentic-code",
-      "path": ".agents/skills/metacognition",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "shinpr/agentic-code/.agents/skills/metacognition",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "lifecycletransient",
       "description": "Hot-swap to the ephemeral model, run the atomic task, capture result, and hand it back. Use for spawn→solve→return flows.",
       "repo": "Cloudhabil/AGI-Server",
@@ -13138,23 +11081,6 @@
       "stars": 0,
       "install": "Cloudhabil/AGI-Server",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "brainstorming",
-      "description": "Collaborative design refinement through Socratic dialogue for exploring ideas",
-      "repo": "obra/superpowers",
-      "path": "skills/brainstorming",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "brainstorming",
-        "design",
-        "collaboration",
-        "ideation"
-      ],
-      "stars": 0,
-      "install": "obra/superpowers/skills/brainstorming",
-      "source": "Community Skills"
     },
     {
       "name": "deployment",
@@ -13186,22 +11112,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "open",
-      "description": "Use this skill when contributing code to open source projects. The skill covers proper pull request creation, avoiding common mistakes that annoy maintainers, cleaning up personal development artifact",
-      "repo": "jackspace/ClaudeSkillz",
-      "path": "skills/open-source-contributions",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "open",
-        "source",
-        "contributions"
-      ],
-      "stars": 0,
-      "install": "jackspace/ClaudeSkillz/skills/open-source-contributions",
-      "source": "downloaded"
-    },
-    {
       "name": "issue",
       "description": "Generate GitHub issues from an approved engineering specification. Use to break down a spec into implementable, atomic tasks with dependencies, sizing, and labels.",
       "repo": "pcortes/swarm-attack",
@@ -13227,38 +11137,6 @@
       "stars": 0,
       "install": "settlemint/agent-marketplace",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "adhd",
-      "description": "ADHD-optimized task tracking with abandonment detection, intervention strategies, and completion accountability",
-      "repo": "breverdbidder/life-os",
-      "path": ".claude/skills/adhd-task-management-skill",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "adhd",
-        "task",
-        "management",
-        "skill"
-      ],
-      "stars": 0,
-      "install": "breverdbidder/life-os/.claude/skills/adhd-task-management-skill",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "context",
-      "description": "\"Manages personal knowledge about the user through Basic Memory. Use this skill when: (1) User requests to search/retrieve past information, (2) User requests to record/save information, or (3) Import",
-      "repo": "t-chito/dotfiles",
-      "path": ".claude/skills/context-management",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "context",
-        "management"
-      ],
-      "stars": 0,
-      "install": "t-chito/dotfiles/.claude/skills/context-management",
-      "source": "downloaded"
     },
     {
       "name": "auto",
@@ -13353,18 +11231,6 @@
       "tags": [],
       "stars": 0,
       "install": "iheanyi/tasuku/skills/tk-context",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "template",
-      "description": "Load, validate, and populate templates consistently across frameworks. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/utils/skills/template-engine",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/utils/skills/template-engine",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13464,18 +11330,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "generate",
-      "description": "Generate user-story-organized task lists from implementation plans. Use when plan exists and user is ready for implementation, mentions",
-      "repo": "yangsi7/nikita",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "yangsi7/nikita",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "workbench",
       "description": "GitHub workflows for Workbench CLI. Use when creating pull requests from work items or wiring GitHub-specific actions.",
       "repo": "bravellian/workbench",
@@ -13567,22 +11421,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "wolf",
-      "description": "Agent coordination, orchestration, and multi-agent workflow management scripts",
-      "repo": "Nice-Wolf-Studio/wolf-skills-marketplace",
-      "path": "wolf-scripts-agents",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "wolf",
-        "scripts",
-        "agents"
-      ],
-      "stars": 0,
-      "install": "Nice-Wolf-Studio/wolf-skills-marketplace/wolf-scripts-agents",
-      "source": "downloaded"
-    },
-    {
       "name": "meta",
       "description": "Meta 환경 기본 워크플로우. semo-system/ 수정 → 버저닝 → 배포 → 로컬 동기화 체인 자동 실행.Use when (1) [Meta] 프리픽스 요청, (2) semo-system/ 수정 완료 후, (3) Meta 패키지 설치 환경.",
       "repo": "semicolon-devteam/semo",
@@ -13592,18 +11430,6 @@
       "tags": [],
       "stars": 0,
       "install": "semicolon-devteam/semo/semo-system/meta/skills/meta-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "create",
-      "description": "Create a task and add it to the master TODO.md file",
-      "repo": "deybhayden/dotfiles",
-      "path": ".claude/skills/create-task",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "deybhayden/dotfiles/.claude/skills/create-task",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13683,22 +11509,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "accounts",
-      "description": "Эксперт AP workflow. Используй для процессов кредиторской задолженности, invoice processing, three-way matching и payment automation.",
-      "repo": "dengineproblem/agents-monorepo",
-      "path": ".claude/skills/accounts-payable-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "accounts",
-        "payable",
-        "workflow"
-      ],
-      "stars": 0,
-      "install": "dengineproblem/agents-monorepo/.claude/skills/accounts-payable-workflow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "continuous",
       "description": "Reflect on task execution and create reusable skills. Use when user says 'learn', 'reflect', 'save as skill', or after completing complex tasks.",
       "repo": "l-lin/dotfiles",
@@ -13734,22 +11544,6 @@
       ],
       "stars": 0,
       "install": "kaungmyatmindfulness/Snowflake/.claude/skills/orchestration",
-      "source": "downloaded"
-    },
-    {
-      "name": "single",
-      "description": "ENFORCEMENT tool that detects when Skills automation is duplicated in agent definitions, lessons learned, or process docs. Prevents \"single source of truth nightmare\" by finding bash commands, step-by",
-      "repo": "DarkMonkDev/WitchCityRope",
-      "path": ".claude/skills/single-source-validator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "single",
-        "source",
-        "validator"
-      ],
-      "stars": 0,
-      "install": "DarkMonkDev/WitchCityRope/.claude/skills/single-source-validator",
       "source": "downloaded"
     },
     {
@@ -13809,18 +11603,6 @@
       "stars": 0,
       "install": "humanlayer/riptide-rpi/skills/rpi-setup-humanlayer",
       "source": "downloaded"
-    },
-    {
-      "name": "complete",
-      "description": "Complete the next task in the TODO.md file",
-      "repo": "deybhayden/dotfiles",
-      "path": ".claude/skills/complete-task",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "deybhayden/dotfiles/.claude/skills/complete-task",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "task",
@@ -14011,18 +11793,6 @@
       "source": "downloaded"
     },
     {
-      "name": "say",
-      "description": "Use macOS text-to-speech for agent narration and announcements. Sub-agents announce themselves using different language voices speaking English. Use for multi-agent workflows where each agent has a di",
-      "repo": "plurigrid/asi",
-      "path": "skills/say-narration",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "plurigrid/asi/skills/say-narration",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "decomposing",
       "description": "Use after writing-plans to decompose monolithic plan into individual task files and identify tasks that can run in parallel (up to 2 subagents simultaneously)",
       "repo": "seanGSISG/crispy-claude",
@@ -14083,18 +11853,6 @@
       "tags": [],
       "stars": 0,
       "install": "fractary/claude-plugins/plugins/faber/skills/archive-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "project",
-      "description": "Display comprehensive project status dashboard showing current feature, pipeline phase, task progress, memory health, and recommended next actions. Use when the user asks about project status (\"where",
-      "repo": "b4CU-R4U/neuroverse-presentation-automator",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "b4CU-R4U/neuroverse-presentation-automator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -14187,18 +11945,6 @@
       "source": "downloaded"
     },
     {
-      "name": "prompt",
-      "description": "Guide selection of appropriate prompt level for a task. Use when choosing between simple prompts and complex workflows, applying the seven levels framework, or matching task complexity to prompt inves",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "plugins/tac/skills/prompt-level-selection",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "melodic-software/claude-code-plugins/plugins/tac/skills/prompt-level-selection",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pulumi",
       "description": "Pulumi Neo AI-powered infrastructure automation agent. Use when working with Pulumi Neo for conversational infrastructure management, creating Neo tasks, monitoring task progress, infrastructure analy",
       "repo": "dirien/claude-skills",
@@ -14250,30 +11996,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "obra",
-      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/obra",
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "release",
-      "description": "Release automation for npm-trustme. Use when asked to cut a new npm-trustme version, run the release script, or tag/publish a new release.",
-      "repo": "regenrek/npm-trustme",
-      "path": ".codex/skills/release-npm-trustme",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "regenrek/npm-trustme/.codex/skills/release-npm-trustme",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "git",
       "description": "Complete pull request workflow combining git-hex (local craft) with remote collaboration (GitHub plugin or CLI). This skill should be used when the user wants to prepare, submit, and iterate on a PR w",
       "repo": "yaniv-golan/git-hex",
@@ -14302,21 +12024,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "numpy",
-      "description": "Deep dive into memory layout, including strides, C vs Fortran order, and zero-copy view generation via stride tricks. Triggers: strides, C-order, Fortran-order, memory locality, stride_tricks.",
-      "repo": "cuba6112/skillfactory",
-      "path": "skills/numpy-memory",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "numpy",
-        "memory"
-      ],
-      "stars": 0,
-      "install": "cuba6112/skillfactory/skills/numpy-memory",
-      "source": "downloaded"
-    },
-    {
       "name": "gmacko",
       "description": "Use when (1) user wants a complete project setup from scratch, (2) one-command initialization of a new Gmacko Ventures project, (3) orchestrating the full init workflow. Coordinates interview, plan, b",
       "repo": "gmackie/vercel-expo-app-template",
@@ -14327,22 +12034,6 @@
       "stars": 0,
       "install": "gmackie/vercel-expo-app-template/.opencode/skill/gmacko-init-orchestrator",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cross",
-      "description": "Coordinate changes across project-beta repositories when updating runner configurations. Ensures workflow labels match runner scale set names. Use when changing runnerScaleSetName or deploying new run",
-      "repo": "Matchpoint-AI/matchpoint-github-runners-helm",
-      "path": ".claude/skills/cross-repo-coordination",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "cross",
-        "repo",
-        "coordination"
-      ],
-      "stars": 0,
-      "install": "Matchpoint-AI/matchpoint-github-runners-helm/.claude/skills/cross-repo-coordination",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "github",
@@ -14479,34 +12170,6 @@
       "source": "downloaded"
     },
     {
-      "name": "spec",
-      "description": "Orchestrate comprehensive planning phase from ideation to development-ready specifications using 4 specialized agents",
-      "repo": "zubayer0077/Claude-Multi-Agent-Research-System-Skill",
-      "path": ".claude/skills/spec-workflow-orchestrator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "spec",
-        "workflow",
-        "orchestrator"
-      ],
-      "stars": 0,
-      "install": "zubayer0077/Claude-Multi-Agent-Research-System-Skill/.claude/skills/spec-workflow-orchestrator",
-      "source": "downloaded"
-    },
-    {
-      "name": "architecture",
-      "description": "Manage architecture changes with impact analysis, ADR generation, and migration planning. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/sdlc/skills/architecture-evolution",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/sdlc/skills/architecture-evolution",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "environment",
       "description": "Perform heuristic environment discovery beyond basic directory listing. Check installed packages, analyze folder structure, inspect running processes, and assess system state. Use proactively when sta",
       "repo": "Whamp/bond",
@@ -14576,18 +12239,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pr",
-      "description": "This skill should be used when user asks to \"create a PR\", \"make a pull request\", \"open PR for this branch\", \"submit changes as PR\", \"push and create PR\", or runs /create-pr or /pr-creator commands.",
-      "repo": "fcakyon/claude-codex-settings",
-      "path": "plugins/github-dev/skills/pr-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "fcakyon/claude-codex-settings/plugins/github-dev/skills/pr-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "research",
       "description": "Deep research workflow for this project using 150% scope (100% core + 50% boundary), evidence-based reasoning, and structured investigation notes. Use when the task requires investigation, root-cause",
       "repo": "MykhailoDmytriakha/my-preacher-helper",
@@ -14598,30 +12249,6 @@
       "stars": 0,
       "install": "MykhailoDmytriakha/my-preacher-helper/.codex/skills/21-understand-research-150",
       "source": "GitHub Search API"
-    },
-    {
-      "name": "using",
-      "description": "Celery 5.3+ distributed task queue with Beat scheduler, Redis/RabbitMQ brokers, workflow patterns, and FastAPI integration. Use for background jobs, periodic tasks, and async processing.",
-      "repo": "FortiumPartners/ensemble",
-      "path": "packages/development/skills/using-celery",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "FortiumPartners/ensemble/packages/development/skills/using-celery",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "obra",
-      "description": "Use when executing implementation plans with independent tasks in the current session",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/obra",
-      "source": "https://github.com/obra/superpowers"
     },
     {
       "name": "tool",
@@ -14672,18 +12299,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "context",
-      "description": "Use when starting a complex task to load relevant context from Memory MCP and suggest appropriate skills based on task type.",
-      "repo": "duc01226/EasyPlatform",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "duc01226/EasyPlatform",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "recover",
       "description": "Diagnose task protocol errors and provide targeted recovery procedures",
       "repo": "cowwoc/styler",
@@ -14723,18 +12338,6 @@
       "source": "downloaded"
     },
     {
-      "name": "sdlc",
-      "description": "Generate comprehensive SDLC reports including iteration status, metrics dashboards, and executive summaries. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/sdlc/skills/sdlc-reports",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/sdlc/skills/sdlc-reports",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "beads",
       "description": "Use this skill for ALL task, issue, and todo tracking when the project has a `.beads/` directory or uses `bd` commands. This skill MUST be used instead of TodoWrite for any project with beads initiali",
       "repo": "gjermundgaraba/dotfiles",
@@ -14745,21 +12348,6 @@
       "stars": 0,
       "install": "gjermundgaraba/dotfiles",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "backlog",
-      "description": "Expert guidance for managing tasks using the Backlog.md CLI tool. Use this skill when working with backlog tasks, creating or editing task files, managing acceptance criteria, tracking task progress,",
-      "repo": "kasuboski/mediaz",
-      "path": ".claude/skills/backlog-manager",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "backlog",
-        "manager"
-      ],
-      "stars": 0,
-      "install": "kasuboski/mediaz/.claude/skills/backlog-manager",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "nonstop",
@@ -14799,18 +12387,6 @@
       "stars": 0,
       "install": "blossomz37/2025-10-26-Claude-Skills/automatic-book-machine-v2/modify-then-zip-as-skill",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "claudekit",
-      "description": "Use when complex problems require systematic step-by-step reasoning with ability to revise thoughts, branch into alternative approaches, or dynamically adjust scope. Ideal for multi-stage analysis,...",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/claudekit",
-      "source": "https://github.com/mrgoonie/claudekit-skills"
     },
     {
       "name": "task",
@@ -14977,18 +12553,6 @@
       "source": "downloaded"
     },
     {
-      "name": "lindquist",
-      "description": "Maintain and synchronize Unified Impact Diagrams following Diagram Driven Development (DDD) methodology. Create, update, and manage diagrams that connect user value to technical implementation.",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/lindquist",
-      "source": "https://github.com/johnlindquist/claude-workshop-skills"
-    },
-    {
       "name": "checkin",
       "description": "Load and review Emergent Learning Framework context, institutional knowledge, golden rules, and recent session history. Runs the checkin workflow interactively with banner, context loading, and dashbo",
       "repo": "toseekandfind/multi-agent-sandbox",
@@ -15063,18 +12627,6 @@
       "stars": 0,
       "install": "CaptainCrouton89/.claude",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "embedding",
-      "description": "Generate and manage text embeddings for semantic search, clustering, and similarity tasks",
-      "repo": "eddiebe147/claude-settings",
-      "path": "skills/embedding-generator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "eddiebe147/claude-settings/skills/embedding-generator",
-      "source": "GitHub Search API"
     },
     {
       "name": "stable",
@@ -15296,18 +12848,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "performance",
-      "description": "Generate executive-ready performance summaries with insights and recommendations. Use when relevant to the task.",
-      "repo": "jmagly/ai-writing-guide",
-      "path": "plugins/marketing/skills/performance-digest",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jmagly/ai-writing-guide/plugins/marketing/skills/performance-digest",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "jira",
       "description": "Manage J4C project tasks via Jira API. Use for ALL Jira project management tasks including creating tasks, checking ready work, linking dependencies, transitioning status, or adding comments.",
       "repo": "fwojciec/jira4claude",
@@ -15417,18 +12957,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "workflow",
-      "description": "ユーザーの作業フローから、Workflow Skillのマークダウンファイルを生成する。ワークフロースキル作成時、業務プロセス文書化時、またはユーザーがWorkflow Skill、作業フロー、業務プロセス、手順書に言及した際に使用する。",
-      "repo": "RevTechStudio/rts-plugins",
-      "path": "rts-plugin-generator/skills/workflow-skill-generator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "RevTechStudio/rts-plugins/rts-plugin-generator/skills/workflow-skill-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "detecting",
       "description": "Detects incorrect use of memset() including wrong argument order, incorrect size calculations, and misunderstood behavior. Use when analyzing memory initialization, buffer clearing, or investigating m",
       "repo": "waiwai24/BinaryX-Agent",
@@ -15469,18 +12997,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "check",
-      "description": "Check if pull request already exists for current branch to support workflow resumption and prevent duplicate PR creation",
-      "repo": "BerryKuipers/claude-code-toolkit",
-      "path": ".claude/skills/github-integration/check-existing-pr",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "BerryKuipers/claude-code-toolkit/.claude/skills/github-integration/check-existing-pr",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "git",
       "description": "Git workflow policies including commit rules and worktree cleanup sequence. Use when managing git operations, commits, or merges.",
       "repo": "binee108/nine-step-workflow-plugin",
@@ -15494,34 +13010,6 @@
       ],
       "stars": 0,
       "install": "binee108/nine-step-workflow-plugin/skills/git-workflow-policy",
-      "source": "downloaded"
-    },
-    {
-      "name": "linear",
-      "description": "Linear's proven methodology for software development and project organization. Use when helping users plan work, create issues, structure projects, set direction, prioritize tasks, or organize develop",
-      "repo": "horuz-ai/claude-plugins",
-      "path": "plugins/linear/skills/linear-method",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "horuz-ai/claude-plugins/plugins/linear/skills/linear-method",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "orchestration",
-      "description": "Production-scale multi-agent coordination, task orchestration, and workflow automation. Use for distributed system orchestration, agent communication protocols, DAG workflows, state machines, error ha",
-      "repo": "doctorduke/claude-config",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "orchestration",
-        "coordination",
-        "framework"
-      ],
-      "stars": 0,
-      "install": "doctorduke/claude-config",
       "source": "downloaded"
     },
     {
@@ -15560,21 +13048,6 @@
       ],
       "stars": 0,
       "install": "bradleygolden/springfield/skills/springfield",
-      "source": "downloaded"
-    },
-    {
-      "name": "project",
-      "description": "Coordinate multiple agents by routing tasks to appropriate specialists. EXCLUSIVE to project-manager agent.",
-      "repo": "htooayelwinict/claude-config",
-      "path": "skills/project-orchestration",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "project",
-        "orchestration"
-      ],
-      "stars": 0,
-      "install": "htooayelwinict/claude-config/skills/project-orchestration",
       "source": "downloaded"
     },
     {
@@ -15640,21 +13113,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "timeout",
-      "description": "Prevent request timeouts in Claude Code sessions by chunking long operations, implementing progress checkpoints, using background processes, and optimizing tool usage patterns. Use when performing bul",
-      "repo": "jackspace/ClaudeSkillz",
-      "path": "skills/timeout-prevention",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "timeout",
-        "prevention"
-      ],
-      "stars": 0,
-      "install": "jackspace/ClaudeSkillz/skills/timeout-prevention",
-      "source": "downloaded"
-    },
-    {
       "name": "shopify",
       "description": "Comprehensive guide for Shopify CLI app development lifecycle. Use when working with Shopify apps - initializing projects, managing TOML configurations, running local development (shopify app dev), de",
       "repo": "eibrahimov/claude-skills",
@@ -15680,22 +13138,6 @@
       "stars": 0,
       "install": "karlmdavis/dotfiles/private_dot_claude/skills/getting-pr-artifacts",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "task",
-      "description": "Parse memory.yaml and consolidate recurring patterns into skills. Use when memory.yaml grows large, when patterns recur 3+ times, or during RSID Ideate stage. Automates the memory-to-skill pipeline.",
-      "repo": "Anveio/conveaux",
-      "path": ".claude/skills/task-memory-consolidation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "memory",
-        "consolidation"
-      ],
-      "stars": 0,
-      "install": "Anveio/conveaux/.claude/skills/task-memory-consolidation",
-      "source": "downloaded"
     },
     {
       "name": "moai",
@@ -15747,18 +13189,6 @@
       "source": "downloaded"
     },
     {
-      "name": "email",
-      "description": "Comprehensive email marketing strategy including drip campaigns, segmentation, automation workflows, copywriting guidelines, deliverability best practices, and 90-day implementation roadmap with full-",
-      "repo": "maigentic/stratarts",
-      "path": "skills/marketing-growth/email-marketing-architect",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "maigentic/stratarts/skills/marketing-growth/email-marketing-architect",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "revising",
       "description": "Implement findings from verification reports with scope-based parallel workflow",
       "repo": "cipherstash/cipherpowers",
@@ -15768,33 +13198,6 @@
       "tags": [],
       "stars": 0,
       "install": "cipherstash/cipherpowers/plugin/skills/revising-findings",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "start",
-      "description": "Commit or stash current work, then start a new feature using worktree workflow. Use when beginning work on a new story or feature, ensures clean state before starting new work.",
-      "repo": "michael-menard/monorepo",
-      "path": ".claude/skills/start-feature",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "start",
-        "feature"
-      ],
-      "stars": 0,
-      "install": "michael-menard/monorepo/.claude/skills/start-feature",
-      "source": "downloaded"
-    },
-    {
-      "name": "workflow",
-      "description": "Workflow d'Analyse Obligatoire. Use when working with workflow analysis.",
-      "repo": "TheBeardedBearSAS/claude-craft",
-      "path": "Dev/i18n/pt/Common/skills/workflow-analysis",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBeardedBearSAS/claude-craft/Dev/i18n/pt/Common/skills/workflow-analysis",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15873,34 +13276,6 @@
       "source": "downloaded"
     },
     {
-      "name": "orchestrating",
-      "description": "Orchestrates parallel API instances, delegated sub-tasks, and multi-agent workflows with streaming and tool-enabled delegation patterns. Use for parallel analysis, multi-perspective reviews, or comple",
-      "repo": "oaustegard/claude-skills",
-      "path": "orchestrating-agents",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "oaustegard/claude-skills/orchestrating-agents",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "android",
-      "description": "Generate GitHub Actions workflows for production deployment with staged rollout",
-      "repo": "hitoshura25/claude-devtools",
-      "path": "skills/android-workflow-production",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "android",
-        "workflow",
-        "production"
-      ],
-      "stars": 0,
-      "install": "hitoshura25/claude-devtools/skills/android-workflow-production",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "discord",
       "description": "Discord Bot Generator - Auto-activating skill for Business Automation.Triggers on: discord bot generator, discord bot generatorPart of the Business Automation skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -15938,18 +13313,6 @@
       "stars": 0,
       "install": "astoreyai/ai_scientist/skills/risk-of-bias",
       "source": "downloaded"
-    },
-    {
-      "name": "complete",
-      "description": "Complete all tasks in order in the TODO.md file.",
-      "repo": "deybhayden/dotfiles",
-      "path": ".claude/skills/complete-all-tasks",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "deybhayden/dotfiles/.claude/skills/complete-all-tasks",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "workflow",
@@ -16006,30 +13369,6 @@
       "stars": 0,
       "install": "Spycner/Klassenzeit/.claude/skills/project-context",
       "source": "downloaded"
-    },
-    {
-      "name": "program",
-      "description": "Use when standardizing event workflows, tooling, and routing across portfolios.",
-      "repo": "gtmagents/gtm-agents",
-      "path": "plugins/event-marketing/skills/program-ops",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/plugins/event-marketing/skills/program-ops",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "synapse",
-      "description": "Pattern detection and automatic skill recommendation system. Activates when analyzing Cortex memory files, detecting recurring work patterns, or determining if new skills are needed. Analyzes .cortex_",
-      "repo": "bacoco/EvolveSkill",
-      "path": ".claude/skills/synapse",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "bacoco/EvolveSkill/.claude/skills/synapse",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "skill",
@@ -16098,18 +13437,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cloud",
-      "description": "Event-driven workflow automation in Flow Nexus cloud. Use for creating, executing, and managing complex automated workflows with message queue processing and intelligent agent coordination.",
-      "repo": "vamseeachanta/workspace-hub",
-      "path": ".claude/skills/tools/cloud/cloud-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "vamseeachanta/workspace-hub/.claude/skills/tools/cloud/cloud-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "checkpoint",
       "description": "Skill for tracking and managing task progress. Checks pending tasks at conversation start, proposes task creation for new requests, suggests completion reports when work is done. Integrates with check",
       "repo": "dobachi/AI_Instruction_Kits",
@@ -16146,18 +13473,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "anthropic",
-      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This ...",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/anthropic",
-      "source": "https://github.com/anthropics/skills"
-    },
-    {
       "name": "reminders",
       "description": "Search, create, and complete Apple Reminders. Use when user asks about tasks, todos, reminders, grocery lists, or wants to add/complete items.",
       "repo": "cardmagic/ai-marketplace",
@@ -16179,18 +13494,6 @@
       "tags": [],
       "stars": 0,
       "install": "inspirepan/klaude-code",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "playwright",
-      "description": "To click a page element in the browser, perform a click on buttons, links, or controls during Playwright automation.",
-      "repo": "X-School-Academy/ai-dev-swarm",
-      "path": "dev-swarm/mcp-skills/playwright-browser-click",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "X-School-Academy/ai-dev-swarm/dev-swarm/mcp-skills/playwright-browser-click",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16233,18 +13536,6 @@
       "source": "downloaded"
     },
     {
-      "name": "bun",
-      "description": "Use for Web Workers in Bun, worker_threads, parallel processing, and background tasks.",
-      "repo": "secondsky/claude-skills",
-      "path": "plugins/bun/skills/bun-workers",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/plugins/bun/skills/bun-workers",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "agent",
       "description": "Orchestrates multi-agent workflows by delegating ALL tasks to spawned subagents via /spawn command. Parallelizes independent work, supervises execution, tracks progress in UUID-based output directorie",
       "repo": "MatiasComercio/agentic-config",
@@ -16254,18 +13545,6 @@
       "tags": [],
       "stars": 0,
       "install": "MatiasComercio/agentic-config/core/skills/agent-orchestrator-manager",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "playwright",
-      "description": "To accept or dismiss browser dialogs like alert/confirm/prompt, handle the dialog so automation can continue.",
-      "repo": "X-School-Academy/ai-dev-swarm",
-      "path": "dev-swarm/mcp-skills/playwright-browser-handle-dialog",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "X-School-Academy/ai-dev-swarm/dev-swarm/mcp-skills/playwright-browser-handle-dialog",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16305,30 +13584,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "fastapi",
-      "description": "This skill should be used when the user asks to \"create background task\", \"add async job\", \"implement task queue\", \"schedule periodic task\", \"use Celery\", \"use ARQ\", \"process async\", or mentions backg",
-      "repo": "Lobbi-Docs/claude",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "Lobbi-Docs/claude",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nav",
-      "description": "Clear conversation context while preserving knowledge via context marker. Use when user says \"clear context\", \"start fresh\", \"done with this task\", or when approaching token limits.",
-      "repo": "alekspetrov/navigator",
-      "path": "skills/nav-compact",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "alekspetrov/navigator/skills/nav-compact",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "git",
       "description": "Git workflow management including branch validation, commit conventions, PR preparation, and repository health checks. Auto-activates on keywords git, branch, commit, pull request, PR, merge, rebase,",
       "repo": "williaby/.claude",
@@ -16341,30 +13596,6 @@
       "stars": 0,
       "install": "williaby/.claude/skills/git",
       "source": "downloaded"
-    },
-    {
-      "name": "skill",
-      "description": "Check for relevant skills before starting any task. Triggers on task start, new requests, beginning work, or implementation.",
-      "repo": "majesticlabs-dev/majestic-marketplace",
-      "path": "plugins/majestic-tools/skills/skill-first",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-tools/skills/skill-first",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "global",
-      "description": "This skill performs genome-wide DNA methylation profiling. It supports single-sample and multi-sample workflows to compute methylation density distributions, genomic feature distribution of the methyl",
-      "repo": "BIsnake2001/ChromSkills",
-      "path": "24.global-methylation-profile",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "BIsnake2001/ChromSkills/24.global-methylation-profile",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "self",
@@ -16433,22 +13664,6 @@
       "source": "downloaded"
     },
     {
-      "name": "project",
-      "description": "Central coordinator for multi-platform workflow management across GitHub, Plane.so, and ClickUp. Orchestrates monitoring, reporting, and issue management across platforms.",
-      "repo": "Zura1555/agents",
-      "path": ".claude/skills/project-master-orchestrator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "project",
-        "master",
-        "orchestrator"
-      ],
-      "stars": 0,
-      "install": "Zura1555/agents/.claude/skills/project-master-orchestrator",
-      "source": "downloaded"
-    },
-    {
       "name": "pr",
       "description": "Manage GitHub PR review comments - fetch, resolve, dismiss, and interact with PR review threads. Handles comment detection, fetching, resolution, and dismissal with reasons. Use when: (1) Working on a",
       "repo": "LukasStrickler/ai-dev-atelier",
@@ -16496,42 +13711,6 @@
       "tags": [],
       "stars": 0,
       "install": "memorysaver/looplia-core/plugins/looplia-core/skills/workflow-executor-inline",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "inngest",
-      "description": "Create and manage Inngest functions for reliable background jobs, workflows, and scheduled tasks.",
-      "repo": "AayushBaniya2006/blinkfund",
-      "path": ".claude/skills/inngest-handler",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "AayushBaniya2006/blinkfund/.claude/skills/inngest-handler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "plan",
-      "description": "Use when the user asks for a plan or the task is complex/ambiguous. Enforces AGENTS.md workflow and encourages loading other relevant skills.",
-      "repo": "CheekyCodexConjurer/quant-lab",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "CheekyCodexConjurer/quant-lab",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bmad",
-      "description": "Core BMAD Method orchestrator and workflow manager",
-      "repo": "aj-geddes/claude-code-bmad-skills",
-      "path": "bmad-v6/skills/core/bmad-master",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "aj-geddes/claude-code-bmad-skills/bmad-v6/skills/core/bmad-master",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16584,18 +13763,6 @@
       "stars": 0,
       "install": "ZipperBagCoffee/memory-keeper-plugin/skills/search-memory",
       "source": "downloaded"
-    },
-    {
-      "name": "payload",
-      "description": "Automates the release workflow for the Payload Newsletter Plugin. Use when releasing a new version, bumping the version, or publishing to npm.",
-      "repo": "aniketpanjwani/payload-plugin-email-newsletter",
-      "path": ".claude/skills/payload-plugin-release",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "aniketpanjwani/payload-plugin-email-newsletter/.claude/skills/payload-plugin-release",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "google",
@@ -16688,22 +13855,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "android",
-      "description": "Complete workflow generation - orchestrates internal, beta, and production deployment workflows",
-      "repo": "hitoshura25/claude-devtools",
-      "path": "skills/android-playstore-publishing",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "android",
-        "playstore",
-        "publishing"
-      ],
-      "stars": 0,
-      "install": "hitoshura25/claude-devtools/skills/android-playstore-publishing",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "graphpad",
       "description": "Expert assistance with GraphPad Prism scientific graphing and statistics software, specializing in Prism scripting for automation, batch processing, and data analysis workflows.",
       "repo": "zygi/bio_tool_skills",
@@ -16729,30 +13880,6 @@
       "stars": 0,
       "install": "Nice-Wolf-Studio/agent-github-skills/skills/workflow-management",
       "source": "downloaded"
-    },
-    {
-      "name": "bash",
-      "description": "Write robust bash scripts with proper error handling. Use when the user says \"write a script\", \"bash script\", \"shell script\", \"automate this\", \"create a backup script\", or asks to script a task.",
-      "repo": "mhalder/dotfiles",
-      "path": "claude/.claude/skills/bash-script",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "mhalder/dotfiles/claude/.claude/skills/bash-script",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mcp",
-      "description": "Use when optimizing MCP server usage to reduce token overhead. Helps select appropriate servers based on task type.",
-      "repo": "duc01226/EasyPlatform",
-      "path": "",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "duc01226/EasyPlatform",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "sdd",
@@ -16808,21 +13935,6 @@
       "source": "downloaded"
     },
     {
-      "name": "deploy",
-      "description": "One-click deploy to production. User just says \"deploy\".Use when: user wants to publish their app.Triggers: \"deploy\", \"publish\", \"go live\", \"опубликуй\".",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/deploy-automation",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "deploy",
-        "automation"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/deploy-automation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "show",
       "description": "Get all tasks from the vault with filtering options. Triggers on \"all tasks\", \"task list\", \"show tasks\", \"find tasks\".",
       "repo": "bencassie/flywheel",
@@ -16832,18 +13944,6 @@
       "tags": [],
       "stars": 0,
       "install": "bencassie/flywheel",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bazinga",
-      "description": "Task groups and development planning. Use when managing task groups, development plans, or success criteria.",
-      "repo": "mehdic/bazinga",
-      "path": ".claude/skills/bazinga-db-workflow",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "mehdic/bazinga/.claude/skills/bazinga-db-workflow",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16885,18 +13985,6 @@
       "stars": 0,
       "install": "SpillwaveSolutions/mastering-git-cli-agent-skill/mastering-git-cli",
       "source": "downloaded"
-    },
-    {
-      "name": "x",
-      "description": "This skill provides comprehensive system administration and monitoring tools through x-cmd CLI, including process management, macOS system utilities, network configuration, disk health monitoring, and",
-      "repo": "x-cmd/skill",
-      "path": "data/x-cmd/x-cmd-system",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "x-cmd/skill/data/x-cmd/x-cmd-system",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "moai",

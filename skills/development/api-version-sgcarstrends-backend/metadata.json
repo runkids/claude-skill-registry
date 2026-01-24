@@ -1,7 +1,0 @@
-{
-  "name": "api-version-sgcarstrends-backend",
-  "description": "Manage API versioning strategy for Hono routes in apps/api/src/v1. Use when creating new API versions or migrating endpoints between versions.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.095374Z"
-}

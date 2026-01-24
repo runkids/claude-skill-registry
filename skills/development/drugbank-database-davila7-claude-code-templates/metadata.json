@@ -1,7 +1,0 @@
-{
-  "name": "drugbank-database-davila7-claude-code-templates",
-  "description": "Access and analyze comprehensive drug information from the DrugBank database including drug properties, interactions, targets, pathways, chemical structures, and pharmacology data. This skill should b",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:22.660123Z"
-}

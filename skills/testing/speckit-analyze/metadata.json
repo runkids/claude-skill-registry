@@ -1,8 +1,0 @@
-{
-  "name": "speckit-analyze",
-  "repo": "dceoy/gh-actions-for-devops",
-  "category": "testing",
-  "description": "Perform a non-destructive cross-artifact consistency and quality analysis across spec.md, plan.md, and tasks.md after task generation.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:25.429395Z"
-}

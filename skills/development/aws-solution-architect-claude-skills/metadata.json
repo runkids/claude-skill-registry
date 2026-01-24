@@ -1,9 +1,0 @@
-{
-  "name": "aws-solution-architect",
-  "description": "Expert AWS solution architecture for startups focusing on serverless, scalable, and cost-effective cloud infrastructure with modern DevOps practices and infrastructure-as-code",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/claude-skills",
-  "source_path": "engineering-team/aws-solution-architect/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.451595Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "pylabrobot-davila7-claude-code-templates",
-  "description": "Laboratory automation toolkit for controlling liquid handlers, plate readers, pumps, heater shakers, incubators, centrifuges, and analytical equipment. Use this skill when automating laboratory workfl",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:23.330972Z"
-}

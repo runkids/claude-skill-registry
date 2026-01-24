@@ -1,8 +1,0 @@
-{
-  "name": "xlsx",
-  "repo": "anthropics/skills",
-  "category": "official",
-  "source": "Anthropic Official",
-  "github_path": "skills/xlsx",
-  "github_branch": "main"
-}

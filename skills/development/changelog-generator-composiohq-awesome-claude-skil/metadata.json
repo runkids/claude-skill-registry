@@ -1,7 +1,0 @@
-{
-  "name": "changelog-generator-composiohq-awesome-claude-skil",
-  "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns h",
-  "category": "development",
-  "source": "github.com/ComposioHQ/awesome-claude-skills",
-  "imported_at": "2026-01-24T14:54:19.047165Z"
-}

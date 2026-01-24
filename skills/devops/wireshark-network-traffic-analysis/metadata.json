@@ -1,8 +1,0 @@
-{
-  "name": "wireshark-network-traffic-analysis",
-  "repo": "zebbern/claude-code-guide",
-  "category": "devops",
-  "description": "This skill should be used when the user asks to \"analyze network traffic with Wireshark\", \"capture packets for troubleshooting\", \"filter PCAP files\", \"follow TCP/UDP streams\", \"detect network anomalie",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:41.776974Z"
-}

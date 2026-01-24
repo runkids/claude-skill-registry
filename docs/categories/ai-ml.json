@@ -1,8 +1,8 @@
 {
   "category": "ai-ml",
   "code": "oth",
-  "count": 4,
-  "updated_at": "2026-01-24T16:17:37.472659Z",
+  "count": 1,
+  "updated_at": "2026-01-24T17:29:05.255253Z",
   "skills": [
     {
       "name": "flow",
@@ -15,42 +15,6 @@
       "stars": 20,
       "install": "mattnigh/skills_collection",
       "source": "github.com/mattnigh/skills_collection"
-    },
-    {
-      "name": "flow",
-      "description": "Train and deploy neural networks in distributed E2B sandboxes with Flow Nexus",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "ai-ml",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
-      "name": "flow",
-      "description": "Train and deploy neural networks in distributed E2B sandboxes with Flow Nexus",
-      "repo": "makaronz/SRYZ",
-      "path": "",
-      "branch": "main",
-      "category": "ai-ml",
-      "tags": [],
-      "stars": 0,
-      "install": "makaronz/SRYZ",
-      "source": "github.com/makaronz/SRYZ"
-    },
-    {
-      "name": "flow",
-      "description": "Train and deploy neural networks in distributed E2B sandboxes with Flow Nexus",
-      "repo": "ellisapotheosis/Project-Nyra",
-      "path": "",
-      "branch": "main",
-      "category": "ai-ml",
-      "tags": [],
-      "stars": 0,
-      "install": "ellisapotheosis/Project-Nyra",
-      "source": "github.com/ellisapotheosis/Project-Nyra"
     }
   ]
 }

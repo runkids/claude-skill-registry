@@ -1,8 +1,0 @@
-{
-  "name": "atomic-component-generator",
-  "repo": "RomualdP/hoki",
-  "category": "design",
-  "description": "G\u00e9n\u00e8re des composants React suivant l'Atomic Design avec d\u00e9composition maximale et pattern Smart/Dumb. MANDATORY pour tous composants. \u00c0 utiliser lors de la cr\u00e9ation de composants, pages, ou quand l'u",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.004004Z"
-}

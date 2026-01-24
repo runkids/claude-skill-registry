@@ -1,7 +1,0 @@
-{
-  "name": "vercel-deploy",
-  "description": "Deploy applications to Vercel with edge functions, serverless, and ISR.",
-  "category": "development",
-  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
-  "imported_at": "2026-01-24T14:54:05.846954Z"
-}

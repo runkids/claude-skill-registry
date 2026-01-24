@@ -1,7 +1,0 @@
-{
-  "name": "sparse-autoencoder-training-davila7-claude-code-templates",
-  "description": "Provides guidance for training and analyzing Sparse Autoencoders (SAEs) using SAELens to decompose neural network activations into interpretable features. Use when discovering interpretable features, ",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.459336Z"
-}

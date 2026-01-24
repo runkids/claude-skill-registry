@@ -1,9 +1,0 @@
-{
-  "name": "algorithmic-art",
-  "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/skills",
-  "source_path": "skills/algorithmic-art/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.776251Z"
-}

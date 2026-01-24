@@ -1,8 +1,0 @@
-{
-  "name": "web-artifacts-builder",
-  "repo": "anthropics/skills",
-  "category": "official",
-  "source": "Anthropic Official",
-  "github_path": "skills/web-artifacts-builder",
-  "github_branch": "main"
-}

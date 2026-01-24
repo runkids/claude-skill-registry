@@ -1,8 +1,0 @@
-{
-  "name": "jutsu-expoexpo-config",
-  "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "description": "Use when configuring Expo apps with app.json, app.config.js, and EAS configuration. Covers app metadata, plugins, build configuration, and environment variables.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:03.342252Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "aws-monitoring-sgcarstrends-backend",
-  "description": "Debug AWS resource issues, check Lambda logs, and monitor deployed services. Use when investigating production issues, checking CloudWatch logs, or debugging deployment failures.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.385392Z"
-}

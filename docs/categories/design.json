@@ -1,8 +1,8 @@
 {
   "category": "design",
   "code": "des",
-  "count": 3958,
-  "updated_at": "2026-01-24T16:17:37.524664Z",
+  "count": 3782,
+  "updated_at": "2026-01-24T17:29:05.337559Z",
   "skills": [
     {
       "name": "add",
@@ -95,21 +95,6 @@
       ],
       "stars": 24530,
       "install": "anthropics/skills/skills/web-artifacts-builder",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "confidence",
-      "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS refe",
-      "repo": "SuperClaude-Org/SuperClaude_Framework",
-      "path": ".claude/skills/confidence-check",
-      "branch": "master",
-      "category": "design",
-      "tags": [
-        "confidence",
-        "check"
-      ],
-      "stars": 19236,
-      "install": "SuperClaude-Org/SuperClaude_Framework/.claude/skills/confidence-check",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -239,52 +224,6 @@
       "source": "github.com/danielmiessler/Personal_AI_Infrastructure"
     },
     {
-      "name": "multi",
-      "description": "This skill should be used when the user asks to \"design multi-agent system\", \"implement supervisor pattern\", \"create swarm architecture\", \"coordinate multiple agents\", or mentions multi-agent patterns",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "skills/multi-agent-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "multi",
-        "agent",
-        "patterns"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/multi-agent-patterns",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "tool",
-      "description": "This skill should be used when the user asks to \"design agent tools\", \"create tool descriptions\", \"reduce tool complexity\", \"implement MCP tools\", or mentions tool consolidation, architectural reducti",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "skills/tool-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "tool",
-        "design"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/tool-design",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "benchmark",
-      "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
-      "repo": "flashinfer-ai/flashinfer",
-      "path": ".claude/skills/benchmark-kernel",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "benchmark",
-        "kernel"
-      ],
-      "stars": 4404,
-      "install": "flashinfer-ai/flashinfer/.claude/skills/benchmark-kernel",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "buck2",
       "description": "Guide users through writing their first Buck2 rule to learn fundamental concepts including rules, actions, targets, configurations, analysis, and select(). Use this skill when users want to learn Buck",
       "repo": "facebook/buck2",
@@ -295,22 +234,6 @@
       "stars": 4229,
       "install": "facebook/buck2",
       "source": "github.com/facebook/buck2"
-    },
-    {
-      "name": "buck2",
-      "description": "Guide users through writing their first Buck2 rule to learn fundamental concepts including rules, actions, targets, configurations, analysis, and select(). Use this skill when users want to learn Buck",
-      "repo": "facebook/buck2",
-      "path": ".claude/skills/buck2-rule-basics",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "buck2",
-        "rule",
-        "basics"
-      ],
-      "stars": 4153,
-      "install": "facebook/buck2/.claude/skills/buck2-rule-basics",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "git",
@@ -350,20 +273,6 @@
       ],
       "stars": 3797,
       "install": "EpicenterHQ/epicenter/skills/styling",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "git",
-      "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
-      "repo": "EpicenterHQ/epicenter",
-      "path": "skills/git",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "git"
-      ],
-      "stars": 3797,
-      "install": "EpicenterHQ/epicenter/skills/git",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -700,20 +609,6 @@
       ],
       "stars": 430,
       "install": "steipete/clawdis/skills/spotify-player",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "sag",
-      "description": "ElevenLabs text-to-speech with mac-style say UX.",
-      "repo": "steipete/clawdis",
-      "path": "skills/sag",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "sag"
-      ],
-      "stars": 430,
-      "install": "steipete/clawdis/skills/sag",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1128,18 +1023,6 @@
       "source": "github.com/aiskillstore/marketplace"
     },
     {
-      "name": "tool",
-      "description": "This skill should be used when the user asks to \"design agent tools\", \"create tool descriptions\", \"reduce tool complexity\", \"implement MCP tools\", or mentions tool consolidation, architectural reducti",
-      "repo": "aiskillstore/marketplace",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 114,
-      "install": "aiskillstore/marketplace",
-      "source": "github.com/aiskillstore/marketplace"
-    },
-    {
       "name": "tailwind",
       "description": "Set up Tailwind v4 with shadcn/ui using @theme inline pattern and CSS variable architecture. Four-step mandatory pattern: define CSS variables at root, map to Tailwind utilities, apply base styles, ge",
       "repo": "jezweb/claude-skills",
@@ -1379,20 +1262,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "setup",
-      "description": "Sets up a Mac for ButterCut. Installs all required dependencies (Homebrew, Ruby, Python, FFmpeg, WhisperX). Use when user says \"install buttercut\", \"set up my mac\", \"get started\", \"first time setup\",",
-      "repo": "barefootford/buttercut",
-      "path": ".claude/skills/setup",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "setup"
-      ],
-      "stars": 79,
-      "install": "barefootford/buttercut/.claude/skills/setup",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "workflows",
       "description": "Create or edit a Cline Skill with guided assistance and best practices",
       "repo": "sammcj/agentic-coding",
@@ -1594,18 +1463,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "tool",
-      "description": "This skill should be used when the user asks to \"design agent tools\", \"create tool descriptions\", \"reduce tool complexity\", \"implement MCP tools\", or mentions tool consolidation, architectural reducti",
-      "repo": "guanyang/antigravity-skills",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 59,
-      "install": "guanyang/antigravity-skills",
-      "source": "github.com/guanyang/antigravity-skills"
-    },
-    {
       "name": "hosted",
       "description": "This skill should be used when the user asks to \"build background agent\", \"create hosted coding agent\", \"set up sandboxed execution\", \"implement multiplayer agent\", or mentions background agents, sand",
       "repo": "guanyang/antigravity-skills",
@@ -1700,18 +1557,6 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "caching",
-      "description": "Guide for using caching utilities in speedy_utils, including memory, disk, and hybrid caching strategies for sync and async functions.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "cli",
       "description": "Use this when you need to perform mutations on plyr.fm - uploading, deleting, liking tracks. The MCP server is read-only - use this skill when you need to trigger uploads, delete tracks, or modify lik",
       "repo": "majiayu000/claude-skill-registry",
@@ -1763,54 +1608,6 @@
       "source": "downloaded"
     },
     {
-      "name": "building",
-      "description": "|",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "multi",
-      "description": "Apply Anthropic's production multi-agent research patterns for complex research tasks. Use when research involves multiple independent dimensions, requires synthesis across many sources, or needs para",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "cfn",
-      "description": "Human intervention detection and orchestration for CFN Loop. Use when automated processes need human oversight, when escalation is required, or when managing intervention workflows and approval gates.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "performing",
-      "description": "Guides agents through launching, playing, sculpting, and capturing performances with the Orthonotone polychoral instrument MVP. Use when generating music, soundscapes, or live demos from this reposito",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "synthetic",
       "description": "Leverage React's event delegation system for optimization and custom event behavior.",
       "repo": "majiayu000/claude-skill-registry",
@@ -1823,44 +1620,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "orcaflex",
-      "description": "Generate OrcaFlex models from templates using component assembly with",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "filament",
       "description": "Automated Filament resource generation with correct namespace imports (Schemas vs Forms), Vietnamese labels, standard structure, Observer patterns, ImagesRelationManager integration. USE WHEN user say",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "git",
-      "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "hosted",
-      "description": "This skill should be used when the user asks to \"build background agent\", \"create hosted coding agent\", \"set up sandboxed execution\", \"implement multiplayer agent\", or mentions background agents, sand",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -2035,21 +1796,6 @@
       "stars": 44,
       "install": "shinpr/claude-code-workflows/skills/subagents-orchestration-guide",
       "source": "downloaded"
-    },
-    {
-      "name": "constitution",
-      "description": "Guide OAK engineering constitution creation with decision-driven requirements, requirement language patterns, and reality-grounded standards.",
-      "repo": "sirkirby/unifi-network-rules",
-      "path": ".claude/skills/constitution-authoring",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "constitution",
-        "authoring"
-      ],
-      "stars": 43,
-      "install": "sirkirby/unifi-network-rules/.claude/skills/constitution-authoring",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "bencium",
@@ -2871,18 +2617,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "building",
-      "description": "|",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
       "name": "investigation",
       "description": "Scaffolds a template for a small investigation for empirical experimentation. Use when the user asks for an investigation, experiment or research to support making design decisions, assess performance",
       "repo": "talmolab/sleap-io",
@@ -2895,30 +2629,6 @@
       "stars": 20,
       "install": "talmolab/sleap-io/.claude/skills/investigation",
       "source": "downloaded"
-    },
-    {
-      "name": "cfn",
-      "description": "Human intervention detection and orchestration for CFN Loop. Use when automated processes need human oversight, when escalation is required, or when managing intervention workflows and approval gates.",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
-      "name": "filament",
-      "description": "Automated Filament resource generation with correct namespace imports (Schemas vs Forms), Vietnamese labels, standard structure, Observer patterns, ImagesRelationManager integration. USE WHEN user say",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
     },
     {
       "name": "record",
@@ -3034,18 +2744,6 @@
       "stars": 16,
       "install": "marcusgoll/Spec-Flow/.claude/skills/clarification-phase",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "skills",
-      "description": "Name: ace-context-engineering",
-      "repo": "jmanhype/claude-code-plugin-marketplace",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 16,
-      "install": "jmanhype/claude-code-plugin-marketplace",
-      "source": "github.com/jmanhype/claude-code-plugin-marketplace"
     },
     {
       "name": "obsidian",
@@ -3339,21 +3037,6 @@
       ],
       "stars": 13,
       "install": "sunholo-data/ailang/.claude/skills/collaboration-hub",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "bundle",
-      "description": "Analyze and optimize JavaScript bundle size, identify large dependencies, and improve load times. Use when bundles are large, investigating performance issues, or optimizing frontend assets.",
-      "repo": "sgcarstrends/sgcarstrends",
-      "path": ".claude/skills/bundle-analysis",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "bundle",
-        "analysis"
-      ],
-      "stars": 13,
-      "install": "sgcarstrends/sgcarstrends/.claude/skills/bundle-analysis",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -3900,22 +3583,6 @@
       "source": "downloaded"
     },
     {
-      "name": "agent",
-      "description": "Expert LLM architect specializing in large language model architecture, deployment, and optimization. Masters LLM system design, fine-tuning strategies, and production serving with focus on building s",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-llm-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "agent",
-        "llm",
-        "architect"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-llm-architect",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "fe",
       "description": "> v-if 和 v-show 理论上都是作用于元素的显示隐藏，只是一个是直接对DOM，一个是通过CSS的display来操作的，在项目中大部分的时候我们都是直接使用 v-if 直接代替使用 v-show，只有当DOM频繁进行先和隐藏的时候，但是这种场景非常少见。",
       "repo": "Damon-duan/FE-Rule",
@@ -4159,22 +3826,6 @@
       "stars": 10,
       "install": "matteocervelli/llms/.claude/skills/architecture-planner",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "tech",
-      "description": "Auto-activates during requirements analysis to evaluate technical stack",
-      "repo": "matteocervelli/llms",
-      "path": ".claude/skills/tech-stack-evaluator",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "tech",
-        "stack",
-        "evaluator"
-      ],
-      "stars": 10,
-      "install": "matteocervelli/llms/.claude/skills/tech-stack-evaluator",
-      "source": "downloaded"
     },
     {
       "name": "agent",
@@ -6675,18 +6326,6 @@
       "source": "downloaded"
     },
     {
-      "name": "create",
-      "description": "Guides users through creating a new TIA XMPP agent based on mistral-minimal. Use when the user wants to create, build, set up, or scaffold a new agent, bot, or when they ask how to get started with TI",
-      "repo": "danja/tia",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 3,
-      "install": "danja/tia",
-      "source": "github.com/danja/tia"
-    },
-    {
       "name": "fact",
       "description": "Quick lookup of specific facts about Bottlerocket with citations",
       "repo": "cbgbt/bottlerocket-forest",
@@ -7235,21 +6874,6 @@
       "source": "downloaded"
     },
     {
-      "name": "backend",
-      "description": "Provides development guidance for implementing backend features using Domain-Driven Design, hexagonal architecture, event-driven patterns, and HATEOAS conventions. Use when implementing new domain fea",
-      "repo": "zabiny/klabis",
-      "path": ".claude/skills/backend-development",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "backend",
-        "development"
-      ],
-      "stars": 2,
-      "install": "zabiny/klabis/.claude/skills/backend-development",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "memory",
       "description": "Expert guidance for Claude's memory_user_edits tool. Helps users understand how to effectively use memory edits for persistent facts across conversations. Key insight - memory edits work for FACTS, no",
       "repo": "frmoretto/claude-memory-user-edits-guide",
@@ -7702,18 +7326,6 @@
       "source": "downloaded"
     },
     {
-      "name": "sequential",
-      "description": "Apply structured, reflective problem-solving for complex tasks requiring multi-step analysis, revision capability, and hypothesis verification. Use for complex problem decomposition, adaptive planning",
-      "repo": "ngocsangyem/ngocsangyem.dev",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 2,
-      "install": "ngocsangyem/ngocsangyem.dev",
-      "source": "github.com/ngocsangyem/ngocsangyem.dev"
-    },
-    {
       "name": "frontend",
       "description": "Build modern React/Next.js frontends. Use when creating web applications, choosing frontend stack, structuring components, or implementing UI/UX designs. Covers React, Next.js, Tailwind CSS, and compo",
       "repo": "daffy0208/ai-dev-standards",
@@ -7786,21 +7398,6 @@
       "stars": 2,
       "install": "svetzal/cutiecoco/.claude/skills/qt-release",
       "source": "downloaded"
-    },
-    {
-      "name": "design",
-      "description": "Creates production-ready design files, prototypes, and specifications for development teams. Translates validated concepts into detailed, implementable designs with comprehensive specs for developers.",
-      "repo": "mevans2120/design-suite-claude-skills",
-      "path": "design-production",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "design",
-        "production"
-      ],
-      "stars": 2,
-      "install": "mevans2120/design-suite-claude-skills/design-production",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "react",
@@ -7984,18 +7581,6 @@
       "stars": 2,
       "install": "closedloop-technologies/awesome-deep-researchers/.claude/skills/perplexity-sonar",
       "source": "downloaded"
-    },
-    {
-      "name": "multi",
-      "description": "Apply Anthropic's production multi-agent research patterns for complex research tasks. Use when research involves multiple independent dimensions, requires synthesis across many sources, or needs para",
-      "repo": "auldsyababua/instructor-workflow",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 2,
-      "install": "auldsyababua/instructor-workflow",
-      "source": "github.com/auldsyababua/instructor-workflow"
     },
     {
       "name": "animation",
@@ -8376,18 +7961,6 @@
       "source": "downloaded"
     },
     {
-      "name": "ralph",
-      "description": "Master orchestrator for generating Ralph Wiggum-compatible prompts. Analyzes task requirements and routes to appropriate generator (single-task, multi-task, project, or research). Use when you need to",
-      "repo": "adaptationio/Skrillz",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 1,
-      "install": "adaptationio/Skrillz",
-      "source": "github.com/adaptationio/Skrillz"
-    },
-    {
       "name": "core",
       "description": "Guide for creating effective skills with specialized knowledge and workflows.",
       "repo": "bacoco/BMad-Skills",
@@ -8495,21 +8068,6 @@
       "stars": 1,
       "install": "forztf/open-skilled-sdd/skills/speckit-checklist-zh",
       "source": "downloaded"
-    },
-    {
-      "name": "bmad",
-      "description": "Designs UX and creates wireframes.",
-      "repo": "bacoco/BMad-Skills",
-      "path": ".claude/skills/bmad-ux-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "bmad",
-        "design"
-      ],
-      "stars": 1,
-      "install": "bacoco/BMad-Skills/.claude/skills/bmad-ux-design",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "spring",
@@ -8640,20 +8198,6 @@
       ],
       "stars": 1,
       "install": "junseokandylee/RallyApp",
-      "source": "downloaded"
-    },
-    {
-      "name": "notification",
-      "description": "Renders notification bell icon with unread count badge, pulse animations for new notifications, and dropdown panel (320px × max 400px) displaying notification items with purple theme for VERY IMPORTAN",
-      "repo": "Syedaashnaghazanfar/full-stack-todo-app",
-      "path": ".claude/skills/notification-ui",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "notification"
-      ],
-      "stars": 1,
-      "install": "Syedaashnaghazanfar/full-stack-todo-app/.claude/skills/notification-ui",
       "source": "downloaded"
     },
     {
@@ -10024,23 +9568,6 @@
       "source": "downloaded"
     },
     {
-      "name": "custom",
-      "description": "1700+ lines of Flutter UI mastery - widgets, layouts, Material Design, animations, responsive design with production-ready code examples and enterprise patterns.",
-      "repo": "pluginagentmarketplace/custom-plugin-flutter",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "custom",
-        "plugin",
-        "flutter",
-        "skill"
-      ],
-      "stars": 1,
-      "install": "pluginagentmarketplace/custom-plugin-flutter",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "project",
       "description": "Provides comprehensive project folder structure design guidelines and best practices. Defines standard directory organizations for diverse project types including monorepos, web frameworks, backend se",
       "repo": "specvital/web",
@@ -10712,22 +10239,6 @@
       "source": "downloaded"
     },
     {
-      "name": "building",
-      "description": "Build Next.js 16 applications with correct patterns and distinctive design. Use when creatingpages, layouts, dynamic routes, upgrading from Next.js 15, or implementing proxy.ts. Coversbreaking changes",
-      "repo": "mjunaidca/mjs-agent-skills",
-      "path": ".claude/skills/building-nextjs-apps",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "building",
-        "nextjs",
-        "apps"
-      ],
-      "stars": 1,
-      "install": "mjunaidca/mjs-agent-skills/.claude/skills/building-nextjs-apps",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "nextjs",
       "description": "Provides Next.js project architecture expertise and implementation patterns. Enforces BFF (Backend for Frontend) pattern, Server Components strategy, and data fetching policies. Specializes in App Rou",
       "repo": "specvital/web",
@@ -10879,18 +10390,6 @@
       "source": "github.com/folkehelseinstituttet/LMDI"
     },
     {
-      "name": "git",
-      "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
-      "repo": "Kang-chen/Agent-skills",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 1,
-      "install": "Kang-chen/Agent-skills",
-      "source": "github.com/Kang-chen/Agent-skills"
-    },
-    {
       "name": "css",
       "description": "Implement scalable CSS architecture patterns - BEM, SMACSS, ITCSS, design tokens",
       "repo": "pluginagentmarketplace/custom-plugin-css",
@@ -10936,22 +10435,6 @@
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-react-native/skills/react-native-animations",
       "source": "downloaded"
-    },
-    {
-      "name": "api",
-      "description": "Apply when designing error responses, implementing error handlers, and ensuring consistent error format across APIs.",
-      "repo": "CoderMariusz/MonoPilot",
-      "path": ".claude/skills/api-error-handling",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "api",
-        "error",
-        "handling"
-      ],
-      "stars": 1,
-      "install": "CoderMariusz/MonoPilot/.claude/skills/api-error-handling",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "tg",
@@ -11516,20 +10999,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "mobile",
-      "description": "Mobile UI patterns, gestures, animations, and platform-specific design.",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/mobile/mobile-ui",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "mobile"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/mobile/mobile-ui",
-      "source": "downloaded"
-    },
-    {
       "name": "browser",
       "description": "Record browser sessions using Playwright for web UI tutorials.Captures video of browser interactions that can be converted to GIF.Triggers: browser recording, playwright, web demo, ui recordingUse whe",
       "repo": "athola/claude-night-market",
@@ -11646,30 +11115,6 @@
       "stars": 0,
       "install": "Okashanadeem/GIAIC-HACKATHON-II/.claude/skills/nextjs-frontend-api-client-patterns",
       "source": "downloaded"
-    },
-    {
-      "name": "cc",
-      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished co...",
-      "repo": "anthropics/claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anthropics/claude-code",
-      "source": "downloaded"
-    },
-    {
-      "name": "caching",
-      "description": "Guide for using caching utilities in speedy_utils, including memory, disk, and hybrid caching strategies for sync and async functions.",
-      "repo": "anhvth/speedy_utils",
-      "path": ".github/skills/caching-utilities",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anhvth/speedy_utils/.github/skills/caching-utilities",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "agent",
@@ -12077,22 +11522,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "html",
-      "description": "Collaborative HTML/CSS static design skill for building clean, semantic, and visually appealing static web pages through iterative refinement between AI and user. Handles structure, styling, layout, a",
-      "repo": "FAeN399/Skill-Repo",
-      "path": "html-static-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "html",
-        "static",
-        "design"
-      ],
-      "stars": 0,
-      "install": "FAeN399/Skill-Repo/html-static-design",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "wpf",
       "description": "Define and evolve WPF XAML styling for the widget host app: control styles, templates, visual states, typography, and theme variants. Use when working in `App.xaml`, theme dictionaries, `Styles/*.xaml",
       "repo": "YosrBennagra/3SC",
@@ -12416,30 +11845,6 @@
       "stars": 0,
       "install": "The-Focus-AI/nano-banana-cli",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "binary",
-      "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
-      "repo": "cyberkaida/reverse-engineering-assistant",
-      "path": "ReVa/skills/binary-triage",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "cyberkaida/reverse-engineering-assistant/ReVa/skills/binary-triage",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sequential",
-      "description": "Apply structured, reflective problem-solving for complex tasks requiring multi-step analysis, revision capability, and hypothesis verification. Use for complex problem decomposition, adaptive planning",
-      "repo": "thucpru/fontkit",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "thucpru/fontkit",
-      "source": "github.com/thucpru/fontkit"
     },
     {
       "name": "memory",
@@ -12868,21 +12273,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pipeline",
-      "description": "Design ETL/ELT pipeline architectures with proper patterns for reliability and scalability.",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/data/pipeline-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "pipeline",
-        "design"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/data/pipeline-design",
-      "source": "downloaded"
-    },
-    {
       "name": "grey",
       "description": "Apply Grey Haven's TanStack ecosystem patterns - Router file-based routing, Query data fetching with staleTime, and Start server functions. Use when building React applications with TanStack Start. Tr",
       "repo": "greyhaven-ai/claude-code-config",
@@ -13233,18 +12623,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "auth",
-      "description": "Complete guide for CloudBase Auth using the CloudBase Node SDK – caller identity, user lookup, custom login tickets, and server-side best practices.",
-      "repo": "TencentCloudBase/CloudBase-MCP",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TencentCloudBase/CloudBase-MCP",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "formily",
       "description": "This skill should be used when the user asks to \"use formily with ant design\", \"formily antd components\", \"formily ant design integration\", \"formily form layout\", \"formily form.item\", \"formily antd fo",
       "repo": "whinc/my-claude-plugins",
@@ -13354,18 +12732,6 @@
       "tags": [],
       "stars": 0,
       "install": "dikini/scaffold/.opencode/skill/epic-manager",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "training",
-      "description": "Trains large language models (2B-462B parameters) using NVIDIA Megatron-Core with advanced parallelism strategies. Use when training models >1B parameters, need maximum GPU efficiency (47% MFU on H100",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13882,18 +13248,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "sequential",
-      "description": "Apply structured, reflective problem-solving for complex tasks requiring multi-step analysis, revision capability, and hypothesis verification. Use for complex problem decomposition, adaptive planning",
-      "repo": "vumichien/bi-agent",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "vumichien/bi-agent",
-      "source": "github.com/vumichien/bi-agent"
-    },
-    {
       "name": "jp",
       "description": "jp-uiのFoundation（色/タイポ/アイコン/形状/影）を参照して実装するためのスキル。Foundationトークンや関連ファイルが更新されたらこのスキルも更新する。",
       "repo": "yumehiko/jp-ui",
@@ -13963,18 +13317,6 @@
       "tags": [],
       "stars": 0,
       "install": "lpding888/aiygw4.0/skills/reviewer_skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "performing",
-      "description": "Guides agents through launching, playing, sculpting, and capturing performances with the Orthonotone polychoral instrument MVP. Use when generating music, soundscapes, or live demos from this reposito",
-      "repo": "Domusgpt/Orthonotone",
-      "path": ".claude/skills/orthonotone-development",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Domusgpt/Orthonotone/.claude/skills/orthonotone-development",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -14487,18 +13829,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "task",
-      "description": "Enforce atomic task status updates through task-tracker commands only. Prevent manual edits to NOTES.md and tasks.md that break synchronization. Auto-trigger when detecting Edit/Write attempts to task",
-      "repo": "marcusgoll/Spec-Flow",
-      "path": ".claude/skills/task-status-sync",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "marcusgoll/Spec-Flow/.claude/skills/task-status-sync",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "kv",
       "description": "Automatically optimizes Cloudflare KV storage patterns, suggesting parallel operations, caching strategies, and storage choice guidance",
       "repo": "hirefrank/hirefrank-marketplace",
@@ -14508,18 +13838,6 @@
       "tags": [],
       "stars": 0,
       "install": "hirefrank/hirefrank-marketplace/plugins/edge-stack/skills/kv-optimization-advisor",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "view",
-      "description": "Implémente l'API View Transitions pour des transitions fluides entre pages et états. MANDATORY pour toutes navigations. À utiliser lors de navigation, page transitions, ou quand l'utilisateur mentionn",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15066,18 +14384,6 @@
       "source": "downloaded"
     },
     {
-      "name": "politique",
-      "description": "Guide complet pour la rédaction de politiques cookies conformes au RGPD et à la directive ePrivacy. Contient les recommandations CNIL 2020, un template de référence et les bonnes pratiques. À utiliser",
-      "repo": "lawvable/awesome-legal-skills",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "lawvable/awesome-legal-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pycalphad",
       "description": "Expert guidance for pycalphad - computational thermodynamics library implementing the CALPHAD method for calculating phase diagrams, phase equilibria, and thermodynamic properties of multicomponent ma",
       "repo": "jkitchin/skillz",
@@ -15151,18 +14457,6 @@
       "stars": 0,
       "install": "JohnVonDrashek/scholastic-bible/.claude/skills/gemini-illustrations",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "anthropic",
-      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples in...",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/anthropic",
-      "source": "https://github.com/anthropics/skills"
     },
     {
       "name": "distributed",
@@ -15453,18 +14747,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "koan",
-      "description": "Entity<T> patterns, GUID v7 auto-generation, static methods vs manual repositories",
-      "repo": "sylin-org/koan-framework",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "sylin-org/koan-framework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "eda",
       "description": "PCB layout and routing. Component placement, trace routing, copper pours, design rule configuration, and layout optimization for manufacturability.",
       "repo": "l3wi/claude-eda",
@@ -15567,21 +14849,6 @@
       "stars": 0,
       "install": "melodic-software/claude-code-plugins/plugins/content-management-system/skills/page-structure-design",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cli",
-      "description": "Build command-line tools with argument parsing, subcommands, and nice UX.Use when: creating CLI, terminal app, command-line utility.Triggers: \"cli\", \"command line\", \"terminal\", \"clap\", \"typer\", \"comma",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/cli-tool",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "cli",
-        "tool"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/cli-tool",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "synapse",
@@ -15860,18 +15127,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "chakra",
-      "description": "Builds accessible React applications with Chakra UI v3 components, tokens, and recipes. Use when creating styled component systems, theming, or accessible form controls.",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "plugins/goodvibes/skills/webdev/component-libraries/chakra-ui",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "mgd34msu/goodvibes-plugin/plugins/goodvibes/skills/webdev/component-libraries/chakra-ui",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "design",
       "description": "Generates design tokens from multi-dimensional configurations, creating hierarchical token names with proper naming conventions. Use when building design systems, creating token sets from component sc",
       "repo": "osama-eldrieny/design-token-generator",
@@ -15935,20 +15190,6 @@
       "source": "downloaded"
     },
     {
-      "name": "adr",
-      "description": "Create Architecture Decision Records (ADRs) following project standards. Guides template usage, process, and best practices for documenting architecturally significant decisions.",
-      "repo": "asterkin/openxr-quest-tutorial",
-      "path": ".claude/skills/adr",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "adr"
-      ],
-      "stars": 0,
-      "install": "asterkin/openxr-quest-tutorial/.claude/skills/adr",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "ui",
       "description": "Design token system using Style Dictionary with Tailwind CSS v4 integration.Centralizes design tokens in JSON format, outputs CSS variables mapped to @theme block.Reference for implementing consistent",
       "repo": "Higashi-Kota/video-parapara",
@@ -16003,18 +15244,6 @@
       "stars": 0,
       "install": "chipfox/dialetic-agents",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "authentication",
-      "description": "Guide to using Better Auth for client and server-side authentication.",
-      "repo": "AbdulSamad94/Hackhaton-SpecsKitPlus",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "AbdulSamad94/Hackhaton-SpecsKitPlus",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "analyzing",
@@ -16315,18 +15544,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "react",
-      "description": "Comprehensive guide to React component patterns used in the Plataforma B2B de treinamento técnico corporativo educational platform. This skill covers functional components with hooks, composition patt",
-      "repo": "joaopelegrino/app-controle",
-      "path": ".claude/skills/react-components-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "joaopelegrino/app-controle/.claude/skills/react-components-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "requirement",
       "description": "探测用户的写作规范需求并加载对应文档。当用户提到AI味重、去AI味、自然、爽文、快节奏、爽点、无毒点、不降智、严肃文学、有深度、强情绪、打动人、甜文、撒糖、虐文、虐心、BE等关键词时自动激活。适用于讨论写作要求、AI去味方法、节奏控制、情感表达时使用。",
       "repo": "wordflowlab/novelweave",
@@ -16363,18 +15580,6 @@
       "stars": 0,
       "install": "urjitbhatia/bubbles/.claude/skills/types",
       "source": "downloaded"
-    },
-    {
-      "name": "suspense",
-      "description": "Implémente Suspense et Streaming pour progressive rendering. MANDATORY pour async Server Components. À utiliser lors de async data, loading states, ou quand l'utilisateur mentionne \"suspense\", \"stream",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "create",
@@ -16635,21 +15840,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "authoring",
-      "description": "MUST BE USED when creating, improving, or reviewing Skills. Use PROACTIVELY when user mentions \"create a skill\", \"new skill\", \"write a skill\", \"improve skill\", \"skill description\", or \"progressive dis",
-      "repo": "Git-Fg/my-skill-dev",
-      "path": ".claude/skills/authoring-skills",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "authoring",
-        "skills"
-      ],
-      "stars": 0,
-      "install": "Git-Fg/my-skill-dev/.claude/skills/authoring-skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "service",
       "description": "Service layer patterns including interface-based design, ServiceResult pattern, business logic encapsulation, structured logging, and error handling. Use when creating or reviewing service classes.",
       "repo": "Joshua-Palamuttam/claude-code-presentation",
@@ -16802,18 +15992,6 @@
       "stars": 0,
       "install": "jkitchin/skillz/skills/programming/materials-properties",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "anthropic",
-      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifac...",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/anthropic",
-      "source": "https://github.com/anthropics/skills"
     },
     {
       "name": "prioritization",
@@ -17097,18 +16275,6 @@
       "stars": 0,
       "install": "tradingstrategy-ai/web3-ethereum-defi/.claude/skills/add-vault-protocol",
       "source": "GitHub Search API"
-    },
-    {
-      "name": "agentuity",
-      "description": "Login to the Agentuity Platform using a browser-based authentication flow. Use for managing authentication credentials",
-      "repo": "agentuity/examples",
-      "path": "training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-auth-login",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "agentuity/examples/training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-auth-login",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "managing",
@@ -17454,18 +16620,6 @@
       "tags": [],
       "stars": 0,
       "install": "VinniZP/lingx/.claude/skills/target-fe-architecture",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "relational",
-      "description": "Use when building frontend Web apps that talk to CloudBase Relational Database via @cloudbase/js-sdk – provides the canonical init pattern so you can then use Supabase-style queries from the browser.",
-      "repo": "TencentCloudBase/CloudBase-MCP",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TencentCloudBase/CloudBase-MCP",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -18058,18 +17212,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "claudeisms",
-      "description": "Apply strict operational protocols for AI task execution including sequential processing, minimal responses, no destructive operations without confirmation",
-      "repo": "jeffersonwarrior/claudisms",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeffersonwarrior/claudisms",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "design",
       "description": "Managing design tokens and system context for LLM-driven UI development. Covers loading, persisting, and optimizing design decisions within context windows.",
       "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
@@ -18399,18 +17541,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pix",
-      "description": "Validates PIX key requirements for MutuaPIX platform, ensuring email used for login matches PIX key email for payment processing",
-      "repo": "Lucasdoreac/mutuapix-workspace",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Lucasdoreac/mutuapix-workspace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "unity",
       "description": "Game UI design using Unity's UI Toolkit (USS/UXML/Flexbox). Includes game UI elements like HUD, health bars, inventory, skill bars, PanelSettings scaling, and Safe Area support. Use when: game UI desi",
       "repo": "akiojin/unity-mcp-server",
@@ -18583,18 +17713,6 @@
       "stars": 0,
       "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-security-store-guidelines",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "orcaflex",
-      "description": "Generate OrcaFlex models from templates using component assembly with",
-      "repo": "vamseeachanta/digitalmodel",
-      "path": ".claude/skills/orcaflex-model-generator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "vamseeachanta/digitalmodel/.claude/skills/orcaflex-model-generator",
-      "source": "GitHub Search API"
     },
     {
       "name": "summon",
@@ -18820,18 +17938,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "single",
-      "description": "Guide Claude through SCSA, MetaTiME, CellVote, CellMatch, GPTAnno, and weighted KNN transfer workflows for annotating single-cell modalities.",
-      "repo": "Starlitnightly/omicverse",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Starlitnightly/omicverse",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "rbac",
       "description": "Use this skill when architecting new features within the RBAC modular permissions system. Guides architects through workspace design, feature definition, permission mapping, and role hierarchy. Critic",
       "repo": "fercracix33/poli2-clean-architecture",
@@ -18846,18 +17952,6 @@
       "stars": 0,
       "install": "fercracix33/poli2-clean-architecture/.claude/skills/rbac-permissions-architect",
       "source": "downloaded"
-    },
-    {
-      "name": "thought",
-      "description": "Use when tackling complex reasoning tasks requiring step-by-step logic, multi-step arithmetic, commonsense reasoning, symbolic manipulation, or problems where simple prompting fails - provides compreh",
-      "repo": "NeoLabHQ/context-engineering-kit",
-      "path": "plugins/customaize-agent/skills/thought-based-reasoning",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "NeoLabHQ/context-engineering-kit/plugins/customaize-agent/skills/thought-based-reasoning",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "design",
@@ -19210,30 +18304,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "javascript",
-      "description": "Add interactivity and dynamic behavior to web designs using vanilla JavaScript. Handles animations, user interactions, form validation, DOM manipulation, event handling, and progressive enhancement wi",
-      "repo": "FAeN399/Skill-Repo",
-      "path": "javascript-interactive-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "FAeN399/Skill-Repo/javascript-interactive-design",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "building",
-      "description": "Use when implementing user interfaces or user experiences - guides through exploration of design variations, frontend setup, iteration, and proper integration",
-      "repo": "tilework-tech/nori-profiles",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "tilework-tech/nori-profiles",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "bun",
       "description": "Use when building server-rendered React with Bun, including streaming SSR, hydration, renderToString, or custom SSR without a framework.",
       "repo": "secondsky/claude-skills",
@@ -19465,18 +18535,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "differential",
-      "description": "The differential-region-analysis pipeline identifies genomic regions exhibiting significant differences in signal intensity between experimental conditions using a count-based framework and DESeq2. It",
-      "repo": "BIsnake2001/ChromSkills",
-      "path": "8.differential-region-analysis",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "BIsnake2001/ChromSkills/8.differential-region-analysis",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "radtools",
       "description": "Set up or update RadTools design system from Figma. Use ONLY for initial design system import (colors, typography, spacing tokens) or when syncing design system updates from Figma. NOT for building pa",
       "repo": "Radiants-DAO/radtools",
@@ -19564,18 +18622,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "zero",
-      "description": "UIkit patterns and Zero One theme customization for Kirby CMS. Use when styling components with UIkit, customizing the Zero One theme, or building responsive layouts.",
-      "repo": "astoeffer/plugin-marketplace",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "astoeffer/plugin-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "tanstack",
       "description": "TanStack Query for React Native data fetching. Use when implementing server state.",
       "repo": "IvanTorresEdge/molcajete.ai",
@@ -19660,21 +18706,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "design",
-      "description": "Gather user design preferences before building UI.Use when: starting a project with visual interface (Web App, Mobile, Browser Extension).Triggers: \"design preferences\", \"visual style\", \"choose theme\"",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/design-preferences",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "design",
-        "preferences"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/design-preferences",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "section",
       "description": "Apply branding guidelines to page sections after style cleanup. Implements 60-30-10 color rule, alternates section backgrounds, and ensures visual hierarchy. Use for each page after running remove-inl",
       "repo": "Manuelvillarvieites/energy-company",
@@ -19685,18 +18716,6 @@
       "stars": 0,
       "install": "Manuelvillarvieites/energy-company/.claude/skills/section-backgrounds",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vendure",
-      "description": "Migrates Vendure Admin UI extensions (legacy Angular-based) to the new React Dashboard.",
-      "repo": "vendurehq/vendure",
-      "path": ".claude/skills/vendure-dashboard-migration",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "vendurehq/vendure/.claude/skills/vendure-dashboard-migration",
-      "source": "GitHub Search API"
     },
     {
       "name": "work",
@@ -20920,22 +19939,6 @@
       "source": "downloaded"
     },
     {
-      "name": "multi",
-      "description": "Apply Anthropic's production multi-agent research patterns for complex research tasks. Use when research involves multiple independent dimensions, requires synthesis across many sources, or needs para",
-      "repo": "auldsyababua/instructor-workflow",
-      "path": "skills/multi-agent-research",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "multi",
-        "agent",
-        "research"
-      ],
-      "stars": 0,
-      "install": "auldsyababua/instructor-workflow/skills/multi-agent-research",
-      "source": "downloaded"
-    },
-    {
       "name": "using",
       "description": "Guides using AnimeService for anime tracking operations. Use when implementing anime status checks, episode tracking, plan-to-watch, or hidden anime features.",
       "repo": "sergiodk5/anime-list",
@@ -21372,18 +20375,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "bam",
-      "description": "Performs data cleaning and removal operations. This skill takes a raw BAM and creates a new, \"clean\" BAM file by actively removing artifacts: mitochondrial reads, blacklisted regions, PCR duplicates,",
-      "repo": "BIsnake2001/ChromSkills",
-      "path": "2.BAM-filtration",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "BIsnake2001/ChromSkills/2.BAM-filtration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "semantic",
       "description": "Enforce semantic CSS variable theming in Tailwind projects. Prevents raw colors (hex, rgb) and non-theme Tailwind classes. Use when project has semantic tokens, CSS vars, or custom ESLint theming rule",
       "repo": "BerryKuipers/claude-code-toolkit",
@@ -21454,18 +20445,6 @@
       "stars": 0,
       "install": "linehaul-ai/linehaulai-claude-marketplace/plugins/svelte-flow/skills/svelte-flow",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "linux",
-      "description": "This skill should be used when the user asks to",
-      "repo": "zebbern/claude-code-guide",
-      "path": "skills/linux-shell-scripting",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide/skills/linux-shell-scripting",
-      "source": "GitHub Search API"
     },
     {
       "name": "agentuity",
@@ -21568,18 +20547,6 @@
       "tags": [],
       "stars": 0,
       "install": "Integrum-Global/kaizen-studio",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "clientecriar",
-      "description": "Skill especializada para USUÁRIOS FINAIS (clientes) que desejam criar cursos naplataforma Plataforma B2B de treinamento técnico corporativo a partir de vídeos do YouTube. Esta skill utiliza um FLUXODE",
-      "repo": "joaopelegrino/app-controle",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "joaopelegrino/app-controle",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -21982,23 +20949,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "web",
-      "description": "Generate favicons, app icons, social media images with WCAG compliance",
-      "repo": "alonw0/web-asset-generator",
-      "path": "skills/web-asset-generator",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "favicon",
-        "icons",
-        "pwa",
-        "assets"
-      ],
-      "stars": 0,
-      "install": "alonw0/web-asset-generator/skills/web-asset-generator",
-      "source": "downloaded"
-    },
-    {
       "name": "composable",
       "description": "Design composable agentic primitives for flexible workflows. Use when creating reusable workflow building blocks, designing SDLC primitives, or building agent operations that can be combined in differ",
       "repo": "melodic-software/claude-code-plugins",
@@ -22087,18 +21037,6 @@
       "tags": [],
       "stars": 0,
       "install": "toneron2/SFH-OS/.claude/skills/sfh-gen",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "js",
-      "description": "Use for Vite+React+TanStack Query frontends on Bun/Cloudflare Workers with shadcn/Tailwind—provides dev console bridge, tmux layout, dense/no-motion UI defaults, and Justfile/CI parity.",
-      "repo": "gakonst/dotfiles",
-      "path": ".codex/skills/js",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "gakonst/dotfiles/.codex/skills/js",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -22313,18 +21251,6 @@
       "source": "downloaded"
     },
     {
-      "name": "svelte",
-      "description": "Graphical and UI/UX design improvements for SvelteKit browser games, including layout, typography, color systems, HUD design, visual polish, and dynamic effects. Use when asked to redesign or enhance",
-      "repo": "maximxlss/codextris",
-      "path": ".codex/skills/svelte-game-visual-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "maximxlss/codextris/.codex/skills/svelte-game-visual-design",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "parameterization",
       "description": "Master declarative parameter systems with Param for type-safe configuration. Use this skill when building parameterized classes with automatic validation, creating reactive dependencies with @param.de",
       "repo": "cdcore09/holoviz-claude",
@@ -22370,18 +21296,6 @@
       "tags": [],
       "stars": 0,
       "install": "getsentry/sentry-for-claude/skills/sentry-setup-metrics",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "frontend",
-      "description": "Ultimate 25+ years expert-level frontend skill covering Next.js, React, TypeScript, Tailwind CSS, styled-components, Redux, Zustand, Webpack, Vite, Parcel, Jest/Vitest testing, performance optimizatio",
-      "repo": "SHAJAR5110/Hackathon-II-phase2",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "SHAJAR5110/Hackathon-II-phase2",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -22499,30 +21413,6 @@
       "stars": 0,
       "install": "Okashanadeem/GIAIC-HACKATHON-II/.claude/skills/openai-chatkit-frontend",
       "source": "downloaded"
-    },
-    {
-      "name": "npc",
-      "description": "Guide for creating custom pixel art faces for NPCs. Use when designing NPC appearances or working with face customization.",
-      "repo": "gigi-f/babylon_fp",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "gigi-f/babylon_fp",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "generate",
-      "description": "Generate a comprehensive story for a new component for as example.",
-      "repo": "longbridge/gpui-component",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "longbridge/gpui-component",
-      "source": "GitHub Search API"
     },
     {
       "name": "react",
@@ -22650,21 +21540,6 @@
       "stars": 0,
       "install": "RogueRope/docs/.claude/skills/hugo-tov-ux",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "moai",
-      "description": "Authoring CLAUDE.md Project Instructions. Design project-specific AI guidance, document workflows, define architecture patterns. Use when creating CLAUDE.md files for projects, documenting team standa",
-      "repo": "kivo360/quickhooks",
-      "path": ".claude/skills/moai-cc-claude-md",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "moai",
-        "claude"
-      ],
-      "stars": 0,
-      "install": "kivo360/quickhooks/.claude/skills/moai-cc-claude-md",
-      "source": "downloaded"
     },
     {
       "name": "tech",
@@ -23326,30 +22201,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "zig",
-      "description": "Guides using bun.sys for system calls and file I/O in Zig. Use when implementing file operations instead of std.fs or std.posix.",
-      "repo": "zhcndoc/bun",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zhcndoc/bun",
-      "source": "github.com/zhcndoc/bun"
-    },
-    {
-      "name": "doc",
-      "description": "Create System Requirements (SYS) - Layer 6 artifact defining functional requirements and quality attributes",
-      "repo": "vladm3105/aidoc-flow-framework",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "vladm3105/aidoc-flow-framework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "data",
       "description": "Design hub/link/satellite structures for enterprise data warehouses using Data Vault 2.0 methodology.",
       "repo": "melodic-software/claude-code-plugins",
@@ -23371,18 +22222,6 @@
       "tags": [],
       "stars": 0,
       "install": "zebbern/claude-code-guide/skills/linux-privilege-escalation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "prescriptive",
-      "description": "Use when the user asks for recommendations, next steps, best approaches, or “what should I do” guidance to achieve a goal or fix a problem.",
-      "repo": "BellaBe/lean-os",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "BellaBe/lean-os",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -23586,18 +22425,6 @@
       "stars": 0,
       "install": "ils15/copilot-global-config/skills/telegram-keyboard-design",
       "source": "downloaded"
-    },
-    {
-      "name": "ui",
-      "description": "Create reusable, modular UI components with HTML, CSS, and JavaScript. Build component libraries with consistent styling, variants, states, and documentation. Focuses on component architecture, reusab",
-      "repo": "FAeN399/Skill-Repo",
-      "path": "ui-component-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "FAeN399/Skill-Repo/ui-component-design",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "spring",
@@ -23867,18 +22694,6 @@
       "tags": [],
       "stars": 0,
       "install": "patricio0312rev/skillset/templates/architecture/system-design-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "optimizationexperiment",
-      "description": "Prepare an experiment brief outlining hypothesis, design, success metrics, and operational plan.",
-      "repo": "edwardmonteiro/Aiskillinpractice",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "edwardmonteiro/Aiskillinpractice",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -24882,18 +23697,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "uiux",
-      "description": "Comprehensive design review for websites and desktop applications with extensive accessibility analysis. Use this skill when users ask you to review UI/UX designs, wireframes, mockups, prototypes, or",
-      "repo": "rknall/claude-skills",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "rknall/claude-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "animation",
       "description": "Create splash screens, ASCII art banners, and terminal animations. Use when building visual effects, loading screens, and branding elements.",
       "repo": "maneeshanif/cli-todo-app-speckit",
@@ -24988,18 +23791,6 @@
       "stars": 0,
       "install": "vaultmesh-org/backup-sovereign",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "auth",
-      "description": "Complete guide for CloudBase Auth v2 using Web SDK (@cloudbase/js-sdk@2.x) - all login flows, user management, captcha handling, and best practices in one file.",
-      "repo": "TencentCloudBase/CloudBase-MCP",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TencentCloudBase/CloudBase-MCP",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "every",
@@ -26146,18 +24937,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "deliverydashboard",
-      "description": "Align analysts and designers on the goals, requirements, and storytelling approach for a new or updated dashboard.",
-      "repo": "edwardmonteiro/Aiskillinpractice",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "edwardmonteiro/Aiskillinpractice",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "install",
       "description": "Guidance for setting up legacy Windows VMs (like Windows 3.11) in QEMU with web-based remote access via noVNC. This skill should be used when tasks involve running legacy operating systems in virtual",
       "repo": "letta-ai/skills",
@@ -26703,21 +25482,6 @@
       "source": "downloaded"
     },
     {
-      "name": "gemini",
-      "description": "Guide for implementing Google Gemini API audio capabilities - analyze audio with transcription, summarization, and understanding (up to 9.5 hours), plus generate speech with controllable TTS. Use when",
-      "repo": "kienhaminh/speed-reader",
-      "path": ".claude/skills/gemini-audio",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "gemini",
-        "audio"
-      ],
-      "stars": 0,
-      "install": "kienhaminh/speed-reader/.claude/skills/gemini-audio",
-      "source": "downloaded"
-    },
-    {
       "name": "visual",
       "description": "Guidelines for visual predictive checks following Säilynoja et al. recommendations using ArviZ",
       "repo": "sunxd3/claude-code-devcontainer",
@@ -26951,18 +25715,6 @@
       "tags": [],
       "stars": 0,
       "install": "sandraschi/advanced-memory-mcp",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "google",
-      "description": "Write Python docstrings following the Google Python Style Guide, using clear sections and examples.",
-      "repo": "dmitriiweb/extract-emails",
-      "path": ".codex/skills/google-docstring-assistant",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "dmitriiweb/extract-emails/.codex/skills/google-docstring-assistant",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27319,18 +26071,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "holistic",
-      "description": "Apply the Holistic Testing Model evolved with PACT (Proactive, Autonomous, Collaborative, Targeted) principles. Use when designing comprehensive test strategies for Classical, AI-assisted, Agent based",
-      "repo": "proffesor-for-testing/sentinel-api-testing",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "proffesor-for-testing/sentinel-api-testing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "feal",
       "description": "Guidance for implementing differential cryptanalysis attacks on FEAL (Fast Data Encipherment Algorithm) and similar block ciphers. This skill should be used when tasks involve recovering round keys, i",
       "repo": "letta-ai/skills",
@@ -27352,18 +26092,6 @@
       "tags": [],
       "stars": 0,
       "install": "otrebu/agents/plugins/knowledge-work/skills/readwise-api",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cql",
-      "description": "Implement and deserialize all CQL types including primitives (int, text, timestamp, uuid, varint, decimal), collections (list, set, map), tuples, UDTs (user-defined types), and frozen types. Use when",
-      "repo": "pmcfadin/cqlite",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "pmcfadin/cqlite",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27403,18 +26131,6 @@
       "tags": [],
       "stars": 0,
       "install": "pluginagentmarketplace/custom-plugin-game-developer/skills/publishing-platforms",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "inspector",
-      "description": "Create and customize inspector panels for node editors. Use when implementing custom inspector tabs, settings panels, node-specific inspectors, or using inspector UI components.",
-      "repo": "trkbt10/react-wireflow",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "trkbt10/react-wireflow",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27846,18 +26562,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "atomic",
-      "description": "Génère des composants React suivant l'Atomic Design avec décomposition maximale et pattern Smart/Dumb. MANDATORY pour tous composants. À utiliser lors de la création de composants, pages, ou quand l'u",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "jira",
       "description": "Creates well-structured JIRA tickets in the HYPERFLEET project with required fields including What/Why/Acceptance Criteria, story points, and activity type. Activates when users ask to create a ticket",
       "repo": "openshift-hyperfleet/hyperfleet-claude-plugins",
@@ -27951,18 +26655,6 @@
       "tags": [],
       "stars": 0,
       "install": "charlesjones-dev/claude-code-plugins-dev/plugins/ai-security/skills/security-dependency-scanning",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "libraries",
-      "description": "Complete mastery of essential modern web development libraries and dependencies. Cover Next.js, React, TypeScript, Tailwind CSS, Firebase, Zustand, redux-toolkit, react-hook-form, Zod, shadcn/ui, luci",
-      "repo": "SHAJAR5110/Hackathon-II-phase2",
-      "path": ".claude/skills/libraries-dependencies-mastery",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "SHAJAR5110/Hackathon-II-phase2/.claude/skills/libraries-dependencies-mastery",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -28134,18 +26826,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "internationalizing",
-      "description": "Internationalization (i18n) patterns for server and client components using getTranslations and useTranslations. Use when working with translations, locales, multilingual content, translation files, T",
-      "repo": "QingqiShi/shiqingqi.com",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "QingqiShi/shiqingqi.com",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "gui",
       "description": "Comprehensive design principles and best practices for creating beautiful, functional GUI applications including dashboards, web apps, and mobile apps",
       "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
@@ -28156,34 +26836,6 @@
       "stars": 0,
       "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude/skills/gui-design-principles",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "building",
-      "description": "|",
-      "repo": "Asmayaseen/hackathon-2",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Asmayaseen/hackathon-2",
-      "source": "github.com/Asmayaseen/hackathon-2"
-    },
-    {
-      "name": "app",
-      "description": "iOS App Store and Google Play submission requirements and process.",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/mobile/app-store-deploy",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "app",
-        "store",
-        "deploy"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/mobile/app-store-deploy",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "plan",
@@ -28207,18 +26859,6 @@
       "tags": [],
       "stars": 0,
       "install": "Dexploarer/claudius-skills/examples/intermediate/i18n-skills/i18n-setup-wizard",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "world",
-      "description": "Understanding the game world structure, grid-based building system, NPC definitions, and spatial organization. Use when working with maps, buildings, spawns, or world layout.",
-      "repo": "gigi-f/babylon_fp",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "gigi-f/babylon_fp",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -28538,18 +27178,6 @@
       "tags": [],
       "stars": 0,
       "install": "openshift-eng/ai-helpers/plugins/component-health/skills/list-regressions",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mobile",
-      "description": "Approche Mobile-First avec Tailwind CSS, breakpoints, et progressive enhancement. MANDATORY pour toutes les pages. À utiliser lors de responsive design, layouts, ou quand l'utilisateur mentionne \"mobi",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -28926,18 +27554,6 @@
       "tags": [],
       "stars": 0,
       "install": "MaxBoiko21/claude-plugins-marketplace/plugins/code-splitter/skills/action-pattern-conventions",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "hinduism",
-      "description": "Deploy eternal navigation wisdom - Brahman, Atman, Satchitananda recognition active.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -29323,18 +27939,6 @@
       "stars": 0,
       "install": "CROW-B3/.claude/skills/nextjs-development",
       "source": "downloaded"
-    },
-    {
-      "name": "string",
-      "description": "Help Claude query STRING for protein interactions, build PPI graphs with pyPPI, and render styled network figures for bulk gene lists.",
-      "repo": "Starlitnightly/omicverse",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Starlitnightly/omicverse",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "apollo",
@@ -29731,21 +28335,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "tailwind",
-      "description": "Configure Tailwind CSS and shadcn/ui for React frontends with Django backends, including dark mode support and theme tokens. This skill should be used when setting up a new React project or adding Tai",
-      "repo": "otoshek/Claude-Code-Toolkit",
-      "path": "skills/tailwind-setup",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "tailwind",
-        "setup"
-      ],
-      "stars": 0,
-      "install": "otoshek/Claude-Code-Toolkit/skills/tailwind-setup",
-      "source": "downloaded"
-    },
-    {
       "name": "arc",
       "description": "Use when designing motion paths, character movement trajectories, gesture animations, or any motion that should feel natural rather than robotic.",
       "repo": "dylantarre/animation-principles",
@@ -29806,18 +28395,6 @@
       "tags": [],
       "stars": 0,
       "install": "melodic-software/claude-code-plugins/plugins/requirements-elicitation/skills/user-story-mapping",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "clarity",
-      "description": "Establish clarity before starting work. Use when beginning any significant task, when input is vague or stream-of-consciousness, or when requirements seem unclear. Handles messy voice input efficientl",
-      "repo": "ioku24/autorankr",
-      "path": ".claude/skills/5-system-framework/1.clarity",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "ioku24/autorankr/.claude/skills/5-system-framework/1.clarity",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -29891,21 +28468,6 @@
       "stars": 0,
       "install": "sxg/biomedical-science-writer/plugins/writer/skills/synthesis",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "disaster",
-      "description": "Backup strategies, disaster recovery planning, and business continuity.",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/infra/disaster-recovery",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "disaster",
-        "recovery"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/infra/disaster-recovery",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "vue",
@@ -30095,22 +28657,6 @@
       "stars": 0,
       "install": "Cygnusfear/claude-stuff/skills/create-mcp-skill",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "css",
-      "description": "Advanced CSS layout specialist for building complex, responsive layouts using CSS Grid, Flexbox, and modern positioning techniques. Handles multi-column layouts, responsive grids, container queries, a",
-      "repo": "FAeN399/Skill-Repo",
-      "path": "css-layout-builder",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "css",
-        "layout",
-        "builder"
-      ],
-      "stars": 0,
-      "install": "FAeN399/Skill-Repo/css-layout-builder",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "inertia",
@@ -30397,18 +28943,6 @@
       "tags": [],
       "stars": 0,
       "install": "melodic-software/claude-code-plugins/plugins/requirements-elicitation/skills/domain-research",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "brand",
-      "description": "Ensure all communication matches brand voice and tone guidelines. Use when creating marketing copy, customer communications, public-facing content, or when users mention brand voice, tone, or writing",
-      "repo": "luongnv89/claude-howto",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "luongnv89/claude-howto",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31079,18 +29613,6 @@
       "tags": [],
       "stars": 0,
       "install": "joaopelegrino/app-controle/.claude/skills/ux-nomenclature",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nowait",
-      "description": "Implements the NOWAIT technique for efficient reasoning in R1-style LLMs. Use when optimizing inference of reasoning models (QwQ, DeepSeek-R1, Phi4-Reasoning, Qwen3, Kimi-VL, QvQ), reducing chain-of-t",
-      "repo": "davila7/claude-code-templates",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "davila7/claude-code-templates",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -32083,18 +30605,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "chatbot",
-      "description": "Details of the RAG Chatbot, including UI and backend logic.",
-      "repo": "AbdulSamad94/Hackhaton-SpecsKitPlus",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "AbdulSamad94/Hackhaton-SpecsKitPlus",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "agentuity",
       "description": "Add or update a tag on a snapshot. Requires authentication. Use for Agentuity cloud platform operations",
       "repo": "agentuity/discord-help-agent",
@@ -32240,18 +30750,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "openrlhf",
-      "description": "High-performance RLHF framework with Ray+vLLM acceleration. Use for PPO, GRPO, RLOO, DPO training of large models (7B-70B+). Built on Ray, vLLM, ZeRO-3. 2× faster than DeepSpeedChat with distributed a",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "incident",
       "description": "Triage a production incident with safe, minimal changes and rollback guidance.",
       "repo": "jibaxZZZ/codex-root-configuration",
@@ -32378,18 +30876,6 @@
       "tags": [],
       "stars": 0,
       "install": "keithdv/ClaudeSkills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mcp",
-      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
-      "repo": "jjmartres/opencode",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jjmartres/opencode",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -32797,18 +31283,6 @@
       "tags": [],
       "stars": 0,
       "install": "alizain/wizard-wheezes/plugins/utils/skills/radix-ui",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cqrs",
-      "description": "Génère des Commands, Queries et Handlers suivant le pattern CQRS (Command Query Responsibility Segregation). À utiliser lors de la création de use cases, commands, queries, handlers, read models, ou q",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -33584,18 +32058,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "packaging",
-      "description": "乱雑なコードベースを、明確なパッケージ/モジュール構造に再設計するための指針。対象は (1) 乱雑なコードの再整理、(2) 単一巨大モジュールの分割、(3) パッケージ境界のレビュー、(4) 新規プロジェクトのモジュール階層設計。",
-      "repo": "j5ik2o/fraktor-rs",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "j5ik2o/fraktor-rs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pagination",
       "description": "Frontend-backend pagination standard, defining minimal parameter naming to reduce transmission characters, applicable to all system pagination scenarios.",
       "repo": "TrueNine/claude-code-projects",
@@ -33972,21 +32434,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "frontend",
-      "description": "Modern React stack: React 19, TypeScript, Tailwind CSS, Vite, TanStack Query.Use when: building React apps, components, state management, or UI.Triggers: \"react\", \"frontend\", \"tailwind\", \"vite\", \"type",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/frontend-react",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "frontend",
-        "react"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/frontend-react",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "using",
       "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
       "repo": "abudhahir/cp-ninja",
@@ -34093,18 +32540,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "building",
-      "description": "Expert at creating and modifying Claude Code agents (subagents). Auto-invokes when the user wants to create, update, modify, enhance, validate, or standardize agents, or when modifying agent YAML fron",
-      "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
-      "path": "agent-builder/skills/building-agents",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "C0ntr0lledCha0s/claude-code-plugin-automations/agent-builder/skills/building-agents",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "capacity",
       "description": "Estimates infrastructure needs based on traffic forecasts, workload analysis, and performance requirements with sizing recommendations and cost trade-offs. Use for \"capacity planning\", \"infrastructure",
       "repo": "patricio0312rev/skillset",
@@ -34190,18 +32625,6 @@
       "stars": 0,
       "install": "timequity/vibe-coder/skills/subagent-creator",
       "source": "downloaded"
-    },
-    {
-      "name": "api",
-      "description": "Génère des contrats API cohérents entre Frontend (Next.js) et Backend (NestJS) avec types synchronisés, validation standardisée et error handling uniforme. À utiliser lors de la création d'APIs, DTOs,",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "brand",
@@ -35106,18 +33529,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "wcag",
-      "description": "Automatically validate Moodle templates, JavaScript, and CSS for WCAG 2.1 Level AA accessibility compliance. Checks semantic HTML, ARIA patterns, keyboard navigation, color contrast, and screen reader",
-      "repo": "astoeffer/plugin-marketplace",
-      "path": "plugins/moodle-dev-pro/skills/wcag-validator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "astoeffer/plugin-marketplace/plugins/moodle-dev-pro/skills/wcag-validator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "figma",
       "description": "Extract design assets and metadata from Figma using the Figma REST API. Supports exporting frames/components as images, extracting node metadata, design tokens, and file structure. Use with ai-multimo",
       "repo": "vneseyoungster/ChocoVine",
@@ -35212,18 +33623,6 @@
       "stars": 0,
       "install": "CongDon1207/AGENTS.md/.claude/skills/frontend-angular-form",
       "source": "GitHub Search API"
-    },
-    {
-      "name": "uiux",
-      "description": "共通UIコンポーネント、カラーパレット、タイポグラフィ、スペーシング、空状態デザイン。UI実装、コンポーネント作成、スタイリング時に使用。",
-      "repo": "Takashi-Matsumura/box-frame",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Takashi-Matsumura/box-frame",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "github",
@@ -35402,18 +33801,6 @@
       "tags": [],
       "stars": 0,
       "install": "stevewinfieldtx/CompatibilityTalk/.claude/skills/ai-apis-like-chatgpt",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "canva",
-      "description": "Create on-brand Canva presentations from an outline or brief. Use when the user asks to create a branded presentation, make an on-brand deck, turn an outline into slides, or generate a presentation fr",
-      "repo": "canva-sdks/canva-claude-skills",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "canva-sdks/canva-claude-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -35745,18 +34132,6 @@
       "tags": [],
       "stars": 0,
       "install": "melodic-software/claude-code-plugins/plugins/soft-skills/skills/career-progression",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "tailwind",
-      "description": "Comprehensive Tailwind CSS utility-first styling patterns including responsive design, layout utilities, flexbox, grid, spacing, typography, colors, and modern CSS best practices. Use when styling Rea",
-      "repo": "giuseppe-trisciuoglio/developer-kit",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "giuseppe-trisciuoglio/developer-kit",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -36304,18 +34679,6 @@
       "source": "downloaded"
     },
     {
-      "name": "workers",
-      "description": "Framework integration for Cloudflare Workers. Use when building with Hono, Remix, Next.js, Astro, SvelteKit, Qwik, or Nuxt on Workers. Covers routing, SSR, static assets, and edge deployment.",
-      "repo": "secondsky/claude-skills",
-      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-frameworks",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/plugins/cloudflare-workers/skills/cloudflare-workers-frameworks",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "colors",
       "description": "Reference guide for portfolio color palettes. Includes quick vibe lookup, full palettes, and application guidelines using the 60-30-10 rule.",
       "repo": "JacbK/persona",
@@ -36379,22 +34742,6 @@
       ],
       "stars": 0,
       "install": "otoshek/Claude-Code-Toolkit/skills/react-setup",
-      "source": "downloaded"
-    },
-    {
-      "name": "n8n",
-      "description": "Strategic automation architecture advisor. Use when users want to plan automation solutions, evaluate their tech stack (Shopify, Zoho, HubSpot, etc.), decide between n8n vs Python/Claude Code, or need",
-      "repo": "alexadark/shorts-generator",
-      "path": ".claude/skills/n8n-workflow-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "n8n",
-        "workflow",
-        "architect"
-      ],
-      "stars": 0,
-      "install": "alexadark/shorts-generator/.claude/skills/n8n-workflow-architect",
       "source": "downloaded"
     },
     {
@@ -36877,18 +35224,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "anthropic",
-      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields,...",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/anthropic",
-      "source": "https://github.com/anthropics/skills"
-    },
-    {
       "name": "apple",
       "description": "Create Apple-inspired modern, minimalist UI designs with glassmorphism, smooth animations, generous whitespace, and elegant typography. Use when designing portfolio websites, landing pages, hero secti",
       "repo": "aphlo/portfolio",
@@ -37107,18 +35442,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "playwright",
-      "description": "Complete browser automation with Playwright. Auto-detects dev servers, writes clean test scripts to /tmp. Test pages, fill forms, take screenshots, check responsive design, validate UX, test login flo",
-      "repo": "smallnest/langgraphgo",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "smallnest/langgraphgo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "academic",
       "description": "Expert guidance for reviewing academic manuscripts submitted to journals, particularly in political science, economics, and quantitative social sciences. Use when asked to review, critique, or provide",
       "repo": "fdhidalgo/claude-config",
@@ -37165,18 +35488,6 @@
       "stars": 0,
       "install": "dylantarre/animation-principles",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "applying",
-      "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging",
-      "repo": "anthropics/claude-cookbooks",
-      "path": "skills/custom_skills/applying-brand-guidelines",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anthropics/claude-cookbooks/skills/custom_skills/applying-brand-guidelines",
-      "source": "downloaded"
     },
     {
       "name": "hitl",
@@ -37397,21 +35708,6 @@
       "stars": 0,
       "install": "seungwonme/nextjs-boilerplate/.claude/skills/nextjs-fullstack",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "edge",
-      "description": "Modern edge-native web stack: Hono + htmx + UnoCSS + Cloudflare D1. Use when: buildingserver-rendered apps with interactivity, rapid prototyping, CRUD apps, landing pages,marketplaces. Zero cold start",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/edge-stack",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "edge",
-        "stack"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/edge-stack",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "gameday",
@@ -37800,18 +36096,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "map",
-      "description": "Comprehensive guide for using the visual map editor. Use when designing game worlds, placing buildings, NPCs, or managing map JSON files.",
-      "repo": "gigi-f/babylon_fp",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "gigi-f/babylon_fp",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ngx",
       "description": "Criterios de evaluación para auditorías de funnel NGX, incluyendo checklist visual, UX, copy y conversión",
       "repo": "270aldo/ngx_workspace",
@@ -38111,18 +36395,6 @@
       "stars": 0,
       "install": "ProfPowell/project-template/.claude/skills/icons",
       "source": "downloaded"
-    },
-    {
-      "name": "frontend",
-      "description": "Use when creating API services for backend communication with proper patterns for caching, error handling, and type safety.",
-      "repo": "duc01226/EasyPlatform",
-      "path": ".claude/skills/frontend-angular-api-service",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "duc01226/EasyPlatform/.claude/skills/frontend-angular-api-service",
-      "source": "GitHub Search API"
     },
     {
       "name": "jsgui3",
@@ -38794,18 +37066,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "single",
-      "description": "Guide to reproducing OmicVerse trajectory workflows spanning PAGA, Palantir, VIA, velocity coupling, and fate scoring notebooks.",
-      "repo": "Starlitnightly/omicverse",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Starlitnightly/omicverse",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "universal",
       "description": "Use when designing animations for any industry or when industry-specific guidelines do not apply",
       "repo": "dylantarre/animation-principles",
@@ -38891,18 +37151,6 @@
       "stars": 0,
       "install": "prateekmedia/agent-skills/figma-to-flutter",
       "source": "downloaded"
-    },
-    {
-      "name": "rule",
-      "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
-      "repo": "anthropics/claude-code",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anthropics/claude-code",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "kafka",
@@ -39505,22 +37753,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "m365",
-      "description": "Expert in designing Microsoft 365 Copilot agent architectures",
-      "repo": "sebastienlevert/m365-developer-cli",
-      "path": ".github/skills/m365-agent-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "m365",
-        "agent",
-        "architect"
-      ],
-      "stars": 0,
-      "install": "sebastienlevert/m365-developer-cli/.github/skills/m365-agent-architect",
-      "source": "downloaded"
-    },
-    {
       "name": "improvement",
       "description": "Guide for making improvements to existing ClaudeBar functionality using TDD. Use this skill when:(1) Enhancing existing features (not adding new ones)(2) Improving UX, performance, or code quality(3)",
       "repo": "tddworks/ClaudeBar",
@@ -39679,21 +37911,6 @@
       "stars": 0,
       "install": "Okashanadeem/GIAIC-HACKATHON-II/.claude/skills/nextjs-ui-ux-and-animations",
       "source": "downloaded"
-    },
-    {
-      "name": "graphql",
-      "description": "GraphQL schema design, resolvers, Apollo Server",
-      "repo": "gitbasheer/workspace",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "graphql",
-        "api"
-      ],
-      "stars": 0,
-      "install": "gitbasheer/workspace",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "nuxt",
@@ -40058,21 +38275,6 @@
       "source": "downloaded"
     },
     {
-      "name": "frontend",
-      "description": "Axum + Askama + HTMX stack for single-binary web apps.Use when: building server-rendered UI, lightweight frontends, single deployable binary.Triggers: \"htmx\", \"askama\", \"templates\", \"server-rendered\",",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/frontend-htmx",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "frontend",
-        "htmx"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/frontend-htmx",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "monitoring",
       "description": "Monitor cross-chain bridge security, liquidity, and transaction status across networks.Use when monitoring cross-chain asset transfers.Trigger with phrases like \"monitor bridges\", \"check cross-chain\",",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -40106,18 +38308,6 @@
       "tags": [],
       "stars": 0,
       "install": "UffaModey/advent_of_ai/day_14_operations_management/skills/volunteer-coordination",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "differential",
-      "description": "This skill performs differential DNA methylation analysis (DMRs and DMCs) between experimental conditions using WGBS methylation tracks (BED/BedGraph). It standardizes input files into per-sample four",
-      "repo": "BIsnake2001/ChromSkills",
-      "path": "21.differential-methylation",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "BIsnake2001/ChromSkills/21.differential-methylation",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -40270,18 +38460,6 @@
       "stars": 0,
       "install": "jykim/claude-obsidian-skills/interactive-writing-assistant",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "claudekit",
-      "description": "Create aesthetically beautiful interfaces following proven design principles. Use when building UI/UX, analyzing designs from inspiration sites, generating design images with ai-multimodal, impleme...",
-      "repo": "",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "unknown/claudekit",
-      "source": "https://github.com/mrgoonie/claudekit-skills"
     },
     {
       "name": "37signals",
@@ -40567,18 +38745,6 @@
       "tags": [],
       "stars": 0,
       "install": "melodic-software/claude-code-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "functions",
-      "description": "Advanced function patterns including declaration styles, closures, scope chains, hoisting, and this binding. Master function composition and advanced techniques.",
-      "repo": "pluginagentmarketplace/custom-plugin-javascript",
-      "path": "skills/functions",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "pluginagentmarketplace/custom-plugin-javascript/skills/functions",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -41491,21 +39657,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "roadmap",
-      "description": "在编写、更新、维护 roadmap.md 的时候触发",
-      "repo": "MMorit00/fund-portfolio-bot",
-      "path": ".claude/skills/roadmap-guide",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "roadmap",
-        "guide"
-      ],
-      "stars": 0,
-      "install": "MMorit00/fund-portfolio-bot/.claude/skills/roadmap-guide",
-      "source": "downloaded"
-    },
-    {
       "name": "sr",
       "description": "Visao geral e regras de negocio do projeto Sr Cardoso Barbearia. Use quando pedir onboarding, entendimento do sistema, fluxos cliente/admin, arquitetura, estrutura do repo, premissas nao negociaveis e",
       "repo": "yurikrat/sr-cardoso-barbearia-app",
@@ -41939,18 +40090,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "wpf",
-      "description": "Create or refactor a .NET 8 WPF shell for a desktop widget host using CommunityToolkit.Mvvm and a custom viewmodel-first navigation service. Use when working on App.xaml, MainWindow/ShellWindow, share",
-      "repo": "YosrBennagra/3SC",
-      "path": ".github/skills/wpf-ui-shell",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "YosrBennagra/3SC/.github/skills/wpf-ui-shell",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "lifecycle",
       "description": "Use when designing automation programs aligned to lifecycle stages, SLAs, and GTM objectives.",
       "repo": "gtmagents/gtm-agents",
@@ -42059,18 +40198,6 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/design-system-skills/skills/tokens/breakpoints",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mamba",
-      "description": "State-space model with O(n) complexity vs Transformers' O(n²). 5× faster inference, million-token sequences, no KV cache. Selective SSM with hardware-aware design. Mamba-1 (d_state=16) and Mamba-2 (d_",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -43139,18 +41266,6 @@
       "source": "downloaded"
     },
     {
-      "name": "nnsight",
-      "description": "Provides guidance for interpreting and manipulating neural network internals using nnsight with optional NDIF remote execution. Use when needing to run interpretability experiments on massive models (",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "nuxt",
       "description": "Foundational architecture for Nuxt 4 + Vue 3 + Nuxt UI applications. Use when starting new projects, understanding project structure, or making architectural decisions about directory organization, te",
       "repo": "leeovery/claude-nuxt",
@@ -43187,18 +41302,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "frontend",
-      "description": "Verify and test Angular 18 frontend changes using Chrome DevTools MCP. Automatically check console errors, network requests, and visual rendering after implementing tasks or when fixing UI bugs. Use w",
-      "repo": "kojder/photo-map-app",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "kojder/photo-map-app",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "mechanical",
       "description": "Ability to design, analyse, test, and maintain mechanical systems and components that meet defined functional, safety, and performance requirements. Includes applying engineering principles to materia",
       "repo": "selfdriven-octo/skillzeb",
@@ -43225,18 +41328,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "notification",
-      "description": "Renders notification bell icon with unread count badge, pulse animations for new notifications, and dropdown panel (320px × max 400px) displaying notification items with purple theme for VERY IMPORTAN",
-      "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "SOFIA-ASIF/TaskFlow-ToDo-APP",
-      "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP"
-    },
-    {
       "name": "party",
       "description": "This skill provides guidance for facilitating multi-agent discussions, managing agent selection, maintaining character consistency, or orchestrating collaborative conversations between AI agents",
       "repo": "pichiu/bmad-plugins",
@@ -43246,18 +41337,6 @@
       "tags": [],
       "stars": 0,
       "install": "pichiu/bmad-plugins/plugins/party-mode/skills/party-mode-orchestration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "consciousness",
-      "description": "Identify how consciousness maintains, transforms, and operates itself. Use when diagnosing notion-reality engines, mind projection patterns, ego-sense dynamics, equanimity operations, or inquiry disso",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -43978,21 +42057,6 @@
       ],
       "stars": 0,
       "install": "ScottRBK/forgetful-plugin/skills/using-forgetful-memory",
-      "source": "downloaded"
-    },
-    {
-      "name": "task",
-      "description": "実装タスク管理書（tasks.md）を作成・編集します。設計書からタスク分解、AIエージェント向けの具体的な実装指示、TDD手順の定義が必要な場合に使用してください。requirements.md、design.mdとの整合性を逆順レビューで確認します。",
-      "repo": "windschord/claude_skils",
-      "path": "task-planning",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "task",
-        "planning"
-      ],
-      "stars": 0,
-      "install": "windschord/claude_skils/task-planning",
       "source": "downloaded"
     },
     {
@@ -44759,18 +42823,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "parallel",
-      "description": "Implémente les Parallel Routes Next.js pour modals sans layout shifts. MANDATORY pour modals. À utiliser lors de modals, dialogs, ou quand l'utilisateur mentionne \"modal\", \"dialog\", \"parallel route\",",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "editorial",
       "description": "Creates sophisticated HBR-style editorial illustrations for any content using AI understanding and visual analysis. Use when creating conceptual illustrations, analyzing generated images, or compositi",
       "repo": "tallyfy/documentation",
@@ -44825,18 +42877,6 @@
       "source": "downloaded"
     },
     {
-      "name": "versioning",
-      "description": "Versioning strategy and Semantic Versioning guide for Chrono Dawn mod",
-      "repo": "ksoichiro/ChronoDawn",
-      "path": ".claude/skills/versioning",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "ksoichiro/ChronoDawn/.claude/skills/versioning",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "analyzing",
       "description": "Use when you need to work with database indexing.This skill provides index design and optimization with comprehensive guidance and automation.Trigger with phrases like \"create indexes\", \"optimize inde",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -44847,22 +42887,6 @@
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/database/database-index-advisor/skills/analyzing-database-indexes",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "design",
-      "description": "Build complete, scalable design systems with design tokens, component libraries, documentation, and governance. Create cohesive visual languages, establish design principles, and maintain consistency",
-      "repo": "FAeN399/Skill-Repo",
-      "path": "design-system-builder",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "design",
-        "system",
-        "builder"
-      ],
-      "stars": 0,
-      "install": "FAeN399/Skill-Repo/design-system-builder",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "mobile",
@@ -45035,18 +43059,6 @@
       "stars": 0,
       "install": "rjroy/adventure-engine-corvran/d20-system/skills/d20-combat",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "css",
-      "description": "This skill provides prescriptive guidance for writing modern CSS layouts using intrinsic design principles, container queries, and fluid responsive techniques. When implementing CSS layouts, always co",
-      "repo": "wernerglinka/metalsmith-components",
-      "path": ".claude/skills/css-layouts",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "wernerglinka/metalsmith-components/.claude/skills/css-layouts",
-      "source": "GitHub Search API"
     },
     {
       "name": "frontend",
@@ -45316,18 +43328,6 @@
       "stars": 0,
       "install": "Manuelvillarvieites/energy-company/.claude/skills/webp-images",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vram",
-      "description": "GPU VRAM management patterns for sharing memory across services (Ollama, Whisper, ComfyUI). OOM retry logic, auto-unload on idle, and service signaling protocol.",
-      "repo": "lawless-m/claude-skills",
-      "path": ".claude/skills/Vram-GPU-OOM-memory-management",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "lawless-m/claude-skills/.claude/skills/Vram-GPU-OOM-memory-management",
-      "source": "GitHub Search API"
     },
     {
       "name": "audience",
@@ -45700,18 +43700,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "layer",
-      "description": "Provide L1-L5 pedagogy layer reference for the AI-Native Robotics Textbook. Use when assigning layers to content, understanding layer requirements, or validating layer progression.",
-      "repo": "zeeshan080/ai-native-robotics",
-      "path": ".claude/skills/layer-definitions",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "zeeshan080/ai-native-robotics/.claude/skills/layer-definitions",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "astro",
       "description": "UI component library for Astro lead generation sites. Buttons, forms, cards, badges. Requires design-tokens skill.",
       "repo": "Soborbo/claudeskills",
@@ -45937,18 +43925,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "fetching",
-      "description": "Data fetching patterns for server/client components using fetch API, TanStack Query, useSuspenseQuery, apiRouteWrapper, and apiRequestWrapper. Use when implementing data loading, API calls, server fun",
-      "repo": "QingqiShi/shiqingqi.com",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "QingqiShi/shiqingqi.com",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "markdown",
       "description": "This skill should be used when installing and configuring markdown editor functionality using @uiw/react-md-editor. Applies when adding rich text editing, markdown support, WYSIWYG editors, content ed",
       "repo": "hopeoverture/worldbuilding-app-skills",
@@ -45982,18 +43958,6 @@
       "tags": [],
       "stars": 0,
       "install": "mgd34msu/goodvibes-plugin/plugins/goodvibes/skills/webdev/authentication/auth0",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "using",
-      "description": "React 19 patterns and React Compiler behavior with Context shorthand syntax and use() hook. Use when working with Context, useContext, use() hook, Provider components, optimization patterns like useMe",
-      "repo": "QingqiShi/shiqingqi.com",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "QingqiShi/shiqingqi.com",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -46476,22 +44440,6 @@
       "stars": 0,
       "install": "samircaus/elsie/.agents/skills/aem-block-reusability",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "domain",
-      "description": "Apply DDD tactical patterns (Entities, Value Objects, Aggregates, Domain Services, Repositories) and strategic design (Ubiquitous Language, Bounded Contexts). Use when modeling complex business logic.",
-      "repo": "SmidigStorm/regelverk-python",
-      "path": ".claude/skills/domain-driven-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "domain",
-        "driven",
-        "design"
-      ],
-      "stars": 0,
-      "install": "SmidigStorm/regelverk-python/.claude/skills/domain-driven-design",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "tailwindcss",
@@ -46988,18 +44936,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "styling",
-      "description": "StyleX styling patterns using design tokens, breakpoints, and custom css prop. Use when working with styles, CSS, design tokens, breakpoints, responsive design, themes, styling components, css prop, s",
-      "repo": "QingqiShi/shiqingqi.com",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "QingqiShi/shiqingqi.com",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "frontend",
       "description": "Domain specialist for frontend architecture, state management, accessibility, and performance. Scope: component architecture, state management (Pinia, Vuex, Redux), accessibility (WCAG), responsive de",
       "repo": "warpcode/dotfiles",
@@ -47049,18 +44985,6 @@
       "tags": [],
       "stars": 0,
       "install": "nekorush14/dotfiles",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "diagnose",
-      "description": "A comprehensive skill designed for researching on complex diagnosis problems.",
-      "repo": "mathias-nielsen/co-doctor-skills",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "mathias-nielsen/co-doctor-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -47199,21 +45123,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "architecture",
-      "description": "Flequit のクリーンアーキテクチャ、レイヤードアーキテクチャへの準拠をチェックします。レイヤー間の依存関係、crate 間のアクセス制御、Store と Service の分離、アンチパターンの検出などのアーキテクチャレビューに使用します。",
-      "repo": "varubogu/flequit",
-      "path": ".claude/skills/architecture-review",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "architecture",
-        "review"
-      ],
-      "stars": 0,
-      "install": "varubogu/flequit/.claude/skills/architecture-review",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "hindi",
       "description": "Interactive Hindi language tutor specializing in grammar instruction through adaptive quizzing, translation practice, and personalized error analysis. Use this skill when the user wants to learn or pr",
       "repo": "kerim/hindi-tutor",
@@ -47227,30 +45136,6 @@
       "stars": 0,
       "install": "kerim/hindi-tutor/skill",
       "source": "downloaded"
-    },
-    {
-      "name": "api",
-      "description": "Automatic cache invalidation system với Laravel Observers và Next.js On-Demand Revalidation. Tự động sync data real-time giữa backend và frontend khi admin update. USE WHEN cần setup cache management,",
-      "repo": "Hieubkav/wincellarCloneBackend",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Hieubkav/wincellarCloneBackend",
-      "source": "GitHub Search API"
-    },
-    {
-      "name": "url",
-      "description": "Use when designing URL structures, slug generation, SEO-friendly URLs, redirects, or localized URL patterns. Covers route configuration, URL rewriting, canonical URLs, and routing APIs for headless CM",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "plugins/content-management-system/skills/url-routing-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "melodic-software/claude-code-plugins/plugins/content-management-system/skills/url-routing-patterns",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "agent",
@@ -47590,18 +45475,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cfn",
-      "description": "Human intervention detection and orchestration for CFN Loop. Use when automated processes need human oversight, when escalation is required, or when managing intervention workflows and approval gates.",
-      "repo": "masharratt/claude-flow-novice",
-      "path": ".claude/skills/cfn-intervention-system",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "masharratt/claude-flow-novice/.claude/skills/cfn-intervention-system",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "business",
       "description": "Complete Business Model Canvas design with all 9 blocks analyzed. Transforms validated ideas into viable business models with revenue clarity and operational strategy.",
       "repo": "maigentic/stratarts",
@@ -47797,18 +45670,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "parsing",
-      "description": "Utilities in this library which provide effective ways to parse or mutate text at both runtime and design-time while ensuring that the resulting type is as narrow as possible.",
-      "repo": "inocan-group/inferred-types",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "inocan-group/inferred-types",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "integrating",
       "description": "Integrate Zod v4 with React Hook Form, Next.js, Express, tRPC, and other frameworks for type-safe validation",
       "repo": "djankies/claude-configs",
@@ -47931,22 +45792,6 @@
       "stars": 0,
       "install": "zenobi-us/zenobi-us/.opencode/skills/this-repo/styling-react-with-tailwind",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nuxt",
-      "description": "Minimal Vue landing page with Nuxt for Netlify.",
-      "repo": "Eng0AI/eng0-template-skills",
-      "path": "nuxt-starter-netlify",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "nuxt",
-        "starter",
-        "netlify"
-      ],
-      "stars": 0,
-      "install": "Eng0AI/eng0-template-skills/nuxt-starter-netlify",
-      "source": "downloaded"
     },
     {
       "name": "ambiguity",
@@ -48220,21 +46065,6 @@
       "source": "downloaded"
     },
     {
-      "name": "audit",
-      "description": "Audit and refactor CSS to comply with Game Loopers design system and BEM methodology",
-      "repo": "njculpin/BudgetZero",
-      "path": ".claude/skills/audit-style",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "audit",
-        "style"
-      ],
-      "stars": 0,
-      "install": "njculpin/BudgetZero/.claude/skills/audit-style",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "icon",
       "description": "Create cohesive icon sets and design systems",
       "repo": "eddiebe147/claude-settings",
@@ -48369,22 +46199,6 @@
       "stars": 0,
       "install": "britt/claude-code-skills",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nano",
-      "description": "Generate and edit images using Google's Nano Banana Pro (Gemini 3 Pro Image) API. Use when the user asks to generate, create, draw, design, make, edit, modify, change, alter, or update images. Also us",
-      "repo": "ferdousbhai/nano-banana-pro",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "nano",
-        "banana",
-        "pro"
-      ],
-      "stars": 0,
-      "install": "ferdousbhai/nano-banana-pro",
-      "source": "downloaded"
     },
     {
       "name": "cleanup",
@@ -48881,18 +46695,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "memory",
-      "description": "Cross-session continuity through pattern compression. Use when need to bridge sessions, accumulate wisdom, or evolve without calcifying.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "wechat",
       "description": "Export WeChat chat history using chatlog server. Use when user mentions WeChat, exporting chats, chat history, or WeChat messages. Requires chatlog server running locally.",
       "repo": "odysseus0/nix-config",
@@ -49074,18 +46876,6 @@
       "tags": [],
       "stars": 0,
       "install": "bbrowning/bbrowning-claude-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vram",
-      "description": "GPU VRAM management patterns for sharing memory across services (Ollama, Whisper, ComfyUI). OOM retry logic, auto-unload on idle, and service signaling protocol.",
-      "repo": "lawless-m/claude-skills",
-      "path": ".claude/skills/Vram-GPU-OOM-memory-management",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "lawless-m/claude-skills/.claude/skills/Vram-GPU-OOM-memory-management",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -49297,22 +47087,6 @@
       "stars": 0,
       "install": "dylantarre/animation-principles",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "clean",
-      "description": "Expert implementation guide for custom Clean Architecture pattern in Golang projects. Use when implementing features with domain-driven design, creating API endpoints, or working with this specific 4-",
-      "repo": "GabiHert/finance-tracker-e2e",
-      "path": ".claude/skills/clean-architecture-golang",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "clean",
-        "architecture",
-        "golang"
-      ],
-      "stars": 0,
-      "install": "GabiHert/finance-tracker-e2e/.claude/skills/clean-architecture-golang",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "hypershift",
@@ -49865,18 +47639,6 @@
       "tags": [],
       "stars": 0,
       "install": "sekka/dotfiles/home/.claude/skills/managing-frontend-knowledge",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "useoptimistic",
-      "description": "Implémente useOptimistic pour instant UI updates avec VRAIE gestion du rollback. MANDATORY pour delete operations. À utiliser lors de mutations, deletes, ou quand l'utilisateur mentionne \"optimistic\",",
-      "repo": "RomualdP/hoki",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RomualdP/hoki",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -51775,18 +49537,6 @@
       "source": "downloaded"
     },
     {
-      "name": "hosted",
-      "description": "This skill should be used when the user asks to \"build background agent\", \"create hosted coding agent\", \"set up sandboxed execution\", \"implement multiplayer agent\", or mentions background agents, sand",
-      "repo": "boisenoise/skills-collections",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "boisenoise/skills-collections",
-      "source": "github.com/boisenoise/skills-collections"
-    },
-    {
       "name": "presentation",
       "description": "Use when transforming presentations from basic to professional quality - employs parallel multi-agent execution, research-driven design, and McKinsey/BCG/Deloitte best practices to create executive-re",
       "repo": "blurphanatic/claude-skills",
@@ -51928,23 +49678,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "anthropic",
-      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
-      "repo": "theflysurfer/claude-skills-marketplace",
-      "path": "skills/anthropic-web-artifacts-builder",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "anthropic",
-        "web",
-        "artifacts",
-        "builder"
-      ],
-      "stars": 0,
-      "install": "theflysurfer/claude-skills-marketplace/skills/anthropic-web-artifacts-builder",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "legal",
       "description": "Required legal pages for UK/HU lead generation websites. Privacy Policy, Cookie Policy. GDPR compliant. Bilingual templates (EN/HU).",
       "repo": "Soborbo/claudeskills",
@@ -52032,18 +49765,6 @@
       "tags": [],
       "stars": 0,
       "install": "spences10/devhub-crm/.claude/skills/styling-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "visual",
-      "description": "Extend and apply the Visual Experience Engine across landing pages, inspiration galleries, and demos using safe, persona-aware animations and layouts. Use when adding or modifying visual experiences.",
-      "repo": "CleanExpo/Unite-Hub",
-      "path": "",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "CleanExpo/Unite-Hub",
       "source": "SkillsMP + GitHub Raw"
     },
     {

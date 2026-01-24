@@ -1,7 +1,0 @@
-{
-  "name": "subagent-driven-development-davila7-claude-code-templates",
-  "description": "Use when executing implementation plans with independent tasks in the current session",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.617586Z"
-}

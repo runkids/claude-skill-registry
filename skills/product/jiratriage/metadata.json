@@ -1,8 +1,0 @@
-{
-  "name": "jiratriage",
-  "repo": "Lobbi-Docs/claude",
-  "category": "product",
-  "description": "Triage and analyze Jira issues. Use when the user wants to \"triage issues\", \"analyze backlog\", \"assess tickets\", or \"jira triage\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:50.588940Z"
-}

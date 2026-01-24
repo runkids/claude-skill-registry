@@ -1,7 +1,0 @@
-{
-  "name": "deployment-rollback",
-  "description": "Rollback failed deployments, restore previous versions, and handle deployment emergencies. Use when deployments fail, bugs are discovered in production, or emergency recovery is needed.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.339223Z"
-}

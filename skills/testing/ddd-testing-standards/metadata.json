@@ -1,8 +1,0 @@
-{
-  "name": "ddd-testing-standards",
-  "repo": "RomualdP/hoki",
-  "category": "testing",
-  "description": "Standards de tests exhaustifs pour les bounded contexts DDD (Domain, Application, Integration). \u00c0 utiliser lors de l'\u00e9criture de tests backend, tests unitaires, tests d'int\u00e9gration, ou quand l'utilisa",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.213426Z"
-}

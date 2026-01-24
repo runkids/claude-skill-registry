@@ -1,7 +1,0 @@
-{
-  "name": "dispatching-parallel-agents-davila7-claude-code-templates",
-  "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.338817Z"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "claude-md-enhancer",
-  "description": "Analyzes, generates, and enhances CLAUDE.md files for any project type using best practices, modular architecture support, and tech stack customization. Use when setting up new projects, improving exi",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/claude-code-skill-factory",
-  "source_path": "generated-skills/claude-md-enhancer/SKILL.md",
-  "imported_at": "2026-01-24T08:31:00.067668Z"
-}

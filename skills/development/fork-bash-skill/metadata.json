@@ -1,8 +1,0 @@
-{
-  "name": "fork-bash-skill",
-  "repo": "rhayalcantara/evaluacionesEmpleadosdocker",
-  "category": "development",
-  "description": "Execute agentic coding tools directly via bash commands with output capture. Use this when the user requests to run AI agents (Gemini, Claude Code, etc.) and get their results directly.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:54.189476Z"
-}

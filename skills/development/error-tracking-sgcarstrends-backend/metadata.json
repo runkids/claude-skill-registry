@@ -1,7 +1,0 @@
-{
-  "name": "error-tracking-sgcarstrends-backend",
-  "description": "Track errors with CloudWatch Logs, implement structured logging, and monitor application health. Use when debugging production issues, investigating errors, or improving observability.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.373409Z"
-}

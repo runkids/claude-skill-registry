@@ -1,9 +1,0 @@
-{
-  "name": "docx",
-  "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/skills",
-  "source_path": "skills/docx/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.936641Z"
-}

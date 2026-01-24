@@ -1,7 +1,0 @@
-{
-  "name": "typescript-standards-maxritter-claude-codepro",
-  "description": "Apply TypeScript development standards including package manager detection (npm/yarn/pnpm/bun), explicit return types on exports, ESLint/Prettier code quality, one-line JSDoc, and self-documenting cod",
-  "category": "development",
-  "source": "github.com/maxritter/claude-codepro",
-  "imported_at": "2026-01-24T14:54:06.687824Z"
-}

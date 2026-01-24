@@ -1,7 +1,0 @@
-{
-  "name": "using-git-worktrees-obra-superpowers",
-  "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-  "category": "development",
-  "source": "github.com/obra/superpowers",
-  "imported_at": "2026-01-24T14:54:02.143365Z"
-}

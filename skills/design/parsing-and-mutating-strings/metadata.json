@@ -1,8 +1,0 @@
-{
-  "name": "parsing-and-mutating-strings",
-  "repo": "inocan-group/inferred-types",
-  "category": "design",
-  "description": "Utilities in this library which provide effective ways to parse or mutate text at both runtime and design-time while ensuring that the resulting type is as narrow as possible.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:06.196377Z"
-}

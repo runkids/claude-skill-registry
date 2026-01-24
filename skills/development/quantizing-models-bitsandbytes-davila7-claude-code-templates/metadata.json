@@ -1,7 +1,0 @@
-{
-  "name": "quantizing-models-bitsandbytes-davila7-claude-code-templates",
-  "description": "Quantizes LLMs to 8-bit or 4-bit for 50-75% memory reduction with minimal accuracy loss. Use when GPU memory is limited, need to fit larger models, or want faster inference. Supports INT8, NF4, FP4 fo",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.661754Z"
-}

@@ -1,8 +1,0 @@
-{
-  "name": "rte-agent-release-train-engineer",
-  "repo": "oehm-smith/linux-env",
-  "category": "devops",
-  "description": "Creates pull requests, deployment checklists, and manages release processes",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:24.645875Z"
-}

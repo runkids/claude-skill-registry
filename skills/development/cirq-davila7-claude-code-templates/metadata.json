@@ -1,7 +1,0 @@
-{
-  "name": "cirq-davila7-claude-code-templates",
-  "description": "Quantum computing framework for building, simulating, optimizing, and executing quantum circuits. Use this skill when working with quantum algorithms, quantum circuit design, quantum simulation (noise",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:23.105637Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "biome-config-sgcarstrends-backend",
-  "description": "Update Biome linting rules, formatting configs, and import organization settings. Use when adding new lint rules, customizing code style, or fixing workspace-specific linting issues.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:10.951997Z"
-}

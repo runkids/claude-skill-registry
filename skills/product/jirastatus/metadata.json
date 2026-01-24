@@ -1,8 +1,0 @@
-{
-  "name": "jirastatus",
-  "repo": "Lobbi-Docs/claude",
-  "category": "product",
-  "description": "Check status of current Jira work session. Use when the user asks \"what's the status\", \"show progress\", \"current work\", or \"jira status\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:50.488530Z"
-}

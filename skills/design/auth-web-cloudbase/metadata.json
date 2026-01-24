@@ -1,8 +1,0 @@
-{
-  "name": "auth-web-cloudbase",
-  "repo": "TencentCloudBase/CloudBase-MCP",
-  "category": "design",
-  "description": "Complete guide for CloudBase Auth v2 using Web SDK (@cloudbase/js-sdk@2.x) - all login flows, user management, captcha handling, and best practices in one file.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:43.606422Z"
-}

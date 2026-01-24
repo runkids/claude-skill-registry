@@ -1,9 +1,0 @@
-{
-  "name": "lambda-labs-gpu-cloud",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "Reserved and on-demand GPU cloud instances for ML training and inference. Use when you need dedicated GPU instances with simple SSH access, persistent filesystems, or high-performance multi-node clust",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.374844Z",
-  "dir_name": "lambda-labs-gpu-cloud"
-}

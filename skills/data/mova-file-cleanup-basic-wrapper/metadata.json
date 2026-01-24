@@ -1,9 +1,0 @@
-{
-  "name": "mova-file-cleanup-basic-wrapper",
-  "repo": "Leryk1981/mova_wf_cycle",
-  "category": "data",
-  "description": "LLM-only skill that analyzes a snapshot of a single disk or partition and generates a safe, structured cleanup plan. Identifies obvious junk, heavy folders, and proposes step-by-step actions to reclai",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:47.460537Z",
-  "dir_name": "mova-file-cleanup-basic-wrapper"
-}

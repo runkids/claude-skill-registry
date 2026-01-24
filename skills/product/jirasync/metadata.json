@@ -1,8 +1,0 @@
-{
-  "name": "jirasync",
-  "repo": "Lobbi-Docs/claude",
-  "category": "product",
-  "description": "Sync local changes with Jira issue. Use when the user wants to \"sync to jira\", \"update jira\", \"push progress\", or \"sync status\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:50.589236Z"
-}

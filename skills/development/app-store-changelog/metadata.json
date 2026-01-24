@@ -1,7 +1,0 @@
-{
-  "name": "app-store-changelog",
-  "description": "Create user-facing App Store release notes by collecting and summarizing all user-impacting changes since the last git tag (or a specified ref). Use when asked to generate a comprehensive release chan",
-  "category": "development",
-  "source": "github.com/harperreed/dotfiles",
-  "imported_at": "2026-01-24T14:53:55.663058Z"
-}

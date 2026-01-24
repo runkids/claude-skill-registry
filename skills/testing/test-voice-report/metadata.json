@@ -1,8 +1,0 @@
-{
-  "name": "test-voice-report",
-  "repo": "cncorp/arsenal",
-  "category": "testing",
-  "description": "Test report generation with TEXT transcripts (NOT real calls). For real Twilio calls, use twilio-test-call instead.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:47.746872Z"
-}

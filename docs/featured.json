@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-24T16:17:38.575116Z",
+  "updated_at": "2026-01-24T17:29:06.481280Z",
   "count": 100,
   "skills": [
     {
@@ -115,20 +115,6 @@
       ],
       "stars": 95362,
       "install": "pytorch/pytorch/.claude/skills/skill-writer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docstring",
-      "description": "Write docstrings for PyTorch functions and methods following PyTorch conventions. Use when writing or updating docstrings in PyTorch code.",
-      "repo": "pytorch/pytorch",
-      "path": ".claude/skills/docstring",
-      "branch": "main",
-      "category": "development",
-      "tags": [
-        "docstring"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch/.claude/skills/docstring",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -389,21 +375,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "typescript",
-      "description": "Write TypeScript and JavaScript code following Metabase coding standards and best practices. Use when developing or refactoring TypeScript/JavaScript code.",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/typescript-write",
-      "branch": "master",
-      "category": "development",
-      "tags": [
-        "typescript",
-        "write"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/.claude/skills/typescript-write",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "docs",
       "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
       "repo": "metabase/metabase",
@@ -600,21 +571,6 @@
       "stars": 29211,
       "install": "remotion-dev/remotion",
       "source": "github.com/remotion-dev/remotion"
-    },
-    {
-      "name": "cookbook",
-      "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
-      "repo": "anthropics/claude-cookbooks",
-      "path": ".claude/skills/cookbook-audit",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "cookbook",
-        "audit"
-      ],
-      "stars": 28337,
-      "install": "anthropics/claude-cookbooks/.claude/skills/cookbook-audit",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "run",
@@ -1081,21 +1037,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "confidence",
-      "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS refe",
-      "repo": "SuperClaude-Org/SuperClaude_Framework",
-      "path": ".claude/skills/confidence-check",
-      "branch": "master",
-      "category": "design",
-      "tags": [
-        "confidence",
-        "check"
-      ],
-      "stars": 19236,
-      "install": "SuperClaude-Org/SuperClaude_Framework/.claude/skills/confidence-check",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "prd",
       "description": "Generate high-quality Product Requirements Documents (PRDs) for software systems and AI-powered features. Includes executive summaries, user stories, technical specifications, and risk analysis.",
       "repo": "github/awesome-copilot",
@@ -1286,6 +1227,63 @@
       "stars": 15149,
       "install": "shareAI-lab/learn-claude-code",
       "source": "github.com/shareAI-lab/learn-claude-code"
+    },
+    {
+      "name": "pdf",
+      "description": "Process PDF files - extract text, create PDFs, merge documents. Use when user asks to read PDF, create PDF, or work with PDF files.",
+      "repo": "shareAI-lab/learn-claude-code",
+      "path": "",
+      "branch": "main",
+      "category": "development",
+      "tags": [],
+      "stars": 15149,
+      "install": "shareAI-lab/learn-claude-code",
+      "source": "github.com/shareAI-lab/learn-claude-code"
+    },
+    {
+      "name": "research",
+      "description": "Write competitive research proposals for NSF, NIH, DOE, and DARPA. Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, and",
+      "repo": "davila7/claude-code-templates",
+      "path": "cli-tool/components/skills/scientific/research-grants",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "research",
+        "grants"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/research-grants",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "scientific",
+      "description": "Core skill for the deep research and writing tool. Write scientific manuscripts in full paragraphs (never bullet points). Use two-stage process: (1) create section outlines with key points using resea",
+      "repo": "davila7/claude-code-templates",
+      "path": "cli-tool/components/skills/scientific/scientific-writing",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "scientific",
+        "writing"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/scientific-writing",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "scientific",
+      "description": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific",
+      "repo": "davila7/claude-code-templates",
+      "path": "cli-tool/components/skills/scientific/scientific-slides",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "scientific",
+        "slides"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/scientific-slides",
+      "source": "SkillsMP Synced Skills"
     }
   ]
 }

@@ -1,8 +1,0 @@
-{
-  "name": "mova-code-exec-task-basic-wrapper",
-  "repo": "Leryk1981/mova_wf_cycle",
-  "category": "development",
-  "description": "Standardize how a single CLI command is executed in a repo: working dir, argv, timeout, env overrides \u2013 and capture exit code, logs, and a short human-readable summary.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:47.396752Z"
-}

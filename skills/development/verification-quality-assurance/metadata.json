@@ -1,8 +1,0 @@
-{
-  "name": "verification-quality-assurance",
-  "repo": "ruvnet/claude-flow",
-  "category": "development",
-  "description": "Comprehensive truth scoring, code quality verification, and automatic rollback system with 0.95 accuracy threshold for ensuring high-quality agent outputs and codebase reliability.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:39.904582Z"
-}

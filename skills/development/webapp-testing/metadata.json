@@ -1,9 +1,0 @@
-{
-  "name": "webapp-testing",
-  "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/skills",
-  "source_path": "skills/webapp-testing/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.813690Z"
-}

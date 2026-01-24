@@ -1,7 +1,0 @@
-{
-  "name": "systematic-debugging-davila7-claude-code-templates",
-  "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.241672Z"
-}

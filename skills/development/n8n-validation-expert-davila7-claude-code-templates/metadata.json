@@ -1,7 +1,0 @@
-{
-  "name": "n8n-validation-expert-davila7-claude-code-templates",
-  "description": "Interpret validation errors and guide fixing them. Use when encountering validation errors, validation warnings, false positives, operator structure issues, or need help understanding validation resul",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.712923Z"
-}

@@ -1,8 +1,8 @@
 {
   "category": "security-compliance",
   "code": "oth",
-  "count": 2,
-  "updated_at": "2026-01-24T16:17:38.526592Z",
+  "count": 1,
+  "updated_at": "2026-01-24T17:29:06.284028Z",
   "skills": [
     {
       "name": "container",
@@ -15,18 +15,6 @@
       "stars": 48,
       "install": "majiayu000/claude-skill-registry",
       "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "container",
-      "description": "Scan images and runtime for CVEs and policy violations.",
-      "repo": "cornmanwtf/ABANG-COLEK",
-      "path": "",
-      "branch": "main",
-      "category": "security-compliance",
-      "tags": [],
-      "stars": 0,
-      "install": "cornmanwtf/ABANG-COLEK",
-      "source": "github.com/cornmanwtf/ABANG-COLEK"
     }
   ]
 }

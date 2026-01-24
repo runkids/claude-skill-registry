@@ -1,8 +1,0 @@
-{
-  "name": "edit-backlog-item",
-  "repo": "wmeints/promptyard",
-  "category": "development",
-  "description": "Use this skill when creating or editing issues on Github or when asked to write user-stories or record bugs.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:19.916634Z"
-}

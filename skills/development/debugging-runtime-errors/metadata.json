@@ -1,8 +1,0 @@
-{
-  "name": "debugging-runtime-errors",
-  "repo": "kynoptic/markdownlint-trap",
-  "category": "development",
-  "description": "Analyzes stack traces, error logs, and code context to identify root causes and suggest targeted fixes. Specializes in systematic troubleshooting across multiple languages. Use when encountering runti",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:19.239823Z"
-}

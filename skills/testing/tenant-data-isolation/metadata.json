@@ -1,8 +1,0 @@
-{
-  "name": "tenant-data-isolation",
-  "repo": "melodic-software/claude-code-plugins",
-  "category": "testing",
-  "description": "Data encryption and key management patterns for tenant isolation. Covers encryption at rest, tenant-specific keys, and secure key management.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:10.162686Z"
-}

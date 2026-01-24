@@ -1,8 +1,0 @@
-{
-  "name": "snd-artisan-integration",
-  "repo": "vaoan/SND",
-  "category": "testing",
-  "description": "Use this skill when implementing crafting automation in SND macros using the Artisan plugin. Covers crafting lists, endurance mode, and crafting state management.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:27.531437Z"
-}

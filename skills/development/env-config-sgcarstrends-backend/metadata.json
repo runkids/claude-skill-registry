@@ -1,7 +1,0 @@
-{
-  "name": "env-config-sgcarstrends-backend",
-  "description": "Manage environment variables across dev/staging/prod environments and SST config. Use when adding new secrets, updating environment-specific configs, or debugging environment issues.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:10.981007Z"
-}

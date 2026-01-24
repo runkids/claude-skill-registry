@@ -1,7 +1,0 @@
-{
-  "name": "tech-stack-detection",
-  "description": "Auto-detect project tech stacks (React, Vue, Express, Django, etc.). Recognize package managers and configuration patterns. Use when starting work on any project, analyzing dependencies, or providing ",
-  "category": "development",
-  "source": "github.com/rsmdt/the-startup",
-  "imported_at": "2026-01-24T14:54:10.336575Z"
-}

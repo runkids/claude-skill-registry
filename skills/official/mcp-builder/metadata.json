@@ -1,8 +1,0 @@
-{
-  "name": "mcp-builder",
-  "repo": "anthropics/skills",
-  "category": "official",
-  "source": "Anthropic Official",
-  "github_path": "skills/mcp-builder",
-  "github_branch": "main"
-}

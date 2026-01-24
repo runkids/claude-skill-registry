@@ -1,7 +1,0 @@
-{
-  "name": "ffuf-web-fuzzing",
-  "description": "Expert guidance for ffuf web fuzzing during penetration testing, including authenticated fuzzing with raw requests, auto-calibration, and result analysis",
-  "category": "development",
-  "source": "github.com/jthack/ffuf/claude/skill",
-  "imported_at": "2026-01-24T14:54:16.633757Z"
-}

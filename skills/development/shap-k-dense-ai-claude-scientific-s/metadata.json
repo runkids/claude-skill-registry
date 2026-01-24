@@ -1,7 +1,0 @@
-{
-  "name": "shap-k-dense-ai-claude-scientific-s",
-  "description": "Model interpretability and explainability using SHAP (SHapley Additive exPlanations). Use this skill when explaining machine learning model predictions, computing feature importance, generating SHAP p",
-  "category": "development",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "imported_at": "2026-01-24T14:54:17.361897Z"
-}

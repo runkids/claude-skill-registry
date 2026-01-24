@@ -1,9 +1,0 @@
-{
-  "name": "skill-creator",
-  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/skills",
-  "source_path": "skills/skill-creator/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.809241Z"
-}

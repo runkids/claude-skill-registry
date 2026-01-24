@@ -1,8 +1,0 @@
-{
-  "name": "picoruby-development-constraints",
-  "repo": "bash0C7/picotorokko",
-  "category": "development",
-  "description": "Documents memory limits and stdlib constraints for PicoRuby on ESP32. Use this when writing code that will run on ESP32 hardware or designing features for PicoRuby applications.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:32.288366Z"
-}

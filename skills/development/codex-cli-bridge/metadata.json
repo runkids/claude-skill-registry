@@ -1,9 +1,0 @@
-{
-  "name": "codex-cli-bridge",
-  "description": "Bridge between Claude Code and OpenAI Codex CLI - generates AGENTS.md from CLAUDE.md, provides Codex CLI execution helpers, and enables seamless interoperability between both tools",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/claude-code-skill-factory",
-  "source_path": "generated-skills/codex-cli-bridge/SKILL.md",
-  "imported_at": "2026-01-24T08:31:00.065498Z"
-}

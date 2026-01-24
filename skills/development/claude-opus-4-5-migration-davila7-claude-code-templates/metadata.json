@@ -1,7 +1,0 @@
-{
-  "name": "claude-opus-4-5-migration-davila7-claude-code-templates",
-  "description": "Migrate prompts and code from Claude Sonnet 4.0, Sonnet 4.5, or Opus 4.1 to Opus 4.5. Use when the user wants to update their codebase, prompts, or API calls to use Opus 4.5. Handles model string upda",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.004806Z"
-}

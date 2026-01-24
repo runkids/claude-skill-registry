@@ -1,7 +1,0 @@
-{
-  "name": "n8n-mcp-tools-expert-davila7-claude-code-templates",
-  "description": "Expert guide for using n8n-mcp MCP tools effectively. Use when searching for nodes, validating configurations, accessing templates, managing workflows, or using any n8n-mcp tool. Provides tool selecti",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.715019Z"
-}

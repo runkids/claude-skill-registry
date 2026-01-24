@@ -1,7 +1,0 @@
-{
-  "name": "slack-gif-creator-davila7-claude-code-templates",
-  "description": "Toolkit for creating animated GIFs optimized for Slack, with validators for size constraints and composable animation primitives. This skill applies when users request animated GIFs or emoji animation",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.348974Z"
-}

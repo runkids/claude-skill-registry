@@ -1,7 +1,0 @@
-{
-  "name": "n8n-expression-syntax-davila7-claude-code-templates",
-  "description": "Validate n8n expression syntax and fix common errors. Use when writing n8n expressions, using {{}} syntax, accessing $json/$node variables, troubleshooting expression errors, or working with webhook d",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.709936Z"
-}

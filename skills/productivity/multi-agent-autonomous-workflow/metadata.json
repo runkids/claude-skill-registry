@@ -1,8 +1,0 @@
-{
-  "name": "multi-agent-autonomous-workflow",
-  "repo": "DoubleslashSE/claude-workflows",
-  "category": "productivity",
-  "description": "Long-running autonomous workflow for feature implementation. Runs until complete with minimal human intervention.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:12.122659Z"
-}

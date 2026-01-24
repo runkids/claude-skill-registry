@@ -1,7 +1,0 @@
-{
-  "name": "move-code-quality-davila7-claude-code-templates",
-  "description": "Analyzes Move language packages against the official Move Book Code Quality Checklist. Use this skill when reviewing Move code, checking Move 2024 Edition compliance, or analyzing Move packages for be",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.295543Z"
-}

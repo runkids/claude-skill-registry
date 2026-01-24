@@ -1,7 +1,0 @@
-{
-  "name": "scientific-visualization-davila7-claude-code-templates",
-  "description": "Create publication figures with matplotlib/seaborn/plotly. Multi-panel layouts, error bars, significance markers, colorblind-safe, export PDF/EPS/TIFF, for journal-ready scientific plots.",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:23.268026Z"
-}

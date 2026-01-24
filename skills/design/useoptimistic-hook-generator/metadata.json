@@ -1,8 +1,0 @@
-{
-  "name": "useoptimistic-hook-generator",
-  "repo": "RomualdP/hoki",
-  "category": "design",
-  "description": "Impl\u00e9mente useOptimistic pour instant UI updates avec VRAIE gestion du rollback. MANDATORY pour delete operations. \u00c0 utiliser lors de mutations, deletes, ou quand l'utilisateur mentionne \"optimistic\",",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.833387Z"
-}

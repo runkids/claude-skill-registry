@@ -1,7 +1,0 @@
-{
-  "name": "verification-before-completion-obra-superpowers-skills",
-  "description": "Run verification commands and confirm output before claiming success",
-  "category": "development",
-  "source": "github.com/obra/superpowers-skills",
-  "imported_at": "2026-01-24T14:54:12.351768Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "changelog-generator-skillcreatorai-ai-agent-skills",
-  "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns h",
-  "category": "development",
-  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
-  "imported_at": "2026-01-24T14:54:05.787897Z"
-}

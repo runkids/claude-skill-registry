@@ -1,8 +1,0 @@
-{
-  "name": "pyportfolioopt-docker",
-  "repo": "gahoccode/PRDs",
-  "category": "devops",
-  "description": "Generate Dockerfile and requirements.txt for containerizing web applications using PyPortfolioOpt optimization library. Use when containerizing Python apps with PyPortfolioOpt, portfolio optimization,",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:47.674260Z"
-}

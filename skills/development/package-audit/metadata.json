@@ -1,7 +1,0 @@
-{
-  "name": "package-audit",
-  "description": "Scan for security vulnerabilities using pnpm audit, Snyk, and automated tools. Use when checking security, before deployments, or resolving CVEs.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.344694Z"
-}

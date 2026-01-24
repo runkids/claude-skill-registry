@@ -1,8 +1,0 @@
-{
-  "name": "snd-bossmodreborn-integration",
-  "repo": "vaoan/SND",
-  "category": "testing",
-  "description": "Use this skill when implementing combat automation in SND macros using the BossModReborn plugin. Covers preset management, rotation configuration, and AI control via chat commands.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:27.723395Z"
-}

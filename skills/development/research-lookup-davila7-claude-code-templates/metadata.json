@@ -1,7 +1,0 @@
-{
-  "name": "research-lookup-davila7-claude-code-templates",
-  "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:22.130226Z"
-}

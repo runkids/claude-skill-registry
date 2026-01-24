@@ -1,8 +1,0 @@
-{
-  "name": "gitlab-ci-artifacts-caching",
-  "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "description": "Use when configuring artifacts for inter-job data passing or caching for faster builds. Covers cache strategies and artifact management.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:03.984751Z"
-}

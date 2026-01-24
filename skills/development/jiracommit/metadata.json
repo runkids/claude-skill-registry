@@ -1,8 +1,0 @@
-{
-  "name": "jiracommit",
-  "repo": "Lobbi-Docs/claude",
-  "category": "development",
-  "description": "Create smart commit linked to Jira issue. Use when the user wants to \"commit\", \"smart commit\", \"jira commit\", or \"commit changes\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:50.384998Z"
-}

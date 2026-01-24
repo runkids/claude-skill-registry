@@ -1,9 +1,0 @@
-{
-  "name": "vectordb",
-  "repo": "Lobbi-Docs/claude",
-  "category": "data",
-  "description": "Vector database operations for embeddings and semantic search. Activate for Pinecone, Weaviate, Chroma, pgvector, RAG, and similarity search.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:50.876846Z",
-  "dir_name": "vectordb"
-}

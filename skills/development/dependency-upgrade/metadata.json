@@ -1,7 +1,0 @@
-{
-  "name": "dependency-upgrade",
-  "description": "Upgrade dependencies safely using pnpm catalog, checking for breaking changes, and testing upgrades. Use when updating packages, applying security patches, or upgrading major versions.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.455780Z"
-}

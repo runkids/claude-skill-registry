@@ -1,7 +1,0 @@
-{
-  "name": "geopandas-davila7-claude-code-templates",
-  "description": "Python library for working with geospatial vector data including shapefiles, GeoJSON, and GeoPackage files. Use when working with geographic data for spatial analysis, geometric operations, coordinate",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:22.488426Z"
-}

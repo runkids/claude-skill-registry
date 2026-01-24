@@ -1,9 +1,0 @@
-{
-  "name": "ui-design-system",
-  "description": "UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive design calculations, and developer handoff tools. Use for creating design systems",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/claude-skills",
-  "source_path": "product-team/ui-design-system/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.665965Z"
-}

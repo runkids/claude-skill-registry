@@ -1,7 +1,0 @@
-{
-  "name": "managing-cargo-dependencies",
-  "description": "Cargo.toml dependency management patterns for HASH workspace. Use when adding, updating, or removing dependencies, organizing Cargo.toml sections, configuring version pinning and default features, or ",
-  "category": "development",
-  "source": "github.com/hashintel/hash",
-  "imported_at": "2026-01-24T14:54:14.439941Z"
-}

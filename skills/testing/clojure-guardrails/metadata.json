@@ -1,8 +1,0 @@
-{
-  "name": "clojure-guardrails",
-  "repo": "Ramblurr/nix-agent-dev",
-  "category": "testing",
-  "description": "Reference for Guardrails library with Malli in Clojure. Use when working with `>defn`, `>defn-`, `>def`, `>fdef` macros, gspec syntax, or function validation. Triggers on guardrails imports, `com.fulc",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:47.260809Z"
-}

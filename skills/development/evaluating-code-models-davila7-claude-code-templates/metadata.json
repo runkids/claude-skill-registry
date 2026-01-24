@@ -1,7 +1,0 @@
-{
-  "name": "evaluating-code-models-davila7-claude-code-templates",
-  "description": "Evaluates code generation models across HumanEval, MBPP, MultiPL-E, and 15+ benchmarks with pass@k metrics. Use when benchmarking code models, comparing coding abilities, testing multi-language suppor",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.449750Z"
-}

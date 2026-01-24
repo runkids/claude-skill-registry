@@ -1,7 +1,0 @@
-{
-  "name": "template-skill-anthropics-skills",
-  "description": "Replace with description of the skill and when Claude should use it.",
-  "category": "development",
-  "source": "github.com/anthropics/skills",
-  "imported_at": "2026-01-24T14:54:16.387701Z"
-}

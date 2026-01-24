@@ -1,7 +1,0 @@
-{
-  "name": "review-implementing-mhattingpete-claude-skills-mar",
-  "description": "Process and implement code review feedback systematically. Use when user provides reviewer comments, PR feedback, code review notes, or asks to implement suggestions from reviews.",
-  "category": "development",
-  "source": "github.com/mhattingpete/claude-skills-marketplace",
-  "imported_at": "2026-01-24T14:54:24.176774Z"
-}

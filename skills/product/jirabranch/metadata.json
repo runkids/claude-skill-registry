@@ -1,8 +1,0 @@
-{
-  "name": "jirabranch",
-  "repo": "Lobbi-Docs/claude",
-  "category": "product",
-  "description": "Create git branch linked to Jira issue. Use when the user wants to \"create branch\", \"new branch for issue\", \"jira branch\", or \"feature branch\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:50.422625Z"
-}

@@ -1,8 +1,0 @@
-{
-  "name": "mova-connector-scaffolder-basic-wrapper",
-  "repo": "Leryk1981/mova_wf_cycle",
-  "category": "development",
-  "description": "Given an API description and a docs bundle (e.g. from skill.context7_docs), generate a MOVA skill skeleton for a connector: ds/env schemas, manifest, prompt profile, runtime binding stub, cases, and d",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:47.389194Z"
-}

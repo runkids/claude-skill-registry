@@ -1,8 +1,0 @@
-{
-  "name": "keycloak-fastapi-integration",
-  "repo": "Lobbi-Docs/claude",
-  "category": "security",
-  "description": "This skill should be used when the user asks to \"add Keycloak authentication\", \"implement OIDC\", \"configure SSO\", \"validate JWT token\", \"add role-based access\", \"protect API endpoint\", or mentions Key",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:51.261446Z"
-}

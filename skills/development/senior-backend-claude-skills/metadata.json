@@ -1,9 +1,0 @@
-{
-  "name": "senior-backend",
-  "description": "Comprehensive backend development skill for building scalable backend systems using NodeJS, Express, Go, Python, Postgres, GraphQL, REST APIs. Includes API scaffolding, database optimization, security",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/claude-skills",
-  "source_path": "engineering-team/senior-backend/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.447561Z"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "qms-audit-expert",
-  "description": "Senior QMS Audit Expert for internal and external quality management system auditing. Provides ISO 13485 audit expertise, audit program management, nonconformity identification, and corrective action ",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/claude-skills",
-  "source_path": "ra-qm-team/qms-audit-expert/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.566314Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "session-search-pchalasani-claude-code-tools",
-  "description": "For CLI agents WITHOUT subagent support (e.g., Codex CLI). Search previous code agent sessions for specific work, decisions, or code patterns.",
-  "category": "development",
-  "source": "github.com/pchalasani/claude-code-tools",
-  "imported_at": "2026-01-24T14:54:18.748554Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "linear-solvers-heshamfs-materials-simulation-",
-  "description": "Select and configure linear solvers for systems Ax=b in dense and sparse problems. Use when choosing direct vs iterative methods, diagnosing convergence issues, estimating conditioning, selecting prec",
-  "category": "development",
-  "source": "github.com/HeshamFS/materials-simulation-skills",
-  "imported_at": "2026-01-24T14:54:09.134695Z"
-}

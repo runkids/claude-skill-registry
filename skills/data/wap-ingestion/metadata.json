@@ -1,9 +1,0 @@
-{
-  "name": "wap-ingestion",
-  "repo": "BauplanLabs/bauplan-mcp-server",
-  "category": "data",
-  "description": "Ingest data from S3 into bauplan using the Write-Audit-Publish pattern for safe data loading. Use when loading new data from S3, performing safe data ingestion, or when the user mentions WAP, data ing",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:23.638366Z",
-  "dir_name": "wap-ingestion"
-}

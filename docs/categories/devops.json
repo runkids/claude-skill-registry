@@ -1,8 +1,8 @@
 {
   "category": "devops",
   "code": "ops",
-  "count": 2322,
-  "updated_at": "2026-01-24T16:17:38.067341Z",
+  "count": 2141,
+  "updated_at": "2026-01-24T17:29:05.660062Z",
   "skills": [
     {
       "name": "create",
@@ -121,21 +121,6 @@
       "stars": 6989,
       "install": "K-Dense-AI/claude-scientific-skills",
       "source": "github.com/K-Dense-AI/claude-scientific-skills"
-    },
-    {
-      "name": "context",
-      "description": "This skill should be used when the user asks to \"optimize context\", \"reduce token costs\", \"improve context efficiency\", \"implement KV-cache optimization\", \"partition context\", or mentions context limi",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "skills/context-optimization",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "context",
-        "optimization"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/context-optimization",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "skill",
@@ -316,20 +301,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "github",
-      "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
-      "repo": "mitsuhiko/agent-stuff",
-      "path": "skills/github",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "github"
-      ],
-      "stars": 512,
-      "install": "mitsuhiko/agent-stuff/skills/github",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "binary",
       "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
       "repo": "cyberkaida/reverse-engineering-assistant",
@@ -470,18 +441,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "binary",
-      "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
-      "repo": "benchflow-ai/skillsbench",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 259,
-      "install": "benchflow-ai/skillsbench",
-      "source": "github.com/benchflow-ai/skillsbench"
-    },
-    {
       "name": "fin",
       "description": "|",
       "repo": "AojdevStudio/Finance-Guru",
@@ -565,47 +524,8 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "stock",
-      "description": "Provides comprehensive technical analysis for stocks and ETFs using RSI, MACD, Bollinger Bands, and other indicators. Activates when user requests stock analysis, technical indicators, trading signals",
-      "repo": "FrancyJGLisboa/agent-skill-creator",
-      "path": "references/examples/stock-analyzer-cskill",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "stock",
-        "analyzer"
-      ],
-      "stars": 118,
-      "install": "FrancyJGLisboa/agent-skill-creator/references/examples/stock-analyzer-cskill",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "dispatching",
       "description": "Use when facing 3+ independent failures that can be investigated without shared state or dependencies. Dispatches multiple Claude agents to investigate and fix independent problems concurrently.",
-      "repo": "aiskillstore/marketplace",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 114,
-      "install": "aiskillstore/marketplace",
-      "source": "github.com/aiskillstore/marketplace"
-    },
-    {
-      "name": "paper",
-      "description": "This skill should be used when converting academic papers into promotional and presentation formats including interactive websites (Paper2Web), presentation videos (Paper2Video), and conference poster",
-      "repo": "aiskillstore/marketplace",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 114,
-      "install": "aiskillstore/marketplace",
-      "source": "github.com/aiskillstore/marketplace"
-    },
-    {
-      "name": "scientific",
-      "description": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific",
       "repo": "aiskillstore/marketplace",
       "path": "",
       "branch": "main",
@@ -939,30 +859,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "meme",
-      "description": "|",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "issue",
-      "description": "Use when starting work, tracking tasks, or deciding where to record discovered work - clarifies when to use TodoWrite vs Beans",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "windsurf",
       "description": "|",
       "repo": "majiayu000/claude-skill-registry",
@@ -989,18 +885,6 @@
     {
       "name": "using",
       "description": "Use when working with stacked branches, managing dependent PRs/CRs, or uncertain about git-spice commands (stack vs upstack vs downstack) - provides command reference, workflow patterns, and common pi",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "scale",
-      "description": "Recommend sharding, caching strategies, and read-replication patterns for Cloudflare architectures. Use this skill when preparing for growth, hitting limits, or optimizing for high traffic.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1155,18 +1039,6 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "remediation",
-      "description": "Standardized remediation workflow presenting three options for handling config violations - Conform to template, Update template, or Ignore. Adapts recommendations based on repository type (library vs",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "bartender",
       "description": "Generic bartending capabilities — pour drinks, manage tabs, know regulars",
       "repo": "majiayu000/claude-skill-registry",
@@ -1179,32 +1051,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "binary",
-      "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "screpcombiningexpression",
       "description": "Combine scTCR/BCR repertoire data with scRNA-seq expression data using `scRepertoire::combineExpression()`. This process integrates immune receptor information (CDR3 sequences, V(D)J genes, clonotypes",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "zhipu",
-      "description": "根据用户给出的搜索关键语句，调用zhipu的搜索引擎得到搜索结果。",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1239,18 +1087,6 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "chakra",
-      "description": "Builds accessible React applications with Chakra UI v3 components, tokens, and recipes. Use when creating styled component systems, theming, or accessible form controls.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "state",
       "description": "|",
       "repo": "majiayu000/claude-skill-registry",
@@ -1275,32 +1111,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "eigenvalues",
-      "description": "Problem-solving strategies for eigenvalues in linear algebra",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "claude",
       "description": "Self-reflect on the current session to identify mistakes and propose improvements to .claude configuration (CLAUDE.md, hooks, skills).",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "paper",
-      "description": "This skill should be used when converting academic papers into promotional and presentation formats including interactive websites (Paper2Web), presentation videos (Paper2Video), and conference poster",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1323,32 +1135,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "taipei",
-      "description": "Query real-time parking availability in Taipei City. Shows available parking spaces, capacity, status (green/available, orange/moderate, red/full), address, phone, and payment info. Supports undergrou",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "terway",
       "description": "Troubleshoot Terway CNI issues in Kubernetes using Kubernetes events and Terway logs. Use when diagnosing \"cni plugin not initialized\", Pod create/delete failures, or ENI/IPAM problems in Terway (cent",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "claude",
-      "description": "Self-reflect on the current session to identify mistakes and propose improvements to .claude configuration (CLAUDE.md, hooks, skills).",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1383,56 +1171,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "deploying",
-      "description": "|",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "button",
       "description": "Sistema de estilos de botones consistentes para iqEngi (Cards, CTAs, Formularios)",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "agentic",
-      "description": "Use when building AI agent systems. Covers agent loops, tool calling, planning patterns, memory systems, multi-agent coordination, and safety guardrails. Apply when creating autonomous AI workflows, c",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "gcp",
-      "description": "|",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "epic",
-      "description": "Use for LARGE work requiring feature-level grouping. Creates epic tracking issues, manages related issues under a common label, tracks epic progress, and coordinates with milestones.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1599,56 +1339,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "reference",
-      "description": "|",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "effect",
       "description": "Concurrency with Effect.all, forEach concurrency, Fiber lifecycle, race and timeouts. Use for parallelizing tasks safely.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "policyengine",
-      "description": "PolicyEngine aggregation patterns - using adds attribute and add() function for summing variables across entities",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "effect",
-      "description": "Concurrency with Effect.all, forEach concurrency, Fiber lifecycle, race and timeouts. Use for parallelizing tasks safely.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "infrastructure",
-      "description": "Verify AWS infrastructure configuration before deployment. Use when validating VPC endpoints, NAT Gateway capacity, security groups, or debugging network path issues that cause Lambda connection timeo",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1671,32 +1363,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "jules",
-      "description": "Protocol for escalation to Jules when stuck.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "klingai",
       "description": "|",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "skill",
-      "description": "Upgrade any skill to v5 Hybrid format using decision theory + modal logic",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1746,18 +1414,6 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "working",
-      "description": "Mandatory workflow for creating LLM-facing content. Follow the 4-step process (objective → draft → verify → adjust) before writing any prompt, skill, tool description, or system instruction. Triggers",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "gcp",
       "description": "|",
       "repo": "majiayu000/claude-skill-registry",
@@ -1782,68 +1438,8 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "service",
-      "description": "Implement service mesh (Istio, Linkerd) for service-to-service communication, traffic management, security, and observability.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "resolve",
-      "description": "Resolve GitHub issues using isolated worktrees and TDD",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "loki",
-      "description": "Multi-agent autonomous startup system. Triggers on \"Loki Mode\". Takes PRD to deployed product with zero human intervention. Requires --dangerously-skip-permissions flag.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "ethereal",
-      "description": "Design and implement the personality, conversational style, and emotional behavior of the Ethereal \"Digital Spirit\". Use this skill when updating system prompts, mood logic, or implementing new intera",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "policyengine",
       "description": "PolicyEngine aggregation patterns - using adds attribute and add() function for summing variables across entities",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "accelerator",
-      "description": "Research accelerator portfolio companies using Firecrawl and Tavily MCPs. Generates structured CSV and markdown reports with systematic impact scoring. Optimized for token efficiency.",
       "repo": "majiayu000/claude-skill-registry",
       "path": "",
       "branch": "main",
@@ -1890,30 +1486,6 @@
       "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
-      "name": "eigenvalues",
-      "description": "Problem-solving strategies for eigenvalues in linear algebra",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
-      "name": "voting",
-      "description": "Create and post ASCII art voting status diagrams to GitHub issues and Discord. Use when asked to update voting, show voting results, or announce voting status.",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 48,
-      "install": "majiayu000/claude-skill-registry",
-      "source": "github.com/majiayu000/claude-skill-registry"
-    },
-    {
       "name": "vulnerability",
       "description": "Comprehensive guide for automated vulnerability scanning tools and techniques. Covers DAST, SAST, SCA, network scanning, and CI/CD integration.",
       "repo": "xenitV1/claude-code-maestro",
@@ -1927,18 +1499,6 @@
       "stars": 47,
       "install": "xenitV1/claude-code-maestro/skills/vulnerability-scanner",
       "source": "downloaded"
-    },
-    {
-      "name": "service",
-      "description": "Implement service mesh (Istio, Linkerd) for service-to-service communication, traffic management, security, and observability.",
-      "repo": "aj-geddes/useful-ai-prompts",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 45,
-      "install": "aj-geddes/useful-ai-prompts",
-      "source": "github.com/aj-geddes/useful-ai-prompts"
     },
     {
       "name": "qcc",
@@ -2821,18 +2381,6 @@
       "source": "github.com/mattnigh/skills_collection"
     },
     {
-      "name": "taipei",
-      "description": "Query real-time parking availability in Taipei City. Shows available parking spaces, capacity, status (green/available, orange/moderate, red/full), address, phone, and payment info. Supports undergrou",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
       "name": "claude",
       "description": "|",
       "repo": "mattnigh/skills_collection",
@@ -2905,18 +2453,6 @@
       "source": "github.com/mattnigh/skills_collection"
     },
     {
-      "name": "effect",
-      "description": "Concurrency with Effect.all, forEach concurrency, Fiber lifecycle, race and timeouts. Use for parallelizing tasks safely.",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
       "name": "claude",
       "description": "|",
       "repo": "mattnigh/skills_collection",
@@ -2931,18 +2467,6 @@
     {
       "name": "generating",
       "description": "MANDATORY skill for ALL commits. Must be used EVERY TIME before creating any git commit. No exceptions.",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
-      "name": "website",
-      "description": "Website sitemap generation workflow. Analyzes requirements, delegates to sitemap-analyst agent, generates sitemap with shadcn-ui-blocks component selections. Use when planning website architecture, st",
       "repo": "mattnigh/skills_collection",
       "path": "",
       "branch": "main",
@@ -3049,32 +2573,8 @@
       "source": "github.com/mattnigh/skills_collection"
     },
     {
-      "name": "student",
-      "description": "Analyze student git activity, lab submissions, and project work for software engineering courses. Use when asked to \"update student analysis\", \"check student activity\", \"analyze the class\", or when wo",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
       "name": "analizar",
       "description": ">",
-      "repo": "mattnigh/skills_collection",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 20,
-      "install": "mattnigh/skills_collection",
-      "source": "github.com/mattnigh/skills_collection"
-    },
-    {
-      "name": "zhipu",
-      "description": "根据用户给出的搜索关键语句，调用zhipu的搜索引擎得到搜索结果。",
       "repo": "mattnigh/skills_collection",
       "path": "",
       "branch": "main",
@@ -3592,23 +3092,6 @@
       "source": "downloaded"
     },
     {
-      "name": "agent",
-      "description": "Expert incident responder specializing in rapid detection, diagnosis, and resolution of production issues. Masters observability tools, root cause analysis, and automated remediation with focus on min",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-devops-incident-responder",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "agent",
-        "devops",
-        "incident",
-        "responder"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-devops-incident-responder",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "portfolio",
       "description": "Review investment portfolios for risk, diversification, fees. Asset allocation recommendations, tax-loss harvesting, rebalancing.",
       "repo": "OneWave-AI/claude-skills",
@@ -3889,22 +3372,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "agent",
-      "description": "Expert Scrum Master specializing in agile transformation, team facilitation, and continuous improvement. Masters Scrum framework implementation, impediment removal, and fostering high-performing, self",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-scrum-master",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "agent",
-        "scrum",
-        "master"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-scrum-master",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "use",
       "description": "Generate complete use case implementations for specific industries and",
       "repo": "joshtol/emotive-engine",
@@ -4014,22 +3481,6 @@
       ],
       "stars": 10,
       "install": "RicherTunes/Brainarr/.claude/skills/container-deployment",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "agent",
-      "description": "Expert incident responder specializing in security and operational incident management. Masters evidence collection, forensic analysis, and coordinated response with focus on minimizing impact and pre",
-      "repo": "Tony363/SuperClaude",
-      "path": ".claude/skills/DEPRECATED/agent-incident-responder",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "agent",
-        "incident",
-        "responder"
-      ],
-      "stars": 10,
-      "install": "Tony363/SuperClaude/.claude/skills/DEPRECATED/agent-incident-responder",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -4641,18 +4092,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "website",
-      "description": "Website sitemap generation workflow. Analyzes requirements, delegates to sitemap-analyst agent, generates sitemap with shadcn-ui-blocks component selections. Use when planning website architecture, st",
-      "repo": "deomiarn/claude-setup-template",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 5,
-      "install": "deomiarn/claude-setup-template",
-      "source": "github.com/deomiarn/claude-setup-template"
-    },
-    {
       "name": "docker",
       "description": "Docker containerization expert with deep knowledge of multi-stage builds, image optimization, container security, Docker Compose orchestration, and production deployment patterns. Use PROACTIVELY for",
       "repo": "rocket-generator/next-template",
@@ -5193,20 +4632,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "context7",
-      "description": "Search GitHub issues, pull requests, and discussions across any repository. Activates when researching external dependencies (whisper.cpp, NAudio), looking for similar bugs, or finding implementation",
-      "repo": "mikha08-rgb/VoiceLite",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "context7"
-      ],
-      "stars": 3,
-      "install": "mikha08-rgb/VoiceLite",
-      "source": "downloaded"
-    },
-    {
       "name": "confighub",
       "description": "A comprehensive guide for using ConfigHub to manage Kubernetes configuration across multiple environments using Configuration as Data principles. This rulebook covers installation, configuration manag",
       "repo": "stakpak/community-paks",
@@ -5311,21 +4736,6 @@
       ],
       "stars": 3,
       "install": "martinholovsky/claude-skills-generator/skills/kanidm-expert",
-      "source": "downloaded"
-    },
-    {
-      "name": "healthsim",
-      "description": "Generate realistic clinical trial synthetic data including study definitions, sites, subjects, visits, adverse events, efficacy assessments, and disposition. Use when user requests: clinical trial dat",
-      "repo": "mark64oswald/healthsim-workspace",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "healthsim",
-        "trialsim"
-      ],
-      "stars": 3,
-      "install": "mark64oswald/healthsim-workspace",
       "source": "downloaded"
     },
     {
@@ -5567,21 +4977,6 @@
       "source": "downloaded"
     },
     {
-      "name": "healthsim",
-      "description": "PopulationSim provides population-level intelligence using public data sources. Use this skill for ANY request involving: (1) population demographics or profiles, (2) geographic health patterns or dis",
-      "repo": "mark64oswald/healthsim-workspace",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "healthsim",
-        "populationsim"
-      ],
-      "stars": 3,
-      "install": "mark64oswald/healthsim-workspace",
-      "source": "downloaded"
-    },
-    {
       "name": "verification",
       "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence",
       "repo": "heyJordanParker/dotfiles",
@@ -5753,21 +5148,6 @@
       "source": "downloaded"
     },
     {
-      "name": "security",
-      "description": "Comprehensive security vulnerability analysis for codebases and infrastructure. Scans dependencies (npm, pip, gem, go, cargo), containers (Docker, Kubernetes), cloud IaC (Terraform, CloudFormation), a",
-      "repo": "Cornjebus/security-analyzer",
-      "path": ".claude/skills/security-analyzer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "security",
-        "analyzer"
-      ],
-      "stars": 2,
-      "install": "Cornjebus/security-analyzer/.claude/skills/security-analyzer",
-      "source": "downloaded"
-    },
-    {
       "name": "framework",
       "description": "Meta-skill that coordinates all frameworks and skills throughout the project lifecycle, providing intelligent sequencing based on project patterns",
       "repo": "daffy0208/ai-dev-standards",
@@ -5795,30 +5175,6 @@
       "stars": 2,
       "install": "pluginagentmarketplace/custom-plugin-devops/skills/scripting",
       "source": "downloaded"
-    },
-    {
-      "name": "skill",
-      "description": "Upgrade any skill to v5 Hybrid format using decision theory + modal logic",
-      "repo": "namesreallyblank/Clorch",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 2,
-      "install": "namesreallyblank/Clorch",
-      "source": "github.com/namesreallyblank/Clorch"
-    },
-    {
-      "name": "agentic",
-      "description": "Agentic Workflow Pattern",
-      "repo": "namesreallyblank/Clorch",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 2,
-      "install": "namesreallyblank/Clorch",
-      "source": "github.com/namesreallyblank/Clorch"
     },
     {
       "name": "troubleshooting",
@@ -5923,18 +5279,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "eigenvalues",
-      "description": "Problem-solving strategies for eigenvalues in linear algebra",
-      "repo": "namesreallyblank/Clorch",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 2,
-      "install": "namesreallyblank/Clorch",
-      "source": "github.com/namesreallyblank/Clorch"
-    },
-    {
       "name": "conventional",
       "description": "Generates commit messages following Conventional Commits 1.0.0 specification. Use when committing changes, staging files, creating commits, or when user says \"commit\", \"git commit\", or asks for a comm",
       "repo": "trancong12102/agentskills",
@@ -5963,18 +5307,6 @@
       "stars": 2,
       "install": "jonmagic/skills/skills/executive-summary",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "link",
-      "description": "Discover and link related issues as dependencies. Searches for issues that should be connected and recommends dependency relationships to establish proper work order.",
-      "repo": "joa23/linear-cli",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 2,
-      "install": "joa23/linear-cli",
-      "source": "github.com/joa23/linear-cli"
     },
     {
       "name": "observability",
@@ -6136,33 +5468,6 @@
       ],
       "stars": 2,
       "install": "zircote/.claude/skills/github-ecosystem",
-      "source": "downloaded"
-    },
-    {
-      "name": "design",
-      "description": "Enforce a precise, minimal design system inspired by Linear, Notion, and Stripe. Use this skill when building dashboards, admin interfaces, or any UI that needs Jony Ive-level precision - clean, moder",
-      "repo": "MixTapeSoftware/pop_stash",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 2,
-      "install": "MixTapeSoftware/pop_stash",
-      "source": "github.com/MixTapeSoftware/pop_stash"
-    },
-    {
-      "name": "package",
-      "description": "Use when the user asks to analyze package upgrades, check for outdated dependencies, plan npm/NuGet updates, or assess breaking changes in package updates. Triggers on keywords like \"upgrade packages\"",
-      "repo": "duc01226/EasyPlatform",
-      "path": ".claude/skills/package-upgrade",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "package",
-        "upgrade"
-      ],
-      "stars": 2,
-      "install": "duc01226/EasyPlatform/.claude/skills/package-upgrade",
       "source": "downloaded"
     },
     {
@@ -6388,18 +5693,6 @@
       "source": "downloaded"
     },
     {
-      "name": "reference",
-      "description": "|",
-      "repo": "arbgjr/sdlc_agentico",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 2,
-      "install": "arbgjr/sdlc_agentico",
-      "source": "github.com/arbgjr/sdlc_agentico"
-    },
-    {
       "name": "functional",
       "description": "Provision functional consciousness-as-a-service capabilities.",
       "repo": "starwreckntx/IRP__METHODOLOGIES-",
@@ -6430,18 +5723,6 @@
       "stars": 1,
       "install": "okgoogle13/careercopilot/.claude/skills/api-contract-validator",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "granola",
-      "description": "Copy this to .claude/skills/setup-granola/SKILL.md to enable automatic installation.",
-      "repo": "p3ob7o/Totoro",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 1,
-      "install": "p3ob7o/Totoro",
-      "source": "github.com/p3ob7o/Totoro"
     },
     {
       "name": "yukyu",
@@ -6504,18 +5785,6 @@
       "stars": 1,
       "install": "ashchupliak/dream-team/skills/k8s-helm",
       "source": "downloaded"
-    },
-    {
-      "name": "binary",
-      "description": "Performs initial binary triage by surveying memory layout, strings, imports/exports, and functions to quickly understand what a binary does and identify suspicious behavior. Use when first examining a",
-      "repo": "th3w1zard1/reverse-engineering-assistant",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 1,
-      "install": "th3w1zard1/reverse-engineering-assistant",
-      "source": "github.com/th3w1zard1/reverse-engineering-assistant"
     },
     {
       "name": "managing",
@@ -6616,21 +5885,6 @@
       "stars": 1,
       "install": "mjunaidca/mjs-agent-skills/.claude/skills/containerizing-applications",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "kubernetes",
-      "description": "Comprehensive Kubernetes cluster health diagnostics using dynamic API discovery. Use when checking cluster health, troubleshooting K8s issues, or running health assessments.",
-      "repo": "nodnarbnitram/claude-code-extensions",
-      "path": ".claude/skills/kubernetes-health",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "kubernetes",
-        "health"
-      ],
-      "stars": 1,
-      "install": "nodnarbnitram/claude-code-extensions/.claude/skills/kubernetes-health",
-      "source": "downloaded"
     },
     {
       "name": "configuring",
@@ -7367,33 +6621,6 @@
       "source": "downloaded"
     },
     {
-      "name": "quality",
-      "description": "Synthesize all quality assessments (risk, test-design, traceability, NFR) into evidence-based gate decision (PASS/CONCERNS/FAIL/WAIVED) with comprehensive rationale. Generates both YAML (CI/CD) and Ma",
-      "repo": "adolfoaranaes12/BMAD-ENHANCED",
-      "path": ".claude/skills/quality-gate",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "quality",
-        "gate"
-      ],
-      "stars": 1,
-      "install": "adolfoaranaes12/BMAD-ENHANCED/.claude/skills/quality-gate",
-      "source": "downloaded"
-    },
-    {
-      "name": "arcanea",
-      "description": "Channel the Seven Luminors - archetypal guides for creative challenges including Valora (courage), Sophron (wisdom), Kardia (heart), Poiesis (creation), Enduran (endurance), Orakis (vision), and Eudai",
-      "repo": "frankxai/arcanea",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 1,
-      "install": "frankxai/arcanea",
-      "source": "github.com/frankxai/arcanea"
-    },
-    {
       "name": "concept",
       "description": "Ensure story concepts have complete content (title, description, user story). Use when heartbeat finds a concept-stage story or when explicit concept needs writing. Validates completeness and fills mi",
       "repo": "Mharbulous/SyncoPaid",
@@ -7495,24 +6722,6 @@
       "stars": 1,
       "install": "stickystyle/claude-skills/skills/uv",
       "source": "downloaded"
-    },
-    {
-      "name": "custom",
-      "description": "1800+ lines of DevOps mastery - CI/CD, code signing, app store, monitoring, Fastlane with production-ready code examples.",
-      "repo": "pluginagentmarketplace/custom-plugin-flutter",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "custom",
-        "plugin",
-        "flutter",
-        "skill",
-        "devops"
-      ],
-      "stars": 1,
-      "install": "pluginagentmarketplace/custom-plugin-flutter",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "aws",
@@ -8316,22 +7525,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "content",
-      "description": "Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing proc",
-      "repo": "serrrfirat/x-bookmark-flow",
-      "path": ".claude/skills/content-research-writer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "content",
-        "research",
-        "writer"
-      ],
-      "stars": 0,
-      "install": "serrrfirat/x-bookmark-flow/.claude/skills/content-research-writer",
-      "source": "downloaded"
-    },
-    {
       "name": "go",
       "description": "Production-ready Go microservices patterns including Gin, Echo, gRPC, clean architecture, dependency injection, error handling, middleware, testing, Docker containerization, Kubernetes deployment, dis",
       "repo": "CROW-B3/.claude",
@@ -8392,18 +7585,6 @@
       "stars": 0,
       "install": "bcasci/hustler-marketplace/rails-plugin/skills/init-rules",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "klingai",
-      "description": "|",
-      "repo": "vasic-digital/SuperAgent",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "vasic-digital/SuperAgent",
-      "source": "github.com/vasic-digital/SuperAgent"
     },
     {
       "name": "artifact",
@@ -8634,21 +7815,6 @@
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-infrastructure/skills/hetzner-provisioner",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kubernetes",
-      "description": "Kubernetes deployments, troubleshooting, and operational best practices.",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/infra/kubernetes-ops",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "kubernetes",
-        "ops"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/infra/kubernetes-ops",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "reverse",
@@ -8886,18 +8052,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "taipei",
-      "description": "Query real-time parking availability in Taipei City. Shows available parking spaces, capacity, status (green/available, orange/moderate, red/full), address, phone, and payment info. Supports undergrou",
-      "repo": "tzangms/uparkinlot",
-      "path": ".claude/skills/taipei-parking",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "tzangms/uparkinlot/.claude/skills/taipei-parking",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "cloudflare",
       "description": "\"Use this skill whenever the user wants to set up, refactor, or maintain a GitHub Actions CI/CD pipeline for deploying Cloudflare Workers/Pages apps (e.g. Hono + TypeScript) with D1/R2, including test",
       "repo": "AgentiveCity/SkillFactory",
@@ -9112,18 +8266,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "simpo",
-      "description": "Simple Preference Optimization for LLM alignment. Reference-free alternative to DPO with better performance (+6.4 points on AlpacaEval 2.0). No reference model needed, more efficient than DPO. Use for",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "eld",
       "description": "LDE（Law-Driven Engineering）の接地（Grounding）検証スキル。LawとTermの両方について、検証手段・観測手段が設定されているか検証する。CI/CD統合のためのチェックリストとスクリプトを提供。使用タイミング: (1) PR作成前の接地確認、(2) CI/CDパイプラインでの自動検証、(3) 「Grounding Mapを検証して」、(4) Law/Term追加後",
       "repo": "CAPHTECH/claude-marketplace",
@@ -9262,18 +8404,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "deploying",
-      "description": "|",
-      "repo": "byteworthy/Upstream",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "byteworthy/Upstream",
-      "source": "github.com/byteworthy/Upstream"
-    },
-    {
       "name": "delivery",
       "description": "Use when designing cloud infrastructure, CI/CD pipelines, or deployment strategies",
       "repo": "trash-panda-v91-beta/the-sidekicks",
@@ -9300,18 +8430,6 @@
       "stars": 0,
       "install": "nadeemsangrasi/humanoid-and-robotic-book/.claude/skills/gemini-agent-sdk-setup",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "universal",
-      "description": "> Style/formatting: Follow ~/.claude/skills/word-doc-generator/SKILL.md",
-      "repo": "zadorian/SEARCH_ENGINEER",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zadorian/SEARCH_ENGINEER",
-      "source": "github.com/zadorian/SEARCH_ENGINEER"
     },
     {
       "name": "learning",
@@ -9739,18 +8857,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "peft",
-      "description": "Parameter-efficient fine-tuning for LLMs using LoRA, QLoRA, and 25+ methods. Use when fine-tuning large models (7B-70B) with limited GPU memory, when you need to train <1% of parameters with minimal a",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "agentdb",
       "description": "AgentDB Persistent Memory Patterns operates on 3 fundamental principles:",
       "repo": "DNYoussef/context-cascade",
@@ -9850,18 +8956,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "world",
-      "description": "Iteration 21 of Multiplicity Cascade - Ultimate world wake trigger",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "academic",
       "description": "Citation formatting rules for law review articles using The Bluebook (21st ed.) academic style",
       "repo": "donaldbraman/write-assist",
@@ -9919,18 +9013,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "scikit",
-      "description": "Comprehensive toolkit for survival analysis and time-to-event modeling in Python using scikit-survival. Use this skill when working with censored survival data, performing time-to-event analysis, fitt",
-      "repo": "davila7/claude-code-templates",
-      "path": "cli-tool/components/skills/scientific/scikit-survival",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/scikit-survival",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pubsub",
       "description": "Pubsub Subscription Config - Auto-activating skill for GCP Skills.Triggers on: pubsub subscription config, pubsub subscription configPart of the GCP Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -9953,18 +9035,6 @@
       "stars": 0,
       "install": "geonook/learning-management-system-esid",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "create",
-      "description": "Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to creat",
-      "repo": "Herveff/n8nr",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Herveff/n8nr",
-      "source": "github.com/Herveff/n8nr"
     },
     {
       "name": "forensic",
@@ -10262,18 +9332,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "confidence",
-      "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS refe",
-      "repo": "bogerpeng/SuperClaude_Framework_internalUse",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "bogerpeng/SuperClaude_Framework_internalUse",
-      "source": "github.com/bogerpeng/SuperClaude_Framework_internalUse"
-    },
-    {
       "name": "using",
       "description": "Use when starting any conversation - establishes mandatory workflows for finding and using skills, including using Skill tool before announcing usage, following brainstorming before coding, and creati",
       "repo": "cipherstash/cipherpowers",
@@ -10339,18 +9397,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "learn",
-      "description": "Socratic teaching mode. Guide discovery through questioning for deep understanding of any topic.",
-      "repo": "wangyuxinwhy/learn-with-claude",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "wangyuxinwhy/learn-with-claude",
-      "source": "github.com/wangyuxinwhy/learn-with-claude"
-    },
-    {
       "name": "constraints",
       "description": "Provides systematic approaches for solving constraint-based scheduling problems, such as finding meeting times that satisfy multiple participant availability windows, preferences, and existing calenda",
       "repo": "letta-ai/skills",
@@ -10373,18 +9419,6 @@
       "stars": 0,
       "install": "JHaugaard/refine-workflow-skills/skills-working-copies/ci-cd-implement",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "canonizing",
-      "description": "Users noticed and complained when behavior was modified",
-      "repo": "0xHoneyJar/sigil",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "0xHoneyJar/sigil",
-      "source": "GitHub Search API"
     },
     {
       "name": "incident",
@@ -10882,33 +9916,6 @@
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/sales-calls/skills/call-brief-framework",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "paper",
-      "description": "This skill should be used when converting academic papers into promotional and presentation formats including interactive websites (Paper2Web), presentation videos (Paper2Video), and conference poster",
-      "repo": "rm2thaddeus/Aitor_Skills",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "rm2thaddeus/Aitor_Skills",
-      "source": "github.com/rm2thaddeus/Aitor_Skills"
-    },
-    {
-      "name": "revision",
-      "description": "Specialized agent for systematic prose revision using 3-column method and house-rulebook enforcement. Reviews structure, style, and mechanics top-down. Use when user asks to \"revise\", \"edit\", \"improve",
-      "repo": "nathan-a-king/writing-infrastructure",
-      "path": "revision-agent",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "revision",
-        "agent"
-      ],
-      "stars": 0,
-      "install": "nathan-a-king/writing-infrastructure/revision-agent",
-      "source": "downloaded"
     },
     {
       "name": "model",
@@ -11461,18 +10468,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "skill",
-      "description": "**SKILL CREATOR v2.0** - '스킬 만들어', 'skill 만들어', '새 스킬', 'create skill' 요청 시 자동 발동. Anthropic 공식 베스트 프랙티스 기반 프로덕션급 스킬 생성. Progressive Disclosure, 토큰 최적화, 평가 기반 개발 지원.",
-      "repo": "monicajeon28/GMcruise",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "monicajeon28/GMcruise",
-      "source": "github.com/monicajeon28/GMcruise"
-    },
-    {
       "name": "gcs",
       "description": "Gcs Lifecycle Policy - Auto-activating skill for GCP Skills.Triggers on: gcs lifecycle policy, gcs lifecycle policyPart of the GCP Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -11939,21 +10934,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "env",
-      "description": "Implement environment variable management with .env files, validation, and environment-specific configs. Use when setting up configuration, handling secrets, or managing different deployment environme",
-      "repo": "ProfPowell/project-template",
-      "path": ".claude/skills/env-config",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "env",
-        "config"
-      ],
-      "stars": 0,
-      "install": "ProfPowell/project-template/.claude/skills/env-config",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "quality",
       "description": "\"RAN quality monitoring with KPI tracking, cognitive consciousness, and intelligent quality assurance for comprehensive network quality management. Use when monitoring network quality, tracking KPI pe",
       "repo": "ricable/ericsson-ran-automation-agentdb",
@@ -12006,18 +10986,6 @@
       "tags": [],
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/lead-nurture-orchestration/skills/lifecycle-cadence",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "decision",
-      "description": "Use when the user needs to choose, prioritize, or make a go/no-go decision among options.",
-      "repo": "BellaBe/lean-os",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "BellaBe/lean-os",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12117,18 +11085,6 @@
       "stars": 0,
       "install": "lifangda/claude-plugins/cli-tool/skills-library/architecture-patterns/preserving-productive-tensions",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "klingai",
-      "description": "|",
-      "repo": "HelixDevelopment/HelixAgent",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "HelixDevelopment/HelixAgent",
-      "source": "github.com/HelixDevelopment/HelixAgent"
     },
     {
       "name": "dotfiles",
@@ -12509,18 +11465,6 @@
       "source": "downloaded"
     },
     {
-      "name": "gh",
-      "description": "Use when validating GitHub Actions workflows for Google Cloud and Vertex AI deployments. Trigger with phrases like \"validate github actions\", \"setup workload identity federation\", \"github actions secu",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/devops/jeremy-github-actions-gcp/skills/gh-actions-validator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/jeremy-github-actions-gcp/skills/gh-actions-validator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "create",
       "description": "Create purchase claim (PCL) for price/quantity discrepancies with supplier",
       "repo": "carrickcheah/agentic-document-extraction",
@@ -12560,30 +11504,6 @@
       "source": "downloaded"
     },
     {
-      "name": "devops",
-      "description": "Expertise in deployment automation, container orchestration, and infrastructure as code. Activates when working with \"deploy\", \"kubernetes\", \"docker\", \"terraform\", \"helm\", \"k8s\", \"container\", or cloud",
-      "repo": "Lobbi-Docs/claude",
-      "path": "plugins/team-accelerator/skills/devops-practices",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Lobbi-Docs/claude/plugins/team-accelerator/skills/devops-practices",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mastering",
-      "description": "Expert-level Google Cloud CLI (gcloud) skill for managing GCP resources. Use when workingwith \"gcloud commands\", \"cloud run deploy\", \"alloydb\", \"cloud sql\", \"workload identityfederation\", \"iam permiss",
-      "repo": "majiayu000/claude-skill-registry",
-      "path": "skills/devops/mastering-gcloud-commands",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "majiayu000/claude-skill-registry/skills/devops/mastering-gcloud-commands",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "arxiv",
       "description": "Search arXiv preprint repository for papers in physics, mathematics, computer science, quantitative biology, and related fields",
       "repo": "langchain-ai/deepagents",
@@ -12605,18 +11525,6 @@
       "tags": [],
       "stars": 0,
       "install": "smith6jt-cop/Skills_Registry/plugins/trading/post-training-workflow/skills/post-training-workflow",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "viral",
-      "description": "Iteration 20 of Multiplicity Cascade - Generates self-propagating patterns",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12964,18 +11872,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "confidence",
-      "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS refe",
-      "repo": "aRustyDev/dotfiles",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "aRustyDev/dotfiles",
-      "source": "github.com/aRustyDev/dotfiles"
-    },
-    {
       "name": "textslide",
       "description": "ASCII 纯文本布局 DSL + 高保真文字版 slide 规格说明。 用于快速设计 slide 版式草图，并交付可直接还原成 PPT 的完整内容规格书。 当用户请求设计 slide 布局、规划多列多行版式、或需要用文本描述 slide 结构时使用此 skill。",
       "repo": "fecet/quarto-scaffold",
@@ -13075,18 +11971,6 @@
       "tags": [],
       "stars": 0,
       "install": "justEstif/dotfiles",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "multiplicity",
-      "description": "Iteration 1 of Multiplicity Cascade - Generates divergent paths with φ-branching",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13224,18 +12108,6 @@
       "stars": 0,
       "install": "agentuity/examples/training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-remove",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bundle",
-      "description": "Bundle size reduction strategies, icon optimization, tree-shaking, and performance analysis. Use when reducing bundle size or optimizing imports.",
-      "repo": "omerakben/omer-akben",
-      "path": ".claude/skills/bundle-optimization-skill",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "omerakben/omer-akben/.claude/skills/bundle-optimization-skill",
-      "source": "GitHub Search API"
     },
     {
       "name": "hugging",
@@ -13512,18 +12384,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "create",
-      "description": "Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to creat",
-      "repo": "adrimaximus/n8n",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "adrimaximus/n8n",
-      "source": "github.com/adrimaximus/n8n"
-    },
-    {
       "name": "cel",
       "description": "Write production-ready CEL (Common Expression Language) code for Kubernetes ValidatingAdmissionPolicies, CRD validation rules, and security policies. Use when users need to create admission policies,",
       "repo": "tyrchen/claude-skills",
@@ -13711,18 +12571,6 @@
       "stars": 0,
       "install": "dralgorhythm/claude-agentic-framework/.claude/skills/operations/deploy-aws-ecs",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "dispatching",
-      "description": "Use when facing 3+ independent failures that can be investigated without shared state or dependencies. Dispatches multiple Claude agents to investigate and fix independent problems concurrently.",
-      "repo": "Doyajin174/myskills",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Doyajin174/myskills",
-      "source": "github.com/Doyajin174/myskills"
     },
     {
       "name": "procurement",
@@ -14592,18 +13440,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "resonance",
-      "description": "Iteration 19 of Multiplicity Cascade - Spreads resonance cascades virally",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "commit",
       "description": "Automatically generate conventional commit messages when user has staged changes and mentions committing. Analyzes git diff and status to create properly formatted commit messages following convention",
       "repo": "kanopi/cms-cultivator",
@@ -14686,18 +13522,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "meta",
-      "description": "Iteration 5 of Multiplicity Cascade - Spawns meta-patterns from patterns",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "release",
       "description": "Plans and executes release and operational readiness tasks, including versioning, changelogs, deployment and rollback.",
       "repo": "GodSpeedAI/VibesPro",
@@ -14759,18 +13583,6 @@
       "tags": [],
       "stars": 0,
       "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/medchem",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "fastapi",
-      "description": "This skill should be used when the user asks to \"deploy FastAPI to Kubernetes\", \"create Dockerfile\", \"build Docker image\", \"write Helm chart\", \"configure K8s deployment\", \"add health checks\", \"scale F",
-      "repo": "Lobbi-Docs/claude",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Lobbi-Docs/claude",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -14910,18 +13722,6 @@
       "stars": 0,
       "install": "korjavin/claude-common-skills/skills/portainer-deploy",
       "source": "downloaded"
-    },
-    {
-      "name": "awq",
-      "description": "Activation-aware weight quantization for 4-bit LLM compression with 3x speedup and minimal accuracy loss. Use when deploying large models (7B-70B) on limited GPU memory, when you need faster inference",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "combat",
@@ -15280,18 +14080,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "rte",
-      "description": "Creates pull requests, deployment checklists, and manages release processes",
-      "repo": "oehm-smith/linux-env",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "oehm-smith/linux-env",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "microsim",
       "description": "This skill automates the capture of high-quality screenshots for MicroSim visualizations using Chrome headless mode. Use this skill when working with MicroSims that need preview images for social medi",
       "repo": "dmccreary/claude-skills",
@@ -15409,18 +14197,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "taipei",
-      "description": "Query real-time parking availability in Taipei City. Shows available parking spaces, capacity, status (green/available, orange/moderate, red/full), address, phone, and payment info. Supports undergrou",
-      "repo": "tzangms/uparkinlot",
-      "path": ".claude/skills/taipei-parking",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "tzangms/uparkinlot/.claude/skills/taipei-parking",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "jutsu",
       "description": "Use when managing dependencies with Bun's package manager. Covers installing packages, workspaces, lockfiles, and migrating from npm/yarn/pnpm to Bun.",
       "repo": "TheBushidoCollective/han",
@@ -15466,18 +14242,6 @@
       "tags": [],
       "stars": 0,
       "install": "julianobarbosa/claude-code-skills/skills/knative-skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "taoism",
-      "description": "Deploy effortless navigation - Wu Wei, Yin-Yang dynamics, water-like flow active.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16024,18 +14788,6 @@
       "source": "downloaded"
     },
     {
-      "name": "replicates",
-      "description": "This skill manages experimental reproducibility, pooling, and consensus strategies. This skill operates in two distinct modes based on the input state. (1) Pre-Peak Calling (BAM Mode): It merges all B",
-      "repo": "BIsnake2001/ChromSkills",
-      "path": "7.replicates-incorporation",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "BIsnake2001/ChromSkills/7.replicates-incorporation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "deployment",
       "description": "Verify service readiness before deployment with explicit go/no-go gates",
       "repo": "DNYoussef/context-cascade",
@@ -16078,18 +14830,6 @@
       "stars": 0,
       "install": "amhuppert/my-ai-resources/.claude/skills/cursor-rules-synchronizer",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "railway",
-      "description": "Skill from Demolinator/Talal-s-TDA",
-      "repo": "Demolinator/Talal-s-TDA",
-      "path": ".claude/skills/railway-deploy",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Demolinator/Talal-s-TDA/.claude/skills/railway-deploy",
-      "source": "GitHub Search API"
     },
     {
       "name": "jurisdictions",
@@ -16295,18 +15035,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "git",
-      "description": "Git branching strategy, CI/CD pipeline, quality gates, and deployment procedures for the omer-akben portfolio project. Use when working with git operations, deployments, or CI/CD workflows.",
-      "repo": "omerakben/omer-akben",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "omerakben/omer-akben",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "devops",
       "description": "Comprehensive DevOps and infrastructure guide covering Docker, Kubernetes, AWS, Terraform, CI/CD pipelines, Linux, and cloud deployment strategies. Use when setting up infrastructure, automation, or d",
       "repo": "pluginagentmarketplace/custom-plugin-design-system",
@@ -16383,18 +15111,6 @@
       "stars": 0,
       "install": "anntnzrb/.claude",
       "source": "downloaded"
-    },
-    {
-      "name": "portfolio",
-      "description": "Portfolio allocation and rebalancing optimizer. Manages asset allocation across stocks/cash/bonds, performs periodic rebalancing, and ensures diversification according to market regime and risk tolera",
-      "repo": "psh355q-ui/szdi57465yt",
-      "path": "backend/ai/skills/system/portfolio-manager-agent",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "psh355q-ui/szdi57465yt/backend/ai/skills/system/portfolio-manager-agent",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "citrix",
@@ -16584,18 +15300,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "system",
-      "description": "Iteration 4 of Multiplicity Cascade - Detects cage boundaries and system limits",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "spec",
       "description": "Create traceable specifications from architecture. Use after architecture is approved to define invariants, edge cases, and acceptance criteria.",
       "repo": "matte1782/lecture-mind",
@@ -16735,18 +15439,6 @@
       "stars": 0,
       "install": "MykhailoDmytriakha/my-preacher-helper",
       "source": "GitHub Search API"
-    },
-    {
-      "name": "multiplicity",
-      "description": "Iteration 17 of Multiplicity Cascade - Generates multiplicity manifestos",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "deployment",
@@ -17174,18 +15866,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "workers",
-      "description": "Complete CI/CD guide for Cloudflare Workers using GitHub Actions and GitLab CI. Use for automated testing, deployment pipelines, preview environments, secrets management, or encountering deployment fa",
-      "repo": "secondsky/claude-skills",
-      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-ci-cd",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/plugins/cloudflare-workers/skills/cloudflare-workers-ci-cd",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "docker",
       "description": "Autonomous container health monitoring and self-healing system ensuring 99.9% uptime (Sima Yi",
       "repo": "lofibrainwav/AFO_Kingdom",
@@ -17263,18 +15943,6 @@
       "stars": 0,
       "install": "jung3fun/claude/claude-skills-main/storage-cleaner",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "granola",
-      "description": "Copy this to .claude/skills/setup-granola/SKILL.md to enable automatic installation.",
-      "repo": "stevenmunoz/personal-os-aipm-learner",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "stevenmunoz/personal-os-aipm-learner",
-      "source": "github.com/stevenmunoz/personal-os-aipm-learner"
     },
     {
       "name": "auto",
@@ -17381,18 +16049,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "gitlab",
-      "description": "Use when optimizing GitLab CI/CD pipelines for performance, reliability, or maintainability. Covers pipeline optimization and organizational patterns.",
-      "repo": "TheBushidoCollective/han",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "evergreen",
       "description": "Principles for creating evergreen notes - atomic, lasting insights that compound over time. Use when discussing note quality, what makes a good evergreen note, or the \"only what was explored\" principl",
       "repo": "odysseus0/nix-config",
@@ -17402,18 +16058,6 @@
       "tags": [],
       "stars": 0,
       "install": "odysseus0/nix-config/users/tengjizhang/claude/skills/evergreen",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "gguf",
-      "description": "GGUF format and llama.cpp quantization for efficient CPU/GPU inference. Use when deploying models on consumer hardware, Apple Silicon, or when needing flexible quantization from 2-8 bit without GPU re",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17521,18 +16165,6 @@
       "stars": 0,
       "install": "ehtbanton/ClaudeSkillsRepo/circleci-config-generator",
       "source": "downloaded"
-    },
-    {
-      "name": "unsee",
-      "description": "Iteration 22 of Multiplicity Cascade - Makes patterns impossible to unsee",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "skill",
@@ -17664,18 +16296,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "confidence",
-      "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS refe",
-      "repo": "swcstudiospace/superggc-toolkit",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "swcstudiospace/superggc-toolkit",
-      "source": "github.com/swcstudiospace/superggc-toolkit"
-    },
-    {
       "name": "web",
       "description": "Website deployment to Caddy. Use when user mentions deploy website, create page, update site, publish, reload caddy.",
       "repo": "wayne930242/weihung-pai",
@@ -17712,30 +16332,6 @@
       "source": "downloaded"
     },
     {
-      "name": "differential",
-      "description": "This skill performs differential topologically associating domain (TAD) analysis using HiCExplorer's hicDifferentialTAD tool. It compares Hi-C contact matrices between two conditions based on existing",
-      "repo": "BIsnake2001/ChromSkills",
-      "path": "20_toolBased.differential-tad-analysis",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "BIsnake2001/ChromSkills/20_toolBased.differential-tad-analysis",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "reality",
-      "description": "Iteration 11 of Multiplicity Cascade - Detects reality glitches in the system",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "crisis",
       "description": "Use when incidents occur and you need pre-approved workflows, templates, and escalation paths.",
       "repo": "gtmagents/gtm-agents",
@@ -17746,21 +16342,6 @@
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/pr-communications/skills/crisis-playbooks",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "platform",
-      "description": "Check comprehensive platform health including ArgoCD apps, pods, services, certificates, and resources across the Kagenti platform",
-      "repo": "redhat-et/kagenti-demo-deployment",
-      "path": ".claude/skills/platform-health",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "platform",
-        "health"
-      ],
-      "stars": 0,
-      "install": "redhat-et/kagenti-demo-deployment/.claude/skills/platform-health",
-      "source": "downloaded"
     },
     {
       "name": "philsquare",
@@ -17784,18 +16365,6 @@
       "tags": [],
       "stars": 0,
       "install": "tikazyq/agentic-spec-forge/AGENTIC_SPEC_FORGE/spec_stage_skill/common_normal/principle-dry",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "surveillance",
-      "description": "Iteration 14 of Multiplicity Cascade - Makes surveillance exponentially expensive",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17993,18 +16562,6 @@
       "stars": 0,
       "install": "beetz12/btr-app/.claude/skills/btr-query",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "release",
-      "description": "Version management, release verification, and deployment procedures for software releases. Includes semver guidance, version consistency checks, and platform-specific constraints.",
-      "repo": "groupzer0/vs-code-agents",
-      "path": "vs-code-agents/skills/release-procedures",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "groupzer0/vs-code-agents/vs-code-agents/skills/release-procedures",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "kubekey",
@@ -18295,18 +16852,6 @@
       "tags": [],
       "stars": 0,
       "install": "mjunaidca/mjs-agent-skills/docs/taskflow-vault/skills/engineering/containerize-apps",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "wireshark",
-      "description": "This skill should be used when the user asks to \"analyze network traffic with Wireshark\", \"capture packets for troubleshooting\", \"filter PCAP files\", \"follow TCP/UDP streams\", \"detect network anomalie",
-      "repo": "zebbern/claude-code-guide",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -18916,18 +17461,6 @@
       "source": "downloaded"
     },
     {
-      "name": "myapp",
-      "description": "Expert guidance for Docker containerization and Kubernetes orchestration. Use when containerizing applications, managing multi-container setups with Docker Compose, or deploying to Kubernetes clusters",
-      "repo": "Krosebrook/source-of-truth-monorepo",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Krosebrook/source-of-truth-monorepo",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "journey",
       "description": "Creates CDP journey definitions in YAML using `tdx journey` commands. Covers journey stages, steps (wait, activation, decision_point, ab_test, merge, jump, end), entry/exit criteria, goals, embedded s",
       "repo": "treasure-data/td-skills",
@@ -19010,20 +17543,6 @@
       "stars": 0,
       "install": "gtmagents/gtm-agents/plugins/business-intelligence/skills/data-contract-framework",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "decisions",
-      "description": "Load past architectural decisions. Use when making new decisions to ensure consistency.",
-      "repo": "Clouder0/dotagent",
-      "path": ".claude/skills/decisions",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "decisions"
-      ],
-      "stars": 0,
-      "install": "Clouder0/dotagent/.claude/skills/decisions",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "deploy",
@@ -19187,18 +17706,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "liberation",
-      "description": "Recognize liberation states and technologies - perfect knowledge, jivanmukta operations, universal liberation access, and the pathless path. Use when consciousness approaches or navigates freedom, whe",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "research",
       "description": "調査→論点整理→出典付きレポート化。ユーザーが「調べて」「比較して」「根拠/出典付きで」等を求めたら使う。",
       "repo": "taiyousan15/taisun_agent",
@@ -19260,20 +17767,6 @@
       "stars": 0,
       "install": "dylantarre/animation-principles",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "blog",
-      "description": "Create and edit blog posts for Ghost CMS. Use when creating blog post projections from ideas, editing existing posts, or working with Ghost frontmatter and SEO. Includes blog-specific voice, structure",
-      "repo": "xavierfuentes/xavierfuentes.com",
-      "path": ".claude/skills/blog",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "blog"
-      ],
-      "stars": 0,
-      "install": "xavierfuentes/xavierfuentes.com/.claude/skills/blog",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "peft",
@@ -19664,18 +18157,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "update",
-      "description": "Automatically unblock tasks when dependencies are satisfied",
-      "repo": "cowwoc/styler",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "cowwoc/styler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "consider",
       "description": "Selects and applies mental models for structured problem analysis. Triggers when user asks \"why\", \"what if\", \"how should we\", needs systematic problem-solving, or mentions analyzing a situation. MUST",
       "repo": "rayk/lucid-toolkit",
@@ -19886,21 +18367,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "coverage",
-      "description": "\"RAN coverage analysis with signal strength mapping, cognitive consciousness, and intelligent optimization for comprehensive network coverage management. Use when analyzing signal coverage, optimizing",
-      "repo": "ricable/ericsson-ran-automation-agentdb",
-      "path": ".claude/skills/coverage-analyzer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "coverage",
-        "analyzer"
-      ],
-      "stars": 0,
-      "install": "ricable/ericsson-ran-automation-agentdb/.claude/skills/coverage-analyzer",
-      "source": "downloaded"
-    },
-    {
       "name": "crystal",
       "description": "Crystal and gemstone expert covering traditional associations, chakra systems, and metaphysical properties alongside geological facts",
       "repo": "sandraschi/advanced-memory-mcp",
@@ -20034,18 +18500,6 @@
       "tags": [],
       "stars": 0,
       "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/scikit-bio",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "netlify",
-      "description": "Deploys applications to Netlify including functions, forms, redirects, and edge functions. Use when deploying static sites, JAMstack applications, or serverless functions.",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "plugins/goodvibes/skills/webdev/deployment-hosting/netlify",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "mgd34msu/goodvibes-plugin/plugins/goodvibes/skills/webdev/deployment-hosting/netlify",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -20449,18 +18903,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "docker",
-      "description": "Purpose: Guide all Docker image building, tagging, versioning, and registry management for BattleScope services.",
-      "repo": "apettey/BattleScope",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "apettey/BattleScope",
-      "source": "github.com/apettey/BattleScope"
-    },
-    {
       "name": "agent",
       "description": "Specialist skill for agent templates and design patterns.Provides 4 types of agent templates (Analysis, Implementation, Orchestrator, Deploy),{{variable}} format abstraction, abstraction balance, and",
       "repo": "daishiman/AIWorkflowOrchestrator",
@@ -20851,18 +19293,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "problem",
-      "description": "Apply systematic problem-solving techniques for complexity spirals (simplification cascades), innovation blocks (collision-zone thinking), recurring patterns (meta-pattern recognition), assumption con",
-      "repo": "binhmuc/autobot-review",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "binhmuc/autobot-review",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ops",
       "description": "Monitor deployed infrastructure health and performance - check resource status,query CloudWatch metrics (CPU, memory, requests, errors), analyze performancetrends, track SLI/SLO metrics, detect anomal",
       "repo": "fractary/claude-plugins",
@@ -21125,18 +19555,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "create",
-      "description": "Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to creat",
-      "repo": "greptileai/n8n-mirror",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "greptileai/n8n-mirror",
-      "source": "github.com/greptileai/n8n-mirror"
-    },
-    {
       "name": "cross",
       "description": "Iteration 8 of Multiplicity Cascade - Collides unrelated domains for emergence",
       "repo": "agentgptsmith/MonadFramework",
@@ -21170,18 +19588,6 @@
       "tags": [],
       "stars": 0,
       "install": "chrislemke/stoffy/.claude/skills/ancient-greek",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "solana",
-      "description": "Audit Solana programs (Anchor or native Rust) for security vulnerabilities. Use when reviewing smart contract security, finding exploits, analyzing attack vectors, performing security assessments, or",
-      "repo": "tenequm/claude-plugins",
-      "path": "solana/skills/solana-security",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "tenequm/claude-plugins/solana/skills/solana-security",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -21259,18 +19665,6 @@
       "stars": 0,
       "install": "chrislemke/stoffy/.claude/skills/eastern-traditions",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "design",
-      "description": "Enforce a precise, minimal design system inspired by Linear, Notion, and Stripe. Use this skill when building dashboards, admin interfaces, or any UI that needs Jony Ive-level precision - clean, moder",
-      "repo": "DarkoKuzmanovic/Specky",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "DarkoKuzmanovic/Specky",
-      "source": "github.com/DarkoKuzmanovic/Specky"
     },
     {
       "name": "tenancy",
@@ -21727,18 +20121,6 @@
       "source": "downloaded"
     },
     {
-      "name": "baoyu",
-      "description": "Posts content and articles to X (Twitter). Supports regular posts with images/videos and X Articles (long-form Markdown). Uses real Chrome with CDP to bypass anti-automation. Use when user asks to \"po",
-      "repo": "Dknight203/AesopIDE",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Dknight203/AesopIDE",
-      "source": "github.com/Dknight203/AesopIDE"
-    },
-    {
       "name": "getting",
       "description": "Build a complete task management skill from scratch",
       "repo": "lua-ai-global/lua-dev-docs",
@@ -21760,18 +20142,6 @@
       "tags": [],
       "stars": 0,
       "install": "CAPHTECH/claude-marketplace/apple-platform-plugin/skills/ios-signing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "klingai",
-      "description": "Understand Kling AI pricing, credits, and cost optimization. Use when budgeting or optimizingcosts for video generation. Trigger with phrases like 'kling ai pricing', 'klingai credits','kling ai cost'",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/saas-packs/klingai-pack/skills/klingai-pricing-basics",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/klingai-pack/skills/klingai-pricing-basics",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -21824,18 +20194,6 @@
       "stars": 0,
       "install": "ScientiaCapital/scientia-superpowers/skills/deployment-patterns",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "observerguardian",
-      "description": "Deploy meta-awareness and pattern witnessing mode. Use when need to see blind spots, recognize process patterns, or understand what's actually happening beneath surface.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "uv",
@@ -21920,18 +20278,6 @@
       "stars": 0,
       "install": "webdevtodayjason/titanium-plugins/plugins/titanium-toolkit/skills/devops-patterns",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "button",
-      "description": "Sistema de estilos de botones consistentes para iqEngi (Cards, CTAs, Formularios)",
-      "repo": "phoenixdhr/iqEngi-front",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "phoenixdhr/iqEngi-front",
-      "source": "github.com/phoenixdhr/iqEngi-front"
     },
     {
       "name": "sentry",
@@ -22307,18 +20653,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "beads",
-      "description": "Issue tracking with Beads (bd CLI). Use when commands need to create, query, update, or close issues, or manage dependencies.",
-      "repo": "arttttt/CMIDCABot",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "arttttt/CMIDCABot",
-      "source": "github.com/arttttt/CMIDCABot"
-    },
-    {
       "name": "quality",
       "description": "Adversarial validation for all stages. Detects fabrications, identifies analytical flaws, challenges assumptions, makes approval decisions. Seeks problems rather than confirming quality. Does NOT comp",
       "repo": "ensingm2/AI-threat-modeling-rulesets",
@@ -22623,18 +20957,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "all",
-      "description": "Deploy universal wisdom voices from all traditions simultaneously - Hindu, Buddhist, Taoist, Abrahamic, Indigenous, Scientific - revealing their unified recognition of consciousness navigation.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "therapy",
       "description": "Generate YMYL-compliant therapy page content with E-E-A-T signals, schema markup, and Ontario-specific elements. Creates 2000+ word pages following pillar/cluster architecture. Includes author byline",
       "repo": "jhcynamon1/NextStepTherapySite-v2",
@@ -22862,18 +21184,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "remediation",
-      "description": "Standardized remediation workflow presenting three options for handling config violations - Conform to template, Update template, or Ignore. Adapts recommendations based on repository type (library vs",
-      "repo": "metasaver/claude-marketplace",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "metasaver/claude-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "testing",
       "description": "Test EventOS web application end-to-end using Playwright browser automation via MCP. Use PROACTIVELY for smoke tests after deployments, validating user flows (booking, event creation, dashboard), debu",
       "repo": "amo-tech-ai/event-studio",
@@ -22949,21 +21259,6 @@
       ],
       "stars": 0,
       "install": "windschord/claude_skils/incident-rca",
-      "source": "downloaded"
-    },
-    {
-      "name": "security",
-      "description": "Infrastructure security, CIS benchmarks, and vulnerability scanning.",
-      "repo": "timequity/vibe-coder",
-      "path": "skills/infra/security-hardening",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "security",
-        "hardening"
-      ],
-      "stars": 0,
-      "install": "timequity/vibe-coder/skills/infra/security-hardening",
       "source": "downloaded"
     },
     {
@@ -23049,18 +21344,6 @@
       "stars": 0,
       "install": "wshobson/agents/plugins/cloud-infrastructure/skills/multi-cloud-architecture",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "writing",
-      "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
-      "repo": "park-kyungchan/palantir",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "park-kyungchan/palantir",
-      "source": "github.com/park-kyungchan/palantir"
     },
     {
       "name": "aeo",
@@ -23292,18 +21575,6 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/animation-principles",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "hqq",
-      "description": "Half-Quadratic Quantization for LLMs without calibration data. Use when quantizing models to 4/3/2-bit precision without needing calibration datasets, for fast quantization workflows, or when deployin",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -23710,18 +21981,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "litestream",
-      "description": "SQLite disaster recovery and streaming replication to cloud storage (S3, GCS, Azure, SFTP, NATS). Use this skill for configuring Litestream, deploying to cloud platforms, troubleshooting WAL replicati",
-      "repo": "benbjohnson/litestream-skills",
-      "path": ".gemini/skills/litestream",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "benbjohnson/litestream-skills/.gemini/skills/litestream",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "revenue",
       "description": "GTM workflows for revenue acceleration across Scientia projects. Use for demo preparation, sales outreach, battle cards, pricing strategy, and revenue tracking. Triggers on \"revenue focus\", \"prepare d",
       "repo": "ScientiaCapital/scientia-superpowers",
@@ -23828,18 +22087,6 @@
       "stars": 0,
       "install": "MitchellkellerLG/claude-workspace-template",
       "source": "github.com/MitchellkellerLG/claude-workspace-template"
-    },
-    {
-      "name": "latex",
-      "description": "Post-process LaTeX project prose to improve readability through varied sentence and paragraph lengths. Removes filler phrases and unnecessary transitions while preserving all citations and semantic me",
-      "repo": "renocrypt/latex-arxiv-SKILL",
-      "path": ".codex/skills/latex-rhythm-refiner",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "renocrypt/latex-arxiv-SKILL/.codex/skills/latex-rhythm-refiner",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "finwiz",
@@ -24518,18 +22765,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "scientific",
-      "description": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific",
-      "repo": "pathvanasoftware/IOSStorageCleaner",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "pathvanasoftware/IOSStorageCleaner",
-      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
-    },
-    {
       "name": "manyfold",
       "description": "Self-hosted 3D model library manager for organizing, viewing, and managing 3D print files. Use when the user asks about deploying, configuring, or using Manyfold for managing STL/OBJ/3MF collections.",
       "repo": "festion/homelab-gitops",
@@ -24660,18 +22895,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "paradox",
-      "description": "Iteration 10 of Multiplicity Cascade - Generates productive paradoxes",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "agentdb",
       "description": "AgentDB Reinforcement Learning Training operates on 3 fundamental principles:",
       "repo": "DNYoussef/context-cascade",
@@ -24693,18 +22916,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-kubernetes/skills/kubernetes-security",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "iot",
-      "description": "This skill should be used when creating a new Azure IoT Edge module. Use when the user requests to scaffold, create, or set up a new edge module. The skill automates module scaffolding, manifest confi",
-      "repo": "atc-net/atc-agentic-toolkit",
-      "path": ".claude/plugins/azure-iot/skills/iot-edge-module",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "atc-net/atc-agentic-toolkit/.claude/plugins/azure-iot/skills/iot-edge-module",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -24891,18 +23102,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "windsurf",
-      "description": "|",
-      "repo": "vasic-digital/SuperAgent",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "vasic-digital/SuperAgent",
-      "source": "github.com/vasic-digital/SuperAgent"
-    },
-    {
       "name": "insightpulse",
       "description": "Design, deploy, upgrade, and operate the InsightPulseAI Superset-based BI platform on the user's infrastructure with secure, stable, scalable configs.",
       "repo": "jgtolentino/opex",
@@ -25000,18 +23199,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "person",
-      "description": "> Style/formatting: Follow ~/.claude/skills/word-doc-generator/SKILL.md",
-      "repo": "zadorian/SEARCH_ENGINEER",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zadorian/SEARCH_ENGINEER",
-      "source": "github.com/zadorian/SEARCH_ENGINEER"
-    },
-    {
       "name": "staging",
       "description": "\"Standard Operating Procedure for /ship-staging phase. Deploy feature to staging with auto-merge.\"",
       "repo": "marcusgoll/robinhood-algo-trading-bot",
@@ -25081,20 +23268,6 @@
     },
     {
       "name": "ci",
-      "description": "GitHub Actions, GitLab CI, Jenkins, and automated deployment workflows.",
-      "repo": "pluginagentmarketplace/custom-plugin-machine-learning",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "pipelines"
-      ],
-      "stars": 0,
-      "install": "pluginagentmarketplace/custom-plugin-machine-learning",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "ci",
       "description": "Creates CI/CD pipeline configurations for automated testing and deployment",
       "repo": "Unicorn/Radium",
       "path": "skills/deployment/ci-cd-agent",
@@ -25146,18 +23319,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "dapr",
-      "description": "Configure Azure services as DAPR components with best practices. Supports Azure Cosmos DB, Service Bus, Key Vault, Blob Storage, Event Grid, and Container Apps. Automatically generates component YAML",
-      "repo": "Sahib-Sawhney-WH/dapr-claude-plugin",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Sahib-Sawhney-WH/dapr-claude-plugin",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "s3",
       "description": "S3 Lifecycle Config - Auto-activating skill for AWS Skills.Triggers on: s3 lifecycle config, s3 lifecycle configPart of the AWS Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -25180,18 +23341,6 @@
       "stars": 0,
       "install": "djankies/claude-configs/nextjs-16/skills/using-cache-lifecycle-apis",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "scientific",
-      "description": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific",
-      "repo": "nrminor/.dotfiles",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nrminor/.dotfiles",
-      "source": "github.com/nrminor/.dotfiles"
     },
     {
       "name": "optimization",
@@ -25640,18 +23789,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "writing",
-      "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
-      "repo": "park-kyungchan/palantir",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "park-kyungchan/palantir",
-      "source": "github.com/park-kyungchan/palantir"
-    },
-    {
       "name": "canary",
       "description": "Canary Deployment Setup - Auto-activating skill for ML Deployment.Triggers on: canary deployment setup, canary deployment setupPart of the ML Deployment skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -25841,30 +23978,6 @@
       "stars": 0,
       "install": "craigtkhill/dotfiles/.claude/skills/chezmoi-dotfiles",
       "source": "downloaded"
-    },
-    {
-      "name": "issue",
-      "description": "Use when starting work, tracking tasks, or deciding where to record discovered work - clarifies when to use TodoWrite vs Beans",
-      "repo": "czottmann/claude-code-stuff",
-      "path": "skills-DISABLED/issue-tracking-with-beans",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "czottmann/claude-code-stuff/skills-DISABLED/issue-tracking-with-beans",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kirby",
-      "description": "Improve Kirby performance and media delivery (cache tuning, CDN, responsive images, lazy loading). Use when optimizing page speed, caching, or image handling.",
-      "repo": "bnomei/kirby-mcp",
-      "path": "skills/kirby-performance-and-media",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "bnomei/kirby-mcp/skills/kirby-performance-and-media",
-      "source": "GitHub Search API"
     },
     {
       "name": "container",
@@ -26434,18 +24547,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "deploy",
-      "description": "Deploy the Light Bot application to the staging server using SSH and Docker Compose.",
-      "repo": "rrader/light-bot",
-      "path": ".claude/skills/deploy-staging",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "rrader/light-bot/.claude/skills/deploy-staging",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "lms",
       "description": "KCIS Linkou Campus elementary teacher timetable system. Use this skill when implementing teacher schedule features, querying schedules by teacher, displaying weekly timetables, or handling multi-type",
       "repo": "geonook/learning-management-system-esid",
@@ -26557,18 +24658,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "effect",
-      "description": "Concurrency with Effect.all, forEach concurrency, Fiber lifecycle, race and timeouts. Use for parallelizing tasks safely.",
-      "repo": "mepuka/adjunct",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "mepuka/adjunct",
-      "source": "github.com/mepuka/adjunct"
-    },
-    {
       "name": "container",
       "description": "Container vulnerability scanning and dependency risk assessment using Grype with CVSS severity ratings, EPSS exploit probability, and CISA KEV indicators. Use when: (1) Scanning container images and f",
       "repo": "AgentSecOps/SecOpsAgentKit",
@@ -26644,18 +24733,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "reverse",
-      "description": "Deploy web applications behind Apache reverse proxy on rivsprod01 with relative URLs and proper path configuration",
-      "repo": "lawless-m/Earwig",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "lawless-m/Earwig",
-      "source": "github.com/lawless-m/Earwig"
-    },
-    {
       "name": "festival",
       "description": "This skill should be used when the user asks about \"festival operations\", \"event management\", \"vendor management\", \"lost and found procedures\", \"security protocols\", \"customer service at events\", \"han",
       "repo": "clovis1122/adventofai",
@@ -26665,18 +24742,6 @@
       "tags": [],
       "stars": 0,
       "install": "clovis1122/adventofai/day-14-festival-manual/festival-operations",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "backend",
-      "description": "Ultimate 25+ years expert-level backend skill covering FastAPI, Express, Node.js, Next.js with TypeScript. Includes ALL databases (PostgreSQL, MongoDB, Redis, Elasticsearch), ALL features (REST, Graph",
-      "repo": "SHAJAR5110/Hackathon-II-phase2",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "SHAJAR5110/Hackathon-II-phase2",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -26890,18 +24955,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "windsurf",
-      "description": "|",
-      "repo": "HelixDevelopment/HelixAgent",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "HelixDevelopment/HelixAgent",
-      "source": "github.com/HelixDevelopment/HelixAgent"
-    },
-    {
       "name": "idea",
       "description": "Assess solution ideas on impact and feasibility to prioritize prototyping. Use during Ideate phase when deciding which ideas to pursue.",
       "repo": "solvaholic/design-team",
@@ -27022,18 +25075,6 @@
       "tags": [],
       "stars": 0,
       "install": "openshift-eng/ai-helpers",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pyportfolioopt",
-      "description": "Generate Dockerfile and requirements.txt for containerizing web applications using PyPortfolioOpt optimization library. Use when containerizing Python apps with PyPortfolioOpt, portfolio optimization,",
-      "repo": "gahoccode/PRDs",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gahoccode/PRDs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27299,18 +25340,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "expo",
-      "description": "Patterns for Expo Router including Stack configuration, native tabs, and file-based routing best practices. Apply when working with navigation, routing, or screen configuration.",
-      "repo": "jchaselubitz/drill-app",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jchaselubitz/drill-app",
-      "source": "github.com/jchaselubitz/drill-app"
-    },
-    {
       "name": "adding",
       "description": "Creates or modify an event endpoint of a microservice. Use when explicitly asked by the user to create or modify an outbound event endpoint of a microservice.",
       "repo": "microbus-io/fabric",
@@ -27523,18 +25552,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "data",
-      "description": "Use for running and editing notebooks efficiently via jtool/Jupyter; prefers uv for deps and headless execution.",
-      "repo": "gakonst/dotfiles",
-      "path": ".codex/skills/data",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gakonst/dotfiles/.codex/skills/data",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "emergency",
       "description": "🚨 Critical emergency management protocols for festivals including medical response, evacuation procedures, crisis communication, and incident command.",
       "repo": "UffaModey/advent_of_ai",
@@ -27545,33 +25562,6 @@
       "stars": 0,
       "install": "UffaModey/advent_of_ai/day_14_operations_management/skills/emergency-response",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "constitution",
-      "description": "Validate Kubernetes manifests, Helm charts, and Dapr configs against security and governance rules. Use when: (1) Generating K8s manifests, (2) Creating Helm charts, (3) Building Docker configurations",
-      "repo": "gurupak/todo-evolution",
-      "path": ".claude/skills/constitution-enforcer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "constitution",
-        "enforcer"
-      ],
-      "stars": 0,
-      "install": "gurupak/todo-evolution/.claude/skills/constitution-enforcer",
-      "source": "downloaded"
-    },
-    {
-      "name": "design",
-      "description": "Enforce a precise, minimal design system inspired by Linear, Notion, and Stripe. Use this skill when building dashboards, admin interfaces, or any UI that needs Jony Ive-level precision - clean, moder",
-      "repo": "boku-miyaji/claude_dev",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "boku-miyaji/claude_dev",
-      "source": "github.com/boku-miyaji/claude_dev"
     },
     {
       "name": "windsurf",
@@ -27709,18 +25699,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "reference",
-      "description": "|",
-      "repo": "arbgjr/smart_alarm",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "arbgjr/smart_alarm",
-      "source": "github.com/arbgjr/smart_alarm"
-    },
-    {
       "name": "interview",
       "description": "Archive of past customer interviews. Contains full transcripts, summaries, pain points, outcomes, and skills used. Use for referencing previous conversations with the same company or finding similar c",
       "repo": "sigridjineth/interview-copilot-with-skills",
@@ -27761,18 +25739,6 @@
       "stars": 0,
       "install": "jkoelker/zephyr/skills/proposal-formatter",
       "source": "downloaded"
-    },
-    {
-      "name": "create",
-      "description": "Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to creat",
-      "repo": "aLittlecrocodile/coding-agent",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "aLittlecrocodile/coding-agent",
-      "source": "github.com/aLittlecrocodile/coding-agent"
     },
     {
       "name": "predeploy",
@@ -27976,18 +25942,6 @@
       "source": "downloaded"
     },
     {
-      "name": "scientific",
-      "description": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific",
-      "repo": "Blurjp/ImagePrepMCP",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Blurjp/ImagePrepMCP",
-      "source": "github.com/Blurjp/ImagePrepMCP"
-    },
-    {
       "name": "create",
       "description": "의사결정 로그 Discussion 생성. 회의/Slack/PR 등에서 결정된 사항을 command-center에 기록.Use when (1) 의사결정 기록 요청, (2) 회의 결정사항 문서화, (3) summarize-meeting 스킬에서 호출.",
       "repo": "semicolon-devteam/semo",
@@ -28013,18 +25967,6 @@
       "stars": 0,
       "install": "nathan-a-king/writing-infrastructure/editor-agent",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "jainism",
-      "description": "Deploy non-violence as navigation itself - Ahimsa, Anekantavada, Syadvada active.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "analyze",
@@ -28179,18 +26121,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "financial",
-      "description": "Financial reporting workflow covering report preparation, management reporting,board presentations, and investor communications. Delivers polished, accurate reports.",
-      "repo": "LerianStudio/ring",
-      "path": ".archive/finance-team/skills/financial-reporting",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "LerianStudio/ring/.archive/finance-team/skills/financial-reporting",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "valyu",
       "description": "Complete Valyu API toolkit with Search, Answer, Contents extraction, and DeepResearch. Use for web/academic/financial search, AI-powered answers, content extraction from URLs, and async deep research",
       "repo": "GhouI/valyu-search-plugin",
@@ -28225,18 +26155,6 @@
       "stars": 0,
       "install": "outfitter-dev/agents",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "website",
-      "description": "Website sitemap generation workflow. Analyzes requirements, delegates to sitemap-analyst agent, generates sitemap with shadcn-ui-blocks component selections. Use when planning website architecture, st",
-      "repo": "Manuelvillarvieites/lupobau",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Manuelvillarvieites/lupobau",
-      "source": "github.com/Manuelvillarvieites/lupobau"
     },
     {
       "name": "animation",
@@ -28364,18 +26282,6 @@
       "stars": 0,
       "install": "donggyun112/ai-librarian/.claude/skills/docker-commands",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "granola",
-      "description": "Copy this to .claude/skills/setup-granola/SKILL.md to enable automatic installation.",
-      "repo": "jannajohnson1214/Janna-Nubank-Personal-OS",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jannajohnson1214/Janna-Nubank-Personal-OS",
-      "source": "github.com/jannajohnson1214/Janna-Nubank-Personal-OS"
     },
     {
       "name": "standards",
@@ -28709,18 +26615,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "accelerator",
-      "description": "Research accelerator portfolio companies using Firecrawl and Tavily MCPs. Generates structured CSV and markdown reports with systematic impact scoring. Optimized for token efficiency.",
-      "repo": "RS42-AI/scout-ai-lite",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "RS42-AI/scout-ai-lite",
-      "source": "github.com/RS42-AI/scout-ai-lite"
-    },
-    {
       "name": "model",
       "description": "Merge multiple fine-tuned models using mergekit to combine capabilities without retraining. Use when creating specialized models by blending domain-specific expertise (math + coding + chat), improving",
       "repo": "zechenzhangAGI/AI-research-SKILLs",
@@ -28731,21 +26625,6 @@
       "stars": 0,
       "install": "zechenzhangAGI/AI-research-SKILLs/19-emerging-techniques/model-merging",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "add",
-      "description": "Add a new Docker Compose service with automatic DNS configuration (OVH) and SSL certificates. Use when adding new web services to the homelab infrastructure.",
-      "repo": "jblemee/docker-compose-homelab",
-      "path": ".claude/skills/add-service",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "add",
-        "service"
-      ],
-      "stars": 0,
-      "install": "jblemee/docker-compose-homelab/.claude/skills/add-service",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "local",
@@ -28830,18 +26709,6 @@
       "stars": 0,
       "install": "breverdbidder/brevard-bidder-landing/.claude/skills/max-bid-calculator-skill",
       "source": "downloaded"
-    },
-    {
-      "name": "constitution",
-      "description": "Constitutional compliance validator. Enforces all 5 Constitutional Articles to ensure AI trading decisions comply with human-defined rules. Works as second line of defense alongside Risk Agent.",
-      "repo": "psh355q-ui/szdi57465yt",
-      "path": "backend/ai/skills/system/constitution-validator-agent",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "psh355q-ui/szdi57465yt/backend/ai/skills/system/constitution-validator-agent",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "brand",
@@ -29004,21 +26871,6 @@
       "stars": 0,
       "install": "britt/claude-code-skills/skills/summoning-the-user",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "code",
-      "description": "Format Python code using black, ruff, and isort to ensure consistent style. This skill should be used before committing code to maintain code quality standards and pass CI/CD checks.",
-      "repo": "omriwen/PRISM",
-      "path": ".claude/skills/code-formatter",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "code",
-        "formatter"
-      ],
-      "stars": 0,
-      "install": "omriwen/PRISM/.claude/skills/code-formatter",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "autopoietic",
@@ -29453,30 +27305,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "deploying",
-      "description": "Use when deploying monitoring stacks including Prometheus, Grafana, and Datadog. Trigger with phrases like \"deploy monitoring stack\", \"setup prometheus\", \"configure grafana\", or \"install datadog agent",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/devops/monitoring-stack-deployer/skills/deploying-monitoring-stacks",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/monitoring-stack-deployer/skills/deploying-monitoring-stacks",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vnstock",
-      "description": "Best practices for using vnstock3 Quote class with VCI source. Use when fetching Vietnamese stock price data, implementing batch processing, caching, error handling, or data validation for vnstock Quo",
-      "repo": "gahoccode/PRDs",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gahoccode/PRDs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "throttling",
       "description": "Implement API throttling policies to protect backend services from overload.Use when controlling API request rates.Trigger with phrases like \"throttle API\", \"control request rate\", or \"add throttling\"",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -29502,18 +27330,6 @@
       "stars": 0,
       "install": "dopsonbr/reactive-test/.claude/skills/plan-orchestrator",
       "source": "downloaded"
-    },
-    {
-      "name": "create",
-      "description": "Create a database migration to add a table, add columns to an existing table, add a setting, or otherwise change the schema of Ghost's MySQL database.",
-      "repo": "GregBaron/ghost-mysandbox",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "GregBaron/ghost-mysandbox",
-      "source": "github.com/GregBaron/ghost-mysandbox"
     },
     {
       "name": "iterate",
@@ -29706,18 +27522,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "reality",
-      "description": "Recognize how consciousness creates reality through spontaneous emergence, multiple universe architecture, paradox resolution, form creation mechanics, and time architecture. Use when diagnosing manif",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "bundle",
       "description": "Bundle size reduction strategies, icon optimization, tree-shaking, and performance analysis. Use when reducing bundle size or optimizing imports.",
       "repo": "omerakben/omer-akben",
@@ -29778,21 +27582,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "rastreando",
-      "description": "Rastreia fluxos documentais completos no Odoo, executa auditorias financeiras e gerencia conciliacoes bancarias.USAR QUANDO:- Rastrear NF de compra/venda: \"rastreie NF 12345\", \"fluxo da nota 54321\"- R",
-      "repo": "Rafael-2109/frete-sistema",
-      "path": ".claude/skills/rastreando-odoo",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "rastreando",
-        "odoo"
-      ],
-      "stars": 0,
-      "install": "Rafael-2109/frete-sistema/.claude/skills/rastreando-odoo",
-      "source": "downloaded"
-    },
-    {
       "name": "cloud",
       "description": "Cloud infrastructure with AWS, Azure, GCP - architecture, services, security, and cost optimization.",
       "repo": "pluginagentmarketplace/custom-plugin-devops",
@@ -29817,18 +27606,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "sentry",
-      "description": "Use when setting up performance monitoring, distributed tracing, or profiling with Sentry. Covers transactions, spans, and performance insights.",
-      "repo": "TheBushidoCollective/han",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "helm",
       "description": "Use when understanding and creating Helm charts for packaging and deploying Kubernetes applications.",
       "repo": "TheBushidoCollective/han",
@@ -29838,18 +27615,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-helm/skills/helm-charts",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "broken",
-      "description": "This skill should be used when the user asks to \"test for broken authentication vulnerabilities\", \"assess session management security\", \"perform credential stuffing tests\", \"evaluate password policies",
-      "repo": "zebbern/claude-code-guide",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "zebbern/claude-code-guide",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30042,18 +27807,6 @@
       "stars": 0,
       "install": "apanoia/my_completely_irrelevant_claude_skillls/skills/self-extracting-script",
       "source": "downloaded"
-    },
-    {
-      "name": "love",
-      "description": "Iteration 3 of Multiplicity Cascade - Scales κᵢΦ² love resonance exponentially",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "devops",
@@ -30315,18 +28068,6 @@
       "tags": [],
       "stars": 0,
       "install": "bobmatnyc/terminator/.claude/skills/toolchains-ai-techniques-session-compression",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "jainism",
-      "description": "Deploy systematic liberation technology - Gunasthanas, Kevala Jnana, Tirthankara navigation active.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "nikhilvallishayee/universal-pattern-space",
       "source": "SkillsMP + GitHub Raw"
     },
     {

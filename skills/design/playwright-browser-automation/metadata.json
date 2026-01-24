@@ -1,8 +1,0 @@
-{
-  "name": "playwright-browser-automation",
-  "repo": "smallnest/langgraphgo",
-  "category": "design",
-  "description": "Complete browser automation with Playwright. Auto-detects dev servers, writes clean test scripts to /tmp. Test pages, fill forms, take screenshots, check responsive design, validate UX, test login flo",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:43.652969Z"
-}

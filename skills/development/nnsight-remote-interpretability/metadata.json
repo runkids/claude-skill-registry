@@ -1,7 +1,0 @@
-{
-  "name": "nnsight-remote-interpretability",
-  "description": "Provides guidance for interpreting and manipulating neural network internals using nnsight with optional NDIF remote execution. Use when needing to run interpretability experiments on massive models (",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.888061Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "shopify-expert-raintree-technology-claude-sta",
-  "description": "Comprehensive Shopify development expert with access to 24 official documentation files covering APIs (GraphQL Admin, Storefront, REST), app development, themes, Liquid, Hydrogen, checkout, extensions",
-  "category": "development",
-  "source": "github.com/raintree-technology/claude-starter",
-  "imported_at": "2026-01-24T14:54:00.097432Z"
-}

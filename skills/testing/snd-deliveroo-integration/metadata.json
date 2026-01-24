@@ -1,8 +1,0 @@
-{
-  "name": "snd-deliveroo-integration",
-  "repo": "vaoan/SND",
-  "category": "testing",
-  "description": "Use this skill when implementing Grand Company delivery automation in SND macros using the Deliveroo plugin. Covers GC turn-ins, expert delivery, and supply provisioning.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:27.828726Z"
-}

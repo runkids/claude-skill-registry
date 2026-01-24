@@ -1,8 +1,0 @@
-{
-  "name": "investigate-and-plan",
-  "repo": "Chronote-gg/Chronote",
-  "category": "product",
-  "description": "Investigate errors, incidents, or product ideas using both internet research and repo-wide codebase research, then propose a concrete changeset plan with clarifying questions before any implementation",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:15.356477Z"
-}

@@ -1,8 +1,0 @@
-{
-  "name": "stable-diffusion-image-generation",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "development",
-  "description": "State-of-the-art text-to-image generation with Stable Diffusion models via HuggingFace Diffusers. Use when generating images from text prompts, performing image-to-image translation, inpainting, or bu",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.945235Z"
-}

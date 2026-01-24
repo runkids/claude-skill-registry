@@ -1,7 +1,0 @@
-{
-  "name": "code-execution-mhattingpete-claude-skills-mar",
-  "description": "Execute Python code locally with marketplace API access for 90%+ token savings on bulk operations. Activates when user requests bulk operations (10+ files), complex multi-step workflows, iterative pro",
-  "category": "development",
-  "source": "github.com/mhattingpete/claude-skills-marketplace",
-  "imported_at": "2026-01-24T14:54:24.133425Z"
-}

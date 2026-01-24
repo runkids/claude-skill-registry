@@ -1,8 +1,0 @@
-{
-  "name": "assumption-testing",
-  "repo": "melodic-software/claude-code-plugins",
-  "category": "testing",
-  "description": "Identify, prioritize, and test product assumptions systematically. Reduce risk by validating riskiest assumptions first through structured experiments.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:08.186816Z"
-}

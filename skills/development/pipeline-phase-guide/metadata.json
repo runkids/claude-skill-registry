@@ -1,8 +1,0 @@
-{
-  "name": "pipeline-phase-guide",
-  "repo": "b4CU-R4U/neuroverse-presentation-automator",
-  "category": "development",
-  "description": "Intelligently navigate the 7-phase Spec Kit \u2192 CCGC workflow by detecting current phase, validating prerequisites, recommending transitions, and tracking per-project state. Use when the user asks \"what",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:32.114038Z"
-}

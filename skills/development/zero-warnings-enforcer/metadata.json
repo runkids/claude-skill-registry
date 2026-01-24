@@ -1,8 +1,0 @@
-{
-  "name": "zero-warnings-enforcer",
-  "repo": "RomualdP/hoki",
-  "category": "development",
-  "description": "Applique la philosophie \"Broken Window\" avec z\u00e9ro tol\u00e9rance pour les warnings/errors ESLint et TypeScript. JAMAIS d\u00e9sactiver les r\u00e8gles, TOUJOURS corriger la cause racine. \u00c0 utiliser lors de la correc",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.888564Z"
-}

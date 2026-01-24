@@ -1,7 +1,0 @@
-{
-  "name": "mcp-builder-composiohq-awesome-claude-skil",
-  "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
-  "category": "development",
-  "source": "github.com/ComposioHQ/awesome-claude-skills",
-  "imported_at": "2026-01-24T14:54:19.080416Z"
-}

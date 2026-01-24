@@ -1,7 +1,0 @@
-{
-  "name": "swiftui-performance-audit-harperreed-dotfiles",
-  "description": "Audit and improve SwiftUI runtime performance from code review and architecture. Use for requests to diagnose slow rendering, janky scrolling, high CPU/memory usage, excessive view updates, or layout ",
-  "category": "development",
-  "source": "github.com/harperreed/dotfiles",
-  "imported_at": "2026-01-24T14:53:55.754197Z"
-}

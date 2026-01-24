@@ -1,8 +1,0 @@
-{
-  "name": "parallel-routes-generator",
-  "repo": "RomualdP/hoki",
-  "category": "design",
-  "description": "Impl\u00e9mente les Parallel Routes Next.js pour modals sans layout shifts. MANDATORY pour modals. \u00c0 utiliser lors de modals, dialogs, ou quand l'utilisateur mentionne \"modal\", \"dialog\", \"parallel route\", ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.211310Z"
-}

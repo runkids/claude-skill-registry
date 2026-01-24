@@ -1,7 +1,0 @@
-{
-  "name": "transformer-lens-interpretability",
-  "description": "Provides guidance for mechanistic interpretability research using TransformerLens to inspect and manipulate transformer internals via HookPoints and activation caching. Use when reverse-engineering mo",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.765743Z"
-}

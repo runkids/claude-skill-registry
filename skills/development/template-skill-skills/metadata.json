@@ -1,9 +1,0 @@
-{
-  "name": "template-skill",
-  "description": "Replace with description of the skill and when Claude should use it.",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/skills",
-  "source_path": "skills/template/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.744648Z"
-}

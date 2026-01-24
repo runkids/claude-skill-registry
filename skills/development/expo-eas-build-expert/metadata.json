@@ -1,7 +1,0 @@
-{
-  "name": "expo-eas-build-expert",
-  "description": "Expert on EAS Build cloud service for building iOS and Android apps. Covers build configuration, credentials management, custom builds, CI/CD integration, and troubleshooting. Invoke when user mention",
-  "category": "development",
-  "source": "github.com/raintree-technology/claude-starter",
-  "imported_at": "2026-01-24T14:54:00.285889Z"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "changelog-generator-davila7-claude-code-templates",
-  "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns h",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:20.568853Z"
-}

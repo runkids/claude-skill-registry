@@ -1,8 +1,0 @@
-{
-  "name": "skill-creator",
-  "repo": "anthropics/skills",
-  "category": "official",
-  "source": "Anthropic Official",
-  "github_path": "skills/skill-creator",
-  "github_branch": "main"
-}

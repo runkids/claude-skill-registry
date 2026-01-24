@@ -1,8 +1,8 @@
 {
   "category": "meta",
   "code": "oth",
-  "count": 2,
-  "updated_at": "2026-01-24T16:17:38.148795Z",
+  "count": 1,
+  "updated_at": "2026-01-24T17:29:05.794265Z",
   "skills": [
     {
       "name": "skill",
@@ -15,18 +15,6 @@
       "stars": 6,
       "install": "enuno/claude-command-and-control",
       "source": "github.com/enuno/claude-command-and-control"
-    },
-    {
-      "name": "skill",
-      "description": "Guides the creation of high-quality Claude Skills following established best practices, ensuring discoverability, actionability, and maintainability from the start.",
-      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-      "path": "",
-      "branch": "main",
-      "category": "meta",
-      "tags": [],
-      "stars": 0,
-      "install": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
-      "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server"
     }
   ]
 }

@@ -1,9 +1,0 @@
-{
-  "name": "internal-comms",
-  "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
-  "category": "development",
-  "tags": [],
-  "source": "github.com/skills",
-  "source_path": "skills/internal-comms/SKILL.md",
-  "imported_at": "2026-01-24T08:30:59.803117Z"
-}

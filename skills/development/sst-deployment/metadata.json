@@ -1,7 +1,0 @@
-{
-  "name": "sst-deployment",
-  "description": "Configure or update SST v3 infrastructure resources for AWS deployment. Use when adding new AWS resources, modifying Lambda configurations, or updating domain settings.",
-  "category": "development",
-  "source": "github.com/sgcarstrends/backend",
-  "imported_at": "2026-01-24T14:54:11.271546Z"
-}

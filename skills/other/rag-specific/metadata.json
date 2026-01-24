@@ -1,9 +1,0 @@
-{
-  "name": "rag-specific",
-  "repo": "homecity/langchain-forum",
-  "path": "skills/rag-specific/prompt-engineering-SKILL.md",
-  "source": "github.com/homecity/langchain-forum",
-  "downloaded_at": "2026-01-19T04:01:18.833372Z",
-  "dir_name": "rag-specific",
-  "category": "other"
-}

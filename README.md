@@ -1,13 +1,13 @@
 # Claude Skills Registry
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Skills-54,000+-purple?style=flat-square" alt="Skills">
+  <img src="https://img.shields.io/badge/Skills-44,000+-purple?style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
   <a href="https://majiayu000.github.io/claude-skill-registry/"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
 </p>
 
-> The most comprehensive Claude Code skills registry - **54,000+ skills indexed**
+> The most comprehensive Claude Code skills registry - **44,000+ unique skills indexed**
 
 ## What is this?
 
@@ -20,7 +20,7 @@ The largest searchable index of Claude Code skills, aggregated from GitHub and c
 
 ## Highlights
 
-- **54,000+ Skills** - The most comprehensive collection available
+- **44,000+ Unique Skills** - Deduplicated, quality collection
 - **12 Categories** - Development, Testing, DevOps, Design, and more
 - **Daily Updates** - Automated crawling and validation
 - **Quality Indexed** - Metadata, descriptions, and star counts
@@ -157,7 +157,7 @@ claude-skill-registry/
 
 ### Current Status
 
-- [x] **54,000+ skills indexed**
+- [x] **44,000+ unique skills indexed** (deduplicated)
 - [x] **Daily auto-update** via GitHub Actions
 - [x] **Security scanning** for all skills
 - [x] **sk CLI** for installation

@@ -1,7 +1,0 @@
-{
-  "name": "denario-davila7-claude-code-templates",
-  "description": "Multiagent AI system for scientific research assistance that automates research workflows from data analysis to publication. This skill should be used when generating research ideas from datasets, dev",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:22.827794Z"
-}

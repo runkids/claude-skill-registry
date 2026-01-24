@@ -1,7 +1,0 @@
-{
-  "name": "receiving-code-review-obra-superpowers",
-  "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative",
-  "category": "development",
-  "source": "github.com/obra/superpowers",
-  "imported_at": "2026-01-24T14:54:02.211966Z"
-}

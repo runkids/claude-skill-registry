@@ -1,8 +1,0 @@
-{
-  "name": "heuristic-evaluation",
-  "repo": "melodic-software/claude-code-plugins",
-  "category": "testing",
-  "description": "Conduct heuristic evaluations - Nielsen's 10 heuristics, severity ratings, expert review methodology, cognitive walkthrough, and usability inspection.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:14.508031Z"
-}

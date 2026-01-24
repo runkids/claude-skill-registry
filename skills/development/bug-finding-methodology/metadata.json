@@ -1,8 +1,0 @@
-{
-  "name": "bug-finding-methodology",
-  "repo": "RomualdP/hoki",
-  "category": "development",
-  "description": "M\u00e9thodologie syst\u00e9matique pour identifier la cause d'un bug avant de le corriger. MANDATORY pour bug resolution. \u00c0 utiliser lors de debugging, bug reports, ou quand l'utilisateur mentionne \"bug\", \"err",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:57.102429Z"
-}

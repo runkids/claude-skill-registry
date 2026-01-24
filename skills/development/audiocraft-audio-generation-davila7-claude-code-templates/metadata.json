@@ -1,7 +1,0 @@
-{
-  "name": "audiocraft-audio-generation-davila7-claude-code-templates",
-  "description": "PyTorch library for audio generation including text-to-music (MusicGen) and text-to-sound (AudioGen). Use when you need to generate music from text descriptions, create sound effects, or perform melod",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:19.594514Z"
-}

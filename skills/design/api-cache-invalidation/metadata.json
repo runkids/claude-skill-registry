@@ -1,8 +1,0 @@
-{
-  "name": "api-cache-invalidation",
-  "repo": "Hieubkav/wincellarCloneBackend",
-  "category": "design",
-  "description": "Automatic cache invalidation system v\u1edbi Laravel Observers v\u00e0 Next.js On-Demand Revalidation. T\u1ef1 \u0111\u1ed9ng sync data real-time gi\u1eefa backend v\u00e0 frontend khi admin update. USE WHEN c\u1ea7n setup cache management,",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:57.604465Z"
-}

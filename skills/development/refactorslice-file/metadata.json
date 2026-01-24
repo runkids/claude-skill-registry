@@ -1,8 +1,0 @@
-{
-  "name": "refactorslice-file",
-  "repo": "CheekyCodexConjurer/quant-lab",
-  "category": "development",
-  "description": "Use this skill when a file exceeds ~350 lines (target) / approaches the 500-line hard cap, or has mixed responsibilities (UI + Logic + Types).",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:26.269923Z"
-}

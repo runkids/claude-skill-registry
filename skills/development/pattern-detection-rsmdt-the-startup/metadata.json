@@ -1,7 +1,0 @@
-{
-  "name": "pattern-detection-rsmdt-the-startup",
-  "description": "Identify existing codebase patterns (naming conventions, architectural patterns, testing patterns) to maintain consistency. Use when generating code, reviewing changes, or understanding established pr",
-  "category": "development",
-  "source": "github.com/rsmdt/the-startup",
-  "imported_at": "2026-01-24T14:54:10.431909Z"
-}

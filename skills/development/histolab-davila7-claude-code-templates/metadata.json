@@ -1,7 +1,0 @@
-{
-  "name": "histolab-davila7-claude-code-templates",
-  "description": "Digital pathology image processing toolkit for whole slide images (WSI). Use this skill when working with histopathology slides, processing H&E or IHC stained tissue images, extracting tiles from giga",
-  "category": "development",
-  "source": "github.com/davila7/claude-code-templates",
-  "imported_at": "2026-01-24T14:54:22.642394Z"
-}
