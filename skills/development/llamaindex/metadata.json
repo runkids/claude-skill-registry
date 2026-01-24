@@ -1,0 +1,7 @@
+{
+  "name": "llamaindex",
+  "description": "Data framework for building LLM applications with RAG. Specializes in document ingestion (300+ connectors), indexing, and querying. Features vector indices, query engines, agents, and multi-modal supp",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:19.753837Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "medchem-davila7-claude-code-templates",
+  "description": "Medicinal chemistry filters. Apply drug-likeness rules (Lipinski, Veber), PAINS filters, structural alerts, complexity metrics, for compound prioritization and library filtering.",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:22.510780Z"
+}

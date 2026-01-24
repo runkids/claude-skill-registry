@@ -1,0 +1,7 @@
+{
+  "name": "sympy-k-dense-ai-claude-scientific-s",
+  "description": "Use this skill when working with symbolic mathematics in Python. This skill should be used for symbolic computation tasks including solving equations algebraically, performing calculus operations (der",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:17.369069Z"
+}

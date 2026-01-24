@@ -1,0 +1,9 @@
+{
+  "name": "senior-devops",
+  "description": "Comprehensive DevOps skill for CI/CD, infrastructure automation, containerization, and cloud platforms (AWS, GCP, Azure). Includes pipeline setup, infrastructure as code, deployment automation, and mo",
+  "category": "development",
+  "tags": [],
+  "source": "github.com/claude-skills",
+  "source_path": "engineering-team/senior-devops/SKILL.md",
+  "imported_at": "2026-01-24T08:30:59.391515Z"
+}

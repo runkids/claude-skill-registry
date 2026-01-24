@@ -1,0 +1,7 @@
+{
+  "name": "handling-rust-errors-hashintel-hash",
+  "description": "HASH error handling patterns using error-stack crate. Use when working with Result types, Report types, defining custom errors, propagating errors with change_context, adding context with attach, impl",
+  "category": "development",
+  "source": "github.com/hashintel/hash",
+  "imported_at": "2026-01-24T14:54:14.477865Z"
+}

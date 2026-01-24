@@ -1,0 +1,7 @@
+{
+  "name": "whisper",
+  "description": "OpenAI's general-purpose speech recognition model. Supports 99 languages, transcription, translation to English, and language identification. Six model sizes from tiny (39M params) to large (1550M par",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:19.408071Z"
+}

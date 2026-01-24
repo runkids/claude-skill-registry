@@ -1,0 +1,7 @@
+{
+  "name": "code-transfer-mhattingpete-claude-skills-mar",
+  "description": "Transfer code between files with line-based precision. Use when users request copying code from one location to another, moving functions or classes between files, extracting code blocks, or inserting",
+  "category": "development",
+  "source": "github.com/mhattingpete/claude-skills-marketplace",
+  "imported_at": "2026-01-24T14:54:24.149509Z"
+}

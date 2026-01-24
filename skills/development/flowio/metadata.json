@@ -1,0 +1,7 @@
+{
+  "name": "flowio",
+  "description": "Parse FCS (Flow Cytometry Standard) files v2.0-3.1. Extract events as NumPy arrays, read metadata/channels, convert to CSV/DataFrame, for flow cytometry data preprocessing.",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:18.151521Z"
+}

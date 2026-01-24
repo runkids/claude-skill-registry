@@ -1,0 +1,7 @@
+{
+  "name": "shelby-protocol-expert-raintree-technology-claude-sta",
+  "description": "Expert on Shelby Protocol architecture, erasure coding, placement groups, read/write procedures, Clay Codes, chunking, storage providers, RPC servers, and decentralized storage system design on Aptos ",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:01.263427Z"
+}

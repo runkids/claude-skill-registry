@@ -1,0 +1,7 @@
+{
+  "name": "codebase-documenter-mhattingpete-claude-skills-mar",
+  "description": "Generates comprehensive documentation explaining how a codebase works, including architecture, key components, data flow, and development guidelines. Use when user wants to understand unfamiliar code,",
+  "category": "development",
+  "source": "github.com/mhattingpete/claude-skills-marketplace",
+  "imported_at": "2026-01-24T14:54:24.351611Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "coverage-analysis-sgcarstrends-backend",
+  "description": "Analyze test coverage, generate reports, and identify untested code. Use when improving test coverage, ensuring code quality, or preparing for production.",
+  "category": "development",
+  "source": "github.com/sgcarstrends/backend",
+  "imported_at": "2026-01-24T14:54:11.082785Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "api-contract-design",
+  "description": "REST and GraphQL API design patterns, OpenAPI/Swagger specifications, versioning strategies, and authentication patterns. Use when designing APIs, reviewing API contracts, evaluating API technologies,",
+  "category": "development",
+  "source": "github.com/rsmdt/the-startup",
+  "imported_at": "2026-01-24T14:54:10.486066Z"
+}

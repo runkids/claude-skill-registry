@@ -1,0 +1,7 @@
+{
+  "name": "pptx-skillcreatorai-ai-agent-skills",
+  "description": "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for creating new presentations, modifying content, working with layouts, adding speaker notes, ",
+  "category": "development",
+  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
+  "imported_at": "2026-01-24T14:54:05.770329Z"
+}

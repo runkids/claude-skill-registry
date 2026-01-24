@@ -1,0 +1,104 @@
+{
+  "category": "c-level",
+  "code": "oth",
+  "count": 8,
+  "updated_at": "2026-01-24T15:00:10.387851Z",
+  "skills": [
+    {
+      "name": "cto",
+      "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering metrics frameworks, technology e",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/cto",
+      "source": "github.com/claude-skills"
+    },
+    {
+      "name": "cto",
+      "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering metrics frameworks, technology e",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/cto",
+      "source": "github.com/alirezarezvani/claude-skills"
+    },
+    {
+      "name": "cto",
+      "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering metrics frameworks, technology e",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/cto",
+      "source": "github.com/claude-skills"
+    },
+    {
+      "name": "ceo",
+      "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Includes strategy analyzer, financial scenario modeling, board governance framework",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/ceo",
+      "source": "github.com/davila7/claude-code-templates"
+    },
+    {
+      "name": "ceo",
+      "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Includes strategy analyzer, financial scenario modeling, board governance framework",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/ceo",
+      "source": "github.com/alirezarezvani/claude-skills"
+    },
+    {
+      "name": "cto",
+      "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering metrics frameworks, technology e",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/cto",
+      "source": "github.com/davila7/claude-code-templates"
+    },
+    {
+      "name": "ceo",
+      "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Includes strategy analyzer, financial scenario modeling, board governance framework",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/ceo",
+      "source": "github.com/claude-skills"
+    },
+    {
+      "name": "ceo",
+      "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Includes strategy analyzer, financial scenario modeling, board governance framework",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "c-level",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/ceo",
+      "source": "github.com/claude-skills"
+    }
+  ]
+}

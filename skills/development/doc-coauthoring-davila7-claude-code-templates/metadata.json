@@ -1,0 +1,7 @@
+{
+  "name": "doc-coauthoring-davila7-claude-code-templates",
+  "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This wor",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:21.805661Z"
+}

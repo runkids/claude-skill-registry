@@ -1,0 +1,9 @@
+{
+  "name": "code-reviewer",
+  "description": "Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Use",
+  "category": "development",
+  "tags": [],
+  "source": "github.com/claude-skills",
+  "source_path": "engineering-team/code-reviewer/SKILL.md",
+  "imported_at": "2026-01-24T08:30:59.459760Z"
+}

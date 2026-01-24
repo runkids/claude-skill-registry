@@ -1,0 +1,7 @@
+{
+  "name": "anndata-davila7-claude-code-templates",
+  "description": "This skill should be used when working with annotated data matrices in Python, particularly for single-cell genomics analysis, managing experimental measurements with metadata, or handling large-scale",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:21.983318Z"
+}

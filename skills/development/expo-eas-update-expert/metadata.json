@@ -1,0 +1,7 @@
+{
+  "name": "expo-eas-update-expert",
+  "description": "Expert on EAS Update for over-the-air updates in Expo apps. Covers update deployment, rollouts, rollbacks, channels, branches, and runtime versions. Invoke when user mentions EAS Update, OTA updates, ",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:00.292807Z"
+}

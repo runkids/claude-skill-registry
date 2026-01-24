@@ -1,0 +1,7 @@
+{
+  "name": "astropy-davila7-claude-code-templates",
+  "description": "Comprehensive Python library for astronomy and astrophysics. This skill should be used when working with astronomical data including celestial coordinates, physical units, FITS files, cosmological cal",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:23.404563Z"
+}

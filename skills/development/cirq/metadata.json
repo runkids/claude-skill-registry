@@ -1,0 +1,7 @@
+{
+  "name": "cirq",
+  "description": "Google quantum computing framework. Use when targeting Google Quantum AI hardware, designing noise-aware circuits, or running quantum characterization experiments. Best for Google hardware, noise mode",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:17.925604Z"
+}

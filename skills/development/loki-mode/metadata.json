@@ -1,0 +1,7 @@
+{
+  "name": "loki-mode",
+  "description": "Multi-agent autonomous startup system. Triggers on \"Loki Mode\". Takes PRD to deployed product with zero human intervention. Requires --dangerously-skip-permissions flag.",
+  "category": "development",
+  "source": "github.com/asklokesh/claudeskill-loki-mode",
+  "imported_at": "2026-01-24T14:54:09.352545Z"
+}

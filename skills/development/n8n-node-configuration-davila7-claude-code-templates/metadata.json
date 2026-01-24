@@ -1,0 +1,7 @@
+{
+  "name": "n8n-node-configuration-davila7-claude-code-templates",
+  "description": "Operation-aware node configuration guidance. Use when configuring nodes, understanding property dependencies, determining required fields, choosing between get_node_essentials and get_node_info, or le",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:20.695676Z"
+}

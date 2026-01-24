@@ -1,0 +1,7 @@
+{
+  "name": "ai-structured-output-sgcarstrends-backend",
+  "description": "Generate type-safe AI content using Gemini structured output with Zod validation and Code Execution Tool. Use when building AI generation functions that need guaranteed output format.",
+  "category": "development",
+  "source": "github.com/sgcarstrends/backend",
+  "imported_at": "2026-01-24T14:54:11.089877Z"
+}

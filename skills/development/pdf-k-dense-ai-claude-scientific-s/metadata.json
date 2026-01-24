@@ -1,0 +1,7 @@
+{
+  "name": "pdf-k-dense-ai-claude-scientific-s",
+  "description": "PDF manipulation toolkit. Extract text/tables, create PDFs, merge/split, fill forms, for programmatic document processing and analysis.",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:17.257035Z"
+}

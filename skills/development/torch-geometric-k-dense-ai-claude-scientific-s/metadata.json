@@ -1,0 +1,7 @@
+{
+  "name": "torch-geometric-k-dense-ai-claude-scientific-s",
+  "description": "Graph Neural Networks (PyG). Node/graph classification, link prediction, GCN, GAT, GraphSAGE, heterogeneous graphs, molecular property prediction, for geometric deep learning.",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:17.981683Z"
+}

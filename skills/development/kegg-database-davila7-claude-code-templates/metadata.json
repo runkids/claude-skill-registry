@@ -1,0 +1,7 @@
+{
+  "name": "kegg-database-davila7-claude-code-templates",
+  "description": "Direct REST API access to KEGG (academic use only). Pathway analysis, gene-pathway mapping, metabolic pathways, drug interactions, ID conversion. For Python workflows with multiple databases, prefer b",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:22.065958Z"
+}

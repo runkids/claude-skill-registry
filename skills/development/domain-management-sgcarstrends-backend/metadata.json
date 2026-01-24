@@ -1,0 +1,7 @@
+{
+  "name": "domain-management-sgcarstrends-backend",
+  "description": "Configure domain routing and Cloudflare DNS for sgcarstrends.com and subdomains. Use when adding new services, updating domain patterns, or debugging DNS issues.",
+  "category": "development",
+  "source": "github.com/sgcarstrends/backend",
+  "imported_at": "2026-01-24T14:54:10.946768Z"
+}

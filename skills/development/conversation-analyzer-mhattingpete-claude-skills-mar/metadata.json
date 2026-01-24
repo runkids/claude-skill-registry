@@ -1,0 +1,7 @@
+{
+  "name": "conversation-analyzer-mhattingpete-claude-skills-mar",
+  "description": "Analyzes your Claude Code conversation history to identify patterns, common mistakes, and opportunities for workflow improvement. Use when user wants to understand usage patterns, optimize workflow, i",
+  "category": "development",
+  "source": "github.com/mhattingpete/claude-skills-marketplace",
+  "imported_at": "2026-01-24T14:54:24.319889Z"
+}

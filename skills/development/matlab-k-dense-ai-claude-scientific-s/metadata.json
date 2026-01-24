@@ -1,0 +1,7 @@
+{
+  "name": "matlab-k-dense-ai-claude-scientific-s",
+  "description": "MATLAB and GNU Octave numerical computing for matrix operations, data analysis, visualization, and scientific computing. Use when writing MATLAB/Octave scripts for linear algebra, signal processing, i",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:18.009310Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "pyvene-interventions",
+  "description": "Provides guidance for performing causal interventions on PyTorch models using pyvene's declarative intervention framework. Use when conducting causal tracing, activation patching, interchange interven",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:19.684340Z"
+}

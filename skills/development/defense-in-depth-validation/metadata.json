@@ -1,0 +1,7 @@
+{
+  "name": "defense-in-depth-validation",
+  "description": "Validate at every layer data passes through to make bugs impossible",
+  "category": "development",
+  "source": "github.com/obra/superpowers-skills",
+  "imported_at": "2026-01-24T14:54:12.415582Z"
+}

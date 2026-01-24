@@ -1,0 +1,7 @@
+{
+  "name": "root-cause-tracing-obra-superpowers-skills",
+  "description": "Systematically trace bugs backward through call stack to find original trigger",
+  "category": "development",
+  "source": "github.com/obra/superpowers-skills",
+  "imported_at": "2026-01-24T14:54:12.343353Z"
+}

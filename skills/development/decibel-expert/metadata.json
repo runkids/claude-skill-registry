@@ -1,0 +1,7 @@
+{
+  "name": "decibel-expert",
+  "description": "Expert on Decibel on-chain perpetual futures trading platform on Aptos. Covers trading engine, orderbook, TypeScript SDK, REST APIs, WebSocket streams, market data, position management, TWAP orders, a",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:00.547564Z"
+}

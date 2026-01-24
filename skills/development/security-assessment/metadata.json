@@ -1,0 +1,7 @@
+{
+  "name": "security-assessment",
+  "description": "Vulnerability review, OWASP patterns, secure coding practices, and threat modeling approaches. Use when reviewing code security, designing secure systems, performing threat analysis, or validating sec",
+  "category": "development",
+  "source": "github.com/rsmdt/the-startup",
+  "imported_at": "2026-01-24T14:54:10.448611Z"
+}

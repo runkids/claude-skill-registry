@@ -1,0 +1,7 @@
+{
+  "name": "jira-issues-skillcreatorai-ai-agent-skills",
+  "description": "Create, update, and manage Jira issues from natural language. Use when the user wants to log bugs, create tickets, update issue status, or manage their Jira backlog.",
+  "category": "development",
+  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
+  "imported_at": "2026-01-24T14:54:05.970086Z"
+}

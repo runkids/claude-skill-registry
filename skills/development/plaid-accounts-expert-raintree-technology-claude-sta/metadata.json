@@ -1,0 +1,7 @@
+{
+  "name": "plaid-accounts-expert-raintree-technology-claude-sta",
+  "description": "Expert on Plaid accounts and account management. Covers account data retrieval, balance checking, account types, multi-account handling, and account webhooks. Invoke when user mentions Plaid accounts,",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:01.665828Z"
+}

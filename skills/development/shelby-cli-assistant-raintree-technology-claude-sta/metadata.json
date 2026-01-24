@@ -1,0 +1,7 @@
+{
+  "name": "shelby-cli-assistant-raintree-technology-claude-sta",
+  "description": "Expert on Shelby CLI tool for command-line blob storage operations. Helps with shelby commands, uploads, downloads, account management, context configuration, faucet operations, and CLI troubleshootin",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:01.240734Z"
+}

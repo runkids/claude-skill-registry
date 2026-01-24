@@ -1,0 +1,7 @@
+{
+  "name": "postgres-schema-design-davila7-claude-code-templates",
+  "description": "Comprehensive PostgreSQL-specific table design reference covering data types, indexing, constraints, performance patterns, and advanced features",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:19.142560Z"
+}

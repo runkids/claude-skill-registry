@@ -1,0 +1,7 @@
+{
+  "name": "pr-workflow",
+  "description": "This skill should be used when user asks to \"create a PR\", \"make a pull request\", \"open PR for this branch\", \"submit changes as PR\", \"push and create PR\", or runs /create-pr or /pr-creator commands.",
+  "category": "development",
+  "source": "github.com/fcakyon/claude-codex-settings",
+  "imported_at": "2026-01-24T14:54:17.231884Z"
+}

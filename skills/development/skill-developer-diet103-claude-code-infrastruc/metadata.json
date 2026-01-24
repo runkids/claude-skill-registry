@@ -1,0 +1,7 @@
+{
+  "name": "skill-developer-diet103-claude-code-infrastruc",
+  "description": "Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill a",
+  "category": "development",
+  "source": "github.com/diet103/claude-code-infrastructure-showcase",
+  "imported_at": "2026-01-24T14:53:54.774444Z"
+}

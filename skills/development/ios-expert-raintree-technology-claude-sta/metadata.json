@@ -1,0 +1,7 @@
+{
+  "name": "ios-expert-raintree-technology-claude-sta",
+  "description": "Expert on iOS development with Swift, UIKit, SwiftUI, Xcode, app architecture, platform features, and Apple ecosystem integration. Invoke when user mentions iOS, iPhone, iPad, Swift, SwiftUI, UIKit, X",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:01.138537Z"
+}

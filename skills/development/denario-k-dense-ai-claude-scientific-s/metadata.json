@@ -1,0 +1,7 @@
+{
+  "name": "denario-k-dense-ai-claude-scientific-s",
+  "description": "Multiagent AI system for scientific research assistance that automates research workflows from data analysis to publication. This skill should be used when generating research ideas from datasets, dev",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:17.780374Z"
+}

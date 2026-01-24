@@ -1,0 +1,20 @@
+{
+  "category": "integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-24T15:00:10.747123Z",
+  "skills": [
+    {
+      "name": "google",
+      "description": "Wizard to set up Google Calendar API integration with service account authentication and domain-wide delegation",
+      "repo": "",
+      "path": "",
+      "branch": "main",
+      "category": "integration",
+      "tags": [],
+      "stars": 0,
+      "install": "unknown/google",
+      "source": "github.com/badass-courses/course-builder"
+    }
+  ]
+}

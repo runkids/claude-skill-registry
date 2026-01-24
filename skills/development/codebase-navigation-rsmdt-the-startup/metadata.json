@@ -1,0 +1,7 @@
+{
+  "name": "codebase-navigation-rsmdt-the-startup",
+  "description": "Navigate, search, and understand project structures. Use when onboarding to a codebase, locating implementations, tracing dependencies, or understanding architecture. Provides patterns for file search",
+  "category": "development",
+  "source": "github.com/rsmdt/the-startup",
+  "imported_at": "2026-01-24T14:54:10.344997Z"
+}

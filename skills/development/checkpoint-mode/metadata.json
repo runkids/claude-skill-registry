@@ -1,0 +1,7 @@
+{
+  "name": "checkpoint-mode",
+  "description": "Pause for review every N tasks - selective autonomy pattern",
+  "category": "development",
+  "source": "github.com/asklokesh/claudeskill-loki-mode",
+  "imported_at": "2026-01-24T14:54:09.475291Z"
+}

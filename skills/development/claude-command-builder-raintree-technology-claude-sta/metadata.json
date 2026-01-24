@@ -1,0 +1,7 @@
+{
+  "name": "claude-command-builder-raintree-technology-claude-sta",
+  "description": "Interactive slash command creator for Claude Code. Triggers when user mentions creating commands, slash commands, command templates, command arguments, or wants to build a new command workflow.",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:00.899620Z"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "pptx",
+  "description": "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts",
+  "category": "development",
+  "tags": [],
+  "source": "github.com/skills",
+  "source_path": "skills/pptx/SKILL.md",
+  "imported_at": "2026-01-24T08:30:59.810687Z"
+}

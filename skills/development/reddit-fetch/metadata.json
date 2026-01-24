@@ -1,0 +1,7 @@
+{
+  "name": "reddit-fetch",
+  "description": "Fetch content from Reddit using Gemini CLI when WebFetch is blocked. Use when accessing Reddit URLs, researching topics on Reddit, or when Reddit returns 403/blocked errors. (user)",
+  "category": "development",
+  "source": "github.com/ykdojo/claude-code-tips",
+  "imported_at": "2026-01-24T14:54:03.559749Z"
+}

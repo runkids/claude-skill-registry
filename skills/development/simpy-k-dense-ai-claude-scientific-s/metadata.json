@@ -1,0 +1,7 @@
+{
+  "name": "simpy-k-dense-ai-claude-scientific-s",
+  "description": "Process-based discrete-event simulation framework in Python. Use this skill when building simulations of systems with processes, queues, resources, and time-based events such as manufacturing systems,",
+  "category": "development",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "imported_at": "2026-01-24T14:54:18.064425Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "verification-before-completion-davila7-claude-code-templates",
+  "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:20.613904Z"
+}

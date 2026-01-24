@@ -1,0 +1,7 @@
+{
+  "name": "every-style-editor",
+  "description": "This skill should be used when reviewing or editing copy to ensure adherence to Every's style guide. It provides a systematic line-by-line review process for grammar, punctuation, mechanics, and style",
+  "category": "development",
+  "source": "github.com/EveryInc/compound-engineering-plugin",
+  "imported_at": "2026-01-24T14:54:11.911158Z"
+}

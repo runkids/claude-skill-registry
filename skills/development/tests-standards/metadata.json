@@ -1,0 +1,7 @@
+{
+  "name": "tests-standards",
+  "description": "Write focused tests for core user flows and critical paths with clear test names, behavior-focused assertions, mocked external dependencies, and fast execution, deferring edge case testing until expli",
+  "category": "development",
+  "source": "github.com/maxritter/claude-codepro",
+  "imported_at": "2026-01-24T14:54:06.493899Z"
+}

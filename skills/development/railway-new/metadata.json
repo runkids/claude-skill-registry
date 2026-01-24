@@ -1,0 +1,7 @@
+{
+  "name": "railway-new",
+  "description": "Create Railway projects, services, and databases with proper configuration. Use when user says \"setup\", \"deploy to railway\", \"initialize\", \"create project\", \"create service\", or wants to deploy from G",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:20.771177Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "skill-installer-davila7-claude-code-templates",
+  "description": "Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:20.575322Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "find-bugs-davila7-claude-code-templates",
+  "description": "Find bugs, security vulnerabilities, and code quality issues in local branch changes. Use when asked to review changes, find bugs, security review, or audit code on the current branch.",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:20.995043Z"
+}

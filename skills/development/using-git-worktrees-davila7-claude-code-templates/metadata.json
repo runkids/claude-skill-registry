@@ -1,0 +1,7 @@
+{
+  "name": "using-git-worktrees-davila7-claude-code-templates",
+  "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:20.048720Z"
+}

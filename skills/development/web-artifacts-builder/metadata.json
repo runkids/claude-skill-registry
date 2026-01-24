@@ -1,0 +1,9 @@
+{
+  "name": "web-artifacts-builder",
+  "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
+  "category": "development",
+  "tags": [],
+  "source": "github.com/skills",
+  "source_path": "skills/web-artifacts-builder/SKILL.md",
+  "imported_at": "2026-01-24T08:30:59.995063Z"
+}

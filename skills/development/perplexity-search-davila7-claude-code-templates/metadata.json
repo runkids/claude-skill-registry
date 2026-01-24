@@ -1,0 +1,7 @@
+{
+  "name": "perplexity-search-davila7-claude-code-templates",
+  "description": "Perform AI-powered web searches with real-time information using Perplexity models via LiteLLM and OpenRouter. This skill should be used when conducting web searches for current information, finding r",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:22.122417Z"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "guidance-davila7-claude-code-templates",
+  "description": "Control LLM output with regex and grammars, guarantee valid JSON/XML/code generation, enforce structured formats, and build multi-step workflows with Guidance - Microsoft Research's constrained genera",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:19.654211Z"
+}

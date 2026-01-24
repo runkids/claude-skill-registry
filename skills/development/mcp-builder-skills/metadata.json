@@ -1,0 +1,9 @@
+{
+  "name": "mcp-builder",
+  "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
+  "category": "development",
+  "tags": [],
+  "source": "github.com/skills",
+  "source_path": "skills/mcp-builder/SKILL.md",
+  "imported_at": "2026-01-24T08:30:59.908229Z"
+}

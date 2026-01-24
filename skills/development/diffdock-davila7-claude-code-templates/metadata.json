@@ -1,0 +1,7 @@
+{
+  "name": "diffdock-davila7-claude-code-templates",
+  "description": "Diffusion-based molecular docking. Predict protein-ligand binding poses from PDB/SMILES, confidence scores, virtual screening, for structure-based drug design. Not for affinity prediction.",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:22.909190Z"
+}

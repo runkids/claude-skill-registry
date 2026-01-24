@@ -1,0 +1,7 @@
+{
+  "name": "canvas-design-anthropics-skills",
+  "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create ori",
+  "category": "development",
+  "source": "github.com/anthropics/skills",
+  "imported_at": "2026-01-24T14:54:16.456647Z"
+}

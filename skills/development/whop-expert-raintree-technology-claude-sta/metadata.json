@@ -1,0 +1,7 @@
+{
+  "name": "whop-expert-raintree-technology-claude-sta",
+  "description": "Comprehensive Whop platform expert with access to 212 official documentation files covering memberships, payments, products, courses, experiences, forums, webhooks, and app development. Invoke when us",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:01.059606Z"
+}

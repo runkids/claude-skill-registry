@@ -1,0 +1,7 @@
+{
+  "name": "mock-data",
+  "description": "Generate realistic mock data for testing using factories, fixtures, and Faker.js. Use when seeding test databases, creating test fixtures, or mocking API responses.",
+  "category": "development",
+  "source": "github.com/sgcarstrends/backend",
+  "imported_at": "2026-01-24T14:54:11.040935Z"
+}

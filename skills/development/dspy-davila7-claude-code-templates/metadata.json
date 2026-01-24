@@ -1,0 +1,7 @@
+{
+  "name": "dspy-davila7-claude-code-templates",
+  "description": "Build complex AI systems with declarative programming, optimize prompts automatically, create modular RAG systems and agents with DSPy - Stanford NLP's framework for systematic LM programming",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:19.730268Z"
+}

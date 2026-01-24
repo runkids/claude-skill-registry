@@ -1,0 +1,7 @@
+{
+  "name": "component-naming-sgcarstrends-backend",
+  "description": "Enforce consistent React component naming conventions using domain + role patterns. Use when creating, reviewing, or refactoring components.",
+  "category": "development",
+  "source": "github.com/sgcarstrends/backend",
+  "imported_at": "2026-01-24T14:54:11.315258Z"
+}

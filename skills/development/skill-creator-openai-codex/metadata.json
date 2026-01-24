@@ -1,0 +1,7 @@
+{
+  "name": "skill-creator-openai-codex",
+  "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflo",
+  "category": "development",
+  "source": "github.com/openai/codex",
+  "imported_at": "2026-01-24T14:54:06.070122Z"
+}

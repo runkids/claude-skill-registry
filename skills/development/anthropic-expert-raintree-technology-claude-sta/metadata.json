@@ -1,0 +1,7 @@
+{
+  "name": "anthropic-expert-raintree-technology-claude-sta",
+  "description": "Expert on Anthropic Claude API, models, prompt engineering, function calling, vision, and best practices. Triggers on anthropic, claude, api, prompt, function calling, vision, messages api, embeddings",
+  "category": "development",
+  "source": "github.com/raintree-technology/claude-starter",
+  "imported_at": "2026-01-24T14:54:01.362291Z"
+}

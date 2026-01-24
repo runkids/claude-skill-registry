@@ -1,0 +1,7 @@
+{
+  "name": "d3-viz",
+  "description": "Creating interactive data visualisations using d3.js. This skill should be used when creating custom charts, graphs, network diagrams, geographic visualisations, or any complex SVG-based data visualis",
+  "category": "development",
+  "source": "github.com/chrisvoncsefalvay/claude-d3js-skill",
+  "imported_at": "2026-01-24T14:54:15.517461Z"
+}

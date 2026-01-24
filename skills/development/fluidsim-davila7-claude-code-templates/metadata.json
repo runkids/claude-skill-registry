@@ -1,0 +1,7 @@
+{
+  "name": "fluidsim-davila7-claude-code-templates",
+  "description": "Framework for computational fluid dynamics simulations using Python. Use when running fluid dynamics simulations including Navier-Stokes equations (2D/3D), shallow water equations, stratified flows, o",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:22.524318Z"
+}

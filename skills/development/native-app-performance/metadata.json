@@ -1,0 +1,7 @@
+{
+  "name": "native-app-performance",
+  "description": "Native macOS/iOS app performance profiling via xctrace/Time Profiler and CLI-only analysis of Instruments traces. Use when asked to profile, attach, record, or analyze Instruments .trace files, find h",
+  "category": "development",
+  "source": "github.com/harperreed/dotfiles",
+  "imported_at": "2026-01-24T14:53:55.647943Z"
+}

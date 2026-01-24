@@ -1,0 +1,9 @@
+{
+  "name": "slack-gif-creator",
+  "description": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a G",
+  "category": "development",
+  "tags": [],
+  "source": "github.com/skills",
+  "source_path": "skills/slack-gif-creator/SKILL.md",
+  "imported_at": "2026-01-24T08:30:59.812366Z"
+}

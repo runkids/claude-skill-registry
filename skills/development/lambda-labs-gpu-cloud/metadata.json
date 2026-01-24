@@ -1,0 +1,7 @@
+{
+  "name": "lambda-labs-gpu-cloud",
+  "description": "Reserved and on-demand GPU cloud instances for ML training and inference. Use when you need dedicated GPU instances with simple SSH access, persistent filesystems, or high-performance multi-node clust",
+  "category": "development",
+  "source": "github.com/davila7/claude-code-templates",
+  "imported_at": "2026-01-24T14:54:19.456357Z"
+}

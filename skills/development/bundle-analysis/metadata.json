@@ -1,0 +1,7 @@
+{
+  "name": "bundle-analysis",
+  "description": "Analyze and optimize JavaScript bundle size, identify large dependencies, and improve load times. Use when bundles are large, investigating performance issues, or optimizing frontend assets.",
+  "category": "development",
+  "source": "github.com/sgcarstrends/backend",
+  "imported_at": "2026-01-24T14:54:11.456779Z"
+}
