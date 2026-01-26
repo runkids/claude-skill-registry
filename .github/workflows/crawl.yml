@@ -1,13 +1,16 @@
-name: Sync Skills from SkillsMP
+name: Sync Skills from SkillsMP (DISABLED)
+
+# DISABLED: SkillsMP API is blocked by Cloudflare, and this workflow
+# overwrites category data incorrectly. Do not enable without fixing
+# the build_registry.py to preserve category information.
 
 on:
-  schedule:
-    # Run weekly on Sunday at 02:00 UTC
-    - cron: '0 2 * * 0'
+  # schedule:
+  #   - cron: '0 2 * * 0'
   workflow_dispatch:
     inputs:
       max_skills:
-        description: 'Maximum skills to sync'
+        description: 'DO NOT RUN - SkillsMP API blocked by Cloudflare'
         required: false
         default: '50000'
 
