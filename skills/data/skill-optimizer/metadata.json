@@ -1,0 +1,9 @@
+{
+  "name": "skill-optimizer",
+  "description": "Refactors Claude Code skills to reduce token usage 80-95% using Progressive Disclosure Architecture (PDA). Splits monolithic skills into orchestrator + reference files, extracts scripts, creates refer",
+  "repo": "jovermier/claude-code-plugins-ip-labs",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jovermier/claude-code-plugins-ip-labs"
+}

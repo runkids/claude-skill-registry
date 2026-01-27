@@ -1,77 +1,209 @@
 ---
 name: nanobanana
-description: Guide for generating and editing images using generative AI with the nanobanana CLI
-license: MIT
+description: Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, various aspect ratios, and high-resolution output (2K/4K).
+triggers:
+  - "generate image"
+  - "create image"
+  - "nano banana"
+  - "nanobanana"
+  - "gemini image"
+  - "AI image"
+  - "image generation"
 ---
 
-# Nanobanana
+# Nano Banana - AI Image Generation
 
-This is a guide for generating and editing images using the nanobanana CLI tool.
-
-Nanobanana is a command-line interface for the Nano Banana image generation API, which uses Google's generative AI models.
-
-## Installation
-
-If the nanobanana CLI is not already installed, install it using:
-
-```bash
-go install maragu.dev/nanobanana@latest
-```
+Generate and edit images using Google's Gemini 3 Pro Image model (`gemini-3-pro-image-preview`, nicknamed "Nano Banana Pro" 🍌).
 
 ## Prerequisites
 
-The `GOOGLE_API_KEY` environment variable must be set, or a `.env` file with the key must be present in the working directory.
+**Required:**
+- `GEMINI_API_KEY` - Get from [Google AI Studio](https://aistudio.google.com/apikey)
+- Python 3.10+ with `google-genai` package
 
-## Generating images
-
-To generate a single image:
-
+**Install dependencies:**
 ```bash
-nanobanana generate output.png "a beautiful sunset over mountains"
+pip install google-genai pillow
 ```
 
-The output can be either a `.png` or `.jpg` file.
+## Quick Start
 
-## Using the pro model
-
-To use the higher-quality pro model for generation:
-
+### Generate an image:
 ```bash
-nanobanana generate -pro output.png "a beautiful sunset over mountains"
+python3 <skill_dir>/scripts/generate.py "a cute robot mascot, pixel art style" -o robot.png
 ```
 
-The `-pro` flag enables Google's premium generative AI model, which typically produces higher quality results but may take slightly longer to generate.
-
-## Editing existing images
-
-To edit or modify an existing image using a text prompt:
-
+### Edit an existing image:
 ```bash
-nanobanana generate -i input.png output.png "make the sky purple and add stars"
+python3 <skill_dir>/scripts/generate.py "make the background blue" -i input.jpg -o output.png
 ```
 
-This is useful for making specific changes to existing images based on natural language instructions.
-
-## Tips for effective prompts
-
-- Be specific and descriptive about what you want in the image
-- Include details about style, colors, mood, composition, and subject matter
-- For edits, clearly describe what should change while the rest remains the same
-- You can reference art styles, artists, or specific visual aesthetics
-
-## Examples
-
-Generate a logo:
+### Generate with specific aspect ratio:
 ```bash
-nanobanana generate logo.png "minimalist tech company logo with geometric shapes in blue and white"
+python3 <skill_dir>/scripts/generate.py "cinematic landscape" --ratio 21:9 -o landscape.png
 ```
 
-Create concept art:
+### Generate high-resolution 4K image:
 ```bash
-nanobanana generate concept.png "futuristic city skyline at night with neon lights and flying vehicles, cyberpunk style"
+python3 <skill_dir>/scripts/generate.py "professional product photo" --size 4K -o product.png
 ```
 
-Edit an existing photo:
-```bash
-nanobanana generate -i photo.png enhanced.png "enhance the colors and make it look like golden hour"
+## Script Reference
+
+### `scripts/generate.py`
+
+Main image generation script.
+
 ```
+Usage: generate.py [OPTIONS] PROMPT
+
+Arguments:
+  PROMPT              Text prompt for image generation
+
+Options:
+  -o, --output PATH   Output file path (default: auto-generated)
+  -i, --input PATH    Input image for editing (optional)
+  -r, --ratio RATIO   Aspect ratio (1:1, 16:9, 9:16, 21:9, etc.)
+  -s, --size SIZE     Image size: 2K or 4K (default: standard)
+  --search            Enable Google Search grounding for accuracy
+  -v, --verbose       Show detailed output
+```
+
+**Supported aspect ratios:**
+- `1:1` - Square (default)
+- `2:3`, `3:2` - Portrait/Landscape
+- `3:4`, `4:3` - Standard
+- `4:5`, `5:4` - Photo
+- `9:16`, `16:9` - Widescreen
+- `21:9` - Ultra-wide/Cinematic
+
+### `scripts/batch_generate.py`
+
+Generate multiple images with sequential naming.
+
+```
+Usage: batch_generate.py [OPTIONS] PROMPT
+
+Arguments:
+  PROMPT              Text prompt for image generation
+
+Options:
+  -n, --count N       Number of images to generate (default: 10)
+  -d, --dir PATH      Output directory
+  -p, --prefix STR    Filename prefix (default: "image")
+  -r, --ratio RATIO   Aspect ratio
+  -s, --size SIZE     Image size (2K/4K)
+  --delay SECONDS     Delay between generations (default: 3)
+```
+
+**Example:**
+```bash
+python3 <skill_dir>/scripts/batch_generate.py "pixel art logo" -n 20 -d ./logos -p logo
+```
+
+## Python API
+
+You can also use the module directly:
+
+```python
+from generate import generate_image, edit_image
+
+# Generate image
+result = generate_image(
+    prompt="a futuristic city at night",
+    output_path="city.png",
+    aspect_ratio="16:9",
+    image_size="4K"
+)
+
+# Edit existing image
+result = edit_image(
+    prompt="add flying cars to the sky",
+    input_path="city.png",
+    output_path="city_edited.png"
+)
+```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `GEMINI_API_KEY` | Google Gemini API key | Required |
+| `IMAGE_OUTPUT_DIR` | Default output directory | `./nanobanana-images` |
+
+## Features
+
+### Text-to-Image Generation
+Create images from text descriptions. The model excels at:
+- Photorealistic images
+- Artistic styles (pixel art, illustration, etc.)
+- Product photography
+- Landscapes and scenes
+
+### Image Editing
+Transform existing images with natural language:
+- Style transfer
+- Object addition/removal
+- Background changes
+- Color adjustments
+
+### High-Resolution Output
+- **Standard**: Fast generation, good quality
+- **2K**: Enhanced detail (2048px)
+- **4K**: Maximum quality (3840px), best for text rendering
+
+### Google Search Grounding
+Enable `--search` for factually accurate images involving:
+- Real people, places, landmarks
+- Current events
+- Specific products or brands
+
+## Best Practices
+
+### Prompt Writing
+
+**Good prompts include:**
+- Subject description
+- Style/aesthetic
+- Lighting and mood
+- Composition details
+- Color palette
+
+**Example:**
+```
+"A cozy coffee shop interior, warm lighting, vintage aesthetic, 
+wooden furniture, plants on shelves, morning sunlight through windows, 
+soft focus background, 35mm film photography style"
+```
+
+### Batch Generation Tips
+
+1. Generate 10-20 variations to explore options
+2. Use consistent prompts for style coherence
+3. Add 3-5 second delays to avoid rate limits
+4. Review results and iterate on best candidates
+
+## Rate Limits
+
+- Gemini API has usage quotas
+- Add delays between batch generations
+- Check your quota at [Google AI Studio](https://aistudio.google.com/)
+
+## Troubleshooting
+
+**"API key not found"**
+- Set `GEMINI_API_KEY` environment variable
+- Or pass via `--api-key` option
+
+**"No image in response"**
+- Prompt may have triggered safety filters
+- Try rephrasing to avoid sensitive content
+
+**"Rate limit exceeded"**
+- Wait a few seconds and retry
+- Reduce batch size or add longer delays
+
+## References
+
+- [references/prompts.md](./references/prompts.md) - Prompt examples by category
+- [examples/](./examples/) - Example usage scripts

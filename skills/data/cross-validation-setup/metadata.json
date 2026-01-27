@@ -1,0 +1,9 @@
+{
+  "name": "cross-validation-setup",
+  "description": "Cross Validation Setup - Auto-activating skill for ML Training.\nTriggers on: cross validation setup, cross validation setup\nPart of the ML Training skill category.\n",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

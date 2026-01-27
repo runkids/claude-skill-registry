@@ -1,0 +1,9 @@
+{
+  "name": "ado-resource-validator",
+  "description": "Validates Azure DevOps projects and resources exist, creates missing resources automatically. Smart enough to prompt user to select existing or create new projects. Supports multiple projects for proj",
+  "repo": "anton-abyzov/specweave",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

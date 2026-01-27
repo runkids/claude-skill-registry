@@ -1,0 +1,9 @@
+{
+  "name": "sheets-update",
+  "description": "Google Sheets スプレッドシートのセルを更新する。「スプレッドシート更新」「Sheets 更新」「シートに書き込み」「セルを更新」などで起動。",
+  "repo": "shiiman/claude-code-plugins",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/shiiman/claude-code-plugins"
+}

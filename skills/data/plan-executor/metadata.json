@@ -1,0 +1,9 @@
+{
+  "name": "plan-executor",
+  "description": "Execute and coordinate work on PLAN files with phased breakdown. Tracks progress via JSON state, coordinates worker sub-agents in worker mode, and manages commits. Use when user references a PLAN file",
+  "repo": "bfreis/claude-mart",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "lang-sparql-dev",
+  "description": "Foundational SPARQL patterns covering RDF querying, triple patterns, graph patterns, and semantic web fundamentals. Use when querying RDF data or working with knowledge graphs. This is the entry point",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "prd-v08-monitoring-setup",
+  "description": "Define monitoring strategy, metrics collection, and alerting thresholds during PRD v0.8 Deployment & Ops. Triggers on requests to set up monitoring, define alerts, or when user asks \"what should we mo",
+  "repo": "mattgierhart/PRD-driven-context-engineering",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/mattgierhart/PRD-driven-context-engineering"
+}

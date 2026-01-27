@@ -1,0 +1,9 @@
+{
+  "name": "codebase-overview",
+  "description": "Quickly understand a new codebase's architecture, tech stack, and patterns. Use when user asks \"what is this project\", \"project overview\", \"how is this codebase structured\", \"what tech stack\", or when",
+  "repo": "lis186/SourceAtlas",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

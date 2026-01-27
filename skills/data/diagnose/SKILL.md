@@ -1,84 +1,143 @@
 ---
 name: diagnose
-description: Run safe diagnostic commands on the remote memory server. Use for checking logs, container status, disk usage, memory, and running read-only database queries.
+description: |
+  Run diagnostics for the AItrader trading system. 运行 AItrader 交易系统诊断。
+
+  Use this skill when:
+  - No trading signals are being generated (没有交易信号)
+  - Need to check if AI analysis is working (检查 AI 分析是否正常)
+  - Verifying technical indicator calculations (验证技术指标计算)
+  - Debugging market data fetching issues (调试市场数据获取)
+  - Troubleshooting why no trades are happening (排查为什么没有交易)
+  - Running system health checks (运行系统健康检查)
+
+  Keywords: diagnose, debug, signals, indicators, AI, analysis, troubleshoot, 诊断, 调试, 信号
 ---
 
-# Server Diagnostics
+# Trading System Diagnostics
 
-The diagnostics script is at `tools/diagnose.sh`. It provides safe, read-only commands for inspecting the remote server `memory` at `/home/ec2-user/memory`.
+## Purpose
 
-## Commands
+Use this skill when:
+- No trading signals are being generated
+- Need to verify AI analysis is working
+- Validating technical indicator calculations
+- Debugging market data issues
 
-### Status (overview)
-Get overall system health:
+## Diagnostic Commands
+
+### Full Diagnostic (Default)
 ```bash
-./tools/diagnose.sh status
-```
-Shows: container status, memory, disk, and recent errors.
-
-### Logs
-View docker logs:
-```bash
-./tools/diagnose.sh logs              # all services, last 100 lines
-./tools/diagnose.sh logs api          # specific service
-./tools/diagnose.sh logs api 500      # last 500 lines
-./tools/diagnose.sh logs worker 200   # worker logs
+cd /home/linuxuser/nautilus_AItrader
+source venv/bin/activate
+python3 scripts/diagnose.py
 ```
 
-### Container Status
+### Quick Diagnostic (Skip AI calls)
 ```bash
-./tools/diagnose.sh ps
+cd /home/linuxuser/nautilus_AItrader
+source venv/bin/activate
+python3 scripts/diagnose.py --quick
 ```
 
-### System Resources
+### With Update and Restart
 ```bash
-./tools/diagnose.sh disk    # disk usage breakdown
-./tools/diagnose.sh mem     # memory usage
-./tools/diagnose.sh top     # top processes by memory
+python3 scripts/diagnose.py --update --restart
 ```
 
-### File Operations
-```bash
-./tools/diagnose.sh ls <path>              # list directory
-./tools/diagnose.sh cat <file>             # view file
-./tools/diagnose.sh tail <file> [lines]    # tail file (default: 50)
-./tools/diagnose.sh grep <pattern> <path>  # search files
+## Expected Output
+
+### Normal Operation Signs
+```
+✅ Configuration loaded successfully
+✅ Market data fetched successfully
+✅ TechnicalIndicatorManager initialized
+✅ Technical data retrieved
+✅ Sentiment data retrieved
+✅ MultiAgent 层级决策成功
+   🐂 Bull Agent 分析中...
+   🐻 Bear Agent 分析中...
+   ⚖️ Judge Agent 判断中...
+   🛡️ Risk Manager 评估中...
+🎯 Judge 最终决策: BUY/SELL/HOLD
 ```
 
-### Database Queries
-Run read-only SQL queries (SELECT only):
-```bash
-./tools/diagnose.sh db "SELECT count(*) FROM source_item"
-./tools/diagnose.sh db "SELECT * FROM source_item ORDER BY created_at DESC LIMIT 5"
-./tools/diagnose.sh db "SELECT status, count(*) FROM source_item GROUP BY status"
+### Key Checkpoints
+
+| Check | Normal Value | Abnormal Handling |
+|-------|--------------|-------------------|
+| RSI | 0-100 | Out of range = data error |
+| MACD | Any value | NaN = insufficient data |
+| Judge Signal | BUY/SELL/HOLD | ERROR = API failure |
+| Winning Side | BULL/BEAR/TIE | 显示辩论胜方 |
+
+## 信号决策流程 (层级决策架构)
+
+**v6.0 更新**: 采用 TradingAgents 层级决策架构，Judge 决策即最终决策
+
 ```
-Non-SELECT queries are blocked for safety.
+决策流程:
+Phase 1: Bull/Bear Debate (辩论)
+  └→ 🐂 Bull Agent: 寻找做多理由
+  └→ 🐻 Bear Agent: 寻找做空理由
 
-## Common Diagnostics
+Phase 2: Judge (Portfolio Manager) Decision
+  └→ ⚖️ 评估辩论结果，做出最终决策
 
-**Check why API is failing:**
-```bash
-./tools/diagnose.sh logs api 200
-```
-
-**Check worker processing:**
-```bash
-./tools/diagnose.sh logs worker 100
-```
-
-**Database stats:**
-```bash
-./tools/diagnose.sh db "SELECT count(*) FROM source_item"
-./tools/diagnose.sh db "SELECT modality, count(*) FROM source_item GROUP BY modality"
-```
-
-**Find recent errors:**
-```bash
-./tools/diagnose.sh status   # includes error grep
-./tools/diagnose.sh grep "ERROR" src/
+Phase 3: Risk Evaluation
+  └→ 🛡️ 确定仓位大小和止损止盈
 ```
 
-**Check disk space:**
+**注意**: 以下配置已标记为 LEGACY，不再生效:
+```yaml
+skip_on_divergence: true      # [LEGACY] 不再使用
+use_confidence_fusion: true   # [LEGACY] 不再使用
+```
+
+## Common Issues
+
+### 1. No Trading Signals
+
+**Possible Causes**:
+- Judge returns HOLD (Bull/Bear辩论无明显胜者)
+- Confidence below min_confidence_to_trade
+- Risk Manager 认为风险过高
+
+**Check Command**:
 ```bash
-./tools/diagnose.sh disk
+python3 scripts/diagnose_realtime.py 2>&1 | grep -E "(Judge|Final Signal|Confidence|Winning Side)"
+```
+
+### 2. DeepSeek API Failure
+
+**Check**:
+```bash
+grep "DEEPSEEK_API_KEY" ~/.env.aitrader
+```
+
+### 3. Abnormal Technical Indicators
+
+**Check**:
+```bash
+python3 scripts/diagnose.py 2>&1 | grep -E "(RSI|MACD|SMA)"
+```
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `scripts/diagnose.py` | Main diagnostic script |
+| `scripts/diagnose_realtime.py` | Real-time API diagnostic |
+| `scripts/smart_commit_analyzer.py` | Regression detection (auto-evolving rules) |
+| `strategy/deepseek_strategy.py` | Main strategy logic |
+| `configs/base.yaml` | Base configuration (all parameters) |
+| `configs/production.yaml` | Production environment overrides |
+
+## 回归检测 (修改代码后必须运行)
+
+```bash
+# 智能回归检测 (规则自动从 git 历史生成)
+python3 scripts/smart_commit_analyzer.py
+
+# 预期结果: ✅ 所有规则验证通过
 ```

@@ -1,0 +1,9 @@
+{
+  "name": "nango-dry-run",
+  "description": "Use when testing Nango syncs locally - runs dry-run command with proper parameters for integration testing without affecting production data",
+  "repo": "NangoHQ/ai-ide-prompts",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/NangoHQ/ai-ide-prompts"
+}

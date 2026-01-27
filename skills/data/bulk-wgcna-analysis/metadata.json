@@ -1,0 +1,9 @@
+{
+  "name": "bulk-wgcna-analysis",
+  "description": "Assist Claude in running PyWGCNA through omicverse—preprocessing expression matrices, constructing co-expression modules, visualising eigengenes, and extracting hub genes.",
+  "repo": "Starlitnightly/omicverse",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/Starlitnightly/omicverse"
+}

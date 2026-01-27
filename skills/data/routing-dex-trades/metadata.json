@@ -1,0 +1,9 @@
+{
+  "name": "routing-dex-trades",
+  "description": "Optimize trade routing across multiple DEXs to find optimal prices and minimize slippage.Use when routing trades for best execution.Trigger with phrases like \"find best price\", \"route trade\", or \"chec",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

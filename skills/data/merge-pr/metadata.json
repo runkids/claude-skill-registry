@@ -1,0 +1,9 @@
+{
+  "name": "merge-pr",
+  "description": "Prepare PR for merge and guide human to merge via GitHub web UI. MUST BE USED when user wants to merge a PR.\nVerifies CI passing, verifies Beads issue already closed (from PR creation), and provides m",
+  "repo": "stars-end/affordabot",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/stars-end/affordabot"
+}

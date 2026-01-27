@@ -1,0 +1,9 @@
+{
+  "name": "inbox",
+  "description": "Process pending items from 0-inbox/ task queue.Assess scope and create appropriate KB artifacts (tickets, phases, PRDs).WHEN TO USE:- After completing primary work (ticket, phase, user request)- User ",
+  "repo": "jayprimer/pmc-marketplace",
+  "category": "productivity",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

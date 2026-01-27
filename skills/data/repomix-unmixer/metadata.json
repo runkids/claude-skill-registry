@@ -1,0 +1,9 @@
+{
+  "name": "repomix-unmixer",
+  "description": "Extracts files from repomix-packed repositories, restoring original directory structures from XML/Markdown/JSON formats. Activates when users need to unmix repomix files, extract packed repositories, ",
+  "repo": "nguyendinhquocx/code-ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/nguyendinhquocx/code-ai"
+}

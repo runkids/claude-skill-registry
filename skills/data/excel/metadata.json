@@ -1,14 +1,7 @@
 {
   "name": "excel",
-  "description": "Advanced Excel and spreadsheet analytics techniques",
-  "repo": "pluginagentmarketplace/custom-plugin-data-analyst",
-  "category": "data",
-  "tags": [
-    "excel"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "excel",
-  "github_path": "skills/excel",
-  "github_branch": "main"
+  "repo": "clawdbot/skills",
+  "path": "skills/dbhurley/excel/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-27T02:33:50.396933Z"
 }

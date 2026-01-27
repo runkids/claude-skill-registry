@@ -1,0 +1,9 @@
+{
+  "name": "pokemon-skill-builder",
+  "description": "Use when building Claude Code skills or plugins for Pokemon TCG Pocket. Creates Pokemon-specific commands, integrates MCP servers, scaffolds deck-building workflows, and provides templates for Pokemon",
+  "repo": "briansunter/pokeclaude",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

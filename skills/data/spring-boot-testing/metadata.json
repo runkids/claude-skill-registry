@@ -1,0 +1,9 @@
+{
+  "name": "spring-boot-testing",
+  "description": "Spring Boot 4 testing strategies and patterns. Use when writing unit tests, slice tests (@WebMvcTest, @DataJpaTest), integration tests, Testcontainers with @ServiceConnection, security testing (@WithM",
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

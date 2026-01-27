@@ -1,81 +1,81 @@
 ---
 name: handoff
-description: Writes comprehensive handoff note at session end. Captures work done, files changed, remaining tasks, and next steps. Use before ending any work session or switching contexts.
-allowed-tools: Read, Write, Glob
+description: >
+  Handoff skill to assess project state and provide context for a new agent.
+  Uses /assess logic to identify doc-code gaps, broken features, and next steps.
+allowed-tools: Bash, Read, Grep, Glob
+triggers:
+  - handoff this project
+  - prepare context for next agent
+  - create handoff report
+  - what is the status for a new agent
+  - help me onboard another agent
+  - give me project context
+  - context check
+metadata:
+  short-description: Handoff briefing and project context bridge
 ---
 
-# Handoff
+# Handoff Skill
 
-Make work portable across sessions. Write to `.context/handoff.md`.
+This skill is designed to bridge context between agents during a transition. It uses the philosophy of the `/assess` skill to generate a structured `local/HANDOFF.md` that helps a new agent understand the project's current state, what is working, what is broken, and what to do next.
 
-## When to Use
+## Assessment Logic (via /assess)
 
-- End of every work session
-- Before switching tasks or contexts
-- Before user leaves
-- When compacting context
+When triggering this skill, the agent must:
 
-## Process
+1. **Gather Facts**: Run `.pi/skills/handoff/run.sh` to get automated project data (git, docs, todos).
+2. **Analyze Alignment**: Compare `README.md` and `CONTEXT.md` against the actual code.
+3. **Identify "Current Broken"**: Locate failed tests, `TODO`s, and recent bug-related commits.
+4. **Determine Next Steps**: Review `0N_TASKS.md` (if exists) and recently touched files.
 
-1. **Gather**: What was requested? What did we do? What changed?
-2. **Document**: Files, agents, decisions, docs updated
-3. **Verify**: How to confirm the work is correct
-4. **Remaining**: What's incomplete, issues, blockers
-5. **Prepare**: What does next session need?
+## Output Format: HANDOFF.md
 
-## Output Location
-
-Write to: `.context/handoff.md`
-
-## Essential Sections
+The agent should generate or update a `local/HANDOFF.md` file using the following structure:
 
 ```markdown
-# Session Handoff — [Date]
+# Handoff Report: <Project Name>
 
-## Summary
-[2-3 sentences: what was accomplished]
+**Timestamp**: <ISO Date>
+**Active Agent**: <Current Agent Name>
 
-## Work Completed
-- [Feature/fix]: [description]
+## 1. Project Overview
 
-## Files Changed
-| File | Change | Description |
-|------|--------|-------------|
-| path | modified | what changed |
+- **Ecosystem**: <Python/Node/etc>
+- **Core Purpose**: <Brief summary from README>
 
-## Verification
-[Commands to run, UI to check, tests to execute]
+## 2. Current State (Doc-Code Alignment)
 
-## Remaining
-- [ ] [Incomplete task]
-- **Issue**: [description + workaround]
+- **Documented Features**: <List>
+- **Implemented Reality**: <Note any gaps>
+- **Drift/Misalignments**: <Flag differences between docs and code>
 
-## Next Session
-1. Run `/session-start`
-2. Load [specific docs]
-3. Start with [first action]
+## 3. What is Working Well
+
+- <List passing critical paths or high-quality modules>
+
+## 4. What is Currently Broken
+
+- **Failed Tests**: <List>
+- **Known Issues**: <From /assess findings or TODOs>
+- **Recent Regressions**: <From git history>
+
+## 5. Next Steps
+
+1. <Highest priority task>
+2. <Next task>
+
+## 6. Project Context for Success
+
+- **Key Files**: <Paths to core logic>
+- **Recent Changes**: <Summary of last 3-5 commits>
 ```
 
-## Quick Handoff (Short Sessions)
+## How to Use
 
-```markdown
-# Quick Handoff — [Date]
-**Did**: [one sentence]
-**Changed**: [file list]
-**Verify**: [one command/action]
-**Next**: [what to do]
-```
-
-## Quality Check
-
-- [ ] Summary is specific, not vague
-- [ ] All changed files listed
-- [ ] Verification steps are actionable
-- [ ] Remaining work is explicit
-- [ ] Next session can start immediately
-
-## Related
-
-- Full template: See [reference/full-template.md](reference/full-template.md)
-- Compaction handoff: See [reference/compact-handoff.md](reference/compact-handoff.md)
-- Consumed by: `/session-start`
+1. Trigger with "create handoff report" or "handoff this project".
+2. Run `bash .pi/skills/handoff/run.sh`.
+3. Perform a supplemental `/assess` deep dive if needed.
+4. **Prepare Environment**: Ensure the `local/` directory exists (create it if missing).
+5. **Synthesize Findings**: Generate or update `local/HANDOFF.md` using the collected facts and `/assess` philosophy.
+6. Present the summary to the user.

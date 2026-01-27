@@ -1,0 +1,12 @@
+{
+  "name": "kotlin-coroutines",
+  "description": "Kotlin coroutines - structured concurrency, Flows, exception handling",
+  "repo": "pluginagentmarketplace/custom-plugin-kotlin",
+  "category": "development",
+  "tags": [
+    "kotlin",
+    "coroutines"
+  ],
+  "stars": 1,
+  "source": "local"
+}

@@ -1,11 +1,7 @@
 {
   "name": "audit-trail-helper",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Audit Trail Helper - Auto-activating skill for Enterprise Workflows.Triggers on: audit trail helper, audit trail helperPart of the Enterprise Workflows skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:00.650808Z",
-  "dir_name": "audit-trail-helper",
-  "github_path": "planned-skills/generated/20-enterprise-workflows/audit-trail-helper",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/audit-trail-helper/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-27T03:32:35.346547Z"
 }

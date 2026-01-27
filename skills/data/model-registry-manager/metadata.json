@@ -1,0 +1,9 @@
+{
+  "name": "model-registry-manager",
+  "description": "Model Registry Manager - Auto-activating skill for ML Deployment.Triggers on: model registry manager, model registry managerPart of the ML Deployment skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

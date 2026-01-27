@@ -1,0 +1,9 @@
+{
+  "name": "mocking-apis",
+  "description": "Generate mock API servers for testing and development with realistic response data.Use when creating mock APIs for development and testing.Trigger with phrases like \"create mock API\", \"generate API mo",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

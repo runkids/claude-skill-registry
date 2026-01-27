@@ -1,0 +1,9 @@
+{
+  "name": "render-output",
+  "description": "Renders structured data to terminal with optimal formatting. Use when presenting agent results, displaying data to users, formatting command output, or showing validation reports. Transforms raw data ",
+  "repo": "rayk/lucid-toolkit",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

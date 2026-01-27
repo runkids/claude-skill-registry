@@ -1,0 +1,9 @@
+{
+  "name": "shfmt-configuration",
+  "description": "Use when configuring shfmt for shell script formatting including .shfmt.toml setup, EditorConfig integration, and project-specific settings.",
+  "repo": "TheBushidoCollective/han",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

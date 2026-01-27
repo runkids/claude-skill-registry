@@ -1,0 +1,9 @@
+{
+  "name": "andrew-kane-gem-writer",
+  "description": "This skill should be used when writing Ruby gems following Andrew Kane's proven patterns and philosophy. It applies when creating new Ruby gems, refactoring existing gems, designing gem APIs, or when ",
+  "repo": "EveryInc/compound-engineering-plugin",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

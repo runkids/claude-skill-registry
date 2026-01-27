@@ -1,10 +1,7 @@
 {
   "name": "tools",
-  "description": "",
-  "category": "data",
-  "repo": "flight505/ClaudeCommands",
-  "path": "tools/newskill.md",
-  "stars": 0,
-  "source": "github.com/flight505/ClaudeCommands",
-  "downloaded_at": "2026-01-24T16:15:30.898857Z"
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/langchain/tools/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-27T01:51:41.848015Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "hetzner-provisioner",
+  "description": "Provisions infrastructure on Hetzner Cloud with Terraform/Pulumi. Generates IaC code for CX11/CX21/CX31 instances, managed Postgres, SSL configuration, Docker deployment. Activates for deploy on Hetzn",
+  "repo": "anton-abyzov/specweave",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

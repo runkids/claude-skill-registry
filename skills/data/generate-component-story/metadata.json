@@ -1,10 +1,7 @@
 {
   "name": "generate-component-story",
-  "description": "Create story examples for components. Use when writing stories, creating examples, or demonstrating component usage.",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/generate-component-story/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:15:37.484151Z"
+  "repo": "longbridge/gpui-component",
+  "path": ".claude/skills/generate-component-story/SKILL.md",
+  "source": "github.com/longbridge/gpui-component",
+  "downloaded_at": "2026-01-27T04:28:00.056962Z"
 }

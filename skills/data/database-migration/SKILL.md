@@ -1,207 +1,424 @@
 ---
 name: database-migration
-description: Guides database migration projects including engine changes (MySQL to PostgreSQL, Oracle to PostgreSQL, SQL Server to PostgreSQL), version upgrades, cloud migrations (on-premise to RDS/Cloud SQL/Azure Database), schema migrations, zero-downtime migrations, replication setup, and data migration strategies. Covers homogeneous and heterogeneous migrations, ETL processes, cutover procedures, and rollback plans. Use when migrating databases, changing database engines, upgrading database versions, moving databases to cloud, or when users mention "database migration", "DB migration", "PostgreSQL migration", "MySQL to Postgres", "Oracle migration", "database upgrade", or "cloud database migration".
+description: Execute database migrations across ORMs and platforms with zero-downtime strategies, data transformation, and rollback procedures. Use when migrating databases, changing schemas, performing data transformations, or implementing zero-downtime deployment strategies.
 ---
 
 # Database Migration
 
-Provides comprehensive guidance for migrating databases between engines, versions, platforms, and architectures. Covers both schema and data migration with strategies for minimizing downtime and ensuring data integrity.
+Master database schema and data migrations across ORMs (Sequelize, TypeORM, Prisma), including rollback strategies and zero-downtime deployments.
 
-## Migration Decision Tree
+## When to Use This Skill
 
-**1. Identify Migration Type:**
+- Migrating between different ORMs
+- Performing schema transformations
+- Moving data between databases
+- Implementing rollback procedures
+- Zero-downtime deployments
+- Database version upgrades
+- Data model refactoring
 
-- Same engine (PostgreSQL → PostgreSQL)? → Homogeneous migration
-- Different engine (Oracle → PostgreSQL)? → Heterogeneous migration
-- Version upgrade only? → In-place or dump/restore
-- Cloud migration? → Consider cloud-native tools
+## ORM Migrations
 
-**2. Assess Downtime Requirements:**
+### Sequelize Migrations
+```javascript
+// migrations/20231201-create-users.js
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('users', {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      email: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
+    });
+  },
 
-- Can tolerate hours of downtime? → Dump and restore
-- Need minimal downtime (minutes)? → Replication with cutover
-- Require zero downtime? → See [zero-downtime-migration-strategies.md](references/zero-downtime-migration-strategies.md)
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('users');
+  }
+};
 
-**3. Choose Migration Path:**
-
-- Load [migration-types.md](references/migration-types.md) for detailed migration approaches
-- For cloud migrations, load [cloud-specific-migrations.md](references/cloud-specific-migrations.md)
-
-## Core Migration Workflow
-
-## Step 1: Assessment and Planning
-
-**Analyze Source Database:**
-
-1. Document current database version, size, and complexity
-2. Identify dependencies (applications, services, integrations)
-3. Review schema: tables, indexes, constraints, triggers, procedures
-4. Assess data volume and growth rate
-5. Document current performance baselines
-
-**Define Requirements:**
-
-- Migration type (homogeneous vs heterogeneous)
-- Acceptable downtime window
-- Data integrity requirements
-- Compliance and security requirements
-- Rollback criteria
-
-**Output:** Migration plan with approach, timeline, and resources
-
-### Step 2: Environment Setup
-
-**Prepare Target Environment:**
-
-1. Provision target database with appropriate sizing
-2. Configure network connectivity and security
-3. Set up monitoring and logging
-4. Create test and staging environments matching production
-
-**Prepare Migration Tools:**
-
-- Native tools (pg_dump, mysqldump, SQL Server bcp)
-- Cloud provider tools (AWS DMS, GCP Database Migration Service)
-- Third-party tools (see [tools-reference.md](references/tools-reference.md))
-
-### Step 3: Schema Migration
-
-**For Homogeneous Migration:**
-
-1. Export schema using native tools
-2. Review and optimize schema for target version
-3. Apply schema to target database
-4. Verify all objects created successfully
-
-**For Heterogeneous Migration:**
-
-1. Analyze schema compatibility issues
-2. Convert data types, stored procedures, triggers
-3. Adapt SQL dialects and syntax
-4. Test converted schema thoroughly
-
-Load [migration-types.md](references/migration-types.md) for engine-specific schema conversion guidance.
-
-### Step 4: Data Migration
-
-**Choose Data Migration Strategy:**
-
-**Option A: Dump and Restore (Full Downtime)**
-
-```
-1. Stop application writes
-2. Create full backup of source database
-3. Transfer backup to target environment
-4. Restore to target database
-5. Verify data integrity (row counts, checksums)
-6. Update application connection strings
-7. Resume operations
+// Run: npx sequelize-cli db:migrate
+// Rollback: npx sequelize-cli db:migrate:undo
 ```
 
-Best for: Smaller databases, acceptable downtime windows
+### TypeORM Migrations
+```typescript
+// migrations/1701234567-CreateUsers.ts
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-**Option B: Replication (Minimal Downtime)**
+export class CreateUsers1701234567 implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.createTable(
+      new Table({
+        name: 'users',
+        columns: [
+          {
+            name: 'id',
+            type: 'int',
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment'
+          },
+          {
+            name: 'email',
+            type: 'varchar',
+            isUnique: true
+          },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'CURRENT_TIMESTAMP'
+          }
+        ]
+      })
+    );
+  }
 
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable('users');
+  }
+}
+
+// Run: npm run typeorm migration:run
+// Rollback: npm run typeorm migration:revert
 ```
-1. Set up replication from source to target
-2. Monitor replication lag until synchronized
-3. Schedule cutover window
-4. Stop writes briefly (minutes)
-5. Verify replication is caught up
-6. Promote target to primary
-7. Update application connections
-8. Resume operations
+
+### Prisma Migrations
+```prisma
+// schema.prisma
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+// Generate migration: npx prisma migrate dev --name create_users
+// Apply: npx prisma migrate deploy
 ```
 
-Best for: Large databases, minimal downtime requirements
+## Schema Transformations
 
-Load [zero-downtime-migration-strategies.md](references/zero-downtime-migration-strategies.md) for advanced zero-downtime patterns.
+### Adding Columns with Defaults
+```javascript
+// Safe migration: add column with default
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('users', 'status', {
+      type: Sequelize.STRING,
+      defaultValue: 'active',
+      allowNull: false
+    });
+  },
 
-### Step 5: Validation and Testing
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'status');
+  }
+};
+```
 
-**Validate Data Migration:**
+### Renaming Columns (Zero Downtime)
+```javascript
+// Step 1: Add new column
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('users', 'full_name', {
+      type: Sequelize.STRING
+    });
 
-1. Compare row counts between source and target
-2. Verify data integrity (checksums, sample queries)
-3. Test application functionality against target database
-4. Validate performance meets requirements
-5. Check all constraints, indexes, and relationships
+    // Copy data from old column
+    await queryInterface.sequelize.query(
+      'UPDATE users SET full_name = name'
+    );
+  },
 
-**Testing Checklist:**
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'full_name');
+  }
+};
 
-- [ ] All tables migrated with correct row counts
-- [ ] Schema objects (indexes, constraints, triggers) present
-- [ ] Data types converted correctly
-- [ ] Application queries execute successfully
-- [ ] Performance meets or exceeds baseline
-- [ ] Backup and restore procedures work
+// Step 2: Update application to use new column
 
-Load [common-issues-and-solutions.md](references/common-issues-and-solutions.md) if encountering problems.
+// Step 3: Remove old column
+module.exports = {
+  up: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'name');
+  },
 
-### Step 6: Cutover Planning
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('users', 'name', {
+      type: Sequelize.STRING
+    });
+  }
+};
+```
 
-1. Create detailed cutover runbook with specific timings
-2. Define rollback criteria and procedures (load [rollback-procedures.md](references/rollback-procedures.md))
-3. Coordinate with stakeholders (apps, operations, business)
-4. Schedule maintenance window
-5. Prepare communication plan
+### Changing Column Types
+```javascript
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // For large tables, use multi-step approach
 
-Load [migration-phases.md](references/migration-phases.md) for detailed phase-by-phase execution guidance.
+    // 1. Add new column
+    await queryInterface.addColumn('users', 'age_new', {
+      type: Sequelize.INTEGER
+    });
 
-### Step 7: Post-Migration
+    // 2. Copy and transform data
+    await queryInterface.sequelize.query(`
+      UPDATE users
+      SET age_new = CAST(age AS INTEGER)
+      WHERE age IS NOT NULL
+    `);
 
-**Immediate (Day 1):**
+    // 3. Drop old column
+    await queryInterface.removeColumn('users', 'age');
 
-1. Monitor performance metrics and error rates
-2. Validate application functionality
-3. Keep source database available (read-only) as safety net
-4. Document any issues and resolutions
+    // 4. Rename new column
+    await queryInterface.renameColumn('users', 'age_new', 'age');
+  },
 
-**Short-term (Week 1-2):**
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.changeColumn('users', 'age', {
+      type: Sequelize.STRING
+    });
+  }
+};
+```
 
-1. Continue monitoring for issues
-2. Optimize indexes and queries if needed
-3. Tune database configuration for workload
-4. Conduct parallel run if applicable
+## Data Transformations
 
-**Long-term:**
+### Complex Data Migration
+```javascript
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Get all records
+    const [users] = await queryInterface.sequelize.query(
+      'SELECT id, address_string FROM users'
+    );
 
-1. Validate backup and restore procedures
-2. Update disaster recovery plans
-3. Document final configuration and lessons learned
-4. Decommission source database after retention period
+    // Transform each record
+    for (const user of users) {
+      const addressParts = user.address_string.split(',');
 
-## Key Considerations
+      await queryInterface.sequelize.query(
+        `UPDATE users
+         SET street = :street,
+             city = :city,
+             state = :state
+         WHERE id = :id`,
+        {
+          replacements: {
+            id: user.id,
+            street: addressParts[0]?.trim(),
+            city: addressParts[1]?.trim(),
+            state: addressParts[2]?.trim()
+          }
+        }
+      );
+    }
 
-**Planning Guidelines:**
+    // Drop old column
+    await queryInterface.removeColumn('users', 'address_string');
+  },
 
-- Allow 2-3x estimated time for heterogeneous migrations
-- Plan for extended parallel run period (1-4 weeks minimum)
-- Database migration often triggers application code changes
-- Coordinate with application migration when possible
-- Consider phased approach: read replica → read/write split → full cutover
+  down: async (queryInterface, Sequelize) => {
+    // Reconstruct original column
+    await queryInterface.addColumn('users', 'address_string', {
+      type: Sequelize.STRING
+    });
 
-**Critical Success Factors:**
+    await queryInterface.sequelize.query(`
+      UPDATE users
+      SET address_string = CONCAT(street, ', ', city, ', ', state)
+    `);
 
-- ✅ Multiple backups before migration
-- ✅ Test migration in staging environment first
-- ✅ Monitor metrics during migration (lag, throughput, errors)
-- ✅ Always have rollback plan ready
-- ✅ Document all steps, issues, and decisions
-- ✅ Encrypt data in transit and at rest
-- ✅ Rotate credentials after migration
+    await queryInterface.removeColumn('users', 'street');
+    await queryInterface.removeColumn('users', 'city');
+    await queryInterface.removeColumn('users', 'state');
+  }
+};
+```
 
-Load [best-practices.md](references/best-practices.md) for comprehensive best practices.
+## Rollback Strategies
 
-## Reference Files
+### Transaction-Based Migrations
+```javascript
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    const transaction = await queryInterface.sequelize.transaction();
 
-Load these references based on specific needs:
+    try {
+      await queryInterface.addColumn(
+        'users',
+        'verified',
+        { type: Sequelize.BOOLEAN, defaultValue: false },
+        { transaction }
+      );
 
-- **[migration-types.md](references/migration-types.md)** - Detailed guidance on homogeneous vs heterogeneous migrations, engine-specific conversion patterns
-- **[migration-phases.md](references/migration-phases.md)** - Phase-by-phase execution details with timelines and dependencies
-- **[zero-downtime-migration-strategies.md](references/zero-downtime-migration-strategies.md)** - Advanced patterns for zero-downtime migrations (dual writes, event streaming, phased cutover)
-- **[cloud-specific-migrations.md](references/cloud-specific-migrations.md)** - AWS DMS, GCP Database Migration Service, Azure Database Migration Service
-- **[tools-reference.md](references/tools-reference.md)** - Native tools, cloud provider services, third-party migration tools
-- **[rollback-procedures.md](references/rollback-procedures.md)** - Step-by-step rollback procedures for different migration strategies
-- **[common-issues-and-solutions.md](references/common-issues-and-solutions.md)** - Troubleshooting guide for common migration problems
-- **[best-practices.md](references/best-practices.md)** - Comprehensive best practices checklist
+      await queryInterface.sequelize.query(
+        'UPDATE users SET verified = true WHERE email_verified_at IS NOT NULL',
+        { transaction }
+      );
+
+      await transaction.commit();
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  },
+
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'verified');
+  }
+};
+```
+
+### Checkpoint-Based Rollback
+```javascript
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Create backup table
+    await queryInterface.sequelize.query(
+      'CREATE TABLE users_backup AS SELECT * FROM users'
+    );
+
+    try {
+      // Perform migration
+      await queryInterface.addColumn('users', 'new_field', {
+        type: Sequelize.STRING
+      });
+
+      // Verify migration
+      const [result] = await queryInterface.sequelize.query(
+        "SELECT COUNT(*) as count FROM users WHERE new_field IS NULL"
+      );
+
+      if (result[0].count > 0) {
+        throw new Error('Migration verification failed');
+      }
+
+      // Drop backup
+      await queryInterface.dropTable('users_backup');
+    } catch (error) {
+      // Restore from backup
+      await queryInterface.sequelize.query('DROP TABLE users');
+      await queryInterface.sequelize.query(
+        'CREATE TABLE users AS SELECT * FROM users_backup'
+      );
+      await queryInterface.dropTable('users_backup');
+      throw error;
+    }
+  }
+};
+```
+
+## Zero-Downtime Migrations
+
+### Blue-Green Deployment Strategy
+```javascript
+// Phase 1: Make changes backward compatible
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Add new column (both old and new code can work)
+    await queryInterface.addColumn('users', 'email_new', {
+      type: Sequelize.STRING
+    });
+  }
+};
+
+// Phase 2: Deploy code that writes to both columns
+
+// Phase 3: Backfill data
+module.exports = {
+  up: async (queryInterface) => {
+    await queryInterface.sequelize.query(`
+      UPDATE users
+      SET email_new = email
+      WHERE email_new IS NULL
+    `);
+  }
+};
+
+// Phase 4: Deploy code that reads from new column
+
+// Phase 5: Remove old column
+module.exports = {
+  up: async (queryInterface) => {
+    await queryInterface.removeColumn('users', 'email');
+  }
+};
+```
+
+## Cross-Database Migrations
+
+### PostgreSQL to MySQL
+```javascript
+// Handle differences
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    const dialectName = queryInterface.sequelize.getDialect();
+
+    if (dialectName === 'mysql') {
+      await queryInterface.createTable('users', {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true
+        },
+        data: {
+          type: Sequelize.JSON  // MySQL JSON type
+        }
+      });
+    } else if (dialectName === 'postgres') {
+      await queryInterface.createTable('users', {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true
+        },
+        data: {
+          type: Sequelize.JSONB  // PostgreSQL JSONB type
+        }
+      });
+    }
+  }
+};
+```
+
+## Resources
+
+- **references/orm-switching.md**: ORM migration guides
+- **references/schema-migration.md**: Schema transformation patterns
+- **references/data-transformation.md**: Data migration scripts
+- **references/rollback-strategies.md**: Rollback procedures
+- **assets/schema-migration-template.sql**: SQL migration templates
+- **assets/data-migration-script.py**: Data migration utilities
+- **scripts/test-migration.sh**: Migration testing script
+
+## Best Practices
+
+1. **Always Provide Rollback**: Every up() needs a down()
+2. **Test Migrations**: Test on staging first
+3. **Use Transactions**: Atomic migrations when possible
+4. **Backup First**: Always backup before migration
+5. **Small Changes**: Break into small, incremental steps
+6. **Monitor**: Watch for errors during deployment
+7. **Document**: Explain why and how
+8. **Idempotent**: Migrations should be rerunnable
+
+## Common Pitfalls
+
+- Not testing rollback procedures
+- Making breaking changes without downtime strategy
+- Forgetting to handle NULL values
+- Not considering index performance
+- Ignoring foreign key constraints
+- Migrating too much data at once

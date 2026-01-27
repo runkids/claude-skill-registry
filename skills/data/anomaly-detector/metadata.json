@@ -1,0 +1,9 @@
+{
+  "name": "anomaly-detector",
+  "description": "Anomaly and outlier detection using Isolation Forest, One-Class SVM, autoencoders, and statistical methods. Activates for \"anomaly detection\", \"outlier detection\", \"fraud detection\", \"intrusion detect",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

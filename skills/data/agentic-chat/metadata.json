@@ -1,0 +1,9 @@
+{
+  "name": "agentic-chat",
+  "description": "AI assistant for creating clear, actionable task descriptions for GitHub Copilot agents",
+  "repo": "githubnext/gh-aw",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/githubnext/gh-aw"
+}

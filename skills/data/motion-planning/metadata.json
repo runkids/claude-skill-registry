@@ -1,0 +1,9 @@
+{
+  "name": "motion-planning",
+  "description": "Generate production-quality Python code for robot motion planning algorithms that run inPyodide (browser). Creates educational code for teaching path planning (A*, RRT), trajectoryoptimization, PID co",
+  "repo": "khanaleema/PhysicalAI-Book",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

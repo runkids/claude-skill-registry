@@ -1,360 +1,299 @@
 ---
 name: localai
-description: |
-  LocalAI local inference API management via Podman Quadlet. Provides an
-  OpenAI-compatible API for local model inference with GPU acceleration.
-  Use when users need to configure, start, or manage the LocalAI service.
+description: Run local AI models with LocalAI. Deploy OpenAI-compatible API for LLMs, embeddings, audio, and images. Use for self-hosted AI, offline inference, and privacy-focused AI deployments.
 ---
 
-# LocalAI - Local AI Inference API
+# LocalAI
 
-## Overview
+Expert guidance for self-hosted OpenAI-compatible AI API.
 
-The `localai` command manages the LocalAI service using Podman Quadlet containers. It provides an OpenAI-compatible API for running AI models locally with GPU acceleration.
+## Installation
 
-**Key Features:**
-
-- OpenAI-compatible API endpoints
-- GPU-specific container images (auto-selected)
-- Multiple GPU support (NVIDIA, AMD, Intel)
-- Cross-pod DNS via `bazzite-ai` network
-
-## Quick Reference
-
-| Action | Command | Description |
-|--------|---------|-------------|
-| Config | `ujust localai config` | Configure instance |
-| Start | `ujust localai start` | Start service |
-| Stop | `ujust localai stop` | Stop service |
-| Restart | `ujust localai restart` | Restart service |
-| Logs | `ujust localai logs` | View logs |
-| Status | `ujust localai status` | Show status |
-| URL | `ujust localai url` | Show API URL |
-| List | `ujust localai list` | List instances |
-| Shell | `ujust localai shell` | Container shell |
-| Delete | `ujust localai delete` | Remove service |
-
-## Named Parameters
-
-All parameters use named syntax (e.g., `PORT=8081`):
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `ACTION` | (menu) | Action to perform |
-| `PORT` | 8080 | Host port for API |
-| `IMAGE` | (auto by GPU) | Container image |
-| `BIND` | 127.0.0.1 | Bind address (127.0.0.1 or 0.0.0.0) |
-| `INSTANCE` | 1 | Instance number or `all` |
-| `LINES` | 50 | Log lines to show |
-| `CMD` | (empty) | Shell command |
-
-## GPU-Specific Images
-
-LocalAI uses different container images optimized for each GPU type:
-
-| GPU Type | Image | Auto-Selected? |
-|----------|-------|----------------|
-| CPU (none) | `localai/localai:latest` | Yes |
-| NVIDIA | `localai/localai:latest-gpu-nvidia-cuda-12` | Yes |
-| AMD | `localai/localai:latest-gpu-hipblas` | Yes |
-| Intel | `localai/localai:latest-gpu-intel` | Yes |
-
-The appropriate image is automatically selected based on detected GPU hardware.
-
-## Configuration
+### Docker
 
 ```bash
-# Default configuration (auto-detects GPU, port 8080)
-ujust localai config
+# Basic (CPU)
+docker run -p 8080:8080 localai/localai:latest
 
-# Custom port
-ujust localai config PORT=8081
+# With GPU (CUDA)
+docker run --gpus all -p 8080:8080 localai/localai:latest-gpu-nvidia-cuda-12
 
-# Network-wide access (0.0.0.0)
-ujust localai config BIND=0.0.0.0
-
-# Force CPU image (ignore GPU)
-ujust localai config IMAGE=localai/localai:latest
-
-# Combine parameters
-ujust localai config PORT=8081 BIND=0.0.0.0
+# With models directory
+docker run -p 8080:8080 \
+  -v /path/to/models:/models \
+  localai/localai:latest
 ```
 
-### Update Existing Configuration
+### Docker Compose
 
-Running `config` when already configured updates the existing settings:
-
-```bash
-# Change only the bind address
-ujust localai config BIND=0.0.0.0
-
-# Update port without affecting other settings
-ujust localai config PORT=8082
+```yaml
+services:
+  localai:
+    image: localai/localai:latest-gpu-nvidia-cuda-12
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/models
+    environment:
+      - THREADS=8
+      - CONTEXT_SIZE=4096
+      - DEBUG=true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 ```
 
-## Lifecycle Management
+## Model Configuration
 
-```bash
-# Start LocalAI
-ujust localai start
+### YAML Model Definition
 
-# Stop service
-ujust localai stop
+```yaml
+# models/llama3.yaml
+name: llama3
+backend: llama-cpp
+parameters:
+  model: /models/llama-3-8b-instruct.gguf
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 40
+  context_size: 4096
+  threads: 8
+  f16: true
+  mmap: true
+template:
+  chat_message: |
+    <|start_header_id|>{{.RoleName}}<|end_header_id|>
 
-# Restart (apply config changes)
-ujust localai restart
-
-# View logs (default 50 lines)
-ujust localai logs
-
-# View more logs
-ujust localai logs LINES=200
-
-# Check status
-ujust localai status
-
-# Show API URL
-ujust localai url
+    {{.Content}}<|eot_id|>
+  chat: |
+    {{.Input}}
+    <|start_header_id|>assistant<|end_header_id|>
 ```
 
-## Multi-Instance Support
+### Embedding Model
 
-```bash
-# Start all instances
-ujust localai start INSTANCE=all
-
-# Stop specific instance
-ujust localai stop INSTANCE=2
-
-# Delete all instances
-ujust localai delete INSTANCE=all
+```yaml
+# models/embeddings.yaml
+name: text-embedding
+backend: bert-embeddings
+parameters:
+  model: /models/all-MiniLM-L6-v2
+embeddings: true
 ```
 
-## Shell Access
+### Whisper (Audio)
 
-```bash
-# Interactive shell
-ujust localai shell
-
-# Run specific command
-ujust localai shell CMD="ls -la /models"
-ujust localai shell CMD="nvidia-smi"
+```yaml
+# models/whisper.yaml
+name: whisper-1
+backend: whisper
+parameters:
+  model: /models/whisper-base.bin
+  language: en
 ```
 
-## Network Architecture
+### Stable Diffusion
 
-LocalAI uses the `bazzite-ai` bridge network for cross-container DNS:
-
-```
-+-------------------+     DNS      +-------------------+
-|   Open WebUI      | -----------> |     LocalAI       |
-|   (openwebui)     |              |    (localai)      |
-|   Port 3000       |              |   Port 8080       |
-+-------------------+              +-------------------+
-         |                                  |
-         +------ bazzite-ai network --------+
-                         |
-+-------------------+    |    +-------------------+
-|     Ollama        |----+----+     Jupyter       |
-|    (ollama)       |         |    (jupyter)      |
-|   Port 11434      |         |   Port 8888       |
-+-------------------+         +-------------------+
+```yaml
+# models/stablediffusion.yaml
+name: stablediffusion
+backend: stablediffusion
+parameters:
+  model: /models/sd-v1-5
+step: 25
 ```
 
-**Cross-Pod DNS:**
+## API Usage
 
-- LocalAI accessible as `http://localai:8080` from other containers
-- Can replace Ollama as backend for OpenWebUI
+### OpenAI Python Client
 
-## API Endpoints (OpenAI-Compatible)
+```python
+from openai import OpenAI
 
-| Endpoint | Description |
-|----------|-------------|
-| `/v1/models` | List available models |
-| `/v1/chat/completions` | Chat completions |
-| `/v1/completions` | Text completions |
-| `/v1/embeddings` | Generate embeddings |
-| `/v1/images/generations` | Image generation |
-| `/v1/audio/transcriptions` | Speech-to-text |
-
-### Example API Usage
-
-```bash
-# List models
-curl http://localhost:8080/v1/models
+client = OpenAI(
+    base_url="http://localhost:8080/v1",
+    api_key="not-needed"  # LocalAI doesn't require API key
+)
 
 # Chat completion
-curl http://localhost:8080/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt-4",
-    "messages": [{"role": "user", "content": "Hello!"}]
-  }'
+response = client.chat.completions.create(
+    model="llama3",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What is machine learning?"}
+    ],
+    temperature=0.7,
+    max_tokens=500
+)
+print(response.choices[0].message.content)
+
+# Streaming
+stream = client.chat.completions.create(
+    model="llama3",
+    messages=[{"role": "user", "content": "Tell me a story"}],
+    stream=True
+)
+
+for chunk in stream:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="")
 ```
 
-## Model Storage
+### Embeddings
 
-| Path | Description |
-|------|-------------|
-| `~/.config/localai/<INSTANCE>/models` | Model files |
+```python
+response = client.embeddings.create(
+    model="text-embedding",
+    input=["Hello world", "How are you?"]
+)
 
-Models persist across container restarts. Each instance has isolated storage.
+embeddings = [e.embedding for e in response.data]
+```
 
-### Loading Models
+### Image Generation
 
-Place model files (GGUF, GGML) in the models directory:
+```python
+response = client.images.generate(
+    model="stablediffusion",
+    prompt="A beautiful sunset over mountains",
+    n=1,
+    size="512x512"
+)
+
+image_url = response.data[0].url
+```
+
+### Audio Transcription
+
+```python
+with open("audio.mp3", "rb") as f:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=f
+    )
+print(response.text)
+```
+
+## Gallery Models
 
 ```bash
-# Copy a model
-cp my-model.gguf ~/.config/localai/1/models/
+# List available models
+curl http://localhost:8080/models/available
 
-# Or download directly
-curl -L -o ~/.config/localai/1/models/model.gguf \
-  https://huggingface.co/.../model.gguf
+# Install from gallery
+curl http://localhost:8080/models/apply -d '{
+  "id": "huggingface://TheBloke/Llama-2-7B-Chat-GGUF/llama-2-7b-chat.Q4_K_M.gguf"
+}'
+
+# Or via config
+curl http://localhost:8080/models/apply -d '{
+  "url": "github:go-skynet/model-gallery/gpt4all-j.yaml"
+}'
 ```
 
-## Common Workflows
+## Function Calling
 
-### Initial Setup
-
-```bash
-# 1. Configure LocalAI (auto-detects GPU)
-ujust localai config
-
-# 2. Start the service
-ujust localai start
-
-# 3. Check the API
-ujust localai url
-# Output: http://127.0.0.1:8080
-
-# 4. Test the API
-curl http://localhost:8080/v1/models
+```yaml
+# models/llama3-functions.yaml
+name: llama3-functions
+backend: llama-cpp
+parameters:
+  model: /models/llama-3-8b-instruct.gguf
+function:
+  disable_no_action: false
+  grammar_prefix: |
+    <|start_header_id|>assistant<|end_header_id|>
 ```
 
-### Use with OpenWebUI
-
-OpenWebUI can use LocalAI as an OpenAI-compatible backend:
-
-```bash
-# Start LocalAI
-ujust localai start
-
-# In OpenWebUI settings, add connection:
-# URL: http://localai:8080/v1  (cross-pod DNS)
-# Or: http://host.containers.internal:8080/v1  (from host)
+```python
+response = client.chat.completions.create(
+    model="llama3-functions",
+    messages=[{"role": "user", "content": "What's the weather in Paris?"}],
+    tools=[{
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Get weather for a city",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "city": {"type": "string"}
+                },
+                "required": ["city"]
+            }
+        }
+    }],
+    tool_choice="auto"
+)
 ```
 
-### Remote Access Setup
+## Performance Tuning
 
-```bash
-# Configure for network access
-ujust localai config BIND=0.0.0.0
-
-# Start the service
-ujust localai start
-
-# Or use Tailscale for secure access
-ujust tailscale serve localai
+```yaml
+# Environment variables
+THREADS=8                    # Number of CPU threads
+CONTEXT_SIZE=4096           # Context window size
+F16=true                    # Use FP16
+MMAP=true                   # Memory map models
+GPU_LAYERS=35               # Layers to offload to GPU
+TENSOR_SPLIT=0.5,0.5        # Multi-GPU split
 ```
 
-## GPU Support
+### GPU Offloading
 
-GPU is automatically detected and the appropriate image is selected:
-
-| GPU Type | Detection | Device Passthrough |
-|----------|-----------|-------------------|
-| NVIDIA | `nvidia-smi` | CDI (`nvidia.com/gpu=all`) |
-| AMD | lspci | `/dev/dri` + `/dev/kfd` |
-| Intel | lspci | `/dev/dri` |
-
-### Check GPU in Container
-
-```bash
-# NVIDIA
-ujust localai shell CMD="nvidia-smi"
-
-# Check GPU environment
-ujust localai shell CMD="env | grep -i gpu"
+```yaml
+# models/llama3-gpu.yaml
+name: llama3
+backend: llama-cpp
+parameters:
+  model: /models/llama-3-8b-instruct.gguf
+  gpu_layers: 35
+  main_gpu: 0
+  tensor_split: ""
 ```
 
-## Troubleshooting
+## Kubernetes Deployment
 
-### Service Won't Start
-
-```bash
-# Check status
-ujust localai status
-
-# View logs
-ujust localai logs LINES=100
-
-# Check image was pulled
-podman images | grep localai
+```yaml
+apikind: Deployment
+metadata:
+  name: localai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: localai
+  template:
+    metadata:
+      labels:
+        app: localai
+    spec:
+      containers:
+        - name: localai
+          image: localai/localai:latest-gpu-nvidia-cuda-12
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+          volumeMounts:
+            - name: models
+              mountPath: /models
+          env:
+            - name: THREADS
+              value: "8"
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: models-pvc
 ```
 
-**Common causes:**
+## Resources
 
-- Port 8080 already in use
-- Container image not pulled
-- GPU driver issues
-
-### GPU Not Detected
-
-**NVIDIA:**
-
-```bash
-# Check CDI configuration
-nvidia-ctk cdi list
-
-# Regenerate CDI spec
-sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
-```
-
-**AMD:**
-
-```bash
-# Check /dev/kfd exists
-ls -la /dev/kfd
-
-# Check ROCm
-rocminfo
-```
-
-### API Errors
-
-```bash
-# Test API endpoint
-curl http://localhost:8080/v1/models
-
-# Check logs for errors
-ujust localai logs LINES=100
-```
-
-### Clear Data and Start Fresh
-
-```bash
-# Delete everything
-ujust localai delete INSTANCE=all
-
-# Reconfigure
-ujust localai config
-ujust localai start
-```
-
-## Cross-References
-
-- **Network peers:** ollama, openwebui, jupyter, comfyui (all use bazzite-ai network)
-- **Alternative:** `ollama` (simpler model management, different API)
-- **Client:** `openwebui` (can use LocalAI as backend)
-- **Docs:** [LocalAI Documentation](https://localai.io/)
-
-## When to Use This Skill
-
-Use when the user asks about:
-
-- "install localai", "setup local inference", "openai-compatible api"
-- "configure localai", "change port", "gpu acceleration"
-- "localai not working", "api error", "model loading"
-- "localai logs", "debug localai"
-- "delete localai", "uninstall"
+- [LocalAI Documentation](https://localai.io/docs/)
+- [LocalAI GitHub](https://github.com/mudler/LocalAI)
+- [Model Gallery](https://localai.io/models/)

@@ -1,0 +1,9 @@
+{
+  "name": "optimizing-prompts",
+  "description": "This skill optimizes prompts for large language models (llms) to reduce token usage, lower costs, and improve performance. it analyzes the prompt, identifies areas for simplification and redundancy re",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

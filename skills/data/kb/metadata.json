@@ -1,0 +1,9 @@
+{
+  "name": "kb",
+  "description": "知识库管理完整规则；~init命令或知识库缺失时读取；包含创建、同步、审计、上下文获取规则",
+  "repo": "hellowind777/helloagents",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

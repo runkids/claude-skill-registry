@@ -1,10 +1,7 @@
 {
   "name": "error-tracking",
-  "description": "Add error tracking and performance monitoring to your project services. Use this skill when adding error handling, creating new controllers/routes, instrumenting background jobs, or tracking performan",
-  "category": "data",
-  "repo": "fghaffar/claude-cursor-setup",
-  "path": "skills/error-tracking/SKILL.md",
-  "stars": 0,
-  "source": "github.com/fghaffar/claude-cursor-setup",
-  "downloaded_at": "2026-01-24T16:15:02.936439Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/error-tracking/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-27T04:02:02.606289Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "convert-fsharp-elm",
+  "description": "Convert F# code to idiomatic Elm. Use when migrating F# projects to Elm, translating backend F# to frontend Elm, refactoring .NET backends with Elm frontends, or exploring functional patterns across b",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

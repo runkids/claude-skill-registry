@@ -1,0 +1,9 @@
+{
+  "name": "runbook-structure",
+  "description": "Use when creating structured operational runbooks for human operators. Covers runbook organization, documentation patterns, and best practices for clear operational procedures.",
+  "repo": "TheBushidoCollective/han",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/TheBushidoCollective/han"
+}

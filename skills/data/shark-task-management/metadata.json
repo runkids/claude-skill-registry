@@ -1,0 +1,9 @@
+{
+  "name": "shark-task-management",
+  "description": "Task lifecycle management using the shark CLI for tracking implementation progress, status updates, and team visibility",
+  "repo": "jwwelbor/shark-task-manager",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jwwelbor/shark-task-manager"
+}

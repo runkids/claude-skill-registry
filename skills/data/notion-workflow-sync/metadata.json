@@ -1,0 +1,9 @@
+{
+  "name": "notion-workflow-sync",
+  "description": "Sync workflows between Odoo, BIR systems, and Notion with external ID upsert and deduplication",
+  "repo": "jgtolentino/insightpulse-odoo",
+  "category": "productivity",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

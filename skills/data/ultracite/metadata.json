@@ -1,0 +1,11 @@
+{
+  "name": "ultracite",
+  "description": "Enforce strict type safety, accessibility standards, and code quality for TypeScript/JavaScript projects using Biome's formatter and linter. Use when writing, reviewing, or fixing TS/JS/TSX/JSX code, ",
+  "repo": "Tylerbryy/codewarden",
+  "category": "development",
+  "tags": [
+    "ultracite"
+  ],
+  "stars": 1,
+  "source": "local"
+}

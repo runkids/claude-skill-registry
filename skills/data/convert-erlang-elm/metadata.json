@@ -1,0 +1,9 @@
+{
+  "name": "convert-erlang-elm",
+  "description": "Convert Erlang code to idiomatic Elm. Use when migrating Erlang backend logic to Elm frontend applications, translating BEAM VM patterns to functional frontend code, or refactoring distributed systems",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

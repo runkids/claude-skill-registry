@@ -1,0 +1,9 @@
+{
+  "name": "spec-generator",
+  "description": "Purpose: Automatically generate comprehensive specification documentation (spec.md, plan.md, tasks.md with embedded tests) for SpecWeave increments using proven templates and flexible, context-aware s",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

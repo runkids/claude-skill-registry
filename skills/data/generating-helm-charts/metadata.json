@@ -1,0 +1,9 @@
+{
+  "name": "generating-helm-charts",
+  "description": "Use when generating Helm charts for Kubernetes applications. Trigger with phrases like \"create Helm chart\", \"generate chart for app\", \"package Kubernetes deployment\", or \"helm template\". Produces prod",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "genome-assembly-pipeline",
+  "description": "End-to-end genome assembly workflow from reads to polished assembly with QC. Supports short reads (SPAdes), long reads (Flye), and hybrid approaches.",
+  "repo": "GPTomics/bioSkills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/GPTomics/bioSkills"
+}

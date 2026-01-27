@@ -1,15 +1,7 @@
 {
   "name": "architecture-diagram",
-  "description": "Create professional, dark-themed architecture diagrams as standalone HTML files with SVG graphics. Use when the user asks for system architecture diagrams, infrastructure diagrams, cloud architecture ",
-  "repo": "Cocoon-AI/architecture-diagram-generator",
-  "category": "data",
-  "tags": [
-    "architecture",
-    "diagram"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "architecture-diagram",
-  "github_path": "architecture-diagram",
-  "github_branch": "main"
+  "repo": "manastalukdar/claude-devstudio",
+  "path": "skills/architecture-diagram/SKILL.md",
+  "source": "github.com/manastalukdar/claude-devstudio",
+  "downloaded_at": "2026-01-27T03:47:17.303421Z"
 }

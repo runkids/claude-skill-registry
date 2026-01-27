@@ -1,0 +1,9 @@
+{
+  "name": "emacs",
+  "description": "Emacs ecosystem = elisp + org + gnus + tramp + eglot.",
+  "repo": "plurigrid/asi",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/plurigrid/asi"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "filings-edgar-ingest",
+  "description": "Ingest SEC EDGAR filings (10-K, 10-Q, 8-K) via official API with source tracking and pgvector storage",
+  "repo": "jgtolentino/insightpulse-odoo",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

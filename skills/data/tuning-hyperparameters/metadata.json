@@ -1,0 +1,9 @@
+{
+  "name": "tuning-hyperparameters",
+  "description": "Optimize machine learning model hyperparameters using grid search, random search, or Bayesian optimization. Finds best parameter configurations to maximize performance. Use when asked to \"tune hyperpa",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

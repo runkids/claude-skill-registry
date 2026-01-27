@@ -1,0 +1,9 @@
+{
+  "name": "pytest-plugins",
+  "description": "Use when pytest plugin ecosystem including pytest-cov, pytest-mock, and custom plugin development.",
+  "repo": "TheBushidoCollective/han",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "atomic-commits",
+  "description": "Create atomic commits grouped by logical features with README.md and CLAUDE.md awareness.",
+  "repo": "blueraai/bluera-base",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/blueraai/bluera-base"
+}

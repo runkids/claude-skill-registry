@@ -1,0 +1,11 @@
+{
+  "name": "devflow",
+  "description": "End-to-end agent development process. Use when coordinating work, dispatching agents, or reviewing PRs.",
+  "repo": "Cygnusfear/claude-stuff",
+  "category": "development",
+  "tags": [
+    "devflow"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

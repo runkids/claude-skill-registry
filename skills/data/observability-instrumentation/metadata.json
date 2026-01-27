@@ -1,14 +1,7 @@
 {
   "name": "observability-instrumentation",
-  "description": "Add business metrics using AWS EMF (Embedded Metric Format) to API endpoints. Focus on domain-specific metrics only - AWS AppRunner provides default SLO/SLA metrics. Use when implementing new endpoint",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "data",
-  "tags": [
-    "observability",
-    "instrumentation"
-  ],
-  "stars": 0,
-  "dir_name": "observability-instrumentation",
-  "github_path": ".claude/skills/observability-instrumentation",
-  "github_branch": "main"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/observability-instrumentation/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-27T04:06:58.504431Z"
 }

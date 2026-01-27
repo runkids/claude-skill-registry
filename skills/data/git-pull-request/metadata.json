@@ -1,10 +1,7 @@
 {
   "name": "git-pull-request",
-  "description": "Use when creating a pull request.",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/git-pull-request/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:16:10.540448Z"
+  "repo": "LandonSchropp/agent-toolkit",
+  "path": "skills/git-pull-request/SKILL.md",
+  "source": "github.com/LandonSchropp/agent-toolkit",
+  "downloaded_at": "2026-01-27T01:09:59.051283Z"
 }

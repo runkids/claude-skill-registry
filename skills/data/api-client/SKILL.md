@@ -1,690 +1,320 @@
 ---
 name: api-client
-description: Fetch API patterns with error handling, retry logic, and caching. Use when building API integrations, handling network failures, or implementing offline-first data fetching.
-allowed-tools: Read, Write, Edit, Glob, Grep
+description: Centralized TypeScript API client with typed namespaces, automatic token refresh with request deduplication, TanStack Query integration, and consistent error handling.
+license: MIT
+compatibility: TypeScript/JavaScript
+metadata:
+  category: api
+  time: 5h
+  source: drift-masterguide
 ---
 
-# API Client Skill
+# TypeScript API Client
 
-Patterns for fetch-based API communication with robust error handling, retry logic, and response caching.
+Centralized API client with typed namespaces, automatic token refresh, and TanStack Query integration.
 
-## Philosophy
+## When to Use This Skill
 
-1. **Native `fetch()` only** - No axios or other libraries
-2. **Errors should be explicit** - No swallowed promises
-3. **Requests should be cancellable** - Use AbortController
-4. **Fail gracefully** - Handle network issues elegantly
+- Building frontend applications that call backend APIs
+- Need type safety on requests and responses
+- Want automatic token refresh without duplicated logic
+- Using TanStack Query for caching and state management
 
----
+## Core Concepts
 
-## Base Fetch Wrapper
+The pattern provides:
+- Typed namespaces (auth, users, billing, etc.)
+- Automatic token refresh with request deduplication
+- TanStack Query integration for caching
+- Consistent error handling with custom error class
 
-A typed wrapper around fetch with consistent error handling:
+Architecture:
+```
+Component → useQuery/useMutation → API Client → Fetch
+                                       ↓
+                                  401? → Refresh → Retry
+```
 
-```javascript
-/**
- * @typedef {Object} ApiError
- * @property {number} status - HTTP status code
- * @property {string} statusText - HTTP status text
- * @property {Object} [body] - Parsed error response body
- * @property {string} message - Error message
- */
+## Implementation
 
-/**
- * Custom error class for API failures
- */
-class ApiError extends Error {
-  /**
-   * @param {Response} response
-   * @param {Object} [body]
-   */
-  constructor(response, body = null) {
-    super(`API Error: ${response.status} ${response.statusText}`);
-    this.name = 'ApiError';
-    this.status = response.status;
-    this.statusText = response.statusText;
-    this.body = body;
+### TypeScript
+
+```typescript
+// lib/api/types.ts
+export class APIClientError extends Error {
+  constructor(
+    message: string,
+    public code: string,
+    public statusCode: number,
+    public details?: Record<string, unknown>
+  ) {
+    super(message);
+    this.name = 'APIClientError';
   }
 }
 
-/**
- * Base fetch wrapper with consistent error handling
- * @template T
- * @param {string} endpoint
- * @param {RequestInit} [options={}]
- * @returns {Promise<T>}
- * @throws {ApiError}
- */
-async function api(endpoint, options = {}) {
-  const response = await fetch(endpoint, {
-    headers: {
+export interface TokenPair {
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: string;
+}
+
+// lib/api/client.ts
+interface RequestOptions {
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  body?: Record<string, unknown>;
+  params?: Record<string, string | number | boolean | undefined>;
+  skipRefresh?: boolean;
+}
+
+export class APIClient {
+  private baseUrl: string;
+  private accessToken: string | null = null;
+  private refreshToken: string | null = null;
+  private onUnauthorized: () => void;
+  
+  // Refresh deduplication
+  private isRefreshing = false;
+  private refreshPromise: Promise<boolean> | null = null;
+
+  constructor(options: { baseUrl: string; onUnauthorized?: () => void }) {
+    this.baseUrl = options.baseUrl.replace(/\/$/, '');
+    this.onUnauthorized = options.onUnauthorized || (() => {});
+  }
+
+  setTokens(accessToken: string, refreshToken: string): void {
+    this.accessToken = accessToken;
+    this.refreshToken = refreshToken;
+  }
+
+  clearTokens(): void {
+    this.accessToken = null;
+    this.refreshToken = null;
+  }
+
+  // Typed namespaces
+  auth = {
+    login: (data: { email: string; password: string }) =>
+      this.request<{ tokens: TokenPair; user: User }>('/auth/login', {
+        method: 'POST',
+        body: data,
+      }),
+
+    refresh: () =>
+      this.request<TokenPair>('/auth/refresh', {
+        method: 'POST',
+        body: { refreshToken: this.refreshToken },
+        skipRefresh: true, // Prevent infinite loop
+      }),
+
+    me: () =>
+      this.request<User>('/auth/me', { method: 'GET' }),
+  };
+
+  users = {
+    get: (id: string) =>
+      this.request<User>(`/users/${id}`, { method: 'GET' }),
+
+    update: (id: string, data: Partial<User>) =>
+      this.request<User>(`/users/${id}`, { method: 'PATCH', body: data }),
+  };
+
+  private async request<T>(endpoint: string, options: RequestOptions): Promise<T> {
+    const url = this.buildUrl(endpoint, options.params);
+    
+    const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      ...options.headers
-    },
-    ...options
-  });
+    };
 
-  if (!response.ok) {
-    let body = null;
+    if (this.accessToken) {
+      headers['Authorization'] = `Bearer ${this.accessToken}`;
+    }
+
+    const response = await fetch(url, {
+      method: options.method,
+      headers,
+      body: options.body ? JSON.stringify(options.body) : undefined,
+    });
+
+    // Handle 401 - attempt refresh
+    if (response.status === 401 && !options.skipRefresh) {
+      const refreshed = await this.attemptTokenRefresh();
+      if (refreshed) {
+        return this.request<T>(endpoint, { ...options, skipRefresh: true });
+      }
+      this.onUnauthorized();
+      throw new APIClientError('Unauthorized', 'UNAUTHORIZED', 401);
+    }
+
+    if (!response.ok) {
+      throw await this.parseError(response);
+    }
+
+    if (response.status === 204) return undefined as T;
+    return this.transformResponse<T>(await response.json());
+  }
+
+  private async attemptTokenRefresh(): Promise<boolean> {
+    if (!this.refreshToken) return false;
+
+    // Deduplicate concurrent refresh attempts
+    if (this.isRefreshing) {
+      return this.refreshPromise!;
+    }
+
+    this.isRefreshing = true;
+    this.refreshPromise = this.doRefresh();
+
     try {
-      body = await response.json();
+      return await this.refreshPromise;
+    } finally {
+      this.isRefreshing = false;
+      this.refreshPromise = null;
+    }
+  }
+
+  private async doRefresh(): Promise<boolean> {
+    try {
+      const tokens = await this.auth.refresh();
+      this.setTokens(tokens.accessToken, tokens.refreshToken);
+      return true;
     } catch {
-      // Response may not be JSON
-    }
-    throw new ApiError(response, body);
-  }
-
-  // Handle empty responses (204 No Content)
-  if (response.status === 204) {
-    return /** @type {T} */ (null);
-  }
-
-  return response.json();
-}
-```
-
-### Usage
-
-```javascript
-// GET request
-const user = await api('/api/users/123');
-
-// POST request
-const newUser = await api('/api/users', {
-  method: 'POST',
-  body: JSON.stringify({ name: 'Alice', email: 'alice@example.com' })
-});
-
-// With error handling
-try {
-  const data = await api('/api/protected');
-} catch (error) {
-  if (error instanceof ApiError) {
-    if (error.status === 401) {
-      // Redirect to login
-    } else if (error.status === 404) {
-      // Show not found
+      this.clearTokens();
+      return false;
     }
   }
-  throw error;
-}
-```
 
----
-
-## Error Handling Patterns
-
-### Typed Error Responses
-
-```javascript
-/**
- * @typedef {'validation' | 'auth' | 'not_found' | 'server'} ErrorType
- */
-
-/**
- * @typedef {Object} ValidationError
- * @property {'validation'} type
- * @property {Object<string, string[]>} errors - Field-level errors
- */
-
-/**
- * Check error type and handle appropriately
- * @param {ApiError} error
- */
-function handleApiError(error) {
-  const body = error.body;
-
-  if (error.status === 400 && body?.type === 'validation') {
-    // Show field-level errors
-    Object.entries(body.errors).forEach(([field, messages]) => {
-      console.error(`${field}: ${messages.join(', ')}`);
-    });
-    return;
+  private buildUrl(endpoint: string, params?: Record<string, any>): string {
+    const url = new URL(`${this.baseUrl}${endpoint}`);
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined) url.searchParams.set(key, String(value));
+      });
+    }
+    return url.toString();
   }
 
-  if (error.status === 401) {
-    // Redirect to login
-    window.location.href = '/login';
-    return;
+  private transformResponse<T>(data: unknown): T {
+    // Convert snake_case to camelCase
+    return this.snakeToCamel(data) as T;
   }
 
-  if (error.status === 403) {
-    // Show permission denied
-    showNotification('You do not have permission for this action');
-    return;
+  private snakeToCamel(obj: unknown): unknown {
+    if (Array.isArray(obj)) return obj.map(item => this.snakeToCamel(item));
+    if (obj !== null && typeof obj === 'object') {
+      return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => [
+          key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase()),
+          this.snakeToCamel(value),
+        ])
+      );
+    }
+    return obj;
   }
 
-  if (error.status >= 500) {
-    // Show generic server error
-    showNotification('Something went wrong. Please try again later.');
-    return;
-  }
-
-  // Unknown error - log and show generic message
-  console.error('Unexpected API error:', error);
-  showNotification('An unexpected error occurred');
-}
-```
-
-### Error Boundary Integration
-
-```javascript
-/**
- * Report error to monitoring service
- * @param {Error} error
- * @param {Object} [context]
- */
-function reportError(error, context = {}) {
-  // Use sendBeacon for reliability
-  navigator.sendBeacon('/api/errors', JSON.stringify({
-    message: error.message,
-    stack: error.stack,
-    status: error instanceof ApiError ? error.status : undefined,
-    url: window.location.href,
-    timestamp: Date.now(),
-    ...context
-  }));
-}
-```
-
----
-
-## Retry with Exponential Backoff
-
-```javascript
-/**
- * @typedef {Object} RetryOptions
- * @property {number} [retries=3] - Maximum retry attempts
- * @property {number} [delay=1000] - Initial delay in ms
- * @property {(status: number) => boolean} [retryOn] - Function to determine if status should retry
- */
-
-/**
- * Fetch with automatic retry on failure
- * @template T
- * @param {string} url
- * @param {RequestInit} [options={}]
- * @param {RetryOptions} [retryOptions={}]
- * @returns {Promise<T>}
- */
-async function fetchWithRetry(url, options = {}, retryOptions = {}) {
-  const {
-    retries = 3,
-    delay = 1000,
-    retryOn = (status) => status >= 500 && status <= 504
-  } = retryOptions;
-
-  let lastError;
-
-  for (let attempt = 0; attempt <= retries; attempt++) {
+  private async parseError(response: Response): Promise<APIClientError> {
     try {
-      return await api(url, options);
-    } catch (error) {
-      lastError = error;
-
-      // Don't retry on client errors or if not a retryable status
-      if (error instanceof ApiError && !retryOn(error.status)) {
-        throw error;
-      }
-
-      // Don't retry if we've exhausted attempts
-      if (attempt === retries) {
-        throw error;
-      }
-
-      // Exponential backoff: 1s, 2s, 4s, 8s...
-      const backoff = delay * Math.pow(2, attempt);
-      await new Promise(resolve => setTimeout(resolve, backoff));
+      const data = await response.json();
+      return new APIClientError(
+        data.message || 'Request failed',
+        data.code || 'UNKNOWN_ERROR',
+        response.status,
+        data.details
+      );
+    } catch {
+      return new APIClientError('Request failed', 'UNKNOWN_ERROR', response.status);
     }
   }
-
-  throw lastError;
 }
-```
 
-### Usage
-
-```javascript
-// Retry up to 3 times with exponential backoff
-const data = await fetchWithRetry('/api/unstable-endpoint', {}, {
-  retries: 3,
-  delay: 1000,
-  retryOn: (status) => status === 503 || status === 429
+// Singleton export
+export const apiClient = new APIClient({
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || '/api',
+  onUnauthorized: () => {
+    if (typeof window !== 'undefined') window.location.href = '/login';
+  },
 });
 ```
 
----
+### TanStack Query Integration
 
-## Request Cancellation
+```typescript
+// lib/api/query-keys.ts
+export const queryKeys = {
+  auth: {
+    all: ['auth'] as const,
+    me: () => [...queryKeys.auth.all, 'me'] as const,
+  },
+  users: {
+    all: ['users'] as const,
+    detail: (id: string) => [...queryKeys.users.all, id] as const,
+  },
+} as const;
 
-### Timeout Pattern
+// lib/api/hooks/use-auth.ts
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-```javascript
-/**
- * Fetch with automatic timeout
- * @template T
- * @param {string} url
- * @param {RequestInit & {timeout?: number}} [options={}]
- * @returns {Promise<T>}
- */
-async function fetchWithTimeout(url, options = {}) {
-  const { timeout = 10000, ...fetchOptions } = options;
-
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
-
-  try {
-    return await api(url, {
-      ...fetchOptions,
-      signal: controller.signal
-    });
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      throw new Error(`Request timed out after ${timeout}ms`);
-    }
-    throw error;
-  } finally {
-    clearTimeout(timeoutId);
-  }
+export function useCurrentUser() {
+  return useQuery({
+    queryKey: queryKeys.auth.me(),
+    queryFn: () => apiClient.auth.me(),
+    staleTime: 5 * 60 * 1000,
+    retry: false,
+  });
 }
-```
 
-### Component Cleanup
+export function useLogin() {
+  const queryClient = useQueryClient();
 
-```javascript
-class DataComponent extends HTMLElement {
-  /** @type {AbortController | null} */
-  #controller = null;
-
-  async connectedCallback() {
-    this.#controller = new AbortController();
-
-    try {
-      const data = await api('/api/data', {
-        signal: this.#controller.signal
-      });
-      this.render(data);
-    } catch (error) {
-      if (error.name === 'AbortError') {
-        // Component was disconnected - ignore
-        return;
-      }
-      this.renderError(error);
-    }
-  }
-
-  disconnectedCallback() {
-    // Cancel any in-flight requests
-    this.#controller?.abort();
-  }
-}
-```
-
----
-
-## Response Caching
-
-### In-Memory Cache with TTL
-
-```javascript
-/**
- * @typedef {Object} CacheEntry
- * @property {*} data
- * @property {number} expires
- */
-
-/**
- * Create a cached fetch function
- * @param {number} ttl - Time to live in milliseconds
- * @returns {<T>(url: string, options?: RequestInit) => Promise<T>}
- */
-function createCachedFetch(ttl = 60000) {
-  /** @type {Map<string, CacheEntry>} */
-  const cache = new Map();
-
-  return async function cachedFetch(url, options = {}) {
-    // Only cache GET requests
-    const method = options.method?.toUpperCase() || 'GET';
-    if (method !== 'GET') {
-      return api(url, options);
-    }
-
-    const cacheKey = url;
-    const cached = cache.get(cacheKey);
-
-    if (cached && cached.expires > Date.now()) {
-      return cached.data;
-    }
-
-    const data = await api(url, options);
-
-    cache.set(cacheKey, {
-      data,
-      expires: Date.now() + ttl
-    });
-
-    return data;
-  };
-}
-```
-
-### Cache Invalidation
-
-```javascript
-/**
- * Create a cache manager with invalidation
- */
-function createCacheManager(ttl = 60000) {
-  const cache = new Map();
-
-  return {
-    async fetch(url, options = {}) {
-      // Same caching logic as above
+  return useMutation({
+    mutationFn: (data: { email: string; password: string }) =>
+      apiClient.auth.login(data),
+    onSuccess: (response) => {
+      apiClient.setTokens(response.tokens.accessToken, response.tokens.refreshToken);
+      queryClient.setQueryData(queryKeys.auth.me(), response.user);
     },
-
-    /**
-     * Invalidate specific URL
-     * @param {string} url
-     */
-    invalidate(url) {
-      cache.delete(url);
-    },
-
-    /**
-     * Invalidate URLs matching pattern
-     * @param {RegExp} pattern
-     */
-    invalidatePattern(pattern) {
-      for (const key of cache.keys()) {
-        if (pattern.test(key)) {
-          cache.delete(key);
-        }
-      }
-    },
-
-    /**
-     * Clear entire cache
-     */
-    clear() {
-      cache.clear();
-    }
-  };
+  });
 }
 ```
 
----
+## Usage Examples
 
-## Request Deduplication
+### Component Usage
 
-Prevent duplicate in-flight requests:
+```tsx
+function UserProfile() {
+  const { data: user, isLoading } = useCurrentUser();
+  const logout = useLogout();
 
-```javascript
-/**
- * Create a deduplicated fetch function
- * @returns {<T>(url: string, options?: RequestInit) => Promise<T>}
- */
-function createDedupedFetch() {
-  /** @type {Map<string, Promise<*>>} */
-  const pending = new Map();
+  if (isLoading) return <div>Loading...</div>;
 
-  return async function dedupedFetch(url, options = {}) {
-    const method = options.method?.toUpperCase() || 'GET';
-
-    // Only dedupe GET requests
-    if (method !== 'GET') {
-      return api(url, options);
-    }
-
-    const key = url;
-
-    // Return existing promise if request is in-flight
-    if (pending.has(key)) {
-      return pending.get(key);
-    }
-
-    // Create new request
-    const promise = api(url, options).finally(() => {
-      pending.delete(key);
-    });
-
-    pending.set(key, promise);
-    return promise;
-  };
+  return (
+    <div>
+      <h2>{user?.displayName}</h2>
+      <button onClick={() => logout.mutate()}>Logout</button>
+    </div>
+  );
 }
 ```
 
-### Usage
+## Best Practices
 
-```javascript
-const dedupedFetch = createDedupedFetch();
+1. Typed namespaces - Group related endpoints for discoverability
+2. Token refresh deduplication - Prevent multiple concurrent refresh requests
+3. Query key factory - Consistent cache key management
+4. Response transformation - Convert snake_case to camelCase automatically
+5. Singleton export - Single instance for consistent token state
 
-// These will only make ONE network request
-const [user1, user2, user3] = await Promise.all([
-  dedupedFetch('/api/users/123'),
-  dedupedFetch('/api/users/123'),
-  dedupedFetch('/api/users/123')
-]);
-```
+## Common Mistakes
 
----
+- Not deduplicating token refresh (causes race conditions)
+- Forgetting skipRefresh on refresh endpoint (infinite loop)
+- Scattered fetch calls without centralized error handling
+- No response transformation (inconsistent casing)
+- Creating multiple client instances (token state mismatch)
 
-## Offline Queue
+## Related Patterns
 
-Queue failed mutations for retry when online:
-
-```javascript
-/**
- * @typedef {Object} QueuedRequest
- * @property {string} url
- * @property {RequestInit} options
- * @property {number} timestamp
- */
-
-/**
- * Create an offline-capable mutation queue
- */
-function createOfflineQueue() {
-  const STORAGE_KEY = 'offline-queue';
-
-  /**
-   * Load queue from storage
-   * @returns {QueuedRequest[]}
-   */
-  function loadQueue() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
-  }
-
-  /**
-   * Save queue to storage
-   * @param {QueuedRequest[]} queue
-   */
-  function saveQueue(queue) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(queue));
-  }
-
-  /**
-   * Add request to queue
-   * @param {string} url
-   * @param {RequestInit} options
-   */
-  function enqueue(url, options) {
-    const queue = loadQueue();
-    queue.push({ url, options, timestamp: Date.now() });
-    saveQueue(queue);
-  }
-
-  /**
-   * Process all queued requests
-   */
-  async function flush() {
-    const queue = loadQueue();
-    const failed = [];
-
-    for (const request of queue) {
-      try {
-        await api(request.url, request.options);
-      } catch (error) {
-        // Keep failed requests for next attempt
-        failed.push(request);
-      }
-    }
-
-    saveQueue(failed);
-  }
-
-  // Auto-flush when coming online
-  window.addEventListener('online', flush);
-
-  return {
-    /**
-     * Execute request, queue if offline
-     * @template T
-     * @param {string} url
-     * @param {RequestInit} options
-     * @returns {Promise<T>}
-     */
-    async execute(url, options) {
-      if (!navigator.onLine) {
-        enqueue(url, options);
-        throw new Error('Request queued - you are offline');
-      }
-
-      try {
-        return await api(url, options);
-      } catch (error) {
-        // Queue network errors for retry
-        if (error.name === 'TypeError') {
-          enqueue(url, options);
-          throw new Error('Request queued - network error');
-        }
-        throw error;
-      }
-    },
-
-    flush,
-    getQueue: loadQueue
-  };
-}
-```
-
----
-
-## Complete API Client
-
-Combining all patterns:
-
-```javascript
-/**
- * Create a full-featured API client
- * @param {Object} config
- * @param {string} config.baseUrl
- * @param {number} [config.timeout=10000]
- * @param {number} [config.cacheTtl=60000]
- * @param {number} [config.retries=3]
- */
-function createApiClient(config) {
-  const { baseUrl, timeout = 10000, cacheTtl = 60000, retries = 3 } = config;
-
-  const cache = new Map();
-  const pending = new Map();
-
-  /**
-   * @template T
-   * @param {string} endpoint
-   * @param {RequestInit & {skipCache?: boolean}} [options={}]
-   * @returns {Promise<T>}
-   */
-  async function request(endpoint, options = {}) {
-    const url = `${baseUrl}${endpoint}`;
-    const method = options.method?.toUpperCase() || 'GET';
-    const { skipCache = false, ...fetchOptions } = options;
-
-    // Check cache for GET requests
-    if (method === 'GET' && !skipCache) {
-      const cached = cache.get(url);
-      if (cached && cached.expires > Date.now()) {
-        return cached.data;
-      }
-    }
-
-    // Dedupe GET requests
-    if (method === 'GET' && pending.has(url)) {
-      return pending.get(url);
-    }
-
-    // Set up abort controller for timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), timeout);
-
-    const promise = fetchWithRetry(url, {
-      ...fetchOptions,
-      signal: controller.signal
-    }, { retries })
-      .then(data => {
-        // Cache GET responses
-        if (method === 'GET') {
-          cache.set(url, { data, expires: Date.now() + cacheTtl });
-        }
-        return data;
-      })
-      .finally(() => {
-        clearTimeout(timeoutId);
-        pending.delete(url);
-      });
-
-    if (method === 'GET') {
-      pending.set(url, promise);
-    }
-
-    return promise;
-  }
-
-  return {
-    get: (endpoint, options) => request(endpoint, options),
-    post: (endpoint, body, options) => request(endpoint, {
-      method: 'POST',
-      body: JSON.stringify(body),
-      ...options
-    }),
-    put: (endpoint, body, options) => request(endpoint, {
-      method: 'PUT',
-      body: JSON.stringify(body),
-      ...options
-    }),
-    delete: (endpoint, options) => request(endpoint, {
-      method: 'DELETE',
-      ...options
-    }),
-    invalidateCache: (pattern) => {
-      for (const key of cache.keys()) {
-        if (key.includes(pattern)) {
-          cache.delete(key);
-        }
-      }
-    }
-  };
-}
-```
-
----
-
-## API Client Checklist
-
-When implementing API calls:
-
-- [ ] All requests have a timeout
-- [ ] AbortController used for cancellation
-- [ ] Errors include status code and parsed body
-- [ ] Retry only on safe/idempotent operations
-- [ ] Cache keys include all relevant parameters
-- [ ] Component cleanup aborts in-flight requests
-- [ ] Consider offline queue for mutations
-- [ ] Use JSDoc types for request/response shapes
-
-## Related Skills
-
-- **state-management** - Client-side state patterns for Web Components
-- **authentication** - Implement secure authentication with JWT, sessions, OAuth...
-- **rest-api** - Write REST API endpoints with HTTP methods, status codes,...
-- **observability** - Implement error tracking, performance monitoring, and use...
+- jwt-auth - JWT authentication implementation
+- rate-limiting - Client-side rate limiting
+- error-handling - Error handling patterns

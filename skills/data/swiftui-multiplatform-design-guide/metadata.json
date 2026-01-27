@@ -1,0 +1,14 @@
+{
+  "name": "swiftui-multiplatform-design-guide",
+  "description": "\"Unified SwiftUI architecture for iOS, iPadOS, macOS, and visionOS with spatial design principles.\"",
+  "repo": "mosif16/codex-Skills",
+  "category": "design",
+  "tags": [
+    "swiftui",
+    "multiplatform",
+    "design",
+    "guide"
+  ],
+  "stars": 4,
+  "source": "local"
+}

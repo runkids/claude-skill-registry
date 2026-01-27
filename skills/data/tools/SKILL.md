@@ -1,164 +1,190 @@
-description: Create reusable command or Skill scaffolds tailored to your project's recurring tasks.
-argument-hint: <description>
-allowed-tools: Filesystem
+---
+description: Imported skill tools from langchain
+name: tools
+signature: 167162d8c95f4b005c8011868a6030bf245ae63b0870ba6c3cb30fd127ff0d4f
+source: /a0/tmp/skills_research/langchain/libs/deepagents-cli/deepagents_cli/tools.py
 ---
 
-# Create New Custom Skill
+"""Custom tools for the CLI agent."""
 
-You are tasked with creating a new custom Skill for Claude based on the user's description. Follow the process below carefully to ensure the Skill is well-structured, follows best practices, and is ready for immediate use.
+from typing import Any, Literal
 
-## User's Skill Description
+import requests
+from markdownify import markdownify
+from tavily import TavilyClient
 
-$ARGUMENTS
+from deepagents_cli.config import settings
 
-## Your Task
+# Initialize Tavily client if API key is available
+tavily_client = TavilyClient(api_key=settings.tavily_api_key) if settings.has_tavily else None
 
-Create a complete, production-ready custom Skill following the structure and best practices outlined below. Use chain of thought reasoning to ensure the Skill is well-designed.
 
-<thinking>
+def http_request(
+    url: str,
+    method: str = "GET",
+    headers: dict[str, str] | None = None,
+    data: str | dict | None = None,
+    params: dict[str, str] | None = None,
+    timeout: int = 30,
+) -> dict[str, Any]:
+    """Make HTTP requests to APIs and web services.
 
-Before creating the Skill, think through the following systematically:
+    Args:
+        url: Target URL
+        method: HTTP method (GET, POST, PUT, DELETE, etc.)
+        headers: HTTP headers to include
+        data: Request body data (string or dict)
+        params: URL query parameters
+        timeout: Request timeout in seconds
 
-1. **Understand the purpose**: What specific problem does this Skill solve? What workflows does it enable?
+    Returns:
+        Dictionary with response data including status, headers, and content
+    """
+    try:
+        kwargs = {"url": url, "method": method.upper(), "timeout": timeout}
 
-2. **Determine scope**: Is this Skill focused enough? Does it try to do one thing well, or is it too broad?
+        if headers:
+            kwargs["headers"] = headers
+        if params:
+            kwargs["params"] = params
+        if data:
+            if isinstance(data, dict):
+                kwargs["json"] = data
+            else:
+                kwargs["data"] = data
 
-3. **Identify when to use it**: In what situations should Claude invoke this Skill? What keywords or contexts should trigger it?
+        response = requests.request(**kwargs)
 
-4. **Plan the structure**: 
-   - What metadata is required (name, description, version, dependencies)?
-   - Should this Skill include additional resource files?
-   - Does it need executable scripts or code?
-   - What examples would be helpful?
+        try:
+            content = response.json()
+        except:
+            content = response.text
 
-5. **Consider the user's workflow**: How will this Skill integrate with their existing processes?
+        return {
+            "success": response.status_code < 400,
+            "status_code": response.status_code,
+            "headers": dict(response.headers),
+            "content": content,
+            "url": response.url,
+        }
 
-6. **Think about completeness**: What information needs to be included to make this Skill immediately useful?
+    except requests.exceptions.Timeout:
+        return {
+            "success": False,
+            "status_code": 0,
+            "headers": {},
+            "content": f"Request timed out after {timeout} seconds",
+            "url": url,
+        }
+    except requests.exceptions.RequestException as e:
+        return {
+            "success": False,
+            "status_code": 0,
+            "headers": {},
+            "content": f"Request error: {e!s}",
+            "url": url,
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "status_code": 0,
+            "headers": {},
+            "content": f"Error making request: {e!s}",
+            "url": url,
+        }
 
-</thinking>
 
-## Skill Structure Guidelines
+def web_search(
+    query: str,
+    max_results: int = 5,
+    topic: Literal["general", "news", "finance"] = "general",
+    include_raw_content: bool = False,
+):
+    """Search the web using Tavily for current information and documentation.
 
-### Required Components
+    This tool searches the web and returns relevant results. After receiving results,
+    you MUST synthesize the information into a natural, helpful response for the user.
 
-1. **Metadata (YAML frontmatter)**:
-   - `name`: Human-friendly name (64 chars max)
-   - `description`: Clear description of what the Skill does and when to use it (200 chars max) - CRITICAL for Claude to know when to invoke this Skill
-   - `version`: Optional version tracking (e.g., 1.0.0)
-   - `dependencies`: Optional software packages required
+    Args:
+        query: The search query (be specific and detailed)
+        max_results: Number of results to return (default: 5)
+        topic: Search topic type - "general" for most queries, "news" for current events
+        include_raw_content: Include full page content (warning: uses more tokens)
 
-2. **Markdown Body**:
-   - Overview section explaining the Skill's purpose
-   - Clear instructions for Claude
-   - When to apply guidelines
-   - Examples (when helpful)
-   - Any specific workflows or processes
+    Returns:
+        Dictionary containing:
+        - results: List of search results, each with:
+            - title: Page title
+            - url: Page URL
+            - content: Relevant excerpt from the page
+            - score: Relevance score (0-1)
+        - query: The original search query
 
-### Best Practices
+    IMPORTANT: After using this tool:
+    1. Read through the 'content' field of each result
+    2. Extract relevant information that answers the user's question
+    3. Synthesize this into a clear, natural language response
+    4. Cite sources by mentioning the page titles or URLs
+    5. NEVER show the raw JSON to the user - always provide a formatted response
+    """
+    if tavily_client is None:
+        return {
+            "error": "Tavily API key not configured. Please set TAVILY_API_KEY environment variable.",
+            "query": query,
+        }
 
-- **Keep it focused**: Solve one specific, repeatable task well
-- **Write clear descriptions**: Be specific about when the Skill applies
-- **Include examples**: Show what success looks like when helpful
-- **Use clear structure**: Organize with headers and sections
-- **Be explicit**: Don't assume Claude knows your workflows or preferences
+    try:
+        return tavily_client.search(
+            query,
+            max_results=max_results,
+            include_raw_content=include_raw_content,
+            topic=topic,
+        )
+    except Exception as e:
+        return {"error": f"Web search error: {e!s}", "query": query}
 
-### Progressive Disclosure
 
-The Skill system uses progressive disclosure:
-1. **First level (metadata)**: Claude reads this to determine IF the Skill should be used
-2. **Second level (markdown body)**: Claude accesses this WHEN executing the Skill
-3. **Third level (resources)**: Additional files Claude can reference if needed
+def fetch_url(url: str, timeout: int = 30) -> dict[str, Any]:
+    """Fetch content from a URL and convert HTML to markdown format.
 
-## Creation Process
+    This tool fetches web page content and converts it to clean markdown text,
+    making it easy to read and process HTML content. After receiving the markdown,
+    you MUST synthesize the information into a natural, helpful response for the user.
 
-1. **Analyze the description**: Understand what the user needs
-2. **Design the Skill structure**: Plan metadata, sections, and content
-3. **Create the directory**: Make a folder named after the Skill (lowercase with hyphens)
-4. **Write SKILL.md**: Include frontmatter and well-organized markdown content
-5. **Add resources if needed**: Create additional files only if the Skill is complex enough to warrant them
-6. **Present the result**: Show the user the complete Skill structure
+    Args:
+        url: The URL to fetch (must be a valid HTTP/HTTPS URL)
+        timeout: Request timeout in seconds (default: 30)
 
-## Output Format
+    Returns:
+        Dictionary containing:
+        - success: Whether the request succeeded
+        - url: The final URL after redirects
+        - markdown_content: The page content converted to markdown
+        - status_code: HTTP status code
+        - content_length: Length of the markdown content in characters
 
-After your thinking, create the Skill with the following structure:
+    IMPORTANT: After using this tool:
+    1. Read through the markdown content
+    2. Extract relevant information that answers the user's question
+    3. Synthesize this into a clear, natural language response
+    4. NEVER show the raw markdown to the user unless specifically requested
+    """
+    try:
+        response = requests.get(
+            url,
+            timeout=timeout,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; DeepAgents/1.0)"},
+        )
+        response.raise_for_status()
 
-```
-skill-name/
-├── SKILL.md          (Required: main Skill file)
-├── REFERENCE.md      (Optional: supplemental information)
-├── EXAMPLES.md       (Optional: detailed examples)
-└── resources/        (Optional: scripts, templates, etc.)
-```
+        # Convert HTML content to markdown
+        markdown_content = markdownify(response.text)
 
-For most Skills, a single well-crafted SKILL.md file is sufficient.
-
-## Example SKILL.md Template
-
-```markdown
----
-name: Skill Name
-description: Brief description of what this Skill does and when to use it
-version: 1.0.0
-dependencies: package>=version (if needed)
----
-
-## Overview
-
-Explain the Skill's purpose and value. When should Claude use this Skill? What problem does it solve?
-
-## Instructions
-
-Provide clear, specific instructions for Claude to follow when executing this Skill. Be detailed but organized.
-
-### Section 1
-[Detailed guidance]
-
-### Section 2
-[More guidance]
-
-## When to Apply
-
-List specific situations where this Skill should be used:
-- Condition 1
-- Condition 2
-- Condition 3
-
-## Examples
-
-### Example 1: [Scenario]
-Input: [Example input]
-Expected output: [What success looks like]
-
-### Example 2: [Another scenario]
-[Another example if helpful]
-
-## Additional Guidelines
-
-Any other important information, constraints, or best practices.
-```
-
-## Important Reminders
-
-- The `description` field is CRITICAL - Claude uses it to determine when to invoke your Skill
-- Keep Skills focused on one workflow rather than trying to do everything
-- Start simple - you can always expand the Skill later
-- Include examples when they would help Claude understand the expected output
-- Use clear, unambiguous language
-- Test with example prompts after creation
-
-## Now Execute
-
-Based on the user's description: "$ARGUMENTS"
-
-1. Think through the Skill design using the structured thinking process above
-2. Create the appropriate directory structure
-3. Write a complete, production-ready SKILL.md file
-4. Add any necessary resource files if the Skill requires them
-5. Present the complete Skill to the user with:
-   - The directory structure
-   - The full SKILL.md content
-   - Any additional files created
-   - A brief explanation of how to install and use it
-
-Create the Skill files in the current directory under a new folder with an appropriate name (lowercase with hyphens).
-
+        return {
+            "url": str(response.url),
+            "markdown_content": markdown_content,
+            "status_code": response.status_code,
+            "content_length": len(markdown_content),
+        }
+    except Exception as e:
+        return {"error": f"Fetch URL error: {e!s}", "url": url}

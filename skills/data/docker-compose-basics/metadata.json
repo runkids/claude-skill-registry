@@ -1,0 +1,9 @@
+{
+  "name": "docker-compose-basics",
+  "description": "Use when defining and running multi-container Docker applications with Docker Compose YAML configuration.",
+  "repo": "TheBushidoCollective/han",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/TheBushidoCollective/han"
+}

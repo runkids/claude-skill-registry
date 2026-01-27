@@ -1,0 +1,9 @@
+{
+  "name": "maintenancepm",
+  "description": "Preventive maintenance schedules for MNMUK machine shop equipment.\nCovers DMG MORI, CITIZEN, MITSUBISHI EDM, Haas, and support equipment.\nUSE WHEN user asks 'PM schedule', 'maintenance', 'service due'",
+  "repo": "robdtaylor/personal-ai-infrastructure",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/robdtaylor/personal-ai-infrastructure"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "methylation-pipeline",
+  "description": "End-to-end bisulfite sequencing workflow from FASTQ to differentially methylated regions. Covers Bismark alignment, methylation calling, and DMR detection with methylKit.",
+  "repo": "GPTomics/bioSkills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/GPTomics/bioSkills"
+}

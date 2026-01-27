@@ -1,0 +1,9 @@
+{
+  "name": "screen-generator",
+  "description": "Generates new React Native screens following Ishkul patterns. Creates screen component with proper hooks ordering, state management, loading/error/success states, navigation setup, and matching test f",
+  "repo": "mesbahtanvir/ishkul",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

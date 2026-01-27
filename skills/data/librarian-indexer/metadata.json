@@ -1,0 +1,9 @@
+{
+  "name": "librarian-indexer",
+  "description": "Meta-skill that indexes, optimizes, and auto-generates Claude skills with GitOps automation, OCA GitHub bot integration, and Odoo developer tools. Use for skill creation, CI/CD workflows, OCA module m",
+  "repo": "jgtolentino/insightpulse-odoo",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

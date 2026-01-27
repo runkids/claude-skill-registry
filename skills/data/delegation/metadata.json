@@ -1,0 +1,9 @@
+{
+  "name": "delegation",
+  "description": "This skill configures automatic task delegation between agents in Synapse A2A. Use /delegate to set up rules for routing coding tasks to Codex, research to Gemini, etc. Supports orchestrator mode (Cla",
+  "repo": "s-hiraoku/synapse-a2a",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/s-hiraoku/synapse-a2a"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "convert-python-elm",
+  "description": "Convert Python code to idiomatic Elm. Use when migrating Python backends to Elm frontends, translating Python logic to type-safe frontend code, or refactoring Python codebases into functional-first El",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

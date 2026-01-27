@@ -1,15 +1,7 @@
 {
   "name": "datadog-cli",
-  "description": "Datadog CLI for debugging and triaging. Use this skill when you need to:search Datadog logs, query metrics, tail logs in real-time, trace distributed requests,investigate errors, compare time periods,",
-  "repo": "ctdio/datadog-cli",
-  "category": "data",
-  "tags": [
-    "datadog",
-    "cli"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "datadog-cli",
-  "github_path": "skills/datadog-cli",
-  "github_branch": "main"
+  "repo": "softaworks/agent-toolkit",
+  "path": "skills/datadog-cli/SKILL.md",
+  "source": "github.com/softaworks/agent-toolkit",
+  "downloaded_at": "2026-01-27T01:11:42.706019Z"
 }

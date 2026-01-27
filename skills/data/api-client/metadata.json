@@ -1,15 +1,7 @@
 {
   "name": "api-client",
-  "description": "Fetch API patterns with error handling, retry logic, and caching. Use when building API integrations, handling network failures, or implementing offline-first data fetching.",
-  "repo": "ProfPowell/project-template",
-  "category": "data",
-  "tags": [
-    "api",
-    "client"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "api-client",
-  "github_path": ".claude/skills/api-client",
-  "github_branch": "main"
+  "repo": "dadbodgeoff/drift",
+  "path": "skills/api-client/SKILL.md",
+  "source": "github.com/dadbodgeoff/drift",
+  "downloaded_at": "2026-01-27T02:41:11.466896Z"
 }

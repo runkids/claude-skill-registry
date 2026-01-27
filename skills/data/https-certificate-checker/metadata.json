@@ -1,0 +1,9 @@
+{
+  "name": "https-certificate-checker",
+  "description": "Https Certificate Checker - Auto-activating skill for Security Fundamentals.Triggers on: https certificate checker, https certificate checkerPart of the Security Fundamentals skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

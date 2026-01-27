@@ -1,0 +1,9 @@
+{
+  "name": "service-account-manager",
+  "description": "Service Account Manager - Auto-activating skill for GCP Skills.Triggers on: service account manager, service account managerPart of the GCP Skills skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

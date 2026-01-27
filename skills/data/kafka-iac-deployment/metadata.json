@@ -1,0 +1,9 @@
+{
+  "name": "kafka-iac-deployment",
+  "description": "Infrastructure as Code (IaC) deployment expert for Apache Kafka. Guides Terraform deployments across Apache Kafka (KRaft mode), AWS MSK, Azure Event Hubs. Activates for terraform, iac, infrastructure ",
+  "repo": "anton-abyzov/specweave",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "pre-push",
+  "description": "Run all validations before pushing to remote",
+  "repo": "Taketo-Yoda/uv-sbom",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/Taketo-Yoda/uv-sbom"
+}

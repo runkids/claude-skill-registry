@@ -1,0 +1,9 @@
+{
+  "name": "vertex-infra-expert",
+  "description": "Use when provisioning Vertex AI infrastructure with Terraform. Trigger with phrases like \"vertex ai terraform\", \"deploy gemini terraform\", \"model garden infrastructure\", \"vertex ai endpoints terraform",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

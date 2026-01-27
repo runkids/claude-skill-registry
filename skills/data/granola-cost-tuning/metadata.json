@@ -1,0 +1,9 @@
+{
+  "name": "granola-cost-tuning",
+  "description": "Optimize Granola costs and select the right pricing plan.\nUse when evaluating plans, reducing costs,\nor maximizing value from Granola subscription.\nTrigger with phrases like \"granola cost\", \"granola p",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

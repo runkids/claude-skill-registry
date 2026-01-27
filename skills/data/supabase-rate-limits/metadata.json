@@ -1,0 +1,9 @@
+{
+  "name": "supabase-rate-limits",
+  "description": "Implement Supabase rate limiting, backoff, and idempotency patterns.Use when handling rate limit errors, implementing retry logic,or optimizing API request throughput for Supabase.Trigger with phrases",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "multiome-pipeline",
+  "description": "End-to-end multiome workflow for joint scRNA-seq + scATAC-seq analysis. Covers data loading, separate modality processing, and WNN integration with Seurat/Signac.",
+  "repo": "GPTomics/bioSkills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/GPTomics/bioSkills"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "add-database-table",
+  "description": "Create database migrations and constant tables for new entities.",
+  "repo": "abyssparanoia/rapid-go",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/abyssparanoia/rapid-go"
+}

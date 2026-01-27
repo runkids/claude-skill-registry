@@ -1,0 +1,9 @@
+{
+  "name": "django-patterns",
+  "description": "Implement common Django design patterns including managers, querysets, mixins, services, and architectural patterns. Use when refactoring code or implementing standard Django patterns.",
+  "repo": "gizix/cc_projects",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

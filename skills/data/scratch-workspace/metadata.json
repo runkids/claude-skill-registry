@@ -1,0 +1,9 @@
+{
+  "name": "scratch-workspace",
+  "description": "Use when creating temporary files, drafts, experiments, or any content that should not be committed to version control. Ensures proper placement in .claude/.scratch with gitignore configuration.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

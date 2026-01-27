@@ -1,0 +1,9 @@
+{
+  "name": "sentry-multi-env-setup",
+  "description": "Configure Sentry across multiple environments.Use when setting up Sentry for dev/staging/production,managing environment-specific configurations, or isolating data.Trigger with phrases like \"sentry en",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

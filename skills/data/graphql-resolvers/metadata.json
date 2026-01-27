@@ -1,14 +1,7 @@
 {
   "name": "graphql-resolvers",
-  "description": "Write efficient resolvers with DataLoader, batching, and N+1 prevention",
-  "repo": "pluginagentmarketplace/custom-plugin-graphql",
-  "category": "data",
-  "tags": [
-    "graphql",
-    "resolvers"
-  ],
-  "stars": 1,
-  "dir_name": "graphql-resolvers",
-  "github_path": "skills/graphql-resolvers",
-  "github_branch": "main"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-graphql/skills/graphql-resolvers/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-27T01:28:04.209026Z"
 }

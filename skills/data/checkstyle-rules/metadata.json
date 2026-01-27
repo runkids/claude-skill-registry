@@ -1,0 +1,9 @@
+{
+  "name": "checkstyle-rules",
+  "description": "Use when applying Checkstyle built-in checks for Java code including naming conventions, code metrics, and suppressions.",
+  "repo": "TheBushidoCollective/han",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

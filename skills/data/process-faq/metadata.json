@@ -1,0 +1,9 @@
+{
+  "name": "process-faq",
+  "description": "Process and transform FAQ documents (xlsx, word, pdf, txt) into RAG-optimized format. Use when working with FAQ files, knowledge base documents, or when the user needs to analyze and restructure FAQ c",
+  "repo": "joneqian/claude-skills-suite",
+  "category": "documents",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

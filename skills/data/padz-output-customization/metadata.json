@@ -1,0 +1,9 @@
+{
+  "name": "padz-output-customization",
+  "description": "Guide for customizing padz CLI output using templates and stylesheets. Use when working on padz rendering, modifying how pads are displayed, changing colors/styles, editing Jinja templates, or working",
+  "repo": "arthur-debert/padz",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/arthur-debert/padz"
+}

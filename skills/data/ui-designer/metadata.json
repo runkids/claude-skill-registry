@@ -1,0 +1,9 @@
+{
+  "name": "ui-designer",
+  "description": "Extract design systems from reference UI images and generate implementation-ready UI design prompts. Use when users provide UI screenshots/mockups and want to create consistent designs, generate desig",
+  "repo": "daymade/claude-code-skills",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "local"
+}

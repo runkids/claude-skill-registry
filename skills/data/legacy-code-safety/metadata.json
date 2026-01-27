@@ -1,0 +1,9 @@
+{
+  "name": "legacy-code-safety",
+  "description": "Use when modifying, removing, or refactoring code that lacks test coverage. Emphasizes the danger of untested changes and the RGR workflow to add characterization tests before modifications.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

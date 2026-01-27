@@ -1,0 +1,9 @@
+{
+  "name": "brownfield-onboarder",
+  "description": "Purpose: Intelligently merge existing CLAUDE.md backups into SpecWeave's structure without bloating the main CLAUDE.md file.",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

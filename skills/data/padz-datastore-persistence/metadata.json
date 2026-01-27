@@ -1,0 +1,9 @@
+{
+  "name": "padz-datastore-persistence",
+  "description": "Explains the padz hybrid store architecture—files are truth, JSON metadata is a rebuildable cache. Covers self-healing reconciliation (orphans, zombies, staleness), the Backend+Store split for testabi",
+  "repo": "arthur-debert/padz",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/arthur-debert/padz"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "hooks-validator",
+  "description": "Validates React code for Rules of Hooks violations. Catches issues like hooks called after conditional returns that cause production crashes (React error",
+  "repo": "mesbahtanvir/ishkul",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

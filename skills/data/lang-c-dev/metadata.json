@@ -1,0 +1,9 @@
+{
+  "name": "lang-c-dev",
+  "description": "Foundational C programming patterns covering type system, memory management, pointers, arrays, preprocessor, compilation, concurrency (pthreads, mutexes, atomics), serialization (binary, JSON, struct ",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

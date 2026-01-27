@@ -1,0 +1,9 @@
+{
+  "name": "ctf-crypto",
+  "description": "Solve CTF cryptography challenges by identifying, analyzing, and exploiting weak crypto implementations in binaries to extract keys or decrypt data. Use for custom ciphers, weak crypto, key extraction",
+  "repo": "cyberkaida/reverse-engineering-assistant",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

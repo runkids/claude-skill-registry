@@ -1,0 +1,9 @@
+{
+  "name": "skill-neovim-implementation",
+  "description": "Implement Neovim plugins and configurations with TDD. Invoke for lua-language implementation tasks.",
+  "repo": "benbrastmckie/.config",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/benbrastmckie/.config"
+}

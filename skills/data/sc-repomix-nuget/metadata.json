@@ -1,11 +1,7 @@
 {
   "name": "sc-repomix-nuget",
   "repo": "randlee/synaptic-canvas",
-  "category": "data",
-  "description": "Generate AI-optimized context for NuGet packages using Repomix. Use when preparing AI docs, API references, or dependency analysis (\"nuget context\", \"repomix nuget\").",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:49.123810Z",
-  "dir_name": "sc-repomix-nuget",
-  "github_path": "packages/sc-repomix-nuget/skills/sc-repomix-nuget",
-  "github_branch": "main"
+  "path": "packages/sc-repomix-nuget/skills/sc-repomix-nuget/SKILL.md",
+  "source": "github.com/randlee/synaptic-canvas",
+  "downloaded_at": "2026-01-27T02:22:03.635438Z"
 }

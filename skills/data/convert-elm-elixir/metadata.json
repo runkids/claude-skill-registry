@@ -1,0 +1,9 @@
+{
+  "name": "convert-elm-elixir",
+  "description": "Convert Elm code to idiomatic Elixir. Use when migrating Elm frontend applications to Elixir (Phoenix LiveView), translating Elm's functional patterns to Elixir, or refactoring Elm codebases to levera",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

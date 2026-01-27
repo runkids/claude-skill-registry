@@ -1,0 +1,9 @@
+{
+  "name": "vertex-ai-endpoint-config",
+  "description": "Vertex Ai Endpoint Config - Auto-activating skill for GCP Skills.Triggers on: vertex ai endpoint config, vertex ai endpoint configPart of the GCP Skills skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

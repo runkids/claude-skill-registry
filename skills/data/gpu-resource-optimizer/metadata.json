@@ -1,0 +1,9 @@
+{
+  "name": "gpu-resource-optimizer",
+  "description": "Gpu Resource Optimizer - Auto-activating skill for ML Deployment.Triggers on: gpu resource optimizer, gpu resource optimizerPart of the ML Deployment skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

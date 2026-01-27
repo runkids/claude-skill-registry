@@ -1,0 +1,9 @@
+{
+  "name": "convert-c-rust",
+  "description": "Convert C code to idiomatic Rust. Use when migrating C projects to Rust, translating C patterns to idiomatic Rust, or refactoring C codebases. Extends meta-convert-dev with C-to-Rust specific patterns",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

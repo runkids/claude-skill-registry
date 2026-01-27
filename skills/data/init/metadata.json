@@ -1,10 +1,7 @@
 {
   "name": "init",
-  "description": "Initialize warehouse schema discovery. Generates .astro/warehouse.md with all table metadata for instant lookups. Run once per project, refresh when schema changes. Use when user says \"/data:init\" or ",
-  "category": "data",
   "repo": "astronomer/agents",
   "path": "skills/init/SKILL.md",
-  "stars": 6,
   "source": "github.com/astronomer/agents",
-  "downloaded_at": "2026-01-24T16:15:10.970372Z"
+  "downloaded_at": "2026-01-27T01:51:56.007590Z"
 }

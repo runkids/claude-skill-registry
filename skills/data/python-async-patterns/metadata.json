@@ -1,0 +1,9 @@
+{
+  "name": "python-async-patterns",
+  "description": "Python asyncio patterns for concurrent programming. Triggers on: asyncio, async, await, coroutine, gather, semaphore, TaskGroup, event loop, aiohttp, concurrent.",
+  "repo": "0xDarkMatter/claude-mods",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/0xDarkMatter/claude-mods"
+}

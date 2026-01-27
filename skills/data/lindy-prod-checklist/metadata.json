@@ -1,0 +1,9 @@
+{
+  "name": "lindy-prod-checklist",
+  "description": "Production readiness checklist for Lindy AI deployments.\nUse when preparing for production, reviewing deployment,\nor auditing production setup.\nTrigger with phrases like \"lindy production\", \"lindy pro",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "image-processing",
+  "description": "Implement image processing for PhotoVault using Sharp and streaming patterns. Use when working with photo uploads, thumbnail generation, EXIF handling, ZIP extraction, or optimizing images for web. In",
+  "repo": "nathanielcrowell12-spec/photo-vault",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/nathanielcrowell12-spec/photo-vault"
+}

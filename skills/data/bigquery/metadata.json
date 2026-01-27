@@ -1,14 +1,7 @@
 {
   "name": "bigquery",
-  "description": "Instructions for querying Google BigQuery using the bq command-line tool. Useful for running SQL queries, exploring datasets, and exporting results.",
-  "repo": "sourcegraph/amp-contrib",
-  "category": "data",
-  "tags": [
-    "bigquery"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "bigquery",
-  "github_path": "bigquery",
-  "github_branch": "main"
+  "repo": "lanej/dotfiles",
+  "path": "claude/skills/bigquery/SKILL.md",
+  "source": "github.com/lanej/dotfiles",
+  "downloaded_at": "2026-01-27T03:12:23.318940Z"
 }

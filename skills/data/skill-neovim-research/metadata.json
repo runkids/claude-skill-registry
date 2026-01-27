@@ -1,0 +1,9 @@
+{
+  "name": "skill-neovim-research",
+  "description": "Research Neovim APIs, plugin patterns, and Lua development. Invoke for lua-language research tasks.",
+  "repo": "benbrastmckie/.config",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/benbrastmckie/.config"
+}

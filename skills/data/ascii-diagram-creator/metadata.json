@@ -1,16 +1,7 @@
 {
   "name": "ascii-diagram-creator",
-  "description": "Use PROACTIVELY when user asks for ASCII diagrams, text diagrams, or visual representations of systems, workflows, or relationships. Triggers on \"ascii diagram\", \"text diagram\", \"visualize\", \"show how",
-  "repo": "cskiro/claudex",
-  "category": "data",
-  "tags": [
-    "ascii",
-    "diagram",
-    "creator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "ascii-diagram-creator",
-  "github_path": "skills/ascii-diagram-creator",
-  "github_branch": "main"
+  "repo": "darellchua2/opencode-config-template",
+  "path": "skills/ascii-diagram-creator/SKILL.md",
+  "source": "github.com/darellchua2/opencode-config-template",
+  "downloaded_at": "2026-01-27T03:48:04.183558Z"
 }

@@ -1,14 +1,7 @@
 {
   "name": "tzurot-db-vector",
-  "description": "PostgreSQL and pgvector patterns for Tzurot v3 - Connection management, vector operations, migrations, and Railway-specific considerations. Use when working with database or memory retrieval.",
   "repo": "lbds137/tzurot",
-  "category": "data",
-  "tags": [
-    "tzurot",
-    "vector"
-  ],
-  "stars": 7,
-  "dir_name": "tzurot-db-vector",
-  "github_path": ".claude/skills/tzurot-db-vector",
-  "github_branch": "main"
+  "path": ".claude/skills/tzurot-db-vector/SKILL.md",
+  "source": "github.com/lbds137/tzurot",
+  "downloaded_at": "2026-01-27T01:36:13.649045Z"
 }

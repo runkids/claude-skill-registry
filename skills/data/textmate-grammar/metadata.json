@@ -1,0 +1,9 @@
+{
+  "name": "textmate-grammar",
+  "description": "Use when authoring TextMate grammars for syntax highlighting - covers scopes, patterns, and language injection",
+  "repo": "mcclowes/lea",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/mcclowes/lea"
+}

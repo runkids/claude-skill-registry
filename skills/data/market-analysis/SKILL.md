@@ -1,222 +1,169 @@
 ---
 name: market-analysis
-description: Use this skill when analyzing stocks, performing technical analysis, or evaluating market conditions. Provides comprehensive stock analysis using TradingAgents framework including technical indicators, fundamental data, news sentiment, and social media analysis.
+description: Create or update a market analysis
+argument-hint: [market or segment name] or [update path/to/market-analysis.md]
 ---
 
-# Market Analysis Skill
+## Document Intelligence
 
-## When to Use
-Activate this skill when the user asks to:
-- Analyze a specific stock ticker (e.g., "analyze NVDA")
-- Perform technical analysis
-- Evaluate market conditions
-- Get stock recommendations
-- Understand price movements
-- Compare fundamental metrics
+This skill supports three modes: **Create**, **Update**, and **Find**.
 
-## Available Framework: TradingAgents
+### Mode Detection
 
-Located in `refs/TradingAgents/`, this provides:
+| Signal | Mode | Confidence |
+|--------|------|------------|
+| "update", "refresh", "revise" in input | UPDATE | 100% |
+| File path provided (`@path/to/analysis.md`) | UPDATE | 100% |
+| "create", "new", "draft" in input | CREATE | 100% |
+| "find", "search", "list analyses" | FIND | 100% |
+| "the market analysis", "our analysis" | UPDATE | 85% |
+| Just market/segment name | CREATE | 60% |
 
-### 1. Data Access Tools (refs/TradingAgents/tradingagents/agents/utils/agent_utils.py)
-```python
-# Import the abstracted data tools
-from tradingagents.agents.utils.agent_utils import (
-    get_stock_data,      # Price data via yfinance/Alpha Vantage
-    get_indicators,      # Technical indicators
-    get_fundamentals,    # Company fundamentals
-    get_balance_sheet,   # Balance sheet data
-    get_cashflow,        # Cash flow statements
-    get_income_statement,# Income statement
-    get_news,            # Company news
-    get_global_news,     # Market-wide news
-    get_insider_sentiment,     # Insider trading sentiment
-    get_insider_transactions   # Insider transactions
-)
-```
+**Threshold**: ≥85% auto-proceed | 70-84% state assumption | <70% ask user
 
-### 2. Analyst Agents (refs/TradingAgents/tradingagents/agents/analysts/)
+### Mode Behaviors
 
-#### Market Analyst (market_analyst.py)
-**Purpose**: Technical analysis with indicators
+**CREATE**: Generate complete new market analysis using template below.
 
-**Key indicators to select** (choose 8 complementary ones):
-- **Moving Averages**: close_50_sma, close_200_sma, close_10_ema
-- **MACD**: macd, macds, macdh
-- **Momentum**: rsi
-- **Volatility**: boll, boll_ub, boll_lb, atr
-- **Volume**: vwma
+**UPDATE**:
+1. Read existing analysis (search if path not provided)
+2. Preserve structure and methodology
+3. Update market sizing, trends, or competitive sections with new data
+4. Show diff summary: "Updated: [sections] with [year] data."
 
-**Process**:
-1. Call `get_stock_data(ticker, start_date, end_date)` first
-2. Then call `get_indicators(ticker, indicator_list, start_date, end_date)`
-3. Analyze trends, momentum, volatility
-4. Provide detailed interpretation (not just "mixed trends")
+**FIND**:
+1. Search paths below for market analysis documents
+2. Present results: market, date, path
+3. Ask: "Update one of these, or create new?"
 
-#### Fundamentals Analyst (fundamentals_analyst.py)
-**Purpose**: Analyze company financials and health
+### Search Locations for Market Analysis
 
-**Key metrics**:
-- P/E ratio, EPS growth
-- Revenue growth, profit margins
-- Debt-to-equity ratio
-- Cash flow health
-- Insider activity patterns
+- `market/`
+- `research/`
+- `strategy/`
+- `analysis/`
 
-#### News Analyst (news_analyst.py)
-**Purpose**: Analyze news impact and sentiment
+---
 
-**Process**:
-1. Get recent company news via `get_news(ticker)`
-2. Get market-wide news via `get_global_news()`
-3. Assess sentiment (bullish/bearish/neutral)
-4. Identify catalysts and upcoming events
+Create a **comprehensive Market Analysis** for the specified market or segment.
 
-#### Social Media Analyst (social_media_analyst.py)
-**Purpose**: Gauge retail investor sentiment
+## V2V Phase
 
-**Data sources**:
-- Reddit sentiment (refs/TradingAgents/tradingagents/dataflows/reddit_utils.py)
-- News aggregation for sentiment scoring
+**Phase 1: Strategic Foundation** - Market analysis establishes the factual foundation for strategic decisions.
 
-## Analysis Workflow
+**Prerequisites**: Market opportunity or hypothesis identified
+**Outputs used by**: Phase 2 (business case, positioning), Phase 1 (vision, segments)
 
-### Step 1: Data Collection
-```python
-# Get price data (ALWAYS call this first)
-stock_data = get_stock_data(ticker, start_date, end_date)
+## Output Structure
 
-# Calculate technical indicators
-indicators = get_indicators(
-    ticker,
-    ["rsi", "macd", "boll_ub", "boll_lb", "close_50_sma", "close_200_sma", "atr", "vwma"],
-    start_date,
-    end_date
-)
+Generate a complete market analysis with the following sections:
 
-# Get fundamentals
-fundamentals = get_fundamentals(ticker)
-balance_sheet = get_balance_sheet(ticker)
+### 1. Executive Summary
+- Market definition
+- Market size summary
+- Key trends
+- Growth opportunities
+- Recommendations
 
-# Get news
-news = get_news(ticker)
-global_news = get_global_news()
-```
+### 2. Market Definition & Scope
+- What is included in this market
+- What is excluded
+- Adjacent markets
+- Market boundaries
 
-### Step 2: Multi-Dimensional Analysis
+### 3. Market Size
 
-Analyze across these dimensions:
+#### Total Addressable Market (TAM)
+- Size: $X billion
+- Calculation methodology
+- Data sources
 
-**Technical**:
-- Trend direction (bullish/bearish/sideways)
-- Momentum strength (RSI, MACD)
-- Support/resistance levels
-- Volatility assessment
-- Volume trends
+#### Serviceable Addressable Market (SAM)
+- Size: $X billion
+- Geographic limitations
+- Segment focus
+- Technology constraints
 
-**Fundamental**:
-- Valuation (overvalued/fair/undervalued)
-- Financial health score
-- Growth trajectory
-- Red flags or concerns
+#### Serviceable Obtainable Market (SOM)
+- Size: $X billion
+- Realistic capture rate
+- Competitive factors
+- Timeline to capture
 
-**Sentiment**:
-- News impact (positive/negative/neutral)
-- Market mood
-- Social sentiment
-- Upcoming catalysts
+### 4. Market Segmentation
 
-### Step 3: Generate Report
+| Segment | Size | Growth Rate | Attractiveness | Our Fit |
+|---------|------|-------------|----------------|---------|
+| [Segment 1] | $X | X% | High/Med/Low | High/Med/Low |
+| [Segment 2] | $X | X% | High/Med/Low | High/Med/Low |
 
-**Required Format**:
-```markdown
-## Market Analysis Report: {TICKER}
-**Date**: {current_date}
+### 5. Customer Needs Analysis
 
-### Executive Summary
-[One paragraph with key takeaway]
+| Need | Importance | Current Solutions | Gap/Opportunity |
+|------|------------|-------------------|-----------------|
+| [Need 1] | Critical/Important/Nice | [Solutions] | [Gap] |
+| [Need 2] | Critical/Important/Nice | [Solutions] | [Gap] |
 
-### Technical Analysis
-**Trend**: [Bullish/Bearish/Neutral]
-**Key Signals**:
-- RSI ({value}): {interpretation}
-- MACD ({value}): {interpretation}
-- Bollinger Bands: {position relative to bands}
-- Support: ${level}, Resistance: ${level}
+### 6. Buying Behavior & Journey
 
-**Volume Analysis**: {increasing/decreasing/stable}
+#### Buying Process
+1. [Stage 1]: Trigger, activities, stakeholders
+2. [Stage 2]: Trigger, activities, stakeholders
+3. [Stage 3]: Trigger, activities, stakeholders
 
-### Fundamental Analysis
-**Valuation**: P/E {value} (vs industry avg {value})
-**Financial Health**: [Strong/Moderate/Weak]
-**Growth Metrics**:
-- Revenue: {YoY %}
-- EPS: {YoY %}
-- Margins: {%}
+#### Key Buying Criteria
+| Criteria | Weight | Trend |
+|----------|--------|-------|
+| [Criteria 1] | X% | Increasing/Stable/Decreasing |
 
-**Concerns**: {list any red flags}
+### 7. Market Trends & Dynamics
 
-### News & Sentiment
-**Recent Headlines**:
-1. {headline 1}
-2. {headline 2}
-3. {headline 3}
+#### Macro Trends
+| Trend | Impact on Market | Timeframe |
+|-------|------------------|-----------|
+| [Trend 1] | [Impact] | [When] |
 
-**Overall Sentiment**: [Positive/Neutral/Negative]
-**Catalysts**: {upcoming events}
+#### Technology Trends
+| Trend | Impact on Market | Timeframe |
+|-------|------------------|-----------|
+| [Trend 1] | [Impact] | [When] |
 
-### Key Metrics Table
-| Metric | Value | Interpretation |
-|--------|-------|----------------|
-| Price | ${X} | {vs SMA levels} |
-| RSI | {X} | {overbought/neutral/oversold} |
-| P/E | {X} | {vs industry} |
-| Revenue Growth | {X%} | {strong/weak} |
+### 8. Regulatory Considerations
+- Current regulations
+- Pending regulations
+- Compliance requirements
+- Regulatory risks
 
-### Trading Recommendation
-[Detailed reasoning combining all analysis]
-**Action**: BUY/HOLD/SELL
-**Confidence**: High/Medium/Low
-**Risk Level**: High/Medium/Low
-```
+### 9. Competitive Landscape Overview
+- Market structure (fragmented/consolidated)
+- Key players
+- Market share distribution
+- Entry barriers
 
-## Important Guidelines
+### 10. Growth Opportunities
 
-1. **Always call get_stock_data FIRST** before requesting indicators
-2. **Select complementary indicators** - avoid redundancy (e.g., don't use both RSI and StochRSI)
-3. **Provide detailed, nuanced analysis** - never just say "trends are mixed" without elaboration
-4. **Cross-reference signals** - technical should align with fundamental analysis
-5. **Include markdown table** at the end for quick reference
-6. **Consider multiple timeframes** - short-term vs long-term trends
-7. **Document reasoning clearly** for ModelChat logging
+| Opportunity | Market Size | Investment | Fit | Priority |
+|-------------|-------------|------------|-----|----------|
+| [Opportunity 1] | $X | High/Med/Low | High/Med/Low | 1/2/3 |
 
-## Code References
+### 11. Market Entry/Expansion Recommendations
 
-All code located in `refs/TradingAgents/`:
-- Market Analyst: `tradingagents/agents/analysts/market_analyst.py`
-- Fundamentals Analyst: `tradingagents/agents/analysts/fundamentals_analyst.py`
-- News Analyst: `tradingagents/agents/analysts/news_analyst.py`
-- Social Media Analyst: `tradingagents/agents/analysts/social_media_analyst.py`
-- Data Tools: `tradingagents/agents/utils/agent_utils.py`
-- Data Flows: `tradingagents/dataflows/`
+#### Recommended Strategy
+- Entry point
+- Target segments
+- Positioning
+- Go-to-market approach
 
-## Example Usage
+#### Investment Required
+- Resources
+- Timeline
+- Expected returns
 
-**User**: "Analyze NVDA stock"
+## Instructions
 
-**Response**:
-1. Fetch NVDA price data from yfinance
-2. Calculate 8 complementary technical indicators
-3. Get fundamentals from Alpha Vantage
-4. Fetch recent news
-5. Perform comprehensive analysis across all dimensions
-6. Generate detailed report with recommendation
-7. Include metrics table for quick reference
-
-## Integration with Multi-Model System
-
-When multiple AI models use this skill:
-- Each model analyzes independently
-- Results aggregated by decision_aggregator
-- Consensus and disagreements highlighted
-- All reasoning logged to ModelChat for transparency
+1. Ask about specific segments or geographies to focus on if needed
+2. Use WebSearch for current market data
+3. Reference any existing research provided via @file syntax
+4. Provide actionable recommendations
+5. Save as markdown file
+6. Offer to create presentation version using /present

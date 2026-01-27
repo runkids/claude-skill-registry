@@ -1,0 +1,9 @@
+{
+  "name": "lang-clojure-dev",
+  "description": "Foundational Clojure patterns covering functional programming, REPL-driven development, immutable data structures, and idiomatic code. Use when writing Clojure code, working with sequences and lazy ev",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

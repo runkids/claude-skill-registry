@@ -1,0 +1,9 @@
+{
+  "name": "github-release-manager",
+  "description": "Automated release coordination and deployment with swarm orchestration for seamless version management, testing, and deployment across multiple packages. Use for release pipelines, version coordinatio",
+  "repo": "vamseeachanta/workspace-hub",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/vamseeachanta/workspace-hub"
+}

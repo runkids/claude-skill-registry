@@ -1,306 +1,784 @@
 ---
 name: graphql-resolvers
-description: Write efficient resolvers with DataLoader, batching, and N+1 prevention
-sasmp_version: "1.3.0"
-bonded_agent: 03-graphql-resolvers
-bond_type: PRIMARY_BOND
-version: "2.0.0"
-complexity: intermediate
-estimated_time: "4-6 hours"
-prerequisites: ["graphql-fundamentals", "graphql-schema-design"]
+description: Use when implementing GraphQL resolvers with resolver functions, context management, DataLoader batching, error handling, authentication, and testing strategies.
+allowed-tools: []
 ---
 
-# GraphQL Resolvers Skill
+# GraphQL Resolvers
 
-> Build performant data fetching with proper patterns
+Apply resolver implementation patterns to create efficient, maintainable
+GraphQL servers. This skill covers resolver function signatures,
+execution chains, context management, DataLoader patterns, async
+handling, authentication, and testing strategies.
 
-## Overview
+## Resolver Function Signature
 
-Master resolver implementation including the critical DataLoader pattern for preventing N+1 queries, context design, and error handling strategies.
+Every resolver function receives four arguments: parent, args, context,
+and info. Understanding these arguments is fundamental to writing
+effective resolvers.
 
----
-
-## Quick Reference
-
-| Pattern | Purpose | When to Use |
-|---------|---------|-------------|
-| DataLoader | Batch + cache | Any relationship field |
-| Context | Request-scoped data | Auth, loaders, datasources |
-| Field resolver | Computed fields | Derived data |
-| Root resolver | Entry points | Query/Mutation fields |
-
----
-
-## Core Patterns
-
-### 1. Resolver Signature
-
-```javascript
-// (parent, args, context, info) => result
+```typescript
+type ResolverFn = (
+  parent: any,
+  args: any,
+  context: any,
+  info: GraphQLResolveInfo
+) => any;
 
 const resolvers = {
   Query: {
-    // Root resolver - parent is undefined
-    user: async (_, { id }, { dataSources }) => {
-      return dataSources.users.findById(id);
+    // parent: root value (usually undefined for Query)
+    // args: arguments passed to the query
+    // context: shared context object
+    // info: execution information
+    user: async (parent, args, context, info) => {
+      const { id } = args;
+      const { dataSources, user } = context;
+
+      // Use context to access data sources and auth info
+      return dataSources.userAPI.getUserById(id);
     },
-  },
 
-  User: {
-    // Field resolver - parent is User object
-    posts: async (user, { first = 10 }, { loaders }) => {
-      return loaders.postsByAuthor.load(user.id);
-    },
+    posts: async (parent, args, context, info) => {
+      const { limit, offset } = args;
 
-    // Computed field - sync is fine
-    fullName: (user) => `${user.firstName} ${user.lastName}`,
+      // Access requested fields from info
+      const fields = info.fieldNodes[0].selectionSet.selections
+        .map(s => s.name.value);
 
-    // Default resolver (implicit)
-    // email: (user) => user.email,
-  },
+      return context.dataSources.postAPI.getPosts({
+        limit,
+        offset,
+        fields
+      });
+    }
+  }
 };
 ```
 
-### 2. DataLoader Pattern
+## Field Resolvers
 
-```javascript
-const DataLoader = require('dataloader');
+Field resolvers define how to resolve individual fields on a type. The
+parent argument contains the resolved parent object.
 
-// N+1 Problem:
-// Query: { users { posts { title } } }
-// Without DataLoader: 1 + N queries
-
-// Solution: Batch loading
-const createLoaders = () => ({
-  // Batch by foreign key
-  postsByAuthor: new DataLoader(async (authorIds) => {
-    // 1. Single query for all authors
-    const posts = await db.posts.findAll({
-      where: { authorId: { [Op.in]: authorIds } }
-    });
-
-    // 2. Group by author
-    const postsByAuthor = {};
-    posts.forEach(post => {
-      if (!postsByAuthor[post.authorId]) {
-        postsByAuthor[post.authorId] = [];
-      }
-      postsByAuthor[post.authorId].push(post);
-    });
-
-    // 3. Return in same order as input
-    return authorIds.map(id => postsByAuthor[id] || []);
-  }),
-
-  // Batch by primary key
-  userById: new DataLoader(async (ids) => {
-    const users = await db.users.findAll({
-      where: { id: { [Op.in]: ids } }
-    });
-    const userMap = new Map(users.map(u => [u.id, u]));
-    return ids.map(id => userMap.get(id) || null);
-  }),
-});
-
-// Usage in resolvers
+```typescript
 const resolvers = {
-  Post: {
-    author: (post, _, { loaders }) => {
-      return loaders.userById.load(post.authorId);
-    },
+  Query: {
+    user: async (_, { id }, { dataSources }) => {
+      return dataSources.userAPI.getUserById(id);
+    }
   },
+
   User: {
-    posts: (user, _, { loaders }) => {
-      return loaders.postsByAuthor.load(user.id);
+    // Field resolver for computed field
+    fullName: (parent) => {
+      return `${parent.firstName} ${parent.lastName}`;
     },
+
+    // Field resolver for related data
+    posts: async (parent, args, { dataSources }) => {
+      // parent.id available from parent User object
+      return dataSources.postAPI.getPostsByAuthor(parent.id);
+    },
+
+    // Field resolver with arguments
+    friends: async (parent, { limit }, { dataSources }) => {
+      return dataSources.userAPI.getFriends(parent.id, limit);
+    },
+
+    // Async computed field
+    postCount: async (parent, _, { dataSources }) => {
+      return dataSources.postAPI.countByAuthor(parent.id);
+    }
   },
+
+  Post: {
+    author: async (parent, _, { dataSources }) => {
+      // parent.authorId from parent Post object
+      return dataSources.userAPI.getUserById(parent.authorId);
+    },
+
+    comments: async (parent, _, { dataSources }) => {
+      return dataSources.commentAPI.getByPostId(parent.id);
+    }
+  }
 };
 ```
 
-### 3. Context Setup
+## Context Object Patterns
 
-```javascript
-const createContext = async ({ req, res }) => {
-  // 1. Parse auth token
+The context object is shared across all resolvers in a single request.
+Use it for authentication, data sources, and request-scoped data.
+
+```typescript
+interface Context {
+  user: User | null;
+  dataSources: DataSources;
+  db: Database;
+  req: Request;
+  loaders: Loaders;
+}
+
+// Context creation function
+const createContext = async ({ req }): Promise<Context> => {
+  // Extract and verify authentication token
   const token = req.headers.authorization?.replace('Bearer ', '');
   const user = token ? await verifyToken(token) : null;
 
-  // 2. Create request-scoped loaders (IMPORTANT!)
-  const loaders = createLoaders();
-
-  // 3. Initialize data sources
+  // Initialize data sources
   const dataSources = {
-    users: new UserDataSource(db),
-    posts: new PostDataSource(db),
+    userAPI: new UserAPI(),
+    postAPI: new PostAPI(),
+    commentAPI: new CommentAPI()
   };
 
-  // 4. Request metadata
-  const requestId = req.headers['x-request-id'] || crypto.randomUUID();
+  // Initialize DataLoaders
+  const loaders = {
+    userLoader: new DataLoader(ids => batchGetUsers(ids)),
+    postLoader: new DataLoader(ids => batchGetPosts(ids))
+  };
 
   return {
     user,
-    loaders,
     dataSources,
-    requestId,
+    db: database,
+    req,
+    loaders
   };
 };
 
-// Apollo Server setup
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: createContext,
-});
-```
-
-### 4. Error Handling
-
-```javascript
-import { GraphQLError } from 'graphql';
-
+// Using context in resolvers
 const resolvers = {
-  Mutation: {
-    createUser: async (_, { input }, { dataSources, user }) => {
-      // 1. Auth check
+  Query: {
+    me: (_, __, { user }) => {
       if (!user) {
-        throw new GraphQLError('Not authenticated', {
-          extensions: { code: 'UNAUTHENTICATED' }
-        });
+        throw new Error('Not authenticated');
       }
-
-      // 2. Validation (return errors, don't throw)
-      const validationErrors = validateInput(input);
-      if (validationErrors.length > 0) {
-        return { user: null, errors: validationErrors };
-      }
-
-      // 3. Business logic
-      try {
-        const newUser = await dataSources.users.create(input);
-        return { user: newUser, errors: [] };
-      } catch (error) {
-        // Known error
-        if (error.code === 'DUPLICATE_EMAIL') {
-          return {
-            user: null,
-            errors: [{ field: 'email', message: 'Already exists' }]
-          };
-        }
-        // Unknown error - throw
-        throw new GraphQLError('Internal error', {
-          extensions: { code: 'INTERNAL_ERROR' }
-        });
-      }
+      return user;
     },
-  },
+
+    post: async (_, { id }, { loaders }) => {
+      return loaders.postLoader.load(id);
+    }
+  }
 };
 ```
 
-### 5. Subscription Resolvers
+## Resolver Chains and Execution
 
-```javascript
-import { PubSub, withFilter } from 'graphql-subscriptions';
+Resolvers execute in a chain where parent resolvers complete before
+child resolvers begin. Understanding execution order is crucial for
+optimization.
 
-const pubsub = new PubSub();
-
+```typescript
 const resolvers = {
-  Mutation: {
-    sendMessage: async (_, { input }, { dataSources }) => {
-      const message = await dataSources.messages.create(input);
-
-      // Publish event
-      pubsub.publish('MESSAGE_SENT', {
-        messageSent: message,
-        channelId: input.channelId,
-      });
-
-      return message;
-    },
+  Query: {
+    // Step 1: Root resolver executes
+    user: async (_, { id }, { db }) => {
+      console.log('1. Fetching user');
+      return db.users.findById(id);
+    }
   },
 
-  Subscription: {
-    // Simple subscription
-    userCreated: {
-      subscribe: () => pubsub.asyncIterator(['USER_CREATED']),
+  User: {
+    // Step 2: Field resolvers execute with parent data
+    posts: async (parent, _, { db }) => {
+      console.log('2. Fetching posts for user', parent.id);
+      return db.posts.findByAuthor(parent.id);
     },
 
-    // Filtered subscription
-    messageSent: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator(['MESSAGE_SENT']),
-        (payload, variables) => {
-          return payload.channelId === variables.channelId;
-        }
-      ),
-    },
+    profile: async (parent, _, { db }) => {
+      console.log('2. Fetching profile for user', parent.id);
+      return db.profiles.findByUserId(parent.id);
+    }
   },
+
+  Post: {
+    // Step 3: Nested field resolvers execute
+    comments: async (parent, _, { db }) => {
+      console.log('3. Fetching comments for post', parent.id);
+      return db.comments.findByPostId(parent.id);
+    }
+  }
 };
+
+// Query execution order:
+// query {
+//   user(id: "1") {        # 1. User resolver
+//     posts {              # 2. Posts resolver
+//       comments {         # 3. Comments resolver
+//         text
+//       }
+//     }
+//     profile {            # 2. Profile resolver (parallel)
+//       bio
+//     }
+//   }
+// }
 ```
 
----
+## DataLoader Pattern for Batching
 
-## Performance Targets
+DataLoader solves the N+1 problem by batching multiple individual
+loads into a single batch request and caching results.
 
-| Resolver Type | Target | Action if Exceeded |
-|---------------|--------|-------------------|
-| Simple field | < 10ms | Check DB indexes |
-| DataLoader batch | < 50ms | Optimize query |
-| Complex computation | < 200ms | Consider caching |
-| Total request | < 500ms | Profile and optimize |
+```typescript
+import DataLoader from 'dataloader';
 
----
+// Batch function receives array of keys
+// Must return array of results in same order
+const batchGetUsers = async (userIds: string[]) => {
+  console.log('Batch loading users:', userIds);
 
-## Troubleshooting
+  // Single database query for all IDs
+  const users = await db.users.findByIds(userIds);
 
-| Issue | Symptom | Solution |
-|-------|---------|----------|
-| N+1 queries | Slow, many DB calls | Use DataLoader |
-| Memory leak | Growing memory | Create loaders per request |
-| Stale data | Wrong results | Clear DataLoader cache |
-| Race condition | Intermittent errors | Don't mutate context |
+  // Create map for O(1) lookup
+  const userMap = new Map(users.map(u => [u.id, u]));
 
-### Debug Techniques
+  // Return users in same order as input IDs
+  return userIds.map(id => userMap.get(id) || null);
+};
 
-```javascript
-// 1. Log DataLoader batches
-const loader = new DataLoader(async (keys) => {
-  console.log(`Batching ${keys.length} keys`);
-  // ...
+// Create loader in context
+const userLoader = new DataLoader(batchGetUsers, {
+  // Optional configuration
+  cache: true,            // Cache results (default: true)
+  maxBatchSize: 100,      // Maximum batch size
+  batchScheduleFn: cb => setTimeout(cb, 10) // Custom scheduling
 });
 
-// 2. Time resolvers
-const withTiming = (resolver) => async (...args) => {
-  const start = Date.now();
-  const result = await resolver(...args);
-  console.log(`Took ${Date.now() - start}ms`);
-  return result;
-};
-
-// 3. Request logging plugin
-const loggingPlugin = {
-  requestDidStart() {
-    const start = Date.now();
-    return {
-      willSendResponse() {
-        console.log(`Request took ${Date.now() - start}ms`);
-      },
-    };
+const resolvers = {
+  Post: {
+    author: async (parent, _, { loaders }) => {
+      // These calls are automatically batched
+      return loaders.userLoader.load(parent.authorId);
+    }
   },
+
+  Comment: {
+    author: async (parent, _, { loaders }) => {
+      // Added to same batch as Post.author
+      return loaders.userLoader.load(parent.authorId);
+    }
+  }
+};
+
+// Example: Without DataLoader (N+1 problem)
+// Query for 10 posts = 1 query for posts + 10 queries for authors
+//
+// With DataLoader:
+// Query for 10 posts = 1 query for posts + 1 batched query for all
+// authors
+```
+
+## Advanced DataLoader Patterns
+
+```typescript
+// Composite key loader
+interface CompositeKey {
+  userId: string;
+  type: string;
+}
+
+const batchGetUserData = async (keys: CompositeKey[]) => {
+  // Group by type for efficient querying
+  const byType = keys.reduce((acc, key) => {
+    acc[key.type] = acc[key.type] || [];
+    acc[key.type].push(key.userId);
+    return acc;
+  }, {});
+
+  // Fetch data by type
+  const results = await Promise.all(
+    Object.entries(byType).map(([type, userIds]) =>
+      fetchDataByType(type, userIds)
+    )
+  );
+
+  // Map back to original key order
+  return keys.map(key =>
+    results.find(r => r.userId === key.userId && r.type === key.type)
+  );
+};
+
+const dataLoader = new DataLoader(
+  batchGetUserData,
+  {
+    cacheKeyFn: (key: CompositeKey) => `${key.userId}:${key.type}`
+  }
+);
+
+// Prime the cache
+await dataLoader.prime({ userId: '1', type: 'profile' }, userData);
+
+// Clear specific key
+dataLoader.clear({ userId: '1', type: 'profile' });
+
+// Clear all cache
+dataLoader.clearAll();
+```
+
+## Async Error Handling
+
+Proper error handling in resolvers ensures meaningful errors reach the
+client while protecting sensitive information.
+
+```typescript
+import { GraphQLError } from 'graphql';
+import { ApolloServerErrorCode } from '@apollo/server/errors';
+
+const resolvers = {
+  Query: {
+    user: async (_, { id }, { dataSources }) => {
+      try {
+        const user = await dataSources.userAPI.getUserById(id);
+
+        if (!user) {
+          throw new GraphQLError('User not found', {
+            extensions: {
+              code: 'USER_NOT_FOUND',
+              http: { status: 404 }
+            }
+          });
+        }
+
+        return user;
+      } catch (error) {
+        // Log full error for debugging
+        console.error('Error fetching user:', error);
+
+        // Throw safe error to client
+        if (error instanceof GraphQLError) {
+          throw error;
+        }
+
+        throw new GraphQLError('Failed to fetch user', {
+          extensions: {
+            code: 'INTERNAL_SERVER_ERROR'
+          }
+        });
+      }
+    }
+  },
+
+  Mutation: {
+    createPost: async (_, { input }, { user, dataSources }) => {
+      // Validation errors
+      if (!input.title || input.title.length < 3) {
+        throw new GraphQLError('Title must be at least 3 characters', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+            argumentName: 'title'
+          }
+        });
+      }
+
+      // Authentication errors
+      if (!user) {
+        throw new GraphQLError('Must be authenticated', {
+          extensions: {
+            code: ApolloServerErrorCode.UNAUTHENTICATED
+          }
+        });
+      }
+
+      try {
+        return await dataSources.postAPI.create(input);
+      } catch (error) {
+        throw new GraphQLError('Failed to create post', {
+          extensions: {
+            code: 'INTERNAL_SERVER_ERROR'
+          },
+          originalError: error
+        });
+      }
+    }
+  }
 };
 ```
 
----
+## Authentication and Authorization
 
-## Usage
+Implement authentication and authorization patterns in resolvers and
+context.
 
+```typescript
+// Authentication middleware
+const requireAuth = (resolver) => {
+  return (parent, args, context, info) => {
+    if (!context.user) {
+      throw new GraphQLError('Not authenticated', {
+        extensions: { code: 'UNAUTHENTICATED' }
+      });
+    }
+    return resolver(parent, args, context, info);
+  };
+};
+
+// Authorization middleware
+const requireRole = (role: string) => (resolver) => {
+  return (parent, args, context, info) => {
+    if (!context.user) {
+      throw new GraphQLError('Not authenticated', {
+        extensions: { code: 'UNAUTHENTICATED' }
+      });
+    }
+
+    if (!context.user.roles.includes(role)) {
+      throw new GraphQLError('Insufficient permissions', {
+        extensions: { code: 'FORBIDDEN' }
+      });
+    }
+
+    return resolver(parent, args, context, info);
+  };
+};
+
+const resolvers = {
+  Query: {
+    me: requireAuth((_, __, { user }) => user),
+
+    adminPanel: requireRole('ADMIN')(
+      async (_, __, { dataSources }) => {
+        return dataSources.adminAPI.getDashboard();
+      }
+    ),
+
+    // Resource-based authorization
+    post: async (_, { id }, { user, dataSources }) => {
+      const post = await dataSources.postAPI.getById(id);
+
+      if (!post) {
+        throw new GraphQLError('Post not found');
+      }
+
+      // Check if user can view this post
+      if (post.status === 'DRAFT' && post.authorId !== user?.id) {
+        throw new GraphQLError('Cannot view draft posts', {
+          extensions: { code: 'FORBIDDEN' }
+        });
+      }
+
+      return post;
+    }
+  },
+
+  Mutation: {
+    updatePost: requireAuth(
+      async (_, { id, input }, { user, dataSources }) => {
+        const post = await dataSources.postAPI.getById(id);
+
+        // Check ownership
+        if (post.authorId !== user.id && !user.roles.includes('ADMIN')) {
+          throw new GraphQLError('Not authorized to update this post', {
+            extensions: { code: 'FORBIDDEN' }
+          });
+        }
+
+        return dataSources.postAPI.update(id, input);
+      }
+    )
+  }
+};
 ```
-Skill("graphql-resolvers")
+
+## Caching Strategies
+
+Implement caching at the resolver level for improved performance.
+
+```typescript
+import { createHash } from 'crypto';
+
+// In-memory cache
+const cache = new Map<string, { data: any; expiry: number }>();
+
+const getCacheKey = (prefix: string, args: any): string => {
+  const hash = createHash('md5')
+    .update(JSON.stringify(args))
+    .digest('hex');
+  return `${prefix}:${hash}`;
+};
+
+const cacheResolver = (
+  resolver,
+  { ttl = 300, prefix = 'cache' } = {}
+) => {
+  return async (parent, args, context, info) => {
+    const key = getCacheKey(prefix, args);
+    const cached = cache.get(key);
+
+    if (cached && cached.expiry > Date.now()) {
+      console.log('Cache hit:', key);
+      return cached.data;
+    }
+
+    const result = await resolver(parent, args, context, info);
+
+    cache.set(key, {
+      data: result,
+      expiry: Date.now() + (ttl * 1000)
+    });
+
+    return result;
+  };
+};
+
+const resolvers = {
+  Query: {
+    // Cache for 5 minutes
+    popularPosts: cacheResolver(
+      async (_, { limit }, { dataSources }) => {
+        return dataSources.postAPI.getPopular(limit);
+      },
+      { ttl: 300, prefix: 'popular-posts' }
+    ),
+
+    // Redis caching
+    user: async (_, { id }, { redis, dataSources }) => {
+      const cacheKey = `user:${id}`;
+
+      // Try cache first
+      const cached = await redis.get(cacheKey);
+      if (cached) {
+        return JSON.parse(cached);
+      }
+
+      // Fetch and cache
+      const user = await dataSources.userAPI.getUserById(id);
+      await redis.setex(cacheKey, 3600, JSON.stringify(user));
+
+      return user;
+    }
+  }
+};
 ```
 
-## Related Skills
-- `graphql-schema-design` - Schema that resolvers implement
-- `graphql-apollo-server` - Server configuration
-- `graphql-security` - Auth in resolvers
+## Resolver Middleware and Plugins
 
-## Related Agent
-- `03-graphql-resolvers` - For detailed guidance
+Create reusable middleware patterns for cross-cutting concerns.
+
+```typescript
+// Logging middleware
+const logResolver = (resolver) => {
+  return async (parent, args, context, info) => {
+    const start = Date.now();
+    const fieldName = info.fieldName;
+
+    try {
+      const result = await resolver(parent, args, context, info);
+      const duration = Date.now() - start;
+      console.log(`${fieldName} resolved in ${duration}ms`);
+      return result;
+    } catch (error) {
+      console.error(`${fieldName} failed:`, error);
+      throw error;
+    }
+  };
+};
+
+// Timing middleware
+const timeResolver = (resolver) => {
+  return async (parent, args, context, info) => {
+    const start = performance.now();
+    const result = await resolver(parent, args, context, info);
+    const duration = performance.now() - start;
+
+    // Add timing to extensions
+    info.operation.extensions = info.operation.extensions || {};
+    info.operation.extensions.timing =
+      info.operation.extensions.timing || {};
+    info.operation.extensions.timing[info.fieldName] = duration;
+
+    return result;
+  };
+};
+
+// Compose middleware
+const compose = (...middlewares) => (resolver) => {
+  return middlewares.reduceRight(
+    (acc, middleware) => middleware(acc),
+    resolver
+  );
+};
+
+const resolvers = {
+  Query: {
+    user: compose(
+      logResolver,
+      timeResolver,
+      requireAuth
+    )(async (_, { id }, { dataSources }) => {
+      return dataSources.userAPI.getUserById(id);
+    })
+  }
+};
+```
+
+## Testing Resolvers
+
+Write comprehensive tests for resolvers using mocked context and data
+sources.
+
+```typescript
+import { describe, it, expect, vi } from 'vitest';
+
+describe('User Resolvers', () => {
+  it('should fetch user by id', async () => {
+    const mockUser = { id: '1', username: 'test' };
+
+    const mockContext = {
+      dataSources: {
+        userAPI: {
+          getUserById: vi.fn().mockResolvedValue(mockUser)
+        }
+      }
+    };
+
+    const result = await resolvers.Query.user(
+      null,
+      { id: '1' },
+      mockContext,
+      {} as any
+    );
+
+    expect(result).toEqual(mockUser);
+    expect(mockContext.dataSources.userAPI.getUserById)
+      .toHaveBeenCalledWith('1');
+  });
+
+  it('should throw error when user not found', async () => {
+    const mockContext = {
+      dataSources: {
+        userAPI: {
+          getUserById: vi.fn().mockResolvedValue(null)
+        }
+      }
+    };
+
+    await expect(
+      resolvers.Query.user(null, { id: '999' }, mockContext, {} as any)
+    ).rejects.toThrow('User not found');
+  });
+
+  it('should require authentication', async () => {
+    const mockContext = {
+      user: null,
+      dataSources: {}
+    };
+
+    await expect(
+      resolvers.Query.me(null, {}, mockContext, {} as any)
+    ).rejects.toThrow('Not authenticated');
+  });
+
+  it('should use DataLoader for batching', async () => {
+    const mockUsers = [
+      { id: '1', username: 'user1' },
+      { id: '2', username: 'user2' }
+    ];
+
+    const batchFn = vi.fn().mockResolvedValue(mockUsers);
+    const loader = new DataLoader(batchFn);
+
+    const mockContext = {
+      loaders: { userLoader: loader }
+    };
+
+    // Make multiple calls
+    const [user1, user2] = await Promise.all([
+      resolvers.Post.author(
+        { authorId: '1' },
+        {},
+        mockContext,
+        {} as any
+      ),
+      resolvers.Post.author(
+        { authorId: '2' },
+        {},
+        mockContext,
+        {} as any
+      )
+    ]);
+
+    expect(user1).toEqual(mockUsers[0]);
+    expect(user2).toEqual(mockUsers[1]);
+    expect(batchFn).toHaveBeenCalledTimes(1);
+    expect(batchFn).toHaveBeenCalledWith(['1', '2']);
+  });
+});
+```
+
+## Best Practices
+
+1. **Keep resolvers thin**: Delegate business logic to service layer,
+   use resolvers only for data fetching and transformation
+2. **Use DataLoader**: Implement DataLoader for any resolver that
+   fetches related data to avoid N+1 queries
+3. **Leverage context**: Store shared resources (database, auth, data
+   sources) in context for all resolvers
+4. **Handle errors gracefully**: Catch errors and throw meaningful
+   GraphQLError instances with appropriate codes
+5. **Implement proper auth**: Check authentication and authorization in
+   resolvers or middleware consistently
+6. **Cache strategically**: Cache expensive operations at resolver
+   level using in-memory or distributed cache
+7. **Use typed resolvers**: Define TypeScript types for resolver
+   functions to catch errors at compile time
+8. **Test thoroughly**: Write unit tests for resolvers with mocked
+   dependencies and edge cases
+9. **Avoid blocking operations**: Use async/await and parallel
+   execution where possible to prevent blocking
+10. **Monitor performance**: Log resolver execution time and identify
+    slow resolvers for optimization
+
+## Common Pitfalls
+
+1. **N+1 queries**: Fetching related data in loops without batching,
+   causing excessive database queries
+2. **Blocking operations**: Using synchronous operations in resolvers
+   that block the event loop
+3. **Memory leaks**: Storing data in closures or module scope that
+   grows unbounded
+4. **Inconsistent error handling**: Throwing raw errors without proper
+   GraphQLError wrapping and codes
+5. **Over-fetching in resolvers**: Fetching entire objects when only
+   specific fields are needed
+6. **Context mutation**: Modifying context object during resolver
+   execution, causing side effects
+7. **Missing authentication checks**: Forgetting to verify auth in
+   sensitive resolvers
+8. **Improper DataLoader usage**: Creating new DataLoader instances per
+   resolver instead of per request
+9. **Circular resolver chains**: Creating resolver dependencies that
+   cause infinite loops
+10. **Not using info parameter**: Ignoring the info parameter that
+    contains requested fields for optimization
+
+## When to Use This Skill
+
+Use GraphQL resolver skills when:
+
+- Implementing a new GraphQL server
+- Optimizing existing resolver performance
+- Debugging N+1 query problems
+- Adding authentication and authorization
+- Implementing data batching and caching
+- Writing resolver unit tests
+- Refactoring resolvers for better maintainability
+- Adding logging and monitoring to resolvers
+- Implementing custom middleware or plugins
+- Migrating from REST API to GraphQL
+
+## Resources
+
+- [GraphQL Resolvers Documentation](https://graphql.org/learn/execution/) -
+  Official execution and resolver guide
+- [DataLoader GitHub](https://github.com/graphql/dataloader) - Official
+  DataLoader library and documentation
+- [Apollo Server Resolvers](https://www.apollographql.com/docs/apollo-server/data/resolvers/)
+  Resolver patterns and examples
+- [GraphQL Error Handling](https://www.apollographql.com/docs/apollo-server/data/errors/)
+  Error handling best practices
+- [Testing GraphQL Resolvers](https://www.apollographql.com/docs/apollo-server/testing/testing/)
+  Testing strategies

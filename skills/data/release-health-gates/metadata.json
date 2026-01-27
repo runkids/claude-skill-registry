@@ -1,0 +1,9 @@
+{
+  "name": "release-health-gates",
+  "description": "Declarative release readiness checklist that mirrors GitHub checks,deployment issues, and documentation requirements.Triggers: release gates, release readiness, deployment checklist, release review,qu",
+  "repo": "athola/claude-night-market",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

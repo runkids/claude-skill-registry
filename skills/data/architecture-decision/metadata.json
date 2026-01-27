@@ -1,0 +1,9 @@
+{
+  "name": "architecture-decision",
+  "description": "Systematically evaluate architecture decisions, document trade-offs, and select appropriate patterns. This skill should be used when the user asks about 'architecture decision', 'ADR', 'design pattern",
+  "repo": "jwynia/agent-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jwynia/agent-skills"
+}

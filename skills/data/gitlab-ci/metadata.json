@@ -1,0 +1,9 @@
+{
+  "name": "gitlab-ci",
+  "description": "Use when working with GitLab using the glab CLI tool. Currently provides guidance for CI/CD pipelines including checking pipeline status, viewing job logs, and working with branches and tags.",
+  "repo": "mll-lab/claude-plugin-marketplace",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

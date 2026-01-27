@@ -1,14 +1,7 @@
 {
   "name": "web-to-markdown",
-  "description": "Convert web pages to Markdown format using Jina AI's reader service. Use when the user asks to convert, generate, create, transform, or download a web page, website, or URL into Markdown, MD, or md fo",
-  "repo": "CuriousDima/claude-web-to-markdown-skill",
-  "category": "data",
-  "tags": [
-    "web",
-    "markdown"
-  ],
-  "stars": 0,
-  "dir_name": "web-to-markdown",
-  "github_path": "web-to-markdown",
-  "github_branch": "main"
+  "repo": "softaworks/agent-toolkit",
+  "path": "skills/web-to-markdown/SKILL.md",
+  "source": "github.com/softaworks/agent-toolkit",
+  "downloaded_at": "2026-01-27T01:11:43.004485Z"
 }

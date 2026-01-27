@@ -1,0 +1,9 @@
+{
+  "name": "meta-convert-dev",
+  "description": "Create language conversion skills for translating code from language A to language B. Use when building 'convert-X-Y' skills, designing type mappings between languages, establishing idiom translation ",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

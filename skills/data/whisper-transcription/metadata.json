@@ -1,0 +1,9 @@
+{
+  "name": "whisper-transcription",
+  "description": "Audio transcription using local whisper.cpp server with CUDA acceleration. HTTP API for speech-to-text conversion.",
+  "repo": "lawless-m/claude-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

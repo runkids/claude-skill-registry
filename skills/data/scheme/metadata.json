@@ -1,0 +1,9 @@
+{
+  "name": "scheme",
+  "description": "GNU Scheme ecosystem = guile + goblins + hoot + fibers.",
+  "repo": "plurigrid/asi",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/plurigrid/asi"
+}

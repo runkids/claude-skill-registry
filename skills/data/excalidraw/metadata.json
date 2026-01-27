@@ -1,14 +1,7 @@
 {
   "name": "excalidraw",
-  "description": "Generate hand-drawn style diagrams (architecture, flowcharts, system design) as .excalidraw.json files. Use when user wants diagrams, mentions Excalidraw, or needs Mermaid-to-visual conversion.",
-  "repo": "acking-you/myclaude-skills",
-  "category": "data",
-  "tags": [
-    "excalidraw"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "excalidraw",
-  "github_path": "skills/excalidraw",
-  "github_branch": "main"
+  "repo": "davidsu/dotfiles",
+  "path": "claude/skills.home.DOTclaude.symlink/excalidraw/SKILL.md",
+  "source": "github.com/davidsu/dotfiles",
+  "downloaded_at": "2026-01-27T03:50:25.361775Z"
 }

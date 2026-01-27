@@ -1,0 +1,9 @@
+{
+  "name": "convert-haskell-elm",
+  "description": "Convert Haskell code to idiomatic Elm. Use when migrating Haskell logic to frontend applications, translating pure functional patterns to Elm's architecture, or refactoring Haskell code for web UI. Ex",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

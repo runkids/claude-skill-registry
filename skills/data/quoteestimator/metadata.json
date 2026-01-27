@@ -1,0 +1,9 @@
+{
+  "name": "quoteestimator",
+  "description": "Rough cycle time and cost estimation for CNC machined parts.\nUses MNMUK plant capabilities and standard estimating factors.\nUSE WHEN user says 'quote', 'estimate', 'cycle time', 'how long', 'cost esti",
+  "repo": "robdtaylor/personal-ai-infrastructure",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/robdtaylor/personal-ai-infrastructure"
+}

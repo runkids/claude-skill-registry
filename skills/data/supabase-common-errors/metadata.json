@@ -1,0 +1,9 @@
+{
+  "name": "supabase-common-errors",
+  "description": "Diagnose and fix Supabase common errors and exceptions.Use when encountering Supabase errors, debugging failed requests,or troubleshooting integration issues.Trigger with phrases like \"supabase error\"",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

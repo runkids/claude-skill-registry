@@ -1,0 +1,9 @@
+{
+  "name": "agent-communication",
+  "description": "Use when user explicitly requests to coordinate with other Claude Code agents, join an agent chat, or communicate across multiple repositories/projects",
+  "repo": "asermax/claude-plugins",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

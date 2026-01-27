@@ -1,11 +1,7 @@
 {
   "name": "optuna-study-creator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Optuna Study Creator - Auto-activating skill for ML Training.Triggers on: optuna study creator, optuna study creatorPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:11.746620Z",
-  "dir_name": "optuna-study-creator",
-  "github_path": "planned-skills/generated/07-ml-training/optuna-study-creator",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/optuna-study-creator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-27T03:32:36.122131Z"
 }

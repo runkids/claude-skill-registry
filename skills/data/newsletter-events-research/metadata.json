@@ -1,0 +1,9 @@
+{
+  "name": "newsletter-events-research",
+  "description": "Research events from Instagram, web aggregators, and Facebook event URLs. Use when scraping event sources, downloading flyer images, or extracting event details.",
+  "repo": "aniketpanjwani/local_media_tools",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aniketpanjwani/local_media_tools"
+}

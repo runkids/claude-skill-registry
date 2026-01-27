@@ -1,0 +1,9 @@
+{
+  "name": "json-validator",
+  "description": "Validate, format, and fix JSON data. Use this skill when working with JSON files, API responses, or configuration files that need validation or formatting.",
+  "repo": "Alon2904/claude-code-skill-creator",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "docker-compose-production",
+  "description": "Use when deploying Docker Compose applications to production including security hardening, resource management, health checks, logging, monitoring, and high-availability patterns.",
+  "repo": "TheBushidoCollective/han",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

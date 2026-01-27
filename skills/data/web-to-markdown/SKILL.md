@@ -1,53 +1,77 @@
 ---
 name: web-to-markdown
-description: Convert web pages to Markdown format using Jina AI's reader service. Use when the user asks to convert, generate, create, transform, or download a web page, website, or URL into Markdown, MD, or md format. Handles various phrasings like "convert this page to markdown", "generate markdown from this website", "create md file from this URL".
+description: "Use ONLY when the user explicitly says: 'use the skill web-to-markdown ...' (or 'use a skill web-to-markdown ...'). Converts webpage URLs to clean Markdown by calling the local web2md CLI (Puppeteer + Readability), suitable for JS-rendered pages."
+metadata:
+  version: 0.1.0
 ---
 
-# Web to Markdown Converter
+# web-to-markdown
 
-Convert any web page to clean Markdown format using Jina AI's reader service.
+Convert web pages to clean Markdown by driving a locally installed browser (via `web2md`).
 
-## Process
+## Hard trigger gate (must enforce)
 
-When a user requests to convert a web page to Markdown:
+This skill MUST NOT be used unless the user explicitly wrote **exactly** a phrase like:
+- `use the skill web-to-markdown ...`
+- `use a skill web-to-markdown ...`
 
-1. **Extract the URL** from the user's request
-2. **Construct Jina URL**: Prepend `https://r.jina.ai/` before the user's URL
-3. **Fetch with curl**: Use `curl` to retrieve the Markdown content
-4. **Save to file**: Write the content to `/mnt/user-data/outputs/{filename}.md`
-5. **Provide download link**: Give the user a link to the generated file
+If the user did not explicitly request this skill by name, stop and ask them to re-issue the request including: `use the skill web-to-markdown`.
 
-## Command Template
+## What this skill does
 
-```bash
-curl -s "https://r.jina.ai/{USER_URL}" > /mnt/user-data/outputs/{filename}.md
-```
+- Handles JS-rendered pages (Puppeteer → user Chrome).
+- Works best with Chromium-family browsers (Chrome/Chromium/Brave/Edge) via `puppeteer-core`.
+- Extracts main content (Readability).
+- Converts to Markdown (Turndown) with cleaned links and optional YAML frontmatter.
 
-## Example Workflow
+## Non-goals
 
-User request: "Convert https://example.com/article into markdown"
+- Do not use Playwright or other browser automation stacks; the mechanism is `web2md`.
 
-Execute:
-```bash
-curl -s "https://r.jina.ai/https://example.com/article" > /mnt/user-data/outputs/article.md
-```
+## Inputs you should collect (ask only if missing)
 
-Then provide link: `computer:///mnt/user-data/outputs/article.md`
+- `url` (or a list of URLs)
+- Output preference:
+  - Print to stdout (`--print`), OR
+  - Save to a file (`--out ./file.md`), OR
+  - Save to a directory (`--out ./some-dir/` to auto-name by page title)
+- Optional rendering controls for tricky pages:
+  - `--chrome-path <path>` (if Chrome auto-detection fails)
+  - `--interactive` (show Chrome and pause so the user can complete human checks/login, then press Enter)
+  - `--wait-until load|domcontentloaded|networkidle0|networkidle2`
+  - `--wait-for '<css selector>'`
+  - `--wait-ms <milliseconds>`
+  - `--headful` (debug)
+  - `--no-sandbox` (sometimes required in containers/CI)
+  - `--user-data-dir <dir>` (login/session; use a dedicated profile directory)
 
-## Filename Generation
+## Workflow
 
-Generate a sensible filename from the URL:
-- Use the last path segment if available (e.g., `article` from `/articles/article`)
-- Remove any file extensions from the URL
-- Sanitize by replacing special characters with underscores or hyphens
-- Add `.md` extension
-- If user specifies a custom filename, use that instead
+1) Confirm the user explicitly invoked the skill (`use the skill web-to-markdown`).
+2) Validate URL(s) start with `http://` or `https://`.
+3) Ensure `web2md` is installed:
+   - Run: `command -v web2md`
+   - If missing, instruct the user to install it (assume the project exists at `~/workspace/softaworks/projects/web2md`):
+     - `cd ~/workspace/softaworks/projects/web2md && npm install && npm run build && npm link`
+     - Or: `cd ~/workspace/softaworks/projects/web2md && npm install && npm run build && npm install -g .`
+4) Convert:
+   - Single URL → file:
+     - `web2md '<url>' --out ./page.md`
+   - Single URL → auto-named file in directory:
+     - `mkdir -p ./out && web2md '<url>' --out ./out/`
+   - Human verification / login walls (interactive):
+     - `mkdir -p ./out && web2md '<url>' --interactive --user-data-dir ./tmp/web2md-profile --out ./out/`
+     - Then: complete the check in the browser window and press Enter in the terminal to continue.
+   - Print to stdout:
+     - `web2md '<url>' --print`
+   - Multiple URLs (batch):
+     - Create output dir (e.g. `./out/`) then run one `web2md` command per URL using `--out ./out/`
+5) Validate output:
+   - If writing files, verify they exist and are non-empty (e.g. `ls -la <path>` and `wc -c <path>`).
+6) Return:
+   - The saved file path(s), or the Markdown (stdout mode).
 
-## Common User Phrasings
+## Defaults (recommended)
 
-This skill handles various ways users might request conversion:
-- "Convert this page to markdown"
-- "Generate markdown from this URL"
-- "Create an MD file from this website"
-- "Download this webpage as markdown"
-- "Turn this page into a markdown file"
+- For most pages: `--wait-until networkidle2`
+- For heavy apps: start with `--wait-until domcontentloaded --wait-ms 2000`, then add `--wait-for 'main'` (or another stable selector) if needed.

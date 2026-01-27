@@ -1,0 +1,9 @@
+{
+  "name": "spring-boot-web-api",
+  "description": "Spring Boot 4 REST API implementation patterns. Use when creating REST controllers, request validation, exception handlers with ProblemDetail (RFC 9457), API versioning, content negotiation, or WebFlu",
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

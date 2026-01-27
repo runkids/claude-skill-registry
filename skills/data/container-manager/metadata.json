@@ -1,0 +1,9 @@
+{
+  "name": "container-manager",
+  "description": "Docker コンテナを管理する。「コンテナ一覧」「docker ps」「コンテナ確認」「コンテナ止めて」「コンテナ起動」「コンテナ再起動」「コンテナに入って」「コンテナの状態」「実行中のコンテナ」「コンテナのリソース」「docker stats」「docker inspect」などで起動。",
+  "repo": "shiiman/claude-code-plugins",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/shiiman/claude-code-plugins"
+}

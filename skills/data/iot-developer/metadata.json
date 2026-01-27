@@ -1,0 +1,12 @@
+{
+  "name": "iot-developer",
+  "description": "Expert in IoT development, microcontrollers, sensors, and MQTT protocols",
+  "repo": "daffy0208/ai-dev-standards",
+  "category": "development",
+  "tags": [
+    "iot",
+    "developer"
+  ],
+  "stars": 2,
+  "source": "local"
+}

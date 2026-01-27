@@ -1,0 +1,9 @@
+{
+  "name": "skillz-integration",
+  "description": "Skillz is an MCP server that turns Claude-style skills (SKILL.md files plus optional resources) into callable tools for any MCP client. It discovers each skill, exposes instructions and resources, and",
+  "repo": "githubnext/gh-aw",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/githubnext/gh-aw"
+}

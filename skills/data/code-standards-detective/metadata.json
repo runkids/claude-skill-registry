@@ -1,0 +1,9 @@
+{
+  "name": "code-standards-detective",
+  "description": "Coding standards discovery agent. Performs deep analysis of codebase to detect naming conventions, import patterns, function characteristics, type usage, error handling, and anti-patterns. Generates e",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

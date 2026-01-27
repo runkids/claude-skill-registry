@@ -1,0 +1,9 @@
+{
+  "name": "sentry-local-dev-loop",
+  "description": "Set up local development workflow with Sentry.Use when configuring Sentry for development environments,setting up debug mode, or testing error capture locally.Trigger with phrases like \"sentry local d",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

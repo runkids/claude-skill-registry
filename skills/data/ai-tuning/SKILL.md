@@ -1,26 +1,27 @@
 ---
 name: ai-tuning
 description: Optimize AI assistant configurations for maximum effectiveness. USE THIS SKILL when user says "improve CLAUDE.md", "better copilot instructions", "tune AI", "optimize prompts", "MCP configuration", or wants to enhance AI assistant behavior.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+user-invocable: true
+allowed-tools: Bash Read Write Edit Glob Grep
 ---
 
 # AI Tuning Skill
 
-Optimize GitHub Copilot, Claude Code, and MCP configurations.
+## Purpose
 
-## Trigger Phrases
+Optimize AI assistant configurations for maximum effectiveness, including CLAUDE.md, copilot-instructions.md, and MCP server setup.
+
+## Triggers
 
 - "improve my CLAUDE.md"
 - "better copilot instructions"
 - "tune AI for this project"
 - "add MCP servers"
 - "optimize AI prompts"
+
+## Usage
+
+Provide your existing AI configuration files or describe your project, and this skill will generate optimized CLAUDE.md, copilot-instructions.md, and MCP configurations following best practices.
 
 ## Effective AI Instructions Principles
 

@@ -1,0 +1,9 @@
+{
+  "name": "my-skills-manager",
+  "description": "Manages personal skills by adding new skills to the my-skills directory or updating existing skills based on user context. Use when user requests to add skills to \"マイスキル\" (my skills) or update existin",
+  "repo": "kuboon/dotfiles",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/kuboon/dotfiles"
+}

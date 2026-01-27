@@ -1,0 +1,9 @@
+{
+  "name": "onnx-converter",
+  "description": "Onnx Converter - Auto-activating skill for ML Deployment.Triggers on: onnx converter, onnx converterPart of the ML Deployment skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

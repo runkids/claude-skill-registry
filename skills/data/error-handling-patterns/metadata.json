@@ -1,10 +1,7 @@
 {
   "name": "error-handling-patterns",
-  "description": "Svelte 5 error handling. Use for error boundaries, async await expressions, loading states, and form errors.",
-  "category": "data",
-  "repo": "spences10/devhub-crm",
-  "path": ".claude/skills/error-handling-patterns/SKILL.md",
-  "stars": 6,
-  "source": "github.com/spences10/devhub-crm",
-  "downloaded_at": "2026-01-24T16:15:11.675291Z"
+  "repo": "as4584/antigravity-skills",
+  "path": "agents-wshobson/plugins/developer-essentials/skills/error-handling-patterns/SKILL.md",
+  "source": "github.com/as4584/antigravity-skills",
+  "downloaded_at": "2026-01-27T04:42:49.002545Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "http-method-helper",
+  "description": "Http Method Helper - Auto-activating skill for API Development.Triggers on: http method helper, http method helperPart of the API Development skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

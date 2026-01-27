@@ -1,10 +1,7 @@
 {
   "name": "launchd-manage",
-  "description": "auto-sync launchd管理。dotfiles自動同期の状態確認・起動・停止・ログ確認。トリガー: launchd, auto-sync, 自動同期, 同期, sync agent",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/launchd-manage/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:16:01.762012Z"
+  "repo": "snkrheadz/laptop",
+  "path": ".claude/skills/launchd-manage/SKILL.md",
+  "source": "github.com/snkrheadz/laptop",
+  "downloaded_at": "2026-01-27T02:00:58.026149Z"
 }

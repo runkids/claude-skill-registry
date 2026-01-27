@@ -1,13 +1,7 @@
 {
   "name": "openai",
-  "description": "OpenAI API via curl. Use this skill for GPT chat completions, DALL-E image generation, Whisper audio transcription, embeddings, and text-to-speech.",
-  "repo": "vm0-ai/vm0-skills",
-  "category": "data",
-  "tags": [
-    "openai"
-  ],
-  "stars": 8,
-  "dir_name": "openai",
-  "github_path": "openai",
-  "github_branch": "main"
+  "repo": "atrawog/bazzite-ai-plugins",
+  "path": "bazzite-ai-jupyter/skills/openai/SKILL.md",
+  "source": "github.com/atrawog/bazzite-ai-plugins",
+  "downloaded_at": "2026-01-27T03:14:37.724125Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "plugin-doctor",
+  "description": "Diagnose and fix quality issues in marketplace components with automated safe fixes and prompted risky fixes",
+  "repo": "cuioss/plan-marshall",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/cuioss/plan-marshall"
+}

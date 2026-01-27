@@ -1,0 +1,9 @@
+{
+  "name": "graphql-schema-design",
+  "description": "Use when designing GraphQL schemas with type system, SDL patterns, field design, pagination, directives, and versioning strategies for maintainable and scalable APIs.",
+  "repo": "TheBushidoCollective/han",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/TheBushidoCollective/han"
+}

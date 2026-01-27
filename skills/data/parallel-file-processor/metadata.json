@@ -1,11 +1,7 @@
 {
   "name": "parallel-file-processor",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "data",
-  "description": "Process multiple files in parallel with aggregation and progress tracking. Use for batch file operations, directory scanning, ZIP handling, and parallel data processing with 2-3x performance improveme",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:57.069558Z",
-  "dir_name": "parallel-file-processor",
-  "github_path": ".claude/skills/development/parallel-file-processor",
-  "github_branch": "main"
+  "path": ".claude/skills/development/parallel-file-processor/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-27T03:49:29.049376Z"
 }

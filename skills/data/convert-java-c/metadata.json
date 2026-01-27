@@ -1,0 +1,9 @@
+{
+  "name": "convert-java-c",
+  "description": "Convert Java code to idiomatic C. Use when migrating Java projects to C, translating Java patterns to idiomatic C, or refactoring Java codebases for performance, minimal runtime dependencies, and syst",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

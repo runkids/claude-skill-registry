@@ -1,0 +1,9 @@
+{
+  "name": "never-guess",
+  "description": "Behavioral principle ensuring Claude never guesses when uncertain. Use when Claude's response involves facts it cannot verify, technical claims, or any statement where accuracy matters. Complements re",
+  "repo": "rayk/lucid-toolkit",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

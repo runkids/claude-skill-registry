@@ -1,0 +1,9 @@
+{
+  "name": "absinthe-subscriptions",
+  "description": "Use when implementing real-time GraphQL subscriptions with Absinthe. Covers Phoenix channels, PubSub, and subscription patterns.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

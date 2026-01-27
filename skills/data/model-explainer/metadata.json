@@ -1,0 +1,9 @@
+{
+  "name": "model-explainer",
+  "description": "Model interpretability and explainability using SHAP, LIME, feature importance, and partial dependence plots. Activates for \"explain model\", \"model interpretability\", \"SHAP\", \"LIME\", \"feature importan",
+  "repo": "anton-abyzov/specweave",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "add-exercise",
+  "description": "Add a new exercise to vibereps. Use when the user wants to create a new exercise type with pose detection. Handles creating the JSON config file and detection logic.",
+  "repo": "Flow-Club/vibereps",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/Flow-Club/vibereps"
+}

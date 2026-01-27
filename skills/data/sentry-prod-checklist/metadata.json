@@ -1,0 +1,9 @@
+{
+  "name": "sentry-prod-checklist",
+  "description": "Execute production deployment checklist for Sentry integration.\nUse when preparing for production deployment, reviewing\nSentry configuration, or verifying production readiness.\nTrigger with phrases li",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

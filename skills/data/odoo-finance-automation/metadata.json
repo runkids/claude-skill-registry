@@ -1,0 +1,9 @@
+{
+  "name": "odoo-finance-automation",
+  "description": "Automate Finance Shared Service Center operations in Odoo 19 - month-end closing, journal entries, bank reconciliation, trial balance, and multi-agency consolidation. Handles RIM, CKVC, BOM, JPAL, JLI",
+  "repo": "jgtolentino/insightpulse-odoo",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

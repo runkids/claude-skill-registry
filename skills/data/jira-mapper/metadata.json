@@ -1,0 +1,9 @@
+{
+  "name": "jira-mapper",
+  "description": "Expert in mapping SpecWeave increments to JIRA epics/stories/subtasks. Content flows SpecWeave→JIRA, status flows JIRA→SpecWeave. Handles export (increment → JIRA), import (JIRA → increment). Activate",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

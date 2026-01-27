@@ -1,0 +1,9 @@
+{
+  "name": "bigquery-view-generator",
+  "description": "Bigquery View Generator - Auto-activating skill for GCP Skills.Triggers on: bigquery view generator, bigquery view generatorPart of the GCP Skills skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "doc-updates",
+  "description": "Update documentation with writing guideline enforcement, consolidation detection, and accuracy verification.Triggers: documentation update, docs update, ADR, docstrings, writing guidelines, readme upd",
+  "repo": "athola/claude-night-market",
+  "category": "documents",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

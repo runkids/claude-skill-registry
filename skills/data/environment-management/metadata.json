@@ -1,0 +1,9 @@
+{
+  "name": "environment-management",
+  "description": "Use when managing environment variables and project settings with Mise. Covers env configuration, direnv replacement, and per-directory settings.",
+  "repo": "TheBushidoCollective/han",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/TheBushidoCollective/han"
+}

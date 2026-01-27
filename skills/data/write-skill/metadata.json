@@ -1,0 +1,9 @@
+{
+  "name": "write-skill",
+  "description": "Create Claude Code skills with proper structure and documentation. Use when building custom skills, writing SKILL.md files, or when user asks \"write a skill\" or \"create Claude skill\".",
+  "repo": "yurifrl/cly",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/yurifrl/cly"
+}

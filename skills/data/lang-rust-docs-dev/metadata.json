@@ -1,0 +1,9 @@
+{
+  "name": "lang-rust-docs-dev",
+  "description": "Rust documentation practices for HASH codebase. Use when writing doc comments, documenting functions/types/traits/modules, creating error sections, using intra-doc links, following rustdoc conventions",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

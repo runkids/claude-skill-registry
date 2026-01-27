@@ -1,0 +1,9 @@
+{
+  "name": "bbs",
+  "description": "Manage issues with The Fold's CAS-native BBS (Bulletin Board System). Use for creating, updating, searching, and tracking issues. Invoke when the user wants to create tickets, find work, check issue s",
+  "repo": "osoleve/the-fold",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/osoleve/the-fold"
+}

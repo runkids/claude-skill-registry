@@ -1,0 +1,9 @@
+{
+  "name": "eslint-custom",
+  "description": "Use when custom ESLint rules and plugins including rule development, AST traversal, and publishing.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

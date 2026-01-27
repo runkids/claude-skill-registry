@@ -1,10 +1,7 @@
 {
   "name": "agent-skills",
-  "description": "Complete guide to Agent Skills - modular capabilities that extend Claude's functionality. Use when user asks about creating Skills, Skill structure, progressive disclosure, or custom capabilities for ",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/other/agent-skills/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:15:34.292224Z"
+  "repo": "jyasuu/cheat-sheet",
+  "path": "skills/agent-skills/SKILL.md",
+  "source": "github.com/jyasuu/cheat-sheet",
+  "downloaded_at": "2026-01-27T02:06:34.335519Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "commit-hygiene",
+  "description": "Atomic commits, PR size limits, commit thresholds, stacked PRs",
+  "repo": "alinaqi/claude-bootstrap",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/alinaqi/claude-bootstrap"
+}

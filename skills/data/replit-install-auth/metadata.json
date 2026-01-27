@@ -1,0 +1,9 @@
+{
+  "name": "replit-install-auth",
+  "description": "Install and configure Replit SDK/CLI authentication.\nUse when setting up a new Replit integration, configuring API keys,\nor initializing Replit in your project.\nTrigger with phrases like \"install repl",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

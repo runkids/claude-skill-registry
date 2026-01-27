@@ -1,0 +1,12 @@
+{
+  "name": "lsp-implementation",
+  "description": "Use when implementing Language Server Protocol features - covers completions, hover, diagnostics, and navigation",
+  "repo": "mcclowes/lea",
+  "category": "product",
+  "tags": [
+    "lsp",
+    "implementation"
+  ],
+  "stars": 3,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "project-knowledge",
+  "description": "Load project architecture and structure knowledge. Use when you need to understand how this project is organized.",
+  "repo": "Clouder0/dotagent",
+  "category": "development",
+  "tags": [
+    "project",
+    "knowledge"
+  ],
+  "stars": 0,
+  "source": "local"
+}

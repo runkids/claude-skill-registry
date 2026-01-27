@@ -1,0 +1,9 @@
+{
+  "name": "synthesis",
+  "description": "Synthesize all accumulated notes and drafts to generate the Discussion and Abstract sections. Sixth step of biomedical-science-writer workflow. Requires all notes/*.md files and drafts/introduction.md",
+  "repo": "sxg/biomedical-science-writer",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

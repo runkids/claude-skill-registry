@@ -1,0 +1,9 @@
+{
+  "name": "iac-executor",
+  "description": "Use this skill ONLY after a plan has been APPROVED by both the `iac-security-auditor` skill and the human user. This skill safely applies a confirmed terraform plan.",
+  "repo": "jgtolentino/insightpulse-odoo",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

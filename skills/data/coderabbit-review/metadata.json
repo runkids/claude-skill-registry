@@ -1,0 +1,9 @@
+{
+  "name": "coderabbit-review",
+  "description": "Perform code review using CodeRabbit. Must use this skill if instructed to perform a CodeRabbit review.",
+  "repo": "shogogg/dotfiles",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

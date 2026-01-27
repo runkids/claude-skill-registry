@@ -1,0 +1,9 @@
+{
+  "name": "klingai-prod-checklist",
+  "description": "Pre-launch production readiness checklist for Kling AI. Use when preparing to deploy videogeneration to production. Trigger with phrases like 'klingai production', 'kling ai go-live','klingai launch c",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

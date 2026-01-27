@@ -1,10 +1,7 @@
 {
   "name": "session-logs",
-  "description": "Search and analyze your own session logs (older/parent conversations) using jq.",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/session-logs/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:15:06.375593Z"
+  "repo": "az9713/clawdbot",
+  "path": "skills/session-logs/SKILL.md",
+  "source": "github.com/az9713/clawdbot",
+  "downloaded_at": "2026-01-27T03:29:23.384550Z"
 }

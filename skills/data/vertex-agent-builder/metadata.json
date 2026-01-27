@@ -1,0 +1,9 @@
+{
+  "name": "vertex-agent-builder",
+  "description": "Build and deploy production-ready generative AI agents using Vertex AI, Gemini models, and Google Cloud infrastructure with RAG, function calling, and multi-modal capabilities. Use when appropriate co",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

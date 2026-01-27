@@ -1,0 +1,9 @@
+{
+  "name": "convert-elm-erlang",
+  "description": "Convert Elm code to idiomatic Erlang/OTP. Use when migrating Elm frontend applications to Erlang backend services, translating Elm patterns to OTP behaviors, or refactoring functional code to BEAM VM.",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

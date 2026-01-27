@@ -1,0 +1,9 @@
+{
+  "name": "http-mocking",
+  "description": "HTTP mocking with nock - the only allowed mocking library",
+  "repo": "zerobias-org/module",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/zerobias-org/module"
+}

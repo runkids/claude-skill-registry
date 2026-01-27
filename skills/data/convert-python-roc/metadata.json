@@ -1,0 +1,9 @@
+{
+  "name": "convert-python-roc",
+  "description": "Convert Python code to idiomatic Roc. Use when migrating Python projects to Roc, translating Python patterns to idiomatic Roc, or refactoring Python codebases for type safety, functional purity, and n",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

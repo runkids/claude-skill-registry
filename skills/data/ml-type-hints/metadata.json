@@ -1,0 +1,9 @@
+{
+  "name": "ml-type-hints",
+  "description": "Apply appropriate type hints for ML/PyTorch code. Use when adding type annotations to ML code or addressing mypy errors.",
+  "repo": "apassuello/multimodal_insight_engine",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/apassuello/multimodal_insight_engine"
+}

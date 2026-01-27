@@ -7,7 +7,7 @@ description: "Use this skill when the user asks to save, remember, recall, or or
 
 A persistent memory space for storing knowledge that survives across conversations.
 
-**Location:** `.github/skills/agent-memory/memories/`
+**Location:** `.claude/skills/agent-memory/memories/`
 
 ## Proactive Usage
 
@@ -53,6 +53,8 @@ This is just an example. Structure freely based on actual content.
 
 All memories must include frontmatter with a `summary` field. The summary should be concise enough to determine whether to read the full content.
 
+**Summary is the decision point**: Agents scan summaries via `rg "^summary:"` to decide which memories to read in full. Write summaries that contain enough context to make this decision - what the memory is about, the key problem or topic, and why it matters.
+
 **Required:**
 ```yaml
 ---
@@ -79,19 +81,19 @@ Use summary-first approach to efficiently find relevant memories:
 
 ```bash
 # 1. List categories
-ls .github/skills/agent-memory/memories/
+ls .claude/skills/agent-memory/memories/
 
 # 2. View all summaries
-rg "^summary:" .github/skills/agent-memory/memories/ --no-ignore --hidden
+rg "^summary:" .claude/skills/agent-memory/memories/ --no-ignore --hidden
 
 # 3. Search summaries for keyword
-rg "^summary:.*keyword" .github/skills/agent-memory/memories/ --no-ignore --hidden -i
+rg "^summary:.*keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
 
 # 4. Search by tag
-rg "^tags:.*keyword" .github/skills/agent-memory/memories/ --no-ignore --hidden -i
+rg "^tags:.*keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
 
 # 5. Full-text search (when summary search isn't enough)
-rg "keyword" .github/skills/agent-memory/memories/ --no-ignore --hidden -i
+rg "keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
 
 # 6. Read specific memory file if relevant
 ```
@@ -107,9 +109,9 @@ rg "keyword" .github/skills/agent-memory/memories/ --no-ignore --hidden -i
 3. Write file with required frontmatter (use `date +%Y-%m-%d` for current date)
 
 ```bash
-mkdir -p .github/skills/agent-memory/memories/category-name/
+mkdir -p .claude/skills/agent-memory/memories/category-name/
 # Note: Check if file exists before writing to avoid accidental overwrites
-cat > .github/skills/agent-memory/memories/category-name/filename.md << 'EOF'
+cat > .claude/skills/agent-memory/memories/category-name/filename.md << 'EOF'
 ---
 summary: "Brief description of this memory"
 created: 2025-01-15
@@ -126,19 +128,20 @@ EOF
 - **Update**: When information changes, update the content and add `updated` field to frontmatter
 - **Delete**: Remove memories that are no longer relevant
   ```bash
-  trash .github/skills/agent-memory/memories/category-name/filename.md
+  trash .claude/skills/agent-memory/memories/category-name/filename.md
   # Remove empty category folders
-  rmdir .github/skills/agent-memory/memories/category-name/ 2>/dev/null || true
+  rmdir .claude/skills/agent-memory/memories/category-name/ 2>/dev/null || true
   ```
 - **Consolidate**: Merge related memories when they grow
 - **Reorganize**: Move memories to better-fitting categories as the knowledge base evolves
 
 ## Guidelines
 
-1. **Write self-contained notes**: Include full context so the reader needs no prior knowledge to understand and act on the content
-2. **Keep summaries decisive**: Reading the summary should tell you if you need the details
-3. **Stay current**: Update or delete outdated information
-4. **Be practical**: Save what's actually useful, not everything
+1. **Write for resumption**: Memories exist to resume work later. Capture all key points needed to continue without losing context - decisions made, reasons why, current state, and next steps.
+2. **Write self-contained notes**: Include full context so the reader needs no prior knowledge to understand and act on the content
+3. **Keep summaries decisive**: Reading the summary should tell you if you need the details
+4. **Stay current**: Update or delete outdated information
+5. **Be practical**: Save what's actually useful, not everything
 
 ## Content Reference
 

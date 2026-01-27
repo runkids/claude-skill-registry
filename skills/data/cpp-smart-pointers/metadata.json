@@ -1,0 +1,9 @@
+{
+  "name": "cpp-smart-pointers",
+  "description": "Use when C++ smart pointers including unique_ptr, shared_ptr, and weak_ptr for automatic memory management following RAII principles.",
+  "repo": "TheBushidoCollective/han",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

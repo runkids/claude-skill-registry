@@ -1,565 +1,506 @@
 ---
-name: skill-discovery
-description: |
-  Use when needing to discover available skills across project/user directories - automatically scans
-  for SKILL.md files, parses YAML frontmatter, extracts metadata (name, description, type, MCP requirements),
-  and builds comprehensive skill catalog. Enables intelligent skill selection and auto-invocation.
-  NO competitor has automated skill discovery system.
-
-skill-type: PROTOCOL
-shannon-version: ">=4.1.0"
-
-mcp-requirements:
-  recommended:
-    - name: serena
-      purpose: Cache skill catalog for session persistence
-      fallback: in-memory catalog (lost on context loss)
-      degradation: low
-
-required-sub-skills:
-  - using-shannon
-
-allowed-tools: [Glob, Read, Bash]
+name: Skill Discovery Patterns
+description: How the Rails Enterprise Dev plugin discovers and uses project skills dynamically
+version: 1.0.0
 ---
 
-# Automatic Skill Discovery & Inventory
+# Skill Discovery Patterns
 
 ## Overview
 
-This skill provides systematic discovery of ALL available skills on the system, enabling automatic skill selection and invocation instead of manual checklist-based approaches.
+The Rails Enterprise Dev plugin is **generic and reusable** across all Rails projects. It automatically discovers and uses skills from your project's `.claude/skills/` directory, adapting its behavior to whatever patterns and knowledge are available.
 
-**Core Principle**: Skills discovered automatically, selected intelligently, invoked explicitly
+## Discovery Process
 
-**Output**: Comprehensive skill catalog with metadata for intelligent selection
+### 1. Automatic Skill Scanning
 
-**Why This Matters**: ALL competitor frameworks (SuperClaude, Hummbl, Superpowers) rely on manual skill discovery via checklists. Shannon automates this completely.
+At workflow start, the plugin scans `.claude/skills/` to find available skills:
 
----
-
-## When to Use
-
-**Trigger Conditions**:
-- Session start (via SessionStart hook)
-- User requests skill inventory (/shannon:discover_skills)
-- Before command execution (check applicable skills)
-- When updating skill catalog after adding new skills
-
-**Symptoms That Need This**:
-- Forgetting applicable skills exists
-- Manual "list skills in your mind" checklist burden
-- Inconsistent skill application across sessions
-- Time wasted re-discovering skills
-
----
-
-## The Discovery Protocol
-
-### Step 1: Scan All Skill Directories
-
-**Directories to Scan**:
 ```bash
-# Project skills
-<project_root>/skills/*/SKILL.md
-shannon-plugin/skills/*/SKILL.md
+# Plugin executes skill discovery
+bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/discover-skills.sh
 
-# User skills
-~/.claude/skills/*/SKILL.md
-
-# Plugin skills (if plugin system available)
-<plugin_install_dir>/*/skills/*/SKILL.md
+# Categorizes skills by naming patterns:
+# - core_rails: rails-conventions, rails-error-prevention
+# - data_layer: activerecord-patterns, *model*, *database*
+# - service_layer: service-object-patterns, api-development-patterns
+# - async: sidekiq-async-patterns, *job*, *async*
+# - ui: viewcomponents-specialist, hotwire-patterns, tailadmin-patterns
+# - i18n: localization, *translation*
+# - testing: rspec-testing-patterns, *spec*, *test*
+# - domain: Any skill not matching known patterns
 ```
 
-**Scanning Method**:
-```bash
-# Use Glob for efficient discovery
-project_skills = Glob(pattern="skills/*/SKILL.md")
-user_skills = Glob(pattern="~/.claude/skills/*/SKILL.md", path=Path.home())
+### 2. Skill Inventory Storage
 
-# Combine results
-all_skill_files = project_skills + user_skills
+Discovered skills are stored in settings file for quick access:
+
+```yaml
+# .claude/rails-enterprise-dev.local.md
+---
+available_skills:
+  core:
+    - rails-conventions
+    - rails-error-prevention
+    - codebase-inspection
+  data:
+    - activerecord-patterns
+  service:
+    - service-object-patterns
+    - api-development-patterns
+  ui:
+    - viewcomponents-specialist
+    - hotwire-patterns
+    - tailadmin-patterns
+  domain:
+    - manifest-project-context  # Auto-detected!
+---
 ```
 
-**Output**: List of all SKILL.md file paths
+### 3. Dynamic Skill Invocation
 
-### Step 2: Parse Metadata from Each Skill
+Throughout the workflow, agents check for and use available skills:
 
-**For each SKILL.md file**:
-
-1. **Extract skill name** from directory:
-   ```
-   skills/spec-analysis/SKILL.md → skill_name = "spec-analysis"
-   ```
-
-2. **Read and parse YAML frontmatter**:
-   ```python
-   # Read file
-   content = Read(skill_file)
-
-   # Extract frontmatter (between --- delimiters)
-   import re
-   match = re.match(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
-   frontmatter_yaml = match.group(1)
-
-   # Parse YAML fields:
-   - name: (string, required)
-   - description: (string, required)
-   - skill-type: (RIGID|PROTOCOL|QUANTITATIVE|FLEXIBLE)
-   - mcp-requirements: (dict with required/recommended/conditional)
-   - required-sub-skills: (list of skill names)
-   ```
-
-3. **Extract triggers from description**:
-   ```python
-   # Keyword extraction
-   words = description.lower().split()
-
-   # Filter stop words, keep meaningful triggers
-   triggers = [w for w in words
-               if w not in ['the', 'a', 'an', 'for', 'to', 'when', 'use']
-               and len(w) > 3]
-   ```
-
-4. **Count line count**:
-   ```python
-   line_count = content.count('\n') + 1
-   ```
-
-**Build SkillMetadata**:
-```python
-{
-  "name": skill_name,
-  "description": frontmatter['description'],
-  "skill_type": frontmatter.get('skill-type', 'FLEXIBLE'),
-  "mcp_requirements": frontmatter.get('mcp-requirements', {}),
-  "required_sub_skills": frontmatter.get('required-sub-skills', []),
-  "triggers": extracted_triggers,
-  "file_path": str(skill_file),
-  "namespace": "project"|"user"|"plugin",
-  "line_count": line_count
-}
-```
-
-### Step 3: Build Complete Catalog
-
-**Catalog Structure**:
-```python
-skill_catalog = {
-  "project:spec-analysis": SkillMetadata(...),
-  "project:wave-orchestration": SkillMetadata(...),
-  "user:my-custom-skill": SkillMetadata(...),
-  # ...all discovered skills
-}
-```
-
-**Catalog Statistics**:
-- Total skills found
-- Project skills count
-- User skills count
-- Plugin skills count
-
-### Step 4: Cache Results (Performance Optimization)
-
-**Cache Strategy**:
-- Store catalog in Serena MCP (if available): `skill_catalog_session_{id}`
-- Cache TTL: 1 hour (skills don't change often during session)
-- Cache invalidation: Manual refresh via `/shannon:discover_skills --refresh`
-
-**Performance Benefit**:
-- Cold discovery: ~50-100ms (scanning directories, parsing files)
-- Warm cache: <10ms (retrieve from memory)
-- 10x performance improvement
-
-### Step 5: Present Results
-
-**Output Format**:
 ```markdown
-📚 Skill Discovery Complete
+## Example: Database Implementation Phase
 
-**Skills Found**: 104 total
-├─ Project: 15 skills
-├─ User: 89 skills
-└─ Plugin: 0 skills
-
-**Cache**: Saved to Serena MCP (expires in 1 hour)
-**Next**: Use /shannon:skill_status to see invocation history
+1. Check skill inventory: activerecord-patterns available? YES
+2. Invoke skill: "I need guidance from activerecord-patterns skill for implementing User model"
+3. Extract patterns: N+1 prevention, association patterns, validation strategies
+4. Delegate to Data Lead agent with skill context
+5. Validate implementation against skill best practices
 ```
 
----
+## Skill Categories
 
-## Intelligent Skill Selection
+### Core Rails Skills (Universal)
 
-**After discovery, select applicable skills for current context:**
+**Purpose**: Fundamental Rails patterns applicable to all projects
 
-### Multi-Factor Confidence Scoring
+**Skills**:
+- `rails-conventions` - MVC architecture, naming conventions, file organization
+- `rails-error-prevention` - Common pitfalls, preventive checklists
+- `codebase-inspection` - Pre-implementation analysis procedures
 
-**Algorithm** (4 factors, weighted):
+**When Used**: All workflows (inspection, planning, validation)
+
+**Example Invocation**:
 ```
-confidence_score =
-  (trigger_match × 0.40) +      # Keyword matching
-  (command_compat × 0.30) +     # Command compatibility
-  (context_match × 0.20) +      # Context relevance
-  (deps_satisfied × 0.10)       # Dependencies met
-
-WHERE:
-  trigger_match = matching_triggers / total_triggers
-  command_compat = 1.0 if skill in command_skill_map else 0.0
-  context_match = context_keywords_matched / total_triggers
-  deps_satisfied = required_mcps_available / required_mcps_count
+Before planning, invoke rails-conventions skill to understand:
+- Service object patterns in this project
+- Controller organization
+- Testing conventions
 ```
 
-**Example**:
+### Data Layer Skills
+
+**Purpose**: Database schema, models, queries, associations
+
+**Skills**:
+- `activerecord-patterns` - Query optimization, associations, scopes
+- Custom: `*model*`, `*database*`, `*schema*`
+
+**When Used**: Database migration and model implementation phases
+
+**Example Invocation**:
 ```
-Context: /shannon:spec "Build authentication system"
-
-Skill: spec-analysis
-- Triggers: [specification, analysis, complexity, system]
-- trigger_match: 3/4 = 0.75
-- command_compat: 1.0 (/shannon:spec → spec-analysis mapping)
-- context_match: 2/4 = 0.50 (authentication, system)
-- deps_satisfied: 1.0 (Serena available)
-
-confidence = (0.75×0.40) + (1.0×0.30) + (0.50×0.20) + (1.0×0.10)
-          = 0.30 + 0.30 + 0.10 + 0.10
-          = 0.80 (HIGH CONFIDENCE)
-
-→ AUTO-INVOKE spec-analysis skill
-```
-
-### Selection Thresholds
-
-- **confidence >=0.70**: AUTO-INVOKE (high confidence match)
-- **confidence 0.50-0.69**: RECOMMEND (suggest to agent)
-- **confidence 0.30-0.49**: CONSIDER (low confidence)
-- **confidence <0.30**: IGNORE (not applicable)
-
----
-
-## Command-Skill Compatibility Mapping
-
-**Pre-defined mappings** for Shannon commands:
-
-```python
-COMMAND_SKILL_MAP = {
-  '/shannon:spec': ['spec-analysis', 'confidence-check', 'mcp-discovery'],
-  '/shannon:analyze': ['shannon-analysis', 'project-indexing', 'confidence-check'],
-  '/shannon:wave': ['wave-orchestration', 'sitrep-reporting', 'context-preservation'],
-  '/shannon:test': ['functional-testing'],
-  '/shannon:checkpoint': ['context-preservation'],
-  '/shannon:restore': ['context-restoration'],
-  '/shannon:prime': ['skill-discovery', 'mcp-discovery', 'context-restoration'],
-}
+For User authentication model, invoke activerecord-patterns:
+- How to prevent N+1 queries
+- Association patterns for has_many :through
+- Scope best practices
+- Validation strategies
 ```
 
-**Usage**: When command executed, auto-invoke compatible skills with confidence >=0.70
+### Service Layer Skills
 
----
+**Purpose**: Business logic, API design, service objects
 
-## Compliance Verification
+**Skills**:
+- `service-object-patterns` - Service layer architecture
+- `api-development-patterns` - RESTful API, serialization
+- Custom: `*service*`, `*api*`
 
-**After skill invocation, verify agent actually followed skill**:
+**When Used**: Service and controller implementation phases
 
-### Skill-Specific Verification
-
-**spec-analysis compliance**:
-- Look for: 8D complexity score (e.g., "complexity: 0.68")
-- Look for: Dimension breakdown (structural, cognitive, coordination)
-- Compliant if: Both found
-- Evidence: "Found 8D complexity score and dimension analysis"
-
-**functional-testing compliance**:
-- Look for: Mock usage (mock(, patch(, @mock, @patch)
-- Violation if: Mocks found
-- Compliant if: No mocks detected
-- Evidence: "No mocks detected (NO MOCKS compliant)"
-
-**wave-orchestration compliance**:
-- Look for: SITREP structure (situation, objectives, progress, blockers, next)
-- Compliant if: >=4 of 5 SITREP sections found
-- Evidence: "Found 4/5 SITREP sections"
-
-### Generic Compliance
-
-**For skills without specific checker**:
-- Look for skill name mentioned in output
-- Compliant if: Skill referenced or described
-- Confidence: 0.60 (moderate confidence)
-
----
-
-## Integration with SessionStart Hook
-
-**Enhance SessionStart hook** to run discovery automatically:
-
-```bash
-# In hooks/session_start.sh
-
-# Existing: Load using-shannon meta-skill
-load_meta_skill "using-shannon"
-
-# NEW: Run skill discovery
-echo "🔍 Discovering available skills..."
-/shannon:discover_skills --cache
-
-echo "📚 Skills discovered and cataloged"
-echo "   Skills will be auto-invoked based on command context"
+**Example Invocation**:
+```
+For payment processing service, invoke service-object-patterns:
+- Callable concern usage
+- Namespace patterns ({Domain}Manager::{Action})
+- Error handling strategies
+- Transaction management
 ```
 
----
+### Async Skills
 
-## Common Mistakes
+**Purpose**: Background jobs, queues, schedulers
 
-### ❌ Mistake 1: Scanning Only Project Directory
+**Skills**:
+- `sidekiq-async-patterns` - Background job design
+- Custom: `*job*`, `*async*`, `*queue*`
 
-```python
-# BAD: Only scan project
-skills = Glob("skills/*/SKILL.md")
+**When Used**: Background job implementation phase
+
+**Example Invocation**:
+```
+For invoice generation job, invoke sidekiq-async-patterns:
+- Job idempotency patterns
+- Retry strategies
+- Queue priority configuration
+- Scheduled job patterns
 ```
 
-```python
-# GOOD: Scan project + user + plugin
-project_skills = Glob("skills/*/SKILL.md")
-user_skills = Glob("~/.claude/skills/*/SKILL.md")
-plugin_skills = scan_plugin_directories()
-all_skills = project_skills + user_skills + plugin_skills
+### UI Skills
+
+**Purpose**: Components, views, frontend frameworks
+
+**Skills**:
+- `viewcomponents-specialist` - ViewComponent architecture
+- `hotwire-patterns` - Turbo Frames, Streams, Stimulus
+- `tailadmin-patterns` - TailAdmin UI framework
+- Custom: `*component*`, `*view*`, `*ui*`, `*frontend*`
+
+**When Used**: Component and view implementation phases
+
+**Example Invocation**:
+```
+For user profile component, invoke:
+1. viewcomponents-specialist - Component structure, method exposure
+2. tailadmin-patterns - UI styling, color schemes, card layouts
+3. hotwire-patterns - Real-time updates with Turbo Streams
+
+Extract:
+- TailAdmin card patterns (bg-blue-50, rounded corners)
+- ViewComponent slots for customization
+- Stimulus controller for interactions
 ```
 
-### ❌ Mistake 2: Not Caching Results
+### I18n Skills
 
-```python
-# BAD: Re-scan every time
-def get_skills():
-    return scan_and_parse_all_skills()  # Slow!
+**Purpose**: Internationalization, localization, translations
+
+**Skills**:
+- `localization` - Multi-language support, RTL, pluralization
+- Custom: `*i18n*`, `*translation*`
+
+**When Used**: Localization implementation phase
+
+**Example Invocation**:
+```
+For Arabic translation support, invoke localization:
+- YAML structure for translations
+- RTL CSS patterns
+- Locale switcher component
+- Date/time formatting
+- Pluralization rules
 ```
 
-```python
-# GOOD: Cache for 1 hour
-def get_skills(force_refresh=False):
-    if not force_refresh and cache_valid():
-        return cached_skills  # Fast!
-    return scan_and_parse_all_skills()
+### Testing Skills
+
+**Purpose**: Test strategies, specs, coverage
+
+**Skills**:
+- `rspec-testing-patterns` - Unit, integration, system tests
+- Custom: `*spec*`, `*test*`
+
+**When Used**: Test implementation phase
+
+**Example Invocation**:
+```
+For comprehensive test suite, invoke rspec-testing-patterns:
+- Factory patterns
+- Shared examples
+- Request spec structure
+- System test patterns
+- Mocking strategies
 ```
 
-### ❌ Mistake 3: Selecting All Skills (No Filtering)
+### Domain Skills (Project-Specific)
 
-```python
-# BAD: Invoke all 104 skills
-for skill in all_skills:
-    invoke_skill(skill)
+**Purpose**: Business domain knowledge, project-specific context
+
+**Skills**: Any skill not matching known patterns
+- `manifest-project-context` - Manifest LMS domain knowledge
+- `ecommerce-domain` - E-commerce business logic
+- `healthcare-domain` - Healthcare compliance, HIPAA
+- Custom project domains
+
+**When Used**: Inspection and planning phases (optional context)
+
+**Example Invocation**:
+```
+For shipment tracking feature, invoke manifest-project-context:
+- Understanding Task model (shipments)
+- Bundle concept (delivery routes)
+- Carrier relationships
+- State machine flows
+- Locality/Zone geography
 ```
 
-```python
-# GOOD: Filter by confidence >=0.70
-high_confidence = [s for s in matches if s.confidence >= 0.70]
-for skill in high_confidence:
-    invoke_skill(skill)
-```
+## Graceful Degradation
 
----
+**If a skill is not available**, the plugin continues with agent's general knowledge:
 
-## Performance Targets
-
-| Operation | Target | Measured | Status |
-|-----------|--------|----------|--------|
-| Directory scanning | <50ms | ~30ms | ✅ |
-| YAML parsing (100 skills) | <50ms | ~20ms | ✅ |
-| Total discovery (cold) | <100ms | ~50ms | ✅ |
-| Cache retrieval (warm) | <10ms | ~5ms | ✅ |
-| Selection algorithm | <10ms | ~2ms | ✅ |
-
-**Overall**: <100ms for complete discovery + selection
-
----
-
-## Real-World Impact
-
-**Before Skill Discovery**:
-- Manual checklist: "List skills in your mind" (30+ skills to remember)
-- Forgotten skills: ~30% miss rate
-- Inconsistent application: Depends on agent memory
-
-**After Skill Discovery**:
-- Automatic discovery: 100% of skills found
-- Auto-invocation: 0% forget rate (>=0.70 confidence threshold)
-- Consistent application: Every applicable skill invoked
-
-**Time Saved**: 2-5 minutes per session (no manual skill checking)
-**Quality Improvement**: 30% more skills applied correctly
-
----
-
----
-
-## Examples
-
-### Example 1: Basic Discovery (Session Start)
-
-**Scenario**: Fresh session, auto-discover all skills
-
-**Execution**:
-```bash
-# Triggered automatically by SessionStart hook
-/shannon:discover_skills --cache
-
-# Step 1: Scan directories
-Glob("skills/*/SKILL.md") → 16 files
-Glob("~/.claude/skills/*/SKILL.md") → 88 files
-Total: 104 SKILL.md files found
-
-# Step 2: Parse YAML frontmatter (104 files)
-Parse spec-analysis/SKILL.md:
-  name: spec-analysis
-  description: "8-dimensional quantitative complexity..."
-  skill-type: QUANTITATIVE
-  triggers: [specification, analysis, complexity, quantitative]
-
-[Parse remaining 103 skills...]
-
-# Step 3: Build catalog
-skill_catalog = {
-  "project:spec-analysis": {...},
-  "project:wave-orchestration": {...},
-  "user:my-debugging-skill": {...},
-  ...104 entries
-}
-
-# Step 4: Cache to Serena
-write_memory("skill_catalog_session_20251108", skill_catalog)
-
-# Step 5: Present results
-```
-
-**Output**:
 ```markdown
-📚 Skill Discovery Complete
+## Example: Project Without tailadmin-patterns
 
-**Skills Found**: 104 total
-├─ Project: 16 skills
-├─ User: 88 skills
-└─ Plugin: 0 skills
+User: /rails-dev add dashboard
 
-**By Type**:
-├─ RIGID: 12 skills
-├─ PROTOCOL: 45 skills
-├─ QUANTITATIVE: 23 skills
-└─ FLEXIBLE: 24 skills
-
-**Discovery Time**: 48ms
-**Cache Status**: Saved to Serena MCP (expires in 1 hour)
+Workflow:
+1. Check for tailadmin-patterns skill → NOT FOUND
+2. Check for custom UI skill → NOT FOUND
+3. Log: "No UI framework skill found, using general Rails view patterns"
+4. Proceed with standard Rails ERB views
+5. Suggest: "Consider adding tailadmin-patterns skill for consistent UI"
 ```
 
-**Duration**: <100ms total
+**No workflow failure** - plugin adapts to available skills.
 
-### Example 2: Filtered Discovery (Finding Testing Skills)
+## Custom Skill Integration
 
-**Scenario**: User wants to see all testing-related skills
+### Adding Project-Specific Skills
 
-**Execution**:
+1. Create skill directory:
 ```bash
-/shannon:discover_skills --filter testing
-
-# Step 1-3: Discovery (use cache if <1 hour old)
-Retrieved from cache: 104 skills
-
-# Step 4: Apply filter
-Filter pattern: "testing" (case-insensitive)
-Matches:
-  - functional-testing: description contains "functional testing"
-  - test-driven-development: name contains "testing"
-  - testing-anti-patterns: name contains "testing"
-  - condition-based-waiting: description contains "testing"
-
-Filtered: 4/104 skills matching "testing"
+mkdir -p .claude/skills/my-custom-skill
 ```
 
-**Output**:
+2. Add SKILL.md with patterns:
 ```markdown
-📚 Skill Discovery - Filtered Results
-
-**Filter**: "testing" (4/104 matching)
-
-### Matching Skills:
-
-1. **functional-testing** (RIGID)
-   NO MOCKS iron law enforcement. Real browser/API/database testing.
-   Use when: generating tests, enforcing functional test philosophy
-
-2. **test-driven-development** (RIGID)
-   RED-GREEN-REFACTOR cycle enforcement.
-   Use when: implementing features, before writing code
-
-3. **testing-anti-patterns** (PROTOCOL)
-   Common testing mistakes and fixes.
-   Use when: reviewing tests, avoiding mocks
-
-4. **condition-based-waiting** (PROTOCOL)
-   Replace arbitrary timeouts with condition polling.
-   Use when: async tests, race conditions, flaky tests
-
-**Discovery Time**: 5ms (cache hit)
-```
-
-### Example 3: Auto-Invocation with Command Execution
-
-**Scenario**: User runs /shannon:spec, skills auto-invoked
-
-**Execution**:
-```bash
-User: /shannon:spec "Build authentication system with OAuth"
-
-# PreCommand hook triggers skill selection:
-
-Step 1: Get skill catalog (from cache)
-104 skills loaded
-
-Step 2: Calculate confidence for each skill
-spec-analysis:
-  - trigger_match: 0.75 (spec, authentication, system)
-  - command_compat: 1.0 (/shannon:spec maps to spec-analysis)
-  - context_match: 0.50
-  - deps_satisfied: 1.0
-  - confidence: 0.80 ✅ (>= 0.70 threshold)
-
-mcp-discovery:
-  - trigger_match: 0.60
-  - command_compat: 1.0
-  - context_match: 0.40
-  - deps_satisfied: 1.0
-  - confidence: 0.72 ✅ (>= 0.70 threshold)
-
-functional-testing:
-  - trigger_match: 0.20
-  - command_compat: 0.0 (not mapped to /shannon:spec)
-  - context_match: 0.30
-  - deps_satisfied: 1.0
-  - confidence: 0.18 ❌ (< 0.70 threshold)
-
-Step 3: Auto-invoke high-confidence skills
-Invoking: spec-analysis (0.80)
-Invoking: mcp-discovery (0.72)
-
-Step 4: Load skill content into context
-Step 5: Execute /shannon:spec with skills active
-```
-
-**Output** (visible to user):
-```markdown
-🎯 Auto-Invoked Skills (2 applicable):
-   - spec-analysis (confidence: 0.80)
-   - mcp-discovery (confidence: 0.72)
-
-[Proceeds with specification analysis using both skills...]
-```
-
-**Result**: Applicable skills automatically found and used, no manual discovery needed
-
+---
+name: My Custom Patterns
+description: Our team's coding standards
 ---
 
-## The Bottom Line
+# My Custom Patterns
 
-**Skill discovery should be automatic, not manual.**
+## Service Layer
+- Always use dry-transaction gem
+- Include CustomLogging concern
+...
+```
 
-Same as test discovery in pytest/jest: tools find tests, you don't list them manually.
+3. Plugin auto-discovers on next run:
+```bash
+/rails-dev add feature
+# Plugin scans .claude/skills/
+# Finds: rails-conventions, activerecord-patterns, my-custom-skill
+# Uses my-custom-skill during implementation
+```
 
-**This skill eliminates the "list skills in your mind" checklist burden.**
+### Naming Conventions for Auto-Categorization
 
-**Target**: Make Shannon the only framework with intelligent, automatic skill system.
+**Data layer skills**:
+- `activerecord-*`
+- `*-model-*`
+- `*-database-*`
+- `*-schema-*`
+
+**Service layer skills**:
+- `service-*`
+- `*-service-*`
+- `api-*`
+- `*-api-*`
+
+**UI skills**:
+- `*-component*`
+- `*-view*`
+- `*-ui-*`
+- `*-frontend-*`
+- `hotwire-*`
+- `turbo-*`
+- `stimulus-*`
+
+**Domain skills** (anything else):
+- `*-domain`
+- `*-context`
+- `*-business-*`
+- Project-specific names
+
+## Multi-Project Example
+
+### Project A: Manifest LMS (Full Stack)
+
+```
+.claude/skills/
+├── rails-conventions/
+├── rails-error-prevention/
+├── codebase-inspection/
+├── activerecord-patterns/
+├── service-object-patterns/
+├── api-development-patterns/
+├── sidekiq-async-patterns/
+├── viewcomponents-specialist/
+├── hotwire-patterns/
+├── tailadmin-patterns/       ← TailAdmin UI
+├── localization/
+├── rspec-testing-patterns/
+├── devops-lead/
+├── requirements-writing/
+└── manifest-project-context/ ← Domain specific
+```
+
+**Plugin adapts**: Full feature set with all skills
+
+### Project B: Simple API (Minimal)
+
+```
+.claude/skills/
+├── rails-conventions/
+├── activerecord-patterns/
+├── service-object-patterns/
+├── api-development-patterns/
+└── rspec-testing-patterns/
+```
+
+**Plugin adapts**: API-focused workflow, no UI skills used
+
+### Project C: Different UI Framework
+
+```
+.claude/skills/
+├── rails-conventions/
+├── activerecord-patterns/
+├── bootstrap-patterns/       ← Bootstrap instead of TailAdmin
+└── jquery-patterns/          ← jQuery instead of Hotwire
+```
+
+**Plugin adapts**: Uses bootstrap-patterns and jquery-patterns for UI
+
+## Skill Invocation Protocol
+
+### Format for Agent Skill Requests
+
+```markdown
+I need guidance from the [skill-name] skill for [specific task].
+
+Context:
+- Feature: User authentication
+- Component: JWT service
+- Phase: Service implementation
+
+Questions:
+- What service pattern should I follow?
+- How to handle token refresh?
+- Where to store refresh tokens?
+
+This will inform Backend Lead agent when implementing AuthManager::GenerateToken service.
+```
+
+### Skill Response Integration
+
+```markdown
+Based on [skill-name] skill guidance:
+
+Patterns to follow:
+1. Use Callable concern (from service-object-patterns)
+2. Namespace: AuthManager (from project conventions)
+3. Return Result object (from service-object-patterns)
+
+Implementation requirements:
+- JWT expiry: 15 minutes (access), 7 days (refresh)
+- Store refresh tokens in encrypted database column
+- Invalidate on logout
+
+Passing this to Backend Lead for implementation.
+```
+
+## Workflow Integration
+
+### Phase-Specific Skill Usage
+
+**Inspection Phase:**
+```markdown
+Skills invoked:
+- codebase-inspection (mandatory if available)
+- rails-conventions (understand patterns)
+- domain skills (business context)
+
+Purpose: Understand existing codebase before planning
+```
+
+**Planning Phase:**
+```markdown
+Skills invoked:
+- rails-error-prevention (preventive checklist)
+- rails-conventions (pattern selection)
+- requirements-writing (if user stories needed)
+- domain skills (business rules)
+- phase-specific skills (api, ui, async based on feature type)
+
+Purpose: Create implementation plan with skill-informed decisions
+```
+
+**Implementation Phase:**
+```markdown
+Skills invoked per layer:
+- Database: activerecord-patterns, domain skills
+- Models: activerecord-patterns, domain skills
+- Services: service-object-patterns, api-development-patterns
+- Jobs: sidekiq-async-patterns
+- Components: viewcomponents-specialist, ui framework skills
+- Views: ui framework skills, hotwire-patterns, localization
+- Tests: rspec-testing-patterns
+
+Purpose: Ensure each layer follows established patterns
+```
+
+**Review Phase:**
+```markdown
+Skills invoked:
+- rails-error-prevention (validation checklist)
+- All used implementation skills (verify adherence)
+
+Purpose: Validate implementation against skill guidelines
+```
+
+## Benefits of Skill Discovery
+
+1. **Portability**: Same plugin works across all Rails projects
+2. **Flexibility**: Adapts to available skills and patterns
+3. **Extensibility**: Easy to add project-specific knowledge
+4. **Consistency**: All implementations reference same skills
+5. **Knowledge Capture**: Skills document team conventions
+6. **Onboarding**: New developers reference skills
+7. **Quality**: Consistent patterns across codebase
+
+## Troubleshooting
+
+### Skill Not Found
+
+**Symptom**: Plugin says "Skill not available: my-skill"
+
+**Solution**:
+1. Check skill exists in `.claude/skills/my-skill/`
+2. Ensure SKILL.md file present
+3. Restart Claude Code
+4. Re-run skill discovery: `bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/discover-skills.sh`
+
+### Skill Not Categorized Correctly
+
+**Symptom**: Domain skill categorized as UI skill
+
+**Solution**:
+1. Rename skill to match category patterns
+2. Or: Accept categorization (doesn't affect functionality)
+3. Plugin still invokes skill based on content, not category
+
+### Multiple Domain Skills
+
+**Symptom**: Project has multiple domain skills
+
+**Solution**:
+- Plugin invokes all domain skills during inspection/planning
+- Agents synthesize information from all domain skills
+- This is normal for large/complex projects
+
+## Summary
+
+The skill discovery system makes the Rails Enterprise Dev plugin:
+- **Generic**: Works with any Rails project
+- **Adaptive**: Uses whatever skills available
+- **Extensible**: Easy to add custom patterns
+- **Resilient**: Graceful degradation if skills missing
+- **Maintainable**: Skills separate from plugin code
+
+**Key principle**: Plugin provides workflow orchestration, skills provide project-specific knowledge.

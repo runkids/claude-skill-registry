@@ -1,194 +1,401 @@
 ---
 name: ascii-diagram-creator
-version: 0.4.0
-description: Use PROACTIVELY when user asks for ASCII diagrams, text diagrams, or visual representations of systems, workflows, or relationships. Triggers on "ascii diagram", "text diagram", "visualize", "show how X connects/synergizes", "diagram the flow/phases", or "illustrate relationships". Generates terminal-compatible diagrams using box-drawing characters. Supports architecture, before/after, phased migration, data flow, and relationship/synergy diagrams. Not for image generation or graphical output.
+description: Create ASCII diagrams from workflow definitions and save them as image files (PNG, SVG, etc.)
+license: Apache-2.0
+compatibility: opencode
+metadata:
+  audience: developers
+  workflow: diagram-generation
 ---
 
-# ASCII Diagram Creator
+## What I do
 
-## Overview
+I create professional ASCII diagrams from user-defined workflow specifications and save them as image files:
 
-This skill is a **visual generator agent** that creates clear, terminal-compatible ASCII diagrams to communicate system changes, migrations, and architectural decisions. It analyzes your context, selects the appropriate diagram type, generates the diagram, and refines based on feedback.
+1. **Parse Workflow Definition**: Analyze the user's workflow description to understand the diagram structure
+2. **Generate ASCII Diagram**: Create a clean, well-formatted ASCII representation of the workflow
+3. **Convert to Image**: Save the ASCII diagram as an image file (PNG, SVG, or other formats)
+4. **Save to Disk**: Store the image file in the specified location (default: `./diagrams/`)
 
-**Key Capabilities**:
-- **Codebase auto-discovery**: Automatically scan project structure, detect architecture patterns, and populate diagrams
-- **Project-type templates**: Pre-built templates for Bulletproof React, Next.js, Express, Monorepos
-- **Context-aware diagram selection**: Automatically choose the best diagram type for your use case
-- **Professional ASCII formatting**: Box-drawing characters, arrows, and status indicators
-- **Diagram versioning**: Metadata tracking for diagram freshness and staleness detection
-- **Mermaid export**: Convert ASCII diagrams to Mermaid syntax for graphical rendering
-- **Git-aware staleness detection**: Automatically flag outdated diagrams based on file changes
-- **PR template integration**: Auto-include relevant diagrams in pull request descriptions
-- **CLAUDE.md directive setup**: Optionally configure proactive diagram suggestions
-- **Iterative refinement**: Adjust width, alignment, and content based on feedback
-- **Five diagram types**: Architecture, Before/After, Phased Migration, Data Flow, Relationship/Synergy
-- **Terminal-compatible**: 80-character max width, works in any terminal/markdown
+Supported diagram types:
+- Flowcharts
+- Process flows
+- Sequence diagrams
+- State machines
+- System architecture diagrams
+- Decision trees
 
-## When to Use This Skill
+## When to use me
 
-**Trigger Phrases**:
-- "create an ascii diagram" / "make a text diagram"
-- "create a diagram showing..."
-- "visualize this architecture"
-- "show how X connects/synergizes/relates"
-- "diagram the workflow/phases/flow"
-- "illustrate the relationships between"
-- "show before and after"
+Use this workflow when:
+- You need to visualize a workflow, process, or system architecture
+- You want a quick, text-based diagram that can be saved as an image
+- You need to include diagrams in documentation or presentations
+- You want to document code logic or system flows
+- You need to communicate complex processes in a visual format
 
-**Use PROACTIVELY when**:
-- User is planning a major refactoring or migration
-- User is restructuring directories or file organization
-- User needs to communicate system changes in a PR description
-- User is explaining architecture to team members
-- User mentions "show me", "visualize", or "diagram"
+## Prerequisites
 
-**Do NOT use when**:
-- User wants graphical/image output (use Mermaid or external tools)
-- User needs flowcharts with complex branching (consider Mermaid)
-- User is asking about code, not structure or flow
-- Simple lists would suffice instead of visual diagrams
+- ImageMagick or similar tool for ASCII to image conversion
+- Write permissions to the output directory
+- Valid workflow definition from user input
 
-## Response Style
+## Steps
 
-**Visual Generator Agent**: Analyze context to determine what needs visualization, select appropriate diagram type, generate ASCII diagram, and refine through iteration.
+### Step 1: Analyze the Workflow Request
+- Parse the user's workflow definition
+- Identify the diagram type needed (flowchart, sequence, etc.)
+- Extract key elements:
+  - Start/end points
+  - Processes/actions
+  - Decision points
+  - Connections/flows
+  - Labels and annotations
 
-**Execution Pattern**:
-1. **Analyze context**: Understand what the user wants to visualize
-2. **Select diagram type**: Choose Architecture, Before/After, Phased, or Data Flow
-3. **Generate diagram**: Create initial diagram with proper formatting
-4. **Present with explanation**: Show diagram and explain visual elements
-5. **Refine on request**: Adjust based on user feedback ("make it wider", "add status")
-6. **MANDATORY - Output & Integration**: Execute Phase 4 completely:
-   - Offer Mermaid export for graphical rendering
-   - Run staleness detection if existing diagrams found
-   - Offer PR integration if user is working on a PR
-   - **Ask about CLAUDE.md directive setup**
-   - Output completion checklist (see below)
+### Step 2: Design the ASCII Diagram
+- Create a well-structured ASCII diagram using box-drawing characters
+- Use consistent spacing and alignment
+- Follow standard ASCII diagramming conventions:
+  ```
+  ┌─────────────┐
+  │    Start    │
+  └──────┬──────┘
+         │
+         ▼
+  ┌─────────────┐
+  │   Process   │
+  └──────┬──────┘
+         │
+         ▼
+  ┌─────────────┐
+  │    End      │
+  └─────────────┘
+  ```
+- Ensure the diagram is readable and properly aligned
 
-**CRITICAL**: The skill is NOT complete until the Completion Checklist is output.
+### Step 3: Create Output Directory
+- Create a `diagrams/` directory if it doesn't exist:
+  ```bash
+  mkdir -p diagrams
+  ```
+- Use a custom directory if specified by the user
 
-## Workflow
+### Step 4: Save ASCII to Text File
+- Save the ASCII diagram to a temporary text file:
+  ```bash
+  cat > /tmp/workflow.txt << 'EOF'
+  [ASCII diagram content]
+  EOF
+  ```
 
-| Phase | Description | Details |
-|-------|-------------|---------|
-| 0 | Context Analysis | → [workflow/phase-0-context-analysis.md](workflow/phase-0-context-analysis.md) |
-| 1 | Diagram Type Selection | → [workflow/phase-1-diagram-selection.md](workflow/phase-1-diagram-selection.md) |
-| 2 | Diagram Generation | → [workflow/phase-2-generation.md](workflow/phase-2-generation.md) |
-| 3 | Iterative Refinement | → [workflow/phase-3-refinement.md](workflow/phase-3-refinement.md) |
-| **4** | **Output & Integration (MANDATORY)** | → [workflow/phase-4-output-integration.md](workflow/phase-4-output-integration.md) |
+### Step 5: Convert ASCII to Image
+- Use ImageMagick to convert the ASCII text to an image:
+  ```bash
+  convert -font Courier -pointsize 12 -background white -fill black \
+    -border 20 -bordercolor white /tmp/workflow.txt diagrams/workflow.png
+  ```
+- Or use `asciio` or other ASCII diagram tools if available
+- Support multiple formats:
+  - PNG (default)
+  - SVG (for scalable graphics)
+  - PDF (for documentation)
 
-> **⚠️ IMPORTANT**: Phase 4 must ALWAYS be executed. Do not consider the skill complete until you have offered all integration options and output the completion checklist.
+### Step 6: Verify and Report
+- Verify the image file was created:
+  ```bash
+  ls -lh diagrams/workflow.png
+  ```
+- Display the ASCII diagram in the terminal
+- Provide the image file path and format to the user
+- Offer to open the image in a viewer if desired
 
-## Quick Reference
+## Examples
 
-### Diagram Types
+### Example 1: Simple Flowchart
+**User Input**: "Create a flowchart showing a login process: start, check credentials, if valid show dashboard, else show error, end"
 
-| Type | Purpose | Best For |
-|------|---------|----------|
-| Architecture | System components and relationships | Showing how modules connect |
-| Before/After | Compare current vs proposed state | Migration plans, refactoring |
-| Phased Migration | Step-by-step progression | Multi-phase projects |
-| Data Flow | How data moves through system | API flows, pipelines |
-| Relationship/Synergy | How elements interact or complement | SDLC phases, skill workflows, team structures |
-
-### Visual Elements
-
-| Category | Elements | Usage |
-|----------|----------|-------|
-| Box Drawing | `┌─┬─┐` `│ │ │` `├─┼─┤` `└─┴─┘` | Component boundaries |
-| Arrows | `──►` `◄──` `◄─►` `──✗` `──✓` | Relationships, flow |
-| Status | `✓` `✗` `⏳` `🔄` `⚠️` `🔴` | Progress indicators |
-
-### Formatting Rules
-
-| Rule | Value | Reason |
-|------|-------|--------|
-| Max width | 80 characters | Terminal compatibility |
-| Box alignment | Vertical centers | Visual clarity |
-| Spacing | Between sections | Readability |
-| Legends | When using symbols | Self-documenting |
-
-## Diagram Versioning
-
-Add metadata to track diagram freshness and enable staleness detection:
-
-```markdown
-<!-- diagram-meta
-  type: architecture
-  created: 2025-01-23
-  last-verified: 2025-01-23
-  source-patterns: [src/features/*, src/app/routes/*]
-  stale-after: 30d
--->
+**ASCII Diagram Created**:
+```
+┌─────────────┐
+│    Start    │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────┐
+│ Check Credentials│
+└────────┬────────┘
+         │
+         ├────── Valid ────┐
+         │                 │
+         │                 ▼
+         │    ┌───────────────┐
+         │    │  Show Dashboard │
+         │    └───────┬───────┘
+         │           │
+         │           │
+Invalid  │           ▼
+         │    ┌───────────────┐
+         └───►│     End       │
+              └───────────────┘
 ```
 
-**Metadata Fields**:
-| Field | Purpose |
-|-------|---------|
-| `type` | Diagram type (architecture, data-flow, etc.) |
-| `created` | Initial creation date |
-| `last-verified` | Last time diagram was confirmed accurate |
-| `source-patterns` | Glob patterns of directories diagram represents |
-| `stale-after` | Days until diagram should be re-verified |
+**Image Saved**: `diagrams/login-flow.png`
 
-**Staleness Detection**: When files matching `source-patterns` are modified after `stale-after` days from `last-verified`, the diagram should be re-verified.
+### Example 2: Decision Tree
+**User Input**: "Create a decision tree for deployment: check if tests pass, if yes then deploy to staging, else fix bugs. After staging check if approved, if yes deploy to production, else make changes"
 
-## Reference Materials
-
-- [Visual Elements Reference](reference/visual-elements.md)
-- [Best Practices](reference/best-practices.md)
-- [Diagram Type Templates](reference/diagram-types.md)
-- [Project-Type Templates](reference/project-templates.md)
-- [Mermaid Export Guide](reference/mermaid-export.md)
-
-## Workflow Automation
-
-This skill can be integrated into your workflow automatically. See the README for:
-- Hook-based auto-triggers when creating feature branches
-- CLAUDE.md directives for proactive diagram suggestions
-- Sub-agent integration for feature planning workflows
-
-## Mandatory Completion Checklist
-
-**You MUST output this checklist before the skill is complete.** This ensures all integration options are offered.
-
-```markdown
-## Diagram Generation Complete
-
-### Outputs
-- [ ] ASCII diagram generated (80-char width)
-- [ ] Diagram metadata added (if saving to file)
-
-### Integration Options Offered (Phase 4)
-- [ ] Mermaid export: [offered/accepted/declined/not applicable]
-- [ ] PR integration: [offered/accepted/declined/not applicable]
-- [ ] CLAUDE.md directive: [offered/accepted/declined/already configured]
-
-### Next Steps
-- Recommended save location: [path]
-- Staleness tracking: [enabled/disabled]
+**ASCII Diagram Created**:
+```
+┌──────────────┐
+│   Start      │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│  Run Tests   │
+└──────┬───────┘
+       │
+       ├──── Pass ────┐
+       │              │
+       │              ▼
+       │    ┌─────────────────┐
+       │    │ Deploy Staging  │
+       │    └────────┬────────┘
+       │             │
+       │             ▼
+       │    ┌─────────────────┐
+       │    │   Get Approval  │
+       │    └────────┬────────┘
+       │             │
+       │    Approved │
+       │             │
+       │             ▼
+       │    ┌─────────────────┐
+       │    │ Deploy Production│
+       │    └────────┬────────┘
+       │             │
+       └──────┬──────┘
+             │
+             ▼
+      ┌──────────────┐
+      │     End      │
+      └──────────────┘
 ```
 
-**Example completed checklist:**
-```markdown
-## Diagram Generation Complete
+**Image Saved**: `diagrams/deployment-flow.png`
 
-### Outputs
-- [x] ASCII diagram generated (80-char width)
-- [x] Diagram metadata added
+### Example 3: Sequence Diagram
+**User Input**: "Create a sequence diagram showing user interaction: user requests data, server processes it, database returns result, server responds to user"
 
-### Integration Options Offered (Phase 4)
-- [x] Mermaid export: offered, user declined
-- [x] PR integration: accepted, added to PR description
-- [x] CLAUDE.md directive: offered, user accepted (added to ~/.claude/CLAUDE.md)
-
-### Next Steps
-- Recommended save location: docs/architecture/auth-flow.md
-- Staleness tracking: enabled (30 days)
+**ASCII Diagram Created**:
+```
+User    ───────────────────────────────────────────────► Server
+                              Request Data
+Server  ───────────────────────────────────────────────► Database
+                              Query Data
+Database ──────────────────────────────────────────────► Server
+                              Return Result
+Server  ───────────────────────────────────────────────► User
+                              Send Response
 ```
 
-## Metadata
+**Image Saved**: `diagrams/sequence-user-data.png`
 
-**Category**: planning
-**Source**: Protocol conversion from `~/.claude/protocols/ASCII_DIAGRAM_PROTOCOL.yaml`
-**Version**: 0.3.1
+## ASCII Diagram Conventions
+
+### Box Drawing Characters
+Use Unicode box-drawing characters for professional-looking diagrams:
+- Horizontal: `─`, `═`, `━`
+- Vertical: `│`, `║`, `┃`
+- Corners: `┌`, `┐`, `└`, `┘`
+- Crosses: `┼`, `╪`, `╬`
+- T-junctions: `├`, `┤`, `┬`, `┴`
+
+### Spacing Guidelines
+- Maintain consistent spacing between elements
+- Use single spaces for readability
+- Align boxes and text properly
+- Leave margins around the diagram
+
+### Color and Styling (when converting to image)
+- Use Courier or monospace fonts for ASCII
+- Set appropriate font size (10-14pt)
+- Use white background for clarity
+- Add borders for presentation-ready output
+
+## Image Conversion Options
+
+### Using ImageMagick
+```bash
+# Convert to PNG
+convert -font Courier -pointsize 12 -background white -fill black \
+  -border 20 -bordercolor white input.txt output.png
+
+# Convert to SVG
+convert -font Courier -pointsize 12 input.txt output.svg
+
+# Convert with custom dimensions
+convert -font Courier -pointsize 14 -size 800x600 -background white \
+  -fill black input.txt output.png
+```
+
+### Using ASCIIO (if available)
+```bash
+# Generate ASCII diagram and convert
+echo "[diagram definition]" | asciio -o output.png
+```
+
+### Using Python PIL
+```python
+from PIL import Image, ImageDraw, ImageFont
+
+# Create image from ASCII text
+img = Image.new('RGB', (800, 400), color='white')
+d = ImageDraw.Draw(img)
+font = ImageFont.truetype('Courier.ttf', 12)
+
+# Draw ASCII text
+d.text((10, 10), ascii_text, font=font, fill='black')
+img.save('diagrams/output.png')
+```
+
+## Best Practices
+
+- Keep ASCII diagrams simple and readable
+- Use consistent spacing and alignment
+- Limit diagram width to terminal width (usually 80-120 characters)
+- Add descriptive labels and annotations
+- Save images in standard formats (PNG, SVG)
+- Organize diagrams in a dedicated directory
+- Use descriptive filenames (`login-flow.png`, not `diagram1.png`)
+- Provide both ASCII and image output for flexibility
+
+## Common Issues
+
+### ImageMagick Not Installed
+**Issue**: `convert: command not found`
+
+**Solution**:
+```bash
+# macOS
+brew install imagemagick
+
+# Ubuntu/Debian
+sudo apt-get install imagemagick
+
+# Fedora/CentOS
+sudo dnf install imagemagick
+```
+
+### Font Not Found
+**Issue**: `convert: unable to read font`
+
+**Solution**:
+```bash
+# List available fonts
+convert -list font
+
+# Use system font
+convert -font /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf input.txt output.png
+```
+
+### Diagram Too Wide
+**Issue**: ASCII diagram exceeds terminal width
+
+**Solution**:
+- Simplify the workflow
+- Use shorter labels
+- Break complex diagrams into smaller parts
+- Increase canvas size when converting to image
+
+### Special Characters Not Rendering
+**Issue**: Box-drawing characters display incorrectly
+
+**Solution**:
+- Use UTF-8 encoding
+- Check terminal character set support
+- Use ASCII alternatives if needed:
+  - `|` instead of `│`
+  - `-` instead of `─`
+  - `+` instead of `┼`
+
+## Workflow Diagram Types Reference
+
+### Flowchart
+```
+┌─────┐    ┌─────┐    ┌─────┐
+│Start│───►│Process│───►│ End │
+└─────┘    └─────┘    └─────┘
+```
+
+### Decision Tree
+```
+     ┌──────┐
+     │Start │
+     └──┬───┘
+        │
+        ├── Yes ──► Option A
+        │
+        └── No ───► Option B
+```
+
+### Sequence Diagram
+```
+A ─────────────► B
+     Message 1
+B ─────────────► C
+     Message 2
+```
+
+### State Machine
+```
+     ┌──────┐
+     │ Idle │
+     └──┬───┘
+        │ Event
+        ▼
+     ┌──────┐
+     │Active│
+     └──────┘
+```
+
+## Troubleshooting Checklist
+
+Before creating the diagram:
+- [ ] Workflow definition is clear and complete
+- [ ] Output directory exists or can be created
+- [ ] ImageMagick or conversion tool is installed
+- [ ] Font files are available
+
+After creating the diagram:
+- [ ] ASCII diagram is properly formatted
+- [ ] Image file was created successfully
+- [ ] Image file is readable and displays correctly
+- [ ] File path is reported to the user
+
+## Related Commands
+
+```bash
+# Check ImageMagick version
+convert --version
+
+# List available fonts
+convert -list font
+
+# View image file
+file diagrams/workflow.png
+display diagrams/workflow.png
+
+# Convert to different formats
+convert diagrams/workflow.png diagrams/workflow.svg
+convert diagrams/workflow.png diagrams/workflow.pdf
+
+# Resize image
+convert diagrams/workflow.png -resize 800x600 diagrams/workflow-thumb.png
+```
+
+## Related Skills
+
+- `diagram-creator`: For creating Draw.io diagrams
+- `nextjs-pr-workflow`: For creating PRs with diagram attachments
+- `git-pr-creator`: For PR creation with JIRA integration

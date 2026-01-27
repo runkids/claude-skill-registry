@@ -1,0 +1,9 @@
+{
+  "name": "lang-rust-dev",
+  "description": "Foundational Rust patterns covering core syntax, traits, generics, lifetimes, and common idioms. Use when writing Rust code, understanding ownership basics, working with Option/Result, or needing guid",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

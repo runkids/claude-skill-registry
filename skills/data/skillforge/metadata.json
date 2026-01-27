@@ -1,0 +1,9 @@
+{
+  "name": "skillforge",
+  "description": "Route any user request, error, code, or URL to the right skill action—recommend existing skills, suggest improvements, or create new skills via a triage-first process.",
+  "repo": "monkey1sai/ai-settings",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/monkey1sai/ai-settings"
+}

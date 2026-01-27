@@ -9,7 +9,7 @@ Instrument API endpoints with **business metrics** using AWS CloudWatch Embedded
 
 ## What This Skill Covers
 
-- **Business metrics** - Domain events (customers created, orders placed, payments processed)
+- **Business metrics** - Domain events (users created, orders placed, payments processed)
 - **AWS EMF format** - Logs that automatically become CloudWatch metrics
 - **Event subscribers** - Metrics emitted via domain event subscribers (not in handlers)
 - **Type-safe metrics** - Concrete metric classes instead of arrays
@@ -29,6 +29,8 @@ Use this skill when:
 - Adding domain events that should trigger metric emission
 - Tracking domain events for analytics and business intelligence
 - Building dashboards for business KPIs
+
+> User Service defaults: use `Endpoint=User` with operations like `create` (registration), `update` (profile changes), and `request-password-reset`; run checks via `make <command>`; keep Domain entities free of framework/validation concerns.
 
 ---
 
@@ -50,12 +52,12 @@ Business metrics follow these patterns:
 
 Each class has ONE responsibility:
 
-| Class                              | Responsibility                           |
-| ---------------------------------- | ---------------------------------------- |
-| `CustomersCreatedMetric`           | Define metric name, value, dimensions    |
-| `CustomerCreatedMetricsSubscriber` | Listen to event, emit metric             |
-| `AwsEmfBusinessMetricsEmitter`     | Format and write EMF logs                |
-| `MetricCollection`                 | Hold multiple metrics for batch emission |
+| Class                          | Responsibility                           |
+| ------------------------------ | ---------------------------------------- |
+| `UsersCreatedMetric`           | Define metric name, value, dimensions    |
+| `UserCreatedMetricsSubscriber` | Listen to event, emit metric             |
+| `AwsEmfBusinessMetricsEmitter` | Format and write EMF logs                |
+| `MetricCollection`             | Hold multiple metrics for batch emission |
 
 **Anti-pattern**: Metrics emitted directly in command handlers (violates SRP - handler should only handle commands)
 
@@ -75,18 +77,18 @@ final readonly class OrdersPlacedMetric extends EndpointOperationBusinessMetric 
 
 ```php
 // ❌ BAD: Metrics in command handler (violates SRP)
-final class CreateCustomerHandler
+final class CreateUserHandler
 {
     public function __construct(
-        private CustomerRepository $repository,
+        private UserRepository $repository,
         private BusinessMetricsEmitterInterface $metrics  // Wrong!
     ) {}
 }
 
 // ✅ GOOD: Metrics in dedicated event subscriber
-final class CustomerCreatedMetricsSubscriber implements DomainEventSubscriberInterface
+final class UserCreatedMetricsSubscriber implements DomainEventSubscriberInterface
 {
-    public function __invoke(CustomerCreatedEvent $event): void
+    public function __invoke(UserCreatedEvent $event): void
     {
         $this->metricsEmitter->emit($this->metricFactory->create());
     }
@@ -107,9 +109,9 @@ final class CustomerCreatedMetricsSubscriber implements DomainEventSubscriberInt
 ```text
 BusinessMetric (abstract)
 ├── EndpointOperationBusinessMetric (abstract) - for metrics with Endpoint/Operation dimensions
-│   ├── CustomersCreatedMetric
-│   ├── CustomersUpdatedMetric
-│   ├── CustomersDeletedMetric
+│   ├── UsersCreatedMetric
+│   ├── UsersUpdatedMetric
+│   ├── UsersDeletedMetric
 │   └── EndpointInvocationsMetric
 └── (other base classes for different dimension patterns)
 
@@ -162,10 +164,10 @@ abstract readonly class BusinessMetric
 ### Concrete Metric Example
 
 ```php
-// src/Core/Customer/Application/Metric/CustomersCreatedMetric.php
-final readonly class CustomersCreatedMetric extends EndpointOperationBusinessMetric
+// src/User/Application/Metric/UsersCreatedMetric.php
+final readonly class UsersCreatedMetric extends EndpointOperationBusinessMetric
 {
-    private const ENDPOINT = 'Customer';
+    private const ENDPOINT = 'User';
     private const OPERATION = 'create';
 
     public function __construct(
@@ -177,7 +179,7 @@ final readonly class CustomersCreatedMetric extends EndpointOperationBusinessMet
 
     public function name(): string
     {
-        return 'CustomersCreated';
+        return 'UsersCreated';
     }
 
     protected function endpoint(): string
@@ -206,28 +208,28 @@ interface BusinessMetricsEmitterInterface
 ### Metrics Event Subscriber
 
 ```php
-// src/Core/Customer/Application/EventSubscriber/CustomerCreatedMetricsSubscriber.php
+// src/User/Application/EventSubscriber/UserCreatedMetricsSubscriber.php
 /**
  * Error handling is automatic via DomainEventMessageHandler in async workers.
  * Subscribers stay clean - failures are logged + emit metrics automatically.
  * This ensures observability never breaks the main request (AP from CAP theorem).
  */
-final readonly class CustomerCreatedMetricsSubscriber implements DomainEventSubscriberInterface
+final readonly class UserCreatedMetricsSubscriber implements DomainEventSubscriberInterface
 {
     public function __construct(
         private BusinessMetricsEmitterInterface $metricsEmitter,
-        private CustomersCreatedMetricFactoryInterface $metricFactory
+        private UsersCreatedMetricFactoryInterface $metricFactory
     ) {
     }
 
-    public function __invoke(CustomerCreatedEvent $event): void
+    public function __invoke(UserCreatedEvent $event): void
     {
         $this->metricsEmitter->emit($this->metricFactory->create());
     }
 
     public function subscribedTo(): array
     {
-        return [CustomerCreatedEvent::class];
+        return [UserCreatedEvent::class];
     }
 }
 ```
@@ -246,22 +248,22 @@ AWS Embedded Metric Format allows you to embed custom metrics in structured log 
     "Timestamp": 1702425600000,
     "CloudWatchMetrics": [
       {
-        "Namespace": "CCore/BusinessMetrics",
+        "Namespace": "UserService/BusinessMetrics",
         "Dimensions": [["Endpoint", "Operation"]],
-        "Metrics": [{ "Name": "CustomersCreated", "Unit": "Count" }]
+        "Metrics": [{ "Name": "UsersCreated", "Unit": "Count" }]
       }
     ]
   },
-  "Endpoint": "Customer",
+  "Endpoint": "User",
   "Operation": "create",
-  "CustomersCreated": 1
+  "UsersCreated": 1
 }
 ```
 
 When this log is written to stdout via the EMF Monolog channel, CloudWatch automatically:
 
-1. Extracts `CustomersCreated` as a metric
-2. Associates it with the `CCore/BusinessMetrics` namespace
+1. Extracts `UsersCreated` as a metric
+2. Associates it with the `UserService/BusinessMetrics` namespace
 3. Applies dimensions `Endpoint` and `Operation`
 
 ---
@@ -378,13 +380,13 @@ $this->metricsEmitter->emitCollection(new MetricCollection(
 | `Endpoint`      | API resource name | Low         |
 | `Operation`     | CRUD action       | Very Low    |
 | `PaymentMethod` | Payment type      | Low         |
-| `CustomerType`  | Customer segment  | Low         |
+| `UserType`      | User segment      | Low         |
 
 ### Avoid High-Cardinality Dimensions
 
 **Don't use:**
 
-- Customer IDs
+- User IDs
 - Order IDs
 - Session IDs
 - Timestamps
@@ -405,14 +407,14 @@ These create too many unique metric streams and increase CloudWatch costs.
 
 | Good                | Bad                   |
 | ------------------- | --------------------- |
-| `CustomersCreated`  | `customer_created`    |
+| `UsersCreated`      | `user_created`        |
 | `OrdersPlaced`      | `orders.placed.count` |
 | `PaymentsProcessed` | `payment-processed`   |
 
 ### Guidelines
 
 - Use PascalCase for metric names
-- Use plural nouns for counters (CustomersCreated not CustomerCreated)
+- Use plural nouns for counters (UsersCreated not UserCreated)
 - Use past tense for completed actions
 
 ---
@@ -426,37 +428,37 @@ use App\Shared\Application\Observability\Metric\MetricDimension;
 use App\Shared\Infrastructure\Observability\Factory\MetricDimensionsFactory;
 use App\Tests\Unit\Shared\Infrastructure\Observability\BusinessMetricsEmitterSpy;
 
-final class CustomerCreatedMetricsSubscriberTest extends TestCase
+final class UserCreatedMetricsSubscriberTest extends TestCase
 {
-    public function testEmitsMetricOnCustomerCreated(): void
+    public function testEmitsMetricOnUserCreated(): void
     {
         $metricsSpy = new BusinessMetricsEmitterSpy();
         $dimensionsFactory = new MetricDimensionsFactory();
-        $metricFactory = new CustomersCreatedMetricFactory($dimensionsFactory);
+        $metricFactory = new UsersCreatedMetricFactory($dimensionsFactory);
         $logger = $this->createMock(LoggerInterface::class);
 
-        $subscriber = new CustomerCreatedMetricsSubscriber(
+        $subscriber = new UserCreatedMetricsSubscriber(
             $metricsSpy,
             $metricFactory,
             $logger
         );
 
-        $event = new CustomerCreatedEvent($customerId, $email);
+        $event = new UserCreatedEvent($userId, $email);
         ($subscriber)($event);
 
         self::assertSame(1, $metricsSpy->count());
 
         foreach ($metricsSpy->emitted() as $metric) {
-            self::assertSame('CustomersCreated', $metric->name());
+            self::assertSame('UsersCreated', $metric->name());
             self::assertSame(1, $metric->value());
-            self::assertSame('Customer', $metric->dimensions()->values()->get('Endpoint'));
+            self::assertSame('User', $metric->dimensions()->values()->get('Endpoint'));
             self::assertSame('create', $metric->dimensions()->values()->get('Operation'));
         }
 
         // Or use the assertion helper
         $metricsSpy->assertEmittedWithDimensions(
-            'CustomersCreated',
-            new MetricDimension('Endpoint', 'Customer'),
+            'UsersCreated',
+            new MetricDimension('Endpoint', 'User'),
             new MetricDimension('Operation', 'create')
         );
     }
@@ -483,13 +485,13 @@ After deploying, query your business metrics:
 ```sql
 -- Total endpoint invocations by resource
 SELECT SUM(EndpointInvocations)
-FROM "CCore/BusinessMetrics"
+FROM "UserService/BusinessMetrics"
 GROUP BY Endpoint
 
--- Customers created over time
-SELECT SUM(CustomersCreated)
-FROM "CCore/BusinessMetrics"
-WHERE Endpoint = 'Customer'
+-- Users created over time
+SELECT SUM(UsersCreated)
+FROM "UserService/BusinessMetrics"
+WHERE Endpoint = 'User'
 ```
 
 ---
@@ -509,7 +511,7 @@ Remember: AWS AppRunner already provides infrastructure metrics.
 
 **Do track:**
 
-- Business events (orders placed, customers created)
+- Business events (orders placed, users created)
 - Business values (order amounts, payment totals)
 - Domain-specific actions (logins, uploads, exports)
 
@@ -556,9 +558,9 @@ After implementing business metrics:
 - `src/Shared/Application/Observability/Metric/MetricDimensions.php` - Dimension collection
 - `src/Shared/Application/Observability/Metric/MetricCollection.php` - Metrics collection
 - `src/Shared/Application/Observability/Metric/EndpointInvocationsMetric.php` - Endpoint metric
-- `src/Core/Customer/Application/Metric/CustomersCreatedMetric.php` - Customer create metric
-- `src/Core/Customer/Application/Metric/CustomersUpdatedMetric.php` - Customer update metric
-- `src/Core/Customer/Application/Metric/CustomersDeletedMetric.php` - Customer delete metric
+- `src/User/Application/Metric/UsersCreatedMetric.php` - User create metric
+- `src/User/Application/Metric/UsersUpdatedMetric.php` - User update metric
+- `src/User/Application/Metric/UsersDeletedMetric.php` - User delete metric
 
 ### Infrastructure
 
@@ -569,9 +571,9 @@ After implementing business metrics:
 ### Event Subscribers
 
 - `src/Shared/Infrastructure/Observability/ApiEndpointBusinessMetricsSubscriber.php` - HTTP metrics
-- `src/Core/Customer/Application/EventSubscriber/CustomerCreatedMetricsSubscriber.php`
-- `src/Core/Customer/Application/EventSubscriber/CustomerUpdatedMetricsSubscriber.php`
-- `src/Core/Customer/Application/EventSubscriber/CustomerDeletedMetricsSubscriber.php`
+- `src/User/Application/EventSubscriber/UserCreatedMetricsSubscriber.php`
+- `src/User/Application/EventSubscriber/UserUpdatedMetricsSubscriber.php`
+- `src/User/Application/EventSubscriber/UserDeletedMetricsSubscriber.php`
 
 ### Configuration
 

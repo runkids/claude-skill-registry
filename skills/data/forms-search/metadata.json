@@ -1,0 +1,9 @@
+{
+  "name": "forms-search",
+  "description": "Google Forms を検索する。「Forms 検索」「フォーム検索」「Google Forms 検索」「フォームを探して」「Forms を見つけたい」「アンケート検索」「Google フォーム検索」などで起動。`/shiiman-google:forms-search` を実行して検索する。",
+  "repo": "shiiman/claude-code-plugins",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/shiiman/claude-code-plugins"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "whole-group-processor",
+  "description": "Xử lý từng GROUP một cách có hệ thống trong Whole Knowledge Architecture.Hỗ trợ expand, refine, và enrich nội dung từng nhóm khái niệm.v1.1.0: Added --pr, --commit, --dry flags for GitHub workflow aut",
+  "repo": "Goobee811/Whole",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

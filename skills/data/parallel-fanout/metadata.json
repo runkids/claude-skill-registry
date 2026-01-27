@@ -1,0 +1,9 @@
+{
+  "name": "parallel-fanout",
+  "description": "Metaskill that fans out on every interaction, using interaction entropy",
+  "repo": "plurigrid/asi",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/plurigrid/asi"
+}

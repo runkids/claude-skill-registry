@@ -1,0 +1,9 @@
+{
+  "name": "story-create",
+  "description": "Create structured story files for planning user-facing features. Use when user asks to \"create a story\", \"add a story\", \"plan a story\", or needs to document user value. Creates numbered markdown files",
+  "repo": "otrebu/all-agents",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/otrebu/all-agents"
+}

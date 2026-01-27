@@ -27,6 +27,8 @@ description: |
 
 ## Installation
 
+See [SETUP.md](./SETUP.md) for complete installation instructions.
+
 **Quick Setup:**
 
 ```bash
@@ -49,20 +51,18 @@ cd ../client && bun install
 ### Start the Observability Dashboard
 
 **Terminal 1 - Server:**
-
 ```bash
 cd ~/Projects/PAI/skills/agent-observability/apps/server
 bun run dev
 ```
 
 **Terminal 2 - Client:**
-
 ```bash
 cd ~/Projects/PAI/skills/agent-observability/apps/client
 bun run dev
 ```
 
-**Open browser:** [http://localhost:5173](http://localhost:5173)
+**Open browser:** http://localhost:5173
 
 ### Using Claude Code
 
@@ -87,14 +87,14 @@ Once the dashboard is running, any Claude Code activity will appear in real-time
 
 ### Real-Time Visualization
 
-- **Agent Swim Lanes:** See multiple agents (qara, designer, engineer, etc.) running in parallel
+- **Agent Swim Lanes:** See multiple agents (kai, designer, engineer, etc.) running in parallel
 - **Event Timeline:** Chronological view of all events
 - **Tool Usage Charts:** Visualize which tools are being used most
 - **Session Tracking:** Track individual sessions and their lifecycles
 
 ### Filtering & Search
 
-- Filter by agent name (qara, designer, engineer, pentester, etc.)
+- Filter by agent name (kai, designer, engineer, pentester, etc.)
 - Filter by event type (PreToolUse, PostToolUse, etc.)
 - Filter by session ID
 - Search event payloads
@@ -103,14 +103,13 @@ Once the dashboard is running, any Claude Code activity will appear in real-time
 
 Events are stored in JSONL (JSON Lines) format:
 
-```bash
+```
 ~/.claude/history/raw-outputs/YYYY-MM/YYYY-MM-DD_all-events.jsonl
 ```
 
 Each line is a complete JSON object:
-
 ```jsonl
-{"source_app":"qara","session_id":"abc123","hook_event_type":"PreToolUse","payload":{...},"timestamp":1234567890,"timestamp_aedt":"2025-01-28 14:30:00 AEDT"}
+{"source_app":"kai","session_id":"abc123","hook_event_type":"PreToolUse","payload":{...},"timestamp":1234567890,"timestamp_pst":"2025-01-28 14:30:00 PST"}
 ```
 
 ### In-Memory Streaming
@@ -122,7 +121,7 @@ Each line is a complete JSON object:
 
 ## Architecture
 
-```txt
+```
 ┌─────────────────┐
 │  Claude Code    │  Executes hooks on events
 │   (with hooks)  │
@@ -175,7 +174,7 @@ Add to `~/.claude/settings.json` (see `settings.json.example` for full template)
       "matcher": "*",
       "hooks": [{
         "type": "command",
-        "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type PreToolUse"
+        "command": "${PAI_DIR}/skills/agent-observability/hooks/capture-all-events.ts --event-type PreToolUse"
       }]
     }],
     // ... other hooks
@@ -189,24 +188,24 @@ Add to `~/.claude/settings.json` (see `settings.json.example` for full template)
 
 1. Check PAI_DIR is set: `echo $PAI_DIR`
 2. Verify directory exists: `ls ~/.claude/history/raw-outputs/`
-3. Check hook is executable: `ls -l ~/.claude/hooks/capture-all-events.ts`
+3. Check hook is executable: `ls -l hooks/capture-all-events.ts`
 4. Look for today's events file: `ls ~/.claude/history/raw-outputs/$(date +%Y-%m)/`
 
 ### Server won't start
 
 1. Check Bun is installed: `bun --version`
 2. Verify dependencies: `cd apps/server && bun install`
-3. Check port 4000 isn't in use: `lsof -i :4000`
+3. Check port 3001 isn't in use: `lsof -i :3001`
 
 ### Client won't connect
 
 1. Ensure server is running first
 2. Check WebSocket connection in browser console
-3. Verify no firewall blocking localhost:4000
+3. Verify no firewall blocking localhost:3001
 
 ## Credits
 
-**Inspired by [@indydevdan](https://github.com/disler)**'s pioneering work on multi-agent observability for Claude Code.
+**Inspired by [@indydevdan](https://github.com/indydevdan)**'s pioneering work on multi-agent observability for Claude Code.
 
 **Our implementation differs** by using filesystem-based event capture and in-memory streaming instead of SQLite database persistence. Both approaches have their merits! Check out indydevdan's work for a database-backed solution with full historical persistence.
 
@@ -246,6 +245,9 @@ bun run preview
 - [history-structure/](./history-structure/) - Data storage structure
 - [settings.json.example](./settings.json.example) - Hook configuration template
 
+## License
+
+Part of the [PAI (Personal AI Infrastructure)](https://github.com/danielmiessler/PAI) project.
 
 ## Contributing
 

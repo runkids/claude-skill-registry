@@ -1,0 +1,9 @@
+{
+  "name": "wt-cleanup",
+  "description": "Identify and remove merged or stale git worktrees. Use for housekeeping, removes worktrees for branches that have been merged to main. Frees disk space.",
+  "repo": "michael-menard/monorepo",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/michael-menard/monorepo"
+}

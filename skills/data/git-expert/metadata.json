@@ -1,10 +1,7 @@
 {
   "name": "git-expert",
-  "description": "|",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/git-expert/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:15:15.647824Z"
+  "repo": "nathanvale/vtm-cli",
+  "path": ".claude/skills/git-expert/SKILL.md",
+  "source": "github.com/nathanvale/vtm-cli",
+  "downloaded_at": "2026-01-27T03:58:44.540643Z"
 }

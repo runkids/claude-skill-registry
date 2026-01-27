@@ -1,0 +1,9 @@
+{
+  "name": "breakpoints",
+  "description": "Generates responsive breakpoint tokens for media queries and container queries. Use when setting up responsive design, mobile-first layouts, or viewport-based styling. Outputs CSS, Tailwind, or JSON.",
+  "repo": "dylantarre/design-system-skills",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

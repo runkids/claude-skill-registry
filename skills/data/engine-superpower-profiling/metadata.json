@@ -1,16 +1,7 @@
 {
   "name": "engine-superpower-profiling",
-  "description": "Profile AI engine superpowers and capability boundaries.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "data",
-  "tags": [
-    "engine",
-    "superpower",
-    "profiling"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "engine-superpower-profiling",
-  "github_path": "skills/engine-superpower-profiling",
-  "github_branch": "main"
+  "path": "skills/engine-superpower-profiling/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-27T01:16:13.475499Z"
 }

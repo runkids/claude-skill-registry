@@ -1,11 +1,7 @@
 {
   "name": "localai",
-  "repo": "atrawog/bazzite-ai-plugins",
-  "category": "data",
-  "description": "LocalAI local inference API management via Podman Quadlet. Provides anOpenAI-compatible API for local model inference with GPU acceleration.Use when users need to configure, start, or manage the Local",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:19.306518Z",
-  "dir_name": "localai",
-  "github_path": "bazzite-ai/skills/localai",
-  "github_branch": "main"
+  "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "path": ".github/skills/localai/SKILL.md",
+  "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric",
+  "downloaded_at": "2026-01-27T03:37:43.695084Z"
 }

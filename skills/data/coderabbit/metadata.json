@@ -1,0 +1,9 @@
+{
+  "name": "coderabbit",
+  "description": "AI-powered code review using CodeRabbit CLI and GitHub integration. Use when running local code reviews before commits (\"run coderabbit\", \"review my changes\"), configuring .coderabbit.yaml files, inte",
+  "repo": "basher83/lunar-claude",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

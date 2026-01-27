@@ -1,0 +1,9 @@
+{
+  "name": "aws-dynamodb",
+  "description": "AWS DynamoDB single-table design, GSI patterns, SDK v3 TypeScript/Python",
+  "repo": "alinaqi/claude-bootstrap",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/alinaqi/claude-bootstrap"
+}

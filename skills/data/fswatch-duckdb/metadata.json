@@ -1,0 +1,9 @@
+{
+  "name": "fswatch-duckdb",
+  "description": "FileSystemWatcher over /tmp with DuckDB/DuckLake persistence. Auto-starts on Amp sessions for resilient file monitoring with temporal queries.",
+  "repo": "plurigrid/asi",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/plurigrid/asi"
+}

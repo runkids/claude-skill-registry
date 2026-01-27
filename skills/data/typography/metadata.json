@@ -1,13 +1,7 @@
 {
   "name": "typography",
-  "description": "Apply professional typography principles to create readable, hierarchical, and aesthetically refined interfaces. Use when setting type scales, choosing fonts, adjusting spacing, designing text-heavy l",
-  "repo": "petekp/claude-skills",
-  "category": "data",
-  "tags": [
-    "typography"
-  ],
-  "stars": 5,
-  "dir_name": "typography",
-  "github_path": "skills/typography",
-  "github_branch": "main"
+  "repo": "omer-metin/skills-for-antigravity",
+  "path": "skills/typography/SKILL.md",
+  "source": "github.com/omer-metin/skills-for-antigravity",
+  "downloaded_at": "2026-01-27T04:14:27.035874Z"
 }

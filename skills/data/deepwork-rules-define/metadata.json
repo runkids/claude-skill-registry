@@ -1,0 +1,9 @@
+{
+  "name": "deepwork-rules-define",
+  "description": "Creates a rule file that triggers when specified files change. Use when setting up documentation sync, code review requirements, or automated commands.",
+  "repo": "Unsupervisedcom/deepwork",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/Unsupervisedcom/deepwork"
+}

@@ -1,9 +1,7 @@
 {
   "name": "data-persistence",
-  "repo": "pluginagentmarketplace/custom-plugin-android",
-  "category": "data",
-  "description": "Room ORM, SQLite, SharedPreferences, DataStore, encryption. Use when implementing data storage and database operations.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:31.563760Z",
-  "dir_name": "data-persistence"
+  "repo": "taozhuo/game-dev-skills",
+  "path": ".claude/skills/data-persistence/SKILL.md",
+  "source": "github.com/taozhuo/game-dev-skills",
+  "downloaded_at": "2026-01-27T02:02:04.931265Z"
 }

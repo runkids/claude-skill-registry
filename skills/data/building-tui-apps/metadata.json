@@ -1,0 +1,9 @@
+{
+  "name": "building-tui-apps",
+  "description": "Use when building interactive terminal dashboards or full-screen terminal applications; when implementing keyboard navigation, live data updates, or multi-panel layouts; when TUI is flickering, slow, ",
+  "repo": "mhagrelius/dotfiles",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/mhagrelius/dotfiles"
+}

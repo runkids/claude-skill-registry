@@ -1,0 +1,13 @@
+{
+  "name": "multi-agent-architect",
+  "description": "Design and orchestrate multi-agent systems. Use when building complex AI systems requiring specialization, parallel processing, or collaborative problem-solving. Covers agent coordination, communicati",
+  "repo": "daffy0208/ai-dev-standards",
+  "category": "design",
+  "tags": [
+    "multi",
+    "agent",
+    "architect"
+  ],
+  "stars": 2,
+  "source": "local"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "allow-agent-commands",
+  "description": "Add or change allowed commands in AI agent permission configs (OpenCode, Claude Code)",
+  "repo": "aspiers/ai-config",
+  "category": "development",
+  "tags": [],
+  "stars": 8,
+  "source": "github.com/aspiers/ai-config"
+}

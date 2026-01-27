@@ -1,0 +1,9 @@
+{
+  "name": "convert-erlang-roc",
+  "description": "Convert Erlang code to idiomatic Roc. Use when migrating Erlang projects to Roc, translating BEAM/OTP patterns to functional patterns, or refactoring Erlang codebases. Extends meta-convert-dev with Er",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

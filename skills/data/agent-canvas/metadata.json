@@ -1,10 +1,7 @@
 {
   "name": "agent-canvas",
-  "description": "Interactive element picker for web pages. Opens a browser with click-to-select UI overlay. Use when you need to let users visually select DOM elements, identify element selectors, or get detailed elem",
-  "category": "data",
   "repo": "edrouhardmicrosoft/agent-canvas-skills",
   "path": ".claude/skills/agent-canvas/SKILL.md",
-  "stars": 0,
   "source": "github.com/edrouhardmicrosoft/agent-canvas-skills",
-  "downloaded_at": "2026-01-24T16:15:31.307621Z"
+  "downloaded_at": "2026-01-27T03:52:29.585880Z"
 }

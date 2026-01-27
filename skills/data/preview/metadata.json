@@ -1,0 +1,9 @@
+{
+  "name": "preview",
+  "description": "Documentation view expert for Docusaurus integration. Launches interactive server for SpecWeave living documentation with hot reload, auto-generated sidebar, and Mermaid diagrams. Works in ANY SpecWea",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

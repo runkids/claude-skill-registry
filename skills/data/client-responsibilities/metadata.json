@@ -1,0 +1,9 @@
+{
+  "name": "client-responsibilities",
+  "description": "Client class responsibilities - connection ONLY, no business operations",
+  "repo": "zerobias-org/module",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/zerobias-org/module"
+}

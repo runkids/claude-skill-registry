@@ -1,0 +1,9 @@
+{
+  "name": "copilot-docs",
+  "description": "Configure GitHub Copilot with custom instructions. Use when setting up .github/copilot-instructions.md, customizing Copilot behavior, or creating repository-specific AI guidance. Triggers on Copilot i",
+  "repo": "hoodini/ai-agents-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/hoodini/ai-agents-skills"
+}

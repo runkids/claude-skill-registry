@@ -1,0 +1,9 @@
+{
+  "name": "deepgram-install-auth",
+  "description": "Install and configure Deepgram SDK/CLI authentication.\nUse when setting up a new Deepgram integration, configuring API keys,\nor initializing Deepgram in your project.\nTrigger with phrases like \"instal",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "wrangler-deploy",
+  "description": "Cloudflare Wrangler deployment patterns for Pitchey. Activates when deploying, publishing, or releasing to Cloudflare Pages or Workers.",
+  "repo": "CavellTopDev/pitchey-app",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

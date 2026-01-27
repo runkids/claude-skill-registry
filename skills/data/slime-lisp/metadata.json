@@ -1,0 +1,9 @@
+{
+  "name": "slime-lisp",
+  "description": "SLIME integration for Common Lisp development",
+  "repo": "plurigrid/asi",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/plurigrid/asi"
+}

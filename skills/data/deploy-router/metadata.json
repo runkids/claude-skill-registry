@@ -1,0 +1,9 @@
+{
+  "name": "deploy-router",
+  "description": "Smart deployment platform router for Vercel vs Cloudflare vs GitHub Pages. Analyzes project structure, framework, SEO needs, runtime requirements, AND repository visibility (private/public). Routes to",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

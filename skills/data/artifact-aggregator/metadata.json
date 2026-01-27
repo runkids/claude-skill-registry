@@ -1,0 +1,9 @@
+{
+  "name": "artifact-aggregator",
+  "description": "Create tiered reports (micro/standard/comprehensive) based on task complexity. Tier 1 (200-500 words) for Level 1 tasks, Tier 2 (500-1500 words) for Level 2, Tier 3 (1500-5000 words) for Level 3 epics",
+  "repo": "djimontyp/task-tracker",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/djimontyp/task-tracker"
+}

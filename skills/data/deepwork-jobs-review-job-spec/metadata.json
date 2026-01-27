@@ -1,0 +1,9 @@
+{
+  "name": "deepwork-jobs-review-job-spec",
+  "description": "Reviews job.yml against quality criteria using a sub-agent for unbiased validation. Use after defining a job specification.",
+  "repo": "Unsupervisedcom/deepwork",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/Unsupervisedcom/deepwork"
+}

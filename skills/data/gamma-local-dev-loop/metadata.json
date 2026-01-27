@@ -1,0 +1,9 @@
+{
+  "name": "gamma-local-dev-loop",
+  "description": "Set up efficient local development workflow for Gamma.\nUse when configuring hot reload, mock responses,\nor optimizing your Gamma development experience.\nTrigger with phrases like \"gamma local dev\", \"g",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

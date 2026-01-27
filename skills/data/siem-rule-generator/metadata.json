@@ -1,0 +1,9 @@
+{
+  "name": "siem-rule-generator",
+  "description": "Siem Rule Generator - Auto-activating skill for Security Advanced.Triggers on: siem rule generator, siem rule generatorPart of the Security Advanced skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

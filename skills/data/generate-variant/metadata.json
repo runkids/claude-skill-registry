@@ -1,0 +1,12 @@
+{
+  "name": "generate-variant",
+  "description": "Generate job-targeted CV variants with built-in quality gates. Queries knowledge base, customizes content, runs eval/redteam pipeline.",
+  "repo": "fotescodev/portfolio",
+  "category": "design",
+  "tags": [
+    "generate",
+    "variant"
+  ],
+  "stars": 1,
+  "source": "local"
+}

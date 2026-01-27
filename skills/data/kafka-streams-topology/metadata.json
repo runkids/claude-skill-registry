@@ -1,0 +1,9 @@
+{
+  "name": "kafka-streams-topology",
+  "description": "Kafka Streams topology design expert. Covers KStream vs KTable vs GlobalKTable, topology patterns, stream operations (filter, map, flatMap, branch), joins, windowing strategies, and exactly-once seman",
+  "repo": "anton-abyzov/specweave",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

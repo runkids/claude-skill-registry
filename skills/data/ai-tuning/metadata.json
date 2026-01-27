@@ -1,11 +1,7 @@
 {
   "name": "ai-tuning",
-  "repo": "zircote/.github",
-  "category": "data",
-  "description": "Optimize AI assistant configurations for maximum effectiveness. USE THIS SKILL when user says \"improve CLAUDE.md\", \"better copilot instructions\", \"tune AI\", \"optimize prompts\", \"MCP configuration\", or",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:46.693503Z",
-  "dir_name": "ai-tuning",
-  "github_path": ".github/skills/ai-tuning",
-  "github_branch": "main"
+  "repo": "Ven0m0/.github",
+  "path": "skills/ai-tuning/SKILL.md",
+  "source": "github.com/Ven0m0/.github",
+  "downloaded_at": "2026-01-27T01:17:14.888877Z"
 }

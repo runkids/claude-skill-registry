@@ -1,0 +1,9 @@
+{
+  "name": "github-issue-standard",
+  "description": "Standard format for ALL GitHub issues created by SpecWeave. Ensures checkable acceptance criteria, task connections, working links, and consistent metadata. Activates for create GitHub issue, sync to ",
+  "repo": "anton-abyzov/specweave",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

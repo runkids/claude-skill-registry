@@ -1,14 +1,7 @@
 {
   "name": "tzurot-observability",
-  "description": "Use when adding logging, debugging production issues, checking service health, or performing routine operations (adding personalities, database queries). Covers structured logging, correlation IDs, Ra",
   "repo": "lbds137/tzurot",
-  "category": "data",
-  "tags": [
-    "tzurot",
-    "observability"
-  ],
-  "stars": 7,
-  "dir_name": "tzurot-observability",
-  "github_path": ".claude/skills/tzurot-observability",
-  "github_branch": "main"
+  "path": ".claude/skills/tzurot-observability/SKILL.md",
+  "source": "github.com/lbds137/tzurot",
+  "downloaded_at": "2026-01-27T01:36:12.787850Z"
 }

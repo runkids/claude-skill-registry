@@ -1,0 +1,9 @@
+{
+  "name": "cover-letter",
+  "description": "Create tailored cover letters that complement your resume. Use after generating a resume with /resume-builder. Requires the generated resume to ensure consistency in achievements and messaging.",
+  "repo": "ewurch/bragger",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

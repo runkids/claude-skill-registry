@@ -1,0 +1,9 @@
+{
+  "name": "woocommerce-code-review",
+  "description": "Review WooCommerce code changes for coding standards compliance. Use when reviewing code locally, performing automated PR reviews, or checking code quality.",
+  "repo": "woocommerce/woocommerce",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

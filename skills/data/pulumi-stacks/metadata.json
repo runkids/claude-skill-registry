@@ -1,0 +1,9 @@
+{
+  "name": "pulumi-stacks",
+  "description": "Use when managing multiple environments with Pulumi stacks for development, staging, and production deployments.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

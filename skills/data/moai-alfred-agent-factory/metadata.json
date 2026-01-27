@@ -1,0 +1,9 @@
+{
+  "name": "moai-alfred-agent-factory",
+  "description": "Agent Factory master skill for intelligent Claude Code agent generation.Includes requirement analysis, domain detection, model selection, template system,validation framework, and advanced features. C",
+  "repo": "AJBcoding/claude-skill-eval",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP (cached JSON)"
+}

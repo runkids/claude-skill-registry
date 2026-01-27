@@ -1,0 +1,9 @@
+{
+  "name": "iso27001-gap-analyzer",
+  "description": "Iso27001 Gap Analyzer - Auto-activating skill for Security Advanced.Triggers on: iso27001 gap analyzer, iso27001 gap analyzerPart of the Security Advanced skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

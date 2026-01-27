@@ -1,10 +1,7 @@
 {
   "name": "interview",
-  "description": "",
-  "category": "data",
-  "repo": "pwstrick/daily",
-  "path": "interview/skill.md",
-  "stars": 2513,
-  "source": "github.com/pwstrick/daily",
-  "downloaded_at": "2026-01-24T16:15:47.466595Z"
+  "repo": "grahama1970/agent-skills",
+  "path": "skills/interview/SKILL.md",
+  "source": "github.com/grahama1970/agent-skills",
+  "downloaded_at": "2026-01-27T04:33:16.605978Z"
 }

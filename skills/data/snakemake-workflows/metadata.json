@@ -1,0 +1,9 @@
+{
+  "name": "snakemake-workflows",
+  "description": "Build reproducible bioinformatics pipelines with Snakemake using rules, wildcards, and automatic dependency resolution. Use when creating Python-based workflows, automating multi-step analyses with ma",
+  "repo": "GPTomics/bioSkills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/GPTomics/bioSkills"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "instance-actors",
+  "description": "Managing instance actor orchestrations for PostgreSQL health monitoring. Use when debugging stale actors, restarting actors, or troubleshooting health check issues.",
+  "repo": "affandar/toygres",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/affandar/toygres"
+}

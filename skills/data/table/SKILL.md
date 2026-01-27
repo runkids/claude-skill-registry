@@ -1,166 +1,34 @@
----
-name: table
-description: Configure data tables in drizzle-cube dashboards for displaying detailed records with sorting. Use when creating data tables, sortable lists, detailed views, or tabular data displays.
----
-
-# Data Table Configuration
-
-Configure data tables for drizzle-cube dashboards. Tables display detailed records with columns for dimensions and measures, supporting sorting and pagination.
-
-## Chart Type
-
-```typescript
-chartType: 'table'
-```
-
-## Basic Configuration
-
-```typescript
-{
-  id: 'table-1',
-  title: 'Employee List',
-  query: JSON.stringify({
-    dimensions: [
-      'Employees.name',
-      'Employees.email',
-      'Departments.name',
-      'Employees.createdAt'
-    ],
-    measures: ['Employees.salary'],
-    order: { 'Employees.createdAt': 'desc' },
-    limit: 20
-  }),
-  chartType: 'table',
-  x: 0, y: 0, w: 12, h: 6
-}
-```
-
-## Chart Configuration (`chartConfig`)
-
-Tables don't require `chartConfig` by default - all dimensions and measures from the query are automatically displayed as columns.
-
-**Optional Configuration:**
-
-### xAxis (Column Selection)
-- **Type**: `string[]`
-- **Optional**: Yes
-- **Purpose**: Explicitly select which columns to display (if omitted, all fields are shown)
-- **Example**: `['Employees.name', 'Employees.email', 'Employees.count']`
-
-```typescript
-// Display specific columns only
-chartConfig: {
-  xAxis: ['Employees.name', 'Employees.email', 'Sales.totalRevenue']
-}
-
-// Or omit chartConfig to show all fields
-// (default behavior)
-```
-
-## Query Configuration
-
-### dimensions
-- Displayed as standard columns
-- Sortable by clicking column headers
-
-### measures
-- Displayed as numeric columns
-- Formatted appropriately (currency, decimals)
-
-### order
-- Set default sort order
-- Example: `{ 'Employees.name': 'asc' }`
-
-### limit
-- Control number of rows
-- Recommended: 10-50 rows
-
-## Examples
-
-### Employee List
-
-```typescript
-{
-  id: 'employee-table',
-  title: 'All Employees',
-  query: JSON.stringify({
-    dimensions: [
-      'Employees.id',
-      'Employees.name',
-      'Employees.email',
-      'Departments.name',
-      'Employees.isActive'
-    ],
-    measures: ['Employees.salary'],
-    order: { 'Employees.name': 'asc' }
-  }),
-  chartType: 'table',
-  x: 0, y: 0, w: 12, h: 6
-}
-```
-
-### Recent Orders
-
-```typescript
-{
-  id: 'recent-orders',
-  title: 'Recent Orders',
-  query: JSON.stringify({
-    dimensions: [
-      'Orders.id',
-      'Orders.customerName',
-      'Orders.status',
-      'Orders.createdAt'
-    ],
-    measures: ['Orders.totalAmount'],
-    order: { 'Orders.createdAt': 'desc' },
-    limit: 20
-  }),
-  chartType: 'table',
-  x: 0, y: 0, w: 12, h: 5
-}
-```
-
-### Top Products
-
-```typescript
-{
-  id: 'top-products',
-  title: 'Top Selling Products',
-  query: JSON.stringify({
-    dimensions: [
-      'Products.name',
-      'Products.category'
-    ],
-    measures: [
-      'Orders.count',
-      'Orders.totalRevenue'
-    ],
-    order: { 'Orders.totalRevenue': 'desc' },
-    limit: 10
-  }),
-  chartType: 'table',
-  x: 0, y: 0, w: 8, h: 5
-}
-```
-
-## Use Cases
-
-- **Detailed Records**: Show full record details
-- **Rankings**: Display top/bottom items
-- **Recent Activity**: List recent transactions
-- **Comparison Tables**: Compare multiple items
-- **Export Data**: Provide data for copying/exporting
-
-## Best Practices
-
-1. **Limit rows** - Use `limit` for performance
-2. **Set default sort** - Provide meaningful default order
-3. **Choose relevant columns** - Don't show all fields
-4. **Format measures** - Ensure proper number formatting
-5. **Consider pagination** - Use `offset` for large datasets
-
-## Related Skills
-
-- Use `queries` skill for complex table queries
-- Use `bar-chart` for visual comparisons
+|link_skill_slot|sp_skill_id|base_skill_id|skill_category|
+| --- | --- | --- | --- |
+|1061002|1061101|1061001|2|
+|1061003|1061102|1061001|2|
+|1061012|1061111|1061001|2|
+|1067001|1067101|1067001|2|
+|1068001|1068103|1068001|2|
+|1068002|1068101|1068001|2|
+|1068003|1068102|1068001|2|
+|1068012|1068111|1068001|2|
+|1069001|1069101|1069001|2|
+|1158001|1158100|1158001|1|
+|1158002|1158101|1158001|2|
+|1158003|1158102|1158001|2|
+|1158012|1158111|1158001|2|
+|1158203|1158102|1158001|2|
+|1164001|1164101|1164001|2|
+|1182001|1182101|1182001|2|
+|1185001|1185101|1185001|2|
+|1208002|1208101|1208001|2|
+|1208012|1208111|1208001|2|
+|1220001|1220101|1220001|2|
+|1223002|1223101|1223001|2|
+|1223003|1223102|1223001|2|
+|1223012|1223111|1223001|2|
+|1227001|1227101|1227001|2|
+|1230001|1230101|1230001|2|
+|1250002|1250101|1250001|2|
+|1250003|1250102|1250001|2|
+|1258001|1258101|1258001|2|
+|1262001|1262101|1262001|2|
+|1264001|1264103|1264001|2|
+|1264002|1264101|1264001|2|
+|1264003|1264102|1264001|2|

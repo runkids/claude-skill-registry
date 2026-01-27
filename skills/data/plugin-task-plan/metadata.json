@@ -1,0 +1,9 @@
+{
+  "name": "plugin-task-plan",
+  "description": "Create implementation tasks from deliverables using skill delegation",
+  "repo": "cuioss/plan-marshall",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/cuioss/plan-marshall"
+}

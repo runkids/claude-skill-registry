@@ -1,149 +1,179 @@
 ---
 name: yt-dlp
-description: Download audio and video from thousands of websites using yt-dlp. Feature-rich command-line tool supporting format selection, subtitle extraction, playlist handling, metadata embedding, and post-processing. This skill is triggered when the user says things like "download this video", "download from YouTube", "extract audio from video", "download this playlist", "get the mp3 from this video", "download subtitles", or "save this video locally".
+description: Video and audio downloader supporting thousands of websites including YouTube, Bilibili, Vimeo, and more. Use when Claude needs to download videos or audio from URLs for: (1) Downloading single videos, (2) Extracting audio from videos, (3) Downloading playlists, (4) Downloading subtitles, (5) Format selection and quality control. Automatically handles format merging, subtitle embedding, and metadata preservation.
 ---
 
-# yt-dlp Documentation Guide
+# yt-dlp Video Downloader
 
-yt-dlp is a feature-rich command-line audio/video downloader with support for thousands of sites. It's a maintained fork of youtube-dl with many additional features and fixes.
+yt-dlp is a powerful command-line tool that downloads videos/audio from thousands of websites.
 
-## Documentation Structure
+## Prerequisites
 
-This skill includes the complete README.md and the official wiki. When working with yt-dlp, reference the appropriate documentation based on the task:
+Check if yt-dlp is installed:
 
-### For Installation and Setup
-- **README.md** - Section: `# INSTALLATION` - Installation methods, dependencies, and updates
-- **wiki/Installation.md** - Detailed installation guide for various platforms
-- **wiki/FAQ.md** - Common installation issues and solutions
-
-### For Basic Downloads
-- **README.md** - Section: `# USAGE AND OPTIONS` - Complete command-line reference
-- **README.md** - Section: `## Download Options:` - File selection, rate limiting, retries
-- **README.md** - Section: `## Video Selection:` - Playlist handling, filtering, date ranges
-
-### For Format Selection (Quality, Audio/Video)
-- **README.md** - Section: `## Video Format Options:` - Format selection syntax and filtering
-- **README.md** - Section: `# FORMAT SELECTION` - Detailed format selection guide
-- **wiki/FAQ.md** - Common format selection questions
-
-### For Audio Extraction
-- **README.md** - Section: `## Post-Processing Options:` - Audio extraction, conversion, embedding
-- Look for examples with `-x` or `--extract-audio` flags
-- Format selection for audio-only downloads
-
-### For Subtitles and Captions
-- **README.md** - Section: `## Subtitle Options:` - Subtitle downloading, conversion, embedding
-- Examples with `--write-subs`, `--write-auto-subs`, `--sub-lang`
-
-### For Output Customization
-- **README.md** - Section: `# OUTPUT TEMPLATE` - Filename templates and field formatting
-- **README.md** - Section: `## Filesystem Options:` - Path formatting, file naming
-- Use this for custom file naming patterns and organization
-
-### For Metadata and Embedding
-- **README.md** - Section: `# MODIFYING METADATA` - Adding/modifying metadata during download
-- **README.md** - Section: `## Post-Processing Options:` - Embedding thumbnails, metadata, chapters
-
-### For Authentication and Cookies
-- **README.md** - Section: `## Authentication Options:` - Username/password, cookies, netrc
-- **README.md** - Section: `# CONFIGURATION` - Subsection: `### Authentication with netrc`
-- Use for sites requiring login
-
-### For Troubleshooting
-- **wiki/FAQ.md** - Frequently asked questions and common issues
-- **README.md** - Section: `## Workarounds:` - Handling rate limits, geo-restrictions, errors
-- **README.md** - Section: `## Extractor Options:` - Site-specific options
-- **wiki/Extractors.md** - List of supported sites and extractor-specific details
-
-### For YouTube-Specific Issues
-- **wiki/PO-Token-Guide.md** - YouTube PO Token authentication (for bot detection issues)
-- **wiki/EJS.md** - YouTube cipher decryption setup
-- **README.md** - Section: `## SponsorBlock Options:` - SponsorBlock integration for YouTube
-
-### For Playlists and Channels
-- **README.md** - Section: `## Video Selection:` - Playlist filtering, item selection
-- Use `--playlist-start`, `--playlist-end`, `--playlist-items` options
-- Archive functionality to track downloaded items
-
-### For Configuration Files
-- **README.md** - Section: `# CONFIGURATION` - Configuration file locations and syntax
-- Configuration file examples and environment variables
-
-### For Advanced Usage
-- **wiki/Plugins.md** - Using community plugins for additional functionality
-- **wiki/Plugin-Development.md** - Creating custom plugins
-- **README.md** - Section: `# EMBEDDING` - Using yt-dlp as a Python library
-
-### For Proxy and Network Issues
-- **README.md** - Section: `## Network Options:` - Proxy configuration, network settings
-- **README.md** - Section: `## Geo-restriction:` - Bypassing geo-blocks
-
-## Common Usage Patterns
-
-When the user asks to:
-- **Download a video** → Check `# USAGE AND OPTIONS` and `## Download Options:`
-- **Extract audio** → Check `## Post-Processing Options:` and look for `-x` examples
-- **Download best quality** → Check `# FORMAT SELECTION` for format sorting
-- **Download playlists** → Check `## Video Selection:` for playlist options
-- **Fix download errors** → Check `wiki/FAQ.md` and `## Workarounds:`
-- **Customize filenames** → Check `# OUTPUT TEMPLATE`
-- **Download with cookies** → Check `## Authentication Options:`
-- **Handle YouTube issues** → Check `wiki/PO-Token-Guide.md` and `wiki/EJS.md`
-
-## Important Notes
-
-1. **Always check README.md first** - It contains the complete command-line reference
-2. **Use the wiki for troubleshooting** - FAQ.md covers most common issues
-3. **Format selection is powerful** - The `# FORMAT SELECTION` section has extensive examples
-4. **YouTube requires special handling** - See wiki/PO-Token-Guide.md and wiki/EJS.md for modern YouTube downloads
-5. **Post-processing requires ffmpeg** - Many features depend on ffmpeg being installed
-
-## Quick Reference
-
-### Installation
 ```bash
-# macOS via Homebrew
-brew install yt-dlp
+yt-dlp --version
+```
 
-# Python pip
+If not installed, install with:
+
+```bash
+# Using pip
 pip install yt-dlp
 
-# Update
-yt-dlp -U
+# Or using package managers
+# Windows: winget install yt-dlp
+# macOS: brew install yt-dlp
+# Linux: See https://github.com/yt-dlp/yt-dlp#installation
 ```
 
-### Basic Commands
+## Quick Start
+
+### Basic Video Download
+
+Download a video in best quality:
+
 ```bash
-# Download video (best quality)
-yt-dlp URL
-
-# Extract audio
-yt-dlp -x --audio-format mp3 URL
-
-# Download playlist
-yt-dlp -o "%(playlist_index)s-%(title)s.%(ext)s" PLAYLIST_URL
-
-# List available formats
-yt-dlp -F URL
-
-# Download specific format
-yt-dlp -f FORMAT_ID URL
+yt-dlp "VIDEO_URL"
 ```
 
-## File Locations
+Download to specific directory with custom filename:
 
-- **README.md** - Complete command-line reference and documentation
-- **wiki/FAQ.md** - Frequently asked questions and troubleshooting
-- **wiki/Installation.md** - Detailed installation instructions
-- **wiki/PO-Token-Guide.md** - YouTube authentication guide
-- **wiki/EJS.md** - YouTube cipher decryption setup
-- **wiki/Extractors.md** - Supported sites and extractor details
-- **wiki/Plugins.md** - Plugin usage guide
-- **wiki/Plugin-Development.md** - Plugin development guide
+```bash
+yt-dlp -o "downloads/%(title)s.%(ext)s" "VIDEO_URL"
+```
 
-## When in Doubt
+### Audio Only
 
-1. Read the relevant section from README.md
-2. Check wiki/FAQ.md for common issues
-3. Use `yt-dlp --help` for complete option list
-4. For site-specific issues, check wiki/Extractors.md
+Extract audio (MP3/Opus/etc):
+
+```bash
+yt-dlp -x --audio-format mp3 "VIDEO_URL"
+```
+
+### Format Selection
+
+Select specific quality:
+
+```bash
+# Best quality up to 1080p
+yt-dlp -f "bestvideo[height<=1080]+bestaudio" "VIDEO_URL"
+
+# Best MP4 video
+yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]" "VIDEO_URL"
+
+# Worst quality (for testing)
+yt-dlp -f "worst" "VIDEO_URL"
+```
+
+### Playlist Download
+
+Download entire playlist:
+
+```bash
+yt-dlp "PLAYLIST_URL"
+```
+
+Download specific range from playlist:
+
+```bash
+yt-dlp --playlist-start 5 --playlist-end 10 "PLAYLIST_URL"
+```
+
+### Subtitles
+
+Download subtitles:
+
+```bash
+# Download available subtitles
+yt-dlp --write-subs --sub-langs en "VIDEO_URL"
+
+# Embed subtitles into video
+yt-dlp --embed-subs --convert-subs srt "VIDEO_URL"
+
+# Download auto-generated subs
+yt-dlp --write-auto-subs "VIDEO_URL"
+```
+
+## Common Options
+
+| Option | Description |
+|--------|-------------|
+| `-o OUTPUT` | Output filename template |
+| `-f FORMAT` | Format selector |
+| `--no-playlist` | Download single video from playlist URL |
+| `--playlist-items START-END` | Download playlist range |
+| `-x` | Extract audio |
+| `--audio-format FORMAT` | Audio format (mp3, m4a, opus, etc) |
+| `--write-subs` | Download subtitles |
+| `--embed-subs` | Embed subtitles in video |
+| `--write-description` | Write video description |
+| `--write-info-json` | Write video metadata JSON |
+| `--concat-playlist` | Download playlist as single file |
+| `--no-overwrites` | Skip existing files |
+| `--continue` | Resume incomplete downloads |
+| `--proxy URL` | Use proxy |
+| `--rate-limit LIMIT` | Download rate limit (e.g., 50K) |
+
+## Python Script
+
+For more complex operations, use the bundled Python script:
+
+```bash
+.claude/skills/yt-dlp/scripts/download.py URL [options]
+```
+
+The script provides a simple interface with progress bars and error handling.
+
+## Output Templates
+
+Common output template variables:
+
+| Variable | Description |
+|----------|-------------|
+| `%(id)s` | Video ID |
+| `%(title)s` | Video title |
+| `%(uploader)s` | Uploader name |
+| `%(ext)s` | File extension |
+| `%(duration)s` | Duration in seconds |
+| `%(view_count)s` | View count |
+| `%(upload_date)s` | Upload date (YYYYMMDD) |
+
+Example templates:
+
+```bash
+# Organize by uploader
+-o "downloads/%(uploader)s/%(title)s.%(ext)s"
+
+# Include date
+-o "downloads/%(upload_date)s - %(title)s.%(ext)s"
+
+# Flat directory with ID
+-o "downloads/%(id)s.%(ext)s"
+```
+
+## Troubleshooting
+
+**Format not available**: Try different format selector or use `-f "best"`
+
+**Download fails**: Check network connection, try `--retry-sleep`
+
+**Subtitle not available**: Video may not have subtitles, try `--list-subs` first
+
+**Rate limiting**: Use `--rate-limit` to avoid being blocked
+
+**Age restricted**: Use `--cookies-from-browser chrome` to pass authentication
+
+## Supported Sites
+
+yt-dlp supports 1000+ websites including:
+- YouTube (all features)
+- Bilibili
+- Vimeo
+- Twitter/X
+- Instagram
+- TikTok
+- Twitch
+- And many more...
+
+See https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md for full list.

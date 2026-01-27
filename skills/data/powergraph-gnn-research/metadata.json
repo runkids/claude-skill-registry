@@ -1,15 +1,7 @@
 {
   "name": "powergraph-gnn-research",
-  "description": "Research pipeline for topology-aware GNN representation learning on power grids using the PowerGraph benchmark. Use when (1) building physics-guided GNNs for power flow (PF), optimal power flow (OPF),",
   "repo": "mhdhazmi/GNNPowerSystem",
-  "category": "data",
-  "tags": [
-    "powergraph",
-    "gnn",
-    "research"
-  ],
-  "stars": 0,
-  "dir_name": "powergraph-gnn-research",
-  "github_path": "skills/powergraph-gnn-research",
-  "github_branch": "main"
+  "path": "skills/powergraph-gnn-research/SKILL.md",
+  "source": "github.com/mhdhazmi/GNNPowerSystem",
+  "downloaded_at": "2026-01-27T00:58:22.985739Z"
 }

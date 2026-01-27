@@ -1,0 +1,9 @@
+{
+  "name": "log-analysis-security",
+  "description": "Log Analysis Security - Auto-activating skill for Security Advanced.Triggers on: log analysis security, log analysis securityPart of the Security Advanced skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "gamma-security-basics",
+  "description": "Implement security best practices for Gamma integration.\nUse when securing API keys, implementing access controls,\nor auditing Gamma security configuration.\nTrigger with phrases like \"gamma security\",",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

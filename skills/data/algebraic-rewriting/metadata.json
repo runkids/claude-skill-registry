@@ -1,0 +1,9 @@
+{
+  "name": "algebraic-rewriting",
+  "description": "Category-theoretic graph rewriting with DPO, SPO, and SqPO pushouts for C-Sets. Declarative transformation of acset data structures.",
+  "repo": "plurigrid/asi",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/plurigrid/asi"
+}

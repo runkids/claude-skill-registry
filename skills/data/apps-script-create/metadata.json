@@ -1,0 +1,9 @@
+{
+  "name": "apps-script-create",
+  "description": "Google Apps Script プロジェクトを新規作成する。「GAS 作成」「Apps Script 作成」「スクリプト作成」「GAS を作って」などで起動。",
+  "repo": "shiiman/claude-code-plugins",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/shiiman/claude-code-plugins"
+}

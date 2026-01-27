@@ -1,0 +1,9 @@
+{
+  "name": "ml-deployment-helper",
+  "description": "Prepares ML models for production deployment with containerization, API creation, monitoring setup, and A/B testing. Activates for \"deploy model\", \"production deployment\", \"model API\", \"containerize m",
+  "repo": "anton-abyzov/specweave",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

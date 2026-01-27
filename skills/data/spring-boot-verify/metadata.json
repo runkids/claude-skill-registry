@@ -1,0 +1,9 @@
+{
+  "name": "spring-boot-verify",
+  "description": "Verify Spring Boot 4.x projects for correct dependencies, configuration, and migration readiness. Use when analyzing pom.xml, build.gradle, application.yml, discussing Spring Boot project setup, depen",
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

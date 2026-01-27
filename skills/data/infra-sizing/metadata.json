@@ -1,0 +1,9 @@
+{
+  "name": "infra-sizing",
+  "description": "Methods for determining the optimal resource allocation for compute, database, and network systems to balance cost and performance.",
+  "repo": "AmnadTaowsoam/cerebratechai-claude-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills"
+}

@@ -1,11 +1,7 @@
 {
   "name": "diagnose",
-  "repo": "mruwnik/memory",
-  "category": "data",
-  "description": "Run safe diagnostic commands on the remote memory server. Use for checking logs, container status, disk usage, memory, and running read-only database queries.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:21.549828Z",
-  "dir_name": "diagnose",
-  "github_path": ".claude/skills/diagnose",
-  "github_branch": "main"
+  "repo": "FelixWayne0318/AItrader",
+  "path": ".claude/skills/diagnose/SKILL.md",
+  "source": "github.com/FelixWayne0318/AItrader",
+  "downloaded_at": "2026-01-27T03:30:15.510958Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "cursor-model-selection",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Configure and select AI models in Cursor. Triggers on \"cursor model\",\"cursor gpt\", \"cursor claude\", \"change cursor model\", \"cursor ai model\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:58.773746Z",
-  "dir_name": "cursor-model-selection",
-  "github_path": "plugins/saas-packs/cursor-pack/skills/cursor-model-selection",
-  "github_branch": "main"
+  "path": "plugins/saas-packs/cursor-pack/skills/cursor-model-selection/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-27T03:43:06.555024Z"
 }

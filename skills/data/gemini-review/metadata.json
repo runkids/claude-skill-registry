@@ -1,0 +1,9 @@
+{
+  "name": "gemini-review",
+  "description": "Google Gemini CLI code review with Gemini 2.5 Pro, 1M token context, CI/CD integration",
+  "repo": "alinaqi/claude-bootstrap",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/alinaqi/claude-bootstrap"
+}

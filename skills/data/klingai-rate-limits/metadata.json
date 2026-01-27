@@ -1,0 +1,9 @@
+{
+  "name": "klingai-rate-limits",
+  "description": "Handle Kling AI rate limits with proper backoff strategies. Use when experiencing 429 errorsor building high-throughput systems. Trigger with phrases like 'klingai rate limit','kling ai 429', 'klingai",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "network-security-scanner",
+  "description": "Network Security Scanner - Auto-activating skill for Security Advanced.Triggers on: network security scanner, network security scannerPart of the Security Advanced skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

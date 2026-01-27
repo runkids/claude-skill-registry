@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-security",
+  "description": "Use when implementing Kubernetes security best practices including RBAC, pod security policies, and network policies.",
+  "repo": "TheBushidoCollective/han",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

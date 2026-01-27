@@ -1,0 +1,9 @@
+{
+  "name": "convert-objc-swift",
+  "description": "Convert Objective-C code to idiomatic Swift. Use when migrating Objective-C projects to Swift, translating Objective-C patterns to modern Swift, modernizing legacy codebases, or establishing gradual m",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

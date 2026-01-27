@@ -1,0 +1,9 @@
+{
+  "name": "supabase-security-basics",
+  "description": "Apply Supabase security best practices for secrets and access control.Use when securing API keys, implementing least privilege access,or auditing Supabase security configuration.Trigger with phrases l",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

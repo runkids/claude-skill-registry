@@ -1,13 +1,7 @@
 {
   "name": "nuxthub",
-  "description": "Use when building NuxtHub v0.10 applications - provides database (Drizzle ORM with sqlite/postgresql/mysql), KV storage, blob storage, and cache APIs. Covers configuration, schema definition, migratio",
-  "repo": "onmax/nuxt-skills",
-  "category": "data",
-  "tags": [
-    "nuxthub"
-  ],
-  "stars": 12,
-  "dir_name": "nuxthub",
-  "github_path": "skills/nuxthub",
-  "github_branch": "main"
+  "repo": "onmax/claude-config",
+  "path": "skills/nuxthub/SKILL.md",
+  "source": "github.com/onmax/claude-config",
+  "downloaded_at": "2026-01-27T01:33:00.370423Z"
 }

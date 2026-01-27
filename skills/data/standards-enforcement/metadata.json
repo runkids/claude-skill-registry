@@ -1,0 +1,9 @@
+{
+  "name": "standards-enforcement",
+  "description": "Establish and enforce coding standards, best practices, and architectural patterns across the codebase using linters, formatters, and code review processes. Use when setting up ESLint/Prettier, config",
+  "repo": "korallis/Droidz",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

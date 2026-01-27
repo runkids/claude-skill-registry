@@ -1,0 +1,9 @@
+{
+  "name": "vercel-local-dev-loop",
+  "description": "Configure Vercel local development with hot reload and testing.Use when setting up a development environment, configuring test workflows,or establishing a fast iteration cycle with Vercel.Trigger with",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

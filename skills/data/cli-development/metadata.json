@@ -1,0 +1,9 @@
+{
+  "name": "cli-development",
+  "description": "Best practices for building CLI applications across languages. Covers CLI design principles (Unix philosophy, command structure, subcommands vs flags), argument parsing (required/optional args, flags,",
+  "repo": "ilude/claude-code-config",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/ilude/claude-code-config"
+}

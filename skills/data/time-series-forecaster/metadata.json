@@ -1,0 +1,9 @@
+{
+  "name": "time-series-forecaster",
+  "description": "Time series forecasting with ARIMA, Prophet, LSTM, and statistical methods. Activates for \"time series\", \"forecasting\", \"predict future\", \"trend analysis\", \"seasonality\", \"ARIMA\", \"Prophet\", \"sales fo",
+  "repo": "anton-abyzov/specweave",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/anton-abyzov/specweave"
+}

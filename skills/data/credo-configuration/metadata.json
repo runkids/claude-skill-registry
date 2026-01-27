@@ -1,0 +1,9 @@
+{
+  "name": "credo-configuration",
+  "description": "Use when configuring Credo static analysis for Elixir projects requiring customized code quality rules and settings.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

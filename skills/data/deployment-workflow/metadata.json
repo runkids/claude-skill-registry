@@ -1,0 +1,9 @@
+{
+  "name": "deployment-workflow",
+  "description": "Deploy to HuggingFace Spaces, create releases, check deployment status, verify before release, push to production. Use when deploying, releasing, or checking deployment logs.",
+  "repo": "mpolatcan/ccbell-sound-generator",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/mpolatcan/ccbell-sound-generator"
+}

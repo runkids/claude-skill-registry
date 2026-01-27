@@ -1,0 +1,9 @@
+{
+  "name": "async-patterns",
+  "description": "Async/await patterns for the .NET 8 WPF widget host app. Use when implementing async commands, background operations, cancellation, progress reporting, or UI thread marshaling.",
+  "repo": "YosrBennagra/3SC",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/YosrBennagra/3SC"
+}

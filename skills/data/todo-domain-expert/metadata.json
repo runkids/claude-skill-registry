@@ -1,11 +1,7 @@
 {
   "name": "todo-domain-expert",
-  "repo": "UBAIDRAZA1/UBAIDRAZA1-Todo-Web-Application",
-  "category": "data",
-  "description": "Provides domain knowledge and rules for Todo task management systems.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:13.913125Z",
-  "dir_name": "todo-domain-expert",
-  "github_path": ".gemini/skills/todo-domain-expert",
-  "github_branch": "main"
+  "repo": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+  "path": ".claude/skills/todo-domain-expert/SKILL.md",
+  "source": "github.com/hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+  "downloaded_at": "2026-01-27T03:29:40.501159Z"
 }

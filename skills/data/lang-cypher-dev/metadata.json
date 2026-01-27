@@ -1,0 +1,9 @@
+{
+  "name": "lang-cypher-dev",
+  "description": "Foundational Cypher (Neo4j) patterns covering graph pattern matching, MATCH/CREATE/MERGE/DELETE operations, relationships, path patterns, aggregation, filtering, and common graph query patterns. Use w",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "policy-qa",
+  "description": "Answer policy questions with strict citations. Refuses to answer without sources.",
+  "repo": "jgtolentino/insightpulse-odoo",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "clippy-configuration",
+  "description": "Use when configuring Clippy for Rust projects with TOML config, lint groups, attributes, and workspace setup.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

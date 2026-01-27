@@ -1,0 +1,9 @@
+{
+  "name": "plan-marshall-plugin",
+  "description": "Java domain extension with Maven/Gradle build operations and workflow integration",
+  "repo": "cuioss/plan-marshall",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/cuioss/plan-marshall"
+}

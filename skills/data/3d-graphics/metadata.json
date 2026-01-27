@@ -1,0 +1,9 @@
+{
+  "name": "3d-graphics",
+  "description": "3D web graphics with Three.js (WebGL/WebGPU). Capabilities: scenes, cameras, geometries, materials, lights, animations, model loading (GLTF/FBX), PBR materials, shadows, post-processing (bloom, SSAO, ",
+  "repo": "samhvw8/dotfiles",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/samhvw8/dotfiles"
+}

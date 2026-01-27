@@ -1,10 +1,7 @@
 {
   "name": "handoff",
-  "description": "Writes comprehensive handoff note at session end. Captures work done, files changed, remaining tasks, and next steps. Use before ending any work session or switching contexts.",
-  "category": "data",
-  "repo": "RustyLindquist/EnhancedHR",
-  "path": ".claude/skills/handoff/SKILL.md",
-  "stars": 0,
-  "source": "github.com/RustyLindquist/EnhancedHR",
-  "downloaded_at": "2026-01-24T16:16:03.727353Z"
+  "repo": "grahama1970/agent-skills",
+  "path": "skills/handoff/SKILL.md",
+  "source": "github.com/grahama1970/agent-skills",
+  "downloaded_at": "2026-01-27T04:33:15.553473Z"
 }

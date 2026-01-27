@@ -1,0 +1,9 @@
+{
+  "name": "artifacts-caching",
+  "description": "Use when configuring artifacts for inter-job data passing or caching for faster builds. Covers cache strategies and artifact management.",
+  "repo": "TheBushidoCollective/han",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/TheBushidoCollective/han"
+}

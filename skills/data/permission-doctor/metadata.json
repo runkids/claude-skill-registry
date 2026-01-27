@@ -1,0 +1,9 @@
+{
+  "name": "permission-doctor",
+  "description": "Diagnose permission issues across settings files (read-only analysis)",
+  "repo": "cuioss/plan-marshall",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/cuioss/plan-marshall"
+}

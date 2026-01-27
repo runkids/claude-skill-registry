@@ -1,10 +1,7 @@
 {
   "name": "websocket-realtime",
-  "description": "Expert guidance on real-time communication patterns including WebSockets, Server-Sent Events (SSE), Socket.IO, and WebRTC. Covers connection management, reconnection strategies, scaling, and real-time",
-  "category": "data",
-  "repo": "omer-metin/skills-for-antigravity",
-  "path": "skills/websocket-realtime/SKILL.md",
-  "stars": 0,
-  "source": "github.com/omer-metin/skills-for-antigravity",
-  "downloaded_at": "2026-01-24T16:16:03.808824Z"
+  "repo": "maneeshanif/todo-spec-driven",
+  "path": ".claude/skills/websocket-realtime/SKILL.md",
+  "source": "github.com/maneeshanif/todo-spec-driven",
+  "downloaded_at": "2026-01-27T01:20:21.113905Z"
 }

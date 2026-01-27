@@ -1,0 +1,9 @@
+{
+  "name": "spec-review",
+  "description": "Multi-agent spec review with parallel Claude/OpenCode reviewers. Use after spec-create or standalone via /spec.review.",
+  "repo": "srnnkls/tropos",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/srnnkls/tropos"
+}

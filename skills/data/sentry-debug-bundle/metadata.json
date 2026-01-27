@@ -1,0 +1,9 @@
+{
+  "name": "sentry-debug-bundle",
+  "description": "Collect debug information for Sentry support tickets.Use when preparing support requests, debugging complex issues,or gathering diagnostic information.Trigger with phrases like \"sentry debug info\", \"s",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "openmetadata-ops",
+  "description": "Administer OpenMetadata platform including users, teams, bots, roles, policies, and security. Use when managing access control, configuring SSO, creating service accounts, setting up team hierarchies,",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

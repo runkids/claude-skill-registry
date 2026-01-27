@@ -1,11 +1,7 @@
 {
   "name": "gogcli",
-  "repo": "michalvavra/agents",
-  "category": "data",
-  "description": "CLI for Gmail, Calendar, Drive, Contacts, Tasks, Sheets.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:48.599143Z",
-  "dir_name": "gogcli",
-  "github_path": "skills/gogcli",
-  "github_branch": "main"
+  "repo": "clawdbot/skills",
+  "path": "skills/luccast/gogcli/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-27T02:33:50.948588Z"
 }

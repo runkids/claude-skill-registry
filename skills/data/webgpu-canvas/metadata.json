@@ -1,0 +1,9 @@
+{
+  "name": "webgpu-canvas",
+  "description": "WebGPU fundamentals for high-performance canvas rendering. Covers device initialization, buffer management, WGSL shaders, render pipelines, compute shaders, and web component integration. Use when bui",
+  "repo": "matthewharwood/fantasy-phonics",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

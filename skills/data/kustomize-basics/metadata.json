@@ -1,0 +1,9 @@
+{
+  "name": "kustomize-basics",
+  "description": "Use when customizing Kubernetes configurations without templates using Kustomize overlays and patches.",
+  "repo": "TheBushidoCollective/han",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "dbt-commands",
+  "description": "dbt command-line operations, model selection syntax, Jinja patterns, troubleshooting, and debugging. Use this skill when running dbt commands, selecting specific models, debugging compilation errors, ",
+  "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
+  "category": "development",
+  "tags": [
+    "dbt",
+    "commands"
+  ],
+  "stars": 23,
+  "source": "SkillsMP Synced Skills"
+}

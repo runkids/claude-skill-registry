@@ -1,0 +1,9 @@
+{
+  "name": "rc-manager",
+  "description": "Manages Release Candidate (RC) workflows including pre-release tagging, RC lifecycle (alpha/beta/rc), testing validation, RC promotion to production, rollback procedures, and channel-based releases. H",
+  "repo": "anton-abyzov/specweave",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

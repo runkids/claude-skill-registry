@@ -1,0 +1,9 @@
+{
+  "name": "openapi-spec-generator",
+  "description": "Openapi Spec Generator - Auto-activating skill for API Development.Triggers on: openapi spec generator, openapi spec generatorPart of the API Development skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

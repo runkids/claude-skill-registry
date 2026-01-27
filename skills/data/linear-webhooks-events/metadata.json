@@ -1,0 +1,9 @@
+{
+  "name": "linear-webhooks-events",
+  "description": "Configure and handle Linear webhooks for real-time event processing.\nUse when setting up webhooks, handling Linear events,\nor building real-time integrations.\nTrigger with phrases like \"linear webhook",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

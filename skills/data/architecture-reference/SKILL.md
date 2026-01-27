@@ -1,373 +1,351 @@
 ---
 name: architecture-reference
-description: Quick reference for Portfolio Buddy 2 project structure. Use when: adding new features, modifying existing components, understanding data flow, or onboarding to the codebase. Contains component hierarchy, hook patterns, and utility functions.
+description: Deep-dive reference for Shadow Master subsystems including Combat, Matrix, Rigging, Inventory, Contacts, Sync, and Security. Use when working on specific game mechanics or need detailed file locations for a subsystem.
+allowed-tools: Read, Grep, Glob
 ---
 
-# Portfolio Buddy 2 - Architecture Reference
+# Architecture Reference
 
-## Component Hierarchy
+Detailed documentation for Shadow Master's core subsystems. For high-level architecture overview, see CLAUDE.md.
+
+---
+
+## Combat System
+
+Full combat tracking with initiative, actions, and damage resolution.
+
+**Key Concepts:**
+
+- **Combat Session**: Tracks all combatants, turn order, and combat state
+- **Action Resolution**: Executes and validates combat actions
+- **Initiative Tracking**: Automatic turn management with initiative passes
+- **Damage Tracking**: Condition monitor integration
+
+**Critical Files:**
+
+- `/lib/combat/CombatSessionContext.tsx` - Combat state management
+- `/lib/rules/action-resolution/` - Action execution framework
+  - `action-executor.ts` - Core execution logic
+  - `action-validator.ts` - Action validation
+  - `dice-engine.ts` - Dice rolling engine
+  - `pool-builder.ts` - Dice pool construction
+  - `edge-actions.ts` - Edge spending actions
+  - `combat/` - Combat-specific handlers (damage, weapons)
+- `/app/api/combat/` - Combat session API endpoints
+- `/components/combat/` - Combat UI (tracker, dice pools, quick reference)
+
+---
+
+## Matrix Operations System
+
+Full matrix hacking with overwatch, marks, and program management.
+
+**Key Concepts:**
+
+- **Cyberdecks**: Hardware validation and configuration
+- **Programs**: Slot management and allocation
+- **Overwatch Score**: OS tracking and convergence handling
+- **Marks**: Mark placement and tracking system
+- **Matrix Actions**: Action validation with mark requirements
+
+**Critical Files:**
+
+- `/lib/rules/matrix/` - Matrix operations
+  - `cyberdeck-validator.ts` - Hardware validation
+  - `program-validator.ts` - Program allocation
+  - `overwatch-calculator.ts` - OS calculation
+  - `overwatch-tracker.ts` - Session tracking
+  - `mark-tracker.ts` - Mark management
+  - `action-validator.ts` - Matrix action validation
+  - `dice-pool-calculator.ts` - Matrix dice pools
+
+---
+
+## Rigging Control System
+
+Vehicle and drone control for riggers.
+
+**Key Concepts:**
+
+- **VCR (Vehicle Control Rig)**: Validation and bonuses
+- **RCC (Rigger Command Console)**: Drone slaving and command execution
+- **Drone Networks**: Network management and noise handling
+- **Jump-In Mode**: VR mode management for direct control
+- **Biofeedback**: Damage and dumpshock handling
+
+**Critical Files:**
+
+- `/lib/rules/rigging/` - Rigging mechanics
+  - `vcr-validator.ts` - VCR validation
+  - `rcc-validator.ts` - RCC validation and slaving
+  - `drone-network.ts` - Network management
+  - `drone-condition.ts` - Drone damage tracking
+  - `jumped-in-manager.ts` - Jump-in mode
+  - `biofeedback-handler.ts` - Biofeedback damage
+  - `noise-calculator.ts` - Signal noise calculations
+  - `action-validator.ts` - Rigging action validation
+  - `dice-pool-calculator.ts` - Vehicle/drone dice pools
+
+---
+
+## Inventory and Equipment System
+
+Equipment state management for gear, weapons, and devices.
+
+**Key Concepts:**
+
+- **Readiness States**: ready, holstered, stored, etc.
+- **Wireless Toggles**: Enable/disable for augmentations and devices
+- **Device Condition**: functional, bricked, repaired
+- **Gear Validation**: Availability and rating validation
+
+**Critical Files:**
+
+- `/lib/rules/inventory/state-manager.ts` - Equipment state management
+- `/lib/rules/gear/validation.ts` - Gear availability validation
+- `/lib/rules/gear/weapon-customization.ts` - Weapon modifications
+
+---
+
+## Gameplay Utilities
+
+Runtime calculations for combat and tests.
+
+**Key Concepts:**
+
+- **Effective Ratings**: Wireless bonuses and matrix damage effects
+- **Dice Pool Bonuses**: Equipment rating bonuses
+- **Test Thresholds**: Detect, analyze, bypass calculations
+- **Armor Stacking**: SR5 Core p.169-170 rules with accessories and encumbrance
+- **Wound Modifiers**: High/Low Pain Tolerance support
+
+**Critical Files:**
+
+- `/lib/rules/gameplay.ts` - Core gameplay calculations
+- `/lib/rules/constraint-validation.ts` - Creation constraint validation
+
+---
+
+## Grunt/NPC System
+
+Pre-built NPC templates for GMs with professional rating tiers.
+
+**Key Concepts:**
+
+- **Professional Rating (PR)**: PR0 (street rabble) to PR6 (dragon guard)
+- **Grunt Templates**: Pre-configured NPCs with stats, gear, and skills
+- **Grunt Teams**: Groups of NPCs for encounter management
+
+**Critical Files:**
+
+- `/lib/rules/grunts.ts` - Grunt mechanics and validation
+- `/lib/storage/grunt-templates.ts` - Template persistence
+- `/data/editions/{editionCode}/grunt-templates/` - PR0-PR6 template files
+- `/app/campaigns/[id]/grunt-teams/` - Team management UI
+- `/app/api/campaigns/[id]/grunt-teams/` - Grunt team API
+
+---
+
+## Contact Network System
+
+Contact relationships and favor economy for social gameplay.
+
+**Key Concepts:**
+
+- **Contact Network**: Relationships with NPCs and their loyalty/connection ratings
+- **Favor Economy**: Tracking favors owed and earned
+- **Social Capital**: Reputation and influence mechanics
+
+**Critical Files:**
+
+- `/lib/rules/contact-network.ts` - Contact relationship logic
+- `/lib/rules/favors.ts` - Favor economy system
+- `/lib/rules/social-actions.ts` - Social interaction mechanics
+- `/lib/storage/contacts.ts` - Contact persistence
+- `/lib/storage/favor-ledger.ts` - Favor tracking
+- `/app/api/characters/[characterId]/contacts/` - Contact API
+
+---
+
+## System Synchronization
+
+Character-ruleset drift detection and migration.
+
+**Key Concepts:**
+
+- **Drift Analysis**: Detect metatype, skill, quality changes between rulesets
+- **Legality Validation**: Quick sync status checks
+- **Migration Engine**: Generate and execute migration plans
+- **Sync Audit**: Trail of synchronization events
+
+**Critical Files:**
+
+- `/lib/rules/sync/` - Synchronization system
+  - `drift-analyzer.ts` - Change detection
+  - `legality-validator.ts` - Rule compliance checking
+  - `migration-engine.ts` - Migration planning and execution
+  - `sync-audit.ts` - Audit trail
+  - `hooks.ts` - React hooks for client-side sync
+
+---
+
+## Optional Rules System
+
+Campaign-level rule customization.
+
+**Key Concepts:**
+
+- **Campaign Configuration**: Enable/disable optional rules per campaign
+- **GM Control**: Default override support
+- **Rule Extraction**: Pull optional rules from loaded rulesets
+- **Content Access**: Validate content against enabled rules
+
+**Critical Files:**
+
+- `/lib/rules/optional-rules.ts` - Optional rule management
+
+---
+
+## Data Management Layers
+
+**Authentication State** (`/lib/auth/AuthProvider.tsx`):
+
+- React Context managing user session globally
+- Provides `useAuth()` hook for components
+- Session stored in httpOnly cookie
+
+**Ruleset State** (`/lib/rules/RulesetContext.tsx`):
+
+- React Context caching loaded ruleset
+- Provides hooks: `useRuleset()`, `useMetatypes()`, `useSkills()`, etc.
+- Fetches from `/api/rulesets/[editionCode]`
+
+**Sidebar State** (`/lib/contexts/SidebarContext.tsx`):
+
+- React Context managing sidebar open/collapsed state globally
+- Provides `useSidebar()` hook with: `isOpen`, `isCollapsed`, `toggle`, `close`, `toggleCollapse`
+- Desktop collapsed state persisted to localStorage (`shadow-master-sidebar-collapsed-global`)
+- Built-in Escape key handler and resize listener for mobile drawer
+- Focus trap and accessibility features managed in `AuthenticatedLayout`
+
+**Local Storage**:
+
+- User preferences and UI state (theme, sidebar collapsed state)
+- Draft recovery handled server-side via auto-save
+
+---
+
+## File-Based Storage Pattern
+
+**Design:** JSON files on disk with atomic writes (temp file + rename pattern)
+
+**Storage Layer** (`/lib/storage/`):
+
+Core modules:
+
+- `base.ts` - Core utilities: `readJsonFile()`, `writeJsonFile()`, `ensureDirectory()`
+- `users.ts` - User CRUD operations
+- `characters.ts` - Character CRUD + specialized operations (damage, karma, etc.)
+- `campaigns.ts` - Campaign CRUD operations
+- `editions.ts` - Edition and ruleset loading
+
+Extended modules:
+
+- `contacts.ts`, `favor-ledger.ts` - Contact system persistence
+- `combat.ts`, `action-history.ts` - Combat session storage
+- `grunt-templates.ts`, `grunts.ts` - NPC system storage
+- `notifications.ts`, `activity.ts` - User activity tracking
+- `audit.ts`, `user-audit.ts` - Audit trail logging
+- `ruleset-snapshots.ts`, `snapshot-cache.ts` - Ruleset versioning
+- `locations.ts`, `locations_connections.ts` - Campaign location storage
+- `social-capital.ts` - Social capital tracking
+- `violation-record.ts` - Rule violation tracking
+
+**Storage Structure:**
 
 ```
-App.tsx (351 lines)
-├── Header
-│   └── App title and branding
-├── UploadSection
-│   ├── File upload to Supabase
-│   ├── CSV parsing and validation
-│   └── Error handling
-├── ErrorList
-│   └── Display parsing/validation errors
-├── UploadedFilesList
-│   └── List of successfully uploaded files
-├── AnalyticsControls
-│   ├── Toggle Metrics view
-│   ├── Toggle Portfolio view
-│   └── Toggle Correlation view
-├── PortfolioSection (591 lines - NEEDS REFACTOR!)
-│   ├── usePortfolio hook (date filtering)
-│   ├── useContractMultipliers hook
-│   ├── Chart.js equity curves
-│   ├── Portfolio statistics
-│   ├── ContractInput components
-│   ├── MasterContractControl
-│   └── MetricsTable integration
-├── CorrelationSection
-│   ├── CorrelationHeatmap (Chart.js)
-│   ├── Spearman correlation
-│   └── Pearson correlation
-├── MetricsTable (242 lines)
-│   ├── useMetrics hook
-│   ├── useSorting hook (advanced multi-column)
-│   ├── SortableHeader components
-│   └── Selection state management
-└── SessionComplete
-    └── Completion UI/messaging
+/data
+├── /users/{userId}.json
+├── /characters/{userId}/{characterId}.json
+├── /campaigns/{campaignId}.json
+└── /editions/{editionCode}/
+    ├── edition.json
+    ├── core-rulebook.json
+    ├── {sourcebook}.json
+    └── /grunt-templates/
+        └── pr{0-6}-{name}.json
 ```
 
-## Key Hooks
+**Important:** This is NOT production-scalable. File I/O happens on every request. Future migration to a database is planned.
 
-### useMetrics
-**Location**: [src/hooks/useMetrics.ts](src/hooks/useMetrics.ts)
-**Purpose**: Calculate trading metrics from uploaded portfolio data
-**Features**:
-- Calculates Sharpe Ratio, Sortino Ratio, Max Drawdown, CAGR, Win Rate, etc.
-- Memoized calculations for performance
-- Handles empty/invalid data gracefully
+---
 
-**Usage**:
+## Security Infrastructure
+
+**Rate Limiting** (`/lib/security/rate-limit.ts`):
+
+- DDoS protection for API endpoints
+- Configurable limits per endpoint
+
+**Audit Logging** (`/lib/security/audit-logger.ts`):
+
+- Full audit trail for user actions
+- Security event tracking
+- Stored via `/lib/storage/audit.ts`
+
+**Character Authorization** (`/lib/auth/character-authorization.ts`):
+
+- Granular character access control
+- Owner, campaign GM, and viewer permissions
+
+**Additional Auth Modules** (`/lib/auth/`):
+
+- `validation.ts` - Auth validation logic
+- `middleware.ts` - Auth middleware
+- `campaign.ts` - Campaign-specific authorization
+- `email-verification.ts` - Email verification token handling
+
+**Admin User Management** (`/app/api/users/[id]/`):
+
+- `lockout/route.ts` - DELETE to clear login lockouts
+- `resend-verification/route.ts` - POST to resend verification emails (rate limited)
+- `verify-email/route.ts` - POST to manually verify user email
+- `suspend/route.ts` - POST/DELETE to suspend/reactivate accounts
+
+**Admin UI** (`/app/users/`):
+
+- `UserTable.tsx` - User list with lockout/verification badges and menu actions
+- `UserEditModal.tsx` - User details with lockout info and verification controls
+- `UserAuditModal.tsx` - User audit trail viewer
+
+---
+
+## API Route Patterns
+
+All API routes follow this pattern:
+
+1. Extract session from cookie via `getSession()`
+2. Validate user exists via `getUserById()`
+3. Return 401 if unauthenticated
+4. Perform user-scoped operation
+5. Return JSON response
+
+**Example:**
+
 ```typescript
-const { metrics, isCalculating } = useMetrics(portfolioData, riskFreeRate)
-```
+// /app/api/characters/route.ts
+export async function GET(request: NextRequest) {
+  const session = await getSession();
+  if (!session?.userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-**Returns**:
-- `metrics`: Array of calculated metrics per strategy
-- `isCalculating`: Boolean loading state
+  const user = getUserById(session.userId);
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
 
-**Note**: Contains 4 TypeScript `any` violations in sort comparisons (tech debt)
-
-### usePortfolio
-**Location**: [src/hooks/usePortfolio.ts](src/hooks/usePortfolio.ts)
-**Purpose**: Manage portfolio data with date range filtering
-**Features**:
-- Parses CSV trade data
-- Filters by date range (start/end date)
-- Builds equity curves
-- Aggregates daily returns
-
-**Usage**:
-```typescript
-const {
-  portfolioData,
-  filteredData,
-  dateRange,
-  setDateRange
-} = usePortfolio(uploadedFiles)
-```
-
-**Recent Addition**: Date range filtering (commit 258ba3a)
-
-**Note**: Contains 11 TypeScript `any` violations in trade/metrics types (tech debt)
-
-### useContractMultipliers
-**Location**: [src/hooks/useContractMultipliers.ts](src/hooks/useContractMultipliers.ts)
-**Purpose**: Manage contract multipliers for futures trading
-**Features**:
-- Per-strategy contract size tracking
-- Apply multipliers to metrics
-- Master control to set all contracts at once
-
-**Usage**:
-```typescript
-const {
-  multipliers,
-  setMultiplier,
-  setAllMultipliers,
-  getAdjustedMetrics
-} = useContractMultipliers(strategies)
-```
-
-### useSorting
-**Location**: [src/hooks/useSorting.ts](src/hooks/useSorting.ts)
-**Purpose**: Advanced multi-column sorting for MetricsTable
-**Features**:
-- Sort by multiple columns with priority
-- Toggle ascending/descending
-- Custom comparison logic per data type
-
-**Usage**:
-```typescript
-const {
-  sortedData,
-  sortColumn,
-  sortDirection,
-  handleSort
-} = useSorting(data, defaultColumn)
-```
-
-## Utility Functions
-
-### dataUtils.ts
-**Location**: [src/utils/dataUtils.ts](src/utils/dataUtils.ts)
-**Contains Core Functions**:
-
-**CSV & Data Processing**:
-- `parseCSV(file)` - Parse CSV file with PapaParse
-- `processCurrencyColumns(data)` - Clean currency values ($, commas)
-- `parseFilenameComponents(filename)` - Extract symbol/direction/strategy from filename
-- `getDisplayName(symbol, direction, strategy)` - Format display names
-- `normalizeDate(date)` - Normalize dates to midnight UTC
-- `getDateKey(date)` - Convert date to YYYY-MM-DD string key
-
-**Metric Calculations**:
-- `calculateMetrics(data, filename)` - Calculate trade-level metrics for a strategy
-  - Net Profit, Gross Profit/Loss
-  - Profit Factor, Win Rate
-  - Average Win/Loss, Expected Value
-  - Max Drawdown (from equity curve)
-  - CAGR equivalent (annualGrowthRate)
-  - Total trades, winning/losing counts
-  - **Note**: Does NOT calculate Sharpe or Sortino (those are in PortfolioSection.tsx)
-- `getAdjustedMetrics(metrics, multiplier)` - Apply contract multiplier to metrics
-
-**Risk-Adjusted Metrics** (PortfolioSection.tsx):
-- **Sharpe Ratio** (line 533): Calculated inline as `(annualGrowthRate / 100) / (maxDrawdown / startingCapital)`
-- **Sortino Ratio** (lines 133-158): Calculated inline with downside deviation, uses risk-free rate state
-
-**Correlation Analysis**:
-- `buildCorrelationMatrix(strategies)` - Build Spearman correlation matrix
-- `calculatePearsonCorrelation(returns1, returns2)` - Pearson correlation coefficient
-- `calculateRanks(values)` - Rank calculation for Spearman correlation
-
-**Trading Calculations**:
-- `getMarginRate(symbol)` - Get margin requirements by symbol
-- `calculateEquityCurve(trades)` - Build cumulative equity curve
-- `calculateDailyReturns(equity)` - Calculate daily returns from equity curve
-
-**Formatting**:
-- `formatNumber(value, decimals)` - Format numbers with decimals
-- `formatCurrency(value)` - Format as currency ($X,XXX.XX)
-- `formatPercent(value)` - Format as percentage (X.XX%)
-
-**Note**: Contains 1 TypeScript `any` violation in Metrics interface (tech debt)
-
-## Data Flow
-
-### Upload & Processing Flow
-```
-1. User uploads CSV via UploadSection
-   ↓
-2. parseCSV() extracts trade data
-   ↓
-3. processCurrencyColumns() cleans data
-   ↓
-4. File uploaded to Supabase storage
-   ↓
-5. usePortfolio hook fetches and aggregates data
-   ↓
-6. Date range filter applied (if set)
-   ↓
-7. useMetrics calculates all metrics
-   ↓
-8. MetricsTable displays results
-```
-
-### Contract Multiplier Flow
-```
-1. User inputs contract size in ContractInput
-   ↓
-2. useContractMultipliers stores value
-   ↓
-3. getAdjustedMetrics() applies multiplier
-   ↓
-4. Adjusted metrics shown in MetricsTable
-   ↓
-5. Portfolio charts update with adjusted values
-```
-
-### Sorting Flow
-```
-1. User clicks SortableHeader
-   ↓
-2. useSorting updates sort column/direction
-   ↓
-3. Custom comparison logic applied
-   ↓
-4. MetricsTable re-renders with sorted data
-```
-
-### Correlation Flow
-```
-1. User selects assets in MetricsTable
-   ↓
-2. Selection state passed to CorrelationSection
-   ↓
-3. buildCorrelationMatrix() calculates correlations
-   ↓
-4. CorrelationHeatmap renders Chart.js heatmap
-   ↓
-5. Spearman & Pearson correlations both shown
-```
-
-## State Management
-
-### Plain React Hooks (No Zustand/TanStack Query)
-- **Local component state** → `useState`
-- **Derived state** → `useMemo`
-- **Stable callbacks** → `useCallback`
-- **Refs for values** → `useRef`
-
-**Example Pattern**:
-```typescript
-const [data, setData] = useState<Trade[]>([])
-const metrics = useMemo(() => calculateMetrics(data), [data])
-const handleUpload = useCallback((file: File) => {
-  // upload logic
-}, [])
-```
-
-### No Global State Library
-- Props passed down component tree
-- Custom hooks encapsulate shared logic
-- No Redux, Zustand, or Jotai
-
-## Adding New Features
-
-### New Metric Calculation
-1. Add calculation logic to `dataUtils.calculateMetrics()`
-2. Update return type in `calculateMetrics()`
-3. Add column to `MetricsTable.tsx`
-4. Update sort logic in `useSorting.ts` if needed
-5. Test with sample data
-
-**Example**: Sortino Ratio was added in commits 258ba3a & 9f25040
-
-### New Chart Component
-1. Create component in `src/components/`
-2. Use Chart.js (NOT Recharts - it's unused)
-3. Import chart type and plugins needed:
-   ```typescript
-   import { Line } from 'react-chartjs-2'
-   import { Chart, registerables } from 'chart.js'
-   import zoomPlugin from 'chartjs-plugin-zoom'
-   ```
-4. Hook into `useMetrics` or `usePortfolio` for data
-5. Add to appropriate section in `App.tsx`
-
-### New Hook
-1. Create in `src/hooks/use[Feature].ts`
-2. Follow naming convention: `use` prefix, camelCase
-3. Return object with clear property names
-4. Use TypeScript for all types (avoid `any`)
-5. Add JSDoc comments for complex logic
-
-## Chart.js Architecture
-
-### Current Setup
-- **Library**: Chart.js 4.x (NOT Recharts)
-- **React Wrapper**: react-chartjs-2
-- **Plugins Used**:
-  - chartjs-plugin-zoom (pan & zoom)
-  - chartjs-plugin-annotation (trend lines, markers)
-  - chartjs-adapter-date-fns (time scales)
-
-### Where Charts Are Used
-1. **PortfolioSection**: Equity curve line charts
-2. **CorrelationHeatmap**: Correlation matrix heatmap
-3. **CustomTooltip**: Shared tooltip component for charts
-
-### Recharts Note
-⚠️ **Recharts is installed but NEVER imported** - should be removed (11.5KB waste)
-
-## Component Size Guidelines
-
-### Target: 200 Lines Max
-**Current Violations**:
-- ❌ PortfolioSection.tsx: 591 lines (295% of limit) - **HIGH PRIORITY REFACTOR**
-- ❌ App.tsx: 351 lines (175% of limit)
-- ❌ MetricsTable.tsx: 242 lines (121% of limit) - improved from 350
-
-### Refactoring Strategy
-**For PortfolioSection (591 lines)**:
-1. Extract equity chart into `EquityChartSection.tsx`
-2. Extract statistics into `PortfolioStats.tsx`
-3. Extract contract controls into `ContractControls.tsx`
-4. Keep only orchestration logic in main component
-
-## TypeScript Patterns
-
-### Interfaces for Data Structures
-```typescript
-interface Trade {
-  date: Date
-  symbol: string
-  pnl: number
-  // ...
+  const characters = getUserCharacters(session.userId);
+  return NextResponse.json({ characters });
 }
-
-interface Metric {
-  name: string
-  sharpe: number
-  sortino: number
-  // ...
-}
 ```
-
-### Avoid `any` Types
-**Current violations (15 total)** - see portfolio-context skill for details
-
-**Preferred approach**:
-```typescript
-// Bad
-const data: any = parseData()
-
-// Good
-interface ParsedData {
-  trades: Trade[]
-  errors: string[]
-}
-const data: ParsedData = parseData()
-```
-
-## Performance Patterns
-
-### Memoization with useMemo
-```typescript
-// Expensive correlation calculation
-const correlationMatrix = useMemo(
-  () => buildCorrelationMatrix(selectedStrategies),
-  [selectedStrategies]
-)
-```
-
-### Stable Callbacks with useCallback
-```typescript
-const handleSort = useCallback((column: string) => {
-  setSortColumn(column)
-  setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')
-}, [])
-```
-
-### Avoid Premature Optimization
-- Build features first
-- Profile if performance issues arise
-- Optimize based on data, not assumptions

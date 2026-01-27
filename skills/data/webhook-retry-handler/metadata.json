@@ -1,0 +1,9 @@
+{
+  "name": "webhook-retry-handler",
+  "description": "Webhook Retry Handler - Auto-activating skill for API Integration.Triggers on: webhook retry handler, webhook retry handlerPart of the API Integration skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

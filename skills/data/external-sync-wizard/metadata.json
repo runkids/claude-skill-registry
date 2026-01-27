@@ -1,0 +1,9 @@
+{
+  "name": "external-sync-wizard",
+  "description": "Expert guide for setting up bidirectional synchronization between SpecWeave and external tools (GitHub Issues, Jira Epics, Azure DevOps Work Items). Provides interactive setup wizards with sync direct",
+  "repo": "anton-abyzov/specweave",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

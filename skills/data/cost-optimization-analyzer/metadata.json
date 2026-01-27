@@ -1,0 +1,9 @@
+{
+  "name": "cost-optimization-analyzer",
+  "description": "Cost Optimization Analyzer - Auto-activating skill for AWS Skills.Triggers on: cost optimization analyzer, cost optimization analyzerPart of the AWS Skills skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

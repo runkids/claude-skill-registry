@@ -1,0 +1,9 @@
+{
+  "name": "file-format-converter",
+  "description": "File Format Converter - Auto-activating skill for Data Pipelines.Triggers on: file format converter, file format converterPart of the Data Pipelines skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

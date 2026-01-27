@@ -1,0 +1,9 @@
+{
+  "name": "nav-start",
+  "description": "Load SuperNavigator (OS + App layers) documentation when starting development session. Loads Navigator context + injects using-superpowers App layer. Use when user mentions starting work, beginning se",
+  "repo": "dkyazzentwatwa/SuperNavigator",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/dkyazzentwatwa/SuperNavigator"
+}

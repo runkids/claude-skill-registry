@@ -1,0 +1,9 @@
+{
+  "name": "zustand-middleware",
+  "description": "Use when implementing Zustand middleware for persistence, dev tools, immutability, and other enhanced store functionality. Covers persist, devtools, immer, and custom middleware.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

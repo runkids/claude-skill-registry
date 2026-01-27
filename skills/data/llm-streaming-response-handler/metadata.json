@@ -1,0 +1,9 @@
+{
+  "name": "llm-streaming-response-handler",
+  "description": "Build production LLM streaming UIs with Server-Sent Events, real-time token display, cancellation, error recovery. Handles OpenAI/Anthropic/Claude streaming APIs. Use for chatbots, AI assistants, real",
+  "repo": "erichowens/some_claude_skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/erichowens/some_claude_skills"
+}

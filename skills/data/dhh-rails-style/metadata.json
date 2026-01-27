@@ -1,0 +1,9 @@
+{
+  "name": "dhh-rails-style",
+  "description": "This skill should be used when writing Ruby and Rails code in DHH's distinctive 37signals style. It applies when writing Ruby code, Rails applications, creating models, controllers, or any Ruby file. ",
+  "repo": "EveryInc/compound-engineering-plugin",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

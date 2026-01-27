@@ -1,0 +1,9 @@
+{
+  "name": "step-functions-workflow",
+  "description": "Step Functions Workflow - Auto-activating skill for AWS Skills.Triggers on: step functions workflow, step functions workflowPart of the AWS Skills skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

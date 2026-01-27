@@ -1,0 +1,9 @@
+{
+  "name": "github-trending",
+  "description": "Fetch and display GitHub trending repositories and developers. Use when building dashboards showing trending repos, discovering popular projects, or tracking GitHub trends. Triggers on GitHub trending",
+  "repo": "hoodini/ai-agents-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/hoodini/ai-agents-skills"
+}

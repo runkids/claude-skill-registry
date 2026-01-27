@@ -1,0 +1,9 @@
+{
+  "name": "lang-dotnet-dev",
+  "description": "Foundational .NET patterns covering runtime, project structure, dependency injection, configuration, metaprogramming, and cross-platform development. Use when working with .NET projects or CLI tools. ",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

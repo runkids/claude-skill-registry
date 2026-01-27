@@ -1,0 +1,9 @@
+{
+  "name": "umbrella-repo-detector",
+  "description": "Detects multi-repo architecture from user prompts and guides setup. Activates for: multiple repos, 3 repos, frontend repo, backend repo, shared library repo, monorepo services, microservices, separate",
+  "repo": "anton-abyzov/specweave",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

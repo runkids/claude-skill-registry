@@ -1,397 +1,305 @@
 ---
-name: ActiveRecord Patterns
-description: This skill should be used when the user asks about "ActiveRecord", "database queries", "query optimization", "N+1 queries", "eager loading", "associations", "migrations", "database indexes", "SQL performance", "ActiveRecord callbacks", "scopes", or needs guidance on efficient database access patterns in Rails 7+.
-version: 1.0.0
+name: "ActiveRecord Query Patterns"
+description: "Complete guide to ActiveRecord query optimization, associations, scopes, and PostgreSQL-specific patterns. Use when: (1) Writing database queries, (2) Designing model associations, (3) Creating migrations, (4) Optimizing query performance, (5) Debugging N+1 queries and GROUP BY errors. Trigger keywords: database, models, associations, validations, queries, ActiveRecord, scopes, migrations, N+1, PostgreSQL, indexes, eager loading"
+version: 1.1.0
 ---
 
-# ActiveRecord Patterns for Production Rails
+# ActiveRecord Query Patterns
 
-Production-focused guidance for ActiveRecord query optimization, associations, migrations, and database best practices for Rails 7+.
+## Query Decision Tree
 
-## Query Optimization
-
-### Avoiding N+1 Queries
-
-Always use `includes`, `preload`, or `eager_load` when accessing associations:
-
-```ruby
-# Bad - N+1 query
-Order.all.each { |o| puts o.user.email }
-
-# Good - eager loading
-Order.includes(:user).each { |o| puts o.user.email }
-
-# For nested associations
-Order.includes(line_items: :product).each do |order|
-  order.line_items.each { |li| puts li.product.name }
-end
+```
+What do I need?
+│
+├─ Find records by ID or attributes?
+│   ├─ Single record: find(id), find_by(attrs)
+│   └─ Multiple records: where(conditions)
+│
+├─ Access associated records?
+│   ├─ Just filtering? → joins(:association)
+│   └─ Loading data? → includes(:association)
+│
+├─ Aggregate data (count, sum, avg)?
+│   └─ GROUP BY query
+│       └─ REMEMBER: Every SELECT column must be in GROUP BY or aggregate
+│
+├─ Complex multi-step query?
+│   └─ Query Object pattern (app/queries/)
+│
+├─ Hierarchical/recursive data?
+│   └─ CTE (Common Table Expression)
+│
+└─ Full-text search?
+    └─ pg_search gem with tsvector indexes
 ```
 
-**When to use each:**
-- `includes` - Rails decides (usually `preload`)
-- `preload` - Separate queries, works with `limit`
-- `eager_load` - LEFT OUTER JOIN, needed for filtering
+---
 
+## NEVER Do This
+
+**NEVER** use `includes` with `group`:
 ```ruby
-# Filtering on association - must use eager_load
-Order.eager_load(:line_items)
-     .where(line_items: { product_id: 123 })
+# WRONG - PostgreSQL error
+Task.includes(:carrier).group(:status).count
+
+# RIGHT - Separate queries
+status_counts = Task.group(:status).count
+tasks = Task.where(status: status_counts.keys.first).includes(:carrier)
 ```
 
-### Select Only Needed Columns
-
+**NEVER** iterate without eager loading:
 ```ruby
-# Bad - loads all columns
-User.all.map(&:email)
+# WRONG - N+1 queries
+tasks = Task.all
+tasks.each { |t| puts t.carrier.name }  # Query per task!
 
-# Good - loads only needed columns
-User.pluck(:email)
-
-# When you need objects with limited columns
-User.select(:id, :email, :name)
+# RIGHT - Eager load
+tasks = Task.includes(:carrier)
+tasks.each { |t| puts t.carrier.name }  # Single query
 ```
 
-### Batch Processing
-
+**NEVER** load all records into memory:
 ```ruby
-# Bad - loads all records into memory
-User.all.each { |u| u.update(last_contacted_at: Time.current) }
+# WRONG - Memory explosion
+Task.all.each { |task| process(task) }
 
-# Good - processes in batches
-User.find_each(batch_size: 1000) do |user|
-  user.update(last_contacted_at: Time.current)
-end
-
-# For parallelization
-User.in_batches(of: 1000) do |batch|
-  batch.update_all(last_contacted_at: Time.current)
-end
+# RIGHT - Batch processing
+Task.find_each(batch_size: 1000) { |task| process(task) }
 ```
 
-### Counting and Existence
-
+**NEVER** use `present?` to check existence:
 ```ruby
-# Bad - loads records to count
-User.all.count        # Loads all, then counts
-User.all.length       # Same problem
+# WRONG - Loads all records
+Task.where(status: 'pending').present?
 
-# Good - database count
-User.count            # SELECT COUNT(*)
-
-# For checking existence
-User.any?             # Avoid - can be slow
-User.exists?          # SELECT 1 LIMIT 1 - fast
-User.where(admin: true).exists?
+# RIGHT - Efficient existence check
+Task.where(status: 'pending').exists?
 ```
 
-## Associations
-
-### Association Options
-
+**NEVER** forget indexes on foreign keys:
 ```ruby
-class Order < ApplicationRecord
-  belongs_to :user, counter_cache: true
-  belongs_to :created_by, class_name: "User", optional: true
+# WRONG - No index
+t.references :merchant, foreign_key: true, index: false
 
-  has_many :line_items, dependent: :destroy
-  has_many :products, through: :line_items
-
-  has_one :invoice, dependent: :destroy
-
-  # Polymorphic
-  has_many :comments, as: :commentable
-
-  # Self-referential
-  belongs_to :parent_order, class_name: "Order", optional: true
-  has_many :child_orders, class_name: "Order", foreign_key: :parent_order_id
-end
+# RIGHT - Always index foreign keys
+t.references :merchant, null: false, foreign_key: true  # index: true is default
 ```
 
-### Counter Cache
+---
+
+## Model Template
 
 ```ruby
-# Migration
-add_column :users, :orders_count, :integer, default: 0, null: false
+class Task < ApplicationRecord
+  # == Constants ==============================================================
+  STATUSES = %w[pending in_progress completed].freeze
 
-# Reset existing counts
-User.find_each do |user|
-  User.reset_counters(user.id, :orders)
-end
+  # == Associations ===========================================================
+  belongs_to :account
+  belongs_to :merchant
+  belongs_to :carrier, optional: true
+  has_many :timelines, dependent: :destroy
 
-# Model
-class Order < ApplicationRecord
-  belongs_to :user, counter_cache: true
-end
+  # == Validations ============================================================
+  validates :status, presence: true, inclusion: { in: STATUSES }
+  validates :tracking_number, presence: true, uniqueness: { scope: :account_id }
 
-# Usage - no query needed
-user.orders_count
-```
+  # == Scopes =================================================================
+  scope :active, -> { where.not(status: 'completed') }
+  scope :for_carrier, ->(carrier) { where(carrier: carrier) }
 
-### Inverse Of
+  # == Callbacks ==============================================================
+  before_validation :generate_tracking_number, on: :create
 
-Define explicitly for complex associations:
-
-```ruby
-class Order < ApplicationRecord
-  has_many :line_items, inverse_of: :order
-end
-
-class LineItem < ApplicationRecord
-  belongs_to :order, inverse_of: :line_items
-end
-
-# Prevents extra queries when building
-order = Order.new
-order.line_items.build(quantity: 1)
-order.line_items.first.order  # Same object, no query
-```
-
-## Scopes and Queries
-
-### Named Scopes
-
-```ruby
-class Order < ApplicationRecord
-  scope :recent, -> { where("created_at > ?", 30.days.ago) }
-  scope :pending, -> { where(status: :pending) }
-  scope :completed, -> { where(status: :completed) }
-  scope :for_user, ->(user) { where(user: user) }
-
-  # Composable scopes
-  scope :recent_pending, -> { recent.pending }
-
-  # Scope with default
-  scope :by_status, ->(status = :pending) { where(status: status) }
-end
-
-# Chaining
-Order.recent.pending.for_user(current_user)
-```
-
-### Class Methods vs Scopes
-
-Use class methods for complex logic:
-
-```ruby
-class Order < ApplicationRecord
+  # == Class Methods ==========================================================
   def self.search(query)
-    return all if query.blank?
-
-    where("order_number ILIKE ? OR notes ILIKE ?",
-          "%#{query}%", "%#{query}%")
+    where("tracking_number ILIKE ?", "%#{query}%")
   end
 
-  def self.total_revenue
-    completed.sum(:total)
+  # == Instance Methods =======================================================
+  def complete!
+    update!(status: 'completed', completed_at: Time.current)
   end
-end
-```
-
-### Arel for Complex Queries
-
-```ruby
-class Order < ApplicationRecord
-  def self.with_high_value_items
-    line_items_table = LineItem.arel_table
-    orders_table = arel_table
-
-    joins(:line_items)
-      .where(line_items_table[:price].gt(100))
-      .distinct
-  end
-end
-```
-
-## Migrations
-
-### Production-Safe Migrations
-
-```ruby
-class AddIndexToOrdersUserIdConcurrently < ActiveRecord::Migration[7.1]
-  disable_ddl_transaction!
-
-  def change
-    add_index :orders, :user_id, algorithm: :concurrently,
-              if_not_exists: true
-  end
-end
-```
-
-### Column Additions with Defaults
-
-```ruby
-# Rails 7+ handles this safely
-class AddStatusToOrders < ActiveRecord::Migration[7.1]
-  def change
-    add_column :orders, :status, :string, default: "pending", null: false
-  end
-end
-```
-
-### Safe Column Removal
-
-```ruby
-# Step 1: Stop using column in code (deploy first)
-# Step 2: Ignore column
-class Order < ApplicationRecord
-  self.ignored_columns += ["legacy_status"]
-end
-
-# Step 3: Remove column (separate deploy)
-class RemoveLegacyStatusFromOrders < ActiveRecord::Migration[7.1]
-  def change
-    safety_assured { remove_column :orders, :legacy_status }
-  end
-end
-```
-
-### Indexing Strategy
-
-```ruby
-# Foreign keys - always index
-add_index :orders, :user_id
-
-# Composite index for common queries
-add_index :orders, [:user_id, :status]
-
-# Partial index for specific conditions
-add_index :orders, :created_at,
-          where: "status = 'pending'",
-          name: "index_orders_pending_created_at"
-
-# Unique constraint
-add_index :users, :email, unique: true
-
-# GIN index for array/JSON columns
-add_index :products, :tags, using: :gin
-```
-
-## Transactions
-
-### Basic Transactions
-
-```ruby
-Order.transaction do
-  order = Order.create!(order_params)
-  order.line_items.create!(line_item_params)
-  InventoryService.deduct(order)
-end
-```
-
-### Nested Transactions
-
-```ruby
-Order.transaction do
-  order.update!(status: :processing)
-
-  Order.transaction(requires_new: true) do
-    # This savepoint can fail independently
-    PaymentService.charge(order)
-  rescue PaymentError => e
-    order.update!(payment_error: e.message)
-  end
-end
-```
-
-### Advisory Locks
-
-```ruby
-# Prevent concurrent processing
-Order.with_advisory_lock("order_#{order.id}") do
-  process_order(order)
-end
-```
-
-## Callbacks
-
-### Safe Callback Patterns
-
-```ruby
-class Order < ApplicationRecord
-  # Good: Simple, side-effect free callbacks
-  before_validation :normalize_email
-  before_save :set_defaults
 
   private
 
-  def normalize_email
-    self.email = email&.downcase&.strip
-  end
-
-  def set_defaults
-    self.order_number ||= generate_order_number
+  def generate_tracking_number
+    self.tracking_number ||= SecureRandom.hex(8).upcase
   end
 end
 ```
 
-### When to Avoid Callbacks
+---
 
-Move business logic to service objects:
+## Eager Loading Quick Reference
+
+| Method | Query Type | Use Case |
+|--------|-----------|----------|
+| `includes` | Smart (auto-selects) | Default choice |
+| `preload` | Separate queries | Can't filter on association |
+| `eager_load` | LEFT JOIN | Need to filter on association |
+| `joins` | INNER JOIN | Filtering only, no data loading |
 
 ```ruby
-# Avoid: Complex callback chains
-class Order < ApplicationRecord
-  after_create :send_confirmation, :update_inventory, :notify_warehouse
-end
+# Multiple associations
+Task.includes(:carrier, :merchant, :recipient)
 
-# Prefer: Explicit service object
-class Orders::CreateService
-  def call(params)
-    Order.transaction do
-      order = Order.create!(params)
-      OrderMailer.confirmation(order).deliver_later
-      Inventory::DeductService.new(order).call
-      Warehouse::NotifyJob.perform_later(order.id)
-      order
+# Nested associations
+Task.includes(merchant: :branches)
+
+# Filter on association (requires references or use joins)
+Task.joins(:carrier).where(carriers: { active: true })
+```
+
+---
+
+## Scope Patterns
+
+```ruby
+# Simple scopes
+scope :active, -> { where.not(status: 'completed') }
+scope :recent, -> { order(created_at: :desc) }
+
+# Parameterized scopes
+scope :by_status, ->(status) { where(status: status) }
+scope :created_after, ->(date) { where('created_at >= ?', date) }
+
+# Conditional (always returns relation)
+scope :by_status_if, ->(status) { where(status: status) if status.present? }
+
+# Chainable
+Task.active.recent.by_status('pending')
+```
+
+---
+
+## GROUP BY (PostgreSQL Critical)
+
+**Rule**: Every non-aggregated SELECT column must appear in GROUP BY.
+
+```ruby
+# CORRECT
+Task.group(:status).count
+Task.group(:status).sum(:amount)
+Task.group(:status, :task_type).count
+
+# CORRECT - Explicit select
+Task.select(:status, 'COUNT(*) as count', 'AVG(amount) as avg')
+    .group(:status)
+
+# Date grouping
+Task.group("DATE(created_at)").count
+```
+
+---
+
+## Migration Quick Reference
+
+```ruby
+class CreateTasks < ActiveRecord::Migration[7.1]
+  def change
+    create_table :tasks do |t|
+      t.references :account, null: false, foreign_key: true
+      t.string :tracking_number, null: false
+      t.string :status, null: false, default: 'pending'
+      t.decimal :amount, precision: 10, scale: 2
+      t.jsonb :metadata, default: {}
+      t.timestamps
+
+      t.index :tracking_number, unique: true
+      t.index :status
+      t.index [:account_id, :status]
+      t.index :metadata, using: :gin
     end
   end
 end
-```
 
-## Connection Management
-
-### Connection Pool Configuration
-
-```yaml
-# config/database.yml
-production:
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  checkout_timeout: 5
-  reaping_frequency: 10
-```
-
-### Read Replicas (Rails 6+)
-
-```ruby
-# config/database.yml
-production:
-  primary:
-    database: myapp_production
-  primary_replica:
-    database: myapp_production
-    replica: true
-
-# Usage
-ActiveRecord::Base.connected_to(role: :reading) do
-  Order.where(status: :pending).count
-end
-
-# Automatic switching
-class ApplicationController < ActionController::Base
-  around_action :switch_to_replica, only: [:index, :show]
-
-  private
-
-  def switch_to_replica
-    ActiveRecord::Base.connected_to(role: :reading) { yield }
+# Concurrent index (large tables)
+class AddIndex < ActiveRecord::Migration[7.1]
+  disable_ddl_transaction!
+  def change
+    add_index :tasks, :status, algorithm: :concurrently
   end
 end
 ```
 
-## Additional Resources
+---
 
-### Reference Files
+## Performance Checklist
 
-For detailed patterns and advanced techniques:
-- **`references/query-patterns.md`** - Complex query patterns, CTEs, window functions
-- **`references/migration-safety.md`** - Zero-downtime migration strategies
+```
+Before writing any query:
+
+[ ] Am I loading more columns than needed? → Use select/pluck
+[ ] Am I iterating and accessing associations? → Use includes
+[ ] Am I using GROUP BY? → Every SELECT column grouped or aggregated?
+[ ] Am I using includes with GROUP BY? → DON'T! Separate queries
+[ ] Will this query run on large table? → Check indexes exist
+[ ] Am I loading all records? → Use find_each for batches
+[ ] Am I checking existence? → Use exists? not present?
+[ ] Do indexes exist for WHERE/ORDER columns?
+```
+
+---
+
+## Enum Pattern
+
+```ruby
+class Task < ApplicationRecord
+  enum status: {
+    pending: 0,
+    in_progress: 1,
+    completed: 2
+  }, _prefix: true
+
+  # Generated methods:
+  # task.status_pending?
+  # task.status_completed!
+  # Task.status_pending (scope)
+  # Task.not_status_pending (scope)
+end
+```
+
+---
+
+## JSONB Quick Reference
+
+```ruby
+# Migration
+add_column :tasks, :metadata, :jsonb, default: {}
+add_index :tasks, :metadata, using: :gin
+
+# Queries
+Task.where("metadata @> ?", { priority: 1 }.to_json)  # Contains
+Task.where("metadata ->> 'key' = ?", 'value')         # Extract as text
+Task.where("metadata ? 'key'")                        # Key exists
+```
+
+---
+
+## Debugging Queries
+
+```ruby
+# Enable logging
+ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+# Explain query plan
+Task.where(status: 'pending').explain(:analyze)
+
+# Use Bullet gem for N+1 detection
+# Gemfile: gem 'bullet', group: :development
+```
+
+---
+
+## References
+
+Detailed patterns and examples in `references/`:
+- `associations.md` - Association types, options, polymorphic
+- `query-patterns.md` - Basic queries, eager loading, subqueries
+- `scopes-query-objects.md` - Scope patterns, query objects
+- `migrations.md` - Create table, safe migrations, JSONB
+- `performance.md` - Batch processing, counter caches, indexes
+- `rails7-8-features.md` - Composite keys, encryption, multi-db
+- `advanced-patterns.md` - Enums, database views, CTEs, STI
+- `postgresql-features.md` - Full-text search, JSONB, arrays

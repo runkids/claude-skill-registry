@@ -1,0 +1,9 @@
+{
+  "name": "handling-api-errors",
+  "description": "Implement standardized error handling with proper HTTP status codes and error responses.Use when implementing standardized error handling.Trigger with phrases like \"add error handling\", \"standardize e",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

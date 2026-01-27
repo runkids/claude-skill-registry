@@ -1,0 +1,9 @@
+{
+  "name": "bigquery-table-creator",
+  "description": "Bigquery Table Creator - Auto-activating skill for GCP Skills.Triggers on: bigquery table creator, bigquery table creatorPart of the GCP Skills skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

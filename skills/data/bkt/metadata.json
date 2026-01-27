@@ -1,0 +1,9 @@
+{
+  "name": "bkt",
+  "description": "Bitbucket CLI for Data Center and Cloud. Use when users need to manage repositories, pull requests, branches, issues, webhooks, or pipelines in Bitbucket. Triggers include \"bitbucket\", \"bkt\", \"pull re",
+  "repo": "avivsinai/bitbucket-cli",
+  "category": "development",
+  "tags": [],
+  "stars": 13,
+  "source": "github.com/avivsinai/bitbucket-cli"
+}

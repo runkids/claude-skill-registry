@@ -1,0 +1,9 @@
+{
+  "name": "done",
+  "description": "Completion marker. Outputs hierarchical execution summary showing Global Invariants respected and all Deliverables completed.",
+  "repo": "doodledood/claude-code-plugins",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/doodledood/claude-code-plugins"
+}

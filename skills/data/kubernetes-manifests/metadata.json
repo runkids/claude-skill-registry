@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-manifests",
+  "description": "Use when writing and deploying Kubernetes manifests for container orchestration.",
+  "repo": "TheBushidoCollective/han",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

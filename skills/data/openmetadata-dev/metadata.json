@@ -1,0 +1,9 @@
+{
+  "name": "openmetadata-dev",
+  "description": "Use OpenMetadata SDK and APIs to build integrations, connectors, and automations. Use when querying metadata, creating custom properties, building ingestion pipelines, automating governance workflows,",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

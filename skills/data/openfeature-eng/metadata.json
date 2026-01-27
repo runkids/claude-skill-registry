@@ -1,0 +1,9 @@
+{
+  "name": "openfeature-eng",
+  "description": "Implement OpenFeature feature flags in software projects. Use when adding feature flags with OpenFeature SDKs, configuring providers, setting up evaluation context, or integrating the OpenFeature MCP ",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

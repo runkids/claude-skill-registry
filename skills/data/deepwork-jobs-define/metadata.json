@@ -1,0 +1,9 @@
+{
+  "name": "deepwork-jobs-define",
+  "description": "Creates a job.yml specification by gathering workflow requirements through structured questions. Use when starting a new multi-step workflow.",
+  "repo": "Unsupervisedcom/deepwork",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/Unsupervisedcom/deepwork"
+}

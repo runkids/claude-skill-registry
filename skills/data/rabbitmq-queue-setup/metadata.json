@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq-queue-setup",
+  "description": "Rabbitmq Queue Setup - Auto-activating skill for Backend Development.Triggers on: rabbitmq queue setup, rabbitmq queue setupPart of the Backend Development skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

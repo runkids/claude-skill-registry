@@ -1,0 +1,9 @@
+{
+  "name": "acsets-hatchery",
+  "description": "Attributed C-Sets as algebraic databases. Category-theoretic data structures generalizing graphs and dataframes with Gay.jl color integration.",
+  "repo": "plurigrid/asi",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/plurigrid/asi"
+}

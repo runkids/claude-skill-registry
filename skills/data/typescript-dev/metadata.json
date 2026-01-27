@@ -1,0 +1,9 @@
+{
+  "name": "typescript-dev",
+  "description": "TypeScript development best practices, code quality tools, and documentation templates. Activated when working with .ts, .tsx files or TypeScript projects.",
+  "repo": "Cain96/dotfiles",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/Cain96/dotfiles"
+}

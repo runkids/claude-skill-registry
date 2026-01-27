@@ -1,0 +1,9 @@
+{
+  "name": "s3-bucket-policy-generator",
+  "description": "S3 Bucket Policy Generator - Auto-activating skill for AWS Skills.Triggers on: s3 bucket policy generator, s3 bucket policy generatorPart of the AWS Skills skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

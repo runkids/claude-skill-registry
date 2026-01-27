@@ -1,0 +1,9 @@
+{
+  "name": "spatial-neighbors",
+  "description": "Build spatial neighbor graphs for spatial transcriptomics data using Squidpy. Compute k-nearest neighbors, Delaunay triangulation, and radius-based connectivity for downstream spatial analyses.",
+  "repo": "GPTomics/bioSkills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/GPTomics/bioSkills"
+}

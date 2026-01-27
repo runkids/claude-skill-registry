@@ -1,0 +1,9 @@
+{
+  "name": "commit-strategy",
+  "description": "Use when planning commit strategies or determining when to commit changes. Helps developers commit early and often to tell the story of their development process.",
+  "repo": "TheBushidoCollective/han",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/TheBushidoCollective/han"
+}

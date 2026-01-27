@@ -1,0 +1,9 @@
+{
+  "name": "lang-cpp-dev",
+  "description": "Foundational C++ patterns covering core syntax, classes, templates, RAII, move semantics, and modern C++ features (C++11/14/17/20). Use when writing C++ code, understanding the type system, memory man",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

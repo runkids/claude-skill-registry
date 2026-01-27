@@ -1,0 +1,9 @@
+{
+  "name": "research-project",
+  "description": "This skill should be used when initializing a new bioinformatics research project, checking project status, updating project phase, or getting research best practices guidance. Triggered by requests l",
+  "repo": "dakesan/bioinformatics-research-plugins",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

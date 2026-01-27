@@ -1,15 +1,7 @@
 {
   "name": "using-git-spice",
-  "description": "Use when working with stacked branches, managing dependent PRs/CRs, or uncertain about git-spice commands (stack vs upstack vs downstack) - provides command reference, workflow patterns, and common pi",
   "repo": "arittr/spectacular",
-  "category": "data",
-  "tags": [
-    "using",
-    "git",
-    "spice"
-  ],
-  "stars": 5,
-  "dir_name": "using-git-spice",
-  "github_path": "skills/using-git-spice",
-  "github_branch": "main"
+  "path": "skills/using-git-spice/SKILL.md",
+  "source": "github.com/arittr/spectacular",
+  "downloaded_at": "2026-01-27T01:12:01.970767Z"
 }

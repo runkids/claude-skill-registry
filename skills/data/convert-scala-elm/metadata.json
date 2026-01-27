@@ -1,0 +1,9 @@
+{
+  "name": "convert-scala-elm",
+  "description": "Convert Scala code to idiomatic Elm. Use when migrating Scala backend logic to Elm frontend applications, translating functional Scala patterns to The Elm Architecture, or refactoring from advanced ty",
+  "repo": "aRustyDev/ai",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/aRustyDev/ai"
+}

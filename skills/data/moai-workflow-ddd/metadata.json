@@ -1,0 +1,9 @@
+{
+  "name": "moai-workflow-ddd",
+  "description": "Domain-Driven Development workflow specialist using ANALYZE-PRESERVE-IMPROVE cycle for behavior-preserving code transformation",
+  "repo": "modu-ai/moai-adk",
+  "category": "workflow",
+  "tags": [],
+  "stars": 568,
+  "source": "github.com/modu-ai/moai-adk"
+}

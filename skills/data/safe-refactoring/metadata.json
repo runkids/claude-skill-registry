@@ -1,0 +1,9 @@
+{
+  "name": "safe-refactoring",
+  "description": "Systematic code refactoring while preserving all external behavior.Use when identifying code smells, planning refactoring sequences,executing safe structural improvements, or validating behavior prese",
+  "repo": "rsmdt/the-startup",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

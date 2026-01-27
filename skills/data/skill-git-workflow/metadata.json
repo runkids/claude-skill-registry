@@ -1,0 +1,9 @@
+{
+  "name": "skill-git-workflow",
+  "description": "Create scoped git commits for task operations. Invoke after task status changes or artifact creation.",
+  "repo": "benbrastmckie/.config",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/benbrastmckie/.config"
+}

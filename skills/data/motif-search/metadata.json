@@ -1,0 +1,9 @@
+{
+  "name": "motif-search",
+  "description": "Find patterns, motifs, and subsequences in biological sequences using Biopython. Use when searching for transcription factor binding sites, regulatory elements, or any sequence pattern. For restrictio",
+  "repo": "GPTomics/bioSkills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/GPTomics/bioSkills"
+}

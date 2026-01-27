@@ -1,10 +1,7 @@
 {
   "name": "zhimeng-agent",
-  "description": "",
-  "category": "data",
   "repo": "muzhicaomingwang/ai-ideas",
-  "path": "apps/zhimeng-agent/SKILL.md",
-  "stars": 1,
+  "path": ".claude/skills/zhimeng-agent/SKILL.md",
   "source": "github.com/muzhicaomingwang/ai-ideas",
-  "downloaded_at": "2026-01-24T16:15:32.781133Z"
+  "downloaded_at": "2026-01-27T04:31:07.310125Z"
 }

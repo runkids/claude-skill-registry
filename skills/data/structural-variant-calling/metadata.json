@@ -1,0 +1,9 @@
+{
+  "name": "structural-variant-calling",
+  "description": "Call structural variants (SVs) from short-read sequencing using Manta, Delly, and LUMPY. Detects deletions, insertions, inversions, duplications, and translocations that are too large for standard SNV",
+  "repo": "GPTomics/bioSkills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/GPTomics/bioSkills"
+}

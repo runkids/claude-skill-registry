@@ -1,0 +1,9 @@
+{
+  "name": "rubocop-integration",
+  "description": "Use when ruboCop CI integration including GitHub Actions, plugins, and performance optimization.",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

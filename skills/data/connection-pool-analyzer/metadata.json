@@ -1,0 +1,9 @@
+{
+  "name": "connection-pool-analyzer",
+  "description": "Connection Pool Analyzer - Auto-activating skill for Performance Testing.Triggers on: connection pool analyzer, connection pool analyzerPart of the Performance Testing skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "clay-ci-integration",
+  "description": "Configure Clay CI/CD integration with GitHub Actions and testing.\nUse when setting up automated testing, configuring CI pipelines,\nor integrating Clay tests into your build process.\nTrigger with phras",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "comment-cleanup",
+  "description": "Guidelines for comments in code. Use when adding, editing, or removing comments.",
+  "repo": "motlin/claude-code-plugins",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

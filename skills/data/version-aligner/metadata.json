@@ -1,0 +1,9 @@
+{
+  "name": "version-aligner",
+  "description": "Aligns versions across multiple repositories according to release strategy (lockstep, independent, umbrella). Handles semantic versioning constraints, detects version conflicts, suggests version bumps",
+  "repo": "anton-abyzov/specweave",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

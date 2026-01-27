@@ -1,0 +1,9 @@
+{
+  "name": "forms-create",
+  "description": "Google Forms フォームを新規作成する。「フォーム作成」「Forms 作成」「新しいフォーム」「アンケート作成」「フォームを作って」などで起動。",
+  "repo": "shiiman/claude-code-plugins",
+  "category": "other",
+  "tags": [],
+  "stars": 0,
+  "source": "github.com/shiiman/claude-code-plugins"
+}
