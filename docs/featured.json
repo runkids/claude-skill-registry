@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-24T17:44:30.090629Z",
+  "updated_at": "2026-01-27T04:48:12.188882Z",
   "count": 100,
   "skills": [
     {
@@ -328,21 +328,6 @@
       "stars": 44845,
       "install": "tldraw/tldraw/development/write-issue-tldraw-tldraw",
       "source": "github.com/tldraw/tldraw"
-    },
-    {
-      "name": "clojure-review",
-      "description": "Review Clojure and ClojureScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing Clojure/Clo",
-      "repo": "metabase/metabase",
-      "path": ".claude/skills/clojure-review",
-      "branch": "master",
-      "category": "development",
-      "tags": [
-        "clojure",
-        "review"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/.claude/skills/clojure-review",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "clojure-write",
@@ -861,22 +846,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "fetch-unresolved-comments",
-      "description": "Fetch unresolved PR review comments using GitHub GraphQL API, filtering out resolved and outdated feedback.",
-      "repo": "mlflow/mlflow",
-      "path": ".claude/skills/fetch-unresolved-comments",
-      "branch": "master",
-      "category": "development",
-      "tags": [
-        "fetch",
-        "unresolved",
-        "comments"
-      ],
-      "stars": 23068,
-      "install": "mlflow/mlflow/.claude/skills/fetch-unresolved-comments",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "reviewing-code-jlowin-fastmcp",
       "description": "Review code for quality, maintainability, and correctness. Use when reviewing pull requests, evaluating code changes, or providing feedback on implementations. Focuses on API design, patterns, and act",
       "repo": "jlowin/fastmcp",
@@ -1010,18 +979,6 @@
       "source": "github.com/SuperClaude-Org/SuperClaude_Framework"
     },
     {
-      "name": "m05-type-driven",
-      "description": "CRITICAL: Use for type-driven design. Triggers: type state, PhantomData, newtype, marker trait, builder pattern, make invalid states unrepresentable, compile-time validation, sealed trait, ZST, 类型状态,",
-      "repo": "rustfs/rustfs",
-      "path": "data/m05-type-driven",
-      "branch": "main",
-      "category": "data",
-      "tags": [],
-      "stars": 20249,
-      "install": "rustfs/rustfs/data/m05-type-driven",
-      "source": "github.com/rustfs/rustfs"
-    },
-    {
       "name": "skill-developer",
       "description": "Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill a",
       "repo": "langfuse/langfuse",
@@ -1143,6 +1100,18 @@
       "stars": 16753,
       "install": "tursodatabase/turso/development/testing-tursodatabase-turso",
       "source": "github.com/tursodatabase/turso"
+    },
+    {
+      "name": "qiuzhi",
+      "description": "指导Claude按照二哥的风格撰写求职类文章，包括公司薪资爆料、年终奖盘点、求职攻略、offer选择建议等内容。",
+      "repo": "itwanger/toBeBetterJavaer",
+      "path": "data/qiuzhi",
+      "branch": "main",
+      "category": "other",
+      "tags": [],
+      "stars": 16619,
+      "install": "itwanger/toBeBetterJavaer/data/qiuzhi",
+      "source": "github.com/itwanger/toBeBetterJavaer"
     },
     {
       "name": "qiuzhi",
@@ -1284,6 +1253,37 @@
       ],
       "stars": 14334,
       "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/latex-posters",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "market-research-reports",
+      "description": "Generate comprehensive market research reports (50+ pages) in the style of top consulting firms (McKinsey, BCG, Gartner). Features professional LaTeX formatting, extensive visual generation with scien",
+      "repo": "davila7/claude-code-templates",
+      "path": "cli-tool/components/skills/scientific/market-research-reports",
+      "branch": "main",
+      "category": "testing",
+      "tags": [
+        "market",
+        "research",
+        "reports"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/market-research-reports",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "research-lookup",
+      "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
+      "repo": "davila7/claude-code-templates",
+      "path": "cli-tool/components/skills/scientific/research-lookup",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "research",
+        "lookup"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/research-lookup",
       "source": "SkillsMP Synced Skills"
     }
   ]
