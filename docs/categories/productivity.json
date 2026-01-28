@@ -1,8 +1,8 @@
 {
   "category": "productivity",
   "code": "pro",
-  "count": 1562,
-  "updated_at": "2026-01-27T04:48:12.104665Z",
+  "count": 1558,
+  "updated_at": "2026-01-28T04:48:17.879113Z",
   "skills": [
     {
       "name": "commit-helper",
@@ -609,21 +609,6 @@
       ],
       "stars": 110,
       "install": "daymade/claude-code-skills/cli-demo-generator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "github-ops",
-      "description": "Provides comprehensive GitHub operations using gh CLI and GitHub API. Activates when working with pull requests, issues, repositories, workflows, or GitHub API operations including creating/viewing/me",
-      "repo": "daymade/claude-code-skills",
-      "path": "data/github-ops",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "github",
-        "ops"
-      ],
-      "stars": 110,
-      "install": "daymade/claude-code-skills/data/github-ops",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2132,21 +2117,6 @@
       ],
       "stars": 18,
       "install": "alec-c4/claude-skills-rails-dev/rails-project-manager",
-      "source": "local"
-    },
-    {
-      "name": "context-loader",
-      "description": "Load project context efficiently for Conductor workflows. Use when starting work on a track, implementing features, or needing project context without consuming excessive tokens.",
-      "repo": "pilotparpikhodjaev/conductor_cc",
-      "path": "data/context-loader",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "context",
-        "loader"
-      ],
-      "stars": 17,
-      "install": "pilotparpikhodjaev/conductor_cc/data/context-loader",
       "source": "local"
     },
     {
@@ -5195,21 +5165,6 @@
       "name": "archon-manager",
       "description": "Master Archon MCP for strategic project management, task tracking, and knowledge base operations. The strategic layer (WHAT/WHEN) that coordinates with Skills (HOW). Use when managing projects, tracki",
       "repo": "daffy0208/ai-dev-standards",
-      "path": "data/archon-manager",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "archon",
-        "manager"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards/data/archon-manager",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "archon-manager",
-      "description": "Master Archon MCP for strategic project management, task tracking, and knowledge base operations. The strategic layer (WHAT/WHEN) that coordinates with Skills (HOW). Use when managing projects, tracki",
-      "repo": "daffy0208/ai-dev-standards",
       "path": "skills/archon-manager",
       "branch": "main",
       "category": "productivity",
@@ -5279,20 +5234,6 @@
       ],
       "stars": 2,
       "install": "jmanhype/speckit/.claude/skills/beads-integration",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "brainwriting",
-      "description": "Facilitate structured brainstorming using parallel sub-agents to explore idea spaces. Use for IDEATION/CONCEPTUAL WORK ONLY, NOT for implementation planning or task breakdown. Use when user wants to b",
-      "repo": "otrebu/all-agents",
-      "path": "data/brainwriting",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "brainwriting"
-      ],
-      "stars": 2,
-      "install": "otrebu/all-agents/data/brainwriting",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5743,21 +5684,6 @@
       ],
       "stars": 2,
       "install": "jondcallahan/agent-tools/skills/ntfy-notify",
-      "source": "local"
-    },
-    {
-      "name": "orchestration-planner",
-      "description": "Plan multi-step workflows using capability graph and Codex-powered goal decomposition with HTN-style hierarchical task planning.",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/orchestration-planner",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "orchestration",
-        "planner"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards/data/orchestration-planner",
       "source": "local"
     },
     {
@@ -11071,18 +10997,6 @@
       "name": "confluence-page-generator",
       "description": "Confluence Page Generator - Auto-activating skill for Enterprise Workflows.Triggers on: confluence page generator, confluence page generatorPart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/confluence-page-generator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/confluence-page-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "confluence-page-generator",
-      "description": "Confluence Page Generator - Auto-activating skill for Enterprise Workflows.Triggers on: confluence page generator, confluence page generatorPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/20-enterprise-workflows/confluence-page-generator",
       "branch": "main",
       "category": "productivity",
@@ -11458,6 +11372,18 @@
       "stars": 0,
       "install": "JackReis/date-validation-skill/productivity/date-validation",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "deckrd",
+      "description": "Stepwise derivation workflow from requirements to executable tasks.",
+      "repo": "aglabo/deckrd",
+      "path": "data/deckrd",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "aglabo/deckrd/data/deckrd",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "deckrd",
@@ -15846,18 +15772,6 @@
       "name": "n8n-kafka-workflows",
       "description": "n8n workflow automation with Kafka integration expert. Covers Kafka trigger node, producer node, event-driven workflows, error handling, retries, and no-code/low-code event processing patterns. Activa",
       "repo": "anton-abyzov/specweave",
-      "path": "data/n8n-kafka-workflows",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave/data/n8n-kafka-workflows",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "n8n-kafka-workflows",
-      "description": "n8n workflow automation with Kafka integration expert. Covers Kafka trigger node, producer node, event-driven workflows, error handling, retries, and no-code/low-code event processing patterns. Activa",
-      "repo": "anton-abyzov/specweave",
       "path": "plugins/specweave-n8n/skills/n8n-kafka-workflows",
       "branch": "main",
       "category": "productivity",
@@ -17127,12 +17041,36 @@
       "name": "policyengine-uk",
       "description": "PolicyEngine-UK tax and benefit microsimulation patterns, situation creation, and common workflows",
       "repo": "PolicyEngine/policyengine-claude",
+      "path": "data/policyengine-uk",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/data/policyengine-uk",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "policyengine-uk",
+      "description": "PolicyEngine-UK tax and benefit microsimulation patterns, situation creation, and common workflows",
+      "repo": "PolicyEngine/policyengine-claude",
       "path": "skills/data-science/policyengine-uk-data-skill",
       "branch": "main",
       "category": "productivity",
       "tags": [],
       "stars": 0,
       "install": "PolicyEngine/policyengine-claude/skills/data-science/policyengine-uk-data-skill",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "policyengine-us",
+      "description": "PolicyEngine-US tax and benefit microsimulation patterns, situation creation, and common workflows",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "data/policyengine-us",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/data/policyengine-us",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -18017,6 +17955,18 @@
       "name": "research-150",
       "description": "Deep research workflow for this project using 150% scope (100% core + 50% boundary), evidence-based reasoning, and structured investigation notes. Use when the task requires investigation, root-cause",
       "repo": "MykhailoDmytriakha/my-preacher-helper",
+      "path": "data/research-150",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "MykhailoDmytriakha/my-preacher-helper/data/research-150",
+      "source": "GitHub Search API"
+    },
+    {
+      "name": "research-150",
+      "description": "Deep research workflow for this project using 150% scope (100% core + 50% boundary), evidence-based reasoning, and structured investigation notes. Use when the task requires investigation, root-cause",
+      "repo": "MykhailoDmytriakha/my-preacher-helper",
       "path": ".codex/skills/21-understand-research-150",
       "branch": "main",
       "category": "productivity",
@@ -18469,21 +18419,6 @@
       ],
       "stars": 0,
       "install": "dug-21/neural-data-platform/.claude/skills/save-pattern",
-      "source": "local"
-    },
-    {
-      "name": "save-session",
-      "description": "Use this skill when the user wants to save session progress before running /clear, or when you notice significant progress has been made that should be saved to TASKS.md and committed to git (project)",
-      "repo": "jmiller94102/Hypothesis_Pro_McKinsey_Replacement",
-      "path": "data/save-session",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "save",
-        "session"
-      ],
-      "stars": 0,
-      "install": "jmiller94102/Hypothesis_Pro_McKinsey_Replacement/data/save-session",
       "source": "local"
     },
     {

@@ -1,8 +1,8 @@
 {
   "category": "documents",
   "code": "doc",
-  "count": 2801,
-  "updated_at": "2026-01-27T04:48:11.822629Z",
+  "count": 2779,
+  "updated_at": "2026-01-28T04:48:17.586289Z",
   "skills": [
     {
       "name": "docs-review",
@@ -1129,21 +1129,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docs-cleaner",
-      "description": "Consolidates redundant documentation while preserving all valuable content. This skill should be used when users want to clean up documentation bloat, merge redundant docs, reduce documentation sprawl",
-      "repo": "daymade/claude-code-skills",
-      "path": "data/docs-cleaner",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "cleaner"
-      ],
-      "stars": 110,
-      "install": "daymade/claude-code-skills/data/docs-cleaner",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "markdown-tools",
       "description": "Converts documents to markdown (PDFs, Word docs, PowerPoint, Confluence exports) with Windows/WSL path handling. Activates when converting .doc/.docx/PDF/PPTX files to markdown, processing Confluence",
       "repo": "daymade/claude-code-skills",
@@ -1189,21 +1174,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "pdf-creator",
-      "description": "Create PDF documents from markdown with proper Chinese font support using weasyprint. This skill should be used when converting markdown to PDF, generating formal documents (legal, trademark filings,",
-      "repo": "daymade/claude-code-skills",
-      "path": "data/pdf-creator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "pdf",
-        "creator"
-      ],
-      "stars": 110,
-      "install": "daymade/claude-code-skills/data/pdf-creator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "ppt-creator",
       "description": "Create professional slide decks from topics or documents. Generates structured content with data-driven charts, speaker notes, and complete PPTX files. Applies persuasive storytelling principles (Pyra",
       "repo": "daymade/claude-code-skills",
@@ -1216,21 +1186,6 @@
       ],
       "stars": 110,
       "install": "daymade/claude-code-skills/ppt-creator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "ppt-creator",
-      "description": "Create professional slide decks from topics or documents. Generates structured content with data-driven charts, speaker notes, and complete PPTX files. Applies persuasive storytelling principles (Pyra",
-      "repo": "daymade/claude-code-skills",
-      "path": "data/ppt-creator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "ppt",
-        "creator"
-      ],
-      "stars": 110,
-      "install": "daymade/claude-code-skills/data/ppt-creator",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1248,23 +1203,6 @@
       ],
       "stars": 110,
       "install": "daymade/claude-code-skills/teams-channel-post-writer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "teams-channel-post-writer",
-      "description": "Creates educational Teams channel posts for internal knowledge sharing about Claude Code features, tools, and best practices. Applies when writing posts, announcements, or documentation to teach colle",
-      "repo": "daymade/claude-code-skills",
-      "path": "data/teams-channel-post-writer",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "teams",
-        "channel",
-        "post",
-        "writer"
-      ],
-      "stars": 110,
-      "install": "daymade/claude-code-skills/data/teams-channel-post-writer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -3138,21 +3076,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "env-manager",
-      "description": "Environment variable management, validation, and documentation.",
-      "repo": "CuriousLearner/devkit",
-      "path": "data/env-manager",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "env",
-        "manager"
-      ],
-      "stars": 13,
-      "install": "CuriousLearner/devkit/data/env-manager",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "ln-100-documents-pipeline",
       "description": "Top orchestrator for complete doc system. Delegates to ln-110 coordinator (project docs via 5 L3 workers) + ln-120-150 workers. Phase 4: global cleanup. Idempotent.",
       "repo": "levnikolaevich/claude-code-skills",
@@ -4548,22 +4471,6 @@
       ],
       "stars": 7,
       "install": "aniketpanjwani/local_media_tools/skills/newsletter-events-write",
-      "source": "local"
-    },
-    {
-      "name": "newsletter-events-write",
-      "description": "Generate markdown newsletters from stored events. Use when the user wants to create, write, or generate a newsletter from scraped events.",
-      "repo": "aniketpanjwani/local_media_tools",
-      "path": "data/newsletter-events-write",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "newsletter",
-        "events",
-        "write"
-      ],
-      "stars": 7,
-      "install": "aniketpanjwani/local_media_tools/data/newsletter-events-write",
       "source": "local"
     },
     {
@@ -6190,21 +6097,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "doc-scanner",
-      "description": "Scans for project documentation files (AGENTS.md, CLAUDE.md, GEMINI.md, COPILOT.md, CURSOR.md, WARP.md, and 15+ other formats) and synthesizes guidance. Auto-activates when user asks to review, unders",
-      "repo": "0xDarkMatter/claude-mods",
-      "path": "data/doc-scanner",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "doc",
-        "scanner"
-      ],
-      "stars": 3,
-      "install": "0xDarkMatter/claude-mods/data/doc-scanner",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "docker-compose",
       "description": "Generate Compose configs with services, networking, volumes, and health checks",
       "repo": "mwguerra/claude-code-plugins",
@@ -6294,21 +6186,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docusaurus-config",
-      "description": "Use when working with docusaurus.config.js/ts files to validate or modify Docusaurus configuration",
-      "repo": "mcclowes/lea",
-      "path": "data/docusaurus-config",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docusaurus",
-        "config"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea/data/docusaurus-config",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "docusaurus-documentation",
       "description": "Use when looking up information from the latest Docusaurus documentation at https://docusaurus.io/docs",
       "repo": "mcclowes/lea",
@@ -6321,21 +6198,6 @@
       ],
       "stars": 3,
       "install": "mcclowes/lea/.claude/skills/docusaurus-documentation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docusaurus-documentation",
-      "description": "Use when looking up information from the latest Docusaurus documentation at https://docusaurus.io/docs",
-      "repo": "mcclowes/lea",
-      "path": "data/docusaurus-documentation",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docusaurus",
-        "documentation"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea/data/docusaurus-documentation",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6354,21 +6216,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docusaurus-plugins",
-      "description": "Use when creating Docusaurus plugins (remark, rehype, theme, content, lifecycle) to extend markdown, modify HTML, or add custom functionality",
-      "repo": "mcclowes/lea",
-      "path": "data/docusaurus-plugins",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docusaurus",
-        "plugins"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea/data/docusaurus-plugins",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "docusaurus-themes",
       "description": "Use when swizzling Docusaurus theme components and editing theme elements",
       "repo": "mcclowes/lea",
@@ -6381,21 +6228,6 @@
       ],
       "stars": 3,
       "install": "mcclowes/lea/.claude/skills/docusaurus-themes",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docusaurus-themes",
-      "description": "Use when swizzling Docusaurus theme components and editing theme elements",
-      "repo": "mcclowes/lea",
-      "path": "data/docusaurus-themes",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docusaurus",
-        "themes"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea/data/docusaurus-themes",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6505,22 +6337,6 @@
       ],
       "stars": 3,
       "install": "mcclowes/lea/.claude/skills/google-style-guide",
-      "source": "local"
-    },
-    {
-      "name": "google-style-guide",
-      "description": "Use when writing or reviewing technical documentation to follow Google's documentation style guide - https://developers.google.com/style",
-      "repo": "mcclowes/lea",
-      "path": "data/google-style-guide",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "google",
-        "style",
-        "guide"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea/data/google-style-guide",
       "source": "local"
     },
     {
@@ -7066,22 +6882,6 @@
       ],
       "stars": 2,
       "install": "daffy0208/ai-dev-standards/skills/dark-matter-analyzer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dark-matter-analyzer",
-      "description": "Analyze repositories to reveal unseen patterns, strategic drift, and organizational health. Use when assessing repository coherence, diagnosing project issues, identifying documentation inflation, or",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/dark-matter-analyzer",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "dark",
-        "matter",
-        "analyzer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards/data/dark-matter-analyzer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -8884,21 +8684,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docs-create",
-      "description": "Create epic-specific documentation skill with external reference docs. MUST BE USED for caching external docs.Fetches URLs, caches full content, uses documentation-engineer to generate cohesive summar",
-      "repo": "stars-end/affordabot",
-      "path": "data/docs-create",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "create"
-      ],
-      "stars": 1,
-      "install": "stars-end/affordabot/data/docs-create",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "docs-sync-jasonmichaelbell78-creator-son",
       "description": "Document Sync Check",
       "repo": "jasonmichaelbell78-creator/sonash-v0",
@@ -9091,21 +8876,6 @@
       ],
       "stars": 1,
       "install": "C0ntr0lledCha0s/logseq-template-graph/.claude/skills/documentation-writer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "documentation-writer",
-      "description": "Expert technical writer for Logseq Template Graph project. Generates comprehensive, accurate, and well-structured documentation for modules, features, guides, and APIs. Activates when asked to \"write",
-      "repo": "C0ntr0lledCha0s/logseq-template-graph",
-      "path": "data/documentation-writer",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "documentation",
-        "writer"
-      ],
-      "stars": 1,
-      "install": "C0ntr0lledCha0s/logseq-template-graph/data/documentation-writer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -10325,20 +10095,6 @@
       ],
       "stars": 1,
       "install": "CAPHTECH/shirushi/skills/shirushi",
-      "source": "local"
-    },
-    {
-      "name": "shirushi",
-      "description": "Document ID management for Git repositories. Validates, assigns, and tracks immutable doc_ids across Markdown/YAML files. Use when working with doc_id, document IDs, \"@see docid\" references, document",
-      "repo": "CAPHTECH/shirushi",
-      "path": "data/shirushi",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "shirushi"
-      ],
-      "stars": 1,
-      "install": "CAPHTECH/shirushi/data/shirushi",
       "source": "local"
     },
     {
@@ -12114,18 +11870,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "api-reference-creator",
-      "description": "Api Reference Creator - Auto-activating skill for Technical Documentation.Triggers on: api reference creator, api reference creatorPart of the Technical Documentation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/api-reference-creator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/api-reference-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "api-researcher",
       "description": "Expert API research including discovery, evaluation, integration analysis, and documentation review",
       "repo": "ljchg12-hue/windows-dotfiles",
@@ -12789,6 +12533,18 @@
       "tags": [],
       "stars": 0,
       "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-auto-docs",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "auto-docs",
+      "description": "Generate comprehensive documentation from codebase analysis - creates README sections, API docs, migration guides, and examples from code",
+      "repo": "jrc1883/popkit-claude",
+      "path": "data/auto-docs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude/data/auto-docs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15155,21 +14911,6 @@
       "source": "local"
     },
     {
-      "name": "content-collections",
-      "description": "Production-tested setup for Content Collections - a TypeScript-first build tool that transformslocal content files (Markdown/MDX) into type-safe data collections with automatic validation.Use when: bu",
-      "repo": "jackspace/ClaudeSkillz",
-      "path": "data/content-collections",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "content",
-        "collections"
-      ],
-      "stars": 0,
-      "install": "jackspace/ClaudeSkillz/data/content-collections",
-      "source": "local"
-    },
-    {
       "name": "content-documenter",
       "description": "Write comprehensive markdown documentation from analyzed media content with structured sections, quotes, timestamps, and citations. Use after media-reviewer analysis to create final documentation.",
       "repo": "memorysaver/looplia-core",
@@ -17308,18 +17049,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "doc-updates",
-      "description": "Update documentation with writing guideline enforcement, consolidation detection, and accuracy verification.Triggers: documentation update, docs update, ADR, docstrings, writing guidelines, readme upd",
-      "repo": "athola/claude-night-market",
-      "path": "data/doc-updates",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "athola/claude-night-market/data/doc-updates",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "doc-vault-skill",
       "description": "Auto-activating documentation cache with fresh API docs. Fetches and automatically consults cached documentation when user works with libraries/frameworks.",
       "repo": "orakitine/claude-code-lab",
@@ -18180,18 +17909,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "document-processing-docx",
-      "description": "Process, parse, create, and manipulate Microsoft Word (.docx) documents programmatically using libraries like docx or mammoth.js for document generation and data extraction. Use when generating Word d",
-      "repo": "korallis/Droidz",
-      "path": "data/document-processing-docx",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz/data/document-processing-docx",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "document-processing-pdf",
       "description": "Process, parse, create, and manipulate PDF documents using libraries like pdf-lib, PDFKit, or pdf-parse for document generation, data extraction, and PDF manipulation. Use when generating PDFs from HT",
       "repo": "korallis/Droidz",
@@ -18204,18 +17921,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "document-processing-pdf",
-      "description": "Process, parse, create, and manipulate PDF documents using libraries like pdf-lib, PDFKit, or pdf-parse for document generation, data extraction, and PDF manipulation. Use when generating PDFs from HT",
-      "repo": "korallis/Droidz",
-      "path": "data/document-processing-pdf",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz/data/document-processing-pdf",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "document-processing-xlsx",
       "description": "Process, parse, create, and manipulate Excel spreadsheets (.xlsx, .xls) using libraries like xlsx, exceljs, or SheetJS for data import/export and spreadsheet automation. Use when reading Excel files f",
       "repo": "korallis/Droidz",
@@ -18225,18 +17930,6 @@
       "tags": [],
       "stars": 0,
       "install": "korallis/Droidz/droidz_installer/payloads/droid_cli/default/skills/document-processing-xlsx",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "document-processing-xlsx",
-      "description": "Process, parse, create, and manipulate Excel spreadsheets (.xlsx, .xls) using libraries like xlsx, exceljs, or SheetJS for data import/export and spreadsheet automation. Use when reading Excel files f",
-      "repo": "korallis/Droidz",
-      "path": "data/document-processing-xlsx",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz/data/document-processing-xlsx",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -19311,6 +19004,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "embed-project",
+      "description": "Embed project-local skills, agents, and commands for semantic search. Use after creating items manually or to update embeddings. Works with both keyword and semantic search modes.",
+      "repo": "jrc1883/popkit-claude",
+      "path": "data/embed-project",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude/data/embed-project",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "employee-competency-tracker",
       "description": "Transforms rough work notes into professional competency document mapped to company competency model (CL, TW, A&D, COMM, CS, PE, M, TS). Use when documenting work for performance reviews, promotion di",
       "repo": "ranjanpoudel1234/ai-tools",
@@ -19667,18 +19372,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/business-tools/excel-analyst-pro/skills/excel-lbo-modeler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "excel-lbo-modeler",
-      "description": "Create leveraged buyout (LBO) models in Excel with sources & uses, debt schedules, cash flow waterfalls, and IRR calculations for private equity analysis Activates when you request \"excel lbo modeler\"",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/excel-lbo-modeler",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/excel-lbo-modeler",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -20473,6 +20166,18 @@
       "tags": [],
       "stars": 0,
       "install": "letta-ai/skills/letta/benchmarks/trajectory-only/break-filter-js-from-html",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "filter-js-from-html",
+      "description": "Guidance for filtering JavaScript and XSS attack vectors from HTML while preserving original formatting. This skill should be used when tasks involve removing script content, sanitizing HTML, filterin",
+      "repo": "letta-ai/skills",
+      "path": "data/filter-js-from-html",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "letta-ai/skills/data/filter-js-from-html",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25715,18 +25420,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "markdownlint-custom-rules",
-      "description": "Create custom linting rules for markdownlint including rule structure, parser integration, error reporting, and automatic fixing.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/markdownlint-custom-rules",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/markdownlint-custom-rules",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "marker",
       "description": "Convert documents (PDF, EPUB, PPTX, DOCX, XLSX, HTML, images) to Markdown/JSON/HTML using marker-pdf with Claude Haiku LLM enhancement for accurate table, math, and form extraction. Use when user need",
       "repo": "xdanger/claude-plugins",
@@ -27013,18 +26706,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-ml/skills/nlp-pipeline-builder",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nlp-pipeline-builder",
-      "description": "Natural language processing ML pipelines for text classification, NER, sentiment analysis, text generation, and embeddings. Activates for \"nlp\", \"text classification\", \"sentiment analysis\", \"named ent",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/nlp-pipeline-builder",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave/data/nlp-pipeline-builder",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31833,6 +31514,23 @@
       "source": "local"
     },
     {
+      "name": "scvitools-docs-truly-complete",
+      "description": "scvi-tools 深度学习单细胞分析工具包 - 100%覆盖文档（321个文件：完整API+用户指南+教程+开发者文档）",
+      "repo": "Ketomihine/my_skills",
+      "path": "data/scvitools-docs-truly-complete",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "scvitools",
+        "docs",
+        "truly",
+        "complete"
+      ],
+      "stars": 0,
+      "install": "Ketomihine/my_skills/data/scvitools-docs-truly-complete",
+      "source": "local"
+    },
+    {
       "name": "sdk-documentation-generator",
       "description": "Sdk Documentation Generator - Auto-activating skill for Technical Documentation.Triggers on: sdk documentation generator, sdk documentation generatorPart of the Technical Documentation skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -32715,20 +32413,6 @@
       ],
       "stars": 0,
       "install": "agentgptsmith/MonadFramework/.claude/skills/skoll",
-      "source": "local"
-    },
-    {
-      "name": "skoll",
-      "description": "Chase down answers before asking. Hunt the archive. Forces Claude to search before questioning, preventing redundant questions about concepts already documented in theory/tiers/ and memory.",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "data/skoll",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "skoll"
-      ],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework/data/skoll",
       "source": "local"
     },
     {
