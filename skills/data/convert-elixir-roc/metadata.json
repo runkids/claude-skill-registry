@@ -1,9 +1,7 @@
 {
   "name": "convert-elixir-roc",
-  "description": "Convert Elixir code to idiomatic Roc. Use when migrating Elixir projects to Roc, translating BEAM/OTP patterns to platform-based architecture, or refactoring Elixir codebases. Extends meta-convert-dev",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-elixir-roc/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:53.781731Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "multiplicity-orchestration",
-  "description": "Run multiple AI instances in parallel, coordinate their execution, manage timing and dependencies",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/multiplicity-orchestration/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-28T03:02:01.412146Z"
 }

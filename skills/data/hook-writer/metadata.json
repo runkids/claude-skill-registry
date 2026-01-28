@@ -1,9 +1,7 @@
 {
   "name": "hook-writer",
-  "description": "Generate attention-grabbing hooks from 5 investor archetype perspectives to find angles that resonate with different audience motivations.",
-  "repo": "majesticlabs-dev/majestic-marketplace",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "WalkerHi11/mediabuy-plugins",
+  "path": ".claude/skills/hook-writer/SKILL.md",
+  "source": "github.com/WalkerHi11/mediabuy-plugins",
+  "downloaded_at": "2026-01-28T02:00:53.908465Z"
 }

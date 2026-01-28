@@ -1,7 +1,7 @@
 {
   "name": "openapi-spec-generation",
-  "repo": "GaoZimeng0425/nemo-cli",
-  "path": ".claude/skills/openapi-spec-generation/SKILL.md",
-  "source": "github.com/GaoZimeng0425/nemo-cli",
-  "downloaded_at": "2026-01-27T02:45:07.955644Z"
+  "repo": "pelan05/vscode_agents_folder",
+  "path": "skills/openapi-spec-generation/SKILL.md",
+  "source": "github.com/pelan05/vscode_agents_folder",
+  "downloaded_at": "2026-01-28T04:07:49.615192Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "metadata-extractor",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Metadata Extractor - Auto-activating skill for Data Pipelines.Triggers on: metadata extractor, metadata extractorPart of the Data Pipelines skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:03.964072Z",
-  "dir_name": "metadata-extractor",
-  "github_path": "planned-skills/generated/11-data-pipelines/metadata-extractor",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/metadata-extractor/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:43.649889Z"
 }

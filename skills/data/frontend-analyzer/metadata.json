@@ -1,12 +1,7 @@
 {
   "name": "frontend-analyzer",
-  "description": "Analyze React/Next.js components to extract typography, colors, layout, fonts, spacing systems, and design tokens. Identifies accessibility issues, responsive breakpoints, and component hierarchies.",
   "repo": "ils15/copilot-global-config",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "analyzer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/frontend-analyzer/SKILL.md",
+  "source": "github.com/ils15/copilot-global-config",
+  "downloaded_at": "2026-01-28T02:32:21.451088Z"
 }

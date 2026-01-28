@@ -1,12 +1,7 @@
 {
   "name": "npm-publishing",
-  "description": "Use when publishing npm packages - covers package.json configuration, versioning, and provenance",
   "repo": "mcclowes/lea",
-  "category": "development",
-  "tags": [
-    "npm",
-    "publishing"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/npm-publishing/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-28T03:49:24.149365Z"
 }

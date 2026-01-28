@@ -1,295 +1,287 @@
 ---
-name: security-patterns
-description: Security checklist, OWASP patterns, and vulnerability detection for code review.
+description: Brief-specific security patterns and guidelines
 ---
 
-# Security Patterns Skill
+# Security Patterns
 
-Security checklist and vulnerability detection.
+> **Compliance Target**: Brief targets HIPAA and SOC-2 compliance. These patterns help maintain that posture. When in doubt, err on the side of more security.
 
-## When Used
+## Authentication (Clerk Integration)
 
-| Agent       | Phase    |
-| ----------- | -------- |
-| check-agent | SECURITY |
+Brief uses Clerk for authentication. Follow these rules:
 
-## Steps
-
-### 1. Secret Detection
-
-```bash
-# Check for hardcoded API keys
-grep -rn "sk-" --include="*.ts" --include="*.tsx" src/
-grep -rn "api_key\s*=" --include="*.ts" src/
-grep -rn "apiKey\s*=" --include="*.ts" src/
-
-# Check for hardcoded passwords
-grep -rn "password\s*=" --include="*.ts" src/
-grep -rn "secret\s*=" --include="*.ts" src/
-
-# Check for hardcoded URLs with credentials
-grep -rn "://.*:.*@" --include="*.ts" src/
-```
-
-**CRITICAL:** Any hardcoded secret must be removed immediately.
-
-**Fix:** Move to environment variables:
+- **Always** use `getAuth()` or `currentUser()` from `@clerk/nextjs/server`
+- **Never** trust client-provided user IDs
+- **Check** `auth.userId` on every API route before processing
 
 ```typescript
-// BAD
-const apiKey = "sk-proj-xxxxx";
+import { auth } from '@clerk/nextjs/server';
 
-// GOOD
-const apiKey = process.env.ANTHROPIC_API_KEY;
-if (!apiKey) throw new Error("ANTHROPIC_API_KEY not configured");
+export async function GET(req: Request) {
+  const session = await auth();
+
+  // Always check authentication first
+  if (!session.userId) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // Use session.userId, never client-provided user ID
+  const data = await fetchDataForUser(session.userId);
+}
 ```
 
----
+**Common mistakes to avoid:**
+```typescript
+// BAD - trusting client-provided user ID
+const { userId } = await req.json();
+const data = await fetchDataForUser(userId);
 
-### 2. Console.log Check
-
-```bash
-grep -rn "console\.log" --include="*.ts" --include="*.tsx" src/
+// GOOD - using authenticated session
+const session = await auth();
+const data = await fetchDataForUser(session.userId);
 ```
 
-**Issue:** console.log can leak sensitive data and affect performance.
+## API Key Authentication
 
-**Fix:** Remove or use structured logger.
+For machine-to-machine API access, Brief uses API keys:
 
----
-
-### 3. Input Validation
-
-**Check all tRPC routes have Zod validation:**
-
-```bash
-# Find routes without .input()
-grep -rn "procedure\." --include="*.ts" src/server/
-```
-
-**Required pattern:**
+- Use `verifyApiKey()` from `lib/auth/api-key`
+- API keys authenticate **organizations**, not users
+- Always verify `organizationId` matches the resource being accessed
 
 ```typescript
-.input(z.object({
-  email: z.string().email(),
-  age: z.number().int().min(0).max(150),
-}))
+import { verifyApiKey } from '@/lib/auth/api-key';
+
+export async function POST(req: Request) {
+  const apiKeyAuth = await verifyApiKey(req);
+
+  if (!apiKeyAuth.valid) {
+    return NextResponse.json({ error: 'Invalid API key' }, { status: 401 });
+  }
+
+  // API key provides organizationId, not userId
+  const { organizationId } = apiKeyAuth;
+
+  // Verify resource belongs to this organization
+  const document = await getDocument(documentId);
+  if (document.organization_id !== organizationId) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+}
 ```
 
----
+## v1 API Routes (withV1Auth Middleware)
 
-### 4. SQL Injection Prevention
-
-**Check for raw queries without parameters:**
-
-```bash
-grep -rn "\$queryRaw" --include="*.ts" src/
-grep -rn "\$executeRaw" --include="*.ts" src/
-```
-
-**Safe pattern:**
+All v1 API routes MUST use the `withV1Auth` middleware:
 
 ```typescript
-// Use template literal (parameterized)
-await db.$queryRaw`SELECT * FROM users WHERE email = ${email}`;
+import { withV1Auth, V1_ERRORS } from '@/app/api/v1/_middleware';
 
-// NEVER concatenate
-// BAD: await db.$queryRaw(`SELECT * FROM users WHERE email = '${email}'`);
+export const POST = withV1Auth(async (req, context) => {
+  // context provides: userId, orgId, type (session/api_key)
+  const { userId, orgId, type } = context;
+
+  // Use V1_ERRORS for standardized responses
+  if (!orgId) {
+    return V1_ERRORS.BAD_REQUEST('Organization required');
+  }
+
+  // Proceed with authenticated request
+});
 ```
 
----
+## Database Security (RLS)
 
-### 5. XSS Prevention
+Brief uses Supabase with Row Level Security (RLS):
 
-**Check for dangerouslySetInnerHTML:**
-
-```bash
-grep -rn "dangerouslySetInnerHTML" --include="*.tsx" src/
-```
-
-**If found, verify sanitization:**
+- **Every table** has RLS policies enabled
+- **Always** filter by `organization_id` in queries
+- **Never** bypass RLS in application code
+- **Test** that users cannot access other organizations' data
 
 ```typescript
-import DOMPurify from "isomorphic-dompurify";
+// GOOD - RLS handles org filtering automatically via Supabase client
+const { data } = await supabase
+  .from('documents')
+  .select('*')
+  .eq('organization_id', orgId);
 
-// REQUIRED: Sanitize before rendering
-const clean = DOMPurify.sanitize(html, {
-  ALLOWED_TAGS: ["b", "i", "em", "strong", "p"],
-  ALLOWED_ATTR: [],
+// GOOD - Drizzle with explicit org filter
+const documents = await db.query.documents.findMany({
+  where: eq(documents.organization_id, orgId),
 });
 
-<div dangerouslySetInnerHTML={{ __html: clean }} />
+// BAD - no org filter (potential data leak)
+const { data } = await supabase
+  .from('documents')
+  .select('*');
 ```
 
----
+### Testing RLS
 
-### 6. Authentication Check
-
-**Verify protected routes use auth middleware:**
-
-```bash
-# Find routes that should be protected
-grep -rn "protectedProcedure\|publicProcedure" --include="*.ts" src/server/
-```
-
-**Check:**
-
-- Sensitive operations use `protectedProcedure`
-- Resource ownership verified before access
+Write tests that verify users cannot access other orgs' data:
 
 ```typescript
-// Verify ownership
-const item = await db.item.findUnique({ where: { id } });
-if (item.ownerId !== ctx.user.id) {
-  throw new TRPCError({ code: "FORBIDDEN" });
+it('returns 403 when accessing another org document', async () => {
+  mockAuth({ userId: 'user-1', orgId: 'org-1' });
+
+  // Document belongs to org-2
+  const res = await GET(req, { params: { id: 'doc-in-org-2' } });
+
+  expect(res.status).toBe(403);
+});
+```
+
+## Input Validation (Zod)
+
+Every API endpoint MUST validate input with Zod:
+
+- **Never** trust client input
+- Use `.strict()` to reject unknown fields
+- **Sanitize** before storing in database
+
+```typescript
+import { z } from 'zod';
+
+// Define schema with strict validation
+const createDocumentSchema = z.object({
+  title: z.string().min(1).max(255),
+  content: z.string().optional(),
+  folder_id: z.string().uuid(),
+}).strict(); // Reject unknown fields
+
+export async function POST(req: Request) {
+  const session = await auth();
+  if (!session.userId) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // Parse and validate input
+  const parseResult = createDocumentSchema.safeParse(await req.json());
+
+  if (!parseResult.success) {
+    return NextResponse.json(
+      { error: 'Validation failed', details: parseResult.error.issues },
+      { status: 400 }
+    );
+  }
+
+  const { title, content, folder_id } = parseResult.data;
+  // Now safe to use validated data
 }
 ```
 
----
+**Common validation patterns:**
+```typescript
+// Email validation
+z.string().email()
 
-### 7. Error Message Review
+// UUID validation
+z.string().uuid()
 
-**Check error responses don't leak internals:**
+// Enum validation
+z.enum(['draft', 'published', 'archived'])
+
+// Array with max length
+z.array(z.string()).max(100)
+
+// Optional with default
+z.string().optional().default('')
+
+// Transform and sanitize
+z.string().trim().toLowerCase()
+```
+
+## Secrets Management
+
+### What Counts as a Secret
+
+- API keys (Clerk, Anthropic, Linear, Slack, GitHub)
+- Database URLs and credentials
+- JWT signing keys
+- OAuth client secrets
+- Webhook signing secrets
+- Encryption keys
+
+### Rules
+
+- **Never** commit secrets to git
+- **Never** log secrets (even in development)
+- **Never** include secrets in error messages
+- Use `.env.local` for local development
+- Use Render environment variables for production
 
 ```bash
-grep -rn "error\.message\|error\.stack" --include="*.ts" src/
+# .env.local (never committed)
+CLERK_SECRET_KEY=sk_test_...
+ANTHROPIC_API_KEY=sk-ant-...
+DATABASE_URL=postgres://...
 ```
 
-**Safe pattern:**
+### Checking for Secrets
 
-```typescript
-// BAD: Exposes internal details
-catch (error) {
-  return { error: error.message, stack: error.stack };
-}
-
-// GOOD: Generic message, log details server-side
-catch (error) {
-  console.error('Internal error:', error);
-  throw new TRPCError({
-    code: "INTERNAL_SERVER_ERROR",
-    message: "An error occurred",
-  });
-}
-```
-
----
-
-### 8. OWASP Top 10 Checklist
-
-| Risk                      | Mitigation                   | Check                    |
-| ------------------------- | ---------------------------- | ------------------------ |
-| Injection                 | Prisma ORM, Zod validation   | Raw queries sanitized    |
-| Broken Auth               | NextAuth, httpOnly cookies   | Token handling secure    |
-| Sensitive Data Exposure   | Env vars, no logging         | Secrets in env vars      |
-| XXE                       | No XML parsing               | N/A                      |
-| Broken Access Control     | tRPC middleware              | Ownership checks         |
-| Security Misconfiguration | CSP headers, secure defaults | Headers configured       |
-| XSS                       | React escaping, DOMPurify    | No unsafe innerHTML      |
-| Insecure Deserialization  | Zod validation               | All inputs validated     |
-| Vulnerable Components     | pnpm audit                   | No known vulnerabilities |
-| Insufficient Logging      | Structured logging           | Audit trail exists       |
-
----
-
-### 9. Dependency Audit
-
+Before committing, verify no secrets are exposed:
 ```bash
-pnpm audit
+# Check for potential secrets in staged files
+git diff --cached | grep -iE "(api_key|secret|password|token|credential)"
 ```
 
-**Pass criteria:** No high or critical vulnerabilities.
+## Common Vulnerabilities
 
-**Fix:**
+### XSS (Cross-Site Scripting)
 
-```bash
-pnpm audit fix
-pnpm update
-```
-
-## Severity Levels
-
-| Severity | Examples                          | Action               |
-| -------- | --------------------------------- | -------------------- |
-| CRITICAL | Hardcoded secrets, SQL injection  | Block, fix now       |
-| HIGH     | Missing auth, XSS vulnerability   | Block, fix before PR |
-| MEDIUM   | console.log, missing validation   | Should fix           |
-| LOW      | TODO comments, minor improvements | Track for later      |
-
-## Output Format
-
-```markdown
-## SECURITY SCAN REPORT
-
-### Findings
-
-| #   | Severity | Issue                    | Location           |
-| --- | -------- | ------------------------ | ------------------ |
-| 1   | CRITICAL | Hardcoded API key        | src/lib/api.ts:15  |
-| 2   | HIGH     | Missing input validation | src/server/user.ts |
-| 3   | MEDIUM   | console.log statement    | src/lib/utils.ts:8 |
-
-### Details
-
-#### 1. Hardcoded API key (CRITICAL)
-
-**Location:** `src/lib/api.ts:15`
-**Code:** `const key = "sk-proj-xxx..."`
-**Fix:** Move to `process.env.API_KEY`
-
-#### 2. Missing input validation (HIGH)
-
-**Location:** `src/server/user.ts:30`
-**Issue:** Route accepts input without Zod schema
-**Fix:** Add `.input(z.object({...}))`
-
-### Summary
-
-- CRITICAL: 1 (must fix)
-- HIGH: 1 (must fix)
-- MEDIUM: 1 (should fix)
-- LOW: 0
-
-**Verdict:** FAIL - Fix CRITICAL and HIGH issues before proceeding.
-```
-
-## Error Handling
-
-| Finding           | Severity | Blocking |
-| ----------------- | -------- | -------- |
-| Hardcoded secret  | CRITICAL | Yes      |
-| SQL injection     | CRITICAL | Yes      |
-| Missing auth      | HIGH     | Yes      |
-| XSS vulnerability | HIGH     | Yes      |
-| console.log       | MEDIUM   | No       |
-| TODO comment      | LOW      | No       |
-
-## AI-Specific Security
-
-### Prompt Injection Prevention
+React escapes content by default. Avoid bypassing this:
 
 ```typescript
-// BAD: User input directly in prompt
-const prompt = `Analyze: ${userInput}`;
+// BAD - potential XSS
+<div dangerouslySetInnerHTML={{ __html: userContent }} />
 
-// GOOD: Structured with boundaries
-const prompt = `
-<system>Analyze the code provided.</system>
-<user_code>
-${sanitizeInput(userInput)}
-</user_code>
-`;
+// GOOD - React auto-escapes
+<div>{userContent}</div>
+
+// If HTML is required, sanitize first
+import DOMPurify from 'dompurify';
+<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userContent) }} />
 ```
 
-### LLM Output Validation
+### CSRF (Cross-Site Request Forgery)
+
+Next.js API routes check origin by default. Additional protections:
+
+- Use `SameSite=Lax` or `SameSite=Strict` cookies (Clerk handles this)
+- Verify `Origin` or `Referer` headers for sensitive operations
+- Use CSRF tokens for form submissions if needed
+
+### IDOR (Insecure Direct Object Reference)
+
+Always verify resource ownership:
 
 ```typescript
-// NEVER trust LLM output blindly
-const code = await llm.generateCode(request);
+export async function GET(req: Request, { params }: { params: { id: string } }) {
+  const session = await auth();
+  if (!session.userId || !session.orgId) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
-// ALWAYS validate
-const validated = validateGeneratedCode(code);
-if (!validated.safe) {
-  throw new Error("Generated code failed validation");
+  const document = await getDocument(params.id);
+
+  // Always verify resource belongs to user's organization
+  if (document.organization_id !== session.orgId) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+
+  return NextResponse.json(document);
 }
 ```
+
+## Security Checklist
+
+Before merging any PR:
+
+- [ ] Authentication checked on all API routes
+- [ ] Authorization verified (user can access resource)
+- [ ] Input validated with Zod
+- [ ] No secrets in code or logs
+- [ ] RLS filters applied to database queries
+- [ ] Error messages don't leak sensitive info
+- [ ] Tests verify unauthorized access is blocked

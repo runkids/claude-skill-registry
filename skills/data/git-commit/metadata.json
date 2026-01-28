@@ -1,7 +1,7 @@
 {
   "name": "git-commit",
-  "repo": "davidgasquez/dotfiles",
-  "path": "agents/skills/git-commit/SKILL.md",
-  "source": "github.com/davidgasquez/dotfiles",
-  "downloaded_at": "2026-01-27T04:20:49.244821Z"
+  "repo": "github/awesome-copilot",
+  "path": "skills/git-commit/SKILL.md",
+  "source": "github.com/github/awesome-copilot",
+  "downloaded_at": "2026-01-28T03:03:35.767559Z"
 }

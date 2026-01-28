@@ -1,11 +1,7 @@
 {
   "name": "electron",
-  "description": "Expert knowledge for building cross-platform desktop applications with Electron using Chromium and Node.js, including IPC patterns, security best practices, and deployment considerations",
-  "repo": "yankeeinlondon/obsidian-kind-model",
-  "category": "development",
-  "tags": [
-    "electron"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/electron/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-28T02:15:42.979852Z"
 }

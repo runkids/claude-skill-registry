@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-project-list
 description: List all projects. Requires authentication. Use for project management operations
-version: "0.1.24"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:

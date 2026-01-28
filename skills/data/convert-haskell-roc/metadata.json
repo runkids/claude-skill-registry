@@ -1,9 +1,7 @@
 {
   "name": "convert-haskell-roc",
-  "description": "Convert Haskell code to idiomatic Roc. Use when migrating Haskell applications to Roc's platform model, translating lazy pure functional code to strict platform-based architecture, or refactoring type",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-haskell-roc/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:55.544728Z"
 }

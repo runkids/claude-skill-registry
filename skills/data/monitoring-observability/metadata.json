@@ -1,7 +1,7 @@
 {
   "name": "monitoring-observability",
-  "repo": "frankxai/agentic-creator-os",
-  "path": "skills/technical/monitoring-observability/SKILL.md",
-  "source": "github.com/frankxai/agentic-creator-os",
-  "downloaded_at": "2026-01-27T01:27:29.010363Z"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/monitoring-observability/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:40.999722Z"
 }

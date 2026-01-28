@@ -1,14 +1,7 @@
 {
   "name": "grammar-checker",
-  "description": "Analyze text for grammar, spelling, punctuation, and style issues. Execute Python script to perform detailed analysis. Use when checking grammar or proofreading.",
-  "repo": "yoshiwatanabe/agent-patterns",
-  "category": "data",
-  "tags": [
-    "grammar",
-    "checker"
-  ],
-  "stars": 0,
-  "dir_name": "grammar-checker",
-  "github_path": ".claude/skills/grammar-checker",
-  "github_branch": "main"
+  "repo": "DaleSeo/korean-skills",
+  "path": "skills/grammar-checker/SKILL.md",
+  "source": "github.com/DaleSeo/korean-skills",
+  "downloaded_at": "2026-01-28T01:29:07.937948Z"
 }

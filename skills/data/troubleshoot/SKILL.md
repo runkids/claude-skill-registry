@@ -1,293 +1,255 @@
 ---
 name: troubleshoot
-description: "Guides diagnosis and resolution when problems occur. Use when user mentions something broken, errors, or that it doesn't work. Do NOT load for: successful builds, new feature implementation, or reviews."
-allowed-tools: ["Read", "Grep", "Bash"]
-context: fork
+description: Read-only diagnostics and troubleshooting for SignalRoom. Use when debugging issues, checking system health, analyzing logs, or verifying connections. This skill restricts modifications to prevent accidental changes during investigation.
+allowed-tools: Read, Grep, Glob, Bash
 ---
 
-# Troubleshoot Skill
+# Troubleshooting & Diagnostics
 
-問題発生時の診断と解決をガイドするスキル。
-VibeCoder が技術的な知識なしで問題を解決できるよう支援します。
+## Quick Health Checks
 
----
-
-## トリガーフレーズ
-
-このスキルは以下のフレーズで自動起動します：
-
-- 「動かない」「エラーが出た」「壊れた」
-- 「うまくいかない」「失敗した」
-- 「なぜ？」「原因は？」
-- "it's broken", "doesn't work", "error", "why?"
-
----
-
-## 概要
-
-問題が発生したとき、VibeCoder は技術的な詳細を理解する必要はありません。
-このスキルが自動的に診断し、解決策を提示します。
-
----
-
-## 診断フロー
-
-### Step 1: 症状の確認
-
-> 🔍 **何が起きましたか？**
->
-> 簡単に教えてください：
-> - 「画面が真っ白」
-> - 「ボタンが動かない」
-> - 「データが保存されない」
-
-### Step 2: 自動診断
+### 1. Fly.io Worker Status
 
 ```bash
-# 環境チェック
-node -v
-npm -v
-git status -sb
-
-# エラーログ確認
-npm run build 2>&1 | tail -20
-npm test 2>&1 | tail -20
-
-# 依存関係チェック
-npm ls --depth=0
+fly status
+fly logs --app signalroom-worker
 ```
 
-### Step 3: 問題カテゴリの特定
+### 2. Temporal Connection
 
-| カテゴリ | 症状 | 自動対応 |
-|---------|------|----------|
-| 依存関係 | `Cannot find module` | `npm install` |
-| 型エラー | `Type error` | error-recovery agent |
-| ビルドエラー | `Build failed` | error-recovery agent |
-| ランタイム | 画面が表示されない | ログ分析 |
-| 環境設定 | 接続エラー | 環境変数確認 |
-
----
-
-## 問題別対応
-
-### 「ボタンが動かない / フォームが送信されない / UIが崩れる」
-
-UIの不具合は、**画面で再現して観測→修正→再検証**するのが最短です。
-
-1. **agent-browser を最優先で使う**（インストール: `npm install -g agent-browser`）
-   ```bash
-   # ページを開いてスナップショット取得
-   agent-browser open https://example.com/target-page
-   agent-browser snapshot -i -c
-
-   # 要素参照でクリック・入力
-   agent-browser click @e1
-   agent-browser fill @e2 "test"
-   ```
-   - 対象URLで再現 → スナップショット/コンソールを根拠に原因を絞る
-   - ソースコード（UI/状態管理/API/バリデーション）を確認して修正
-   - 同じ手順で再現しないことを確認
-   - 参考: `docs/OPTIONAL_PLUGINS.md`
-2. **agent-browser が使えない場合のフォールバック**
-   - MCP ブラウザツール（chrome-devtools, playwright）
-   - 再現手順（URL/手順/期待値/実際）
-   - スクリーンショット/動画
-   - コンソールログ/ネットワークログ
-
-### 「画面が真っ白」
-
-```
-🔍 診断中...
-
-考えられる原因:
-1. ビルドエラー
-2. JavaScript エラー
-3. ルーティング問題
-
-🔧 自動チェック:
-- ビルドログを確認... ✅ エラーなし
-- コンソールエラーを確認... ❌ エラー発見
-
-💡 解決策:
-「直して」と言ってください。自動修正を試みます。
+```bash
+python scripts/test_temporal_connection.py
 ```
 
-### 「npm install が失敗」
+### 3. Supabase Connection
 
-```
-🔍 診断中...
-
-エラー: `ERESOLVE unable to resolve dependency tree`
-
-🔧 解決策:
-1. キャッシュをクリア
-2. node_modules を再インストール
-
-実行してもいいですか？（はい/いいえ）
+```bash
+python -c "
+from signalroom.common import settings
+print(f'Host: {settings.supabase_db_host}')
+print(f'Port: {settings.supabase_db_port}')
+print(f'User: {settings.supabase_db_user}')
+"
 ```
 
-### 「Git がおかしい」
+### 4. Recent Pipeline Runs
 
-```
-🔍 診断中...
-
-検出: マージコンフリクト発生
-
-🔧 解決策:
-1. コンフリクト箇所を表示
-2. 解決方法を提案
-
-「解決して」と言えば自動マージを試みます。
+```sql
+SELECT load_id, schema_name, status, inserted_at
+FROM s3_exports._dlt_loads
+ORDER BY inserted_at DESC LIMIT 5;
 ```
 
----
+## Common Error Patterns
 
-## VibeCoder向け応答パターン
+### Database Errors
 
-### パターン1: 自動修正可能
+| Error | Cause | Check |
+|-------|-------|-------|
+| "password authentication failed" | Wrong user format | User should be `postgres.{project_ref}` |
+| "connection refused" | Wrong host/port | Pooler: port 6543, Direct: port 5432 |
+| "too many connections" | Connection leak | Use pooler, check for unclosed connections |
+| "relation does not exist" | Table not created | Check schema name, run pipeline first |
 
-```
-⚠️ 問題を検出しました
+### Temporal Errors
 
-**問題**: モジュールが見つかりません
-**原因**: 依存関係の未インストール
+| Error | Cause | Check |
+|-------|-------|-------|
+| "No worker available" | Worker not running | `fly status`, `fly logs` |
+| "Activity timed out" | Pipeline too slow | Check activity duration, add heartbeats |
+| "RestrictedWorkflowAccessError" | Sandbox blocking imports | Use `UnsandboxedWorkflowRunner` |
+| "asyncio.run() cannot be called" | Nested event loop | Use `await` directly in activities |
 
-🔧 **自動修正します**
-→ `npm install` を実行中...
-✅ 修正完了！もう一度試してください。
-```
+### Pipeline Errors
 
-### パターン2: 確認が必要
+| Error | Cause | Check |
+|-------|-------|-------|
+| "Unknown source" | Source not registered | Check `SOURCES` dict in runner.py |
+| "Primary key violation" | Duplicate data with merge | Check source data, primary key definition |
+| "Column type mismatch" | Schema evolution conflict | Check dlt schema, may need table drop |
 
-```
-⚠️ 問題を検出しました
+## Log Analysis
 
-**問題**: 設定ファイルの変更が必要
-**影響**: 動作に影響する可能性
+### Fly.io Logs
 
-🤔 **確認させてください**:
-設定を変更しても大丈夫ですか？
+```bash
+# Recent logs
+fly logs
 
-→ 「変更して」で実行
-→ 「説明して」で詳細を確認
-```
+# Follow logs
+fly logs -f
 
-### パターン3: エスカレーション
-
-```
-⚠️ 複雑な問題を検出しました
-
-**問題**: {{問題の概要}}
-**試した修正**: 3回失敗
-
-🆘 **Cursor (PM) への相談をおすすめします**
-
-以下を Cursor に共有してください:
-- エラー内容: {{要約}}
-- 試した対応: {{リスト}}
-- 推定原因: {{分析}}
-
-「報告書を作って」で共有用レポートを生成します。
+# Filter by level
+fly logs | grep -i error
 ```
 
----
+### Local Worker Logs
 
-## よくある質問への自動応答
-
-| 質問 | 自動応答 |
-|------|----------|
-| 「なぜエラーになった？」 | エラーログを分析して原因を説明 |
-| 「どうすれば直る？」 | 具体的な解決手順を提示 |
-| 「前は動いてたのに」 | git log で最近の変更を確認 |
-| 「同じエラーが何度も」 | パターンを分析して根本対策を提案 |
-
----
-
-## 診断コマンド
-
-### クイック診断
-
-```
-「診断して」
-→ 全般的な健全性チェック
-→ 問題があれば報告
-→ なければ「問題なし」
+```bash
+make logs-worker
 ```
 
-### 詳細診断
+### Structured Log Fields
 
-```
-「詳しく診断して」
-→ 依存関係チェック
-→ ビルドテスト
-→ テスト実行
-→ 環境変数確認
-→ 詳細レポート出力
-```
-
----
-
-## 予防的アドバイス
-
-問題を未然に防ぐため、以下をおすすめ：
-
-1. **定期的な `npm run build`**: 問題を早期発見
-2. **こまめなコミット**: 問題発生時に戻しやすい
-3. **Plans.md の更新**: 変更履歴を追跡可能に
-
----
-
-## 注意事項
-
-- 自動修正は3回まで試行
-- 3回失敗したらエスカレーション
-- 破壊的な操作は必ず確認を取る
-- 修正履歴は session-log.md に記録
-
----
-
-## 🔧 LSP 機能の活用
-
-問題解決では LSP（Language Server Protocol）を活用して正確に原因を特定します。
-
-### LSP Diagnostics による問題検出
-
-```
-🔍 LSP 診断実行中...
-
-📊 診断結果:
-
-| ファイル | 行 | メッセージ |
-|---------|-----|-----------|
-| src/api/user.ts | 23 | 'userId' は undefined の可能性があります |
-| src/components/Form.tsx | 45 | 型 'string' を型 'number' に割り当てることはできません |
-
-→ 2件の問題を検出
-→ 上記が「動かない」原因の可能性が高い
+```json
+{
+  "event": "pipeline_completed",
+  "source": "everflow",
+  "load_id": "1705312345",
+  "row_counts": {"daily_stats": 523}
+}
 ```
 
-### Go-to-definition による原因追跡
-
-```
-🔍 原因追跡
-
-エラー: Cannot read property 'name' of undefined
-
-追跡:
-1. src/pages/user.tsx:34 - user.name を参照
-2. src/hooks/useUser.ts:12 - user を返す ← Go-to-definition
-3. src/api/user.ts:8 - API レスポンスが null の可能性
-
-→ API エラー時のハンドリング不足が原因
+Search by event:
+```bash
+fly logs | grep "pipeline_failed"
+fly logs | grep "activity_failed"
 ```
 
-### VibeCoder 向けの使い方
+## Verification Commands
 
-| 症状 | LSP 活用 |
-|------|---------|
-| 「動かない」 | Diagnostics でエラー箇所を特定 |
-| 「どこがおかしい？」 | Go-to-definition で原因を追跡 |
-| 「いつから壊れた？」 | Find-references で変更影響を確認 |
+### Verify Environment
 
-詳細: [docs/LSP_INTEGRATION.md](../../docs/LSP_INTEGRATION.md)
+```bash
+# Check required env vars are set
+python -c "
+from signalroom.common import settings
+required = ['supabase_db_host', 'supabase_db_password', 'temporal_address']
+for var in required:
+    val = getattr(settings, var, None)
+    status = '✓' if val else '✗'
+    print(f'{status} {var}')
+"
+```
+
+### Verify Imports
+
+```bash
+python -c "from signalroom.workers.main import main; print('OK')"
+```
+
+### Verify Temporal Activities
+
+```bash
+python -c "
+from signalroom.temporal.activities import run_pipeline_activity
+print('Activities import OK')
+"
+```
+
+### Verify dlt Sources
+
+```bash
+python -c "
+from signalroom.pipelines.runner import SOURCES
+print('Registered sources:', list(SOURCES.keys()))
+"
+```
+
+## Database Diagnostics
+
+### Check Table Exists
+
+```sql
+SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_name = 'daily_stats';
+```
+
+### Check Recent Data
+
+```sql
+-- Everflow
+SELECT date, COUNT(*) as rows
+FROM everflow.daily_stats
+GROUP BY date ORDER BY date DESC LIMIT 7;
+
+-- Redtrack
+SELECT date, COUNT(*) as rows
+FROM redtrack.daily_spend
+GROUP BY date ORDER BY date DESC LIMIT 7;
+```
+
+### Check dlt Load History
+
+```sql
+SELECT
+    load_id,
+    inserted_at,
+    status
+FROM everflow._dlt_loads
+ORDER BY inserted_at DESC LIMIT 10;
+```
+
+## Temporal UI Diagnostics
+
+**URL**: https://cloud.temporal.io/namespaces/signalroom-713.nzg5u/workflows
+
+### Check Workflow Status
+
+1. Open workflow by ID
+2. Look at "Event History"
+3. Find failed activity
+4. Expand to see error details
+
+### Check Pending Activities
+
+1. Go to workflow detail
+2. Look for "Pending Activities" section
+3. Check if worker is processing
+
+## Network Diagnostics
+
+### DNS Resolution
+
+```bash
+nslookup aws-0-us-east-1.pooler.supabase.com
+nslookup ap-northeast-1.aws.api.temporal.io
+```
+
+### Port Connectivity
+
+```bash
+nc -zv aws-0-us-east-1.pooler.supabase.com 6543
+```
+
+## Recovery Procedures
+
+### Restart Fly.io Worker
+
+```bash
+fly apps restart signalroom-worker
+```
+
+### Clear Stuck Pipeline State
+
+```bash
+dlt pipeline {pipeline_name} drop-pending-packages
+```
+
+### Revert Recent Changes
+
+```bash
+git log --oneline -5
+git revert <commit>
+```
+
+## When to Escalate
+
+If you cannot resolve after:
+1. Checking logs for specific error
+2. Verifying connections
+3. Testing locally
+4. Reviewing recent changes
+
+Document findings and escalate with:
+- Exact error message
+- Relevant log snippets
+- What you've tried
+- Timeline of when it started
+
+## References
+
+- **API Reference**: `docs/API_REFERENCE.md` — Live docs, auth, request/response examples
+- **Source Details**: `docs/SOURCES.md` — Schema, queries, implementation notes
+- **Data Patterns**: `docs/DATA_ORGANIZATION.md` — Client data structure

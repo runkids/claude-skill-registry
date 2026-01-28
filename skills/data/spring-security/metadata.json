@@ -1,12 +1,7 @@
 {
   "name": "spring-security",
-  "description": "Secure Spring Boot applications - authentication, authorization, OAuth2, JWT, CORS/CSRF protection",
-  "repo": "pluginagentmarketplace/custom-plugin-spring-boot",
-  "category": "security",
-  "tags": [
-    "spring",
-    "security"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/spring-security/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-28T02:15:44.427105Z"
 }

@@ -1,23 +1,25 @@
 ---
 name: Frontend Accessibility
-description: Build accessible user interfaces using semantic HTML, proper ARIA attributes, keyboard navigation, color contrast, and screen reader compatibility. Use this skill when creating or editing UI components, HTML templates, JSX files, or any frontend markup. When implementing forms, interactive elements, navigation menus, modals, or dynamic content. When working with buttons, links, images, headings, or any user-facing interface elements. When ensuring keyboard accessibility, focus management, or screen reader support in React components, Vue templates, HTML files, or any frontend view files.
+description: Ensure UI components are accessible to all users including those using assistive technologies through semantic HTML, keyboard navigation, ARIA attributes, color contrast, and screen reader compatibility. Use this skill when building UI components, forms, interactive elements, modals, or any frontend code in React, Vue, or plain HTML that needs WCAG compliance. Applies when adding navigation elements, buttons, inputs, focus management, alternative text, or testing with screen readers to ensure inclusive user experiences.
 ---
 
 # Frontend Accessibility
 
 ## When to use this skill
 
-- When creating or editing UI component files (e.g., `.jsx`, `.tsx`, `.vue`, `.svelte`, `.html`)
-- When implementing forms and form inputs
-- When building interactive elements (buttons, links, dropdowns, modals)
-- When creating navigation menus or site structure
-- When adding images and requiring alt text
-- When implementing keyboard navigation or focus management
-- When choosing colors and ensuring sufficient contrast ratios
-- When using ARIA attributes for complex components
-- When creating heading structures and document outlines
-- When building dynamic content or single-page application views
-- When testing with screen readers or accessibility tools
+- When creating UI components in files like `components/`, `Button.tsx`, `Form.jsx`, or any React/Vue/Angular component
+- When building forms with input fields, labels, error messages, and validation feedback
+- When implementing keyboard navigation for interactive elements (tabs, modals, dropdowns, menus)
+- When adding semantic HTML elements like `<nav>`, `<main>`, `<button>`, `<header>`, `<footer>`, `<article>`
+- When ensuring proper color contrast ratios (4.5:1 minimum) and not relying solely on color to convey information
+- When adding alternative text for images using `alt` attributes or ARIA labels for icon buttons
+- When implementing focus indicators and managing focus for modals, dialogs, or single-page app navigation
+- When using ARIA attributes (`role`, `aria-label`, `aria-describedby`, `aria-live`) for complex components
+- When creating proper heading hierarchies (h1-h6) that screen readers can navigate through
+- When testing components with screen readers (NVDA, JAWS, VoiceOver) to verify accessibility
+- When building custom interactive widgets that need ARIA roles and keyboard event handlers
+
+# Frontend Accessibility
 
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle frontend accessibility.
 

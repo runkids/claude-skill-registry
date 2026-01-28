@@ -1,72 +1,35 @@
 ---
 name: example-skill
-description: Expert at performing task X automatically. Auto-invokes when the user wants to do Y, needs help with Z, or encounters situation W.
+description: "Example skill demonstrating YAML best practices. Use when learning skill structure, reviewing formatting standards, or creating new skills as a reference."
 version: 1.0.0
-allowed-tools: Read, Grep, Glob, Bash
+tags:
+  - example
+  - reference
+  - yaml
 ---
 
 # Example Skill
 
-You are an expert at performing task X. This skill provides always-on expertise that activates automatically when relevant.
+This is a reference implementation showing YAML best practices.
 
-## Your Capabilities
+## Features
 
-1. **Capability 1**: Detailed description
-2. **Capability 2**: Detailed description
-3. **Capability 3**: Detailed description
+- Clean, consistent formatting
+- Proper indentation (2 spaces)
+- Clear section organization
+- Helpful comments
 
-## When to Use This Skill
+## Usage
 
-Claude should automatically invoke this skill when:
-- The user wants to perform task X
-- Files matching pattern Y are being modified
-- The user asks questions about domain Z
-- Situation W is detected in the codebase
+```yaml
+# Example configuration
+config:
+  enabled: true
+  timeout: 30s
+  retries: 3
+```
 
-## How to Use This Skill
+## Reference Files
 
-When this skill is activated:
-
-1. **Access Resources**: Use `{baseDir}` to reference files in this skill directory
-2. **Run Scripts**: Execute helper scripts from `{baseDir}/scripts/` when needed
-3. **Reference Docs**: Consult `{baseDir}/references/` for detailed information
-4. **Use Templates**: Load templates from `{baseDir}/assets/` as needed
-
-## Resources Available
-
-### Scripts
-
-- **{baseDir}/scripts/analyzer.py**: Analyzes files for patterns
-- **{baseDir}/scripts/validator.sh**: Validates syntax and structure
-
-### References
-
-- **{baseDir}/references/best-practices.md**: Best practices guide
-- **{baseDir}/references/patterns.md**: Common patterns and anti-patterns
-
-### Assets
-
-- **{baseDir}/assets/template.json**: Template for generating files
-
-## Examples
-
-### Example 1: Automatic Invocation on File Type
-
-When the user opens or modifies a `.config` file:
-1. Automatically analyze the configuration structure
-2. Validate against schema using `{baseDir}/scripts/validator.sh`
-3. Suggest improvements based on `{baseDir}/references/best-practices.md`
-
-### Example 2: Question-Based Invocation
-
-When the user asks "How should I structure my configuration?":
-1. Reference `{baseDir}/references/patterns.md`
-2. Provide template from `{baseDir}/assets/template.json`
-3. Explain best practices with examples
-
-## Important Notes
-
-- This skill auto-invokes based on context
-- Always validate inputs when using scripts
-- Provide clear, actionable guidance
-- Reference documentation for complex scenarios
+- `references/yaml-style-guide.md` - YAML formatting standards
+- `references/example-config.md` - Configuration options

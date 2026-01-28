@@ -1,9 +1,7 @@
 {
   "name": "holes",
-  "description": "Narya interactive proof development with typed holes",
   "repo": "plurigrid/asi",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/plurigrid/asi"
+  "path": "skills/holes/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-28T01:53:20.001569Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "cicd-setup",
-  "repo": "MUmerRazzaq/fast-next-todo",
+  "repo": "shakefu/contextium",
   "path": ".claude/skills/cicd-setup/SKILL.md",
-  "source": "github.com/MUmerRazzaq/fast-next-todo",
-  "downloaded_at": "2026-01-27T01:02:19.060631Z"
+  "source": "github.com/shakefu/contextium",
+  "downloaded_at": "2026-01-28T03:32:05.931087Z"
 }

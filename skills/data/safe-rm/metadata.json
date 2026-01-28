@@ -1,9 +1,7 @@
 {
   "name": "safe-rm",
-  "description": "Safely delete files / directories without asking for permission",
   "repo": "aspiers/ai-config",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/safe-rm/SKILL.md",
+  "source": "github.com/aspiers/ai-config",
+  "downloaded_at": "2026-01-28T01:33:26.651527Z"
 }

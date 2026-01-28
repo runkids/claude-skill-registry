@@ -3,8 +3,6 @@ name: api-generate
 description: >-
   API code generation from specifications. TODO: Implement for backend.
   Invoked by: "generate api", "api codegen", "create endpoints", "scaffold api".
-context: fork
-agent: general-purpose
 ---
 
 # API Generate

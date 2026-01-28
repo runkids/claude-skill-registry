@@ -1,186 +1,155 @@
 ---
 name: gmail
-description: Read and search Gmail emails. Check inbox, search messages, and view email threads.
+description: Enables Claude to read, compose, search, and manage emails in Gmail via Playwright MCP
 ---
 
-# Gmail Integration
+# Gmail Skill
 
-This skill provides read access to Gmail via the Gmail API.
+## Overview
+Claude can fully interact with Gmail to manage your email communications. This includes reading emails, composing and sending messages, searching through mail, managing labels, archiving, and organizing your inbox.
 
-## Setup Required
+## Quick Install
 
-Uses OAuth with persistent refresh token (same setup for Calendar, Gmail, Drive).
-
-**One-time setup:**
 ```bash
-google-oauth-setup <path-to-client-secret.json>
+curl -sSL https://canifi.com/skills/gmail/install.sh | bash
 ```
 
-See `claude/skills/SETUP.md` for detailed OAuth setup instructions.
-
-**Get Access Token (auto-refreshes):**
+Or manually:
 ```bash
-ACCESS_TOKEN=$(google-oauth-token)
+cp -r skills/gmail ~/.canifi/skills/
 ```
 
-**Required header for all requests:**
+## Setup
+
+Configure via [canifi-env](https://canifi.com/setup/scripts):
+
 ```bash
--H "x-goog-user-project: ${GOOGLE_QUOTA_PROJECT}"
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
+
+canifi-env set GOOGLE_EMAIL "your-email@gmail.com"
 ```
 
-## When to Use
+## Privacy & Authentication
 
-Use this skill when the user:
-- Asks about their email or inbox
-- Wants to search for emails
-- Needs to find a specific message
-- Asks about recent emails
-- Mentions "Gmail" or email
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
 
-## API Endpoints
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
 
-Base URL: `https://gmail.googleapis.com/gmail/v1/users/me`
-
-### List Messages
-
-**List Recent Messages**:
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
 ```bash
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=10" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
-**List with Query**:
-```bash
-curl -s -G "https://gmail.googleapis.com/gmail/v1/users/me/messages" \
-  --data-urlencode "q=is:unread" \
-  --data-urlencode "maxResults=20" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
+
+## Capabilities
+- Read and summarize unread emails
+- Compose and send new emails with attachments
+- Reply to and forward emails
+- Search emails by sender, subject, date, or content
+- Apply, create, and manage labels
+- Archive, delete, and move emails
+- Mark emails as read/unread or starred
+- Manage spam and trash
+- Create and manage email filters
+- Schedule emails to send later
+- Access and manage drafts
+
+## Usage Examples
+
+### Example 1: Check Unread Emails
+```
+User: "Check my unread emails"
+Claude: Navigates to Gmail, reads inbox, and provides summary:
+        "You have 5 unread emails:
+        1. From John Smith - 'Project Update' (2 hours ago)
+        2. From Amazon - 'Your order has shipped' (3 hours ago)
+        ..."
 ```
 
-### Get Message
-
-**Get Full Message**:
-```bash
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/messages/{MESSAGE_ID}?format=full" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+### Example 2: Send an Email
+```
+User: "Send an email to bob@example.com about the meeting tomorrow at 3pm"
+Claude: Composes email with subject "Meeting Tomorrow" and body about
+        the 3pm meeting, then sends it. Confirms: "Email sent to bob@example.com"
 ```
 
-**Get Metadata Only** (faster):
-```bash
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/messages/{MESSAGE_ID}?format=metadata" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+### Example 3: Search and Summarize
+```
+User: "Find all emails from my boss this week and summarize them"
+Claude: Uses Gmail search with "from:boss@company.com after:2024/01/01",
+        reads each email, provides consolidated summary of key points.
 ```
 
-### Get Thread
-
-**Get Full Thread**:
-```bash
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/threads/{THREAD_ID}?format=full" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+### Example 4: Organize Inbox
+```
+User: "Archive all promotional emails older than 30 days"
+Claude: Searches for "category:promotions older_than:30d", selects all,
+        archives them. Reports: "Archived 47 promotional emails"
 ```
 
-### Labels
+## Authentication Flow
+1. Claude navigates to mail.google.com via Playwright MCP
+2. Enters GOOGLE_EMAIL from canifi-env
+3. Handles password entry if not already authenticated
+4. Handles 2FA if prompted (notifies user via iMessage to approve)
+5. Maintains session cookies for subsequent requests
 
-**List Labels**:
-```bash
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/labels" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+## Selectors Reference
+```javascript
+// Compose button
+'div[gh="cm"]' or '[aria-label="Compose"]'
+
+// Email list items
+'tr.zA' // Each email row in inbox
+
+// Email subject in list
+'.bog span'
+
+// Email sender
+'.yW span[email]'
+
+// Search box
+'input[aria-label="Search mail"]'
+
+// Send button in compose
+'div[aria-label="Send"]'
+
+// To field in compose
+'input[aria-label="To recipients"]'
+
+// Subject field
+'input[name="subjectbox"]'
+
+// Body field
+'div[aria-label="Message Body"]'
 ```
 
-### Profile
+## Error Handling
+- **Login Failed**: Retry 3 times with 5-second delays, then notify user via iMessage
+- **Session Expired**: Re-authenticate automatically using stored credentials
+- **Rate Limited**: Wait 60 seconds and retry with exponential backoff
+- **2FA Required**: Send iMessage: "Gmail requires 2FA approval. Please check your authenticator."
+- **Compose Failed**: Save draft and notify user of the issue
+- **Search No Results**: Confirm search terms with user, suggest alternatives
 
-**Get Profile Info**:
-```bash
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/profile" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
-```
-
-## Gmail Search Query Syntax
-
-Use the `q` parameter with Gmail search syntax:
-
-| Query | Description |
-|-------|-------------|
-| `is:unread` | Unread messages |
-| `is:starred` | Starred messages |
-| `from:user@example.com` | From specific sender |
-| `to:user@example.com` | To specific recipient |
-| `subject:hello` | Subject contains "hello" |
-| `has:attachment` | Has attachments |
-| `filename:pdf` | Has PDF attachment |
-| `after:2024/01/01` | After date |
-| `before:2024/01/31` | Before date |
-| `newer_than:7d` | Last 7 days |
-| `older_than:1m` | Older than 1 month |
-| `label:work` | Has label |
-| `in:inbox` | In inbox |
-| `in:sent` | In sent |
-
-Combine queries: `from:boss@company.com subject:urgent after:2024/01/01`
-
-## Common Workflows
-
-### Check Unread Emails
-```bash
-ACCESS_TOKEN=$(google-oauth-token)
-
-curl -s -G "https://gmail.googleapis.com/gmail/v1/users/me/messages" \
-  --data-urlencode "q=is:unread" \
-  --data-urlencode "maxResults=10" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
-```
-
-### Search for Emails from Someone
-```bash
-curl -s -G "https://gmail.googleapis.com/gmail/v1/users/me/messages" \
-  --data-urlencode "q=from:colleague@company.com newer_than:7d" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
-```
-
-### Read a Specific Email
-```bash
-# Get message list first, then fetch specific message
-MESSAGE_ID="18d1234567890abc"
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/messages/${MESSAGE_ID}?format=full" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}" | jq '{
-    subject: .payload.headers[] | select(.name == "Subject") | .value,
-    from: .payload.headers[] | select(.name == "From") | .value,
-    snippet: .snippet
-  }'
-```
-
-### Get Recent Important Emails
-```bash
-curl -s -G "https://gmail.googleapis.com/gmail/v1/users/me/messages" \
-  --data-urlencode "q=is:important newer_than:1d" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}"
-```
-
-## Extracting Message Content
-
-Email bodies are base64 encoded. To decode:
-```bash
-# For simple text/plain messages
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/messages/${MESSAGE_ID}?format=full" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}" | jq -r '.payload.body.data' | base64 -d
-
-# For multipart messages, find the text/plain part
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/messages/${MESSAGE_ID}?format=full" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}" | jq -r '.payload.parts[] | select(.mimeType == "text/plain") | .body.data' | base64 -d
-```
-
-## Extracting Headers
-
-Common headers to extract:
-```bash
-curl -s "https://gmail.googleapis.com/gmail/v1/users/me/messages/${MESSAGE_ID}?format=metadata" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}" | jq '.payload.headers[] | select(.name | IN("From", "To", "Subject", "Date"))'
-```
+## Self-Improvement Instructions
+When you learn a better way to accomplish a task with Gmail:
+1. Document the improvement in your response
+2. Suggest updating this skill file with the new approach
+3. Include specific selectors or workflows that worked better
+4. Note any Gmail UI changes that require selector updates
 
 ## Notes
-
-- Access tokens expire after 1 hour; use refresh token to get new ones
-- Message format options: `minimal`, `metadata`, `raw`, `full`
-- Gmail API has quotas (250 quota units/user/second)
-- The `snippet` field gives a preview without needing to decode the body
-- Thread IDs group related messages together
+- Gmail's UI can change; selectors may need periodic updates
+- Large attachments (>25MB) require Google Drive integration
+- Confidential mode emails have limited functionality
+- Some actions may trigger Google security alerts; reassure user this is normal
+- For bulk operations, process in batches of 50 to avoid timeouts

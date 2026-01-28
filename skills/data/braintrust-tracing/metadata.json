@@ -1,7 +1,7 @@
 {
   "name": "braintrust-tracing",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/braintrust-tracing/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:41.454519Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/quality/braintrust-tracing/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-01-28T03:00:23.895106Z"
 }

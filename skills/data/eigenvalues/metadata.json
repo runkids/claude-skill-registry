@@ -1,7 +1,7 @@
 {
   "name": "eigenvalues",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/linear-algebra/eigenvalues/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:45.099186Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/math/math/linear-algebra/eigenvalues/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-01-28T03:00:20.670298Z"
 }

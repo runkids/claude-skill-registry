@@ -1,13 +1,7 @@
 {
   "name": "google-style-guide",
-  "description": "Use when writing or reviewing technical documentation to follow Google's documentation style guide - https://developers.google.com/style",
   "repo": "mcclowes/lea",
-  "category": "documents",
-  "tags": [
-    "google",
-    "style",
-    "guide"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/google-style-guide/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-28T03:49:25.360720Z"
 }

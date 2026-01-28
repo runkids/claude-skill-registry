@@ -1,7 +1,7 @@
 {
   "name": "tavily-web",
-  "repo": "Nguyenthang2292/Sovereign-IQ",
-  "path": ".cursor/skills/tavily-web/SKILL.md",
-  "source": "github.com/Nguyenthang2292/Sovereign-IQ",
-  "downloaded_at": "2026-01-27T02:40:09.587791Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/tavily-web/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-28T04:27:45.323134Z"
 }

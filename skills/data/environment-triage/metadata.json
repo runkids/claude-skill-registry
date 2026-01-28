@@ -1,7 +1,7 @@
 {
   "name": "environment-triage",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/environment-triage/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:41.497506Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/environment-triage/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-01-28T03:00:34.890425Z"
 }

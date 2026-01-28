@@ -1,7 +1,7 @@
 {
   "name": "pickup",
-  "repo": "doubleflannel/12-30-test-codex-ip",
-  "path": "skills/pickup/SKILL.md",
-  "source": "github.com/doubleflannel/12-30-test-codex-ip",
-  "downloaded_at": "2026-01-27T03:33:25.639922Z"
+  "repo": "robynsmith/claude-code-skills-demo",
+  "path": ".claude/skills/pickup/SKILL.md",
+  "source": "github.com/robynsmith/claude-code-skills-demo",
+  "downloaded_at": "2026-01-28T04:34:23.043542Z"
 }

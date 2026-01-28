@@ -1,10 +1,7 @@
 {
   "name": "automl-optimizer",
-  "description": "|",
-  "category": "data",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/automl-optimizer/SKILL.md",
-  "stars": 48,
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-24T16:16:07.955396Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave-ml/skills/automl-optimizer/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:11.792151Z"
 }

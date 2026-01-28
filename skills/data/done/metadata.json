@@ -1,9 +1,7 @@
 {
   "name": "done",
-  "description": "Completion marker. Outputs hierarchical execution summary showing Global Invariants respected and all Deliverables completed.",
-  "repo": "doodledood/claude-code-plugins",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/doodledood/claude-code-plugins"
+  "repo": "endlessblink/flow-state",
+  "path": ".claude/skills/done/SKILL.md",
+  "source": "github.com/endlessblink/flow-state",
+  "downloaded_at": "2026-01-28T02:37:47.060818Z"
 }

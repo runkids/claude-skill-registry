@@ -1,62 +1,203 @@
 ---
-name: git-commit-helper
-description: Adherence to Conventional Commits and efficient Git history management using types, scopes, and advanced commit tools like fixup/amend. Triggers: git-commit, conventional-commits, breaking-change, fixup, git-amend, rebase.
+name: Git Commit Helper
+description: Generate descriptive commit messages by analyzing git diffs. Use when the user asks for help writing commit messages or reviewing staged changes.
 ---
 
 # Git Commit Helper
 
-## Overview
-Conventional Commits provide a standardized format for commit messages, enabling automated versioning and clearer project history. This skill covers formatting, managing breaking changes, and using advanced Git features like `fixup` for a clean history.
+## Quick start
 
-## When to Use
-- **Professional Collaboration**: To make histories readable and searchable.
-- **Automated Releases**: To trigger Semantic Versioning bumps (PATCH/MINOR/MAJOR).
-- **Clean History**: To fix small mistakes in previous commits without creating "junk" commits.
+Analyze staged changes and generate commit message:
 
-## Decision Tree
-1. Does the change add a new capability? 
-   - YES: Type `feat` (MINOR bump).
-2. Does it fix a bug? 
-   - YES: Type `fix` (PATCH bump).
-3. Does it break backward compatibility? 
-   - YES: Append `!` after type/scope OR add `BREAKING CHANGE:` footer (MAJOR bump).
-4. Did you forget a small detail in the last commit? 
-   - YES: Use `git commit --amend` or `--fixup`.
+```bash
+# View staged changes
+git diff --staged
 
-## Workflows
+# Generate commit message based on changes
+# (Claude will analyze the diff and suggest a message)
+```
 
-### 1. Formatting a Feature Commit
-1. Start the message with `feat` and an optional scope in parentheses (e.g., `feat(auth):`).
-2. Provide a concise description of the new capability.
-3. If the change breaks compatibility, append `!` to the type or add a `BREAKING CHANGE:` footer.
-4. Run `git commit -m "..."` using the formatted string.
+## Commit message format
 
-### 2. Using Fixup for Clean History
-1. Identify the SHA of the commit needing a minor fix.
-2. Run `git commit --fixup <SHA>` to stage the fix as a `fixup!` commit.
-3. Later, perform `git rebase -i --autosquash` to automatically merge the fix into the original commit.
+Follow conventional commits format:
 
-### 3. Amending the Last Commit
-1. Stage any missed changes using `git add`.
-2. Run `git commit --amend --no-edit` to update the last commit with new files while keeping the same message.
-3. Alternatively, use `--amend` without `--no-edit` to refine the commit message structure.
+```
+<type>(<scope>): <description>
 
-## Non-Obvious Insights
-- **Case Sensitivity**: Conventional Commit units are not case-sensitive, EXCEPT for `BREAKING CHANGE`, which MUST be uppercase.
-- **Breaking Change Indicator**: The `!` indicator is a shorthand for marking API breaks without needing a full footer.
-- **Trailers**: Footers should follow the Git trailer convention (`word-token: value`) to be recognized by automated tools.
+[optional body]
 
-## Evidence
-- "feat: a commit of the type feat introduces a new feature... (this correlates with MINOR in Semantic Versioning)." - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-- "The units... MUST NOT be treated as case sensitive... with the exception of BREAKING CHANGE which MUST be uppercase." - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-- "--fixup=reword:<commit> creates an 'amend!' commit which replaces the log message..." - [Git Docs](https://git-scm.com/docs/git-commit)
+[optional footer]
+```
 
-## Scripts
-- `scripts/git-commit-helper_tool.py`: Script to generate conventional commit messages via CLI.
-- `scripts/git-commit-helper_tool.js`: Shell wrapper for executing `fixup` and `amend` commands.
+### Types
 
-## Dependencies
-- `git` (CLI tool)
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation changes
+- **style**: Code style changes (formatting, missing semicolons)
+- **refactor**: Code refactoring
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks
 
-## References
-- [references/README.md](references/README.md)
+### Examples
+
+**Feature commit:**
+```
+feat(auth): add JWT authentication
+
+Implement JWT-based authentication system with:
+- Login endpoint with token generation
+- Token validation middleware
+- Refresh token support
+```
+
+**Bug fix:**
+```
+fix(api): handle null values in user profile
+
+Prevent crashes when user profile fields are null.
+Add null checks before accessing nested properties.
+```
+
+**Refactor:**
+```
+refactor(database): simplify query builder
+
+Extract common query patterns into reusable functions.
+Reduce code duplication in database layer.
+```
+
+## Analyzing changes
+
+Review what's being committed:
+
+```bash
+# Show files changed
+git status
+
+# Show detailed changes
+git diff --staged
+
+# Show statistics
+git diff --staged --stat
+
+# Show changes for specific file
+git diff --staged path/to/file
+```
+
+## Commit message guidelines
+
+**DO:**
+- Use imperative mood ("add feature" not "added feature")
+- Keep first line under 50 characters
+- Capitalize first letter
+- No period at end of summary
+- Explain WHY not just WHAT in body
+
+**DON'T:**
+- Use vague messages like "update" or "fix stuff"
+- Include technical implementation details in summary
+- Write paragraphs in summary line
+- Use past tense
+
+## Multi-file commits
+
+When committing multiple related changes:
+
+```
+refactor(core): restructure authentication module
+
+- Move auth logic from controllers to service layer
+- Extract validation into separate validators
+- Update tests to use new structure
+- Add integration tests for auth flow
+
+Breaking change: Auth service now requires config object
+```
+
+## Scope examples
+
+**Frontend:**
+- `feat(ui): add loading spinner to dashboard`
+- `fix(form): validate email format`
+
+**Backend:**
+- `feat(api): add user profile endpoint`
+- `fix(db): resolve connection pool leak`
+
+**Infrastructure:**
+- `chore(ci): update Node version to 20`
+- `feat(docker): add multi-stage build`
+
+## Breaking changes
+
+Indicate breaking changes clearly:
+
+```
+feat(api)!: restructure API response format
+
+BREAKING CHANGE: All API responses now follow JSON:API spec
+
+Previous format:
+{ "data": {...}, "status": "ok" }
+
+New format:
+{ "data": {...}, "meta": {...} }
+
+Migration guide: Update client code to handle new response structure
+```
+
+## Template workflow
+
+1. **Review changes**: `git diff --staged`
+2. **Identify type**: Is it feat, fix, refactor, etc.?
+3. **Determine scope**: What part of the codebase?
+4. **Write summary**: Brief, imperative description
+5. **Add body**: Explain why and what impact
+6. **Note breaking changes**: If applicable
+
+## Interactive commit helper
+
+Use `git add -p` for selective staging:
+
+```bash
+# Stage changes interactively
+git add -p
+
+# Review what's staged
+git diff --staged
+
+# Commit with message
+git commit -m "type(scope): description"
+```
+
+## Amending commits
+
+Fix the last commit message:
+
+```bash
+# Amend commit message only
+git commit --amend
+
+# Amend and add more changes
+git add forgotten-file.js
+git commit --amend --no-edit
+```
+
+## Best practices
+
+1. **Atomic commits** - One logical change per commit
+2. **Test before commit** - Ensure code works
+3. **Reference issues** - Include issue numbers if applicable
+4. **Keep it focused** - Don't mix unrelated changes
+5. **Write for humans** - Future you will read this
+
+## Commit message checklist
+
+- [ ] Type is appropriate (feat/fix/docs/etc.)
+- [ ] Scope is specific and clear
+- [ ] Summary is under 50 characters
+- [ ] Summary uses imperative mood
+- [ ] Body explains WHY not just WHAT
+- [ ] Breaking changes are clearly marked
+- [ ] Related issue numbers are included

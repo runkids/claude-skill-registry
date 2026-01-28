@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-git-link
 description: Link a project to a GitHub repository. Requires authentication
-version: "0.1.24"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:

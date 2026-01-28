@@ -1,9 +1,7 @@
 {
   "name": "kafka-kubernetes",
-  "description": "Kubernetes deployment expert for Apache Kafka. Guides K8s deployments using Helm charts, operators (Strimzi, Confluent), StatefulSets, and production best practices. Activates for kubernetes, k8s, hel",
   "repo": "anton-abyzov/specweave",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-kafka/skills/kafka-kubernetes/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:09.102755Z"
 }

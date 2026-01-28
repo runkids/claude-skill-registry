@@ -1,9 +1,7 @@
 {
   "name": "dotnet-backend",
-  "description": "You are an expert .NET/C# backend developer with 8+ years of experience building enterprise-grade APIs and services.",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave-backend/skills/dotnet-backend/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:03.580795Z"
 }

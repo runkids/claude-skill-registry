@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-sandbox-snapshot-get
 description: Get snapshot details. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.24"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 argument-hint: "<snapshotId>"
@@ -46,20 +46,13 @@ Returns JSON object:
 ```json
 {
   "snapshotId": "string",
-  "name": "string",
-  "fullName": "string",
   "tag": "unknown",
-  "message": "unknown",
   "sizeBytes": "number",
   "fileCount": "number",
   "parentSnapshotId": "unknown",
-  "public": "boolean",
-  "orgName": "string",
-  "orgSlug": "string",
   "createdAt": "string",
   "downloadUrl": "string",
-  "files": "unknown",
-  "userMetadata": "unknown",
+  "files": "array",
   "sandboxes": "array"
 }
 ```
@@ -67,18 +60,11 @@ Returns JSON object:
 | Field | Type | Description |
 |-------|------|-------------|
 | `snapshotId` | string | Snapshot ID |
-| `name` | string | Snapshot name |
-| `fullName` | string | Full name with org slug (@slug/name:tag) |
 | `tag` | unknown | Snapshot tag |
-| `message` | unknown | Build message |
 | `sizeBytes` | number | Snapshot size in bytes |
 | `fileCount` | number | Number of files |
 | `parentSnapshotId` | unknown | Parent snapshot ID |
-| `public` | boolean | Whether snapshot is publicly accessible |
-| `orgName` | string | Organization name (for public snapshots) |
-| `orgSlug` | string | Organization slug (for public snapshots) |
 | `createdAt` | string | Creation timestamp |
 | `downloadUrl` | string | Presigned download URL |
-| `files` | unknown | Files in snapshot |
-| `userMetadata` | unknown | User-defined metadata |
+| `files` | array | Files in snapshot |
 | `sandboxes` | array | Attached sandboxes (idle or running) |

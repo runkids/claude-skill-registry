@@ -1,270 +1,393 @@
 ---
-name: test-data-management
-description: "Strategic test data generation, management, and privacy compliance. Use when creating test data, handling PII, ensuring GDPR/CCPA compliance, or scaling data generation for realistic testing scenarios."
-category: specialized-testing
-priority: high
-tokenEstimate: 1000
-agents: [qe-test-data-architect, qe-test-executor, qe-security-scanner]
-implementation_status: optimized
-optimization_version: 1.0
-last_optimized: 2025-12-02
-dependencies: []
-quick_reference_card: true
-tags: [test-data, faker, synthetic, gdpr, pii, anonymization, factories]
+name: Test Data Generation & Validation
+description: Generate real Cassandra 5.0 test data using Docker containers, export SSTables with proper directory structure, validate parsing against sstabledump, and manage test datasets. Use when working with test data generation, dataset creation, SSTable export, validation, fixture management, or sstabledump comparison.
 ---
 
-# Test Data Management
+# Test Data Generation & Validation
 
-<default_to_action>
-When creating or managing test data:
-1. NEVER use production PII directly
-2. GENERATE synthetic data with faker libraries
-3. ANONYMIZE production data if used (mask, hash)
-4. ISOLATE test data (transactions, per-test cleanup)
-5. SCALE with batch generation (10k+ records/sec)
+This skill provides guidance on generating real Cassandra 5.0 test data and validating parsing correctness.
 
-**Quick Data Strategy:**
-- Unit tests: Minimal data (just enough)
-- Integration: Realistic data (full complexity)
-- Performance: Volume data (10k+ records)
+## When to Use This Skill
 
-**Critical Success Factors:**
-- 40% of test failures from inadequate data
-- GDPR fines up to €20M for PII violations
-- Never store production PII in test environments
-</default_to_action>
+- Generating test data with specific schemas
+- Creating test fixtures for property tests
+- Exporting SSTables from Cassandra
+- Validating parsed data against sstabledump
+- Managing test datasets
+- Creating reproducible test scenarios
 
-## Quick Reference Card
+## Overview
 
-### When to Use
-- Creating test datasets
-- Handling sensitive data
-- Performance testing with volume
-- GDPR/CCPA compliance
+CQLite uses real Cassandra 5.0 instances to generate test data, ensuring:
+- Format correctness (real Cassandra writes)
+- Edge case coverage (nulls, empty values, large values)
+- Compression validation (actual compressed SSTables)
+- Schema variety (all CQL types)
 
-### Data Strategies
-| Type | When | Size |
-|------|------|------|
-| **Minimal** | Unit tests | 1-10 records |
-| **Realistic** | Integration | 100-1000 records |
-| **Volume** | Performance | 10k+ records |
-| **Edge cases** | Boundary testing | Targeted |
+## Test Data Workflow
 
-### Privacy Techniques
-| Technique | Use Case |
-|-----------|----------|
-| **Synthetic** | Generate fake data (preferred) |
-| **Masking** | j***@example.com |
-| **Hashing** | Irreversible pseudonymization |
-| **Tokenization** | Reversible with key |
+See [dataset-generation.md](dataset-generation.md) for complete workflow details.
 
----
+### Quick Start
+```bash
+cd test-data
 
-## Synthetic Data Generation
+# 1. Start clean Cassandra 5 with schemas
+./scripts/start-clean.sh
 
-```javascript
-import { faker } from '@faker-js/faker';
+# 2. Generate data (N rows per table)
+ROWS=1000 ./scripts/generate.sh
 
-// Seed for reproducibility
-faker.seed(123);
+# 3. Export SSTables
+./scripts/export.sh
 
-function generateUser() {
-  return {
-    id: faker.string.uuid(),
-    email: faker.internet.email(),
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-    phone: faker.phone.number(),
-    address: {
-      street: faker.location.streetAddress(),
-      city: faker.location.city(),
-      zip: faker.location.zipCode()
-    },
-    createdAt: faker.date.past()
-  };
+# 4. Shutdown and clean volumes
+./scripts/shutdown-clean.sh
+```
+
+## Generation Scripts
+
+### start-clean.sh
+Starts Cassandra 5.0 container and applies schemas.
+
+**What it does:**
+1. Starts `cassandra-5-0` container via docker-compose
+2. Waits for Cassandra to be healthy
+3. Applies schemas from `schemas/core.list`
+4. Verifies keyspaces and tables created
+
+**Environment variables:**
+- `SCHEMA_SET=core` - Use curated schema list (default)
+- `SCHEMA_SET=all` - Use all *.cql files
+
+**Example:**
+```bash
+# Use default core schemas
+./scripts/start-clean.sh
+
+# Use all schemas
+SCHEMA_SET=all ./scripts/start-clean.sh
+```
+
+### generate.sh
+Generates test data using Python data generator.
+
+**What it does:**
+1. Connects to running Cassandra container
+2. Generates type-correct data for each table
+3. Inserts rows using prepared statements
+4. Flushes memtables to SSTables
+5. Produces metadata.yml with row counts
+
+**Environment variables:**
+- `ROWS=N` - Rows per table (default: varies by SCALE)
+- `TABLES=table1,table2` - Generate for specific tables only
+- `SCALE=SMALL|MEDIUM|LARGE` - Preset sizes
+
+**Example:**
+```bash
+# Generate 1000 rows per table
+ROWS=1000 ./scripts/generate.sh
+
+# Generate only for specific tables
+TABLES=simple_table,collection_table ROWS=500 ./scripts/generate.sh
+
+# Use LARGE scale preset
+SCALE=LARGE ./scripts/generate.sh
+```
+
+### export.sh
+Exports SSTables from Cassandra data directory.
+
+**What it does:**
+1. Stops Cassandra to ensure consistent snapshot
+2. Copies SSTables from container to `datasets/sstables/`
+3. Preserves directory structure (keyspace/table/files)
+4. Copies metadata.yml
+5. Creates metadata about dataset
+
+**Output structure:**
+```
+test-data/datasets/
+├── metadata.yml          # Generated by generate.sh
+├── sstables/
+│   ├── test_basic/
+│   │   └── simple_table/
+│   │       ├── *-Data.db
+│   │       ├── *-Index.db
+│   │       ├── *-Statistics.db
+│   │       ├── *-Summary.db
+│   │       └── *-TOC.txt
+│   ├── test_collections/
+│   └── test_timeseries/
+```
+
+### shutdown-clean.sh
+Stops Cassandra and removes Docker volumes.
+
+**What it does:**
+1. Stops all containers
+2. Removes Docker volumes (clean slate)
+3. Prepares for next generation cycle
+
+**Use when:**
+- Done with current dataset
+- Want to regenerate from scratch
+- Cleaning up after tests
+
+## Test Schemas
+
+Schemas in `test-data/schemas/`:
+
+### basic-types.cql
+Simple table with all primitive types:
+- Partition key: uuid
+- No clustering
+- Columns: int, text, timestamp, boolean, etc.
+
+### collections.cql
+Collection types:
+- list<int>
+- set<text>
+- map<text, int>
+- Nested frozen collections
+
+### time-series.cql
+Time-series pattern:
+- Partition key: sensor_id
+- Clustering: timestamp (DESC)
+- Columns: temperature, humidity, pressure
+
+### wide-rows.cql
+Wide partition testing:
+- Single partition key
+- Many clustering rows (1000+)
+- Tests pagination and offset handling
+
+### Custom Schemas
+Add your own:
+```bash
+# Create schema
+echo "CREATE TABLE test_keyspace.my_table (...);" > schemas/my-schema.cql
+
+# Add to core.list
+echo "my-schema.cql" >> schemas/core.list
+
+# Generate
+./scripts/start-clean.sh
+./scripts/generate.sh
+```
+
+## Validation Workflow
+
+See [validation-workflow.md](validation-workflow.md) for complete validation process.
+
+### Validate Against sstabledump
+
+```bash
+# 1. Generate sstabledump reference
+sstabledump test-data/datasets/sstables/keyspace/table/*-Data.db \
+    > reference.json
+
+# 2. Parse with cqlite
+cargo run --bin cqlite -- \
+    --data-dir test-data/datasets/sstables/keyspace/table \
+    --schema test-data/schemas/schema.cql \
+    --out json > cqlite.json
+
+# 3. Compare (ignoring formatting)
+jq -S '.' reference.json > ref-sorted.json
+jq -S '.' cqlite.json > cql-sorted.json
+diff ref-sorted.json cql-sorted.json
+```
+
+### Automated Validation
+
+Run validation script:
+```bash
+# Validate all test tables
+cargo test --test sstable_validation
+
+# Validate specific table
+cargo test --test sstable_validation -- simple_table
+```
+
+## Property Testing
+
+Generate random data for property tests:
+
+```rust
+use proptest::prelude::*;
+
+proptest! {
+    #[test]
+    fn test_row_parsing_roundtrip(
+        partition_key in any::<i32>(),
+        text_value in "\\PC*",  // Any valid unicode
+        int_value in any::<i32>(),
+    ) {
+        // Generate test data in Cassandra
+        insert_test_row(partition_key, &text_value, int_value)?;
+        flush_memtable()?;
+        
+        // Parse with cqlite
+        let parsed = parse_sstable()?;
+        
+        // Validate roundtrip
+        assert_eq!(parsed.get_int("partition_key"), partition_key);
+        assert_eq!(parsed.get_text("text_col"), text_value);
+        assert_eq!(parsed.get_int("int_col"), int_value);
+    }
 }
-
-// Generate 1000 users
-const users = Array.from({ length: 1000 }, generateUser);
 ```
 
----
+## Dataset Packaging
 
-## Test Data Builder Pattern
+Package datasets for CI or distribution:
 
-```typescript
-class UserBuilder {
-  private user: Partial<User> = {};
+```bash
+# Package current dataset
+./scripts/package_datasets.sh
 
-  asAdmin() {
-    this.user.role = 'admin';
-    this.user.permissions = ['read', 'write', 'delete'];
-    return this;
-  }
-
-  asCustomer() {
-    this.user.role = 'customer';
-    this.user.permissions = ['read'];
-    return this;
-  }
-
-  withEmail(email: string) {
-    this.user.email = email;
-    return this;
-  }
-
-  build(): User {
-    return {
-      id: this.user.id ?? faker.string.uuid(),
-      email: this.user.email ?? faker.internet.email(),
-      role: this.user.role ?? 'customer',
-      ...this.user
-    } as User;
-  }
-}
-
-// Usage
-const admin = new UserBuilder().asAdmin().withEmail('admin@test.com').build();
-const customer = new UserBuilder().asCustomer().build();
+# Output: test-data/cqlite-test-data-v5.0-<date>.tar.gz
 ```
 
----
+**Contents:**
+- All SSTables
+- metadata.yml
+- Schema files
+- README with generation parameters
 
-## Data Anonymization
+## CI Integration
 
-```javascript
-// Masking
-function maskEmail(email) {
-  const [user, domain] = email.split('@');
-  return `${user[0]}***@${domain}`;
-}
-// john@example.com → j***@example.com
+### Smoke Test
+Quick validation in CI:
 
-function maskCreditCard(cc) {
-  return `****-****-****-${cc.slice(-4)}`;
-}
-// 4242424242424242 → ****-****-****-4242
+```bash
+# Use packaged dataset
+tar xzf cqlite-test-data-v5.0.tar.gz
 
-// Anonymize production data
-const anonymizedUsers = prodUsers.map(user => ({
-  id: user.id, // Keep ID for relationships
-  email: `user-${user.id}@example.com`, // Fake email
-  firstName: faker.person.firstName(), // Generated
-  phone: null, // Remove PII
-  createdAt: user.createdAt // Keep non-PII
-}));
+# Run core tests
+./scripts/ci-one-shot-smoke.sh
+
+# Validates:
+# - Basic parsing
+# - All CQL types
+# - Compression
+# - Collections
 ```
 
----
+See `test-data/scripts/CI_SMOKE_TEST_USAGE.md` for details.
 
-## Database Transaction Isolation
+## Common Scenarios
 
-```javascript
-// Best practice: use transactions for cleanup
-beforeEach(async () => {
-  await db.beginTransaction();
-});
+### Scenario 1: Test New CQL Type
+```bash
+# 1. Add column to schema
+echo "ALTER TABLE test_basic.simple_table ADD duration_col duration;" \
+    >> schemas/basic-types.cql
 
-afterEach(async () => {
-  await db.rollbackTransaction(); // Auto cleanup!
-});
+# 2. Regenerate data
+./scripts/start-clean.sh
+./scripts/generate.sh
+./scripts/export.sh
 
-test('user registration', async () => {
-  const user = await userService.register({
-    email: 'test@example.com'
-  });
-  expect(user.id).toBeDefined();
-  // Automatic rollback after test - no cleanup needed
-});
+# 3. Validate parsing
+cargo test --test sstable_validation
 ```
 
----
+### Scenario 2: Test Large Values
+```bash
+# Generate with specific row size
+ROWS=100 SCALE=LARGE ./scripts/generate.sh
 
-## Volume Data Generation
-
-```javascript
-// Generate 10,000 users efficiently
-async function generateLargeDataset(count = 10000) {
-  const batchSize = 1000;
-  const batches = Math.ceil(count / batchSize);
-
-  for (let i = 0; i < batches; i++) {
-    const users = Array.from({ length: batchSize }, (_, index) => ({
-      id: i * batchSize + index,
-      email: `user${i * batchSize + index}@example.com`,
-      firstName: faker.person.firstName()
-    }));
-
-    await db.users.insertMany(users); // Batch insert
-    console.log(`Batch ${i + 1}/${batches}`);
-  }
-}
+# Validates:
+# - Large text values (1MB+)
+# - Large blob values
+# - Large collections (1000+ elements)
 ```
 
----
-
-## Agent-Driven Data Generation
-
-```typescript
-// High-speed generation with constraints
-await Task("Generate Test Data", {
-  schema: 'ecommerce',
-  count: { users: 10000, products: 500, orders: 5000 },
-  preserveReferentialIntegrity: true,
-  constraints: {
-    age: { min: 18, max: 90 },
-    roles: ['customer', 'admin']
-  }
-}, "qe-test-data-architect");
-
-// GDPR-compliant anonymization
-await Task("Anonymize Production Data", {
-  source: 'production-snapshot',
-  piiFields: ['email', 'phone', 'ssn'],
-  method: 'pseudonymization',
-  retainStructure: true
-}, "qe-test-data-architect");
+### Scenario 3: Test Edge Cases
+```python
+# Modify generate_comprehensive_test_data.py
+def generate_edge_cases(session):
+    # Null values
+    session.execute("INSERT INTO table (pk) VALUES (?)", [uuid.uuid4()])
+    
+    # Empty collections
+    session.execute("INSERT INTO table (pk, tags) VALUES (?, [])", 
+                   [uuid.uuid4()])
+    
+    # Empty strings
+    session.execute("INSERT INTO table (pk, name) VALUES (?, '')", 
+                   [uuid.uuid4()])
 ```
 
----
+## PRD Alignment
 
-## Agent Coordination Hints
+**Supports Milestone M1** (Core Reading Library):
+- 95% test coverage goal
+- All CQL types validated
+- Real Cassandra data ensures format correctness
 
-### Memory Namespace
-```
-aqe/test-data-management/
-├── schemas/*            - Data schemas
-├── generators/*         - Generator configs
-├── anonymization/*      - PII handling rules
-└── fixtures/*           - Reusable fixtures
-```
+**Supports All Milestones:**
+- Regression testing with frozen datasets
+- Property-based testing for edge cases
+- CI integration for PR validation
 
-### Fleet Coordination
-```typescript
-const dataFleet = await FleetManager.coordinate({
-  strategy: 'test-data-generation',
-  agents: [
-    'qe-test-data-architect',  // Generate data
-    'qe-test-executor',        // Execute with data
-    'qe-security-scanner'      // Validate no PII exposure
-  ],
-  topology: 'sequential'
-});
+## Troubleshooting
+
+### Cassandra Won't Start
+```bash
+# Check logs
+docker logs cassandra-5-0
+
+# Common issue: Port 9042 in use
+lsof -i :9042
+# Kill process or change port in docker-compose-cassandra5.yml
 ```
 
----
+### Generation Fails
+```bash
+# Check generator logs
+cat test-data/logs/data_generation.log
 
-## Related Skills
-- [database-testing](../database-testing/) - Schema and integrity testing
-- [compliance-testing](../compliance-testing/) - GDPR/CCPA compliance
-- [performance-testing](../performance-testing/) - Volume data for perf tests
+# Verify schema applied
+docker exec cassandra-5-0 cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
----
+### Export Produces No Files
+```bash
+# Verify data exists in container
+docker exec cassandra-5-0 ls -la /var/lib/cassandra/data/
 
-## Remember
+# Check if flush happened
+docker logs cassandra-5-0 | grep flush
+```
 
-**Test data is infrastructure, not an afterthought.** 40% of test failures are caused by inadequate test data. Poor data = poor tests.
+## Dataset Repository
 
-**Never use production PII directly.** GDPR fines up to €20M or 4% of revenue. Always use synthetic data or properly anonymized production snapshots.
+Packaged datasets available at:
+```
+https://github.com/pmcfadin/cqlite/releases/tag/test-data-v5.0
+```
 
-**With Agents:** `qe-test-data-architect` generates 10k+ records/sec with realistic patterns, relationships, and constraints. Agents ensure GDPR/CCPA compliance automatically and eliminate test data bottlenecks.
+Download for:
+- CI without Docker
+- Reproducible benchmarks
+- Offline development
+
+## Next Steps
+
+When creating new tests:
+1. Design schema in `schemas/`
+2. Generate data with `generate.sh`
+3. Export SSTables with `export.sh`
+4. Write parser test
+5. Validate with sstabledump
+6. Add to CI smoke test suite
+
+See documentation:
+- [dataset-generation.md](dataset-generation.md) - Full workflow
+- [validation-workflow.md](validation-workflow.md) - Validation process
+

@@ -1,23 +1,26 @@
 ---
 name: Frontend CSS
-description: Write and maintain CSS using consistent methodology (Tailwind, BEM, CSS modules, utility classes) while following the project's design system and avoiding framework overrides. Use this skill when writing CSS styles, applying CSS classes, working with CSS frameworks, or implementing visual designs. When editing CSS files (`.css`, `.scss`, `.sass`), applying Tailwind utility classes, using CSS modules, or styling components. When maintaining design tokens, creating design systems, or ensuring visual consistency. When working with colors, spacing, typography, or any visual styling in stylesheets or component files.
+description: Apply consistent CSS styling following project methodology (Tailwind, BEM, CSS Modules, utility classes) with minimal custom CSS, design system tokens, and performance optimization. Use this skill when writing styles in .css, .scss, .module.css files, applying Tailwind classes, maintaining design tokens, or working with any styling approach. Applies when styling components, creating layouts, implementing responsive designs, or ensuring visual consistency through established patterns and avoiding framework overrides.
 ---
 
 # Frontend CSS
 
 ## When to use this skill
 
-- When writing or editing CSS files (`.css`, `.scss`, `.sass`, `.less`)
-- When applying Tailwind CSS utility classes in component files
-- When using CSS modules or CSS-in-JS solutions
-- When implementing BEM methodology or other CSS naming conventions
-- When defining or using design tokens (colors, spacing, typography)
-- When creating or maintaining design systems
-- When styling React, Vue, or other framework components
-- When optimizing CSS for production (purging, tree-shaking)
-- When ensuring visual consistency across the application
-- When working with CSS frameworks (Tailwind, Bootstrap, etc.)
-- When implementing custom styles or theme configurations
+- When creating or modifying CSS files like `styles.css`, `App.module.css`, `components.scss`, or `tailwind.css`
+- When applying CSS classes in JSX/HTML templates using Tailwind utility classes or BEM methodology
+- When working in style directories like `styles/`, `css/`, `scss/`, or `theme/`
+- When defining design system tokens for colors, spacing, typography, shadows, or other visual properties
+- When choosing between Tailwind utility classes and custom CSS for component styling
+- When avoiding excessive framework overrides that fight against library defaults
+- When implementing responsive designs using CSS media queries or Tailwind responsive modifiers
+- When optimizing CSS for production through purging/tree-shaking unused styles
+- When maintaining consistent spacing, colors, and typography across the application
+- When deciding on CSS methodology (CSS Modules for scoping, BEM for naming, utility-first with Tailwind)
+- When creating theme configurations or customizing framework defaults in `tailwind.config.js` or similar
+- When ensuring CSS performance by minimizing custom styles and leveraging framework utilities
+
+# Frontend CSS
 
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle frontend CSS.
 

@@ -1,13 +1,7 @@
 {
   "name": "query-axiom-logs",
-  "description": "Query logs from Axiom for debugging (read-only, no ingestion allowed)",
   "repo": "vm0-ai/vm0",
-  "category": "development",
-  "tags": [
-    "query",
-    "axiom",
-    "logs"
-  ],
-  "stars": 38,
-  "source": "local"
+  "path": ".claude/skills/query-axiom-logs/SKILL.md",
+  "source": "github.com/vm0-ai/vm0",
+  "downloaded_at": "2026-01-28T03:02:33.591240Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "tracing",
-  "repo": "bitwikiorg/skills.md",
-  "path": "sources/langchain/tracing/SKILL.md",
-  "source": "github.com/bitwikiorg/skills.md",
-  "downloaded_at": "2026-01-27T01:51:43.461890Z"
+  "repo": "ngxtm/devkit",
+  "path": "rules/rust/tracing/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-01-28T02:19:15.083085Z"
 }

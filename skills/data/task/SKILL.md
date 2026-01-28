@@ -1,179 +1,362 @@
 ---
 name: task
-description: 작업 오케스트레이션 스킬. 분석 → 구현 → 리뷰 → 커밋까지 전체 워크플로우 관리. 기능 개발, 버그 수정 등 모든 작업에 사용.
+description: Implement a single task by ID using TDD.
+version: 1.1.0
+tags: [implementation, tdd, tasks]
+owner: orchestration
+status: active
 ---
 
 # Task Skill
 
-통합 워크플로우 오케스트레이션. 작업 분석부터 Git 커밋까지 전체 사이클 관리.
+Implement a single task by ID using TDD.
 
-## 워크플로우
+## Overview
 
-```
-/task "작업 설명"
-    │
-    ├─ Phase 1: 분석
-    │   ├─ 요구사항 파악
-    │   ├─ 영향받는 파일 식별
-    │   ├─ 작업 타입 결정 (feat/fix/refactor)
-    │   └─ 브랜치 생성
-    │
-    ├─ Phase 2: 구현
-    │   ├─ /developer 스킬 적용 (타입, 스토리지, 로직)
-    │   ├─ /frontend 스킬 적용 (UI, 컴포넌트)
-    │   └─ 기능 단위로 중간 커밋
-    │
-    ├─ Phase 3: 리뷰
-    │   ├─ /reviewer 스킬 적용
-    │   ├─ [Critical] 이슈 → Phase 2로 돌아가 수정
-    │   ├─ [Major] 이슈 → Phase 2로 돌아가 수정
-    │   └─ [Minor] 이슈 → 선택적 수정
-    │
-    └─ Phase 4: 마무리
-        ├─ /verify 실행
-        ├─ 최종 커밋
-        └─ (선택) PR 생성 안내
-```
+This skill implements one task from the plan. It:
+1. Shows the task scope to the user
+2. Confirms before starting
+3. Implements with TDD (tests first)
+4. Reports completion status
+5. Updates task status in state
 
-## Phase 1: 분석
-
-### 작업 타입 판별
-
-| 타입 | 브랜치 접두사 | 설명 |
-|------|---------------|------|
-| 새 기능 | `feat/` | 새로운 기능 추가 |
-| 버그 수정 | `fix/` | 버그 수정 |
-| 리팩토링 | `refactor/` | 코드 개선 (기능 변경 없음) |
-| 문서 | `docs/` | 문서 작성/수정 |
-| 스타일 | `style/` | 코드 포맷팅 |
-| 테스트 | `test/` | 테스트 추가/수정 |
-
-### 브랜치 생성
-
-```bash
-git checkout -b {타입}/{kebab-case-설명}
-# 예: feat/tag-filter, fix/search-bug
-```
-
-### 분석 체크리스트
-
-- [ ] 요구사항 명확히 이해
-- [ ] 영향받는 파일/모듈 식별
-- [ ] 필요한 스킬 결정 (developer, frontend, 둘 다)
-- [ ] 작업 단위 분할 (커밋 단위)
-
-## Phase 2: 구현
-
-### 스킬 호출 순서
-
-1. **데이터/로직 먼저**: `/developer` 스킬 적용
-   - 타입 정의, 인터페이스
-   - Storage 유틸리티
-   - 비즈니스 로직
-
-2. **UI/컴포넌트**: `/frontend` 스킬 적용
-   - React 컴포넌트
-   - 커스텀 훅
-   - 스타일링
-
-### 기능 단위 커밋
-
-구현 중 의미 있는 단위마다 커밋:
-
-```bash
-git add <관련 파일들>
-git commit -m "{타입}: {설명}"
-```
-
-**커밋 메시지 규칙** (Conventional Commits):
-```
-feat: add tag filtering logic
-feat: implement TagFilter component
-fix: search not matching partial text
-refactor: extract storage utilities
-```
-
-**커밋 단위 기준**:
-- 하나의 논리적 변경 = 하나의 커밋
-- 롤백 시 독립적으로 되돌릴 수 있는 단위
-
-## Phase 3: 리뷰
-
-### /reviewer 스킬 적용
-
-구현 완료 후 자동으로 리뷰 수행:
-
-| 우선순위 | 조치 |
-|----------|------|
-| [Critical] | 반드시 수정 → Phase 2 |
-| [Major] | 수정 권장 → Phase 2 |
-| [Minor] | 선택적 수정 |
-
-### 수정 루프
+## Usage
 
 ```
-리뷰 → 이슈 발견 → 수정 (developer/frontend) → 재리뷰
+/task T1
+/task T1-a
 ```
 
-이슈가 없거나 Minor만 남으면 Phase 4로 진행.
+## Prerequisites
 
-## Phase 4: 마무리
+- Plan exists in `phase_outputs` (type=plan)
+- Task ID exists in the plan
+- Dependencies are completed
 
-### 최종 점검 (/verify 스킬 호출)
+## Purpose
 
-```
-/verify 실행
-    ├─ pnpm build    # 빌드 확인
-    ├─ pnpm lint     # 린트 확인
-    └─ pnpm test:run # 테스트 확인
-```
+**Focused implementation** - One task at a time with clear boundaries.
 
-### 디렉토리별 CLAUDE.md 작성/갱신
+By working task-by-task:
+- Progress is visible
+- Errors are localized
+- Rollback is simple
+- Review is focused
 
-새 디렉토리 생성 또는 주요 변경 시 해당 디렉토리에 `CLAUDE.md` 작성.
+## Workflow Steps
 
-### 최종 커밋 (필요시)
+### Step 1: Load Task
 
-```bash
-git add .
-git commit -m "{타입}: {전체 작업 요약}"
-```
+Read the plan from `phase_outputs` and find the task:
 
-## 예시
-
-### 입력
-```
-/task 태그 필터링 기능 추가
-```
-
-### 실행 흐름
-
-```
-1. 분석
-   - 타입: feat (새 기능)
-   - 브랜치: feat/tag-filter
-   - 영향: src/shared/types/, src/popup/components/
-   - 스킬: developer → frontend
-
-2. 구현
-   - /developer: 필터 로직, 타입 정의
-   - 커밋: "feat: add tag filter logic"
-   - /frontend: TagFilter.tsx 컴포넌트
-   - 커밋: "feat: implement TagFilter component"
-
-3. 리뷰
-   - /reviewer 실행
-   - [Minor] 변수명 개선 제안
-   - 선택적 수정
-
-4. 마무리
-   - /verify: 빌드/린트/테스트 통과
-   - 완료
+```json
+{
+  "id": "T1",
+  "title": "Create user model and database schema",
+  "description": "...",
+  "acceptance_criteria": [...],
+  "files_to_create": [...],
+  "files_to_modify": [...],
+  "test_files": [...],
+  "dependencies": [...],
+  "status": "pending"
+}
 ```
 
-## 주의사항
+### Step 2: Check Dependencies
 
-- **커밋 마킹 금지**: Co-Author, Claude 마킹 절대 금지
-- **브랜치 보호**: main 직접 커밋 금지, 브랜치에서 작업
-- **빌드 확인**: 커밋 전 반드시 빌드 성공 확인
-- **작은 단위**: 큰 작업은 여러 브랜치로 분할 고려
+Verify all dependencies are completed:
+```
+Dependencies: T1, T2
+  T1: completed
+  T2: completed
+Ready to proceed.
+```
+
+If dependencies are incomplete:
+```
+Cannot start T3 - dependencies not met:
+  T1: completed
+  T2: pending  <- Not done
+
+Run /task T2 first, or use /status to see progress.
+```
+
+### Step 3: Show Task Scope
+
+Present the task details to the user:
+
+```markdown
+## Task T1: Create user model and database schema
+
+### Description
+Create the User model with TypeScript types and database migration.
+
+### Acceptance Criteria
+- [ ] User model with id, email, password_hash, created_at
+- [ ] Email must be unique
+- [ ] Database migration for users table
+
+### Files to Create
+- src/models/user.ts
+- prisma/migrations/001_users.sql
+
+### Files to Modify
+- (none)
+
+### Test Files
+- tests/models/user.test.ts
+
+### Ready to implement?
+```
+
+### Step 4: Confirm Start
+
+Wait for user confirmation before implementing.
+
+If user confirms, proceed. If not, wait for instructions.
+
+### Step 5: Implement with TDD
+
+Use the Task tool to spawn a worker for implementation:
+
+```
+Task(
+  subagent_type="general-purpose",
+  prompt="""
+  ## Task: {task.title}
+
+  ## Acceptance Criteria
+  {criteria_list}
+
+  ## Files to Create
+  {files_to_create}
+
+  ## Files to Modify
+  {files_to_modify}
+
+  ## Test Files
+  {test_files}
+
+  ## Instructions
+
+  1. Read CLAUDE.md for coding standards
+  2. Write failing tests FIRST:
+     - Create test file
+     - Write tests for each acceptance criterion
+     - Run tests (should fail)
+  3. Implement code:
+     - Create/modify source files
+     - Write minimal code to pass tests
+     - Run tests (should pass)
+  4. Refactor if needed (keep tests green)
+  5. Final verification:
+     - All tests pass
+     - No lint errors
+     - Code follows CLAUDE.md standards
+
+  ## Constraints
+  - ONLY modify files listed above
+  - Follow existing code patterns
+  - No security vulnerabilities
+  - Do NOT add features beyond acceptance criteria
+
+  Signal completion with: TASK_COMPLETE
+  """,
+  run_in_background=false
+)
+```
+
+### Step 6: Verify Completion
+
+After worker completes:
+1. Run tests to confirm they pass
+2. Check all files were created/modified
+3. Verify acceptance criteria met
+
+### Step 7: Report Status
+
+Show completion report:
+
+```markdown
+## Task T1 Complete
+
+### Files Created
+- src/models/user.ts (45 lines)
+- prisma/migrations/001_users.sql (23 lines)
+
+### Files Modified
+- (none)
+
+### Tests
+- tests/models/user.test.ts
+  - 4 tests passing
+
+### Acceptance Criteria
+- [x] User model with id, email, password_hash, created_at
+- [x] Email must be unique
+- [x] Database migration for users table
+
+---
+
+Next: /task T2 or /status to see progress
+```
+
+### Step 8: Update State
+
+Update `workflow_state` in SurrealDB:
+```json
+{
+  "current_task_id": null,
+  "tasks_completed": 1,
+  "tasks_total": 6
+}
+```
+
+## Error Handling
+
+### Test Failures
+
+If tests fail after implementation:
+1. Show failing test output
+2. Ask user how to proceed:
+   - Fix the issues (retry implementation)
+   - Skip for now (mark as blocked)
+   - Modify acceptance criteria
+
+### Implementation Errors
+
+If worker encounters errors:
+1. Show error context
+2. Suggest possible fixes
+3. Offer to retry with different approach
+
+### Dependency Failures
+
+If a dependency task failed:
+1. Show dependency status
+2. Suggest fixing dependency first
+3. Offer to skip if acceptable
+
+## Key Behaviors
+
+### DO
+- Show task scope before starting
+- Wait for confirmation
+- Use TDD (tests first)
+- Report clear completion status
+- Update state after completion
+- Check dependencies before starting
+
+### DON'T
+- Start without confirmation
+- Skip writing tests
+- Modify files outside task scope
+- Add features beyond acceptance criteria
+- Leave task in indeterminate state
+
+## Task States
+
+| State | Meaning |
+|-------|---------|
+| `pending` | Not started |
+| `in_progress` | Currently being implemented |
+| `completed` | Successfully finished |
+| `blocked` | Cannot proceed (dependency/error) |
+| `failed` | Failed after max retries |
+
+## Outputs
+
+Task implementation updates:
+- Source files in `src/` or equivalent
+- Test files in `tests/` or equivalent
+- `workflow_state` updates in SurrealDB (task status / overall progress)
+
+## Transition
+
+After task completion:
+
+```
+Task T1 complete!
+
+Progress: 1/6 tasks (17%)
+
+Next steps:
+  /task T2 - Continue to next task
+  /status  - View full progress
+
+Or for code review:
+  /verify-code  - Run Cursor + Gemini review
+```
+
+## Example Session
+
+```
+User: /task T1
+
+Claude: ## Task T1: Create user model and database schema
+
+### Description
+Create the User model with TypeScript types and database migration.
+
+### Acceptance Criteria
+- [ ] User model with id, email, password_hash, created_at
+- [ ] Email must be unique
+- [ ] Database migration for users table
+
+### Files to Create
+- src/models/user.ts
+- prisma/migrations/001_users.sql
+
+### Test Files
+- tests/models/user.test.ts
+
+Ready to implement?
+
+User: Yes, go ahead.
+
+Claude: Starting implementation with TDD...
+
+[Worker implements the task]
+
+## Task T1 Complete
+
+### Files Created
+- src/models/user.ts (45 lines)
+- prisma/migrations/001_users.sql (23 lines)
+
+### Tests
+- tests/models/user.test.ts: 4 tests passing
+
+### Acceptance Criteria
+- [x] User model with id, email, password_hash, created_at
+- [x] Email must be unique
+- [x] Database migration for users table
+
+---
+
+Progress: 1/6 tasks (17%)
+
+Next: /task T2 or /status
+```
+
+## Parallel Tasks
+
+If multiple tasks have no dependencies, you can suggest parallel execution:
+
+```
+Tasks T1, T2, T3 have no dependencies and can run in parallel.
+
+Would you like to:
+1. Run them sequentially (/task T1, then T2, then T3)
+2. Run them in parallel (experimental)
+
+Sequential is safer. Parallel is faster but may have merge conflicts.
+```
+
+## Related Skills
+
+- `/plan` - Create the task breakdown
+- `/status` - View progress
+- `/verify-code` - Run code review on completed tasks
+- `/discover` - Go back to discovery if requirements unclear

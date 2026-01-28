@@ -1,7 +1,7 @@
 {
   "name": "mapping-codebases",
-  "repo": "gannonh/kata-marketplace",
-  "path": "plugins/kata/skills/mapping-codebases/SKILL.md",
-  "source": "github.com/gannonh/kata-marketplace",
-  "downloaded_at": "2026-01-27T02:29:25.146624Z"
+  "repo": "oaustegard/claude-skills",
+  "path": "mapping-codebases/SKILL.md",
+  "source": "github.com/oaustegard/claude-skills",
+  "downloaded_at": "2026-01-28T02:58:52.836568Z"
 }

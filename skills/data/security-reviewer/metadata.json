@@ -1,7 +1,7 @@
 {
   "name": "security-reviewer",
-  "repo": "Jeffallan/claude-skills",
-  "path": "skills/security-reviewer/SKILL.md",
-  "source": "github.com/Jeffallan/claude-skills",
-  "downloaded_at": "2026-01-27T03:40:57.064493Z"
+  "repo": "munlucky/claude-settings",
+  "path": ".claude/skills/security-reviewer/SKILL.md",
+  "source": "github.com/munlucky/claude-settings",
+  "downloaded_at": "2026-01-28T03:59:14.709377Z"
 }

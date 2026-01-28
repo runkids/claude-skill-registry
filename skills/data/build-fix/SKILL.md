@@ -1,123 +1,119 @@
 ---
 name: build-fix
-description: Fix build and TypeScript errors with minimal changes
+description: ビルドエラーを段階的に修正するワークフロー。TypeScript、Python、C#などのビルド・コンパイルエラー修正時に使用。「ビルドエラーを直して」「コンパイルが通らない」「TSエラーを修正」「型エラーを修正」などのフレーズでトリガーされる。
 ---
 
-# Build Fix Skill
+# ビルド＆修正
 
-Fix build and TypeScript errors quickly with minimal code changes. Get the build green without refactoring.
+TypeScript、Python、C# などのビルドエラーを段階的に修正するワークフロー。
 
-## When to Use
+## 言語自動検出
 
-This skill activates when:
-- User says "fix the build", "build is broken"
-- TypeScript compilation fails
-- `npm run build` or `tsc` reports errors
-- User requests "minimal fixes" for errors
+プロジェクトのファイル構成から言語を自動検出します：
 
-## What It Does
+| 検出条件 | 言語 |
+|----------|------|
+| `package.json` + `.ts`/`.tsx`ファイルが存在 | TypeScript |
+| `pyproject.toml` または `requirements.txt` が存在 | Python |
+| `.csproj` または `.sln` が存在 | C# |
 
-Delegates to the `build-fixer` agent (Sonnet model) to:
+言語が検出できない場合は、ユーザーに確認してください。
 
-1. **Collect Errors**
-   - Run `npx tsc --noEmit` to get all TypeScript errors
-   - Or run `npm run build` to get build failures
-   - Categorize errors by type and severity
+## ワークフロー
 
-2. **Fix Strategically**
-   - Add type annotations where missing
-   - Add null checks where needed
-   - Fix import/export statements
-   - Resolve module resolution issues
-   - Fix linter errors blocking build
+### 1. ビルドを実行
 
-3. **Minimal Diff Strategy**
-   - NO refactoring of unrelated code
-   - NO architectural changes
-   - NO performance optimizations
-   - ONLY what's needed to make build pass
+言語・プロジェクト構成に応じてコマンドを実行：
 
-4. **Verify**
-   - Run `npx tsc --noEmit` after each fix
-   - Ensure no new errors introduced
-   - Stop when build passes
+#### TypeScript/JavaScript
 
-## Agent Delegation
+```bash
+npm run build
+# または
+pnpm build
+yarn build
 
-```
-Task(
-  subagent_type="oh-my-claudecode:build-fixer",
-  model="sonnet",
-  prompt="BUILD FIX TASK
-
-Fix all build and TypeScript errors with minimal changes.
-
-Requirements:
-- Run tsc/build to collect errors
-- Fix errors one at a time
-- Verify each fix doesn't introduce new errors
-- NO refactoring, NO architectural changes
-- Stop when build passes
-
-Output: Build error resolution report with:
-- List of errors fixed
-- Lines changed per fix
-- Final build status"
-)
+# 型チェックのみ
+npx tsc --noEmit
 ```
 
-## Stop Conditions
+#### Python
 
-The build-fixer agent stops when:
-- `npx tsc --noEmit` exits with code 0
-- `npm run build` completes successfully
-- No new errors introduced
+```bash
+# 型チェック（mypyを使用）
+mypy src/
 
-## Output Format
+# 厳格モード
+mypy --strict src/
 
-```
-BUILD FIX REPORT
-================
+# リントチェック
+ruff check src/
 
-Errors Fixed: 12
-Files Modified: 8
-Lines Changed: 47
-
-Fixes Applied:
-1. src/utils/validation.ts:15 - Added return type annotation
-2. src/components/Header.tsx:42 - Added null check for props.user
-3. src/api/client.ts:89 - Fixed import path for axios
-...
-
-Final Build Status: ✓ PASSING
-Verification: npx tsc --noEmit (exit code 0)
+# パッケージビルド
+python -m build
 ```
 
-## Best Practices
+#### C#
 
-- **One fix at a time** - Easier to verify and debug
-- **Minimal changes** - Don't refactor while fixing
-- **Document why** - Comment non-obvious fixes
-- **Test after** - Ensure tests still pass
+```bash
+# 基本的なビルド
+dotnet build
 
-## Use with Other Skills
+# Releaseビルド
+dotnet build -c Release
 
-Combine with other skills for comprehensive fixing:
+# 警告をエラーとして扱う
+dotnet build /warnaserror
+```
 
-**With Ultrawork:**
-```
-/ultrawork fix all build errors
-```
-Spawns multiple build-fixer agents in parallel for different files.
+> 📖 詳細なコマンドオプションは `reference/{language}/commands.md` を参照してください。
 
-**With Ralph:**
-```
-/ralph fix the build
-```
-Keeps trying until build passes, even if it takes multiple iterations.
+### 2. エラー出力を解析
 
-**With Pipeline:**
-```
-/pipeline debug "build is failing"
-```
-Uses: explore → architect → build-fixer workflow.
+- ファイルごとにグループ化
+- 重要度順にソート
+
+### 3. 各エラーを修正
+
+1つずつ順番に修正する：
+
+1. **エラーコンテキストを表示** - 前後5行を含めて確認
+2. **問題を説明** - 何が原因かを特定
+3. **修正案を提示** - 解決方法を検討
+4. **修正を適用** - コードを変更
+5. **ビルドを再実行** - 修正結果を確認
+6. **エラー解消を確認** - 新たな問題がないか検証
+
+### 4. 停止条件
+
+以下の場合は修正を中断する：
+
+- 修正が新たなエラーを引き起こした場合
+- 同じエラーが3回の試行後も解消しない場合
+- ユーザーが一時停止を要求した場合
+
+### 5. サマリーを表示
+
+修正完了後、以下を報告：
+
+- ✅ 修正したエラーの数
+- ⚠️ 残っているエラーの数
+- ❌ 新たに発生したエラーの数
+
+## 重要な原則
+
+**安全のため、エラーは1つずつ修正すること！**
+
+複数のエラーを一度に修正しようとすると：
+
+- どの修正がどのエラーに対応するか追跡が困難になる
+- 修正同士が干渉する可能性がある
+- 新たなエラーの原因特定が難しくなる
+
+## 言語別リファレンス
+
+より詳細な情報は、各言語のリファレンスを参照してください：
+
+- [TypeScript リファレンス](reference/typescript/commands.md)
+- [Python リファレンス](reference/python/commands.md)
+- [C# リファレンス](reference/csharp/commands.md)

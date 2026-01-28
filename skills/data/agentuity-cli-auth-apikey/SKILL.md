@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-auth-apikey
 description: Display the API key for the currently authenticated user. Requires authentication. Use for managing authentication credentials
-version: "0.1.24"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:

@@ -1,7 +1,7 @@
 {
   "name": "doc-generator",
-  "repo": "kis9a/claude-skills-demo",
-  "path": ".claude/skills/doc-generator/SKILL.md",
-  "source": "github.com/kis9a/claude-skills-demo",
-  "downloaded_at": "2026-01-27T04:39:42.114253Z"
+  "repo": "athola/claude-night-market",
+  "path": "plugins/scribe/skills/doc-generator/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-28T03:48:28.153421Z"
 }

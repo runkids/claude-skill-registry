@@ -1,7 +1,7 @@
 {
   "name": "error-detective",
-  "repo": "iamgrewal/rolesense",
-  "path": ".agent/skills/error-detective/SKILL.md",
-  "source": "github.com/iamgrewal/rolesense",
-  "downloaded_at": "2026-01-27T04:02:12.591303Z"
+  "repo": "AutumnsGrove/ClaudeSkills",
+  "path": "error-detective/SKILL.md",
+  "source": "github.com/AutumnsGrove/ClaudeSkills",
+  "downloaded_at": "2026-01-28T03:27:42.373755Z"
 }

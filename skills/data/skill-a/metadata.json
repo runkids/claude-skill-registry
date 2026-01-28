@@ -1,7 +1,7 @@
 {
   "name": "skill-a",
-  "repo": "viteinfinite/sync-skills",
-  "path": ".codex/skills/skill-a/SKILL.md",
-  "source": "github.com/viteinfinite/sync-skills",
-  "downloaded_at": "2026-01-27T02:30:49.722915Z"
+  "repo": "maxvaega/skillkit",
+  "path": "tests/fixtures/plugins/multi-dir-plugin/skills/skill-a/SKILL.md",
+  "source": "github.com/maxvaega/skillkit",
+  "downloaded_at": "2026-01-28T02:34:16.555016Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "styling",
-  "description": "CSS and Tailwind styling guidelines. Use when writing styles, creating UI components, reviewing CSS/Tailwind code, or deciding on wrapper element structure.",
-  "repo": "EpicenterHQ/epicenter",
-  "category": "design",
-  "tags": [
-    "styling"
-  ],
-  "stars": 3797,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ngxtm/devkit",
+  "path": "rules/nextjs/styling/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-01-28T02:19:18.849137Z"
 }

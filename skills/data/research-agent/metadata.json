@@ -1,7 +1,7 @@
 {
   "name": "research-agent",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/research-agent/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:42.752282Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/research-agent/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-28T03:19:31.229095Z"
 }

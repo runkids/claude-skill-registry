@@ -1,9 +1,7 @@
 {
   "name": "algorithm",
-  "description": "Atlas skill, universal execution engine using scientific method to achieve ideal state. USE WHEN complex tasks, multi-step work, \"run the algorithm\", \"use the algorithm\", OR any non-trivial request th",
-  "repo": "edheltzel/atlas",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/edheltzel/atlas"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/algorithm/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-28T02:30:14.705231Z"
 }

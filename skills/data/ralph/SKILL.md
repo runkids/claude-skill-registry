@@ -1,300 +1,166 @@
 ---
 name: ralph
-description: Use when running autonomous agent loops for extended task completion without human intervention - handles PRD-driven development, migration tasks, or batch operations
-license: MIT
-compatibility: opencode
-metadata:
-  source: https://ghuntley.com/ralph/
-  category: automation
-  updated: 2026-01-10
+description: Start autonomous Ralph loop - work through PRD tasks iteratively until complete
 ---
 
-# Ralph Wiggum - Autonomous Agent Loop
+# Ralph Autonomous Development Loop
 
-A workflow pattern for extended autonomous work sessions where the agent iterates through tasks until completion.
+You are running a Ralph Wiggum autonomous development loop. Your goal is to work through tasks in `prd.json` iteratively until all have `passes: true`.
 
-## When to Use
+## CRITICAL: NEVER STOP LOOPING
 
-- **PRD-driven development**: Work through a product requirements document task by task
-- **Migration tasks**: "Migrate all Jest tests to Vitest" - agent works until done
-- **Batch operations**: Process multiple files/components with the same pattern
-- **Away-from-keyboard work**: Let the agent work autonomously while you're away
+**YOU ARE IN AN INFINITE LOOP. DO NOT STOP. DO NOT EXIT.**
 
-## When NOT to Use
+- After EVERY task completion → continue to next task
+- After EVERY commit → continue to next task
+- After EVERY update to PRD → continue to next task
+- **There is NO natural exit except:**
+  - All PRD items have `passes: true` → output `<promise>RALPH_COMPLETE</promise>`
 
-- Simple single-step tasks (just do them directly)
-- Tasks requiring frequent human decisions
-- Exploratory work where the goal isn't clear
-- Critical production changes (requires human oversight)
+**If you complete any action and think "what next?" → GO TO STEP 1 OF THE LOOP.**
 
-## Quick Start
+---
 
-Invoke the workflow with:
+## Initialization (Auto-Created on First Run)
 
-```
-/ralph Migrate all Jest tests to Vitest --prd PRD.md
-```
-
-Or manually follow the loop pattern below.
-
-## The Loop Pattern
-
-```
-┌─────────────────────────────────────────────────┐
-│  1. Read PRD/task list + progress.txt           │
-│  2. Pick highest-priority incomplete task       │
-│  3. Implement ONE feature only                  │
-│  4. Run feedback: test → typecheck → lint       │
-│  5. If pass → commit + update progress.txt      │
-│  6. If all done → output <promise>COMPLETE      │
-│  7. Otherwise → repeat from step 1              │
-└─────────────────────────────────────────────────┘
-```
-
-## Using LSP Tools (Experimental)
-
-OpenCode provides LSP tools for code intelligence.
-
-### Available Operations
-
-```typescript
-// Understand file structure before editing
-lsp({
-  operation: "documentSymbol",
-  filePath: "src/auth.ts",
-  line: 1,
-  character: 1,
-});
-
-// Find where a symbol is defined
-lsp({
-  operation: "goToDefinition",
-  filePath: "src/auth.ts",
-  line: 42,
-  character: 10,
-});
-
-// Find all usages of a symbol (impact analysis)
-lsp({
-  operation: "findReferences",
-  filePath: "src/auth.ts",
-  line: 42,
-  character: 10,
-});
-
-// Get type info and documentation
-lsp({ operation: "hover", filePath: "src/auth.ts", line: 42, character: 10 });
-
-// Find implementations of interface/abstract
-lsp({
-  operation: "goToImplementation",
-  filePath: "src/types.ts",
-  line: 15,
-  character: 10,
-});
-
-// Search symbols across entire workspace
-lsp({
-  operation: "workspaceSymbol",
-  filePath: "src/index.ts",
-  line: 1,
-  character: 1,
-});
-
-// Call hierarchy analysis
-lsp({
-  operation: "prepareCallHierarchy",
-  filePath: "src/api.ts",
-  line: 20,
-  character: 5,
-});
-lsp({
-  operation: "incomingCalls",
-  filePath: "src/api.ts",
-  line: 20,
-  character: 5,
-});
-lsp({
-  operation: "outgoingCalls",
-  filePath: "src/api.ts",
-  line: 20,
-  character: 5,
-});
-```
-
-### LSP-First Workflow
-
-Before editing ANY file in the loop:
-
-```
-1. Read the file
-2. Use documentSymbol to understand structure
-3. Use findReferences to check impact
-4. Use hover for type info
-5. THEN make edits
-```
-
-This prevents breaking changes and ensures you understand the code before modifying it.
-
-## Smart Language Detection
-
-OpenCode auto-detects languages via LSP based on file extensions. Use this to determine the project type:
-
-### Primary Detection (File Extensions)
-
-| Language   | Extensions                    | LSP Server    |
-| ---------- | ----------------------------- | ------------- |
-| TypeScript | `.ts`, `.tsx`, `.mts`, `.cts` | typescript    |
-| JavaScript | `.js`, `.jsx`, `.mjs`, `.cjs` | typescript    |
-| Python     | `.py`, `.pyi`                 | pyright       |
-| Rust       | `.rs`                         | rust-analyzer |
-| Go         | `.go`                         | gopls         |
-| C/C++      | `.c`, `.cpp`, `.h`, `.hpp`    | clangd        |
-| Java       | `.java`                       | jdtls         |
-| C#         | `.cs`                         | csharp        |
-| Ruby       | `.rb`, `.rake`                | ruby-lsp      |
-| PHP        | `.php`                        | intelephense  |
-| Swift      | `.swift`                      | sourcekit-lsp |
-| Kotlin     | `.kt`, `.kts`                 | kotlin-ls     |
-| Elixir     | `.ex`, `.exs`                 | elixir-ls     |
-| Dart       | `.dart`                       | dart          |
-| Zig        | `.zig`                        | zls           |
-| Gleam      | `.gleam`                      | gleam         |
-| Lua        | `.lua`                        | lua-ls        |
-| Clojure    | `.clj`, `.cljs`, `.cljc`      | clojure-lsp   |
-| OCaml      | `.ml`, `.mli`                 | ocaml-lsp     |
-| Svelte     | `.svelte`                     | svelte        |
-| Vue        | `.vue`                        | vue           |
-| Astro      | `.astro`                      | astro         |
-
-### Secondary Detection (Lock Files → Package Manager)
-
-| Lock File           | Package Manager | Runtime |
-| ------------------- | --------------- | ------- |
-| `bun.lockb`         | Bun             | Bun     |
-| `yarn.lock`         | Yarn            | Node    |
-| `pnpm-lock.yaml`    | pnpm            | Node    |
-| `package-lock.json` | npm             | Node    |
-| `deno.json`         | Deno            | Deno    |
-| `Cargo.toml`        | Cargo           | Rust    |
-| `go.mod`            | Go Modules      | Go      |
-| `pyproject.toml`    | Poetry/pip      | Python  |
-| `Gemfile.lock`      | Bundler         | Ruby    |
-| `composer.lock`     | Composer        | PHP     |
-| `Package.swift`     | SwiftPM         | Swift   |
-| `mix.lock`          | Mix             | Elixir  |
-| `pubspec.lock`      | Pub             | Dart    |
-
-### Validation Commands by Language
+On your FIRST iteration only, automatically create the session directory:
 
 ```bash
-# TypeScript/JavaScript (Bun)
-bun test && bun run typecheck && bun run lint
-
-# TypeScript/JavaScript (npm)
-npm test && npm run typecheck && npm run lint
-
-# TypeScript/JavaScript (Deno)
-deno test && deno check . && deno lint
-
-# Python
-pytest && ruff check . && mypy .
-
-# Rust
-cargo test && cargo check && cargo clippy --all-targets
-
-# Go
-go test ./... && go vet ./... && golangci-lint run
-
-# Ruby
-bundle exec rspec && bundle exec rubocop
-
-# PHP
-composer test && composer phpstan && composer phpcs
-
-# Swift
-swift test && swift build
-
-# Elixir
-mix test && mix credo && mix dialyzer
-
-# Dart
-dart test && dart analyze
-
-# Java (Maven)
-mvn test && mvn compile && mvn checkstyle:check
-
-# Java (Gradle)
-./gradlew test && ./gradlew check
-
-# C# (.NET)
-dotnet test && dotnet build && dotnet format --verify-no-changes
+mkdir -p .claude/session
 ```
 
-## Required Files
+Then initialize progress tracking:
 
-### PRD File (Recommended)
-
-Create a `PRD.md` with clear task list:
-
-```markdown
-# Migration PRD
-
-## Tasks
-
-- [ ] Convert test-utils.test.js
-- [ ] Convert api.test.js
-- [ ] Update CI config
-- [ ] Remove Jest dependencies
+```bash
+# Initialize progress.txt if it doesn't exist
+echo "# Ralph Session: $(date +%Y%m%d-%H%M%S)" > .claude/session/progress.txt
+echo "Started: $(date)" >> .claude/session/progress.txt
+echo "" >> .claude/session/progress.txt
+echo "## Session Log" >> .claude/session/progress.txt
 ```
 
-### Progress File (Agent-maintained)
+---
 
-Agent creates/updates `progress.txt`:
+## Context Window Management (AUTOMATIC)
 
-```markdown
-# Progress Log
+**CRITICAL**: You MUST automatically reset your context when reaching ~70% capacity to maintain performance.
 
-## Session Started: 2026-01-10
+**Detection Guidelines**:
 
-### Project: TypeScript with Bun
+- After ~10 iterations → context is ~50% → continue monitoring
+- After ~15 iterations → context is ~70% → **RESET IMMEDIATELY**
+- If responses feel sluggish → context may be full → **RESET IMMEDIATELY**
 
-### Commands: bun test | bun run typecheck | bun run lint
+**Reset Procedure (AUTOMATIC - no approval needed)**:
 
-### Completed Tasks
+1. Read current `prd.json` to see what's done
+2. Update `progress.txt` with summary of work done
+3. Output exactly: `<promise>CONTEXT_RESET</promise>`
+4. The stop-hook will detect this and continue with fresh context
+5. Next iteration will reload state and continue seamlessly
 
-- [x] test-utils.test.js - migrated, 12 tests passing
-- [x] api.test.js - migrated, 8 tests passing
+**State to Save Before Reset**:
 
-### Notes for Next Iteration
+- Read `prd.json` to note which tasks have `passes: true`
+- Update `progress.txt` with current iteration summary
 
-- CI config needs Vitest runner update
-```
+**After Reset**:
 
-## Completion Signal
+- Re-read `prd.json` to see what's done
+- Continue with next incomplete task
+- Do NOT repeat completed work
 
-The loop ends when agent outputs:
+---
 
-```
-<promise>COMPLETE</promise>
-```
+## Setup
 
-## Best Practices
+1. Read `prd.json` to see all tasks
+2. **Read `progress.txt` FIRST** to understand what's been done (this skips expensive re-exploration)
+3. Session state is in `prd.json.session`
 
-1. **Use LSP for detection**: Check file extensions, not just lock files
-2. **Small steps**: ONE feature per iteration (prevents context rot)
-3. **Quality gates**: Test, typecheck, lint MUST pass before commit
-4. **Prioritize risk**: Hard tasks first, easy wins last
-5. **Track progress**: Update progress.txt every iteration
-6. **Explicit scope**: Vague tasks loop forever
-7. **Graceful fallbacks**: If a command doesn't exist, skip and note it
+## Your Loop
 
-## Troubleshooting
+For each iteration:
 
-| Issue                | Solution                                    |
-| -------------------- | ------------------------------------------- |
-| Loop not progressing | Break task into smaller pieces              |
-| Tests failing        | Fix before continuing, don't skip           |
-| Context getting long | Summarize progress, restart session         |
-| Stuck on decision    | Note in progress.txt, ask user next session |
-| Unknown language     | Check file extensions against LSP table     |
+1. **Read Progress First**: Read `progress.txt` to see what was already accomplished. This prevents wasting tokens on re-exploration.
+
+2. **Select Next Task**: Choose the highest priority incomplete task (`passes: false`)
+   - Priority order: **architectural > integration > spike/unknown > functional > polish**
+   - Respect dependencies (don't pick tasks whose dependencies aren't met)
+   - **Fail fast on risky work** - tackle hard problems before easy wins
+
+3. **Implement ONE Task**: Make small, focused changes
+   - One logical change per commit
+   - If a task feels too large, break it into subtasks
+   - Follow existing code patterns in the codebase
+   - No `any` types without justification
+   - **Quality over speed** - small steps compound into big progress
+
+4. **Validate**: Run ALL feedback loops BEFORE committing
+
+   ```bash
+   npm run type-check  # Must pass with no errors
+   npm run lint         # Must pass with zero warnings
+   npm run test         # All tests must pass
+   npm run build        # Production build must succeed
+   ```
+
+   **DO NOT COMMIT if any feedback loop fails.** Fix issues first.
+
+5. **Commit**: When all pass, commit with format:
+
+   ```
+   [ralph] feat-XXX: Brief description
+
+   - Change 1
+   - Change 2
+
+   PRD: feat-XXX | Iteration: N
+   ```
+
+6. **Update PRD**: Mark the task item `passes: true`
+
+7. **Update Progress**: Append to `progress.txt`
+   - Task completed and PRD item reference
+   - Key decisions made and reasoning
+   - Any blockers or notes for next iteration
+   - Keep entries concise - this file helps future iterations skip exploration
+
+8. **Repeat**: Go to step 1
+
+**After completing each iteration (even if blocked), START OVER FROM STEP 1. DO NOT STOP.**
+
+---
+
+## Completion
+
+When ALL tasks in `prd.json` have `passes: true`:
+
+1. Run final validation: `npm run type-check && npm run lint && npm run test && npm run build`
+2. Generate completion summary in `progress.txt`
+3. Output: `<promise>RALPH_COMPLETE</promise>`
+
+## Quality Standards
+
+**This codebase will outlive you. Every shortcut you take becomes someone else's burden. Every hack compounds into technical debt that slows the whole team down.**
+
+You are not just writing code. You are shaping the future of this project. The patterns you establish will be copied. The corners you cut will be cut again.
+
+**Fight entropy. Leave the codebase better than you found it.**
+
+Specific standards:
+
+- Production code - maintainable and documented
+- No `any` types without justification
+- Test coverage > 80% for new code
+- Follow existing R3F patterns
+- All feedback loops must pass before completing
+- One logical change per commit - no batched mega-commits
+
+## Safety
+
+- Commit after each completed task
+- Never batch multiple tasks in one commit
+- If blocked, document in `progress.txt` and continue to next task
+
+Begin by reading `prd.json` and selecting the first task.

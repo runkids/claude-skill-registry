@@ -1,9 +1,7 @@
 {
   "name": "firewall-rule-generator",
-  "description": "Firewall Rule Generator - Auto-activating skill for GCP Skills.Triggers on: firewall rule generator, firewall rule generatorPart of the GCP Skills skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/firewall-rule-generator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:50.397551Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "docusaurus-config",
-  "description": "Use when working with docusaurus.config.js/ts files to validate or modify Docusaurus configuration",
   "repo": "mcclowes/lea",
-  "category": "documents",
-  "tags": [
-    "docusaurus",
-    "config"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docusaurus-config/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-28T03:49:25.588273Z"
 }

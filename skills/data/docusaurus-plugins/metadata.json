@@ -1,12 +1,7 @@
 {
   "name": "docusaurus-plugins",
-  "description": "Use when creating Docusaurus plugins (remark, rehype, theme, content, lifecycle) to extend markdown, modify HTML, or add custom functionality",
   "repo": "mcclowes/lea",
-  "category": "documents",
-  "tags": [
-    "docusaurus",
-    "plugins"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docusaurus-plugins/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-28T03:49:25.470377Z"
 }

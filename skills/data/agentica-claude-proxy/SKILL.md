@@ -1,17 +1,17 @@
 ---
 name: agentica-claude-proxy
-description: Guide for integrating Agentica SDK with Claude Code CLI proxy
+description: Guide for integrating Agentica SDK with Maestro CLI proxy
 allowed-tools: [Read, Bash]
 user-invocable: false
 ---
 
-# Agentica-Claude Code Proxy Integration
+# Agentica-Maestro Proxy Integration
 
 Use this skill when developing or debugging the Agentica-Claude proxy integration.
 
 ## When to Use
 
-- Setting up Agentica agents to use Claude Code tools
+- Setting up Agentica agents to use Maestro tools
 - Debugging agent hallucination issues
 - Fixing permission errors in file operations
 - Understanding the REPL response format
@@ -82,12 +82,12 @@ If you didn't invoke a tool, you CANNOT claim the action succeeded.
 
 ## Path Sandboxing
 
-Both Claude Code and Agentica have sandboxes:
+Both Maestro and Agentica have sandboxes:
 
-- `/tmp/` paths are blocked by Claude Code
+- `/maestro:tmp/` paths are blocked by Maestro
 - Files outside project directory blocked by Agentica
 
-**Solution:** Use project-relative paths like `workspace/` instead of `/tmp/`
+**Solution:** Use project-relative paths like `workspace/` instead of `/maestro:tmp/`
 
 ## Debugging
 

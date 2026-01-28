@@ -1,7 +1,7 @@
 {
   "name": "copywriting",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/copywriting/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-27T04:25:30.201593Z"
+  "repo": "LeonMelamud/inspector-agents",
+  "path": ".github/skills/copywriting/SKILL.md",
+  "source": "github.com/LeonMelamud/inspector-agents",
+  "downloaded_at": "2026-01-28T04:38:17.838190Z"
 }

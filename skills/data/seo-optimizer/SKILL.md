@@ -1,301 +1,232 @@
 ---
-name: seo-optimizer
-description: SEO optimization toolkit with scoring, keyword research, and technical SEO auditing. Use for improving search rankings, content optimization, and technical SEO fixes. Based on alirezarezvani/claude-skills.
-version: 1.0.0
-category: marketing
-last_updated: 2026-01-19
-source: https://github.com/alirezarezvani/claude-skills
-related_skills:
-  - content-strategy
-  - competitive-analysis
-  - frontend-design
+name: seo-content-optimizer
+description: Optimize content for search engines with keyword analysis, readability scoring, meta descriptions, and competitor comparison. Use this when users want to improve SEO, optimize blog posts, or analyze content for search performance.
 ---
 
-# SEO Optimizer Skill
+# SEO Content Optimizer
 
-## Overview
+Comprehensive SEO analysis and optimization for content creators and marketers.
 
-This skill provides comprehensive SEO optimization capabilities including content scoring, keyword research, technical auditing, and on-page optimization. Designed for B2B technical websites targeting engineering decision-makers.
+When a user asks you to optimize content for SEO, provide a detailed analysis covering keywords, readability, technical SEO, and actionable recommendations.
 
-## Quick Start
+## Instructions
 
-1. **Audit current state** - Run technical SEO check
-2. **Research keywords** - Identify target terms by funnel stage
-3. **Optimize content** - Apply on-page SEO improvements
-4. **Monitor scores** - Track SEO score improvements
-5. **Iterate** - Continuous optimization cycle
+### 1. Analyze Target Keywords
 
-## When to Use
+Examine keyword usage and placement:
+- Identify primary keyword(s) from user input or content
+- Check keyword placement (title, H1, first 100 words, subheadings)
+- Calculate keyword density (aim for 1-2%)
+- Identify LSI keywords and semantic variations present
+- Flag keyword stuffing issues
 
-- Launching new website pages
-- Optimizing existing content for search
-- Technical SEO audits
-- Keyword research and planning
-- Content gap analysis
-- Competitive SEO analysis
+### 2. Evaluate Content Structure
 
-## SEO Scoring System
+Assess the organization and hierarchy:
+- Check heading hierarchy (single H1 → multiple H2 → H3)
+- Verify keyword usage in headings
+- Evaluate heading descriptiveness
+- Check paragraph length (aim for <150 words)
+- Assess overall scanability
 
-### Score Components (0-100)
+### 3. Readability Analysis
 
-| Component | Weight | Measures |
-|-----------|--------|----------|
-| Technical | 30% | Page speed, mobile, crawlability |
-| On-Page | 30% | Keywords, meta tags, structure |
-| Content | 25% | Quality, length, readability |
-| Authority | 15% | Links, citations, trust signals |
+Calculate readability metrics:
+- Flesch Reading Ease score (aim for 60-70)
+- Grade level estimation
+- Average sentence length (aim for <20 words)
+- Passive voice percentage (minimize)
+- Transition word usage
+- Paragraph structure
 
-### Score Targets
+### 4. Technical SEO Elements
 
-| Score | Rating | Action |
-|-------|--------|--------|
-| 90-100 | Excellent | Maintain, minor tweaks |
-| 75-89 | Good | Target score for new content |
-| 60-74 | Needs Work | Prioritize improvements |
-| Below 60 | Poor | Major revision needed |
+Generate optimized meta elements:
+- **Meta Title**: 50-60 characters with primary keyword
+- **Meta Description**: 150-160 characters, compelling with keyword
+- **URL Slug**: Short, keyword-rich, hyphen-separated
+- **Image Alt Text**: Descriptive with keywords where natural
+- **Internal Linking**: Opportunities to link to related content
+- **External Links**: Quality of outbound links
 
-## Keyword Research Framework
+### 5. Content Quality Assessment
 
-### Funnel-Based Targeting
+Evaluate comprehensiveness:
+- Word count (competitive topics need 1500+ words)
+- Content depth and detail level
+- Topic coverage completeness
+- Unique value proposition
+- E-A-T signals (expertise, authority, trust)
+- Content freshness (dates, current examples)
 
-| Funnel Stage | Intent | Keyword Types | Example |
-|--------------|--------|---------------|---------|
-| TOFU | Informational | "what is", "how to", "guide" | "what is fatigue analysis" |
-| MOFU | Investigational | "best", "vs", "comparison" | "FEA software comparison" |
-| BOFU | Transactional | "services", "consultant", "hire" | "offshore engineering consultant" |
+### 6. Provide Actionable Recommendations
 
-### Keyword Selection Criteria
+Prioritize improvements by impact:
 
-```markdown
-## Ideal Keyword Profile
-- Search volume: 500-5,000/month (sweet spot for B2B)
-- Keyword difficulty: <40 (achievable ranking)
-- Business relevance: High alignment with services
-- Intent match: Clear user intent
-- Competition: Low-medium SERP competition
-```
+**Critical (Fix Immediately)**:
+- Missing or poor meta description
+- No keyword in title or H1
+- Broken internal links
+- Keyword density too high/low
 
-### Keyword Clustering
+**High Priority**:
+- Poor readability score
+- Weak heading structure
+- Missing alt text on images
+- Content too thin
 
-Group related keywords into topic clusters:
+**Medium Priority**:
+- Could add related keywords
+- Opportunity for featured snippet
+- Could improve internal linking
 
-```
-Pillar: "Offshore Engineering"
-├── Cluster: Structural Analysis
-│   ├── "offshore platform structural analysis"
-│   ├── "subsea structure design"
-│   └── "jacket platform engineering"
-├── Cluster: Fatigue Analysis
-│   ├── "offshore fatigue assessment"
-│   ├── "S-N curve analysis"
-│   └── "fatigue life prediction"
-└── Cluster: Standards & Compliance
-    ├── "DNV offshore standards"
-    ├── "API RP 2A compliance"
-    └── "offshore engineering certification"
-```
+Provide specific, actionable fixes with examples.
 
-## On-Page SEO Checklist
-
-### Title Tag
-- [ ] Primary keyword near beginning
-- [ ] 50-60 characters length
-- [ ] Unique across site
-- [ ] Compelling for clicks
-
-### Meta Description
-- [ ] 150-160 characters
-- [ ] Contains primary keyword
-- [ ] Includes call-to-action
-- [ ] Unique per page
-
-### Headings (H1-H6)
-- [ ] Single H1 with primary keyword
-- [ ] Logical heading hierarchy
-- [ ] Keywords in H2s naturally
-- [ ] Descriptive, not generic
-
-### Content Body
-- [ ] Primary keyword in first 100 words
-- [ ] Keyword density 1-2%
-- [ ] Related keywords (LSI) included
-- [ ] 1,500+ words for pillar content
-- [ ] Internal links to related pages
-- [ ] External links to authoritative sources
-
-### Images
-- [ ] Descriptive file names
-- [ ] Alt text with keywords
-- [ ] Compressed for speed
-- [ ] WebP format preferred
-
-### URL Structure
-- [ ] Short and descriptive
-- [ ] Contains primary keyword
-- [ ] Hyphens between words
-- [ ] No parameters or IDs
-
-## Technical SEO Audit
-
-### Core Web Vitals
-
-| Metric | Target | Tool |
-|--------|--------|------|
-| LCP (Largest Contentful Paint) | <2.5s | PageSpeed Insights |
-| FID (First Input Delay) | <100ms | PageSpeed Insights |
-| CLS (Cumulative Layout Shift) | <0.1 | PageSpeed Insights |
-
-### Technical Checklist
+## Output Format
 
 ```markdown
-## Crawlability
-- [ ] robots.txt properly configured
-- [ ] XML sitemap submitted to GSC
-- [ ] No orphan pages
-- [ ] Proper canonical tags
-- [ ] No redirect chains
+# SEO Analysis Report
 
-## Indexability
-- [ ] Important pages indexed
-- [ ] No accidental noindex
-- [ ] Proper hreflang (if multilingual)
-- [ ] Structured data implemented
-
-## Performance
-- [ ] HTTPS enabled
-- [ ] Mobile-responsive
-- [ ] Page speed <3s
-- [ ] No render-blocking resources
-- [ ] Images optimized
-
-## Architecture
-- [ ] Logical URL structure
-- [ ] Breadcrumb navigation
-- [ ] Internal linking strategy
-- [ ] Flat site architecture (<3 clicks to any page)
-```
-
-## Structured Data (Schema.org)
-
-### Required for AceEngineer
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AceEngineer",
-  "url": "https://aceengineer.com",
-  "logo": "https://aceengineer.com/assets/img/logo.png",
-  "sameAs": ["https://github.com/aceengineer"],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "email": "contact@aceengineer.com"
-  }
-}
-```
-
-### Additional Schema Types
-
-| Page Type | Schema | Purpose |
-|-----------|--------|---------|
-| Service pages | Service | Rich snippets for services |
-| Blog posts | Article | Author, date in search |
-| Case studies | Case Study | Project showcase |
-| Calculators | WebApplication | Tool rich results |
-| FAQ | FAQPage | FAQ rich snippets |
-
-## Content Optimization Template
-
-```markdown
-## Page: [Page Title]
+## Overall Score: X/100
 
 ### Target Keywords
-- Primary: [main keyword]
-- Secondary: [2-3 related keywords]
-- LSI: [5-10 semantically related terms]
+- Primary: [keyword] (density: X.X%)
+- Secondary: [keyword 1], [keyword 2]
+- LSI Keywords Found: [variations]
 
-### Current Score: [X/100]
+## Quick Wins (Implement First) 🚀
+1. [Specific action with exact change needed]
+2. [Specific action with exact change needed]
 
-### Optimization Tasks
-1. Title: [current] → [optimized]
-2. Meta: [current] → [optimized]
-3. H1: [current] → [optimized]
-4. Content gaps: [missing topics]
-5. Internal links: [add links to...]
-6. Schema: [add/update type]
+## Keyword Analysis
 
-### Target Score: [Y/100]
+✅ Keyword in title
+❌ Keyword missing in first 100 words ← Add to opening paragraph
+✅ Keyword in 2/5 H2 headings
+⚠️ Density: 0.8% (low - aim for 1-2%)
+
+## Readability Metrics
+
+- **Flesch Reading Ease**: XX/100 (Grade level: XX)
+- **Average Sentence Length**: XX words
+- **Passive Voice**: X%
+- **Transition Words**: X%
+- **Assessment**: [Good/Needs improvement]
+
+## Meta Information
+
+**Current Meta Title** (X chars): [current title]
+**Suggested Meta Title** (XX chars):
+`[Optimized title with keyword - 50-60 chars]`
+
+**Current Meta Description**: [current or none]
+**Suggested Meta Description** (XXX chars):
+`[Compelling 150-160 char description with keyword and CTA]`
+
+**URL Slug**:
+Current: `/current-url-slug`
+Suggested: `/keyword-rich-slug`
+
+## Content Structure
+
+- **Word Count**: XXXX words ([sufficient/too short] for this topic)
+- **Heading Hierarchy**: [assessment]
+- **Paragraph Length**: Average XX words [good/too long]
+- **Sections**: [list main sections]
+
+## Critical Issues 🚨
+
+### 1. [Issue Name]
+**Problem**: [Description]
+**Impact**: [SEO impact]
+**Fix**: [Specific instruction]
+
+**Example**:
+```
+Current: [show current problematic text]
+Improved: [show corrected version]
 ```
 
-## SEO Monitoring
+## High Priority Recommendations ⚠️
 
-### Weekly Checks
-- [ ] Google Search Console errors
-- [ ] Core Web Vitals status
-- [ ] New indexed pages
-- [ ] Crawl stats
+### 1. [Recommendation]
+[Specific actionable instruction]
 
-### Monthly Analysis
-- [ ] Keyword ranking changes
-- [ ] Organic traffic trends
-- [ ] Top performing pages
-- [ ] Competitor movements
-- [ ] Backlink profile
+## Content Gaps
 
-### Quarterly Review
-- [ ] Content audit (update old content)
-- [ ] Technical SEO deep dive
-- [ ] Keyword strategy refresh
-- [ ] Competitive analysis update
+Missing subtopics to add:
+- **[Subtopic 1]**: [Why it's important] (search volume: XXX)
+- **[Subtopic 2]**: [Why it's important]
+
+## Internal Linking Opportunities
+
+- Link to: [page URL] using anchor text: "[keyword phrase]"
+- Link from: [this content] to [related page]
+
+## Featured Snippet Opportunity
+
+[If applicable, show how to format content for featured snippet]
+
+Example:
+```markdown
+## What is [topic]?
+
+[Clear, concise 40-60 word answer]
+
+- Key point 1
+- Key point 2
+- Key point 3
+```
+
+## Competitor Insights
+
+[If analysis was done]
+- Top ranking content averages XXXX words
+- Common topics covered: [list]
+- Your advantage: [unique angle]
+
+## Implementation Checklist
+
+- [ ] Update meta title and description
+- [ ] Add keyword to first paragraph
+- [ ] Fix heading structure
+- [ ] Add missing alt text (X images)
+- [ ] Add internal links (X opportunities)
+- [ ] Expand [thin section] with XXX words
+- [ ] Add FAQ section for featured snippet
+
+## Estimated Impact
+
+**Time to Implement**: X hours
+**Expected Improvement**: [Moderate/Significant] ranking boost
+**Priority**: [High/Medium/Low]
+```
 
 ## Best Practices
 
-### Do
+- **Prioritize user experience** over keyword stuffing
+- **Write for humans first**, optimize for search engines second
+- **Provide specific examples**, not vague advice
+- **Consider search intent** behind keywords (informational, commercial, transactional)
+- **Recommend content additions**, not just optimization
+- **Check for E-A-T signals** (author bio, credentials, sources)
+- **Suggest schema markup** where relevant (FAQ, How-To, Review)
+- **Look for featured snippet opportunities** (definition boxes, lists, tables)
 
-1. Focus on user intent, not just keywords
-2. Create comprehensive, authoritative content
-3. Build topic clusters around pillars
-4. Update old content regularly
-5. Monitor Core Web Vitals
-6. Use internal linking strategically
+## Example Workflow
 
-### Don't
+**User**: "Optimize this blog post for 'best project management tools'"
 
-1. Keyword stuff unnaturally
-2. Duplicate content across pages
-3. Ignore mobile experience
-4. Build low-quality backlinks
-5. Neglect technical SEO
-6. Forget to track and measure
-
-## Error Handling
-
-| Issue | Diagnosis | Solution |
-|-------|-----------|----------|
-| Pages not indexing | Check robots.txt, noindex | Fix blocking rules |
-| Ranking drops | Algorithm update, competition | Audit and improve content |
-| Slow page speed | Large images, render blocking | Optimize assets |
-| Low CTR | Poor title/meta | A/B test snippets |
-
-## Metrics
-
-| Metric | Target | Frequency |
-|--------|--------|-----------|
-| SEO Score | >75/100 | Per page |
-| Organic traffic | +10% MoM | Monthly |
-| Keyword rankings | Top 10 | Weekly |
-| Core Web Vitals | All green | Weekly |
-| Index coverage | >95% | Monthly |
-
-## Related Skills
-
-- [content-strategy](../content-strategy/SKILL.md) - Content planning
-- [competitive-analysis](../competitive-analysis/SKILL.md) - Competitor SEO
-- [frontend-design](../../content-design/frontend-design/SKILL.md) - Page design
+**Your analysis**:
+1. Check keyword placement → Found in title but not H1 (fix needed)
+2. Calculate density → 0.5% (too low, needs 8-10 more mentions)
+3. Analyze readability → Flesch score 55 (good), but sentences too long
+4. Generate meta tags → Create compelling meta description
+5. Identify gaps → Missing "pricing comparison" and "team size recommendations"
+6. Find internal links → Link to "project management tips" article
+7. Suggest featured snippet → Format comparison table
+8. Provide prioritized action list
 
 ---
 
-## Version History
-
-- **1.0.0** (2026-01-19): Initial release adapted from alirezarezvani/claude-skills
+**Remember**: SEO is about creating valuable, well-optimized content that serves user intent better than competitors.

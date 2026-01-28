@@ -1,7 +1,7 @@
 {
   "name": "commands",
-  "repo": "jezweb/claude-skills",
-  "path": "commands/create-skill.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-27T04:27:02.529665Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/commands/load-skill.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-28T04:33:53.855820Z"
 }

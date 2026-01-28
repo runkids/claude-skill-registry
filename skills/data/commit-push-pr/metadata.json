@@ -1,7 +1,7 @@
 {
   "name": "commit-push-pr",
-  "repo": "ahtavarasmus/lightfriend-cloud",
+  "repo": "hueyjeong/ForkLore",
   "path": ".claude/skills/commit-push-pr/SKILL.md",
-  "source": "github.com/ahtavarasmus/lightfriend-cloud",
-  "downloaded_at": "2026-01-27T04:28:29.300994Z"
+  "source": "github.com/hueyjeong/ForkLore",
+  "downloaded_at": "2026-01-28T04:25:38.162656Z"
 }

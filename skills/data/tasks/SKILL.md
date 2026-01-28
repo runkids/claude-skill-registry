@@ -1,317 +1,240 @@
 ---
 name: tasks
-description: "Generate dependency-ordered user stories and tasks from plan. Use after creating plan. Triggers on: create tasks, generate user stories, break down implementation."
+version: 3.2.0
+description: 多 Agent 任務分解框架 - 將計劃轉化為可執行的 DAG 任務清單
+triggers: [multi-tasks, task-decomposition, 任務分解]
+context: fork
+agent: general-purpose
+allowed-tools: [Read, Grep, Glob, Write, Bash, TaskCreate, TaskUpdate, TaskList, TaskGet]
+model: sonnet
 ---
 
-# User Story & Task Generator
+# Multi-Agent Tasks v3.2.0
 
-Generate actionable, dependency-ordered user stories from technical plans.
+> 計劃分解 → DAG 驗證 → TDD 對應 → 可執行任務清單
 
----
+## Claude Code Tasks 整合
 
-## The Job
+> v3.2.0 支援原生 Tasks API，實現跨 session 任務協作
 
-1. Read spec.md and plan.md
-2. Extract user stories from spec
-3. Break down into implementation tasks
-4. Order by dependencies
-5. Create tasks.md with structured user stories
-6. **Auto-convert to prd.json** with routing classification
-
-**Important:** tasks.md contains the actual user stories that convert to prd.json!
-
----
-
-## SpecKit Workflow
-
-This skill is **Step 3 of 5** in the Relentless workflow:
-
-```
-specify → plan → tasks → analyze → implement
-                   ↓
-            (optional: checklist)
-```
-
-This skill now **auto-runs convert** at the end, generating prd.json.
-Manual convert is only needed if tasks.md is edited manually.
-Checklist is optional but recommended for complex features.
-
----
-
-## Step 1: Locate Feature Files
-
-Find the current feature directory and verify:
-- `spec.md` exists
-- `plan.md` exists
-- Feature directory: `relentless/features/NNN-feature/`
-
----
-
-## Step 2: Load Context
-
-Read:
-1. `relentless/constitution.md` - Testing and quality requirements
-2. `relentless/features/NNN-feature/spec.md` - User requirements
-3. `relentless/features/NNN-feature/plan.md` - Technical design
-
-Extract **Routing Preference** from spec.md or plan.md (if present) and include it near the top of tasks.md so it can be carried into prd.json.
-
----
-
-## Step 3: Extract User Stories
-
-From spec.md, identify distinct user stories:
-- Each major functional requirement becomes a user story
-- Group related functionality
-- Typical: 3-8 user stories per feature
-
-**User Story Format:**
-```markdown
-### US-001: [Title]
-**Description:** As a [user], I want [goal] so that [benefit].
-
-**Acceptance Criteria:**
-- [ ] Criterion 1 (testable, specific)
-- [ ] Criterion 2
-- [ ] Criterion 3
-- [ ] Typecheck passes
-- [ ] Tests pass
-
-**Dependencies:** (if any)
-**Phase:** Foundation / Stories / Polish
-```
-
----
-
-## Step 4: Generate Tasks
-
-For each user story, create implementation tasks using format:
-
-```markdown
-## User Stories
-
-### US-001: Create User Registration Endpoint
-
-**Description:** As a new user, I want to register with email/password so that I can create an account.
-
-**Acceptance Criteria:**
-- [ ] POST /api/auth/register endpoint exists
-- [ ] Email validation works
-- [ ] Password requirements enforced (min 8 chars)
-- [ ] Password is hashed before storage
-- [ ] Confirmation email sent
-- [ ] Returns 201 with user ID
-- [ ] Returns 400 for invalid input
-- [ ] Typecheck passes
-- [ ] Unit tests pass
-- [ ] Integration test passes
-
-**Dependencies:** None
-**Phase:** Foundation
-**Priority:** 1
-
----
-
-### US-002: Create User Login Endpoint
-
-**Description:** As a registered user, I want to log in with email/password so that I can access my account.
-
-**Acceptance Criteria:**
-- [ ] POST /api/auth/login endpoint exists
-- [ ] Validates credentials against database
-- [ ] Returns JWT token on success
-- [ ] Returns 401 for invalid credentials
-- [ ] Returns 403 for unconfirmed accounts
-- [ ] Token expires after 24 hours
-- [ ] Typecheck passes
-- [ ] Unit tests pass
-- [ ] Integration test passes
-
-**Dependencies:** US-001
-**Phase:** Stories
-**Priority:** 2
-
----
-
-### US-003: Email Confirmation Flow
-
-**Description:** As a new user, I want to confirm my email so that my account is activated.
-
-**Acceptance Criteria:**
-- [ ] Confirmation email sent on registration
-- [ ] Email contains confirmation link
-- [ ] GET /api/auth/confirm/:token endpoint exists
-- [ ] Token validates and marks account as confirmed
-- [ ] Expired tokens return appropriate error
-- [ ] Confirmed users can log in
-- [ ] Typecheck passes
-- [ ] E2E test passes
-
-**Dependencies:** US-001
-**Phase:** Stories
-**Priority:** 3
-```
-If you have any doubts or suggestions about any specific task, interview the user about them to improve your execution.
-
----
-
-## Step 5: Order by Dependencies
-
-Ensure user stories are ordered so dependencies come first:
-1. **Phase 0: Setup** - Infrastructure, configuration
-2. **Phase 1: Foundation** - Core models, base functionality
-3. **Phase 2: Stories** - User-facing features (ordered by dependencies)
-4. **Phase 3: Polish** - Optimization, edge cases
-
-Mark parallel stories with:
-```markdown
-**Parallel:** Yes
-```
-
----
-
-## Step 6: Validate Completeness
-
-Check that:
-- [ ] Every functional requirement from spec has a user story
-- [ ] Each user story has specific, testable acceptance criteria
-- [ ] Dependencies are valid (no circular references)
-- [ ] Each story is independently testable
-- [ ] Typecheck/test criteria included
-- [ ] Priority order makes sense
-
----
-
-## Step 6.5: Pre-Conversion Validation
-
-Before saving and converting, validate the format manually:
-
-**Story ID Format:**
-- [ ] Every story uses `US-XXX` format (e.g., `US-001`, not `Story 1`)
-- [ ] Story IDs are unique and sequential
-
-**Acceptance Criteria Format:**
-- [ ] Criteria are full sentences, not just file paths
-- [ ] File paths include context (e.g., "`src/queue/types.ts` contains Zod schemas")
-- [ ] No standalone file paths like `` `src/file.ts` ``
-
-**Dependencies Format:**
-- [ ] Dependencies use `US-XXX` with dashes, not underscores
-- [ ] Example: `**Dependencies:** US-001, US-002` (correct)
-- [ ] Example: `**Dependencies:** US_001` (incorrect - will warn)
-
-**Common Mistakes to Avoid:**
-- ❌ `- [ ] \`src/file.ts\`` (file path only - will be filtered)
-- ✅ `- [ ] \`src/file.ts\` contains the queue interface`
-- ❌ `**Files:**` inside acceptance criteria (will end criteria parsing)
-- ✅ Put **Files:** section after acceptance criteria
-
----
-
-## Step 7: Save & Validate
-
-1. Save to `relentless/features/NNN-feature/tasks.md`
-2. **Run the validator to ensure tasks.md is correctly formatted:**
-   ```bash
-   .claude/skills/validators/scripts/validate-tasks.sh "relentless/features/NNN-feature/tasks.md"
-   ```
-   - If validation fails (especially PRD-convertible format), fix errors and re-run
-   - Warnings are acceptable but should be reviewed
-3. Update progress.txt
-4. Report:
-   - Total user stories: N
-   - Dependency order: [list]
-   - Parallel opportunities: N
-   - Validation: PASS/FAIL
-
----
-
-## Step 8: Auto-Convert to prd.json
-
-**CRITICAL: You MUST execute the CLI command below. Do NOT generate prd.json manually.**
-
-After tasks.md is saved, run this command to convert to prd.json with routing:
+本 Skill 可使用 Claude Code 原生 Tasks 系統：
 
 ```bash
-relentless convert relentless/features/NNN-feature/tasks.md --feature <feature-name>
+# 建立任務（自動生成 taskId）
+TaskCreate({ subject: "實作登入功能", description: "..." })
+
+# 設定依賴關係
+TaskUpdate({ taskId: "2", addBlockedBy: ["1"] })
+
+# 跨 session 共享
+export CLAUDE_CODE_TASK_LIST_ID=my-workflow
 ```
 
-**⚠️ IMPORTANT:** Execute this bash command using the Bash tool. Do NOT:
-- Generate the prd.json file yourself
-- Skip this step
-- Use any other method
+| API | 用途 |
+|-----|------|
+| `TaskCreate` | 建立任務 |
+| `TaskUpdate` | 更新狀態、設定依賴（addBlockedBy） |
+| `TaskList` | 列出所有任務 |
+| `TaskGet` | 取得任務詳情 |
 
-The CLI will:
-1. Parse tasks.md and validate structure
-2. Classify complexity for each story
-3. Route to optimal harness/model per story
-4. Generate prd.json with routing metadata
-5. Copy to prd.md for reference
+**優勢**：
+- 跨 session 持久化
+- 多 Agent 協作同一任務清單
+- 自動依賴解除（完成時自動 unblock 下游任務）
 
-**After running the command, report:**
-- The routing table from CLI output (story → complexity → harness/model → cost)
-- Total estimated cost
-- Confirm prd.json was created
+## 使用方式
 
-**Optional but Recommended:** `/relentless.checklist`
-- Generates validation checklist with quality gates
-- Helps ensure nothing is missed during implementation
-- Especially useful for complex features
+```bash
+/multi-tasks [計劃路徑]
+/multi-tasks .claude/memory/plans/user-auth/implementation-plan.md
+```
 
-**Next Step:** `/relentless.analyze` (or `/relentless.checklist` first if desired)
+**Flags**: `--from-plan ID` | `--validate-only` | `--no-tdd-check`
 
----
+## 預設 4 視角
 
-## TDD is MANDATORY
+| ID | 名稱 | 模型 | 聚焦 |
+|----|------|------|------|
+| `dependency-analyst` | 依賴分析師 | sonnet | 任務依賴、執行順序 |
+| `task-decomposer` | 任務分解師 | haiku | 粒度切分、並行識別 |
+| `test-planner` | 測試規劃師 | haiku | TDD 對應、測試策略 |
+| `risk-preventor` | 風險預防師 | haiku | 風險任務、預防措施 |
 
-Every user story MUST include test acceptance criteria:
+→ 模型路由配置：[shared/config/model-routing.yaml](../../shared/config/model-routing.yaml)
 
-1. **Unit Tests** - For business logic and utilities
-2. **Integration Tests** - For API endpoints and data flows
-3. **E2E Tests** - For user-facing flows (use Playwright when applicable)
+## 執行流程
 
-### TDD Workflow
+```
+Phase 0: 載入計劃 → 解析 implementation-plan.md
+    ↓
+Phase 1: MAP（並行分解）
+    ┌──────────┬──────────┬──────────┬──────────┐
+    │依賴分析師│任務分解師│測試規劃師│風險預防師│
+    └──────────┴──────────┴──────────┴──────────┘
 
-The Relentless agent will verify:
-1. Tests are written FIRST (before implementation)
-2. Tests FAIL before implementation
-3. Implementation makes tests PASS
-4. Typecheck and lint pass
+    ⚠️ **並行執行關鍵**：
+       在單一訊息中發送 4 個 Task 工具呼叫：
+       - Task({description: "依賴分析", ...})
+       - Task({description: "任務分解", ...})
+       - Task({description: "測試規劃", ...})
+       - Task({description: "風險預防", ...})
+       這樣才能真正並行執行！
+    ↓
+Phase 2: REDUCE（合併 + 排序）
+    ↓
+Phase 3: TDD 驗證 → 確保每個 T-F-* 有對應 TEST-*
+    ↓
+Phase 4: DAG 驗證 → 無循環、無孤立任務
+    ↓
+Phase 5: 依賴偵測 → 隱含依賴分析
+    ↓
+Phase 6: 品質閘門 → 輸出 tasks.yaml
+```
 
-### Required Test Criteria
+## TDD 強制執行
 
-Every story acceptance criteria should include:
-- [ ] Unit tests pass
-- [ ] Integration test passes (for API stories)
-- [ ] Typecheck passes
-- [ ] Lint passes
+**必要條件（BLOCKER）**：
+- 所有 `T-F-*` 任務必須有對應的 `TEST-*` 任務
+- `TEST-*` 任務必須 block 對應的 `T-F-*` 任務
 
----
+**驗證腳本**：`shared/tools/tdd-validator.sh`
 
-## Key Guidelines
+→ 配置：[shared/quality/tdd-enforcement.yaml](../../shared/quality/tdd-enforcement.yaml)
 
-**User Story Size:**
-- Each story completable in one session
-- If too large, split into multiple stories
-- Typical: 30-90 minutes of work per story
+## 依賴偵測
 
-**Acceptance Criteria:**
-- Specific and testable
-- No vague terms ("works well", "good UX")
-- Include quality checks (typecheck, lint, test)
-- Verifiable in browser/tests
-- **MUST include test criteria**
+四層依賴分析：
+1. **L1_explicit**: 顯式聲明的依賴
+2. **L2_file_overlap**: 修改相同檔案的任務
+3. **L3_semantic**: 語意資料流依賴
+4. **L4_environment**: 運行時環境依賴
 
-**Dependencies:**
-- Only list direct dependencies
-- Ensure no circular dependencies
-- Consider data dependencies (user must exist before profile)
+**驗證腳本**：`shared/tools/dag-validator.py`
 
----
+→ 配置：[shared/tasks/dependency-detection.yaml](../../shared/tasks/dependency-detection.yaml)
 
-## Notes
+## CP4: Task Commit
 
-- tasks.md is the source of truth for user stories
-- This file will be converted to prd.json by `relentless convert`
-- Make acceptance criteria detailed and specific
-- Each story should be independently deployable and testable
+品質閘門通過後，**必須執行 CP4 Task Commit**。
+
+```
+Phase 6: 品質閘門 → 輸出 tasks.yaml
+    ↓
+CP4: Task Commit
+    ├── git add .claude/memory/tasks/{plan-id}/
+    └── git commit -m "feat(tasks): decompose {plan} into executable tasks"
+```
+
+→ 協議：[shared/git/commit-protocol.md](../../shared/git/commit-protocol.md)
+
+## 品質閘門
+
+通過條件（TASKS 階段）：
+- ✅ DAG 驗證通過（無循環）
+- ✅ TDD 對應完整
+- ✅ 所有任務有估算
+- ✅ 品質分數 ≥ 80
+
+→ 閘門配置：[shared/quality/gates.yaml](../../shared/quality/gates.yaml)
+
+## 輸出結構
+
+```
+.claude/memory/tasks/[plan-id]/
+├── meta.yaml               # 元數據
+├── perspectives/           # 完整視角分析（MAP 產出，保留）
+│   ├── dependency-analyst.md
+│   ├── task-decomposer.md
+│   ├── test-planner.md
+│   └── risk-preventor.md
+├── summaries/              # 結構化摘要（REDUCE 產出，供快速查閱）
+│   ├── dependency-analyst.yaml
+│   ├── task-decomposer.yaml
+│   ├── test-planner.yaml
+│   └── risk-preventor.yaml
+└── tasks.yaml              # 任務清單（主輸出）
+```
+
+> ⚠️ perspectives/ 保存完整分析，summaries/ 保存結構化摘要，tasks.yaml 是最終可執行任務清單。
+
+## Agent 能力限制
+
+**視角 Agent 不應該開啟 Task**：
+
+| 允許的操作 | 說明 |
+|-----------|------|
+| ✅ Read | 讀取檔案 |
+| ✅ Glob/Grep | 搜尋檔案和內容 |
+| ✅ Explore agent | 輕量級探索 |
+| ✅ Bash | 執行命令 |
+| ✅ Write | 寫入報告 |
+| ❌ Task | 開子 Agent |
+
+### tasks.yaml 格式
+
+```yaml
+version: "1.0"
+plan_ref: "plans/user-auth"
+waves:
+  - id: wave-1
+    tasks:
+      - id: TEST-001
+        type: test
+        description: "登入功能測試"
+        estimate: 15
+      - id: T-F-001
+        type: feature
+        description: "實作登入功能"
+        depends_on: [TEST-001]
+        estimate: 30
+        files: [src/auth/login.ts]
+```
+
+## 行動日誌
+
+每個工具調用完成後，記錄到 `.claude/workflow/{workflow-id}/logs/actions.jsonl`。
+
+**記錄時機**：
+- 成功：記錄 `tool`、`input`、`output_preview`、`duration_ms`、`status: success`
+- 失敗：記錄 `tool`、`input`、`error`、`stderr`（如有）、`status: failed`
+
+**關鍵行動（TASKS 階段）**：
+| 行動 | 記錄重點 |
+|------|----------|
+| Read（讀取計劃） | `file_path`、`output_size` |
+| Task（啟動 Agent） | `subagent_type`、`prompt` (truncated)、`agent_id` |
+| Bash（執行 DAG 驗證） | `command`、`exit_code`、`stderr` |
+| Write（寫入 tasks.yaml） | `file_path`、`content_size` |
+
+**排查問題**：
+```bash
+# 查看 TASKS 階段所有失敗行動
+jq 'select(.stage == "TASKS" and .status == "failed")' actions.jsonl
+
+# 查看 DAG 驗證失敗的詳情
+jq 'select(.tool == "Bash" and .status == "failed")' actions.jsonl | jq '{command: .input.command, error: .error, stderr: .stderr}'
+```
+
+→ 日誌規範：[shared/communication/execution-logs.md](../../shared/communication/execution-logs.md)
+
+## 共用模組
+
+| 模組 | 用途 |
+|------|------|
+| [coordination/map-phase.md](../../shared/coordination/map-phase.md) | 並行協調 |
+| [coordination/reduce-phase.md](../../shared/coordination/reduce-phase.md) | 匯總整合、大檔案處理 |
+| [quality/tdd-enforcement.yaml](../../shared/quality/tdd-enforcement.yaml) | TDD 強制 |
+| [tasks/dependency-detection.yaml](../../shared/tasks/dependency-detection.yaml) | 依賴偵測 |
+| [quality/gates.yaml](../../shared/quality/gates.yaml) | 品質閘門 |
+| [tools/dag-validator.py](../../shared/tools/dag-validator.py) | DAG 驗證器 |
+
+## 工作流位置
+
+```
+RESEARCH → PLAN → TASKS → IMPLEMENT → REVIEW → VERIFY
+                    ↑
+                 你在這裡
+```
+
+- **輸入**：`implementation-plan.md` 來自 `plan` skill
+- **輸出**：`tasks.yaml` 供 `implement` skill 使用

@@ -1,9 +1,7 @@
 {
   "name": "security-audit-checklist",
-  "description": "Provides exhaustive security vulnerability checklists with severity classifications, point deductions, and detection commands. Use when performing security audits, code reviews, penetration testing pr",
-  "repo": "mgd34msu/goodvibes-plugin",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/security-audit-checklist/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:40.661448Z"
 }

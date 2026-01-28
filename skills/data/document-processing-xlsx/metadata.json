@@ -1,9 +1,7 @@
 {
   "name": "document-processing-xlsx",
-  "description": "Process, parse, create, and manipulate Excel spreadsheets (.xlsx, .xls) using libraries like xlsx, exceljs, or SheetJS for data import/export and spreadsheet automation. Use when reading Excel files f",
-  "repo": "korallis/Droidz",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/document-processing-xlsx/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:40.546030Z"
 }

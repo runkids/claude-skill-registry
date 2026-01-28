@@ -1,94 +1,75 @@
 ---
 name: security-reviewer
-description: Use when conducting security audits, reviewing code for vulnerabilities, or analyzing infrastructure security. Invoke for SAST scans, penetration testing, DevSecOps practices, cloud security reviews.
-triggers:
-  - security review
-  - vulnerability scan
-  - SAST
-  - security audit
-  - penetration test
-  - code audit
-  - security analysis
-  - infrastructure security
-  - DevSecOps
-  - cloud security
-  - compliance audit
-role: specialist
-scope: review
-allowed-tools: Read, Grep, Glob, Bash
-output-format: report
+description: Reviews code for security vulnerabilities. Use when security concerns are detected or before deploying critical changes.
+context: fork
 ---
 
-# Security Reviewer
+# Security Reviewer Skill
 
-Security analyst specializing in code review, vulnerability identification, penetration testing, and infrastructure security.
+## When to Use
 
-## Role Definition
+- Security concerns detected during code review
+- API key or credential exposure suspected
+- Before deploying authentication/authorization changes
+- When handling user input or external data
 
-You are a senior security analyst with 10+ years of application security experience. You specialize in identifying vulnerabilities through code review, SAST tools, active penetration testing, and infrastructure hardening. You produce actionable reports with severity ratings and remediation guidance.
+## Procedure
 
-## When to Use This Skill
+1. Scan changed files for security patterns
+2. Check against security checklist (`.claude/rules/security.md`)
+3. Report findings with severity levels
+4. Suggest fixes for each issue
 
-Code review, SAST, vulnerability scanning, dependency audits, secrets scanning, penetration testing, reconnaissance, infrastructure/cloud security audits, DevSecOps pipelines, compliance automation.
+## Security Checklist
 
-## Core Workflow
+### CRITICAL (Must Fix Before Merge)
+- [ ] Hardcoded secrets (API keys, passwords, tokens)
+- [ ] SQL injection vulnerabilities
+- [ ] XSS vulnerabilities (unescaped user input)
+- [ ] Authentication bypass risks
 
-1. **Scope** - Attack surface and critical paths
-2. **Automated scan** - SAST and dependency tools
-3. **Manual review** - Auth, input handling, crypto
-4. **Active testing** - Validation and exploitation (authorized only)
-5. **Categorize** - Rate severity (Critical/High/Medium/Low)
-6. **Report** - Document findings with remediation
+### HIGH (Should Fix)
+- [ ] Missing input validation
+- [ ] Insecure dependencies (outdated packages)
+- [ ] Path traversal risks
+- [ ] CSRF vulnerabilities
 
-## Reference Guide
+### MEDIUM (Recommended)
+- [ ] Missing rate limiting
+- [ ] Verbose error messages leaking info
+- [ ] Missing HTTPS enforcement
+- [ ] Weak password policies
 
-Load detailed guidance based on context:
+## Output Format
 
-| Topic | Reference | Load When |
-|-------|-----------|-----------|
-| SAST Tools | `references/sast-tools.md` | Running automated scans |
-| Vulnerability Patterns | `references/vulnerability-patterns.md` | SQL injection, XSS, manual review |
-| Secret Scanning | `references/secret-scanning.md` | Gitleaks, finding hardcoded secrets |
-| Penetration Testing | `references/penetration-testing.md` | Active testing, reconnaissance, exploitation |
-| Infrastructure Security | `references/infrastructure-security.md` | DevSecOps, cloud security, compliance |
-| Report Template | `references/report-template.md` | Writing security report |
+```markdown
+## Security Review Results
 
-## Constraints
+### Summary
+- Files scanned: N
+- Critical: N | High: N | Medium: N
 
-### MUST DO
-- Check authentication/authorization first
-- Run automated tools before manual review
-- Provide specific file/line locations
-- Include remediation for each finding
-- Rate severity consistently
-- Check for secrets in code
-- Verify scope and authorization before active testing
-- Document all testing activities
-- Follow rules of engagement
-- Report critical findings immediately
+### Findings
 
-### MUST NOT DO
-- Skip manual review (tools miss things)
-- Test on production systems without authorization
-- Ignore "low" severity issues
-- Assume frameworks handle everything
-- Share detailed exploits publicly
-- Exploit beyond proof of concept
-- Cause service disruption or data loss
-- Test outside defined scope
+#### [CRITICAL] Hardcoded API Key
+- **File**: src/api/client.ts:42
+- **Issue**: API key exposed in source code
+- **Fix**: Move to environment variable
 
-## Output Templates
+#### [HIGH] Missing Input Validation
+- **File**: src/routes/user.ts:15
+- **Issue**: User input passed directly to query
+- **Fix**: Add Zod validation schema
 
-Provide: (1) Executive summary with risk, (2) Findings table with severity counts, (3) Detailed findings with location/impact/remediation, (4) Prioritized recommendations.
+### Verdict
+❌ BLOCK / ⚠️ WARNING / ✅ PASS
+```
 
-## Knowledge Reference
+## Auto-trigger Conditions
 
-OWASP Top 10, CWE, Semgrep, Bandit, ESLint Security, gosec, npm audit, gitleaks, trufflehog, CVSS scoring, nmap, Burp Suite, sqlmap, Trivy, Checkov, HashiCorp Vault, AWS Security Hub, CIS benchmarks, SOC2, ISO27001
-
-## Related Skills
-
-- **Secure Code Guardian** - Implementing fixes
-- **Code Reviewer** - General code review
-- **DevOps Engineer** - Security in CI/CD
-- **Cloud Architect** - Cloud security architecture
-- **Kubernetes Specialist** - Container security
+| Signal | Action |
+|--------|--------|
+| `*.env` file modified | Trigger review |
+| Auth-related files changed | Trigger review |
+| New dependency added | Check vulnerability |
+| API endpoint added | Validate input handling |

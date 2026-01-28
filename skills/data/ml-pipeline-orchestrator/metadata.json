@@ -1,9 +1,7 @@
 {
   "name": "ml-pipeline-orchestrator",
-  "description": "Orchestrates complete machine learning pipelines within SpecWeave increments. Activates when users request \"ML pipeline\", \"train model\", \"build ML system\", \"end-to-end ML\", \"ML workflow\", \"model train",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave-ml/skills/ml-pipeline-orchestrator/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:06.869566Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "tech-stack-analyzer",
-  "description": "Delegates tech stack detection to a lightweight agent. Use when you need to know the project's language, frameworks, or dependencies without loading manifest files into context.",
-  "repo": "leonj1/cat-emails",
-  "category": "devops",
-  "tags": [
-    "tech",
-    "stack",
-    "analyzer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/tech-stack-analyzer/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:37.530084Z"
 }

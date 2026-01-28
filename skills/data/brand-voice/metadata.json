@@ -1,7 +1,7 @@
 {
   "name": "brand-voice",
-  "repo": "luongnv89/claude-howto",
-  "path": "03-skills/brand-voice/SKILL.md",
-  "source": "github.com/luongnv89/claude-howto",
-  "downloaded_at": "2026-01-27T04:32:41.143875Z"
+  "repo": "mattppal/prompts",
+  "path": ".claude/skills/brand-voice/SKILL.md",
+  "source": "github.com/mattppal/prompts",
+  "downloaded_at": "2026-01-28T02:30:58.675614Z"
 }

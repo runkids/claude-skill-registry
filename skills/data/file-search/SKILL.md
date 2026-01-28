@@ -1,98 +1,140 @@
 ---
 name: file-search
-description: "Modern file and content search using fd, ripgrep (rg), and fzf. Triggers on: fd, ripgrep, rg, find files, search code, fzf, fuzzy find, search codebase."
-compatibility: "Requires fd, ripgrep (rg), and optionally fzf. Install: brew install fd ripgrep fzf (macOS)."
-allowed-tools: "Bash"
+description: "Search for files and content. Use when: Investigating codebase, finding patterns, or locating specific files. Not for: Reading file content (use view_file) or simple directory listing."
+user-invocable: true
 ---
 
 # File Search
 
-Modern file and content search.
+Modern file search using fd, ripgrep (rg), and fzf for large codebases. Hierarchy: ripgrep (90% content search), fd (8% file discovery), fzf (2% interactive selection).
 
-## fd - Find Files
+## Tool Selection
+
+**ripgrep** (Primary - 90% of tasks)
+- Content search, pattern matching, code analysis
+- SIMD optimized, multi-threaded, .gitignore aware
+- Recognition: "Know what content to find?" → Use ripgrep
+
+**fd** (Secondary - 8% of tasks)
+- File discovery, extension filtering, recent changes
+- Simple syntax, colorized output, intuitive
+- Recognition: "Need to find files, not content?" → Use fd
+
+**fzf** (Tertiary - 2% of tasks)
+- Interactive exploration, manual navigation, preview selection
+- Fuzzy matching, preview windows, multi-select
+- Recognition: "Need human selection from results?" → Use fzf
+
+**Decision flow:** ripgrep first → add fd if needed → fzf only when interaction is essential.
+
+## ripgrep (Priority 1)
 
 ```bash
-# Find by name
-fd config                    # Files containing "config"
-fd -e py                     # Python files
-
-# By type
-fd -t f config               # Files only
-fd -t d src                  # Directories only
-
-# Exclude
-fd -E node_modules           # Exclude directory
-fd -E "*.min.js"             # Exclude pattern
-
-# Execute command
-fd -e py -x wc -l            # Line count per file
+rg "TODO"                    # Simple search
+rg -i "error"                # Case-insensitive
+rg -F "exact phrase"         # Literal string (faster, no regex)
 ```
 
-## rg - Search Content
-
+**By file type:**
 ```bash
-# Simple search
-rg "TODO"                    # Find TODO
-rg -i "error"                # Case-insensitive
-
-# By file type
 rg -t py "import"            # Python files only
 rg -t js -t ts "async"       # JS and TS
+rg -t md "ripgrep"           # Markdown files
+```
 
-# Context
+**Context control:**
+```bash
 rg -C 3 "function"           # 3 lines before/after
+rg -B 5 "class"              # 5 lines before
+rg -A 2 "return"             # 2 lines after
+```
 
-# Output modes
+**Output modes:**
+```bash
 rg -l "TODO"                 # File names only
 rg -c "TODO"                 # Count per file
+rg -n "pattern"              # Line numbers
+rg --json "pattern"          # Structured output (for AI parsing)
 ```
 
-## fzf - Interactive Selection
+## fd Integration (Priority 2)
+
+**Find by name:**
+```bash
+fd config                    # Files containing "config"
+fd -e py                     # Python files
+fd "test.*\.js$"            # Regex pattern
+```
+
+**By type:**
+```bash
+fd -t f config               # Files only
+fd -t d src                  # Directories only
+fd -t l                      # Symlinks only
+```
+
+**Time-based filters:**
+```bash
+fd --changed-within 1d       # Modified in last day
+fd --changed-before 2024-01-01  # Modified before date
+fd --size +10M               # Files larger than 10MB
+```
+
+## fzf (Priority 3)
 
 ```bash
-# Find and select
-fd | fzf
-
-# With preview
+fd | fzf                     # Find and select
 fd | fzf --preview 'bat --color=always {}'
-
-# Multi-select
-fd -e ts | fzf -m | xargs code
+rg -l "pattern" | fzf --preview 'rg -C 3 "pattern" {}'
 ```
 
-## Combined Patterns
+## Combined Workflows
 
 ```bash
-# Find files, search content
-fd -e py -x rg "async def" {}
-
-# Search, select, open
+fd -e py -x rg "async def" {}     # Search Python files for async def
+fd -t f -x rg -l "TODO" {}        # Find files with TODO
 rg -l "pattern" | fzf --preview 'rg -C 3 "pattern" {}' | xargs vim
+```
+
+## Large Codebase Optimization
+
+```bash
+# Smart scoping (respects .gitignore automatically)
+rg "pattern" --follow --hidden -g '!{.git,node_modules,dist}/**/*'
+
+# Parallel processing
+find . -type f -name "*.py" | xargs -P 8 rg "pattern"
+
+# Find large files first
+fd -t f -x du -h {} | sort -hr | head -20
+
+# Extract specific line ranges
+rg -n "pattern" | head -50          # First 50 matches
+rg --json "pattern"                 # JSON output for structured parsing
 ```
 
 ## Quick Reference
 
 | Task | Command |
 |------|---------|
-| Find TS files | `fd -e ts` |
-| Find in src | `fd -e ts src/` |
-| Search pattern | `rg "pattern"` |
-| Search in type | `rg -t py "import"` |
-| Files with match | `rg -l "pattern"` |
-| Count matches | `rg -c "pattern"` |
-| Interactive | `fd \| fzf` |
-| With preview | `fd \| fzf --preview 'bat {}'` |
+| Content search | `rg -C 3 "pattern"` |
+| Find files with pattern | `rg -l "pattern"` |
+| Search by file type | `rg -t py "pattern"` |
+| Case-insensitive | `rg -i "pattern"` |
+| Files by extension | `fd -e py` |
+| Recent files | `fd --changed-within 1d` |
+| Interactive selection | `fd \| fzf` |
+| JSON output | `rg --json "pattern"` |
+| Large codebase | `rg "pattern" --follow -g '!{node_modules,.git}/**/*'` |
 
-## Performance Tips
+## Performance
 
-| Tip | Why |
-|-----|-----|
-| Both respect `.gitignore` | Auto-skip node_modules, dist |
-| Use `-t` over `-g` | Type flags are faster |
-| Narrow the path | `rg pattern src/` faster |
-| Use `-F` for literals | Avoids regex overhead |
+| Use Case | ripgrep | fd | grep | find |
+|----------|---------|----|------|------|
+| Content search | 10-100x faster | N/A | Baseline | N/A |
+| File by extension | 5-20x faster | Fastest | 1x | 1x |
+| .gitignore respect | Automatic | Automatic | No | No |
+| Multi-threading | Yes | No | No | No |
+| SIMD optimized | Yes (NEON) | Yes | No | No |
 
-## Additional Resources
-
-For detailed patterns, load:
-- `./references/advanced-workflows.md` - Git integration, shell functions, power workflows
+**Recognition:** "Need maximum performance on large codebases?" → Use ripgrep with proper flags.

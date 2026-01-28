@@ -1,9 +1,7 @@
 {
   "name": "vscode-extension",
-  "description": "Use when developing VSCode extensions - covers language support, LSP integration, and packaging",
   "repo": "mcclowes/lea",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mcclowes/lea"
+  "path": ".claude/skills/vscode-extension/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-28T03:49:24.802865Z"
 }

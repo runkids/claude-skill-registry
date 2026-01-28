@@ -1,476 +1,492 @@
 ---
 name: prd-generator
-description: Generate comprehensive Product Requirements Documents (PRDs) for product managers. Use this skill when users ask to "create a PRD", "write product requirements", "document a feature", or need help structuring product specifications.
+description: Generate comprehensive Product Requirements Documents from structured inputs. Apply company templates, create technical specifications, define success metrics, build launch checklists, and version PRD changes over time.
+allowed-tools: Read, Grep, Write, Bash, Edit, Glob
 ---
 
-# PRD Generator
+# PRD Generator Skill
+
+Generate comprehensive Product Requirements Documents with templates, technical specs, success metrics, and launch readiness checklists.
 
 ## Overview
 
-Generate comprehensive, well-structured Product Requirements Documents (PRDs) that follow industry best practices. This skill helps product managers create clear, actionable requirements documents that align stakeholders and guide development teams.
+This skill provides comprehensive capabilities for creating and managing Product Requirements Documents throughout the product development lifecycle. It transforms feature specifications into structured PRDs ready for cross-functional review.
 
-## Core Workflow
+## Capabilities
 
-When a user requests to create a PRD (e.g., "create a PRD for a user authentication feature"), follow this workflow:
+### PRD Generation
+- Generate PRD from feature specifications
+- Apply company templates and formatting
+- Create multiple PRD variants (detailed, executive summary)
+- Support incremental PRD development
 
-### Step 1: Gather Context
+### Technical Specifications
+- Generate technical requirements sections
+- Define API contracts and data models
+- Specify integration requirements
+- Document technical constraints
 
-Before generating the PRD, collect essential information through a discovery conversation:
+### Success Metrics
+- Define success criteria and KPIs
+- Create metric specifications
+- Set launch and long-term targets
+- Specify measurement methodology
 
-**Required Information:**
-- **Feature/Product Name**: What are we building?
-- **Problem Statement**: What problem does this solve?
-- **Target Users**: Who is this for?
-- **Business Goals**: What are we trying to achieve?
-- **Success Metrics**: How will we measure success?
-- **Timeline/Constraints**: Any deadlines or limitations?
+### Launch Planning
+- Build launch checklists
+- Define go/no-go criteria
+- Create rollout plans
+- Document rollback procedures
 
-**Discovery Questions to Ask:**
+### Version Management
+- Track PRD changes over time
+- Maintain revision history
+- Support collaborative editing
+- Generate change summaries
 
-```
-1. What problem are you trying to solve?
-2. Who is the primary user/audience for this feature?
-3. What are the key business objectives?
-4. Are there any technical constraints we should be aware of?
-5. What does success look like? How will you measure it?
-6. What's the timeline for this feature?
-7. What's explicitly out of scope?
-```
+## Prerequisites
 
-**Note:** If the user provides a detailed brief or requirements upfront, you can skip some questions. Always ask for clarification on missing critical information.
-
-### Step 2: Generate PRD Structure
-
-Use the standard PRD template from `references/prd_template.md` to create a well-structured document. The PRD should include:
-
-1. **Executive Summary** - High-level overview (2-3 paragraphs)
-2. **Problem Statement** - Clear articulation of the problem
-3. **Goals & Objectives** - What we're trying to achieve
-4. **User Personas** - Who we're building for
-5. **User Stories & Requirements** - Detailed functional requirements
-6. **Success Metrics** - KPIs and measurement criteria
-7. **Scope** - What's in and out of scope
-8. **Technical Considerations** - Architecture, dependencies, constraints
-9. **Design & UX Requirements** - UI/UX considerations
-10. **Timeline & Milestones** - Key dates and phases
-11. **Risks & Mitigation** - Potential issues and solutions
-12. **Dependencies & Assumptions** - What we're relying on
-13. **Open Questions** - Unresolved items
-
-### Step 3: Create User Stories
-
-For each major requirement, generate user stories using the standard format:
-
-```
-As a [user type],
-I want to [action],
-So that [benefit/value].
-
-Acceptance Criteria:
-- [Specific, testable criterion 1]
-- [Specific, testable criterion 2]
-- [Specific, testable criterion 3]
+### Template Requirements
+```yaml
+Supported templates:
+- Standard PRD
+- Technical PRD (API/Platform)
+- Growth Feature PRD
+- MVP/Experiment PRD
+- Custom templates
 ```
 
-Reference `references/user_story_examples.md` for common patterns and best practices.
-
-### Step 4: Define Success Metrics
-
-Use appropriate metrics frameworks based on the product type:
-
-- **AARRR (Pirate Metrics)**: Acquisition, Activation, Retention, Revenue, Referral
-- **HEART Framework**: Happiness, Engagement, Adoption, Retention, Task Success
-- **North Star Metric**: Single key metric that represents core value
-- **OKRs**: Objectives and Key Results
-
-Consult `references/metrics_frameworks.md` for detailed guidance on each framework.
-
-### Step 5: Validate & Review
-
-Optionally run the validation script to ensure PRD completeness:
-
-```bash
-scripts/validate_prd.sh <prd_file.md>
+### Input Format
+```json
+{
+  "feature": {
+    "name": "Feature name",
+    "description": "Brief description",
+    "problem_statement": "Problem being solved",
+    "target_users": ["persona1", "persona2"]
+  },
+  "template": "standard",
+  "sections": ["all"] // or specific sections
+}
 ```
-
-This checks for:
-- All required sections present
-- User stories follow proper format
-- Success metrics are defined
-- Scope is clearly articulated
-- No placeholder text remains
 
 ## Usage Patterns
 
-### Pattern 1: New Feature PRD
+### Standard PRD Template
+```markdown
+# Product Requirements Document
 
-**User Request:** "Create a PRD for adding dark mode to our mobile app"
+## Document Info
+| Field | Value |
+|-------|-------|
+| Feature Name | [Name] |
+| Author | [PM Name] |
+| Created | [Date] |
+| Status | [Draft/Review/Approved] |
+| Version | [1.0] |
 
-**Execution:**
+---
 
-1. Ask discovery questions about dark mode requirements
-2. Generate PRD using template
-3. Create user stories for:
-   - Theme switching
-   - Preference persistence
-   - System-level sync
-   - Design token updates
-4. Define success metrics (adoption rate, user satisfaction)
-5. Identify technical dependencies (design system, platform APIs)
+## 1. Overview
 
-### Pattern 2: Product Enhancement PRD
+### 1.1 Problem Statement
+[What problem are we solving? Why now?]
 
-**User Request:** "Write requirements for improving our search functionality"
+### 1.2 Opportunity
+[Market opportunity, business impact]
 
-**Execution:**
+### 1.3 Target Users
+[Primary and secondary user personas]
 
-1. Gather context on current search limitations
-2. Identify user pain points and desired improvements
-3. Generate PRD with focus on:
-   - Current state analysis
-   - Proposed enhancements
-   - Impact assessment
-4. Create prioritized user stories
-5. Define before/after metrics
+---
 
-### Pattern 3: New Product PRD
+## 2. Goals & Success Metrics
 
-**User Request:** "I need a PRD for a new analytics dashboard product"
+### 2.1 Objectives
+| Objective | Metric | Target | Timeline |
+|-----------|--------|--------|----------|
+| [Objective 1] | [Metric] | [Target] | [When] |
 
-**Execution:**
+### 2.2 Non-Goals
+- [What we explicitly won't do]
 
-1. Comprehensive discovery (market analysis, user research)
-2. Generate full PRD with:
-   - Market opportunity
-   - Competitive analysis
-   - Product vision
-   - MVP scope
-   - Go-to-market considerations
-3. Detailed user stories for core features
-4. Phased rollout plan
-5. Success metrics aligned with business goals
+---
 
-### Pattern 4: Quick PRD / One-Pager
+## 3. User Stories & Requirements
 
-**User Request:** "Create a lightweight PRD for a small bug fix feature"
+### 3.1 User Stories
+[List of user stories with acceptance criteria]
 
-**Execution:**
+### 3.2 Functional Requirements
+| ID | Requirement | Priority | Notes |
+|----|-------------|----------|-------|
+| FR-001 | [Requirement] | P0 | [Notes] |
 
-1. Generate simplified PRD focusing on:
-   - Problem statement
-   - Solution approach
-   - Acceptance criteria
-   - Success metrics
-2. Skip sections not relevant for small scope
-3. Keep document concise (1-2 pages)
+### 3.3 Non-Functional Requirements
+- Performance: [Requirements]
+- Security: [Requirements]
+- Accessibility: [Requirements]
 
-## PRD Best Practices
+---
 
-### Writing Quality Requirements
+## 4. Solution Design
 
-**Good Requirements Are:**
-- **Specific**: Clear and unambiguous
-- **Measurable**: Can be verified/tested
-- **Achievable**: Technically feasible
-- **Relevant**: Tied to user/business value
-- **Time-bound**: Has clear timeline
+### 4.1 User Experience
+[UX flow description, wireframe links]
 
-**Avoid:**
-- Vague language ("fast", "easy", "intuitive")
-- Implementation details (let engineers decide how)
-- Feature creep (stick to core requirements)
-- Assumptions without validation
+### 4.2 Technical Approach
+[High-level technical approach]
 
-### User Story Best Practices
+### 4.3 Dependencies
+| Dependency | Team | Status |
+|------------|------|--------|
+| [Dependency] | [Team] | [Status] |
 
-**DO:**
-- Focus on user value, not features
-- Write from user perspective
-- Include clear acceptance criteria
-- Keep stories independent and small
-- Use consistent format
+---
 
-**DON'T:**
-- Write technical implementation details
-- Create dependencies between stories
-- Make stories too large (epics)
-- Use internal jargon
-- Skip acceptance criteria
+## 5. Launch Plan
 
-### Scope Management
+### 5.1 Rollout Strategy
+[Phased rollout plan]
 
-**In-Scope Section:**
-- List specific features/capabilities included
-- Be explicit and detailed
-- Link to user stories
+### 5.2 Go/No-Go Criteria
+- [ ] [Criterion 1]
+- [ ] [Criterion 2]
 
-**Out-of-Scope Section:**
-- Explicitly state what's NOT included
-- Prevents scope creep
-- Manages stakeholder expectations
-- Can include "future considerations"
+### 5.3 Rollback Plan
+[How to rollback if needed]
 
-### Success Metrics Guidelines
+---
 
-**Choose Metrics That:**
-- Align with business objectives
-- Are measurable and trackable
-- Have clear targets/thresholds
-- Include both leading and lagging indicators
-- Consider user and business value
+## 6. Open Questions
+| Question | Owner | Due Date | Resolution |
+|----------|-------|----------|------------|
+| [Question] | [Owner] | [Date] | [Resolution] |
 
-**Typical Metric Categories:**
-- **Adoption**: How many users use the feature?
-- **Engagement**: How often do they use it?
-- **Satisfaction**: Do users like it?
-- **Performance**: Does it work well?
-- **Business Impact**: Does it drive business goals?
+---
 
-## Advanced Features
-
-### PRD Templates for Different Contexts
-
-The skill supports different PRD formats:
-
-**Standard PRD** - Full comprehensive document
-**Lean PRD** - Streamlined for agile teams
-**One-Pager** - Executive summary format
-**Technical PRD** - Engineering-focused requirements
-**Design PRD** - UX/UI-focused requirements
-
-Specify the format when requesting: "Create a lean PRD for..." or "Generate a technical PRD for..."
-
-### Integration with Design
-
-**Design Requirements Section Should Include:**
-- Visual design requirements
-- Interaction patterns
-- Accessibility requirements (WCAG compliance)
-- Responsive design considerations
-- Design system components to use
-- User flow diagrams
-- Wireframe/mockup references
-
-### Technical Considerations Section
-
-**Should Address:**
-- **Architecture**: High-level technical approach
-- **Dependencies**: External services, libraries, APIs
-- **Security**: Authentication, authorization, data protection
-- **Performance**: Load times, scalability requirements
-- **Compatibility**: Browser, device, platform support
-- **Data**: Storage, migration, privacy considerations
-- **Integration**: How it fits with existing systems
-
-### Stakeholder Alignment
-
-**PRD Should Help:**
-- Align cross-functional teams
-- Set clear expectations
-- Enable parallel work streams
-- Facilitate decision-making
-- Provide single source of truth
-
-**Distribution Checklist:**
-- [ ] Engineering reviewed technical feasibility
-- [ ] Design reviewed UX requirements
-- [ ] Product leadership approved scope
-- [ ] Stakeholders understand timeline
-- [ ] Success metrics agreed upon
-
-## Common PRD Scenarios
-
-### Scenario 1: Feature Request from Customer
-
-When creating a PRD based on customer feedback:
-
-1. Document the customer request verbatim
-2. Analyze the underlying problem
-3. Generalize the solution for all users
-4. Validate with product strategy
-5. Scope appropriately (might be smaller or larger than request)
-
-### Scenario 2: Strategic Initiative
-
-When creating a PRD for a strategic company initiative:
-
-1. Link to company OKRs/goals
-2. Include market analysis
-3. Consider competitive landscape
-4. Think multi-phase rollout
-5. Include success criteria aligned with strategy
-
-### Scenario 3: Technical Debt / Infrastructure
-
-When creating a PRD for technical improvements:
-
-1. Explain user impact (even if indirect)
-2. Document current limitations
-3. Articulate benefits (speed, reliability, maintainability)
-4. Include engineering input heavily
-5. Define measurable improvements
-
-### Scenario 4: Compliance / Regulatory
-
-When creating a PRD for compliance requirements:
-
-1. Reference specific regulations (GDPR, HIPAA, etc.)
-2. Include legal/compliance review
-3. Deadline is usually non-negotiable
-4. Focus on minimum viable compliance
-5. Document audit trail requirements
-
-## Validation & Quality Checks
-
-### Self-Review Checklist
-
-Before finalizing the PRD, verify:
-
-- [ ] **Problem is clear**: Anyone can understand what we're solving
-- [ ] **Users are identified**: We know who this is for
-- [ ] **Success is measurable**: We can determine if it worked
-- [ ] **Scope is bounded**: Clear what's in and out
-- [ ] **Requirements are testable**: QA can verify completion
-- [ ] **Timeline is realistic**: Estimates validated with engineering
-- [ ] **Risks are identified**: We've thought through what could go wrong
-- [ ] **Stakeholders aligned**: Key people have reviewed and approved
-
-### Using the Validation Script
-
-```bash
-# Basic validation
-scripts/validate_prd.sh my_prd.md
-
-# Verbose output with suggestions
-scripts/validate_prd.sh my_prd.md --verbose
-
-# Check specific sections only
-scripts/validate_prd.sh my_prd.md --sections "user-stories,metrics"
+## Appendix
+### A. Research & Data
+### B. Competitive Analysis
+### C. Technical Specifications
+### D. Revision History
 ```
 
-## Resources
+### PRD Generation Example
+```markdown
+## Input: Feature Specification
 
-This skill includes bundled resources:
+**Feature**: Smart Search with AI Suggestions
+**Problem**: Users struggle to find relevant content, leading to frustration and abandonment.
+**Target Users**: All registered users, especially new users.
 
-### scripts/
+---
 
-- **generate_prd.sh** - Interactive PRD generation workflow
-- **validate_prd.sh** - Validates PRD completeness and quality
+## Generated PRD
 
-### references/
+# Product Requirements Document: Smart Search with AI Suggestions
 
-- **prd_template.md** - Standard PRD template structure
-- **user_story_examples.md** - User story patterns and examples
-- **metrics_frameworks.md** - Guide to PM metrics (AARRR, HEART, OKRs)
+## Document Info
+| Field | Value |
+|-------|-------|
+| Feature Name | Smart Search with AI Suggestions |
+| Author | [Generated] |
+| Created | 2026-01-24 |
+| Status | Draft |
+| Version | 0.1 |
 
-## Tips for Product Managers
+---
 
-### Before Writing the PRD
+## 1. Overview
 
-1. **Do your research**: User interviews, data analysis, competitive analysis
-2. **Validate the problem**: Ensure it's worth solving
-3. **Check strategic alignment**: Does this fit our roadmap?
-4. **Estimate effort**: Rough t-shirt size with engineering
-5. **Consider alternatives**: Is this the best solution?
+### 1.1 Problem Statement
 
-### During PRD Creation
+Users currently struggle to find relevant content in our application:
+- **40% of searches return zero results** (Analytics, Q4 2025)
+- **Average 3.2 search attempts** before finding desired content
+- **25% abandonment rate** when first search fails
 
-1. **Be clear, not clever**: Simple language wins
-2. **Show, don't tell**: Use examples, mockups, diagrams
-3. **Think edge cases**: What could go wrong?
-4. **Prioritize ruthlessly**: What's MVP vs. nice-to-have?
-5. **Collaborate early**: Don't work in isolation
+This friction leads to user frustration, reduced engagement, and increased churn.
 
-### After PRD Completion
+### 1.2 Opportunity
 
-1. **Review with stakeholders**: Get feedback early
-2. **Iterate based on input**: PRDs are living documents
-3. **Present, don't just share**: Walk through the PRD
-4. **Get formal sign-off**: Ensure commitment
-5. **Keep it updated**: Adjust as understanding evolves
+By implementing AI-powered search suggestions:
+- Reduce zero-result searches by 60%
+- Improve search success rate to first-try resolution
+- Increase content discovery and engagement
+- Differentiate from competitors with smarter search UX
 
-## Examples
+**Business Impact**: Estimated 15% improvement in D30 retention based on correlation analysis.
 
-### Example 1: Mobile Feature PRD
+### 1.3 Target Users
 
-```bash
-# User: "Create a PRD for adding biometric authentication to our iOS app"
+**Primary**: New users (0-30 days)
+- Unfamiliar with content organization
+- Need guidance on what's available
+- Highest abandonment on search failure
 
-# Assistant will:
-# 1. Ask discovery questions about security requirements, user personas, existing auth
-# 2. Generate PRD covering:
-#    - Problem: Password friction, security concerns
-#    - Solution: Face ID / Touch ID integration
-#    - User stories: Enable biometric, fallback to password, settings management
-#    - Metrics: Adoption rate, login success rate, support tickets
-#    - Technical: iOS Keychain, LocalAuthentication framework
-#    - Risks: Device compatibility, user privacy concerns
-# 3. Output formatted markdown PRD
+**Secondary**: Power users
+- Expect efficient search
+- Value time savings
+- Will adopt advanced features
+
+---
+
+## 2. Goals & Success Metrics
+
+### 2.1 Objectives
+
+| Objective | Metric | Target | Timeline |
+|-----------|--------|--------|----------|
+| Reduce search friction | Zero-result rate | < 15% | Launch + 30d |
+| Improve findability | First-try success | > 70% | Launch + 30d |
+| Increase engagement | Search-to-content clicks | +25% | Launch + 60d |
+| Improve retention | D30 retention (searchers) | +5% | Launch + 90d |
+
+### 2.2 Non-Goals
+
+- We will NOT replace the existing basic search (this is an enhancement)
+- We will NOT personalize suggestions in V1 (future iteration)
+- We will NOT support voice search in this release
+
+---
+
+## 3. User Stories & Requirements
+
+### 3.1 User Stories
+
+**US-001: Search Suggestions**
+As a user searching for content,
+I want to see relevant suggestions as I type,
+So that I can find what I'm looking for faster.
+
+**Acceptance Criteria**:
+- [ ] Suggestions appear after 2 characters typed
+- [ ] Maximum 5 suggestions displayed
+- [ ] Suggestions update within 200ms of typing
+- [ ] Clicking suggestion executes search
+
+**US-002: Typo Correction**
+As a user who makes typos,
+I want the search to understand my intent,
+So that I still find relevant results.
+
+**Acceptance Criteria**:
+- [ ] System suggests corrections for misspellings
+- [ ] "Did you mean..." shown when no exact matches
+- [ ] User can click to search corrected term
+
+### 3.2 Functional Requirements
+
+| ID | Requirement | Priority | Notes |
+|----|-------------|----------|-------|
+| FR-001 | Display up to 5 search suggestions | P0 | Ranked by relevance |
+| FR-002 | Support keyboard navigation of suggestions | P0 | Arrow keys, Enter |
+| FR-003 | Show suggestion type (content, category) | P1 | Visual indicator |
+| FR-004 | Handle typos with fuzzy matching | P1 | Levenshtein distance < 2 |
+| FR-005 | Cache popular suggestions | P2 | Performance optimization |
+
+### 3.3 Non-Functional Requirements
+
+**Performance**:
+- Suggestions load in < 200ms (p95)
+- Search index updates within 5 minutes of content changes
+
+**Security**:
+- Suggestions respect user permissions
+- No PII in suggestion logs
+
+**Accessibility**:
+- WCAG 2.1 AA compliant
+- Screen reader support for suggestions
+
+---
+
+## 4. Solution Design
+
+### 4.1 User Experience
+
+[Wireframe link: /designs/smart-search-v1]
+
+**Flow**:
+1. User clicks search box
+2. Recent searches shown (if any)
+3. User types, suggestions appear after 2 chars
+4. Suggestions update with each keystroke
+5. User selects suggestion or presses Enter
+6. Results displayed with matched terms highlighted
+
+### 4.2 Technical Approach
+
+**Search Infrastructure**:
+- Elasticsearch with suggestion capability
+- Prefix matching with boosted scoring
+- Typo tolerance via fuzzy matching
+
+**API**:
+- New endpoint: `GET /api/search/suggest?q={query}`
+- Response time SLA: 200ms p95
+
+### 4.3 Dependencies
+
+| Dependency | Team | Status |
+|------------|------|--------|
+| Elasticsearch upgrade | Platform | Scheduled Q1 |
+| Search UI components | Design System | Available |
+| Analytics tracking | Data | Needs spec |
+
+---
+
+## 5. Launch Plan
+
+### 5.1 Rollout Strategy
+
+1. **Week 1**: Internal dogfooding (employees)
+2. **Week 2**: 5% of users (random sample)
+3. **Week 3**: 25% of users (if metrics positive)
+4. **Week 4**: 100% rollout
+
+### 5.2 Go/No-Go Criteria
+
+- [ ] p95 latency < 200ms in staging
+- [ ] Zero P0 bugs in 5% rollout
+- [ ] Suggestion relevance > 80% (sampled review)
+- [ ] No increase in error rates
+
+### 5.3 Rollback Plan
+
+1. Disable feature flag `smart_search_suggestions`
+2. Revert to basic search (no code change needed)
+3. Notify users of temporary change
+
+---
+
+## 6. Open Questions
+
+| Question | Owner | Due Date | Resolution |
+|----------|-------|----------|------------|
+| ML model vs rule-based for V1? | [Tech Lead] | 2026-01-28 | |
+| How to handle multi-language? | [PM] | 2026-01-30 | |
+
+---
+
+## Appendix
+
+### A. Research & Data
+- User interview synthesis: [Link]
+- Search analytics dashboard: [Link]
+- Competitive analysis: [Link]
+
+### B. Revision History
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 0.1 | 2026-01-24 | [Generated] | Initial draft |
 ```
 
-### Example 2: Web Platform Enhancement
+## Integration with Babysitter SDK
 
-```bash
-# User: "Write requirements for improving our checkout flow conversion"
+### Task Definition Example
+```javascript
+const prdGenerationTask = defineTask({
+  name: 'generate-prd',
+  description: 'Generate PRD from feature specification',
 
-# Assistant will:
-# 1. Gather data on current conversion rates and drop-off points
-# 2. Generate PRD including:
-#    - Current state analysis with metrics
-#    - Proposed improvements (guest checkout, saved payment, progress indicator)
-#    - A/B test plan
-#    - Success metrics: Conversion rate increase, time to checkout
-#    - User stories for each improvement
-# 3. Include phased rollout approach
+  inputs: {
+    feature: { type: 'object', required: true },
+    template: { type: 'string', default: 'standard' },
+    sections: { type: 'array', default: ['all'] },
+    includeTechnical: { type: 'boolean', default: true }
+  },
+
+  outputs: {
+    prd: { type: 'string' },
+    metadata: { type: 'object' },
+    openQuestions: { type: 'array' }
+  },
+
+  async run(inputs, taskCtx) {
+    return {
+      kind: 'skill',
+      title: `Generate PRD for ${inputs.feature.name}`,
+      skill: {
+        name: 'prd-generator',
+        context: {
+          operation: 'generate',
+          feature: inputs.feature,
+          template: inputs.template,
+          sections: inputs.sections,
+          includeTechnical: inputs.includeTechnical
+        }
+      },
+      io: {
+        inputJsonPath: `tasks/${taskCtx.effectId}/input.json`,
+        outputJsonPath: `tasks/${taskCtx.effectId}/result.json`
+      }
+    };
+  }
+});
 ```
 
-### Example 3: B2B Product PRD
+## Output Formats
 
-```bash
-# User: "I need a PRD for an admin dashboard for enterprise customers"
-
-# Assistant will:
-# 1. Identify B2B-specific requirements (multi-tenancy, permissions, reporting)
-# 2. Generate comprehensive PRD with:
-#    - Enterprise user personas (admin, manager, analyst)
-#    - Role-based access control requirements
-#    - Reporting and analytics needs
-#    - Integration requirements (SSO, SCIM)
-#    - Success metrics: Customer adoption, admin efficiency
-# 3. Include enterprise-specific considerations (compliance, SLAs)
+### PRD Export Options
+```yaml
+Formats:
+  - Markdown (.md)
+  - Google Docs (via API)
+  - Confluence (via API)
+  - Notion (via API)
+  - PDF (via converter)
 ```
 
-## Troubleshooting
+### Structured JSON Export
+```json
+{
+  "prd": {
+    "metadata": {
+      "title": "Smart Search with AI Suggestions",
+      "version": "0.1",
+      "status": "draft",
+      "created": "2026-01-24",
+      "author": "PM Name"
+    },
+    "sections": {
+      "overview": {...},
+      "goals": {...},
+      "requirements": {...},
+      "design": {...},
+      "launch": {...}
+    }
+  },
+  "validation": {
+    "completeness": 0.85,
+    "missingSections": ["competitive_analysis"],
+    "warnings": ["No wireframes linked"]
+  }
+}
+```
 
-**Issue: PRD is too long/detailed**
+## Best Practices
 
-Solution: Create a "Lean PRD" focusing on problem, solution, acceptance criteria, and metrics. Reserve full PRD for major initiatives.
+1. **Start with Problem**: Always anchor PRD in user/business problem
+2. **Be Specific on Metrics**: Vague goals lead to vague outcomes
+3. **Include Non-Goals**: Explicitly state what you won't do
+4. **Link to Research**: Reference supporting data
+5. **Define Success Clearly**: How will you know this worked?
+6. **Plan for Failure**: Include rollback and contingency plans
 
-**Issue: Requirements are too vague**
+## Common Pitfalls
 
-Solution: Add specific examples, use concrete numbers, include visual references. Replace "fast" with "loads in under 2 seconds."
+1. **Solution-First Thinking**: Start with problem, not solution
+2. **Missing Metrics**: Every PRD needs measurable goals
+3. **Scope Creep**: Use non-goals to prevent creep
+4. **Vague Requirements**: Be specific and testable
+5. **Missing Dependencies**: Identify blockers early
 
-**Issue: Stakeholders not aligned**
+## References
 
-Solution: Share PRD early as draft, incorporate feedback, present in person, get explicit sign-off before development starts.
-
-**Issue: Scope keeps expanding**
-
-Solution: Use "Out of Scope" section aggressively, create separate PRDs for future phases, tie scope to timeline constraints.
-
-**Issue: Engineers say it's not feasible**
-
-Solution: Involve engineering earlier in process, be flexible on solution approach, focus on problem not implementation.
-
-## Best Practices Summary
-
-1. **Start with the problem, not the solution**
-2. **Write for your audience** (execs need summary, engineers need details)
-3. **Be specific and measurable** (avoid vague language)
-4. **Include visuals** (mockups, diagrams, flows)
-5. **Define success upfront** (metrics, not features)
-6. **Scope aggressively** (MVP mentality)
-7. **Collaborate, don't dictate** (get input from all functions)
-8. **Keep it updated** (PRD is a living document)
-9. **Focus on "why" and "what", not "how"** (let engineers solve "how")
-10. **Make it skimmable** (headers, bullets, summaries)
+- [ChatPRD MCP Integration](https://www.chatprd.ai/resources/PRD-for-Claude-Code)
+- [prd-dxt Plugin](https://github.com/Njengah/prd-dxt)
+- [GitHub Project Manager MCP](https://github.com/Faresabdelghany/github-project-manager-mcp)
+- [Notion MCP Server](https://github.com/makenotion/notion-mcp-server)
+- [Product Manager Toolkit](https://github.com/alirezarezvani/claude-skills)

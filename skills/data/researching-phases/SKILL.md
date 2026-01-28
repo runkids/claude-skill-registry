@@ -1,7 +1,8 @@
 ---
 name: researching-phases
 description: Use this skill when researching how to implement a phase standalone, investigating implementation approaches before planning, or re-researching after planning is complete. Triggers include "research phase", "investigate phase", "how to implement", "research implementation", and "phase research".
-version: 0.1.0
+metadata:
+  version: "0.1.0"
 user-invocable: false
 disable-model-invocation: false
 allowed-tools:
@@ -154,7 +155,7 @@ Write to: .planning/phases/${PHASE}-{slug}/${PHASE}-RESEARCH.md
 ```
 Task(
   prompt=filled_prompt,
-  subagent_type="kata:kata-phase-researcher",
+  subagent_type="kata-phase-researcher",
   model="{researcher_model}",
   description="Research Phase {phase}"
 )
@@ -188,7 +189,7 @@ Research file: @.planning/phases/${PHASE}-{slug}/${PHASE}-RESEARCH.md
 ```
 Task(
   prompt=continuation_prompt,
-  subagent_type="kata:kata-phase-researcher",
+  subagent_type="kata-phase-researcher",
   model="{researcher_model}",
   description="Continue research Phase {phase}"
 )

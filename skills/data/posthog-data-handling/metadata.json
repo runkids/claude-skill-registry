@@ -1,9 +1,7 @@
 {
   "name": "posthog-data-handling",
-  "description": "Implement PostHog PII handling, data retention, and GDPR/CCPA compliance patterns.\nUse when handling sensitive data, implementing data redaction, configuring retention policies,\nor ensuring compliance",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+  "path": "plugins/saas-packs/posthog-pack/skills/posthog-data-handling/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-28T02:27:41.187738Z"
 }

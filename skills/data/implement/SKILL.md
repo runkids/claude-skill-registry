@@ -1,295 +1,198 @@
 ---
 name: implement
-description: "Execute implementation workflow phase by phase. Use after analysis passes. Triggers on: start implementation, implement feature, begin coding."
+version: 3.1.0
+description: 多 Agent 監督式實作框架 - TDD 驅動、即時審查、品質守護
+triggers: [multi-implement, parallel-implement, 監督實作]
+context: fork
+agent: general-purpose
+allowed-tools: [Read, Write, Edit, Bash, Grep, Glob]
+model: sonnet
 ---
 
-# Implementation Workflow Executor
+# Multi-Agent Implement v3.0.0
 
-Guide systematic implementation of features using TDD and quality-first approach.
+> TDD 閘門 → 並行實作 → 即時審查 → 品質守護
 
-> **Note:** This skill uses generic placeholders. Adapt commands and paths to your project:
-> - Quality commands: Check your `package.json`, `Makefile`, or build config
-> - File paths: Adjust based on your project structure
-> - Examples show common conventions - your project may differ
-
----
-
-## SpecKit Workflow
-
-This skill is **Step 6 of 6** in the Relentless workflow:
-
-specify → plan → tasks → convert → analyze → **implement**
-
-Prerequisites:
-- `spec.md` - Feature specification
-- `plan.md` - Technical implementation plan
-- `tasks.md` - User stories with acceptance criteria
-- `prd.json` - Converted PRD with routing metadata
-- `checklist.md` - Quality validation checklist
-- Analysis must PASS (run `/relentless.analyze` first)
-
----
-
-## The Job
-
-Implement user stories one at a time, following strict TDD and updating all tracking files.
-
----
-
-## Before You Start
-
-1. **Read the Constitution** - Review your project's constitution (if exists) for governance principles
-2. **Read prompt.md** - Review workflow guidelines (if exists)
-3. **Read progress.txt** - Check learnings from previous iterations
-4. **Review artifacts** - Ensure spec.md, plan.md, tasks.md, prd.json, checklist.md exist
-5. **Verify Analysis Passed** - Run `/relentless.analyze` if not already done
-6. **Identify Quality Commands** - Find your project's typecheck, lint, and test commands
-7. **Check Branch** - Verify you're on the correct branch from PRD `branchName`
-
----
-
-## CRITICAL: Quality Gates (Non-Negotiable)
-
-Before marking ANY story as complete, ALL quality checks must pass.
-
-**Find your project's commands** (examples for different ecosystems):
+## 使用方式
 
 ```bash
-# JavaScript/TypeScript (npm/yarn/bun/pnpm):
-npm run typecheck && npm run lint && npm test
-
-# Python:
-mypy . && ruff check . && pytest
-
-# Go:
-go build ./... && golangci-lint run && go test ./...
-
-# Rust:
-cargo check && cargo clippy && cargo test
+/multi-implement [任務路徑]
+/multi-implement .claude/memory/tasks/user-auth/tasks.yaml
 ```
 
-**Requirements:**
-- Typecheck: 0 errors
-- Lint: 0 errors AND 0 warnings
-- Tests: All pass
+**Flags**: `--from-tasks ID` | `--skip-tdd-check` | `--parallel N`
 
-**If ANY check fails, DO NOT mark the story as complete. Fix the issues first.**
+## 角色配置
 
----
+| ID | 名稱 | 模型 | 聚焦 |
+|----|------|------|------|
+| `main_agent` | 主實作者 | sonnet | 功能實作 |
+| `tdd-enforcer` | TDD 守護者 | haiku | 測試先行檢查 |
+| `security-auditor` | 安全審計員 | sonnet | 安全漏洞檢測 |
+| `maintainer` | 可維護性審查 | haiku | 程式碼品質 |
 
-## TDD Workflow (MANDATORY)
+→ 模型路由配置：[shared/config/model-routing.yaml](../../shared/config/model-routing.yaml)
 
-For EVERY story, follow strict Test-Driven Development:
+## 執行流程
 
-### Step 1: Write Failing Tests First (RED)
+```
+Phase 0: 載入任務 → 解析 tasks.yaml、排序 waves
+    ↓
+For each task in waves:
+    ↓
+    Phase 1: TDD 閘門（PRE-TASK）
+    ├── 測試檔案存在？
+    ├── 測試可執行？
+    └── ❌ 失敗 → BLOCKER，無法繼續
+    ↓
+    Phase 2: 並行實作 + 審查
+    ┌──────────┬──────────┬──────────┐
+    │ 主實作者 │安全審計員│可維護性  │
+    └──────────┴──────────┴──────────┘
+    ↓
+    Phase 3: TDD 閘門（POST-TASK）
+    ├── 測試通過？
+    └── 覆蓋率達標？
+    ↓
+    Phase 4: 自我審查 + 提交
+    ↓
+End for
+    ↓
+Phase 5: 品質閘門 → 整體驗證
+```
+
+## TDD 強制閘門
+
+**Pre-Task Gate（BLOCKER）**：
+- 測試檔案必須存在
+- 測試必須可執行（即使失敗）
+
+**Post-Task Gate（BLOCKER）**：
+- 測試必須通過
+- 覆蓋率 ≥ 80%
+
+**驗證腳本**：`shared/tools/tdd-validator.sh`
+
+→ 配置：[shared/quality/tdd-enforcement.yaml](../../shared/quality/tdd-enforcement.yaml)
+
+## 安全審計
+
+使用 OWASP Top 10 和 CWE Top 25 框架：
+- SQL Injection
+- XSS
+- 認證/授權問題
+- 敏感資料處理
+
+→ 框架：[shared/perspectives/expertise-frameworks/security.yaml](../../shared/perspectives/expertise-frameworks/security.yaml)
+
+## CP4: Task Commit
+
+**每個 task 完成後**必須執行 CP4 Task Commit（增量 commit）。
+
+```
+Phase 4: 自我審查 + 提交
+    ↓
+CP4: Task Commit（每個 task）
+    ├── git add {changed_files}
+    ├── git add .claude/memory/implement/{id}/task-results/{task-id}.yaml
+    └── git commit -m "feat(implement): complete {task-id} - {description}"
+```
+
+**注意**：implement skill 的 CP4 是增量觸發，每個 task 完成後都會 commit，確保進度不會丟失。
+
+→ 協議：[shared/git/commit-protocol.md](../../shared/git/commit-protocol.md)
+
+## 品質閘門
+
+通過條件（IMPLEMENT 階段）：
+- ✅ 所有任務完成
+- ✅ 測試通過
+- ✅ 無 BLOCKER 問題
+- ✅ 品質分數 ≥ 80
+
+→ 閘門配置：[shared/quality/gates.yaml](../../shared/quality/gates.yaml)
+
+## 輸出結構
+
+```
+.claude/memory/implement/[tasks-id]/
+├── meta.yaml               # 元數據
+├── perspectives/           # 角色分析報告（並行審查產出，保留）
+│   ├── security-auditor.md     # 安全審計完整報告
+│   └── maintainer.md           # 可維護性完整報告
+├── summaries/              # 結構化摘要（供快速查閱）
+│   ├── security-auditor.yaml
+│   └── maintainer.yaml
+├── task-results/           # 每個任務的結果
+│   ├── T-F-001.yaml
+│   └── T-F-002.yaml
+├── security-report.md      # 安全審計報告（匯總）
+├── coverage-report.md      # 覆蓋率報告
+└── summary.md              # 實作摘要（主輸出）
+```
+
+> ⚠️ perspectives/ 保存完整角色分析，summaries/ 保存結構化摘要。
+
+## Agent 能力限制
+
+**審查 Agent 不應該開啟 Task**：
+
+| 允許的操作 | 說明 |
+|-----------|------|
+| ✅ Read | 讀取程式碼 |
+| ✅ Glob/Grep | 搜尋檔案和內容 |
+| ✅ Bash | 執行測試 |
+| ✅ Write | 寫入報告 |
+| ❌ Task | 開子 Agent |
+
+## 行動日誌
+
+每個工具調用完成後，記錄到 `.claude/workflow/{workflow-id}/logs/actions.jsonl`。
+
+**記錄時機**：
+- 成功：記錄 `tool`、`input`、`output_preview`、`duration_ms`、`status: success`
+- 失敗：記錄 `tool`、`input`、`error`、`stderr`（如有）、`status: failed`
+
+**關鍵行動（IMPLEMENT 階段）**：
+| 行動 | 記錄重點 |
+|------|----------|
+| Read（讀取現有程式碼） | `file_path`、`output_size` |
+| Edit（修改程式碼） | `file_path`、`old_string` (truncated)、`new_string` (truncated) |
+| Write（建立新檔案） | `file_path`、`content_size` |
+| Bash（執行測試） | `command`、`exit_code`、`stdout`、`stderr` |
+| Task（啟動審查 Agent） | `subagent_type`、`prompt` (truncated)、`agent_id` |
+
+**排查問題**：
 ```bash
-# Create test file if needed
-# Write tests that define expected behavior
-# Run your test command - tests MUST fail initially
+# 查看 IMPLEMENT 階段所有失敗行動
+jq 'select(.stage == "IMPLEMENT" and .status == "failed")' actions.jsonl
+
+# 查看測試失敗的詳情
+jq 'select(.tool == "Bash" and .input.command | contains("test"))' actions.jsonl | jq '{command: .input.command, exit_code: .exit_code, stderr: .stderr}'
+
+# 查看 Edit 操作失敗（找不到 old_string）
+jq 'select(.tool == "Edit" and .status == "failed")' actions.jsonl
 ```
 
-### Step 2: Implement Minimum Code (GREEN)
-```bash
-# Write only enough code to pass tests
-# Run tests - they MUST pass now
+→ 日誌規範：[shared/communication/execution-logs.md](../../shared/communication/execution-logs.md)
+
+## 共用模組
+
+| 模組 | 用途 |
+|------|------|
+| [coordination/map-phase.md](../../shared/coordination/map-phase.md) | 並行協調 |
+| [quality/tdd-enforcement.yaml](../../shared/quality/tdd-enforcement.yaml) | TDD 強制 |
+| [quality/gates.yaml](../../shared/quality/gates.yaml) | 品質閘門 |
+| [perspectives/expertise-frameworks/security.yaml](../../shared/perspectives/expertise-frameworks/security.yaml) | 安全框架 |
+| [tools/tdd-validator.sh](../../shared/tools/tdd-validator.sh) | TDD 驗證器 |
+
+## 工作流位置
+
+```
+RESEARCH → PLAN → TASKS → IMPLEMENT → REVIEW → VERIFY
+                              ↑
+                           你在這裡
 ```
 
-### Step 3: Refactor
-```bash
-# Clean up while keeping tests green
-# Run tests - they MUST still pass
-```
-
-**Do NOT skip TDD. Tests are contracts that validate your implementation.**
-
----
-
-## Research Phase (if story has `research: true`)
-
-If the current story has `research: true` in prd.json and no research file exists yet:
-
-1. **Explore the codebase** - Find relevant files, patterns, and dependencies
-2. **Document findings** in `relentless/features/<feature>/research/<story-id>.md`:
-   - Existing patterns that should be followed
-   - Files that will likely need modification
-   - Dependencies and integration points
-   - Potential gotchas or edge cases
-   - Recommended implementation approach
-3. **Do NOT implement** - only research and document
-4. Save your findings to the research file and end your turn
-
----
-
-## Per-Story Implementation Flow
-
-For each story (in dependency order):
-
-### 1. Identify the Story
-- Read `prd.json` to find the next story where `passes: false`
-- Check dependencies are met (dependent stories have `passes: true`)
-- Read the story's acceptance criteria
-- Check routing metadata (complexity, model assigned)
-
-### 2. Find Relevant Checklist Items
-- Open `checklist.md`
-- Find items tagged with `[US-XXX]` for this story
-- Note any governance/compliance items
-- **Ensure Quality Gates and TDD items are included**
-
-### 3. Implement with TDD
-Follow the TDD workflow above for each acceptance criterion.
-
-### 4. Update tasks.md
-As you complete each criterion:
-```markdown
-# Change from:
-- [ ] Criterion text
-
-# To:
-- [x] Criterion text
-```
-
-### 5. Update checklist.md
-For each verified checklist item:
-```markdown
-# Change from:
-- [ ] CHK-XXX [US-001] Description
-
-# To:
-- [x] CHK-XXX [US-001] Description
-```
-
-### 6. Run Quality Checks
-```bash
-# Run your project's quality commands
-# All must pass with 0 errors/warnings
-```
-
-### 7. Commit Changes
-```bash
-git add -A
-git commit -m "feat: US-XXX - Story Title"
-```
-
-### 8. Update prd.json
-Set the story's `passes` field to `true`:
-```json
-{
-  "id": "US-001",
-  "title": "...",
-  "passes": true,  // <- Change from false to true
-  ...
-}
-```
-
-### 9. Update progress.txt
-Append progress entry:
-```markdown
-## [Date] - US-XXX: Story Title
-
-**Implemented:**
-- What was built
-- Key decisions made
-
-**Files Changed:**
-- path/to/file (new/modified)
-
-**Tests Added:**
-- path/to/test.file
-
-**Learnings:**
-- Patterns discovered
-- Gotchas encountered
-
-**Constitution Compliance:**
-- [list principles followed]
-
----
-```
-
----
-
-## Check for Queued Prompts
-
-Between iterations, check `.queue.txt` for user input:
-
-```bash
-# If .queue.txt exists, read and process it
-# Acknowledge in progress.txt
-# Process in FIFO order
-```
-
----
-
-## File Update Summary
-
-After completing each story, these files MUST be updated:
-
-| File | Update |
-|------|--------|
-| `tasks.md` | Check off `- [x]` completed acceptance criteria |
-| `checklist.md` | Check off `- [x]` verified checklist items |
-| `prd.json` | Set `"passes": true` for the story |
-| `progress.txt` | Append progress entry with learnings |
-
----
-
-## Implementation Phases
-
-### Phase 0: Setup
-- Infrastructure, tooling, configuration
-- Usually US-001 type stories
-
-### Phase 1: Foundation
-- Data models, types, schemas
-- Base utilities and helpers
-- Core infrastructure
-
-### Phase 2: User Stories
-- Feature implementation
-- Follow dependency order strictly
-
-### Phase 3: Polish
-- E2E tests
-- Documentation
-- Performance optimization
-
----
-
-## Stop Condition
-
-After completing a user story, check if ALL stories have `passes: true`.
-
-**If ALL stories are complete and passing, output:**
-```
-<promise>COMPLETE</promise>
-```
-
-**If there are still stories with `passes: false`, end your response normally** (another iteration will pick up the next story).
-
----
-
-## Common Pitfalls to Avoid
-
-1. **Skipping TDD** - Never implement without tests first
-2. **Suppressing lints** - Fix issues properly, don't disable rules
-3. **Large commits** - Keep commits focused and atomic
-4. **Missing typecheck** - Always run typecheck before commit
-5. **Ignoring progress.txt** - Read learnings from previous iterations
-6. **Not checking queue** - Always check `.queue.txt` for user input
-7. **Skipping analysis** - Run `/relentless.analyze` before implementing
-8. **Ignoring routing metadata** - Check story complexity and model assignment
-
----
-
-## Notes
-
-- Work on ONE story at a time
-- Follow dependency order strictly
-- Never skip TDD - tests come FIRST
-- Never skip quality checks
-- Commit after each story
-- Update ALL tracking files
-- Check `.queue.txt` for mid-run input
-- This is a guided workflow for systematic implementation
-- **Adapt all commands and paths to your project's specific setup**
+- **輸入**：`tasks.yaml` 來自 `tasks` skill
+- **輸出**：已實作的程式碼，供 `review` skill 審查

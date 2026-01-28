@@ -1,9 +1,7 @@
 {
   "name": "convert-c-cpp",
-  "description": "Convert C code to idiomatic C++. Use when migrating C projects to C++, translating C patterns to modern C++ idioms, or refactoring C codebases into C++. Extends meta-convert-dev with C-to-C++ specific",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-c-cpp/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:44.789859Z"
 }

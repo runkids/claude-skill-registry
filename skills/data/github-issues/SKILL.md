@@ -1,510 +1,389 @@
 ---
-name: github-issues
-description: Guide for GitHub issue management including epics, sub-issues, milestones, and relationships. Use when creating issues, organizing work into epics, linking related issues, or using gh CLI and GraphQL API for issue operations.
-allowed-tools: Bash, Read, Grep, Glob
+name: agent-github-issues
+description: GitHub Issues expert for gh issue create, gh issue list, labels, milestones, epics, features, tasks, bugs, priorities, mvp-blocker, critical, high-priority, issue tracking, project management, issue queries, workflows, acceptance criteria, task breakdown
+allowed-tools: Read, Bash
 ---
 
-# GitHub Issues Management
+# GitHub Issues Management Skill
 
-Use this skill when working with GitHub issues, epics, milestones, and issue relationships. Covers `gh` CLI usage, GraphQL API for advanced operations, and best practices for issue organization.
+Expert in GitHub Issues organization and workflow management.
 
-## Tool Selection
+## When to Use This Skill
 
-| Task                      | Preferred Tool        | Notes                                |
-| ------------------------- | --------------------- | ------------------------------------ |
-| Create/edit/close issues  | `gh issue` CLI        | Simple, reliable                     |
-| Add labels, milestones    | `gh issue edit`       | Use `--add-label`, `--milestone`     |
-| Sub-issues (parent/child) | GraphQL `addSubIssue` | Progress tracking on epics           |
-| List/search issues        | `gh issue list`       | Filter with `--label`, `--milestone` |
-| Complex queries           | `gh api graphql`      | For relationships, bulk operations   |
-| View issue details        | `gh issue view`       | Add `--json` for structured data     |
+Use this skill when:
 
-> **Note:** The GitHub MCP server has authentication issues. Always prefer `gh` CLI via Bash.
+- Creating new issues (bugs, features, tasks)
+- Organizing issues with labels and milestones
+- Querying and filtering work items
+- Tracking project progress
+- Managing issue lifecycle
 
-## Quick Reference Commands
+## Issue Creation Workflow
 
-### Basic Issue Operations
+### 1. Determine Issue Type
 
-```bash
-# Create issue with milestone and labels
-gh issue create --repo OWNER/REPO \
-  --title "Issue title" \
-  --body "Issue body" \
-  --milestone "v0.9 - Creation Complete" \
-  --label "security" --label "enhancement"
+**Epic** - Large initiative spanning multiple features (weeks/months)
 
-# Edit existing issue
-gh issue edit ISSUE_NUMBER --repo OWNER/REPO \
-  --add-label "epic" \
-  --milestone "v0.9 - Creation Complete"
+- Label: `epic`
+- Create milestone for tracking
+- Examples: "User Management System", "Analytics Dashboard"
 
-# List issues by milestone
-gh issue list --repo OWNER/REPO --milestone "v0.9 - Creation Complete"
+**Feature** - User-facing functionality (days to 2 weeks)
 
-# List issues by label
-gh issue list --repo OWNER/REPO --label "security"
+- Label: `feature`
+- Link to epic milestone
+- Examples: "Password Reset Flow", "Export Reports"
 
-# View issue details
-gh issue view ISSUE_NUMBER --repo OWNER/REPO
+**Task** - Technical implementation work (hours to 3 days)
 
-# Close issue
-gh issue close ISSUE_NUMBER --repo OWNER/REPO
-```
+- Label: `task`
+- Add area labels: `frontend`, `backend`, `database`
+- Reference parent feature: "Part of #XXX"
+- Examples: "Create users table", "Build login form"
 
-### Creating Issues with Heredoc (for complex bodies)
+**Bug** - Defect or broken functionality
+
+- Label: `bug`
+- Add priority: `critical`, `high-priority`, `mvp-blocker`
+- Include reproduction steps
+
+### 2. Create Issue with Proper Structure
 
 ```bash
-gh issue create --repo OWNER/REPO \
-  --title "[EPIC] Feature Name" \
-  --milestone "v0.9 - Creation Complete" \
-  --label "epic" \
-  --body "$(cat <<'EOF'
-## Overview
-Description here.
-
-## Sub-tasks
-- [ ] Task 1
-- [ ] Task 2
-
-## Acceptance Criteria
-- [ ] Criterion 1
-EOF
-)"
-```
-
-## Epic Management
-
-### Epic Structure
-
-Epics are regular issues with:
-
-1. `epic` label
-2. `[EPIC]` prefix in title
-3. Checklist of child issues in body
-4. Sub-issues linked via GraphQL API (provides progress tracking)
-
-### Creating an Epic with Children
-
-```bash
-# 1. Create the epic issue
-EPIC_URL=$(gh issue create --repo OWNER/REPO \
-  --title "[EPIC] Feature Name" \
-  --label "epic" --label "enhancement" \
-  --milestone "v0.9 - Creation Complete" \
-  --body "$(cat <<'EOF'
-## Overview
-Epic description.
-
-## Child Issues
-- [ ] #TBD - First task
-- [ ] #TBD - Second task
-
-## Acceptance Criteria
-- [ ] All child issues completed
-EOF
-)")
-EPIC_NUM=$(echo $EPIC_URL | grep -oE '[0-9]+$')
-
-# 2. Create child issues (reference the epic)
-gh issue create --repo OWNER/REPO \
-  --title "First task" \
-  --milestone "v0.9 - Creation Complete" \
-  --body "## Parent Epic
-Part of #$EPIC_NUM"
-
-# 3. Link as sub-issues (see Sub-Issues section below)
-```
-
-## Sub-Issues (Parent/Child Relationships)
-
-GitHub's sub-issues feature provides:
-
-- Progress tracking (X of Y completed) shown as badge
-- Visual hierarchy in issue view
-- Automatic progress bar on epic
-
-### Getting Issue Node IDs
-
-```bash
-# Get node ID for a single issue
-gh api graphql -f query='
-query {
-  repository(owner: "OWNER", name: "REPO") {
-    issue(number: ISSUE_NUMBER) {
-      id
-      number
-      title
-    }
-  }
-}' --jq '.data.repository.issue.id'
-
-# Get multiple issue IDs
-for num in 168 169 170; do
-  gh api graphql -f query="
-    query {
-      repository(owner: \"OWNER\", name: \"REPO\") {
-        issue(number: $num) {
-          id
-          number
-        }
-      }
-    }" --jq ".data.repository.issue | \"\(.number): \(.id)\""
-done
-```
-
-### Adding Sub-Issues
-
-```bash
-EPIC_ID="I_kwDO..."  # Parent issue node ID
-CHILD_ID="I_kwDO..." # Child issue node ID
-
-gh api graphql -f query="
-mutation {
-  addSubIssue(input: {issueId: \"$EPIC_ID\", subIssueId: \"$CHILD_ID\"}) {
-    issue {
-      number
-    }
-    subIssue {
-      number
-    }
-  }
-}"
-```
-
-### Bulk Add Sub-Issues
-
-```bash
-EPIC_ID="I_kwDO..."
-
-for CHILD_ID in I_kwDO...1 I_kwDO...2 I_kwDO...3; do
-  gh api graphql -f query="
-    mutation {
-      addSubIssue(input: {issueId: \"$EPIC_ID\", subIssueId: \"$CHILD_ID\"}) {
-        issue { number }
-        subIssue { number }
-      }
-    }" 2>&1 | head -1
-done
-```
-
-### Removing Sub-Issues
-
-```bash
-gh api graphql -f query="
-mutation {
-  removeSubIssue(input: {issueId: \"$EPIC_ID\", subIssueId: \"$CHILD_ID\"}) {
-    issue { number }
-    subIssue { number }
-  }
-}"
-```
-
-### Querying Sub-Issues
-
-```bash
-gh api graphql -f query='
-query {
-  repository(owner: "OWNER", name: "REPO") {
-    issue(number: EPIC_NUMBER) {
-      title
-      subIssues(first: 50) {
-        nodes {
-          number
-          title
-          state
-        }
-      }
-      subIssuesSummary {
-        total
-        completed
-        percentCompleted
-      }
-    }
-  }
-}' --jq '.data.repository.issue'
-```
-
-## Relationship Types
-
-| Type                      | API Support                 | UI Location                        | How to Add  |
-| ------------------------- | --------------------------- | ---------------------------------- | ----------- |
-| Sub-issues (parent/child) | `addSubIssue` mutation      | Progress badge, Sub-issues section | GraphQL API |
-| Tracked by/Tracks         | Read-only (`trackedIssues`) | Relationships sidebar              | **UI only** |
-| Blocking/Blocked by       | Read-only                   | Relationships sidebar              | **UI only** |
-| Duplicate of              | `markIssueAsDuplicate`      | Issue banner                       | GraphQL API |
-
-> **Important:** "Tracked by" and "Blocking" relationships can only be added via GitHub web UI, not via API.
-
-## Labels and Milestones
-
-### List Available Labels
-
-```bash
-gh label list --repo OWNER/REPO
-```
-
-### Create Label
-
-```bash
-gh label create "security" --repo OWNER/REPO \
-  --description "Security-related issues" \
-  --color "FF0000"
-```
-
-### List Milestones
-
-```bash
-gh api repos/OWNER/REPO/milestones --jq '.[] | "\(.number): \(.title)"'
-```
-
-### Create Milestone
-
-```bash
-gh api repos/OWNER/REPO/milestones \
-  --method POST \
-  -f title="v1.0 - Release" \
-  -f description="First major release" \
-  -f due_on="2024-12-31T23:59:59Z"
-```
-
-## Issue Templates
-
-### Security Issue Template
-
-```markdown
-## Parent Epic
-
-Part of #EPIC_NUMBER - Epic Title
-
-## Priority
-
-**HIGH/MEDIUM/LOW** - Brief rationale (Priority X of Y)
-
-## Problem
-
-Description of the security issue.
-
-\`\`\`typescript
-// Code showing the problem
-\`\`\`
-
-## Risk
-
-- Bullet points of risks
-
-## Solution
-
-Proposed fix with code examples.
-
-## Files to Modify
-
-- \`path/to/file.ts\` - Description of changes
-
-## Acceptance Criteria
-
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Unit tests added
-```
-
-### Feature Issue Template
-
-```markdown
-## Overview
-
-Brief description of the feature.
-
-## User Story
-
-As a [role], I want [feature] so that [benefit].
+# Create feature
+gh issue create \
+  --title "Feature: User Profile Management" \
+  --body "## Description
+Allow users to view and edit their profile information.
 
 ## Requirements
-
-- Requirement 1
-- Requirement 2
-
-## Technical Design
-
-Implementation approach.
-
-## Files to Create/Modify
-
-- \`path/to/file.ts\` - Description
+- View profile page with user details
+- Edit form for updating information
+- Email verification for email changes
+- Avatar upload functionality
 
 ## Acceptance Criteria
+- [ ] Users can view their profile
+- [ ] Users can edit first/last name
+- [ ] Email changes require verification
+- [ ] Avatar uploads work with image validation
+- [ ] All changes persist correctly
 
-- [ ] Criterion 1
-- [ ] Criterion 2
+## Tasks
+Will be broken down into implementation tasks." \
+  --label "feature" \
+  --milestone "MVP Launch"
 ```
-
-## GraphQL API Reference
-
-### Available Issue Fields
-
-```graphql
-query {
-  repository(owner: "OWNER", name: "REPO") {
-    issue(number: NUMBER) {
-      id # Node ID for mutations
-      number
-      title
-      body
-      state # OPEN, CLOSED
-      stateReason # COMPLETED, NOT_PLANNED, REOPENED
-      labels(first: 10) {
-        nodes {
-          name
-        }
-      }
-      milestone {
-        title
-      }
-      assignees(first: 5) {
-        nodes {
-          login
-        }
-      }
-
-      # Relationships
-      parent {
-        number
-        title
-      }
-      subIssues(first: 50) {
-        nodes {
-          number
-          title
-          state
-        }
-      }
-      subIssuesSummary {
-        total
-        completed
-        percentCompleted
-      }
-      trackedIssues(first: 10) {
-        nodes {
-          number
-        }
-      }
-      trackedInIssues(first: 10) {
-        nodes {
-          number
-        }
-      }
-    }
-  }
-}
-```
-
-### Available Mutations
-
-| Mutation                  | Purpose                  |
-| ------------------------- | ------------------------ |
-| `createIssue`             | Create new issue         |
-| `updateIssue`             | Update issue fields      |
-| `closeIssue`              | Close an issue           |
-| `reopenIssue`             | Reopen closed issue      |
-| `addSubIssue`             | Link child to parent     |
-| `removeSubIssue`          | Unlink child from parent |
-| `reprioritizeSubIssue`    | Reorder sub-issues       |
-| `pinIssue` / `unpinIssue` | Pin/unpin to repo        |
-| `markIssueAsDuplicate`    | Mark as duplicate        |
-
-## Best Practices
-
-### Epic Organization
-
-1. Use `[EPIC]` prefix for easy identification
-2. Add `epic` label
-3. List all child issues in epic body with checkboxes
-4. Link sub-issues via GraphQL for progress tracking
-5. Update epic body when adding/completing child issues
-
-### Issue Hygiene
-
-1. Always assign to a milestone
-2. Use consistent label taxonomy
-3. Reference parent epic in child issue body (`Part of #123`)
-4. Keep issue bodies updated as work progresses
-5. Close issues with reason (completed vs not planned)
-
-### Bulk Operations
-
-1. Get all node IDs first, then loop mutations
-2. Use `--jq` for clean output parsing
-3. Check for errors in mutation responses
-4. Consider rate limits for large operations (5000 points/hour)
-
-## Common Patterns
-
-### Complete Epic Workflow
 
 ```bash
-REPO="Jasrags/ShadowMaster"
-MILESTONE="v0.9 - Creation Complete"
+# Create task
+gh issue create \
+  --title "Task: Create user profiles database table" \
+  --body "## Description
+Create database migration for user profiles table.
 
-# 1. Create epic
-EPIC_URL=$(gh issue create --repo $REPO \
-  --title "[EPIC] New Feature" \
-  --label "epic" \
-  --milestone "$MILESTONE" \
-  --body "## Overview
-Feature description.
+Part of #105 (User Profile Management)
 
-## Child Issues
-(to be added)")
-EPIC_NUM=$(echo $EPIC_URL | grep -oE '[0-9]+$')
-echo "Created epic #$EPIC_NUM"
+## Requirements
+- Add firstName, lastName, avatarUrl columns to users table
+- Create migration file with idempotency
+- Update init.sql
 
-# 2. Create child issues
-CHILD1=$(gh issue create --repo $REPO --title "Task 1" --milestone "$MILESTONE" \
-  --body "Part of #$EPIC_NUM" | grep -oE '[0-9]+$')
-CHILD2=$(gh issue create --repo $REPO --title "Task 2" --milestone "$MILESTONE" \
-  --body "Part of #$EPIC_NUM" | grep -oE '[0-9]+$')
-
-# 3. Get node IDs
-EPIC_ID=$(gh api graphql -f query="query { repository(owner:\"${REPO%/*}\", name:\"${REPO#*/}\") { issue(number:$EPIC_NUM) { id } } }" --jq '.data.repository.issue.id')
-
-for num in $CHILD1 $CHILD2; do
-  CHILD_ID=$(gh api graphql -f query="query { repository(owner:\"${REPO%/*}\", name:\"${REPO#*/}\") { issue(number:$num) { id } } }" --jq '.data.repository.issue.id')
-
-  # 4. Link as sub-issues
-  gh api graphql -f query="mutation { addSubIssue(input:{issueId:\"$EPIC_ID\",subIssueId:\"$CHILD_ID\"}) { issue{number} subIssue{number} } }"
-done
-
-# 5. Update epic body with issue numbers
-gh issue edit $EPIC_NUM --repo $REPO --body "## Overview
-Feature description.
-
-## Child Issues
-- [ ] #$CHILD1 - Task 1
-- [ ] #$CHILD2 - Task 2"
+## Acceptance Criteria
+- [ ] Migration file created
+- [ ] camelCase column names
+- [ ] Idempotency tested
+- [ ] init.sql updated" \
+  --label "task,database" \
+  --milestone "MVP Launch"
 ```
-
-### Find Issues Without Milestone
 
 ```bash
-gh issue list --repo OWNER/REPO --milestone "" --state open
+# Create bug
+gh issue create \
+  --title "Bug: Login button not working on mobile" \
+  --body "## Description
+Login button does not respond to taps on mobile devices.
+
+## Reproduction Steps
+1. Open app on mobile device
+2. Navigate to login page
+3. Tap login button
+4. Nothing happens
+
+## Expected Behavior
+Login button should submit form and navigate to dashboard.
+
+## Actual Behavior
+Button does not respond to touch events.
+
+## Environment
+- Device: iPhone 12
+- OS: iOS 16
+- Browser: Safari" \
+  --label "bug,frontend,mvp-blocker"
 ```
 
-### Move Issues to Different Milestone
+### 3. Organize with Labels
+
+**Issue Types:**
+
+- `epic` - Large initiatives
+- `feature` - User-facing features
+- `task` - Implementation work
+- `bug` - Defects
+
+**Areas:**
+
+- `frontend` - Angular UI work
+- `backend` - Fastify API work
+- `database` - Schema/migration work
+
+**Priority:**
+
+- `mvp-blocker` - Must fix before launch
+- `critical` - Blocks core functionality
+- `high-priority` - Important for current milestone
+- `medium-priority`, `low-priority`
+
+**Workflow:**
+
+- `in-progress` - Currently being worked on
+- `blocked` - Waiting on dependency
+
+## Querying and Filtering
+
+### Find Next Priority Work
 
 ```bash
-for issue in 1 2 3; do
-  gh issue edit $issue --repo OWNER/REPO --milestone "New Milestone"
-done
+# Find MVP blockers
+gh issue list --label "mvp-blocker" --state open
+
+# Find critical bugs
+gh issue list --label "bug,critical" --state open
+
+# Find high-priority features
+gh issue list --label "feature,high-priority" --state open
 ```
 
-### Search Issues
+### Check Milestone Progress
 
 ```bash
-# By text
-gh issue list --repo OWNER/REPO --search "authentication"
+# List all milestones
+gh milestone list
 
-# By author
-gh issue list --repo OWNER/REPO --author "username"
+# View issues in milestone
+gh issue list --milestone "MVP Launch" --state open
 
-# Combined filters
-gh issue list --repo OWNER/REPO --label "bug" --state open --milestone "v1.0"
+# See completed work
+gh issue list --milestone "MVP Launch" --state closed
 ```
+
+### Filter by Area
+
+```bash
+# Frontend tasks
+gh issue list --label "frontend,task" --state open
+
+# Backend work
+gh issue list --label "backend" --state open
+
+# Database migrations needed
+gh issue list --label "database" --state open
+```
+
+### Find Work to Start
+
+```bash
+# Tasks not yet started (no in-progress label)
+gh issue list --label "task" --state open --search "-label:in-progress -label:blocked"
+
+# Features ready for breakdown
+gh issue list --label "feature" --state open --search "NOT linked:issue"
+```
+
+## Issue Lifecycle Management
+
+### Mark as In Progress
+
+```bash
+gh issue edit <NUMBER> --add-label "in-progress"
+```
+
+### Add Progress Updates
+
+```bash
+gh issue comment <NUMBER> --body "Progress update: Completed database migration, working on API endpoint now."
+```
+
+### Link Related Issues
+
+```bash
+gh issue comment <NUMBER> --body "Part of #105"
+# Or in issue description:
+# Depends on #102
+# Blocks #110
+```
+
+### Close via PR
+
+```bash
+# In PR description, use:
+# "Closes #NUMBER"
+# Issue automatically closes when PR merges
+```
+
+### Close Manually
+
+```bash
+gh issue close <NUMBER> --comment "Completed via PR #123"
+```
+
+## Daily Workflow Checklist
+
+### Morning: Find Next Work
+
+```bash
+# 1. Check mvp-blockers
+gh issue list --label "mvp-blocker" --state open
+
+# 2. Check current milestone
+gh issue list --milestone "MVP Launch" --state open --label "high-priority"
+
+# 3. Find unstarted tasks
+gh issue list --label "task" --state open --search "-label:in-progress"
+```
+
+### During Work: Update Status
+
+```bash
+# Mark started
+gh issue edit <NUMBER> --add-label "in-progress"
+
+# Add updates
+gh issue comment <NUMBER> --body "Update: [progress details]"
+
+# Mark blocked if needed
+gh issue edit <NUMBER> --add-label "blocked"
+gh issue comment <NUMBER> --body "Blocked by: [reason]"
+```
+
+### After Completion: Close and Move On
+
+```bash
+# Create PR with "Closes #NUMBER"
+gh pr create --title "..." --body "Closes #NUMBER\n\n..."
+
+# After merge, issue auto-closes
+# Find next work
+gh issue list --label "mvp-blocker" --state open
+```
+
+## Integration with Orchestrator
+
+The orchestrator uses GitHub Issues for work discovery:
+
+1. **Query** for next priority (mvp-blocker > critical > high-priority)
+2. **Read** issue details with `gh issue view <NUMBER>`
+3. **Break down** features into tasks if needed
+4. **Mark** as in-progress when starting
+5. **Update** with progress comments
+6. **Close** via PR with "Closes #XXX"
+
+## Creating Milestones
+
+```bash
+# Create milestone
+gh milestone create "MVP Launch" \
+  --description "Core features needed for initial launch" \
+  --due-date "2025-03-01"
+
+# List milestones
+gh milestone list
+
+# Add issue to milestone
+gh issue edit <NUMBER> --milestone "MVP Launch"
+```
+
+## Workflow Patterns
+
+### Epic → Features → Tasks
+
+```bash
+# 1. Create epic issue
+gh issue create --title "Epic: User Management" --label "epic"
+
+# 2. Create milestone for epic
+gh milestone create "User Management"
+
+# 3. Create feature issues in milestone
+gh issue create --title "Feature: Registration" --label "feature" --milestone "User Management"
+
+# 4. Break down features into tasks
+gh issue create --title "Task: Create users table" --label "task,database" --milestone "User Management"
+# In body: "Part of #[FEATURE_NUMBER]"
+```
+
+## Success Metrics
+
+### Healthy Issue Management
+
+- ✅ All work tracked in GitHub Issues
+- ✅ Issues properly labeled
+- ✅ Clear priority system
+- ✅ In-progress items updated regularly
+- ✅ Issues closed via PRs
+
+### Problem Indicators
+
+- ❌ Work done without issues
+- ❌ Issues missing labels
+- ❌ Unclear priorities
+- ❌ Stale in-progress issues
+- ❌ Issues manually closed without PR
+
+## Reference Files
+
+For detailed patterns:
+
+- `.claude/agents/agent-github-issues.md` - Complete agent specification
+- `.claude/agents/agent-orchestrator.md` - Integration with orchestrator workflow
+
+## Common Commands Quick Reference
+
+```bash
+# Create issue
+gh issue create --title "..." --body "..." --label "..." --milestone "..."
+
+# List issues
+gh issue list --label "..." --state open
+
+# View issue
+gh issue view <NUMBER>
+
+# Edit issue
+gh issue edit <NUMBER> --add-label "..." --milestone "..."
+
+# Comment on issue
+gh issue comment <NUMBER> --body "..."
+
+# Close issue
+gh issue close <NUMBER>
+
+# Create milestone
+gh milestone create "Name" --due-date "YYYY-MM-DD"
+
+# List milestones
+gh milestone list
+```
+
+## Success Criteria
+
+Before marking issue work complete:
+
+- [ ] Issue created with proper labels
+- [ ] Description includes requirements and acceptance criteria
+- [ ] Linked to appropriate milestone
+- [ ] Area labels applied (frontend/backend/database)
+- [ ] Priority set if applicable
+- [ ] Related issues linked

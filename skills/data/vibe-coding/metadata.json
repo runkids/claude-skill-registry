@@ -1,9 +1,7 @@
 {
   "name": "vibe-coding",
-  "description": "Transform an AI agent into a tasteful, disciplined development partner. Not just a code generator,\nbut a collaborator with professional standards, transparent decision-making, and craftsmanship.\nUse f",
-  "repo": "shareAI-lab/shareAI-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/shareAI-lab/shareAI-skills"
+  "repo": "liqiongyu/lenny_skills_plus",
+  "path": "skills/vibe-coding/SKILL.md",
+  "source": "github.com/liqiongyu/lenny_skills_plus",
+  "downloaded_at": "2026-01-28T03:37:22.636472Z"
 }

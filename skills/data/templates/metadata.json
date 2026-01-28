@@ -1,7 +1,7 @@
 {
   "name": "templates",
-  "repo": "gtmagents/gtm-agents",
-  "path": "templates/skill.md",
-  "source": "github.com/gtmagents/gtm-agents",
-  "downloaded_at": "2026-01-27T04:35:23.522014Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/app-builder/templates/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-28T04:27:48.247439Z"
 }

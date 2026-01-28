@@ -1,7 +1,7 @@
 {
   "name": "terraform",
-  "repo": "liauw-media/CodeAssist",
-  "path": "skills/infrastructure/terraform/SKILL.md",
-  "source": "github.com/liauw-media/CodeAssist",
-  "downloaded_at": "2026-01-27T03:15:45.376668Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills-templates/infrastructure/terraform/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-28T03:06:54.619043Z"
 }

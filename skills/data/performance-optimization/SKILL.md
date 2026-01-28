@@ -1,171 +1,57 @@
 ---
 name: performance-optimization
-description: Best practices for Claude Code performance optimization, context management, storage cleanup, and troubleshooting slowdowns
-allowed-tools: Read, Bash, Glob, Grep
+description: Performance optimization playbook (measure → diagnose → fix → verify) for this repo (React + R3F + Three.js + Vite). Use when asked to improve FPS, reduce jank, lower draw calls, optimize loading/bundle size, or investigate CPU/GPU/memory bottlenecks.
 ---
 
-# Performance Optimization Skill
+# Performance Optimization (Opt-in)
 
-Comprehensive guidance for optimizing Claude Code performance. This skill covers storage management, context window optimization, and troubleshooting common performance issues.
+Use this skill to make performance work repeatable and evidence-driven.
 
-## When to Use This Skill
+## Workflow (always follow)
 
-**Keywords:** slow, performance, lag, storage, cleanup, cache, context, compact, clear, sessions, agents, bloat, optimization, speed
+1. **Define the symptom + target**
+   - Runtime: FPS drops, stutters, GPU/CPU pegged, memory growth.
+   - Load time: slow first paint, large bundle, long shader compile.
+   - Pick a measurable target (e.g., steady 60 FPS, lower draw calls, smaller JS).
 
-**Use this skill when:**
+2. **Measure before changing code**
+   - Reproduce the issue and capture one of:
+     - Browser Performance trace (CPU main thread)
+     - R3F/Three stats (FPS, draw calls, triangles)
+     - Memory timeline (detached nodes, heap growth)
 
-- Claude Code is running slowly
-- Storage is accumulating
-- Context window is getting full
-- Planning performance maintenance
-- Learning best practices for efficient usage
+3. **Classify the bottleneck**
+   - **CPU-bound**: heavy JS, too many React renders, expensive per-frame work.
+   - **GPU-bound**: too many draw calls, heavy shaders/postprocessing, high DPR.
+   - **IO/Load-bound**: big bundles/assets, blocking work on startup.
+   - **Memory-bound**: leaks in textures/geometries/materials, retained arrays.
 
-## Quick Reference
+4. **Apply the smallest fix that moves the metric**
+   - Prefer fixes that reduce _work per frame_ and _draw calls_.
+   - Keep changes surgical and verify the metric improved.
 
-### Immediate Actions for Slowdowns
+5. **Verify and guard against regressions**
+   - Run `npm test`, `npm run lint`, `npm run typecheck`.
+   - If you introduced a new helper/heuristic, add a small unit test.
 
-| Symptom | Quick Fix | Command |
-|---------|-----------|---------|
-| General slowness | Clean storage | `/cleanup-sessions 7` |
-| Input lag | Reset context | `/clear` |
-| API errors | Check status | `/check-api-status` |
-| Unknown cause | Full diagnostic | `/diagnose-performance` |
+## R3F / Three.js tactics (common wins)
 
-### Performance Commands
+- **Draw calls**: prefer instancing/merging; reduce unique materials.
+- **DPR**: cap DPR or use dynamic DPR.
+  - If you need dynamic DPR, use the existing `dynamic-res-scaler` skill.
+- **Per-frame work**: keep `useFrame` callbacks tiny; avoid allocations inside `useFrame`.
+- **Memoization**: cache geometries/materials/textures; reuse vectors/quaternions.
+- **Postprocessing**: disable/scale effects on low perf; prefer fewer passes.
+- **Shadows**: reduce shadow map size; limit shadow-casting lights.
 
-| Command | Purpose |
-|---------|---------|
-| `/check-claude-storage` | Analyze storage usage |
-| `/cleanup-sessions [days]` | Remove old session files |
-| `/cleanup-agents [days]` | Remove old agent files |
-| `/prune-cache [days]` | Comprehensive cleanup |
-| `/diagnose-performance` | Full diagnostic |
-| `/list-sessions` | View recent sessions |
-| `/session-stats` | Session statistics |
-| `/check-api-status` | API status check |
-| `/check-context` | Context window analysis |
+## React tactics (common wins)
 
-## Core Concepts
+- Avoid state updates every frame; use refs for frame-local values.
+- Stabilize props to prevent re-render cascades.
+- Split heavy components; lazy-load non-critical UI where appropriate.
 
-### 1. Storage Management
+## When to load deeper reference material
 
-Claude Code stores conversation history in `~/.claude/`:
-
-```text
-~/.claude/
-├── projects/           # Session history (can grow large!)
-│   └── {project-hash}/
-│       ├── {session-id}.jsonl     # Conversation transcripts
-│       └── agent-{id}.jsonl       # Subagent transcripts
-├── todos/              # Todo state
-├── statsig/            # Analytics cache
-└── history.jsonl       # Command history
-```
-
-**Key insight:** The `projects/` folder grows indefinitely with usage. Heavy users can accumulate 1GB+ of session data.
-
-**See:** `references/storage-management.md` for detailed guidance.
-
-### 2. Context Window Management
-
-Claude Code uses a 200K token context window. Performance degrades as it fills:
-
-| Usage | Status | Action |
-|-------|--------|--------|
-| < 50% | Healthy | No action |
-| 50-75% | Monitor | Consider compacting |
-| 75-85% | Warning | Run /compact or /clear |
-| > 85% | Critical | Immediate action |
-
-**Key commands:**
-
-- `/clear` - Complete context reset
-- `/compact` - Intelligent summarization
-- `/cost` - View token usage
-
-**See:** `references/context-management.md` for detailed guidance.
-
-### 3. Known Issues
-
-Several GitHub issues document known performance problems:
-
-> **Note:** Issue numbers below are point-in-time references and may have been closed,
-> merged, or superseded. For current issues, spawn the `claude-code-issue-researcher`
-> agent or query `docs-management: "performance issues"` for updated tracking.
-
-| Issue | Description | Workaround |
-|-------|-------------|------------|
-| #10881 | Performance degrades in long sessions | Restart periodically |
-| #14552 | Input lag at high context | Use /clear at 75% |
-| #14476 | Regression even at 30k tokens | Update to latest version |
-| #1497 | Keyboard responsiveness issues | Restart Claude Code |
-
-**See:** `references/known-issues.md` for detailed tracking.
-
-## Best Practices
-
-### Daily Maintenance
-
-1. **Start fresh when possible** - New session = fresh context
-2. **Use /clear between major tasks** - Don't let context rot
-3. **Monitor storage periodically** - Run `/check-claude-storage` weekly
-
-### Heavy Usage Patterns
-
-1. **Use subagents for large operations** - Isolates context bloat
-2. **Break large tasks into sessions** - Smaller = faster
-3. **Clean storage weekly** - `/cleanup-sessions 7`
-
-### Performance Optimization
-
-1. **Keep CLAUDE.md lean** - Large memory files slow startup
-2. **Use progressive disclosure** - Load context on-demand
-3. **Prefer focused queries** - Specific > broad
-
-## Troubleshooting Flowchart
-
-```text
-Claude Code is slow
-        │
-        ├─> Check storage: /check-claude-storage
-        │   └─> If >500MB: /cleanup-sessions 7
-        │
-        ├─> Check context: /check-context
-        │   └─> If WARNING+: /clear or /compact
-        │
-        ├─> Check API: /check-api-status
-        │   └─> If degraded: Wait or reduce load
-        │
-        └─> Full diagnostic: /diagnose-performance
-            └─> Follow recommendations
-```
-
-## Related Skills
-
-| Skill | Relationship |
-|-------|-------------|
-| `docs-management` | For official Claude Code documentation |
-| `memory-management` | For CLAUDE.md optimization |
-
-## References
-
-Load these for detailed guidance:
-
-- `references/context-management.md` - Context window optimization
-- `references/storage-management.md` - Storage cleanup strategies
-- `references/known-issues.md` - GitHub issues and workarounds
-
-## Version History
-
-- **v1.0.0** (2025-12-26): Initial release
-  - Core performance guidance
-  - Command reference
-  - Best practices
-  - Reference documents
-
----
-
-## Last Updated
-
-**Date:** 2025-12-26
-**Model:** claude-opus-4-5-20251101
+- For generic perf checklists across frontend/backend/db: read `references/performance-optimization.md`.
+- For dynamic DPR in this repo: read the `dynamic-res-scaler` skill.
+- For offloading CPU-heavy loops: consider the `js-worker-multithreading` skill.

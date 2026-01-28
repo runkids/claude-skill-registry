@@ -1,703 +1,807 @@
 ---
 name: real-time-features
-description: Implement real-time functionality using WebSockets, Server-Sent Events (SSE), or long polling. Use when building chat applications, live dashboards, collaborative editing, notifications, or any feature requiring instant updates.
+description: Expert guide for real-time features using Supabase Realtime, WebSockets, live updates, presence, and collaborative features. Use when building chat, live updates, or collaborative apps.
 ---
 
-# Real-Time Features
+# Real-Time Features Skill
 
 ## Overview
 
-Implement real-time bidirectional communication between clients and servers for instant data synchronization and live updates.
+This skill helps you implement real-time features in your Next.js application. From live data updates to collaborative editing, this covers everything you need for interactive, real-time experiences.
 
-## When to Use
+## Supabase Realtime
 
-- Chat and messaging applications
-- Live dashboards and analytics
-- Collaborative editing (Google Docs-style)
-- Real-time notifications
-- Live sports scores or stock tickers
-- Multiplayer games
-- Live auctions or bidding systems
-- IoT device monitoring
-- Real-time location tracking
-
-## Technologies Comparison
-
-| Technology | Direction | Use Case | Browser Support |
-|------------|-----------|----------|-----------------|
-| **WebSockets** | Bidirectional | Chat, gaming, collaboration | Excellent |
-| **SSE** | Server → Client | Live updates, notifications | Good (no IE) |
-| **Long Polling** | Request/Response | Fallback, simple updates | Universal |
-| **WebRTC** | Peer-to-peer | Video/audio streaming | Good |
-
-## Implementation Examples
-
-### 1. **WebSocket Server (Node.js)**
-
+### Setup
 ```typescript
-// server.ts
-import WebSocket, { WebSocketServer } from 'ws';
-import { createServer } from 'http';
+// lib/supabase/client.ts
+import { createBrowserClient } from '@supabase/ssr'
 
-interface Message {
-  type: 'join' | 'message' | 'leave' | 'typing';
-  userId: string;
-  username: string;
-  content?: string;
-  timestamp: number;
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 }
-
-interface Client {
-  ws: WebSocket;
-  userId: string;
-  username: string;
-  roomId: string;
-}
-
-class ChatServer {
-  private wss: WebSocketServer;
-  private clients: Map<string, Client> = new Map();
-  private rooms: Map<string, Set<string>> = new Map();
-
-  constructor(port: number) {
-    const server = createServer();
-    this.wss = new WebSocketServer({ server });
-
-    this.wss.on('connection', this.handleConnection.bind(this));
-
-    server.listen(port, () => {
-      console.log(`WebSocket server running on port ${port}`);
-    });
-
-    // Heartbeat to detect disconnections
-    this.startHeartbeat();
-  }
-
-  private handleConnection(ws: WebSocket): void {
-    const clientId = this.generateId();
-
-    console.log(`New connection: ${clientId}`);
-
-    ws.on('message', (data: string) => {
-      try {
-        const message: Message = JSON.parse(data.toString());
-        this.handleMessage(clientId, message, ws);
-      } catch (error) {
-        console.error('Invalid message format:', error);
-      }
-    });
-
-    ws.on('close', () => {
-      this.handleDisconnect(clientId);
-    });
-
-    ws.on('error', (error) => {
-      console.error(`WebSocket error for ${clientId}:`, error);
-    });
-
-    // Keep connection alive
-    (ws as any).isAlive = true;
-    ws.on('pong', () => {
-      (ws as any).isAlive = true;
-    });
-  }
-
-  private handleMessage(
-    clientId: string,
-    message: Message,
-    ws: WebSocket
-  ): void {
-    switch (message.type) {
-      case 'join':
-        this.handleJoin(clientId, message, ws);
-        break;
-
-      case 'message':
-        this.broadcastToRoom(clientId, message);
-        break;
-
-      case 'typing':
-        this.broadcastToRoom(clientId, message, [clientId]);
-        break;
-
-      case 'leave':
-        this.handleDisconnect(clientId);
-        break;
-    }
-  }
-
-  private handleJoin(
-    clientId: string,
-    message: Message,
-    ws: WebSocket
-  ): void {
-    const client: Client = {
-      ws,
-      userId: message.userId,
-      username: message.username,
-      roomId: 'general' // Could be dynamic
-    };
-
-    this.clients.set(clientId, client);
-
-    // Add to room
-    if (!this.rooms.has(client.roomId)) {
-      this.rooms.set(client.roomId, new Set());
-    }
-    this.rooms.get(client.roomId)!.add(clientId);
-
-    // Notify room
-    this.broadcastToRoom(clientId, {
-      type: 'join',
-      userId: message.userId,
-      username: message.username,
-      timestamp: Date.now()
-    });
-
-    // Send room state to new user
-    this.sendRoomState(clientId);
-  }
-
-  private broadcastToRoom(
-    senderId: string,
-    message: Message,
-    exclude: string[] = []
-  ): void {
-    const sender = this.clients.get(senderId);
-    if (!sender) return;
-
-    const roomClients = this.rooms.get(sender.roomId);
-    if (!roomClients) return;
-
-    const payload = JSON.stringify(message);
-
-    roomClients.forEach(clientId => {
-      if (!exclude.includes(clientId)) {
-        const client = this.clients.get(clientId);
-        if (client && client.ws.readyState === WebSocket.OPEN) {
-          client.ws.send(payload);
-        }
-      }
-    });
-  }
-
-  private sendRoomState(clientId: string): void {
-    const client = this.clients.get(clientId);
-    if (!client) return;
-
-    const roomClients = this.rooms.get(client.roomId);
-    if (!roomClients) return;
-
-    const users = Array.from(roomClients)
-      .map(id => this.clients.get(id))
-      .filter(c => c && c.userId !== client.userId)
-      .map(c => ({ userId: c!.userId, username: c!.username }));
-
-    client.ws.send(JSON.stringify({
-      type: 'room_state',
-      users,
-      timestamp: Date.now()
-    }));
-  }
-
-  private handleDisconnect(clientId: string): void {
-    const client = this.clients.get(clientId);
-    if (!client) return;
-
-    // Remove from room
-    const roomClients = this.rooms.get(client.roomId);
-    if (roomClients) {
-      roomClients.delete(clientId);
-
-      // Notify others
-      this.broadcastToRoom(clientId, {
-        type: 'leave',
-        userId: client.userId,
-        username: client.username,
-        timestamp: Date.now()
-      });
-    }
-
-    this.clients.delete(clientId);
-    console.log(`Client disconnected: ${clientId}`);
-  }
-
-  private startHeartbeat(): void {
-    setInterval(() => {
-      this.wss.clients.forEach((ws: any) => {
-        if (ws.isAlive === false) {
-          return ws.terminate();
-        }
-        ws.isAlive = false;
-        ws.ping();
-      });
-    }, 30000);
-  }
-
-  private generateId(): string {
-    return Math.random().toString(36).substr(2, 9);
-  }
-}
-
-// Start server
-new ChatServer(8080);
 ```
 
-### 2. **WebSocket Client (React)**
+### Real-Time Subscriptions
 
+**Subscribe to Table Changes:**
 ```typescript
-// useWebSocket.ts
-import { useEffect, useRef, useState, useCallback } from 'react';
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
-interface UseWebSocketOptions {
-  url: string;
-  onMessage?: (data: any) => void;
-  onOpen?: () => void;
-  onClose?: () => void;
-  onError?: (error: Event) => void;
-  reconnectAttempts?: number;
-  reconnectInterval?: number;
-}
-
-export const useWebSocket = (options: UseWebSocketOptions) => {
-  const {
-    url,
-    onMessage,
-    onOpen,
-    onClose,
-    onError,
-    reconnectAttempts = 5,
-    reconnectInterval = 3000
-  } = options;
-
-  const [isConnected, setIsConnected] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<
-    'connecting' | 'connected' | 'disconnected' | 'error'
-  >('connecting');
-
-  const wsRef = useRef<WebSocket | null>(null);
-  const reconnectCountRef = useRef(0);
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
-
-  const connect = useCallback(() => {
-    try {
-      setConnectionStatus('connecting');
-      const ws = new WebSocket(url);
-
-      ws.onopen = () => {
-        console.log('WebSocket connected');
-        setIsConnected(true);
-        setConnectionStatus('connected');
-        reconnectCountRef.current = 0;
-        onOpen?.();
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          onMessage?.(data);
-        } catch (error) {
-          console.error('Failed to parse message:', error);
-        }
-      };
-
-      ws.onerror = (error) => {
-        console.error('WebSocket error:', error);
-        setConnectionStatus('error');
-        onError?.(error);
-      };
-
-      ws.onclose = () => {
-        console.log('WebSocket disconnected');
-        setIsConnected(false);
-        setConnectionStatus('disconnected');
-        onClose?.();
-
-        // Attempt reconnection
-        if (reconnectCountRef.current < reconnectAttempts) {
-          reconnectCountRef.current++;
-          console.log(
-            `Reconnecting... (${reconnectCountRef.current}/${reconnectAttempts})`
-          );
-          reconnectTimeoutRef.current = setTimeout(() => {
-            connect();
-          }, reconnectInterval);
-        }
-      };
-
-      wsRef.current = ws;
-    } catch (error) {
-      console.error('Failed to connect:', error);
-      setConnectionStatus('error');
-    }
-  }, [url, onMessage, onOpen, onClose, onError, reconnectAttempts, reconnectInterval]);
-
-  const disconnect = useCallback(() => {
-    if (reconnectTimeoutRef.current) {
-      clearTimeout(reconnectTimeoutRef.current);
-    }
-    wsRef.current?.close();
-    wsRef.current = null;
-  }, []);
-
-  const send = useCallback((data: any) => {
-    if (wsRef.current?.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify(data));
-    } else {
-      console.warn('WebSocket is not connected');
-    }
-  }, []);
+export function RealtimeMessages() {
+  const [messages, setMessages] = useState<Message[]>([])
+  const supabase = createClient()
 
   useEffect(() => {
-    connect();
+    // Fetch initial data
+    supabase
+      .from('messages')
+      .select('*')
+      .order('created_at', { ascending: true })
+      .then(({ data }) => setMessages(data || []))
+
+    // Subscribe to new messages
+    const channel = supabase
+      .channel('messages')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'messages',
+        },
+        (payload) => {
+          setMessages((prev) => [...prev, payload.new as Message])
+        }
+      )
+      .subscribe()
+
     return () => {
-      disconnect();
-    };
-  }, [connect, disconnect]);
-
-  return {
-    isConnected,
-    connectionStatus,
-    send,
-    disconnect,
-    reconnect: connect
-  };
-};
-
-// Usage in component
-const ChatComponent: React.FC = () => {
-  const [messages, setMessages] = useState<any[]>([]);
-
-  const { isConnected, send } = useWebSocket({
-    url: 'ws://localhost:8080',
-    onMessage: (data) => {
-      if (data.type === 'message') {
-        setMessages(prev => [...prev, data]);
-      }
-    },
-    onOpen: () => {
-      send({
-        type: 'join',
-        userId: 'user123',
-        username: 'John Doe',
-        timestamp: Date.now()
-      });
+      supabase.removeChannel(channel)
     }
-  });
-
-  const sendMessage = (content: string) => {
-    send({
-      type: 'message',
-      userId: 'user123',
-      username: 'John Doe',
-      content,
-      timestamp: Date.now()
-    });
-  };
+  }, [supabase])
 
   return (
     <div>
-      <div>Status: {isConnected ? 'Connected' : 'Disconnected'}</div>
-      <div>
-        {messages.map((msg, i) => (
-          <div key={i}>{msg.username}: {msg.content}</div>
-        ))}
-      </div>
+      {messages.map((msg) => (
+        <div key={msg.id}>{msg.content}</div>
+      ))}
     </div>
-  );
-};
+  )
+}
 ```
 
-### 3. **Server-Sent Events (SSE)**
-
+**Subscribe to All Events:**
 ```typescript
-// server.ts - SSE endpoint
-import express from 'express';
-
-const app = express();
-
-interface Client {
-  id: string;
-  res: express.Response;
-}
-
-class SSEManager {
-  private clients: Client[] = [];
-
-  addClient(id: string, res: express.Response): void {
-    // Set SSE headers
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    this.clients.push({ id, res });
-
-    // Send initial connection event
-    this.sendToClient(id, {
-      type: 'connected',
-      clientId: id,
-      timestamp: Date.now()
-    });
-
-    console.log(`Client ${id} connected. Total: ${this.clients.length}`);
-  }
-
-  removeClient(id: string): void {
-    this.clients = this.clients.filter(client => client.id !== id);
-    console.log(`Client ${id} disconnected. Total: ${this.clients.length}`);
-  }
-
-  sendToClient(id: string, data: any): void {
-    const client = this.clients.find(c => c.id === id);
-    if (client) {
-      client.res.write(`data: ${JSON.stringify(data)}\n\n`);
+const channel = supabase
+  .channel('messages-all')
+  .on(
+    'postgres_changes',
+    {
+      event: '*', // INSERT, UPDATE, DELETE
+      schema: 'public',
+      table: 'messages',
+    },
+    (payload) => {
+      if (payload.eventType === 'INSERT') {
+        setMessages((prev) => [...prev, payload.new as Message])
+      }
+      if (payload.eventType === 'UPDATE') {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === payload.new.id ? (payload.new as Message) : msg
+          )
+        )
+      }
+      if (payload.eventType === 'DELETE') {
+        setMessages((prev) =>
+          prev.filter((msg) => msg.id !== payload.old.id)
+        )
+      }
     }
-  }
-
-  broadcast(data: any, excludeId?: string): void {
-    const message = `data: ${JSON.stringify(data)}\n\n`;
-    this.clients.forEach(client => {
-      if (client.id !== excludeId) {
-        client.res.write(message);
-      }
-    });
-  }
-
-  sendEvent(event: string, data: any): void {
-    const message = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
-    this.clients.forEach(client => {
-      client.res.write(message);
-    });
-  }
-}
-
-const sseManager = new SSEManager();
-
-app.get('/events', (req, res) => {
-  const clientId = Math.random().toString(36).substr(2, 9);
-
-  sseManager.addClient(clientId, res);
-
-  req.on('close', () => {
-    sseManager.removeClient(clientId);
-  });
-});
-
-// Simulate real-time updates
-setInterval(() => {
-  sseManager.broadcast({
-    type: 'update',
-    value: Math.random() * 100,
-    timestamp: Date.now()
-  });
-}, 5000);
-
-app.listen(3000, () => {
-  console.log('SSE server running on port 3000');
-});
+  )
+  .subscribe()
 ```
 
+**Filter Subscriptions:**
 ```typescript
-// client.ts - SSE client
-class SSEClient {
-  private eventSource: EventSource | null = null;
-  private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
+// Only listen to messages in a specific room
+const channel = supabase
+  .channel(`room:${roomId}`)
+  .on(
+    'postgres_changes',
+    {
+      event: 'INSERT',
+      schema: 'public',
+      table: 'messages',
+      filter: `room_id=eq.${roomId}`,
+    },
+    (payload) => {
+      setMessages((prev) => [...prev, payload.new as Message])
+    }
+  )
+  .subscribe()
+```
 
-  connect(url: string, handlers: {
-    onMessage?: (data: any) => void;
-    onError?: (error: Event) => void;
-    onOpen?: () => void;
-  }): void {
-    this.eventSource = new EventSource(url);
+## Custom Realtime Hook
 
-    this.eventSource.onopen = () => {
-      console.log('SSE connected');
-      this.reconnectAttempts = 0;
-      handlers.onOpen?.();
-    };
+```typescript
+// hooks/use-realtime-subscription.ts
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import type { RealtimeChannel } from '@supabase/supabase-js'
 
-    this.eventSource.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        handlers.onMessage?.(data);
-      } catch (error) {
-        console.error('Failed to parse SSE data:', error);
-      }
-    };
+type UseRealtimeOptions<T> = {
+  table: string
+  filter?: string
+  event?: 'INSERT' | 'UPDATE' | 'DELETE' | '*'
+  onInsert?: (record: T) => void
+  onUpdate?: (record: T) => void
+  onDelete?: (record: T) => void
+}
 
-    this.eventSource.onerror = (error) => {
-      console.error('SSE error:', error);
-      handlers.onError?.(error);
+export function useRealtimeSubscription<T>({
+  table,
+  filter,
+  event = '*',
+  onInsert,
+  onUpdate,
+  onDelete,
+}: UseRealtimeOptions<T>) {
+  const supabase = createClient()
 
-      if (this.reconnectAttempts < this.maxReconnectAttempts) {
-        this.reconnectAttempts++;
-        setTimeout(() => {
-          console.log('Reconnecting to SSE...');
-          this.connect(url, handlers);
-        }, 3000);
-      }
-    };
+  useEffect(() => {
+    const channel = supabase
+      .channel(`${table}-changes`)
+      .on(
+        'postgres_changes',
+        {
+          event,
+          schema: 'public',
+          table,
+          filter,
+        },
+        (payload) => {
+          if (payload.eventType === 'INSERT' && onInsert) {
+            onInsert(payload.new as T)
+          }
+          if (payload.eventType === 'UPDATE' && onUpdate) {
+            onUpdate(payload.new as T)
+          }
+          if (payload.eventType === 'DELETE' && onDelete) {
+            onDelete(payload.old as T)
+          }
+        }
+      )
+      .subscribe()
 
-    // Custom event listeners
-    this.eventSource.addEventListener('custom-event', (event: any) => {
-      console.log('Custom event:', JSON.parse(event.data));
-    });
-  }
-
-  disconnect(): void {
-    this.eventSource?.close();
-    this.eventSource = null;
-  }
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [table, filter, event, onInsert, onUpdate, onDelete, supabase])
 }
 
 // Usage
-const client = new SSEClient();
-client.connect('http://localhost:3000/events', {
-  onMessage: (data) => {
-    console.log('Received:', data);
-  },
-  onOpen: () => {
-    console.log('Connected to server');
-  }
-});
-```
+function Chat({ roomId }: { roomId: string }) {
+  const [messages, setMessages] = useState<Message[]>([])
 
-### 4. **Socket.IO (Production-Ready)**
+  useRealtimeSubscription<Message>({
+    table: 'messages',
+    filter: `room_id=eq.${roomId}`,
+    event: '*',
+    onInsert: (msg) => setMessages((prev) => [...prev, msg]),
+    onUpdate: (msg) =>
+      setMessages((prev) =>
+        prev.map((m) => (m.id === msg.id ? msg : m))
+      ),
+    onDelete: (msg) =>
+      setMessages((prev) => prev.filter((m) => m.id !== msg.id)),
+  })
 
-```typescript
-// server.ts
-import { Server } from 'socket.io';
-import { createServer } from 'http';
-
-const httpServer = createServer();
-const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
-    methods: ['GET', 'POST']
-  },
-  pingTimeout: 60000,
-  pingInterval: 25000
-});
-
-// Middleware
-io.use((socket, next) => {
-  const token = socket.handshake.auth.token;
-  if (isValidToken(token)) {
-    next();
-  } else {
-    next(new Error('Authentication error'));
-  }
-});
-
-io.on('connection', (socket) => {
-  console.log(`User connected: ${socket.id}`);
-
-  // Join room
-  socket.on('join-room', (roomId: string) => {
-    socket.join(roomId);
-    socket.to(roomId).emit('user-joined', {
-      userId: socket.id,
-      timestamp: Date.now()
-    });
-  });
-
-  // Handle messages
-  socket.on('message', (data) => {
-    const roomId = Array.from(socket.rooms)[1]; // First is own ID
-    io.to(roomId).emit('message', {
-      ...data,
-      userId: socket.id,
-      timestamp: Date.now()
-    });
-  });
-
-  // Typing indicator
-  socket.on('typing', (isTyping: boolean) => {
-    const roomId = Array.from(socket.rooms)[1];
-    socket.to(roomId).emit('user-typing', {
-      userId: socket.id,
-      isTyping
-    });
-  });
-
-  socket.on('disconnect', () => {
-    console.log(`User disconnected: ${socket.id}`);
-  });
-});
-
-httpServer.listen(3001);
-
-function isValidToken(token: string): boolean {
-  // Implement token validation
-  return true;
+  return <div>{/* Render messages */}</div>
 }
 ```
 
-## Best Practices
+## Presence (Who's Online)
 
-### ✅ DO
-- Implement reconnection logic with exponential backoff
-- Use heartbeat/ping-pong to detect dead connections
-- Validate and sanitize all messages
-- Implement authentication and authorization
-- Handle connection limits and rate limiting
-- Use compression for large payloads
-- Implement proper error handling
-- Monitor connection health
-- Use rooms/channels for targeted messaging
-- Implement graceful shutdown
-
-### ❌ DON'T
-- Send sensitive data without encryption
-- Keep connections open indefinitely without cleanup
-- Broadcast to all users when targeted messaging suffices
-- Ignore connection state management
-- Send large payloads frequently
-- Skip message validation
-- Forget about mobile/unstable connections
-- Ignore scaling considerations
-
-## Performance Optimization
-
+### Track User Presence
 ```typescript
-// Message batching
-class MessageBatcher {
-  private queue: any[] = [];
-  private timer: NodeJS.Timeout | null = null;
-  private batchSize = 10;
-  private batchDelay = 100;
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
-  constructor(
-    private sendFn: (messages: any[]) => void
-  ) {}
+type PresenceState = {
+  [key: string]: {
+    user_id: string
+    username: string
+    online_at: string
+  }[]
+}
 
-  add(message: any): void {
-    this.queue.push(message);
+export function usePresence(roomId: string) {
+  const [onlineUsers, setOnlineUsers] = useState<PresenceState>({})
+  const supabase = createClient()
 
-    if (this.queue.length >= this.batchSize) {
-      this.flush();
-    } else if (!this.timer) {
-      this.timer = setTimeout(() => this.flush(), this.batchDelay);
+  useEffect(() => {
+    const channel = supabase.channel(`room:${roomId}`)
+
+    channel
+      .on('presence', { event: 'sync' }, () => {
+        const state = channel.presenceState<PresenceState>()
+        setOnlineUsers(state)
+      })
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          // Get current user
+          const {
+            data: { user },
+          } = await supabase.auth.getUser()
+
+          if (user) {
+            // Track presence
+            await channel.track({
+              user_id: user.id,
+              username: user.email,
+              online_at: new Date().toISOString(),
+            })
+          }
+        }
+      })
+
+    return () => {
+      channel.untrack()
+      supabase.removeChannel(channel)
     }
-  }
+  }, [roomId, supabase])
 
-  private flush(): void {
-    if (this.queue.length > 0) {
-      this.sendFn(this.queue.splice(0));
-    }
-    if (this.timer) {
-      clearTimeout(this.timer);
-      this.timer = null;
-    }
-  }
+  return onlineUsers
+}
+
+// Usage
+function ChatRoom({ roomId }: { roomId: string }) {
+  const onlineUsers = usePresence(roomId)
+  const count = Object.keys(onlineUsers).length
+
+  return (
+    <div>
+      <p>{count} users online</p>
+      {Object.values(onlineUsers).map((presences) =>
+        presences.map((presence) => (
+          <div key={presence.user_id}>{presence.username}</div>
+        ))
+      )}
+    </div>
+  )
 }
 ```
 
-## Resources
+## Broadcast (Send Custom Messages)
 
-- [WebSocket API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
-- [Socket.IO Documentation](https://socket.io/docs/)
-- [Server-Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
-- [ws - WebSocket Library](https://github.com/websockets/ws)
+### Real-Time Collaboration
+```typescript
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+
+type CursorPosition = {
+  x: number
+  y: number
+  user_id: string
+  username: string
+}
+
+export function CollaborativeCanvas({ roomId }: { roomId: string }) {
+  const [cursors, setCursors] = useState<CursorPosition[]>([])
+  const supabase = createClient()
+
+  useEffect(() => {
+    const channel = supabase.channel(`canvas:${roomId}`)
+
+    channel
+      .on('broadcast', { event: 'cursor-move' }, ({ payload }) => {
+        setCursors((prev) => {
+          const filtered = prev.filter(
+            (c) => c.user_id !== payload.user_id
+          )
+          return [...filtered, payload as CursorPosition]
+        })
+      })
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [roomId, supabase])
+
+  const handleMouseMove = async (e: React.MouseEvent) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (user) {
+      supabase.channel(`canvas:${roomId}`).send({
+        type: 'broadcast',
+        event: 'cursor-move',
+        payload: {
+          x: e.clientX,
+          y: e.clientY,
+          user_id: user.id,
+          username: user.email,
+        },
+      })
+    }
+  }
+
+  return (
+    <div onMouseMove={handleMouseMove}>
+      {cursors.map((cursor) => (
+        <div
+          key={cursor.user_id}
+          style={{
+            position: 'absolute',
+            left: cursor.x,
+            top: cursor.y,
+            width: 10,
+            height: 10,
+            borderRadius: '50%',
+            backgroundColor: 'blue',
+            pointerEvents: 'none',
+          }}
+        >
+          <span>{cursor.username}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+## Live Chat Application
+
+### Chat Component
+```typescript
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+
+type Message = {
+  id: string
+  content: string
+  user_id: string
+  username: string
+  created_at: string
+}
+
+export function LiveChat({ roomId }: { roomId: string }) {
+  const [messages, setMessages] = useState<Message[]>([])
+  const [newMessage, setNewMessage] = useState('')
+  const [typing, setTyping] = useState<Set<string>>(new Set())
+  const supabase = createClient()
+
+  useEffect(() => {
+    // Fetch initial messages
+    supabase
+      .from('messages')
+      .select('*')
+      .eq('room_id', roomId)
+      .order('created_at', { ascending: true })
+      .then(({ data }) => setMessages(data || []))
+
+    const channel = supabase.channel(`chat:${roomId}`)
+
+    // Listen for new messages
+    channel
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'messages',
+          filter: `room_id=eq.${roomId}`,
+        },
+        (payload) => {
+          setMessages((prev) => [...prev, payload.new as Message])
+        }
+      )
+      // Listen for typing indicators
+      .on('broadcast', { event: 'typing' }, ({ payload }) => {
+        setTyping((prev) => new Set(prev).add(payload.user_id))
+        setTimeout(() => {
+          setTyping((prev) => {
+            const next = new Set(prev)
+            next.delete(payload.user_id)
+            return next
+          })
+        }, 3000)
+      })
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [roomId, supabase])
+
+  const sendMessage = async () => {
+    if (!newMessage.trim()) return
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) return
+
+    await supabase.from('messages').insert({
+      content: newMessage,
+      room_id: roomId,
+      user_id: user.id,
+      username: user.email,
+    })
+
+    setNewMessage('')
+  }
+
+  const handleTyping = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (user) {
+      supabase.channel(`chat:${roomId}`).send({
+        type: 'broadcast',
+        event: 'typing',
+        payload: { user_id: user.id },
+      })
+    }
+  }
+
+  return (
+    <div>
+      <div className="h-96 overflow-y-auto">
+        {messages.map((msg) => (
+          <div key={msg.id}>
+            <strong>{msg.username}:</strong> {msg.content}
+          </div>
+        ))}
+      </div>
+
+      {typing.size > 0 && (
+        <p className="text-sm text-gray-500">
+          {typing.size} {typing.size === 1 ? 'person is' : 'people are'} typing...
+        </p>
+      )}
+
+      <div className="flex gap-2">
+        <input
+          value={newMessage}
+          onChange={(e) => {
+            setNewMessage(e.target.value)
+            handleTyping()
+          }}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+          placeholder="Type a message..."
+        />
+        <button onClick={sendMessage}>Send</button>
+      </div>
+    </div>
+  )
+}
+```
+
+## Live Notifications
+
+### Notification System
+```typescript
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+
+type Notification = {
+  id: string
+  title: string
+  message: string
+  read: boolean
+  created_at: string
+}
+
+export function NotificationBell() {
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [unreadCount, setUnreadCount] = useState(0)
+  const supabase = createClient()
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      if (!user) return
+
+      const { data } = await supabase
+        .from('notifications')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+
+      setNotifications(data || [])
+      setUnreadCount(data?.filter((n) => !n.read).length || 0)
+    }
+
+    fetchNotifications()
+
+    const channel = supabase
+      .channel('notifications')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'notifications',
+        },
+        (payload) => {
+          setNotifications((prev) => [payload.new as Notification, ...prev])
+          setUnreadCount((prev) => prev + 1)
+
+          // Show browser notification
+          if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification(payload.new.title, {
+              body: payload.new.message,
+            })
+          }
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [supabase])
+
+  const markAsRead = async (id: string) => {
+    await supabase
+      .from('notifications')
+      .update({ read: true })
+      .eq('id', id)
+
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    )
+    setUnreadCount((prev) => prev - 1)
+  }
+
+  return (
+    <div>
+      <button className="relative">
+        🔔
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs">
+            {unreadCount}
+          </span>
+        )}
+      </button>
+
+      <div>
+        {notifications.map((notification) => (
+          <div
+            key={notification.id}
+            className={notification.read ? 'opacity-50' : ''}
+            onClick={() => markAsRead(notification.id)}
+          >
+            <h4>{notification.title}</h4>
+            <p>{notification.message}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+## Live Dashboard Updates
+
+### Real-Time Analytics
+```typescript
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+
+type Stats = {
+  total_users: number
+  active_sessions: number
+  revenue_today: number
+}
+
+export function LiveDashboard() {
+  const [stats, setStats] = useState<Stats>({
+    total_users: 0,
+    active_sessions: 0,
+    revenue_today: 0,
+  })
+  const supabase = createClient()
+
+  useEffect(() => {
+    // Fetch initial stats
+    const fetchStats = async () => {
+      const { data } = await supabase.rpc('get_dashboard_stats')
+      setStats(data)
+    }
+
+    fetchStats()
+
+    // Listen for relevant table changes
+    const channel = supabase
+      .channel('dashboard-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'users',
+        },
+        () => {
+          setStats((prev) => ({
+            ...prev,
+            total_users: prev.total_users + 1,
+          }))
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'orders',
+        },
+        (payload) => {
+          setStats((prev) => ({
+            ...prev,
+            revenue_today: prev.revenue_today + payload.new.amount,
+          }))
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [supabase])
+
+  return (
+    <div className="grid grid-cols-3 gap-4">
+      <div className="p-4 bg-white rounded shadow">
+        <h3>Total Users</h3>
+        <p className="text-3xl font-bold">{stats.total_users}</p>
+      </div>
+      <div className="p-4 bg-white rounded shadow">
+        <h3>Active Sessions</h3>
+        <p className="text-3xl font-bold">{stats.active_sessions}</p>
+      </div>
+      <div className="p-4 bg-white rounded shadow">
+        <h3>Revenue Today</h3>
+        <p className="text-3xl font-bold">${stats.revenue_today}</p>
+      </div>
+    </div>
+  )
+}
+```
+
+## Optimistic Updates
+
+### Instant UI Updates
+```typescript
+'use client'
+import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+
+export function TodoList() {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const supabase = createClient()
+
+  const addTodo = async (text: string) => {
+    // Optimistic update - update UI immediately
+    const tempId = crypto.randomUUID()
+    const optimisticTodo = {
+      id: tempId,
+      text,
+      done: false,
+      created_at: new Date().toISOString(),
+    }
+
+    setTodos((prev) => [...prev, optimisticTodo])
+
+    try {
+      // Insert to database
+      const { data, error } = await supabase
+        .from('todos')
+        .insert({ text, done: false })
+        .select()
+        .single()
+
+      if (error) throw error
+
+      // Replace temp todo with real one
+      setTodos((prev) =>
+        prev.map((todo) => (todo.id === tempId ? data : todo))
+      )
+    } catch (error) {
+      // Rollback on error
+      setTodos((prev) => prev.filter((todo) => todo.id !== tempId))
+      console.error('Failed to add todo:', error)
+    }
+  }
+
+  return <div>{/* Render todos */}</div>
+}
+```
+
+## Connection Status
+
+### Track Connection State
+```typescript
+'use client'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+
+export function ConnectionStatus() {
+  const [isConnected, setIsConnected] = useState(true)
+  const supabase = createClient()
+
+  useEffect(() => {
+    const channel = supabase.channel('connection-test')
+
+    channel
+      .on('system', { event: 'online' }, () => setIsConnected(true))
+      .on('system', { event: 'offline' }, () => setIsConnected(false))
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [supabase])
+
+  if (!isConnected) {
+    return (
+      <div className="bg-red-500 text-white p-2 text-center">
+        ⚠️ Connection lost. Reconnecting...
+      </div>
+    )
+  }
+
+  return null
+}
+```
+
+## Best Practices Checklist
+
+- [ ] Clean up subscriptions on unmount
+- [ ] Handle connection errors gracefully
+- [ ] Implement optimistic updates for better UX
+- [ ] Use presence for online status
+- [ ] Implement typing indicators in chat
+- [ ] Show connection status to users
+- [ ] Rate limit broadcast messages
+- [ ] Use filters to reduce unnecessary updates
+- [ ] Implement reconnection logic
+- [ ] Handle duplicate messages
+- [ ] Use channels efficiently
+- [ ] Test with slow/offline connections
+- [ ] Implement message queuing for offline
+- [ ] Monitor realtime usage/costs
+
+## When to Use This Skill
+
+Invoke this skill when:
+- Building chat applications
+- Implementing live notifications
+- Creating collaborative features
+- Adding presence/online status
+- Building real-time dashboards
+- Implementing live updates
+- Creating multiplayer features
+- Debugging realtime connections
+- Optimizing realtime performance
+- Implementing typing indicators

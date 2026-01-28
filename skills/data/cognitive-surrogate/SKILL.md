@@ -1,15 +1,31 @@
 ---
 name: cognitive-surrogate
-description: "Layer 6 Barton Cognitive Surrogate - build, train, validate psychological models with >90% fidelity"
+description: "cognitive-surrogate skill"
+version: 1.0.0
 ---
 
-# cognitive-surrogate
 
-> Layer 6: Build, Train, and Validate Psychological Models
+# Cognitive Surrogate
 
-**Version**: 1.1.0 (music-topos enhanced)
-**Trit**: 0 (Ergodic - coordinates surrogate building)
-**Bundle**: learning
+```yaml
+name: cognitive-surrogate
+description: Layer 6 Barton Cognitive Surrogate System - build, train, and validate psychological models that predict and generate authentic responses matching a subject's cognitive patterns
+version: 1.0.0
+trit: 0  # Ergodic/coordinator role in GF(3) triadic system
+```
+
+## bmorphism Contributions
+
+> *"We are building cognitive infrastructure for the next trillion minds"*
+> — [Plurigrid: the story thus far](https://gist.github.com/bmorphism/a400e174b9f93db299558a6986be0310)
+
+**Active Inference Foundation**: Cognitive surrogates implement the core [Active Inference in String Diagrams](https://arxiv.org/abs/2308.00861) pattern where an agent maintains a generative model of itself and others. The surrogate IS the generative model — it predicts responses by minimizing free energy between expected and observed behavior.
+
+**Self-Model as Markov Blanket**: The surrogate defines the statistical boundary (Markov blanket) between self and world. The model's internal states predict the subject's behavior while remaining conditionally independent of external states given sensory input.
+
+**Reafference in Surrogates**: When the surrogate predicts a response that matches actual behavior, this is **reafference** — self-caused sensation that confirms identity. Mismatches are **exafference** — signals that the model needs updating.
+
+**Autopoietic Surrogates**: Following Maturana & Varela's autopoiesis concept, the surrogate is a self-maintaining system that reproduces its own patterns. It embodies bmorphism's **autopoietic ergodicity** — self-sustaining systems that explore all accessible cognitive states.
 
 ## Overview
 
@@ -17,140 +33,255 @@ The Cognitive Surrogate skill enables construction of high-fidelity psychologica
 
 **Core Principle**: A surrogate is not an imitation but a *derivational continuation* - the model learns the generative grammar of cognition, not surface patterns.
 
-## Enhanced Integration: Multi-Interpreter
+**NEW (Langevin/Gibbs Integration)**: Predictions now use Gibbs distribution from Langevin analysis. Confidence scores reflect mixing time and temperature parameters.
 
-### ACSet Schema (Julia)
+## Key Capabilities
 
+### 1. build-psychological-profile
+
+Extract structured psychological profile from interaction corpus:
+
+```python
+profile = build_psychological_profile(
+    corpus=[threads, emails, writings],
+    dimensions=[
+        "values",           # Core beliefs, ethical framework
+        "interests",        # Topic affinities, curiosity patterns
+        "communication",    # Tone, formality, humor markers
+        "reasoning",        # Deductive vs intuitive, uncertainty handling
+        "social",           # Collaboration style, conflict patterns
+    ],
+    seed=gay_seed          # Deterministic via gay-mcp
+)
+```
+
+**Output ACSets Schema**:
 ```julia
-using ACSets, Catlab
-
 @present SchProfile(FreeSchema) begin
-    Value::Ob
-    Interest::Ob
-    Pattern::Ob
-    
+    Value::Ob; Interest::Ob; Pattern::Ob
     name::Attr(Value, String)
     weight::Attr(Value, Float64)
     topic::Attr(Interest, String)
     frequency::Attr(Interest, Int)
     exemplar::Attr(Pattern, String)
 end
-
-@acset_type CognitiveProfile(SchProfile)
 ```
 
-### Python Profile Builder
+### 2. train-predictor
+
+Train next-topic and next-response predictors:
 
 ```python
-# cognitive_surrogate.py
-from dataclasses import dataclass
-from typing import List, Dict
-import duckdb
+predictor = train_predictor(
+    profile=profile,
+    corpus=corpus,
+    model_type="markov_transformer",  # or "hmm", "lstm", "gpt_finetune"
+    context_window=8,                  # conversation turns
+    validation_split=0.15
+)
 
-@dataclass
-class CognitiveProfile:
-    values: Dict[str, float]
-    interests: Dict[str, int]
-    patterns: List[str]
-    
-def build_psychological_profile(corpus_path: str, seed: int = 0x42D):
-    """Extract structured psychological profile from interaction corpus."""
-    conn = duckdb.connect(corpus_path)
-    
-    # Extract values from sentiment patterns
-    values = conn.execute("""
-        SELECT topic, AVG(sentiment) as weight
-        FROM interactions
-        GROUP BY topic
-        HAVING COUNT(*) > 5
-    """).fetchall()
-    
-    # Extract interests from frequency
-    interests = conn.execute("""
-        SELECT topic, COUNT(*) as frequency
-        FROM interactions
-        GROUP BY topic
-        ORDER BY frequency DESC
-        LIMIT 20
-    """).fetchall()
-    
-    return CognitiveProfile(
-        values={v[0]: v[1] for v in values},
-        interests={i[0]: i[1] for i in interests},
-        patterns=extract_patterns(conn)
-    )
+# Predict likely next topics given conversation state
+next_topics = predictor.predict_topics(
+    context=current_thread,
+    top_k=5,
+    temperature=0.7
+)
 ```
 
-### Ruby Condensed Integration
+### 3. validate-fidelity
 
-```ruby
-# Integration with CondensedAnima for sheaf-based profiles
-module CognitiveSurrogate
-  def self.build_profile(interactions)
-    # Use condensed mathematics for profile structure
-    stack = WorldBroadcast::CondensedAnima.analytic_stack(
-      interactions.map { |i| i[:id] }
-    )
-    
-    # 6-functor for profile transformations
-    {
-      profile: stack,
-      values: extract_values(interactions),
-      fidelity_target: 0.90,
-      cellular_sheaf: WorldBroadcast::CondensedAnima.to_cellular_sheaf(stack)
-    }
-  end
-  
-  def self.validate_fidelity(surrogate, test_corpus, threshold: 0.90)
-    predictions = test_corpus.map { |t| surrogate.predict(t) }
-    accuracy = predictions.count(&:correct?) / predictions.size.to_f
-    
-    {
-      topic_prediction: accuracy,
-      overall: accuracy,
-      passed: accuracy >= threshold
-    }
-  end
-end
+Measure surrogate fidelity against held-out data:
+
+```python
+fidelity = validate_fidelity(
+    surrogate=predictor,
+    test_corpus=held_out_threads,
+    metrics=[
+        "topic_prediction_accuracy",   # Target: >0.85
+        "response_semantic_sim",       # Target: >0.90
+        "style_consistency",           # Target: >0.88
+        "value_alignment",             # Target: >0.92
+    ],
+    threshold=0.90  # Overall fidelity threshold
+)
+
+assert fidelity.overall >= 0.90, f"Fidelity {fidelity.overall} below threshold"
 ```
 
-### Hy Pattern Extraction
-
-```hy
-;; cognitive_patterns.hy
-(defn extract-behavioral-patterns [interactions]
-  "Extract patterns using HyJAX analysis"
-  (let [analyzer (tra.ThreadRelationalAnalyzer)]
-    ;; Ingest interactions
-    (for [i interactions]
-      (analyzer.ingest-thread 
-        (get i "id") 
-        (get i "title")
-        (get i "messages" [])))
-    
-    ;; Run entropy-maximized analysis
-    (analyzer.analyze)))
+**Fidelity Report**:
+```
+┌─────────────────────────┬────────┬────────┐
+│ Metric                  │ Score  │ Target │
+├─────────────────────────┼────────┼────────┤
+│ topic_prediction        │ 0.87   │ 0.85   │
+│ semantic_similarity     │ 0.91   │ 0.90   │
+│ style_consistency       │ 0.89   │ 0.88   │
+│ value_alignment         │ 0.94   │ 0.92   │
+├─────────────────────────┼────────┼────────┤
+│ OVERALL                 │ 0.9025 │ 0.90   │
+└─────────────────────────┴────────┴────────┘
 ```
 
-## Fidelity Metrics
+### 4. generate-authentic-reply
 
-| Metric | Target | Description |
-|--------|--------|-------------|
-| topic_prediction | >0.85 | Next topic accuracy |
-| semantic_similarity | >0.90 | Response embedding match |
-| style_consistency | >0.88 | Voice preservation |
-| value_alignment | >0.92 | Ethical framework match |
-| **OVERALL** | >0.90 | Weighted average |
+Generate text matching subject's voice:
 
-## GF(3) Triad Integration
+```python
+reply = generate_authentic_reply(
+    surrogate=predictor,
+    context=conversation_history,
+    prompt=incoming_message,
+    constraints={
+        "max_tokens": 500,
+        "preserve_uncertainty": True,  # Don't overclaim knowledge
+        "style_lock": True,            # Enforce style consistency
+    },
+    gay_seed=thread_seed  # Reproducible generation
+)
 
-| Trit | Skill | Role |
-|------|-------|------|
-| -1 | self-validation-loop | Validates surrogate fidelity |
-| 0 | **cognitive-surrogate** | Coordinates profile building |
-| +1 | agent-o-rama | Generates learned patterns |
+# Reply includes confidence and divergence markers
+print(reply.text)
+print(f"Confidence: {reply.confidence}")
+print(f"Style divergence: {reply.style_delta}")
+```
 
-**Conservation**: (-1) + (0) + (+1) = 0 ✓
+### 5. predict-via-gibbs-distribution (NEW)
+
+Use Gibbs distribution from Langevin dynamics for predictions:
+
+```python
+# Instead of generic pattern matching
+# Use p(pattern | θ) ∝ exp(-L(θ)/T) from Langevin
+prediction = gibbs_based_prediction(
+    state=current_state,
+    temperature=0.01,  # From Langevin analysis
+    loss_fn=pattern_energy,
+    mixing_time=500    # Estimated convergence time
+)
+
+# Adaptive confidence based on equilibration
+confidence = estimate_equilibrium(
+    steps_so_far=n,
+    mixing_time=tau_mix,
+    temperature=T
+)
+
+# Returns:
+# - prediction: Most likely next state
+# - confidence: P(equilibrium reached)
+# - temperature_influence: How much T affected prediction
+```
+
+### 6. project-trajectory
+
+Predict intellectual/professional trajectory:
+
+```python
+trajectory = project_trajectory(
+    profile=profile,
+    horizon="6_months",
+    dimensions=[
+        "research_interests",
+        "skill_acquisition", 
+        "collaboration_patterns",
+        "publication_topics",
+    ],
+    monte_carlo_samples=1000,
+    seed=gay_seed
+)
+
+# Returns probability distributions over future states
+for dim, distribution in trajectory.items():
+    print(f"{dim}: {distribution.mode} (p={distribution.confidence:.2f})")
+```
+
+## Integration: gay-mcp
+
+All stochastic operations use gay-mcp deterministic seeding:
+
+```python
+from gay_mcp import GaySeed, derive_color
+
+# Create reproducible surrogate session
+session_seed = GaySeed.from_thread(thread_id)
+profile_color = derive_color(session_seed, "profile")  # trit=0
+training_color = derive_color(session_seed, "train")   # trit=1
+validation_color = derive_color(session_seed, "valid") # trit=2
+
+# GF(3) conservation: 0 + 1 + 2 ≡ 0 (mod 3)
+assert (profile_color.trit + training_color.trit + validation_color.trit) % 3 == 0
+```
+
+## Integration: acsets
+
+Profile data stored as attributed C-sets:
+
+```julia
+using ACSets
+
+# Define cognitive schema
+@acset_type CognitiveProfile(SchProfile)
+
+# Populate from extraction
+profile = CognitiveProfile()
+add_part!(profile, :Value, name="intellectual_honesty", weight=0.95)
+add_part!(profile, :Interest, topic="category_theory", frequency=47)
+add_part!(profile, :Pattern, exemplar="tends to use analogies from music")
+
+# Query patterns
+high_values = incident(profile, x -> x.weight > 0.8, :Value)
+```
+
+## GF(3) Trit Assignment
+
+| Component | Trit | Role |
+|-----------|------|------|
+| cognitive-surrogate | 0 | Coordinator/ergodic - orchestrates profile building |
+| gay-mcp | 1 | Generator - provides deterministic randomness |
+| acsets | 2 | Storage - structured data persistence |
+
+**Conservation**: `0 + 1 + 2 ≡ 0 (mod 3)` — closed triadic system.
+
+## Usage Example
+
+```python
+# Complete surrogate construction workflow
+from cognitive_surrogate import (
+    build_psychological_profile,
+    train_predictor,
+    validate_fidelity,
+    generate_authentic_reply,
+    project_trajectory
+)
+from gay_mcp import GaySeed
+
+# Initialize with deterministic seed
+seed = GaySeed.from_string("barton_surrogate_v1")
+
+# 1. Build profile from corpus
+profile = build_psychological_profile(
+    corpus=load_interaction_corpus("barton_threads/"),
+    seed=seed
+)
+
+# 2. Train predictor
+predictor = train_predictor(profile, model_type="markov_transformer")
+
+# 3. Validate fidelity
+fidelity = validate_fidelity(predictor, test_corpus, threshold=0.90)
+print(f"Fidelity: {fidelity.overall:.2%}")
+
+# 4. Generate replies
+reply = generate_authentic_reply(
+    predictor,
+    context=current_conversation,
+    prompt="What do you think about applying category theory to social systems?"
+)
+
+# 5. Project trajectory
+trajectory = project_trajectory(profile, horizon="1_year")
+print(f"Predicted focus: {trajectory['research_interests'].mode}")
+```
 
 ## Ethical Considerations
 
@@ -160,26 +291,92 @@ end
 4. **Audit Trail**: All generations logged with gay-mcp seeds for reproducibility
 5. **Kill Switch**: Subject can invalidate surrogate at any time
 
-## Justfile Recipes
+## Files
 
-```makefile
-# Build profile from DuckDB corpus
-surrogate-build db="interactions.duckdb":
-    python3 -c "from cognitive_surrogate import build_psychological_profile; print(build_psychological_profile('{{db}}'))"
-
-# Validate fidelity
-surrogate-validate threshold="0.90":
-    ruby -I lib -r cognitive_surrogate -e "CognitiveSurrogate.validate_fidelity(surrogate, test, threshold: {{threshold}})"
-
-# Run Hy pattern extraction
-surrogate-hy:
-    uv run hy -c "(import cognitive_patterns) (extract-behavioral-patterns interactions)"
+```
+skills/cognitive-surrogate/
+├── SKILL.md                    # This file
+├── src/
+│   ├── profile_builder.py      # Psychological extraction
+│   ├── predictor.py            # Training and prediction
+│   ├── fidelity.py             # Validation metrics
+│   ├── generator.py            # Authentic reply generation
+│   └── trajectory.py           # Future projection
+├── schemas/
+│   └── cognitive_acset.jl      # ACSets schema definitions
+└── tests/
+    └── test_fidelity.py        # >90% threshold tests
 ```
 
-## Related Skills
+## See Also
 
-- `agent-o-rama` - Pattern learning
-- `entropy-sequencer` - Optimal training order
-- `gay-mcp` - Deterministic seeding
-- `condensed-analytic-stacks` - Sheaf-based profiles
-- `bisimulation-game` - Surrogate equivalence testing
+- [gay-mcp](../gay-mcp/SKILL.md) - Deterministic seeding
+- [acsets](../acsets/SKILL.md) - Structured data storage
+- [bisimulation-game](../bisimulation-game/SKILL.md) - Surrogate equivalence testing
+
+
+
+## Scientific Skill Interleaving
+
+This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
+
+### Graph Theory
+- **networkx** [○] via bicomodule
+  - Universal graph hub
+
+### Bibliography References
+
+- `general`: 734 citations in bib.duckdb
+
+
+
+## SDF Interleaving
+
+This skill connects to **Software Design for Flexibility** (Hanson & Sussman, 2021):
+
+### Primary Chapter: 9. Generic Procedures
+
+**Concepts**: dispatch, multimethod, predicate dispatch, generic
+
+### GF(3) Balanced Triad
+
+```
+cognitive-surrogate (+) + SDF.Ch9 (○) + [balancer] (−) = 0
+```
+
+**Skill Trit**: 1 (PLUS - generation)
+
+### Secondary Chapters
+
+- Ch10: Adventure Game Example
+- Ch4: Pattern Matching
+- Ch6: Layering
+- Ch7: Propagators
+
+### Connection Pattern
+
+Generic procedures dispatch on predicates. This skill selects implementations dynamically.
+## Cat# Integration
+
+This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
+
+```
+Trit: 0 (ERGODIC)
+Home: Prof
+Poly Op: ⊗
+Kan Role: Adj
+Color: #26D826
+```
+
+### GF(3) Naturality
+
+The skill participates in triads satisfying:
+```
+(-1) + (0) + (+1) ≡ 0 (mod 3)
+```
+
+This ensures compositional coherence in the Cat# equipment structure.
+
+## Forward Reference
+
+- unified-reafference (cross-agent psychological modeling)

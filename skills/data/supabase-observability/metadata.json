@@ -1,9 +1,7 @@
 {
   "name": "supabase-observability",
-  "description": "Set up comprehensive observability for Supabase integrations with metrics, traces, and alerts.Use when implementing monitoring for Supabase operations, setting up dashboards,or configuring alerting fo",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/supabase-observability/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:47.226536Z"
 }

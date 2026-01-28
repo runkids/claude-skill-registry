@@ -1,9 +1,7 @@
 {
   "name": "relay-pagination",
-  "description": "Use when relay pagination with cursor-based pagination, infinite scroll, load more patterns, and connection protocols.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-relay/skills/relay-pagination/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:07.712214Z"
 }

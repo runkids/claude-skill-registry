@@ -10,7 +10,6 @@ This skill provides comprehensive financial ratio analysis for evaluating compan
 ## Capabilities
 
 Calculate and interpret:
-
 - **Profitability Ratios**: ROE, ROA, Gross Margin, Operating Margin, Net Margin
 - **Liquidity Ratios**: Current Ratio, Quick Ratio, Cash Ratio
 - **Leverage Ratios**: Debt-to-Equity, Interest Coverage, Debt Service Coverage
@@ -27,7 +26,6 @@ Calculate and interpret:
 ## Input Format
 
 Financial data can be provided as:
-
 - CSV with financial line items
 - JSON with structured financial statements
 - Text description of key financial figures
@@ -36,7 +34,6 @@ Financial data can be provided as:
 ## Output Format
 
 Results include:
-
 - Calculated ratios with values
 - Industry benchmark comparisons (when available)
 - Trend analysis (if multiple periods provided)

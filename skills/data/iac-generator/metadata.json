@@ -1,7 +1,7 @@
 {
   "name": "iac-generator",
-  "repo": "a5c-ai/babysitter",
-  "path": "plugins/babysitter/skills/babysit/process/specializations/code-migration-modernization/skills/iac-generator/SKILL.md",
-  "source": "github.com/a5c-ai/babysitter",
-  "downloaded_at": "2026-01-27T04:38:34.770649Z"
+  "repo": "arbgjr/satra",
+  "path": ".claude/skills/iac-generator/SKILL.md",
+  "source": "github.com/arbgjr/satra",
+  "downloaded_at": "2026-01-28T03:28:43.767757Z"
 }

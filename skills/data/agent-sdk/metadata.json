@@ -1,7 +1,7 @@
 {
   "name": "agent-sdk",
-  "repo": "rysweet/azlin",
+  "repo": "rysweet/AzureHayMaker",
   "path": ".claude/skills/agent-sdk/SKILL.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-01-27T04:39:03.288304Z"
+  "source": "github.com/rysweet/AzureHayMaker",
+  "downloaded_at": "2026-01-28T04:30:03.968768Z"
 }

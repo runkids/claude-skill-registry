@@ -1,9 +1,7 @@
 {
   "name": "confluence-page-generator",
-  "description": "Confluence Page Generator - Auto-activating skill for Enterprise Workflows.Triggers on: confluence page generator, confluence page generatorPart of the Enterprise Workflows skill category.",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/20-enterprise-workflows/confluence-page-generator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-28T02:27:45.961841Z"
 }

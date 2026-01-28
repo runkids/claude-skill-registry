@@ -1,7 +1,7 @@
 {
   "name": "error-handler-middleware",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "skills/06-backend-dev/error-handler-middleware/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-27T03:43:03.236302Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/error-handler-middleware/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:50.999414Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "newsletter-events-write",
-  "description": "Generate markdown newsletters from stored events. Use when the user wants to create, write, or generate a newsletter from scraped events.",
   "repo": "aniketpanjwani/local_media_tools",
-  "category": "documents",
-  "tags": [
-    "newsletter",
-    "events",
-    "write"
-  ],
-  "stars": 7,
-  "source": "local"
+  "path": "skills/newsletter-events-write/SKILL.md",
+  "source": "github.com/aniketpanjwani/local_media_tools",
+  "downloaded_at": "2026-01-28T02:13:59.940895Z"
 }

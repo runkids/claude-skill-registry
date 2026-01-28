@@ -1,7 +1,7 @@
 {
   "name": "ralph-plan",
-  "repo": "mastra-ai/mastra",
+  "repo": "otrebu/all-agents",
   "path": ".claude/skills/ralph-plan/SKILL.md",
-  "source": "github.com/mastra-ai/mastra",
-  "downloaded_at": "2026-01-27T02:35:00.069804Z"
+  "source": "github.com/otrebu/all-agents",
+  "downloaded_at": "2026-01-28T02:32:01.875777Z"
 }

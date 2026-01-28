@@ -1,7 +1,7 @@
 {
   "name": "nano-banana",
-  "repo": "rebyteai-template/rebyte-skills",
-  "path": "nano-banana/SKILL.md",
-  "source": "github.com/rebyteai-template/rebyte-skills",
-  "downloaded_at": "2026-01-27T03:35:51.521765Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/content-creator-workflow/.claude/skills/nano-banana/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-28T03:30:09.980536Z"
 }

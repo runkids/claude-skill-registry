@@ -1,7 +1,7 @@
 {
   "name": "doc-check",
-  "repo": "codacy-open-source-projects-scans/coder",
+  "repo": "coder/coder",
   "path": ".claude/skills/doc-check/SKILL.md",
-  "source": "github.com/codacy-open-source-projects-scans/coder",
-  "downloaded_at": "2026-01-27T02:23:00.230996Z"
+  "source": "github.com/coder/coder",
+  "downloaded_at": "2026-01-28T04:03:42.963735Z"
 }

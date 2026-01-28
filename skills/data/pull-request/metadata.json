@@ -1,9 +1,7 @@
 {
   "name": "pull-request",
-  "description": "Creating pull requests with concise descriptions",
-  "repo": "mgreenly/ikigai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mgreenly/ikigai"
+  "repo": "reeinharddd/impulsa-monorepo",
+  "path": ".github/skills/pull-request/SKILL.md",
+  "source": "github.com/reeinharddd/impulsa-monorepo",
+  "downloaded_at": "2026-01-28T03:07:08.043674Z"
 }

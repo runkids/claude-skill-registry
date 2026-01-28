@@ -1,375 +1,529 @@
 ---
 name: error-tracking
-description: Add Sentry v8 error tracking and performance monitoring to your project services. Use this skill when adding error handling, creating new controllers, instrumenting cron jobs, or tracking database performance. ALL ERRORS MUST BE CAPTURED TO SENTRY - no exceptions.
+description: Track errors with CloudWatch Logs, implement structured logging, and monitor application health. Use when debugging production issues, investigating errors, or improving observability.
+allowed-tools: Read, Edit, Write, Bash, Grep
 ---
 
-# your project Sentry Integration Skill
+# Error Tracking Skill
 
-## Purpose
-This skill enforces comprehensive Sentry error tracking and performance monitoring across all your project services following Sentry v8 patterns.
+This skill helps you track and debug errors in production using CloudWatch Logs and structured logging.
 
 ## When to Use This Skill
-- Adding error handling to any code
-- Creating new controllers or routes
-- Instrumenting cron jobs
-- Tracking database performance
-- Adding performance spans
-- Handling workflow errors
 
-## 🚨 CRITICAL RULE
+- Investigating production errors
+- Monitoring application health
+- Debugging intermittent issues
+- Analyzing error patterns
+- Setting up alerting
+- Improving observability
+- Troubleshooting user-reported issues
 
-**ALL ERRORS MUST BE CAPTURED TO SENTRY** - No exceptions. Never use console.error alone.
+## Logging Infrastructure
 
-## Current Status
+### CloudWatch Logs
 
-### Form Service ✅ Complete
-- Sentry v8 fully integrated
-- All workflow errors tracked
-- SystemActionQueueProcessor instrumented
-- Test endpoints available
+AWS Lambda functions automatically log to CloudWatch:
 
-### Email Service 🟡 In Progress
-- Phase 1-2 complete (6/22 tasks)
-- 189 ErrorLogger.log() calls remaining
-
-## Sentry Integration Patterns
-
-### 1. Controller Error Handling
-
-```typescript
-// ✅ CORRECT - Use BaseController
-import { BaseController } from '../controllers/BaseController';
-
-export class MyController extends BaseController {
-    async myMethod() {
-        try {
-            // ... your code
-        } catch (error) {
-            this.handleError(error, 'myMethod'); // Automatically sends to Sentry
-        }
-    }
-}
+```
+CloudWatch Log Groups:
+├── /aws/lambda/sgcarstrends-api-prod
+├── /aws/lambda/sgcarstrends-web-prod
+└── /aws/lambda/sgcarstrends-workflows-prod
 ```
 
-### 2. Route Error Handling (Without BaseController)
+## Structured Logging
+
+### Logger Setup
 
 ```typescript
-import * as Sentry from '@sentry/node';
+// packages/utils/src/logger.ts
+import pino from "pino";
 
-router.get('/route', async (req, res) => {
-    try {
-        // ... your code
-    } catch (error) {
-        Sentry.captureException(error, {
-            tags: { route: '/route', method: 'GET' },
-            extra: { userId: req.user?.id }
-        });
-        res.status(500).json({ error: 'Internal server error' });
-    }
+export const logger = pino({
+  level: process.env.LOG_LEVEL || "info",
+  formatters: {
+    level: (label) => ({ level: label }),
+  },
+  timestamp: pino.stdTimeFunctions.isoTime,
+  base: {
+    env: process.env.NODE_ENV,
+    service: process.env.SERVICE_NAME,
+  },
 });
+
+// Export typed logger methods
+export const log = {
+  info: (message: string, data?: Record<string, unknown>) => {
+    logger.info(data, message);
+  },
+  error: (message: string, error: Error, data?: Record<string, unknown>) => {
+    logger.error(
+      {
+        ...data,
+        error: {
+          message: error.message,
+          stack: error.stack,
+          name: error.name,
+        },
+      },
+      message
+    );
+  },
+  warn: (message: string, data?: Record<string, unknown>) => {
+    logger.warn(data, message);
+  },
+  debug: (message: string, data?: Record<string, unknown>) => {
+    logger.debug(data, message);
+  },
+};
 ```
 
-### 3. Workflow Error Handling
+### Usage in Code
 
 ```typescript
-import { WorkflowSentryHelper } from '../workflow/utils/sentryHelper';
+// apps/api/src/routes/cars.ts
+import { log } from "@sgcarstrends/utils/logger";
 
-// ✅ CORRECT - Use WorkflowSentryHelper
-WorkflowSentryHelper.captureWorkflowError(error, {
-    workflowCode: 'DHS_CLOSEOUT',
-    instanceId: 123,
-    stepId: 456,
-    userId: 'user-123',
-    operation: 'stepCompletion',
-    metadata: { additionalInfo: 'value' }
-});
-```
-
-### 4. Cron Jobs (MANDATORY Pattern)
-
-```typescript
-#!/usr/bin/env node
-// FIRST LINE after shebang - CRITICAL!
-import '../instrument';
-import * as Sentry from '@sentry/node';
-
-async function main() {
-    return await Sentry.startSpan({
-        name: 'cron.job-name',
-        op: 'cron',
-        attributes: {
-            'cron.job': 'job-name',
-            'cron.startTime': new Date().toISOString(),
-        }
-    }, async () => {
-        try {
-            // Your cron job logic
-        } catch (error) {
-            Sentry.captureException(error, {
-                tags: {
-                    'cron.job': 'job-name',
-                    'error.type': 'execution_error'
-                }
-            });
-            console.error('[Job] Error:', error);
-            process.exit(1);
-        }
-    });
-}
-
-main()
-    .then(() => {
-        console.log('[Job] Completed successfully');
-        process.exit(0);
-    })
-    .catch((error) => {
-        console.error('[Job] Fatal error:', error);
-        process.exit(1);
-    });
-```
-
-### 5. Database Performance Monitoring
-
-```typescript
-import { DatabasePerformanceMonitor } from '../utils/databasePerformance';
-
-// ✅ CORRECT - Wrap database operations
-const result = await DatabasePerformanceMonitor.withPerformanceTracking(
-    'findMany',
-    'UserProfile',
-    async () => {
-        return await PrismaService.main.userProfile.findMany({
-            take: 5,
-        });
-    }
-);
-```
-
-### 6. Async Operations with Spans
-
-```typescript
-import * as Sentry from '@sentry/node';
-
-const result = await Sentry.startSpan({
-    name: 'operation.name',
-    op: 'operation.type',
-    attributes: {
-        'custom.attribute': 'value'
-    }
-}, async () => {
-    // Your async operation
-    return await someAsyncOperation();
-});
-```
-
-## Error Levels
-
-Use appropriate severity levels:
-
-- **fatal**: System is unusable (database down, critical service failure)
-- **error**: Operation failed, needs immediate attention
-- **warning**: Recoverable issues, degraded performance
-- **info**: Informational messages, successful operations
-- **debug**: Detailed debugging information (dev only)
-
-## Required Context
-
-```typescript
-import * as Sentry from '@sentry/node';
-
-Sentry.withScope((scope) => {
-    // ALWAYS include these if available
-    scope.setUser({ id: userId });
-    scope.setTag('service', 'form'); // or 'email', 'users', etc.
-    scope.setTag('environment', process.env.NODE_ENV);
-
-    // Add operation-specific context
-    scope.setContext('operation', {
-        type: 'workflow.start',
-        workflowCode: 'DHS_CLOSEOUT',
-        entityId: 123
+export const getCars = async (c: Context) => {
+  try {
+    log.info("Fetching cars", {
+      month: c.req.query("month"),
+      userId: c.get("userId"),
     });
 
-    Sentry.captureException(error);
-});
+    const cars = await db.query.cars.findMany();
+
+    log.info("Cars fetched successfully", {
+      count: cars.length,
+    });
+
+    return c.json(cars);
+  } catch (error) {
+    log.error("Failed to fetch cars", error as Error, {
+      month: c.req.query("month"),
+    });
+
+    return c.json({ error: "Failed to fetch cars" }, 500);
+  }
+};
 ```
 
-## Service-Specific Integration
+## Viewing Logs
 
-### Form Service
-
-**Location**: `./blog-api/src/instrument.ts`
-
-```typescript
-import * as Sentry from '@sentry/node';
-import { nodeProfilingIntegration } from '@sentry/profiling-node';
-
-Sentry.init({
-    dsn: process.env.SENTRY_DSN,
-    environment: process.env.NODE_ENV || 'development',
-    integrations: [
-        nodeProfilingIntegration(),
-    ],
-    tracesSampleRate: 0.1,
-    profilesSampleRate: 0.1,
-});
-```
-
-**Key Helpers**:
-- `WorkflowSentryHelper` - Workflow-specific errors
-- `DatabasePerformanceMonitor` - DB query tracking
-- `BaseController` - Controller error handling
-
-### Email Service
-
-**Location**: `./notifications/src/instrument.ts`
-
-```typescript
-import * as Sentry from '@sentry/node';
-import { nodeProfilingIntegration } from '@sentry/profiling-node';
-
-Sentry.init({
-    dsn: process.env.SENTRY_DSN,
-    environment: process.env.NODE_ENV || 'development',
-    integrations: [
-        nodeProfilingIntegration(),
-    ],
-    tracesSampleRate: 0.1,
-    profilesSampleRate: 0.1,
-});
-```
-
-**Key Helpers**:
-- `EmailSentryHelper` - Email-specific errors
-- `BaseController` - Controller error handling
-
-## Configuration (config.ini)
-
-```ini
-[sentry]
-dsn = your-sentry-dsn
-environment = development
-tracesSampleRate = 0.1
-profilesSampleRate = 0.1
-
-[databaseMonitoring]
-enableDbTracing = true
-slowQueryThreshold = 100
-logDbQueries = false
-dbErrorCapture = true
-enableN1Detection = true
-```
-
-## Testing Sentry Integration
-
-### Form Service Test Endpoints
+### AWS CLI
 
 ```bash
-# Test basic error capture
-curl http://localhost:3002/blog-api/api/sentry/test-error
+# View recent logs
+aws logs tail /aws/lambda/sgcarstrends-api-prod --follow
 
-# Test workflow error
-curl http://localhost:3002/blog-api/api/sentry/test-workflow-error
+# Filter by error level
+aws logs tail /aws/lambda/sgcarstrends-api-prod \
+  --filter-pattern "ERROR"
 
-# Test database performance
-curl http://localhost:3002/blog-api/api/sentry/test-database-performance
+# View logs from specific time range
+aws logs filter-log-events \
+  --log-group-name /aws/lambda/sgcarstrends-api-prod \
+  --start-time $(($(date +%s) - 3600))000 \
+  --end-time $(date +%s)000 \
+  --filter-pattern "ERROR"
 
-# Test error boundary
-curl http://localhost:3002/blog-api/api/sentry/test-error-boundary
+# Search for specific message
+aws logs filter-log-events \
+  --log-group-name /aws/lambda/sgcarstrends-api-prod \
+  --filter-pattern "Failed to fetch cars"
 ```
 
-### Email Service Test Endpoints
+### SST Console
 
 ```bash
-# Test basic error capture
-curl http://localhost:3003/notifications/api/sentry/test-error
+# Open SST console
+cd apps/api
+sst dev
 
-# Test email-specific error
-curl http://localhost:3003/notifications/api/sentry/test-email-error
-
-# Test performance tracking
-curl http://localhost:3003/notifications/api/sentry/test-performance
+# View logs in browser
+# Navigate to Functions → sgcarstrends-api-prod → Logs
 ```
 
-## Performance Monitoring
+## Error Patterns
 
-### Requirements
-
-1. **All API endpoints** must have transaction tracking
-2. **Database queries > 100ms** are automatically flagged
-3. **N+1 queries** are detected and reported
-4. **Cron jobs** must track execution time
-
-### Transaction Tracking
+### Common Error Logging
 
 ```typescript
-import * as Sentry from '@sentry/node';
-
-// Automatic transaction tracking for Express routes
-app.use(Sentry.Handlers.requestHandler());
-app.use(Sentry.Handlers.tracingHandler());
-
-// Manual transaction for custom operations
-const transaction = Sentry.startTransaction({
-    op: 'operation.type',
-    name: 'Operation Name',
-});
-
+// Database errors
 try {
-    // Your operation
-} finally {
-    transaction.finish();
+  const result = await db.query.cars.findMany();
+} catch (error) {
+  log.error("Database query failed", error as Error, {
+    query: "cars.findMany",
+    retryable: true,
+  });
+  throw error;
+}
+
+// External API errors
+try {
+  const response = await fetch(url);
+  if (!response.ok) {
+    log.error("External API error", new Error("API request failed"), {
+      url,
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+} catch (error) {
+  log.error("External API request failed", error as Error, {
+    url,
+  });
+}
+
+// Validation errors
+const result = schema.safeParse(data);
+if (!result.success) {
+  log.warn("Validation failed", {
+    errors: result.error.issues,
+    data,
+  });
+  return c.json({ error: "Invalid request" }, 400);
+}
+
+// Authentication errors
+if (!user) {
+  log.warn("Unauthorized access attempt", {
+    path: c.req.path,
+    ip: c.req.header("x-forwarded-for"),
+  });
+  return c.json({ error: "Unauthorized" }, 401);
 }
 ```
 
-## Common Mistakes to Avoid
+## CloudWatch Insights
 
-❌ **NEVER** use console.error without Sentry
-❌ **NEVER** swallow errors silently
-❌ **NEVER** expose sensitive data in error context
-❌ **NEVER** use generic error messages without context
-❌ **NEVER** skip error handling in async operations
-❌ **NEVER** forget to import instrument.ts as first line in cron jobs
+### Query Logs
 
-## Implementation Checklist
+```sql
+-- Find all errors in last hour
+fields @timestamp, @message, level, error.message
+| filter level = "error"
+| sort @timestamp desc
+| limit 100
 
-When adding Sentry to new code:
+-- Count errors by type
+fields error.name
+| filter level = "error"
+| stats count() by error.name
+| sort count() desc
 
-- [ ] Imported Sentry or appropriate helper
-- [ ] All try/catch blocks capture to Sentry
-- [ ] Added meaningful context to errors
-- [ ] Used appropriate error level
-- [ ] No sensitive data in error messages
-- [ ] Added performance tracking for slow operations
-- [ ] Tested error handling paths
-- [ ] For cron jobs: instrument.ts imported first
+-- Find slow requests
+fields @timestamp, @message, duration
+| filter level = "info" and @message like /Request completed/
+| filter duration > 1000
+| sort duration desc
 
-## Key Files
+-- Track error rate over time
+fields @timestamp
+| filter level = "error"
+| stats count() as ErrorCount by bin(5m)
 
-### Form Service
-- `/blog-api/src/instrument.ts` - Sentry initialization
-- `/blog-api/src/workflow/utils/sentryHelper.ts` - Workflow errors
-- `/blog-api/src/utils/databasePerformance.ts` - DB monitoring
-- `/blog-api/src/controllers/BaseController.ts` - Controller base
+-- Find errors for specific user
+fields @timestamp, @message, userId, error.message
+| filter level = "error" and userId = "user123"
+| sort @timestamp desc
+```
 
-### Email Service
-- `/notifications/src/instrument.ts` - Sentry initialization
-- `/notifications/src/utils/EmailSentryHelper.ts` - Email errors
-- `/notifications/src/controllers/BaseController.ts` - Controller base
+### Common Queries
 
-### Configuration
-- `/blog-api/config.ini` - Form service config
-- `/notifications/config.ini` - Email service config
-- `/sentry.ini` - Shared Sentry config
+```sql
+-- Database connection errors
+fields @timestamp, @message, error.message
+| filter error.message like /connection/
+| sort @timestamp desc
 
-## Documentation
+-- Memory errors
+fields @timestamp, @message, error.message
+| filter error.message like /memory/ or error.message like /heap/
+| sort @timestamp desc
 
-- Full implementation: `/dev/active/email-sentry-integration/`
-- Form service docs: `/blog-api/docs/sentry-integration.md`
-- Email service docs: `/notifications/docs/sentry-integration.md`
+-- Timeout errors
+fields @timestamp, @message, error.message
+| filter error.message like /timeout/ or error.message like /timed out/
+| sort @timestamp desc
 
-## Related Skills
+-- Rate limit errors
+fields @timestamp, @message, error.message
+| filter error.message like /rate limit/ or error.message like /too many requests/
+| sort @timestamp desc
+```
 
-- Use **database-verification** before database operations
-- Use **workflow-builder** for workflow error context
-- Use **database-scripts** for database error handling
+## Error Monitoring
+
+### CloudWatch Alarms
+
+```typescript
+// infra/monitoring.ts
+import { Alarm } from "sst/constructs";
+
+export function Monitoring({ stack }: StackContext) {
+  // Error rate alarm
+  new Alarm(stack, "HighErrorRate", {
+    sns: {
+      topicArn: process.env.SNS_TOPIC_ARN,
+    },
+    alarm: (props) => ({
+      alarmName: "sgcarstrends-high-error-rate",
+      evaluationPeriods: 2,
+      threshold: 10,
+      comparisonOperator: "GreaterThanThreshold",
+      metric: new Metric({
+        namespace: "AWS/Lambda",
+        metricName: "Errors",
+        dimensions: {
+          FunctionName: props.functionName,
+        },
+        statistic: "Sum",
+        period: Duration.minutes(5),
+      }),
+    }),
+  });
+
+  // High latency alarm
+  new Alarm(stack, "HighLatency", {
+    sns: {
+      topicArn: process.env.SNS_TOPIC_ARN,
+    },
+    alarm: (props) => ({
+      alarmName: "sgcarstrends-high-latency",
+      evaluationPeriods: 3,
+      threshold: 1000,  // 1 second
+      comparisonOperator: "GreaterThanThreshold",
+      metric: new Metric({
+        namespace: "AWS/Lambda",
+        metricName: "Duration",
+        dimensions: {
+          FunctionName: props.functionName,
+        },
+        statistic: "Average",
+        period: Duration.minutes(5),
+      }),
+    }),
+  });
+}
+```
+
+## Error Aggregation
+
+### Group Similar Errors
+
+```typescript
+// packages/utils/src/error-tracker.ts
+interface ErrorGroup {
+  fingerprint: string;
+  message: string;
+  count: number;
+  lastSeen: Date;
+  firstSeen: Date;
+}
+
+export class ErrorTracker {
+  private errors: Map<string, ErrorGroup> = new Map();
+
+  track(error: Error, context?: Record<string, unknown>) {
+    const fingerprint = this.getFingerprint(error);
+
+    const existing = this.errors.get(fingerprint);
+    if (existing) {
+      existing.count++;
+      existing.lastSeen = new Date();
+    } else {
+      this.errors.set(fingerprint, {
+        fingerprint,
+        message: error.message,
+        count: 1,
+        lastSeen: new Date(),
+        firstSeen: new Date(),
+      });
+    }
+
+    // Log error
+    log.error("Error tracked", error, {
+      ...context,
+      fingerprint,
+      count: this.errors.get(fingerprint)?.count,
+    });
+  }
+
+  private getFingerprint(error: Error): string {
+    // Create fingerprint from error type and message
+    const parts = [
+      error.name,
+      error.message.replace(/\d+/g, "N"),  // Replace numbers
+      error.stack?.split("\n")[1],  // First stack frame
+    ];
+    return parts.filter(Boolean).join("|");
+  }
+
+  getTopErrors(limit = 10): ErrorGroup[] {
+    return Array.from(this.errors.values())
+      .sort((a, b) => b.count - a.count)
+      .slice(0, limit);
+  }
+}
+```
+
+## Best Practices
+
+### 1. Log Context
+
+```typescript
+// ❌ No context
+log.error("Error occurred", error);
+
+// ✅ With context
+log.error("Failed to process payment", error, {
+  userId: user.id,
+  amount: payment.amount,
+  currency: payment.currency,
+  paymentId: payment.id,
+});
+```
+
+### 2. Use Structured Logs
+
+```typescript
+// ❌ String concatenation
+console.log(`User ${userId} performed action ${action}`);
+
+// ✅ Structured logging
+log.info("User action", {
+  userId,
+  action,
+  timestamp: new Date().toISOString(),
+});
+```
+
+### 3. Don't Log Sensitive Data
+
+```typescript
+// ❌ Logging sensitive data
+log.info("User logged in", {
+  email: user.email,
+  password: user.password,  // NEVER log passwords!
+  creditCard: user.creditCard,
+});
+
+// ✅ Safe logging
+log.info("User logged in", {
+  userId: user.id,
+  email: user.email.replace(/(?<=.{2}).(?=.*@)/g, "*"),  // Mask email
+});
+```
+
+### 4. Set Appropriate Log Levels
+
+```typescript
+// Production
+log.debug("Database query", { query });  // Not logged in prod
+log.info("Request completed", { duration });  // Logged
+log.warn("Cache miss", { key });  // Logged
+log.error("Database error", error);  // Logged
+
+// Development
+// All levels logged
+```
+
+## Debugging Production Issues
+
+### Step-by-Step Process
+
+```bash
+# 1. Identify the issue
+# Check CloudWatch Logs for errors
+aws logs tail /aws/lambda/sgcarstrends-api-prod --filter-pattern "ERROR"
+
+# 2. Find error pattern
+# Search for similar errors
+aws logs filter-log-events \
+  --log-group-name /aws/lambda/sgcarstrends-api-prod \
+  --filter-pattern "Failed to fetch cars"
+
+# 3. Check error context
+# View logs with context
+aws logs get-log-events \
+  --log-group-name /aws/lambda/sgcarstrends-api-prod \
+  --log-stream-name 2024/01/15/[$LATEST]abc123 \
+  --start-from-head
+
+# 4. Analyze error frequency
+# Use CloudWatch Insights
+# Query: Count errors by type
+
+# 5. Reproduce locally
+# Use error context to reproduce
+
+# 6. Fix and deploy
+# Create fix, test, deploy
+
+# 7. Verify fix
+# Monitor logs after deployment
+aws logs tail /aws/lambda/sgcarstrends-api-prod --follow
+```
+
+## Troubleshooting
+
+### Logs Not Appearing
+
+```bash
+# Issue: Logs not showing in CloudWatch
+# Solution: Check Lambda execution role permissions
+
+# Ensure Lambda has CloudWatch Logs permissions:
+# - logs:CreateLogGroup
+# - logs:CreateLogStream
+# - logs:PutLogEvents
+```
+
+### Too Many Logs
+
+```bash
+# Issue: Too much logging causing high costs
+# Solution: Adjust log level and retention
+
+# Set log level in production
+LOG_LEVEL=info
+
+# Reduce retention period
+aws logs put-retention-policy \
+  --log-group-name /aws/lambda/sgcarstrends-api-prod \
+  --retention-in-days 7
+```
+
+### Cannot Find Specific Error
+
+```bash
+# Issue: Can't find error in logs
+# Solution: Improve search with CloudWatch Insights
+
+# Use more specific filters
+fields @timestamp, @message
+| filter @message like /specific pattern/
+| sort @timestamp desc
+```
+
+## References
+
+- AWS CloudWatch Logs: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/
+- CloudWatch Insights: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html
+- Pino Logger: https://getpino.io
+- Related files:
+  - `packages/utils/src/logger.ts` - Logger configuration
+  - Root CLAUDE.md - Logging guidelines
+
+## Best Practices Summary
+
+1. **Structured Logging**: Use structured logs with context
+2. **Appropriate Levels**: Use correct log levels (debug, info, warn, error)
+3. **Don't Log Secrets**: Never log sensitive data
+4. **Add Context**: Include relevant context for debugging
+5. **Monitor Errors**: Set up CloudWatch Alarms
+6. **Aggregate Errors**: Group similar errors together
+7. **Log Retention**: Set appropriate retention periods
+8. **Use Insights**: Leverage CloudWatch Insights for analysis

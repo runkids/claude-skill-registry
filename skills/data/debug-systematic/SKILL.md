@@ -10,6 +10,29 @@ I'll help you debug issues systematically using the scientific method - hypothes
 
 Arguments: `$ARGUMENTS` - error description, reproduction steps, or context
 
+**Token Optimization:**
+- ✅ Session-based hypothesis tracking (already implemented)
+- ✅ Grep to find error patterns in logs (100 tokens vs 3,000+ reading all logs)
+- ✅ Focused file reading (only error-related files)
+- ✅ Caching reproduction steps and test results
+- ✅ Early exit when issue resolved - saves 90%
+- ✅ Progressive hypothesis testing (most likely → least likely)
+- **Expected tokens:** 1,500-3,000 (vs. 4,000-6,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Session location: `debug/` (plan.md, state.json, reproduction.log)
+- Cache location: `.claude/cache/debug/hypotheses.json`
+- Caches: Test results, hypothesis outcomes, reproduction steps
+- Cache validity: Until issue resolved or files change
+- Shared with: `/debug-root-cause`, `/debug-session` skills
+
+**Usage:**
+- `debug-systematic "error message"` - Start debugging (1,500-3,000 tokens)
+- `debug-systematic resume` - Continue debugging (800-1,500 tokens)
+- `debug-systematic reproduce` - Test reproduction (500-1,000 tokens)
+- `debug-systematic status` - Check progress (200-500 tokens)
+
 ## Session Intelligence
 
 I'll maintain debugging session continuity:

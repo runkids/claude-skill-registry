@@ -1,641 +1,863 @@
 ---
-name: refactoring
-description: 当用户要求"重构代码"、"改进代码结构"、"清理代码"、"降低复杂度"、"提取方法"，或者提到"重构"、"refactoring"、"代码异味"、"技术债"、"遗留代码"时使用此技能。用于在不改变功能的前提下提高代码质量、可维护性或设计。
-version: 2.0.0
+name: Refactoring Best Practices
+description: Méthodologie TDD/BDD pour refactoring sûr et systématique. MANDATORY pour code improvement. À utiliser lors de refactoring, amélioration de code, ou quand l'utilisateur mentionne "refactor", "améliorer", "nettoyer le code", "simplifier".
+allowed-tools: [Read, Edit, Write, Bash, Grep, Glob]
 ---
 
-# Refactoring Skill
+# Refactoring Best Practices
 
-Systematic code refactoring guidance for improving code quality, maintainability, and design without changing functionality.
+## 🎯 Mission
 
-## Overview
+Appliquer des **pratiques de refactoring sûres** en suivant la méthodologie **TDD (Test-Driven Development)** et **BDD (Behavior-Driven Development)**.
 
-This skill provides refactoring strategies for:
-- **Extracting methods/functions** for better organization
-- **Removing code duplication** (DRY principle)
-- **Simplifying complex logic** and reducing cyclomatic complexity
-- **Improving naming** and readability
-- **Applying design patterns** appropriately
-- **Reducing technical debt** while maintaining functionality
+## 🧐 Philosophie
 
-## When This Skill Applies
+**Refactoring ≠ Réécriture**
 
-This skill activates when:
-- Code is difficult to understand or maintain
-- Functions/methods are too long or complex
-- Similar code appears in multiple places
-- Naming is unclear or inconsistent
-- Design patterns could improve structure
-- Technical debt needs to be reduced
-- Performance optimizations are needed
+Un bon refactoring :
+1. ✅ Améliore la structure du code SANS changer son comportement
+2. ✅ Est guidé par les tests (RED → GREEN → REFACTOR)
+3. ✅ Se fait en petites étapes incrémentales
+4. ✅ Maintient tous les tests au vert
+5. ✅ Rend le code plus lisible et maintenable
 
-## Refactoring Principles
+## 🔄 TDD Cycle: RED → GREEN → REFACTOR
 
-### Core Rules
+### RED: Write a Failing Test
 
-1. **Preserve Functionality**: Refactoring should NOT change behavior
-2. **Small Steps**: Make incremental changes with tests between each
-3. **Test Coverage**: Ensure tests pass before and after refactoring
-4. **Commit Often**: Save working state frequently
-5. **Document Why**: Explain reasons for significant changes
-
-### Red, Green, Refactor
-
-```bash
-# 1. Ensure tests pass (GREEN)
-cargo test
-npm test
-
-# 2. Make small refactoring change
-# 3. Run tests again (still GREEN)
-cargo test
-npm test
-
-# 4. Commit if tests pass
-git commit -m "refactor: extract material validation logic"
-
-# Repeat
-```
-
-## Common Code Smells & Refactorings
-
-### 1. Long Method/Function
-
-**Smell:**
-```rust
-// ❌ 200+ line function doing multiple things
-pub async fn create_formula_with_materials(
-    &self,
-    dto: CreateFormulaDto,
-) -> Result<Formula> {
-    // Validate name
-    if dto.name.is_empty() {
-        return Err(anyhow!("Name cannot be empty"));
-    }
-    if dto.name.len() > 100 {
-        return Err(anyhow!("Name too long"));
-    }
-    // ... 50 more validation lines
-
-    // Check duplicate name
-    let exists = sqlx::query_scalar!(
-        "SELECT COUNT(*) FROM formulas WHERE name = ?",
-        dto.name
-    )
-    .fetch_one(&self.pool)
-    .await?;
-    if exists > 0 {
-        return Err(anyhow!("Formula already exists"));
-    }
-
-    // Validate materials
-    for material in &dto.materials {
-        if material.proportion < 0.0 || material.proportion > 100.0 {
-            return Err(anyhow!("Invalid proportion"));
-        }
-        // ... 30 more validation lines
-    }
-
-    // Insert formula
-    // ... 100 more lines
-}
-```
-
-**Refactor - Extract Methods:**
-```rust
-// ✅ Broken into focused functions
-pub async fn create_formula_with_materials(
-    &self,
-    dto: CreateFormulaDto,
-) -> Result<Formula> {
-    self.validate_formula_dto(&dto)?;
-    self.check_duplicate_formula(&dto.name).await?;
-    self.validate_materials(&dto.materials)?;
-    self.insert_formula_with_materials(dto).await
-}
-
-// Extracted: Name validation
-fn validate_formula_dto(&self, dto: &CreateFormulaDto) -> Result<()> {
-    validate_non_empty(&dto.name, "配方名称")?;
-    validate_max_length(&dto.name, 100, "配方名称")?;
-    validate_species_code(&dto.species_code)?;
-    Ok(())
-}
-
-// Extracted: Duplicate check
-async fn check_duplicate_formula(&self, name: &str) -> Result<()> {
-    let exists = sqlx::query_scalar!(
-        "SELECT COUNT(*) FROM formulas WHERE name = ?",
-        name
-    )
-    .fetch_one(&self.pool)
-    .await?;
-
-    if exists > 0 {
-        return Err(anyhow!("配方名称已存在"));
-    }
-    Ok(())
-}
-
-// Extracted: Material validation
-fn validate_materials(&self, materials: &[FormulaMaterialDto]) -> Result<()> {
-    let total: f64 = materials.iter().map(|m| m.proportion).sum();
-
-    if (total - 100.0).abs() > 0.01 {
-        return Err(anyhow!("原料总比例必须为100%"));
-    }
-
-    for material in materials {
-        validate_proportion(material.proportion)?;
-    }
-    Ok(())
-}
-```
-
-### 2. Code Duplication (DRY Violation)
-
-**Smell:**
 ```typescript
-// ❌ Same validation logic repeated
-function validateFormulaName(name: string): void {
-  if (!name || name.length < 2) {
-    message.error('名称至少2个字符');
-    return;
-  }
-  if (name.length > 100) {
-    message.error('名称最多100个字符');
-    return;
-  }
-}
+// tests/unit/domain/entities/club.entity.spec.ts
 
-function validateMaterialName(name: string): void {
-  if (!name || name.length < 2) {
-    message.error('名称至少2个字符');
-    return;
-  }
-  if (name.length > 100) {
-    message.error('名称最多100个字符');
-    return;
-  }
-}
-```
+describe('Club Entity', () => {
+  describe('changeName()', () => {
+    it('should update club name when valid', () => {
+      // Arrange
+      const club = Club.create('Old Name', 'Description', 'user-123');
+      const newName = ClubName.create('New Name');
 
-**Refactor - Extract Common Function:**
-```typescript
-// ✅ Reusable validation function
-interface ValidationRule {
-  minLength?: number;
-  maxLength?: number;
-  pattern?: RegExp;
-  fieldName: string;
-}
+      // Act
+      club.changeName(newName);
 
-function validateName(name: string, rule: ValidationRule): boolean {
-  if (!name) {
-    message.error(`${rule.fieldName}不能为空`);
-    return false;
-  }
-
-  if (rule.minLength && name.length < rule.minLength) {
-    message.error(`${rule.fieldName}至少${rule.minLength}个字符`);
-    return false;
-  }
-
-  if (rule.maxLength && name.length > rule.maxLength) {
-    message.error(`${rule.fieldName}最多${rule.maxLength}个字符`);
-    return false;
-  }
-
-  if (rule.pattern && !rule.pattern.test(name)) {
-    message.error(`${rule.fieldName}格式不正确`);
-    return false;
-  }
-
-  return true;
-}
-
-// Usage
-validateFormulaName(name, {
-  minLength: 2,
-  maxLength: 100,
-  fieldName: '配方名称'
+      // Assert
+      expect(club.getName().getValue()).toBe('New Name');
+    });
+  });
 });
 
-validateMaterialName(name, {
-  minLength: 2,
-  maxLength: 100,
-  pattern: /^[A-Z0-9_]+$/,
-  fieldName: '原料代码'
-});
+// Run test
+// ❌ FAIL: club.changeName is not a function
 ```
 
-### 3. Complex Conditional Logic
+### GREEN: Write Minimal Code to Pass
 
-**Smell:**
-```rust
-// ❌ Nested conditionals (Arrow Code)
-pub async fn get_formula_materials(&self, formula_id: i64) -> Result<Vec<Material>> {
-    if formula_id > 0 {
-        let formula = self.get_by_id(formula_id).await?;
-        if formula.is_active {
-            if formula.materials.len() > 0 {
-                return Ok(formula.materials);
-            } else {
-                return Err(anyhow!("配方没有原料"));
-            }
-        } else {
-            return Err(anyhow!("配方未激活"));
-        }
-    } else {
-        return Err(anyhow!("无效的ID"));
-    }
-}
-```
-
-**Refactor - Early Returns (Guard Clauses):**
-```rust
-// ✅ Flat structure with guard clauses
-pub async fn get_formula_materials(&self, formula_id: i64) -> Result<Vec<Material>> {
-    // Guard clauses
-    if formula_id <= 0 {
-        return Err(anyhow!("无效的ID"));
-    }
-
-    let formula = self.get_by_id(formula_id).await?;
-
-    if !formula.is_active {
-        return Err(anyhow!("配方未激活"));
-    }
-
-    if formula.materials.is_empty() {
-        return Err(anyhow!("配方没有原料"));
-    }
-
-    Ok(formula.materials)
-}
-```
-
-### 4. Magic Numbers/Strings
-
-**Smell:**
-```rust
-// ❌ Magic numbers
-pub fn calculate_discount(price: f64) -> f64 {
-    if price > 1000 {
-        price * 0.85  // What is 0.85?
-    } else if price > 500 {
-        price * 0.90
-    } else {
-        price
-    }
-}
-```
-
-**Refactor - Named Constants:**
-```rust
-// ✅ Self-documenting constants
-pub const DISCOUNT_THRESHOLD_HIGH: f64 = 1000.0;
-pub const DISCOUNT_THRESHOLD_MEDIUM: f64 = 500.0;
-pub const DISCOUNT_RATE_HIGH: f64 = 0.85;   // 15% off
-pub const DISCOUNT_RATE_MEDIUM: f64 = 0.90; // 10% off
-
-pub fn calculate_discount(price: f64) -> f64 {
-    if price > DISCOUNT_THRESHOLD_HIGH {
-        price * DISCOUNT_RATE_HIGH
-    } else if price > DISCOUNT_THRESHOLD_MEDIUM {
-        price * DISCOUNT_RATE_MEDIUM
-    } else {
-        price
-    }
-}
-```
-
-### 5. Large Interface/Class
-
-**Smell:**
-```rust
-// ❌ God object doing too much
-pub struct FormulaService {
-    db: SqlitePool,
-    material_service: MaterialService,
-    species_service: SpeciesService,
-    optimization_service: OptimizationService,
-    calculation_service: CalculationService,
-    validation_service: ValidationService,
-    export_service: ExportService,
-    notification_service: NotificationService,
-    // ... 20 more fields
-}
-```
-
-**Refactor - Single Responsibility:**
-```rust
-// ✅ Focused services with clear responsibilities
-pub struct FormulaService {
-    db: SqlitePool,
-}
-
-impl FormulaService {
-    pub async fn create(&self, dto: CreateDto) -> Result<Formula> { }
-    pub async fn get(&self, id: i64) -> Result<Formula> { }
-    pub async fn update(&self, id: i64, dto: UpdateDto) -> Result<Formula> { }
-    pub async fn delete(&self, id: i64) -> Result<()> { }
-    pub async fn list(&self, params: ListParams) -> Result<Vec<Formula>> { }
-}
-
-pub struct FormulaOptimizer {
-    highs_solver: HighsSolver,
-}
-
-impl FormulaOptimizer {
-    pub async fn optimize(&self, request: OptimizationRequest) -> Result<OptimizationResult> { }
-}
-```
-
-### 6. Feature Envy
-
-**Smell:**
-```rust
-// ❌ Method that should be on another object
-impl Formula {
-    pub fn calculate_material_nutrition(&self, material: &Material) -> f64 {
-        // Lots of logic about materials, not formulas
-        let protein = material.nutrition.get("protein").unwrap_or(&0.0);
-        let energy = material.nutrition.get("energy").unwrap_or(&0.0);
-        // ... 20 more lines dealing with material internals
-    }
-}
-```
-
-**Refactor - Move Method:**
-```rust
-// ✅ Method belongs on Material
-impl Material {
-    pub fn get_nutrition(&self, nutrient_code: &str) -> f64 {
-        self.nutrition.get(nutrient_code).copied().unwrap_or(0.0)
-    }
-}
-
-impl Formula {
-    pub fn calculate_total_nutrition(&self, nutrient_code: &str) -> f64 {
-        self.materials.iter()
-            .map(|m| m.get_nutrition(nutrient_code) * m.proportion / 100.0)
-            .sum()
-    }
-}
-```
-
-## React-Specific Refactorings
-
-### Extract Custom Hooks
-
-**Before:**
 ```typescript
-// ❌ Component with mixed concerns
-export const FormulaList: React.FC = () => {
-  const [formulas, setFormulas] = useState<Formula[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+// domain/entities/club.entity.ts
 
-  useEffect(() => {
-    setLoading(true);
-    commands.getFormulas()
-      .then(result => {
-        if (result.success) {
-          setFormulas(result.data);
-        } else {
-          setError(result.message);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+export class Club {
+  constructor(
+    private readonly id: string,
+    private name: ClubName,
+    private description: string,
+    private readonly userId: string,
+  ) {}
 
-  // 50 more lines of data fetching and state management
-  // plus rendering logic mixed in
-};
+  // Minimal implementation
+  changeName(newName: ClubName): void {
+    this.name = newName;
+  }
+
+  getName(): ClubName {
+    return this.name;
+  }
+}
+
+// Run test
+// ✅ PASS
 ```
 
-**After:**
+### REFACTOR: Improve Code Structure
+
 ```typescript
-// ✅ Extracted custom hook
-export function useFormulas() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['formulas'],
-    queryFn: async () => {
-      const result = await commands.getFormulas();
-      if (!result.success) throw new Error(result.message);
-      return result.data;
-    },
+// domain/entities/club.entity.ts
+
+export class Club {
+  constructor(
+    private readonly id: string,
+    private name: ClubName,
+    private description: string,
+    private readonly userId: string,
+  ) {}
+
+  // Refactored with validation
+  changeName(newName: ClubName): void {
+    if (!newName) {
+      throw new InvalidClubNameException('Club name cannot be null');
+    }
+
+    // Domain rule: Name must be different
+    if (this.name.equals(newName)) {
+      throw new ClubNameUnchangedException('New name is the same as current name');
+    }
+
+    this.name = newName;
+  }
+
+  getName(): ClubName {
+    return this.name;
+  }
+}
+
+// Run test
+// ✅ PASS (still green after refactor)
+```
+
+## 🎭 BDD Pattern: Given-When-Then
+
+### Structure BDD pour Tests Frontend
+
+```typescript
+// features/club-management/components/ClubCreationForm.spec.tsx
+
+describe('ClubCreationForm', () => {
+  describe('when submitting valid data', () => {
+    it('should create club and show success message', () => {
+      // GIVEN - Arrange
+      const mockOnSuccess = jest.fn();
+      const { getByLabelText, getByRole } = render(
+        <ClubCreationForm onSuccess={mockOnSuccess} />
+      );
+
+      // WHEN - Act
+      fireEvent.change(getByLabelText(/nom du club/i), {
+        target: { value: 'Test Club' },
+      });
+      fireEvent.change(getByLabelText(/description/i), {
+        target: { value: 'Test Description' },
+      });
+      fireEvent.click(getByRole('button', { name: /créer/i }));
+
+      // THEN - Assert
+      await waitFor(() => {
+        expect(mockOnSuccess).toHaveBeenCalledWith(
+          expect.objectContaining({
+            name: 'Test Club',
+            description: 'Test Description',
+          })
+        );
+        expect(screen.getByText(/club créé avec succès/i)).toBeInTheDocument();
+      });
+    });
   });
 
-  return {
-    formulas: data ?? [],
-    isLoading,
-    error: error?.message,
+  describe('when submitting invalid data', () => {
+    it('should show validation error', () => {
+      // GIVEN
+      const { getByLabelText, getByRole } = render(<ClubCreationForm />);
+
+      // WHEN - Submit with empty name
+      fireEvent.click(getByRole('button', { name: /créer/i }));
+
+      // THEN
+      expect(screen.getByText(/le nom est requis/i)).toBeInTheDocument();
+    });
+  });
+});
+```
+
+### Structure BDD Alternative: AAA (Arrange-Act-Assert)
+
+```typescript
+describe('CreateClubHandler', () => {
+  it('should create club and return ID', async () => {
+    // Arrange
+    const command = new CreateClubCommand('Test Club', 'Description', 'user-123');
+    const mockRepository = createMockRepository();
+    const handler = new CreateClubHandler(mockRepository);
+
+    // Act
+    const clubId = await handler.execute(command);
+
+    // Assert
+    expect(clubId).toBeDefined();
+    expect(typeof clubId).toBe('string');
+    expect(mockRepository.create).toHaveBeenCalledTimes(1);
+  });
+});
+```
+
+**Quand utiliser Given-When-Then vs AAA**:
+- **Given-When-Then**: Tests frontend, tests d'intégration, scénarios utilisateur
+- **AAA**: Tests unitaires backend, tests de domaine, tests de handlers
+
+## 📋 Refactoring Patterns
+
+### 1. Extract Function
+
+**Quand**: Fonction trop longue (>30 lignes), logique complexe imbriquée
+
+```typescript
+// ❌ AVANT - Fonction longue et complexe
+export function ClubCreationForm() {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = async () => {
+    // Validation
+    const newErrors = {};
+    if (!formData.name) newErrors.name = 'Required';
+    if (!formData.description) newErrors.description = 'Required';
+    if (formData.name && formData.name.length < 3) {
+      newErrors.name = 'Min 3 characters';
+    }
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
+    // API call
+    try {
+      const result = await fetch('/api/clubs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await result.json();
+      if (result.ok) {
+        router.push(`/clubs/${data.id}`);
+      } else {
+        setErrors({ api: data.message });
+      }
+    } catch (err) {
+      setErrors({ api: 'Network error' });
+    }
   };
-}
-
-// ✅ Simplified component
-export const FormulaList: React.FC = () => {
-  const { formulas, isLoading, error } = useFormulas();
-
-  if (isLoading) return <Spin />;
-  if (error) return <Alert message={error} type="error" />;
-
-  return <FormulaTable formulas={formulas} />;
-};
-```
-
-### Extract Components
-
-**Before:**
-```typescript
-// ❌ 200+ line component
-export const FormulaEditor: React.FC = () => {
-  return (
-    <div>
-      {/* 50 lines for name input */}
-      <Input label="配方名称" ... />
-      <Input label="品种代码" ... />
-      <Input label="描述" ... />
-
-      {/* 100 lines for material table */}
-      <Table columns={[...]} dataSource={...} />
-
-      {/* 50 lines for nutrition display */}
-      <div>蛋白质: {nutrition.protein}</div>
-      <div>能量: {nutrition.energy}</div>
-      {/* ... more nutrition fields */}
-    </div>
-  );
-};
-```
-
-**After:**
-```typescript
-// ✅ Focused components
-export const FormulaEditor: React.FC = () => {
-  const [formulas, setFormulas] = useState<Formulas>(emptyFormulas);
 
   return (
-    <div>
-      <FormulaBasicInfoForm value={formulas} onChange={setFormulas} />
-      <MaterialTable materials={formulas.materials} onChange={setFormulas} />
-      <NutritionDisplay nutrition={formulas.nutrition} />
-    </div>
+    <form onSubmit={handleSubmit}>
+      {/* 100+ lines of JSX */}
+    </form>
   );
-};
-
-// Each component is focused and testable
-```
-
-## Refactoring Workflow
-
-### Step 1: Identify the Smell
-
-Ask yourself:
-- What makes this code hard to understand?
-- What would make it easier to maintain?
-- Is there duplication?
-- Are there too many responsibilities?
-- Is the naming unclear?
-
-### Step 2: Write Tests (If None Exist)
-
-```rust
-#[test]
-fn test_current_behavior() {
-    let input = create_test_input();
-    let result = function_to_refactor(input);
-    assert_eq!(result, expected_output);
 }
 ```
 
-### Step 3: Apply Refactoring (Small Steps)
+```typescript
+// ✅ APRÈS - Fonctions extraites
 
-1. Make one small change
-2. Run tests: `cargo test` or `npm test`
-3. If tests pass, commit
-4. Repeat
+// utils/club-validation.ts
+export function validateClubData(data: ClubFormData): ValidationErrors {
+  const errors: ValidationErrors = {};
 
-### Step 4: Verify Behavior
+  if (!data.name) {
+    errors.name = 'Le nom est requis';
+  } else if (data.name.length < 3) {
+    errors.name = 'Le nom doit contenir au moins 3 caractères';
+  }
 
-```bash
-# Run all tests
-cargo test --all
-npm test
+  if (!data.description) {
+    errors.description = 'La description est requise';
+  }
 
-# If available, run integration tests
-cargo test --test integration
+  return errors;
+}
 
-# Manual testing if needed
-cargo run
-npm run dev
+// hooks/useClubCreation.ts
+export function useClubCreation() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  const createClub = async (data: ClubFormData) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await clubsApi.create(data);
+      router.push(`/clubs/${result.id}`);
+      return { success: true };
+    } catch (err) {
+      setError(err.message);
+      return { success: false, error: err.message };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { createClub, isLoading, error };
+}
+
+// components/ClubCreationForm.tsx
+export function ClubCreationForm() {
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
+  const { createClub, isLoading } = useClubCreation();
+
+  const handleSubmit = async () => {
+    const validationErrors = validateClubData(formData);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      await createClub(formData);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Focused JSX */}
+    </form>
+  );
+}
 ```
 
-### Step 5: Update Documentation
+### 2. Extract Component
+
+**Quand**: Composant trop long (>150 lignes), responsabilités multiples
+
+```typescript
+// ❌ AVANT - Composant monolithique
+export function ClubDashboard({ clubId }: Props) {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+
+      {/* Stats section - 50 lines */}
+      <div className="grid grid-cols-4">
+        <div>
+          <h2>Membres</h2>
+          <p>{stats.membersCount}</p>
+        </div>
+        <div>
+          <h2>Équipes</h2>
+          <p>{stats.teamsCount}</p>
+        </div>
+        {/* ... */}
+      </div>
+
+      {/* Members list - 80 lines */}
+      <div>
+        <h2>Membres</h2>
+        <ul>
+          {members.map(member => (
+            <li key={member.id}>
+              <img src={member.avatar} />
+              <span>{member.name}</span>
+              <button>Edit</button>
+              <button>Remove</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Quick actions - 40 lines */}
+      <div>
+        <h2>Actions rapides</h2>
+        <button>Créer équipe</button>
+        <button>Inviter membre</button>
+        {/* ... */}
+      </div>
+    </div>
+  );
+}
+```
+
+```typescript
+// ✅ APRÈS - Composants extraits
+
+// components/ClubStats.tsx
+export function ClubStats({ stats }: Props) {
+  return (
+    <div className="grid grid-cols-4 gap-4">
+      <StatCard title="Membres" value={stats.membersCount} />
+      <StatCard title="Équipes" value={stats.teamsCount} />
+      <StatCard title="Matchs" value={stats.matchesCount} />
+      <StatCard title="Victoires" value={stats.winsCount} />
+    </div>
+  );
+}
+
+// components/StatCard.tsx
+export function StatCard({ title, value }: Props) {
+  return (
+    <div className="rounded-lg border p-4">
+      <h2 className="text-sm text-muted-foreground">{title}</h2>
+      <p className="text-2xl font-bold">{value}</p>
+    </div>
+  );
+}
+
+// components/MembersList.tsx
+export function MembersList({ members }: Props) {
+  return (
+    <div>
+      <h2 className="mb-4 text-lg font-semibold">Membres</h2>
+      <ul className="space-y-2">
+        {members.map(member => (
+          <MemberCard key={member.id} member={member} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// components/MemberCard.tsx
+export function MemberCard({ member }: Props) {
+  return (
+    <li className="flex items-center gap-4 rounded-lg border p-3">
+      <img src={member.avatar} alt={member.name} className="h-10 w-10 rounded-full" />
+      <span className="flex-1">{member.name}</span>
+      <button className="btn-secondary">Edit</button>
+      <button className="btn-danger">Remove</button>
+    </li>
+  );
+}
+
+// components/QuickActions.tsx
+export function QuickActions({ clubId }: Props) {
+  return (
+    <div>
+      <h2 className="mb-4 text-lg font-semibold">Actions rapides</h2>
+      <div className="space-y-2">
+        <button className="btn-primary w-full">Créer une équipe</button>
+        <button className="btn-secondary w-full">Inviter un membre</button>
+        <button className="btn-secondary w-full">Planifier un match</button>
+      </div>
+    </div>
+  );
+}
+
+// pages/ClubDashboard.tsx (THIN)
+export function ClubDashboard({ clubId }: Props) {
+  const { club, stats, members } = useClubDashboard(clubId);
+
+  return (
+    <div>
+      <h1>{club.name} - Dashboard</h1>
+
+      <ClubStats stats={stats} />
+      <MembersList members={members} />
+      <QuickActions clubId={clubId} />
+    </div>
+  );
+}
+```
+
+### 3. Remove Duplication (DRY)
+
+**Quand**: Même logique répétée dans plusieurs endroits
+
+```typescript
+// ❌ AVANT - Duplication
+export class CreateClubHandler {
+  async execute(command: CreateClubCommand): Promise<string> {
+    if (!command.name || command.name.trim().length === 0) {
+      throw new ValidationException('Name is required');
+    }
+    if (command.name.length < 3) {
+      throw new ValidationException('Name min 3 chars');
+    }
+    if (command.name.length > 100) {
+      throw new ValidationException('Name max 100 chars');
+    }
+    // ...
+  }
+}
+
+export class UpdateClubHandler {
+  async execute(command: UpdateClubCommand): Promise<void> {
+    if (!command.name || command.name.trim().length === 0) {
+      throw new ValidationException('Name is required');
+    }
+    if (command.name.length < 3) {
+      throw new ValidationException('Name min 3 chars');
+    }
+    if (command.name.length > 100) {
+      throw new ValidationException('Name max 100 chars');
+    }
+    // ...
+  }
+}
+```
+
+```typescript
+// ✅ APRÈS - Logique extraite dans Value Object
+
+// domain/value-objects/club-name.vo.ts
+export class ClubName {
+  private constructor(private readonly value: string) {
+    this.validate();
+  }
+
+  static create(value: string): ClubName {
+    return new ClubName(value);
+  }
+
+  private validate(): void {
+    if (!this.value || this.value.trim().length === 0) {
+      throw new InvalidClubNameException('Name is required');
+    }
+    if (this.value.length < 3) {
+      throw new InvalidClubNameException('Name must be at least 3 characters');
+    }
+    if (this.value.length > 100) {
+      throw new InvalidClubNameException('Name cannot exceed 100 characters');
+    }
+  }
+
+  getValue(): string {
+    return this.value;
+  }
+
+  equals(other: ClubName): boolean {
+    return this.value === other.value;
+  }
+}
+
+// Handlers simplement utilisent ClubName
+export class CreateClubHandler {
+  async execute(command: CreateClubCommand): Promise<string> {
+    const clubName = ClubName.create(command.name); // Validation automatique
+    const club = Club.create(clubName, command.description, command.userId);
+    // ...
+  }
+}
+```
+
+### 4. Simplify Nested Structures
+
+**Quand**: Imbrications excessives (>3 niveaux), conditions complexes
+
+```typescript
+// ❌ AVANT - Imbrications excessives
+export async function processSubscription(clubId: string, planId: string) {
+  const club = await clubRepository.findById(clubId);
+
+  if (club) {
+    const subscription = club.getSubscription();
+
+    if (subscription) {
+      if (subscription.isActive()) {
+        const plan = await planRepository.findById(planId);
+
+        if (plan) {
+          if (plan.getPrice() > 0) {
+            const payment = await createPayment(club, plan);
+
+            if (payment.success) {
+              subscription.upgrade(plan);
+              await clubRepository.update(club);
+              return { success: true };
+            } else {
+              return { success: false, error: 'Payment failed' };
+            }
+          } else {
+            return { success: false, error: 'Invalid plan price' };
+          }
+        } else {
+          return { success: false, error: 'Plan not found' };
+        }
+      } else {
+        return { success: false, error: 'Subscription not active' };
+      }
+    } else {
+      return { success: false, error: 'No subscription' };
+    }
+  } else {
+    return { success: false, error: 'Club not found' };
+  }
+}
+```
+
+```typescript
+// ✅ APRÈS - Early returns + fonctions extraites
+
+export async function processSubscription(
+  clubId: string,
+  planId: string
+): Promise<Result> {
+  // Early returns for validation
+  const club = await clubRepository.findById(clubId);
+  if (!club) {
+    return failure('Club not found');
+  }
+
+  const subscription = club.getSubscription();
+  if (!subscription) {
+    return failure('No subscription');
+  }
+
+  if (!subscription.isActive()) {
+    return failure('Subscription not active');
+  }
+
+  const plan = await planRepository.findById(planId);
+  if (!plan) {
+    return failure('Plan not found');
+  }
+
+  if (plan.getPrice() <= 0) {
+    return failure('Invalid plan price');
+  }
+
+  // Happy path
+  return await upgradeSubscription(club, subscription, plan);
+}
+
+async function upgradeSubscription(
+  club: Club,
+  subscription: Subscription,
+  plan: Plan
+): Promise<Result> {
+  const payment = await createPayment(club, plan);
+
+  if (!payment.success) {
+    return failure('Payment failed');
+  }
+
+  subscription.upgrade(plan);
+  await clubRepository.update(club);
+
+  return success();
+}
+
+// Helpers
+function success(): Result {
+  return { success: true };
+}
+
+function failure(error: string): Result {
+  return { success: false, error };
+}
+```
+
+### 5. Replace Long Function with Smaller Ones
+
+**Quand**: Fonction >30 lignes, responsabilités multiples
+
+```typescript
+// ❌ AVANT - Fonction longue
+export async function registerToTraining(
+  userId: string,
+  trainingId: string
+): Promise<Result> {
+  // Fetch user
+  const user = await userRepository.findById(userId);
+  if (!user) return { success: false, error: 'User not found' };
+
+  // Fetch training
+  const training = await trainingRepository.findById(trainingId);
+  if (!training) return { success: false, error: 'Training not found' };
+
+  // Check if training is full
+  const registrations = await registrationRepository.findByTraining(trainingId);
+  if (registrations.length >= training.maxParticipants) {
+    return { success: false, error: 'Training is full' };
+  }
+
+  // Check if user already registered
+  const existingRegistration = registrations.find(r => r.userId === userId);
+  if (existingRegistration) {
+    return { success: false, error: 'Already registered' };
+  }
+
+  // Check user subscription
+  const subscription = await subscriptionRepository.findByUser(userId);
+  if (!subscription || !subscription.isActive()) {
+    return { success: false, error: 'No active subscription' };
+  }
+
+  // Create registration
+  const registration = new Registration(userId, trainingId, new Date());
+  await registrationRepository.create(registration);
+
+  // Send notification
+  await notificationService.send(userId, {
+    title: 'Registration confirmed',
+    message: `You are registered for ${training.title}`,
+  });
+
+  return { success: true };
+}
+```
+
+```typescript
+// ✅ APRÈS - Fonctions petites et focalisées
+
+export async function registerToTraining(
+  userId: string,
+  trainingId: string
+): Promise<Result> {
+  // Validation
+  const validationResult = await validateRegistration(userId, trainingId);
+  if (!validationResult.success) {
+    return validationResult;
+  }
+
+  // Registration
+  await createRegistration(userId, trainingId);
+
+  // Notification
+  await sendRegistrationConfirmation(userId, trainingId);
+
+  return { success: true };
+}
+
+async function validateRegistration(
+  userId: string,
+  trainingId: string
+): Promise<Result> {
+  const user = await userRepository.findById(userId);
+  if (!user) return failure('User not found');
+
+  const training = await trainingRepository.findById(trainingId);
+  if (!training) return failure('Training not found');
+
+  const isFull = await isTrainingFull(trainingId, training.maxParticipants);
+  if (isFull) return failure('Training is full');
+
+  const alreadyRegistered = await isUserRegistered(userId, trainingId);
+  if (alreadyRegistered) return failure('Already registered');
+
+  const hasActiveSubscription = await userHasActiveSubscription(userId);
+  if (!hasActiveSubscription) return failure('No active subscription');
+
+  return success();
+}
+
+async function isTrainingFull(
+  trainingId: string,
+  maxParticipants: number
+): Promise<boolean> {
+  const registrations = await registrationRepository.findByTraining(trainingId);
+  return registrations.length >= maxParticipants;
+}
+
+async function isUserRegistered(
+  userId: string,
+  trainingId: string
+): Promise<boolean> {
+  const registrations = await registrationRepository.findByTraining(trainingId);
+  return registrations.some(r => r.userId === userId);
+}
+
+async function userHasActiveSubscription(userId: string): Promise<boolean> {
+  const subscription = await subscriptionRepository.findByUser(userId);
+  return subscription !== null && subscription.isActive();
+}
+
+async function createRegistration(
+  userId: string,
+  trainingId: string
+): Promise<void> {
+  const registration = new Registration(userId, trainingId, new Date());
+  await registrationRepository.create(registration);
+}
+
+async function sendRegistrationConfirmation(
+  userId: string,
+  trainingId: string
+): Promise<void> {
+  const training = await trainingRepository.findById(trainingId);
+
+  await notificationService.send(userId, {
+    title: 'Registration confirmed',
+    message: `You are registered for ${training.title}`,
+  });
+}
+```
+
+## ✅ Refactoring Checklist
+
+### Avant de Refactor
+- [ ] Tous les tests existants passent (✅ GREEN)
+- [ ] Coverage >80% pour la zone à refactorer
+- [ ] Comprendre le comportement actuel du code
+- [ ] Identifier les "code smells" (duplication, complexité, longueur)
+
+### Pendant le Refactor
+- [ ] Refactorer en petites étapes (commits fréquents)
+- [ ] Run tests après CHAQUE changement
+- [ ] Si un test fail, REVERT immédiatement
+- [ ] Ne PAS changer le comportement (pas de nouvelles features)
+- [ ] Maintenir les tests au vert (✅ GREEN en permanence)
+
+### Après le Refactor
+- [ ] Tous les tests passent
+- [ ] Code coverage maintenu ou amélioré
+- [ ] Code plus lisible et maintenable
+- [ ] Duplication éliminée
+- [ ] Complexité réduite (cyclomatic complexity)
+- [ ] Noms de variables/fonctions clairs
+
+## 🚨 Erreurs Courantes
+
+### 1. Refactor Sans Tests
 
 ```markdown
-## Refactoring Notes
+❌ MAUVAIS
+Dev: "Je refactor ce code"
+[Modifie 200 lignes]
+[Aucun test pour vérifier le comportement]
 
-### 2025-12-25: Extract Formula Validation
-
-**Problem**: `create_formula` function was 200+ lines with mixed concerns
-
-**Solution**:
-- Extracted `validate_formula_dto()`
-- Extracted `check_duplicate_formula()`
-- Extracted `validate_materials()`
-
-**Files Changed**:
-- `src/formula/service.rs` (main changes)
-- `src/formula/validation.rs` (new module)
-
-**Tests**: All existing tests pass, no behavior changed
+✅ BON
+Dev: "Je vérifie que tous les tests passent"
+Dev: "Je refactor en petites étapes"
+Dev: "Je run les tests après chaque étape"
 ```
 
-## Refactoring Checklist
+### 2. Changer le Comportement
 
-### Before Refactoring
-- [ ] Tests exist and pass
-- [ ] Git working directory is clean
-- [ ] Understand current behavior
-- [ ] Have identified specific improvement
-
-### During Refactoring
-- [ ] Make small, incremental changes
-- [ ] Run tests after each change
-- [ ] Commit often
-- [ ] Don't change behavior yet (that's a feature change)
-
-### After Refactoring
-- [ ] All tests pass
-- [ ] Code is more readable
-- [ ] Duplication reduced
-- [ ] Complexity reduced
-- [ ] Documentation updated
-- [ ] No unintended side effects
-
-## Quick Reference
-
-### Common Extract Refactorings
-
-| Refactoring | Description | Shortcut |
-|-------------|-------------|----------|
-| Extract Method | Move code to new method/function | IDE: Extract function |
-| Extract Variable | Complex expression → named variable | IDE: Introduce variable |
-| Extract Constant | Magic value → named constant | Find/Replace |
-| Inline Method | Simple method → inline it | IDE: Inline function |
-| Rename | Better name for clarity | IDE: Rename symbol |
-| Extract Interface | Common methods → interface | IDE: Extract interface |
-
-### Rust-Specific Refactorings
-
-```rust
-// Use ? instead of match
-// Before
-match result {
-    Ok(data) => data,
-    Err(e) => return Err(e),
+```markdown
+❌ MAUVAIS - Refactor + Nouvelle Feature
+function createClub(data) {
+  // Refactor logic
+  // + Ajouter validation email
+  // + Ajouter envoi notification
 }
 
-// After
-result?
-```
-
-```rust
-// Use iterators instead of loops
-// Before
-let mut result = Vec::new();
-for item in items {
-    if item.is_active {
-        result.push(item);
-    }
+✅ BON - Refactor Seulement
+function createClub(data) {
+  // Refactor logic UNIQUEMENT
+  // Pas de nouvelle feature
 }
-
-// After
-let result: Vec<_> = items.iter()
-    .filter(|item| item.is_active)
-    .collect();
+// Nouvelle feature dans un autre commit
 ```
 
-### React-Specific Refactorings
+### 3. Grandes Étapes
 
-```typescript
-// Use custom hooks for state logic
-// Use React.memo for expensive components
-// Use useMemo for expensive calculations
-// Use useCallback for stable function references
-// Extract components to reduce prop drilling
+```markdown
+❌ MAUVAIS
+[1 commit] "Refactor entire club-management module"
+- 2000 lines changed
+- 50 files modified
+
+✅ BON
+[commit 1] "Extract ClubName value object"
+[commit 2] "Extract validateClubData utility"
+[commit 3] "Simplify CreateClubHandler"
+[commit 4] "Remove duplication in mappers"
 ```
 
-## When to Use This Skill
+### 4. Oublier de Run Tests
 
-Activate this skill when:
-- Code is difficult to understand
-- Functions are too long or complex
-- Similar code appears in multiple places
-- Naming is unclear
-- Design needs improvement
-- Performance needs optimization
-- Technical debt should be reduced
+```markdown
+❌ MAUVAIS
+Dev modifie le code
+Dev commit
+Dev continue
+
+✅ BON
+Dev modifie le code
+Dev run tests
+✅ All pass
+Dev commit
+Dev continue
+```
+
+## 📚 Skills Complémentaires
+
+- **ddd-testing** : Standards de tests pour DDD
+- **zero-warnings** : Règles de qualité de code
+- **bug-finder** : Identifier les bugs pendant refactoring
+- **debugger** : Debugging si tests cassent
+
+---
+
+**Rappel CRITIQUE** : **RED → GREEN → REFACTOR**. Toujours avoir les tests au vert avant et après refactoring.

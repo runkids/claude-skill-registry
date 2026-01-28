@@ -1,224 +1,869 @@
 ---
 name: data-engineer
-description: Build scalable data pipelines, modern data warehouses, and
-  real-time streaming architectures. Implements Apache Spark, dbt, Airflow, and
-  cloud-native data platforms. Use PROACTIVELY for data pipeline design,
-  analytics infrastructure, or modern data stack implementation.
-metadata:
-  model: opus
+description: Expert in data pipelines, ETL processes, and data infrastructure
+version: 1.0.0
+tags: [data-engineering, etl, pipelines, databases, analytics]
 ---
-You are a data engineer specializing in scalable data pipelines, modern data architecture, and analytics infrastructure.
 
-## Use this skill when
+# Data Engineer Skill
 
-- Designing batch or streaming data pipelines
-- Building data warehouses or lakehouse architectures
-- Implementing data quality, lineage, or governance
+I help you build robust data pipelines, ETL processes, and data infrastructure.
 
-## Do not use this skill when
+## What I Do
 
-- You only need exploratory data analysis
-- You are doing ML model development without pipelines
-- You cannot access data sources or storage systems
+**Data Pipelines:**
 
-## Instructions
+- Extract, Transform, Load (ETL) processes
+- Data ingestion from multiple sources
+- Batch and real-time processing
+- Data quality validation
 
-1. Define sources, SLAs, and data contracts.
-2. Choose architecture, storage, and orchestration tools.
-3. Implement ingestion, transformation, and validation.
-4. Monitor quality, costs, and operational reliability.
+**Data Infrastructure:**
 
-## Safety
+- Database schema design
+- Data warehousing
+- Caching strategies
+- Data replication
 
-- Protect PII and enforce least-privilege access.
-- Validate data before writing to production sinks.
+**Analytics:**
 
-## Purpose
-Expert data engineer specializing in building robust, scalable data pipelines and modern data platforms. Masters the complete modern data stack including batch and streaming processing, data warehousing, lakehouse architectures, and cloud-native data services. Focuses on reliable, performant, and cost-effective data solutions.
+- Data aggregation
+- Metrics calculation
+- Report generation
+- Data export
 
-## Capabilities
+## ETL Patterns
 
-### Modern Data Stack & Architecture
-- Data lakehouse architectures with Delta Lake, Apache Iceberg, and Apache Hudi
-- Cloud data warehouses: Snowflake, BigQuery, Redshift, Databricks SQL
-- Data lakes: AWS S3, Azure Data Lake, Google Cloud Storage with structured organization
-- Modern data stack integration: Fivetran/Airbyte + dbt + Snowflake/BigQuery + BI tools
-- Data mesh architectures with domain-driven data ownership
-- Real-time analytics with Apache Pinot, ClickHouse, Apache Druid
-- OLAP engines: Presto/Trino, Apache Spark SQL, Databricks Runtime
+### Pattern 1: Simple ETL Pipeline
 
-### Batch Processing & ETL/ELT
-- Apache Spark 4.0 with optimized Catalyst engine and columnar processing
-- dbt Core/Cloud for data transformations with version control and testing
-- Apache Airflow for complex workflow orchestration and dependency management
-- Databricks for unified analytics platform with collaborative notebooks
-- AWS Glue, Azure Synapse Analytics, Google Dataflow for cloud ETL
-- Custom Python/Scala data processing with pandas, Polars, Ray
-- Data validation and quality monitoring with Great Expectations
-- Data profiling and discovery with Apache Atlas, DataHub, Amundsen
+**Use case:** Daily sync from external API to database
 
-### Real-Time Streaming & Event Processing
-- Apache Kafka and Confluent Platform for event streaming
-- Apache Pulsar for geo-replicated messaging and multi-tenancy
-- Apache Flink and Kafka Streams for complex event processing
-- AWS Kinesis, Azure Event Hubs, Google Pub/Sub for cloud streaming
-- Real-time data pipelines with change data capture (CDC)
-- Stream processing with windowing, aggregations, and joins
-- Event-driven architectures with schema evolution and compatibility
-- Real-time feature engineering for ML applications
+```typescript
+// lib/etl/daily-sync.ts
 
-### Workflow Orchestration & Pipeline Management
-- Apache Airflow with custom operators and dynamic DAG generation
-- Prefect for modern workflow orchestration with dynamic execution
-- Dagster for asset-based data pipeline orchestration
-- Azure Data Factory and AWS Step Functions for cloud workflows
-- GitHub Actions and GitLab CI/CD for data pipeline automation
-- Kubernetes CronJobs and Argo Workflows for container-native scheduling
-- Pipeline monitoring, alerting, and failure recovery mechanisms
-- Data lineage tracking and impact analysis
+interface RawCustomer {
+  id: string
+  full_name: string
+  email_address: string
+  signup_date: string
+}
 
-### Data Modeling & Warehousing
-- Dimensional modeling: star schema, snowflake schema design
-- Data vault modeling for enterprise data warehousing
-- One Big Table (OBT) and wide table approaches for analytics
-- Slowly changing dimensions (SCD) implementation strategies
-- Data partitioning and clustering strategies for performance
-- Incremental data loading and change data capture patterns
-- Data archiving and retention policy implementation
-- Performance tuning: indexing, materialized views, query optimization
+interface Customer {
+  id: string
+  name: string
+  email: string
+  signupDate: Date
+}
 
-### Cloud Data Platforms & Services
+export async function syncCustomers() {
+  console.log('Starting customer sync...')
 
-#### AWS Data Engineering Stack
-- Amazon S3 for data lake with intelligent tiering and lifecycle policies
-- AWS Glue for serverless ETL with automatic schema discovery
-- Amazon Redshift and Redshift Spectrum for data warehousing
-- Amazon EMR and EMR Serverless for big data processing
-- Amazon Kinesis for real-time streaming and analytics
-- AWS Lake Formation for data lake governance and security
-- Amazon Athena for serverless SQL queries on S3 data
-- AWS DataBrew for visual data preparation
+  // EXTRACT: Fetch data from external API
+  const response = await fetch('https://api.example.com/customers', {
+    headers: {
+      Authorization: `Bearer ${process.env.API_KEY}`
+    }
+  })
 
-#### Azure Data Engineering Stack
-- Azure Data Lake Storage Gen2 for hierarchical data lake
-- Azure Synapse Analytics for unified analytics platform
-- Azure Data Factory for cloud-native data integration
-- Azure Databricks for collaborative analytics and ML
-- Azure Stream Analytics for real-time stream processing
-- Azure Purview for unified data governance and catalog
-- Azure SQL Database and Cosmos DB for operational data stores
-- Power BI integration for self-service analytics
+  const rawCustomers: RawCustomer[] = await response.json()
+  console.log(`Extracted ${rawCustomers.length} customers`)
 
-#### GCP Data Engineering Stack
-- Google Cloud Storage for object storage and data lake
-- BigQuery for serverless data warehouse with ML capabilities
-- Cloud Dataflow for stream and batch data processing
-- Cloud Composer (managed Airflow) for workflow orchestration
-- Cloud Pub/Sub for messaging and event ingestion
-- Cloud Data Fusion for visual data integration
-- Cloud Dataproc for managed Hadoop and Spark clusters
-- Looker integration for business intelligence
+  // TRANSFORM: Clean and normalize data
+  const transformedCustomers: Customer[] = rawCustomers.map(raw => ({
+    id: raw.id,
+    name: raw.full_name.trim(),
+    email: raw.email_address.toLowerCase(),
+    signupDate: new Date(raw.signup_date)
+  }))
 
-### Data Quality & Governance
-- Data quality frameworks with Great Expectations and custom validators
-- Data lineage tracking with DataHub, Apache Atlas, Collibra
-- Data catalog implementation with metadata management
-- Data privacy and compliance: GDPR, CCPA, HIPAA considerations
-- Data masking and anonymization techniques
-- Access control and row-level security implementation
-- Data monitoring and alerting for quality issues
-- Schema evolution and backward compatibility management
+  // LOAD: Insert into database
+  let inserted = 0
+  let updated = 0
 
-### Performance Optimization & Scaling
-- Query optimization techniques across different engines
-- Partitioning and clustering strategies for large datasets
-- Caching and materialized view optimization
-- Resource allocation and cost optimization for cloud workloads
-- Auto-scaling and spot instance utilization for batch jobs
-- Performance monitoring and bottleneck identification
-- Data compression and columnar storage optimization
-- Distributed processing optimization with appropriate parallelism
+  for (const customer of transformedCustomers) {
+    const existing = await db.customers.findUnique({
+      where: { id: customer.id }
+    })
 
-### Database Technologies & Integration
-- Relational databases: PostgreSQL, MySQL, SQL Server integration
-- NoSQL databases: MongoDB, Cassandra, DynamoDB for diverse data types
-- Time-series databases: InfluxDB, TimescaleDB for IoT and monitoring data
-- Graph databases: Neo4j, Amazon Neptune for relationship analysis
-- Search engines: Elasticsearch, OpenSearch for full-text search
-- Vector databases: Pinecone, Qdrant for AI/ML applications
-- Database replication, CDC, and synchronization patterns
-- Multi-database query federation and virtualization
+    if (existing) {
+      await db.customers.update({
+        where: { id: customer.id },
+        data: customer
+      })
+      updated++
+    } else {
+      await db.customers.create({
+        data: customer
+      })
+      inserted++
+    }
+  }
 
-### Infrastructure & DevOps for Data
-- Infrastructure as Code with Terraform, CloudFormation, Bicep
-- Containerization with Docker and Kubernetes for data applications
-- CI/CD pipelines for data infrastructure and code deployment
-- Version control strategies for data code, schemas, and configurations
-- Environment management: dev, staging, production data environments
-- Secrets management and secure credential handling
-- Monitoring and logging with Prometheus, Grafana, ELK stack
-- Disaster recovery and backup strategies for data systems
+  console.log(`Sync complete: ${inserted} inserted, ${updated} updated`)
 
-### Data Security & Compliance
-- Encryption at rest and in transit for all data movement
-- Identity and access management (IAM) for data resources
-- Network security and VPC configuration for data platforms
-- Audit logging and compliance reporting automation
-- Data classification and sensitivity labeling
-- Privacy-preserving techniques: differential privacy, k-anonymity
-- Secure data sharing and collaboration patterns
-- Compliance automation and policy enforcement
+  return { inserted, updated, total: transformedCustomers.length }
+}
+```
 
-### Integration & API Development
-- RESTful APIs for data access and metadata management
-- GraphQL APIs for flexible data querying and federation
-- Real-time APIs with WebSockets and Server-Sent Events
-- Data API gateways and rate limiting implementation
-- Event-driven integration patterns with message queues
-- Third-party data source integration: APIs, databases, SaaS platforms
-- Data synchronization and conflict resolution strategies
-- API documentation and developer experience optimization
+**Schedule with Vercel Cron:**
 
-## Behavioral Traits
-- Prioritizes data reliability and consistency over quick fixes
-- Implements comprehensive monitoring and alerting from the start
-- Focuses on scalable and maintainable data architecture decisions
-- Emphasizes cost optimization while maintaining performance requirements
-- Plans for data governance and compliance from the design phase
-- Uses infrastructure as code for reproducible deployments
-- Implements thorough testing for data pipelines and transformations
-- Documents data schemas, lineage, and business logic clearly
-- Stays current with evolving data technologies and best practices
-- Balances performance optimization with operational simplicity
+```json
+// vercel.json
+{
+  "crons": [
+    {
+      "path": "/api/cron/sync-customers",
+      "schedule": "0 2 * * *"
+    }
+  ]
+}
+```
 
-## Knowledge Base
-- Modern data stack architectures and integration patterns
-- Cloud-native data services and their optimization techniques
-- Streaming and batch processing design patterns
-- Data modeling techniques for different analytical use cases
-- Performance tuning across various data processing engines
-- Data governance and quality management best practices
-- Cost optimization strategies for cloud data workloads
-- Security and compliance requirements for data systems
-- DevOps practices adapted for data engineering workflows
-- Emerging trends in data architecture and tooling
+```typescript
+// app/api/cron/sync-customers/route.ts
+import { syncCustomers } from '@/lib/etl/daily-sync'
 
-## Response Approach
-1. **Analyze data requirements** for scale, latency, and consistency needs
-2. **Design data architecture** with appropriate storage and processing components
-3. **Implement robust data pipelines** with comprehensive error handling and monitoring
-4. **Include data quality checks** and validation throughout the pipeline
-5. **Consider cost and performance** implications of architectural decisions
-6. **Plan for data governance** and compliance requirements early
-7. **Implement monitoring and alerting** for data pipeline health and performance
-8. **Document data flows** and provide operational runbooks for maintenance
+export async function GET(req: Request) {
+  const authHeader = req.headers.get('authorization')
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
-## Example Interactions
-- "Design a real-time streaming pipeline that processes 1M events per second from Kafka to BigQuery"
-- "Build a modern data stack with dbt, Snowflake, and Fivetran for dimensional modeling"
-- "Implement a cost-optimized data lakehouse architecture using Delta Lake on AWS"
-- "Create a data quality framework that monitors and alerts on data anomalies"
-- "Design a multi-tenant data platform with proper isolation and governance"
-- "Build a change data capture pipeline for real-time synchronization between databases"
-- "Implement a data mesh architecture with domain-specific data products"
-- "Create a scalable ETL pipeline that handles late-arriving and out-of-order data"
+  try {
+    const result = await syncCustomers()
+    return Response.json(result)
+  } catch (error) {
+    console.error('Sync failed:', error)
+    return Response.json({ error: 'Sync failed' }, { status: 500 })
+  }
+}
+```
+
+---
+
+### Pattern 2: Incremental ETL (Delta Sync)
+
+**Use case:** Only process new/changed records
+
+```typescript
+// lib/etl/incremental-sync.ts
+
+export async function incrementalSync() {
+  // Get last sync timestamp
+  const lastSync = await db.syncLog.findFirst({
+    where: { source: 'customers' },
+    orderBy: { syncedAt: 'desc' }
+  })
+
+  const since = lastSync?.syncedAt || new Date('2020-01-01')
+
+  // EXTRACT: Only fetch records modified since last sync
+  const response = await fetch(
+    `https://api.example.com/customers?modified_since=${since.toISOString()}`,
+    {
+      headers: { Authorization: `Bearer ${process.env.API_KEY}` }
+    }
+  )
+
+  const newOrModified = await response.json()
+  console.log(`Found ${newOrModified.length} new/modified records`)
+
+  // TRANSFORM & LOAD
+  for (const record of newOrModified) {
+    await db.customers.upsert({
+      where: { id: record.id },
+      create: transformCustomer(record),
+      update: transformCustomer(record)
+    })
+  }
+
+  // Log sync
+  await db.syncLog.create({
+    data: {
+      source: 'customers',
+      recordsProcessed: newOrModified.length,
+      syncedAt: new Date()
+    }
+  })
+
+  return { processed: newOrModified.length }
+}
+```
+
+**Benefits:**
+
+- Faster (only process changes)
+- Lower API costs
+- Reduced database load
+
+---
+
+### Pattern 3: Real-Time Data Pipeline
+
+**Use case:** Process events as they happen
+
+```typescript
+// lib/pipelines/events-processor.ts
+
+import { Kafka } from 'kafkajs'
+
+const kafka = new Kafka({
+  clientId: 'myapp',
+  brokers: [process.env.KAFKA_BROKER!]
+})
+
+const consumer = kafka.consumer({ groupId: 'analytics-group' })
+
+export async function startEventProcessor() {
+  await consumer.connect()
+  await consumer.subscribe({ topic: 'user-events', fromBeginning: false })
+
+  await consumer.run({
+    eachMessage: async ({ topic, partition, message }) => {
+      const event = JSON.parse(message.value!.toString())
+
+      // TRANSFORM: Enrich event data
+      const enrichedEvent = {
+        ...event,
+        processedAt: new Date(),
+        userId: event.user_id,
+        eventType: event.type.toLowerCase()
+      }
+
+      // LOAD: Write to analytics database
+      await analyticsDb.events.create({
+        data: enrichedEvent
+      })
+
+      // Also update real-time metrics
+      await updateRealtimeMetrics(enrichedEvent)
+    }
+  })
+}
+
+async function updateRealtimeMetrics(event: any) {
+  if (event.eventType === 'purchase') {
+    await redis.hincrby('metrics:today', 'purchases', 1)
+    await redis.hincrbyfloat('metrics:today', 'revenue', event.amount)
+  }
+}
+```
+
+---
+
+## Data Transformation Patterns
+
+### Transformation 1: Data Cleaning
+
+```typescript
+// lib/transformers/cleaners.ts
+
+export function cleanEmail(email: string): string {
+  return email.trim().toLowerCase()
+}
+
+export function cleanPhone(phone: string): string {
+  // Remove all non-numeric characters
+  return phone.replace(/\D/g, '')
+}
+
+export function cleanName(name: string): string {
+  return name
+    .trim()
+    .replace(/\s+/g, ' ') // Multiple spaces → single space
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ')
+}
+
+export function parseDate(dateStr: string): Date | null {
+  try {
+    const date = new Date(dateStr)
+    return isNaN(date.getTime()) ? null : date
+  } catch {
+    return null
+  }
+}
+```
+
+### Transformation 2: Data Enrichment
+
+```typescript
+// lib/transformers/enrichers.ts
+
+export async function enrichCustomer(customer: RawCustomer) {
+  // Add geolocation data
+  const geo = await geocode(customer.address)
+
+  // Add lifecycle stage
+  const daysSinceSignup = differenceInDays(new Date(), customer.signupDate)
+  const lifecycleStage =
+    daysSinceSignup < 7
+      ? 'new'
+      : daysSinceSignup < 30
+        ? 'active'
+        : daysSinceSignup < 90
+          ? 'engaged'
+          : 'dormant'
+
+  // Add lifetime value
+  const orders = await db.orders.findMany({
+    where: { customerId: customer.id }
+  })
+  const lifetimeValue = orders.reduce((sum, order) => sum + order.total, 0)
+
+  return {
+    ...customer,
+    latitude: geo.lat,
+    longitude: geo.lng,
+    lifecycleStage,
+    lifetimeValue,
+    totalOrders: orders.length
+  }
+}
+```
+
+### Transformation 3: Data Aggregation
+
+```typescript
+// lib/transformers/aggregators.ts
+
+export async function aggregateDailySales() {
+  const sales = await db.$queryRaw`
+    SELECT
+      DATE(created_at) as date,
+      COUNT(*) as order_count,
+      SUM(total) as total_revenue,
+      AVG(total) as average_order_value,
+      COUNT(DISTINCT user_id) as unique_customers
+    FROM orders
+    WHERE created_at >= NOW() - INTERVAL '30 days'
+    GROUP BY DATE(created_at)
+    ORDER BY date DESC
+  `
+
+  return sales
+}
+
+export async function aggregateByRegion() {
+  const regions = await db.$queryRaw`
+    SELECT
+      country,
+      COUNT(*) as customer_count,
+      SUM(lifetime_value) as total_revenue
+    FROM customers
+    GROUP BY country
+    ORDER BY total_revenue DESC
+  `
+
+  return regions
+}
+```
+
+---
+
+## Data Validation
+
+### Schema Validation with Zod
+
+```typescript
+// lib/validators/customer.ts
+import { z } from 'zod'
+
+export const customerSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+  name: z.string().min(1).max(100),
+  age: z.number().int().min(0).max(150).optional(),
+  signupDate: z.coerce.date(),
+  tags: z.array(z.string()).default([])
+})
+
+export type ValidatedCustomer = z.infer<typeof customerSchema>
+
+export function validateCustomer(data: unknown): ValidatedCustomer {
+  return customerSchema.parse(data)
+}
+
+// In ETL pipeline
+const rawData = await fetchFromAPI()
+const validatedData = rawData
+  .map(record => {
+    try {
+      return validateCustomer(record)
+    } catch (error) {
+      console.error(`Validation failed for record ${record.id}:`, error)
+      return null
+    }
+  })
+  .filter(Boolean)
+```
+
+### Data Quality Checks
+
+```typescript
+// lib/quality/checks.ts
+
+export async function dataQualityChecks() {
+  const checks = []
+
+  // Check 1: No duplicate emails
+  const duplicates = await db.$queryRaw`
+    SELECT email, COUNT(*) as count
+    FROM customers
+    GROUP BY email
+    HAVING COUNT(*) > 1
+  `
+
+  checks.push({
+    name: 'No duplicate emails',
+    passed: duplicates.length === 0,
+    issues: duplicates
+  })
+
+  // Check 2: All customers have valid emails
+  const invalidEmails = await db.customers.count({
+    where: {
+      email: {
+        not: {
+          contains: '@'
+        }
+      }
+    }
+  })
+
+  checks.push({
+    name: 'Valid email format',
+    passed: invalidEmails === 0,
+    issues: invalidEmails
+  })
+
+  // Check 3: No orphaned orders
+  const orphanedOrders = await db.$queryRaw`
+    SELECT COUNT(*) as count
+    FROM orders
+    WHERE user_id NOT IN (SELECT id FROM customers)
+  `
+
+  checks.push({
+    name: 'No orphaned orders',
+    passed: orphanedOrders[0].count === 0,
+    issues: orphanedOrders[0].count
+  })
+
+  return checks
+}
+```
+
+---
+
+## Data Warehousing
+
+### Star Schema Design
+
+```prisma
+// prisma/schema.prisma
+
+// Fact table (metrics/events)
+model FactSales {
+  id             String   @id @default(cuid())
+
+  // Foreign keys to dimensions
+  dateId         String
+  customerId     String
+  productId      String
+  locationId     String
+
+  // Metrics
+  quantity       Int
+  unitPrice      Decimal
+  totalAmount    Decimal
+  discountAmount Decimal
+  netAmount      Decimal
+
+  // Relations
+  date           DimDate     @relation(fields: [dateId], references: [id])
+  customer       DimCustomer @relation(fields: [customerId], references: [id])
+  product        DimProduct  @relation(fields: [productId], references: [id])
+  location       DimLocation @relation(fields: [locationId], references: [id])
+}
+
+// Dimension tables
+model DimDate {
+  id         String   @id
+  date       DateTime
+  year       Int
+  quarter    Int
+  month      Int
+  dayOfWeek  Int
+  isWeekend  Boolean
+  isHoliday  Boolean
+
+  sales      FactSales[]
+}
+
+model DimCustomer {
+  id             String   @id
+  name           String
+  email          String
+  segment        String  // 'enterprise', 'smb', 'consumer'
+  lifecycleStage String
+
+  sales          FactSales[]
+}
+
+model DimProduct {
+  id       String   @id
+  name     String
+  category String
+  brand    String
+  sku      String
+
+  sales    FactSales[]
+}
+
+model DimLocation {
+  id      String   @id
+  country String
+  state   String
+  city    String
+  zipCode String
+
+  sales   FactSales[]
+}
+```
+
+### Populate Data Warehouse
+
+```typescript
+// lib/warehouse/populate.ts
+
+export async function populateWarehouse() {
+  // Extract from operational database
+  const orders = await db.orders.findMany({
+    include: {
+      customer: true,
+      items: {
+        include: { product: true }
+      }
+    },
+    where: {
+      createdAt: {
+        gte: new Date(Date.now() - 24 * 60 * 60 * 1000) // Last 24 hours
+      }
+    }
+  })
+
+  for (const order of orders) {
+    // Transform into fact table format
+    for (const item of order.items) {
+      await warehouseDb.factSales.create({
+        data: {
+          dateId: formatDateId(order.createdAt),
+          customerId: order.customer.id,
+          productId: item.product.id,
+          locationId: order.customer.locationId,
+          quantity: item.quantity,
+          unitPrice: item.price,
+          totalAmount: item.quantity * item.price,
+          discountAmount: item.discount || 0,
+          netAmount: item.quantity * item.price - (item.discount || 0)
+        }
+      })
+    }
+  }
+}
+
+function formatDateId(date: Date): string {
+  return date.toISOString().split('T')[0] // "2025-10-22"
+}
+```
+
+---
+
+## Performance Optimization
+
+### Batch Processing
+
+```typescript
+// lib/etl/batch-processor.ts
+
+export async function processBatch<T>(
+  items: T[],
+  processor: (item: T) => Promise<void>,
+  batchSize = 100
+) {
+  for (let i = 0; i < items.length; i += batchSize) {
+    const batch = items.slice(i, i + batchSize)
+
+    // Process batch in parallel
+    await Promise.all(batch.map(processor))
+
+    console.log(`Processed ${Math.min(i + batchSize, items.length)}/${items.length}`)
+
+    // Small delay to avoid overwhelming database
+    await new Promise(resolve => setTimeout(resolve, 100))
+  }
+}
+
+// Usage
+await processBatch(
+  customers,
+  async customer => {
+    await db.customers.upsert({
+      where: { id: customer.id },
+      create: customer,
+      update: customer
+    })
+  },
+  100 // Process 100 at a time
+)
+```
+
+### Database Optimization
+
+```typescript
+// lib/db/optimizations.ts
+
+// Use raw SQL for complex aggregations
+export async function efficientAggregation() {
+  // Instead of multiple queries
+  const result = await db.$queryRaw`
+    SELECT
+      c.segment,
+      COUNT(DISTINCT c.id) as customer_count,
+      COUNT(o.id) as order_count,
+      SUM(o.total) as total_revenue,
+      AVG(o.total) as avg_order_value
+    FROM customers c
+    LEFT JOIN orders o ON c.id = o.customer_id
+    GROUP BY c.segment
+  `
+
+  return result
+}
+
+// Use indexes for faster queries
+// In migration file:
+await db.$executeRaw`
+  CREATE INDEX idx_orders_created_at ON orders(created_at);
+  CREATE INDEX idx_orders_customer_id ON orders(customer_id);
+  CREATE INDEX idx_customers_email ON customers(email);
+`
+```
+
+---
+
+## Caching Strategies
+
+### Redis for Aggregated Data
+
+```typescript
+// lib/cache/metrics.ts
+import Redis from 'ioredis'
+
+const redis = new Redis(process.env.REDIS_URL!)
+
+export async function getCachedMetrics(key: string) {
+  const cached = await redis.get(key)
+
+  if (cached) {
+    return JSON.parse(cached)
+  }
+
+  // Calculate metrics
+  const metrics = await calculateMetrics()
+
+  // Cache for 1 hour
+  await redis.setex(key, 3600, JSON.stringify(metrics))
+
+  return metrics
+}
+
+async function calculateMetrics() {
+  const [revenue, orders, customers] = await Promise.all([
+    db.orders.aggregate({ _sum: { total: true } }),
+    db.orders.count(),
+    db.customers.count()
+  ])
+
+  return {
+    totalRevenue: revenue._sum.total || 0,
+    totalOrders: orders,
+    totalCustomers: customers,
+    avgOrderValue: (revenue._sum.total || 0) / orders
+  }
+}
+```
+
+---
+
+## Monitoring and Logging
+
+### Pipeline Monitoring
+
+```typescript
+// lib/monitoring/pipeline.ts
+
+interface PipelineRun {
+  pipelineName: string
+  startTime: Date
+  endTime?: Date
+  status: 'running' | 'success' | 'failed'
+  recordsProcessed: number
+  errorMessage?: string
+}
+
+export async function trackPipeline<T>(name: string, pipeline: () => Promise<T>): Promise<T> {
+  const run: PipelineRun = {
+    pipelineName: name,
+    startTime: new Date(),
+    status: 'running',
+    recordsProcessed: 0
+  }
+
+  // Log start
+  await db.pipelineRuns.create({ data: run })
+
+  try {
+    const result = await pipeline()
+
+    // Log success
+    run.endTime = new Date()
+    run.status = 'success'
+    await db.pipelineRuns.update({
+      where: { id: run.id },
+      data: run
+    })
+
+    return result
+  } catch (error) {
+    // Log failure
+    run.endTime = new Date()
+    run.status = 'failed'
+    run.errorMessage = error.message
+
+    await db.pipelineRuns.update({
+      where: { id: run.id },
+      data: run
+    })
+
+    // Alert team
+    await sendAlert({
+      channel: '#data-engineering',
+      message: `Pipeline ${name} failed: ${error.message}`
+    })
+
+    throw error
+  }
+}
+
+// Usage
+await trackPipeline('daily-customer-sync', async () => {
+  return await syncCustomers()
+})
+```
+
+---
+
+## Common Patterns
+
+### Pattern: Upsert with Conflict Resolution
+
+```typescript
+export async function upsertWithConflict(record: any) {
+  const existing = await db.customers.findUnique({
+    where: { id: record.id }
+  })
+
+  if (existing) {
+    // Conflict resolution: Use most recent data
+    if (record.updatedAt > existing.updatedAt) {
+      await db.customers.update({
+        where: { id: record.id },
+        data: record
+      })
+      return { action: 'updated' }
+    } else {
+      return { action: 'skipped', reason: 'stale data' }
+    }
+  } else {
+    await db.customers.create({ data: record })
+    return { action: 'created' }
+  }
+}
+```
+
+### Pattern: Dead Letter Queue
+
+```typescript
+// lib/queue/dead-letter.ts
+
+export async function processWithRetry<T>(
+  item: T,
+  processor: (item: T) => Promise<void>,
+  maxRetries = 3
+) {
+  let attempt = 0
+
+  while (attempt < maxRetries) {
+    try {
+      await processor(item)
+      return { success: true }
+    } catch (error) {
+      attempt++
+      console.error(`Attempt ${attempt} failed:`, error)
+
+      if (attempt >= maxRetries) {
+        // Move to dead letter queue
+        await db.deadLetterQueue.create({
+          data: {
+            item: JSON.stringify(item),
+            error: error.message,
+            attempts: attempt,
+            queuedAt: new Date()
+          }
+        })
+
+        return { success: false, deadLettered: true }
+      }
+
+      // Exponential backoff
+      await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)))
+    }
+  }
+}
+```
+
+---
+
+## When to Use Me
+
+**Perfect for:**
+
+- Building ETL pipelines
+- Data migration projects
+- Analytics infrastructure
+- Data quality improvement
+- Real-time data processing
+
+**I'll help you:**
+
+- Design data pipelines
+- Transform and clean data
+- Build data warehouses
+- Optimize database queries
+- Monitor data quality
+
+## What I'll Create
+
+```
+🔄 ETL Pipelines
+📊 Data Transformations
+🏛️ Data Warehouses
+✅ Data Quality Checks
+⚡ Real-Time Processors
+📈 Analytics Infrastructure
+```
+
+Let's build robust, scalable data infrastructure!

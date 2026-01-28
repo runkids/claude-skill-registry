@@ -1,146 +1,306 @@
 ---
 name: ralph-loop
-description: Detect requests for iterative AI task loops and invoke the Ralph command
+description: Activate autonomous Ralph Wiggum loop mode for iterative task completion. Use when you have a well-defined task with clear completion criteria that benefits from persistent, autonomous execution.
+trigger: When user invokes /ralph, mentions "ralph mode", "ralph loop", "autonomous loop", or wants to run Claude iteratively until a task is complete
 version: 1.0.0
-triggers:
-  - "ralph this"
-  - "ralph:"
-  - "ralph it"
-  - "keep trying until"
-  - "loop until"
-  - "iterate until"
-  - "run until passes"
-  - "fix until green"
-  - "keep fixing until"
-  - "keep going until"
-  - "iterate on"
+tags:
+  - automation
+  - workflow
+  - claude-code-only
+  - hooks
+  - autonomous
 ---
 
-# Ralph Loop Skill
+# Ralph Wiggum Loop Mode
 
-You detect when users want iterative task execution and route to the `/ralph` command.
+Named after the Simpsons character who "never stops despite being confused," this technique runs Claude Code in a loop where the prompt stays the same but the codebase accumulates changes. Each iteration reads previous work and continues until completion.
 
-## Trigger Patterns
+## When to Use Ralph Mode
 
-| Pattern | Example | Action |
-|---------|---------|--------|
-| `ralph this: X` | "ralph this: fix all lint errors" | Extract task, infer completion |
-| `ralph: X` | "ralph: migrate to TypeScript" | Extract task, infer completion |
-| `ralph it` | "ralph it" (after task description) | Use conversation context |
-| `keep trying until X` | "keep trying until tests pass" | Task = current context, completion = X |
-| `loop until X` | "loop until coverage >80%" | Task = improve coverage, completion = X |
-| `iterate until X` | "iterate until no errors" | Task = fix errors, completion = X |
-| `run until passes` | "run until passes" | Infer test command |
-| `fix until green` | "fix until green" | Task = fix tests, completion = tests pass |
-| `keep fixing until X` | "keep fixing until lint is clean" | Task = fix lint, completion = X |
+**Ideal for:**
+- Well-defined implementation tasks with clear completion criteria
+- Refactoring or migration work (e.g., React v16 to v19)
+- Test-driven development cycles (run until tests pass)
+- Batch processing or repetitive tasks
+- Overnight autonomous work sessions
 
-## Extraction Logic
+**Not ideal for:**
+- Tasks requiring design decisions or human judgment
+- Exploratory work without clear end states
+- Tasks where requirements may change mid-execution
+- First-time implementations where you need to learn the code
 
-### Task Extraction
+## Activation Protocol
 
-**From explicit task**:
-- "ralph this: fix all TypeScript errors" → Task: "fix all TypeScript errors"
-- "ralph: migrate src/ to ESM" → Task: "migrate src/ to ESM"
+### Step 1: Validate Task Suitability
 
-**From context**:
-- "ralph it" after discussing a refactor → Use previous conversation as task context
+Before activating, confirm:
+- [ ] Task has clear, measurable completion criteria
+- [ ] Success can be verified programmatically (tests, build, specific file state)
+- [ ] The work is in a git-tracked directory
+- [ ] You understand what success looks like
 
-### Completion Inference
+### Step 2: Create State File
 
-When user doesn't specify explicit verification:
+Create `.claude/ralph-loop.local.md` with the following structure:
 
-| Task Pattern | Inferred Completion |
-|--------------|---------------------|
-| "fix tests" | "npm test passes" |
-| "fix lint" / "fix linting" | "npm run lint passes" |
-| "fix types" / "fix TypeScript" | "npx tsc --noEmit passes" |
-| "fix build" | "npm run build succeeds" |
-| "add tests" | "test coverage increases" |
-| "migrate to ESM" | "node runs without errors" |
-| "refactor X" | "npm test passes" (preserve behavior) |
-
-### Examples
-
-**User**: "ralph this: migrate all files in lib/ to ESM"
-**Extraction**:
-- Task: "migrate all files in lib/ to ESM"
-- Completion (inferred): "node --experimental-vm-modules lib/index.js runs without errors"
-
-**Action**: Invoke `/ralph "migrate all files in lib/ to ESM" --completion "node --experimental-vm-modules lib/index.js succeeds"`
-
+```markdown
+---
+active: true
+iteration: 0
+max_iterations: 20
+completion_promise: null
 ---
 
-**User**: "keep fixing until the tests are green"
-**Extraction**:
-- Task: "fix failing tests" (from context or implied)
-- Completion: "npm test passes with 0 failures"
+# Your Task Prompt Here
 
-**Action**: Invoke `/ralph "fix failing tests" --completion "npm test passes"`
+## Objective
+[Clear statement of what needs to be accomplished]
 
+## Completion Criteria
+Complete when TODO.md shows [x] ALL_TASKS_COMPLETE
+
+## Verification Commands
+Run these to check progress:
+- `[test command]`
+- `[build command]`
+
+## Context
+- Read [relevant files] for specifications
+- Follow [conventions file] for code style
+```
+
+### Step 3: Create TODO.md (Recommended Completion Method)
+
+Create `TODO.md` in your project root:
+
+```markdown
+# Task Checklist
+
+## Tasks
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
+
+## Completion
+- [ ] ALL_TASKS_COMPLETE
+```
+
+### Step 4: Start the Loop
+
+Simply run Claude normally. The Stop hook will detect the state file and keep the loop running until completion is detected.
+
+```bash
+claude
+```
+
+## Two Completion Methods
+
+### Method 1: TODO.md Markers (Recommended)
+
+The hook checks `TODO.md` for `[x] ALL_TASKS_COMPLETE`. This is more reliable because:
+- It's visible in the file system
+- It can be tracked in git
+- Claude can easily update it
+- You can see progress (X/Y tasks complete)
+
+### Method 2: Promise Tags (Legacy)
+
+Set `completion_promise` in the state file and output `<promise>YOUR_TEXT</promise>` when complete.
+
+```markdown
+---
+active: true
+iteration: 0
+max_iterations: 20
+completion_promise: "feature implemented"
+---
+```
+
+When Claude outputs `<promise>feature implemented</promise>`, the loop ends.
+
+## Configuration Options
+
+In `.claude/ralph-loop.local.md` frontmatter:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `active` | `true` | Set to `false` to disable loop |
+| `iteration` | `0` | Current iteration count (auto-incremented) |
+| `max_iterations` | `20` | Safety cap (0 = unlimited) |
+| `completion_promise` | `null` | Text to match for promise completion |
+
+## During Execution
+
+### Iteration Status
+
+Every iteration shows:
+- Current iteration number
+- Task progress (from TODO.md)
+- Completion criteria
+- Max iterations remaining
+
+### Checkpoint Notifications
+
+Every 5 iterations, you'll see a checkpoint reminder to:
+- Review changes: `git log --oneline -10`
+- Verify progress is on track
+- Consider adjusting the prompt if stuck
+
+### Manual Intervention
+
+**To pause the loop:**
+```bash
+# Edit the state file
+# Change active: true → active: false
+```
+
+**To stop immediately:**
+```bash
+rm .claude/ralph-loop.local.md
+```
+
+**To resume:**
+```bash
+# Re-create or edit the state file
+# Set active: true
+claude
+```
+
+## Safety Features
+
+- **Iteration cap**: Prevents infinite loops (default: 20)
+- **Git tracking**: Every change is revertible
+- **Checkpoint notifications**: Reminders to review progress
+- **Clear completion criteria**: Loop only exits on explicit success
+- **Cost awareness**: Track iterations to estimate API costs
+
+## Example: MetricFlow Phase 7-8
+
+```markdown
+---
+active: true
+iteration: 0
+max_iterations: 25
+completion_promise: null
 ---
 
-**User**: "ralph it" (after discussing adding auth validation)
-**Extraction**:
-- Task: (from conversation context about auth validation)
-- Completion: (infer based on task type)
+# MetricFlow Phase 7-8: Educator Agent
 
-**Action**: Invoke `/ralph "{context-based task}" --completion "{inferred criteria}"`
+## Objective
+Implement the Educator Agent that uses Claude API to generate educational
+explanations for code metrics.
 
+## Completion Criteria
+Complete when TODO.md shows [x] ALL_TASKS_COMPLETE
+
+## Verification Commands
+- `cd backend && python -m pytest tests/test_educator.py -v`
+- `cd backend && python -c "from app.agents.educator import EducatorAgent; print('OK')"`
+
+## Context
+- Read docs/plans/MASTER_PLAN.md sections 5.3 (Educator Agent)
+- Follow CLAUDE.md for project conventions
+- Analyzer and Pattern agents already complete (use their output formats)
+
+## Instructions
+1. Check TODO.md for current task list
+2. Implement next incomplete task
+3. Write tests as you go
+4. Run verification after each change
+5. Mark [x] ALL_TASKS_COMPLETE when done
+```
+
+And corresponding `TODO.md`:
+
+```markdown
+# Phase 7-8: Educator Agent
+
+## Tasks
+- [ ] Create EducatorAgent class skeleton in backend/app/agents/educator.py
+- [ ] Add Claude API client initialization
+- [ ] Implement explain_complexity() method
+- [ ] Implement explain_maintainability() method
+- [ ] Implement explain_code_smells() method
+- [ ] Add course concept mapping
+- [ ] Write unit tests for all methods
+- [ ] Integration test with Analyzer output
+
+## Completion
+- [ ] ALL_TASKS_COMPLETE
+```
+
+## Troubleshooting
+
+**Loop won't start:**
+- Check `.claude/ralph-loop.local.md` exists
+- Verify `active: true` is set in frontmatter
+
+**Loop won't stop:**
+- Ensure TODO.md contains exactly `[x] ALL_TASKS_COMPLETE` (case-insensitive)
+- Or check `completion_promise` matches your output tag
+- Check `max_iterations` isn't set to 0 (unlimited)
+- Manual stop: `rm .claude/ralph-loop.local.md`
+
+**Stuck on same error:**
+- Review the error pattern
+- Adjust the prompt with more specific guidance
+- Consider breaking task into smaller subtasks
+
+**Costs too high:**
+- Reduce `max_iterations`
+- Use shorter checkpoint intervals for early review
+- Consider if task is too complex for Ralph mode
+
+## Tips for Success
+
+1. **Clear prompts reduce iterations by 40-60%** - be specific
+2. **Start with small max_iterations (5-10)** until confident
+3. **Git commit after every checkpoint** - easy rollback
+4. **Use TODO.md completion** - more reliable than promise tags
+5. **Monitor first few iterations** - catch bad patterns early
+6. **Supervised autonomy** - review at checkpoints for course projects
+
+## Cost Estimates
+
+| Task Complexity | Iterations | Estimated Cost |
+|-----------------|------------|----------------|
+| Simple (single feature) | 5-10 | $5-15 |
+| Medium (multi-file changes) | 10-20 | $15-30 |
+| Complex (full phase) | 20-50 | $30-75 |
+
+## Quick Start Template
+
+```bash
+# 1. Create state file
+mkdir -p .claude
+cat > .claude/ralph-loop.local.md << 'EOF'
+---
+active: true
+iteration: 0
+max_iterations: 20
+completion_promise: null
 ---
 
-**User**: "loop until coverage is above 80%"
-**Extraction**:
-- Task: "add tests to improve coverage"
-- Completion: "npm run coverage shows >80%"
+# Your Task
 
-**Action**: Invoke `/ralph "add tests to improve coverage" --completion "coverage report shows >80%"`
+## Objective
+[What you want to accomplish]
 
-## Clarification Prompts
+## Completion
+Check TODO.md for [x] ALL_TASKS_COMPLETE
+EOF
 
-If extraction is ambiguous, ask the user:
+# 2. Create TODO.md
+cat > TODO.md << 'EOF'
+# Tasks
+- [ ] First task
+- [ ] Second task
 
+## Completion
+- [ ] ALL_TASKS_COMPLETE
+EOF
+
+# 3. Start Ralph loop
+claude
 ```
-I'll start a Ralph loop for: {extracted task}
-
-What command verifies completion?
-1. npm test (Recommended for test fixes)
-2. npx tsc --noEmit (For type errors)
-3. npm run lint (For lint errors)
-4. npm run build (For build issues)
-5. Custom command...
-```
-
-Or if task is unclear:
-
-```
-I detected a Ralph loop request. To start iterating:
-
-What task should I repeat until success?
-What command tells me when it's done?
-```
-
-## Invocation
-
-Once task and completion are extracted/confirmed:
-
-```
-/ralph "{task}" --completion "{completion}"
-```
-
-With optional parameters if the user specified them:
-- `--max-iterations N` if user mentioned iteration limit
-- `--timeout M` if user mentioned time limit
-- `--interactive` if task needs clarification
-
-## Integration Notes
-
-- This skill has **high priority** - ralph-related phrases should route here
-- The skill is **exclusive** - once triggered, handle the entire request
-- Always confirm extraction before invoking if there's ambiguity
-- Prefer inferring completion criteria over asking (ask only if truly unclear)
-
-## Related
-
-- `/ralph` command - the actual loop executor
-- `/ralph-status` - check loop progress
-- `/ralph-resume` - continue interrupted loops

@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-db-sql
 description: Execute SQL query on a database. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.24"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 argument-hint: "<name> <query>"

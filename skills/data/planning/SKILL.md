@@ -1,188 +1,285 @@
-# Project Brief: `office` Skill
+---
+name: planning
+description: Use persistent markdown files for complex task execution. Creates task_plan.md, findings.md, and progress.md. Use when starting multi-step tasks, research projects, or any task requiring >5 tool calls. Solves the EXECUTION problem - staying focused during long-running tasks.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
+user-invocable: true
+metadata:
+  author: 23blocks
+  version: "1.0"
+---
 
-**Created**: 2026-01-12
-**Status**: Ready for Planning
+# AI Maestro Planning Skill
+
+## The Problem This Solves: EXECUTION
+
+This skill solves the **execution problem** - losing focus during complex tasks:
+
+| Problem | Symptom | This Skill Fixes It |
+|---------|---------|---------------------|
+| Goal drift | Forgot original objective after 50 tool calls | Re-read plan before decisions |
+| Lost progress | Can't remember what phase I'm in | Phase tracking in task_plan.md |
+| Repeated errors | Make same mistake twice | Error log prevents repetition |
+| Session loss | Can't resume after /clear | Planning files persist on disk |
+
+**Note:** This is different from the Memory skill (which solves recall of past conversations). Planning solves staying focused NOW.
 
 ---
 
-## Vision
-
-A TypeScript-first skill for generating Office documents (DOCX, XLSX, PDF) that works everywhere - Claude Code CLI, Cloudflare Workers, and browsers. Simpler and more portable than Anthropic's official skills, installable via `/plugin install office`.
-
-## Problem/Opportunity
-
-Anthropic published official document skills (`docx`, `xlsx`, `pdf`, `pptx`) but they're:
-- **Not installable as a plugin** - requires manual setup
-- **Python-heavy** - relies on openpyxl, pypdf, pandoc, LibreOffice
-- **Local execution only** - can't run in Cloudflare Workers
-- **Comprehensive but complex** - covers every edge case, ~500+ lines each
-
-**Opportunity**: Create a streamlined, TypeScript-first alternative that:
-- Installs with one command
-- Works on edge runtimes (Cloudflare Workers)
-- Covers 80% of use cases with 20% of the complexity
-
-## Target Audience
-
-- **Primary users**: Developers building web apps that need document exports (invoices, reports, proposals)
-- **Secondary**: Claude Code users wanting to create Office docs during development
-- **Scale**: Part of claude-skills marketplace (60+ skills)
-- **Context**: Production skill for our marketplace
-
-## Core Functionality (MVP)
-
-### 1. **DOCX Generation** - Create Word documents
-- Create documents with headings, paragraphs, tables, images
-- Basic formatting (bold, italic, fonts, colors)
-- Export to buffer/blob for download or storage
-- **Library**: `docx` npm package (v9.x)
-
-### 2. **XLSX Generation** - Create Excel spreadsheets
-- Create workbooks with multiple sheets
-- Cell formatting, formulas, column widths
-- Export to buffer for download
-- **Library**: `xlsx` (SheetJS) or `exceljs` for richer features
-
-### 3. **PDF Generation** - Create and modify PDFs
-- Create PDFs from scratch (text, images, shapes)
-- Fill existing PDF forms
-- Merge/split PDF documents
-- **Library**: `pdf-lib` (v1.17.x)
-
-### 4. **HTML→PDF** (Cloudflare Workers bonus)
-- Convert HTML/CSS to PDF using Browser Rendering API
-- Template-based document generation
-- **Requires**: Cloudflare Browser Rendering binding
-
-**Out of Scope for MVP** (defer to Phase 2):
-- PowerPoint (PPTX) - adds complexity, can add later
-- Tracked changes / redlining in DOCX - requires OOXML manipulation
-- Formula recalculation/validation - requires LibreOffice
-- OCR for scanned PDFs - requires Python/pytesseract
-- Reading/parsing existing Office files (focus on creation first)
-
-## Tech Stack (Validated)
-
-| Component | Choice | Rationale |
-|-----------|--------|-----------|
-| **DOCX** | `docx` npm v9.5+ | Pure JS, Workers-compatible, well-maintained |
-| **XLSX** | `xlsx` (SheetJS) v0.18+ | Pure JS, universal runtime support |
-| **PDF** | `pdf-lib` v1.17+ | Explicitly supports Workers + browser |
-| **HTML→PDF** | Cloudflare Browser Rendering | Native Cloudflare solution |
-
-**Key Dependencies** (all Workers-compatible):
-- `docx` - 3.4 MB unpacked, ~1.2 MB minified
-- `xlsx` - 7.5 MB unpacked, ~500 KB minified
-- `pdf-lib` - 19.5 MB unpacked, ~500 KB minified
-
-## Research Findings
-
-### Similar Solutions Reviewed
-
-| Solution | Strengths | Weaknesses | Our Differentiation |
-|----------|-----------|------------|---------------------|
-| **Anthropic's official skills** | Comprehensive, battle-tested | Python-heavy, not a plugin, local only | TS-first, plugin installable, Workers-compatible |
-| **tfriedel/claude-office-skills** | Packages Anthropic's approach | Incomplete, attribution concerns | Original implementation, maintained |
-| **Individual npm libraries** | Work well standalone | No Claude Code integration | Skill bundles with templates + patterns |
-
-### Technical Validation
-
-- **`docx` in Workers**: Confirmed compatible - pure JS, uses jszip internally
-- **`pdf-lib` in Workers**: Explicitly documented as supporting Cloudflare Workers
-- **`xlsx` in Workers**: Pure JS algorithms, no Node dependencies
-- **Browser Rendering**: [Official Cloudflare docs](https://developers.cloudflare.com/browser-rendering/how-to/pdf-generation/) show HTML→PDF pattern
-- **Working example**: [worker-generate-invoice-pdf](https://github.com/adamschwartz/worker-generate-invoice-pdf)
-
-### Known Challenges
-
-| Challenge | Mitigation |
-|-----------|------------|
-| Bundle size (~2-3MB total) | Tree-shaking, lazy loading, document which deps needed |
-| No formula validation in XLSX | Document limitation, recommend manual verification |
-| Complex DOCX editing | Out of scope for MVP, document as limitation |
-| Browser Rendering requires paid plan | Document as optional enhancement |
-
-## Scope Validation
-
-**Why Build This?**
-- Anthropic's skills aren't conveniently installable
-- No existing skill covers server-side (Workers) document generation
-- High demand use case (invoices, reports, exports)
-
-**Why This Approach?**
-- TypeScript aligns with our stack (Cloudflare, React, Vite)
-- Pure JS libraries enable universal runtime support
-- Focused scope = maintainable, high-quality skill
-
-**What Could Go Wrong?**
-1. **Bundle size concerns** - Mitigate with clear documentation on what to import
-2. **Missing features users expect** - Clear scope documentation, Phase 2 roadmap
-3. **Library updates breaking things** - Pin versions, test before updating
-
-## Estimated Effort
-
-- **MVP**: ~4-6 hours (~4-6 minutes human time with Claude Code)
-- **Breakdown**:
-  - Research/templates: 1h (done in this exploration)
-  - DOCX patterns + templates: 1-1.5h
-  - XLSX patterns + templates: 1-1.5h
-  - PDF patterns + templates: 1-1.5h
-  - Workers examples: 0.5-1h
-  - Testing + polish: 0.5h
-
-## Success Criteria (MVP)
-
-- [ ] `/plugin install office` works from claude-skills marketplace
-- [ ] Can create basic DOCX with headings, paragraphs, tables
-- [ ] Can create basic XLSX with data, formulas, formatting
-- [ ] Can create PDF with text, images, or fill forms
-- [ ] All templates work in both Node.js AND Cloudflare Workers
-- [ ] Documentation includes "Use when" scenarios and examples
-- [ ] Skill follows claude-skills standards (YAML frontmatter, README, etc.)
-
-## Skill Structure
+## Core Principle
 
 ```
-skills/office/
-├── SKILL.md              # Main skill with patterns for all 3 formats
-├── README.md             # Auto-trigger keywords
-├── rules/
-│   └── office.md         # Correction rules for common mistakes
-├── templates/
-│   ├── docx-basic.ts     # Word document template
-│   ├── xlsx-basic.ts     # Excel spreadsheet template
-│   ├── pdf-basic.ts      # PDF generation template
-│   └── workers-pdf.ts    # Cloudflare Workers HTML→PDF example
-├── references/
-│   ├── docx-api.md       # Quick reference for docx npm
-│   ├── xlsx-api.md       # Quick reference for SheetJS
-│   └── pdf-lib-api.md    # Quick reference for pdf-lib
-└── scripts/
-    └── verify-deps.sh    # Check library versions
+Context Window = RAM (volatile, limited, fast)
+Filesystem = Disk (persistent, unlimited, explicit read required)
+
+Anything important gets written to disk.
 ```
-
-## Next Steps
-
-**If proceeding**:
-1. Run `/plan-project` to generate IMPLEMENTATION_PHASES.md
-2. Review phases and adjust
-3. Start Phase 1 (skill scaffolding)
-
-**Phase 2 Roadmap** (after MVP):
-- Add PPTX generation
-- Add template system (fill placeholders in existing docs)
-- Add more complex DOCX features (headers/footers, TOC)
-- Consider reading/parsing existing files
 
 ---
 
-## Research References
+## The 3-File Pattern
 
-- [Anthropic Skills Repository](https://github.com/anthropics/skills)
-- [docx npm package](https://www.npmjs.com/package/docx)
-- [pdf-lib](https://pdf-lib.js.org/)
-- [SheetJS (xlsx)](https://sheetjs.com/)
-- [Cloudflare Browser Rendering - PDF Generation](https://developers.cloudflare.com/browser-rendering/how-to/pdf-generation/)
-- [worker-generate-invoice-pdf example](https://github.com/adamschwartz/worker-generate-invoice-pdf)
-- [tfriedel/claude-office-skills](https://github.com/tfriedel/claude-office-skills)
-- [pdfjs-serverless for Workers](https://github.com/johannschopplich/pdfjs-serverless)
+Create these files in your **project root** (not the skill directory):
+
+| File | Purpose | Update When |
+|------|---------|-------------|
+| `task_plan.md` | Goals, phases, decisions, errors | After each phase |
+| `findings.md` | Research, discoveries, resources | During research |
+| `progress.md` | Session log, test results | Throughout session |
+
+---
+
+## Quick Start
+
+Before any complex task (3+ steps):
+
+```bash
+# 1. Create planning files from templates
+cat ~/.claude/skills/planning/templates/task_plan.md > task_plan.md
+cat ~/.claude/skills/planning/templates/findings.md > findings.md
+cat ~/.claude/skills/planning/templates/progress.md > progress.md
+
+# 2. Edit task_plan.md with your specific goal and phases
+```
+
+Then follow the rules below.
+
+---
+
+## The 6 Rules
+
+### Rule 1: Create Plan First
+
+**NEVER start a complex task without creating task_plan.md.**
+
+Before writing any code or making any changes:
+1. Create task_plan.md with clear goal
+2. Break work into phases
+3. List key questions to answer
+
+### Rule 2: Read Before Decide
+
+Before any major decision, re-read the plan:
+
+```bash
+cat task_plan.md | head -50
+```
+
+This refreshes your goals in the context window, preventing drift.
+
+### Rule 3: Update After Act
+
+After completing any phase:
+- Mark phase as `[x]` complete
+- Update status section
+- Log any errors encountered
+- Note files created/modified
+
+### Rule 4: The 2-Action Rule
+
+After every 2 search/view/browse operations, **immediately** save key findings to findings.md.
+
+Visual content (screenshots, PDFs, browser results) doesn't persist in context. Write it down NOW.
+
+### Rule 5: Log ALL Errors
+
+Every error goes in task_plan.md:
+
+```markdown
+## Errors Encountered
+| Error | Attempt | Resolution |
+|-------|---------|------------|
+| FileNotFoundError | 1 | Created missing config |
+| API timeout | 2 | Added retry with backoff |
+```
+
+This prevents repeating the same mistakes.
+
+### Rule 6: Never Repeat Failures
+
+```
+if action_failed:
+    next_action != same_action
+```
+
+After a failure, CHANGE your approach. Don't retry the exact same thing.
+
+---
+
+## The 3-Strike Protocol
+
+**Attempt 1: Diagnose & Fix**
+- Read error carefully
+- Identify root cause
+- Apply targeted fix
+
+**Attempt 2: Alternative Approach**
+- Same error? Try different method
+- Consider different tools/libraries
+- NEVER repeat exact failing action
+
+**Attempt 3: Broader Rethink**
+- Question assumptions
+- Search for similar issues
+- Update task plan with learnings
+
+**After 3 Failures: Escalate**
+- Explain all approaches tried
+- Share specific error messages
+- Ask user for guidance
+
+---
+
+## When to Read vs Write
+
+| Situation | Action | Why |
+|-----------|--------|-----|
+| Just wrote a file | DON'T read | Content is in context |
+| Viewed image/PDF | Write findings NOW | Visual content doesn't persist |
+| Browser returned data | Write to findings.md | Screenshots don't persist |
+| Starting new phase | Read task_plan.md | Re-orient from plan |
+| Error occurred | Read relevant file | Need current state |
+| Resuming after gap | Read ALL planning files | Recover context |
+
+---
+
+## The 5-Question Reboot
+
+Lost? Answer these questions:
+
+| Question | Find Answer In |
+|----------|----------------|
+| Where am I? | Current phase in task_plan.md |
+| Where am I going? | Remaining phases in task_plan.md |
+| What's the goal? | Goal section in task_plan.md |
+| What have I learned? | findings.md |
+| What have I done? | progress.md |
+
+---
+
+## When to Use This Skill
+
+**USE for:**
+- Multi-step tasks (3+ steps)
+- Research projects
+- Building features
+- Tasks requiring >5 tool calls
+- Anything needing organization
+
+**SKIP for:**
+- Simple questions
+- Single-file edits
+- Quick lookups
+- Trivial changes
+
+---
+
+## Anti-Patterns
+
+| DON'T | DO Instead |
+|-------|------------|
+| Use TodoWrite for complex tasks | Create task_plan.md file |
+| State goals once and forget | Re-read plan before decisions |
+| Hide errors and retry | Document errors in plan |
+| Stuff everything in context | Store large content in files |
+| Start executing immediately | Create plan FIRST |
+| Repeat failed actions | Track attempts, change approach |
+
+---
+
+## Integration with Memory Skill
+
+Planning and Memory solve **different problems**:
+
+| Skill | Problem | Timescale |
+|-------|---------|-----------|
+| **Memory** | "What did we discuss last week?" | Days/weeks/months |
+| **Planning** | "What am I supposed to do next?" | Minutes/hours |
+
+Use BOTH for complex work:
+1. **Memory** - Search for past decisions and context
+2. **Planning** - Stay focused during execution
+
+---
+
+## Templates
+
+Templates are in `~/.claude/skills/planning/templates/`:
+
+- `task_plan.md` - Phase and progress tracking
+- `findings.md` - Research and discoveries
+- `progress.md` - Session logging
+
+Copy to your project root and customize.
+
+---
+
+## Example Workflow
+
+```
+User: "Build a new authentication system"
+
+1. CREATE PLAN
+   - Copy templates to project root
+   - Define goal: "Implement JWT authentication"
+   - Break into phases: Research, Design, Implement, Test, Document
+
+2. EXECUTE PHASE 1 (Research)
+   - Search memory: memory-search.sh "authentication"
+   - Search docs: doc-search.sh "auth patterns"
+   - Write findings to findings.md
+   - Mark Phase 1 complete in task_plan.md
+
+3. EXECUTE PHASE 2 (Design)
+   - READ task_plan.md (refresh goals)
+   - READ findings.md (recall research)
+   - Design approach, document decisions
+   - Mark Phase 2 complete
+
+4. CONTINUE...
+   - Always read plan before major decisions
+   - Always update after completing phases
+   - Always log errors
+```
+
+---
+
+## Troubleshooting
+
+**Templates not found:**
+```bash
+ls ~/.claude/skills/planning/templates/
+```
+
+If missing, reinstall the skill or copy from AI Maestro repo.
+
+**Forgot the goal:**
+```bash
+cat task_plan.md | head -20
+```
+
+**Lost track of progress:**
+```bash
+grep -E "^\s*-\s*\[" task_plan.md
+```
+
+Shows all checkboxes and their status.

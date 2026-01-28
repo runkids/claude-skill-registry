@@ -1,152 +1,86 @@
 ---
 name: next
-description: >
-  Pick the next bead to work on. Shows ready tasks (no blockers), applies user
-  preferences for ordering (priority, type, recency), and helps select work.
-allowed-tools: "Read,Bash(bd:*),AskUserQuestion"
-version: "1.0.0"
-author: "flurdy"
+description: Analyze beads and MASTER_PLAN.md to recommend the best task to work on next. Checks both systems, scores by priority (P0-P3), considers IN PROGRESS tasks, blocked dependencies, and quick wins. Use when starting a session or deciding what to tackle.
 ---
 
-# Next - Pick Your Next Bead
+# What's Next?
 
-Help select the next bead to work on based on readiness and user preferences.
+Analyze beads and MASTER_PLAN.md to recommend the best task to work on.
 
-## When to Use
+## Workflow
 
-- Starting a new work session
-- Finished a task and need to pick the next one
-- Want to see what's available to work on
-- Need help prioritizing between multiple options
+### Step 1: Check Beads System
 
-## Usage
-
-```
-/next                    # Show ready beads, ranked by suitability
-/next task               # Auto-pick the next most suitable task and start it
-/next quick              # Auto-pick an easy win task and start it
-/next <bead-id>          # Start working on specific bead
-```
-
-## What This Skill Does
-
-1. **Find Ready Work**
-   - Run `bd ready` to get unblocked tasks
-   - Filter out beads that are blocked by others
-   - Show current in-progress work if any
-
-2. **Rank by Suitability**
-   - Apply priority ranking algorithm (see below)
-   - Bugs generally rank higher than features at same priority
-   - Epics rank lower (they represent larger work)
-
-3. **Present Options**
-   - Show top 5 candidates with key details
-   - Include: ID, title, priority, type, age
-   - Ask user to pick or provide different criteria
-
-4. **Start Work**
-   - Mark selected bead as in_progress
-   - Show full bead details
-   - Suggest first steps if description includes them
-
-## Examples
+Run these commands:
 
 ```bash
-# Show ready work ranked by suitability
-/next
-
-# Auto-pick and start the next most suitable task
-/next task
-
-# Auto-pick an easy win (quick task)
-/next quick
-
-# Start a specific bead
-/next gauge-abc
+bd ready        # Issues ready to work (no blockers)
+bd list --status=in_progress  # Your active work (might need to finish first)
+bd blocked      # See what's stuck
 ```
 
-## Output Format
+### Step 2: Parse MASTER_PLAN.md
 
-```
-## Ready to Work (5 of 12 open)
+Search for tasks by status and priority:
 
-| # | ID        | Pri | Type    | Parent/Subs | Title                          |
-|---|-----------|-----|---------|-------------|--------------------------------|
-| 1 | gauge-abc | P1  | bug     | -           | Fix login timeout issue        |
-| 2 | gauge-def | P2  | feature | 3 subtasks  | Add export to CSV              |
-| 3 | gauge-ghi | P2  | task    | gauge-def   | Update dependencies            |
-| 4 | gauge-jkl | P3  | feature | -           | Dark mode toggle               |
-| 5 | gauge-mno | P3  | task    | 2 subtasks  | Refactor auth service          |
-
-Currently in progress: gauge-xyz "Implement caching layer"
-
-Which would you like to work on? (1-5, or specify ID, or "task" to auto-pick)
+```bash
+# Find all non-done tasks with their priority
+grep -E "^\| \*\*(TASK|BUG|FEATURE)-[0-9]+\*\*" docs/MASTER_PLAN.md | grep -v "DONE" | head -40
 ```
 
-## Implementation
+### Step 3: Priority Scoring
 
-When invoked:
+Score each task using this formula:
 
-1. Check for current open, not in-progress elsewhere, work:
-   ```bash
-   bd list --status=open
-   ```
+| Factor | Points |
+|--------|--------|
+| P0 (Critical) | +100 |
+| P1 (High) | +50 |
+| P2 (Medium) | +20 |
+| P3 (Low) | +5 |
+| IN PROGRESS (yours) | +30 (finish what you started) |
+| REVIEW (needs verification) | +25 |
+| PLANNED (not started) | +10 |
+| Has blockers | -50 |
+| Blocks other tasks | +15 (unblocks more work) |
 
-2. Get ready (unblocked) beads:
-   ```bash
-   bd ready
-   ```
+### Step 4: Check for Uncommitted Work
 
-3. Parse command argument:
-   - (none): Show ranked list, ask user to pick
-   - `task`: Auto-select top-ranked bead and start it
-   - `quick`: Auto-select an easy win task and start it
-   - `<bead-id>`: Start that specific bead
+```bash
+git status  # Any uncommitted work to finish?
+git stash list  # Stashed changes to apply?
+```
 
-4. If specific bead ID provided:
-   ```bash
-   bd show <id>
-   bd update <id> --status=in_progress
-   ```
+If there's uncommitted work, mention it: "You have uncommitted changes in X files - consider committing or stashing first."
 
-5. Otherwise, present top 5 options and ask user to choose
+### Step 5: Present Recommendations
 
-6. On selection:
-   - Mark as in_progress
-   - Show full details with `bd show`
-   - If bead has description with steps, highlight first step
+Output in this format:
 
-## Handling Edge Cases
+```
+## What's Next?
 
-- **No ready beads**: Show blocked beads and what's blocking them
-- **All in progress**: Warn about context switching, show current work
-- **Invalid ID**: Show error and list valid options
-- **User says "skip"**: Show next 5 options
+### Active Work (Finish First)
+- [List any IN PROGRESS tasks - you should finish these]
 
-## Priority Ranking Algorithm
+### Top Recommendations
+| Rank | Task | Priority | Status | Rationale |
+|------|------|----------|--------|-----------|
+| 1 | BUG-333 | P0 | IN PROGRESS | Finish active P0 work first |
+| 2 | TASK-330 | P0 | PLANNED | Critical reliability issue |
+| 3 | BUG-341 | P1 | IN PROGRESS | Unfinished debugging work |
 
-Rank ready beads in this order (first match wins):
+### Blocked (Need Attention)
+- [Any blocked tasks and what's blocking them]
 
-| Rank | Criteria                        |
-|------|---------------------------------|
-| 1    | Any P0 issue (any type)         |
-| 2    | P1 bug                          |
-| 3    | P2 bug                          |
-| 4    | P1 feature or task              |
-| 5    | P1 epic                         |
-| 6    | P2 feature or task              |
-| 7    | P3 bug, feature, or task        |
-| 8    | P2 epic                         |
-| 9    | P3 epic                         |
-| 10   | Any other non-P4 issue          |
+### Quick Wins (< 30 min)
+- [Any small tasks that could be knocked out quickly]
+```
 
-**Note**: P4 items are backlog and not shown by default.
+## Rules
 
-## Quick Task Heuristics
-
-When `/next quick` is used, prefer:
-1. Type: task > bug > feature (tasks are usually smaller)
-2. Priority: P3 > P2 > P1 (lower priority = less complex)
-3. Exclude epics (too large for quick wins)
-4. Title keywords: "fix", "update", "add" > "implement", "refactor", "redesign"
+1. **Finish before starting** - Always prioritize IN PROGRESS tasks over PLANNED
+2. **P0 trumps all** - Critical bugs/issues come first regardless of other factors
+3. **Unblock others** - Tasks that block multiple other tasks get priority bump
+4. **REVIEW tasks** - These need verification, often quick to close out
+5. **Don't overwhelm** - Show max 5 recommendations, not the entire backlog

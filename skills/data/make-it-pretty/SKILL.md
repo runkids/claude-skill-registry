@@ -8,6 +8,22 @@ disable-model-invocation: false
 
 I'll improve code readability while preserving exact functionality.
 
+**Token Optimization:**
+- ✅ Targeted file analysis (user-specified or git diff scope)
+- ✅ Read only files that need improvement
+- ✅ Incremental improvements (one file at a time)
+- ✅ Git checkpoint pattern (Bash command, minimal tokens)
+- ✅ Early exit when code is already clean - saves 90%
+- ✅ Caching code style patterns and conventions
+- ✅ Focus area flags (--naming, --structure, --types, --dry)
+- **Expected tokens:** 800-2,500 (vs. 2,000-4,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/make-it-pretty/`
+- Caches: Code style patterns, naming conventions, type patterns
+- Cache validity: Until project patterns change
+
 ## Strategic Thinking Process
 
 <think>

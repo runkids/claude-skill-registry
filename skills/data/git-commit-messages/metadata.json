@@ -1,13 +1,7 @@
 {
   "name": "git-commit-messages",
-  "description": "Generates consistent git commit messages following project conventions. Use when committing changes, creating PRs, or when asked to write commit messages.",
-  "repo": "guillempuche/demo-openfga-in-unikraft",
-  "category": "development",
-  "tags": [
-    "git",
-    "commit",
-    "messages"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-git-storytelling/skills/git-commit-messages/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:31:59.759534Z"
 }

@@ -1,610 +1,297 @@
 ---
 name: excalidraw
-description: Create valid .excalidraw JSON files for architecture diagrams, flowcharts, and sketches. Use when asked to generate Excalidraw diagrams, create diagram files, or export drawings to Excalidraw format.
+description: Create and design Excalidraw diagrams, especially architecture diagrams for software, cloud (AWS, Azure, GCP), databases, AI/ML, analytics, and infrastructure. Generates valid .excalidraw JSON files. Works with VS Code, VS Code Insiders, Obsidian. Triggers on excalidraw, architecture diagram, system design, cloud diagram, infrastructure diagram, flowchart, whiteboard, software architecture, database diagram, network diagram, data flow, microservices diagram, C4 model.
 ---
 
-# Excalidraw File Creation
+# Excalidraw Diagram Designer
 
-Create valid `.excalidraw` JSON files that can be imported into Excalidraw.
+Expert skill for creating professional Excalidraw diagrams with focus on technical architecture. Generates valid `.excalidraw` JSON files that work seamlessly with VS Code, VS Code Insiders, and Obsidian.
 
-## File Structure
+## Quick Start
 
+### Create a Diagram
+1. Ask what type of diagram is needed
+2. Generate the `.excalidraw` JSON file
+3. User opens it in their preferred editor
+
+### File Extensions
+- `.excalidraw` - Standard JSON format
+- `.excalidraw.json` - Explicit JSON format
+- `.excalidraw.svg` - Embedded in SVG (editable)
+- `.excalidraw.png` - Embedded in PNG (editable)
+
+## Core Element Types
+
+### Basic Shapes
 ```json
 {
-  "type": "excalidraw",
-  "version": 2,
-  "source": "https://excalidraw.com",
-  "elements": [...],
-  "appState": {
-    "gridSize": 20,
-    "gridStep": 5,
-    "gridModeEnabled": false,
-    "viewBackgroundColor": "#ffffff"
-  },
-  "files": {}
-}
-```
-
-## Element Base Properties
-
-All elements require these properties:
-
-```json
-{
-  "id": "unique-id",
-  "type": "rectangle",
+  "type": "rectangle|ellipse|diamond",
   "x": 100,
   "y": 100,
   "width": 200,
   "height": 100,
-  "angle": 0,
   "strokeColor": "#1e1e1e",
-  "backgroundColor": "transparent",
-  "fillStyle": "solid",
+  "backgroundColor": "#a5d8ff",
+  "fillStyle": "solid|hachure|cross-hatch",
   "strokeWidth": 2,
-  "strokeStyle": "solid",
+  "strokeStyle": "solid|dashed|dotted",
   "roughness": 1,
-  "opacity": 100,
-  "seed": 12345,
-  "version": 1,
-  "versionNonce": 67890,
-  "index": "a0",
-  "isDeleted": false,
-  "groupIds": [],
-  "frameId": null,
-  "boundElements": [],
-  "updated": 1706000000000,
-  "link": null,
-  "locked": false
+  "opacity": 100
 }
 ```
 
-### Property Reference
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `id` | string | Unique identifier |
-| `type` | string | Element type (see below) |
-| `x`, `y` | number | Position coordinates |
-| `width`, `height` | number | Dimensions |
-| `angle` | number | Rotation in radians (0-2π) |
-| `strokeColor` | string | Border color (`#hex` or `"transparent"`) |
-| `backgroundColor` | string | Fill color (`#hex` or `"transparent"`) |
-| `fillStyle` | string | `"solid"`, `"hachure"`, `"cross-hatch"`, `"zigzag"` |
-| `strokeWidth` | number | Line thickness (1=thin, 2=normal, 4=bold) |
-| `strokeStyle` | string | `"solid"`, `"dashed"`, `"dotted"` |
-| `roughness` | number | 0=architect, 1=artist, 2=cartoonist |
-| `opacity` | number | 0-100 |
-| `seed` | number | Random seed for hand-drawn look |
-| `roundness` | object/null | `{"type": 3}` for rounded corners, `null` for sharp |
-
-## Element Types
-
-### Rectangle, Diamond, Ellipse
-
-Basic shapes - use base properties only.
-
-```json
-{"type": "rectangle", "roundness": {"type": 3}}
-{"type": "diamond", "roundness": {"type": 2}}
-{"type": "ellipse", "roundness": {"type": 2}}
-```
-
-### Text
-
+### Text Elements
 ```json
 {
   "type": "text",
-  "text": "Hello World",
+  "x": 100,
+  "y": 100,
+  "text": "Your text here",
   "fontSize": 20,
   "fontFamily": 1,
-  "textAlign": "left",
-  "verticalAlign": "top",
-  "containerId": null,
-  "originalText": "Hello World",
-  "autoResize": true,
-  "lineHeight": 1.25,
-  "roundness": null
+  "textAlign": "left|center|right",
+  "verticalAlign": "top|middle|bottom",
+  "strokeColor": "#1e1e1e"
 }
 ```
 
-**Font Families:** 1=Virgil (hand-drawn), 2=Helvetica, 3=Cascadia (code)
-
-**Text Alignment:** `"left"`, `"center"`, `"right"`
-
-**Vertical Align:** `"top"`, `"middle"`, `"bottom"`
-
-### Text Inside Shapes (Contained Text)
-
-To put text inside a shape:
-
-1. Shape must have `boundElements` referencing the text:
+### Lines & Arrows
 ```json
 {
-  "id": "shape-1",
-  "type": "rectangle",
-  "boundElements": [{"id": "text-1", "type": "text"}]
-}
-```
-
-2. Text must reference the container:
-```json
-{
-  "id": "text-1",
-  "type": "text",
-  "containerId": "shape-1",
-  "verticalAlign": "middle",
-  "textAlign": "center",
-  "roundness": null
-}
-```
-
-**Note:** For contained text, Excalidraw auto-calculates `x`, `y`, `width`, and `height` based on the container and font rendering. You can provide approximate values - they'll be normalized when the file is opened.
-
-### Arrow Labels (Text on Arrows)
-
-To add a label to an arrow (like "getPresignedUrl()" on a connection), use the same binding pattern as text in shapes:
-
-1. Arrow must have `boundElements` referencing the label:
-```json
-{
-  "id": "arrow-1",
-  "type": "arrow",
-  "boundElements": [{"id": "arrow-label", "type": "text"}]
-}
-```
-
-2. Text must reference the arrow as its container:
-```json
-{
-  "id": "arrow-label",
-  "type": "text",
-  "text": "getPresignedUrl()",
-  "containerId": "arrow-1",
-  "textAlign": "center",
-  "verticalAlign": "middle",
-  "roundness": null
-}
-```
-
-The label will be positioned at the midpoint of the arrow and will move with it when the arrow is dragged.
-
-### Arrow / Line
-
-```json
-{
-  "type": "arrow",
-  "points": [[0, 0], [200, 100]],
-  "startBinding": null,
-  "endBinding": null,
+  "type": "arrow|line",
+  "x": 100,
+  "y": 100,
+  "points": [[0, 0], [200, 0]],
   "startArrowhead": null,
-  "endArrowhead": "arrow",
-  "elbowed": false,
-  "boundElements": [{"id": "my-label", "type": "text"}]
+  "endArrowhead": "arrow|triangle|dot|bar",
+  "strokeColor": "#1e1e1e",
+  "strokeWidth": 2
 }
 ```
 
-**Arrowhead Types:**
-- `null` - no arrowhead (one end only)
-- `"arrow"` - standard arrow
-- `"bar"` - flat line
-- `"circle"` - filled circle
-- `"circle_outline"` - hollow circle
-- `"triangle"` - filled triangle
-- `"triangle_outline"` - hollow triangle
-- `"diamond"` - filled diamond
-- `"diamond_outline"` - hollow diamond
-
-**Bidirectional Arrows (IMPORTANT):** For two-way connections (common in architecture diagrams), set BOTH `startArrowhead` and `endArrowhead`:
+### Shapes with Labels (Text Containers)
 ```json
 {
-  "type": "arrow",
-  "startArrowhead": "arrow",
-  "endArrowhead": "arrow"
-}
-```
-This creates `<-->` style arrows. Most service-to-service connections should be bidirectional.
-
-**Points Array:** Coordinates relative to element's `x`, `y` position.
-
-For curved arrows, add intermediate points:
-```json
-"points": [[0, 0], [100, -50], [200, 0]]
-```
-
-### Freedraw
-
-```json
-{
-  "type": "freedraw",
-  "points": [[0, 0], [10, 5], [20, 3]],
-  "pressures": [0.5, 0.7, 0.6],
-  "simulatePressure": true
-}
-```
-
-### Image
-
-```json
-{
-  "type": "image",
-  "fileId": "abc123",
-  "status": "saved",
-  "scale": [1, 1]
-}
-```
-
-Images require a corresponding entry in the `files` object:
-```json
-"files": {
-  "abc123": {
-    "mimeType": "image/png",
-    "id": "abc123",
-    "dataURL": "data:image/png;base64,...",
-    "created": 1706000000000
-  }
-}
-```
-
-## Connections (Bindings)
-
-To connect an arrow to shapes, use **bidirectional references**:
-
-### Arrow Bindings
-
-```json
-{
-  "id": "arrow-1",
-  "type": "arrow",
-  "startBinding": {
-    "elementId": "rect-1",
-    "fixedPoint": [1, 0.5001],
-    "mode": "orbit"
-  },
-  "endBinding": {
-    "elementId": "rect-2",
-    "fixedPoint": [0, 0.5001],
-    "mode": "orbit"
-  }
-}
-```
-
-### Shape boundElements
-
-```json
-{
-  "id": "rect-1",
   "type": "rectangle",
-  "boundElements": [{"id": "arrow-1", "type": "arrow"}]
+  "x": 100,
+  "y": 100,
+  "width": 200,
+  "height": 80,
+  "backgroundColor": "#a5d8ff",
+  "boundElements": [{"type": "text", "id": "text-id"}]
 }
 ```
 
-### fixedPoint Coordinates
-
-`fixedPoint: [x, y]` where x and y are ratios (0.0 to 1.0):
-
-```
-[0, 0] = top-left      [0.5001, 0] = top-center     [1, 0] = top-right
-[0, 0.5001] = middle-left   [0.5001, 0.5001] = center   [1, 0.5001] = middle-right
-[0, 1] = bottom-left   [0.5001, 1] = bottom-center  [1, 1] = bottom-right
-```
-
-**Note:** Use `0.5001` instead of exactly `0.5` for center positions. Excalidraw normalizes `0.5` to `0.5001` internally to avoid edge cases.
-
-### Binding Modes
-
-- `"orbit"` - Arrow connects to shape's edge (most common)
-- `"inside"` - Arrow goes to exact fixedPoint inside shape
-- `"skip"` - No automatic binding calculation
-
-## Complete Example: Two Connected Boxes
+## Complete File Structure
 
 ```json
 {
   "type": "excalidraw",
   "version": 2,
   "source": "https://excalidraw.com",
-  "elements": [
-    {
-      "id": "box-a",
-      "type": "rectangle",
-      "x": 100,
-      "y": 100,
-      "width": 150,
-      "height": 80,
-      "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "seed": 1001,
-      "version": 1,
-      "versionNonce": 2001,
-      "index": "a0",
-      "isDeleted": false,
-      "groupIds": [],
-      "frameId": null,
-      "boundElements": [
-        {"id": "label-a", "type": "text"},
-        {"id": "connector", "type": "arrow"}
-      ],
-      "updated": 1706000000000,
-      "link": null,
-      "locked": false,
-      "roundness": {"type": 3}
-    },
-    {
-      "id": "label-a",
-      "type": "text",
-      "x": 145,
-      "y": 127,
-      "width": 60,
-      "height": 26,
-      "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "seed": 1002,
-      "version": 1,
-      "versionNonce": 2002,
-      "index": "a1",
-      "isDeleted": false,
-      "groupIds": [],
-      "frameId": null,
-      "boundElements": [],
-      "updated": 1706000000000,
-      "link": null,
-      "locked": false,
-      "text": "Box A",
-      "fontSize": 20,
-      "fontFamily": 1,
-      "textAlign": "center",
-      "verticalAlign": "middle",
-      "containerId": "box-a",
-      "originalText": "Box A",
-      "autoResize": true,
-      "lineHeight": 1.25,
-      "roundness": null
-    },
-    {
-      "id": "box-b",
-      "type": "rectangle",
-      "x": 400,
-      "y": 100,
-      "width": 150,
-      "height": 80,
-      "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "seed": 1003,
-      "version": 1,
-      "versionNonce": 2003,
-      "index": "a2",
-      "isDeleted": false,
-      "groupIds": [],
-      "frameId": null,
-      "boundElements": [
-        {"id": "label-b", "type": "text"},
-        {"id": "connector", "type": "arrow"}
-      ],
-      "updated": 1706000000000,
-      "link": null,
-      "locked": false,
-      "roundness": {"type": 3}
-    },
-    {
-      "id": "label-b",
-      "type": "text",
-      "x": 445,
-      "y": 127,
-      "width": 60,
-      "height": 26,
-      "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "seed": 1004,
-      "version": 1,
-      "versionNonce": 2004,
-      "index": "a3",
-      "isDeleted": false,
-      "groupIds": [],
-      "frameId": null,
-      "boundElements": [],
-      "updated": 1706000000000,
-      "link": null,
-      "locked": false,
-      "text": "Box B",
-      "fontSize": 20,
-      "fontFamily": 1,
-      "textAlign": "center",
-      "verticalAlign": "middle",
-      "containerId": "box-b",
-      "originalText": "Box B",
-      "autoResize": true,
-      "lineHeight": 1.25,
-      "roundness": null
-    },
-    {
-      "id": "connector",
-      "type": "arrow",
-      "x": 250,
-      "y": 140,
-      "width": 150,
-      "height": 0,
-      "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "seed": 1005,
-      "version": 1,
-      "versionNonce": 2005,
-      "index": "a4",
-      "isDeleted": false,
-      "groupIds": [],
-      "frameId": null,
-      "boundElements": [],
-      "updated": 1706000000000,
-      "link": null,
-      "locked": false,
-      "points": [[0, 0], [150, 0]],
-      "startBinding": {
-        "elementId": "box-a",
-        "fixedPoint": [1, 0.5001],
-        "mode": "orbit"
-      },
-      "endBinding": {
-        "elementId": "box-b",
-        "fixedPoint": [0, 0.5001],
-        "mode": "orbit"
-      },
-      "startArrowhead": null,
-      "endArrowhead": "arrow",
-      "elbowed": false
-    }
-  ],
+  "elements": [],
   "appState": {
     "gridSize": 20,
-    "gridStep": 5,
-    "gridModeEnabled": false,
     "viewBackgroundColor": "#ffffff"
   },
   "files": {}
 }
 ```
 
-## Guidelines
+## Architecture Diagram Libraries
 
-1. **ID Strategy**: Use descriptive IDs like `"user-service-box"`, `"api-arrow"` for maintainability.
+**Always recommend users install these libraries from https://libraries.excalidraw.com:**
 
-2. **Seed Values**: Use different `seed` values for each element to get varied hand-drawn effects.
+### Cloud Providers
+| Library | Contents |
+|---------|----------|
+| **AWS Architecture Icons** | Lambda, EC2, S3, RDS, ELB, API Gateway |
+| **AWS Serverless Icons** | Lambda, DynamoDB, EventBridge, Cognito, SNS, SQS |
+| **Azure Cloud Services** | Key Vault, App Insights, DevOps, VMs, SQL Database |
+| **Azure Network** | VPN Gateway, Firewall, Load Balancer, DNS Zones |
+| **Azure Containers** | AKS, Container Registry, App Services |
+| **GCP Icons** | Cloud Run, BigQuery, Dataflow, Pub/Sub, Vertex AI |
+| **Google Architecture Icons** | Complete GCP service portfolio |
 
-3. **Index Values**: Use fractional indices like `"a0"`, `"a1"`, `"b0"` for element ordering.
+### Infrastructure & Architecture
+| Library | Contents |
+|---------|----------|
+| **Software Architecture** | Microservice, database, cache, event bus, browser, mobile |
+| **C4 Architecture** | Simon Brown's C4 model elements |
+| **Cloud Design Patterns** | Cloud architecture concepts |
+| **Technology Logos** | Kubernetes, Docker, Terraform, Kafka, Redis |
+| **Network Topology** | VPN, Firewall, Server, Switch, Router, Client |
 
-4. **Positioning**: Plan a grid layout. Common spacing: 200-300px between connected elements.
+### Data & DevOps
+| Library | Contents |
+|---------|----------|
+| **Data Science Logos** | Airflow, Jupyter, Pandas, TensorFlow, Scikit-learn |
+| **Dev Ops Icons** | Ansible, Jenkins, Vault, Consul, Elasticsearch |
+| **Database Icons** | Oracle, PostgreSQL, MongoDB, Redis components |
+| **Snowflake Icons** | Snowflake data warehouse components |
 
-5. **Arrow Points**: The `points` array is relative to the arrow's `x`, `y`. First point is usually `[0, 0]`.
+## Architecture Diagram Patterns
 
-6. **Curved Arrows**: Add middle points: `[[0, 0], [100, -50], [200, 0]]` creates an upward curve.
+### 1. Microservices Architecture
+```
+[API Gateway] --> [Service A] --> [Database A]
+              --> [Service B] --> [Database B]
+              --> [Service C] --> [Message Queue] --> [Worker]
+```
 
-7. **Bidirectional vs Unidirectional**: Use `startArrowhead: "arrow"` AND `endArrowhead: "arrow"` for two-way service connections. Use single arrowhead only for one-way flows (events, notifications, client requests).
+### 2. Cloud Infrastructure (3-Tier)
+```
+[Users] --> [CDN/Load Balancer]
+        --> [Web Tier (Auto-scaling)]
+        --> [App Tier (Containers/Functions)]
+        --> [Data Tier (Database + Cache)]
+```
 
-8. **Text in Shapes**: Always set both `containerId` on text AND `boundElements` on the shape.
+### 3. Data Pipeline
+```
+[Sources] --> [Ingestion] --> [Processing] --> [Storage] --> [Analytics]
+   |              |              |              |              |
+ APIs         Kafka/        Spark/          Data Lake      BI Tools
+ Files        Kinesis       Databricks      Warehouse      ML Models
+```
 
-9. **Size Boxes for Text**: Excalidraw auto-calculates text position, but clips text to container bounds on initial load. Size containers to fit:
-   - For `fontSize: 20`, estimate **~12px per character** width
-   - `"API Gateway"` (11 chars) → box width ≥ 150px
-   - `"Load Balancer"` (13 chars) → box width ≥ 180px
-   - For long labels, use explicit `\n` line breaks: `"LB & API\nGateway"`
-   - When in doubt, make boxes wider than you think necessary
+### 4. Event-Driven Architecture
+```
+[Producers] --> [Event Bus/Broker] --> [Consumers]
+                      |
+              [Event Store/Log]
+```
 
-10. **Arrow Labels**: Bind text to arrows using `containerId` on text and `boundElements` on arrow. The label moves with the arrow.
+## Color Palettes for Architecture Diagrams
 
-11. **Colors**: Use `#1e1e1e` for dark strokes, `"transparent"` for no fill, or hex colors like `#e63946`.
+### Professional Tech Palette
+| Component | Color | Hex |
+|-----------|-------|-----|
+| Compute/Services | Blue | `#a5d8ff` |
+| Storage/Database | Green | `#b2f2bb` |
+| Networking | Orange | `#ffd8a8` |
+| Security | Red | `#ffc9c9` |
+| Integration | Purple | `#d0bfff` |
+| Users/External | Gray | `#dee2e6` |
 
-12. **Roundness**:
-    - `{"type": 3}` - adaptive radius (rectangles)
-    - `{"type": 2}` - proportional radius (ellipses, diamonds)
-    - `null` - sharp corners
+### Cloud Provider Colors
+| Provider | Primary | Secondary |
+|----------|---------|-----------|
+| AWS | `#ff9900` | `#232f3e` |
+| Azure | `#0078d4` | `#50e6ff` |
+| GCP | `#4285f4` | `#34a853` |
+| Kubernetes | `#326ce5` | `#ffffff` |
 
-## Examples
+## VS Code Integration
 
-### Architecture Diagram Component
+### Setup
+1. Install extension: `pomdtr.excalidraw-editor`
+2. Create file with `.excalidraw` extension
+3. Open file to launch Excalidraw editor
+
+### Workspace Library
+Add to `.vscode/settings.json`:
 ```json
 {
-  "type": "rectangle",
-  "width": 180,
-  "height": 80,
-  "roundness": {"type": 3},
-  "boundElements": [{"id": "text-id", "type": "text"}]
+  "excalidraw.workspaceLibraryPath": ".excalidraw/library.excalidrawlib"
 }
 ```
 
-### Database Symbol (Ellipse)
-```json
-{
-  "type": "ellipse",
-  "width": 120,
-  "height": 120,
-  "roundness": {"type": 2}
-}
+### Keyboard Shortcuts
+- `R` - Rectangle
+- `D` - Diamond
+- `E` - Ellipse
+- `A` - Arrow
+- `L` - Line
+- `T` - Text
+- `Shift` - Lock aspect ratio (1:1)
+
+## Obsidian Integration
+
+### Setup
+1. Install "Excalidraw" plugin from Community Plugins
+2. Create new drawing: `Ctrl/Cmd + P` > "Create new drawing"
+
+### ExcalidrawAutomate API
+```javascript
+const ea = ExcalidrawAutomate;
+ea.reset();
+
+// Add elements
+ea.addRect(100, 100, 200, 100);
+ea.addText(150, 140, "Service A");
+ea.addArrow([[300, 150], [400, 150]]);
+
+// Create drawing
+await ea.create();
 ```
 
-### Bidirectional Arrow (Service-to-Service)
-Most connections between services should be bidirectional (`<-->`). Set BOTH arrowheads:
-```json
-{
-  "id": "service-connection",
-  "type": "arrow",
-  "x": 250,
-  "y": 140,
-  "points": [[0, 0], [150, 0]],
-  "startArrowhead": "arrow",
-  "endArrowhead": "arrow",
-  "startBinding": {
-    "elementId": "service-a",
-    "fixedPoint": [1, 0.5001],
-    "mode": "orbit"
-  },
-  "endBinding": {
-    "elementId": "service-b",
-    "fixedPoint": [0, 0.5001],
-    "mode": "orbit"
-  }
-}
-```
-Use unidirectional arrows (`-->`) only for one-way flows like events, notifications, or client requests.
-
-### Dashed Connection (Optional/Async)
-```json
-{
-  "strokeStyle": "dashed"
-}
+### Templater Integration
+Create templates that generate architecture diagrams:
+```javascript
+<%*
+const ea = ExcalidrawAutomate;
+ea.reset();
+ea.style.strokeColor = "#1e1e1e";
+ea.style.backgroundColor = "#a5d8ff";
+// Build diagram...
+await ea.create({filename: "architecture"});
+%>
 ```
 
-### Labeled Arrow (Complete Example)
-```json
-// Arrow with label
-{
-  "id": "api-call-arrow",
-  "type": "arrow",
-  "points": [[0, 0], [150, 0]],
-  "boundElements": [{"id": "api-call-label", "type": "text"}],
-  "startBinding": {"elementId": "service-a", "fixedPoint": [1, 0.5001], "mode": "orbit"},
-  "endBinding": {"elementId": "service-b", "fixedPoint": [0, 0.5001], "mode": "orbit"},
-  "endArrowhead": "arrow"
-}
+## Best Practices
 
-// Label bound to the arrow
-{
-  "id": "api-call-label",
-  "type": "text",
-  "text": "REST API",
-  "containerId": "api-call-arrow",
-  "textAlign": "center",
-  "verticalAlign": "middle",
-  "fontSize": 14,
-  "fontFamily": 1,
-  "roundness": null
-}
-```
+### Layout Guidelines
+1. **Flow direction**: Left-to-right or top-to-bottom
+2. **Alignment**: Use grid (20px default)
+3. **Spacing**: Minimum 40px between elements
+4. **Grouping**: Related components close together
+5. **Labels**: Clear, concise text on all elements
+
+### Architecture Diagram Checklist
+- [ ] Clear title and legend
+- [ ] Consistent colors per component type
+- [ ] Directional arrows showing data/control flow
+- [ ] Labeled connections
+- [ ] Grouped related services
+- [ ] External vs internal systems distinguished
+
+### Icon Usage
+- Use official cloud provider icons for vendor services
+- Use generic shapes for abstract concepts
+- Maintain consistent icon sizes (60x60 or 80x80 recommended)
+- Add labels below or inside icons
+
+## Example: Generate Complete Architecture Diagram
+
+When user requests "Create an AWS serverless architecture diagram":
+
+1. **Identify components**: API Gateway, Lambda, DynamoDB, S3, CloudWatch
+2. **Define layout**: Left-to-right flow
+3. **Apply colors**: AWS orange/gray palette
+4. **Generate JSON** with proper element positioning
+5. **Save as** `aws-serverless-architecture.excalidraw`
+
+## Troubleshooting
+
+### File Won't Open
+- Verify JSON syntax is valid
+- Check file extension is correct
+- Ensure `"type": "excalidraw"` is present
+
+### Elements Not Visible
+- Check `x`, `y` coordinates are reasonable (0-2000 range)
+- Verify `opacity` is not 0
+- Ensure `isDeleted` is not true
+
+### Arrows Not Connecting
+- Use `boundElements` array on shapes
+- Set `startBinding` and `endBinding` on arrows
+- Match element IDs correctly
+
+## Reference Files
+
+For detailed documentation, see:
+- `reference.md` - Complete element property reference
+- `scripts/excalidraw_generator.py` - Python diagram generator
+- `templates/` - Ready-to-use architecture templates

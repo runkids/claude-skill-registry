@@ -1,13 +1,7 @@
 {
   "name": "customer-support-builder",
-  "description": "Build scalable customer support systems including help centers, chatbots, ticketing systems, and self-service knowledge bases. Use when designing support infrastructure, reducing support load, improvi",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "design",
-  "tags": [
-    "customer",
-    "support",
-    "builder"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/customer-support-builder/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:35.745948Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "checkpoint",
-  "repo": "RustyLindquist/EnhancedHR",
-  "path": ".claude/skills/checkpoint/SKILL.md",
-  "source": "github.com/RustyLindquist/EnhancedHR",
-  "downloaded_at": "2026-01-27T03:58:41.798421Z"
+  "repo": "NagasakaH/devcontainer",
+  "path": "skills/checkpoint/SKILL.md",
+  "source": "github.com/NagasakaH/devcontainer",
+  "downloaded_at": "2026-01-28T04:18:25.315840Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "project-principles",
-  "description": "Core architectural and code quality principles that guide all development decisions in the uspark project",
-  "repo": "uspark-hq/uspark",
-  "category": "development",
-  "tags": [
-    "project",
-    "principles"
-  ],
-  "stars": 6,
-  "source": "local"
+  "repo": "vm0-ai/vm0",
+  "path": ".claude/skills/project-principles/SKILL.md",
+  "source": "github.com/vm0-ai/vm0",
+  "downloaded_at": "2026-01-28T03:02:33.829544Z"
 }

@@ -1,30 +1,130 @@
 ---
 name: deploy-production
-description: >-
-  Production environment deployment. TODO: Implement for devops.
-  Invoked by: "deploy production", "production", "deploy to prod", "release".
+description: "Deploy to production. Use when: Releasing code to production environments with safety checks. Not for: Staging deploys or local builds (unless specifically requested)."
+disable-model-invocation: true
+user-invocable: true
 context: fork
-agent: general-purpose
+agent: Plan
+allowed-tools: Read, Bash(docker:*), Bash(kubectl:*)
 ---
 
-# Deploy Production
+# Deploy to Production
 
-**Status**: Stub - Not Implemented
-**Domain**: DevOps
+Deploy application to production with comprehensive safety checks.
 
-## Overview
+⚠️ **DANGER ZONE** - Production Deployment
 
-This is a placeholder skill for devops workflows. It will guide deploying applications to production environments with proper validation, monitoring, and rollback capabilities.
+## Pre-Deployment Checklist
 
-## TODO
+**CRITICAL SAFETY CHECK**: Verify ALL requirements BEFORE proceeding:
 
-- [ ] Define production deployment workflow
-- [ ] Add templates for production configuration
-- [ ] Define blue-green and canary deployment strategies
-- [ ] Add supporting files for health checks
-- [ ] Document rollback procedures
-- [ ] Document incident response procedures
+- [ ] All tests pass locally (`npm test`)
+- [ ] Recent commits are reviewed and approved
+- [ ] Database migrations are tested
+- [ ] Backups are current and tested
+- [ ] Deployment plan documented
+- [ ] Rollback plan prepared
+- [ ] Monitoring configured
+- [ ] Team notified of deployment window
 
----
+**DO NOT PROCEED** unless ALL items are verified.
 
-**End of Skill**
+## Deployment Process
+
+<logic_flow>
+digraph Deployment {
+    rankdir=TD;
+    node [shape=box];
+    Verify [label="1. Verify Checklist"];
+    Build [label="2. Build & Test"];
+    Docker [label="3. Build Docker"];
+    Push [label="4. Push Registry"];
+    Deploy [label="5. Apply K8s"];
+    Check [label="6. Verify Health"];
+    Success [label="Deployment Success" style=filled fillcolor=lightgreen];
+    Rollback [label="Rollback Procedure" style=filled fillcolor=lightpink];
+
+    Verify -> Build;
+    Build -> Docker;
+    Docker -> Push;
+    Push -> Deploy;
+    Deploy -> Check;
+    Check -> Success [label="Health OK"];
+    Check -> Rollback [label="Errors"];
+    Rollback -> Verify [label="Fix & Retry"];
+}
+</logic_flow>
+
+### 1. Pre-Deployment Verification
+Complete the checklist above and verify all systems are ready.
+
+### 2. Build Application
+```bash
+npm run build
+npm test
+```
+
+### 3. Build Docker Image
+```bash
+docker build -t myapp:$VERSION .
+docker tag myapp:$VERSION myapp:latest
+```
+
+### 4. Push to Registry
+```bash
+docker push myapp:$VERSION
+docker push myapp:latest
+```
+
+### 5. Deploy to Kubernetes
+```bash
+kubectl apply -f manifests/production/
+kubectl rollout status deployment/myapp
+```
+
+### 6. Verify Deployment
+- [ ] Health checks passing
+- [ ] Logs show no errors
+- [ ] Metrics within normal range
+- [ ] Smoke tests pass
+
+### 7. Post-Deployment
+- [ ] Update documentation
+- [ ] Notify team of successful deployment
+- [ ] Monitor for 30 minutes
+- [ ] Update deployment tracker
+
+## Safety Features
+
+This skill includes:
+- **Manual-only invocation** - Cannot be auto-triggered
+- **Pre-deployment checklist** - Must verify all safety items
+- **Rollback capability** - Can revert if issues detected
+- **Verification steps** - Ensures deployment success
+
+## Rollback Procedure
+
+If deployment fails:
+
+1. **Revert to previous version**:
+   ```bash
+   kubectl rollout undo deployment/myapp
+   ```
+
+2. **Verify rollback**:
+   ```bash
+   kubectl rollout status deployment/myapp
+   ```
+
+3. **Investigate issues**:
+   - Check logs
+   - Review metrics
+   - Identify root cause
+
+4. **Fix and re-deploy** after resolution
+
+## Integration
+
+This skill integrates with:
+- `ci-pipeline-manager` - CI/CD pipeline integration
+- `backend-patterns` - Deployment best practices

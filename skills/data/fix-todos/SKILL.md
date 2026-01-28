@@ -10,6 +10,28 @@ I'll systematically find and resolve TODO comments in your codebase with intelli
 
 Arguments: `$ARGUMENTS` - files, directories, or specific TODO patterns to fix
 
+**Token Optimization:**
+- ✅ Session-based state tracking (already implemented)
+- ✅ Grep-based TODO discovery (no file reads for scanning)
+- ✅ Progressive resolution (one TODO at a time)
+- ✅ Early exit on resumed sessions (skip fixed TODOs) - saves 80%
+- ✅ Caching TODO inventory and context
+- ✅ Reuse /find-todos results vs re-scanning
+- **Expected tokens:** 800-2,500 (vs. 2,000-4,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+
+**Caching Behavior:**
+- Session location: `fix-todos/` (plan.md, state.json)
+- Cache location: `.claude/cache/fix-todos/`
+- Caches: TODO inventory, resolution context, related code
+- Cache validity: Until session completed
+- Shared with: `/find-todos`, `/create-todos`, `/todos-to-issues` skills
+
+**Usage:**
+- `fix-todos` - Fix all TODOs (2,000-2,500 tokens)
+- `fix-todos resume` - Resume session (500-1,200 tokens, skips fixed)
+- `fix-todos path/to/file.ts` - Fix TODOs in specific file (800-1,500 tokens)
+
 ## Session Intelligence
 
 I'll maintain TODO resolution progress across sessions:

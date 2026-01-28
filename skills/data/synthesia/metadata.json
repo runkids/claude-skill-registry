@@ -1,9 +1,7 @@
 {
   "name": "synthesia",
-  "description": "Create AI avatar videos with Synthesia - generate spokesperson videos, manage projects, and export content",
   "repo": "Andrejones92/canifi-life-os",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Andrejones92/canifi-life-os"
+  "path": "skills/synthesia/SKILL.md",
+  "source": "github.com/Andrejones92/canifi-life-os",
+  "downloaded_at": "2026-01-28T03:33:06.017084Z"
 }

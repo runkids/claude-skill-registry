@@ -1,12 +1,7 @@
 {
   "name": "refactor-assistant",
-  "description": "Automated code refactoring suggestions and implementation.",
-  "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "assistant"
-  ],
-  "stars": 13,
-  "source": "local"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/community/refactor-assistant/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-28T03:43:41.422158Z"
 }

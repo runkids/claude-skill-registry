@@ -1,9 +1,7 @@
 {
   "name": "bitwarden",
-  "description": "Open-source password manager with self-hosting option.",
-  "repo": "Andrejones92/canifi-life-os",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Andrejones92/canifi-life-os"
+  "repo": "moltbot/moltbot",
+  "path": "skills/bitwarden/SKILL.md",
+  "source": "github.com/moltbot/moltbot",
+  "downloaded_at": "2026-01-28T04:17:12.108487Z"
 }

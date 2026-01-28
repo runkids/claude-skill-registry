@@ -1,9 +1,7 @@
 {
   "name": "iterative-development",
-  "description": "Load when adding features or analyzing impact on existing framework. Supports progressive development without requiring everything upfront. Used by /add-feature and /analyze-impact commands.",
-  "repo": "asermax/claude-plugins",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "aspiers/ai-config",
+  "path": ".claude/skills/iterative-development/SKILL.md",
+  "source": "github.com/aspiers/ai-config",
+  "downloaded_at": "2026-01-28T01:33:28.664228Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "v3-cli-modernization",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "path": ".claude/skills/v3-cli-modernization/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-27T04:25:21.333658Z"
+  "repo": "ruvnet/claude-flow",
+  "path": "v3/@claude-flow/cli/.claude/skills/v3-cli-modernization/SKILL.md",
+  "source": "github.com/ruvnet/claude-flow",
+  "downloaded_at": "2026-01-28T04:26:43.594494Z"
 }

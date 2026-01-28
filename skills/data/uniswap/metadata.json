@@ -1,9 +1,7 @@
 {
   "name": "uniswap",
-  "description": "Trade and interact with Uniswap in Python using Ape and the uniswap-sdk package.",
-  "repo": "ApeWorX/skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/apeworx/uniswap/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-28T00:59:33.238786Z"
 }

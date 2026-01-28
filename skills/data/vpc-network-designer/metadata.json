@@ -1,9 +1,7 @@
 {
   "name": "vpc-network-designer",
-  "description": "Vpc Network Designer - Auto-activating skill for AWS Skills.Triggers on: vpc network designer, vpc network designerPart of the AWS Skills skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/vpc-network-designer/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:45.246011Z"
 }

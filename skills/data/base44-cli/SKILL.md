@@ -1,6 +1,6 @@
 ---
 name: base44-cli
-description: "**ALWAYS ACTIVATE** if ANY of these conditions are true: (1) User's prompt contains the word 'base44' or 'Base44' in ANY context; (2) Current directory contains a 'base44/' subfolder; (3) User mentions CLI commands: npx/yarn/pnpm base44, login, logout, whoami, create, entities push, site deploy. **ACTIVATION IS MANDATORY** - do not hesitate, do not search the web, do not read documentation files first. ACTIVATE IMMEDIATELY and let the skill instructions handle the context. This skill handles: project initialization, CLI operations, deployment, entity schema management, and authentication. The skill itself will determine the appropriate action based on whether base44/config.jsonc exists or not."
+description: "Use for Base44 CLI operations and project initialization. Triggers: user wants to create/initialize a new Base44 project; user mentions CLI commands (npx base44, yarn base44, create, login, logout, whoami, deploy, entities push, site deploy, functions deploy); directory is empty or missing base44/config.jsonc; user says 'create a Base44 app/project', 'setup Base44', 'deploy to Base44', 'push entities'. This skill is the PREREQUISITE for base44-sdk - always use this first for new projects before building features."
 ---
 
 # Base44 CLI
@@ -168,7 +168,7 @@ npx base44 <command>
 
 | Command | Description | Reference |
 |---------|-------------|-----------|
-| `base44 create` | Create a new Base44 project from a template | [create.md](references/create.md) |
+| `base44 create` | Create a new Base44 project from a template | [create.md](references/create.md) ⚠️ **MUST READ** |
 | `base44 link` | Link an existing local project to Base44 | [link.md](references/link.md) |
 | `base44 dashboard` | Open the app dashboard in your browser | [dashboard.md](references/dashboard.md) |
 
@@ -239,9 +239,9 @@ For complete documentation, see [entities-create.md](references/entities-create.
    npx base44 login
    ```
 
-3. Create a new project (ALWAYS use `--name` and `--path` flags):
+3. Create a new project (ALWAYS provide name and `--path` flag):
    ```bash
-   npx base44 create -n my-app -p .
+   npx base44 create my-app -p .
    ```
 
 4. Build and deploy everything:
@@ -257,17 +257,14 @@ Or deploy individual resources:
 
 ## Common Workflows
 
-### Starting a New Project
-```bash
-# Login first
-npx base44 login
+### Creating a New Project
 
-# Create project (ALWAYS use --name and --path flags)
-npx base44 create -n my-app -p .
+**⚠️ MANDATORY: Before running `base44 create`, you MUST read [create.md](references/create.md) for:**
+- **Template selection** - Choose the correct template (`backend-and-client` vs `backend-only`)
+- **Correct workflow** - Different templates require different setup steps
+- **Common pitfalls** - Avoid folder creation errors that cause failures
 
-# Or create with full-stack template and deploy in one step
-npx base44 create -n my-app -p ./my-app -t backend-and-client --deploy
-```
+Failure to follow the create.md instructions will result in broken project scaffolding.
 
 ### Linking an Existing Project
 ```bash

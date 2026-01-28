@@ -1,9 +1,7 @@
 {
   "name": "manifest-generator",
-  "description": "Generate and validate plugin manifest files (plugin.json, marketplace.json). Use when creating new plugins, updating manifests, adding plugins to marketplaces, or preparing for distribution.",
-  "repo": "astoeffer/plugin-marketplace",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/manifest-generator/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:38.718220Z"
 }

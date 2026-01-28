@@ -1,7 +1,7 @@
 {
   "name": "spec-writer",
-  "repo": "aaronbassett/paneful",
-  "path": ".claude/skills/spec-writer/SKILL.md",
-  "source": "github.com/aaronbassett/paneful",
-  "downloaded_at": "2026-01-27T04:02:17.941503Z"
+  "repo": "Bosh-Kuo/awesome-agent-toolkit",
+  "path": "skills/spec-writer/SKILL.md",
+  "source": "github.com/Bosh-Kuo/awesome-agent-toolkit",
+  "downloaded_at": "2026-01-28T03:13:08.117668Z"
 }

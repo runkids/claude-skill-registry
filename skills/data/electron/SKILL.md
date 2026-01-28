@@ -1,180 +1,152 @@
 ---
 name: electron
-description: Expert knowledge for building cross-platform desktop applications with Electron using Chromium and Node.js, including IPC patterns, security best practices, and deployment considerations
-last_updated: 2025-12-21T00:00:00Z
-hash: 12251b9727b9a525
+description: Provides comprehensive guidance for Electron framework including main process, renderer process, IPC communication, window management, and desktop app development. Use when the user asks about Electron, needs to create desktop applications, implement Electron features, or build cross-platform desktop apps.
+license: Complete terms in LICENSE.txt
 ---
 
-# Electron
+## When to use this skill
 
-Build cross-platform desktop applications using web technologies (HTML, CSS, JavaScript/TypeScript). Electron combines **Chromium** (UI rendering) with **Node.js** (system access) into a single runtime.
+Use this skill whenever the user wants to:
+- Build cross-platform desktop applications with Electron
+- Understand Electron architecture (main process, renderer process, preload)
+- Implement IPC (Inter-Process Communication) between processes
+- Create and manage BrowserWindow instances
+- Implement menus, tray icons, and native features
+- Package and distribute Electron applications
+- Use Electron Forge for project scaffolding and building
+- Debug and test Electron applications
+- Implement security best practices
+- Use Electron APIs (app, BrowserWindow, ipcMain, ipcRenderer, etc.)
 
-## Core Principles
+## How to use this skill
 
-- **Enable context isolation** - Always use `contextIsolation: true` and never set `nodeIntegration: true` in renderer processes
-- **Validate IPC messages** - Treat all messages from renderer processes as untrusted; validate arguments before system actions
-- **Use preload scripts** - Expose specific APIs via `contextBridge` rather than giving renderer direct Node.js access
-- **Avoid main thread blocking** - Run heavy CPU tasks in Worker Threads or utility processes to prevent UI freezing
-- **Sign your binaries** - Code signing is mandatory for macOS/Windows to avoid security warnings and enable auto-updates
-- **Implement CSP** - Use Content Security Policy to restrict script sources and network connections
-- **Lazy load modules** - Defer `require()` of heavy Node modules until needed to speed up startup
-- **Plan for resource overhead** - Expect 80MB+ installer sizes and 150MB+ RAM usage per instance
+This skill is organized to match the Electron official documentation structure (https://www.electronjs.org/zh/docs/latest/, https://www.electronjs.org/zh/docs/latest/api/app). When working with Electron:
 
-## Process Architecture
+1. **Identify the topic** from the user's request:
+   - Getting started/快速开始 → `examples/getting-started/installation.md` or `examples/getting-started/quick-start.md`
+   - Main process/主进程 → `examples/processes/main-process.md`
+   - Renderer process/渲染进程 → `examples/processes/renderer-process.md`
+   - IPC communication/IPC 通信 → `examples/processes/ipc-communication.md`
+   - BrowserWindow/窗口 → `examples/api/browser-window.md`
+   - Menu/菜单 → `examples/api/menu.md`
+   - Packaging/打包 → `examples/advanced/packaging.md`
+   - Security/安全 → `examples/advanced/security.md`
 
-Electron uses a **multi-process architecture**:
+2. **Load the appropriate example file** from the `examples/` directory:
 
-```
-Main Process (Node.js + system access)
-  ├── Renderer Process 1 (Chromium - isolated UI)
-  ├── Renderer Process 2 (Chromium - isolated UI)
-  └── Utility Processes (background workers)
-```
+   **Getting Started (快速开始) - `examples/getting-started/`**:
+   - `examples/getting-started/installation.md` - Installing Electron and basic setup
+   - `examples/getting-started/quick-start.md` - Quick start tutorial
 
-**Main Process:**
-- Entry point of the application
-- Full Node.js and OS access
-- Controls app lifecycle and windows
-- Runs once per application
+   **Processes (进程) - `examples/processes/`**:
+   - `examples/processes/main-process.md` - Main process concepts and usage
+   - `examples/processes/renderer-process.md` - Renderer process concepts
+   - `examples/processes/preload-scripts.md` - Preload scripts usage
+   - `examples/processes/ipc-communication.md` - IPC communication patterns
 
-**Renderer Process:**
-- Isolated Chromium instance per window
-- No direct Node.js access (by design)
-- Communicates with Main via IPC
+   **API Examples (API 示例) - `examples/api/`**:
+   - `examples/api/browser-window.md` - BrowserWindow usage
+   - `examples/api/menu.md` - Menu and context menu
+   - `examples/api/tray.md` - System tray
+   - `examples/api/dialog.md` - File dialogs
+   - `examples/api/ipc-main.md` - ipcMain usage
+   - `examples/api/ipc-renderer.md` - ipcRenderer usage
 
-## Quick Reference
+   **Advanced (高级) - `examples/advanced/`**:
+   - `examples/advanced/packaging.md` - Application packaging
+   - `examples/advanced/security.md` - Security best practices
+   - `examples/advanced/auto-updater.md` - Auto updater
+   - `examples/advanced/native-modules.md` - Native modules
 
-### Secure Window Setup
+   **Tools (工具) - `examples/tools/`**:
+   - `examples/tools/electron-forge.md` - Electron Forge usage
+   - `examples/tools/electron-fiddle.md` - Electron Fiddle usage
 
-```javascript
-const { BrowserWindow } = require('electron');
+3. **Follow the specific instructions** in that example file for syntax, structure, and best practices
 
-const win = new BrowserWindow({
-  width: 800,
-  height: 600,
-  webPreferences: {
-    contextIsolation: true,      // REQUIRED for security
-    nodeIntegration: false,       // REQUIRED for security
-    preload: path.join(__dirname, 'preload.js')
-  }
-});
-```
+   **Important Notes**:
+   - All examples follow Electron latest API
+   - Examples use both CommonJS (require) and ES modules (import)
+   - Each example file includes key concepts, code examples, and key points
+   - Always check the example file for best practices and common patterns
+   - Electron supports Windows, macOS, and Linux
 
-### IPC Communication Pattern
+4. **Reference API documentation** in the `api/` directory when needed:
+   - `api/app.md` - app module API
+   - `api/browser-window.md` - BrowserWindow API
+   - `api/ipc-main.md` - ipcMain API
+   - `api/ipc-renderer.md` - ipcRenderer API
+   - `api/menu.md` - Menu API
+   - `api/tray.md` - Tray API
 
-**Main Process (main.js):**
-```javascript
-const { ipcMain } = require('electron');
+5. **Use templates** from the `templates/` directory:
+   - `templates/main-process.md` - Main process template
+   - `templates/preload-script.md` - Preload script template
+   - `templates/renderer-process.md` - Renderer process template
+   - `templates/package-json.md` - package.json template
 
-ipcMain.handle('read-file', async (event, filepath) => {
-  // Validate input
-  if (!isValidPath(filepath)) {
-    throw new Error('Invalid path');
-  }
-  return await fs.promises.readFile(filepath, 'utf8');
-});
-```
 
-**Preload Script (preload.js):**
-```javascript
-const { contextBridge, ipcRenderer } = require('electron');
+### Doc mapping (one-to-one with official documentation)
 
-contextBridge.exposeInMainWorld('api', {
-  readFile: (filepath) => ipcRenderer.invoke('read-file', filepath)
-});
-```
+- `examples/` → https://www.electronjs.org/zh/docs/latest/
+- `api/` → https://www.electronjs.org/zh/docs/latest/api/app
 
-**Renderer (index.html):**
-```javascript
-const content = await window.api.readFile('/path/to/file.txt');
-```
+## Examples and Templates
 
-## Topics
+This skill includes detailed examples organized to match the official documentation structure. All examples are in the `examples/` directory (see mapping above).
 
-### Core APIs
+**To use examples:**
+- Identify the topic from the user's request
+- Load the appropriate example file from the mapping above
+- Follow the instructions, syntax, and best practices in that file
+- Adapt the code examples to your specific use case
 
-- [Main Process APIs](./main-process-apis.md) - System-level APIs for app lifecycle and windows
-- [Native Integration](./native-integration.md) - OS notifications, tray icons, power monitoring, auto-updates
+**To use templates:**
+- Reference templates in `templates/` directory for common scaffolding
+- Adapt templates to your specific needs and coding style
 
-### Security
+## API Reference
 
-- [Security Hardening](./security.md) - Context isolation, CSP, input validation, secure IPC patterns
+Detailed API documentation is available in the `api/` directory, organized to match the official Electron API documentation structure:
 
-### Performance
+### Core APIs (`api/`)
+- `api/app.md` - app module API
+- `api/browser-window.md` - BrowserWindow API
+- `api/ipc-main.md` - ipcMain API
+- `api/ipc-renderer.md` - ipcRenderer API
+- `api/menu.md` - Menu API
+- `api/tray.md` - Tray API
+- `api/dialog.md` - Dialog API
 
-- [Optimization Strategies](./optimization.md) - Lazy loading, worker threads, startup performance
+**To use API reference:**
+1. Identify the API you need help with
+2. Load the corresponding API file from the `api/` directory
+3. Find the API signature, parameters, return type, and examples
+4. Reference the linked example files for detailed usage patterns
+5. All API files include links to relevant example files in the `examples/` directory
 
-## Common Patterns
+## Best Practices
 
-### Safe File Dialog
-
-```javascript
-// Main Process
-const { dialog } = require('electron');
-
-ipcMain.handle('select-file', async () => {
-  const result = await dialog.showOpenDialog({
-    properties: ['openFile'],
-    filters: [{ name: 'Text', extensions: ['txt', 'md'] }]
-  });
-
-  if (result.canceled) return null;
-  return result.filePaths[0];
-});
-```
-
-### Native Menu
-
-```javascript
-const { Menu } = require('electron');
-
-const template = [
-  {
-    label: 'File',
-    submenu: [
-      { role: 'quit' }
-    ]
-  },
-  {
-    label: 'Edit',
-    submenu: [
-      { role: 'undo' },
-      { role: 'redo' },
-      { type: 'separator' },
-      { role: 'cut' },
-      { role: 'copy' },
-      { role: 'paste' }
-    ]
-  }
-];
-
-const menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu);
-```
-
-## Constraints
-
-- **Heavy resource footprint:** Each app bundles Chromium (~80MB+) and uses significant RAM (~150MB minimum)
-- **Process isolation:** Renderer cannot access filesystem/Node.js directly; requires IPC bridge
-- **Main thread sensitivity:** CPU-intensive work blocks entire UI; must use Worker Threads
-- **Security hardening:** High XSS-to-RCE risk; requires manual configuration of security defaults
-
-## Electron vs Tauri
-
-| Feature | Electron | Tauri |
-|---------|----------|-------|
-| **Runtime** | Chromium + Node.js | System WebView + Rust |
-| **App Size** | 80-150MB+ | 3-10MB |
-| **Memory** | 150-400MB | 30-80MB |
-| **Backend** | JavaScript/TypeScript | Rust |
-| **Security** | Manual hardening required | Secure by default |
-| **Platforms** | Windows, macOS, Linux | Windows, macOS, Linux, iOS, Android |
-
-**Choose Electron** if you need mature ecosystem, identical cross-platform rendering, or JS-only team.
-**Choose Tauri** if you need small footprint, high performance, or mobile platform support.
+1. **Security**: Never enable nodeIntegration in renderer process, use preload scripts
+2. **Process separation**: Keep main and renderer processes separate
+3. **IPC communication**: Use IPC for safe communication between processes
+4. **Resource management**: Properly clean up resources (windows, listeners)
+5. **Error handling**: Implement proper error handling and crash reporting
+6. **Performance**: Optimize for performance, use webContents for debugging
+7. **Packaging**: Use Electron Forge or electron-builder for packaging
+8. **Auto updates**: Implement auto-updater for production apps
+9. **Native modules**: Handle native module compatibility
+10. **Cross-platform**: Test on all target platforms
 
 ## Resources
 
-- [Official Docs](https://www.electronjs.org/docs)
-- [Security Tutorial](https://www.electronjs.org/docs/latest/tutorial/security)
-- [GitHub](https://github.com/electron/electron)
+- **Official Website**: https://www.electronjs.org/zh/
+- **Documentation**: https://www.electronjs.org/zh/docs/latest/
+- **API Reference**: https://www.electronjs.org/zh/docs/latest/api/app
+- **Electron Forge**: https://www.electronforge.io
+- **Electron Fiddle**: https://www.electronjs.org/zh/fiddle
+- **GitHub Repository**: https://github.com/electron/electron
+
+## Keywords
+
+Electron, desktop app, main process, renderer process, preload, IPC, BrowserWindow, Menu, Tray, Dialog, packaging, electron-builder, electron-forge, electron-fiddle, cross-platform, 桌面应用, 主进程, 渲染进程, IPC 通信, 窗口, 菜单, 托盘, 打包

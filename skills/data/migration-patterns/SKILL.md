@@ -1,61 +1,199 @@
 ---
 name: migration-patterns
-# prettier-ignore
-description: Database migration patterns for SQLite. Use when creating migrations, modifying schema, or running database changes.
+description: Query Angular migration patterns and examples. Use when looking up patterns (table, form, dialog, layout, button, store) or asking questions about migration guidelines.
 ---
 
-# Migration Patterns
+Query Angular migration patterns and examples. This skill loads the migration documentation and helps with pattern lookup and answering migration questions.
 
-## Quick Start
+## Arguments
 
-```sql
--- migrations/001_add_tags.sql
--- Migration: Add Tags Feature
--- Created: 2025-01-15
--- Description: Adds tags table for organizing contacts
+- `$ARGUMENTS` - Query keyword or question:
+  - `table` - Table migration patterns (CommonTableComponent)
+  - `form` - Form patterns (validators, NonNullableFormBuilder)
+  - `dialog` - Dialog patterns (config, loading, viewContainerRef)
+  - `layout` - Page layout (gl-page-content, content-wrapper)
+  - `button` - Button patterns (mat-flat-button, loading states)
+  - `ddd` - DDD architecture (domain/features/ui/shell)
+  - `api` - API type definitions
+  - `store` - SignalStore patterns
+  - `syntax` - Angular 20 syntax (@if, @for, inject, signal)
+  - `validator` - OneValidators usage
+  - `error` - Error handling patterns
+  - `pitfall` - Common pitfalls to avoid
+  - Or ask any question about migration
 
-CREATE TABLE IF NOT EXISTS tags (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
-  name TEXT NOT NULL,
-  color TEXT NOT NULL,
-  created_at INTEGER NOT NULL,
-  updated_at INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
-);
+**Note:** For code review/linting, use `/migration-lint` instead.
 
-CREATE INDEX IF NOT EXISTS idx_tags_user_id ON tags(user_id);
+## Workflow
+
+### Step 1: Load Relevant Documentation
+
+Based on the query, read the appropriate documentation files from `rules/`:
+
+| Query | Files to Read |
+|-------|---------------|
+| `table` | tables/basics.md, tables/columns.md, tables/advanced.md |
+| `form` | forms/validators.md, forms/patterns.md, ui/forms.md |
+| `dialog` | ui/dialogs.md |
+| `layout` | ui/page-layout.md |
+| `button` | ui/buttons.md |
+| `ddd` | ddd-architecture.md |
+| `api` | api-types.md |
+| `store` | state-management.md |
+| `syntax` | angular-syntax.md |
+| `validator` | forms/validators.md |
+| `error` | forms/error-handling.md |
+| `pitfall` | pitfalls/index.md |
+
+### Step 2: Process Query
+
+**For keyword queries (table, form, etc.):**
+- Summarize the key patterns and rules
+- Provide code examples
+- List common mistakes to avoid
+
+**For questions:**
+- Search through all migration docs
+- Provide specific answers with code examples
+- Reference the source document
+
+## Quick Reference
+
+### Table Components (UI Layer)
+
+```typescript
+// Required imports for custom column templates
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+
+@Component({
+  imports: [
+    CommonTableComponent,
+    MatSortModule,   // Required for mat-sort-header
+    MatTableModule,  // Required for matColumnDef, *matCellDef
+  ]
+})
 ```
 
-## Core Principles
+### Form Validation
 
-- **Dual approach**: Create migration in `migrations/` + update
-  `schema.sql`
-- **Naming**: `{number}_{description}.sql` (e.g., `001_add_tags.sql`)
-- **Zero-padded numbers**: 001, 002, 003 (run alphabetically)
-- **IF NOT EXISTS**: Always use for idempotency
-- **One feature per migration**: Keep focused
-- **Include indexes**: Add in same migration as tables
-- **Never modify**: Once committed, create new migration instead
+```typescript
+import { OneValidators } from '@one-ui/mxsecurity/shared/domain';
 
-## Reference Files
+// Correct
+this.#fb.group({
+  name: ['', [OneValidators.required, OneValidators.maxLength(32)]],
+  ip: ['', [OneValidators.required, ipv4Validator]]
+});
+```
 
-- [migration-guide.md](references/migration-guide.md) - Complete
-  workflow and examples
-- [troubleshooting.md](references/troubleshooting.md) - Common issues
+### Form Field Tooltip (mxLabelTooltip)
 
-<!--
-PROGRESSIVE DISCLOSURE GUIDELINES:
-- Keep this file ~50 lines total (max ~150 lines)
-- Use 1-2 code blocks only (recommend 1)
-- Keep description <200 chars for Level 1 efficiency
-- Move detailed docs to references/ for Level 3 loading
-- This is Level 2 - quick reference ONLY, not a manual
+**DO NOT use `mat-icon` with `matTooltip`**. Use `mxLabelTooltip` directive on `mat-label` instead.
 
-LLM WORKFLOW (when editing this file):
-1. Write/edit SKILL.md
-2. Format (if formatter available)
-3. Run: claude-skills-cli validate <path>
-4. If multi-line description warning: run claude-skills-cli doctor <path>
-5. Validate again to confirm
--->
+```html
+<!-- WRONG - Don't use mat-icon with info tooltip -->
+<div class="form-row">
+  <mat-form-field>
+    <mat-label>{{ t('field.label') }}</mat-label>
+    <mat-select formControlName="field">...</mat-select>
+  </mat-form-field>
+  <mat-icon class="info-icon" [matTooltip]="t('field.hint')">info</mat-icon>
+</div>
+
+<!-- CORRECT - Use mxLabelTooltip -->
+<mat-form-field>
+  <mat-label mxLabel [mxLabelTooltip]="t('field.hint')">
+    {{ t('field.label') }}
+  </mat-label>
+  <mat-select formControlName="field">...</mat-select>
+</mat-form-field>
+```
+
+**Required import:**
+
+```typescript
+import { MxLabelDirective } from '@moxa/formoxa/mx-label';
+
+@Component({
+  imports: [MxLabelDirective]
+})
+```
+
+### Button Types
+
+```html
+<!-- Form submit button -->
+<button mat-flat-button color="primary" type="submit">Apply</button>
+
+<!-- Table toolbar button -->
+<button mat-stroked-button>Create</button>
+```
+
+### Page Layout
+
+```html
+<div *transloco="let t" class="gl-page-content">
+  <one-ui-breadcrumb />
+  <mx-page-title [title]="t('page.title')" />
+
+  <div class="content-wrapper">
+    <!-- content here -->
+  </div>
+</div>
+```
+
+### Card Container (IMPORTANT)
+
+**DO NOT use `<mat-card>`**. Always use `class="content-wrapper"` instead.
+
+```html
+<!-- WRONG - Don't use mat-card -->
+<mat-card>
+  <mat-card-header>...</mat-card-header>
+  <mat-card-content>...</mat-card-content>
+</mat-card>
+
+<!-- CORRECT - Use content-wrapper -->
+<div class="content-wrapper">
+  <!-- content here -->
+</div>
+
+<!-- If you need mat-card structure, add content-wrapper class -->
+<mat-card class="content-wrapper">
+  <mat-card-header>...</mat-card-header>
+  <mat-card-content>...</mat-card-content>
+</mat-card>
+```
+
+The `content-wrapper` class provides:
+- Consistent padding (16px)
+- Border radius (8px)
+- Surface background color
+- Gap between child elements (8px)
+
+### Dialog Config
+
+```typescript
+import { mediumDialogConfig } from '@one-ui/mxsecurity/shared/domain';
+
+this.#dialog.open(MyDialog, {
+  ...mediumDialogConfig,
+  data: dialogData,
+  viewContainerRef: this.#viewContainerRef  // Required if dialog uses store
+});
+```
+
+## Output Format
+
+### For keyword queries:
+Provide a concise summary with:
+1. Key rules (do's and don'ts)
+2. Code examples
+3. Common mistakes
+
+### For questions:
+Provide the answer with:
+1. Direct answer
+2. Code example
+3. Source reference (which doc file)

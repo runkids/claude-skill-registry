@@ -1,7 +1,7 @@
 {
   "name": "update",
-  "repo": "Unsupervisedcom/deepwork",
-  "path": ".claude/skills/update/SKILL.md",
-  "source": "github.com/Unsupervisedcom/deepwork",
-  "downloaded_at": "2026-01-27T04:34:35.886932Z"
+  "repo": "BerryKuipers/claude-code-toolkit",
+  "path": ".claude/skills/memory/dev-memory/update/SKILL.md",
+  "source": "github.com/BerryKuipers/claude-code-toolkit",
+  "downloaded_at": "2026-01-28T03:36:39.524620Z"
 }

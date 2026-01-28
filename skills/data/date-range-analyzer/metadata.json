@@ -1,11 +1,7 @@
 {
   "name": "date-range-analyzer",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Date Range Analyzer - Auto-activating skill for Data Analytics.Triggers on: date range analyzer, date range analyzerPart of the Data Analytics skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:57.506981Z",
-  "dir_name": "date-range-analyzer",
-  "github_path": "planned-skills/generated/12-data-analytics/date-range-analyzer",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/date-range-analyzer/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:44.334882Z"
 }

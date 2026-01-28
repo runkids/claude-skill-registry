@@ -289,7 +289,9 @@ Open http://localhost:5173
 
 ```bash
 # Save complete prototype
-/home/toowired/.claude-artifacts/prototypes/auth-{timestamp}/
+# Linux/macOS: ~/.claude-artifacts/prototypes/auth-{timestamp}/
+# Windows: %USERPROFILE%\.claude-artifacts\prototypes\auth-{timestamp}\
+~/.claude-artifacts/prototypes/auth-{timestamp}/
 ```
 
 ### 6. Present to User
@@ -297,10 +299,12 @@ Open http://localhost:5173
 ```
 ✅ Auth prototype ready!
 
-📁 Location: /home/toowired/.claude-artifacts/prototypes/auth-20251017/
+📁 Location (Linux/macOS): ~/.claude-artifacts/prototypes/auth-20251017/
+📁 Location (Windows): %USERPROFILE%\.claude-artifacts\prototypes\auth-20251017\
 
 🚀 To run:
-cd /home/toowired/.claude-artifacts/prototypes/auth-20251017
+cd ~/.claude-artifacts/prototypes/auth-20251017
+# Windows: cd %USERPROFILE%\.claude-artifacts\prototypes\auth-20251017
 npm install
 npm run dev
 
@@ -619,8 +623,8 @@ After generating:
 
 ### File Locations
 
-- **Prototypes**: `/home/toowired/.claude-artifacts/prototypes/`
-- **Validated patterns**: `/home/toowired/.claude-memories/procedures/` (tagged "prototype-validated")
+- **Prototypes**: `~/.claude-artifacts/prototypes/` (Linux/macOS) or `%USERPROFILE%\.claude-artifacts\prototypes\` (Windows)
+- **Validated patterns**: `~/.claude-memories/procedures/` (Linux/macOS) or `%USERPROFILE%\.claude-memories\procedures\` (Windows) - tagged "prototype-validated"
 
 ### Success Criteria
 

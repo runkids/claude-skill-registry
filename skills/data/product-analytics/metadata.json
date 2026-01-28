@@ -1,12 +1,7 @@
 {
   "name": "product-analytics",
-  "description": "Measure what matters with proper event tracking, funnels, cohorts, and metrics. Use when setting up analytics, tracking features, or understanding behavior.",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "product",
-  "tags": [
-    "product",
-    "analytics"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/product-analytics/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:37.095539Z"
 }

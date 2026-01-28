@@ -1,9 +1,7 @@
 {
   "name": "convert-golang-rust",
-  "description": "Convert Go code to idiomatic Rust. Use when migrating Go projects to Rust, translating Go patterns to idiomatic Rust, or refactoring Go codebases. Extends meta-convert-dev with Go-to-Rust specific pat",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-golang-rust/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:54.591648Z"
 }

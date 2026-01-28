@@ -1,254 +1,85 @@
 ---
 name: mobile-app-debugging
-description: Debug issues specific to mobile applications including platform-specific problems, device constraints, and connectivity issues.
+description: Mobile app debugging for iOS, Android, cross-platform frameworks. Use for crashes, memory leaks, performance issues, network problems, or encountering Xcode instruments, Android Profiler, React Native debugger, native bridge errors.
 ---
 
 # Mobile App Debugging
 
-## Overview
+Debug mobile applications across iOS, Android, and cross-platform frameworks.
 
-Mobile app debugging addresses platform-specific issues, device hardware limitations, and mobile-specific network conditions.
+## iOS Debugging (Xcode)
 
-## When to Use
+```swift
+// Breakpoint with condition
+// Right-click breakpoint > Edit > Condition: userId == "123"
 
-- App crashes on mobile
-- Performance issues on device
-- Platform-specific bugs
-- Network connectivity issues
-- Device-specific problems
-
-## Instructions
-
-### 1. **iOS Debugging**
-
-```yaml
-Xcode Debugging:
-
-Attach Debugger:
-  - Xcode → Run on device
-  - Set breakpoints in code
-  - Step through execution
-  - View variables
-  - Console logs
-
-View Logs:
-  - Xcode → Window → Devices & Simulators
-  - Select device → View Device Logs
-  - Filter by app name
-  - Check system logs for crashes
-
-Inspect Memory:
-  - Xcode → Debug → View Memory Graph
-  - Identify retain cycles
-  - Check object count
-  - Monitor allocation growth
-
----
-
-Common iOS Issues:
-
-App Crash (SIGABRT):
-  Cause: Exception in Objective-C
-  Solution: Check console for error message
-  Debug: Set breakpoint on exception
-
-Memory Warning (SIGKILL):
-  Cause: Too much memory usage
-  Solution: Reduce memory footprint
-  Optimize: Image caching, data structures
-
-Networking:
-  Issue: Network requests fail on device
-  Check: Network connectivity status
-  Solution: Implement Network Link Conditioner
-  Test: Throttle network in Xcode
+// LLDB commands
+po variable          // Print object
+p expression         // Evaluate expression
+bt                   // Backtrace
 ```
 
-### 2. **Android Debugging**
+### Memory Debugging
+- Use Memory Graph Debugger to find retain cycles
+- Enable Zombie Objects for use-after-free bugs
+- Profile with Instruments > Leaks
 
-```yaml
-Android Studio:
+## Android Debugging (Android Studio)
 
-Attach Debugger:
-  - Run → Debug
-  - Set breakpoints
-  - Step through code
-  - Watch variables
-  - Evaluate expressions
+```kotlin
+// Logcat filtering
+Log.d("TAG", "Debug message")
+Log.e("TAG", "Error", exception)
 
-Logcat:
-  - Displays all app logs
-  - Filter by tag
-  - Filter by process
-  - Show errors and warnings
-
-Device Monitor:
-  - Memory profiler
-  - CPU profiler
-  - Network profiler
-  - Battery usage
-
----
-
-Common Android Issues:
-
-App Crash (ANR):
-  Cause: Long-running operation on main thread
-  Solution: Move to background thread
-  Example: Use AsyncTask or coroutines
-
-Memory Leak:
-  Cause: Activity not garbage collected
-  Solution: Clear references in onDestroy
-  Debug: Android Profiler shows retained objects
-
-Networking:
-  Issue: Network requests timeout
-  Check: Network connectivity
-  Solution: Implement timeout and retry
-  Test: Simulate poor network
+// Filter: tag:MyApp level:error
 ```
 
-### 3. **Cross-Platform Issues**
+### Common Issues
+- ANR: Check main thread blocking
+- OOM: Profile with Memory Profiler
+- Layout issues: Use Layout Inspector
 
-```yaml
-React Native Debugging:
+## React Native
 
-Console Logs:
-  - Run app with: react-native run-android
-  - View logs: adb logcat | grep ReactNativeJS
-  - Or use remote debugger
+```javascript
+// Remote debugging
+// Shake device > Debug JS Remotely
 
-Remote Debugging:
-  - Shake device → Enable Remote Debugging
-  - Chrome DevTools debugging
-  - Set breakpoints in JS
-  - Inspect state
+// Console logging
+console.log('Debug:', variable);
+console.warn('Warning');
+console.error('Error');
 
-Performance:
-  - Perf Monitor: Shake → Perf Monitor
-  - Shows FPS, RAM, Bridge traffic
-  - Identify frame drops
-  - Check excessive bridge calls
-
----
-
-Flutter Debugging:
-
-Device Logs:
-  flutter logs
-  Shows all device and app output
-
-Debugging:
-  flutter run --debug
-  Set breakpoints in IDE
-  Step through code
-
-Hot Reload:
-  Useful for rapid iteration
-  Hot restart for full reload
-  Useful for debugging UI changes
-
----
-
-Common Mobile Issues:
-
-Network Connectivity:
-  Issue: App works on WiFi, fails on cellular
-  Solution: Test on both networks
-  Debug: Use network throttler
-  Implement: Retry logic, offline support
-
-Device Specific:
-  Issue: Works on simulator, fails on device
-  Solution: Always test on real device
-  Causes:
-    - Memory constraints
-    - Performance differences
-    - Platform differences
-    - Screen size issues
-
-Battery/Memory:
-  Issue: Excessive battery drain
-  Debug: Use power profiler
-  Optimize: Reduce background work
-  Monitor: Location tracking, networking
+// Performance Monitor
+// Shake > Show Perf Monitor
+// Target: 60 FPS, <16ms per frame
 ```
 
-### 4. **Mobile Testing & Debugging Checklist**
+## Network Debugging
 
-```yaml
-Device Testing:
-
-[ ] Test on both iOS and Android
-[ ] Test on old and new devices
-[ ] Test with poor network (3G throttle)
-[ ] Test in airplane mode
-[ ] Test with low battery
-[ ] Test with low memory
-[ ] Test with location disabled
-[ ] Test with notifications disabled
-[ ] Test rotation changes
-[ ] Test while backgrounded
-
-Performance:
-
-[ ] <16ms per frame (60 FPS)
-[ ] Memory usage <100MB
-[ ] Battery drain acceptable
-[ ] Network requests efficient
-[ ] Background tasks minimal
-
-Networking:
-
-[ ] Works on WiFi
-[ ] Works on cellular
-[ ] Handles network timeouts
-[ ] Handles offline mode
-[ ] Retries failed requests
-[ ] Shows loading indicators
-[ ] Shows error messages
-
-UI/UX:
-
-[ ] Responsive touch targets (44x44 min)
-[ ] Readable text (16pt minimum)
-[ ] Colors accessible
-[ ] Orientation changes handled
-[ ] Keyboard shows/hides correctly
-[ ] Safe areas respected (notches)
-
----
-
-Tools:
-
-Testing Devices:
-  - iOS: iPhone SE (small), iPhone 12/13 (modern)
-  - Android: Pixel 4 (standard), Pixel 6 (new)
-  - Virtual: Simulators for iteration
-
-Device Management:
-  - TestFlight (iOS)
-  - Google Play Beta (Android)
-  - Firebase Test Lab
-  - BrowserStack
-
-Monitoring:
-  - Crashlytics
-  - Firebase Analytics
-  - App Performance Monitoring
-  - Custom event tracking
+```javascript
+// Intercept requests
+XMLHttpRequest.prototype._send = XMLHttpRequest.prototype.send;
+XMLHttpRequest.prototype.send = function() {
+  console.log('Request:', this._url);
+  this._send.apply(this, arguments);
+};
 ```
 
-## Key Points
+## Debug Checklist
 
-- Always test on real devices
-- Simulate poor network conditions
-- Monitor memory and CPU
-- Test on old and new devices
-- Use platform-specific debugging tools
-- Check device logs for crashes
-- Test network edge cases
-- Monitor battery/memory impact
-- Use profilers to identify bottlenecks
-- Implement proper error handling
+- [ ] Test on physical devices (not just simulators)
+- [ ] Test on older device models
+- [ ] Simulate slow 3G network
+- [ ] Test offline mode
+- [ ] Check memory under load
+- [ ] Test rotation and safe areas
+- [ ] Verify 60 FPS target
+
+## Performance Targets
+
+| Metric | Target |
+|--------|--------|
+| Frame rate | 60 FPS (16ms/frame) |
+| Memory | <100MB |
+| App launch | <2 seconds |

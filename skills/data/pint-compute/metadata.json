@@ -1,7 +1,7 @@
 {
   "name": "pint-compute",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/pint-compute/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:40.992098Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/pint-compute/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-28T03:19:29.405178Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "pr-prepare",
-  "description": "\"Prepare pull request descriptions for template changes. Activates on: prepare PR, create PR, pull request, ready for PR, draft PR, write PR\"",
-  "repo": "ByronWilliamsCPA/cookiecutter-python-template",
-  "category": "development",
-  "tags": [
-    "prepare"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "williaby/image-preprocessing-detector",
+  "path": ".claude/skills/pr-prepare/SKILL.md",
+  "source": "github.com/williaby/image-preprocessing-detector",
+  "downloaded_at": "2026-01-28T01:09:44.139545Z"
 }

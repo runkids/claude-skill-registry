@@ -8,6 +8,22 @@ disable-model-invocation: false
 
 I'll analyze recent operations and create contextual TODO comments in your code.
 
+**Token Optimization:**
+- ✅ Context-aware TODO creation (only after operations that generate TODOs)
+- ✅ Grep-based format detection (find existing TODO patterns)
+- ✅ Caching TODO format conventions and project style
+- ✅ Early exit when no context to add - saves 95%
+- ✅ Batch TODO creation (one operation per file)
+- ✅ Reuse session context vs re-analyzing
+- **Expected tokens:** 300-800 (vs. 800-1,500 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/create-todos/`
+- Caches: TODO format patterns, project conventions
+- Cache validity: Until conventions change
+- Shared with: `/find-todos`, `/fix-todos`, `/todos-to-issues` skills
+
 First, let me understand your project standards:
 - **Read** README.md for project conventions
 - **Read** CONTRIBUTING.md for code style guidelines

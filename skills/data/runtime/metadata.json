@@ -1,9 +1,7 @@
 {
   "name": "runtime",
-  "description": "Dual Python/JavaScript adventure runtimes — always in sync",
-  "repo": "SimHacker/moollm",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/SimHacker/moollm"
+  "repo": "andrueandersoncs/claude-skill-effect-ts",
+  "path": "skills/runtime/SKILL.md",
+  "source": "github.com/andrueandersoncs/claude-skill-effect-ts",
+  "downloaded_at": "2026-01-28T02:05:38.380874Z"
 }

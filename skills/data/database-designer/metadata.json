@@ -1,11 +1,7 @@
 {
   "name": "database-designer",
-  "repo": "shining319/claude-code-single-person-workflow",
-  "category": "data",
-  "description": "Comprehensive database design tool creating complete schemas with tables, fields, indexes, and ER diagrams. Use when users request database design for any system. Generates Markdown docs, SQL scripts,",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:22.031328Z",
-  "dir_name": "database-designer",
-  "github_path": "plugins/product-development-suite/skills/database-designer",
-  "github_branch": "main"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/community/database-designer/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-28T03:43:38.354099Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "onboarding",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/melodic-software/skills/onboarding/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-27T04:08:16.896457Z"
+  "repo": "Microck/ordinary-claude-skills",
+  "path": "skills_all/onboarding/SKILL.md",
+  "source": "github.com/Microck/ordinary-claude-skills",
+  "downloaded_at": "2026-01-28T03:39:45.734127Z"
 }

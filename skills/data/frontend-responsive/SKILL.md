@@ -1,23 +1,27 @@
 ---
 name: Frontend Responsive
-description: Implement responsive designs using mobile-first development, fluid layouts, standard breakpoints, and relative units to ensure optimal viewing across all device sizes. Use this skill when creating layouts, implementing breakpoints, styling for different screen sizes, or ensuring mobile compatibility. When working with responsive CSS, media queries, viewport configurations, or mobile-optimized components. When testing across device sizes, implementing touch-friendly interfaces, or optimizing for mobile performance. When working in any frontend file that affects layout, spacing, typography, or visual presentation across different screen sizes.
+description: Design mobile-first responsive layouts using fluid containers, relative units, standard breakpoints, and touch-friendly interfaces that adapt seamlessly across devices from mobile to desktop. Use this skill when implementing responsive designs, media queries, viewport configurations, or testing across screen sizes. Applies to any frontend layout work requiring optimization for mobile phones, tablets, and desktop displays with readable typography and appropriate content prioritization.
 ---
 
 # Frontend Responsive
 
 ## When to use this skill
 
-- When implementing layouts that need to work across multiple screen sizes
-- When writing media queries or using responsive breakpoints
-- When applying responsive utility classes (e.g., Tailwind's `sm:`, `md:`, `lg:`)
-- When creating mobile-first designs and progressively enhancing for larger screens
-- When using fluid layouts with percentage-based widths or flexbox/grid
-- When choosing between fixed pixels and relative units (rem, em)
-- When ensuring touch-friendly tap targets (minimum 44x44px)
-- When optimizing images and assets for mobile devices
-- When testing UI changes across mobile, tablet, and desktop screen sizes
-- When implementing responsive typography that remains readable at all sizes
-- When prioritizing content for smaller screens
+- When implementing layouts that need to work on mobile, tablet, and desktop screen sizes
+- When using CSS media queries with standard breakpoints (mobile: 320-768px, tablet: 768-1024px, desktop: 1024px+)
+- When applying responsive Tailwind classes like `sm:`, `md:`, `lg:`, `xl:` modifiers
+- When creating fluid layouts with percentage-based widths or CSS Grid/Flexbox that adapt to screen size
+- When using relative units (`rem`, `em`) instead of fixed pixels for scalable, accessible sizing
+- When designing mobile-first with progressive enhancement for larger screens
+- When ensuring touch targets are at least 44x44px for mobile usability
+- When optimizing images and assets for mobile network conditions and different screen densities
+- When testing UI changes across multiple device sizes and verifying responsive behavior
+- When maintaining readable font sizes across breakpoints without requiring user zoom
+- When prioritizing content display on smaller screens (showing critical info first, hiding secondary content)
+- When configuring viewport meta tags for proper mobile rendering
+- When implementing responsive navigation patterns (hamburger menus, collapsible sections, drawer navigation)
+
+# Frontend Responsive
 
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle frontend responsive.
 

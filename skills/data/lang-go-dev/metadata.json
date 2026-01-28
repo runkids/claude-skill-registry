@@ -1,9 +1,7 @@
 {
   "name": "lang-go-dev",
-  "description": "Foundational Go patterns covering types, interfaces, goroutines, channels, and common idioms. Use when writing Go code, understanding Go's concurrency model, or needing guidance on which specialized G",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-go-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:43.703733Z"
 }

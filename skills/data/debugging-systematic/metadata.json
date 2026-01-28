@@ -1,15 +1,7 @@
 {
   "name": "debugging-systematic",
-  "description": "Expert systematic debugging through root cause analysis. Reflects on 5-7 possible sources, distills to 1-2 most likely causes, adds strategic logging to validate assumptions, and confirms diagnosis be",
-  "repo": "T1nker-1220/.claude",
-  "category": "data",
-  "tags": [
-    "debugging",
-    "systematic"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "debugging-systematic",
-  "github_path": "skills/debugging-systematic",
-  "github_branch": "main"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/debugging-systematic/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:37.762708Z"
 }

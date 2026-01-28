@@ -1,9 +1,7 @@
 {
   "name": "grpc-service-generator",
-  "description": "Grpc Service Generator - Auto-activating skill for Backend Development.Triggers on: grpc service generator, grpc service generatorPart of the Backend Development skill category.",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "planned-skills/generated/06-backend-dev/grpc-service-generator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-28T02:27:45.030561Z"
 }

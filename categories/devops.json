@@ -1,7 +1,7 @@
 {
   "category": "devops",
-  "count": 3254,
-  "updated_at": "2026-01-27T04:46:39.355851Z",
+  "count": 3228,
+  "updated_at": "2026-01-28T04:46:46.199508Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -3270,21 +3270,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "context-optimizer",
-      "description": "Second-pass context optimization that analyzes user prompts and removes irrelevant specs, agents, and skills from loaded context. Achieves 80%+ token reduction through smart cleanup. Activates for opt",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/context-optimizer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "context",
-        "optimizer"
-      ],
-      "stars": 16,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "dqmc-generate",
       "description": "Create HDF5 simulation files for DQMC with specified physical parameters. Use when setting up new simulations, specifying lattice size, interaction strength U, chemical potential mu, temperature (via ",
       "repo": "edwnh/dqmc",
@@ -5138,22 +5123,6 @@
       ],
       "stars": 7,
       "install": "aniketpanjwani/local_media_tools/skills/newsletter-events-setup",
-      "source": "local"
-    },
-    {
-      "name": "newsletter-events-setup",
-      "description": "Set up environment for local newsletter events plugin. Use when first installing, updating dependencies, or verifying configuration.",
-      "repo": "aniketpanjwani/local_media_tools",
-      "path": "data/newsletter-events-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "newsletter",
-        "events",
-        "setup"
-      ],
-      "stars": 7,
-      "install": "aniketpanjwani/local_media_tools",
       "source": "local"
     },
     {
@@ -7053,21 +7022,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "deployment-advisor",
-      "description": "Choose deployment strategy and infrastructure. Use when deciding where to deploy applications, setting up CI/CD, or configuring production environments. Covers Vercel, Railway, AWS, Cloudflare Workers",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/deployment-advisor",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "deployment",
-        "advisor"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "deployment-helper",
       "description": "Deploy elizaOS agents to production with best practices, monitoring, and scaling. Triggers on \"deploy agent\", \"production setup\", or \"deploy elizaOS\"",
       "repo": "Dexploarer/hyper-forge",
@@ -7265,21 +7219,6 @@
       "source": "local"
     },
     {
-      "name": "framework-orchestrator",
-      "description": "Meta-skill that coordinates all frameworks and skills throughout the project lifecycle, providing intelligent sequencing based on project patterns",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/framework-orchestrator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "framework",
-        "orchestrator"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "local"
-    },
-    {
       "name": "gen-commit-msg",
       "description": "Generate concise commit messages based on conversation context and minimal git inspection.",
       "repo": "acking-you/myclaude-skills",
@@ -7324,21 +7263,6 @@
       ],
       "stars": 2,
       "install": "zircote/.claude/skills/github-ecosystem",
-      "source": "local"
-    },
-    {
-      "name": "github-ecosystem",
-      "description": "Generate comprehensive GitHub ecosystem configuration including CI/CD workflows, issue templates, PR templates, CODEOWNERS, dependabot, and Copilot instructions. Language-agnostic with Python, Go, and",
-      "repo": "zircote/.claude",
-      "path": "data/github-ecosystem",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "github",
-        "ecosystem"
-      ],
-      "stars": 2,
-      "install": "zircote/.claude",
       "source": "local"
     },
     {
@@ -13200,18 +13124,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "aws-cost-expert",
-      "description": "Deep AWS cost optimization expertise covering EC2 Reserved Instances, Savings Plans, Spot Instances, Lambda cost optimization, S3 lifecycle policies, RDS Reserved Instances, Cost Explorer, AWS Budgets",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/aws-cost-expert",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "aws-cost-finops",
       "description": "AWS cost optimization and FinOps workflows. Use for finding unused resources, analyzing Reserved Instance opportunities, detecting cost anomalies, rightsizing instances, evaluating Spot instances, mig",
       "repo": "ahmedasmar/devops-claude-skills",
@@ -14590,18 +14502,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-c/skills/c-data-structures",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "c-data-structures",
-      "description": "Use when fundamental C data structures including arrays, structs, linked lists, trees, and hash tables with memory-efficient implementations.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/c-data-structures",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16074,18 +15974,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/14-gcp-skills/cloud-function-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cloud-function-generator",
-      "description": "Cloud Function Generator - Auto-activating skill for GCP Skills.Triggers on: cloud function generator, cloud function generatorPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/cloud-function-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17837,18 +17725,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cpp-smart-pointers",
-      "description": "Use when C++ smart pointers including unique_ptr, shared_ptr, and weak_ptr for automatic memory management following RAII principles.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/cpp-smart-pointers",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "create-decision-log",
       "description": "의사결정 로그 Discussion 생성. 회의/Slack/PR 등에서 결정된 사항을 command-center에 기록.Use when (1) 의사결정 기록 요청, (2) 회의 결정사항 문서화, (3) summarize-meeting 스킬에서 호출.",
       "repo": "semicolon-devteam/semo",
@@ -17952,6 +17828,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "creating-kubernetes-deployments",
+      "description": "Use when generating Kubernetes deployment manifests and services. Trigger with phrases like \"create kubernetes deployment\", \"generate k8s manifest\", \"deploy app to kubernetes\", or \"create service and ",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "data/creating-kubernetes-deployments",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -20480,18 +20368,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "diagrams-architect",
-      "description": "Expert in creating Mermaid diagrams following C4 Model and SpecWeave conventions. Specializes in system architecture, sequence diagrams, ER diagrams, and deployment diagrams. Activates for diagram cre",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/diagrams-architect",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "dialyzer-integration",
       "description": "Use when integrating Dialyzer into development workflows and CI/CD pipelines for Erlang/Elixir projects.",
       "repo": "TheBushidoCollective/han",
@@ -22984,18 +22860,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "firewall-rule-generator",
-      "description": "Firewall Rule Generator - Auto-activating skill for GCP Skills.Triggers on: firewall rule generator, firewall rule generatorPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/firewall-rule-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "flask-docker-deployment",
       "description": "Set up Docker deployment for Flask applications with Gunicorn, automated versioning, and container registry publishing. Use when dockerizing a Flask app, containerizing for production, or setting up C",
       "repo": "jmazzahacks/byteforge-claude-skills",
@@ -23667,18 +23531,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "gcp-examples-expert",
-      "description": "Generate production-ready Google Cloud code examples from official repositories including ADK samples, Genkit templates, Vertex AI notebooks, and Gemini patterns. Use when asked to \"show ADK example\" ",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/gcp-examples-expert",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "gcp-infra-to-terraform",
       "description": "기존 GCP 리소스(BigQuery, GCS, IAM 등)를 gcloud/bq 명령어로 추출하여 문서화하고, 이를 Terraform(IaC) 코드로 변환하는 워크플로우 스킬입니다. Reverse Engineering Infrastructure.",
       "repo": "nfbs2000/vibe-with-google-ai-divorce-agent-inflearn",
@@ -24019,18 +23871,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "generating-helm-charts",
-      "description": "Use when generating Helm charts for Kubernetes applications. Trigger with phrases like \"create Helm chart\", \"generate chart for app\", \"package Kubernetes deployment\", or \"helm template\". Produces prod",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/generating-helm-charts",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "generating-infrastructure-as-code",
       "description": "Use when generating infrastructure as code configurations. Trigger with phrases like \"create Terraform config\", \"generate CloudFormation template\", \"write Pulumi code\", or \"IaC for AWS/GCP/Azure\". Pro",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -24278,21 +24118,6 @@
       "source": "local"
     },
     {
-      "name": "git-safety",
-      "description": "Apply critical git safety protocols before any git operations, especially in collaborative environments. Use when performing git commands, managing files, or making destructive changes.",
-      "repo": "yzlin/supaviber",
-      "path": "data/git-safety",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "git",
-        "safety"
-      ],
-      "stars": 0,
-      "install": "yzlin/supaviber",
-      "source": "local"
-    },
-    {
       "name": "gitea",
       "description": "Expert guidance for Gitea self-hosted Git service including installation, configuration, repositories, webhooks, API usage, Docker deployment, and integration with CI/CD. Use this when working with Gi",
       "repo": "oriolrius/nifi-cluster",
@@ -24495,18 +24320,6 @@
       "tags": [],
       "stars": 0,
       "install": "mll-lab/claude-plugin-marketplace/plugins/gitlab/skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "gitlab-ci",
-      "description": "Use when working with GitLab using the glab CLI tool. Currently provides guidance for CI/CD pipelines including checking pipeline status, viewing job logs, and working with branches and tags.",
-      "repo": "mll-lab/claude-plugin-marketplace",
-      "path": "data/gitlab-ci",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "mll-lab/claude-plugin-marketplace",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25657,18 +25470,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-infrastructure/skills/hetzner-provisioner",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "hetzner-provisioner",
-      "description": "Provisions infrastructure on Hetzner Cloud with Terraform/Pulumi. Generates IaC code for CX11/CX21/CX31 instances, managed Postgres, SSL configuration, Docker deployment. Activates for deploy on Hetzn",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/hetzner-provisioner",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27719,18 +27520,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "kafka-iac-deployment",
-      "description": "Infrastructure as Code (IaC) deployment expert for Apache Kafka. Guides Terraform deployments across Apache Kafka (KRaft mode), AWS MSK, Azure Event Hubs. Activates for terraform, iac, infrastructure ",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/kafka-iac-deployment",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "kafka-kubernetes",
       "description": "Kubernetes deployment expert for Apache Kafka. Guides K8s deployments using Helm charts, operators (Strimzi, Confluent), StatefulSets, and production best practices. Activates for kubernetes, k8s, hel",
       "repo": "anton-abyzov/specweave",
@@ -27740,18 +27529,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-kafka/skills/kafka-kubernetes",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kafka-kubernetes",
-      "description": "Kubernetes deployment expert for Apache Kafka. Guides K8s deployments using Helm charts, operators (Strimzi, Confluent), StatefulSets, and production best practices. Activates for kubernetes, k8s, hel",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/kafka-kubernetes",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -27902,18 +27679,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/klingai-pack/skills/klingai-prod-checklist",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "klingai-prod-checklist",
-      "description": "Pre-launch production readiness checklist for Kling AI. Use when preparing to deploy videogeneration to production. Trigger with phrases like 'klingai production', 'kling ai go-live','klingai launch c",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/klingai-prod-checklist",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30144,18 +29909,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ml-deployment-helper",
-      "description": "Prepares ML models for production deployment with containerization, API creation, monitoring setup, and A/B testing. Activates for \"deploy model\", \"production deployment\", \"model API\", \"containerize m",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/ml-deployment-helper",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ml-engineer",
       "description": "Expert ML engineer specializing in machine learning model lifecycle, production deployment, and ML system optimization. Masters both traditional ML and deep learning with focus on building scalable, r",
       "repo": "zenobi-us/dotfiles",
@@ -30349,18 +30102,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "model-pruning-helper",
-      "description": "Model Pruning Helper - Auto-activating skill for ML Deployment.Triggers on: model pruning helper, model pruning helperPart of the ML Deployment skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/model-pruning-helper",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "model-quantization-tool",
       "description": "Model Quantization Tool - Auto-activating skill for ML Deployment.Triggers on: model quantization tool, model quantization toolPart of the ML Deployment skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -30370,18 +30111,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/08-ml-deployment/model-quantization-tool",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "model-quantization-tool",
-      "description": "Model Quantization Tool - Auto-activating skill for ML Deployment.Triggers on: model quantization tool, model quantization toolPart of the ML Deployment skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/model-quantization-tool",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30797,18 +30526,6 @@
       "tags": [],
       "stars": 0,
       "install": "agentgptsmith/MonadFramework/.claude/skills/multiplicity-orchestration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "multiplicity-orchestration",
-      "description": "Run multiple AI instances in parallel, coordinate their execution, manage timing and dependencies",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "data/multiplicity-orchestration",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentgptsmith/MonadFramework",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -32728,6 +32445,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pci-dss-validator",
+      "description": "Pci Dss Validator - Auto-activating skill for Security Advanced.Triggers on: pci dss validator, pci dss validatorPart of the Security Advanced skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "data/pci-dss-validator",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37086,18 +36815,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "serverless-recommender",
-      "description": "Intelligent serverless platform recommendation expert. Detects project context (pet-project, startup, enterprise), analyzes workload suitability, ranks platforms (AWS Lambda, Azure Functions, GCP Clou",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/serverless-recommender",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "service-account-manager",
       "description": "Service Account Manager - Auto-activating skill for GCP Skills.Triggers on: service account manager, service account managerPart of the GCP Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -37107,18 +36824,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/14-gcp-skills/service-account-manager",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "service-account-manager",
-      "description": "Service Account Manager - Auto-activating skill for GCP Skills.Triggers on: service account manager, service account managerPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/service-account-manager",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -39035,22 +38740,6 @@
       ],
       "stars": 0,
       "install": "leonj1/cat-emails/.claude/skills/tech-stack-analyzer",
-      "source": "local"
-    },
-    {
-      "name": "tech-stack-analyzer",
-      "description": "Delegates tech stack detection to a lightweight agent. Use when you need to know the project's language, frameworks, or dependencies without loading manifest files into context.",
-      "repo": "leonj1/cat-emails",
-      "path": "data/tech-stack-analyzer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "tech",
-        "stack",
-        "analyzer"
-      ],
-      "stars": 0,
-      "install": "leonj1/cat-emails",
       "source": "local"
     },
     {
@@ -41338,18 +41027,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "vercel-multi-env-setup",
-      "description": "Configure Vercel across development, staging, and production environments.Use when setting up multi-environment deployments, configuring per-environment secrets,or implementing environment-specific Ve",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vercel-multi-env-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "verdad-canon",
       "description": "Validador de coherencia canónica - garantiza que afirmaciones sobre SyV son verdaderas en el universo, ejecutando cambios automáticos moderados para asegurar consistencia narrativa",
       "repo": "kodexArg/syv",
@@ -41431,18 +41108,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/jeremy-vertex-terraform/skills/vertex-infra-expert",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vertex-infra-expert",
-      "description": "Use when provisioning Vertex AI infrastructure with Terraform. Trigger with phrases like \"vertex ai terraform\", \"deploy gemini terraform\", \"model garden infrastructure\", \"vertex ai endpoints terraform",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vertex-infra-expert",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

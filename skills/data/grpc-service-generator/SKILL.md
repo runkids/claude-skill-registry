@@ -1,71 +1,42 @@
 ---
-name: generating-grpc-services
+name: grpc-service-generator
 description: |
-  Generate gRPC service definitions, stubs, and implementations from Protocol Buffers.
-  Use when creating high-performance gRPC services.
-  Trigger with phrases like "generate gRPC service", "create gRPC API", or "build gRPC server".
-  
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(api:grpc-*)
+  Grpc Service Generator - Auto-activating skill for Backend Development.
+  Triggers on: grpc service generator, grpc service generator
+  Part of the Backend Development skill category.
+allowed-tools: Read, Write, Edit, Bash, Grep
 version: 1.0.0
-author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: MIT
+author: Jeremy Longshore <jeremy@intentsolutions.io>
 ---
 
-# Generating Grpc Services
+# Grpc Service Generator
 
-## Overview
+## Purpose
 
+This skill provides automated assistance for grpc service generator tasks within the Backend Development domain.
 
-This skill provides automated assistance for grpc service generator tasks.
-This skill provides automated assistance for the described functionality.
+## When to Use
 
-## Prerequisites
+This skill activates automatically when you:
+- Mention "grpc service generator" in your request
+- Ask about grpc service generator patterns or best practices
+- Need help with backend skills covering node.js, python, go, database design, caching, messaging, and microservices architecture.
 
-Before using this skill, ensure you have:
-- API design specifications or requirements documented
-- Development environment with necessary frameworks installed
-- Database or backend services accessible for integration
-- Authentication and authorization strategies defined
-- Testing tools and environments configured
+## Capabilities
 
-## Instructions
+- Provides step-by-step guidance for grpc service generator
+- Follows industry best practices and patterns
+- Generates production-ready code and configurations
+- Validates outputs against common standards
 
-1. Use Read tool to examine existing API specifications from {baseDir}/api-specs/
-2. Define resource models, endpoints, and HTTP methods
-3. Document request/response schemas and data types
-4. Identify authentication and authorization requirements
-5. Plan error handling and validation strategies
-1. Generate boilerplate code using Bash(api:grpc-*) with framework scaffolding
-2. Implement endpoint handlers with business logic
-3. Add input validation and schema enforcement
-4. Integrate authentication and authorization middleware
-5. Configure database connections and ORM models
-1. Write integration tests covering all endpoints
+## Example Triggers
 
+- "Help me with grpc service generator"
+- "Set up grpc service generator"
+- "How do I implement grpc service generator?"
 
-See `{baseDir}/references/implementation.md` for detailed implementation guide.
+## Related Skills
 
-## Output
-
-- `{baseDir}/src/routes/` - Endpoint route definitions
-- `{baseDir}/src/controllers/` - Business logic handlers
-- `{baseDir}/src/models/` - Data models and schemas
-- `{baseDir}/src/middleware/` - Authentication, validation, logging
-- `{baseDir}/src/config/` - Configuration and environment variables
-- OpenAPI 3.0 specification with complete endpoint definitions
-
-## Error Handling
-
-See `{baseDir}/references/errors.md` for comprehensive error handling.
-
-## Examples
-
-See `{baseDir}/references/examples.md` for detailed examples.
-
-## Resources
-
-- Express.js and Fastify for Node.js APIs
-- Flask and FastAPI for Python APIs
-- Spring Boot for Java APIs
-- Gin and Echo for Go APIs
-- OpenAPI Specification 3.0+ for API documentation
+Part of the **Backend Development** skill category.
+Tags: nodejs, python, go, microservices, database

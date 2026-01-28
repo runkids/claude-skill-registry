@@ -1,7 +1,7 @@
 {
   "name": "package-management",
-  "repo": "crmagz/cdk-constructs-library",
+  "repo": "FlexNetOS/ripple-env",
   "path": ".claude/skills/package-management/SKILL.md",
-  "source": "github.com/crmagz/cdk-constructs-library",
-  "downloaded_at": "2026-01-27T03:56:57.334541Z"
+  "source": "github.com/FlexNetOS/ripple-env",
+  "downloaded_at": "2026-01-28T03:03:57.646965Z"
 }

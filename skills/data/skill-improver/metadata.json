@@ -1,14 +1,7 @@
 {
   "name": "skill-improver",
-  "description": "This skill should be used at natural checkpoints (after completing complex tasks, at session end, or when friction occurs) to reflect on skill and process execution and identify targeted improvements.",
-  "repo": "bfollington/terma",
-  "category": "data",
-  "tags": [
-    "skill",
-    "improver"
-  ],
-  "stars": 15,
-  "dir_name": "skill-improver",
-  "github_path": "skills/skill-improver",
-  "github_branch": "main"
+  "repo": "shakefu/contextium",
+  "path": ".claude/skills/skill-improver/SKILL.md",
+  "source": "github.com/shakefu/contextium",
+  "downloaded_at": "2026-01-28T03:32:06.394686Z"
 }

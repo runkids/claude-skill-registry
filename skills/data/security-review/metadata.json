@@ -1,7 +1,7 @@
 {
   "name": "security-review",
-  "repo": "feldboy/parlament-app",
-  "path": ".claude/skills/security-review/SKILL.md",
-  "source": "github.com/feldboy/parlament-app",
-  "downloaded_at": "2026-01-27T04:43:05.943805Z"
+  "repo": "LeonMelamud/inspector-agents",
+  "path": "skills/security-review/SKILL.md",
+  "source": "github.com/LeonMelamud/inspector-agents",
+  "downloaded_at": "2026-01-28T04:38:09.008270Z"
 }

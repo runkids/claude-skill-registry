@@ -1,9 +1,7 @@
 {
   "name": "angular-dependency-injection",
-  "description": "Use when building modular Angular applications requiring dependency injection with providers, injectors, and services.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-angular/skills/angular-dependency-injection/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:03.623264Z"
 }

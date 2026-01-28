@@ -1,13 +1,7 @@
 {
   "name": "dev-work-summary",
-  "description": "Scan ~/dev recursively for git repos and report today's work with commits, branches, stats, and detailed change analysis. Use when user asks \"what did I work on\", \"show my work\", \"daily summary\", \"wha",
   "repo": "otrebu/all-agents",
-  "category": "development",
-  "tags": [
-    "dev",
-    "work",
-    "summary"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dev-work-summary/SKILL.md",
+  "source": "github.com/otrebu/all-agents",
+  "downloaded_at": "2026-01-28T02:32:04.587194Z"
 }

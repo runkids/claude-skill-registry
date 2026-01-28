@@ -1,15 +1,7 @@
 {
   "name": "feature-validator",
-  "description": "Validates new features against the project's feature system documented in docs/FEATURES.md. Ensures feature flags follow conventions, checks feature module structure, validates feature usage patterns,",
-  "repo": "lewisflude/nix",
-  "category": "data",
-  "tags": [
-    "feature",
-    "validator"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "feature-validator",
-  "github_path": ".claude/skills/feature-validator",
-  "github_branch": "main"
+  "repo": "Darkpunkki/v-forge",
+  "path": ".claude/skills/feature-validator/SKILL.md",
+  "source": "github.com/Darkpunkki/v-forge",
+  "downloaded_at": "2026-01-28T02:00:42.071194Z"
 }

@@ -1,61 +1,89 @@
 ---
 name: lint
-description: Run formatting and linting checks on the codebase
+description: Go コードの静的解析を実行する。「lint して」「静的解析」「golangci-lint」「コードチェック」「lint 実行」「警告を確認」「lint エラー確認」などで起動。検出された問題を自動修正してコード品質を向上。
+allowed-tools: [Read, Bash, Glob, Grep]
+context: fork
 ---
 
-# Quick Lint Check
+# Lint
 
-Run all code quality checks without committing.
+Go コードの静的解析を実行し、検出された問題を自動修正してコード品質を向上させます。
 
-## Process
+## 引数
 
-### Step 1: Check Formatting
+- `--no-fix`: 自動修正を無効化（検出のみ）
+- `--help`: ヘルプを表示
 
-```bash
-cd backend && cargo fmt --check
-```
+## 実行優先順位
 
-Report pass/fail status.
+1. **プロジェクトのタスクランナー設定**（最優先）
+   - `Taskfile.yml` - lint タスクを自動検出
+   - `Makefile` - lint ターゲットを自動検出
 
-### Step 2: Run Clippy
+2. **設定ファイルベースの実行**
+   - `.golangci.yml` が存在する場合は `golangci-lint run`
 
-```bash
-cd backend && cargo clippy --workspace --all-targets --all-features -- -D warnings
-```
+3. **一般的な静的解析ツール**
+   - `golangci-lint` - 複数のリンターを統合実行（推奨）
+   - `go vet` - Go 標準の静的解析ツール
 
-Report any warnings or errors.
+## 実行手順
 
-### Step 3: Summary
-
-Report overall status:
-- Formatting: PASS/FAIL
-- Clippy: PASS/FAIL (with count of issues if any)
-
-## Auto-Fix Option
-
-If formatting fails, offer to auto-fix:
+### 1. タスクランナー検出
 
 ```bash
-cd backend && cargo fmt
+ls -la Taskfile.yml Makefile .golangci.yml 2>/dev/null
 ```
 
-For clippy issues, some can be auto-fixed:
+**検出されるタスク名の例**:
+- `lint`, `check`, `lint-go`, `go-lint`
+- `analyze`, `static-check`, `vet`
+
+### 2. 静的解析の実行
 
 ```bash
-cd backend && cargo clippy --fix --allow-dirty --allow-staged
+# タスクランナーがある場合
+task lint
+make lint
+
+# タスクランナーがない場合（自動修正あり）
+golangci-lint run --fix ./...
+
+# 自動修正なし
+golangci-lint run ./...
+go vet ./...
 ```
 
-Note: Not all clippy issues are auto-fixable. Manual fixes may be required.
+### 3. 結果レポート
 
-## Quick Reference
-
-```bash
-# Check only
-cd backend && cargo fmt --check && cargo clippy --workspace --all-targets --all-features -- -D warnings
-
-# Auto-fix formatting
-cd backend && cargo fmt
-
-# Auto-fix clippy (where possible)
-cd backend && cargo clippy --fix --allow-dirty --allow-staged
 ```
+✅ 静的解析完了
+
+使用したツール: golangci-lint
+
+検出された問題: {N} 件
+自動修正された問題: {M} 件
+手動修正が必要な問題: {K} 件
+
+自動修正内容:
+- {ファイル:行} {修正内容}
+
+手動修正が必要な問題:
+- {ファイル:行} {問題の説明}
+  推奨: {修正方法}
+```
+
+## チェック項目の例
+
+- **コードスタイル違反**: フォーマット、命名規則
+- **潜在的なバグ**: nil ポインタ参照、未使用変数、型変換エラー
+- **パフォーマンス問題**: 不要なアロケーション、非効率なループ
+- **セキュリティ問題**: SQL インジェクション、安全でない乱数生成
+- **保守性**: 複雑度が高い関数、重複コード
+
+## 重要な注意事項
+
+- ✅ プロジェクトの既存設定を優先
+- ✅ 自動修正可能な問題は修正
+- ✅ 手動修正が必要な問題は詳細を報告
+- ❌ 自動修正前にコミットまたはスタッシュを推奨

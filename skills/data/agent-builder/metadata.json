@@ -1,7 +1,7 @@
 {
   "name": "agent-builder",
-  "repo": "seanchiuai/just-start",
+  "repo": "pr-pm/prpm",
   "path": ".claude/skills/agent-builder/SKILL.md",
-  "source": "github.com/seanchiuai/just-start",
-  "downloaded_at": "2026-01-27T04:35:51.852890Z"
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-28T04:43:30.974788Z"
 }

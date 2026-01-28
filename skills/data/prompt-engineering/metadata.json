@@ -1,7 +1,7 @@
 {
   "name": "prompt-engineering",
-  "repo": "vamseeachanta/digitalmodel",
-  "path": ".claude/skills/ai-prompting/prompt-engineering/SKILL.md",
-  "source": "github.com/vamseeachanta/digitalmodel",
-  "downloaded_at": "2026-01-27T04:28:07.750553Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/prompt-engineering/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-28T04:27:40.667440Z"
 }

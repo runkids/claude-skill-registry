@@ -1,12 +1,7 @@
 {
   "name": "session-protocol",
-  "description": "Session management protocol. Use for saving and loading session state.",
-  "repo": "bartoszwarzocha/kalahari",
-  "category": "development",
-  "tags": [
-    "session",
-    "protocol"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mbtz/agent-skills",
+  "path": "skills/session-protocol/SKILL.md",
+  "source": "github.com/mbtz/agent-skills",
+  "downloaded_at": "2026-01-28T02:00:46.690433Z"
 }

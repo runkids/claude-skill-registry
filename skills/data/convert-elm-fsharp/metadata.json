@@ -1,9 +1,7 @@
 {
   "name": "convert-elm-fsharp",
-  "description": "Convert Elm code to idiomatic F#. Use when migrating Elm applications to F#, translating Elm's Model-View-Update pattern to F# patterns, or refactoring Elm codebases to leverage .NET ecosystem. Extend",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-elm-fsharp/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:51.428093Z"
 }

@@ -1,378 +1,391 @@
 ---
-name: create-resume-document
-description: 이력서(2-3페이지) 작성이 필요할 때
+description: Resume session with orchestration, memory, and handoff analysis (workspace-aware)
+invokes: orchestration
 ---
 
-# 이력서 작성
+# Resume Session
 
-> **작성 원칙 및 STAR+I 가이드**: `/writing-guide` 참조
+You are tasked with resuming work from a previous session.
+
+## Invocation Modes
+
+- `/resume` - Discover handoffs, show options, let user choose
+- `/resume path/to/handoff.yaml` - Jump directly to that handoff
+- `/resume ENG-1234` - Find and resume by ticket number
+
+## Process
+
+### Step 0: Load Orchestration First (MANDATORY)
+
+**Before doing anything else, invoke the `/orchestration` skill.**
+
+```
+Use Skill tool: skill="orchestration"
+```
+
+This ensures:
+- Post-compact memory recovery is handled
+- Session memory system is active
+- All orchestration rules and patterns are loaded
+- Worker agent templates are available
+
+**Only proceed to Step 0.5 AFTER orchestration is loaded.**
+
+### Step 0.5: Display Welcome Banner
+
+```
+   ─────────────────◆─────────────────
+           ░█████╗░██╗░░░░░░█████╗░██████╗░░█████╗░██╗░░██╗
+           ██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔══██╗██║░░██║
+           ██║░░╚═╝██║░░░░░██║░░██║██████╔╝██║░░╚═╝███████║
+           ██║░░██╗██║░░░░░██║░░██║██╔══██╗██║░░██╗██╔══██║
+           ╚█████╔╝███████╗╚█████╔╝██║░░██║╚█████╔╝██║░░██║
+           ░╚════╝░╚══════╝░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝
+   ─────────────────◆─────────────────
+
+         Resuming session...
+
+   ─────────────────◆─────────────────
+```
+
+### Step 1: Check for Direct Path or Ticket
+
+1. **If a handoff document path was provided**:
+   - Skip discovery, go directly to Step 3 (handoff analysis)
+   - Read the handoff document FULLY (no limit/offset)
+
+2. **If a ticket number (like ENG-XXXX) was provided**:
+   - Locate handoffs in `thoughts/shared/handoffs/ENG-XXXX/`
+   - **If zero files or directory missing**: "I can't find that handoff. Please provide a path."
+   - **If one file**: proceed with that handoff
+   - **If multiple files**: use the most recent (by `YYYY-MM-DD_HH-MM-SS` in filename)
+   - Go directly to Step 3 (handoff analysis)
+
+3. **If no parameters provided**: continue to Step 2 (discovery)
 
 ---
 
-## 이력서 vs 경력기술서
+### Step 2: Discover Available Handoffs
 
-| 구분 | 이력서 (이 스킬) | 경력기술서 |
-|------|-----------------|-----------|
-| **분량** | 2-3페이지 | 5페이지 이상 |
-| **목적** | 빠른 스크리닝 | 상세 역량 검증 |
-| **내용** | 핵심 성과 요약 | STAR+I 상세 + 기술적 깊이 |
-| **스킬** | `/create-resume-document` | `/write-career` |
+Run these checks in parallel to find handoffs.
+
+1. **Check for structured handoffs** (check both local and Clorch root):
+   ```bash
+   # Check local first, then parent (for ~/.claude/opc case)
+   (find thoughts/shared/handoffs -name "*.yaml" -o -name "*.md" 2>/dev/null; \
+    find ../thoughts/shared/handoffs -name "*.yaml" -o -name "*.md" 2>/dev/null) | \
+    sort -u | head -10
+   ```
+
+2. **Check for simple handoff**:
+   ```bash
+   cat .claude/memory/handoff.md 2>/dev/null | head -20 || \
+   cat ../memory/handoff.md 2>/dev/null | head -20
+   ```
+
+3. **Recall handoff-specific memory** (if opc exists):
+   ```bash
+   # Note: General session memory is handled by /orchestration
+   # This is specifically for handoff/open-thread context
+   if [ -d "opc" ]; then
+     cd opc && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "recent session open threads handoff" --k 3 --text-only 2>/dev/null
+   elif [ -f "scripts/core/recall_learnings.py" ]; then
+     PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "recent session open threads handoff" --k 3 --text-only 2>/dev/null
+   fi
+   ```
+
+**Present Findings:**
+
+#### If structured handoffs exist:
+```
+Found structured handoff(s):
+- {path1} ({date})
+- {path2} ({date})
+
+Would you like to:
+1. Resume from most recent handoff: {path}
+2. Choose a different handoff
+3. Start fresh (ignore handoffs)
+
+Tip: You can invoke directly: `/resume thoughts/shared/handoffs/ENG-XXXX/file.yaml`
+or by ticket: `/resume ENG-XXXX`
+```
+
+If user chooses to resume from a handoff, proceed to Step 3.
+
+#### If only simple handoff exists:
+```
+Last session handoff (from memory/handoff.md):
+
+{handoff content summary}
+
+Memory recalls:
+{any relevant learnings from opc}
+
+What would you like to work on?
+```
+
+#### If no handoffs found:
+```
+No handoffs found. Starting fresh session.
+
+Memory recalls:
+{any relevant learnings from opc, or "No prior learnings found"}
+
+What would you like to work on?
+```
 
 ---
 
-## 작성 유형
+### Step 3: Full Handoff Analysis and Validation
 
-### 1. 기본 이력서
+**CRITICAL: This is where deep analysis happens. Do NOT use sub-agents to read critical files.**
 
-일반적인 2-3페이지 이력서 작성
+1. **Read handoff document completely** (no limit/offset)
 
+2. **Read linked documents immediately**:
+   - Read any research or plan documents linked under `thoughts/shared/plans` or `thoughts/shared/research`
+   - Do NOT use a sub-agent for these critical files
+
+3. **Extract and verify**:
+   - Tasks and their statuses
+   - Recent changes (verify they still exist in codebase)
+   - Learnings and decisions
+   - Artifacts and file references
+   - Action items and next steps
+   - Chain history (if `prior_handoff:` exists)
+
+4. **Spawn focused research tasks** for verification:
+   Based on the handoff content, spawn parallel research tasks to verify current state:
+
+   ```
+   Task - Gather artifact context:
+   Read all artifacts mentioned in the handoff.
+   1. Read feature documents listed in "Artifacts"
+   2. Read implementation plans referenced
+   3. Read any research documents mentioned
+   4. Extract key requirements and decisions
+   Use tools: Read
+   Return: Summary of artifact contents and key decisions
+   ```
+
+5. **Wait for ALL sub-tasks to complete** before presenting
+
+6. **Present comprehensive analysis**:
+   ```
+   I've analyzed the handoff from {date}:
+
+   **Original Tasks:**
+   - [Task 1]: [Status from handoff] -> [Current verification]
+   - [Task 2]: [Status from handoff] -> [Current verification]
+
+   **Key Learnings Validated:**
+   - [Learning with file:line reference] - [Still valid/Changed]
+   - [Pattern discovered] - [Still applicable/Modified]
+
+   **Recent Changes Status:**
+   - [Change 1] - [Verified present/Missing/Modified]
+   - [Change 2] - [Verified present/Missing/Modified]
+
+   **What Worked / What Failed:**
+   - Worked: {approaches from handoff}
+   - Failed: {approaches to avoid}
+
+   **History Chain:** (if prior_handoff exists)
+   - Previous: {prior_handoff path} - {prior goal}
+   - [View full chain history]
+
+   **Recommended Next Actions:**
+   Based on the handoff's `now:` field or `next:` list:
+   1. {Most logical next step}
+   2. {Second priority action}
+   3. {Additional tasks discovered}
+
+   **Potential Issues Identified:**
+   - {Any conflicts or regressions found}
+   - {Missing dependencies or broken code}
+
+   Shall I proceed with action 1?
+   ```
+
+---
+
+### Step 4: Chain Traversal (if prior_handoff exists)
+
+If the handoff has a `prior_handoff:` field, offer chain exploration:
+
+```
+This handoff chains to: {prior_handoff}
+Chain options:
+1. Continue with current handoff (recommended)
+2. Show chain history (list all linked handoffs)
+3. Jump to earlier handoff in chain
+```
+
+To show full chain:
 ```bash
-# 템플릿 위치
-templates/resume/default.html
-templates/export/pdf/resume-2page.html
+# Read prior_handoff field, follow links recursively
+# Build chain: current -> prior -> prior's prior -> ...
+# Present as timeline
 ```
 
-### 2. JD 맞춤형 이력서
-
-JD(채용공고) 또는 기업 유형에 맞춘 이력서 생성
-
-**입력**: JD URL/텍스트, 기업 유형, 도메인
-
-**출력**: `docs/career/formats/by-jd/{company}_{date}.md`
-
-#### JD Pain Point 분석 (Problem-Solution Fit)
-
-> 단순 키워드 매칭이 아닌 **회사가 겪고 있는 기술적 통증** 추론
-
-```markdown
-**JD 분석 단계**:
-1. JD에서 '대용량 트래픽', 'MSA 전환', '글로벌 확장' 등 Pain Point 키워드 추출
-2. 해당 경험을 Professional Summary와 Key Projects 최상단으로 재배치
-3. 기술 스택보다 "문제 해결 경험" 매칭 우선
+**Chain Display Format:**
 ```
-
-**기업 유형별 강조점**:
-
-| 유형 | 1순위 | 2순위 | 톤 |
-|------|-------|-------|-----|
-| **스타트업** | 자동화/생산성 | 빠른 실행력 | 능동적, 도전적 |
-| **대기업** | 대규모 처리 | 안정성/품질 | 체계적, 신뢰감 |
-| **핀테크** | 데이터 정합성 | 성능 최적화 | 정밀함, 책임감 |
-| **커머스** | 도메인 경험 | 매출 성과 | 비즈니스 중심 |
-
-### 3. 이력서 + 경력기술서 세트
-
-채용 지원 시 두 문서를 함께 생성
-
----
-
-## Professional Summary 작성
-
-> **상세 명세서**: `docs/career/PROFESSIONAL_SUMMARY_SPEC.md` 참조
-> **작성 가이드**: `/writing-guide` 섹션 11 참조
-
-### 이력서 형식 (경력기술서와 차별화)
-
-```markdown
-**[헤드라인: 비즈니스/성과 중심]**
-
-[1문단: 연차/직무 + 도메인 경험 + 핵심 강점 + 현재 성과]
-
-### 핵심 성과
-| 성과 | 문제 → 해결 → 결과 |
-|------|-------------------|
-| **검색 성능 10배** | RDB 복합 조건 타임아웃 → Elasticsearch 도입 → 10초+ → 1초 이내 |
-```
-
-**핵심 포인트**:
-- 헤드라인: 경력기술서와 다른 관점 (비즈니스 문제 해결 강조)
-- 본문: 1문단으로 간결하게 역량 요약
-- 성과: 테이블 형식으로 숫자 강조 (문제 → 해결 → 결과)
-
----
-
-## 분량 기준
-
-| 상황 | 권장 분량 | 비고 |
-|------|----------|------|
-| **대기업/공채** | 1페이지 | 경력기술서 별도 제출 |
-| **스타트업/수시** | 2페이지 | 프로젝트 요약 포함 |
-| **이력서만 제출** | 2-3페이지 | 경력기술서 대체 |
-
----
-
-## Layout 유연성
-
-### 8년차 이상/리드급 레이아웃 옵션
-
-```
-기본 순서: Summary → Core Competencies → Technical Skills → Work Experience
-리드급 순서: Summary → Work Experience → Key Projects → Technical Skills (하단)
-```
-
-> 경력이 화려한 시니어는 Technical Skills를 하단으로 내리고
-> Work Experience 비중을 높이는 것이 유리
-
----
-
-## Core Competencies 규칙
-
-```markdown
-**기본**: 6개 노출
-**나머지 2개**:
-  → JD 매칭 시 조건부 노출
-  → 또는 Project Evidence로 간접 증명
+Handoff Chain (newest first):
+|- 2026-01-14_skill-loading.yaml (current)
+|  Goal: Dynamic skill loading system
+|
+|- 2026-01-13_context-rotation.yaml
+|  Goal: Context rotation improvements
+|
++- 2026-01-12_clorch-improvements.yaml
+   Goal: General Clorch enhancements
 ```
 
 ---
 
-## Key Metrics 성격 태그
+### Step 5: Create Action Plan
 
-> 숫자가 아니라 **임팩트 종류**가 기억되게
+1. **Use TodoWrite to create task list**:
+   - Convert action items from handoff into todos
+   - Add any new tasks discovered during analysis
+   - Prioritize based on dependencies and handoff guidance
 
-| 태그 | 예시 |
-|------|------|
-| `[Revenue]` | +10% 매출 |
-| `[Scale]` | 200만 데이터 |
-| `[Ops]` | Zero Ops |
-| `[Speed]` | 10x 성능 |
-| `[Cost]` | 80% 비용 절감 |
+2. **Present the plan**:
+   ```
+   I've created a task list based on the handoff and current analysis:
 
----
+   [Show todo list]
 
-## 이력서 구조
-
-### 페이지 1: 핵심 정보
-
-```
-┌─────────────────────────────────────────┐
-│ Header: 이름, 직함, 연락처                │
-├─────────────────────────────────────────┤
-│ Key Metrics: 핵심 성과 4개 (숫자 강조)     │
-│ [Zero Ops] [200만] [100x] [+10%]        │
-├─────────────────────────────────────────┤
-│ Professional Summary (4-5줄)             │
-│ → PROFESSIONAL_SUMMARY_SPEC.md 참조      │
-├─────────────────────────────────────────┤
-│ Core Competencies (6개)                  │
-├─────────────────────────────────────────┤
-│ Technical Skills (카테고리별)             │
-└─────────────────────────────────────────┘
-```
-
-### 페이지 2-3: 경력 & 프로젝트
-
-```
-┌─────────────────────────────────────────┐
-│ Work Experience                          │
-│ ├── 회사 1: 핵심 성과 4-5줄              │
-│ ├── 회사 2: 핵심 성과 2-3줄              │
-│ └── 회사 3: 핵심 성과 2줄                │
-├─────────────────────────────────────────┤
-│ Key Projects (카드 형식)                  │
-├─────────────────────────────────────────┤
-│ Education & Certification               │
-└─────────────────────────────────────────┘
-```
+   Ready to begin with the first task: [task description]?
+   ```
 
 ---
 
-## 이력서용 간결 포맷
+### Step 6: Route to Specialist Agent
 
-> 경력기술서 STAR+I를 이력서용으로 압축한 형태
+**CRITICAL: Do NOT implement directly. Always spawn via Task tool.**
 
-```markdown
-### 가격 자동 조정 시스템 (2024.03 - 2024.06)
+1. **Analyze task type and select specialist agent**:
 
-> 외부 가격 데이터 수집 자동화로 운영 업무 80% 감소, 매출 10% 증가
+   **Leads (can spawn workers):**
+   | Agent | Domain | Use For |
+   |-------|--------|---------|
+   | `kraken` | implement | Large features, new systems, major components |
+   | `architect` | plan | Feature design, system architecture, implementation planning |
+   | `phoenix` | plan | Refactoring plans, migrations, codebase restructuring |
+   | `herald` | deploy | Releases, deployments, publishing |
+   | `maestro` | orchestrate | Complex multi-agent workflows |
 
-- **문제**: 수작업 모니터링으로 주 40시간 소모, API 호출 제한으로 실시간 대응 불가
-- **해결**: 최저가 상품 선별 + 룰 엔진 기반 자동 조정 시스템 설계
-  - 호출량 80% 절감, 가격 대응 시간 2시간→10분
-- **기술**: Java 17, Spring Boot, Redis, AWS Lambda
-```
+   **Workers (focused specialists):**
+   | Agent | Domain | Use For |
+   |-------|--------|---------|
+   | `spark` | implement | Quick fixes, patches, minor tweaks |
+   | `scribe` | document | Documentation, guides, explanations |
+   | `sleuth` | debug | Bug investigation, tracing, root cause analysis |
+   | `aegis` | debug | Security audits, vulnerability scanning |
+   | `profiler` | debug | Performance optimization, bottleneck analysis |
+   | `arbiter` | validate | Unit tests |
+   | `atlas` | validate | E2E/integration tests |
+   | `oracle` | research | External docs, best practices, how-to |
+   | `scout` | research | Codebase exploration, finding existing code |
+   | `pathfinder` | research | Repository structure analysis |
+   | `plan-reviewer` | review | Feature plan review, design validation |
+   | `chronicler` | session | Session analysis, history summaries |
 
-**포인트**:
-- 한 줄 요약에 **정량 성과 2개** 포함
-- 문제-해결 구조로 **3-4줄** 이내
-- 기술 스택은 **한 줄**로 요약
+2. **Spawn the specialist via Task tool**:
+   ```
+   Use Task tool with:
+   - subagent_type: [selected agent from above]
+   - prompt: [task description + relevant handoff context + learnings]
+   ```
 
----
+3. **Include handoff context in the prompt**:
+   - Key learnings from the handoff
+   - File references with line numbers
+   - Patterns to follow
+   - Pitfalls to avoid
 
-## 이력서 작성 원칙
-
-> 상세 원칙은 `/writing-guide` 참조
-
-### 1. 숫자로 말하기
-
-```
-❌ "성능 개선함"
-✅ "검색 성능 10배 개선 (10초+→1초 이내)"
-
-❌ "자동화 시스템 구축"
-✅ "운영 수동 업무 40%→0% (Zero Ops)"
-```
-
-### 2. 핵심만 남기기
-
-- 한 성과는 **1-2줄** 이내
-- 경력 설명은 **3-5개 bullet** 이내
-- 프로젝트 카드는 **3-4줄** 설명
-
-### 3. 최신 경력 우선
-
-```
-회사 1 (현재): 5개 성과 상세
-회사 2 (직전): 3개 성과
-회사 3 (이전): 2개 성과 간략
-```
+4. **Wait for agent completion**, then proceed to next task
 
 ---
 
-## 이력서에 포함/제외할 내용
+## Guidelines
 
-| 포함 | 제외 |
-|------|------|
-| 핵심 성과 (숫자 필수) | 프로젝트 상세 STAR+I |
-| 기술 스택 요약 | 기술 선택 이유 |
-| 최근 3개 회사 경력 | 트러블슈팅 상세 |
-| 대표 프로젝트 3-4개 | 아키텍처 다이어그램 |
-| 학력/자격증/수상 | 코드 스니펫 |
+1. **Be Thorough in Analysis**:
+   - Read the entire handoff document first
+   - Verify ALL mentioned changes still exist
+   - Check for any regressions or conflicts
+   - Read all referenced artifacts
 
----
+2. **Be Interactive**:
+   - Present findings before starting work
+   - Get buy-in on the approach
+   - Allow for course corrections
+   - Adapt based on current state vs handoff state
 
-## 실행 단계
+3. **Leverage Handoff Wisdom**:
+   - Pay special attention to "Learnings" section
+   - Apply documented patterns and approaches
+   - Avoid repeating mistakes mentioned
+   - Build on discovered solutions
 
-### Step 1: 유형 선택
+4. **Track Continuity**:
+   - Use TodoWrite to maintain task continuity
+   - Reference the handoff document in commits
+   - Document any deviations from original plan
+   - Consider creating a new handoff when done
 
-```
-"이력서 작성해줘" → 기본 이력서
-"토스 JD에 맞춰 이력서" → JD 맞춤형
-"이력서랑 경력기술서 세트" → 세트 생성
-```
-
-### Step 2: 원본 데이터 확인
-
-```bash
-cat docs/career/my_career_data.md
-```
-
-### Step 3: 이력서 작성
-
-1. 원본 데이터에서 핵심 성과 추출
-2. 시니어 톤으로 문장 다듬기 (`/writing-guide` 참조)
-3. 숫자 강조 (뱃지/볼드 처리)
-4. 페이지 분량 조절 (2-3페이지)
-
-### Step 4: 내보내기
-
-```bash
-/export
-```
+5. **Validate Before Acting**:
+   - Never assume handoff state matches current state
+   - Verify all file references still exist
+   - Check for breaking changes since handoff
+   - Confirm patterns are still valid
 
 ---
 
-## 체크리스트
+## Common Scenarios
 
-### 내용 검토
+### Scenario 1: Clean Continuation
+- All changes from handoff are present
+- No conflicts or regressions
+- Clear next steps in action items
+- Proceed with recommended actions
 
-> 시니어 톤, 파레토 기준은 `/writing-guide` 참조
+### Scenario 2: Diverged Codebase
+- Some changes missing or modified
+- New related code added since handoff
+- Need to reconcile differences
+- Adapt plan based on current state
 
-- [ ] 핵심 성과 숫자 포함
-- [ ] 시니어 톤 사용 ("담당" → "달성/개선")
-- [ ] 최신 경력 강조
-- [ ] 불필요한 내용 제거
-- [ ] 2-3페이지 분량 준수
+### Scenario 3: Incomplete Handoff Work
+- Tasks marked as "in_progress" in handoff
+- Need to complete unfinished work first
+- May need to re-understand partial implementations
+- Focus on completing before new work
 
-### JD 맞춤형 (해당 시)
-
-- [ ] JD 키워드 추출 완료
-- [ ] 관련 프로젝트 우선 배치
-- [ ] 기술 스택 JD 매칭
-- [ ] 기업 유형별 톤 적용
-
-### 세트 생성 (해당 시)
-
-- [ ] 두 문서 연락처/학력 일치
-- [ ] 성과 수치 일치
-- [ ] 기술 스택 표기 일치
-
----
-
-## 이력서-경력기술서 중복 방지
-
-> 두 문서를 함께 제출할 경우, 이력서는 "요약"이 아닌 **"다른 관점"** 제공
-
-### 중복 허용/금지 항목
-
-| 항목 | 이력서 | 경력기술서 | 중복 허용 |
-|------|--------|-----------|----------|
-| Professional Summary | 1문단 서술 + 성과 테이블 | 2문단 서술 (기술 철학) | 표현 차별화 필수 |
-| 프로젝트 | 1줄 성과만 | STAR+I 전체 | ❌ 금지 |
-| 기술 선택 이유 | 제외 | 상세 포함 | ❌ 금지 |
-| 아키텍처/트러블슈팅 | 제외 | 상세 포함 | ❌ 금지 |
-| 기술 스택 | 카테고리별 요약 | 프로젝트별 상세 | ✅ 허용 |
-
-### KEY PROJECTS 압축 공식
-
-```
-경력기술서 (15-20줄) → 이력서 (3-4줄)
-
-| 경력기술서 | 이력서 |
-|-----------|--------|
-| STAR+I 전체 | 문제 1줄 + 해결 1줄 + 성과 1줄 |
-| 기술 선택 이유 | 기술 스택만 나열 |
-| 트러블슈팅 상세 | 제외 |
-```
-
-### 자가 검증
-
-- [ ] 경력기술서에서 "새로운 정보"가 있는가?
-- [ ] 이력서만 읽어도 "만나보고 싶다"는 생각이 드는가?
-- [ ] 동일한 문장이 두 문서에 없는가?
+### Scenario 4: Stale Handoff
+- Significant time has passed
+- Major refactoring has occurred
+- Original approach may no longer apply
+- Need to re-evaluate strategy
 
 ---
 
-## 데이터 정합성 (SSOT)
+## Clorch Workspace Structure
 
-> **상세 가이드**: `/writing-guide` 섹션 18 참조
+Clorch development uses `~/.claude/` as the root workspace:
 
-```
-모든 수치와 성과는 my_career_data.md를 원본으로 사용
-임의 변경/추정 금지, 변경 시 /update-resume 실행 필수
-```
+| Path | Purpose |
+|------|---------|
+| `~/.claude/thoughts/shared/handoffs/` | Clorch handoffs |
+| `~/.claude/opc/` | OPC tools and scripts |
+| `~/.claude/hooks/` | Clorch hooks |
+| `~/.claude/commands/` | Clorch skills/commands |
 
----
+When running from `~/.claude/opc/`, handoffs are at `../thoughts/shared/handoffs/`
 
-## 관련 스킬
-
-- `/writing-guide`: STAR+I 작성 원칙, 시니어 톤, 파레토 기준, SSOT, 업데이트 원칙
-- `/write-career`: 경력기술서 작성 (5페이지+)
-- `/write-portfolio`: 포트폴리오 작성 (10-15페이지, 기술 백서)
-- `/export`: PDF/PPT 내보내기
-
----
-
-## 세트 생성 (이력서 + 경력기술서 + 포트폴리오)
-
-> 채용 지원 시 세 문서를 함께 생성
-
-### 세트 생성 워크플로우
-
-```
-Step 1: 이력서 작성 (/create-resume-document)
-    ↓
-Step 2: 경력기술서 작성 (/write-career)
-    ↓
-Step 3: 포트폴리오 작성 (/write-portfolio)
-    ↓
-Step 4: PDF 내보내기 (/export)
-```
-
-### 세트 정합성 체크리스트
-
-- [ ] 세 문서 연락처/학력 일치
-- [ ] 성과 수치 일치 (SSOT 기반)
-- [ ] 기술 스택 표기 일치
-- [ ] 프로젝트 기간 일치
-- [ ] 역할 표기 일치
+Look for handoffs in (priority order):
+1. `thoughts/shared/handoffs/` (current directory)
+2. `../thoughts/shared/handoffs/` (parent - for ~/.claude/opc case)
+3. `.claude/memory/handoff.md` (simple handoff)

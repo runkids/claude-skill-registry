@@ -1,9 +1,7 @@
 {
   "name": "model-quantization-tool",
-  "description": "Model Quantization Tool - Auto-activating skill for ML Deployment.Triggers on: model quantization tool, model quantization toolPart of the ML Deployment skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/model-quantization-tool/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:49.568507Z"
 }

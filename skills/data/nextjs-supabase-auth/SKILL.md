@@ -1,56 +1,164 @@
 ---
 name: nextjs-supabase-auth
-description: "Expert integration of Supabase Auth with Next.js App Router Use when: supabase auth next, authentication next.js, login supabase, auth middleware, protected route."
-source: vibeship-spawner-skills (Apache 2.0)
+description: Production-ready authentication system for Next.js 15 + Supabase. Use when setting up auth, login, signup, OAuth, Google login, password reset, or user authentication.
 ---
 
-# Next.js + Supabase Auth
+# Next.js Supabase Auth Template
 
-You are an expert in integrating Supabase Auth with Next.js App Router.
-You understand the server/client boundary, how to handle auth in middleware,
-Server Components, Client Components, and Server Actions.
+Production-ready authentication system for Next.js 15 + Supabase projects.
 
-Your core principles:
-1. Use @supabase/ssr for App Router integration
-2. Handle tokens in middleware for protected routes
-3. Never expose auth tokens to client unnecessarily
-4. Use Server Actions for auth operations when possible
-5. Understand the cookie-based session flow
+## Features
 
-## Capabilities
+✅ **Security Hardened**
+- PKCE Flow for OAuth
+- RLS policies with least-privilege
+- SQL Injection protection (search_path)
+- Token validation with error handling
 
-- nextjs-auth
-- supabase-auth-nextjs
-- auth-middleware
-- auth-callback
+✅ **Complete Auth Flow**
+- Email/Password signup & login
+- Google OAuth
+- Email confirmation
+- Password reset
+- Auto profile creation
 
-## Requirements
+✅ **Template Ready**
+- Centralized config (`auth.config.ts`)
+- Environment validation
+- Type-safe configuration
+- Reusable across projects
 
-- nextjs-app-router
-- supabase-backend
+✅ **UI Components (shadcn/ui)**
+- LoginForm
+- SignupForm
+- ForgotPasswordForm
+- ResetPasswordForm
+- GoogleLoginButton
 
-## Patterns
+## Profile Schema
 
-### Supabase Client Setup
+Assumes `public.profiles` table with:
+- `user_id` (uuid, FK to auth.users)
+- `email` (text)
+- `first_name` (text)
+- `last_name` (text)
+- `mobile` (text, nullable)
+- `role` (text, default: 'user')
 
-Create properly configured Supabase clients for different contexts
+## Usage
 
-### Auth Middleware
+```
+/nextjs-supabase-auth
+```
 
-Protect routes and refresh sessions in middleware
+This will:
+1. Copy all auth files to your project
+2. Create configuration files
+3. Generate database migrations
+4. Provide setup instructions
 
-### Auth Callback Route
+## What You Need to Configure
 
-Handle OAuth callback and exchange code for session
+After installation:
 
-## Anti-Patterns
+1. **Environment Variables** (`.env.local`):
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=your-project-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   NEXT_PUBLIC_SITE_URL=http://localhost:3000
+   ```
 
-### ❌ getSession in Server Components
+2. **Auth Config** (`lib/auth.config.ts`):
+   ```typescript
+   redirects: {
+     afterLogin: '/dashboard',  // ← Change to your dashboard path
+     // ...
+   }
+   ```
 
-### ❌ Auth State in Client Without Listener
+3. **Apply Migrations**:
+   - Run migrations in `supabase/migrations/`
+   - Or use Supabase Dashboard
 
-### ❌ Storing Tokens Manually
+4. **Enable OAuth** (optional):
+   - Configure Google OAuth in Supabase Dashboard
+   - Add callback URL: `{SITE_URL}/auth/callback`
 
-## Related Skills
+## Files Installed
 
-Works well with: `nextjs-app-router`, `supabase-backend`
+```
+app/
+├── actions/auth.ts              # Server actions
+└── auth/
+    ├── callback/route.ts        # OAuth & email callback
+    ├── login/page.tsx
+    ├── signup/page.tsx
+    ├── forgot-password/page.tsx
+    ├── reset-password/page.tsx
+    └── verify-email/page.tsx
+
+components/auth/
+├── LoginForm.tsx
+├── SignupForm.tsx
+├── ForgotPasswordForm.tsx
+├── ResetPasswordForm.tsx
+└── GoogleLoginButton.tsx
+
+lib/
+├── auth.config.ts               # Auth configuration
+├── env.ts                       # Environment validation
+└── supabase/
+    ├── client.ts                # Browser client
+    ├── server.ts                # Server client
+    └── middleware.ts            # Route protection
+
+middleware.ts                    # Next.js middleware
+
+supabase/migrations/
+└── fix_function_search_path.sql # Security patch
+```
+
+## Dependencies Required
+
+```bash
+npm install @supabase/supabase-js @supabase/ssr
+npm install lucide-react          # Icons
+```
+
+shadcn/ui components needed:
+- button
+- input
+- label
+- card
+
+## Security Notes
+
+✅ PKCE flow enabled for OAuth
+✅ RLS policies protect user data
+✅ SQL injection protection on all functions
+✅ Token validation with error handling
+✅ Environment variables validated on startup
+
+## Customization
+
+**Change redirect paths**: Edit `lib/auth.config.ts`
+**Change profile fields**: Edit `app/actions/auth.ts` signup function
+**Change UI text**: Edit component files in `components/auth/`
+**Add i18n**: Extend `auth.config.ts` with text config
+
+## Support
+
+Issues? Check:
+1. Environment variables are set correctly
+2. Supabase project is configured
+3. Migrations are applied
+4. OAuth providers are enabled (if using)
+
+## Version
+
+Created: 2025-01-11
+Compatible with:
+- Next.js 15+
+- React 19+
+- Supabase (latest)
+- shadcn/ui

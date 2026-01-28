@@ -1,7 +1,7 @@
 {
   "name": "personalization",
-  "repo": "gtmagents/gtm-agents",
-  "path": "plugins/abm-orchestration/skills/personalization/SKILL.md",
-  "source": "github.com/gtmagents/gtm-agents",
-  "downloaded_at": "2026-01-27T04:35:27.671135Z"
+  "repo": "clix-so/skills",
+  "path": "skills/personalization/SKILL.md",
+  "source": "github.com/clix-so/skills",
+  "downloaded_at": "2026-01-28T04:24:36.512199Z"
 }

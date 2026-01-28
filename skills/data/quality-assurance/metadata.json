@@ -1,7 +1,7 @@
 {
   "name": "quality-assurance",
-  "repo": "ref-docs/sdd-stl",
-  "path": "src/templates/agents/claude-code/skills/quality-assurance/SKILL.md",
-  "source": "github.com/ref-docs/sdd-stl",
-  "downloaded_at": "2026-01-27T04:05:18.385973Z"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/quality-assurance/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:38.324032Z"
 }

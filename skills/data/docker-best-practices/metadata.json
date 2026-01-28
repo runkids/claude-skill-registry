@@ -1,13 +1,7 @@
 {
   "name": "docker-best-practices",
-  "description": "Create optimized Dockerfiles with multi-stage builds, security hardening, layer caching, and health checks. Includes docker-compose patterns for development and production environments.",
   "repo": "ils15/copilot-global-config",
-  "category": "development",
-  "tags": [
-    "docker",
-    "best",
-    "practices"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/docker-best-practices/SKILL.md",
+  "source": "github.com/ils15/copilot-global-config",
+  "downloaded_at": "2026-01-28T02:32:21.731486Z"
 }

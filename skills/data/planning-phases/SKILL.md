@@ -1,7 +1,8 @@
 ---
 name: planning-phases
-description: Use this skill when create detailed execution plan for a phase (plan.md) with verification loop. Triggers include "plan phase", "plan phase".
-version: 0.1.0
+description: Use this skill to plan detailed roadmap phases. Triggers include "plan phase n", "create phase plan", "create a plan" "roadmap planning", and "roadmap phase creation".
+metadata:
+  version: "0.1.0"
 user-invocable: false
 disable-model-invocation: false
 allowed-tools:
@@ -206,7 +207,7 @@ Write research findings to: {phase_dir}/{phase}-RESEARCH.md
 ```
 Task(
   prompt=research_prompt,
-  subagent_type="kata:kata-phase-researcher",
+  subagent_type="kata-phase-researcher",
   model="{researcher_model}",
   description="Research Phase {phase}"
 )
@@ -235,20 +236,16 @@ ls "${PHASE_DIR}"/*-PLAN.md 2>/dev/null
 
 Read and store context file contents for the planner agent. The `@` syntax does not work across Task() boundaries - content must be inlined.
 
-```bash
-# Read required files
-STATE_CONTENT=$(cat .planning/STATE.md)
-ROADMAP_CONTENT=$(cat .planning/ROADMAP.md)
+**Read these files using the Read tool:**
+- `.planning/STATE.md` (required)
+- `.planning/ROADMAP.md` (required)
+- `.planning/REQUIREMENTS.md` (if exists)
+- `${PHASE_DIR}/*-CONTEXT.md` (if exists)
+- `${PHASE_DIR}/*-RESEARCH.md` (if exists)
+- `${PHASE_DIR}/*-VERIFICATION.md` (if --gaps mode)
+- `${PHASE_DIR}/*-UAT.md` (if --gaps mode)
 
-# Read optional files (empty string if missing)
-REQUIREMENTS_CONTENT=$(cat .planning/REQUIREMENTS.md 2>/dev/null)
-CONTEXT_CONTENT=$(cat "${PHASE_DIR}"/*-CONTEXT.md 2>/dev/null)
-RESEARCH_CONTENT=$(cat "${PHASE_DIR}"/*-RESEARCH.md 2>/dev/null)
-
-# Gap closure files (only if --gaps mode)
-VERIFICATION_CONTENT=$(cat "${PHASE_DIR}"/*-VERIFICATION.md 2>/dev/null)
-UAT_CONTENT=$(cat "${PHASE_DIR}"/*-UAT.md 2>/dev/null)
-```
+Store all content for use in the Task prompt below.
 
 ## 8. Spawn kata-planner Agent
 
@@ -315,7 +312,7 @@ Before returning PLANNING COMPLETE:
 ```
 Task(
   prompt=filled_prompt,
-  subagent_type="kata:kata-planner",
+  subagent_type="kata-planner",
   model="{planner_model}",
   description="Plan Phase {phase}"
 )
@@ -387,7 +384,7 @@ Return one of:
 ```
 Task(
   prompt=checker_prompt,
-  subagent_type="kata:kata-plan-checker",
+  subagent_type="kata-plan-checker",
   model="{checker_model}",
   description="Verify Phase {phase} plans"
 )
@@ -396,8 +393,8 @@ Task(
 ## 11. Handle Checker Return
 
 **If `## VERIFICATION PASSED`:**
-- Display: `Plans verified. Ready for execution.`
-- Proceed to step 13
+- Display: `Plans verified. Checking GitHub integration...`
+- **Execute Step 13 now** — run the GitHub config check and issue update
 
 **If `## ISSUES FOUND`:**
 - Display: `Checker found issues:`
@@ -445,7 +442,7 @@ Return what changed.
 ```
 Task(
   prompt=revision_prompt,
-  subagent_type="kata:kata-planner",
+  subagent_type="kata-planner",
   model="{planner_model}",
   description="Revise Phase {phase} plans"
 )
@@ -466,9 +463,121 @@ Offer options:
 
 Wait for user response.
 
-## 13. Present Final Status
+## 13. GitHub Integration Check
 
-Route to `<offer_next>`.
+**Check config guards:**
+
+```bash
+GITHUB_ENABLED=$(cat .planning/config.json 2>/dev/null | grep -o '"enabled"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "false")
+ISSUE_MODE=$(cat .planning/config.json 2>/dev/null | grep -o '"issueMode"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "never")
+```
+
+**If `GITHUB_ENABLED != true` OR `ISSUE_MODE = never`:**
+- Log: `Skipping GitHub issue update (github.enabled=${GITHUB_ENABLED}, issueMode=${ISSUE_MODE})`
+- Skip to `<offer_next>`
+
+**If enabled, find phase issue:**
+
+```bash
+# Get milestone version from ROADMAP.md
+VERSION=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' .planning/ROADMAP.md | head -1 | tr -d 'v' || echo "")
+
+if [ -z "$VERSION" ]; then
+  echo "Warning: Could not determine milestone version. Skipping GitHub issue update."
+  # Continue to offer_next (non-blocking)
+fi
+
+# Find phase issue number
+ISSUE_NUMBER=$(gh issue list \
+  --label "phase" \
+  --milestone "v${VERSION}" \
+  --json number,title \
+  --jq ".[] | select(.title | startswith(\"Phase ${PHASE}:\")) | .number" \
+  2>/dev/null)
+
+if [ -z "$ISSUE_NUMBER" ]; then
+  echo "Warning: Could not find GitHub Issue for Phase ${PHASE}. Skipping checklist update."
+  # Continue to offer_next (non-blocking)
+fi
+```
+
+**Build plan checklist from PLAN.md files:**
+
+```bash
+PLAN_CHECKLIST=""
+PLAN_COUNT=0
+for plan_file in $(ls "${PHASE_DIR}"/*-PLAN.md 2>/dev/null | sort); do
+  PLAN_NUM=$(basename "$plan_file" | sed -E 's/.*-([0-9]+)-PLAN\.md/\1/')
+  # Extract brief objective from plan (first line after <objective>)
+  PLAN_OBJECTIVE=$(grep -A2 "<objective>" "$plan_file" | head -2 | tail -1 | sed 's/^ *//' | head -c 60)
+  # Fallback if objective extraction fails
+  if [ -z "$PLAN_OBJECTIVE" ]; then
+    PLAN_OBJECTIVE=$(basename "$plan_file" .md | sed 's/-PLAN$//' | sed 's/-/ /g')
+  fi
+  PLAN_CHECKLIST="${PLAN_CHECKLIST}- [ ] Plan ${PLAN_NUM}: ${PLAN_OBJECTIVE}
+"
+  PLAN_COUNT=$((PLAN_COUNT + 1))
+done
+```
+
+**Update issue body with plan checklist:**
+
+```bash
+# Read current issue body
+ISSUE_BODY=$(gh issue view "$ISSUE_NUMBER" --json body --jq '.body' 2>/dev/null)
+
+if [ -z "$ISSUE_BODY" ]; then
+  echo "Warning: Could not read issue #${ISSUE_NUMBER} body. Skipping update."
+  # Continue to offer_next (non-blocking)
+fi
+
+# Remove placeholder line and add checklist after ## Plans section
+# Using awk for multiline manipulation
+NEW_BODY=$(echo "$ISSUE_BODY" | awk -v checklist="$PLAN_CHECKLIST" '
+  /^## Plans$/ {
+    print
+    print ""
+    print checklist
+    getline  # Skip blank line after ## Plans if exists
+    if ($0 ~ /^_Plans will be added/) next  # Skip placeholder
+    if ($0 ~ /^<!-- Checklist/) next  # Skip comment
+    if ($0 == "") next  # Skip blank line before placeholder
+    print
+    next
+  }
+  /^_Plans will be added/ { next }  # Remove placeholder anywhere
+  { print }
+')
+
+# Check if Plans section exists, if not append it
+if ! echo "$ISSUE_BODY" | grep -q "^## Plans"; then
+  NEW_BODY="${ISSUE_BODY}
+
+## Plans
+
+${PLAN_CHECKLIST}"
+fi
+
+# Write to temp file (handles special characters safely)
+printf '%s\n' "$NEW_BODY" > /tmp/phase-issue-body.md
+
+# Update issue
+gh issue edit "$ISSUE_NUMBER" --body-file /tmp/phase-issue-body.md 2>/dev/null \
+  && GITHUB_UPDATE_SUCCESS=true \
+  || echo "Warning: Failed to update issue #${ISSUE_NUMBER}"
+```
+
+**Track result for display:**
+
+Store `ISSUE_NUMBER` and `PLAN_COUNT` for display in `<offer_next>` if update succeeded.
+
+**After GitHub check completes (success or skip), proceed to Step 14.**
+
+**Error handling principle:** All GitHub operations are non-blocking. Missing issue, auth issues, or update failures warn but do not stop the planning workflow.
+
+## 14. Present Final Status
+
+Display the planning summary and route to `<offer_next>`.
 
 </process>
 
@@ -488,6 +597,9 @@ Output this markdown directly (not as a code block):
 
 Research: {Completed | Used existing | Skipped}
 Verification: {Passed | Passed with override | Skipped}
+
+{If GITHUB_UPDATE_SUCCESS=true:}
+GitHub Issue: #{ISSUE_NUMBER} updated with {PLAN_COUNT} plan checklist items
 
 ───────────────────────────────────────────────────────────────
 
@@ -519,6 +631,7 @@ Verification: {Passed | Passed with override | Skipped}
 - [ ] Plans created (PLANNING COMPLETE or CHECKPOINT handled)
 - [ ] kata-plan-checker spawned (unless --skip-verify)
 - [ ] Verification passed OR user override OR max iterations with user decision
+- [ ] GitHub issue updated with plan checklist (if github.enabled and issueMode != never)
 - [ ] User sees status between agent spawns
 - [ ] User knows next steps (execute or review)
 </success_criteria>

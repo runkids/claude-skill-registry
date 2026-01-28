@@ -1,7 +1,7 @@
 {
   "name": "standards-migration",
   "repo": "maxritter/claude-codepro",
-  "path": ".claude/plugin/skills/standards-migration/SKILL.md",
+  "path": ".claude/ccp/skills/standards-migration/SKILL.md",
   "source": "github.com/maxritter/claude-codepro",
-  "downloaded_at": "2026-01-27T03:57:50.765657Z"
+  "downloaded_at": "2026-01-28T02:32:26.143216Z"
 }

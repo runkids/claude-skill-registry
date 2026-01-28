@@ -1,6 +1,8 @@
 ---
 name: test-patterns
 description: This skill provides patterns and best practices for generating and organizing tests. It covers unit testing, integration testing, test data factories, and coverage strategies across multiple languages and frameworks.
+context: fork
+user-invocable: false
 ---
 
 # Test Patterns Skill

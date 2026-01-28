@@ -1,11 +1,7 @@
 {
   "name": "rad",
-  "description": "Response-Aware Development (RAD) - Systematic verification of code assumptions using multi-model AI analysis. Auto-activates on keywords assumption, verify assumptions, list assumptions, RAD, response",
   "repo": "williaby/image-preprocessing-detector",
-  "category": "development",
-  "tags": [
-    "rad"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/rad/SKILL.md",
+  "source": "github.com/williaby/image-preprocessing-detector",
+  "downloaded_at": "2026-01-28T01:09:44.014702Z"
 }

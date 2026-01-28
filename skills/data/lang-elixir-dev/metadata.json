@@ -1,9 +1,7 @@
 {
   "name": "lang-elixir-dev",
-  "description": "Foundational Elixir patterns covering modules, pattern matching, processes, OTP behaviors (GenServer, Supervisor), Phoenix framework basics, and functional programming idioms. Use when writing Elixir ",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-elixir-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:47.339020Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "check-pr-review",
-  "description": "Use gh-check-pr-review to fetch and address PR review comments. Use this skill when checking PR review feedback, viewing unresolved threads, or addressing reviewer comments.",
-  "repo": "fohte/dotfiles",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "shiiman/claude-code-plugins",
+  "path": ".claude/skills/check-pr-review/SKILL.md",
+  "source": "github.com/shiiman/claude-code-plugins",
+  "downloaded_at": "2026-01-28T01:59:45.376490Z"
 }

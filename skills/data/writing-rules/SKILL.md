@@ -1,107 +1,75 @@
 ---
-name: writing-rules
-description: |
-
-Triggers: validation, rules, patterns, safety, hookify
-  Create hookify rules - markdown-based behavioral rules preventing unwanted actions.
-
-  Triggers: create hookify rule, behavioral rule, prevent behavior, block command
-
-  Use when: preventing dangerous commands, blocking debug commits, enforcing conventions
-  DO NOT use when: hook scope (abstract:hook-scope-guide), SDK hooks (abstract:hook-authoring), evaluating hooks (abstract:hooks-eval)
-version: 1.3.5
-category: hook-development
-tags: [hookify, rules, patterns, validation, safety]
-dependencies: []
-estimated_tokens: 2500
-complexity: beginner
-provides:
-  patterns: [rule-writing, pattern-matching, condition-building]
-  infrastructure: [rule-validation]
-usage_patterns:
-  - creating-rules
-  - pattern-matching
-  - behavioral-enforcement
+name: Writing Hookify Rules
+description: This skill should be used when the user asks to "create a hookify rule", "write a hook rule", "configure hookify", "add a hookify rule", or needs guidance on hookify rule syntax and patterns.
+version: 0.1.0
 ---
-## Table of Contents
 
-- [Overview](#overview)
-- [Quick Start](#quick-start)
-- [Rule File Format](#rule-file-format)
-- [Frontmatter Fields](#frontmatter-fields)
-- [Event Types](#event-types)
-- [Advanced Conditions](#advanced-conditions)
-- [Operators](#operators)
-- [Field Reference](#field-reference)
-- [Pattern Writing](#pattern-writing)
-- [Regex Basics](#regex-basics)
-- [Examples](#examples)
-- [Test Patterns](#test-patterns)
-- [Example Rules](#example-rules)
-- [Block Destructive Commands](#block-destructive-commands)
-- [Warn About Debug Code](#warn-about-debug-code)
-- [Require Tests](#require-tests)
-- [Protect Production Files](#protect-production-files)
-- [Management](#management)
-- [Related Skills](#related-skills)
-- [Best Practices](#best-practices)
-
-
-# Hookify Rule Writing Guide
+# Writing Hookify Rules
 
 ## Overview
 
 Hookify rules are markdown files with YAML frontmatter that define patterns to watch for and messages to show when those patterns match. Rules are stored in `.claude/hookify.{rule-name}.local.md` files.
 
-## Quick Start
-
-Create `.claude/hookify.dangerous-rm.local.md`:
-
-```yaml
----
-name: dangerous-rm
-enabled: true
-event: bash
-pattern: rm\s+-rf
-action: block
----
-
-🛑 **Dangerous rm command detected!**
-
-This command could delete important files.
-```
-**Verification:** Run the command with `--help` flag to verify availability.
-
-The rule activates immediately - no restart needed!
-
 ## Rule File Format
+
+### Basic Structure
+
+```markdown
+---
+name: rule-identifier
+enabled: true
+event: bash|file|stop|prompt|all
+pattern: regex-pattern-here
+---
+
+Message to show Claude when this rule triggers.
+Can include markdown formatting, warnings, suggestions, etc.
+```
 
 ### Frontmatter Fields
 
-**name** (required): Unique identifier (kebab-case)
-**enabled** (required): `true` or `false`
-**event** (required): `bash`, `file`, `stop`, `prompt`, or `all`
-**action** (optional): `warn` (default) or `block`
-**pattern** (simple): Regex pattern to match
+**name** (required): Unique identifier for the rule
+- Use kebab-case: `warn-dangerous-rm`, `block-console-log`
+- Be descriptive and action-oriented
+- Start with verb: warn, prevent, block, require, check
 
-### Event Types
+**enabled** (required): Boolean to activate/deactivate
+- `true`: Rule is active
+- `false`: Rule is disabled (won't trigger)
+- Can toggle without deleting rule
 
-- **bash**: Bash tool commands
-- **file**: Edit, Write, MultiEdit tools
-- **stop**: When agent wants to stop
-- **prompt**: User prompt submission
-- **all**: All events
+**event** (required): Which hook event to trigger on
+- `bash`: Bash tool commands
+- `file`: Edit, Write, MultiEdit tools
+- `stop`: When agent wants to stop
+- `prompt`: When user submits a prompt
+- `all`: All events
 
-### Advanced Conditions
+**action** (optional): What to do when rule matches
+- `warn`: Show message but allow operation (default)
+- `block`: Prevent operation (PreToolUse) or stop session (Stop events)
+- If omitted, defaults to `warn`
 
-For multiple field checks:
+**pattern** (simple format): Regex pattern to match
+- Used for simple single-condition rules
+- Matches against command (bash) or new_text (file)
+- Python regex syntax
 
+**Example:**
 ```yaml
+event: bash
+pattern: rm\s+-rf
+```
+
+### Advanced Format (Multiple Conditions)
+
+For complex rules with multiple conditions:
+
+```markdown
 ---
-name: warn-env-edits
+name: warn-env-file-edits
 enabled: true
 event: file
-action: warn
 conditions:
   - field: file_path
     operator: regex_match
@@ -111,151 +79,296 @@ conditions:
     pattern: API_KEY
 ---
 
-🔐 **API key in .env file!**
-Ensure file is in .gitignore.
+You're adding an API key to a .env file. Ensure this file is in .gitignore!
 ```
 
-### Operators
+**Condition fields:**
+- `field`: Which field to check
+  - For bash: `command`
+  - For file: `file_path`, `new_text`, `old_text`, `content`
+- `operator`: How to match
+  - `regex_match`: Regex pattern matching
+  - `contains`: Substring check
+  - `equals`: Exact match
+  - `not_contains`: Substring must NOT be present
+  - `starts_with`: Prefix check
+  - `ends_with`: Suffix check
+- `pattern`: Pattern or string to match
 
-- `regex_match`: Pattern matching
-- `contains`: Substring check
-- `equals`: Exact match
-- `not_contains`: Must NOT contain
-- `starts_with`: Prefix check
-- `ends_with`: Suffix check
+**All conditions must match for rule to trigger.**
 
-### Field Reference
+## Message Body
 
-**bash events:** `command`
-**file events:** `file_path`, `new_text`, `old_text`, `content`
-**prompt events:** `user_prompt`
-**stop events:** `transcript`
+The markdown content after frontmatter is shown to Claude when the rule triggers.
 
-## Pattern Writing
+**Good messages:**
+- Explain what was detected
+- Explain why it's problematic
+- Suggest alternatives or best practices
+- Use formatting for clarity (bold, lists, etc.)
 
-### Regex Basics
+**Example:**
+```markdown
+⚠️ **Console.log detected!**
 
-- `\s` - whitespace
-- `\d` - digit
-- `\w` - word character
-- `.` - any character (use `\.` for literal dot)
-- `+` - one or more
-- `*` - zero or more
-- `|` - OR
+You're adding console.log to production code.
 
-### Examples
+**Why this matters:**
+- Debug logs shouldn't ship to production
+- Console.log can expose sensitive data
+- Impacts browser performance
 
+**Alternatives:**
+- Use a proper logging library
+- Remove before committing
+- Use conditional debug builds
 ```
-rm\s+-rf          → rm -rf
-console\.log\(    → console.log(
-chmod\s+777       → chmod 777
-```
 
-### Test Patterns
+## Event Type Guide
 
-```bash
-python3 -c "import re; print(re.search(r'pattern', 'text'))"
-```
+### bash Events
 
-## Example Rules
+Match Bash command patterns:
 
-### Block Destructive Commands
-
-```yaml
+```markdown
 ---
-name: block-destructive
-enabled: true
 event: bash
-pattern: rm\s+-rf|dd\s+if=|mkfs
-action: block
+pattern: sudo\s+|rm\s+-rf|chmod\s+777
 ---
 
-🛑 **Destructive operation blocked!**
-Can cause data loss.
+Dangerous command detected!
 ```
 
-### Warn About Debug Code
+**Common patterns:**
+- Dangerous commands: `rm\s+-rf`, `dd\s+if=`, `mkfs`
+- Privilege escalation: `sudo\s+`, `su\s+`
+- Permission issues: `chmod\s+777`, `chown\s+root`
 
-```yaml
+### file Events
+
+Match Edit/Write/MultiEdit operations:
+
+```markdown
 ---
-name: warn-debug
-enabled: true
 event: file
-pattern: console\.log\(|debugger;
-action: warn
+pattern: console\.log\(|eval\(|innerHTML\s*=
 ---
 
-🐛 **Debug code detected!**
-Remove before committing.
+Potentially problematic code pattern detected!
 ```
 
-### Require Tests
-
-```yaml
+**Match on different fields:**
+```markdown
 ---
-name: require-tests
-enabled: true
-event: stop
-action: warn
-conditions:
-  - field: transcript
-    operator: not_contains
-    pattern: pytest|npm test
----
-
-⚠️ **Tests not run!**
-Please verify changes.
-```
-
-### Protect Production Files
-
-```yaml
----
-name: protect-prod
-enabled: true
 event: file
-action: block
 conditions:
   - field: file_path
     operator: regex_match
-    pattern: /production/|\.prod\.
+    pattern: \.tsx?$
+  - field: new_text
+    operator: regex_match
+    pattern: console\.log\(
 ---
 
-🚨 **Production file!**
-Requires review.
+Console.log in TypeScript file!
 ```
 
-## Management
+**Common patterns:**
+- Debug code: `console\.log\(`, `debugger`, `print\(`
+- Security risks: `eval\(`, `innerHTML\s*=`, `dangerouslySetInnerHTML`
+- Sensitive files: `\.env$`, `credentials`, `\.pem$`
+- Generated files: `node_modules/`, `dist/`, `build/`
 
-**Enable/Disable:**
-Edit `.local.md` file: `enabled: false`
+### stop Events
 
-**Delete:**
+Match when agent wants to stop (completion checks):
+
+```markdown
+---
+event: stop
+pattern: .*
+---
+
+Before stopping, verify:
+- [ ] Tests were run
+- [ ] Build succeeded
+- [ ] Documentation updated
+```
+
+**Use for:**
+- Reminders about required steps
+- Completion checklists
+- Process enforcement
+
+### prompt Events
+
+Match user prompt content (advanced):
+
+```markdown
+---
+event: prompt
+conditions:
+  - field: user_prompt
+    operator: contains
+    pattern: deploy to production
+---
+
+Production deployment checklist:
+- [ ] Tests passing?
+- [ ] Reviewed by team?
+- [ ] Monitoring ready?
+```
+
+## Pattern Writing Tips
+
+### Regex Basics
+
+**Literal characters:** Most characters match themselves
+- `rm` matches "rm"
+- `console.log` matches "console.log"
+
+**Special characters need escaping:**
+- `.` (any char) → `\.` (literal dot)
+- `(` `)` → `\(` `\)` (literal parens)
+- `[` `]` → `\[` `\]` (literal brackets)
+
+**Common metacharacters:**
+- `\s` - whitespace (space, tab, newline)
+- `\d` - digit (0-9)
+- `\w` - word character (a-z, A-Z, 0-9, _)
+- `.` - any character
+- `+` - one or more
+- `*` - zero or more
+- `?` - zero or one
+- `|` - OR
+
+**Examples:**
+```
+rm\s+-rf         Matches: rm -rf, rm  -rf
+console\.log\(   Matches: console.log(
+(eval|exec)\(    Matches: eval( or exec(
+chmod\s+777      Matches: chmod 777, chmod  777
+API_KEY\s*=      Matches: API_KEY=, API_KEY =
+```
+
+### Testing Patterns
+
+Test regex patterns before using:
+
 ```bash
-rm .claude/hookify.my-rule.local.md
+python3 -c "import re; print(re.search(r'your_pattern', 'test text'))"
 ```
 
-**List:**
-```bash
-/hookify:list
+Or use online regex testers (regex101.com with Python flavor).
+
+### Common Pitfalls
+
+**Too broad:**
+```yaml
+pattern: log    # Matches "log", "login", "dialog", "catalog"
+```
+Better: `console\.log\(|logger\.`
+
+**Too specific:**
+```yaml
+pattern: rm -rf /tmp  # Only matches exact path
+```
+Better: `rm\s+-rf`
+
+**Escaping issues:**
+- YAML quoted strings: `"pattern"` requires double backslashes `\\s`
+- YAML unquoted: `pattern: \s` works as-is
+- **Recommendation**: Use unquoted patterns in YAML
+
+## File Organization
+
+**Location:** All rules in `.claude/` directory
+**Naming:** `.claude/hookify.{descriptive-name}.local.md`
+**Gitignore:** Add `.claude/*.local.md` to `.gitignore`
+
+**Good names:**
+- `hookify.dangerous-rm.local.md`
+- `hookify.console-log.local.md`
+- `hookify.require-tests.local.md`
+- `hookify.sensitive-files.local.md`
+
+**Bad names:**
+- `hookify.rule1.local.md` (not descriptive)
+- `hookify.md` (missing .local)
+- `danger.local.md` (missing hookify prefix)
+
+## Workflow
+
+### Creating a Rule
+
+1. Identify unwanted behavior
+2. Determine which tool is involved (Bash, Edit, etc.)
+3. Choose event type (bash, file, stop, etc.)
+4. Write regex pattern
+5. Create `.claude/hookify.{name}.local.md` file in project root
+6. Test immediately - rules are read dynamically on next tool use
+
+### Refining a Rule
+
+1. Edit the `.local.md` file
+2. Adjust pattern or message
+3. Test immediately - changes take effect on next tool use
+
+### Disabling a Rule
+
+**Temporary:** Set `enabled: false` in frontmatter
+**Permanent:** Delete the `.local.md` file
+
+## Examples
+
+See `${CLAUDE_PLUGIN_ROOT}/examples/` for complete examples:
+- `dangerous-rm.local.md` - Block dangerous rm commands
+- `console-log-warning.local.md` - Warn about console.log
+- `sensitive-files-warning.local.md` - Warn about editing .env files
+
+## Quick Reference
+
+**Minimum viable rule:**
+```markdown
+---
+name: my-rule
+enabled: true
+event: bash
+pattern: dangerous_command
+---
+
+Warning message here
 ```
 
-## Related Skills
+**Rule with conditions:**
+```markdown
+---
+name: my-rule
+enabled: true
+event: file
+conditions:
+  - field: file_path
+    operator: regex_match
+    pattern: \.ts$
+  - field: new_text
+    operator: contains
+    pattern: any
+---
 
-- **abstract:hook-scope-guide** - Hook placement decisions
-- **abstract:hook-authoring** - SDK hook development
-- **abstract:hooks-eval** - Hook evaluation
+Warning message
+```
 
-## Best Practices
+**Event types:**
+- `bash` - Bash commands
+- `file` - File edits
+- `stop` - Completion checks
+- `prompt` - User input
+- `all` - All events
 
-1. Start with simple patterns
-2. Test regex thoroughly
-3. Use clear, helpful messages
-4. Prefer warnings over blocks initially
-5. Name rules descriptively
-6. Document intent in messages
-## Troubleshooting
+**Field options:**
+- Bash: `command`
+- File: `file_path`, `new_text`, `old_text`, `content`
+- Prompt: `user_prompt`
 
-### Common Issues
-
-If a rule doesn't trigger, verify that the `event` type matches the tool being used (e.g., use `bash` for command line tools). Check that the regex `pattern` is valid and matches the target text by testing it with a short Python script. If you encounter permission errors when creating rule files in `.claude/`, ensure that the directory is writable by your user.
+**Operators:**
+- `regex_match`, `contains`, `equals`, `not_contains`, `starts_with`, `ends_with`

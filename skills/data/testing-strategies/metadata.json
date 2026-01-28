@@ -1,7 +1,7 @@
 {
   "name": "testing-strategies",
-  "repo": "claudeforge/orchestrator",
-  "path": "skills/testing-strategies/SKILL.md",
-  "source": "github.com/claudeforge/orchestrator",
-  "downloaded_at": "2026-01-27T04:16:30.351099Z"
+  "repo": "michsindlinger/agent-os-extended",
+  "path": "agent-os/templates/skills/testing-strategies/SKILL.md",
+  "source": "github.com/michsindlinger/agent-os-extended",
+  "downloaded_at": "2026-01-28T02:50:14.360334Z"
 }

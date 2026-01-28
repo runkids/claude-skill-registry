@@ -1,7 +1,7 @@
 {
   "name": "Qwen-Ollama",
-  "repo": "lawless-m/Earwig",
+  "repo": "lawless-m/claude-skills",
   "path": ".claude/skills/Qwen-Ollama/SKILL.md",
-  "source": "github.com/lawless-m/Earwig",
-  "downloaded_at": "2026-01-27T03:06:09.521080Z"
+  "source": "github.com/lawless-m/claude-skills",
+  "downloaded_at": "2026-01-28T04:01:34.394610Z"
 }

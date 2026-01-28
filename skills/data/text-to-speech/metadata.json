@@ -1,12 +1,7 @@
 {
   "name": "text-to-speech",
-  "description": "\"Expert skill for implementing text-to-speech with Kokoro TTS. Covers voice synthesis, audio generation, performance optimization, and secure handling of generated audio for JARVIS voice assistant.\"",
-  "repo": "martinholovsky/claude-skills-generator",
-  "category": "development",
-  "tags": [
-    "text",
-    "speech"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/tools/text-to-speech/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-28T03:43:36.822266Z"
 }

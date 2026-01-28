@@ -1,12 +1,7 @@
 {
   "name": "docs-cleaner",
-  "description": "Consolidates redundant documentation while preserving all valuable content. This skill should be used when users want to clean up documentation bloat, merge redundant docs, reduce documentation sprawl",
-  "repo": "daymade/claude-code-skills",
-  "category": "documents",
-  "tags": [
-    "docs",
-    "cleaner"
-  ],
-  "stars": 110,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nguyendinhquocx/code-ai",
+  "path": "skills/docs-cleaner/SKILL.md",
+  "source": "github.com/nguyendinhquocx/code-ai",
+  "downloaded_at": "2026-01-28T03:16:12.206665Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "compliance-architecture",
-  "description": "Enterprise-grade compliance architecture for SOC 2, HIPAA, GDPR, PCI-DSS. Provides compliance checklists, security controls, audit guidance, and regulatory requirements for serverless and cloud archit",
   "repo": "anton-abyzov/specweave",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave/skills/compliance-architecture/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:04.640330Z"
 }

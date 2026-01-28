@@ -1,9 +1,7 @@
 {
   "name": "swift-testing",
-  "description": "Swift Testing framework with @Test macro,",
-  "repo": "bluewaves-creations/bluewaves-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/bluewaves-creations/bluewaves-skills"
+  "repo": "bocato/swift-testing-agent-skill",
+  "path": "swift-testing/SKILL.md",
+  "source": "github.com/bocato/swift-testing-agent-skill",
+  "downloaded_at": "2026-01-28T01:09:47.473541Z"
 }

@@ -1,79 +1,113 @@
 ---
 name: commit
-description: "Reviews code, runs tests, lints, and commits changes. Use when ready to commit work with quality checks."
+description: Stage changes and create git commits with conventional commit messages. Use when asked to "commit", "stage and commit", "save changes", or after completing implementation tasks. Alias for /git/cm.
+allowed-tools: Bash, Read, Glob, Grep
 ---
 
-# commit
+# Git Commit Skill
 
-Reviews code, runs tests, lints, and commits changes. Use when ready to commit work with quality checks.
+Stage changes and create well-structured git commits following Conventional Commits format.
 
-> **CRITICAL**: Always invoke steps using the Skill tool. Never copy/paste step instructions directly.
+## Workflow
 
-A workflow for preparing and committing code changes with quality checks.
+### Step 1: Analyze Changes
 
-The **full** workflow starts with a code review to catch issues early, runs tests until
-they pass, formats and lints code with ruff, then reviews changed files
-before committing and pushing. The review and lint steps use sub-agents
-to reduce context usage.
+```bash
+# Check current status (never use -uall flag)
+git status
 
-Steps:
-1. review - Code review for issues, DRY opportunities, naming, and test coverage (runs in sub-agent)
-2. test - Pull latest code and run tests until they pass
-3. lint - Format and lint code with ruff (runs in sub-agent)
-4. commit_and_push - Review changes and commit/push
+# See staged changes
+git diff --cached
 
+# See unstaged changes
+git diff
 
-## Workflows
-
-### full
-
-Full commit workflow: review, test, lint, and commit
-
-**Steps in order**:
-1. **review** - Reviews changed code for issues, DRY opportunities, naming clarity, and test coverage using a sub-agent. Use as the first step before testing.
-2. **test** - Pulls latest code and runs tests until all pass. Use after code review passes to verify changes work correctly.
-3. **lint** - Formats and lints code with ruff using a sub-agent. Use after tests pass to ensure code style compliance.
-4. **commit_and_push** - Verifies changed files, creates commit, and pushes to remote. Use after linting passes to finalize changes.
-
-**Start workflow**: `/commit.review`
-
-
-## Execution Instructions
-
-### Step 1: Analyze Intent
-
-Parse any text following `/commit` to determine user intent:
-- "full" or related terms → start full workflow at `commit.review`
-
-### Step 2: Invoke Starting Step
-
-Use the Skill tool to invoke the identified starting step:
-```
-Skill tool: commit.review
+# Check recent commit style
+git log --oneline -5
 ```
 
-### Step 3: Continue Workflow Automatically
+### Step 2: Stage Changes
 
-After each step completes:
-1. Check if there's a next step in the workflow sequence
-2. Invoke the next step using the Skill tool
-3. Repeat until workflow is complete or user intervenes
+```bash
+# Stage all changes
+git add .
 
-**Note**: Standalone skills do not auto-continue to other steps.
+# Or stage specific files
+git add <file-path>
+```
 
-### Handling Ambiguous Intent
+### Step 3: Generate Commit Message
 
-If user intent is unclear, use AskUserQuestion to clarify:
-- Present available workflows and standalone skills as options
-- Let user select the starting point
+Analyze staged changes and generate message following **Conventional Commits**:
 
-## Guardrails
+```
+<type>(<scope>): <subject>
+```
 
-- Do NOT copy/paste step instructions directly; always use the Skill tool to invoke steps
-- Do NOT skip steps in a workflow unless the user explicitly requests it
-- Do NOT proceed to the next step if the current step's outputs are incomplete
-- Do NOT make assumptions about user intent; ask for clarification when ambiguous
+#### Type Detection
 
-## Context Files
+| Change Pattern | Type |
+|----------------|------|
+| New file/feature | `feat` |
+| Bug fix, error handling | `fix` |
+| Code restructure | `refactor` |
+| Documentation only | `docs` |
+| Tests only | `test` |
+| Dependencies, config | `chore` |
+| Performance improvement | `perf` |
+| Formatting only | `style` |
 
-- Job definition: `.deepwork/jobs/commit/job.yml`
+#### Scope Rules
+
+Extract from file paths:
+- `src/auth/` → `auth`
+- `.claude/skills/` → `claude-skills`
+- `libs/platform-core/` → `platform-core`
+- Multiple unrelated areas → omit scope
+
+#### Subject Rules
+
+- Imperative mood ("add" not "added")
+- Lowercase start
+- No period at end
+- Max 50 characters
+
+### Step 4: Commit
+
+Use HEREDOC for proper formatting:
+
+```bash
+git commit -m "$(cat <<'EOF'
+type(scope): subject
+
+Generated with [Claude Code](https://claude.com/claude-code)
+EOF
+)"
+```
+
+### Step 5: Verify
+
+```bash
+git status
+git log -1
+```
+
+## Examples
+
+```
+feat(employee): add department filter to list
+fix(validation): handle empty date range
+refactor(auth): extract token validation to service
+chore(deps): update Angular to v19
+chore(claude-skills): add commit skill
+docs(readme): update installation instructions
+```
+
+## Critical Rules
+
+- **DO NOT push** to remote unless explicitly requested
+- **Review staged changes** before committing
+- **Never commit** secrets, credentials, or .env files
+- **Never use** `git commit --amend` unless explicitly requested AND the commit was created in this session AND not yet pushed
+- **Never skip** hooks with `--no-verify` unless explicitly requested
+- Include attribution footer: `Generated with [Claude Code](https://claude.com/claude-code)`

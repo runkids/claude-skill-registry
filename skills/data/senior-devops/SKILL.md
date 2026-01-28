@@ -31,12 +31,14 @@ python scripts/deployment_manager.py [options]
 Automated tool for pipeline generator tasks.
 
 **Features:**
+
 - Automated scaffolding
 - Best practices built-in
 - Configurable templates
 - Quality checks
 
 **Usage:**
+
 ```bash
 python scripts/pipeline_generator.py <project-path> [options]
 ```
@@ -46,12 +48,14 @@ python scripts/pipeline_generator.py <project-path> [options]
 Comprehensive analysis and optimization tool.
 
 **Features:**
+
 - Deep analysis
 - Performance metrics
 - Recommendations
 - Automated fixes
 
 **Usage:**
+
 ```bash
 python scripts/terraform_scaffolder.py <target-path> [--verbose]
 ```
@@ -61,12 +65,14 @@ python scripts/terraform_scaffolder.py <target-path> [--verbose]
 Advanced tooling for specialized tasks.
 
 **Features:**
+
 - Expert-level automation
 - Custom configurations
 - Integration ready
 - Production-grade output
 
 **Usage:**
+
 ```bash
 python scripts/deployment_manager.py [arguments] [options]
 ```
@@ -105,41 +111,70 @@ Technical reference guide in `references/deployment_strategies.md`:
 
 ## Tech Stack
 
-**Languages:** Rust
-**Frontend:** Yew (WebAssembly)
-**Backend:** Axum, REST APIs
-**Database:** SQLite, PostgreSQL
-**DevOps:** Docker, Terraform, GitHub Actions
-**Cloud:** AWS
+**Languages:** TypeScript, JavaScript, Python, Go, Swift, Kotlin
+**Frontend:** React, Next.js, React Native, Flutter
+**Backend:** Node.js, Express, GraphQL, REST APIs
+**Database:** PostgreSQL, Prisma, NeonDB, Supabase
+**DevOps:** Docker, Kubernetes, Terraform, GitHub Actions, CircleCI
+**Cloud:** AWS, GCP, Azure
 
 ## Development Workflow
 
-Refer to the detailed reference documentation:
-- `references/cicd_pipeline_guide.md` - CI/CD pipeline patterns
-- `references/infrastructure_as_code.md` - Terraform and IaC workflows
-- `references/deployment_strategies.md` - Deployment best practices
+### 1. Setup and Configuration
+
+```bash
+# Install dependencies
+npm install
+# or
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+```
+
+### 2. Run Quality Checks
+
+```bash
+# Use the analyzer script
+python scripts/terraform_scaffolder.py .
+
+# Review recommendations
+# Apply fixes
+```
+
+### 3. Implement Best Practices
+
+Follow the patterns and practices documented in:
+
+- `references/cicd_pipeline_guide.md`
+- `references/infrastructure_as_code.md`
+- `references/deployment_strategies.md`
 
 ## Best Practices Summary
 
 ### Code Quality
+
 - Follow established patterns
 - Write comprehensive tests
 - Document decisions
 - Review regularly
 
 ### Performance
+
 - Measure before optimizing
 - Use appropriate caching
 - Optimize critical paths
 - Monitor in production
 
 ### Security
+
 - Validate all inputs
 - Use parameterized queries
 - Implement proper authentication
 - Keep dependencies updated
 
 ### Maintainability
+
 - Write clear code
 - Use consistent naming
 - Add helpful comments
@@ -148,19 +183,20 @@ Refer to the detailed reference documentation:
 ## Common Commands
 
 ```bash
-# Development (Lightfriend)
-cargo build
-cargo test
-just up              # Docker Compose
-just logs-core       # View logs
+# Development
+npm run dev
+npm run build
+npm run test
+npm run lint
 
-# Infrastructure Analysis (if using helper scripts)
+# Analysis
 python scripts/terraform_scaffolder.py .
 python scripts/deployment_manager.py --analyze
 
 # Deployment
 docker build -t app:latest .
 docker-compose up -d
+kubectl apply -f k8s/
 ```
 
 ## Troubleshooting

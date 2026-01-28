@@ -1,327 +1,281 @@
 ---
 name: interaction-design
-description: Design and implement microinteractions, motion design, transitions, and user feedback patterns. Use when adding polish to UI interactions, implementing loading states, or creating delightful user experiences.
+description: Design meaningful interactions and microinteractions. Create delightful user experiences through thoughtful animation, feedback, and responsive interface design.
 ---
 
 # Interaction Design
 
-Create engaging, intuitive interactions through motion, feedback, and thoughtful state transitions that enhance usability and delight users.
+## Overview
 
-## When to Use This Skill
+Interaction design focuses on how users engage with systems, creating intuitive and delightful experiences through feedback and responsiveness.
 
-- Adding microinteractions to enhance user feedback
-- Implementing smooth page and component transitions
-- Designing loading states and skeleton screens
-- Creating gesture-based interactions
-- Building notification and toast systems
-- Implementing drag-and-drop interfaces
-- Adding scroll-triggered animations
-- Designing hover and focus states
+## When to Use
 
-## Core Principles
+- Designing user flows and touchpoints
+- Creating animations and transitions
+- Defining error and loading states
+- Building microinteractions
+- Improving usability and feedback
+- Mobile interaction patterns
 
-### 1. Purposeful Motion
+## Instructions
 
-Motion should communicate, not decorate:
+### 1. **Interaction Patterns**
 
-- **Feedback**: Confirm user actions occurred
-- **Orientation**: Show where elements come from/go to
-- **Focus**: Direct attention to important changes
-- **Continuity**: Maintain context during transitions
+```yaml
+Common Interaction Patterns:
 
-### 2. Timing Guidelines
+Swipe:
+  Use: Mobile lists, carousels
+  Feedback: Visual sliding, momentum
+  Accessibility: Keyboard alternative (arrows)
 
-| Duration  | Use Case                                  |
-| --------- | ----------------------------------------- |
-| 100-150ms | Micro-feedback (hovers, clicks)           |
-| 200-300ms | Small transitions (toggles, dropdowns)    |
-| 300-500ms | Medium transitions (modals, page changes) |
-| 500ms+    | Complex choreographed animations          |
+Tap & Hold:
+  Use: Context menus, drag prep
+  Feedback: Visual feedback after delay
+  Duration: ~500ms before trigger
 
-### 3. Easing Functions
+Pinch & Zoom:
+  Use: Image viewing, maps
+  Feedback: Smooth zoom animation
+  Boundaries: Set min/max zoom levels
 
-```css
-/* Common easings */
---ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* Decelerate - entering */
---ease-in: cubic-bezier(0.55, 0, 1, 0.45); /* Accelerate - exiting */
---ease-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* Both - moving between */
---spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* Overshoot - playful */
+Drag & Drop:
+  Use: Reordering, moving items
+  Feedback: Visual during drag, drop confirmation
+  Fallback: Alternative method (buttons)
+
+Double Tap:
+  Use: Zoom, favorite, select
+  Feedback: Immediate visual response
+  Conflict: Avoid 300ms delay confusion
+
+---
+
+## Microinteractions
+
+Loading States:
+  - Show immediately for >0.5s waits
+  - Animate progress bar for long waits
+  - Show percentage for determinate progress
+  - Skeleton screens for content
+
+Empty States:
+  - Show friendly illustration
+  - Explain what's empty
+  - Provide action to fill (CTA)
+  - Consider helpful suggestions
+
+Error States:
+  - Clear error message (what, why, how to fix)
+  - Highlight error field
+  - Provide recovery action
+  - Don't repeat error on retry
+
+Success Feedback:
+  - Confirmation message (1-2 seconds)
+  - Subtle animation or sound
+  - Clear next step or action
+
+Pull-to-Refresh:
+  - Familiar mobile pattern
+  - Clear visual feedback during pull
+  - Confirmation when complete
+  - Alternative: Manual refresh button
 ```
 
-## Quick Start: Button Microinteraction
+### 2. **Animation & Transition Design**
 
-```tsx
-import { motion } from "framer-motion";
+```python
+# Define animations and transitions
 
-export function InteractiveButton({ children, onClick }) {
-  return (
-    <motion.button
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-    >
-      {children}
-    </motion.button>
-  );
-}
-```
-
-## Interaction Patterns
-
-### 1. Loading States
-
-**Skeleton Screens**: Preserve layout while loading
-
-```tsx
-function CardSkeleton() {
-  return (
-    <div className="animate-pulse">
-      <div className="h-48 bg-gray-200 rounded-lg" />
-      <div className="mt-4 h-4 bg-gray-200 rounded w-3/4" />
-      <div className="mt-2 h-4 bg-gray-200 rounded w-1/2" />
-    </div>
-  );
-}
-```
-
-**Progress Indicators**: Show determinate progress
-
-```tsx
-function ProgressBar({ progress }: { progress: number }) {
-  return (
-    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-      <motion.div
-        className="h-full bg-blue-600"
-        initial={{ width: 0 }}
-        animate={{ width: `${progress}%` }}
-        transition={{ ease: "easeOut" }}
-      />
-    </div>
-  );
-}
-```
-
-### 2. State Transitions
-
-**Toggle with smooth transition**:
-
-```tsx
-function Toggle({ checked, onChange }) {
-  return (
-    <button
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className={`
-        relative w-12 h-6 rounded-full transition-colors duration-200
-        ${checked ? "bg-blue-600" : "bg-gray-300"}
-      `}
-    >
-      <motion.span
-        className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow"
-        animate={{ x: checked ? 24 : 0 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      />
-    </button>
-  );
-}
-```
-
-### 3. Page Transitions
-
-**Framer Motion layout animations**:
-
-```tsx
-import { AnimatePresence, motion } from "framer-motion";
-
-function PageTransition({ children, key }) {
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={key}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.3 }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
-  );
-}
-```
-
-### 4. Feedback Patterns
-
-**Ripple effect on click**:
-
-```tsx
-function RippleButton({ children, onClick }) {
-  const [ripples, setRipples] = useState([]);
-
-  const handleClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ripple = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      id: Date.now(),
-    };
-    setRipples((prev) => [...prev, ripple]);
-    setTimeout(() => {
-      setRipples((prev) => prev.filter((r) => r.id !== ripple.id));
-    }, 600);
-    onClick?.(e);
-  };
-
-  return (
-    <button onClick={handleClick} className="relative overflow-hidden">
-      {children}
-      {ripples.map((ripple) => (
-        <span
-          key={ripple.id}
-          className="absolute bg-white/30 rounded-full animate-ripple"
-          style={{ left: ripple.x, top: ripple.y }}
-        />
-      ))}
-    </button>
-  );
-}
-```
-
-### 5. Gesture Interactions
-
-**Swipe to dismiss**:
-
-```tsx
-function SwipeCard({ children, onDismiss }) {
-  return (
-    <motion.div
-      drag="x"
-      dragConstraints={{ left: 0, right: 0 }}
-      onDragEnd={(_, info) => {
-        if (Math.abs(info.offset.x) > 100) {
-          onDismiss();
+class InteractionDesign:
+    def define_animation(self, interaction):
+        """Specify animation properties"""
+        return {
+            'trigger': interaction.trigger,  # Click, hover, load
+            'element': interaction.element,
+            'animation': {
+                'type': interaction.animation_type,  # Fade, slide, scale
+                'duration': interaction.duration,     # 200-400ms typical
+                'easing': interaction.easing_fn,      # Ease-in-out
+                'delay': interaction.delay_ms
+            },
+            'purpose': interaction.purpose,  # Feedback, guidance, delight
+            'platform': ['Desktop', 'Mobile'],  # Platform-specific
+            'accessibility': {
+                'respects_prefers_reduced_motion': True,
+                'non_distract': 'Critical interactions only'
+            }
         }
-      }}
-      className="cursor-grab active:cursor-grabbing"
-    >
-      {children}
-    </motion.div>
-  );
-}
+
+    def define_transitions(self):
+        """Page/screen transitions"""
+        return {
+            'navigation_forward': {
+                'animation': 'Slide right',
+                'duration': '300ms',
+                'easing': 'ease-out'
+            },
+            'navigation_back': {
+                'animation': 'Slide left',
+                'duration': '300ms',
+                'easing': 'ease-out'
+            },
+            'modal_open': {
+                'animation': 'Fade + Scale up',
+                'duration': '200ms',
+                'easing': 'ease-out'
+            },
+            'modal_close': {
+                'animation': 'Fade + Scale down',
+                'duration': '150ms',
+                'easing': 'ease-in'
+            }
+        }
+
+    def animation_guidelines(self):
+        """Best practices for animation"""
+        return {
+            'duration': {
+                'micro_interactions': '100-200ms',
+                'transitions': '200-400ms',
+                'entrance_animations': '300-500ms',
+                'avoid': '>500ms (feels sluggish)'
+            },
+            'easing': {
+                'entrance': 'Ease out (fast start, slow end)',
+                'exit': 'Ease in (slow start, fast end)',
+                'focus': 'Ease-in-out for smooth feel'
+            },
+            'purpose': [
+                'Provide feedback',
+                'Guide user attention',
+                'Communicate state change',
+                'Delight users',
+                'Avoid: Distraction, slowness'
+            ]
+        }
 ```
 
-## CSS Animation Patterns
+### 3. **Error Handling & Feedback**
 
-### Keyframe Animations
+```yaml
+Error State Design:
 
-```css
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+Primary Error Message:
+  "Payment declined"  (clear, non-technical)
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
+Secondary Explanation:
+  "Your card was declined by the bank. This might be due to
+  insufficient funds, security concerns, or an expired card."
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+Recovery Action:
+  [ Retry Payment ] [ Use Different Card ] [ Contact Support ]
 
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-out;
-}
-.animate-pulse {
-  animation: pulse 2s ease-in-out infinite;
-}
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
+Form Field Errors:
+  - Highlight field with error color (red)
+  - Show error icon
+  - Place error message near field
+  - Show error on blur, not on keystroke
+
+Form Validation:
+  - Real-time validation for good UX
+  - Server-side validation for security
+  - Show success state after valid input
+  - Clear error when corrected
+
+---
+
+Success States:
+
+Confirmation Message:
+  "Payment successful!"
+  Duration: 2-3 seconds
+  Action: Auto-dismiss or click to close
+
+Next Step:
+  - Order confirmation email sent
+  - What happens next?
+  - Related actions
+
+Visual Feedback:
+  - Check mark animation
+  - Subtle celebration animation
+  - Sound (optional, if enabled)
 ```
 
-### CSS Transitions
+### 4. **Accessibility in Interactions**
 
-```css
-.card {
-  transition:
-    transform 0.2s ease-out,
-    box-shadow 0.2s ease-out;
-}
+```javascript
+// Ensure interactions are accessible
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-```
-
-## Accessibility Considerations
-
-```css
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+class AccessibleInteractions {
+  ensureKeyboardAccess() {
+    return {
+      tab_order: 'Logical, top-to-bottom',
+      focus_visible: 'Clear focus indicator (not removed)',
+      enter_key: 'Activates buttons and links',
+      space_key: 'Activates buttons',
+      escape_key: 'Closes modals and menus',
+      arrow_keys: 'Navigate lists, menus, carousels'
+    };
   }
-}
-```
 
-```tsx
-function AnimatedComponent() {
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  respectMotionPreferences() {
+    return {
+      prefers_reduced_motion: {
+        media_query: '@media (prefers-reduced-motion: reduce)',
+        actions: [
+          'Disable animations',
+          'Reduce animation duration',
+          'Remove parallax effects',
+          'Disable autoplay'
+        ]
+      }
+    };
+  }
 
-  return (
-    <motion.div
-      animate={{ opacity: 1 }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
-    />
-  );
+  screenReaderConsiderations() {
+    return {
+      announcements: 'Use ARIA live regions for updates',
+      feedback: 'Provide screen reader feedback for interactions',
+      labels: 'Clear, descriptive button labels',
+      states: 'Announce state changes (expanded, selected)'
+    };
+  }
 }
 ```
 
 ## Best Practices
 
-1. **Performance First**: Use `transform` and `opacity` for smooth 60fps
-2. **Reduce Motion Support**: Always respect `prefers-reduced-motion`
-3. **Consistent Timing**: Use a timing scale across the app
-4. **Natural Physics**: Prefer spring animations over linear
-5. **Interruptible**: Allow users to cancel long animations
-6. **Progressive Enhancement**: Work without JS animations
-7. **Test on Devices**: Performance varies significantly
+### ✅ DO
+- Keep animations under 400ms
+- Provide clear visual feedback
+- Use animations to guide attention
+- Respect motion preferences
+- Make interactions reversible
+- Test with keyboard and screen readers
+- Provide multiple interaction methods
+- Design for touch and mouse
+- Use appropriate easing curves
+- Document interaction behavior
 
-## Common Issues
+### ❌ DON'T
+- Animate for decoration only
+- Use animations longer than 500ms
+- Ignore motion-sensitive users
+- Remove focus indicators
+- Trap users in modals
+- Use confusing animations
+- Animate everything
+- Ignore loading states
+- Forget error states
+- Skip accessibility testing
 
-- **Janky Animations**: Avoid animating `width`, `height`, `top`, `left`
-- **Over-animation**: Too much motion causes fatigue
-- **Blocking Interactions**: Never prevent user input during animations
-- **Memory Leaks**: Clean up animation listeners on unmount
-- **Flash of Content**: Use `will-change` sparingly for optimization
+## Interaction Design Tips
 
-## Resources
-
-- [Framer Motion Documentation](https://www.framer.com/motion/)
-- [CSS Animation Guide](https://web.dev/animations-guide/)
-- [Material Design Motion](https://m3.material.io/styles/motion/overview)
-- [GSAP Animation Library](https://greensock.com/gsap/)
+- Animation should feel instant (<200ms) or natural (300-500ms)
+- Use consistent easing across experience
+- Pair animations with haptic feedback on mobile
+- Test animations on actual devices

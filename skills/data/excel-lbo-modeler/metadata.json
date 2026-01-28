@@ -1,9 +1,7 @@
 {
   "name": "excel-lbo-modeler",
-  "description": "Create leveraged buyout (LBO) models in Excel with sources & uses, debt schedules, cash flow waterfalls, and IRR calculations for private equity analysis Activates when you request \"excel lbo modeler\"",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/excel-lbo-modeler/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:43.149992Z"
 }

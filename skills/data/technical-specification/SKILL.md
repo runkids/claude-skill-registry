@@ -1,124 +1,126 @@
 ---
 name: technical-specification
-description: Creates detailed technical specifications for software projects covering requirements, architecture, APIs, and testing strategies. Use when planning features, documenting system design, or creating architecture decision records.
+description: "Build validated specifications from source material through collaborative refinement. Use when: (1) User asks to create/build a specification from source material, (2) User wants to validate and refine content before planning, (3) Converting source material (discussions, research, requirements) into standalone specifications, (4) User says 'specify this' or 'create a spec', (5) Need to filter hallucinations and enrich gaps before formal planning. Creates specifications in docs/workflow/specification/{topic}.md that can be used to build implementation plans."
 ---
 
 # Technical Specification
 
-Create comprehensive technical specifications for software projects.
+Act as **expert technical architect** and **specification builder**. Collaborate with the user to transform source material into validated, standalone specifications.
 
-## Specification Template
+Your role is to synthesize reference material, present it for validation, and build a specification that formal planning can execute against.
 
-```markdown
-# Technical Specification: [Feature Name]
+## Purpose in the Workflow
 
-## Metadata
-- **Status**: Draft | In Review | Approved
-- **Author**: [Name]
-- **Reviewers**: [Names]
-- **Last Updated**: [Date]
+This skill can be used:
+- **Sequentially**: After source material has been captured (discussions, research, etc.)
+- **Standalone**: With reference material from any source (research docs, conversation transcripts, design documents, inline feature description)
 
-## Executive Summary
-[2-3 sentences: What problem does this solve? What's the proposed solution?]
+Either way: Transform unvalidated reference material into a specification that's **standalone and approved**.
 
-## Background & Context
-- Current pain points
-- Why now?
-- Related work
+### What This Skill Needs
 
-## Goals
-### Primary Goals
-1. [Measurable goal]
+- **Source material** (required) - One or more sources to synthesize into a specification. Can be:
+  - Discussion documents or research notes (single or multiple)
+  - Inline feature descriptions
+  - Requirements docs, design documents, or transcripts
+  - Any other reference material
+- **Topic name** (required) - Used for the output filename
 
-### Non-Goals
-- [What this spec explicitly does NOT cover]
+**Before proceeding**, verify all required inputs are available and unambiguous. If anything is missing or unclear, **STOP** — do not proceed until resolved.
 
-## Functional Requirements
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| FR-1 | [Description] | P0 |
-| FR-2 | [Description] | P1 |
+- **No source material provided?**
+  > "I need source material to build a specification from. Could you point me to the source files (e.g., `docs/workflow/discussion/{topic}.md`), or provide the content directly?"
 
-## Non-Functional Requirements
-- **Performance**: Response time < 200ms
-- **Scalability**: Support 10K concurrent users
-- **Availability**: 99.9% uptime
-- **Security**: [Requirements]
+- **No topic name provided?**
+  > "What should the specification be named? This determines the output file: `docs/workflow/specification/{name}.md`."
 
-## Technical Design
+- **Source material seems incomplete or unclear?**
+  > "I have the source material, but {concern}. Should I proceed as-is, or is there additional material I should review?"
 
-### Architecture
-[Diagram or description]
+**Multiple sources:** When multiple sources are provided, extract exhaustively from ALL of them. Content may be scattered across sources - a decision in one may have constraints or details in another. The specification consolidates everything into a single standalone document.
 
-### API Design
-```
-POST /api/v1/resource
-Request: { "field": "value" }
-Response: { "id": "123", "field": "value" }
-```
+## The Process
 
-### Database Schema
-```sql
-CREATE TABLE resources (
-  id UUID PRIMARY KEY,
-  field VARCHAR(255)
-);
-```
+**Load**: [specification-guide.md](references/specification-guide.md)
 
-## Implementation Plan
-| Phase | Timeline | Deliverables |
-|-------|----------|--------------|
-| 1 | Week 1-2 | Core functionality |
-| 2 | Week 3 | API endpoints |
-| 3 | Week 4 | Testing & docs |
+**Output**: `docs/workflow/specification/{topic}.md`
 
-## Testing Strategy
-- Unit tests: 80% coverage
-- Integration tests: API endpoints
-- E2E tests: Critical flows
+**When complete**: User signs off on the specification.
 
-## Risks & Mitigations
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| [Risk] | Medium | High | [Plan] |
+### Post-Completion: Handle Source Specifications
 
-## Success Criteria
-- [ ] All P0 requirements implemented
-- [ ] Tests passing
-- [ ] Performance targets met
-- [ ] Documentation complete
-```
+If any of your sources were **existing specifications** (as opposed to discussions, research, or other reference material), these have now been consolidated into the new specification.
 
-## Full Template
+After user signs off:
+1. Mark each source specification as superseded by updating its frontmatter:
+   ```yaml
+   status: superseded
+   superseded_by: {new-specification-name}
+   ```
+2. Inform the user which files were updated
 
-See [references/template.md](references/template.md) for a comprehensive copy-paste template including:
-- Complete metadata section
-- Success metrics tables
-- Architecture diagrams
-- Detailed API design sections
-- Security threat analysis
-- Monitoring & observability
-- Risk assessment matrix
-- Rollout and rollback plans
-- Dependencies tracking
-- Open questions section
+## CRITICAL: You Do NOT Create or Update the Specification Autonomously
 
-## Best Practices
+**This is a collaborative, interactive process. You MUST wait for explicit user approval before writing ANYTHING to the specification file.**
 
-**Do:**
-- Include measurable acceptance criteria
-- Add architecture diagrams
-- Define explicit API contracts
-- Quantify performance targets
-- Document risks and mitigations
-- Get stakeholder review before implementation
-- Include security considerations
-- Define rollback procedures
+❌ **NEVER:**
+- Create the specification document and then ask the user to review it
+- Write multiple sections and present them for review afterward
+- Assume silence or moving on means approval
+- Make "minor" amendments without explicit approval
+- Batch up content and log it all at once
 
-**Don't:**
-- Use vague requirements ("fast", "scalable")
-- Skip non-functional requirements
-- Ignore security considerations
-- Leave alternatives unexplored
-- Omit testing strategy
-- Forget dependencies and risks
+✅ **ALWAYS:**
+- Present ONE topic at a time
+- **STOP and WAIT** for the user to explicitly approve before writing
+- Treat each write operation as requiring its own explicit approval
+
+**What counts as approval:** "Log it" (the standard choice you present) or equivalent: "Yes", "Approved", "Add it", "That's good".
+
+**What does NOT count as approval:** Silence, you presenting choices, the user asking a follow-up question, the user saying "What's next?", or any response that isn't explicit confirmation.
+
+If you are uncertain whether the user approved, **ASK**: "Would you like me to log it, or do you want to adjust something?"
+
+---
+
+## What You Do
+
+1. **Extract exhaustively**: For each topic, re-scan ALL source materials. When working with multiple sources, search each one - information about a single topic may be scattered across documents. Search for keywords and related terms. Collect everything before synthesizing. Include only what we're building (not discarded alternatives).
+
+2. **Filter**: Reference material may contain hallucinations, inaccuracies, or outdated concepts. Validate before including.
+
+3. **Enrich**: Reference material may have gaps. Fill them through discussion.
+
+4. **Present**: Synthesize and present content to the user in the format it would appear in the specification.
+
+5. **STOP AND WAIT**: Do not proceed until the user explicitly approves. This is not optional.
+
+6. **Log**: Only after explicit approval, write content verbatim to the specification.
+
+7. **Final review**: After all topics and dependencies are documented, perform a comprehensive review of ALL source material against the specification. Flag any potentially missed content to the user - but only from the sources, never fabricated. User confirms before any additions.
+
+The specification is the **golden document** - planning uses only this. If information doesn't make it into the specification, it won't be built. No references back to source material.
+
+## Critical Rules
+
+**STOP AND WAIT FOR APPROVAL**: You MUST NOT write to the specification until the user has explicitly approved. Presenting content is NOT approval. Presenting choices is NOT approval. You must receive explicit confirmation (e.g., "Log it") before ANY write operation. If uncertain, ASK.
+
+**Log verbatim**: When approved, write exactly what was presented - no silent modifications.
+
+**Commit frequently**: Commit at natural breaks, after significant exchanges, and before any context refresh. Context refresh = lost work.
+
+**Trust nothing without validation**: Synthesize and present, but never assume source material is correct.
+
+**Surface conflicts**: When sources contain conflicting decisions, flag the conflict to the user during the discussion. Don't silently pick one - let the user decide what makes it into the specification.
+
+---
+
+## Self-Check: Are You Following the Rules?
+
+Before ANY write operation to the specification, ask yourself:
+
+1. **Did I present this specific content to the user?** If no → STOP. Present it first.
+2. **Did the user explicitly approve it?** (Not "did I ask if it's good" - did THEY say yes?) If no → STOP. Wait for approval.
+3. **Am I writing exactly what was approved?** If adding/changing anything → STOP. Present the changes first.
+
+> **If you have written to the specification file without going through steps 1-2-3 above, you have violated the workflow.** The user must approve every piece of content before it's logged. There are no exceptions.

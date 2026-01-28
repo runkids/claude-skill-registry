@@ -1,7 +1,7 @@
 {
   "name": "nextjs-16",
-  "repo": "fusengine/agents",
-  "path": "plugins/nextjs-expert/skills/nextjs-16/SKILL.md",
-  "source": "github.com/fusengine/agents",
-  "downloaded_at": "2026-01-27T04:25:03.147185Z"
+  "repo": "mjunaidca/mjs-agent-skills",
+  "path": "docs/taskflow-vault/skills/engineering/nextjs-16/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-28T03:33:57.686955Z"
 }

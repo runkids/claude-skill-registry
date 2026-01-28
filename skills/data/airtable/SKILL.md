@@ -1,208 +1,173 @@
 ---
 name: airtable
-description: Access Airtable bases, tables, and records. Query data, search records, and read structured information.
+description: Enables Claude to create, manage, and query databases in Airtable via Playwright MCP
+category: productivity
 ---
 
-# Airtable Integration
+# Airtable Skill
 
-This skill provides access to Airtable bases and tables via the Airtable REST API.
+## Overview
+Claude can manage your Airtable bases to create databases, add records, build views, and create automations. A flexible database platform that combines spreadsheet simplicity with database power.
 
-## Setup Required
-
-**Create a Personal Access Token:**
-
-1. Go to https://airtable.com/create/tokens
-2. Click "Create new token"
-3. Give it a name (e.g., "Claude Code")
-4. Add scopes:
-   - `data.records:read` - Read records
-   - `schema.bases:read` - Read base schema
-5. Add access to the bases you want to query
-6. Create and copy the token
-
-Set the token as an environment variable:
-```bash
-export AIRTABLE_TOKEN="pat..."
-```
-
-## When to Use
-
-Use this skill when the user:
-- Asks about data stored in Airtable
-- Wants to query or search Airtable records
-- Needs to look up information in a base
-- Mentions "Airtable" or specific base/table names
-
-## API Endpoints
-
-Base URL: `https://api.airtable.com/v0`
-
-All requests need:
-```bash
--H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
-```
-
-### List Bases
-
-**Get All Bases**:
-```bash
-curl -s "https://api.airtable.com/v0/meta/bases" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)" | jq '.bases[] | {name, id}'
-```
-
-### Get Base Schema
-
-**Get Tables and Fields**:
-```bash
-curl -s "https://api.airtable.com/v0/meta/bases/{BASE_ID}/tables" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
-```
-
-### List Records
-
-**Get Records from Table**:
-```bash
-curl -s "https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
-```
-
-**With Pagination**:
-```bash
-curl -s "https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}?pageSize=100" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
-```
-
-### Filter Records
-
-**Using Formula Filter**:
-```bash
-curl -s -G "https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}" \
-  --data-urlencode "filterByFormula={Status}='Active'" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
-```
-
-**Multiple Conditions**:
-```bash
-curl -s -G "https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}" \
-  --data-urlencode "filterByFormula=AND({Status}='Active', {Priority}='High')" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
-```
-
-### Sort Records
+## Quick Install
 
 ```bash
-curl -s -G "https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}" \
-  --data-urlencode "sort[0][field]=Created" \
-  --data-urlencode "sort[0][direction]=desc" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
+curl -sSL https://canifi.com/skills/airtable/install.sh | bash
 ```
 
-### Select Specific Fields
+Or manually:
+```bash
+cp -r skills/airtable ~/.canifi/skills/
+```
+
+## Setup
+
+Configure via [canifi-env](https://canifi.com/setup/scripts):
 
 ```bash
-curl -s -G "https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}" \
-  --data-urlencode "fields[]=Name" \
-  --data-urlencode "fields[]=Status" \
-  --data-urlencode "fields[]=Due Date" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
+
+canifi-env set AIRTABLE_EMAIL "your-email@example.com"
 ```
 
-### Get Single Record
+## Privacy & Authentication
 
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
+
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
+
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
 ```bash
-curl -s "https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}/{RECORD_ID}" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
-## Formula Syntax
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
 
-Airtable formulas for filtering:
+## Capabilities
+- Create and manage bases
+- Add and edit records
+- Create tables with custom fields
+- Build filtered views
+- Create forms for data entry
+- Set up automations
+- Link between tables
+- Create interfaces
+- Generate reports
+- Use extensions
+- Import/export data
+- Build apps on data
 
-| Formula | Description |
-|---------|-------------|
-| `{Field}='Value'` | Exact match |
-| `{Field}!='Value'` | Not equal |
-| `FIND('text', {Field})` | Contains text |
-| `{Field}>100` | Numeric comparison |
-| `IS_AFTER({Date}, '2024-01-01')` | Date after |
-| `IS_BEFORE({Date}, '2024-01-01')` | Date before |
-| `{Checkbox}=TRUE()` | Checkbox is checked |
-| `{Field}=BLANK()` | Field is empty |
-| `AND(cond1, cond2)` | Both conditions |
-| `OR(cond1, cond2)` | Either condition |
-| `NOT(condition)` | Negation |
+## Usage Examples
 
-## Common Workflows
-
-### List All Bases
-```bash
-curl -s "https://api.airtable.com/v0/meta/bases" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)" | jq '.bases[] | {name, id}'
+### Example 1: Add Record
+```
+User: "Add a new contact to the CRM base: John Smith, john@example.com"
+Claude: Opens CRM base, adds record with name and email.
+        Confirms: "Contact added: John Smith"
 ```
 
-### Explore a Base's Structure
-```bash
-BASE_ID="appXXXXXXXX"
-curl -s "https://api.airtable.com/v0/meta/bases/${BASE_ID}/tables" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)" | jq '.tables[] | {name, id, fields: [.fields[].name]}'
+### Example 2: Query Data
+```
+User: "Show me all high-priority tasks in Airtable"
+Claude: Opens Tasks table, filters by priority.
+        Reports: "5 high-priority tasks: Design review, API update..."
 ```
 
-### Get Recent Records
-```bash
-BASE_ID="appXXXXXXXX"
-TABLE="Tasks"
-curl -s -G "https://api.airtable.com/v0/${BASE_ID}/${TABLE}" \
-  --data-urlencode "sort[0][field]=Created" \
-  --data-urlencode "sort[0][direction]=desc" \
-  --data-urlencode "pageSize=10" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)" | jq '.records[] | .fields'
+### Example 3: Create View
+```
+User: "Create a view showing only overdue items"
+Claude: Creates filtered view with due date < today.
+        Confirms: "Created 'Overdue Items' view"
 ```
 
-### Search for Records
-```bash
-BASE_ID="appXXXXXXXX"
-TABLE="Contacts"
-curl -s -G "https://api.airtable.com/v0/${BASE_ID}/${TABLE}" \
-  --data-urlencode "filterByFormula=FIND('John', {Name})" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
+### Example 4: Update Record
+```
+User: "Mark the Johnson deal as closed-won"
+Claude: Finds record, updates status field.
+        Confirms: "Johnson deal status updated to Closed-Won"
 ```
 
-### Filter by Status
-```bash
-curl -s -G "https://api.airtable.com/v0/${BASE_ID}/${TABLE}" \
-  --data-urlencode "filterByFormula={Status}='In Progress'" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)" | jq '.records[] | {name: .fields.Name, status: .fields.Status}'
+## Authentication Flow
+1. Claude navigates to airtable.com via Playwright MCP
+2. Enters AIRTABLE_EMAIL for authentication
+3. Handles 2FA if required (notifies user via iMessage)
+4. Maintains session for database operations
+
+## Selectors Reference
+```javascript
+// Base list
+'.bases-list'
+
+// Table tabs
+'.tableTabList'
+
+// Record rows
+'.dataRow'
+
+// Cell content
+'.cellContainer'
+
+// Add record button
+'[aria-label="Add record"]'
+
+// Field input
+'.cellInput'
+
+// View menu
+'.viewMenuButton'
+
+// Create view
+'.addViewButton'
+
+// Filter button
+'[aria-label="Filter"]'
+
+// Sort button
+'[aria-label="Sort"]'
 ```
 
-## Finding Base and Table IDs
-
-**Base ID**: Found in the Airtable URL: `https://airtable.com/{BASE_ID}/...`
-- Starts with `app`
-
-**Table Name**: Use the exact table name from Airtable (URL-encode spaces)
-- Or use table ID (starts with `tbl`) from the schema endpoint
-
-**Record ID**: Starts with `rec`, found in record URLs or API responses
-
-## Pagination
-
-Responses are paginated (max 100 records per request). Use the `offset` parameter:
-
-```bash
-# First request
-curl -s "https://api.airtable.com/v0/${BASE_ID}/${TABLE}?pageSize=100" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
-
-# If response includes "offset", use it for next page
-curl -s "https://api.airtable.com/v0/${BASE_ID}/${TABLE}?pageSize=100&offset={OFFSET_FROM_RESPONSE}" \
-  -H "Authorization: Bearer $(printenv AIRTABLE_TOKEN)"
+## Field Types
 ```
+Text            // Single line or long text
+Number          // Integer or decimal
+Select          // Single or multi-select
+Date            // Date with optional time
+Checkbox        // Boolean true/false
+Link            // Link to another record
+Attachment      // Files and images
+Formula         // Calculated fields
+Rollup          // Aggregate linked records
+Lookup          // Pull fields from linked records
+```
+
+## Error Handling
+- **Login Failed**: Retry 3 times, notify user via iMessage
+- **Session Expired**: Re-authenticate automatically
+- **Base Not Found**: List available bases, ask user
+- **Record Create Failed**: Retry, check required fields
+- **Formula Error**: Identify syntax issue, suggest fix
+- **Permission Denied**: Notify user of access issue
+
+## Self-Improvement Instructions
+When you learn a better way to accomplish a task with Airtable:
+1. Document the improvement in your response
+2. Suggest updating this skill file with the new approach
+3. Include specific base organization patterns
+4. Note useful formula techniques
 
 ## Notes
-
-- Rate limit: 5 requests/second per base
-- Max 100 records per request
-- Field names are case-sensitive
-- URL-encode table names with spaces
-- Linked records return record IDs; fetch separately if needed
-- Attachments return URLs that expire
+- Relational database with spreadsheet interface
+- Forms for external data collection
+- Automations for workflows
+- Extensions for added functionality
+- Interfaces for custom apps
+- Sync for external data sources
+- API for advanced integrations
+- Templates for common use cases

@@ -1,7 +1,7 @@
 {
   "name": "implementation-planning",
-  "repo": "ludiscan/ludiscan-webapp",
-  "path": ".claude/skills/implementation-planning/SKILL.md",
-  "source": "github.com/ludiscan/ludiscan-webapp",
-  "downloaded_at": "2026-01-27T03:45:57.353354Z"
+  "repo": "tachyon-beep/skillpacks",
+  "path": "plugins/axiom-planning/skills/implementation-planning/SKILL.md",
+  "source": "github.com/tachyon-beep/skillpacks",
+  "downloaded_at": "2026-01-28T03:30:23.734614Z"
 }

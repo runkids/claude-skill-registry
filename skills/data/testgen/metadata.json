@@ -1,11 +1,7 @@
 {
   "name": "testgen",
-  "description": "Generate tests using AI and run test suites. Use for generating unit tests, running coverage reports, and mutation testing.",
-  "repo": "johnlindquist/claude",
-  "category": "testing",
-  "tags": [
-    "testgen"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "NeverSight/skills.sh_feed",
+  "path": "data/skills-md/0xdarkmatter/claude-mods/testgen/SKILL.md",
+  "source": "github.com/NeverSight/skills.sh_feed",
+  "downloaded_at": "2026-01-28T02:26:13.611469Z"
 }

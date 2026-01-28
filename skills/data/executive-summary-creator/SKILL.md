@@ -1,18 +1,18 @@
 ---
-name: executive-summary-creator
+name: "executive-summary-creator"
 description: |
-  Executive Summary Creator - Auto-activating skill for Enterprise Workflows.
+  Create executive summary creator operations. Auto-activating skill for Enterprise Workflows.
   Triggers on: executive summary creator, executive summary creator
-  Part of the Enterprise Workflows skill category.
-allowed-tools: Read, Write, Edit, Bash
+  Part of the Enterprise Workflows skill category. Use when working with executive summary creator functionality. Trigger with phrases like "executive summary creator", "executive creator", "executive".
+allowed-tools: "Read, Write, Edit, Bash(cmd:*)"
 version: 1.0.0
 license: MIT
-author: Jeremy Longshore <jeremy@intentsolutions.io>
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 ---
 
 # Executive Summary Creator
 
-## Purpose
+## Overview
 
 This skill provides automated assistance for executive summary creator tasks within the Enterprise Workflows domain.
 
@@ -23,18 +23,48 @@ This skill activates automatically when you:
 - Ask about executive summary creator patterns or best practices
 - Need help with enterprise workflow skills covering project management, compliance, governance, and enterprise integration patterns.
 
-## Capabilities
+## Instructions
 
-- Provides step-by-step guidance for executive summary creator
-- Follows industry best practices and patterns
-- Generates production-ready code and configurations
-- Validates outputs against common standards
+1. Provides step-by-step guidance for executive summary creator
+2. Follows industry best practices and patterns
+3. Generates production-ready code and configurations
+4. Validates outputs against common standards
 
-## Example Triggers
+## Examples
 
-- "Help me with executive summary creator"
-- "Set up executive summary creator"
-- "How do I implement executive summary creator?"
+**Example: Basic Usage**
+Request: "Help me with executive summary creator"
+Result: Provides step-by-step guidance and generates appropriate configurations
+
+
+## Prerequisites
+
+- Relevant development environment configured
+- Access to necessary tools and services
+- Basic understanding of enterprise workflows concepts
+
+
+## Output
+
+- Generated configurations and code
+- Best practice recommendations
+- Validation results
+
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Configuration invalid | Missing required fields | Check documentation for required parameters |
+| Tool not found | Dependency not installed | Install required tools per prerequisites |
+| Permission denied | Insufficient access | Verify credentials and permissions |
+
+
+## Resources
+
+- Official documentation for related tools
+- Best practices guides
+- Community examples and tutorials
 
 ## Related Skills
 

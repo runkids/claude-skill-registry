@@ -1,9 +1,7 @@
 {
   "name": "zustand-middleware",
-  "description": "Use when implementing Zustand middleware for persistence, dev tools, immutability, and other enhanced store functionality. Covers persist, devtools, immer, and custom middleware.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-zustand/skills/zustand-middleware/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:10.419795Z"
 }

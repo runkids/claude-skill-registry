@@ -20,9 +20,20 @@ Connect Claude Code to:
 - **Project Tools** - Jira, Linear, Slack
 
 **Token Optimization:**
-- Quick connection verification (200 tokens)
-- Minimal configuration (300 tokens)
-- Expected: 500-800 tokens
+- ✅ Bash-based connection verification (minimal tokens)
+- ✅ Template-based tool configuration (no file reads for templates)
+- ✅ Caching connection credentials and status
+- ✅ Early exit when tool already connected - saves 95%
+- ✅ Incremental connection setup (one tool at a time)
+- ✅ Minimal config file reads (only when needed)
+- **Expected tokens:** 300-800 (vs. 3,000-5,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/tools/connections.json`
+- Caches: Tool connection status, credentials (encrypted), capabilities
+- Cache validity: Until explicit disconnect or credential change
+- Shared with: `/mcp-setup`, `/github-integration`, `/database-connect` skills
 
 ## Phase 1: Connection Prerequisites
 

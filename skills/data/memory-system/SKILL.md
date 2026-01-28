@@ -1,107 +1,124 @@
 ---
 name: memory-system
-description: Use when persisting learnings, loading previous context, or searching past decisions - covers memory file structure, tools, and when to update each file
+description: Automatic documentation memory system for AI agents. Ensures context is loaded at session start and documentation is updated after changes.
+autoload: true
 ---
 
-# Memory System
+# Memory System Skill
 
-Persistent context that survives across sessions.
+This skill implements an automatic "memory palace" for Claude Code by ensuring:
 
-## Directory Structure
+1. Context is loaded at session start
+2. Documentation is checked before relevant tasks
+3. Documentation is updated after completing work
+
+## Quick Reference Map
+
+Before starting any task, check these files based on the work type:
+
+| Task Type       | Check First                                                       | Update After              |
+| --------------- | ----------------------------------------------------------------- | ------------------------- |
+| **Backend API** | `quikadmin/CLAUDE.md`, `docs/reference/api/endpoints.md`          | Same files                |
+| **Frontend**    | `quikadmin-web/CLAUDE.md`, `docs/reference/`                      | Same files                |
+| **Database**    | `prisma/schema.prisma`, `docs/reference/database/schema.md`       | Same files                |
+| **Auth**        | `docs/explanation/security-model.md`, `.claude/skills/auth-flow/` | Same files                |
+| **Deployment**  | `docs/how-to/deployment/`                                         | Same files                |
+| **New Feature** | `docs/tutorials/`, `docs/how-to/`                                 | Create new docs if needed |
+| **Bug Fix**     | `docs/how-to/troubleshooting/`                                    | Update if common issue    |
+
+## Documentation Update Triggers
+
+### ALWAYS Update Documentation When:
+
+1. **API Changes**
+   - Adding/modifying/removing endpoints
+   - Changing request/response schemas
+   - Update: `docs/reference/api/endpoints.md`
+
+2. **Environment Variables**
+   - Adding new env vars
+   - Update: `docs/reference/configuration/environment.md`, `.env.example`
+
+3. **Database Schema**
+   - Running migrations
+   - Update: `docs/reference/database/schema.md`
+
+4. **Architecture Changes**
+   - Modifying system structure
+   - Update: `docs/reference/architecture/system-overview.md`
+
+5. **New Patterns**
+   - Establishing new code patterns
+   - Update: Relevant `CLAUDE.md` file
+
+## Pre-Task Checklist (Mental Model)
+
+Before starting significant work, mentally run through:
 
 ```
-.opencode/memory/
-  _templates/     # Task templates (prd, observation, session-summary)
-  handoffs/       # Phase transitions
-  research/       # Research findings
-  observations/   # Structured observations
-  project/        # Persistent project knowledge
-    commands.md       # Build, test, lint, deploy commands
-    conventions.md    # Code patterns, commit style, PR process
-    gotchas.md        # Footguns, edge cases, "don't forget this"
-    architecture.md   # Key modules, directory structure
-  user.md         # Identity, preferences, communication style
+□ Have I read the relevant CLAUDE.md?
+□ Do I know where to find related documentation?
+□ Will this change require doc updates?
+□ Is there existing documentation I should follow?
 ```
 
-## Standard Memory Blocks
+## Post-Task Checklist
 
-| File                      | Purpose                  | Update When                 |
-| ------------------------- | ------------------------ | --------------------------- |
-| `project/commands.md`     | Build/test/lint commands | Discovering new command     |
-| `project/conventions.md`  | Code patterns, style     | Learning team pattern       |
-| `project/gotchas.md`      | Footguns, warnings       | Hitting unexpected behavior |
-| `project/architecture.md` | Key modules, structure   | Mapping new area            |
-| `user.md`                 | Preferences, workflow    | Learning user preference    |
+After completing work:
 
-## Explicit Memory Updates
-
-Don't rely on implicit learning. Explicitly persist:
-
-- Non-obvious project behavior → `project/gotchas.md`
-- User preferences discovered → `user.md`
-- New build/test commands → `project/commands.md`
-- Code patterns to follow → `project/conventions.md`
-
-## Memory Tools
-
-### memory-read
-
-Load previous context or templates:
-
-```typescript
-memory - read({ file: "project/commands" }); // Load commands
-memory - read({ file: "_templates/prd" }); // Load PRD template
-memory - read({ file: "handoffs/bd-abc123" }); // Load specific handoff
+```
+□ Did I change any API endpoints? → Update endpoints.md
+□ Did I add environment variables? → Update environment.md
+□ Did I change database schema? → Update schema.md
+□ Did I establish new patterns? → Update CLAUDE.md
+□ Did I fix a common issue? → Consider adding to troubleshooting
 ```
 
-### memory-update
+## Documentation Links Index
 
-Save learnings or handoffs:
+### Essential Context (Read These First)
 
-```typescript
-memory -
-  update({
-    file: "project/gotchas",
-    content: "### New Gotcha\n\nDescription...",
-    mode: "append", // or "replace"
-  });
+- `CLAUDE.local.md` - Project overview, quick commands
+- `quikadmin/CLAUDE.md` - Backend context (optimized)
+- `quikadmin-web/CLAUDE.md` - Frontend context
+
+### Reference (Look Up When Needed)
+
+- `docs/reference/api/endpoints.md` - API documentation
+- `docs/reference/architecture/system-overview.md` - System design
+- `docs/reference/database/schema.md` - Database models
+- `docs/reference/configuration/environment.md` - All env vars
+
+### How-To (Problem-Solving)
+
+- `docs/how-to/development/local-setup.md` - Setup guide
+- `docs/how-to/development/testing.md` - Testing guide
+- `docs/how-to/troubleshooting/` - Common issues
+
+### Understanding (Background)
+
+- `docs/explanation/security-model.md` - Auth architecture
+- `docs/explanation/data-flow.md` - Data pipeline
+- `docs/explanation/architecture-decisions.md` - Why decisions were made
+
+## Meta-Prompt: Self-Reminder
+
+When working on this project, I should:
+
+1. **Before starting**: Check if there's existing documentation for what I'm about to do
+2. **During work**: Note what documentation might need updating
+3. **After completing**: Update relevant documentation before marking task done
+4. **When unsure**: Check `docs/.meta/inventory.json` for documentation locations
+
+## Invocation
+
+This skill is designed to be automatically loaded. When you need documentation guidance:
+
+```
+/memory-system
 ```
 
-### memory-search
+Or ask:
 
-Find past decisions, research, or handoffs:
-
-```typescript
-memory - search({ query: "authentication" });
-memory - search({ query: "bugfix", type: "observations" });
-memory - search({ query: "session", type: "handoffs" });
-```
-
-## Observations
-
-Record important findings with structured metadata:
-
-```typescript
-observation({
-  type: "decision", // decision, bugfix, feature, pattern, discovery, learning, warning
-  title: "Use JWT auth",
-  content: "Decided to use JWT because...",
-  concepts: "auth, security",
-  files: "src/auth.ts",
-  bead_id: "bd-abc123",
-});
-```
-
-**When to create observations:**
-
-- Major architectural decisions
-- Bug root causes discovered
-- Patterns worth reusing
-- Gotchas and warnings for future
-
-## Best Practices
-
-1. **Read before work** - Check relevant memory files at session start
-2. **Update during work** - Don't wait until end; persist incrementally
-3. **Be specific** - Include file paths, function names, concrete examples
-4. **Keep it actionable** - Future agents should know what to do with the info
+- "What documentation should I check for [task]?"
+- "What should I update after [change]?"

@@ -1,29 +1,123 @@
 ---
 name: test
-description: >-
-  Frontend testing (Jest, Vitest, Playwright, Cypress). TODO: Implement for frontend.
-  Invoked by: "run tests", "test", "testing", "unit tests", "e2e tests".
-context: fork
-agent: general-purpose
+description: Testing patterns for PHPUnit and Playwright E2E tests. Use when writing tests, debugging test failures, setting up test coverage, or implementing test patterns for ActivityPub features.
 ---
 
-# Test
+# ActivityPub Testing
 
-**Status**: Stub - Not Implemented
-**Domain**: Frontend
+This skill provides guidance on writing and running tests for the WordPress ActivityPub plugin.
 
-## Overview
+## Quick Reference
 
-This is a placeholder skill for frontend repositories. It will guide running unit tests, component tests, integration tests, and end-to-end tests for frontend applications.
+For complete testing commands and environment setup, see [Testing Reference](../../../tests/README.md).
 
-## TODO
+### Key Commands
+- **PHP:** `npm run env-test`
+- **E2E:** `npm run test:e2e`
+- **JavaScript:** `npm run test:unit`
 
-- [ ] Define workflow for unit testing (Jest, Vitest)
-- [ ] Define workflow for component testing (Testing Library)
-- [ ] Define workflow for E2E testing (Playwright, Cypress)
-- [ ] Add templates for test plans and reports
-- [ ] Add supporting files for test configuration
+## PHPUnit Testing
 
----
+### Test Structure
 
-**End of Skill**
+```php
+<?php
+namespace Activitypub\Tests;
+
+use WP_UnitTestCase;
+
+class Test_Feature extends WP_UnitTestCase {
+    public function set_up(): void {
+        parent::set_up();
+        // Setup
+    }
+
+    public function tear_down(): void {
+        // Cleanup
+        parent::tear_down();
+    }
+
+    public function test_functionality() {
+        // Test implementation
+    }
+}
+```
+
+### Common Test Patterns
+
+For transformer and handler testing patterns, see [Testing Reference - Writing Effective Tests](../../../tests/README.md#writing-effective-tests).
+
+For mocking HTTP requests and other utilities, see [Testing Reference - Test Utilities](../../../tests/README.md#test-utilities).
+
+### Test Groups
+
+Use `@group` annotations:
+```php
+/**
+ * @group activitypub
+ * @group federation
+ */
+public function test_federation_feature() {
+    // Test code
+}
+```
+
+## E2E Testing with Playwright
+
+### Basic E2E Test
+
+```javascript
+const { test, expect } = require('@playwright/test');
+
+test('ActivityPub settings page loads', async ({ page }) => {
+    await page.goto('/wp-admin/options-general.php?page=activitypub');
+    await expect(page.locator('h1')).toContainText('ActivityPub');
+});
+```
+
+### Testing Federation
+
+```javascript
+test('WebFinger discovery works', async ({ page }) => {
+    const response = await page.request.get('/.well-known/webfinger', {
+        params: {
+            resource: 'acct:admin@localhost:8888'
+        }
+    });
+
+    expect(response.ok()).toBeTruthy();
+    const json = await response.json();
+    expect(json.subject).toBe('acct:admin@localhost:8888');
+});
+```
+
+## Test Data Factories
+
+For creating test data (users, posts, comments), see [Testing Reference - Test Utilities](../../../tests/README.md#test-utilities).
+
+## Coverage Reports
+
+See [Testing Reference](../../../tests/README.md) for detailed coverage generation instructions.
+
+## Debugging Tests
+
+### Debug Output
+
+```php
+// In tests
+var_dump( $data );
+error_log( print_r( $result, true ) );
+
+// Run with verbose
+npm run env-test -- --verbose --debug
+```
+
+### Isolating Tests
+
+```bash
+# Run single test method
+npm run env-test -- --filter=test_specific_method
+
+# Stop on first failure
+npm run env-test -- --stop-on-failure
+```

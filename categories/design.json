@@ -1,7 +1,7 @@
 {
   "category": "design",
-  "count": 5710,
-  "updated_at": "2026-01-27T04:46:39.695232Z",
+  "count": 5661,
+  "updated_at": "2026-01-28T04:46:46.539725Z",
   "skills": [
     {
       "name": "add-uint-support",
@@ -227,20 +227,6 @@
       "stars": 3950,
       "install": "EpicenterHQ/epicenter",
       "source": "github.com/EpicenterHQ/epicenter"
-    },
-    {
-      "name": "styling",
-      "description": "CSS and Tailwind styling guidelines. Use when writing styles, creating UI components, reviewing CSS/Tailwind code, or deciding on wrapper element structure.",
-      "repo": "EpicenterHQ/epicenter",
-      "path": "data/styling",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "styling"
-      ],
-      "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "styling",
@@ -6370,21 +6356,6 @@
       "name": "aspnet-configuration",
       "description": "Guide for ASP.NET Core configuration with appsettings.json, environment-specific settings, and the options pattern",
       "repo": "NotMyself/claude-stack-dotnet",
-      "path": "data/aspnet-configuration",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "aspnet",
-        "configuration"
-      ],
-      "stars": 5,
-      "install": "NotMyself/claude-stack-dotnet",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "aspnet-configuration",
-      "description": "Guide for ASP.NET Core configuration with appsettings.json, environment-specific settings, and the options pattern",
-      "repo": "NotMyself/claude-stack-dotnet",
       "path": ".claude/skills/aspnet-configuration",
       "branch": "main",
       "category": "design",
@@ -6395,21 +6366,6 @@
       "stars": 5,
       "install": "NotMyself/claude-stack-dotnet/.claude/skills/aspnet-configuration",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "commit-assistant",
-      "description": "Provides conventional commits guidance and auto-generates commit messages from git changes. Integrates with /ccpm:commit for automated git commits linked to Linear issues. Auto-activates when users as",
-      "repo": "duongdev/ccpm",
-      "path": "data/commit-assistant",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "commit",
-        "assistant"
-      ],
-      "stars": 5,
-      "install": "duongdev/ccpm",
-      "source": "local"
     },
     {
       "name": "commit-assistant",
@@ -6689,22 +6645,6 @@
       "name": "dotnet-centralized-packages",
       "description": "Guide for Centralized Package Management (CPM) using Directory.Packages.props in .NET projects",
       "repo": "NotMyself/claude-stack-dotnet",
-      "path": "data/dotnet-centralized-packages",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "dotnet",
-        "centralized",
-        "packages"
-      ],
-      "stars": 5,
-      "install": "NotMyself/claude-stack-dotnet",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dotnet-centralized-packages",
-      "description": "Guide for Centralized Package Management (CPM) using Directory.Packages.props in .NET projects",
-      "repo": "NotMyself/claude-stack-dotnet",
       "path": ".claude/skills/dotnet-centralized-packages",
       "branch": "main",
       "category": "design",
@@ -6821,6 +6761,20 @@
       ],
       "stars": 5,
       "install": "leaderiop/hex-di/.claude/skills/global-api-design",
+      "source": "local"
+    },
+    {
+      "name": "go-workflow",
+      "description": "Go project workflow guidelines. Activate when working with Go files (.go), go.mod, Go modules, golang, or Go-specific tooling.",
+      "repo": "ilude/claude-code-config",
+      "path": "data/go-workflow",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "workflow"
+      ],
+      "stars": 5,
+      "install": "ilude/claude-code-config",
       "source": "local"
     },
     {
@@ -7808,21 +7762,6 @@
       "name": "ios-ux-design",
       "description": "Activate this skill when analyzing iOS app UI/UX, evaluating iOS design patterns, proposing iOS interface improvements, or creating iOS implementation specifications. Provides deep expertise in Apple ",
       "repo": "mosif16/codex-Skills",
-      "path": "data/ios-ux-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "ios",
-        "design"
-      ],
-      "stars": 4,
-      "install": "mosif16/codex-Skills",
-      "source": "local"
-    },
-    {
-      "name": "ios-ux-design",
-      "description": "Activate this skill when analyzing iOS app UI/UX, evaluating iOS design patterns, proposing iOS interface improvements, or creating iOS implementation specifications. Provides deep expertise in Apple ",
-      "repo": "mosif16/codex-Skills",
       "path": "skills/ios-ux-design",
       "branch": "main",
       "category": "design",
@@ -8119,23 +8058,6 @@
       "name": "swiftui-multiplatform-design-guide",
       "description": "\"Unified SwiftUI architecture for iOS, iPadOS, macOS, and visionOS with spatial design principles.\"",
       "repo": "mosif16/codex-Skills",
-      "path": "data/swiftui-multiplatform-design-guide",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "swiftui",
-        "multiplatform",
-        "design",
-        "guide"
-      ],
-      "stars": 4,
-      "install": "mosif16/codex-Skills",
-      "source": "local"
-    },
-    {
-      "name": "swiftui-multiplatform-design-guide",
-      "description": "\"Unified SwiftUI architecture for iOS, iPadOS, macOS, and visionOS with spatial design principles.\"",
-      "repo": "mosif16/codex-Skills",
       "path": "skills/swiftui-multiplatform-design-guide",
       "branch": "main",
       "category": "design",
@@ -8177,20 +8099,6 @@
       ],
       "stars": 4,
       "install": "benshapyro/cadre-devkit-claude/skills/tailwind-conventions",
-      "source": "local"
-    },
-    {
-      "name": "tailwind-v4",
-      "description": "Tailwind CSS v4 with CSS-first configuration and design tokens. Use when setting up Tailwind v4, defining theme variables, using OKLCH colors, or configuring dark mode. Triggers on @theme, @tailwindcs",
-      "repo": "existential-birds/beagle",
-      "path": "data/tailwind-v4",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "tailwind"
-      ],
-      "stars": 4,
-      "install": "existential-birds/beagle",
       "source": "local"
     },
     {
@@ -8776,21 +8684,6 @@
       "name": "language-design",
       "description": "Use when designing language features - covers lexer, parser, AST, and interpreter patterns",
       "repo": "mcclowes/lea",
-      "path": "data/language-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "language",
-        "design"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea",
-      "source": "local"
-    },
-    {
-      "name": "language-design",
-      "description": "Use when designing language features - covers lexer, parser, AST, and interpreter patterns",
-      "repo": "mcclowes/lea",
       "path": ".claude/skills/language-design",
       "branch": "main",
       "category": "design",
@@ -9322,20 +9215,6 @@
       "name": "tauri",
       "description": "Cross-platform desktop application framework combining Rust backend with web frontend, emphasizing security and performance",
       "repo": "martinholovsky/claude-skills-generator",
-      "path": "data/tauri",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "tauri"
-      ],
-      "stars": 3,
-      "install": "martinholovsky/claude-skills-generator",
-      "source": "local"
-    },
-    {
-      "name": "tauri",
-      "description": "Cross-platform desktop application framework combining Rust backend with web frontend, emphasizing security and performance",
-      "repo": "martinholovsky/claude-skills-generator",
       "path": "skills/tauri",
       "branch": "main",
       "category": "design",
@@ -9466,21 +9345,6 @@
       "name": "accessibility-engineer",
       "description": "Implement accessibility (a11y) best practices to make applications usable by everyone. Use when building UIs, conducting accessibility audits, or ensuring WCAG compliance. Covers screen readers, keybo",
       "repo": "daffy0208/ai-dev-standards",
-      "path": "data/accessibility-engineer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "accessibility",
-        "engineer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "accessibility-engineer",
-      "description": "Implement accessibility (a11y) best practices to make applications usable by everyone. Use when building UIs, conducting accessibility audits, or ensuring WCAG compliance. Covers screen readers, keybo",
-      "repo": "daffy0208/ai-dev-standards",
       "path": "skills/accessibility-engineer",
       "branch": "main",
       "category": "design",
@@ -9506,21 +9370,6 @@
       ],
       "stars": 2,
       "install": "Kartikk-26/Claude-Code-Skills/.claude/ai-image-asset-generator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "animation-designer",
-      "description": "Expert in web animations, transitions, and motion design using Framer Motion and CSS",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/animation-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "animation",
-        "designer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -9566,21 +9415,6 @@
       ],
       "stars": 2,
       "install": "AizenvoltPrime/claude-compass/.claude/skills/artifacts-builder",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "audio-producer",
-      "description": "Expert in web audio, audio processing, and interactive sound design",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/audio-producer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "audio",
-        "producer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -9655,21 +9489,6 @@
       ],
       "stars": 2,
       "install": "Bbeierle12/Skill-MCP-Claude/skills/brainstorming",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "brand-designer",
-      "description": "Expert in brand identity, logo design, and visual brand systems",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/brand-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "brand",
-        "designer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -9781,22 +9600,6 @@
       "name": "customer-support-builder",
       "description": "Build scalable customer support systems including help centers, chatbots, ticketing systems, and self-service knowledge bases. Use when designing support infrastructure, reducing support load, improvi",
       "repo": "daffy0208/ai-dev-standards",
-      "path": "data/customer-support-builder",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "customer",
-        "support",
-        "builder"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "customer-support-builder",
-      "description": "Build scalable customer support systems including help centers, chatbots, ticketing systems, and self-service knowledge bases. Use when designing support infrastructure, reducing support load, improvi",
-      "repo": "daffy0208/ai-dev-standards",
       "path": "skills/customer-support-builder",
       "branch": "main",
       "category": "design",
@@ -9837,22 +9640,6 @@
       ],
       "stars": 2,
       "install": "lsst-sqre/squareone/.claude/skills/design-system",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "design-system-architect",
-      "description": "Build scalable, maintainable design systems that unify product experiences. Use when creating component libraries, design tokens, or establishing design standards. Covers atomic design, Storybook, the",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/design-system-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "design",
-        "system",
-        "architect"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -10046,21 +9833,6 @@
       "name": "frontend-builder",
       "description": "Build modern React/Next.js frontends. Use when creating web applications, choosing frontend stack, structuring components, or implementing UI/UX designs. Covers React, Next.js, Tailwind CSS, and compo",
       "repo": "daffy0208/ai-dev-standards",
-      "path": "data/frontend-builder",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "frontend",
-        "builder"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "local"
-    },
-    {
-      "name": "frontend-builder",
-      "description": "Build modern React/Next.js frontends. Use when creating web applications, choosing frontend stack, structuring components, or implementing UI/UX designs. Covers React, Next.js, Tailwind CSS, and compo",
-      "repo": "daffy0208/ai-dev-standards",
       "path": "skills/frontend-builder",
       "branch": "main",
       "category": "design",
@@ -10160,22 +9932,6 @@
       ],
       "stars": 2,
       "install": "cosmix/claude-code-setup/skills/istio",
-      "source": "local"
-    },
-    {
-      "name": "knowledge-base-manager",
-      "description": "Design, build, and maintain comprehensive knowledge bases. Bridges document-based (RAG) and entity-based (graph) knowledge systems. Use when building knowledge-intensive applications, managing organiz",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/knowledge-base-manager",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "knowledge",
-        "base",
-        "manager"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "local"
     },
     {
@@ -10283,22 +10039,6 @@
       ],
       "stars": 2,
       "install": "Dexploarer/hyper-forge/.claude/skills/microservices-orchestrator",
-      "source": "local"
-    },
-    {
-      "name": "multi-agent-architect",
-      "description": "Design and orchestrate multi-agent systems. Use when building complex AI systems requiring specialization, parallel processing, or collaborative problem-solving. Covers agent coordination, communicati",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/multi-agent-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "multi",
-        "agent",
-        "architect"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "local"
     },
     {
@@ -10921,21 +10661,6 @@
       "name": "security-architect",
       "description": "Comprehensive security architecture combining threat modeling, security-first design, secure coding review, and compliance validation. Consolidated from threat-modeling, security-first-design, secure-",
       "repo": "daffy0208/ai-dev-standards",
-      "path": "data/security-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "security",
-        "architect"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "local"
-    },
-    {
-      "name": "security-architect",
-      "description": "Comprehensive security architecture combining threat modeling, security-first design, secure coding review, and compliance validation. Consolidated from threat-modeling, security-first-design, secure-",
-      "repo": "daffy0208/ai-dev-standards",
       "path": "skills/security-architect",
       "branch": "main",
       "category": "design",
@@ -11182,21 +10907,6 @@
       ],
       "stars": 2,
       "install": "moag1000/Little-ISMS-Helper/.claude/skills/ux-specialist",
-      "source": "local"
-    },
-    {
-      "name": "visual-designer",
-      "description": "Design beautiful, consistent user interfaces with proper color theory, typography, spacing, and visual hierarchy. Use when creating design systems, choosing colors and fonts, or establishing visual di",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/visual-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "visual",
-        "designer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "local"
     },
     {
@@ -15775,18 +15485,6 @@
       "stars": 0,
       "install": "kobe4cn/claude_a2ui_skill/a2ui-v0-8",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "absinthe-schema",
-      "description": "Use when designing GraphQL schemas with Absinthe. Covers type definitions, interfaces, unions, enums, and schema organization patterns.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/absinthe-schema",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "absinthe-schema",
@@ -21432,18 +21130,6 @@
       "name": "backend-service-patterns",
       "description": "Architect scalable backend services using layered architecture, dependency injection, middleware patterns, service classes, and separation of concerns. Use when building API services, implementing bus",
       "repo": "korallis/Droidz",
-      "path": "data/backend-service-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "backend-service-patterns",
-      "description": "Architect scalable backend services using layered architecture, dependency injection, middleware patterns, service classes, and separation of concerns. Use when building API services, implementing bus",
-      "repo": "korallis/Droidz",
       "path": "droidz_installer/payloads/droid_cli/default/skills/backend-service-patterns",
       "branch": "main",
       "category": "design",
@@ -22492,18 +22178,6 @@
       "name": "brand-analyzer",
       "description": "This skill should be used when the user requests brand analysis, brand guidelines creation, brand audits, or establishing brand identity and consistency standards. It provides comprehensive frameworks",
       "repo": "agent-trust-protocol/atp-core",
-      "path": "data/brand-analyzer",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "agent-trust-protocol/atp-core",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "brand-analyzer",
-      "description": "This skill should be used when the user requests brand analysis, brand guidelines creation, brand audits, or establishing brand identity and consistency standards. It provides comprehensive frameworks",
-      "repo": "agent-trust-protocol/atp-core",
       "path": ".claude/skills/brand-analyzer",
       "branch": "main",
       "category": "design",
@@ -23118,18 +22792,6 @@
       "tags": [],
       "stars": 0,
       "install": "secondsky/claude-skills/plugins/bun/skills/bun-react-ssr",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bun-tanstack-start",
-      "description": "TanStack Start full-stack React framework with Bun runtime. Use for TanStack Router, server functions, vinxi, or encountering SSR, build, preset errors.",
-      "repo": "secondsky/claude-skills",
-      "path": "data/bun-tanstack-start",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25107,18 +24769,6 @@
       "name": "compliance-architecture",
       "description": "Enterprise-grade compliance architecture for SOC 2, HIPAA, GDPR, PCI-DSS. Provides compliance checklists, security controls, audit guidance, and regulatory requirements for serverless and cloud archit",
       "repo": "anton-abyzov/specweave",
-      "path": "data/compliance-architecture",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "compliance-architecture",
-      "description": "Enterprise-grade compliance architecture for SOC 2, HIPAA, GDPR, PCI-DSS. Provides compliance checklists, security controls, audit guidance, and regulatory requirements for serverless and cloud archit",
-      "repo": "anton-abyzov/specweave",
       "path": "plugins/specweave/skills/compliance-architecture",
       "branch": "main",
       "category": "design",
@@ -26275,18 +25925,6 @@
       "name": "convex-backend",
       "description": "Build real-time, reactive backend applications with Convex using TypeScript queries, mutations, and actions with automatic reactivity and optimistic updates. Use when building real-time collaborative ",
       "repo": "korallis/Droidz",
-      "path": "data/convex-backend",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "convex-backend",
-      "description": "Build real-time, reactive backend applications with Convex using TypeScript queries, mutations, and actions with automatic reactivity and optimistic updates. Use when building real-time collaborative ",
-      "repo": "korallis/Droidz",
       "path": "droidz_installer/payloads/droid_cli/default/skills/convex-backend",
       "branch": "main",
       "category": "design",
@@ -26805,18 +26443,6 @@
       "tags": [],
       "stars": 0,
       "install": "openshift-eng/ai-helpers",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "create-mcp-skill",
-      "description": "Create a new skill that uses an MCP server, following best practices from the MCP CLI guide. Use when user wants to create a skill for a new MCP server or integrate MCP functionality into a skill.",
-      "repo": "Cygnusfear/claude-stuff",
-      "path": "data/create-mcp-skill",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Cygnusfear/claude-stuff",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30206,22 +29832,6 @@
       "stars": 0,
       "install": "nahisaho/MUSUBI/src/templates/agents/claude-code/skills/design-reviewer",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "design-spec-extraction",
-      "description": "Extract comprehensive JSON design specifications from visual sources including Figma exports, UI mockups, screenshots, or live website captures. Produces W3C DTCG-compliant output with component trees",
-      "repo": "Cygnusfear/claude-stuff",
-      "path": "data/design-spec-extraction",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "design",
-        "spec",
-        "extraction"
-      ],
-      "stars": 0,
-      "install": "Cygnusfear/claude-stuff",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "design-spec-extraction",
@@ -36259,18 +35869,6 @@
       "name": "front-end-design",
       "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code ",
       "repo": "rawkode-academy/rawkode-academy",
-      "path": "data/front-end-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "rawkode-academy/rawkode-academy",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "front-end-design",
-      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code ",
-      "repo": "rawkode-academy/rawkode-academy",
       "path": ".factory/skills/front-end-design",
       "branch": "main",
       "category": "design",
@@ -36352,21 +35950,6 @@
       "stars": 0,
       "install": "CleanExpo/Unite-Hub",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "frontend-analyzer",
-      "description": "Analyze React/Next.js components to extract typography, colors, layout, fonts, spacing systems, and design tokens. Identifies accessibility issues, responsive breakpoints, and component hierarchies.",
-      "repo": "ils15/copilot-global-config",
-      "path": "data/frontend-analyzer",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "frontend",
-        "analyzer"
-      ],
-      "stars": 0,
-      "install": "ils15/copilot-global-config",
-      "source": "local"
     },
     {
       "name": "frontend-analyzer",
@@ -41508,18 +41091,6 @@
       "name": "ink-hooks-state",
       "description": "Use when managing state and side effects in Ink applications using React hooks for terminal UIs.",
       "repo": "TheBushidoCollective/han",
-      "path": "data/ink-hooks-state",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ink-hooks-state",
-      "description": "Use when managing state and side effects in Ink applications using React hooks for terminal UIs.",
-      "repo": "TheBushidoCollective/han",
       "path": "jutsu/jutsu-ink/skills/ink-hooks-state",
       "branch": "main",
       "category": "design",
@@ -43007,18 +42578,6 @@
       "name": "kafka-observability",
       "description": "Kafka monitoring and observability expert. Guides Prometheus + Grafana setup, JMX metrics, alerting rules, and dashboard configuration. Activates for kafka monitoring, prometheus, grafana, kafka metri",
       "repo": "anton-abyzov/specweave",
-      "path": "data/kafka-observability",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kafka-observability",
-      "description": "Kafka monitoring and observability expert. Guides Prometheus + Grafana setup, JMX metrics, alerting rules, and dashboard configuration. Activates for kafka monitoring, prometheus, grafana, kafka metri",
-      "repo": "anton-abyzov/specweave",
       "path": "plugins/specweave-kafka/skills/kafka-observability",
       "branch": "main",
       "category": "design",
@@ -43049,18 +42608,6 @@
       "tags": [],
       "stars": 0,
       "install": "manutej/luxor-claude-marketplace/plugins/luxor-data-engineering/skills/kafka-stream-processing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kafka-streams-topology",
-      "description": "Kafka Streams topology design expert. Covers KStream vs KTable vs GlobalKTable, topology patterns, stream operations (filter, map, flatMap, branch), joins, windowing strategies, and exactly-once seman",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/kafka-streams-topology",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -47734,18 +47281,6 @@
       "name": "mlops-dag-builder",
       "description": "Design DAG-based MLOps pipeline architectures with Airflow, Dagster, Kubeflow, or Prefect. Activates for DAG orchestration, workflow automation, pipeline design patterns, CI/CD for ML. Use for platfor",
       "repo": "anton-abyzov/specweave",
-      "path": "data/mlops-dag-builder",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mlops-dag-builder",
-      "description": "Design DAG-based MLOps pipeline architectures with Airflow, Dagster, Kubeflow, or Prefect. Activates for DAG orchestration, workflow automation, pipeline design patterns, CI/CD for ML. Use for platfor",
-      "repo": "anton-abyzov/specweave",
       "path": "plugins/specweave-ml/skills/mlops-dag-builder",
       "branch": "main",
       "category": "design",
@@ -48869,18 +48404,6 @@
       "name": "nano-banana-prompts",
       "description": "Generate optimized prompts for Gemini 2.5 Flash Image (Nano Banana). Use for image generation, crafting photo prompts, art styles, or multi-turn editing workflows with best practices.",
       "repo": "secondsky/claude-skills",
-      "path": "data/nano-banana-prompts",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nano-banana-prompts",
-      "description": "Generate optimized prompts for Gemini 2.5 Flash Image (Nano Banana). Use for image generation, crafting photo prompts, art styles, or multi-turn editing workflows with best practices.",
-      "repo": "secondsky/claude-skills",
       "path": "plugins/nano-banana-prompts/skills/nano-banana-prompts",
       "branch": "main",
       "category": "design",
@@ -49270,21 +48793,6 @@
       "stars": 0,
       "install": "nette/claude-code/plugins/nette/skills/nette-configuration",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "network-diagnostics",
-      "description": "Automated network troubleshooting and diagnostics for WSL/Linux environments",
-      "repo": "jackspace/ClaudeSkillz",
-      "path": "data/network-diagnostics",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "network",
-        "diagnostics"
-      ],
-      "stars": 0,
-      "install": "jackspace/ClaudeSkillz",
-      "source": "local"
     },
     {
       "name": "network-diagnostics",
@@ -53308,18 +52816,6 @@
       "name": "pinia-v3",
       "description": "Pinia v3 Vue state management with defineStore, getters, actions. Use for Vue 3 stores, Nuxt SSR, Vuex migration, or encountering store composition, hydration, testing errors.",
       "repo": "secondsky/claude-skills",
-      "path": "data/pinia-v3",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pinia-v3",
-      "description": "Pinia v3 Vue state management with defineStore, getters, actions. Use for Vue 3 stores, Nuxt SSR, Vuex migration, or encountering store composition, hydration, testing errors.",
-      "repo": "secondsky/claude-skills",
       "path": "plugins/pinia-v3/skills/pinia-v3",
       "branch": "main",
       "category": "design",
@@ -53506,18 +53002,6 @@
       "tags": [],
       "stars": 0,
       "install": "kdcokenny/ocx/.opencode/skill/plan-protocol",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "planning-disaster-recovery",
-      "description": "Use when you need to work with backup and recovery.This skill provides backup automation and disaster recovery with comprehensive guidance and automation.Trigger with phrases like \"create backups\", \"a",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/planning-disaster-recovery",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -54780,6 +54264,18 @@
       "name": "prioritization-methods",
       "description": "Requirements prioritization techniques including MoSCoW, Kano Model, WSJF (SAFe), and Wiegers' Value/Cost/Risk matrix. Provides scoring frameworks, trade-off analysis, and priority visualization. Use ",
       "repo": "melodic-software/claude-code-plugins",
+      "path": "data/prioritization-methods",
+      "branch": "main",
+      "category": "design",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "prioritization-methods",
+      "description": "Requirements prioritization techniques including MoSCoW, Kano Model, WSJF (SAFe), and Wiegers' Value/Cost/Risk matrix. Provides scoring frameworks, trade-off analysis, and priority visualization. Use ",
+      "repo": "melodic-software/claude-code-plugins",
       "path": "plugins/requirements-elicitation/skills/prioritization-methods",
       "branch": "main",
       "category": "design",
@@ -55540,18 +55036,6 @@
       "stars": 0,
       "install": "u9401066/pubmed-search-mcp",
       "source": "local"
-    },
-    {
-      "name": "pulumi-components",
-      "description": "Use when building reusable infrastructure components with Pulumi for modular, composable cloud resources.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/pulumi-components",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "pulumi-components",
@@ -57567,18 +57051,6 @@
       "tags": [],
       "stars": 0,
       "install": "raisiqueira/claude-code-plugins/plugins/react-router-expert/.claude/skills/react-router-v7-expert",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "react-server-actions",
-      "description": "Implement React Server Actions in Next.js 14+ for secure, progressively enhanced form handling and server mutations without API routes. Use when handling form submissions, performing server-side mutat",
-      "repo": "korallis/Droidz",
-      "path": "data/react-server-actions",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -59983,18 +59455,6 @@
       "name": "rxjs-patterns",
       "description": "Master RxJS in Angular with observables, operators, subjects, error handling, and reactive patterns for building responsive applications.",
       "repo": "spjoshis/claude-code-plugins",
-      "path": "data/rxjs-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "spjoshis/claude-code-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "rxjs-patterns",
-      "description": "Master RxJS in Angular with observables, operators, subjects, error handling, and reactive patterns for building responsive applications.",
-      "repo": "spjoshis/claude-code-plugins",
       "path": "plugins/angular-development/skills/rxjs-patterns",
       "branch": "main",
       "category": "design",
@@ -61573,18 +61033,6 @@
       "name": "shadcn-ui-components",
       "description": "Build beautiful, accessible UI components using shadcn/ui library with Radix UI primitives and Tailwind CSS styling that you own and can customize. Use when creating accessible component libraries, im",
       "repo": "korallis/Droidz",
-      "path": "data/shadcn-ui-components",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "shadcn-ui-components",
-      "description": "Build beautiful, accessible UI components using shadcn/ui library with Radix UI primitives and Tailwind CSS styling that you own and can customize. Use when creating accessible component libraries, im",
-      "repo": "korallis/Droidz",
       "path": "droidz_installer/payloads/droid_cli/default/skills/shadcn-ui-components",
       "branch": "main",
       "category": "design",
@@ -62966,18 +62414,6 @@
       "tags": [],
       "stars": 0,
       "install": "shining319/claude-code-single-person-workflow/plugins/product-development-suite/skills/solution-architect",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sop-authoring",
-      "description": "Use when writing or creating new Standard Operating Procedures (SOPs) for AI agents. Covers effective SOP writing, clarity principles, and actionable instruction design.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/sop-authoring",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -65249,18 +64685,6 @@
       "name": "swift-settingskit",
       "description": "SettingsKit for SwiftUI settings interfaces (iOS, macOS, watchOS, tvOS, visionOS). Use for settings/preferences screens, searchable settings, nested navigation, @Observable/@Bindable state, or encount",
       "repo": "secondsky/claude-skills",
-      "path": "data/swift-settingskit",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "swift-settingskit",
-      "description": "SettingsKit for SwiftUI settings interfaces (iOS, macOS, watchOS, tvOS, visionOS). Use for settings/preferences screens, searchable settings, nested navigation, @Observable/@Bindable state, or encount",
-      "repo": "secondsky/claude-skills",
       "path": "plugins/swift-settingskit/skills/swift-settingskit",
       "branch": "main",
       "category": "design",
@@ -66933,21 +66357,6 @@
       "name": "technical-discussion",
       "description": "Collaborative technical discussion with proactive requirements gathering",
       "repo": "sagerstack/primus-ccop-fine-tuning",
-      "path": "data/technical-discussion",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "technical",
-        "discussion"
-      ],
-      "stars": 0,
-      "install": "sagerstack/primus-ccop-fine-tuning",
-      "source": "local"
-    },
-    {
-      "name": "technical-discussion",
-      "description": "Collaborative technical discussion with proactive requirements gathering",
-      "repo": "sagerstack/primus-ccop-fine-tuning",
       "path": ".claude/skills/technical-discussion",
       "branch": "main",
       "category": "design",
@@ -67042,38 +66451,6 @@
       "stars": 0,
       "install": "danizord/telecli/plugin/skills/telecli",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "telegram-bot-ui-design",
-      "description": "Expert in designing Telegram bot interfaces with keyboards, buttons, conversational flows, and mobile-first UX patterns.",
-      "repo": "ils15/copilot-global-config",
-      "path": "data/telegram-bot-ui-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "telegram",
-        "bot",
-        "design"
-      ],
-      "stars": 0,
-      "install": "ils15/copilot-global-config",
-      "source": "local"
-    },
-    {
-      "name": "telegram-keyboard-design",
-      "description": "Design Telegram bot keyboards, buttons, and conversational flows with proper UX patterns. Includes inline keyboards, reply keyboards, button callbacks, and progressive disclosure for better mobile UX.",
-      "repo": "ils15/copilot-global-config",
-      "path": "data/telegram-keyboard-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "telegram",
-        "keyboard",
-        "design"
-      ],
-      "stars": 0,
-      "install": "ils15/copilot-global-config",
-      "source": "local"
     },
     {
       "name": "telegram-keyboard-design",
@@ -69287,18 +68664,6 @@
       "name": "ui-designer",
       "description": "Extract design systems from reference UI images and generate implementation-ready UI design prompts. Use when users provide UI screenshots/mockups and want to create consistent designs, generate desig",
       "repo": "daymade/claude-code-skills",
-      "path": "data/ui-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "daymade/claude-code-skills",
-      "source": "local"
-    },
-    {
-      "name": "ui-designer",
-      "description": "Extract design systems from reference UI images and generate implementation-ready UI design prompts. Use when users provide UI screenshots/mockups and want to create consistent designs, generate desig",
-      "repo": "daymade/claude-code-skills",
       "path": "ui-designer",
       "branch": "main",
       "category": "design",
@@ -69919,18 +69284,6 @@
       "stars": 0,
       "install": "ledagame/persona-theater/.claude/skills/ultimate-research",
       "source": "local"
-    },
-    {
-      "name": "umbrella-repo-detector",
-      "description": "Detects multi-repo architecture from user prompts and guides setup. Activates for: multiple repos, 3 repos, frontend repo, backend repo, shared library repo, monorepo services, microservices, separate",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/umbrella-repo-detector",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "umbrella-repo-detector",
@@ -72666,18 +72019,6 @@
       "name": "vpc-network-designer",
       "description": "Vpc Network Designer - Auto-activating skill for AWS Skills.Triggers on: vpc network designer, vpc network designerPart of the AWS Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vpc-network-designer",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vpc-network-designer",
-      "description": "Vpc Network Designer - Auto-activating skill for AWS Skills.Triggers on: vpc network designer, vpc network designerPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/13-aws-skills/vpc-network-designer",
       "branch": "main",
       "category": "design",
@@ -72878,18 +72219,6 @@
       "name": "vue-reactivity-system",
       "description": "Use when Vue reactivity system with refs, reactive, computed, and watchers. Use when managing complex state in Vue applications.",
       "repo": "TheBushidoCollective/han",
-      "path": "data/vue-reactivity-system",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vue-reactivity-system",
-      "description": "Use when Vue reactivity system with refs, reactive, computed, and watchers. Use when managing complex state in Vue applications.",
-      "repo": "TheBushidoCollective/han",
       "path": "jutsu/jutsu-vue/skills/vue-reactivity-system",
       "branch": "main",
       "category": "design",
@@ -72957,6 +72286,21 @@
       "stars": 0,
       "install": "omanjaya/attendancedev/.claude/skills/vuejs-patterns",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "wallet-brc100",
+      "description": "Expert guidance for implementing BRC-100 conforming wallets using @bsv/wallet-toolbox. Covers wallet initialization, transaction creation/signing, key management, storage, and certificate operations f",
+      "repo": "b-open-io/bsv-skills",
+      "path": "data/wallet-brc100",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "wallet",
+        "brc100"
+      ],
+      "stars": 0,
+      "install": "b-open-io/bsv-skills",
+      "source": "local"
     },
     {
       "name": "wallet-brc100",
@@ -73317,21 +72661,6 @@
       "stars": 0,
       "install": "alexismanuel/dotfiles/.config/opencode/skill/web-tester",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "web-ui-analysis",
-      "description": "Analyze web interfaces for UX issues, accessibility compliance (WCAG 2.1), color contrast, typography hierarchy, responsive design, and Core Web Vitals. Returns actionable improvements with code examp",
-      "repo": "ils15/copilot-global-config",
-      "path": "data/web-ui-analysis",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "web",
-        "analysis"
-      ],
-      "stars": 0,
-      "install": "ils15/copilot-global-config",
-      "source": "local"
     },
     {
       "name": "web-ui-analysis",

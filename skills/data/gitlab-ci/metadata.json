@@ -1,9 +1,7 @@
 {
   "name": "gitlab-ci",
-  "description": "Use when working with GitLab using the glab CLI tool. Currently provides guidance for CI/CD pipelines including checking pipeline status, viewing job logs, and working with branches and tags.",
-  "repo": "mll-lab/claude-plugin-marketplace",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/gitlab-ci/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-28T02:15:52.005582Z"
 }

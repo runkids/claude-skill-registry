@@ -1,9 +1,7 @@
 {
   "name": "pdf-generator",
-  "description": "Create and manipulate PDF files programmatically. Use when the user needs to generate PDFs, fill PDF forms, extract PDF content, add watermarks/overlays, or merge documents. Supports both template-bas",
-  "repo": "jwynia/agent-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/jwynia/agent-skills"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/tools/pdf-generator/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-28T03:43:36.333562Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "data-governance",
-  "repo": "gtmagents/gtm-agents",
-  "path": "plugins/marketing-automation/skills/data-governance/SKILL.md",
-  "source": "github.com/gtmagents/gtm-agents",
-  "downloaded_at": "2026-01-27T04:35:29.440233Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/data/data-governance/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-01-28T03:52:24.613316Z"
 }

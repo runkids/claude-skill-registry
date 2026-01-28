@@ -1,476 +1,375 @@
 ---
-description: Reviews Go concurrency patterns including channels, WaitGroup, errgroup, and mutex usage. Use when reviewing concurrent code, seeing race conditions, or implementing parallel operations.
+name: Concurrency
+description: This skill should be used when the user asks about "Effect concurrency", "fibers", "Fiber", "forking", "Effect.fork", "Effect.forkDaemon", "parallel execution", "Effect.all concurrency", "Deferred", "Queue", "PubSub", "Semaphore", "Latch", "fiber interruption", "Effect.race", "Effect.raceAll", "concurrent effects", or needs to understand how Effect handles parallel and concurrent execution.
+version: 1.0.0
 ---
 
-# Concurrency
+# Concurrency in Effect
 
-## Purpose
+## Overview
 
-Establish safe and effective concurrency patterns for RMS Go code. Go's concurrency model is powerful but requires careful design to avoid race conditions and deadlocks.
+Effect provides lightweight fiber-based concurrency:
 
-## Core Principles
+- **Fibers** - Lightweight threads managed by Effect runtime
+- **Structured concurrency** - Parent fibers supervise children
+- **Safe interruption** - Clean cancellation with resource cleanup
+- **Concurrent primitives** - Queue, Deferred, Semaphore, PubSub
 
-1. **Don't communicate by sharing memory; share memory by communicating** - Use channels when appropriate
-2. **Keep the concurrency in goroutine management** - Don't leak goroutines
-3. **Use the right synchronization primitive** - Mutex, RWMutex, channels, atomics
-4. **Prefer `errgroup` for concurrent operations** - Handles errors and context cancellation
+## Basic Parallel Execution
 
----
+### Effect.all with Concurrency
 
-## Goroutine Management
+```typescript
+import { Effect } from "effect"
 
-### Always Handle Goroutine Lifecycle
+// Run in parallel
+const results = yield* Effect.all(
+  [fetchUser(1), fetchUser(2), fetchUser(3)],
+  { concurrency: "unbounded" }
+)
 
-```go
-// DON'T: Fire and forget
-func process(items []Item) {
-    for _, item := range items {
-        go processItem(item)  // No way to wait, no error handling
-    }
-    // Returns immediately - goroutines may not complete
-}
+// Limit concurrency
+const results = yield* Effect.all(tasks, { concurrency: 5 })
 
-// DO: Wait for completion
-func process(items []Item) error {
-    var wg sync.WaitGroup
-    
-    for _, item := range items {
-        wg.Add(1)
-        go func(item Item) {
-            defer wg.Done()
-            processItem(item)
-        }(item)
-    }
-    
-    wg.Wait()
-    return nil
-}
+// Sequential (default)
+const results = yield* Effect.all(tasks)
 ```
 
-### Use errgroup for Error Handling
+### Effect.forEach with Concurrency
 
-```go
-// DO: errgroup handles errors and cancellation
-func process(ctx context.Context, items []Item) error {
-    g, ctx := errgroup.WithContext(ctx)
-    
-    for _, item := range items {
-        item := item  // Capture for goroutine
-        g.Go(func() error {
-            return processItem(ctx, item)
-        })
-    }
-    
-    return g.Wait()  // Returns first error, cancels context
-}
+```typescript
+const users = yield* Effect.forEach(
+  userIds,
+  (id) => fetchUser(id),
+  { concurrency: 10 }
+)
 ```
 
-### Bounded Concurrency
+## Fibers
 
-```go
-// DO: Limit concurrent operations
-func processWithLimit(ctx context.Context, items []Item, maxConcurrent int) error {
-    g, ctx := errgroup.WithContext(ctx)
-    g.SetLimit(maxConcurrent)  // Go 1.20+
-    
-    for _, item := range items {
-        item := item
-        g.Go(func() error {
-            return processItem(ctx, item)
-        })
-    }
-    
-    return g.Wait()
-}
+### Creating Fibers with fork
 
-// Alternative: Semaphore pattern
-func processWithSemaphore(ctx context.Context, items []Item, maxConcurrent int) error {
-    sem := make(chan struct{}, maxConcurrent)
-    g, ctx := errgroup.WithContext(ctx)
-    
-    for _, item := range items {
-        item := item
-        
-        select {
-        case sem <- struct{}{}:
-        case <-ctx.Done():
-            return ctx.Err()
-        }
-        
-        g.Go(func() error {
-            defer func() { <-sem }()
-            return processItem(ctx, item)
-        })
-    }
-    
-    return g.Wait()
-}
+```typescript
+const program = Effect.gen(function* () {
+  // Fork creates a new fiber
+  const fiber = yield* Effect.fork(longRunningTask)
+
+  // Do other work while fiber runs
+  yield* doOtherWork()
+
+  // Wait for fiber to complete
+  const result = yield* Fiber.join(fiber)
+})
 ```
 
----
+### Fork Variants
 
-## Channels
+```typescript
+// Regular fork - child supervised by parent
+const fiber = yield* Effect.fork(task)
 
-### Channel Patterns
+// Daemon fork - runs independently
+const fiber = yield* Effect.forkDaemon(task)
 
-```go
-// Generator pattern
-func generateIDs(ctx context.Context, count int) <-chan rms.ID {
-    ch := make(chan rms.ID)
-    go func() {
-        defer close(ch)
-        for i := 0; i < count; i++ {
-            select {
-            case ch <- rms.NewID():
-            case <-ctx.Done():
-                return
-            }
-        }
-    }()
-    return ch
-}
+// Fork in specific scope
+const fiber = yield* Effect.forkIn(scope)(task)
 
-// Fan-out pattern
-func fanOut(ctx context.Context, input <-chan Item, workers int) []<-chan Result {
-    outputs := make([]<-chan Result, workers)
-    for i := 0; i < workers; i++ {
-        outputs[i] = worker(ctx, input)
-    }
-    return outputs
-}
-
-// Fan-in pattern
-func fanIn(ctx context.Context, inputs ...<-chan Result) <-chan Result {
-    output := make(chan Result)
-    var wg sync.WaitGroup
-    
-    for _, input := range inputs {
-        wg.Add(1)
-        go func(ch <-chan Result) {
-            defer wg.Done()
-            for result := range ch {
-                select {
-                case output <- result:
-                case <-ctx.Done():
-                    return
-                }
-            }
-        }(input)
-    }
-    
-    go func() {
-        wg.Wait()
-        close(output)
-    }()
-    
-    return output
-}
+// Fork to different executor
+const fiber = yield* Effect.forkWithErrorHandler(task, onError)
 ```
 
-### Channel Best Practices
+### Fiber Operations
 
-```go
-// DO: Always close from sender side
-func producer(items []Item) <-chan Item {
-    ch := make(chan Item)
-    go func() {
-        defer close(ch)  // Sender closes
-        for _, item := range items {
-            ch <- item
-        }
-    }()
-    return ch
-}
+```typescript
+import { Fiber } from "effect"
 
-// DO: Use buffered channels for known capacity
-ch := make(chan Result, len(items))
+// Wait for result
+const result = yield* Fiber.join(fiber)
 
-// DO: Select with context for cancellation
-select {
-case result := <-resultCh:
-    return result, nil
-case <-ctx.Done():
-    return nil, ctx.Err()
-}
+// Wait but don't unwrap (get Exit)
+const exit = yield* Fiber.await(fiber)
 
-// DO: Non-blocking send/receive with default
-select {
-case ch <- item:
-    // Sent
-default:
-    // Channel full, handle accordingly
-}
+// Interrupt fiber
+yield* Fiber.interrupt(fiber)
+
+// Poll without blocking
+const maybeResult = yield* Fiber.poll(fiber)
 ```
 
----
+## Racing
 
-## Mutex Patterns
+### Effect.race - First to Complete
 
-### sync.Mutex
-
-```go
-// DO: Protect shared state
-type Counter struct {
-    mu    sync.Mutex
-    value int64
-}
-
-func (c *Counter) Increment() {
-    c.mu.Lock()
-    defer c.mu.Unlock()
-    c.value++
-}
-
-func (c *Counter) Value() int64 {
-    c.mu.Lock()
-    defer c.mu.Unlock()
-    return c.value
-}
+```typescript
+// First successful result wins, others interrupted
+const fastest = yield* Effect.race(
+  fetchFromServer1(),
+  fetchFromServer2()
+)
 ```
 
-### sync.RWMutex
+### Effect.raceAll - Race Many
 
-Use RWMutex when reads are more frequent than writes.
-
-```go
-// DO: RWMutex for read-heavy workloads
-type Cache struct {
-    mu    sync.RWMutex
-    items map[string]*Item
-}
-
-func (c *Cache) Get(key string) (*Item, bool) {
-    c.mu.RLock()
-    defer c.mu.RUnlock()
-    item, ok := c.items[key]
-    return item, ok
-}
-
-func (c *Cache) Set(key string, item *Item) {
-    c.mu.Lock()
-    defer c.mu.Unlock()
-    c.items[key] = item
-}
-
-// DO: Upgrade lock pattern
-func (c *Cache) GetOrCreate(key string, create func() *Item) *Item {
-    // Try read lock first
-    c.mu.RLock()
-    if item, ok := c.items[key]; ok {
-        c.mu.RUnlock()
-        return item
-    }
-    c.mu.RUnlock()
-    
-    // Acquire write lock
-    c.mu.Lock()
-    defer c.mu.Unlock()
-    
-    // Double-check after acquiring write lock
-    if item, ok := c.items[key]; ok {
-        return item
-    }
-    
-    item := create()
-    c.items[key] = item
-    return item
-}
+```typescript
+const fastest = yield* Effect.raceAll([
+  fetchFromCDN1(),
+  fetchFromCDN2(),
+  fetchFromCDN3()
+])
 ```
 
-### Mutex Rules
+### Effect.raceFirst - Include Failures
 
-```go
-// DON'T: Copy mutex
-type BadCache struct {
-    sync.Mutex  // Will be copied if Cache is copied
-    data map[string]string
-}
-
-// DO: Use pointer to mutex or embed carefully
-type GoodCache struct {
-    mu   *sync.Mutex  // Pointer prevents copying issues
-    data map[string]string
-}
-
-// DON'T: Hold lock during I/O
-func (s *Service) BadOperation() {
-    s.mu.Lock()
-    defer s.mu.Unlock()
-    
-    // BAD: Network call while holding lock
-    result, err := s.client.Fetch(ctx)
-}
-
-// DO: Minimize critical section
-func (s *Service) GoodOperation() error {
-    // Fetch without lock
-    result, err := s.client.Fetch(ctx)
-    if err != nil {
-        return err
-    }
-    
-    // Only lock for state update
-    s.mu.Lock()
-    s.data = result
-    s.mu.Unlock()
-    
-    return nil
-}
+```typescript
+// First to complete (success OR failure)
+const first = yield* Effect.raceFirst(task1, task2)
 ```
 
----
+## Deferred - One-Time Promise
 
-## sync.WaitGroup
+```typescript
+import { Deferred } from "effect"
 
-### Basic Usage
+const program = Effect.gen(function* () {
+  // Create deferred
+  const deferred = yield* Deferred.make<string, never>()
 
-```go
-func processAll(items []Item) {
-    var wg sync.WaitGroup
-    
-    for _, item := range items {
-        wg.Add(1)
-        go func(item Item) {
-            defer wg.Done()
-            process(item)
-        }(item)
-    }
-    
-    wg.Wait()
-}
+  // Fork waiter
+  const fiber = yield* Effect.fork(
+    Effect.gen(function* () {
+      const value = yield* Deferred.await(deferred)
+      yield* Effect.log(`Got: ${value}`)
+    })
+  )
+
+  // Complete the deferred
+  yield* Deferred.succeed(deferred, "Hello!")
+
+  yield* Fiber.join(fiber)
+})
 ```
 
-### WaitGroup Rules
+## Queue - Concurrent Queue
 
-```go
-// DO: Add before starting goroutine
-wg.Add(1)
-go func() {
-    defer wg.Done()
-    // work
-}()
+```typescript
+import { Queue } from "effect"
 
-// DON'T: Add inside goroutine
-go func() {
-    wg.Add(1)  // Race condition!
-    defer wg.Done()
-    // work
-}()
+const program = Effect.gen(function* () {
+  // Bounded queue (backpressure)
+  const queue = yield* Queue.bounded<number>(100)
 
-// DO: Use defer for Done
-go func() {
-    defer wg.Done()  // Guaranteed to run
-    // work that might panic
-}()
+  // Producer
+  yield* Effect.fork(
+    Effect.forEach(
+      [1, 2, 3, 4, 5],
+      (n) => Queue.offer(queue, n)
+    )
+  )
+
+  // Consumer
+  const items = yield* Effect.forEach(
+    Array.from({ length: 5 }),
+    () => Queue.take(queue)
+  )
+})
 ```
 
----
+### Queue Variants
 
-## Context and Cancellation
+```typescript
+// Bounded - blocks when full
+const bounded = yield* Queue.bounded<number>(100)
 
-### Respecting Context
+// Unbounded - never blocks producer
+const unbounded = yield* Queue.unbounded<number>()
 
-```go
-// DO: Check context in loops
-func processItems(ctx context.Context, items []Item) error {
-    for _, item := range items {
-        select {
-        case <-ctx.Done():
-            return ctx.Err()
-        default:
-        }
-        
-        if err := process(ctx, item); err != nil {
-            return err
-        }
-    }
-    return nil
-}
+// Dropping - drops new items when full
+const dropping = yield* Queue.dropping<number>(100)
 
-// DO: Pass context to operations
-func (s *Service) LongOperation(ctx context.Context) error {
-    // Context-aware database call
-    result, err := s.db.QueryContext(ctx, query)
-    if err != nil {
-        return err
-    }
-    
-    // Context-aware HTTP call
-    req, _ := http.NewRequestWithContext(ctx, "GET", url, nil)
-    resp, err := s.client.Do(req)
-    if err != nil {
-        return err
-    }
-    
-    return nil
-}
+// Sliding - drops old items when full
+const sliding = yield* Queue.sliding<number>(100)
 ```
 
-### Context with Timeout
+## PubSub - Publish/Subscribe
 
-```go
-func (s *Service) OperationWithTimeout(ctx context.Context) error {
-    ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
-    defer cancel()
-    
-    return s.longOperation(ctx)
-}
+```typescript
+import { PubSub } from "effect"
+
+const program = Effect.gen(function* () {
+  const pubsub = yield* PubSub.bounded<string>(100)
+
+  // Subscribe creates a queue
+  const sub1 = yield* PubSub.subscribe(pubsub)
+  const sub2 = yield* PubSub.subscribe(pubsub)
+
+  // Publish to all subscribers
+  yield* PubSub.publish(pubsub, "Hello!")
+
+  // Each subscriber receives message
+  const msg1 = yield* Queue.take(sub1)
+  const msg2 = yield* Queue.take(sub2)
+})
 ```
 
----
+## Semaphore - Limit Concurrency
 
-## Atomic Operations
+```typescript
+import { Effect } from "effect"
 
-### sync/atomic for Simple Counters
+const program = Effect.gen(function* () {
+  // Create semaphore with 3 permits
+  const semaphore = yield* Effect.makeSemaphore(3)
 
-```go
-// DO: Atomic for simple counters
-type Stats struct {
-    requests atomic.Int64
-    errors   atomic.Int64
-}
-
-func (s *Stats) RecordRequest() {
-    s.requests.Add(1)
-}
-
-func (s *Stats) RecordError() {
-    s.errors.Add(1)
-}
-
-func (s *Stats) Snapshot() (requests, errors int64) {
-    return s.requests.Load(), s.errors.Load()
-}
+  // At most 3 concurrent executions
+  yield* Effect.forEach(
+    tasks,
+    (task) => semaphore.withPermits(1)(task),
+    { concurrency: "unbounded" }
+  )
+})
 ```
 
----
+## Latch - Coordination Point
 
-## Quick Reference
+```typescript
+import { Latch } from "effect"
 
-| Primitive | Use Case |
-|-----------|----------|
-| `sync.Mutex` | Protecting shared state |
-| `sync.RWMutex` | Read-heavy shared state |
-| `sync.WaitGroup` | Waiting for goroutines |
-| `errgroup.Group` | Concurrent ops with errors |
-| `chan` | Communication between goroutines |
-| `atomic` | Simple counters, flags |
-| `sync.Once` | One-time initialization |
-| `sync.Map` | Concurrent map access |
+const program = Effect.gen(function* () {
+  // Create closed latch
+  const latch = yield* Latch.make(false)
 
-### Concurrency Checklist
+  // Workers wait at latch
+  yield* Effect.fork(
+    Effect.forEach(
+      workers,
+      (worker) =>
+        Effect.gen(function* () {
+          yield* Latch.await(latch)
+          yield* worker.start()
+        }),
+      { concurrency: "unbounded" }
+    )
+  )
 
-- [ ] No goroutine leaks (always wait or cancel)?
-- [ ] Context respected for cancellation?
-- [ ] Mutex critical sections minimized?
-- [ ] No lock held during I/O?
-- [ ] Channels closed by sender only?
-- [ ] Race detector clean (`go test -race`)?
+  // Open latch - all workers proceed
+  yield* Latch.open(latch)
+})
+```
 
----
+## Interruption
 
-## See Also
+### Interrupting Fibers
 
-- [PATTERNS.md](./PATTERNS.md) - Common concurrency patterns
-- [ANTI-PATTERNS.md](./ANTI-PATTERNS.md) - Race conditions to avoid
-- [collections](../collections/Skill.md) - Thread-safe collections
+```typescript
+const fiber = yield* Effect.fork(longTask)
+
+// Later...
+yield* Fiber.interrupt(fiber)
+```
+
+### Uninterruptible Regions
+
+```typescript
+// Protect critical section from interruption
+const critical = Effect.uninterruptible(
+  Effect.gen(function* () {
+    yield* beginTransaction()
+    yield* performOperations()
+    yield* commitTransaction()
+  })
+)
+```
+
+### Interruptible Within Uninterruptible
+
+```typescript
+const program = Effect.uninterruptible(
+  Effect.gen(function* () {
+    yield* criticalSetup()
+
+    // This part can be interrupted
+    yield* Effect.interruptible(longOperation)
+
+    yield* criticalTeardown()
+  })
+)
+```
+
+## Supervision
+
+Structured concurrency ensures child fibers are managed:
+
+```typescript
+const parent = Effect.gen(function* () {
+  const child1 = yield* Effect.fork(task1)
+  const child2 = yield* Effect.fork(task2)
+
+  // If parent fails/interrupts, children are interrupted
+  yield* failingOperation()
+})
+// child1 and child2 automatically interrupted
+```
+
+### Daemon Fibers
+
+Escape supervision with daemon:
+
+```typescript
+const daemon = yield* Effect.forkDaemon(backgroundTask)
+// Runs independently of parent
+```
+
+## Common Patterns
+
+### Timeout with Fallback
+
+```typescript
+const withTimeout = task.pipe(
+  Effect.timeout("5 seconds"),
+  Effect.map(Option.getOrElse(() => defaultValue))
+)
+```
+
+### Worker Pool
+
+```typescript
+const workerPool = Effect.gen(function* () {
+  const semaphore = yield* Effect.makeSemaphore(numWorkers)
+
+  return (task: Effect.Effect<A>) =>
+    semaphore.withPermits(1)(task)
+})
+```
+
+### Parallel with Error Collection
+
+```typescript
+const results = yield* Effect.all(
+  tasks,
+  {
+    concurrency: "unbounded",
+    mode: "either" // Collect all results
+  }
+)
+```
+
+## Best Practices
+
+1. **Use Effect.all concurrency** for simple parallelism
+2. **Use Semaphore** to limit concurrent operations
+3. **Prefer structured concurrency** over daemon fibers
+4. **Handle interruption** in long-running effects
+5. **Use Queue for producer/consumer** patterns
+6. **Use Deferred for one-time coordination**
+
+## Additional Resources
+
+For comprehensive concurrency documentation, consult `${CLAUDE_PLUGIN_ROOT}/references/llms-full.txt`.
+
+Search for these sections:
+- "Fibers" for fiber management
+- "Basic Concurrency" for parallel execution
+- "Deferred" for synchronization primitives
+- "Queue" for concurrent queues
+- "PubSub" for publish/subscribe
+- "Semaphore" for concurrency limiting

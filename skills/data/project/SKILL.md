@@ -1,404 +1,142 @@
 ---
-lang: zh-CN
-sidebarDepth: 2
-meta:
-  - name: description
-    content: 个人总结的vuepress学习技术文档-主题
-  - name: keywords
-    content: vuepress,最新技术文档,vuepress主题
+name: project
+description: Clone and track external repos. Use when user shares GitHub URL to study or develop, or says "search repos", "find repo", "where is [project]". Actions - learn (clone for study), incubate (clone for development), search/find (search repos), list (show tracked).
 ---
 
-# 二.案例二
+# project-manager
 
-## 1.闪烁
+Track and manage external repos: Learn (study) | Incubate (develop)
 
-:::demo
+## Golden Rule
 
-```vue
-<template>
-  <createOpenStreetMapImageryProvider
-    @cesiumBeforeCreate="cesiumBeforeCreate"
-    @cesiumCreated="cesiumCreated"
-    @cesiumBeforeMount="cesiumBeforeMount"
-    @cesiumMounted="cesiumMounted"
-    @cesiumBeforeDestory="cesiumBeforeDestory"
-    @cesiumDestoryed="cesiumDestoryed"
-  >
-  </createOpenStreetMapImageryProvider>
-</template>
+**ghq owns the clone → ψ/ owns the symlink**
 
-<script>
-export default {
-  methods: {
-    cesiumBeforeCreate() {},
-    cesiumCreated() {},
-    cesiumBeforeMount() {},
-    cesiumMounted(viewer) {
-      function computeCircle(radius) {
-        let positions = []
-        for (let i = 0; i < 360; i++) {
-          let radians = Cesium.Math.toRadians(i)
-          positions.push(
-            new Cesium.Cartesian2(
-              radius * Math.cos(radians),
-              radius * Math.sin(radians)
-            )
-          )
-        }
-        return positions
-      }
-      let startTime = Cesium.JulianDate.now()
-      let redTube = viewer.entities.add({
-        name: "动态纹理",
-        polylineVolume: {
-          positions: Cesium.Cartesian3.fromDegreesArray([
-            -85.0, 32.0, -85.0, 36.0, -89.0, 36.0,
-          ]),
-          shape: computeCircle(6000.0),
-          material: new Cesium.ColorMaterialProperty(
-            new Cesium.CallbackProperty(function () {
-              return Cesium.Color.fromRandom({
-                minimumRed: 0.75,
-                minimumGreen: 0.75,
-                minimumBlue: 0.75,
-                alpha: 1.0,
-              })
-            }, false)
-          ),
-        },
-      })
+Never copy. Always symlink. One source of truth.
 
-      viewer.zoomTo(viewer.entities)
-    },
-    cesiumBeforeDestory() {},
-    cesiumDestoryed() {},
-  },
-}
-</script>
+## When to Use
+
+Invoke this skill when:
+- User shares a GitHub URL and wants to study/clone it
+- User mentions wanting to learn from a codebase
+- User wants to start developing on an external repo
+- Need to find where a previously cloned project lives
+
+## Actions
+
+### learn [url|slug]
+
+Clone repo for **study** (read-only reference).
+
+```bash
+# 1. Clone via ghq
+ghq get -u https://github.com/owner/repo
+
+# 2. Create flat symlink (NOT nested!)
+GHQ_ROOT=$(ghq root)
+ln -sf "$GHQ_ROOT/github.com/owner/repo" ψ/learn/repo-name
 ```
 
-:::
+**Output**: "✓ Linked [repo] to ψ/learn/repo-name"
 
-## 2.单目标雷达范围
+### incubate [url|slug]
 
-:::demo
+Clone repo for **active development**.
 
-```vue
-<template>
-  <createOpenStreetMapImageryProvider
-    @cesiumBeforeCreate="cesiumBeforeCreate"
-    @cesiumCreated="cesiumCreated"
-    @cesiumBeforeMount="cesiumBeforeMount"
-    @cesiumMounted="cesiumMounted"
-    @cesiumBeforeDestory="cesiumBeforeDestory"
-    @cesiumDestoryed="cesiumDestoryed"
-  >
-  </createOpenStreetMapImageryProvider>
-</template>
-
-<script>
-export default {
-  methods: {
-    cesiumBeforeCreate() {},
-    cesiumCreated() {},
-    cesiumBeforeMount() {},
-    cesiumMounted(viewer) {
-      new Cesium.RadarPrimitive(viewer, {
-        position: Cesium.Cartesian3.fromDegrees(117.224, 31.819, 128),
-        angle: 50,
-        radius: 300000,
-        color: { red: 1, green: 0, blue: 0, alpha: 0.4 },
-        lineColor: { red: 1, green: 1, blue: 1, alpha: 0.9 },
-      })
-    },
-    cesiumBeforeDestory() {},
-    cesiumDestoryed() {},
-  },
-}
-</script>
+```bash
+# Same flow, different target
+ghq get -u https://github.com/owner/repo
+GHQ_ROOT=$(ghq root)
+ln -sf "$GHQ_ROOT/github.com/owner/repo" ψ/incubate/repo-name
 ```
 
-:::
+**Output**: "✓ Linked [repo] to ψ/incubate/repo-name"
 
-## 3.地形
+### find [query]
 
-:::demo
+Search for project across all locations:
 
-```vue
-<template>
-  <urlTemplateImageryProvider
-    @cesiumBeforeCreate="cesiumBeforeCreate"
-    @cesiumCreated="cesiumCreated"
-    @cesiumBeforeMount="cesiumBeforeMount"
-    @cesiumMounted="cesiumMounted"
-    @cesiumBeforeDestory="cesiumBeforeDestory"
-    @cesiumDestoryed="cesiumDestoryed"
-  >
-  </urlTemplateImageryProvider>
-</template>
+```bash
+# Search ghq repos
+ghq list | grep -i "query"
 
-<script>
-export default {
-  methods: {
-    cesiumBeforeCreate() {},
-    cesiumCreated() {},
-    cesiumBeforeMount() {},
-    cesiumMounted(viewer) {
-      let modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
-        Cesium.Cartesian3.fromDegrees(116.39, 39.91, 0.0)
-      )
-      viewer.scene.primitives.add(
-        Cesium.Model.fromGltf({
-          url: this.$withBase(
-            "/Apps/SampleData/models/GroundVehicle/GroundVehicle.glb"
-          ),
-          modelMatrix: modelMatrix,
-          scale: 10.0,
-        })
-      )
-      //飞机
-      viewer.entities.add({
-        name: "飞机",
-        position: Cesium.Cartesian3.fromDegrees(116.39, 39.91, 2000),
-        orientation: Cesium.Transforms.headingPitchRollQuaternion(
-          Cesium.Cartesian3.fromDegrees(116.39, 39.91, 3000),
-          new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(0), 0, 0)
-        ), //和飞行姿态相关
-        model: {
-          uri: this.$withBase(
-            "/Apps/SampleData/models/CesiumAir/Cesium_Air.glb"
-          ),
-          minimumPixelSize: 128,
-          maximumScale: 20000,
-        },
-      })
-      viewer.entities.add({
-        position: Cesium.Cartesian3.fromDegrees(116.39, 39.91, 0.0),
-        name: "绿色圆",
-        ellipse: {
-          semiMinorAxis: 10000.0,
-          semiMajorAxis: 10000.0,
-          height: 0.0,
-          material: new Cesium.Color(0, 1, 1, 0.4),
-        },
-      })
-      //      let r = new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(90),
-      //          Cesium.Math.toRadians(0),
-      //          Cesium.Math.toRadians(0));
-      //      let l = Cesium.Cartesian3.fromDegrees(116.39,39.91, 128);
-      //      let sensorEntity = viewer.entities.add({
-      //          position: l,
-      //          orientation: Cesium.Transforms.headingPitchRollQuaternion(l, r),
-      //          rectangularSensor: new Cesium.RectangularSensorGraphics({
-      //              radius: 1000,
-      //              xHalfAngle: Cesium.Math.toRadians(90),
-      //              yHalfAngle: Cesium.Math.toRadians(90),
-      //              material: new Cesium.Color(0, 1, 1, .4),
-      //              lineColor: new Cesium.Color(0, 1, 1, 1),
-      //              showScanPlane: true,
-      //              scanPlaneColor: new Cesium.Color(0, 1, 1, 1),
-      //              scanPlaneMode: "vertical",
-      //              scanPlaneRate: 3,
-      //              showThroughEllipsoid: !1
-      //          })
-      //      })
-    },
-    cesiumBeforeDestory() {},
-    cesiumDestoryed() {},
-  },
-}
-</script>
+# Search learn/incubate symlinks
+ls -la ψ/learn/ ψ/incubate/ 2>/dev/null | grep -i "query"
 ```
 
-:::
+**Output**: List matches with their ghq paths
 
-## 4.地形开挖
+### list
 
-:::demo
+Show all tracked projects:
 
-```vue
-<template>
-  <urlTemplateImageryProvider
-    @cesiumBeforeCreate="cesiumBeforeCreate"
-    @cesiumCreated="cesiumCreated"
-    @cesiumBeforeMount="cesiumBeforeMount"
-    @cesiumMounted="cesiumMounted"
-    @cesiumBeforeDestory="cesiumBeforeDestory"
-    @cesiumDestoryed="cesiumDestoryed"
-  >
-  </urlTemplateImageryProvider>
-</template>
+```bash
+echo "📚 Learn"
+ls -la ψ/learn/ | grep "^l" | awk '{print "  " $NF " → " $11}'
 
-<script>
-export default {
-  methods: {
-    cesiumBeforeCreate() {},
-    cesiumCreated() {},
-    cesiumBeforeMount() {},
-    cesiumMounted(viewer) {
-      let terrainClipPlan = new Cesium.TerrainClipPlan(viewer, {
-        height: 30,
-        splitNum: 50,
-        wallImg: this.$withBase("/Source/Images/excavate_side_min.jpg"),
-        bottomImg: this.$withBase("/Source/Images/excavate_bottom_min.jpg"),
-      })
-      terrainClipPlan.updateData([
-        { x: -2480825.779644006, y: 4823039.348573122, z: 3344998.9734951435 },
-        { x: -2481057.6623671586, y: 4822939.719360245, z: 3344970.8291531955 },
-        { x: -2481026.5803391673, y: 4823096.907581604, z: 3344768.5949868727 },
-        { x: -2480854.0689538443, y: 4823168.905374106, z: 3344792.5711652176 },
-      ])
-    },
-    cesiumBeforeDestory() {},
-    cesiumDestoryed() {},
-  },
-}
-</script>
+echo "🌱 Incubate"
+ls -la ψ/incubate/ | grep "^l" | awk '{print "  " $NF " → " $11}'
+
+echo "🏠 External (ghq)"
+ghq list | head -10
 ```
 
-:::
+## Directory Structure
 
-## 5.动态扩散点
-:::demo
+```
+ψ/
+├── learn/<slug>     → ~/Code/github.com/owner/repo  (symlink)
+└── incubate/<slug>  → ~/Code/github.com/owner/repo  (symlink)
 
-```vue
-<template>
-  <createOpenStreetMapImageryProvider
-    @cesiumBeforeCreate="cesiumBeforeCreate"
-    @cesiumCreated="cesiumCreated"
-    @cesiumBeforeMount="cesiumBeforeMount"
-    @cesiumMounted="cesiumMounted"
-    @cesiumBeforeDestory="cesiumBeforeDestory"
-    @cesiumDestoryed="cesiumDestoryed"
-  >
-  </createOpenStreetMapImageryProvider>
-</template>
-
-<script>
-export default {
-  methods: {
-    cesiumBeforeCreate() {},
-    cesiumCreated() {},
-    cesiumBeforeMount() {},
-    cesiumMounted(viewer) {
-
-      /*
-          流动纹理线
-           color 颜色
-           duration 持续时间 毫秒
-        */
-      function EllipsoidFadeMaterialProperty(color, duration) {
-        this._definitionChanged = new Cesium.Event()
-        this._color = undefined
-        this._colorSubscription = undefined
-        this.color = color
-        this.duration = duration
-        this._time = new Date().getTime()
-      }
-      Cesium.defineProperties(EllipsoidFadeMaterialProperty.prototype, {
-        isConstant: {
-          get: function () {
-            return false
-          },
-        },
-        definitionChanged: {
-          get: function () {
-            return this._definitionChanged
-          },
-        },
-        color: Cesium.createPropertyDescriptor("color"),
-      })
-      EllipsoidFadeMaterialProperty.prototype.getType = function (time) {
-        return "EllipsoidFade"
-      }
-      EllipsoidFadeMaterialProperty.prototype.getValue = function (
-        time,
-        result
-      ) {
-        if (!Cesium.defined(result)) {
-          result = {}
-        }
-        result.color = Cesium.Property.getValueOrClonedDefault(
-          this._color,
-          time,
-          Cesium.Color.WHITE,
-          result.color
-        )
-
-        result.time =
-          ((new Date().getTime() - this._time) % this.duration) / this.duration
-        return result
-
-        // return Cesium.defined(result) || (result = {}),
-        //     result.color = Cesium.Property.getValueOrClonedDefault(this._color, time, Cesium.Color.WHITE, result.color),
-        //     void 0 === this._time && (this._time = time.secondsOfDay),
-        //     result.time = time.secondsOfDay - this._time,
-        //     result
-      }
-      EllipsoidFadeMaterialProperty.prototype.equals = function (other) {
-        return (
-          this === other ||
-          (other instanceof EllipsoidFadeMaterialProperty &&
-            Property.equals(this._color, other._color))
-        )
-      }
-      Cesium.EllipsoidFadeMaterialProperty = EllipsoidFadeMaterialProperty
-      Cesium.Material.EllipsoidFadeType = "EllipsoidFade"
-      Cesium.Material.EllipsoidFadeSource =
-        "czm_material czm_getMaterial(czm_materialInput materialInput)\n" +
-        "{\n" +
-        "czm_material material = czm_getDefaultMaterial(materialInput);\n" +
-        "material.diffuse = 1.5 * color.rgb;\n" +
-        "vec2 st = materialInput.st;\n" +
-        "float dis = distance(st, vec2(0.5, 0.5));\n" +
-        "float per = fract(time);\n" +
-        "if(dis > per * 0.5){\n" +
-        "material.alpha = 0.0;\n" +
-        "discard;\n" +
-        "}else {\n" +
-        "material.alpha = color.a  * dis / per / 1.0;\n" +
-        "}\n" +
-        "return material;\n" +
-        "}"
-      Cesium.Material._materialCache.addMaterial(
-        Cesium.Material.EllipsoidFadeType,
-        {
-          fabric: {
-            type: Cesium.Material.EllipsoidFadeType,
-            uniforms: {
-              color: new Cesium.Color(1.0, 0.0, 0.0, 1),
-              time: 0,
-            },
-            source: Cesium.Material.EllipsoidFadeSource,
-          },
-          translucent: function (material) {
-            return true
-          },
-        }
-      )
-
-      viewer.entities.add({
-        name: "EllipsoidFade",
-        position: Cesium.Cartesian3.fromDegrees(104.0, 30.0, 100.0),
-        ellipse: {
-          height: 0,
-          semiMinorAxis: 30000.0,
-          semiMajorAxis: 30000.0,
-          material: new Cesium.EllipsoidFadeMaterialProperty(
-            Cesium.Color.ORANGE,
-            2000
-          ),
-        },
-      })
-
-      viewer.zoomTo(viewer.entities)
-    },
-    cesiumBeforeDestory() {},
-    cesiumDestoryed() {},
-  },
-}
-</script>
+~/Code/               ← ghq root (source of truth)
+└── github.com/owner/repo/  (actual clone)
 ```
 
-:::
+## Health Check
 
+When listing, verify symlinks are valid:
+
+```bash
+# Check for broken symlinks
+find ψ/learn ψ/incubate -type l ! -exec test -e {} \; -print 2>/dev/null
+```
+
+If broken: `ghq get -u [url]` to restore source.
+
+## Examples
+
+```
+# User shares URL
+User: "I want to learn from https://github.com/SawyerHood/dev-browser"
+→ ghq get -u https://github.com/SawyerHood/dev-browser
+→ ln -sf ~/Code/github.com/SawyerHood/dev-browser ψ/learn/dev-browser
+
+# User wants to develop
+User: "I want to contribute to claude-mem"
+→ ghq get -u https://github.com/thedotmack/claude-mem
+→ ln -sf ~/Code/github.com/thedotmack/claude-mem ψ/incubate/claude-mem
+```
+
+## Anti-Patterns
+
+| ❌ Wrong | ✅ Right |
+|----------|----------|
+| `git clone` directly to ψ/ | `ghq get` then symlink |
+| Nested paths: `ψ/learn/repo/github.com/...` | Flat: `ψ/learn/repo-name` |
+| Copy files | Symlink always |
+| Manual clone outside ghq | Everything through ghq |
+
+## Quick Reference
+
+```bash
+# Add to learn
+ghq get -u URL && ln -sf "$(ghq root)/github.com/owner/repo" ψ/learn/name
+
+# Add to incubate
+ghq get -u URL && ln -sf "$(ghq root)/github.com/owner/repo" ψ/incubate/name
+
+# Update source
+ghq get -u URL
+
+# Find repo
+ghq list | grep name
+```

@@ -1,204 +1,141 @@
 ---
-skill_name: frontmatter-validation
-skill_category: documentation
-description: Validate and fix YAML frontmatter in markdown documentation
-allowed_tools: [Read, Edit, Glob, Grep]
-token_estimate: 950
-version: 1.0
-last_updated: 2025-12-21
-owner: Claude Copilot
-status: active
-tags: [frontmatter, yaml, documentation, validation, metadata, shared-docs]
-related_skills: [token-budget-check, link-validation]
-trigger_files: ["*.md", "**\/SKILL.md"]
-trigger_keywords: [frontmatter, yaml, metadata, validation, headers]
+name: frontmatter-validation
+description: "Validate YAML frontmatter in documentation against template requirements. Use when creating or editing docs, or when the user asks to check frontmatter."
+event: doc-save
+auto_trigger: true
+version: "2.0.0"
+last_updated: "2026-01-26"
+
+# Inputs/Outputs
+inputs:
+  - document_path
+  - document_content
+  - expected_template
+output: validation_report
+output_format: "Pass/Fail with error details"
+
+# Auto-Trigger Rules
+auto_invoke:
+  events:
+    - "doc-save"
+    - "doc-creation"
+  file_patterns:
+    - "docs/**/*.md"
+  conditions:
+    - "markdown file saved in docs/"
+
+# Validation
+validation_rules:
+  - "document_type must be valid"
+  - "last_updated must be ISO date"
+  - "version must be semver"
+  - "at least 5 keywords required"
+  - "author must start with @"
+
+# Chaining
+chain_after: [documentation]
+chain_before: [related-docs-sync]
+
+# Agent Association
+called_by: ["@Scribe"]
+mcp_tools:
+  - mcp_payment-syste_query_docs_by_type
+  - read_file
 ---
 
-# Frontmatter Validation
+# Frontmatter Validation Skill
 
-Validate and fix YAML frontmatter metadata in markdown documentation files.
+> **Purpose:** Validate YAML frontmatter in documentation against template requirements. Ensures consistency across all docs.
 
-## Purpose
+## Trigger
 
-Frontmatter enables efficient AI navigation of documentation. This skill ensures all files have correct, complete metadata for their document type.
+**When:** Any `.md` file in `docs/` is saved or created
+**Context Needed:** Document content, template for document_type
+**MCP Tools:** `mcp_payment-syste_query_docs_by_type`, `read_file`
 
-## Frontmatter Schemas by Document Type
+## Required Fields
 
-### Tier 1: Skills (SKILL.md)
+All documents MUST have:
 
 ```yaml
 ---
-skill_name: forces-analysis          # required, kebab-case
-skill_category: analysis             # required: analysis, engineering, facilitation, strategy
-description: One-line description    # required, max 100 chars
-allowed_tools: [Read, Write, Edit]   # required, array
-token_estimate: 1850                 # required, integer
-version: 1.2                         # required, semver
-last_updated: 2025-01-15             # required, ISO date
-owner: Service Design Team           # required
-status: active                       # required: active, deprecated, draft
-tags: [forces, organization]         # required, array
-related_skills: [moments-mapping]    # optional, array
-methodology: path/to/methodology.md  # optional, relative path
+document_type: "[type]" # REQUIRED
+module: "[module]" # REQUIRED
+status: "[status]" # REQUIRED
+version: "X.Y.Z" # REQUIRED
+last_updated: "YYYY-MM-DD" # REQUIRED
+author: "@username" # REQUIRED
+
+keywords:
+  - "[keyword1]" # REQUIRED (5-10)
+
+related_docs: # REQUIRED (can be empty)
+  database_schema: ""
+  api_design: ""
+  ux_flow: ""
 ---
 ```
 
-### Tier 2: Product Documentation
+## Document Types → Templates
+
+| document_type        | Template      | Extra Fields           |
+| :------------------- | :------------ | :--------------------- |
+| `general`            | 00-GENERAL    | doc_metadata           |
+| `feature-design`     | 01-FEATURE    | feature_metadata       |
+| `adr`                | 02-ADR        | adr_metadata           |
+| `database-schema`    | 03-DATABASE   | database, schema_stats |
+| `api-design`         | 04-API        | api_metadata           |
+| `sync-strategy`      | 05-SYNC       | sync_metadata          |
+| `ux-flow`            | 06-UX         | ux_metadata            |
+| `testing-strategy`   | 07-TESTING    | testing_metadata       |
+| `deployment-runbook` | 08-DEPLOYMENT | deployment_metadata    |
+| `security-audit`     | 09-SECURITY   | security_metadata      |
+
+## Status Values
 
 ```yaml
----
-product: Insights Copilot            # required
-status: active                       # required: active, beta, deprecated
-last_updated: 2025-01-15             # required, ISO date
-owner: Platform Team                 # required
-token_estimate: 650                  # required, integer
-doc_type: architecture               # required: overview, architecture, api, integration, security
-source_of_truth: ../repo/docs/...    # optional, path to canonical doc
-dependencies: [product-a, product-b] # optional, array
-summary: Brief description           # optional, 1-2 sentences
-key_entities: [Force, Pattern]       # optional, domain entities
-integration_endpoints: [POST /api/x] # optional, for API docs
----
-```
-
-### Tier 3: Operational Documentation
-
-```yaml
----
-title: Documentation Strategy Guide  # required
-doc_type: guide                       # required: guide, standard, reference, runbook
-category: operations                  # required: operations, security, development
-last_updated: 2025-01-15              # required, ISO date
-version: 2.1                          # optional
-status: active                        # required: active, deprecated, draft
-primary_audience: [developers]        # optional, array
-required_reading: false               # optional, boolean
-token_estimate: 2500                  # required, integer
-replaces: _archive/old-doc.md         # optional, path to replaced doc
-related: [other-doc.md]               # optional, array
----
-```
-
-## Procedure
-
-### 1. Identify Target Files
-
-```bash
-find . -name "*.md" -type f -not -path "./_archive/*"
-```
-
-### 2. Detect Document Type
-
-Infer from path and filename:
-
-| Pattern | Document Type |
-|---------|---------------|
-| `*/SKILL.md` | Tier 1: Skill |
-| `02-products/*` | Tier 2: Product |
-| `03-ai-enabling/03-operations/*` | Tier 3: Operational |
-| `*/00-overview.md` | Product overview |
-| `*-profile.md` or `02-profiles/*` | Agent profile |
-
-### 3. Extract Existing Frontmatter
-
-Frontmatter is YAML between `---` markers at file start:
-
-```bash
-sed -n '/^---$/,/^---$/p' file.md | head -n -1 | tail -n +2
-```
-
-### 4. Validate Against Schema
-
-Check for:
-
-| Check | Severity | Description |
-|-------|----------|-------------|
-| Required fields missing | ERROR | Must be present |
-| Wrong type | ERROR | e.g., string instead of array |
-| Invalid value | ERROR | e.g., status: "live" not in enum |
-| Missing token_estimate | WARNING | Should be calculated and added |
-| Stale last_updated | WARNING | Older than file modification |
-| Broken path reference | WARNING | source_of_truth doesn't exist |
-
-### 5. Auto-Fix Where Possible
-
-| Missing Field | Auto-Fix Strategy |
-|---------------|-------------------|
-| `token_estimate` | Calculate from word count × 1.4 |
-| `last_updated` | Use current date |
-| `status` | Default to "active" |
-| `skill_name` | Derive from directory name |
-| `doc_type` | Infer from path/filename |
-
-### 6. Generate Missing Frontmatter
-
-For files without frontmatter, generate based on type:
-
-```yaml
----
-title: [Derived from H1 or filename]
-doc_type: [Inferred from path]
-last_updated: 2025-12-21
-status: active
-token_estimate: [Calculated]
----
-```
-
-## Output Format
-
-```markdown
-## Frontmatter Validation Report
-
-### Summary
-- Files scanned: N
-- Valid: N
-- Errors: N
-- Warnings: N
-- Fixed: N
-
-### Errors (Must Fix)
-
-| File | Issue | Field | Details |
-|------|-------|-------|---------|
-| skills/x/SKILL.md | Missing required | skill_name | Add skill name |
-| products/y.md | Invalid value | status | "live" not valid, use "active" |
-
-### Warnings
-
-| File | Issue | Field | Suggestion |
-|------|-------|-------|------------|
-| docs/guide.md | Missing | token_estimate | Add: 1,250 (calculated) |
-| docs/api.md | Stale | last_updated | Update to current date |
-
-### Auto-Fixes Applied
-
-| File | Field | Old Value | New Value |
-|------|-------|-----------|-----------|
-| docs/setup.md | token_estimate | (missing) | 890 |
-| docs/setup.md | last_updated | 2024-06-01 | 2025-12-21 |
+status: "draft"       # Work in progress
+status: "in-review"   # Under review
+status: "approved"    # Ready for use
+status: "deprecated"  # No longer valid
 ```
 
 ## Validation Rules
 
-### Field Value Rules
+1. **Type Check:** `document_type` must match valid types
+2. **Date Format:** `last_updated` must be ISO date (YYYY-MM-DD)
+3. **Version Format:** `version` must be semver (X.Y.Z)
+4. **Keywords:** At least 5 keywords required
+5. **Author:** Must start with `@`
+6. **Related Docs:** Paths must exist or be empty string
 
-| Field | Valid Values |
-|-------|--------------|
-| `status` | active, deprecated, draft, beta |
-| `skill_category` | analysis, engineering, facilitation, strategy, documentation |
-| `doc_type` | overview, architecture, api, integration, security, guide, standard, reference, runbook |
-| `allowed_tools` | Read, Write, Edit, Bash, Glob, Grep, WebFetch, WebSearch |
+## Auto-Fix Suggestions
 
-### Path Validation
+When validation fails, suggest:
 
-For path fields (`source_of_truth`, `methodology`, `replaces`, `related`):
-- Resolve relative to file location
-- Check target exists
-- Warn if external to repository
+- Missing fields with defaults
+- Date format corrections
+- Path corrections for related_docs
 
-### Token Estimate Accuracy
+## Example Output
 
-Compare `token_estimate` to actual:
-- Within 10%: OK
-- 10-25% off: WARNING
-- >25% off: ERROR (likely stale)
+```json
+{
+  "valid": false,
+  "errors": [
+    {
+      "field": "last_updated",
+      "message": "Invalid date format",
+      "suggestion": "2026-01-26"
+    }
+  ],
+  "warnings": [
+    { "field": "keywords", "message": "Only 3 keywords, recommend 5-10" }
+  ]
+}
+```
+
+## Reference
+
+- [DOCUMENTATION-WORKFLOW.md](/docs/process/standards/DOCUMENTATION-WORKFLOW.md)
+- [docs/templates/](/docs/templates/)

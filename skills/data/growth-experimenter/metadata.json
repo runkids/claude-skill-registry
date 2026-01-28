@@ -1,12 +1,7 @@
 {
   "name": "growth-experimenter",
-  "description": "Run systematic growth experiments to increase acquisition, activation, retention, and revenue. Use when optimizing conversion funnels, running A/B tests, improving metrics, or when users mention growt",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "testing",
-  "tags": [
-    "growth",
-    "experimenter"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/growth-experimenter/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:39.300388Z"
 }

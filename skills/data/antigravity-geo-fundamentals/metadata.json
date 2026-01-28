@@ -1,9 +1,7 @@
 {
   "name": "antigravity-geo-fundamentals",
-  "description": "Generative Engine Optimization for AI search engines (ChatGPT, Claude, Perplexity).",
   "repo": "boisenoise/skills-collections",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/boisenoise/skills-collections"
+  "path": "skills/antigravity-geo-fundamentals/SKILL.md",
+  "source": "github.com/boisenoise/skills-collections",
+  "downloaded_at": "2026-01-28T04:41:43.974659Z"
 }

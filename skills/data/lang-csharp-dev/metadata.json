@@ -1,9 +1,7 @@
 {
   "name": "lang-csharp-dev",
-  "description": "Foundational C# patterns covering LINQ, async/await, nullable types, records, and pattern matching. Use when writing C# code or needing guidance on C# features. This is the entry point for C# developm",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-csharp-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:46.511836Z"
 }

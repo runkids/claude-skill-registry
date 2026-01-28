@@ -1,61 +1,113 @@
 ---
 name: worktree
-description: Use when managing git worktrees (list, create/switch, delete, configure) in this repo; prefer the git-wt subcommand for worktree operations and its configuration options.
+description: Create and manage git worktrees with automatic environment setup. Creates worktrees at ../model-share-<branch>, copies .env, and runs pnpm install.
 ---
-# Worktree
 
-## Overview
+# Worktree Setup Skill
 
-Use `git wt` as the default interface for git worktree tasks. It wraps `git worktree` to list, create, switch, and delete worktrees with safer defaults.
+Creates git worktrees with all necessary setup for running the dev server. Handles the tedious setup steps so you can start working immediately.
 
 ## Quick Start
 
-```console
-git wt                       # list worktrees
-git wt <branch|worktree>     # switch/create (creates branch and worktree if needed)
-git wt -d <branch|worktree>  # delete worktree and branch (safe)
-git wt -D <branch|worktree>  # force delete worktree and branch
+```bash
+# Create a worktree for a new branch
+node .claude/skills/worktree/cli.mjs create feature/my-feature
+
+# Create a worktree for an existing branch
+node .claude/skills/worktree/cli.mjs create existing-branch
+
+# List all worktrees
+node .claude/skills/worktree/cli.mjs list
+
+# Remove a worktree
+node .claude/skills/worktree/cli.mjs remove feature/my-feature
 ```
 
-## Task Playbook
+## What It Does
 
-### List worktrees
+When you create a worktree, the skill:
 
-Run `git wt` and parse the output. Use this to confirm names and paths before switching or deleting.
+1. **Creates the git worktree** at `../model-share-<branch-name>` (slashes in branch names are replaced with dashes)
+2. **Initializes git submodules** (`git submodule update --init --recursive`) - required for `event-engine-common`
+3. **Copies `.env`** from the main worktree to the new worktree
+4. **Runs `pnpm install`** to set up dependencies (leverages pnpm's content-addressable store for fast installs)
 
-### Create or switch worktree
+## CLI Commands
 
-Prefer `git wt <branch|worktree>` for both actions. It will create the branch/worktree if missing, otherwise switch to it.
+| Command | Description |
+|---------|-------------|
+| `create <branch>` | Create a new worktree for the specified branch |
+| `list` | List all worktrees |
+| `remove <branch>` | Remove a worktree (deletes directory and prunes git worktree) |
 
-If staying in the current directory matters, use `--nocd`:
+## Examples
 
-```console
-git wt --nocd feature-branch
+```bash
+# Create worktree for a new feature
+node .claude/skills/worktree/cli.mjs create feature/user-auth
+# Creates: ../model-share-feature-user-auth
+
+# Create worktree for a bugfix
+node .claude/skills/worktree/cli.mjs create fix/login-issue
+# Creates: ../model-share-fix-login-issue
+
+# Remove when done
+node .claude/skills/worktree/cli.mjs remove fix/login-issue
 ```
 
-### Delete worktree
+## Merging a Worktree to Main
 
-Use `git wt -d <branch|worktree>` for a safe delete. Only use `-D` if explicitly requested or when cleanup must be forced.
+When the user asks to "merge the worktree" or "merge to main", follow this workflow:
 
-## Configuration Guidance
+1. **Commit changes in the worktree:**
+   ```bash
+   cd /path/to/worktree
+   git add <files>
+   git commit -m "feat/fix: description"
+   ```
 
-Use `git config` for defaults; override with flags when needed.
+2. **Update and merge to main:**
+   ```bash
+   cd /path/to/main-worktree
+   git fetch origin && git checkout main && git pull origin main
+   git merge <branch-name> --no-edit
+   git push origin main
+   ```
 
-- `wt.basedir` / `--basedir`: set the worktree base directory (default is `../{gitroot}-wt`).
-- `wt.copyignored` / `--copyignored`: copy gitignored files (for example, `.env`) when creating.
-- `wt.copyuntracked` / `--copyuntracked`: copy untracked files on create.
-- `wt.copymodified` / `--copymodified`: copy modified tracked files on create.
-- `wt.nocopy` / `--nocopy`: exclude files from copying (gitignore syntax).
-- `wt.copy` / `--copy`: always copy specific patterns even if ignored.
-- `wt.hook` / `--hook`: run commands after creating a new worktree.
-- `wt.nocd` / `--nocd`: prevent automatic directory switching.
+3. **Clean up the worktree and branch:**
+   ```bash
+   # Remove the worktree directory (use --force if needed)
+   rm -rf /path/to/worktree
 
-## Shell Integration
+   # Delete the local branch
+   git branch -d <branch-name>
 
-When asked to enable shell integration, use the appropriate init command:
+   # Optionally delete remote branch
+   git push origin --delete <branch-name>
+   ```
 
-```powershell
-Invoke-Expression (git wt --init powershell | Out-String)
+### Example
+
+```bash
+# 1. Commit in worktree
+cd ../model-share-fix-my-bug
+git add src/file.ts
+git commit -m "fix: resolve the bug"
+
+# 2. Merge to main
+cd ../model-share
+git fetch origin && git checkout main && git pull origin main
+git merge fix/my-bug --no-edit
+git push origin main
+
+# 3. Clean up
+rm -rf ../model-share-fix-my-bug
+git branch -d fix/my-bug
 ```
 
-Use `--nocd` with `--init` to enable completion without wrapping `git` when required.
+## Notes
+
+- Branch names with slashes are converted to dashes in the directory name
+- The `.env` file is copied (not symlinked) so you can customize environment per worktree if needed
+- Uses pnpm's content-addressable store, so subsequent worktree installs are fast
+- After creation, use `/dev-server` skill to start the dev server in the new worktree

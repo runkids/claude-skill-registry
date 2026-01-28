@@ -1,352 +1,410 @@
 ---
 name: playwright-e2e-testing
-description: |
-  Automated end-to-end testing with comprehensive evidence collection using Playwright MCP tools.
-  Use when you need to test user flows, validate workflows, run E2E tests, verify application
-  behavior, or collect evidence for bug reports. Triggers on "test the user flow", "run E2E test",
-  "validate the workflow", "automated testing", "test this feature", or "check if this works".
-  Works with web applications, forms, SPAs, and any browser-based interfaces.
-
+description: Write end-to-end tests with Playwright for web applications. Includes fixtures, page objects, test templates, visual regression testing, and accessibility audits.
 ---
 
-# Playwright E2E Testing
+# Playwright E2E Testing Skill
 
-## Quick Start
+## When to Use
 
-Test a login flow with evidence collection:
+Use this skill when:
+- Testing user workflows (sign up, login, checkout)
+- Verifying form submission and validation
+- Testing responsive design across devices
+- Running visual regression tests
+- Checking accessibility (WCAG AA)
+- Testing dynamic content and API interactions
+- Creating smoke tests for CI/CD
 
-```
-You: "Test the login flow at http://localhost:3000"
+## Setup
 
-Claude: [Runs E2E test with]:
-1. Initial state capture (snapshot + screenshot)
-2. Form interaction (username/password)
-3. Console error monitoring
-4. Network request verification
-5. Final state capture
-6. Comprehensive test report
-```
+### Install Playwright
 
-**Result:** Complete test report with screenshots, console logs, network activity, and pass/fail status.
-
-## Table of Contents
-
-1. When to Use This Skill
-2. What This Skill Does
-3. E2E Testing Workflow
-   3.1. Initial State Capture
-   3.2. Test Execution
-   3.3. Evidence Collection
-   3.4. Final Verification
-   3.5. Report Generation
-4. Common Test Scenarios
-5. Supporting Files
-6. Expected Outcomes
-7. Requirements
-8. Red Flags to Avoid
-
-## When to Use This Skill
-
-### Explicit Triggers
-- "Test the user flow for [feature]"
-- "Run E2E test on [URL]"
-- "Validate the [workflow/form/checkout] process"
-- "Check if [feature] works end-to-end"
-- "Automated testing for [scenario]"
-- "Verify [user journey]"
-
-### Implicit Triggers
-- Need to validate multi-step workflows (login, checkout, signup)
-- Regression testing after changes
-- Collecting evidence for bug reports
-- Verifying form submissions work correctly
-- Testing SPA navigation and state changes
-- Validating API interactions from browser
-
-### Debugging Triggers
-- "Why is [feature] not working?"
-- "Check console for errors during [action]"
-- "Monitor network requests during [workflow]"
-- "Capture evidence of [bug]"
-
-## What This Skill Does
-
-This skill standardizes end-to-end testing with comprehensive evidence collection:
-
-1. **State Capture** - Takes snapshots and screenshots before and after tests
-2. **Interaction Execution** - Fills forms, clicks buttons, navigates pages
-3. **Error Monitoring** - Watches console for errors and warnings
-4. **Network Verification** - Tracks API calls and responses
-5. **Evidence Collection** - Generates reports with all artifacts
-6. **Pass/Fail Determination** - Validates expected outcomes
-
-## E2E Testing Workflow
-
-### 3.1. Initial State Capture
-
-**Purpose:** Establish baseline before test execution
-
-```
-Step 1: Navigate to application
-  browser_navigate(url="http://localhost:3000")
-
-Step 2: Wait for page load
-  browser_wait_for(time=2)
-
-Step 3: Capture accessibility snapshot
-  browser_snapshot()
-  → Save as "initial-state.md"
-
-Step 4: Take screenshot
-  browser_take_screenshot(filename="initial-state.png")
+```bash
+pip install pytest-playwright
+playwright install  # Download browsers (chromium, firefox, webkit)
 ```
 
-**Why this matters:** Initial state provides context for test failures and debugging.
-
-### 3.2. Test Execution
-
-**Purpose:** Execute user interactions systematically
+### Project Structure
 
 ```
-Step 1: Identify form elements
-  browser_snapshot()
-  → Find refs for input fields
-
-Step 2: Fill form fields
-  browser_fill_form(fields=[
-    {name: "Email", ref: "ref_5", type: "textbox", value: "user@test.com"},
-    {name: "Password", ref: "ref_6", type: "textbox", value: "password123"}
-  ])
-
-Step 3: Submit form
-  browser_click(element="Login button", ref="ref_7")
-
-Step 4: Wait for response
-  browser_wait_for(text="Welcome")
+tests/
+  ├── conftest.py              # Pytest fixtures
+  ├── e2e/
+  │   ├── test_homepage.py
+  │   ├── test_product_search.py
+  │   └── test_checkout.py
+  └── pages/
+      ├── base_page.py
+      ├── homepage.py
+      ├── product_page.py
+      └── checkout_page.py
 ```
 
-**Pattern:** Snapshot → Identify refs → Interact → Verify
+## Code Patterns
 
-### 3.3. Evidence Collection
+### 1. Page Object Model (POM)
 
-**Purpose:** Gather diagnostic information during test
+```python
+# tests/pages/base_page.py
+from playwright.async_api import Page, expect
 
-```
-Step 1: Check console messages
-  browser_console_messages(level="error")
-  → Capture any errors/warnings
-
-Step 2: Monitor network requests
-  browser_network_requests()
-  → Verify API calls succeeded
-
-Step 3: Capture intermediate states
-  browser_take_screenshot(filename="step-2-after-login.png")
-```
-
-**Evidence types:**
-- Console logs (errors, warnings, info)
-- Network requests (status codes, URLs, timing)
-- Screenshots (visual confirmation)
-- Accessibility snapshots (DOM state)
-
-### 3.4. Final Verification
-
-**Purpose:** Validate test success criteria
-
-```
-Step 1: Verify expected elements
-  browser_snapshot()
-  → Check for success indicators
-
-Step 2: Capture final state
-  browser_take_screenshot(filename="final-state.png")
-
-Step 3: Check for errors
-  browser_console_messages(level="error")
-  → Ensure no errors during workflow
-```
-
-**Success criteria:**
-- Expected text/elements present
-- No console errors
-- Network requests succeeded (2xx status codes)
-- Final state matches expectations
-
-### 3.5. Report Generation
-
-**Purpose:** Create comprehensive test documentation
-
-```
-Use scripts/generate_test_report.py:
-
-python scripts/generate_test_report.py \
-  --test-name "Login Flow" \
-  --initial-snapshot initial-state.md \
-  --final-snapshot final-state.md \
-  --screenshots initial-state.png,final-state.png \
-  --console-logs console.json \
-  --network-requests network.json \
-  --output test-report.md
+class BasePage:
+    """Base page class with common methods"""
+    
+    def __init__(self, page: Page):
+        self.page = page
+    
+    async def goto(self, url: str):
+        """Navigate to URL"""
+        await self.page.goto(url)
+    
+    async def wait_for_element(self, selector: str, timeout: int = 5000):
+        """Wait for element to appear"""
+        await self.page.locator(selector).wait_for(timeout=timeout)
+    
+    async def click(self, selector: str):
+        """Click element"""
+        await self.page.locator(selector).click()
+    
+    async def fill(self, selector: str, text: str):
+        """Fill input field"""
+        await self.page.locator(selector).fill(text)
+    
+    async def get_text(self, selector: str) -> str:
+        """Get element text"""
+        return await self.page.locator(selector).text_content()
+    
+    async def expect_visible(self, selector: str):
+        """Assert element is visible"""
+        await expect(self.page.locator(selector)).to_be_visible()
+    
+    async def expect_text(self, selector: str, text: str):
+        """Assert element contains text"""
+        await expect(self.page.locator(selector)).to_contain_text(text)
+    
+    async def screenshot(self, name: str):
+        """Take screenshot for visual regression"""
+        await self.page.screenshot(path=f"tests/screenshots/{name}.png")
 ```
 
-**Report includes:**
-- Test metadata (name, URL, timestamp)
-- Pass/fail status with reasoning
-- Console error summary
-- Network request summary
-- Screenshot gallery
-- Accessibility snapshots
-- Recommendations for failures
+### 2. Page Object for Product Search
 
-See `references/report-template.md` for structure.
+```python
+# tests/pages/product_page.py
+from playwright.async_api import Page
+from tests.pages.base_page import BasePage
 
-## Common Test Scenarios
-
-**Login Flow:** Navigate → Capture state → Fill credentials → Submit → Wait for success → Verify console/network → Capture final state → Report
-
-**Form Submission:** Navigate → Capture state → Fill fields → Submit → Wait for confirmation → Verify POST request → Check validation → Capture state → Report
-
-**Multi-Step Checkout:** Add to cart → Checkout → Fill shipping/payment (capture each) → Submit order → Verify confirmation → Check all APIs → Report
-
-**SPA Navigation:** Navigate → Click nav links → Verify URL changes → Check content updates → Monitor console/network → Capture states → Report
-
-See `examples/examples.md` for 10+ detailed scenarios with complete code.
-
-## Supporting Files
-
-**scripts/** - `generate_test_report.py` (creates markdown reports), `setup_test_env.py` (initializes directories)
-
-**references/** - `report-template.md` (report structure), `troubleshooting.md` (common issues/solutions)
-
-**examples/** - `examples.md` (10+ complete test scenarios with code)
-
-## Expected Outcomes
-
-### Successful Test
-
-```
-✅ Test Passed: Login Flow
-
-Test Summary:
-- URL: http://localhost:3000/login
-- Duration: 5.2 seconds
-- Steps: 4
-- Console Errors: 0
-- Network Failures: 0
-
-Evidence:
-- Initial state: initial-state.png
-- Final state: final-state.png
-- Accessibility snapshots: 2
-- Network requests: 3 (all 200 OK)
-
-Verification:
-✅ "Welcome, User" text found
-✅ No console errors
-✅ POST /api/login returned 200
-✅ Dashboard loaded successfully
-
-Full report: test-reports/login-flow-2025-12-20.md
-```
-
-### Failed Test
-
-```
-❌ Test Failed: Login Flow
-
-Test Summary:
-- URL: http://localhost:3000/login
-- Duration: 3.1 seconds (stopped early)
-- Steps: 2 of 4 completed
-- Console Errors: 2
-- Network Failures: 1
-
-Failure Reason:
-Network request POST /api/login returned 401 Unauthorized
-
-Console Errors:
-1. [Error] Authentication failed: Invalid credentials
-2. [Error] Uncaught TypeError: Cannot read property 'token' of undefined
-
-Evidence:
-- Initial state: initial-state.png
-- Error state: error-state.png
-- Network log: network.json
-
-Recommendations:
-1. Check API endpoint credentials
-2. Verify authentication token handling
-3. Add error handling for failed login attempts
-
-Full report: test-reports/login-flow-failed-2025-12-20.md
+class ProductPage(BasePage):
+    """Product search and listing page"""
+    
+    # Selectors
+    SEARCH_INPUT = 'input[placeholder="Buscar ofertas"]'
+    SEARCH_BUTTON = 'button[type="submit"]'
+    PRODUCT_CARD = '.product-card'
+    PRODUCT_TITLE = '.product-title'
+    PRODUCT_PRICE = '.product-price'
+    PRODUCT_RATING = '.rating'
+    SORT_DROPDOWN = 'select[name="sort"]'
+    CATEGORY_FILTER = 'input[name="category"]'
+    
+    async def search(self, query: str):
+        """Search for products"""
+        await self.fill(self.SEARCH_INPUT, query)
+        await self.click(self.SEARCH_BUTTON)
+        await self.page.wait_for_load_state("networkidle")
+    
+    async def get_product_count(self) -> int:
+        """Count visible products"""
+        return await self.page.locator(self.PRODUCT_CARD).count()
+    
+    async def get_first_product_title(self) -> str:
+        """Get first product title"""
+        return await self.get_text(f"{self.PRODUCT_CARD}:first-child {self.PRODUCT_TITLE}")
+    
+    async def click_product(self, index: int = 0):
+        """Click product by index"""
+        products = self.page.locator(self.PRODUCT_CARD)
+        await products.nth(index).click()
+    
+    async def filter_by_category(self, category: str):
+        """Filter products by category"""
+        await self.click(f'{self.CATEGORY_FILTER}[value="{category}"]')
+        await self.page.wait_for_load_state("networkidle")
+    
+    async def sort_by(self, sort_type: str):
+        """Sort products"""
+        # sort_type: 'price-low-high', 'rating', 'newest'
+        await self.page.select_option(self.SORT_DROPDOWN, sort_type)
+        await self.page.wait_for_load_state("networkidle")
+    
+    async def get_price_range(self) -> tuple:
+        """Get min/max price from current results"""
+        prices = []
+        price_elements = await self.page.locator(self.PRODUCT_PRICE).all()
+        
+        for element in price_elements:
+            text = await element.text_content()
+            # Parse "R$ 99,99" → 99.99
+            price = float(text.replace("R$", "").replace(",", ".").strip())
+            prices.append(price)
+        
+        return (min(prices), max(prices)) if prices else (0, 0)
 ```
 
-## Requirements
+### 3. Test Fixtures
 
-**Tools:**
-- Playwright MCP tools (browser_navigate, browser_snapshot, etc.)
-- Python 3.8+ (for report generation scripts)
-- Write access to test output directory
+```python
+# tests/conftest.py
+import pytest
+from playwright.async_api import async_playwright, Browser, BrowserContext, Page
+from tests.pages.product_page import ProductPage
 
-**Environment:**
-- Application running and accessible (local or remote)
-- Network connectivity for API calls
-- Sufficient disk space for screenshots
+BASE_URL = "http://localhost:3000"
 
-**Knowledge:**
-- Basic understanding of web application flows
-- Familiarity with CSS selectors or accessibility roles
-- Understanding of HTTP status codes
+@pytest.fixture(scope="session")
+async def browser() -> Browser:
+    """Create browser session"""
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        yield browser
+        await browser.close()
 
-## Red Flags to Avoid
+@pytest.fixture
+async def context(browser: Browser) -> BrowserContext:
+    """Create browser context"""
+    context = await browser.new_context()
+    yield context
+    await context.close()
 
-**Testing Anti-Patterns:**
-- [ ] Starting test without capturing initial state
-- [ ] Ignoring console errors during test execution
-- [ ] Not verifying network requests succeeded
-- [ ] Skipping final state capture
-- [ ] Proceeding with test after clear failure
-- [ ] Not waiting for async operations to complete
-- [ ] Using hardcoded waits instead of `wait_for` text/elements
-- [ ] Generating report without all evidence files
+@pytest.fixture
+async def page(context: BrowserContext) -> Page:
+    """Create page object"""
+    return await context.new_page()
 
-**Evidence Collection:**
-- [ ] Missing screenshots for critical steps
-- [ ] Not checking console messages after interactions
-- [ ] Ignoring network request failures
-- [ ] Not capturing intermediate states for multi-step flows
+@pytest.fixture
+async def product_page(page: Page) -> ProductPage:
+    """Instantiate ProductPage"""
+    product_page = ProductPage(page)
+    await product_page.goto(BASE_URL)
+    return product_page
 
-**Report Quality:**
-- [ ] Vague test names ("Test 1", "Flow 2")
-- [ ] Missing pass/fail criteria
-- [ ] No recommendations for failures
-- [ ] Incomplete evidence references
+# Async test marker
+def pytest_collection_modifyitems(items):
+    for item in items:
+        item.add_marker(pytest.mark.asyncio)
+```
 
-**Security:**
-- [ ] Including credentials in screenshots
-- [ ] Committing sensitive test data to git
-- [ ] Exposing API keys in network logs
-- [ ] Sharing test reports with PII
+### 4. E2E Test Examples
 
-## Notes
+```python
+# tests/e2e/test_product_search.py
+import pytest
+from tests.pages.product_page import ProductPage
 
-**Best Practices:**
-1. Always capture initial and final state (snapshot + screenshot)
-2. Check console after every significant interaction
-3. Verify network requests for expected status codes
-4. Use descriptive test names and step descriptions
-5. Generate reports immediately after test completion
-6. Store test artifacts in organized directory structure
+class TestProductSearch:
+    """Test product search functionality"""
+    
+    @pytest.mark.asyncio
+    async def test_search_returns_results(self, product_page: ProductPage):
+        """Should return products for valid search"""
+        await product_page.search("smartphone")
+        
+        count = await product_page.get_product_count()
+        assert count > 0, "Should return at least one product"
+        
+        title = await product_page.get_first_product_title()
+        assert "smartphone" in title.lower(), "Product should match search query"
+    
+    @pytest.mark.asyncio
+    async def test_search_no_results(self, product_page: ProductPage):
+        """Should handle empty results"""
+        await product_page.search("xyzabc123nonexistent")
+        
+        count = await product_page.get_product_count()
+        assert count == 0, "Should return no products"
+        
+        # Verify "no results" message
+        await product_page.expect_text('.no-results', "Nenhum produto encontrado")
+    
+    @pytest.mark.asyncio
+    async def test_filter_by_category(self, product_page: ProductPage):
+        """Should filter products by category"""
+        await product_page.filter_by_category("electronics")
+        
+        count = await product_page.get_product_count()
+        assert count > 0, "Should return electronics products"
+    
+    @pytest.mark.asyncio
+    async def test_sort_by_price(self, product_page: ProductPage):
+        """Should sort products by price (low to high)"""
+        await product_page.search("smartphone")
+        await product_page.sort_by("price-low-high")
+        
+        min_price, max_price = await product_page.get_price_range()
+        assert min_price <= max_price, "Prices should be in ascending order"
+    
+    @pytest.mark.asyncio
+    async def test_pagination(self, product_page: ProductPage):
+        """Should paginate results"""
+        await product_page.search("teclado")
+        
+        # Get products on page 1
+        count_page1 = await product_page.get_product_count()
+        
+        # Go to page 2
+        await product_page.click('a[aria-label="Next page"]')
+        await product_page.page.wait_for_load_state("networkidle")
+        
+        count_page2 = await product_page.get_product_count()
+        assert count_page1 > 0 and count_page2 > 0, "Both pages should have products"
+```
 
-**Performance Tips:**
-- Use `browser_wait_for(text="...")` instead of fixed time waits
-- Take screenshots only at key steps (not every interaction)
-- Filter console messages by level to reduce noise
-- Clear network requests between test runs
+### 5. Visual Regression Testing
 
-**Integration:**
-- Combine with CI/CD for automated regression testing
-- Use with bug tracking to attach evidence to issues
-- Share reports with team for test documentation
-- Archive test artifacts for historical analysis
+```python
+# tests/e2e/test_visual_regression.py
+import pytest
+
+class TestVisualRegression:
+    """Test visual consistency across changes"""
+    
+    @pytest.mark.asyncio
+    async def test_homepage_visual(self, product_page: ProductPage):
+        """Compare homepage visual appearance"""
+        await product_page.goto("http://localhost:3000")
+        
+        # Compare with baseline screenshot
+        await product_page.page.expect_screenshot(
+            name="homepage.png",
+            mask_locator='[aria-label="Last updated"]'  # Ignore dynamic elements
+        )
+    
+    @pytest.mark.asyncio
+    async def test_product_card_visual(self, product_page: ProductPage):
+        """Compare product card design"""
+        await product_page.search("monitor")
+        
+        product_element = product_page.page.locator('.product-card').first
+        
+        await expect(product_element).to_have_screenshot("product-card.png")
+```
+
+### 6. Accessibility Testing
+
+```python
+# tests/e2e/test_accessibility.py
+import pytest
+from playwright.async_api import expect
+
+class TestAccessibility:
+    """Test WCAG AA compliance"""
+    
+    @pytest.mark.asyncio
+    async def test_form_labels(self, page):
+        """All inputs should have associated labels"""
+        await page.goto("http://localhost:3000")
+        
+        inputs = await page.locator('input').all()
+        
+        for input_elem in inputs:
+            # Check for associated label
+            input_id = await input_elem.get_attribute("id")
+            
+            if input_id:
+                label = page.locator(f'label[for="{input_id}"]')
+                await expect(label).to_be_visible()
+    
+    @pytest.mark.asyncio
+    async def test_button_contrast(self, page):
+        """Buttons should have sufficient color contrast"""
+        await page.goto("http://localhost:3000")
+        
+        buttons = await page.locator('button').all()
+        
+        for button in buttons:
+            # This would require a contrast checking library
+            # Example: check computed styles
+            color = await button.evaluate("el => window.getComputedStyle(el).color")
+            bg_color = await button.evaluate("el => window.getComputedStyle(el).backgroundColor")
+            
+            # Verify contrast ratio >= 4.5:1
+            # Use contrast checking library for precise calculation
+    
+    @pytest.mark.asyncio
+    async def test_keyboard_navigation(self, page):
+        """Page should be navigable with keyboard"""
+        await page.goto("http://localhost:3000")
+        
+        # Tab through interactive elements
+        await page.keyboard.press("Tab")
+        
+        # Check focus is visible
+        focused = await page.evaluate("document.activeElement")
+        assert focused is not None, "Focus should be visible after Tab"
+    
+    @pytest.mark.asyncio
+    async def test_mobile_responsive(self, browser):
+        """Test on mobile viewport (375x667)"""
+        context = await browser.new_context(
+            viewport={"width": 375, "height": 667}
+        )
+        page = await context.new_page()
+        
+        await page.goto("http://localhost:3000")
+        
+        # Verify content is readable
+        await expect(page.locator('h1')).to_be_visible()
+        await expect(page.locator('nav')).to_be_visible()
+        
+        await context.close()
+```
+
+### 7. Running Tests
+
+```bash
+# Run all tests
+pytest tests/e2e/
+
+# Run specific test file
+pytest tests/e2e/test_product_search.py
+
+# Run with verbose output
+pytest -v tests/e2e/
+
+# Run in headed mode (see browser)
+pytest tests/e2e/ --headed
+
+# Run specific test
+pytest tests/e2e/test_product_search.py::TestProductSearch::test_search_returns_results
+
+# Generate HTML report
+pytest tests/e2e/ --html=report.html
+
+# Run with screenshots on failure
+pytest tests/e2e/ --screenshot=only-on-failure
+```
+
+## Best Practices
+
+✅ Use **Page Object Model** for maintainability  
+✅ **Wait for elements** properly (not sleep)  
+✅ **Test user flows**, not implementation details  
+✅ **Mock external APIs** when possible  
+✅ **Use fixtures** for setup/teardown  
+✅ **Name tests clearly** (test_search_returns_results)  
+✅ **Keep tests independent** (no test order dependency)  
+✅ **Screenshot baselines** for visual regression  
+✅ **Check accessibility** in every test  
+
+## Related Files
+
+- [page-factory.py](./page-factory.py) - Page object factory
+- [test-templates.py](./test-templates.py) - Copy-paste test templates
+- [ci-config.yml](./ci-config.yml) - GitHub Actions workflow
+
+## References
+
+- Playwright: https://playwright.dev/python/
+- Pytest: https://docs.pytest.org/
+- Playwright BDD: https://playwright.dev/python/docs/bdd

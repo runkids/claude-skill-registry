@@ -1,9 +1,7 @@
 {
   "name": "lang-objc-dev",
-  "description": "Foundational Objective-C patterns covering classes, protocols, categories, memory management (ARC/retain-release), blocks, GCD, and Foundation framework. Use when writing Objective-C code, working wit",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-objc-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:45.033585Z"
 }

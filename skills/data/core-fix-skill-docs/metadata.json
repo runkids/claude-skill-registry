@@ -1,7 +1,7 @@
 {
   "name": "core-fix-skill-docs",
-  "repo": "rustfs/rustfs",
-  "path": ".claude/skills/core-fix-skill-docs/SKILL.md",
-  "source": "github.com/rustfs/rustfs",
-  "downloaded_at": "2026-01-27T03:47:02.291953Z"
+  "repo": "actionbook/rust-skills",
+  "path": "skills/core-fix-skill-docs/SKILL.md",
+  "source": "github.com/actionbook/rust-skills",
+  "downloaded_at": "2026-01-28T04:10:50.185982Z"
 }

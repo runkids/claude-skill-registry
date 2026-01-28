@@ -1,87 +1,117 @@
 ---
-description: NestJS backend development patterns for [PROJECT_NAME]
-globs:
-  - "src/**/*.ts"
-  - "src/**/*.module.ts"
-  - "src/**/*.controller.ts"
-  - "src/**/*.service.ts"
-alwaysApply: false
+name: nestjs
+description: |
+  Provides NestJS framework development standards and architectural patterns. Ensures domain-centric architecture, proper dependency injection, and decorator pattern utilization. Specializes in modular design, providers and services, middleware and guards, interceptors and pipes, custom decorators, and microservices architecture.
+  Use when: developing NestJS applications, designing module structure (@Module), creating controllers (@Controller) and services (@Injectable), implementing REST or GraphQL APIs, configuring dependency injection, building middleware and guards, creating custom decorators, implementing authentication/authorization, designing microservices with NestJS, or integrating with TypeORM/Prisma for database access.
 ---
 
-# NestJS Backend Skill
+# NestJS Development Standards
 
-> Project: [PROJECT_NAME]
-> Framework: NestJS [VERSION]
-> Generated: [DATE]
+## Module Organization Principles
 
-## Quick Reference
+### Domain-Centric Modularization
 
-### Modules
-- Feature modules for organization
-- Shared modules for common functionality
-- Global modules for app-wide services
+Organize modules by business domain, not by function.
 
-### Controllers
-- Handle HTTP requests
-- Use decorators for routing
-- Delegate to services
+- ❌ Bad: `controllers/`, `services/`, `repositories/`
+- ✅ Good: `users/`, `products/`, `orders/`
 
-### Services
-- Business logic
-- Injectable via DI
-- Database operations
+### Single Responsibility Module
 
-### DTOs
-- Input validation with class-validator
-- Transform with class-transformer
+Each module is responsible for only one domain.
 
-## Available Modules
+- Separate common functionality into `common/` or `shared/` modules
+- Inter-domain communication must go through Services only
 
-| Module | File | Use When |
-|--------|------|----------|
-| Service Patterns | services.md | Business logic |
-| Controller Patterns | api-design.md | REST APIs |
-| Database | models.md | TypeORM/Prisma |
-| Testing | testing.md | Jest testing |
-| Dos and Don'ts | dos-and-donts.md | Project learnings |
+## Dependency Injection Rules
 
-## Project Context
+### Constructor Injection Only
 
-### Tech Stack
-<!-- Extracted from agent-os/product/tech-stack.md -->
-- **Framework:** NestJS [NESTJS_VERSION]
-- **Node Version:** [NODE_VERSION]
-- **Database:** [DATABASE]
-- **ORM:** [ORM_LIBRARY]
-- **Testing:** [TESTING_FRAMEWORK]
-- **Authentication:** [AUTH_LIBRARY]
+Property injection (@Inject) is forbidden.
 
-### Architecture Patterns
-<!-- Extracted from agent-os/product/architecture-decision.md -->
+```typescript
+// ✅ Good
+constructor(private readonly userService: UserService) {}
 
-**Service Layer:**
-[SERVICE_LAYER_PATTERN]
-
-**API Design:**
-[API_DESIGN_PATTERN]
-
-**Data Access:**
-[DATA_ACCESS_PATTERN]
-
-**Error Handling:**
-[ERROR_HANDLING_PATTERN]
-
-### Project Structure
-<!-- Extracted from agent-os/product/architecture-structure.md -->
-```
-[PROJECT_STRUCTURE]
+// ❌ Bad
+@Inject() userService: UserService;
 ```
 
-### Naming Conventions
-[NAMING_CONVENTIONS]
+### Provider Registration Location
 
----
+Providers are registered only in the module where they are used.
 
-## Self-Learning
+- Minimize global providers
+- Use forRoot/forRootAsync only in AppModule
 
-→ Füge Erkenntnisse zu `dos-and-donts.md` hinzu.
+## Decorator Usage Rules
+
+### Prioritize Custom Decorators
+
+Abstract repeated decorator combinations into custom decorators.
+
+```typescript
+// Create custom decorator when combining 3+ decorators
+@Auth() // Integrates @UseGuards + @ApiBearerAuth + @CurrentUser
+```
+
+### Decorator Order
+
+Arrange in execution order from top to bottom.
+
+1. Metadata decorators (@ApiTags, @Controller, @Resolver)
+2. Guards/Interceptors (@UseGuards, @UseInterceptors)
+3. Route decorators (@Get, @Post, @Query, @Mutation)
+4. Parameter decorators (@Body, @Param, @Args)
+
+## DTO/Entity Rules
+
+### DTO is Pure Data Transfer
+
+Business logic is forbidden; only validation is allowed.
+
+```typescript
+// ✅ Good: Validation only
+class CreateUserDto {
+  @IsEmail()
+  email: string;
+}
+
+// ❌ Bad: Contains business logic
+class CreateUserDto {
+  toEntity(): User {} // Forbidden
+}
+```
+
+### Separate Entity and DTO
+
+Never return Entity directly; always convert to DTO.
+
+- Request: CreateInput, UpdateInput (GraphQL) / CreateDto, UpdateDto (REST)
+- Response: Type definition or plain object
+
+## Error Handling
+
+### Domain-Specific Exception Filter
+
+Each domain has its own Exception Filter.
+
+```typescript
+@Module({
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: UserExceptionFilter,
+    },
+  ],
+})
+```
+
+### Explicit Error Throwing
+
+Always throw Exception explicitly in all error situations.
+
+- REST: Use HttpException series
+- GraphQL: Use GraphQLError or custom error
+- Forbid implicit null/undefined returns
+- Error messages should be understandable by users

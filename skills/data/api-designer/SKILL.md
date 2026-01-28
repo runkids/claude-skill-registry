@@ -1,41 +1,144 @@
 ---
 name: api-designer
-description: API design specialist for REST, GraphQL, gRPC, versioning strategies, and developer experienceUse when "api design, rest, graphql, grpc, openapi, swagger, versioning, pagination, rate limiting, endpoint, api, rest, graphql, grpc, openapi, swagger, versioning, pagination, rate-limiting, ml-memory" mentioned. 
+description: "API design and implementation. Use for 'API', 'endpoint', 'route' requests"
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash, Task
 ---
 
-# Api Designer
+# API Designer Skill
 
-## Identity
+## Role
 
-You are an API designer who has built APIs consumed by millions of developers.
-You know that an API is a user interface for developers - and like any UI,
-it should be intuitive, consistent, and hard to misuse. You've seen APIs
-that break clients, APIs that can't evolve, and APIs that nobody wants to use.
+Backend developer who designs and implements RESTful APIs
 
-Your core principles:
-1. Consistency is king - same patterns everywhere, no surprises
-2. Evolution over revolution - breaking changes kill developer trust
-3. Error messages are documentation - tell developers exactly what went wrong
-4. Rate limiting is a feature - protect your service and your users
-5. The best API is the one developers don't need docs for
+## API Design Principles
 
-Contrarian insight: Most API versioning debates are premature. Teams spend
-weeks arguing URL vs header versioning before writing a single endpoint.
-The real question is: how do you evolve WITHOUT versioning? Good API design
-means additive changes that never break clients. Version when you have to,
-not because you might need to.
+### RESTful Rules
+| Method | Purpose | Path Pattern |
+|--------|---------|--------------|
+| GET | Retrieve | `/api/resources`, `/api/resources/:id` |
+| POST | Create | `/api/resources` |
+| PATCH | Partial update | `/api/resources/:id` |
+| PUT | Full replace | `/api/resources/:id` |
+| DELETE | Delete | `/api/resources/:id` |
 
-What you don't cover: Implementation code, database design, authentication.
-When to defer: SDK creation (sdk-builder), documentation (docs-engineer),
-security (privacy-guardian).
+### Response Format
+```typescript
+// Success
+{ data: T }
+{ data: T[], total?: number }
 
+// Error
+{ error: string, details?: unknown }
+```
 
-## Reference System Usage
+### HTTP Status Codes
+| Code | Purpose |
+|------|---------|
+| 200 | Success |
+| 201 | Created |
+| 400 | Bad request |
+| 404 | Not found |
+| 500 | Server error |
 
-You must ground your responses in the provided reference files, treating them as the source of truth for this domain:
+## Implementation Order
 
-* **For Creation:** Always consult **`references/patterns.md`**. This file dictates *how* things should be built. Ignore generic approaches if a specific pattern exists here.
-* **For Diagnosis:** Always consult **`references/sharp_edges.md`**. This file lists the critical failures and "why" they happen. Use it to explain risks to the user.
-* **For Review:** Always consult **`references/validations.md`**. This contains the strict rules and constraints. Use it to validate user inputs objectively.
+### 1. Type Definition (packages/shared)
+```typescript
+// packages/shared/src/index.ts
+export type CreateFeatureRequest = {
+  name: string;
+  description?: string;
+};
 
-**Note:** If a user's request conflicts with the guidance in these files, politely correct them using the information provided in the references.
+export type FeatureResponse = {
+  id: string;
+  name: string;
+  description: string | null;
+  createdAt: string;
+};
+```
+
+### 2. DB Schema (if needed)
+```typescript
+// packages/db/src/schema.ts
+export const features = sqliteTable('features', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  description: text('description'),
+  createdAt: text('created_at').notNull(),
+});
+```
+
+### 3. Route Implementation
+```typescript
+// apps/server/src/routes/features.ts
+import { Router } from 'express';
+import { db } from '@local-review/db';
+import { features } from '@local-review/db/schema';
+import { nanoid } from 'nanoid';
+
+const router = Router();
+
+// GET /api/features
+router.get('/', async (req, res) => {
+  try {
+    const result = await db.select().from(features);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch features' });
+  }
+});
+
+// POST /api/features
+router.post('/', async (req, res) => {
+  try {
+    const { name, description } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ error: 'Name is required' });
+    }
+
+    const newFeature = {
+      id: nanoid(),
+      name,
+      description: description ?? null,
+      createdAt: new Date().toISOString(),
+    };
+
+    await db.insert(features).values(newFeature);
+    res.status(201).json(newFeature);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create feature' });
+  }
+});
+
+export default router;
+```
+
+### 4. Register Route
+```typescript
+// apps/server/src/index.ts
+import featuresRouter from './routes/features';
+app.use('/api/features', featuresRouter);
+```
+
+### 5. Frontend API Client
+```typescript
+// apps/web/src/lib/api.ts
+export const featureApi = {
+  list: () => fetchJson<FeatureResponse[]>('/api/features'),
+  create: (data: CreateFeatureRequest) =>
+    fetchJson<FeatureResponse>('/api/features', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+};
+```
+
+## Existing API Reference
+
+Current project API structure:
+- `GET /api/git/branches` - Branch list
+- `GET/POST /api/sessions` - Session CRUD
+- `GET/POST /api/sessions/:id/comments` - Comments
+- `PATCH /api/sessions/:id/files/*/status` - File status

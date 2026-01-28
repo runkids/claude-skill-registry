@@ -1,7 +1,7 @@
 {
   "name": "handoff",
-  "repo": "grahama1970/agent-skills",
-  "path": "skills/handoff/SKILL.md",
-  "source": "github.com/grahama1970/agent-skills",
-  "downloaded_at": "2026-01-27T04:33:15.553473Z"
+  "repo": "robynsmith/claude-code-skills-demo",
+  "path": ".claude/skills/handoff/SKILL.md",
+  "source": "github.com/robynsmith/claude-code-skills-demo",
+  "downloaded_at": "2026-01-28T04:34:23.160173Z"
 }

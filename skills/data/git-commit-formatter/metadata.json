@@ -1,7 +1,7 @@
 {
   "name": "git-commit-formatter",
-  "repo": "iamgrewal/rolesense",
-  "path": ".agent/skills/git-commit-formatter/SKILL.md",
-  "source": "github.com/iamgrewal/rolesense",
-  "downloaded_at": "2026-01-27T04:02:07.536109Z"
+  "repo": "einverne/dotfiles",
+  "path": "skills/git-commit-formatter/SKILL.md",
+  "source": "github.com/einverne/dotfiles",
+  "downloaded_at": "2026-01-28T02:45:51.708521Z"
 }

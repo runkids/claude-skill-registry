@@ -1,501 +1,475 @@
 ---
-name: phoenix-framework
-description: Guide for Phoenix web applications. Use when building Phoenix apps, implementing LiveView, designing contexts, or setting up channels.
+name: phoenix-observability
+description: Open-source AI observability platform for LLM tracing, evaluation, and monitoring. Use when debugging LLM applications with detailed traces, running evaluations on datasets, or monitoring production AI systems with real-time insights.
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [Observability, Phoenix, Arize, Tracing, Evaluation, Monitoring, LLM Ops, OpenTelemetry]
+dependencies: [arize-phoenix>=12.0.0]
 ---
 
-# Phoenix Framework Development
+# Phoenix - AI Observability Platform
 
-This skill activates when working with Phoenix web applications, including setup, development, LiveView, contexts, controllers, and channels.
+Open-source AI observability and evaluation platform for LLM applications with tracing, evaluation, datasets, experiments, and real-time monitoring.
 
-## When to Use This Skill
+## When to use Phoenix
 
-Activate this skill when:
-- Creating or modifying Phoenix applications
-- Implementing LiveView components or pages
-- Working with Phoenix contexts and business logic
-- Building real-time features with channels or LiveView
-- Configuring Phoenix routers, plugs, or endpoints
-- Troubleshooting Phoenix-specific issues
+**Use Phoenix when:**
+- Debugging LLM application issues with detailed traces
+- Running systematic evaluations on datasets
+- Monitoring production LLM systems in real-time
+- Building experiment pipelines for prompt/model comparison
+- Self-hosted observability without vendor lock-in
 
-## Phoenix Project Structure
+**Key features:**
+- **Tracing**: OpenTelemetry-based trace collection for any LLM framework
+- **Evaluation**: LLM-as-judge evaluators for quality assessment
+- **Datasets**: Versioned test sets for regression testing
+- **Experiments**: Compare prompts, models, and configurations
+- **Playground**: Interactive prompt testing with multiple models
+- **Open-source**: Self-hosted with PostgreSQL or SQLite
 
-Follow Phoenix conventions:
+**Use alternatives instead:**
+- **LangSmith**: Managed platform with LangChain-first integration
+- **Weights & Biases**: Deep learning experiment tracking focus
+- **Arize Cloud**: Managed Phoenix with enterprise features
+- **MLflow**: General ML lifecycle, model registry focus
 
-```
-lib/
-  my_app/           # Business logic and contexts
-    accounts/       # Domain contexts
-    repo.ex
-  my_app_web/       # Web interface
-    controllers/
-    live/           # LiveView modules
-    components/     # Function components
-    router.ex
-    endpoint.ex
-```
+## Quick start
 
-## Context-Driven Design
+### Installation
 
-Organize business logic into contexts (bounded domains):
-
-### Creating Contexts
-
-Generate contexts with related schemas:
 ```bash
-mix phx.gen.context Accounts User users email:string name:string
+pip install arize-phoenix
+
+# With specific backends
+pip install arize-phoenix[embeddings]  # Embedding analysis
+pip install arize-phoenix-otel         # OpenTelemetry config
+pip install arize-phoenix-evals        # Evaluation framework
+pip install arize-phoenix-client       # Lightweight REST client
 ```
 
-Structure contexts to encapsulate business logic:
+### Launch Phoenix server
 
-```elixir
-defmodule MyApp.Accounts do
-  @moduledoc """
-  The Accounts context - manages user accounts and authentication.
-  """
+```python
+import phoenix as px
 
-  alias MyApp.Repo
-  alias MyApp.Accounts.User
+# Launch in notebook (ThreadServer mode)
+session = px.launch_app()
 
-  def list_users do
-    Repo.all(User)
-  end
-
-  def get_user!(id), do: Repo.get!(User, id)
-
-  def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
-  end
-end
+# View UI
+session.view()  # Embedded iframe
+print(session.url)  # http://localhost:6006
 ```
 
-### Context Best Practices
+### Command-line server (production)
 
-- Keep contexts focused on a single domain
-- Avoid cross-context dependencies when possible
-- Use public API functions, not direct Repo access in web layer
-- Name contexts after business domains, not technical layers
+```bash
+# Start Phoenix server
+phoenix serve
 
-## LiveView Development
+# With PostgreSQL
+export PHOENIX_SQL_DATABASE_URL="postgresql://user:pass@host/db"
+phoenix serve --port 6006
+```
 
-LiveView enables rich, real-time experiences without writing JavaScript.
+### Basic tracing
 
-### LiveView Lifecycle
+```python
+from phoenix.otel import register
+from openinference.instrumentation.openai import OpenAIInstrumentor
 
-Understand the mount → handle_event → render cycle:
+# Configure OpenTelemetry with Phoenix
+tracer_provider = register(
+    project_name="my-llm-app",
+    endpoint="http://localhost:6006/v1/traces"
+)
 
-```elixir
-defmodule MyAppWeb.UserLive.Index do
-  use MyAppWeb, :live_view
+# Instrument OpenAI SDK
+OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
-  alias MyApp.Accounts
+# All OpenAI calls are now traced
+from openai import OpenAI
+client = OpenAI()
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+```
 
-  @impl true
-  def mount(_params, _session, socket) do
-    # Runs on initial page load and live connection
-    {:ok, assign(socket, :users, list_users())}
-  end
+## Core concepts
 
-  @impl true
-  def handle_params(params, _url, socket) do
-    # Runs after mount and on live patch
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
-  end
+### Traces and spans
 
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    user = Accounts.get_user!(id)
-    {:ok, _} = Accounts.delete_user(user)
+A **trace** represents a complete execution flow, while **spans** are individual operations within that trace.
 
-    {:noreply, assign(socket, :users, list_users())}
-  end
+```python
+from phoenix.otel import register
+from opentelemetry import trace
 
-  @impl true
-  def render(assigns) do
-    ~H"""
-    <div>
-      <.table rows={@users} id="users">
-        <:col :let={user} label="Name"><%= user.name %></:col>
-        <:col :let={user} label="Email"><%= user.email %></:col>
-        <:action :let={user}>
-          <.button phx-click="delete" phx-value-id={user.id}>Delete</.button>
-        </:action>
-      </.table>
-    </div>
+# Setup tracing
+tracer_provider = register(project_name="my-app")
+tracer = trace.get_tracer(__name__)
+
+# Create custom spans
+with tracer.start_as_current_span("process_query") as span:
+    span.set_attribute("input.value", query)
+
+    # Child spans are automatically nested
+    with tracer.start_as_current_span("retrieve_context"):
+        context = retriever.search(query)
+
+    with tracer.start_as_current_span("generate_response"):
+        response = llm.generate(query, context)
+
+    span.set_attribute("output.value", response)
+```
+
+### Projects
+
+Projects organize related traces:
+
+```python
+import os
+os.environ["PHOENIX_PROJECT_NAME"] = "production-chatbot"
+
+# Or per-trace
+from phoenix.otel import register
+tracer_provider = register(project_name="experiment-v2")
+```
+
+## Framework instrumentation
+
+### OpenAI
+
+```python
+from phoenix.otel import register
+from openinference.instrumentation.openai import OpenAIInstrumentor
+
+tracer_provider = register()
+OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
+```
+
+### LangChain
+
+```python
+from phoenix.otel import register
+from openinference.instrumentation.langchain import LangChainInstrumentor
+
+tracer_provider = register()
+LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
+
+# All LangChain operations traced
+from langchain_openai import ChatOpenAI
+llm = ChatOpenAI(model="gpt-4o")
+response = llm.invoke("Hello!")
+```
+
+### LlamaIndex
+
+```python
+from phoenix.otel import register
+from openinference.instrumentation.llama_index import LlamaIndexInstrumentor
+
+tracer_provider = register()
+LlamaIndexInstrumentor().instrument(tracer_provider=tracer_provider)
+```
+
+### Anthropic
+
+```python
+from phoenix.otel import register
+from openinference.instrumentation.anthropic import AnthropicInstrumentor
+
+tracer_provider = register()
+AnthropicInstrumentor().instrument(tracer_provider=tracer_provider)
+```
+
+## Evaluation framework
+
+### Built-in evaluators
+
+```python
+from phoenix.evals import (
+    OpenAIModel,
+    HallucinationEvaluator,
+    RelevanceEvaluator,
+    ToxicityEvaluator,
+    llm_classify
+)
+
+# Setup model for evaluation
+eval_model = OpenAIModel(model="gpt-4o")
+
+# Evaluate hallucination
+hallucination_eval = HallucinationEvaluator(eval_model)
+results = hallucination_eval.evaluate(
+    input="What is the capital of France?",
+    output="The capital of France is Paris.",
+    reference="Paris is the capital of France."
+)
+```
+
+### Custom evaluators
+
+```python
+from phoenix.evals import llm_classify
+
+# Define custom evaluation
+def evaluate_helpfulness(input_text, output_text):
+    template = """
+    Evaluate if the response is helpful for the given question.
+
+    Question: {input}
+    Response: {output}
+
+    Is this response helpful? Answer 'helpful' or 'not_helpful'.
     """
-  end
 
-  defp list_users do
-    Accounts.list_users()
-  end
-end
+    result = llm_classify(
+        model=eval_model,
+        template=template,
+        input=input_text,
+        output=output_text,
+        rails=["helpful", "not_helpful"]
+    )
+    return result
 ```
 
-### LiveView Best Practices
+### Run evaluations on dataset
 
-- Use `mount/3` for initial data loading
-- Handle route changes in `handle_params/3`
-- Keep renders fast - compute in event handlers, not render
-- Use `assign_new/3` for expensive computations
-- Prefer LiveView over JavaScript for interactive UIs
-- Use `phx-debounce` and `phx-throttle` for frequent events
+```python
+from phoenix import Client
+from phoenix.evals import run_evals
 
-### Function Components
+client = Client()
 
-Create reusable components:
+# Get spans to evaluate
+spans_df = client.get_spans_dataframe(
+    project_name="my-app",
+    filter_condition="span_kind == 'LLM'"
+)
 
-```elixir
-defmodule MyAppWeb.Components.UserCard do
-  use Phoenix.Component
+# Run evaluations
+eval_results = run_evals(
+    dataframe=spans_df,
+    evaluators=[
+        HallucinationEvaluator(eval_model),
+        RelevanceEvaluator(eval_model)
+    ],
+    provide_explanation=True
+)
 
-  attr :user, :map, required: true
-  attr :class, :string, default: ""
-
-  def user_card(assigns) do
-    ~H"""
-    <div class={"card " <> @class}>
-      <h3><%= @user.name %></h3>
-      <p><%= @user.email %></p>
-    </div>
-    """
-  end
-end
+# Log results back to Phoenix
+client.log_evaluations(eval_results)
 ```
 
-Use with `<.user_card user={@current_user} />` in templates.
+## Datasets and experiments
 
-### Form Handling
+### Create dataset
 
-Use changesets for validation:
+```python
+from phoenix import Client
 
-```elixir
-@impl true
-def mount(_params, _session, socket) do
-  changeset = Accounts.change_user(%User{})
-  {:ok, assign(socket, form: to_form(changeset))}
-end
+client = Client()
 
-@impl true
-def handle_event("validate", %{"user" => user_params}, socket) do
-  changeset =
-    %User{}
-    |> Accounts.change_user(user_params)
-    |> Map.put(:action, :validate)
+# Create dataset
+dataset = client.create_dataset(
+    name="qa-test-set",
+    description="QA evaluation dataset"
+)
 
-  {:noreply, assign(socket, form: to_form(changeset))}
-end
-
-@impl true
-def handle_event("save", %{"user" => user_params}, socket) do
-  case Accounts.create_user(user_params) do
-    {:ok, user} ->
-      {:noreply,
-       socket
-       |> put_flash(:info, "User created successfully")
-       |> push_navigate(to: ~p"/users/#{user}")}
-
-    {:error, %Ecto.Changeset{} = changeset} ->
-      {:noreply, assign(socket, form: to_form(changeset))}
-  end
-end
-
-def render(assigns) do
-  ~H"""
-  <.form for={@form} phx-change="validate" phx-submit="save">
-    <.input field={@form[:name]} label="Name" />
-    <.input field={@form[:email]} label="Email" type="email" />
-    <.button>Save</.button>
-  </.form>
-  """
-end
+# Add examples
+client.add_examples_to_dataset(
+    dataset_name="qa-test-set",
+    examples=[
+        {
+            "input": {"question": "What is Python?"},
+            "output": {"answer": "A programming language"}
+        },
+        {
+            "input": {"question": "What is ML?"},
+            "output": {"answer": "Machine learning"}
+        }
+    ]
+)
 ```
 
-## Routing
+### Run experiment
 
-### Route Organization
+```python
+from phoenix import Client
+from phoenix.experiments import run_experiment
 
-Structure routes logically:
+client = Client()
 
-```elixir
-defmodule MyAppWeb.Router do
-  use MyAppWeb, :router
+def my_model(input_data):
+    """Your model function."""
+    question = input_data["question"]
+    return {"answer": generate_answer(question)}
 
-  pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, html: {MyAppWeb.Layouts, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-  end
+def accuracy_evaluator(input_data, output, expected):
+    """Custom evaluator."""
+    return {
+        "score": 1.0 if expected["answer"].lower() in output["answer"].lower() else 0.0,
+        "label": "correct" if expected["answer"].lower() in output["answer"].lower() else "incorrect"
+    }
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+# Run experiment
+results = run_experiment(
+    dataset_name="qa-test-set",
+    task=my_model,
+    evaluators=[accuracy_evaluator],
+    experiment_name="baseline-v1"
+)
 
-  scope "/", MyAppWeb do
-    pipe_through :browser
-
-    live "/", HomeLive, :index
-    live "/users", UserLive.Index, :index
-    live "/users/new", UserLive.Index, :new
-    live "/users/:id", UserLive.Show, :show
-  end
-
-  scope "/api", MyAppWeb do
-    pipe_through :api
-
-    resources "/users", UserController, except: [:new, :edit]
-  end
-end
+print(f"Average accuracy: {results.aggregate_metrics['accuracy']}")
 ```
 
-### LiveView Routes
+## Client API
 
-Use live actions for modal/overlay states:
+### Query traces and spans
 
-```elixir
-live "/users", UserLive.Index, :index
-live "/users/new", UserLive.Index, :new
-live "/users/:id/edit", UserLive.Index, :edit
+```python
+from phoenix import Client
+
+client = Client(endpoint="http://localhost:6006")
+
+# Get spans as DataFrame
+spans_df = client.get_spans_dataframe(
+    project_name="my-app",
+    filter_condition="span_kind == 'LLM'",
+    limit=1000
+)
+
+# Get specific span
+span = client.get_span(span_id="abc123")
+
+# Get trace
+trace = client.get_trace(trace_id="xyz789")
 ```
 
-Then handle in `handle_params/3`:
+### Log feedback
 
-```elixir
-defp apply_action(socket, :edit, %{"id" => id}) do
-  socket
-  |> assign(:page_title, "Edit User")
-  |> assign(:user, Accounts.get_user!(id))
-end
+```python
+from phoenix import Client
 
-defp apply_action(socket, :new, _params) do
-  socket
-  |> assign(:page_title, "New User")
-  |> assign(:user, %User{})
-end
+client = Client()
 
-defp apply_action(socket, :index, _params) do
-  socket
-  |> assign(:page_title, "Listing Users")
-  |> assign(:user, nil)
-end
+# Log user feedback
+client.log_annotation(
+    span_id="abc123",
+    name="user_rating",
+    annotator_kind="HUMAN",
+    score=0.8,
+    label="helpful",
+    metadata={"comment": "Good response"}
+)
 ```
 
-## Channels and PubSub
+### Export data
 
-### Phoenix Channels
+```python
+# Export to pandas
+df = client.get_spans_dataframe(project_name="my-app")
 
-For custom real-time protocols:
-
-```elixir
-defmodule MyAppWeb.RoomChannel do
-  use MyAppWeb, :channel
-
-  @impl true
-  def join("room:" <> room_id, _payload, socket) do
-    if authorized?(socket, room_id) do
-      {:ok, assign(socket, :room_id, room_id)}
-    else
-      {:error, %{reason: "unauthorized"}}
-    end
-  end
-
-  @impl true
-  def handle_in("new_msg", %{"body" => body}, socket) do
-    broadcast!(socket, "new_msg", %{body: body, user: socket.assigns.user})
-    {:noreply, socket}
-  end
-end
+# Export traces
+traces = client.list_traces(project_name="my-app")
 ```
 
-### Phoenix PubSub
+## Production deployment
 
-For LiveView updates and process communication:
+### Docker
 
-```elixir
-# Subscribe in mount
-def mount(_params, _session, socket) do
-  if connected?(socket) do
-    Phoenix.PubSub.subscribe(MyApp.PubSub, "users")
-  end
-
-  {:ok, assign(socket, :users, list_users())}
-end
-
-# Handle broadcasts
-def handle_info({:user_created, user}, socket) do
-  {:noreply, update(socket, :users, fn users -> [user | users] end)}
-end
-
-# Broadcast from context
-def create_user(attrs) do
-  with {:ok, user} <- do_create_user(attrs) do
-    Phoenix.PubSub.broadcast(MyApp.PubSub, "users", {:user_created, user})
-    {:ok, user}
-  end
-end
+```bash
+docker run -p 6006:6006 arizephoenix/phoenix:latest
 ```
 
-## Testing Phoenix Applications
+### With PostgreSQL
 
-### Controller Tests
+```bash
+# Set database URL
+export PHOENIX_SQL_DATABASE_URL="postgresql://user:pass@host:5432/phoenix"
 
-```elixir
-defmodule MyAppWeb.UserControllerTest do
-  use MyAppWeb.ConnCase, async: true
-
-  test "GET /users", %{conn: conn} do
-    conn = get(conn, ~p"/users")
-    assert html_response(conn, 200) =~ "Listing Users"
-  end
-end
+# Start server
+phoenix serve --host 0.0.0.0 --port 6006
 ```
 
-### LiveView Tests
+### Environment variables
 
-```elixir
-defmodule MyAppWeb.UserLiveTest do
-  use MyAppWeb.ConnCase
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PHOENIX_PORT` | HTTP server port | `6006` |
+| `PHOENIX_HOST` | Server bind address | `127.0.0.1` |
+| `PHOENIX_GRPC_PORT` | gRPC/OTLP port | `4317` |
+| `PHOENIX_SQL_DATABASE_URL` | Database connection | SQLite temp |
+| `PHOENIX_WORKING_DIR` | Data storage directory | OS temp |
+| `PHOENIX_ENABLE_AUTH` | Enable authentication | `false` |
+| `PHOENIX_SECRET` | JWT signing secret | Required if auth enabled |
 
-  import Phoenix.LiveViewTest
+### With authentication
 
-  test "displays users", %{conn: conn} do
-    user = insert(:user)
+```bash
+export PHOENIX_ENABLE_AUTH=true
+export PHOENIX_SECRET="your-secret-key-min-32-chars"
+export PHOENIX_ADMIN_SECRET="admin-bootstrap-token"
 
-    {:ok, view, html} = live(conn, ~p"/users")
-
-    assert html =~ user.name
-    assert has_element?(view, "#user-#{user.id}")
-  end
-
-  test "creates user", %{conn: conn} do
-    {:ok, view, _html} = live(conn, ~p"/users/new")
-
-    assert view
-           |> form("#user-form", user: %{name: "Alice", email: "alice@example.com"})
-           |> render_submit()
-
-    assert_patch(view, ~p"/users")
-  end
-end
+phoenix serve
 ```
 
-### Channel Tests
+## Best practices
 
-```elixir
-defmodule MyAppWeb.RoomChannelTest do
-  use MyAppWeb.ChannelCase
+1. **Use projects**: Separate traces by environment (dev/staging/prod)
+2. **Add metadata**: Include user IDs, session IDs for debugging
+3. **Evaluate regularly**: Run automated evaluations in CI/CD
+4. **Version datasets**: Track test set changes over time
+5. **Monitor costs**: Track token usage via Phoenix dashboards
+6. **Self-host**: Use PostgreSQL for production deployments
 
-  test "broadcasts are pushed to the client", %{socket: socket} do
-    {:ok, _, socket} = subscribe_and_join(socket, "room:lobby", %{})
+## Common issues
 
-    broadcast_from!(socket, "new_msg", %{body: "test"})
-    assert_broadcast "new_msg", %{body: "test"}
-  end
-end
+**Traces not appearing:**
+```python
+from phoenix.otel import register
+
+# Verify endpoint
+tracer_provider = register(
+    project_name="my-app",
+    endpoint="http://localhost:6006/v1/traces"  # Correct endpoint
+)
+
+# Force flush
+from opentelemetry import trace
+trace.get_tracer_provider().force_flush()
 ```
 
-## Common Patterns
-
-### Loading Associations
-
-Preload associations efficiently:
-
-```elixir
-def list_posts do
-  Post
-  |> preload([:author, comments: :author])
-  |> Repo.all()
-end
+**High memory in notebook:**
+```python
+# Close session when done
+session = px.launch_app()
+# ... do work ...
+session.close()
+px.close_app()
 ```
 
-### Pagination
+**Database connection issues:**
+```bash
+# Verify PostgreSQL connection
+psql $PHOENIX_SQL_DATABASE_URL -c "SELECT 1"
 
-Use Scrivener or custom pagination:
-
-```elixir
-def list_users(page \\ 1) do
-  User
-  |> order_by(desc: :inserted_at)
-  |> Repo.paginate(page: page, page_size: 20)
-end
+# Check Phoenix logs
+phoenix serve --log-level debug
 ```
 
-### File Uploads
+## References
 
-Handle uploads in LiveView:
+- **[Advanced Usage](references/advanced-usage.md)** - Custom evaluators, experiments, production setup
+- **[Troubleshooting](references/troubleshooting.md)** - Common issues, debugging, performance
 
-```elixir
-def mount(_params, _session, socket) do
-  {:ok,
-   socket
-   |> assign(:uploaded_files, [])
-   |> allow_upload(:avatar, accept: ~w(.jpg .jpeg .png), max_entries: 1)}
-end
+## Resources
 
-def handle_event("save", _params, socket) do
-  uploaded_files =
-    consume_uploaded_entries(socket, :avatar, fn %{path: path}, _entry ->
-      dest = Path.join("priv/static/uploads", Path.basename(path))
-      File.cp!(path, dest)
-      {:ok, "/uploads/" <> Path.basename(dest)}
-    end)
-
-  {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
-end
-```
-
-## Performance Optimization
-
-### Database Query Optimization
-
-- Use `preload/2` to avoid N+1 queries
-- Add database indexes for frequently queried fields
-- Use `select/3` to load only needed fields
-- Consider using `Repo.stream/2` for large datasets
-
-### LiveView Performance
-
-- Move expensive computations to `handle_event` or background jobs
-- Use `assign_new/3` for computed values
-- Implement `handle_continue/2` for async operations after mount
-- Use temporary assigns for large lists: `assign(socket, :items, temporary: true)`
-
-### Caching
-
-Use Cachex or ETS for caching:
-
-```elixir
-def get_user!(id) do
-  Cachex.fetch(:users, id, fn ->
-    {:commit, Repo.get!(User, id)}
-  end)
-end
-```
-
-## Security Best Practices
-
-- Always validate and sanitize user input through changesets
-- Use CSRF protection (enabled by default)
-- Implement rate limiting for APIs
-- Use `put_secure_browser_headers` plug
-- Validate file uploads (type, size, content)
-- Use prepared statements (Ecto does this automatically)
-- Implement proper authentication and authorization
-
-## Key Principles
-
-- **Context boundaries**: Keep business logic in contexts, not controllers/LiveViews
-- **LiveView first**: Prefer LiveView over JavaScript for interactive features
-- **Changesets for validation**: Always validate through Ecto changesets
-- **Pub/Sub for communication**: Use Phoenix.PubSub for cross-process updates
-- **Test at boundaries**: Test contexts, controllers, and LiveViews separately
-- **Follow conventions**: Use Phoenix generators and follow established patterns
+- **Documentation**: https://docs.arize.com/phoenix
+- **Repository**: https://github.com/Arize-ai/phoenix
+- **Docker Hub**: https://hub.docker.com/r/arizephoenix/phoenix
+- **Version**: 12.0.0+
+- **License**: Apache 2.0

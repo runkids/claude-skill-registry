@@ -1,7 +1,7 @@
 {
   "name": "context-manager",
-  "repo": "iamgrewal/rolesense",
-  "path": ".agent/skills/context-manager/SKILL.md",
-  "source": "github.com/iamgrewal/rolesense",
-  "downloaded_at": "2026-01-27T04:02:12.179316Z"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/context-manager/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-28T04:16:12.579633Z"
 }

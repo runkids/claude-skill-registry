@@ -1,7 +1,7 @@
 {
   "name": "ansible",
-  "repo": "liauw-media/CodeAssist",
-  "path": "skills/infrastructure/ansible/SKILL.md",
-  "source": "github.com/liauw-media/CodeAssist",
-  "downloaded_at": "2026-01-27T03:15:45.058595Z"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/ansible/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-28T02:15:47.541828Z"
 }

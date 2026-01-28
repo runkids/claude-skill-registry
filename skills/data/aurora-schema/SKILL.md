@@ -70,6 +70,61 @@ aggregateProperties:
 
 ---
 
+### Mandatory Fields (REQUIRED in all modules)
+
+**IMPORTANTE: Todos los módulos DEBEN incluir estos campos obligatoriamente.**
+
+#### 1. Campo rowId (después del id)
+
+```yaml
+- name: rowId
+  type: bigint
+  index: unique
+  autoIncrement: true
+  nullable: false
+  description: >
+    Auto-incrementing sequential identifier. Used for internal ordering and
+    legacy system compatibility. Unlike the UUID 'id', this provides a
+    human-readable sequential number.
+```
+
+#### 2. Campos de marca de tiempo (al final del aggregateProperties)
+
+```yaml
+- name: createdAt
+  type: timestamp
+  nullable: true
+  description: >
+    Timestamp when the record was created. Automatically set on insertion. Part
+    of audit trail.
+
+- name: updatedAt
+  type: timestamp
+  nullable: true
+  description: >
+    Timestamp when the record was last modified. Automatically updated on any
+    field change. Part of audit trail.
+
+- name: deletedAt
+  type: timestamp
+  nullable: true
+  description: >
+    Soft delete timestamp. NULL indicates active record. When set, record is
+    excluded from normal queries but preserved for audit trail and potential
+    recovery.
+```
+
+#### Orden de campos en aggregateProperties
+
+1. `id` (primaryKey)
+2. `rowId` (autoIncrement) ← **OBLIGATORIO**
+3. ... campos del módulo ...
+4. `createdAt` ← **OBLIGATORIO**
+5. `updatedAt` ← **OBLIGATORIO**
+6. `deletedAt` ← **OBLIGATORIO**
+
+---
+
 ### Field Naming Conventions
 
 | Pattern               | Use For             | Examples                                         |
@@ -337,6 +392,10 @@ fd "book.aurora.yaml"
 Check for:
 
 - [ ] Module has `description` before `aggregateProperties`
+- [ ] **Has `rowId` field (after `id`)**
+- [ ] **Has `createdAt` field**
+- [ ] **Has `updatedAt` field**
+- [ ] **Has `deletedAt` field**
 - [ ] All fields have meaningful descriptions
 - [ ] Field names follow conventions (camelCase, boolean prefixes)
 - [ ] No `id` type fields have `length` property
@@ -367,6 +426,15 @@ Check for:
 description: >
   [Purpose and role within bounded context]
 ```
+
+### Missing Mandatory Fields ❌ (if any)
+
+| Field     | Position          | Status  |
+| --------- | ----------------- | ------- |
+| rowId     | After id          | Missing |
+| createdAt | End of properties | Missing |
+| updatedAt | End of properties | Missing |
+| deletedAt | End of properties | Missing |
 ````
 
 ### Fields Without Description ❌
@@ -413,6 +481,8 @@ description: >
 - [ ] Description explains context and usage
 - [ ] No `length` property on `id` type fields
 - [ ] Consistent with similar fields in other modules
+- [ ] **If new module: includes `rowId` and timestamp fields (`createdAt`,
+      `updatedAt`, `deletedAt`)**
 
 ### Editing Fields
 
@@ -566,6 +636,12 @@ rg -A2 "type: id" cliter/ -g "*.aurora.yaml" | rg "length:"
 # Check for missing module descriptions
 rg -L "^description:" cliter/ -g "*.aurora.yaml"
 
+# Check for missing mandatory fields
+rg -L "name: rowId" cliter/ -g "*.aurora.yaml"
+rg -L "name: createdAt" cliter/ -g "*.aurora.yaml"
+rg -L "name: updatedAt" cliter/ -g "*.aurora.yaml"
+rg -L "name: deletedAt" cliter/ -g "*.aurora.yaml"
+
 # Search for field usage across modules
 rg "fieldName" cliter/ -g "*.aurora.yaml"
 
@@ -635,6 +711,7 @@ Review use case and choose appropriate type
 | ❌ Don't                                     | ✅ Do                                                      |
 | -------------------------------------------- | ---------------------------------------------------------- |
 | Skip module description                      | Always add description before aggregateProperties          |
+| Skip mandatory fields (rowId, timestamps)    | Always include rowId, createdAt, updatedAt, deletedAt      |
 | Use abbreviations (dt, qty, amt)             | Use full words (createdAt, quantity, amount)               |
 | Name booleans without prefix (active)        | Use semantic prefix (isActive, hasPermission)              |
 | Add `length` to `id` type fields             | Never specify length for id type                           |

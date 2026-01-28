@@ -1,9 +1,7 @@
 {
   "name": "nuxt-studio",
-  "description": "This skill should be used when the user asks to \"set up Nuxt Studio\", \"configure Studio OAuth\", \"deploy Studio to Cloudflare\", \"add visual editor to Nuxt\", \"configure studio.domain.com subdomain\", \"St",
   "repo": "secondsky/claude-skills",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/nuxt-studio/skills/nuxt-studio/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-28T01:54:38.777230Z"
 }

@@ -1,314 +1,406 @@
 ---
 name: swift
-description: >
-  Comprehensive Swift and Apple platform development skill for building native iOS, macOS, tvOS, and iPadOS apps.
-  Use when creating Swift projects, building SwiftUI views, implementing Swift concurrency (async/await, actors),
-  working with SwiftData or Core Data, configuring Xcode projects, signing and capabilities, implementing
-  platform-specific features (WidgetKit, App Intents, Live Activities), or troubleshooting Swift/Xcode issues.
+description: Write Swift code for iOS/macOS following best practices. Use when developing with SwiftUI, UIKit, or Swift packages. Covers type safety, concurrency, and tooling.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
-# Swift & Apple Platform Development
+# Swift / iOS Development
 
-Build native apps for iOS, macOS, tvOS, and iPadOS using Swift and SwiftUI.
+## Project Setup
 
-## Instructions
-
-1. For SwiftUI views, modifiers, and state management, see [references/swiftui-reference.md](references/swiftui-reference.md)
-2. For async/await, actors, and structured concurrency, see [references/swift-concurrency.md](references/swift-concurrency.md)
-3. For MVVM, @Observable, and SwiftData patterns, see [references/app-architecture.md](references/app-architecture.md)
-4. For iOS/macOS/tvOS/iPadOS specific APIs, see [references/platform-apis.md](references/platform-apis.md)
-5. For Xcode configuration, signing, and App Store, see [references/xcode-distribution.md](references/xcode-distribution.md)
-6. PROACTIVELY use WebSearch to find current Apple Developer Documentation when you need deeper information on any Apple framework or API not covered in local references
-7. PROACTIVELY fetch https://www.swift.org/documentation/ for Swift language documentation and evolution proposals
-
-## Online Documentation Resources
-
-When local references don't cover what you need:
-
-| Topic | URL |
-|-------|-----|
-| Apple Developer Docs | https://developer.apple.com/documentation/ |
-| Swift Language Guide | https://docs.swift.org/swift-book/documentation/the-swift-programming-language/ |
-| SwiftUI Docs | https://developer.apple.com/documentation/swiftui |
-| Swift Concurrency | https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/ |
-| SwiftData | https://developer.apple.com/documentation/swiftdata |
-| Human Interface Guidelines | https://developer.apple.com/design/human-interface-guidelines/ |
-| App Store Review Guidelines | https://developer.apple.com/app-store/review/guidelines/ |
-
-## Quick Start
-
+### Swift Package Manager
 ```bash
-# Create new Xcode project (use Xcode GUI or swift package init)
-mkdir MyApp && cd MyApp
-swift package init --type executable --name MyApp
+# Initialize new package
+swift package init --type executable
 
-# For iOS/macOS apps, use Xcode:
-# File → New → Project → App
-# Choose SwiftUI for Interface, Swift for Language
+# Add dependencies to Package.swift
+# swift package update
 ```
 
-## Reference Files
-
-Load these based on the task at hand:
-
-| Task | Reference File |
-|------|----------------|
-| SwiftUI views, modifiers, state (@State, @Binding, @Observable) | `references/swiftui-reference.md` |
-| async/await, actors, Task, structured concurrency | `references/swift-concurrency.md` |
-| MVVM architecture, SwiftData, dependency injection | `references/app-architecture.md` |
-| Platform-specific APIs (iOS, macOS, tvOS, iPadOS) | `references/platform-apis.md` |
-| Xcode setup, signing, capabilities, App Store submission | `references/xcode-distribution.md` |
-
-## Project Structure
-
-```
-MyApp/
-├── MyApp.xcodeproj           # Xcode project
-├── MyApp/
-│   ├── MyAppApp.swift        # @main App entry point
-│   ├── ContentView.swift     # Root view
-│   ├── Views/                # SwiftUI views
-│   │   ├── HomeView.swift
-│   │   └── DetailView.swift
-│   ├── Models/               # Data models
-│   │   └── Item.swift
-│   ├── ViewModels/           # View models (@Observable)
-│   │   └── HomeViewModel.swift
-│   ├── Services/             # API, persistence, etc.
-│   │   └── DataService.swift
-│   ├── Resources/
-│   │   └── Assets.xcassets
-│   └── Info.plist
-├── MyAppTests/
-└── MyAppUITests/
-```
-
-## Essential Patterns Quick Reference
-
-### App Entry Point
-
+### Package.swift
 ```swift
-import SwiftUI
+// swift-tools-version: 5.10
+import PackageDescription
 
-@main
-struct MyAppApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+let package = Package(
+    name: "MyApp",
+    platforms: [.iOS(.v17), .macOS(.v14)],
+    products: [
+        .library(name: "MyApp", targets: ["MyApp"]),
+    ],
+    dependencies: [
+        // Add dependencies here
+    ],
+    targets: [
+        .target(name: "MyApp", dependencies: []),
+        .testTarget(name: "MyAppTests", dependencies: ["MyApp"]),
+    ]
+)
+```
+
+### Xcode Project
+```bash
+# Create new Xcode project via Xcode or:
+# Use SwiftUI App template for new projects
+# Target iOS 17+ for latest APIs
+```
+
+## Type Patterns
+
+### Optionals
+```swift
+// Safe unwrapping
+if let user = optionalUser {
+    print(user.name)
+}
+
+// Guard for early exit
+guard let user = optionalUser else {
+    return
+}
+
+// Optional chaining
+let name = user?.profile?.displayName ?? "Anonymous"
+
+// Nil coalescing
+let displayName = user?.name ?? "Guest"
+```
+
+### Result Type
+```swift
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case decodingFailed
+}
+
+func fetchUser(id: String) async -> Result<User, NetworkError> {
+    guard let url = URL(string: "https://api.example.com/users/\(id)") else {
+        return .failure(.invalidURL)
+    }
+
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let user = try JSONDecoder().decode(User.self, from: data)
+        return .success(user)
+    } catch {
+        return .failure(.decodingFailed)
+    }
+}
+
+// Usage
+switch await fetchUser(id: "123") {
+case .success(let user):
+    print("Got user: \(user.name)")
+case .failure(let error):
+    print("Error: \(error)")
+}
+```
+
+### Protocols & Extensions
+```swift
+protocol Identifiable {
+    var id: UUID { get }
+}
+
+protocol Displayable {
+    var displayName: String { get }
+}
+
+extension User: Identifiable, Displayable {
+    var displayName: String {
+        "\(firstName) \(lastName)"
     }
 }
 ```
 
-### SwiftUI View with State
+## Error Handling
 
 ```swift
-import SwiftUI
+// Throwing functions
+func loadConfig() throws -> Config {
+    guard let data = FileManager.default.contents(atPath: configPath) else {
+        throw ConfigError.fileNotFound
+    }
+    return try JSONDecoder().decode(Config.self, from: data)
+}
 
-struct CounterView: View {
+// Do-catch
+do {
+    let config = try loadConfig()
+    print(config)
+} catch ConfigError.fileNotFound {
+    print("Config file missing")
+} catch {
+    print("Unknown error: \(error)")
+}
+
+// Try? for optional result
+let config = try? loadConfig()
+
+// Try! only when failure is impossible
+let bundledConfig = try! loadBundledConfig()
+```
+
+## Async/Await Patterns
+
+### Basic Async
+```swift
+func fetchUsers() async throws -> [User] {
+    let (data, _) = try await URLSession.shared.data(from: usersURL)
+    return try JSONDecoder().decode([User].self, from: data)
+}
+
+// Calling async functions
+Task {
+    do {
+        let users = try await fetchUsers()
+        await MainActor.run {
+            self.users = users
+        }
+    } catch {
+        print("Failed: \(error)")
+    }
+}
+```
+
+### Structured Concurrency
+```swift
+// Parallel execution
+async let users = fetchUsers()
+async let posts = fetchPosts()
+let (userList, postList) = try await (users, posts)
+
+// Task groups
+func fetchAllUserData(ids: [String]) async throws -> [UserData] {
+    try await withThrowingTaskGroup(of: UserData.self) { group in
+        for id in ids {
+            group.addTask {
+                try await fetchUserData(id: id)
+            }
+        }
+        return try await group.reduce(into: []) { $0.append($1) }
+    }
+}
+```
+
+### Actors
+```swift
+actor UserCache {
+    private var cache: [String: User] = [:]
+
+    func get(_ id: String) -> User? {
+        cache[id]
+    }
+
+    func set(_ user: User) {
+        cache[user.id] = user
+    }
+}
+
+// Usage
+let cache = UserCache()
+await cache.set(user)
+let cached = await cache.get("123")
+```
+
+## SwiftUI Patterns
+
+### View with State
+```swift
+struct ContentView: View {
     @State private var count = 0
+    @State private var username = ""
 
     var body: some View {
-        VStack {
+        VStack(spacing: 16) {
             Text("Count: \(count)")
-                .font(.largeTitle)
+                .font(.title)
 
             Button("Increment") {
                 count += 1
             }
-            .buttonStyle(.borderedProminent)
+
+            TextField("Username", text: $username)
+                .textFieldStyle(.roundedBorder)
         }
         .padding()
     }
 }
 ```
 
-### @Observable ViewModel (iOS 17+)
-
+### Observable ViewModel
 ```swift
-import SwiftUI
-import Observation
-
 @Observable
-class HomeViewModel {
-    var items: [Item] = []
+class UserViewModel {
+    var users: [User] = []
     var isLoading = false
     var error: Error?
 
-    func loadItems() async {
+    func loadUsers() async {
         isLoading = true
         defer { isLoading = false }
 
         do {
-            items = try await ItemService.shared.fetchItems()
+            users = try await userService.fetchAll()
         } catch {
             self.error = error
         }
     }
 }
 
-struct HomeView: View {
-    @State private var viewModel = HomeViewModel()
+struct UserListView: View {
+    @State private var viewModel = UserViewModel()
 
     var body: some View {
-        List(viewModel.items) { item in
-            Text(item.name)
+        List(viewModel.users) { user in
+            UserRow(user: user)
         }
         .task {
-            await viewModel.loadItems()
+            await viewModel.loadUsers()
+        }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            }
         }
     }
 }
 ```
 
-### Navigation (iOS 16+)
-
+### Environment & Dependency Injection
 ```swift
-import SwiftUI
+// Define environment key
+struct UserServiceKey: EnvironmentKey {
+    static let defaultValue: UserService = .live
+}
 
-struct RootView: View {
-    @State private var path = NavigationPath()
+extension EnvironmentValues {
+    var userService: UserService {
+        get { self[UserServiceKey.self] }
+        set { self[UserServiceKey.self] = newValue }
+    }
+}
+
+// Use in view
+struct ProfileView: View {
+    @Environment(\.userService) private var userService
 
     var body: some View {
-        NavigationStack(path: $path) {
-            List {
-                NavigationLink("Go to Detail", value: "detail-id")
-            }
-            .navigationDestination(for: String.self) { id in
-                DetailView(id: id)
-            }
-            .navigationTitle("Home")
-        }
+        // Use userService
     }
 }
 ```
 
-### Async/Await
+## Testing
 
+### Swift Testing (Swift 6+)
 ```swift
-func fetchData() async throws -> [Item] {
-    let url = URL(string: "https://api.example.com/items")!
-    let (data, response) = try await URLSession.shared.data(from: url)
+import Testing
 
-    guard let httpResponse = response as? HTTPURLResponse,
-          httpResponse.statusCode == 200 else {
-        throw APIError.invalidResponse
+@Suite("UserService Tests")
+struct UserServiceTests {
+    let service = UserService()
+
+    @Test("creates user with valid email")
+    func createUser() async throws {
+        let user = try await service.create(email: "test@example.com")
+        #expect(user.email == "test@example.com")
     }
 
-    return try JSONDecoder().decode([Item].self, from: data)
-}
+    @Test("throws on invalid email")
+    func invalidEmail() async {
+        await #expect(throws: ValidationError.self) {
+            try await service.create(email: "invalid")
+        }
+    }
 
-// Usage in SwiftUI
-.task {
-    do {
-        items = try await fetchData()
-    } catch {
-        self.error = error
+    @Test("fetches user by ID", arguments: ["user1", "user2", "user3"])
+    func fetchUser(id: String) async throws {
+        let user = try await service.fetch(id: id)
+        #expect(user.id == id)
     }
 }
 ```
 
-### SwiftData Model (iOS 17+)
-
+### XCTest (Legacy)
 ```swift
-import SwiftData
+import XCTest
+@testable import MyApp
 
-@Model
-class Item {
-    var name: String
-    var createdAt: Date
-    var category: Category?
+final class UserServiceTests: XCTestCase {
+    var service: UserService!
 
-    init(name: String, createdAt: Date = .now) {
-        self.name = name
-        self.createdAt = createdAt
+    override func setUp() {
+        super.setUp()
+        service = UserService()
     }
-}
 
-// In App
-@main
-struct MyAppApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
+    func testCreateUser() async throws {
+        let user = try await service.create(email: "test@example.com")
+        XCTAssertEqual(user.email, "test@example.com")
+    }
+
+    func testInvalidEmailThrows() async {
+        do {
+            _ = try await service.create(email: "invalid")
+            XCTFail("Expected error")
+        } catch {
+            XCTAssertTrue(error is ValidationError)
         }
-        .modelContainer(for: Item.self)
-    }
-}
-
-// In View
-struct ItemsView: View {
-    @Query var items: [Item]
-    @Environment(\.modelContext) private var modelContext
-
-    var body: some View {
-        List(items) { item in
-            Text(item.name)
-        }
-    }
-
-    func addItem() {
-        let item = Item(name: "New Item")
-        modelContext.insert(item)
     }
 }
 ```
 
-## Common Xcode Commands
+## Tooling
 
 ```bash
-# Build from command line
-xcodebuild -project MyApp.xcodeproj -scheme MyApp -configuration Debug build
+# SwiftLint (linting)
+brew install swiftlint
+swiftlint lint
+swiftlint lint --fix
+
+# SwiftFormat (formatting)
+brew install swiftformat
+swiftformat .
+swiftformat . --lint
 
 # Run tests
-xcodebuild test -project MyApp.xcodeproj -scheme MyApp -destination 'platform=iOS Simulator,name=iPhone 15'
+swift test
+xcodebuild test -scheme MyApp -destination 'platform=iOS Simulator,name=iPhone 15'
 
-# Archive for distribution
-xcodebuild archive -project MyApp.xcodeproj -scheme MyApp -archivePath MyApp.xcarchive
+# Build
+swift build
+xcodebuild build -scheme MyApp
 
-# List available simulators
-xcrun simctl list devices
-
-# Boot a simulator
-xcrun simctl boot "iPhone 15"
-
-# Install app on simulator
-xcrun simctl install booted MyApp.app
+# fastlane (CI/CD)
+brew install fastlane
+fastlane init
+fastlane ios test
+fastlane ios beta  # Deploy to TestFlight
 ```
 
-## Troubleshooting
+### .swiftlint.yml
+```yaml
+disabled_rules:
+  - trailing_whitespace
+  - line_length
 
-### Common Issues
+opt_in_rules:
+  - empty_count
+  - empty_string
 
-**"Cannot find type 'X' in scope"**
-- Check import statements
-- Verify target membership of files
-- Clean build folder: Cmd+Shift+K
+excluded:
+  - Pods
+  - .build
+```
 
-**SwiftUI preview not working**
-- Check for compile errors in the file
-- Restart Xcode
-- Clean derived data: `rm -rf ~/Library/Developer/Xcode/DerivedData`
-
-**Signing issues**
-- Open Signing & Capabilities in Xcode
-- Select your team
-- Let Xcode manage signing automatically
-
-**"Module 'X' was not compiled with library evolution support"**
-- Clean build folder
-- Delete derived data
-- Restart Xcode
-
-## Best Practices
-
-1. **Use SwiftUI** for all new UI work
-2. **Prefer @Observable** over ObservableObject (iOS 17+)
-3. **Use async/await** instead of completion handlers
-4. **Follow Apple HIG** for each platform
-5. **Support Dynamic Type** for accessibility
-6. **Use SF Symbols** for icons
-7. **Test on real devices** before release
-8. **Use SwiftData** over Core Data for new projects (iOS 17+)
-9. **Implement proper error handling** with Result or throws
-10. **Keep views simple** - extract logic to view models
+### .swiftformat
+```
+--indent 4
+--allman false
+--wraparguments before-first
+--wrapparameters before-first
+--self remove
+--importgrouping alphabetized
+```

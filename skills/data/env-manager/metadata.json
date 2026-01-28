@@ -1,12 +1,7 @@
 {
   "name": "env-manager",
-  "description": "Environment variable management, validation, and documentation.",
-  "repo": "CuriousLearner/devkit",
-  "category": "documents",
-  "tags": [
-    "env",
-    "manager"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/tools/env-manager/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-28T03:43:36.099598Z"
 }

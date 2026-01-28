@@ -1,7 +1,7 @@
 {
   "name": "code-formatter",
-  "repo": "HelixDevelopment/HelixAgent",
-  "path": "skills/plugins/examples/formatter/code-formatter/SKILL.md",
-  "source": "github.com/HelixDevelopment/HelixAgent",
-  "downloaded_at": "2026-01-27T03:01:09.987642Z"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/tools/code-formatter/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-28T03:43:36.725143Z"
 }

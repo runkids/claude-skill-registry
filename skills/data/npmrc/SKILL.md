@@ -114,6 +114,14 @@ Execute in this order:
 @AnotherOrg:registry=https://npm.pkg.github.com
 ```
 
+**⚠️ CRITICAL - What NOT to Include:**
+```
+# ❌ NEVER include authToken in project .npmrc
+# //npm.pkg.github.com/:_authToken=${TOKEN}  # WRONG - Security risk!
+
+# ✅ Token should ONLY be in ~/.npmrc (user home directory)
+```
+
 ## 🛑 BLOCKING VALIDATION - MUST RUN AFTER FILE GENERATION
 
 ### Validation Script

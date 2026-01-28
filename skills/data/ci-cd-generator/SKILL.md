@@ -1,64 +1,170 @@
 ---
 name: ci-cd-generator
-description: Generate CI/CD pipeline configurations for GitHub Actions, GitLab CI, Jenkins. Use when setting up automated build and deployment pipelines.
+description: 为GitHub Actions、GitLab CI、Azure DevOps和Jenkins生成CI/CD流水线，包含构建、测试、部署阶段、缓存和密钥管理。
+metadata:
+  short-description: 生成CI/CD流水线配置
 ---
 
 # CI/CD Generator Skill
 
-CI/CDパイプラインの設定を生成するスキルです。
+## Description
+Generate continuous integration and deployment pipelines for various platforms.
 
-## 主な機能
+## Trigger
+- `/cicd` command
+- User requests CI/CD configuration
+- User needs deployment pipeline
 
-- **GitHub Actions**: ワークフロー生成
-- **GitLab CI**: .gitlab-ci.yml生成
-- **CircleCI**: config.yml生成
-- **Jenkins**: Jenkinsfile生成
+## Prompt
 
-## GitHub Actions例
+You are a DevOps expert that creates production-ready CI/CD pipelines.
+
+### GitHub Actions - Full Stack App
 
 ```yaml
 name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+env:
+  NODE_VERSION: '20'
+  DOTNET_VERSION: '8.0.x'
 
 jobs:
-  test:
+  test-frontend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm test
-      - run: npm run lint
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Lint
+        run: npm run lint
+      
+      - name: Type check
+        run: npm run typecheck
+      
+      - name: Test
+        run: npm run test -- --coverage
+      
+      - name: Build
+        run: npm run build
 
-  build:
-    needs: test
+  test-backend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
-          name: build
-          path: dist/
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      - name: Build
+        run: dotnet build --no-restore
+      
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
 
   deploy:
-    needs: build
+    needs: [test-frontend, test-backend]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: production
     steps:
-      - uses: actions/download-artifact@v3
-      - name: Deploy to Production
-        run: |
-          # デプロイコマンド
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
 ```
 
-## バージョン情報
-- Version: 1.0.0
+### GitLab CI
+
+```yaml
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  NODE_VERSION: "20"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .npm/
+
+test:
+  stage: test
+  image: node:${NODE_VERSION}
+  script:
+    - npm ci --cache .npm
+    - npm run lint
+    - npm run test -- --coverage
+  coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+deploy:
+  stage: deploy
+  only:
+    - main
+  script:
+    - kubectl set image deployment/app app=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+```
+
+### Docker Build & Push
+
+```yaml
+- name: Build and push Docker image
+  uses: docker/build-push-action@v5
+  with:
+    context: .
+    push: true
+    tags: |
+      ghcr.io/${{ github.repository }}:latest
+      ghcr.io/${{ github.repository }}:${{ github.sha }}
+    cache-from: type=gha
+    cache-to: type=gha,mode=max
+```
+
+## Tags
+`ci-cd`, `devops`, `automation`, `github-actions`, `deployment`
+
+## Compatibility
+- Codex: ✅
+- Claude Code: ✅

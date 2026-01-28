@@ -1,609 +1,198 @@
 ---
 name: test-coverage
-description: Analyze test coverage and suggest tests for uncovered code
-disable-model-invocation: false
+description: テストカバレッジ分析と不足テストの生成ガイド。カバレッジレポートを分析し、カバレッジが低いファイルを特定し、不足しているテストを生成する。「カバレッジを上げて」「テストカバレッジ」「未テストのコードにテストを追加」「80%カバレッジを達成」などのフレーズで発動。
 ---
 
-# Test Coverage Analysis & Enhancement
+# テストカバレッジ分析（Test Coverage）
 
-I'll analyze your test coverage, identify untested code paths, and suggest comprehensive tests for uncovered areas.
+テストカバレッジを分析し、不足しているテストを生成するためのガイド。
 
-Arguments: `$ARGUMENTS` - specific paths or coverage focus areas
+## このスキルの目的
 
-## Phase 1: Coverage Tool Detection
+1. **カバレッジの測定** - 現在のテストカバレッジを把握
+2. **不足箇所の特定** - カバレッジが低いファイル・関数を洗い出す
+3. **テストの生成** - 不足しているテストを自動生成
+4. **目標達成の確認** - 80%以上のカバレッジを目指す
 
-**Pre-Flight Checks:**
-Before starting, I'll verify:
-- Test framework and coverage tool availability
-- Existing test configuration
-- Coverage thresholds and requirements
-- CI/CD coverage reporting setup
+## 言語自動検出
 
-<think>
-When analyzing test coverage:
-- Line coverage is basic but can be misleading (executes but doesn't assert)
-- Branch coverage reveals untested conditionals and error paths
-- Function coverage shows unused functionality
-- Statement coverage differs from line coverage (multiple statements per line)
-- 100% coverage doesn't guarantee quality - need meaningful assertions
-- Uncovered code often hides edge cases and error handling
-</think>
+プロジェクトのファイル構成から言語を自動検出します：
 
-**Coverage Tool Detection:**
-```bash
-# Auto-detect coverage tooling
-detect_coverage_tool() {
-    if [ -f "package.json" ]; then
-        # JavaScript/TypeScript ecosystem
-        if grep -q "jest" package.json; then
-            echo "jest --coverage"
-        elif grep -q "vitest" package.json; then
-            echo "vitest --coverage"
-        elif grep -q "c8" package.json; then
-            echo "c8"
-        elif grep -q "nyc" package.json || grep -q "istanbul" package.json; then
-            echo "nyc"
-        fi
-    elif [ -f "pyproject.toml" ] || [ -f "setup.py" ]; then
-        # Python ecosystem
-        if grep -q "pytest-cov" pyproject.toml setup.py requirements.txt 2>/dev/null; then
-            echo "pytest-cov"
-        elif command -v coverage >/dev/null 2>&1; then
-            echo "coverage"
-        fi
-    elif [ -f "go.mod" ]; then
-        # Go has built-in coverage
-        echo "go test -cover"
-    elif [ -f "Gemfile" ]; then
-        # Ruby ecosystem
-        if grep -q "simplecov" Gemfile; then
-            echo "simplecov"
-        fi
-    elif [ -f "pom.xml" ] || [ -f "build.gradle" ]; then
-        # Java ecosystem
-        echo "jacoco"
-    fi
-}
+| 検出条件 | 言語 |
+|----------|------|
+| `package.json` + `.ts`/`.tsx`ファイルが存在 | TypeScript |
+| `pyproject.toml` または `requirements.txt` が存在 | Python |
+| `.csproj` または `.sln` が存在 | C# |
 
-COVERAGE_TOOL=$(detect_coverage_tool)
+言語が検出できない場合は、ユーザーに確認してください。
 
-if [ -z "$COVERAGE_TOOL" ]; then
-    echo "No coverage tool detected. Suggestions:"
-    echo "  - JavaScript: npm install --save-dev jest (includes coverage)"
-    echo "  - Python: pip install pytest-cov"
-    echo "  - Go: Built-in (go test -cover)"
-    echo "  - Ruby: gem install simplecov"
-    exit 1
-fi
+## ワークフロー
 
-echo "Detected coverage tool: $COVERAGE_TOOL"
-```
+### ステップ1: カバレッジ付きでテストを実行
 
-**Token Optimization:**
-I'll use bash to run coverage and parse reports before reading files:
-```bash
-# Generate coverage report
-case "$COVERAGE_TOOL" in
-    "jest --coverage")
-        npm test -- --coverage --coverageReporters=json-summary --coverageReporters=text
-        ;;
-    "pytest-cov")
-        pytest --cov=. --cov-report=json --cov-report=term-missing
-        ;;
-    "go test -cover")
-        go test -coverprofile=coverage.out ./...
-        go tool cover -func=coverage.out
-        ;;
-esac
+プロジェクトの言語・パッケージマネージャーに応じてコマンドを実行：
 
-# Parse coverage summary (avoid reading full HTML reports)
-if [ -f "coverage/coverage-summary.json" ]; then
-    # Jest/NYC format
-    cat coverage/coverage-summary.json | jq '.total'
-elif [ -f "coverage.json" ]; then
-    # pytest-cov format
-    cat coverage.json | jq '.totals'
-fi
-```
-
-This gets coverage metrics without reading thousands of lines of HTML reports.
-
-## Phase 2: Coverage Metrics Analysis
-
-**I'll analyze multiple coverage dimensions:**
-
-1. **Line Coverage**
-   - Percentage of lines executed
-   - Identifies completely untested files
-
-2. **Branch Coverage**
-   - Percentage of if/else, switch paths tested
-   - More meaningful than line coverage
-
-3. **Function Coverage**
-   - Percentage of functions called
-   - Identifies unused code
-
-4. **Statement Coverage**
-   - More granular than line coverage
-   - Multiple statements per line counted separately
-
-**Coverage Report Parsing:**
-```bash
-# Extract low-coverage files for targeted analysis
-parse_low_coverage_files() {
-    if [ -f "coverage/coverage-summary.json" ]; then
-        # Extract files with <80% coverage
-        jq -r 'to_entries[] |
-               select(.value.lines.pct < 80) |
-               "\(.key): \(.value.lines.pct)% lines, \(.value.branches.pct)% branches"' \
-               coverage/coverage-summary.json
-    fi
-}
-
-LOW_COVERAGE_FILES=$(parse_low_coverage_files)
-```
-
-**Coverage Threshold Checking:**
-```bash
-# Check if project has coverage requirements
-check_coverage_thresholds() {
-    # Jest configuration
-    if [ -f "jest.config.js" ] || [ -f "jest.config.json" ]; then
-        grep -A 10 "coverageThreshold" jest.config.* 2>/dev/null
-    fi
-
-    # pytest configuration
-    if [ -f "pyproject.toml" ]; then
-        grep -A 5 "fail_under" pyproject.toml 2>/dev/null
-    fi
-
-    # Go coverage threshold (custom)
-    if [ -f ".coverage-threshold" ]; then
-        cat .coverage-threshold
-    fi
-}
-
-THRESHOLDS=$(check_coverage_thresholds)
-```
-
-## Phase 3: Uncovered Code Identification
-
-**Strategic File Analysis:**
-
-I'll focus on files with coverage gaps using Grep before full Read:
+#### TypeScript/JavaScript
 
 ```bash
-# Find uncovered functions (JavaScript/TypeScript)
-rg "^(export )?(async )?function" src/ --type js --type ts | \
-    while read -r line; do
-        file=$(echo "$line" | cut -d: -f1)
-        # Check if file has low coverage
-        if echo "$LOW_COVERAGE_FILES" | grep -q "$file"; then
-            echo "$line"
-        fi
-    done
+# npm
+npm test -- --coverage
 
-# Find uncovered classes (Python)
-rg "^class " src/ --type py | \
-    while read -r line; do
-        file=$(echo "$line" | cut -d: -f1)
-        if echo "$LOW_COVERAGE_FILES" | grep -q "$file"; then
-            echo "$line"
-        fi
-    done
+# pnpm
+pnpm test --coverage
+
+# yarn
+yarn test --coverage
 ```
 
-**Uncovered Code Patterns I'll Identify:**
+#### Python
 
-1. **Error Handling Paths**
-   ```javascript
-   try {
-       await operation();
-   } catch (error) {
-       // UNCOVERED: Error path not tested
-       logger.error(error);
-       throw new CustomError(error);
-   }
-   ```
+```bash
+# pytest + coverage.py（推奨）
+pytest --cov --cov-report=term-missing
 
-2. **Edge Cases in Conditionals**
-   ```javascript
-   if (value > 100) {
-       return 'high';
-   } else if (value > 50) {
-       return 'medium';
-   } else {
-       return 'low'; // UNCOVERED: Never tested
-   }
-   ```
+# JSON形式でレポート生成
+pytest --cov --cov-report=json
 
-3. **Validation Logic**
-   ```python
-   def validate_input(data):
-       if not data:
-           raise ValueError("Data required")  # UNCOVERED
-       if not isinstance(data, dict):
-           raise TypeError("Dict required")   # UNCOVERED
-       return True
-   ```
-
-4. **Async Error Paths**
-   ```javascript
-   async function fetchData(url) {
-       if (!url) {
-           throw new Error('URL required'); // UNCOVERED
-       }
-
-       const response = await fetch(url);
-
-       if (!response.ok) {
-           throw new Error('Fetch failed'); // UNCOVERED
-       }
-
-       return response.json();
-   }
-   ```
-
-5. **Default/Fallback Cases**
-   ```javascript
-   switch (action.type) {
-       case 'CREATE':
-           return handleCreate(action);
-       case 'UPDATE':
-           return handleUpdate(action);
-       default:
-           return state; // UNCOVERED: Default case not tested
-   }
-   ```
-
-## Phase 4: Missing Test Identification
-
-**I'll identify critical gaps:**
-
-1. **Untested Public APIs**
-   ```bash
-   # Find exported functions without tests
-   rg "^export (async )?function (\w+)" src/ -o -r '$2' | \
-       while read -r func; do
-           if ! rg "describe.*$func|it.*$func|test.*$func" test/ spec/ >/dev/null 2>&1; then
-               echo "UNTESTED: $func"
-           fi
-       done
-   ```
-
-2. **Untested Error Scenarios**
-   ```bash
-   # Find error throwing code
-   rg "throw new|raise " src/ --type js --type ts --type py -n
-   ```
-
-3. **Untested Edge Cases**
-   - Empty array/object handling
-   - Null/undefined checks
-   - Boundary values (0, -1, MAX_INT)
-   - Invalid input types
-
-4. **Integration Points**
-   - API endpoints
-   - Database operations
-   - External service calls
-   - File system operations
-
-## Phase 5: Test Suggestions & Generation
-
-**For each uncovered area, I'll suggest tests:**
-
-**Example: Uncovered Error Path**
-```javascript
-// Uncovered code in src/user-service.js:
-async function createUser(data) {
-    if (!data.email) {
-        throw new Error('Email required'); // UNCOVERED
-    }
-    return db.users.create(data);
-}
-
-// Suggested test:
-describe('UserService.createUser', () => {
-    it('should throw error when email is missing', async () => {
-        await expect(createUser({ name: 'Test' }))
-            .rejects.toThrow('Email required');
-    });
-
-    it('should throw error when email is null', async () => {
-        await expect(createUser({ email: null, name: 'Test' }))
-            .rejects.toThrow('Email required');
-    });
-
-    it('should throw error when email is empty string', async () => {
-        await expect(createUser({ email: '', name: 'Test' }))
-            .rejects.toThrow('Email required');
-    });
-});
+# poetryプロジェクト
+poetry run pytest --cov --cov-report=term-missing
 ```
 
-**Example: Uncovered Branch**
-```python
-# Uncovered code in src/calculator.py:
-def divide(a, b):
-    if b == 0:
-        raise ValueError("Cannot divide by zero")  # UNCOVERED
-    return a / b
+#### C#
 
-# Suggested test:
-def test_divide_by_zero():
-    """Test division by zero raises ValueError"""
-    with pytest.raises(ValueError, match="Cannot divide by zero"):
-        divide(10, 0)
+```bash
+# dotnet test + Coverlet
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
 
-def test_divide_by_negative():
-    """Test division by negative number"""
-    assert divide(10, -2) == -5.0
-
-def test_divide_floats():
-    """Test division with floating point precision"""
-    assert abs(divide(1, 3) - 0.333333) < 0.00001
+# JSON形式で出力
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=json
 ```
 
-**Example: Uncovered Edge Case**
-```javascript
-// Uncovered code in src/array-utils.js:
-function getFirst(arr) {
-    return arr[0]; // What if arr is empty? UNCOVERED
-}
+> 📖 詳細なコマンドオプションは `reference/{language}/commands.md` を参照してください。
 
-// Suggested tests:
-describe('getFirst', () => {
-    it('should return first element of array', () => {
-        expect(getFirst([1, 2, 3])).toBe(1);
-    });
+### ステップ2: カバレッジレポートを分析
 
-    it('should return undefined for empty array', () => {
-        expect(getFirst([])).toBeUndefined();
-    });
+言語ごとのカバレッジレポートを確認し、以下を把握：
 
-    it('should handle single-element array', () => {
-        expect(getFirst([42])).toBe(42);
-    });
+#### レポートファイルのパス
 
-    it('should return first element even if falsy', () => {
-        expect(getFirst([0, 1, 2])).toBe(0);
-        expect(getFirst([null, 1, 2])).toBeNull();
-    });
-});
+| 言語 | 形式 | パス |
+|------|------|------|
+| TypeScript | JSON Summary | `coverage/coverage-summary.json` |
+| TypeScript | LCOV | `coverage/lcov.info` |
+| Python | JSON | `coverage.json` |
+| Python | HTML | `htmlcov/index.html` |
+| C# | Cobertura | `coverage.cobertura.xml` |
+| C# | JSON | `coverage.json` |
+
+#### 確認項目
+
+- 全体のカバレッジ率
+- ファイルごとのカバレッジ率
+- 行カバレッジ、分岐カバレッジ、関数カバレッジ
+
+### ステップ3: 80%未満のファイルを特定
+
+カバレッジ閾値（80%）を下回るファイルをリストアップ：
+
+- 優先度の高いファイル（ビジネスロジック、ユーティリティ）を優先
+- テスト不要なファイル（設定ファイル、型定義等）は除外を検討
+
+### ステップ4: 各ファイルのテストを生成
+
+カバレッジが低いファイルごとに以下を実施：
+
+1. **未テストのコードパスを分析**
+   - カバーされていない行を特定
+   - 分岐条件の未テスト部分を確認
+
+2. **ユニットテストを生成**
+   - 個々の関数のテスト
+   - 入力と出力の検証
+
+3. **統合テストを生成**（該当する場合）
+   - API エンドポイントのテスト
+   - モジュール間の連携テスト
+
+4. **E2Eテストを生成**（重要なフローの場合）
+   - ユーザーの操作フローのテスト
+   - クリティカルパスの検証
+
+### ステップ5: 新しいテストの検証
+
+生成したテストが正常に動作することを確認：
+
+#### TypeScript
+
+```bash
+npm test
 ```
 
-## Phase 6: Coverage Improvement Strategy
+#### Python
 
-**Prioritization Framework:**
-
-I'll prioritize test additions based on:
-
-1. **Risk Level (Critical → Low)**
-   - Critical: Security, data integrity, financial logic
-   - High: Core business logic, user-facing features
-   - Medium: Utility functions, helpers
-   - Low: Logging, formatting, trivial getters
-
-2. **Impact (High → Low)**
-   - High: Code used frequently, critical paths
-   - Medium: Occasional use, important features
-   - Low: Rarely used, edge features
-
-3. **Effort (Low → High)**
-   - Low: Simple unit tests, pure functions
-   - Medium: Mocked integration tests
-   - High: Complex integration/E2E tests
-
-**Coverage Improvement Plan:**
-```
-COVERAGE IMPROVEMENT STRATEGY
-==============================
-
-Phase 1: Critical Uncovered Code (Priority: High Risk + High Impact)
-├── auth/login.js:45-52 - Error handling in authentication
-├── payment/process.js:78-85 - Failed payment scenarios
-└── user/validate.js:23-30 - Input validation edge cases
-
-Phase 2: Important Features (Priority: High Impact + Low Effort)
-├── api/users.js:120-135 - User creation edge cases
-├── utils/format.js:45-60 - Edge cases in formatting
-└── services/email.js:89-95 - Email send failure handling
-
-Phase 3: Code Quality (Priority: Medium Impact + Low Effort)
-├── helpers/string.js:12-25 - String utility edge cases
-├── models/user.js:67-72 - Model validation
-└── config/parser.js:34-40 - Config parsing errors
-
-Phase 4: Comprehensive Coverage (Priority: Low Risk + Low Effort)
-├── utils/constants.js - Getter coverage
-├── types/validators.js - Type checking edge cases
-└── formatters/date.js - Date formatting edge cases
+```bash
+pytest
 ```
 
-## Phase 7: Test Generation & Implementation
+#### C#
 
-**I'll generate and add tests:**
-
-1. **Create git checkpoint**
-   ```bash
-   git add -A
-   git commit -m "Pre test-coverage-improvement checkpoint" || echo "No changes"
-   ```
-
-2. **Generate tests for uncovered code:**
-   - Write comprehensive test cases
-   - Cover all branches and edge cases
-   - Include descriptive test names
-   - Add comments explaining edge cases
-
-3. **Verify coverage improvement:**
-   ```bash
-   # Run tests with coverage
-   npm test -- --coverage
-
-   # Compare before/after coverage
-   echo "Coverage improved from X% to Y%"
-   ```
-
-4. **Validate test quality:**
-   - Tests actually assert behavior
-   - No false positives (tests that pass without testing)
-   - Good test organization and naming
-   - Proper setup/teardown
-
-## Integration with Existing Skills
-
-**Workflow Integration:**
-- After `/test` runs → Check coverage with `/test-coverage`
-- After `/scaffold` → Ensure new code has tests
-- Before `/commit` → Verify coverage thresholds met
-- During `/review` → Include coverage analysis
-- With `/test-async` → Cover async edge cases
-- With `/test-antipatterns` → Quality + coverage together
-
-**Skill Suggestions:**
-- Low coverage in complex async → `/test-async`
-- Coverage but poor quality → `/test-antipatterns`
-- New feature needs tests → `/tdd-red-green`
-- Complex uncovered logic → `/explain-like-senior`
-
-## Reporting
-
-**I'll provide comprehensive coverage analysis:**
-
-```
-TEST COVERAGE ANALYSIS REPORT
-==============================
-
-CURRENT COVERAGE:
-├── Lines: 78.5% (target: 80%)
-├── Branches: 65.2% (target: 75%)
-├── Functions: 82.1% (target: 85%)
-└── Statements: 77.8% (target: 80%)
-
-FILES BELOW THRESHOLD:
-├── src/auth/login.js: 45.2% (critical!)
-├── src/payment/process.js: 52.8% (critical!)
-├── src/api/users.js: 71.3%
-├── src/utils/validate.js: 68.9%
-└── src/helpers/format.js: 74.5%
-
-UNCOVERED CRITICAL CODE:
-├── Error handling paths: 23 instances
-├── Edge case branches: 18 instances
-├── Validation logic: 12 instances
-└── Async error paths: 8 instances
-
-TESTS SUGGESTED:
-├── Authentication error scenarios: 8 tests
-├── Payment failure handling: 6 tests
-├── Input validation edge cases: 12 tests
-├── API error responses: 10 tests
-└── Utility function edge cases: 15 tests
-
-AFTER IMPROVEMENTS:
-├── Lines: 78.5% → 87.3% (+8.8%)
-├── Branches: 65.2% → 81.7% (+16.5%)
-├── Functions: 82.1% → 91.2% (+9.1%)
-└── Statements: 77.8% → 86.9% (+9.1%)
-
-TESTS ADDED: 51 new tests
-FILES MODIFIED: 12 test files
-EXECUTION TIME: +2.3s (acceptable)
-
-NEXT STEPS:
-├── Run tests to verify all pass
-├── Review generated tests for quality
-├── Update CI/CD coverage thresholds
-└── Document testing coverage requirements
+```bash
+dotnet test
 ```
 
-## Coverage Tools Configuration
+### ステップ6: Before/After メトリクスを表示
 
-**I can help set up coverage tools:**
+改善前後のカバレッジを比較表示：
 
-**Jest (JavaScript/TypeScript):**
-```json
-{
-  "jest": {
-    "collectCoverage": true,
-    "coverageDirectory": "coverage",
-    "coverageReporters": ["text", "lcov", "json-summary"],
-    "coverageThreshold": {
-      "global": {
-        "lines": 80,
-        "branches": 75,
-        "functions": 85,
-        "statements": 80
-      }
-    },
-    "collectCoverageFrom": [
-      "src/**/*.{js,ts}",
-      "!src/**/*.d.ts",
-      "!src/**/*.test.{js,ts}"
-    ]
-  }
-}
+```markdown
+| 指標 | Before | After | 変化 |
+|------|--------|-------|------|
+| 行カバレッジ | 65% | 85% | +20% |
+| 分岐カバレッジ | 50% | 78% | +28% |
+| 関数カバレッジ | 70% | 90% | +20% |
 ```
 
-**pytest-cov (Python):**
-```toml
-[tool.pytest.ini_options]
-addopts = "--cov=src --cov-report=term-missing --cov-report=html --cov-fail-under=80"
+### ステップ7: 目標達成の確認
 
-[tool.coverage.run]
-omit = ["*/tests/*", "*/test_*.py"]
+プロジェクト全体で80%以上のカバレッジを達成していることを確認。
 
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise NotImplementedError"
-]
-```
+## テスト生成の重点項目
 
-## Safety Guarantees
+テストを生成する際は、以下のシナリオを重点的にカバー：
 
-**What I'll NEVER do:**
-- Generate tests that don't actually test
-- Lower coverage thresholds to "pass"
-- Test implementation details instead of behavior
-- Add AI attribution to commits or code
-- Create tests that give false confidence
+### 正常系（Happy Path）
 
-**What I WILL do:**
-- Generate meaningful, behavior-focused tests
-- Cover edge cases and error paths
-- Improve actual code quality, not just metrics
-- Maintain test maintainability
-- Create clear commit messages (no AI attribution)
+- 期待される入力での正常動作
+- 典型的なユースケース
 
-## Credits
+### エラーハンドリング
 
-This skill is based on:
-- **Istanbul/nyc** - JavaScript coverage tool standards
-- **Jest** - Built-in coverage capabilities
-- **pytest-cov** - Python coverage testing
-- **JaCoCo** - Java code coverage library
-- **SimpleCov** - Ruby coverage analysis
-- **Testing Best Practices** - Community-driven coverage guidelines
+- 例外のスロー
+- エラーメッセージの検証
+- エラー時のリカバリー動作
 
-## Token Budget
+### エッジケース
 
-Target: 2,000-3,500 tokens per execution
-- Phase 1-2: ~800 tokens (tool detection + metrics)
-- Phase 3-4: ~800 tokens (uncovered code analysis)
-- Phase 5-6: ~1,000 tokens (test suggestions)
-- Phase 7 + Reporting: ~900 tokens (implementation + summary)
+- `null` / `undefined` / `None` の入力
+- 空の配列・オブジェクト・リスト・辞書
+- 空文字列
 
-**Optimization Strategy:**
-- Parse coverage JSON summaries instead of HTML
-- Use bash/jq for coverage metric extraction
-- Grep for uncovered patterns before full Read
-- Focus on low-coverage files only
-- Generate tests in batches
-- Provide actionable summaries
+### 境界条件
 
-This ensures thorough coverage analysis and meaningful test generation while respecting token limits and delivering measurable coverage improvements.
+- 最小値・最大値
+- 配列の先頭・末尾
+- 数値の境界（0、負数、オーバーフロー）
+
+## 重要な注意事項
+
+- **テストの品質を優先**: カバレッジ数値だけでなく、意味のあるテストを書く
+- **モックの適切な使用**: 外部依存はモック化し、テストを独立させる
+- **テストの可読性**: テスト名は何をテストしているか明確に記述
+
+## 言語別リファレンス
+
+より詳細な情報は、各言語のリファレンスを参照してください：
+
+- [TypeScript リファレンス](reference/typescript/commands.md)
+- [Python リファレンス](reference/python/commands.md)
+- [C# リファレンス](reference/csharp/commands.md)

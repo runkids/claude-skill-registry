@@ -1,7 +1,7 @@
 {
   "name": "schema-validator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "planned-skills/generated/11-data-pipelines/schema-validator/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-27T03:43:05.961089Z"
+  "repo": "deancochran/gradientpeak",
+  "path": ".opencode/skills/schema-validator/SKILL.md",
+  "source": "github.com/deancochran/gradientpeak",
+  "downloaded_at": "2026-01-28T03:10:55.150934Z"
 }

@@ -1,89 +1,54 @@
 ---
 name: code-profiler
-description: Profile code performance and identify bottlenecks
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Grep
-  - Glob
+description: Use when asked to profile Python code performance, identify bottlenecks, measure execution time, or analyze function call statistics.
 ---
 
-# Code Profiler Skill
+# Code Profiler
+
+Analyze Python code performance, identify bottlenecks, and optimize execution with comprehensive profiling tools.
 
 ## Purpose
 
-Profile algorithm implementations to identify performance bottlenecks and optimization opportunities.
+Performance analysis for:
+- Bottleneck identification
+- Function execution time measurement
+- Memory usage profiling
+- Call graph visualization
+- Optimization validation
 
-## Capabilities
+## Features
 
-- Runtime profiling
-- Memory profiling
-- Cache miss analysis
-- Hot spot identification
-- Optimization suggestions
-- Comparative benchmarking
+- **Time Profiling**: Measure function execution times
+- **Line-by-Line Analysis**: Profile each line of code
+- **Call Statistics**: Function call counts and cumulative time
+- **Memory Profiling**: Track memory allocation and usage
+- **Flamegraph Visualization**: Visual call stack analysis
+- **Comparison**: Before/after optimization comparison
 
-## Target Processes
+## Quick Start
 
-- code-level-optimization
-- complexity-optimization
-- memory-optimization
+```python
+from code_profiler import CodeProfiler
 
-## Profiling Dimensions
+# Profile function
+profiler = CodeProfiler()
+profiler.profile_function(my_function, args=(arg1, arg2))
+profiler.print_stats(top=10)
 
-### Time Profiling
-- Function-level timing
-- Line-by-line profiling
-- Call graph analysis
-- Hot spot detection
-
-### Memory Profiling
-- Heap allocation tracking
-- Memory leak detection
-- Peak memory usage
-- Allocation patterns
-
-### Cache Analysis
-- Cache miss rates
-- Memory access patterns
-- Data locality issues
-
-## Input Schema
-
-```json
-{
-  "type": "object",
-  "properties": {
-    "code": { "type": "string" },
-    "language": { "type": "string" },
-    "profileType": {
-      "type": "string",
-      "enum": ["time", "memory", "cache", "all"]
-    },
-    "testInput": { "type": "string" },
-    "iterations": { "type": "integer", "default": 1 }
-  },
-  "required": ["code", "profileType"]
-}
+# Profile script
+profiler.profile_script('script.py')
+profiler.export_report('profile_report.html')
 ```
 
-## Output Schema
+## CLI Usage
 
-```json
-{
-  "type": "object",
-  "properties": {
-    "success": { "type": "boolean" },
-    "timing": { "type": "object" },
-    "memory": { "type": "object" },
-    "hotSpots": { "type": "array" },
-    "recommendations": { "type": "array" }
-  },
-  "required": ["success"]
-}
+```bash
+# Profile Python script
+python code_profiler.py script.py
+
+# Profile with line-by-line analysis
+python code_profiler.py script.py --line-by-line
+
+# Export HTML report
+python code_profiler.py script.py --output report.html
 ```
-
-## Integration
-
-Can integrate with profiling tools like gprof, perf, Valgrind, cProfile, and language-specific profilers.

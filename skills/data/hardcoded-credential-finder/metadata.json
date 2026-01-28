@@ -1,9 +1,7 @@
 {
   "name": "hardcoded-credential-finder",
-  "description": "Hardcoded Credential Finder - Auto-activating skill for Security Fundamentals.Triggers on: hardcoded credential finder, hardcoded credential finderPart of the Security Fundamentals skill category.",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/03-security-fundamentals/hardcoded-credential-finder/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-28T02:27:41.007395Z"
 }

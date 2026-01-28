@@ -1,9 +1,7 @@
 {
   "name": "github-multi-project",
-  "description": "Expert at organizing specs and splitting tasks across multiple GitHub repositories. Handles monorepo, polyrepo, and parent repo architectures. Activates for multi-project GitHub setups, task splitting",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-github/skills/github-multi-project/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:06.429170Z"
 }

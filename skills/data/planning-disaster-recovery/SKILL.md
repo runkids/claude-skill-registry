@@ -1,129 +1,328 @@
 ---
 name: planning-disaster-recovery
-description: |
-  Execute use when you need to work with backup and recovery.
-  This skill provides backup automation and disaster recovery with comprehensive guidance and automation.
-  Trigger with phrases like "create backups", "automate backups",
-  or "implement disaster recovery".
-  
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(tar:*), Bash(rsync:*), Bash(aws:s3:*)
-version: 1.0.0
-author: Jeremy Longshore <jeremy@intentsolutions.io>
-license: MIT
+description: Design and implement disaster recovery strategies with RTO/RPO planning, database backups, Kubernetes DR, cross-region replication, and chaos engineering testing. Use when implementing backup systems, configuring point-in-time recovery, setting up multi-region failover, or validating DR procedures.
 ---
-# Disaster Recovery Planner
 
-This skill provides automated assistance for disaster recovery planner tasks.
+# Disaster Recovery
 
-## Prerequisites
+## Purpose
 
-Before using this skill, ensure:
-- Required credentials and permissions for the operations
-- Understanding of the system architecture and dependencies
-- Backup of critical data before making structural changes
-- Access to relevant documentation and configuration files
-- Monitoring tools configured for observability
-- Development or staging environment available for testing
+Provide comprehensive guidance for designing disaster recovery (DR) strategies, implementing backup systems, and validating recovery procedures across databases, Kubernetes clusters, and cloud infrastructure. Enable teams to define RTO/RPO objectives, select appropriate backup tools, configure automated failover, and test DR capabilities through chaos engineering.
 
-## Instructions
+## When to Use This Skill
 
-### Step 1: Assess Current State
-1. Review current configuration, setup, and baseline metrics
-2. Identify specific requirements, goals, and constraints
-3. Document existing patterns, issues, and pain points
-4. Analyze dependencies and integration points
-5. Validate all prerequisites are met before proceeding
+Invoke this skill when:
+- Defining recovery time objectives (RTO) and recovery point objectives (RPO)
+- Implementing database backups with point-in-time recovery (PITR)
+- Setting up Kubernetes cluster backup and restore workflows
+- Configuring cross-region replication for high availability
+- Testing disaster recovery procedures through chaos experiments
+- Meeting compliance requirements (GDPR, SOC 2, HIPAA)
+- Automating backup monitoring and alerting
+- Designing multi-cloud disaster recovery architectures
 
-### Step 2: Design Solution
-1. Define optimal approach based on best practices
-2. Create detailed implementation plan with clear steps
-3. Identify potential risks and mitigation strategies
-4. Document expected outcomes and success criteria
-5. Review plan with team or stakeholders if needed
+## Core Concepts
 
-### Step 3: Implement Changes
-1. Execute implementation in non-production environment first
-2. Verify changes work as expected with thorough testing
-3. Monitor for any issues, errors, or performance impacts
-4. Document all changes, decisions, and configurations
-5. Prepare rollback plan and recovery procedures
+### RTO and RPO Fundamentals
 
-### Step 4: Validate Implementation
-1. Run comprehensive tests to verify all functionality
-2. Compare performance metrics against baseline
-3. Confirm no unintended side effects or regressions
-4. Update all relevant documentation
-5. Obtain approval before production deployment
+**Recovery Time Objective (RTO):** Maximum acceptable downtime after a disaster before business impact becomes unacceptable.
 
-### Step 5: Deploy to Production
-1. Schedule deployment during appropriate maintenance window
-2. Execute implementation with real-time monitoring
-3. Watch closely for any issues or anomalies
-4. Verify successful deployment and functionality
-5. Document completion, metrics, and lessons learned
+**Recovery Point Objective (RPO):** Maximum acceptable data loss measured in time. Defines how far back in time recovery must reach.
 
-## Output
+**Criticality Tiers:**
+- **Tier 0 (Mission-Critical):** RTO < 1 hour, RPO < 5 minutes
+- **Tier 1 (Production):** RTO 1-4 hours, RPO 15-60 minutes
+- **Tier 2 (Important):** RTO 4-24 hours, RPO 1-6 hours
+- **Tier 3 (Standard):** RTO > 24 hours, RPO > 6 hours
 
-This skill produces:
+### 3-2-1 Backup Rule
 
-**Implementation Artifacts**: Scripts, configuration files, code, and automation tools
+Maintain **3 copies** of data on **2 different media** types with **1 copy offsite**.
 
-**Documentation**: Comprehensive documentation of changes, procedures, and architecture
+Example implementation:
+- Primary: Production database
+- Secondary: Local backup storage
+- Tertiary: Cloud backup (S3/GCS/Azure)
 
-**Test Results**: Validation reports, test coverage, and quality metrics
+### Backup Types
 
-**Monitoring Configuration**: Dashboards, alerts, metrics, and observability setup
+**Full Backup:** Complete copy of all data. Slowest to create, fastest to restore.
 
-**Runbooks**: Operational procedures for maintenance, troubleshooting, and incident response
+**Incremental Backup:** Only changes since last backup. Fastest to create, requires full + all incrementals to restore.
 
-## Error Handling
+**Differential Backup:** Changes since last full backup. Balance between storage and restore speed.
 
-**Permission and Access Issues**:
-- Verify credentials and permissions for all operations
-- Request elevated access if required for specific tasks
-- Document all permission requirements for automation
-- Use separate service accounts for privileged operations
-- Implement least-privilege access principles
+**Continuous Backup:** Real-time or near-real-time backup via WAL/binlog archiving. Lowest RPO.
 
-**Connection and Network Failures**:
-- Check network connectivity, firewalls, and security groups
-- Verify service endpoints, DNS resolution, and routing
-- Test connections using diagnostic and troubleshooting tools
-- Review network policies, ACLs, and security configurations
-- Implement retry logic with exponential backoff
+## Quick Decision Framework
 
-**Resource Constraints**:
-- Monitor resource usage (CPU, memory, disk, network)
-- Implement throttling, rate limiting, or queue mechanisms
-- Schedule resource-intensive tasks during low-traffic periods
-- Scale infrastructure resources if consistently hitting limits
-- Optimize queries, code, or configurations for efficiency
+### Step 1: Map RTO/RPO to Strategy
 
-**Configuration and Syntax Errors**:
-- Validate all configuration syntax before applying changes
-- Test configurations thoroughly in non-production first
-- Implement automated configuration validation checks
-- Maintain version control for all configuration files
-- Keep previous working configuration for quick rollback
+```
+RTO < 1 hour, RPO < 5 min
+→ Active-Active replication, continuous archiving, automated failover
+→ Tools: Aurora Global DB, GCS Multi-Region, pgBackRest PITR
+→ Cost: Highest
 
-## Resources
+RTO 1-4 hours, RPO 15-60 min
+→ Warm standby, incremental backups, automated failover
+→ Tools: pgBackRest, WAL-G, RDS Multi-AZ
+→ Cost: High
 
-**Configuration Templates**: `{baseDir}/templates/disaster-recovery-planner/`
+RTO 4-24 hours, RPO 1-6 hours
+→ Daily full + incremental, cross-region backup
+→ Tools: pgBackRest, Velero, Restic
+→ Cost: Medium
 
-**Documentation and Guides**: `{baseDir}/docs/disaster-recovery-planner/`
+RTO > 24 hours, RPO > 6 hours
+→ Weekly full + daily incremental, single region
+→ Tools: pg_dump, mysqldump, S3 versioning
+→ Cost: Low
+```
 
-**Example Scripts and Code**: `{baseDir}/examples/disaster-recovery-planner/`
+### Step 2: Select Backup Tools by Use Case
 
-**Troubleshooting Guide**: `{baseDir}/docs/disaster-recovery-planner-troubleshooting.md`
+| Use Case | Primary Tool | Alternative | Key Feature |
+|----------|-------------|-------------|-------------|
+| PostgreSQL production | pgBackRest | WAL-G | PITR, compression, multi-repo |
+| MySQL production | Percona XtraBackup | WAL-G | Hot backups, incremental |
+| MongoDB | Atlas Backup | mongodump | Continuous backup, PITR |
+| Kubernetes cluster | Velero | ArgoCD + Git | PV snapshots, scheduling |
+| File/object backup | Restic | Duplicity | Encryption, deduplication |
+| Cross-region replication | Aurora Global DB | RDS Read Replica | Active-Active capable |
 
-**Best Practices**: `{baseDir}/docs/disaster-recovery-planner-best-practices.md`
+## Database Backup Patterns
 
-**Monitoring Setup**: `{baseDir}/monitoring/disaster-recovery-planner-dashboard.json`
+### PostgreSQL with pgBackRest
 
-## Overview
+**Use Case:** Production PostgreSQL with < 5 minute RPO
 
-This skill provides automated assistance for the described functionality.
+**Quick Start:** See `examples/postgresql/pgbackrest-config/`
+
+Configure continuous WAL archiving with full/differential/incremental backups to S3/GCS/Azure. Schedule weekly full, daily differential backups. Enable PITR with `pgbackrest --stanza=main --delta restore`.
+
+**Detailed Guide:** `references/database-backups.md#postgresql`
+
+### MySQL with Percona XtraBackup
+
+**Use Case:** MySQL production requiring hot backups
+
+**Quick Start:** See `examples/mysql/xtrabackup/`
+
+Perform full (`xtrabackup --backup --parallel=4`) and incremental backups with binary log archiving for PITR. Restore requires decompress, prepare, apply incrementals, and copy-back steps.
+
+**Detailed Guide:** `references/database-backups.md#mysql`
+
+### MongoDB Backup
+
+**Quick Start:** Use `mongodump --gzip --numParallelCollections=4` for logical backups or MongoDB Atlas for continuous backup with PITR.
+
+**Detailed Guide:** `references/database-backups.md#mongodb`
+
+## Kubernetes Disaster Recovery
+
+### Velero for Cluster Backups
+
+**Quick Start:** `velero install --provider aws --bucket my-backups`
+
+Configure scheduled backups (daily full, hourly production namespace) with PV snapshots. Restore with `velero restore create --from-backup <name>`. Support selective restore (namespace mappings, storage class remapping).
+
+**Examples:** `examples/kubernetes/velero/`
+**Detailed Guide:** `references/kubernetes-dr.md`
+
+### etcd Backup
+
+**Quick Start:** `ETCDCTL_API=3 etcdctl snapshot save /backups/etcd/snapshot.db`
+
+Create periodic etcd snapshots for control plane recovery. Restore requires cluster recreation with snapshot data.
+
+**Examples:** `examples/kubernetes/etcd/`
+
+## Cloud-Specific DR Patterns
+
+### AWS
+
+**Key Services:**
+- RDS: Automated backups (30-day retention), PITR, Multi-AZ
+- Aurora Global DB: Cross-region active-passive with automatic failover
+- S3 CRR: Cross-region replication with 15-min SLA (Replication Time Control)
+
+**Examples:** `examples/cloud/aws/`
+**Detailed Guide:** `references/cloud-dr-patterns.md#aws`
+
+### GCP
+
+**Key Services:**
+- Cloud SQL: PITR with 7-day transaction logs, 30-day retention
+- GCS Multi-Regional: Automatic replication across 100+ mile separation
+- Regional HA: Synchronous replication within region
+
+**Detailed Guide:** `references/cloud-dr-patterns.md#gcp`
+
+### Azure
+
+**Key Services:**
+- Azure Backup: VM backups with flexible retention (daily/weekly/monthly/yearly)
+- Azure Site Recovery: Cross-region VM replication with 4-hour app-consistent snapshots
+- Geo-Redundant Storage: Automatic replication to secondary region
+
+**Detailed Guide:** `references/cloud-dr-patterns.md#azure`
+
+## Cross-Region Replication Patterns
+
+| Pattern | RTO | RPO | Cost | Use Case |
+|---------|-----|-----|------|----------|
+| **Active-Active** | < 1 min | < 1 min | High | Both regions serve traffic |
+| **Active-Passive** | 15-60 min | 5-15 min | Medium | Standby for failover |
+| **Pilot Light** | 10-30 min | 5-15 min | Low | Minimal secondary infra |
+| **Warm Standby** | 5-15 min | 5-15 min | Med-High | Scaled-down secondary |
+
+**Implementation Examples:**
+- PostgreSQL streaming replication (Active-Passive)
+- Aurora Global Database (Active-Active)
+- ASG scale-up automation (Pilot Light)
+
+**Detailed Guide:** `references/cross-region-replication.md`
+
+## Testing Disaster Recovery
+
+### Chaos Engineering
+
+**Purpose:** Validate DR procedures through controlled failure injection.
+
+**Test Scenarios:**
+- Database failover (stop primary, measure promotion time)
+- Region failure (block network, trigger DNS failover)
+- Kubernetes recovery (delete namespace, restore from Velero)
+
+**Tools:** Chaos Mesh, Gremlin, Litmus, Toxiproxy
+
+**Examples:** `examples/chaos/db-failover-test.sh`, `examples/chaos/region-failure-test.sh`
+**Detailed Guide:** `references/chaos-engineering.md`
+
+### Automated DR Drills
+
+**Run Monthly Tests:**
+```bash
+./scripts/dr-drill.sh --environment staging --test-type full
+./scripts/test-restore.sh --backup latest --target staging-db
+```
+
+## Compliance and Retention
+
+| Regulation | Retention | Requirements |
+|------------|-----------|--------------|
+| GDPR | 1-7 years | EU data residency, right to erasure |
+| SOC 2 | 1 year+ | Secure deletion, access controls |
+| HIPAA | 6 years | Encryption, PHI protection |
+| PCI DSS | 3mo-1yr | Secure deletion, quarterly reviews |
+
+**Implement with S3/GCS lifecycle policies:** 30d→Standard-IA, 90d→Glacier, 365d→Deep Archive
+
+**Immutable backups:** Use S3 Object Lock or Azure Immutable Blob Storage for ransomware protection.
+
+**Detailed Guide:** `references/compliance-retention.md`
+
+## Monitoring and Alerting
+
+**Key Metrics:** Backup success rate, duration, time since last backup, RPO breach, storage utilization
+
+**Prometheus Alerts:** VeleroBackupFailed, VeleroBackupTooOld, BackupSizeTrend
+
+**Validation Scripts:**
+```bash
+./scripts/validate-backup.sh --backup latest --verify-integrity
+./scripts/check-retention.sh --report-violations
+./scripts/generate-dr-report.sh --format pdf
+```
+
+## Automation and Runbooks
+
+**Automate Backup Schedules:** Cron for pgBackRest (weekly full, daily differential), Velero schedules (K8s)
+
+**DR Runbook Steps:** Detect failure → Verify secondary → Promote → Update DNS → Notify → Document
+
+**Detailed Guide:** `references/runbook-automation.md`
+
+## Integration with Other Skills
+
+### Related Skills
+
+**Prerequisites:**
+- `infrastructure-as-code`: Provision backup infrastructure, DR regions
+- `kubernetes-operations`: K8s cluster setup for Velero
+- `secret-management`: Backup encryption keys, credentials
+
+**Parallel Skills:**
+- `databases-postgresql`: PostgreSQL configuration and operations
+- `databases-mysql`: MySQL configuration and operations
+- `observability`: Backup monitoring, alerting
+- `security-hardening`: Secure backup storage, access control
+
+**Consumer Skills:**
+- `incident-management`: Invoke DR procedures during incidents
+- `compliance-frameworks`: Meet regulatory requirements
+
+### Skill Chaining Example
+
+```
+infrastructure-as-code → secret-management → disaster-recovery → observability
+       ↓                        ↓                   ↓                ↓
+  Create S3 buckets      Store encryption     Configure backups   Monitor jobs
+  Provision databases    keys in Vault        Set up replication  Alert failures
+  Setup VPCs             Manage credentials   Test DR drills      Track metrics
+```
+
+## Best Practices
+
+### Do
+
+✓ Test restores regularly (monthly for critical systems)
+✓ Automate backup monitoring and alerting
+✓ Encrypt backups at rest and in transit
+✓ Implement 3-2-1 backup rule
+✓ Define and measure RTO/RPO
+✓ Run chaos experiments to validate DR
+✓ Document recovery procedures
+✓ Store backups in different regions
+✓ Use immutable backups for ransomware protection
+✓ Automate DR testing in CI/CD
+
+### Don't
+
+✗ Assume backups work without testing
+✗ Store all backups in single region
+✗ Skip retention policy definition
+✗ Forget to encrypt sensitive data
+✗ Rely solely on cloud provider backups
+✗ Ignore backup monitoring
+✗ Perform backups only from primary database under high load
+✗ Store encryption keys with backups
+
+## Reference Documentation
+
+- **RTO/RPO Planning:** `references/rto-rpo-planning.md`
+- **Database Backups:** `references/database-backups.md`
+- **Kubernetes DR:** `references/kubernetes-dr.md`
+- **Cloud DR Patterns:** `references/cloud-dr-patterns.md`
+- **Cross-Region Replication:** `references/cross-region-replication.md`
+- **Chaos Engineering:** `references/chaos-engineering.md`
+- **Compliance Requirements:** `references/compliance-retention.md`
+- **Runbook Automation:** `references/runbook-automation.md`
 
 ## Examples
 
-Example usage patterns will be demonstrated in context.
+- **Runbooks:** `examples/runbooks/database-failover.md`, `examples/runbooks/region-failover.md`
+- **PostgreSQL:** `examples/postgresql/pgbackrest-config/`, `examples/postgresql/walg-config/`
+- **MySQL:** `examples/mysql/xtrabackup/`, `examples/mysql/walg/`
+- **Kubernetes:** `examples/kubernetes/velero/`, `examples/kubernetes/etcd/`
+- **Cloud:** `examples/cloud/aws/`, `examples/cloud/gcp/`, `examples/cloud/azure/`
+- **Chaos:** `examples/chaos/db-failover-test.sh`, `examples/chaos/region-failure-test.sh`
+
+## Scripts
+
+- `scripts/validate-backup.sh`: Verify backup integrity
+- `scripts/test-restore.sh`: Automated restore testing
+- `scripts/dr-drill.sh`: Run full DR drill
+- `scripts/check-retention.sh`: Verify retention policies
+- `scripts/generate-dr-report.sh`: Compliance reporting

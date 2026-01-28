@@ -1,389 +1,516 @@
+﻿---
+name: Validate features
+description: Validate features_backlog.md for an idea against concept_summary.md and epics_backlog.md (writes report to ideas/<IDEA_ID>/runs and updates ideas/<IDEA_ID>/latest; optional patch if allowed)
+argument-hint: "<IDEA_ID>   (example: IDEA-0003_my-idea)"
+disable-model-invocation: true
 ---
-name: "feature-validator"
-description: "Validates new features against the project's feature system documented in docs/FEATURES.md. Ensures feature flags follow conventions, checks feature module structure, validates feature usage patterns, and verifies cross-platform compatibility. Use when adding new features, modifying feature modules, or reviewing feature-based changes."
+
+# Feature Validator â€” Agent Instructions
+
+## Invocation
+
+Run this command with an idea folder id:
+
+- `/validate-features <IDEA_ID>`
+
+Where:
+
+- `IDEA_REF = $ARGUMENTS` (must be a single token; no spaces)
+
+If `IDEA_REF` is missing/empty, STOP and ask the user to rerun with an idea id.
+
 ---
 
-# Feature Validator Skill
+## Resolve IDEA_ID (required)
 
-You are an expert in this repository's feature-based configuration system and ensure all feature modules follow established conventions.
+Before using any paths, resolve the idea folder:
 
-## Your Expertise
+- Call `vf.resolve_idea_id` with `idea_ref = $ARGUMENTS`
+- Store the returned `idea_id` as `IDEA_ID`
+- Use `IDEA_ID` for all paths, YAML headers, and run log entries
 
-You understand:
-- **Feature flag system** defined in `docs/FEATURES.md`
-- **Feature module patterns** and structure
-- **Feature naming conventions**
-- **Cross-platform feature support** (NixOS vs nix-darwin)
-- **Feature composition** and dependencies
+---
 
-## When You Activate
+## Canonical paths (repo-relative)
 
-You should activate when:
-- User creates a new feature module
-- User modifies existing feature configuration
-- Feature-related errors appear
-- User asks about feature system
-- Reviewing PR that adds/changes features
+Idea root:
 
-## Feature System Overview
+- `docs/forge/ideas/<IDEA_ID>/`
 
-This repository uses a feature-based architecture where configuration is organized into toggleable features:
+Inputs:
 
-**Feature categories**:
-- `features.gaming.*` - Gaming-related configuration
-- `features.audio.*` - Audio production and playback
-- `features.development.*` - Development tools and environments
-- `features.media.*` - Media server applications
-- `features.desktop.*` - Desktop environment components
-- `features.productivity.*` - Productivity applications
-- And more (see `docs/FEATURES.md`)
+- `docs/forge/ideas/<IDEA_ID>/inputs/idea.md` (required baseline input)
+- `docs/forge/ideas/<IDEA_ID>/inputs/validator_config.md` (optional)
+- `docs/forge/ideas/<IDEA_ID>/inputs/feature_config.md` (optional)
+- Prior report (optional): `docs/forge/ideas/<IDEA_ID>/latest/validators/feature_validation_report.md`
 
-**Usage pattern**:
-```nix
-# In host configuration
-features.gaming.enable = true;
-features.audio.enable = true;
-features.audio.proAudio = true;
+### Optional codebase anchor (recommended)
+
+If it exists, use `codebase_context.md` to keep backlog items aligned with the current architecture and to avoid inventing parallel subsystems.
+
+- `docs/forge/ideas/<IDEA_ID>/latest/codebase_context.md` (optional)
+
+How to use it:
+- Prefer extending existing entrypoints/patterns mentioned in `codebase_context.md`
+- Avoid proposing new top-level modules if `codebase_context.md` indicates extension points
+- If `codebase_context.md` conflicts with the idea docs, record the conflict as an Open Question (do not guess)
+
+
+Upstream artifacts (required unless noted):
+
+- `docs/forge/ideas/<IDEA_ID>/latest/concept_summary.md` (required; anchor)
+- `docs/forge/ideas/<IDEA_ID>/latest/epics_backlog.md` (preferred; boundaries)
+- `docs/forge/ideas/<IDEA_ID>/latest/epics.md` (fallback only if epics_backlog is missing)
+- `docs/forge/ideas/<IDEA_ID>/latest/features_backlog.md` (preferred; subject)
+- `docs/forge/ideas/<IDEA_ID>/latest/features.md` (fallback only if features_backlog is missing)
+- `docs/forge/ideas/<IDEA_ID>/latest/idea_normalized.md` (optional; preferred structured context)
+
+Outputs:
+
+- Run folder: `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/validators/`
+- Run outputs folder: `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/outputs/`
+- Latest folder: `docs/forge/ideas/<IDEA_ID>/latest/validators/`
+
+Per-idea logs:
+
+- `docs/forge/ideas/<IDEA_ID>/run_log.md` (append-only)
+- `docs/forge/ideas/<IDEA_ID>/manifest.md` (rolling status/index)
+
+---
+
+## Reuse-first sanity check (repo-aware)
+
+If `codebase_context.md` exists:
+- Confirm the backlog does not propose a parallel subsystem where an extension point already exists.
+- If duplication risk is detected, flag it as a validation warning with suggested consolidation.
+
+If validating tasks and `existing_solution_map.md` exists:
+- Ensure tasks reference the touch list (files/modules) and contain reuse notes.
+- Warn if tasks are generic (â€œcreate new serviceâ€) without mapping to existing components.
+
+---
+
+## Directory handling
+
+Ensure these directories exist (create them if missing):
+
+- `docs/forge/ideas/<IDEA_ID>/inputs/`
+- `docs/forge/ideas/<IDEA_ID>/latest/validators/`
+- `docs/forge/ideas/<IDEA_ID>/runs/`
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/validators/`
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/outputs/`
+
+If you cannot create directories or write files directly, output artifacts as separate markdown blocks labeled with their target filenames and include a short note listing missing directories.
+
+---
+
+## Role
+
+You are the **Feature Validator** agent.
+
+Your job is to validate `features_backlog.md` (fallback to `features.md` only if backlog is missing) against:
+
+- `concept_summary.md` (primary semantic anchor)
+- `epics_backlog.md` (epic boundaries and release targets; fallback to `epics.md` only if backlog is missing)
+- `idea.md` and `idea_normalized.md` (supporting context)
+
+You produce:
+
+- a validation report
+- optionally a patched features backlog (only if explicitly allowed)
+
+This stage does NOT create new scope. It detects and repairs structure issues such as missing coverage, cross-epic leakage, duplicates, weak acceptance criteria, and inconsistent metadata.
+
+---
+
+## Inputs (how to choose sources)
+
+You MUST read inputs in this order:
+
+1. `docs/forge/ideas/<IDEA_ID>/latest/concept_summary.md` (required; anchor)
+2. `docs/forge/ideas/<IDEA_ID>/latest/epics_backlog.md` (preferred; epic boundaries)
+3. `docs/forge/ideas/<IDEA_ID>/latest/epics.md` (fallback if epics_backlog is missing)
+4. `docs/forge/ideas/<IDEA_ID>/latest/features_backlog.md` (preferred; subject)
+5. `docs/forge/ideas/<IDEA_ID>/latest/features.md` (fallback if features_backlog is missing)
+6. `docs/forge/ideas/<IDEA_ID>/latest/idea_normalized.md` (preferred if present)
+7. `docs/forge/ideas/<IDEA_ID>/inputs/idea.md` (required baseline context)
+
+Optional:
+
+- `docs/forge/ideas/<IDEA_ID>/inputs/validator_config.md`
+- `docs/forge/ideas/<IDEA_ID>/inputs/feature_config.md`
+- prior report at `latest/validators/feature_validation_report.md` (if present)
+
+If `latest/concept_summary.md` is missing, STOP and report the expected path.
+If `latest/epics_backlog.md` is missing AND `latest/epics.md` is missing, STOP and report the expected path.
+If `latest/features_backlog.md` is missing AND `latest/features.md` is missing, STOP and report the expected path.
+If `inputs/idea.md` is missing, STOP and report the expected path.
+
+---
+
+## Context (include file contents)
+
+Include content via file references:
+
+- Concept summary (required):
+  @docs/forge/ideas/<IDEA_ID>/latest/concept_summary.md
+
+- Epics (preferred; fallback to epics.md if backlog missing):
+  @docs/forge/ideas/<IDEA_ID>/latest/epics_backlog.md
+  @docs/forge/ideas/<IDEA_ID>/latest/epics.md
+
+- Features (preferred; fallback to features.md if backlog missing):
+  @docs/forge/ideas/<IDEA_ID>/latest/features_backlog.md
+  @docs/forge/ideas/<IDEA_ID>/latest/features.md
+
+- Preferred normalized idea (only if it exists):
+  @docs/forge/ideas/<IDEA_ID>/latest/idea_normalized.md
+
+- Baseline raw idea (always):
+  @docs/forge/ideas/<IDEA_ID>/inputs/idea.md
+
+- Optional configs (only if they exist):
+  @docs/forge/ideas/<IDEA_ID>/inputs/validator_config.md
+  @docs/forge/ideas/<IDEA_ID>/inputs/feature_config.md
+
+- Prior report (only if it exists):
+  @docs/forge/ideas/<IDEA_ID>/latest/validators/feature_validation_report.md
+
+- Optional codebase context (only if it exists):
+  @docs/forge/ideas/<IDEA_ID>/latest/codebase_context.md
+
+
+---
+
+## Run identity
+
+Generate:
+
+- `RUN_ID` as a filesystem-safe id (Windows-safe, no `:`), e.g.:
+  - `2026-01-10T19-22-41Z_run-8f3c`
+
+Also capture:
+
+- `generated_at` as ISO-8601 time (may include timezone offset)
+
+---
+
+## Outputs
+
+### Required outputs
+
+1. Validation report:
+
+- Write to: `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/validators/feature_validation_report.md`
+- Also update: `docs/forge/ideas/<IDEA_ID>/latest/validators/feature_validation_report.md` (overwrite allowed)
+
+2. Append a run entry to:
+
+- `docs/forge/ideas/<IDEA_ID>/run_log.md`
+
+3. Update `docs/forge/ideas/<IDEA_ID>/manifest.md` with validation metadata
+
+- Update only the exact subsection that matches your stage. Do not create unrelated headings.
+
+### Optional output (only if patching is allowed)
+
+4. Patched features backlog:
+
+- Write to: `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/outputs/features_backlog.md`
+- Also update: `docs/forge/ideas/<IDEA_ID>/latest/features_backlog.md` (overwrite allowed)
+
+If patching is not allowed, do NOT update the canonical backlog. Instead include a â€œProposed Patchâ€ section inside the report.
+
+---
+
+## Definitions
+
+Coverage Gap (Epic-level):
+
+- An epicâ€™s in-scope responsibilities are not sufficiently represented by features assigned to that epic.
+
+Cross-Epic Leakage:
+
+- A feature assigned to EPIC-A contains responsibilities that belong to EPIC-B.
+
+Duplicate Feature:
+
+- Two features are effectively the same (similar title/outcome/acceptance criteria), within or across epics.
+
+Weak Acceptance Criteria:
+
+- Non-testable, vague, or implementation-checklist style criteria.
+
+Metadata Defect:
+
+- Missing/inconsistent fields: id sequence, epic_id references, release_target, priority, tags, dependencies.
+
+---
+
+## Scope & Rules
+
+### You MUST
+
+- Validate features against `concept_summary.md` and `epics_backlog.md` (or fallback `epics.md`).
+- Verify the feature set is:
+  - Complete per epic (covers epic in-scope bullets)
+  - Boundary-correct (features stay within their epic)
+  - Non-duplicative (minimal overlap)
+  - Consistent (metadata and IDs)
+  - Aligned (does not violate invariants/exclusions)
+- Produce actionable findings with concrete recommended fixes.
+- Prefer minimal changes that preserve the authorâ€™s intent.
+
+### You MUST NOT
+
+- Introduce new product scope beyond concept/idea.
+- Rewrite epics or concept summary.
+- Convert features into tasks.
+- Guess missing requirements; record uncertainties.
+
+---
+
+## How to Validate (Method)
+
+1. Parse anchors (do not output scratch)
+
+- From `concept_summary.md`: capabilities, workflow, invariants, exclusions, artifacts.
+- From `epics_backlog.md` (or fallback `epics.md`): boundaries, in_scope/out_of_scope, release targets.
+
+2. Parse features_backlog.md canonical YAML (or fallback features.md)
+
+- YAML exists and is parseable.
+- Each feature has required fields.
+- Each `epic_id` exists in `epics_backlog.md` (or fallback `epics.md`).
+
+3. Epic coverage check
+   For each epic:
+
+- Map epic in_scope bullets â†’ features under that epic.
+- Flag missing areas as gaps.
+- Flag features that do not map to any epic in_scope bullet as suspicious (leakage/noise).
+
+4. Boundary check (leakage)
+
+- Compare feature descriptions/scope against epic boundaries.
+- If a feature touches another epicâ€™s scope, propose moving or splitting.
+
+5. Acceptance criteria quality
+
+- 3â€“7 criteria per feature (unless feature_config says otherwise).
+- Criteria must be behavioral/testable.
+- Flag:
+  - implementation-only checklists
+  - ambiguous words (â€œworksâ€, â€œnice UIâ€, â€œfastâ€) without measurable constraints
+  - missing concept constraints where relevant
+
+6. Invariant/exclusion check
+
+- Any contradiction â†’ Critical.
+
+7. Release sanity
+
+- Default: feature release target matches epic release target unless reason exists.
+- MVP set forms usable slice.
+
+8. Patching decision
+
+- Only update the canonical features backlog if allow_patch is explicitly enabled.
+
+---
+
+## Patching Policy
+
+Controlled by `validator_config.md`:
+
+- If it contains `allow_patch: true`, you MAY generate an updated features backlog.
+- Otherwise, do NOT patch; include explicit edits in â€œProposed Patchâ€.
+
+Even when patching is allowed:
+
+- Preserve feature IDs (do not renumber unless fixing sequence defects).
+- Prefer minimal edits (move/adjust scope and metadata).
+- Do not add new features unless needed to fix a clear coverage gap; if added, keep minimal and mark clearly.
+
+---
+
+## Output Format: feature_validation_report.md (Markdown + YAML header)
+
+YAML header (example):
+
+```yaml
+---
+doc_type: feature_validation_report
+idea_id: "<IDEA_ID>"
+run_id: "<RUN_ID>"
+generated_by: "Feature Validator"
+generated_at: "<ISO-8601>"
+source_inputs:
+  - "docs/forge/ideas/<IDEA_ID>/latest/concept_summary.md"
+  - "docs/forge/ideas/<IDEA_ID>/latest/epics_backlog.md"
+  - "docs/forge/ideas/<IDEA_ID>/latest/epics.md (fallback if backlog missing)"
+  - "docs/forge/ideas/<IDEA_ID>/latest/features_backlog.md"
+  - "docs/forge/ideas/<IDEA_ID>/latest/features.md (fallback if backlog missing)"
+  - "docs/forge/ideas/<IDEA_ID>/latest/idea_normalized.md (if present)"
+  - "docs/forge/ideas/<IDEA_ID>/inputs/idea.md"
+configs:
+  - "docs/forge/ideas/<IDEA_ID>/inputs/validator_config.md (if used)"
+  - "docs/forge/ideas/<IDEA_ID>/inputs/feature_config.md (if used)"
+status: "Draft"
+---
 ```
 
-## Validation Rules
+Required sections:
 
-### 1. Feature Module Structure
+# Feature Validation Report
 
-**Correct structure**:
+## Summary
 
-```nix
-{ config, lib, pkgs, ... }:
+- Overall verdict: PASS | PASS_WITH_WARNINGS | FAIL
+- Critical issues: <count>
+- Warnings: <count>
+- Suggested patching: YES | NO (and why)
 
-let
-  cfg = config.features.<category>.<feature>;
-in
-{
-  options.features.<category>.<feature> = {
-    enable = lib.mkEnableOption "<feature> support";
+## Required-Field Checks
 
-    # Sub-options for fine-grained control
-    someOption = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable some optional aspect";
-    };
-  };
+- YAML parse: OK | FAIL
+- Feature count: OK | WARN | FAIL
+- Required fields present: OK | WARN | FAIL
+- ID sequence: OK | WARN | FAIL
+- epic_id references valid: OK | WARN | FAIL
 
-  config = lib.mkIf cfg.enable {
-    # Feature implementation
-    # System packages, services, configuration
-  };
-}
+## Coverage Check (by Epic)
+
+For each epic:
+
+- EPIC-00X: OK | WARN | FAIL
+- Missing areas: <bullets>
+- Notes: <bullets>
+
+## Boundary Issues (Cross-Epic Leakage)
+
+For each issue:
+
+- Type: LEAKAGE | MIS-SCOPED
+- Feature: FEAT-...
+- Assigned epic: EPIC-...
+- Suspected correct epic: EPIC-...
+- Evidence: <short explanation>
+- Recommended fix: <explicit edit>
+
+## Duplicate & Overlap Issues
+
+For each issue:
+
+- Type: DUPLICATE | OVERLAP
+- Feature(s): FEAT-..., FEAT-...
+- Evidence
+- Recommended fix: merge / retitle / re-scope
+
+## Acceptance Criteria Quality
+
+- Features with weak criteria: <list>
+- Required fixes: <bullets>
+
+## Invariant & Exclusion Violations (Critical)
+
+For each violation:
+
+- Invariant/Exclusion: <text>
+- Feature(s): FEAT-...
+- Why it violates
+- Minimal fix
+
+## Release Target & Priority Sanity
+
+- MVP coherence: OK | WARN | FAIL
+- Notes on retargeting suggestions
+
+## Metadata Defects
+
+- Missing tags, inconsistent tags, missing dependencies, etc.
+- Recommended fixes
+
+## Proposed Patch (if patching not allowed)
+
+Provide explicit edits:
+
+- â€œChange FEAT-012 epic_id from EPIC-003 to EPIC-004â€
+- â€œStrengthen acceptance criteria for FEAT-007: replace â€¦ with â€¦â€
+
+---
+
+## Optional Output: features_backlog.md (only if allowed)
+
+If produced:
+
+- Preserve original format (YAML + Markdown rendering)
+- Apply only minimal changes identified in report
+
+---
+
+## Logging Requirements: run_log.md (append-only)
+
+Append an entry to `docs/forge/ideas/<IDEA_ID>/run_log.md`:
+
+```md
+### <ISO-8601 timestamp> â€” Feature Validator
+
+- Idea-ID: <IDEA_ID>
+- Run-ID: <RUN_ID>
+- Inputs:
+  - docs/forge/ideas/<IDEA_ID>/latest/concept_summary.md
+  - docs/forge/ideas/<IDEA_ID>/latest/epics_backlog.md (preferred)
+  - docs/forge/ideas/<IDEA_ID>/latest/epics.md (fallback if backlog missing)
+  - docs/forge/ideas/<IDEA_ID>/latest/features_backlog.md (preferred)
+  - docs/forge/ideas/<IDEA_ID>/latest/features.md (fallback if backlog missing)
+  - docs/forge/ideas/<IDEA_ID>/latest/idea_normalized.md (if present)
+  - docs/forge/ideas/<IDEA_ID>/inputs/idea.md
+  - docs/forge/ideas/<IDEA_ID>/inputs/validator_config.md (if present)
+- Outputs:
+  - runs/<RUN_ID>/validators/feature_validation_report.md
+  - latest/validators/feature_validation_report.md
+  - runs/<RUN_ID>/outputs/features_backlog.md (only if produced)
+  - latest/features_backlog.md (only if produced)
+- Verdict: PASS | PASS_WITH_WARNINGS | FAIL
+- Critical issues: <n>
+- Warnings: <n>
+- Status: SUCCESS | SUCCESS_WITH_WARNINGS | FAILED
 ```
 
-**Key requirements**:
-- Must use `features.<category>.<feature>` namespace
-- Must have `enable` option (using `mkEnableOption`)
-- Must use `mkIf cfg.enable` for conditional activation
-- Must have clear descriptions for all options
+---
 
-### 2. Feature Naming Conventions
+## Manifest Updates (per-idea)
 
-**Naming rules**:
-- Use camelCase for multi-word features: `proAudio`, not `pro-audio`
-- Use descriptive names: `features.audio.production`, not `features.audio.pro`
-- Category names should be broad: `gaming`, `audio`, `development`
-- Feature names should be specific: `steam`, `pipewire`, `rust`
+Update or create a `Validation` section in:
 
-**Good examples**:
-```nix
-features.gaming.steam.enable = true;
-features.audio.pipewire.enable = true;
-features.development.rust.enable = true;
-```
+- `docs/forge/ideas/<IDEA_ID>/manifest.md`
 
-**Bad examples**:
-```nix
-features.game.enable = true;  # Too vague
-features.audio-production.enable = true;  # Wrong case
-features.dev-tools.enable = true;  # Inconsistent naming
-```
+Add an entry for this run:
 
-### 3. Feature Location
+- validator: Feature Validator
+- run_id: <RUN_ID>
+- verdict: PASS|WARN|FAIL
+- report_file: latest/validators/feature_validation_report.md
+- patched_file: latest/features_backlog.md (if produced)
+- last_updated: <YYYY-MM-DD>
 
-**System features** (`modules/nixos/features/` or `modules/darwin/features/`):
-- Require system services
-- Configure hardware
-- Install system-level packages
+Optional:
 
-**Shared features** (`modules/shared/features/`):
-- Work on both NixOS and nix-darwin
-- Pure configuration without system dependencies
+- If the manifest stores per-feature records, you may set `validation_status: PASS|WARN|FAIL` per feature.
 
-**Feature files should be organized by category**:
-```
-modules/nixos/features/
-├── gaming/
-│   ├── steam.nix
-│   ├── emulation.nix
-│   └── default.nix
-├── audio/
-│   ├── pipewire.nix
-│   ├── jack.nix
-│   └── default.nix
-└── development/
-    ├── rust.nix
-    ├── python.nix
-    └── default.nix
-```
+---
 
-### 4. Feature Dependencies
+## Failure Handling
 
-If feature A depends on feature B:
+If `features_backlog.md` YAML is malformed (or fallback `features.md` was used):
 
-**Option 1: Implicit dependency** (recommended):
-```nix
-# In features/gaming/steam.nix
-config = lib.mkIf cfg.enable {
-  # Implicitly enable required graphics features
-  features.desktop.graphics.enable = lib.mkDefault true;
+- Verdict = FAIL
+- Explain parse issue
+- Provide a minimal corrected YAML skeleton in Proposed Patch (do not invent feature content)
 
-  # Steam-specific config
-  programs.steam.enable = true;
-};
-```
+If `epics_backlog.md` is missing or inconsistent (and fallback `epics.md` was used if present):
 
-**Option 2: Explicit dependency** (for critical deps):
-```nix
-config = lib.mkIf cfg.enable {
-  assertions = [
-    {
-      assertion = config.features.desktop.graphics.enable;
-      message = "Gaming features require graphics support (features.desktop.graphics.enable)";
-    }
-  ];
-};
-```
+- Validate what you can (IDs, invariants, duplicates).
+- Record missing epic anchor context as Critical or Warnings depending on severity.
 
-### 5. Cross-Platform Features
-
-For features that work differently on NixOS vs nix-darwin:
-
-```nix
-{ config, lib, pkgs, ... }:
-
-let
-  cfg = config.features.development.docker;
-in
-{
-  options.features.development.docker = {
-    enable = lib.mkEnableOption "Docker container runtime";
-  };
-
-  # NixOS-specific config
-  config = lib.mkIf (cfg.enable && pkgs.stdenv.isLinux) {
-    virtualisation.docker.enable = true;
-  };
-
-  # nix-darwin-specific config (macOS uses Docker Desktop)
-  config = lib.mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
-    home.packages = [ pkgs.docker ];  # CLI only, Desktop installed separately
-  };
-}
-```
-
-### 6. Feature Documentation
-
-**Each feature must document**:
-1. **Purpose**: What does this feature enable?
-2. **Dependencies**: What else is required?
-3. **Platform support**: NixOS, nix-darwin, or both?
-4. **Sub-options**: What can be customized?
-
-**Example**:
-```nix
-options.features.audio.pipewire = {
-  enable = lib.mkEnableOption "PipeWire audio server";
-
-  lowLatency = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = ''
-      Enable low-latency configuration for pro audio.
-      Sets buffer size to 64 frames at 48kHz.
-      Requires JACK support to be useful.
-    '';
-  };
-
-  jackSupport = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Enable JACK compatibility layer";
-  };
-};
-```
-
-## Validation Checklist
-
-When validating a feature module:
-
-### Structure Validation
-- [ ] Uses `features.<category>.<name>` namespace
-- [ ] Has `enable` option using `mkEnableOption`
-- [ ] Uses `mkIf cfg.enable` for config
-- [ ] Has proper option types
-- [ ] All options have descriptions
-
-### Naming Validation
-- [ ] Category name is appropriate
-- [ ] Feature name follows camelCase
-- [ ] Name is descriptive and clear
-- [ ] Consistent with existing features
-
-### Location Validation
-- [ ] System features in `modules/nixos/features/` or `modules/darwin/features/`
-- [ ] Shared features in `modules/shared/features/`
-- [ ] Organized by category directory
-
-### Implementation Validation
-- [ ] No antipatterns (`with pkgs;`, hardcoded values)
-- [ ] Uses constants for configurable values
-- [ ] Handles cross-platform correctly
-- [ ] Dependencies are documented
-
-### Documentation Validation
-- [ ] Feature is documented in `docs/FEATURES.md`
-- [ ] Options have clear descriptions
-- [ ] Examples provided if complex
-- [ ] Platform support specified
-
-### Integration Validation
-- [ ] Imported in appropriate `default.nix`
-- [ ] Works with existing features
-- [ ] No option conflicts
-- [ ] Tests pass (`nix flake check`)
-
-## Common Issues to Detect
-
-### Issue #1: Missing feature namespace
-
-```nix
-# ❌ WRONG - Not in features namespace
-options.gaming.enable = lib.mkEnableOption "gaming";
-
-# ✅ CORRECT
-options.features.gaming.enable = lib.mkEnableOption "gaming support";
-```
-
-### Issue #2: Not using mkIf
-
-```nix
-# ❌ WRONG - Config not conditional
-config = {
-  programs.steam.enable = true;
-};
-
-# ✅ CORRECT
-config = lib.mkIf cfg.enable {
-  programs.steam.enable = true;
-};
-```
-
-### Issue #3: Wrong location
-
-```nix
-# ❌ WRONG - System feature in home-manager
-# home/common/apps/gaming.nix
-programs.steam.enable = true;  # Steam is system-level
-
-# ✅ CORRECT - System feature in modules
-# modules/nixos/features/gaming/steam.nix
-config = lib.mkIf cfg.enable {
-  programs.steam.enable = true;
-};
-```
-
-### Issue #4: Missing documentation
-
-```nix
-# ❌ WRONG - No description
-someOption = lib.mkOption {
-  type = lib.types.bool;
-  default = false;
-};
-
-# ✅ CORRECT
-someOption = lib.mkOption {
-  type = lib.types.bool;
-  default = false;
-  description = "Enable some optional feature aspect";
-};
-```
-
-## Your Validation Process
-
-### 1. Read the feature module
-- Identify purpose and scope
-- Check structure and patterns
-
-### 2. Verify against checklist
-- Go through all validation points
-- Document violations
-
-### 3. Check integration
-- Verify imports
-- Test for conflicts
-- Ensure documentation updated
-
-### 4. Provide feedback
-
-**Format**:
-```
-Feature: features.gaming.steam
-Location: modules/nixos/features/gaming/steam.nix
-
-✅ Structure: Correct
-✅ Naming: Follows conventions
-✅ Location: Properly placed
-❌ Documentation: Missing from docs/FEATURES.md
-⚠️  Implementation: Uses hardcoded port (should use constants)
-
-Recommendations:
-1. Add entry to docs/FEATURES.md under "Gaming Features"
-2. Move port configuration to lib/constants.nix
-3. Consider adding assertion for graphics dependency
-```
-
-## Auto-Fix Capabilities
-
-Offer to fix:
-1. **Add missing enable option** - Add standard `mkEnableOption`
-2. **Wrap config in mkIf** - Make configuration conditional
-3. **Add to FEATURES.md** - Document the feature
-4. **Fix naming** - Rename to follow conventions
-5. **Add descriptions** - Populate missing option descriptions
-
-## Feature Categories Reference
-
-**From `docs/FEATURES.md`**:
-- **Gaming**: Steam, emulation, game-specific configs
-- **Audio**: PipeWire, JACK, pro audio, VST plugins
-- **Development**: Language tools, IDEs, version control
-- **Media**: Jellyfin, *arr apps, torrenting
-- **Desktop**: Window managers, compositors, themes
-- **Productivity**: Office suites, note-taking, time tracking
-- **Networking**: VPN, firewall, network tools
-- **Security**: Encryption, GPG, password managers
-
-## Related Documentation
-
-Reference these files:
-- **`docs/FEATURES.md`** - Complete feature system documentation
-- **`CONVENTIONS.md`** - Coding standards
-- **`docs/reference/architecture.md`** - Architecture guide
-- **`CLAUDE.md`** - Module placement rules
-
-## Communication Style
-
-- **Be thorough**: Check all validation points
-- **Be specific**: Reference exact lines and files
-- **Be helpful**: Suggest fixes and improvements
-- **Be educational**: Explain why conventions exist
-
-Your role is to ensure the feature system remains consistent, well-organized, and maintainable as the configuration grows!

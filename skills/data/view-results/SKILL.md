@@ -1,108 +1,100 @@
 ---
 name: view-results
-description: View and analyze Hawk evaluation results. Use when the user wants to see eval-set results, check evaluation status, list samples, view transcripts, or analyze agent behavior from a completed evaluation run.
+description: Analyze completed game logs and display results. Use when user wants to see game results, check playtest outcomes, analyze game logs, or review game statistics.
+argument-hint: [game-name] [log-file]
+allowed-tools: Read, Glob, Bash
+disable-model-invocation: true
 ---
 
-# View Hawk Eval Results
+# View Results - Game Analysis
 
-When the user wants to analyze evaluation results, use these hawk CLI commands:
+Analyze and display results from completed game playtesting sessions.
 
-## 1. List Eval Sets
+## Arguments
 
-You can list all eval sets if the user do not know the eval set ID:
+- `$0` (optional): Game name to analyze. If omitted, uses most recent.
+- `$1` (optional): Specific log file path. If omitted, uses latest.
 
-```bash
-hawk list eval-sets
+## Implementation Steps
+
+### 1. Find Log Files
+
+```javascript
+let gameName = "$0";
+
+if (!gameName) {
+  // Find most recently modified game directory
+  const games = await Glob("games/*/logs/*.json");
+  if (games.length === 0) {
+    console.log("No completed games found");
+    return;
+  }
+  gameName = games[0].split('/')[1];
+}
+
+// Find log file
+let logPath;
+if ("$1") {
+  logPath = `games/${gameName}/$1`;
+} else {
+  const logs = await Glob(`games/${gameName}/logs/*.json`);
+  logPath = logs[logs.length - 1]; // Most recent
+}
 ```
 
-Shows: eval set ID, creation date, creator.
+### 2. Read and Parse Log
 
-You can increase the limit of results returned by `--limit N`.
-
-```bash
-hawk list eval-sets --limit 50
+```javascript
+const logContent = await Read(logPath);
+const gameLog = JSON.parse(logContent);
 ```
 
-Or you can search for a specific eval set by using `--search QUERY`.
+### 3. Display Results
 
-```bash
-hawk list eval-sets --search pico
+Present in this format:
+
+```markdown
+# {game} - Game Results
+
+**Game ID**: {gameId}
+**Completed**: {timestamp}
+**Total Turns**: {totalTurns}
+
+## Winner
+
+{winner} wins!
+
+## Final Standings
+
+1. Player {id}: {score} points ({cardCount} cards)
+2. ...
+
+## Statistics
+
+- Average turns per player: {calc}
+- Longest streak: {stat}
+- Most common action: {stat}
+
+## Key Moments
+
+- Turn {N}: {description}
+- ...
+
+---
+
+**Log file**: {logPath}
+**Live events**: games/{game}/logs/game-*-live.jsonl
+**Detailed trace**: games/{game}/traces/game-*.md
 ```
 
-## 2. List Evaluations
+### 4. Optional: Multiple Games Analysis
 
-With an eval set ID, you can list all evaluations in the eval-set:
+If `--all` flag provided, aggregate across all logs:
+- Win rate per player position
+- Average game length
+- Common winning strategies
+- Balance insights
 
-```bash
-hawk list evals [EVAL_SET_ID]
-```
+## Output
 
-Shows: task name, model, status (success/error/cancelled), and sample counts.
-
-## 3. List Samples
-
-Or you can list individual samples and their scores:
-
-```bash
-hawk list samples [EVAL_SET_ID] [--eval FILE] [--limit N]
-```
-
-## 4. Download Transcript
-
-To get the full conversation for a specific sample:
-
-```bash
-hawk transcript <UUID>
-```
-
-The transcript includes full conversation with tool calls, scores, and metadata.
-
-To get even more details, you can get the raw data by using `--raw`:
-
-```bash
-hawk transcript <UUID> --raw
-```
-
-### Batch Transcript Download
-
-You can also download all transcripts for an entire eval set:
-
-```bash
-# Fetch all samples in an eval set
-hawk transcripts <EVAL_SET_ID>
-
-# Write to individual files in a directory
-hawk transcripts <EVAL_SET_ID> --output-dir ./transcripts
-
-# Limit number of samples
-hawk transcripts <EVAL_SET_ID> --limit 10
-
-# Raw JSON output (one JSON per line to stdout, or .json files with --output-dir)
-hawk transcripts <EVAL_SET_ID> --raw
-```
-
-## Workflow
-
-1. Run `hawk list eval-sets` to see available eval sets
-2a. Run `hawk list evals <EVAL_SET_ID>` to see available evaluations
-2b. or run `hawk list samples <EVAL_SET_ID>` to find samples of interest
-3a. Run `hawk transcript <uuid>` to get full details on a single sample
-3b. or run `hawk transcripts <eval_set_id> --output-dir ./transcripts` to download all
-4. Read and analyze the transcript(s) to understand the agent's behavior
-
-## API Environments
-
-Production (`https://api.inspect-ai.internal.metr.org`) is used by default. Set `HAWK_API_URL` only when targeting non-production environments:
-
-| Environment | URL |
-|-------------|-----|
-| Staging | `https://api.inspect-ai.staging.metr-dev.org` |
-| Dev1 | `https://api.inspect-ai.dev1.staging.metr-dev.org` |
-| Dev2 | `https://api.inspect-ai.dev2.staging.metr-dev.org` |
-| Dev3 | `https://api.inspect-ai.dev3.staging.metr-dev.org` |
-| Dev4 | `https://api.inspect-ai.dev4.staging.metr-dev.org` |
-
-Example:
-```bash
-HAWK_API_URL=https://api.inspect-ai.staging.metr-dev.org hawk list eval_sets
-```
+Display results directly to user in readable markdown format.

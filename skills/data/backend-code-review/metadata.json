@@ -1,9 +1,7 @@
 {
   "name": "backend-code-review",
-  "description": "Conducts comprehensive backend code reviews including API design (REST/GraphQL/gRPC), database patterns, authentication/authorization, caching strategies, message queues, microservices architecture, s",
   "repo": "DauQuangThanh/hanoi-rainbow",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/DauQuangThanh/hanoi-rainbow"
+  "path": "skills/backend-code-review/SKILL.md",
+  "source": "github.com/DauQuangThanh/hanoi-rainbow",
+  "downloaded_at": "2026-01-28T01:45:56.007892Z"
 }

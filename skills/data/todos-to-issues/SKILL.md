@@ -8,6 +8,27 @@ disable-model-invocation: true
 
 I'll scan your codebase for TODO comments and create professional GitHub issues following your project's standards.
 
+**Token Optimization:**
+- ✅ Grep-based TODO discovery (no file reads for scanning)
+- ✅ Bash-based gh CLI for issue creation (external tool, minimal tokens)
+- ✅ Glob-before-Read for documentation analysis
+- ✅ Caching project guidelines and issue templates
+- ✅ Early exit when no TODOs found - saves 90%
+- ✅ Reuse /find-todos results vs re-scanning
+- **Expected tokens:** 600-2,000 (vs. 1,500-3,500 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/todos-to-issues/`
+- Caches: TODO inventory, issue templates, project guidelines
+- Cache validity: Until codebase or guidelines change
+- Shared with: `/find-todos`, `/fix-todos`, `/create-todos`, `/github-integration` skills
+
+**Usage:**
+- `todos-to-issues` - Create issues from all TODOs (1,500-2,000 tokens)
+- `todos-to-issues path/to/file.ts` - Specific file (600-1,000 tokens)
+- `todos-to-issues --high-priority` - Priority TODOs only (400-800 tokens)
+
 First, let me analyze your complete project context:
 
 **Documentation Analysis:**

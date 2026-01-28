@@ -1,7 +1,39 @@
 ---
 name: dotnet-testing-test-output-logging
-description: 協助開發者在 xUnit 測試中正確使用 ITestOutputHelper 與 ILogger 進行測試輸出與記錄。當使用者需要在測試中輸出診斷資訊、驗證記錄行為、或建立測試診斷工具時，請使用此技能。
+description: |
+  xUnit 測試輸出與記錄完整指南。
+  涵蓋 ITestOutputHelper 注入、AbstractLogger 模式、結構化輸出設計。
+  包含 XUnitLogger、CompositeLogger、效能測試診斷工具實作。
+
+triggers:
+  # 核心關鍵字
+  - ITestOutputHelper
+  - ILogger testing
+  - test output xunit
+  - 測試輸出
+  - 測試記錄
+
+  # 技術術語
+  - AbstractLogger
+  - XUnitLogger
+  - CompositeLogger
+  - Log<TState>
+  - testOutputHelper.WriteLine
+
+  # 使用情境
+  - 測試診斷
+  - 記錄驗證
+  - logger mock
+  - 測試日誌
+  - 結構化輸出
+  - 效能測試記錄
+  - Received().Log
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: "xunit, ITestOutputHelper, ILogger, testing, diagnostics, logging"
 ---
 
 # 測試輸出與記錄專家指南
@@ -302,7 +334,7 @@ public abstract class DiagnosticTestBase
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 08 - 測試輸出與記錄：xUnit ITestOutputHelper 與 ILogger**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10374584
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10374711
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day08
 
 ### 官方文件

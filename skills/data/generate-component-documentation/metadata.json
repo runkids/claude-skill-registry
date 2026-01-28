@@ -1,7 +1,7 @@
 {
   "name": "generate-component-documentation",
-  "repo": "longbridge/gpui-component",
+  "repo": "zerx-lab/zTerm",
   "path": ".claude/skills/generate-component-documentation/SKILL.md",
-  "source": "github.com/longbridge/gpui-component",
-  "downloaded_at": "2026-01-27T04:27:59.772462Z"
+  "source": "github.com/zerx-lab/zTerm",
+  "downloaded_at": "2026-01-28T03:59:26.043971Z"
 }

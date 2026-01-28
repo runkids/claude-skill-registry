@@ -10,6 +10,24 @@ I'll systematically fix import statements broken by file moves or renames, with 
 
 Arguments: `$ARGUMENTS` - specific paths or import patterns to fix
 
+**Token Optimization:**
+- ✅ Session-based state tracking (already implemented)
+- ✅ Grep-based broken import detection
+- ✅ Incremental fixing (one import at a time)
+- ✅ Early exit on resumed sessions (skip fixed imports) - saves 70%
+- ✅ Caching import resolution patterns and file locations
+- ✅ Git checkpoint creation before fixes
+- ✅ Build tool integration (use tsc, eslint for detection)
+- **Expected tokens:** 800-2,500 (vs. 2,000-4,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+
+**Caching Behavior:**
+- Session location: `fix-imports/` (plan.md, state.json)
+- Cache location: `.claude/cache/fix-imports/`
+- Caches: Import patterns, file locations, resolution strategies
+- Cache validity: Until session completed
+- Shared with: `/scaffold`, `/refactor` skills
+
 ## Session Intelligence
 
 I'll maintain import fixing progress:

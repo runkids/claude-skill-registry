@@ -1,9 +1,7 @@
 {
   "name": "lang-scala-dev",
-  "description": "Foundational Scala patterns covering immutability, pattern matching, traits, case classes, for-comprehensions, and functional programming. Use when writing Scala code, understanding the type system, o",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-scala-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:45.506038Z"
 }

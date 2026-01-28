@@ -1,9 +1,7 @@
 {
   "name": "openmetadata-user",
-  "description": "Use OpenMetadata UI for data discovery, governance, and collaboration. Use when searching for data assets, managing descriptions and ownership, creating glossary terms, setting up data contracts, or t",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/openmetadata-user/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:50.289140Z"
 }

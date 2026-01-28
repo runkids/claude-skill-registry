@@ -1,9 +1,7 @@
 {
   "name": "art",
-  "description": "Visual content generation with Excalidraw hand-drawn aesthetic. USE WHEN user wants diagrams, visualizations, comics, or editorial illustrations.",
-  "repo": "edheltzel/atlas",
-  "category": "marketing",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/art/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-28T02:30:04.111488Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "tailwind-v4",
-  "description": "Tailwind CSS v4 with CSS-first configuration and design tokens. Use when setting up Tailwind v4, defining theme variables, using OKLCH colors, or configuring dark mode. Triggers on @theme, @tailwindcs",
-  "repo": "existential-birds/beagle",
-  "category": "design",
-  "tags": [
-    "tailwind"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/tailwind-v4/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:32.171707Z"
 }

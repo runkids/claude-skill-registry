@@ -1,7 +1,7 @@
 {
   "name": "default-workflow",
-  "repo": "rysweet/azlin",
+  "repo": "rysweet/AzureHayMaker",
   "path": ".claude/skills/default-workflow/SKILL.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-01-27T04:39:01.135791Z"
+  "source": "github.com/rysweet/AzureHayMaker",
+  "downloaded_at": "2026-01-28T04:30:04.579289Z"
 }

@@ -1,51 +1,124 @@
 ---
 name: git-commit
-description: Create atomic commits prepended with emojis
+description: 'Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions "/commit". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Interactive commit with optional type/scope/description overrides, (4) Intelligent file staging for logical grouping'
+license: MIT
+allowed-tools: Bash
 ---
 
-# Commit
+# Git Commit with Conventional Commits
 
-Create atomic commits prepended with emojis using only non-interactive commands.
+## Overview
 
-## Process
+Create standardized, semantic git commits using the Conventional Commits specification. Analyze the actual diff to determine appropriate type, scope, and message.
 
-- Inspect current changes with `git status` and `git --no-pager diff HEAD`.
-- Decide whether the changes should be one commit or several logical commits.
-- If multiple logical changes exist, plan and split them into separate commits.
-- For each commit:
-  - Stage only the relevant changes with `git add ...`.
-  - Review the staged diff (e.g. `git --no-pager diff --cached`) to confirm what’s included.
-  - Commit with a message (`git commit -m "…"`) following the style below.
-- Return the commits to the user.
+## Conventional Commit Format
 
-## Style
+```
+<type>[optional scope]: <description>
 
-- **Atomic**: One concern per commit.
-- **Split big changes**: Separate features, fixes, refactors, docs, etc. when they are independent.
-- **Subject line**:
-  - Format: `<emoji> <description>`
-  - Imperative, present tense (e.g. "Add…", "Fix…").
-  - Under 72 characters.
-  - No trailing period.
-  - Do not add explicit scopes like `feat:`, `network:`, `chore:`.
-- Always ensure the commit message accurately reflects the diff.
+[optional body]
 
-## Splitting Commits
+[optional footer(s)]
+```
 
-Split into multiple commits when:
+## Commit Types
 
-- Changes touch unrelated parts of the codebase.
-- Different types of work are mixed (feature, fix, refactor, docs, tests, chore).
-- Different file types are mixed in a way that’s easier to review separately (e.g. code vs docs).
-- The diff is very large and can be broken into smaller, easier-to-review steps.
+| Type       | Purpose                        |
+| ---------- | ------------------------------ |
+| `feat`     | New feature                    |
+| `fix`      | Bug fix                        |
+| `docs`     | Documentation only             |
+| `style`    | Formatting/style (no logic)    |
+| `refactor` | Code refactor (no feature/fix) |
+| `perf`     | Performance improvement        |
+| `test`     | Add/update tests               |
+| `build`    | Build system/dependencies      |
+| `ci`       | CI/config changes              |
+| `chore`    | Maintenance/misc               |
+| `revert`   | Revert commit                  |
 
-## Examples
+## Breaking Changes
 
-- ✨ Add user authentication system
-- 🐛 Resolve memory leak in rendering process
-- 📝 Update API documentation with new endpoints
-- ♻️ Simplify error handling logic in parser
-- 🎨 Reorganize component structure for better readability
-- 🔥 Remove deprecated legacy code
-- 💚 Resolve failing CI pipeline tests
-- ♿️ Improve form accessibility for screen readers
+```
+# Exclamation mark after type/scope
+feat!: remove deprecated endpoint
+
+# BREAKING CHANGE footer
+feat: allow config to extend other configs
+
+BREAKING CHANGE: `extends` key behavior changed
+```
+
+## Workflow
+
+### 1. Analyze Diff
+
+```bash
+# If files are staged, use staged diff
+git diff --staged
+
+# If nothing staged, use working tree diff
+git diff
+
+# Also check status
+git status --porcelain
+```
+
+### 2. Stage Files (if needed)
+
+If nothing is staged or you want to group changes differently:
+
+```bash
+# Stage specific files
+git add path/to/file1 path/to/file2
+
+# Stage by pattern
+git add *.test.*
+git add src/components/*
+
+# Interactive staging
+git add -p
+```
+
+**Never commit secrets** (.env, credentials.json, private keys).
+
+### 3. Generate Commit Message
+
+Analyze the diff to determine:
+
+- **Type**: What kind of change is this?
+- **Scope**: What area/module is affected?
+- **Description**: One-line summary of what changed (present tense, imperative mood, <72 chars)
+
+### 4. Execute Commit
+
+```bash
+# Single line
+git commit -m "<type>[scope]: <description>"
+
+# Multi-line with body/footer
+git commit -m "$(cat <<'EOF'
+<type>[scope]: <description>
+
+<optional body>
+
+<optional footer>
+EOF
+)"
+```
+
+## Best Practices
+
+- One logical change per commit
+- Present tense: "add" not "added"
+- Imperative mood: "fix bug" not "fixes bug"
+- Reference issues: `Closes #123`, `Refs #456`
+- Keep description under 72 characters
+
+## Git Safety Protocol
+
+- NEVER update git config
+- NEVER run destructive commands (--force, hard reset) without explicit request
+- NEVER skip hooks (--no-verify) unless user asks
+- NEVER force push to main/master
+- If commit fails due to hooks, fix and create NEW commit (don't amend)

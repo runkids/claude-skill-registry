@@ -1,7 +1,7 @@
 {
   "name": "typescript-rules",
-  "repo": "shinpr/ai-coding-project-boilerplate",
-  "path": ".claude/skills-ja/typescript-rules/SKILL.md",
-  "source": "github.com/shinpr/ai-coding-project-boilerplate",
-  "downloaded_at": "2026-01-27T02:13:01.096645Z"
+  "repo": "shinpr/claude-code-workflows",
+  "path": "skills/typescript-rules/SKILL.md",
+  "source": "github.com/shinpr/claude-code-workflows",
+  "downloaded_at": "2026-01-28T04:26:13.152005Z"
 }

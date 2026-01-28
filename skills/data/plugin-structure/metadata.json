@@ -1,7 +1,7 @@
 {
   "name": "plugin-structure",
-  "repo": "fcakyon/claude-codex-settings",
-  "path": "plugins/plugin-dev/skills/plugin-structure/SKILL.md",
-  "source": "github.com/fcakyon/claude-codex-settings",
-  "downloaded_at": "2026-01-27T03:07:21.299254Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/claude-code/plugin-structure/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-28T02:58:23.585499Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "coding-rules",
-  "repo": "kimny1143/claude-code-template",
-  "path": ".claude/skills/coding-rules/SKILL.md",
-  "source": "github.com/kimny1143/claude-code-template",
-  "downloaded_at": "2026-01-27T01:43:17.669392Z"
+  "repo": "shinpr/agentic-code",
+  "path": ".agents/skills/coding-rules/SKILL.md",
+  "source": "github.com/shinpr/agentic-code",
+  "downloaded_at": "2026-01-28T01:52:18.218769Z"
 }

@@ -39,6 +39,29 @@ For a successful contribution, I need to analyze:
    - Are commits well-organized?
 </think>
 
+**Token Optimization:**
+- ✅ Git commands for context detection (zero file reads for change analysis)
+- ✅ Progressive analysis (quick checks → deep analysis only if needed)
+- ✅ Caching project guidelines and contribution patterns
+- ✅ Early exit when pre-flight checks fail - saves 90%
+- ✅ Focus area flags (--pre-flight, --docs, --pr-prep)
+- ✅ Reuse /understand cache vs re-analyzing codebase
+- ✅ Bash-based test/lint/build checks (external tools, minimal tokens)
+- **Expected tokens:** 1,500-4,000 (vs. 3,500-7,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3B, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/contributing/`
+- Caches: Project guidelines, test commands, contribution workflow, PR template
+- Cache validity: Until .github/ or CONTRIBUTING.md changes
+- Shared with: `/commit`, `/review`, `/test` skills
+
+**Usage:**
+- `contributing` - Full contribution analysis (2,500-4,000 tokens)
+- `contributing --pre-flight` - Pre-flight checks only (500-800 tokens)
+- `contributing --docs` - Documentation check only (600-1,000 tokens)
+- `contributing --pr-prep` - PR preparation only (800-1,500 tokens)
+
 Based on this framework, I'll begin by detecting your context:
 
 **Context Detection First:**

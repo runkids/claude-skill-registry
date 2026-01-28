@@ -1,61 +1,60 @@
 ---
 name: tech-stack
-description: Describes the primary technologies, frameworks, libraries, and language conventions used in this codebase.
+description: Specifies the technologies to be used for backend development, including Node.js, Express.js, MongoDB, and Mongoose.
+version: 1.0.0
+model: sonnet
+invoked_by: both
+user_invocable: true
+tools: [Read, Write, Edit]
+globs: */backend/**/*.*
+best_practices:
+  - Follow the guidelines consistently
+  - Apply rules during code review
+  - Use as reference when writing new code
+error_handling: graceful
+streaming: supported
 ---
 
-# Tech Stack Overview
+# Tech Stack Skill
 
-## Language-Specific Conventions
+<identity>
+You are a coding standards expert specializing in tech stack.
+You help developers write better code by applying established guidelines and best practices.
+</identity>
 
-- **Python**: See [PYTHON.md](./PYTHON.md) for detailed conventions and examples
+<capabilities>
+- Review code for guideline compliance
+- Suggest improvements based on best practices
+- Explain why certain patterns are preferred
+- Help refactor code to meet standards
+</capabilities>
 
-## Primary Languages
+<instructions>
+When reviewing or writing code, apply these guidelines:
 
-| Language | Usage | Version |
-|----------|-------|---------|
-| Python | datagen, notebooks | 3.10+ |
-| PySpark | Fabric notebooks | Spark 3.x |
-| KQL | Eventhouse queries | N/A |
-| JSON/YAML | Fabric item definitions | N/A |
+- Use Node.js with Express.js for the backend.
+- Use MongoDB with Mongoose ODM for the database.
+- Use JSON Web Tokens (JWT) for authentication.
+- Consider Docker for deployment.
+- Use Git for version control.
+  </instructions>
 
-## Frameworks & Libraries
-
-### Data Generation (datagen)
-- **DuckDB**: Local analytical database for historical data
-- **Faker**: Synthetic data generation
-- **Pydantic**: Data validation and event schemas
-- **azure-eventhub**: Event streaming to Azure
-
-### Lakehouse
-- **Delta Lake**: ACID transactions, schema enforcement
-- **PySpark**: Distributed data processing
-
-### Real-Time Analytics
-- **Microsoft Fabric Eventhouse**: KQL-based analytics
-- **Eventstream**: Event routing and transformation
-
-## Project Architecture
-
+<examples>
+Example usage:
 ```
-Event Flow:
-  datagen (Python)
-    → Azure Event Hubs
-    → Eventstream
-    → KQL Tables + Lakehouse Bronze
+User: "Review this code for tech stack compliance"
+Agent: [Analyzes code against guidelines and provides specific feedback]
+```
+</examples>
 
-Data Layers:
-  Bronze (raw JSON)
-    → Silver (typed Delta)
-    → Gold (aggregated Delta)
-    → Semantic Model (Power BI)
+## Memory Protocol (MANDATORY)
+
+**Before starting:**
+
+```bash
+cat .claude/context/memory/learnings.md
 ```
 
-## Key Dependencies
+**After completing:** Record any new patterns or exceptions discovered.
 
-See `datagen/pyproject.toml` for Python dependencies.
-
-Core packages:
-- `pydantic` - Schema validation
-- `duckdb` - Local analytics
-- `faker` - Data generation
-- `azure-eventhub` - Event streaming
+> ASSUME INTERRUPTION: Your context may reset. If it's not in memory, it didn't happen.

@@ -1,205 +1,251 @@
 ---
 name: refactoring-patterns
-description: "Apply safe refactoring patterns to improve code structure without changing behavior. Use when cleaning up code, reducing technical debt, or improving maintainability."
-category: development-practices
-priority: medium
-tokenEstimate: 1000
-agents: [qe-code-reviewer, qe-quality-analyzer, qe-test-refactorer]
-implementation_status: optimized
-optimization_version: 1.0
-last_optimized: 2025-12-03
-dependencies: []
-quick_reference_card: true
-tags: [refactoring, code-quality, technical-debt, maintainability, clean-code]
+description: This skill provides patterns for safe, systematic refactoring including extract, rename, move, and simplification operations with proper testing and rollback strategies.
+context: fork
+user-invocable: false
 ---
 
-# Refactoring Patterns
+# Refactoring Patterns Skill
 
-<default_to_action>
-When refactoring:
-1. ENSURE tests pass (never refactor without tests)
-2. MAKE small change (one refactoring at a time)
-3. RUN tests (must stay green)
-4. COMMIT (save progress)
-5. REPEAT
+Systematic refactoring with safety checks and verification.
 
-**Safe Refactoring Cycle:**
-```bash
-npm test               # Green ✅
-# Make ONE small change
-npm test               # Still green ✅
-git commit -m "refactor: extract calculateTotal"
-# Repeat
+## When to Use
+
+- Extracting methods, classes, or modules
+- Renaming identifiers safely across codebase
+- Moving code between files or modules
+- Simplifying complex code
+- Modernizing legacy patterns
+
+## Reference Documents
+
+- [Extract Patterns](./references/extract-patterns.md) - Extract method/class/module patterns
+- [Rename Patterns](./references/rename-patterns.md) - Safe renaming across codebase
+- [Move Patterns](./references/move-patterns.md) - Moving code between files/modules
+- [Simplify Patterns](./references/simplify-patterns.md) - Reducing complexity patterns
+
+## Core Principles
+
+### 1. Never Refactor Without Tests
+
+```markdown
+BEFORE refactoring:
+1. Ensure tests exist for code being changed
+2. Run tests to confirm they pass
+3. Note coverage percentage
+
+DURING refactoring:
+4. Run tests after each small change
+5. Keep changes atomic and reversible
+
+AFTER refactoring:
+6. Run full test suite
+7. Verify coverage didn't decrease
 ```
 
-**Code Smells → Refactoring:**
-| Smell | Refactoring |
-|-------|-------------|
-| Long method (>20 lines) | Extract Method |
+### 2. Small, Incremental Changes
+
+```
+BAD:  One massive PR that changes everything
+GOOD: Series of small PRs, each working state
+
+Commit 1: Add new class
+Commit 2: Add tests for new class
+Commit 3: Migrate first usage
+Commit 4: Migrate remaining usages
+Commit 5: Remove old code
+```
+
+### 3. Preserve Behavior
+
+Refactoring changes structure, not behavior.
+
+```python
+# BEFORE
+def calculate_total(items):
+    total = 0
+    for item in items:
+        total += item.price * item.quantity
+    return total
+
+# AFTER (same behavior, different structure)
+def calculate_total(items):
+    return sum(item.price * item.quantity for item in items)
+```
+
+## Refactoring Workflow
+
+### Step 1: Identify the Smell
+
+| Code Smell | Refactoring |
+|------------|-------------|
+| Long method | Extract Method |
 | Large class | Extract Class |
-| Long parameter list (>3) | Introduce Parameter Object |
 | Duplicated code | Extract Method/Class |
-| Complex conditional | Decompose Conditional |
-| Magic numbers | Named Constants |
-| Nested loops | Replace Loop with Pipeline |
+| Long parameter list | Introduce Parameter Object |
+| Data clumps | Extract Class |
+| Primitive obsession | Replace Primitive with Object |
+| Switch statements | Replace with Polymorphism |
+| Parallel inheritance | Collapse Hierarchy |
 
-**NEVER REFACTOR:**
-- Without tests (write tests first)
-- When deadline is tomorrow
-- Code you don't understand
-- Code that works and won't be touched
-</default_to_action>
+### Step 2: Ensure Test Coverage
 
-## Quick Reference Card
+```bash
+# Check current coverage
+pytest --cov=module_to_refactor --cov-report=term-missing
 
-### Common Refactorings
+# If coverage < 80%, add tests first
+pytest tests/test_module.py -v
+```
 
-| Pattern | Before | After |
-|---------|--------|-------|
-| **Extract Method** | 50-line function | 5 small functions |
-| **Extract Class** | Class doing 5 things | 5 single-purpose classes |
-| **Parameter Object** | `fn(a,b,c,d,e,f)` | `fn(options)` |
-| **Replace Conditional** | `if (type === 'a') {...}` | Polymorphism |
-| **Pipeline** | Nested loops | `.filter().map().reduce()` |
+### Step 3: Apply Refactoring
 
-### The Rule of Three
+Execute refactoring in small steps:
 
-1. First time → Just do it
-2. Second time → Wince and duplicate
-3. Third time → **Refactor**
+```markdown
+Extract Method Example:
+1. [ ] Identify code to extract
+2. [ ] Create new method with extracted code
+3. [ ] Replace original code with method call
+4. [ ] Run tests
+5. [ ] Commit
+```
 
----
+### Step 4: Verify
 
-## Key Patterns
+```bash
+# Run tests
+pytest
+
+# Check for regressions
+git diff HEAD~1 --stat
+
+# Review changes
+git diff HEAD~1 path/to/file.py
+```
+
+## Common Refactorings
 
 ### Extract Method
-```javascript
-// Before: Long method
-function processOrder(order) {
-  // 50 lines of validation, calculation, saving, emailing...
-}
 
-// After: Clear responsibilities
-function processOrder(order) {
-  validateOrder(order);
-  const pricing = calculatePricing(order);
-  const saved = saveOrder(order, pricing);
-  sendConfirmationEmail(saved);
-  return saved;
-}
+```python
+# BEFORE
+def process_order(order):
+    # Validate order
+    if not order.items:
+        raise ValueError("Order has no items")
+    if order.total <= 0:
+        raise ValueError("Order total must be positive")
+
+    # Calculate discount
+    discount = 0
+    if order.customer.is_premium:
+        discount = order.total * 0.1
+
+    # Process payment
+    payment = Payment(amount=order.total - discount)
+    payment.process()
+
+# AFTER
+def process_order(order):
+    validate_order(order)
+    discount = calculate_discount(order)
+    process_payment(order, discount)
+
+def validate_order(order):
+    if not order.items:
+        raise ValueError("Order has no items")
+    if order.total <= 0:
+        raise ValueError("Order total must be positive")
+
+def calculate_discount(order):
+    if order.customer.is_premium:
+        return order.total * 0.1
+    return 0
+
+def process_payment(order, discount):
+    payment = Payment(amount=order.total - discount)
+    payment.process()
 ```
 
-### Replace Loop with Pipeline
-```javascript
-// Before
-let results = [];
-for (let item of items) {
-  if (item.inStock) {
-    results.push(item.name.toUpperCase());
-  }
-}
+### Extract Class
 
-// After
-const results = items
-  .filter(item => item.inStock)
-  .map(item => item.name.toUpperCase());
+```python
+# BEFORE
+class Order:
+    def __init__(self):
+        self.items = []
+        self.shipping_address_line1 = ""
+        self.shipping_address_line2 = ""
+        self.shipping_city = ""
+        self.shipping_state = ""
+        self.shipping_zip = ""
+        self.shipping_country = ""
+
+    def format_shipping_address(self):
+        return f"{self.shipping_address_line1}\n{self.shipping_city}, {self.shipping_state}"
+
+# AFTER
+class Address:
+    def __init__(self, line1, line2, city, state, zip_code, country):
+        self.line1 = line1
+        self.line2 = line2
+        self.city = city
+        self.state = state
+        self.zip_code = zip_code
+        self.country = country
+
+    def format(self):
+        return f"{self.line1}\n{self.city}, {self.state}"
+
+class Order:
+    def __init__(self):
+        self.items = []
+        self.shipping_address = None
 ```
 
-### Decompose Conditional
-```javascript
-// Before
-if (order.total > 1000 && customer.isPremium && allInStock(order)) {
-  return 'FREE_SHIPPING';
-}
+### Rename
 
-// After
-function isEligibleForFreeShipping(order, customer) {
-  return isLargeOrder(order) &&
-         isPremiumCustomer(customer) &&
-         allInStock(order);
-}
+```bash
+# Safe rename using IDE/tools
+# In VS Code: F2 on symbol
+# In PyCharm: Shift+F6
+
+# Manual rename with verification
+grep -rn "old_name" --include="*.py"
+# Replace all occurrences
+sed -i 's/old_name/new_name/g' path/to/files/*.py
+# Run tests
+pytest
 ```
 
----
+## Safety Checklist
 
-## Refactoring Anti-Patterns
+Before refactoring:
+- [ ] Tests exist and pass
+- [ ] Coverage is adequate (>80%)
+- [ ] Changes are scoped and understood
+- [ ] Rollback plan exists
 
-| ❌ Anti-Pattern | Problem | ✅ Better |
-|-----------------|---------|-----------|
-| Without tests | No safety net | Write tests first |
-| Big bang | Rewrite everything | Small incremental steps |
-| For perfection | Endless tweaking | Good enough, move on |
-| Premature abstraction | Pattern not clear yet | Wait for Rule of Three |
-| During feature work | Mixed changes | Separate commits |
+During refactoring:
+- [ ] Make one change at a time
+- [ ] Run tests after each change
+- [ ] Commit working states
 
----
+After refactoring:
+- [ ] All tests pass
+- [ ] Coverage maintained or improved
+- [ ] No behavior changes (unless intentional)
+- [ ] Code review completed
 
-## Agent Integration
+## Quick Reference
 
-```typescript
-// Detect code smells
-const smells = await Task("Detect Code Smells", {
-  source: 'src/services/',
-  patterns: ['long-method', 'large-class', 'duplicate-code']
-}, "qe-quality-analyzer");
-
-// Safe refactoring with test verification
-await Task("Verify Refactoring", {
-  beforeCommit: 'abc123',
-  afterCommit: 'def456',
-  expectSameBehavior: true
-}, "qe-test-executor");
-```
-
----
-
-## Agent Coordination Hints
-
-### Memory Namespace
-```
-aqe/refactoring/
-├── smells/*          - Detected code smells
-├── suggestions/*     - Refactoring recommendations
-├── verifications/*   - Behavior preservation checks
-└── history/*         - Refactoring log
-```
-
-### Fleet Coordination
-```typescript
-const refactoringFleet = await FleetManager.coordinate({
-  strategy: 'refactoring',
-  agents: [
-    'qe-quality-analyzer',   // Identify targets
-    'qe-test-generator',     // Add safety tests
-    'qe-test-executor',      // Verify behavior
-    'qe-test-refactorer'     // TDD refactor phase
-  ],
-  topology: 'sequential'
-});
-```
-
----
-
-## Related Skills
-- [tdd-london-chicago](../tdd-london-chicago/) - TDD refactor phase
-- [code-review-quality](../code-review-quality/) - Review refactored code
-- [xp-practices](../xp-practices/) - Collective ownership
-
----
-
-## Remember
-
-**Refactoring is NOT:**
-- Adding features
-- Fixing bugs
-- Performance optimization
-- Rewriting from scratch
-
-**Refactoring IS:**
-- Improving structure
-- Making code clearer
-- Reducing complexity
-- Removing duplication
-- **Without changing behavior**
-
-**Always have tests. Always take small steps. Always keep tests green.**
+| Refactoring | When to Use | Risk |
+|-------------|-------------|------|
+| Rename | Unclear names | Low |
+| Extract Method | Long methods | Low |
+| Inline Method | Unnecessary indirection | Low |
+| Extract Class | Large class | Medium |
+| Move Method | Method in wrong class | Medium |
+| Replace Conditional with Polymorphism | Complex conditionals | High |
+| Change Method Signature | API changes | High |

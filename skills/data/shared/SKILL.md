@@ -1,72 +1,67 @@
 ---
-name: shared
+name: pensive:shared
 description: |
 
-Triggers: patterns, templates, git, shared
-  Shared infrastructure and patterns for sanctum git/workspace skills.
+Triggers: infrastructure, review, patterns, shared
+  Shared infrastructure and reusable modules for all pensive review skills.
 
-  Triggers: sanctum patterns, todowrite patterns, git commands, output templates,
-  sanctum infrastructure, shared patterns, git conventions
+  Triggers: pensive patterns, review workflow, output templates, quality checklists,
+  pensive infrastructure, shared review patterns
 
-  Use when: developing new sanctum skills, refactoring existing skills,
-  ensuring consistency across sanctum workflows, referencing standard patterns
+  Use when: other pensive skills need common patterns, creating new review skills,
+  ensuring consistency across pensive plugin
 
-  DO NOT use directly: this skill is infrastructure for other sanctum skills.
+  DO NOT use directly: this skill is infrastructure for other pensive skills.
 
-  Provides reusable patterns consumed by all sanctum git and workspace skills.
-category: infrastructure
-tags: [shared, patterns, templates, git]
-provides:
-  infrastructure: [todowrite-patterns, git-commands, output-templates]
-reusable_by: [all sanctum skills]
-estimated_tokens: 200
+  This skill provides shared patterns consumed by other pensive skills.
+category: review-infrastructure
+tags: [shared, infrastructure, review, patterns]
 version: 1.3.5
+estimated_tokens: 50
 ---
 
-# Shared Infrastructure for Sanctum
+# Pensive Shared Review Infrastructure
+
+This skill provides reusable modules and patterns shared across all pensive review skills.
 
 ## Purpose
-This skill provides reusable patterns, templates, and conventions used across all sanctum git and workspace skills. It validates consistency in TodoWrite naming, git command usage, and output formatting.
 
-## Modules
+Centralized infrastructure for:
+- Common workflow patterns
+- Output format templates
+- Quality checklist patterns
+- Evidence logging integration
 
-### TodoWrite Patterns
-The `modules/todowrite-patterns.md` module documents the naming convention for TodoWrite items across all sanctum skills:
-- Pattern: `skill-name:step-name`
-- Examples from commit-messages, pr-prep, git-workspace-review, doc-updates, version-updates
-- Best practices for creating meaningful step names
+## Module Structure
 
-### Git Commands
-The `modules/git-commands.md` module extracts common git commands used throughout sanctum workflows:
-- Repository confirmation commands
-- Diff commands (staged, unstaged, stat, detailed)
-- Branch and merge-base operations
-- Status parsing patterns
+Available shared modules:
+- See `modules/review-workflow-core.md` for the core 5-step workflow pattern
+- See `modules/output-format-templates.md` for standard output structures
+- See `modules/quality-checklist-patterns.md` for reusable quality checklists
 
-### Output Templates
-The `modules/output-templates.md` module provides standardized output formats:
-- Conventional commit message structure
-- Pull request description template
-- Documentation update format
-- Version update summary format
+## Usage
 
-### GitHub Comments
-The `modules/github-comments.md` module provides patterns for posting PR comments:
-- Reviews API vs Comments API differences
-- Inline comment patterns with correct `-F` flag for integers
-- Secondary strategies when inline comments fail
-- Summary comment templates
+Review skills include these modules to inherit common patterns:
 
-## When to Reference
-- **New skill development**: Use these patterns to maintain consistency
-- **Workflow refactoring**: Reference when updating existing skills
-- **Cross-skill integration**: Check TodoWrite naming and git command patterns
-- **Template generation**: Use output templates for standardized artifacts
+```yaml
+includes:
+  - ../shared/modules/review-workflow-core.md
+  - ../shared/modules/output-format-templates.md
+  - ../shared/modules/quality-checklist-patterns.md
+```
+**Verification:** Run the command with `--help` flag to verify availability.
 
-## Integration Notes
-This skill is infrastructure-only and does not define executable workflows. It serves as a reference for pattern consistency across sanctum's git and workspace operations.
+## Consumers
 
-All sanctum skills should follow these shared patterns to validate predictable behavior and maintainable code.
+All pensive review skills:
+- `pensive:bug-review`
+- `pensive:api-review`
+- `pensive:architecture-review`
+- `pensive:test-review`
+- `pensive:rust-review`
+- `pensive:makefile-review`
+- `pensive:math-review`
+- `pensive:unified-review`
 ## Troubleshooting
 
 ### Common Issues

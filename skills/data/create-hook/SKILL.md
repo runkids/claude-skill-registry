@@ -1,95 +1,82 @@
 ---
 name: create-hook
-description: Create Claude Code hooks with proper patterns, security best practices, and configuration. Use this skill when building PreToolUse, PostToolUse, SessionStart, or other hook types for plugins.
+description: プロジェクトの .claude/settings.json に新しいフックを追加する。「フック作成」「新しいフック」「フックを作って」「フック追加」「hook 作成」「フックを追加したい」「新規フック」などで起動。ツール実行前後やセッションイベントで実行されるフックを設定。
+allowed-tools: [Read, Write, Bash, Glob, AskUserQuestion]
 ---
 
-# Hook Development Guide
+# Create Hook
 
-This skill provides comprehensive guidance for creating Claude Code hooks. Hooks intercept events in the Claude Code lifecycle and can validate, modify, or block operations.
+プロジェクトの `.claude/settings.json` に新しいフックを追加します。
 
-## Hook Types
+## 引数
 
-### 1. Command Hooks (Recommended)
+- `$ARGUMENTS`: `--help` でヘルプを表示
 
-Execute a script for deterministic checks. Best for pattern matching, validation, and blocking.
+## 実行手順
 
-```json
-{
-  "type": "command",
-  "command": "${CLAUDE_PLUGIN_ROOT}/hooks/my-hook.py",
-  "timeout": 10
-}
-```
+**`--help` が指定された場合**: このファイルの内容を要約して表示し、終了。
 
-### 2. Prompt Hooks
+### ステップ 1: 情報収集
 
-Use LLM reasoning for context-aware decisions. More expensive but can understand intent.
+ユーザーに以下を聞く:
 
-```json
-{
-  "type": "prompt",
-  "prompt": "Check if this operation is safe given the project context..."
-}
-```
+1. **イベント** - いつ実行するか
+   - `PreToolUse`: ツール実行前（ブロック可能、matcher 必須）
+   - `PostToolUse`: ツール実行後（matcher 必須）
+   - `UserPromptSubmit`: ユーザープロンプト送信時
+   - `Notification`: 通知時
+   - `Stop`: レスポンス完了時
+   - `SubagentStop`: サブエージェント完了時
+   - `PreCompact`: Compact 操作前
+   - `SessionStart`: セッション開始時
+   - `SessionEnd`: セッション終了時
 
-### 3. Agent Hooks (v2.1.0+)
+2. **マッチャー**（PreToolUse / PostToolUse の場合のみ）
+   - 例: `Bash`, `Write`, `Edit|Write`, `*`（すべて）
 
-Leverage agent capabilities for complex workflows requiring multiple steps.
+3. **フックタイプ**
+   - `command`: Bash コマンドを実行
+   - `prompt`: LLM（Haiku）で評価
 
-## Hook Events
+4. **実行するコマンド**（type: command の場合）
+   - 例: `npm run lint`, `echo "完了"`
 
-| Event | Trigger | Common Uses |
-|-------|---------|-------------|
-| `PreToolUse` | Before any tool executes | Block dangerous commands, validate inputs |
-| `PostToolUse` | After tool completes | Format code, run linters, log results |
-| `SessionStart` | When session begins | Check environment, load config |
-| `SessionEnd` | When session ends | Cleanup, save state |
-| `Stop` | When agent stops | Verify task completion |
-| `SubagentStop` | When subagent stops | Validate subagent work |
-| `UserPromptSubmit` | When user sends message | Process user input |
-| `PreCompact` | Before context compression | Preserve critical info |
-| `Notification` | System notifications | React to events |
-| `PermissionRequest` | Permission dialogs (v2.1.0) | Custom permission handling |
+### ステップ 2: 検証
 
-## Configuration Structure
+- イベントが有効か確認
+- PreToolUse / PostToolUse の場合、マッチャーが指定されているか確認
+- `.claude/settings.json` が存在するか確認（なければ作成）
 
-### Plugin hooks.json Format
+### イベント一覧
+
+| イベント           | matcher | 説明                           |
+|--------------------|---------|--------------------------------|
+| `PreToolUse`       | 必須    | ツール実行前（ブロック可能）   |
+| `PostToolUse`      | 必須    | ツール実行後                   |
+| `UserPromptSubmit` | 不要    | ユーザープロンプト送信時       |
+| `Notification`     | 不要    | 通知時                         |
+| `Stop`             | 不要    | レスポンス完了時               |
+| `SubagentStop`     | 不要    | サブエージェント完了時         |
+| `PreCompact`       | 不要    | Compact 操作前                 |
+| `SessionStart`     | 不要    | セッション開始時               |
+| `SessionEnd`       | 不要    | セッション終了時               |
+
+### ステップ 3: settings.json の hooks セクションを更新
+
+`.claude/settings.json` の hooks セクションを更新:
+
+**PreToolUse / PostToolUse の場合（matcher 必須）:**
 
 ```json
 {
   "hooks": {
-    "PreToolUse": [
+    "{イベント}": [
       {
-        "matcher": "Bash",
+        "matcher": "{マッチャー}",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-bash.py",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/format-on-save.py",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/init.sh",
-            "timeout": 5
+            "command": "{コマンド}"
           }
         ]
       }
@@ -98,169 +85,17 @@ Leverage agent capabilities for complex workflows requiring multiple steps.
 }
 ```
 
-### Matchers
-
-- `"Bash"` - Match specific tool by name
-- `"Edit"` - Match Edit tool
-- `"Read"` - Match Read tool
-- `"*"` - Match all tools/events
-- Tool names are case-sensitive
-
-## Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `CLAUDE_PLUGIN_ROOT` | Plugin directory (use for portable paths) |
-| `CLAUDE_PROJECT_DIR` | Current project root |
-| `CLAUDE_ENV_FILE` | Persist variables from SessionStart |
-
-**Critical:** Always use `${CLAUDE_PLUGIN_ROOT}` in hook commands for portability.
-
-## Writing Command Hooks (Python)
-
-### Basic Structure
-
-```python
-#!/usr/bin/env -S uv run --script
-# /// script
-# dependencies = ["cchooks"]
-# ///
-"""Hook description."""
-
-from cchooks import PreToolUseContext, create_context
-
-c = create_context()
-assert isinstance(c, PreToolUseContext)
-
-# Check if this is the right tool
-if c.tool_name != "Bash":
-    c.output.exit_success()
-
-# Get tool input
-command = c.tool_input.get("command", "")
-
-# Your validation logic here
-if is_dangerous(command):
-    c.output.exit_block("Reason for blocking")
-
-c.output.exit_success()
-```
-
-### Context Types
-
-- `PreToolUseContext` - Before tool execution
-- `PostToolUseContext` - After tool execution
-- Other contexts follow same pattern
-
-### Exit Methods
-
-```python
-# Allow operation to proceed
-c.output.exit_success()
-
-# Block operation with message
-c.output.exit_block("Descriptive reason for blocking")
-
-# Modify tool input (PreToolUse only)
-c.output.exit_modify({"command": modified_command})
-```
-
-## Best Practices
-
-### Security
-
-1. **Quote all bash variables** to prevent injection
-2. **Validate inputs** before processing
-3. **Use safe patterns** with allowlists before blocklists
-4. **Set reasonable timeouts** to prevent hangs
-
-### Performance
-
-1. **Exit early** when hook doesn't apply (`if c.tool_name != "X": exit_success()`)
-2. **Use compiled regex** for pattern matching
-3. **Keep hooks focused** - one responsibility per hook
-
-### Patterns
-
-#### Safe Patterns First
-
-```python
-# Check safe patterns before blocking
-SAFE_PATTERNS = [
-    r"rm\s+-rf\s+/tmp/",
-]
-
-BLOCKED_PATTERNS = [
-    (r"rm\s+-rf\s+", "rm -rf is destructive"),
-]
-
-for pattern in SAFE_PATTERNS:
-    if re.search(pattern, command):
-        c.output.exit_success()
-
-for pattern, reason in BLOCKED_PATTERNS:
-    if re.search(pattern, command):
-        c.output.exit_block(reason)
-```
-
-#### Informative Block Messages
-
-```python
-c.output.exit_block(
-    f"BLOCKED: {reason}\n"
-    f"Command: {command}\n"
-    "If this operation is truly needed, ask the user for permission."
-)
-```
-
-## Templates
-
-Ready-to-use templates are available:
-
-- `templates/pretooluse-bash.py` - PreToolUse hook for Bash commands
-- `templates/pretooluse-read.py` - PreToolUse hook for file reads
-- `templates/posttooluse-edit.py` - PostToolUse hook for formatting
-- `templates/sessionstart.sh` - SessionStart initialization
-
-Copy and customize for your plugin:
-
-```bash
-cp ${CLAUDE_PLUGIN_ROOT}/skills/create-hook/templates/pretooluse-bash.py \
-   your-plugin/hooks/your-hook.py
-```
-
-## Creating a New Hook Plugin
-
-### 1. Create Directory Structure
-
-```bash
-mkdir -p plugins/my-hook/.claude-plugin
-mkdir -p plugins/my-hook/hooks
-```
-
-### 2. Create plugin.json
-
-```json
-{
-  "name": "my-hook",
-  "version": "1.0.0",
-  "description": "What this hook does"
-}
-```
-
-### 3. Create hooks/hooks.json
+**その他のイベントの場合（matcher 不要）:**
 
 ```json
 {
   "hooks": {
-    "PreToolUse": [
+    "{イベント}": [
       {
-        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/my-hook.py",
-            "timeout": 10
+            "command": "{コマンド}"
           }
         ]
       }
@@ -269,75 +104,28 @@ mkdir -p plugins/my-hook/hooks
 }
 ```
 
-### 4. Create Hook Script
+既存の hooks セクションがある場合は、適切なイベントに追加する。
 
-```python
-#!/usr/bin/env -S uv run --script
-# /// script
-# dependencies = ["cchooks"]
-# ///
-"""My hook description."""
+### ステップ 4: 報告
 
-from cchooks import PreToolUseContext, create_context
+作成されたファイルと次のステップを表示:
 
-c = create_context()
-assert isinstance(c, PreToolUseContext)
+```text
+フックを作成しました: {イベント} {マッチャー（あれば）}
 
-if c.tool_name != "Bash":
-    c.output.exit_success()
+更新:
+- .claude/settings.json
 
-command = c.tool_input.get("command", "")
-
-# Add your logic here
-
-c.output.exit_success()
+次のステップ:
+- /shiiman-claude:create-hook で別のフックを追加
+- /shiiman-claude:create-command でコマンドを追加
+- /shiiman-claude:create-skill でスキルを追加
+- /shiiman-claude:create-subagent でサブエージェントを追加
 ```
 
-### 5. Make Executable
+## 重要な注意事項
 
-```bash
-chmod +x plugins/my-hook/hooks/my-hook.py
-```
-
-### 6. Validate
-
-```bash
-claude plugin validate .
-```
-
-## Common Hook Patterns
-
-### Block Destructive Commands
-
-See `plugins/safety-guard/hooks/safety_guard_bash.py`
-
-### Enforce Coding Standards
-
-See `plugins/conventional-commits/hooks/conventional_commits.py`
-
-### Format on Save
-
-See `plugins/python-format/hooks/format_python.py`
-
-### Protect Sensitive Files
-
-See `plugins/protect-env/hooks/protect_env.py`
-
-## Debugging Hooks
-
-### Test Hook Directly
-
-```bash
-echo '{"tool_name": "Bash", "tool_input": {"command": "rm -rf /"}}' | \
-  python plugins/my-hook/hooks/my-hook.py
-```
-
-### Check Hook Output
-
-Hooks should output JSON. Check stdout/stderr for errors.
-
-### Validate JSON
-
-```bash
-cat plugins/my-hook/hooks/hooks.json | jq .
-```
+- ✅ PreToolUse / PostToolUse には必ず matcher を指定
+- ✅ `.claude/settings.json` の hooks セクションに設定
+- ❌ matcher が必要なイベントで matcher を省略しない
+- ❌ 別ファイル（hooks.json）は使用しない

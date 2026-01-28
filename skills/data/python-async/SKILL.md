@@ -1,60 +1,100 @@
 ---
 name: python-async
-description: Asyncio patterns in Python for high-concurrency IO-bound tasks. Includes coroutines, task management, and asynchronous resource handling. Triggers: asyncio, python-async, coroutine, await, async-gather, async-generator, event-loop.
+description: |
+
+Triggers: concurrency, coroutines, await, async, asyncio
+  Master Python asyncio, concurrent programming, and async/await patterns
+  for high-performance applications.
+
+  Triggers: asyncio, async/await, coroutines, concurrent programming, async API,
+  I/O-bound, websockets, background tasks, semaphores, async context managers
+
+  Use when: building async APIs, concurrent systems, I/O-bound applications,
+  implementing rate limiting, async context managers
+
+  DO NOT use when: CPU-bound optimization - use python-performance instead.
+  DO NOT use when: testing async code - use python-testing async module.
+
+  Consult this skill for async Python patterns and concurrency.
+version: 1.3.5
+category: async
+tags: [python, async, asyncio, concurrency, await, coroutines]
+tools: [async-analyzer, concurrency-checker]
+usage_patterns:
+  - async-api-development
+  - concurrent-io
+  - websocket-servers
+  - background-tasks
+complexity: intermediate
+estimated_tokens: 400
+progressive_loading: true
+modules:
+  - basic-patterns
+  - concurrency-control
+  - error-handling-timeouts
+  - advanced-patterns
+  - testing-async
+  - real-world-applications
+  - pitfalls-best-practices
 ---
 
-# Python Async
+# Async Python Patterns
 
-## Overview
-Asyncio is a concurrency model designed for IO-bound and high-level structured network code. It uses cooperative multitasking on a single thread, allowing routines to pause while waiting for I/O, yielding control back to the event loop.
+asyncio and async/await patterns for Python applications.
+
+## Quick Start
+
+```python
+import asyncio
+
+async def main():
+    print("Hello")
+    await asyncio.sleep(1)
+    print("World")
+
+asyncio.run(main())
+```
+**Verification:** Run the command with `--help` flag to verify availability.
 
 ## When to Use
-- **Network IO**: Web scraping, API requests, and database queries.
-- **Web Servers**: Handling thousands of concurrent connections (e.g., FastAPI).
-- **Concurrent Tasks**: Running multiple independent IO-bound operations simultaneously.
 
-## Decision Tree
-1. Is the task CPU-bound (e.g., heavy math, image processing)? 
-   - YES: Use `multiprocessing` instead.
-   - NO: Is the task waiting for external resources (API, Disk)? 
-     - YES: Use `asyncio`.
-2. Are you using `time.sleep`? 
-   - YES: Replace with `await asyncio.sleep` to avoid blocking the event loop.
+- Building async web APIs (FastAPI, aiohttp)
+- Implementing concurrent I/O operations
+- Creating web scrapers with concurrent requests
+- Developing real-time applications (WebSockets)
+- Processing multiple independent tasks simultaneously
+- Building microservices with async communication
 
-## Workflows
+## Modules
 
-### 1. Concurrent Task Execution
-1. Define multiple coroutine functions with `async def`.
-2. Initiate the tasks using `asyncio.gather(*coros)` to run them concurrently.
-3. Await the results to aggregate outputs efficiently.
+This skill uses progressive loading. Content is organized into focused modules:
 
-### 2. Asynchronous Resource Management
-1. Implement an asynchronous context manager using `__aenter__` and `__aexit__`.
-2. Use the `async with` syntax to ensure resources (like network connections) are opened and closed without blocking the loop.
-3. Perform I/O operations inside the context using `await`.
+- See `modules/basic-patterns.md` - Core async/await, gather(), and task management
+- See `modules/concurrency-control.md` - Semaphores and locks for rate limiting
+- See `modules/error-handling-timeouts.md` - Error handling, timeouts, and cancellation
+- See `modules/advanced-patterns.md` - Context managers, iterators, producer-consumer
+- See `modules/testing-async.md` - Testing with pytest-asyncio
+- See `modules/real-world-applications.md` - Web scraping and database operations
+- See `modules/pitfalls-best-practices.md` - Common mistakes and best practices
 
-### 3. Processing Async Streams
-1. Create an asynchronous generator using `yield` inside an `async def` function.
-2. Iterate over the generator using `async for` to process data as it becomes available.
-3. Avoid materializing the entire sequence in memory to keep memory overhead low.
+Load specific modules based on your needs, or reference all for detailed guidance.
 
-## Non-Obvious Insights
-- **Cooperative Multitasking**: Async is NOT parallelism; it is single-threaded. If one coroutine blocks (e.g., `time.sleep`), the entire program stops.
-- **Modern Entry Point**: Always use `asyncio.run(main())` for the main entry point; avoid manual event loop management in modern Python.
-- **Materialization Risk**: Using `async for` is essential for large datasets to prevent OOM (Out of Memory) errors by processing items one by one as they arrive.
+## Exit Criteria
 
-## Evidence
-- "asyncio is often a perfect fit for IO-bound and high-level structured network code." - [Python Docs](https://docs.python.org/3/library/asyncio.html)
-- "Async I/O is a single-threaded, single-process technique that uses cooperative multitasking." - [Real Python](https://realpython.com/async-io-python/)
-- "The await keyword suspends the execution of the surrounding coroutine and passes control back to the event loop." - [Real Python](https://realpython.com/async-io-python/)
+- Async patterns applied correctly
+- No blocking operations in async code
+- Proper error handling implemented
+- Rate limiting configured where needed
+- Tests pass with pytest-asyncio
+## Troubleshooting
 
-## Scripts
-- `scripts/python-async_tool.py`: Examples of `asyncio.gather` and `async for` generators.
-- `scripts/python-async_tool.js`: Equivalent JavaScript `Promise.all` and async iterator examples.
+### Common Issues
 
-## Dependencies
-- `asyncio` (Standard Library)
-- `aiohttp` or `httpx` (Recommended for async HTTP)
+**Command not found**
+Ensure all dependencies are installed and in PATH
 
-## References
-- [references/README.md](references/README.md)
+**Permission errors**
+Check file permissions and run with appropriate privileges
+
+**Unexpected behavior**
+Enable verbose logging with `--verbose` flag

@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-secret-pull
-description: Pull secrets from cloud to local .env.production file. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.0.105"
+description: Pull secrets from cloud to local .env file. Requires authentication. Use for Agentuity cloud platform operations
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:
@@ -11,7 +11,7 @@ metadata:
 
 # Cloud Secret Pull
 
-Pull secrets from cloud to local .env.production file
+Pull secrets from cloud to local .env file
 
 ## Prerequisites
 

@@ -1,9 +1,7 @@
 {
   "name": "document-processing-pdf",
-  "description": "Process, parse, create, and manipulate PDF documents using libraries like pdf-lib, PDFKit, or pdf-parse for document generation, data extraction, and PDF manipulation. Use when generating PDFs from HT",
-  "repo": "korallis/Droidz",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/document-processing-pdf/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:40.091711Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "database-migrations",
-  "repo": "VilnaCRM-Org/user-service",
-  "path": ".claude/skills/database-migrations/SKILL.md",
-  "source": "github.com/VilnaCRM-Org/user-service",
-  "downloaded_at": "2026-01-27T04:06:58.040916Z"
+  "repo": "dadbodgeoff/drift",
+  "path": "skills/database-migrations/SKILL.md",
+  "source": "github.com/dadbodgeoff/drift",
+  "downloaded_at": "2026-01-28T04:30:52.807243Z"
 }

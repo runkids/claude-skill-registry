@@ -1,70 +1,51 @@
 ---
-name: emacs-info
-description: Emacs Info documentation system. Navigate and query Info manuals for Emacs, Elisp, and GNU tools.
+name: emacs
+description: Emacs ecosystem = elisp + org + gnus + tramp + eglot.
 version: 1.0.0
 ---
 
 
-# Emacs Info Skill
+# emacs
 
-**Trit**: 0 (ERGODIC - documentation mediates between learning and doing)  
-**Foundation**: GNU Info + Emacs integration  
+Emacs ecosystem = elisp + org + gnus + tramp + eglot.
 
-## Core Concept
+## Atomic Skills
 
-Info is the hypertext documentation format for GNU:
-- Structured nodes and menus
-- Cross-references between manuals
-- Index-based search
+| Skill | Lines | Domain |
+|-------|-------|--------|
+| elisp | 106K | Programming |
+| org | 25K | Documents |
+| gnus | 15K | Mail/News |
+| tramp | 8K | Remote files |
+| eglot | 2K | LSP |
+| transient | 3K | Menus |
 
-## Emacs Commands
+## Info Access
 
-```elisp
-;; Open Info browser
-M-x info
-
-;; Go to specific manual
-(info "elisp")
-(info "emacs")
-(info "org")
-
-;; Search index
-M-x info-apropos RET <query> RET
-
-;; Navigate
-n - next node
-p - previous node
-u - up
-l - back (history)
+```
+C-h i           Info browser
+C-h i m elisp   Elisp manual
+C-h i m org     Org manual
+C-h f           Describe function
+C-h v           Describe variable
 ```
 
-## Standalone Info
+## Init
+
+```elisp
+(use-package org
+  :config
+  (setq org-directory "~/org"))
+
+(use-package eglot
+  :hook ((python-mode . eglot-ensure)))
+```
+
+## FloxHub
 
 ```bash
-# Read manual
-info emacs
-info elisp
-
-# Search
-info --apropos=regexp
-```
-
-## GF(3) Integration
-
-```elisp
-(defun gay-info-trit (node)
-  "Return trit based on Info node type."
-  (cond
-   ((string-prefix-p "Function" node) -1)  ; MINUS: constraint
-   ((string-prefix-p "Variable" node) 0)   ; ERGODIC: state
-   ((string-prefix-p "Command" node) 1)))  ; PLUS: action
-```
-
-## Canonical Triads
-
-```
-proofgeneral-narya (-1) ⊗ emacs-info (0) ⊗ xenodium-elisp (+1) = 0 ✓
-slime-lisp (-1) ⊗ emacs-info (0) ⊗ geiser-chicken (+1) = 0 ✓
+flox pull bmorphism/effective-topos
+emacs --with-profile topos
 ```
 
 
@@ -81,6 +62,28 @@ This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
 
 - `general`: 734 citations in bib.duckdb
 
+
+
+## SDF Interleaving
+
+This skill connects to **Software Design for Flexibility** (Hanson & Sussman, 2021):
+
+### Primary Chapter: 6. Layering
+
+**Concepts**: layered data, metadata, provenance, units
+
+### GF(3) Balanced Triad
+
+```
+emacs (+) + SDF.Ch6 (+) + [balancer] (+) = 0
+```
+
+**Skill Trit**: 1 (PLUS - generation)
+
+
+### Connection Pattern
+
+Layering adds metadata. This skill tracks provenance or annotations.
 ## Cat# Integration
 
 This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:

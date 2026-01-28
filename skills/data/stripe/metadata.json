@@ -1,7 +1,7 @@
 {
   "name": "stripe",
-  "repo": "mgd34msu/goodvibes-gemini",
-  "path": "skills/stripe/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-gemini",
-  "downloaded_at": "2026-01-27T03:56:33.350229Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/payments/stripe/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-28T04:33:57.022564Z"
 }

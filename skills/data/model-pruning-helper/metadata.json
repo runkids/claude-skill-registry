@@ -1,9 +1,7 @@
 {
   "name": "model-pruning-helper",
-  "description": "Model Pruning Helper - Auto-activating skill for ML Deployment.Triggers on: model pruning helper, model pruning helperPart of the ML Deployment skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/model-pruning-helper/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:45.361445Z"
 }

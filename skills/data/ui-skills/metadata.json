@@ -1,9 +1,7 @@
 {
   "name": "ui-skills",
-  "description": "Opinionated constraints for building better interfaces with agents.",
-  "repo": "ivannxbt/config",
-  "category": "development",
-  "tags": [],
-  "stars": 1,
-  "source": "github.com/ivannxbt/config"
+  "repo": "ninehills/skills",
+  "path": "skills/ui-skills/SKILL.md",
+  "source": "github.com/ninehills/skills",
+  "downloaded_at": "2026-01-28T03:23:43.468785Z"
 }

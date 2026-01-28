@@ -1,153 +1,158 @@
 ---
 name: feature-dev
-description: Implement JIRA issues with TDD workflow and multi-agent collaboration. Use when user provides a JIRA issue ID (e.g., "Implement VIBE-123", "Work on TRA-9", "Build DEV-456"). Orchestrates planner, designer, developer, tester, reviewer, and writer agents in sequence.
+description: Develop new PyPTO IR features including operators, passes, and transformations. Reads documentation first, implements changes following project patterns, and integrates testing. Use when adding IR operators, creating passes, implementing transformations, or developing new IR features.
 ---
 
-# Feature Development Workflow
+# PyPTO Feature Development
 
-Implement JIRA issues using test-driven development with specialized agents. Execute phases in strict sequential order.
+Develop new IR features by reading docs first, then implementing with project patterns.
 
-## Phase 1: Context Gathering
+## Read Documentation First
 
-**Step 1.1: Fetch JIRA Issue**
-```
-Use mcp__atlassian__getJiraIssue to fetch the issue details.
-Extract: summary, description, acceptance criteria, linked Confluence pages.
-```
+Before coding, read the relevant doc:
+- Adding operators → `docs/dev/03-operator_registration.md`
+- Adding passes → `docs/dev/08-pass_manager.md`
+- IR concepts → `docs/dev/00-ir_definition.md`
+- IR builder → `docs/dev/06-ir_builder.md`
 
-**Step 1.2: Interview for Missing Context**
-```
-Use Skill tool with skill="interview" to gather additional requirements.
-Skip if acceptance criteria are comprehensive.
-```
+## Workflow
 
-**Step 1.3: Update JIRA Status**
-```
-Use mcp__atlassian__transitionJiraIssue to move issue to "In Progress".
-First call getTransitionsForJiraIssue to get available transition IDs.
-```
+1. Read relevant documentation
+2. Implement C++ (header + source)
+3. Add Python bindings if needed
+4. Create Python wrapper
+5. Use `testing` skill to verify
 
-## Phase 2: Planning
+## Adding Operators
 
-**Step 2.1: Create Implementation Plan**
-```
-Use Task tool with subagent_type="planner".
-Prompt: "Create implementation plan for [issue summary]. Requirements: [acceptance criteria]"
-```
+**Operator Categories:**
+- `TensorOp`: N-dimensional tensors (`src/ir/op/tensor_ops/`)
+- `BlockOp`: Tile operations (`src/ir/op/block_ops/`)
+- `SyncOp`: Synchronization (`src/ir/op/sync_ops/`)
 
-**Step 2.2: Save Plan to Memory**
-```
-Use mcp__memory__create_entities to store the plan.
-Entity type: "FeaturePlan", name: "[ISSUE-ID]-plan"
-```
+**C++ Implementation** in `src/ir/op/[category]/`:
 
-**Step 2.3: User Confirmation**
-```
-Present the plan summary to user.
-Use AskUserQuestion: "Ready to proceed with implementation?"
-STOP if user wants changes.
-```
+```cpp
+TypePtr DeduceMyOpType(const std::vector<ExprPtr>& args,
+                       const std::vector<std::pair<std::string, std::any>>& kwargs) {
+  CHECK(args.size() == 2) << "my_op requires 2 arguments";
+  auto lhs = std::dynamic_pointer_cast<const TensorType>(args[0]->GetType());
+  auto rhs = std::dynamic_pointer_cast<const TensorType>(args[1]->GetType());
 
-## Phase 3: Implementation (TDD)
+  auto result_dtype = PromoteDataTypes(lhs->dtype_, rhs->dtype_);
+  auto broadcast_result = BroadcastShapes(lhs->shape_, rhs->shape_);
+  return std::make_shared<TensorType>(broadcast_result.shape, *result_dtype);
+}
 
-**Step 3.1: Write Tests First**
-```
-Use Task tool with subagent_type="tester".
-Prompt: "Write test cases for [feature]. Requirements: [from plan]. Write failing tests first."
+REGISTER_OP("tensor.my_op")
+    .set_op_category("TensorOp")
+    .set_description("Description")
+    .add_argument("lhs", "Left tensor")
+    .add_argument("rhs", "Right tensor")
+    .f_deduce_type(DeduceMyOpType);
 ```
 
-**Step 3.2: UI Design (if frontend work)**
-```
-Use Task tool with subagent_type="designer".
-Prompt: "Design UI for [feature]. Use Chrome DevTools MCP for reference."
-Only run if feature has UI components.
+**Python Wrapper** in `python/pypto/ir/op/`:
+
+```python
+def my_op(lhs: Expr, rhs: Expr, flag: bool = False) -> Call:
+    """Operation description."""
+    kwargs = {"flag": flag} if flag else {}
+    return _ir_core.create_op_call("tensor.my_op", [lhs, rhs], kwargs, Span.unknown())
 ```
 
-**Step 3.3: Implement Code**
-```
-Use Task tool with subagent_type="developer".
-Prompt: "Implement [feature] to pass the tests. Follow plan from Phase 2."
+## Adding Passes
+
+**C++ Header** in `include/pypto/ir/transform/`:
+
+```cpp
+#pragma once
+#include "pypto/ir/transform/base/pass.h"
+
+class MyPass : public Pass {
+ public:
+  FunctionPtr Run(const FunctionPtr& func) override;
+};
 ```
 
-**Step 3.4: Verify Tests Pass**
-```
-Run test suite via Bash.
-If tests fail, return to Step 3.3 with failure context.
+**C++ Implementation** in `src/ir/transform/`:
+
+```cpp
+FunctionPtr MyPass::Run(const FunctionPtr& func) {
+  INTERNAL_CHECK(func) << "MyPass cannot run on null function";
+  // Transform using IRMutator methods
+  return transformed_func;
+}
 ```
 
-## Phase 4: Review
+**Python Bindings** in `python/bindings/modules/pass.cpp`:
 
-**Step 4.1: Code Review**
-```
-Use Task tool with subagent_type="reviewer".
-Prompt: "Review implementation for [ISSUE-ID]. Check for P1/P2/P3 issues."
-```
-
-**Step 4.2: Address Review Feedback**
-```
-If reviewer found issues:
-  Use Task tool with subagent_type="developer".
-  Prompt: "Fix review issues: [list from reviewer]"
-Repeat Step 4.1 until no P1/P2 issues remain.
+```cpp
+nb::class_<MyPass, Pass>(passes, "MyPass", "Description")
+    .def(nb::init<>(), "Create MyPass");
 ```
 
-## Phase 5: Validation
+**Register in PassManager** in `python/pypto/ir/pass_manager.py`:
 
-**Step 5.1: Run Full Validation**
-```
-Execute in sequence:
-1. Run all tests
-2. Run linter
-3. Run type checker
-4. Run build
-All must pass before proceeding.
+```python
+OptimizationStrategy.Custom2: [
+    ("MyPass", lambda: passes.MyPass()),
+]
 ```
 
-**Step 5.2: User Confirmation**
-```
-Use AskUserQuestion: "Validation passed. Ready to document and commit?"
-Options: "Yes, continue" / "Let me review first" / "Make changes"
+## Key Utilities
+
+**Type checking:**
+```cpp
+if (IsA<TensorType>(expr->GetType())) { /* ... */ }
+if (auto tensor = As<TensorType>(expr->GetType())) { /* ... */ }
 ```
 
-## Phase 6: Documentation
-
-**Step 6.1: Update Documentation**
-```
-Use Task tool with subagent_type="writer".
-Prompt: "Document [feature] implementation. Update relevant docs."
+**Broadcasting and promotion:**
+```cpp
+auto result = BroadcastShapes(shape1, shape2);
+auto dtype = PromoteDataTypes(dtype1, dtype2);
 ```
 
-## Phase 7: Git Operations
-
-**Step 7.1: Confirm Git Actions**
-```
-Use AskUserQuestion: "Ready for git operations?"
-Options:
-- "Create commits only"
-- "Create commits and PR"
-- "Skip git operations"
+**Validation:**
+```cpp
+CHECK(args.size() == 2) << "Expected 2 args, got " << args.size();
+auto tensor = std::dynamic_pointer_cast<const TensorType>(args[0]->GetType());
+CHECK(tensor) << "Expected TensorType, got " << args[0]->GetType()->TypeName();
 ```
 
-**Step 7.2: Create Commits**
-```
-If user approved:
-1. Stage relevant files
-2. Create logical commits with ISSUE-ID prefix
-Example: "VIBE-123: Add user authentication feature"
-```
+## File Locations
 
-**Step 7.3: Create PR**
-```
-If user selected PR creation:
-Use gh pr create with:
-- Title: "[ISSUE-ID] [Summary]"
-- Body: Link to JIRA, summary of changes, test plan
-```
+| Component | Location |
+|-----------|----------|
+| Operators | `src/ir/op/[tensor\|block\|sync]_ops/` |
+| Passes | `src/ir/transform/` |
+| Python wrappers | `python/pypto/ir/op/` |
+| Bindings | `python/bindings/modules/` |
+| Tests | `tests/ut/ir/` |
 
-## Enforcement Rules
+## Key Patterns
 
-- Execute phases 1-7 in order. Never skip phases.
-- Wait for each Task agent to complete before starting the next.
-- Stop and ask user if any phase fails.
-- Always run validation (Phase 5) before documentation (Phase 6).
-- Never auto-commit or auto-push without user confirmation.
+**Operators:**
+- Args for Expr (tensors/tiles)
+- Kwargs for metadata (flags, dtypes, modes)
+- Use `BroadcastShapes()` and `PromoteDataTypes()`
+
+**Passes:**
+- Extend `Pass`, implement `Run(FunctionPtr)`
+- Use `IRMutator` for transformations
+- Always return new IR nodes (immutable)
+
+**Testing:**
+Use `testing` skill after implementation.
+
+**Building:**
+Use `pypto-development` skill for CMake and environment setup.
+
+## Quick Reference
+
+| Task | Doc | Files |
+|------|-----|-------|
+| Add operator | `03-operator_registration.md` | `src/ir/op/[category]/` |
+| Add pass | `08-pass_manager.md` | `src/ir/transform/` |
+| Build IR | `06-ir_builder.md` | `python/pypto/ir/builder.py` |

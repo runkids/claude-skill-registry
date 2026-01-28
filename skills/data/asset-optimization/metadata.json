@@ -1,12 +1,7 @@
 {
   "name": "asset-optimization",
-  "description": "Asset pipeline optimization, compression, streaming, and resource managementfor efficient game development and delivery.",
-  "repo": "pluginagentmarketplace/custom-plugin-game-developer",
-  "category": "development",
-  "tags": [
-    "asset",
-    "optimization"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "a5c-ai/babysitter",
+  "path": "plugins/babysitter/skills/babysit/process/specializations/game-development/skills/asset-optimization/SKILL.md",
+  "source": "github.com/a5c-ai/babysitter",
+  "downloaded_at": "2026-01-28T00:55:29.544743Z"
 }

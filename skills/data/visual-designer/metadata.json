@@ -1,12 +1,7 @@
 {
   "name": "visual-designer",
-  "description": "Design beautiful, consistent user interfaces with proper color theory, typography, spacing, and visual hierarchy. Use when creating design systems, choosing colors and fonts, or establishing visual di",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "design",
-  "tags": [
-    "visual",
-    "designer"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/visual-designer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:41.158366Z"
 }

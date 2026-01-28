@@ -1,774 +1,311 @@
 ---
 name: documentation
-description: Maintain documentation for IntelliFill following Diátaxis framework. Use when creating or updating docs, API references, or guides.
+description: Fixes documentation issues including missing JSDoc, module-level comments, and @returns tags. Use when functions lack documentation or JSDoc is incomplete.
 ---
 
-# Documentation Maintenance Skill
+# Documentation Fixes
 
-This skill provides comprehensive guidance for maintaining IntelliFill documentation following the Diátaxis framework.
+Fixes for code documentation issues. Good documentation explains intent, edge cases, and non-obvious behavior - not what the code obviously does.
 
-## Table of Contents
+## Quick Start
 
-1. [Documentation Architecture](#documentation-architecture)
-2. [Diátaxis Framework](#diataxis-framework)
-3. [Frontmatter Standards](#frontmatter-standards)
-4. [Writing Guidelines](#writing-guidelines)
-5. [Update Triggers](#update-triggers)
-6. [Code Examples](#code-examples)
-7. [Cross-Referencing](#cross-referencing)
-8. [ADR Pattern](#adr-pattern)
+1. Identify documentation gap type (missing JSDoc, missing @returns, missing module doc)
+2. Read the function/module to understand its purpose
+3. Write concise documentation focusing on the "why" and edge cases
+4. Verify documentation adds value beyond what code already shows
 
-## Documentation Architecture
+## Priority
 
-IntelliFill uses a structured, multi-location documentation system.
+**P3 - Fix when convenient.** Documentation improves maintainability but doesn't affect runtime.
 
-### Documentation Locations
-
-```
-IntelliFill/
-├── docs/                          # Root-level Diátaxis docs
-│   ├── README.md                  # Documentation hub
-│   ├── MAINTENANCE.md             # This guide
-│   ├── tutorials/                 # Learning-oriented
-│   ├── how-to/                    # Problem-oriented
-│   ├── reference/                 # Information-oriented
-│   │   ├── api/
-│   │   │   ├── endpoints.md
-│   │   │   └── schemas.md
-│   │   ├── configuration/
-│   │   │   └── environment.md
-│   │   └── database/
-│   │       └── schema.md
-│   └── explanation/               # Understanding-oriented
-│       └── architecture.md
-├── quikadmin/
-│   ├── docs/                      # Backend-specific docs
-│   └── CLAUDE.md                  # Backend AI context
-├── quikadmin-web/
-│   ├── docs/                      # Frontend-specific docs
-│   └── CLAUDE.md                  # Frontend AI context
-├── CLAUDE.local.md                # Local dev context
-└── AGENTS.md                      # Task Master integration
-```
-
-### Documentation Hierarchy
-
-```
-1. CLAUDE.local.md        → Local dev overrides (not in git)
-2. [subproject]/CLAUDE.md → Subproject-specific context
-3. docs/                  → Unified Diátaxis documentation
-4. README.md              → Project overview
-5. AGENTS.md              → Agent integration guide
-```
-
-## Diátaxis Framework
-
-IntelliFill documentation follows the Diátaxis framework with four quadrants.
-
-### Four Quadrants
-
-```
-                Learning          Practical
-              ┌─────────────┬─────────────┐
-              │             │             │
-    Practical │  Tutorials  │  How-To     │
-              │             │             │
-              ├─────────────┼─────────────┤
-              │             │             │
- Theoretical  │ Explanation │  Reference  │
-              │             │             │
-              └─────────────┴─────────────┘
-```
-
-### 1. Tutorials (Learning-Oriented)
-
-**Purpose**: Help newcomers learn by doing
-
-**Characteristics**:
-- Step-by-step instructions
-- Beginner-friendly
-- Repeatable and reliable
-- Complete examples
-- Focus on learning, not production
-
-**Example Structure**:
-
-```markdown
----
-title: Building Your First PDF Form
-description: Learn IntelliFill basics by creating and filling a simple form
-category: tutorials
-difficulty: beginner
-duration: 30 minutes
 ---
 
-# Building Your First PDF Form
+## Workflows
 
-In this tutorial, you'll learn the basics of IntelliFill by creating a simple
-PDF form and automatically filling it with data.
+### Missing JSDoc on Exported Functions (#10 - 23 occurrences)
 
-## What You'll Learn
+**Detection**: Exported function without JSDoc comment.
 
-- Uploading documents
-- Creating templates
-- Mapping form fields
-- Generating filled PDFs
-
-## Prerequisites
-
-- IntelliFill account
-- Sample PDF form (provided)
-- 30 minutes
-
-## Step 1: Upload Your First Document
-
-First, let's upload a sample invoice...
-
-[Detailed step-by-step instructions]
-
-## What You've Learned
-
-Congratulations! You've successfully...
-
-## Next Steps
-
-- [Tutorial: Advanced Field Mapping](./advanced-mapping.md)
-- [How-To: Batch Process Documents](../how-to/batch-processing.md)
-```
-
-### 2. How-To Guides (Problem-Oriented)
-
-**Purpose**: Solve specific problems
-
-**Characteristics**:
-- Goal-oriented
-- Assume knowledge
-- Show one way to do something
-- Practical and actionable
-- Production-focused
-
-**Example Structure**:
-
-```markdown
----
-title: How to Implement Rate Limiting
-description: Add rate limiting to API endpoints
-category: how-to
-tags: [api, security, backend]
----
-
-# How to Implement Rate Limiting
-
-This guide shows you how to add rate limiting to protect your API endpoints.
-
-## Problem
-
-You need to prevent API abuse by limiting request rates per user.
-
-## Solution
-
-Use the built-in rate limiter middleware.
-
-## Prerequisites
-
-- Backend development environment
-- Basic Express.js knowledge
-
-## Steps
-
-### 1. Import the Rate Limiter
+**Pattern**: Public API without documentation.
 
 ```typescript
-import { rateLimiter } from '@/middleware/rateLimiter';
-```
-
-### 2. Apply to Routes
-
-[Detailed implementation steps]
-
-## Verification
-
-Test your rate limiting...
-
-## Troubleshooting
-
-If rate limiting isn't working...
-
-## See Also
-
-- [Reference: Rate Limiter API](../reference/api/rate-limiter.md)
-- [Explanation: Rate Limiting Strategy](../explanation/rate-limiting.md)
-```
-
-### 3. Reference (Information-Oriented)
-
-**Purpose**: Describe the system accurately
-
-**Characteristics**:
-- Dry and factual
-- Consistent structure
-- Complete and accurate
-- Searchable
-- No opinions or explanations
-
-**Example Structure**:
-
-```markdown
----
-title: Document API Reference
-description: Complete API reference for document endpoints
-category: reference
-tags: [api, documents]
----
-
-# Document API Reference
-
-Complete reference for all document-related API endpoints.
-
-## Endpoints
-
-### List Documents
-
-```http
-GET /api/documents
-```
-
-**Description**: Retrieve a paginated list of documents.
-
-**Authentication**: Required
-
-**Query Parameters**:
-
-| Parameter | Type   | Required | Default | Description           |
-|-----------|--------|----------|---------|----------------------|
-| page      | number | No       | 1       | Page number          |
-| limit     | number | No       | 20      | Items per page       |
-| search    | string | No       | -       | Search query         |
-| status    | string | No       | -       | Filter by status     |
-
-**Response**:
-
-```typescript
-{
-  success: boolean;
-  data: {
-    items: Document[];
-    total: number;
-    page: number;
-    totalPages: number;
-  };
+// PROBLEM - no documentation
+export function calculateDiscount(price: number, code: string): number {
+  // ...
 }
 ```
 
-**Example Request**:
+**Fix Strategy**: Add focused JSDoc explaining what isn't obvious.
+
+```typescript
+// SOLUTION - focused JSDoc
+/**
+ * Applies a discount code to calculate the final price.
+ * @param price - Original price in cents
+ * @param code - Discount code (case-insensitive)
+ * @returns Final price after discount, minimum 0
+ * @throws {InvalidCodeError} When code is expired or invalid
+ */
+export function calculateDiscount(price: number, code: string): number {
+  // ...
+}
+```
+
+**What to document**:
+- Units (cents vs dollars, ms vs seconds)
+- Edge cases (empty input, null handling)
+- Error conditions (@throws)
+- Non-obvious return values
+- Side effects
+
+**What NOT to document**:
+- Obvious things the signature tells you
+- Implementation details
+- Things that will get outdated
+
+---
+
+### Missing Module-Level JSDoc (#12 - 55 occurrences - FIXED)
+
+**Pattern**: File without top-level module documentation.
+
+```typescript
+// PROBLEM - no module doc
+import { db } from './database';
+
+export function createUser() { ... }
+```
+
+**Fix Strategy**: Add @module JSDoc at file top.
+
+```typescript
+// SOLUTION
+/**
+ * @module validators/order
+ * @description Validation functions for order processing.
+ * Handles input sanitization and business rule enforcement.
+ */
+
+import { db } from './database';
+
+export function createUser() { ... }
+```
+
+**Module doc template**:
+
+```typescript
+/**
+ * @module {feature}/{filename}
+ * @description {One sentence describing the module's purpose}.
+ * {Optional second sentence about key functionality or usage context}.
+ */
+```
+
+---
+
+### Missing @returns in JSDoc (#20 - 8 occurrences)
+
+**Pattern**: JSDoc with @param but no @returns.
+
+```typescript
+// PROBLEM - missing @returns
+/**
+ * Calculates the total with tax.
+ * @param subtotal - Amount before tax
+ * @param taxRate - Tax rate as decimal (e.g., 0.08 for 8%)
+ */
+function calculateTotal(subtotal: number, taxRate: number): number {
+  return subtotal * (1 + taxRate);
+}
+```
+
+**Fix Strategy**: Add @returns when return value has non-obvious behavior.
+
+```typescript
+// SOLUTION - add @returns
+/**
+ * Calculates the total with tax.
+ * @param subtotal - Amount before tax in cents
+ * @param taxRate - Tax rate as decimal (e.g., 0.08 for 8%)
+ * @returns Total amount in cents, rounded to nearest cent
+ */
+function calculateTotal(subtotal: number, taxRate: number): number {
+  return Math.round(subtotal * (1 + taxRate));
+}
+```
+
+**When @returns adds value**:
+- Return value has specific units
+- Rounding or transformation applied
+- Null/undefined possible with specific meaning
+- Complex object with important properties
+
+---
+
+## Scripts
+
+### Check Documentation Coverage
 
 ```bash
-curl -X GET "http://localhost:3002/api/documents?page=1&limit=20" \
-  -H "Authorization: Bearer YOUR_TOKEN"
+node scripts/check-docs.js /path/to/src
 ```
 
-**Example Response**:
+### Generate JSDoc Stubs
 
-```json
-{
-  "success": true,
-  "data": {
-    "items": [...],
-    "total": 42,
-    "page": 1,
-    "totalPages": 3
-  }
-}
+```bash
+node scripts/generate-jsdoc.js /path/to/file.ts
 ```
 
-[Continue for all endpoints...]
-```
-
-### 4. Explanation (Understanding-Oriented)
-
-**Purpose**: Deepen understanding
-
-**Characteristics**:
-- Discusses alternatives
-- Provides context
-- Explains design decisions
-- Higher-level concepts
-- No instructions
-
-**Example Structure**:
-
-```markdown
----
-title: Authentication Architecture
-description: Understanding IntelliFill's authentication system
-category: explanation
-tags: [architecture, security, auth]
 ---
 
-# Authentication Architecture
+## JSDoc Templates
 
-This document explains the design decisions and architecture of IntelliFill's
-authentication system.
+### Function Documentation
 
-## Overview
-
-IntelliFill uses Supabase Auth for authentication, supplemented by backend
-JWT validation and session management.
-
-## Why Supabase Auth?
-
-We chose Supabase Auth over custom JWT implementation for several reasons:
-
-1. **Security**: Industry-standard OAuth2 flows
-2. **Features**: Built-in email verification, password reset
-3. **Scalability**: Handles user management at scale
-4. **Developer Experience**: Simple API, good docs
-
-## Authentication Flow
-
-[Detailed explanation of the flow]
-
-## Design Trade-offs
-
-### Backend vs. Frontend Auth
-
-We support two authentication modes...
-
-**Backend Auth Mode**:
-- Pros: No Supabase dependency in frontend
-- Cons: Extra API calls
-
-**Direct Supabase Mode**:
-- Pros: Faster authentication
-- Cons: Requires Supabase SDK
-
-## Alternative Approaches Considered
-
-We considered these alternatives:
-
-1. **Custom JWT**: More control, but more maintenance
-2. **Auth0**: Feature-rich, but expensive
-3. **Passport.js**: Flexible, but requires setup
-
-## Security Considerations
-
-[Security implications and best practices]
-
-## See Also
-
-- [Tutorial: Setting Up Authentication](../tutorials/auth-setup.md)
-- [Reference: Auth API](../reference/api/auth.md)
-```
-
-## Frontmatter Standards
-
-All documentation files must include frontmatter.
-
-### Frontmatter Template
-
-```markdown
----
-title: Short, Descriptive Title
-description: One-line summary of the document
-category: tutorials | how-to | reference | explanation
-tags: [tag1, tag2, tag3]
-difficulty: beginner | intermediate | advanced  # (tutorials only)
-duration: 15 minutes | 1 hour                  # (tutorials only)
-lastUpdated: 2024-01-15                        # (optional)
----
-```
-
-### Frontmatter Examples
-
-**Tutorial**:
-```yaml
----
-title: Getting Started with IntelliFill
-description: Learn the basics in 30 minutes
-category: tutorials
-difficulty: beginner
-duration: 30 minutes
-tags: [getting-started, basics]
----
-```
-
-**How-To**:
-```yaml
----
-title: How to Add Custom Validation
-description: Implement custom validation for form fields
-category: how-to
-tags: [validation, backend, forms]
----
-```
-
-**Reference**:
-```yaml
----
-title: Environment Variables Reference
-description: Complete list of environment variables
-category: reference
-tags: [configuration, environment]
----
-```
-
-**Explanation**:
-```yaml
----
-title: Document Processing Pipeline
-description: Understanding how documents flow through the system
-category: explanation
-tags: [architecture, processing, ocr]
----
-```
-
-## Writing Guidelines
-
-### Voice and Tone
-
-- **Active voice**: "Click the button" not "The button should be clicked"
-- **Present tense**: "The system validates" not "The system will validate"
-- **Direct address**: "You can configure" not "One can configure"
-- **Concise**: Remove unnecessary words
-- **Clear**: Use simple language
-
-### Formatting Standards
-
-**Headings**:
-```markdown
-# H1: Document Title (only one per page)
-## H2: Major Sections
-### H3: Subsections
-#### H4: Minor Subsections (avoid if possible)
-```
-
-**Lists**:
-```markdown
-- Unordered lists for items without sequence
-1. Ordered lists for steps or sequences
-- Use sentence case
-- End with periods if complete sentences
-- No periods for fragments
-```
-
-**Code**:
-```markdown
-`inline code` for variables, commands, filenames
-
-```language
-code blocks for examples
-```
-
-Supported languages: typescript, javascript, bash, json, yaml, prisma, sql
-```
-
-**Emphasis**:
-```markdown
-**Bold** for UI elements, important terms
-*Italic* for emphasis (use sparingly)
-`code` for technical terms
-```
-
-### File Naming
-
-- Use kebab-case: `api-endpoints.md`, `getting-started.md`
-- Be descriptive: `authentication-flow.md` not `auth.md`
-- Avoid dates in names unless part of ADR
-
-## Update Triggers
-
-Documentation MUST be updated when:
-
-### API Changes
-
-**Trigger**: Adding, modifying, or removing API endpoints
-
-**Update**:
-- `docs/reference/api/endpoints.md`
-- Relevant how-to guides
-- CLAUDE.local.md if affects local dev
-
-**Example**:
-```markdown
-# docs/reference/api/endpoints.md
-
-### Upload Document
-
-```http
-POST /api/documents/upload
-```
-
-**Added**: v1.2.0 (2024-01-15)
-**Updated**: v1.3.0 (2024-02-01) - Added multipart support
-
-[Documentation...]
-```
-
-### Environment Variables
-
-**Trigger**: Adding or changing environment variables
-
-**Update**:
-- `docs/reference/configuration/environment.md`
-- `.env.example`
-- CLAUDE.local.md (Environment Variables section)
-
-### Database Schema
-
-**Trigger**: Prisma migrations
-
-**Update**:
-- `docs/reference/database/schema.md`
-- CLAUDE.local.md if affects common queries
-
-### Known Issues
-
-**Trigger**: Fixing or discovering bugs
-
-**Update**:
-- CLAUDE.local.md (Known Issues section)
-- Mark as ✅ FIXED when resolved
-
-### New Features
-
-**Trigger**: Implementing new features
-
-**Update**:
-- Tutorial (if beginner-focused)
-- How-to guide (if problem-solving)
-- Reference docs (for API/config)
-- Explanation (for architecture)
-
-## Code Examples
-
-### Code Example Standards
-
-**Always include**:
-1. Language identifier in code fence
-2. Complete, runnable examples
-3. Comments for clarity
-4. Error handling
-5. Type annotations (TypeScript)
-
-**Good Example**:
 ```typescript
-// quikadmin/src/services/document.service.ts
-import { PrismaClient } from '@prisma/client';
-import { AppError } from '@/utils/errors';
+/**
+ * {Brief description of what the function does}.
+ * @param {paramName} - {Description including units/constraints}
+ * @returns {Description including units/edge cases}
+ * @throws {ErrorType} {When this error is thrown}
+ * @example
+ * const result = functionName(arg1, arg2);
+ */
+```
 
-export class DocumentService {
-  private prisma: PrismaClient;
+### Class Documentation
 
-  constructor(deps: { prisma: PrismaClient }) {
-    this.prisma = deps.prisma;
-  }
-
+```typescript
+/**
+ * {Brief description of the class purpose}.
+ * @example
+ * const instance = new ClassName(config);
+ * instance.method();
+ */
+class ClassName {
   /**
-   * Retrieve a document by ID with ownership check
+   * Creates a new instance.
+   * @param config - Configuration options
    */
-  async getById(id: string, userId: string) {
-    const document = await this.prisma.document.findFirst({
-      where: { id, userId },
-    });
-
-    if (!document) {
-      throw new AppError('Document not found', 404);
-    }
-
-    return document;
-  }
+  constructor(config: Config) {}
 }
 ```
 
-**Bad Example**:
+### Interface Documentation
+
 ```typescript
-// Don't do this - incomplete, no context, no types
-async getById(id, userId) {
-  return prisma.document.findFirst({ where: { id, userId } });
+/**
+ * Configuration options for {feature}.
+ */
+interface Config {
+  /** Maximum number of retries (default: 3) */
+  maxRetries?: number;
+
+  /** Timeout in milliseconds (default: 5000) */
+  timeoutMs?: number;
+
+  /** Called when operation completes */
+  onComplete?: (result: Result) => void;
 }
 ```
 
-### Code Block Headers
-
-Include file paths for context:
+### Type Alias Documentation
 
 ```typescript
-// quikadmin/src/api/documents.routes.ts
-import { Router } from 'express';
-
-const router = Router();
-// ...
+/**
+ * User identifier - either numeric ID or email string.
+ * Numeric IDs are for internal users, emails for external.
+ */
+type UserId = number | string;
 ```
 
-### Placeholder Values
-
-Use descriptive placeholders:
-
-```bash
-# Good
-curl -X POST http://localhost:3002/api/documents \
-  -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
-  -d '{"name": "Invoice.pdf"}'
-
-# Bad
-curl -X POST http://localhost:3002/api/documents \
-  -H "Authorization: Bearer xxx" \
-  -d '{"name": "abc"}'
-```
-
-## Cross-Referencing
-
-### Internal Links
-
-```markdown
-- [Tutorial: Getting Started](../tutorials/getting-started.md)
-- [Reference: API Endpoints](./api/endpoints.md)
-- [How-To: Rate Limiting](../how-to/rate-limiting.md)
-```
-
-### Link Text Standards
-
-```markdown
-# Good
-See [How to Add Validation](../how-to/validation.md) for details.
-
-# Bad
-See [here](../how-to/validation.md) for details.
-Click [this link](../how-to/validation.md).
-```
-
-### See Also Sections
-
-End documents with related links:
-
-```markdown
-## See Also
-
-- [Tutorial: Setting Up IntelliFill](../tutorials/setup.md) - Get started
-- [Reference: Configuration](../reference/configuration/environment.md) - All config options
-- [Explanation: Architecture](../explanation/architecture.md) - System design
-```
-
-## ADR Pattern
-
-Architecture Decision Records document significant decisions.
-
-### ADR Location
-
-```
-docs/decisions/
-├── 0001-use-supabase-auth.md
-├── 0002-monorepo-with-docker.md
-├── 0003-tailwindcss-4-migration.md
-└── template.md
-```
-
-### ADR Template
-
-```markdown
----
-title: ADR-0001: Use Supabase for Authentication
-description: Decision to use Supabase Auth over custom JWT
-category: explanation
-tags: [adr, architecture, auth]
-status: accepted | rejected | superseded | deprecated
-date: 2024-01-15
 ---
 
-# ADR-0001: Use Supabase for Authentication
+## Documentation Quality Guidelines
 
-## Status
+### Good Documentation
 
-Accepted (2024-01-15)
-
-## Context
-
-We need a secure, scalable authentication system for IntelliFill. Key requirements:
-
-- Email/password authentication
-- OAuth providers (Google, GitHub)
-- Email verification
-- Password reset
-- Session management
-- Minimal maintenance overhead
-
-## Decision
-
-We will use Supabase Auth for user authentication.
-
-## Consequences
-
-### Positive
-
-- Industry-standard security practices
-- Built-in features (verification, reset, OAuth)
-- Scales automatically
-- Well-documented
-- Active community
-
-### Negative
-
-- External dependency
-- Vendor lock-in risk
-- Requires Supabase account
-- Additional cost at scale
-
-### Neutral
-
-- Team needs to learn Supabase Auth
-- Migration path exists if needed
-
-## Alternatives Considered
-
-### 1. Custom JWT Implementation
-
-**Pros**: Full control, no dependencies
-**Cons**: Security burden, ongoing maintenance
-
-### 2. Auth0
-
-**Pros**: Feature-rich, enterprise-ready
-**Cons**: Expensive, complex setup
-
-### 3. Passport.js
-
-**Pros**: Flexible, many strategies
-**Cons**: DIY security, more setup
-
-## References
-
-- [Supabase Auth Documentation](https://supabase.com/docs/guides/auth)
-- [OAuth2 Specification](https://oauth.net/2/)
+```typescript
+/**
+ * Retries a failed operation with exponential backoff.
+ * @param operation - Async function to retry
+ * @param maxAttempts - Maximum retry count (default: 3)
+ * @returns Result of successful operation
+ * @throws Last error if all attempts fail
+ * @example
+ * const data = await withRetry(() => fetchData(id), 5);
+ */
 ```
 
-## Best Practices
+Why it's good:
+- Explains the "exponential backoff" behavior (not obvious from name)
+- Documents default values
+- Clarifies error behavior
+- Provides usage example
 
-1. **Update documentation WITH code changes** - Not after
-2. **Use examples from actual code** - Keep them in sync
-3. **Test all code examples** - Ensure they work
-4. **Link related documents** - Help readers navigate
-5. **Use consistent terminology** - Don't vary terms
-6. **Keep it current** - Remove outdated information
-7. **Use version markers** - Note when things changed
-8. **Include prerequisites** - Don't assume knowledge
-9. **Provide context** - Explain why, not just how
-10. **Review regularly** - Audit docs quarterly
+### Bad Documentation
 
-## Maintenance Checklist
+```typescript
+/**
+ * This function retries an operation.
+ * @param operation - The operation to retry
+ * @param maxAttempts - The max attempts
+ * @returns The result
+ */
+```
 
-When making changes:
+Why it's bad:
+- Just restates what's obvious from the signature
+- Doesn't explain retry strategy
+- Doesn't document defaults or error behavior
 
-- [ ] Updated relevant Diátaxis documents
-- [ ] Updated CLAUDE.local.md if affects local dev
-- [ ] Updated .env.example if new env vars
-- [ ] Added/updated code examples
-- [ ] Tested all code examples
-- [ ] Cross-referenced related docs
-- [ ] Updated lastUpdated date
-- [ ] Reviewed for clarity and completeness
+---
 
-## References
+## ESLint Rules
 
-- [Diátaxis Framework](https://diataxis.fr/)
-- [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/)
-- [Write the Docs](https://www.writethedocs.org/)
+### Require JSDoc
+
+```typescript
+// eslint.config.js
+{
+  rules: {
+    'jsdoc/require-jsdoc': ['warn', {
+      require: {
+        FunctionDeclaration: true,
+        MethodDefinition: true,
+        ClassDeclaration: true,
+      },
+      contexts: [
+        'ExportNamedDeclaration > FunctionDeclaration',
+        'ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > ArrowFunctionExpression',
+      ],
+    }],
+    'jsdoc/require-param-description': 'warn',
+    'jsdoc/require-returns-description': 'warn',
+  },
+}
+```
+
+---
+
+## Documentation Maintenance
+
+### Keeping Docs Updated
+
+1. Review JSDoc when changing function signature
+2. Update @throws when adding error conditions
+3. Update @returns when changing return value
+4. Consider removing docs that become misleading
+
+### Automated Checks
+
+- Use `eslint-plugin-jsdoc` for validation
+- Run doc coverage in CI
+- Generate API docs from JSDoc (TypeDoc)
+
+### When to Skip Documentation
+
+- Internal helper functions with obvious purpose
+- Test files
+- Type-only files (interfaces self-document)
+- Generated code

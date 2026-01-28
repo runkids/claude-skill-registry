@@ -1,7 +1,7 @@
 {
   "name": "docs-updater",
-  "repo": "Spectaculous-Code/raamattu-nyt",
-  "path": "Docs/claude-reports/docs-updater/SKILL.md",
-  "source": "github.com/Spectaculous-Code/raamattu-nyt",
-  "downloaded_at": "2026-01-27T01:48:38.697094Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave/skills/docs-updater/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:10.012576Z"
 }

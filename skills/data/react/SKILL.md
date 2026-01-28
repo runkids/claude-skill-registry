@@ -1,173 +1,128 @@
 ---
 name: react
-description: React 19 development with async components, Server Components, and modern patterns. Use when building React components, using hooks (useState, useEffect, use, useOptimistic, useActionState, useTransition), implementing async data fetching, Server/Client Component architecture, form handling with Actions, performance optimization with React Compiler, memoization, code splitting, error boundaries, portals, or working with Next.js App Router integration.
+description: |
+  Manages React hooks, components, state management, and interactive features.
+  Use when: Building client components, handling forms, managing UI state, creating interactive elements
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 
-# React 19
+# React Skill
 
-## Async Components (Server Components)
+This codebase uses React 19 with Next.js 15 App Router. All interactive pages use the `'use client'` directive. State is managed locally with `useState` - no global state library. Forms submit to API routes via fetch.
 
-Server Components are async by default - use `async/await` directly:
+## Quick Start
 
-```jsx
-// Server Component (default - no directive needed)
-async function UserProfile({ id }) {
-  const user = await db.users.get(id);
-  return <div>{user.name}</div>;
-}
-```
+### Client Component Pattern
 
-## Client Components
+```tsx
+'use client'
 
-Add `'use client'` for interactivity (hooks, event handlers, browser APIs):
+import { useState, useEffect } from 'react'
+import Navigation from '@/app/components/Navigation'
+import Footer from '@/app/components/Footer'
 
-```jsx
-'use client';
-import { useState } from 'react';
+export default function PageName() {
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
-function Counter() {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
-}
-```
-
-## Server → Client Data Flow
-
-```jsx
-// Server Component
-async function Page() {
-  const dataPromise = fetchData(); // Start fetch, don't await
-  return (
-    <Suspense fallback={<Loading />}>
-      <ClientComponent dataPromise={dataPromise} />
-    </Suspense>
-  );
-}
-
-// Client Component
-'use client';
-import { use } from 'react';
-
-function ClientComponent({ dataPromise }) {
-  const data = use(dataPromise); // Resolves the promise
-  return <div>{data.title}</div>;
-}
-```
-
-## use() Hook
-
-Read promises or context conditionally (unlike other hooks):
-
-```jsx
-'use client';
-import { use } from 'react';
-
-function Message({ messagePromise }) {
-  const message = use(messagePromise);
-  return <p>{message}</p>;
-}
-
-// Context in conditionals
-function Button({ showTheme }) {
-  if (showTheme) {
-    const theme = use(ThemeContext); // Works in conditionals!
-    return <button className={theme}>Click</button>;
-  }
-  return <button>Click</button>;
-}
-```
-
-## Form Actions
-
-```jsx
-'use client';
-import { useActionState } from 'react';
-
-async function submitForm(prevState, formData) {
-  const result = await saveToServer(formData);
-  return { success: true, message: result };
-}
-
-function Form() {
-  const [state, formAction, isPending] = useActionState(submitForm, null);
-  return (
-    <form action={formAction}>
-      <input name="email" />
-      <button disabled={isPending}>{isPending ? 'Saving...' : 'Submit'}</button>
-      {state?.message && <p>{state.message}</p>}
-    </form>
-  );
-}
-```
-
-## Optimistic Updates
-
-```jsx
-'use client';
-import { useOptimistic } from 'react';
-
-function TodoList({ todos, addTodo }) {
-  const [optimisticTodos, addOptimisticTodo] = useOptimistic(
-    todos,
-    (state, newTodo) => [...state, { ...newTodo, pending: true }]
-  );
-
-  async function action(formData) {
-    const todo = { text: formData.get('text') };
-    addOptimisticTodo(todo);
-    await addTodo(todo);
-  }
+  if (!mounted) return null
 
   return (
-    <form action={action}>
-      <input name="text" />
-      <button>Add</button>
-      {optimisticTodos.map(t => (
-        <li style={{ opacity: t.pending ? 0.5 : 1 }}>{t.text}</li>
-      ))}
-    </form>
-  );
-}
-```
-
-## Non-Blocking Updates
-
-```jsx
-'use client';
-import { useTransition } from 'react';
-
-function TabContainer() {
-  const [isPending, startTransition] = useTransition();
-  const [tab, setTab] = useState('home');
-
-  function selectTab(nextTab) {
-    startTransition(() => setTab(nextTab));
-  }
-
-  return (
-    <div style={{ opacity: isPending ? 0.7 : 1 }}>
-      <TabButton onClick={() => selectTab('home')}>Home</TabButton>
-      <TabContent tab={tab} />
+    <div className="min-h-screen bg-black text-white">
+      <Navigation />
+      {/* Page content */}
+      <Footer />
     </div>
-  );
+  )
 }
 ```
 
-## Quick Decision Guide
+### Form State Pattern
 
-| Need | Use |
-|------|-----|
-| Async data fetching | Server Component with `async/await` |
-| Interactivity/state | Client Component with `'use client'` |
-| Resolve promise in client | `use(promise)` with Suspense |
-| Form submission | `useActionState` |
-| Optimistic UI | `useOptimistic` |
-| Non-blocking updates | `useTransition` |
-| Expensive computation | `useMemo` (or React Compiler) |
+```tsx
+const [formData, setFormData] = useState({
+  firstName: '',
+  lastName: '',
+  email: ''
+})
 
-## References
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setFormData(prev => ({
+    ...prev,
+    [e.target.name]: e.target.value
+  }))
+}
+```
 
-- `references/async-patterns.md` - Server Components, use(), Suspense, Actions, streaming
-- `references/hooks.md` - All React 19 hooks with examples
-- `references/performance.md` - React Compiler, memoization, code splitting
-- `references/component-patterns.md` - Composition, error boundaries, portals
+## Key Concepts
+
+| Concept | Usage | Example |
+|---------|-------|---------|
+| Client directive | All interactive pages | `'use client'` at top |
+| Mounted check | Prevent hydration errors | `if (!mounted) return null` |
+| Object state | Group related form fields | `useState({ field1: '', field2: '' })` |
+| Functional updates | Immutable state changes | `setState(prev => ({ ...prev, key: val }))` |
+| Array toggle | Multi-select accordion | `prev.includes(i) ? prev.filter(...) : [...prev, i]` |
+
+## Common Patterns
+
+### Accordion Toggle
+
+```tsx
+const [expandedItems, setExpandedItems] = useState<number[]>([])
+
+const toggleItem = (index: number) => {
+  setExpandedItems(prev => 
+    prev.includes(index) 
+      ? prev.filter(i => i !== index)
+      : [...prev, index]
+  )
+}
+```
+
+### Tab Selection
+
+```tsx
+const [activeTab, setActiveTab] = useState('overview')
+
+<button onClick={() => setActiveTab('overview')} 
+  className={activeTab === 'overview' ? 'bg-purple-600' : 'bg-gray-800'}>
+  Overview
+</button>
+
+{activeTab === 'overview' && <OverviewContent />}
+```
+
+## See Also
+
+- [hooks](references/hooks.md)
+- [components](references/components.md)
+- [data-fetching](references/data-fetching.md)
+- [state](references/state.md)
+- [forms](references/forms.md)
+- [performance](references/performance.md)
+
+## Related Skills
+
+- See the **nextjs** skill for App Router patterns and API routes
+- See the **typescript** skill for type annotations and interfaces
+- See the **tailwind** skill for styling conventions
+
+## Documentation Resources
+
+> Fetch latest React documentation with Context7.
+
+**How to use Context7:**
+1. Use `mcp__context7__resolve-library-id` to search for "react"
+2. Prefer website documentation (IDs starting with `/websites/`) over source code
+3. Query with `mcp__context7__query-docs` using the resolved library ID
+
+**Library ID:** `/websites/react_dev` (High reputation, 2238 snippets, score 89.9)
+
+**Recommended Queries:**
+- "React hooks useState useEffect useCallback useMemo"
+- "React event handling onChange onSubmit"
+- "React conditional rendering patterns"

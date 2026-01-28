@@ -1,661 +1,621 @@
 ---
 name: reportlab
-description: Python library for programmatic PDF generation and creation. Use when user wants to generate PDFs from scratch, create invoices, reports, certificates, labels, or custom documents with precise control over layout, fonts, graphics, tables, and charts. Supports both low-level drawing (Canvas) and high-level documents (Platypus).
+description: "PDF generation toolkit. Create invoices, reports, certificates, forms, charts, tables, barcodes, QR codes, Canvas/Platypus APIs, for professional document automation."
 ---
 
-# ReportLab
+# ReportLab PDF Generation
 
 ## Overview
 
-ReportLab is a powerful open-source Python library for creating PDF documents programmatically. Generate professional PDFs with precise control over layout, typography, graphics, tables, and charts. Perfect for automated report generation, invoices, certificates, and custom documents.
+ReportLab is a powerful Python library for programmatic PDF generation. Create anything from simple documents to complex reports with tables, charts, images, and interactive forms.
 
-## When to Use This Skill
+**Two main approaches:**
+- **Canvas API** (low-level): Direct drawing with coordinate-based positioning - use for precise layouts
+- **Platypus** (high-level): Flowing document layout with automatic page breaks - use for multi-page documents
 
-Activate when the user:
-- Wants to generate PDF documents programmatically
-- Needs to create invoices, reports, or receipts
-- Asks to create certificates, labels, or forms
-- Mentions ReportLab explicitly
-- Wants custom PDF layouts with tables, charts, or graphics
-- Needs to automate document generation
-- Wants precise control over PDF layout and styling
+**Core capabilities:**
+- Text with rich formatting and custom fonts
+- Tables with complex styling and cell spanning
+- Charts (bar, line, pie, area, scatter)
+- Barcodes and QR codes (Code128, EAN, QR, etc.)
+- Images with transparency
+- PDF features (links, bookmarks, forms, encryption)
 
-## Installation
+## Choosing the Right Approach
 
-Check if ReportLab is installed:
+### Use Canvas API when:
+- Creating labels, business cards, certificates
+- Precise positioning is critical (x, y coordinates)
+- Single-page documents or simple layouts
+- Drawing graphics, shapes, and custom designs
+- Adding barcodes or QR codes at specific locations
 
-```bash
-python3 -c "import reportlab; print(reportlab.Version)"
-```
+### Use Platypus when:
+- Creating multi-page documents (reports, articles, books)
+- Content should flow automatically across pages
+- Need headers/footers that repeat on each page
+- Working with paragraphs that can split across pages
+- Building complex documents with table of contents
 
-If not installed:
+### Use Both when:
+- Complex reports need both flowing content AND precise positioning
+- Adding headers/footers to Platypus documents (use `onPage` callback with Canvas)
+- Embedding custom graphics (Canvas) within flowing documents (Platypus)
 
-```bash
-pip3 install reportlab
-```
+## Quick Start Examples
 
-For additional fonts and features:
-
-```bash
-pip3 install reportlab[renderPM,rlPyCairo]
-```
-
-## Two Approaches: Canvas vs Platypus
-
-ReportLab provides two APIs:
-
-**Canvas API (Low-Level)**
-- Direct drawing on PDF pages
-- Precise positioning with x, y coordinates
-- Like painting on a canvas
-- Best for: Simple documents, custom layouts, graphics-heavy PDFs
-
-**Platypus API (High-Level)**
-- Flowable document elements
-- Automatic layout and pagination
-- Easier for complex multi-page documents
-- Best for: Reports, articles, documents with lots of text
-
-## Canvas API (Low-Level Drawing)
-
-### Basic Canvas Usage
+### Simple Canvas Document
 
 ```python
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 
-# Create PDF
 c = canvas.Canvas("output.pdf", pagesize=letter)
 width, height = letter
 
 # Draw text
-c.drawString(100, height - 100, "Hello, World!")
-
-# Set font
 c.setFont("Helvetica-Bold", 24)
-c.drawString(100, height - 150, "Large Bold Text")
+c.drawString(inch, height - inch, "Hello ReportLab!")
 
-# Save PDF
+# Draw a rectangle
+c.setFillColorRGB(0.2, 0.4, 0.8)
+c.rect(inch, 5*inch, 4*inch, 2*inch, fill=1)
+
+# Save
+c.showPage()
 c.save()
 ```
 
-### Drawing Shapes and Lines
+### Simple Platypus Document
 
 ```python
-from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-from reportlab.lib import colors
-
-c = canvas.Canvas("shapes.pdf", pagesize=letter)
-width, height = letter
-
-# Line
-c.line(50, height - 50, width - 50, height - 50)
-
-# Rectangle
-c.rect(50, height - 200, 200, 100, stroke=1, fill=0)
-
-# Filled rectangle with color
-c.setFillColor(colors.lightblue)
-c.setStrokeColor(colors.blue)
-c.rect(300, height - 200, 200, 100, stroke=1, fill=1)
-
-# Circle
-c.circle(150, height - 350, 50, stroke=1, fill=0)
-
-# Rounded rectangle
-c.roundRect(300, height - 400, 200, 100, 10, stroke=1, fill=0)
-
-c.save()
-```
-
-### Working with Text
-
-```python
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from reportlab.lib import colors
-
-c = canvas.Canvas("text.pdf", pagesize=letter)
-width, height = letter
-
-# Different fonts and sizes
-c.setFont("Helvetica", 12)
-c.drawString(50, height - 50, "Helvetica 12pt")
-
-c.setFont("Helvetica-Bold", 16)
-c.drawString(50, height - 80, "Helvetica Bold 16pt")
-
-c.setFont("Times-Roman", 14)
-c.drawString(50, height - 110, "Times Roman 14pt")
-
-# Colored text
-c.setFillColor(colors.red)
-c.drawString(50, height - 140, "Red text")
-
-c.setFillColor(colors.blue)
-c.drawString(50, height - 170, "Blue text")
-
-# Text alignment
-text = "Right-aligned text"
-text_width = c.stringWidth(text, "Helvetica", 12)
-c.setFont("Helvetica", 12)
-c.setFillColor(colors.black)
-c.drawString(width - text_width - 50, height - 200, text)
-
-# Multi-line text with textobject
-textobject = c.beginText(50, height - 250)
-textobject.setFont("Helvetica", 12)
-textobject.textLines("""This is multi-line text.
-Each line will be rendered separately.
-Great for paragraphs!""")
-c.drawText(textobject)
-
-c.save()
-```
-
-### Adding Images
-
-```python
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
-
-c = canvas.Canvas("images.pdf", pagesize=letter)
-width, height = letter
-
-# Draw image
-c.drawImage("logo.png", 50, height - 200, width=2*inch, height=1*inch)
-
-# Image with preserved aspect ratio
-c.drawImage("photo.jpg", 50, height - 400, width=3*inch, preserveAspectRatio=True)
-
-c.save()
-```
-
-## Platypus API (High-Level Documents)
-
-### Basic Document Structure
-
-```python
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 
-# Create document
-doc = SimpleDocTemplate("document.pdf", pagesize=letter)
-story = []  # Container for flowable elements
-
-# Get styles
+doc = SimpleDocTemplate("output.pdf", pagesize=letter)
+story = []
 styles = getSampleStyleSheet()
 
 # Add content
 story.append(Paragraph("Document Title", styles['Title']))
 story.append(Spacer(1, 0.2*inch))
-story.append(Paragraph("This is a paragraph of text.", styles['Normal']))
-story.append(Paragraph("This is another paragraph.", styles['Normal']))
+story.append(Paragraph("This is body text with <b>bold</b> and <i>italic</i>.", styles['BodyText']))
 
 # Build PDF
 doc.build(story)
 ```
 
-### Working with Paragraphs and Styles
-
-```python
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
-from reportlab.lib.units import inch
-from reportlab.lib import colors
-
-doc = SimpleDocTemplate("styled_doc.pdf", pagesize=letter)
-story = []
-styles = getSampleStyleSheet()
-
-# Built-in styles
-story.append(Paragraph("Title Style", styles['Title']))
-story.append(Paragraph("Heading 1", styles['Heading1']))
-story.append(Paragraph("Heading 2", styles['Heading2']))
-story.append(Paragraph("Normal paragraph text.", styles['Normal']))
-story.append(Spacer(1, 0.2*inch))
-
-# Custom style
-custom_style = ParagraphStyle(
-    'CustomStyle',
-    parent=styles['Normal'],
-    fontSize=14,
-    textColor=colors.blue,
-    alignment=TA_CENTER,
-    spaceAfter=10,
-)
-story.append(Paragraph("Centered blue text", custom_style))
-
-# Justified paragraph
-justified_style = ParagraphStyle(
-    'Justified',
-    parent=styles['Normal'],
-    alignment=TA_JUSTIFY,
-)
-long_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 10
-story.append(Paragraph(long_text, justified_style))
-
-doc.build(story)
-```
+## Common Tasks
 
 ### Creating Tables
 
+Tables work with both Canvas (via Drawing) and Platypus (as Flowables):
+
 ```python
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
-from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Table, TableStyle
 from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
 
-doc = SimpleDocTemplate("table.pdf", pagesize=letter)
-story = []
-styles = getSampleStyleSheet()
-
-story.append(Paragraph("Sales Report", styles['Title']))
-
-# Table data
+# Define data
 data = [
     ['Product', 'Q1', 'Q2', 'Q3', 'Q4'],
-    ['Widget A', '$1,000', '$1,200', '$1,100', '$1,300'],
-    ['Widget B', '$800', '$900', '$950', '$1,000'],
-    ['Widget C', '$1,500', '$1,600', '$1,700', '$1,800'],
-    ['Total', '$3,300', '$3,700', '$3,750', '$4,100'],
+    ['Widget A', '100', '150', '130', '180'],
+    ['Widget B', '80', '120', '110', '160'],
 ]
 
 # Create table
-table = Table(data)
+table = Table(data, colWidths=[2*inch, 1*inch, 1*inch, 1*inch, 1*inch])
 
-# Style table
-table.setStyle(TableStyle([
+# Apply styling
+style = TableStyle([
     # Header row
-    ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+    ('BACKGROUND', (0, 0), (-1, 0), colors.darkblue),
     ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-    ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
     ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-    ('FONTSIZE', (0, 0), (-1, 0), 12),
-    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
 
     # Data rows
-    ('BACKGROUND', (0, 1), (-1, -2), colors.beige),
-    ('ALIGN', (1, 1), (-1, -1), 'RIGHT'),
-    ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-    ('FONTSIZE', (0, 1), (-1, -1), 10),
+    ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightgrey]),
     ('GRID', (0, 0), (-1, -1), 1, colors.black),
+])
 
-    # Total row
-    ('BACKGROUND', (0, -1), (-1, -1), colors.lightgrey),
-    ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),
-]))
+table.setStyle(style)
 
+# Add to Platypus story
 story.append(table)
-doc.build(story)
+
+# Or draw on Canvas
+table.wrapOn(c, width, height)
+table.drawOn(c, x, y)
 ```
 
-### Adding Charts
+**Detailed table reference:** See `references/tables_reference.md` for cell spanning, borders, alignment, and advanced styling.
+
+### Creating Charts
+
+Charts use the graphics framework and can be added to both Canvas and Platypus:
 
 ```python
-from reportlab.platypus import SimpleDocTemplate, Paragraph
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.graphics.shapes import Drawing
 from reportlab.graphics.charts.barcharts import VerticalBarChart
-from reportlab.graphics.charts.piecharts import Pie
 from reportlab.lib import colors
 
-doc = SimpleDocTemplate("charts.pdf", pagesize=letter)
-story = []
-styles = getSampleStyleSheet()
-
-story.append(Paragraph("Sales Charts", styles['Title']))
-
-# Bar chart
+# Create drawing
 drawing = Drawing(400, 200)
-bar_chart = VerticalBarChart()
-bar_chart.x = 50
-bar_chart.y = 50
-bar_chart.height = 125
-bar_chart.width = 300
-bar_chart.data = [[100, 150, 200, 175, 225]]
-bar_chart.categoryAxis.categoryNames = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
-bar_chart.bars[0].fillColor = colors.blue
-drawing.add(bar_chart)
+
+# Create chart
+chart = VerticalBarChart()
+chart.x = 50
+chart.y = 50
+chart.width = 300
+chart.height = 125
+
+# Set data
+chart.data = [[100, 150, 130, 180, 140]]
+chart.categoryAxis.categoryNames = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
+
+# Style
+chart.bars[0].fillColor = colors.blue
+chart.valueAxis.valueMin = 0
+chart.valueAxis.valueMax = 200
+
+# Add to drawing
+drawing.add(chart)
+
+# Use in Platypus
 story.append(drawing)
 
-# Pie chart
-drawing2 = Drawing(400, 200)
-pie = Pie()
-pie.x = 150
-pie.y = 50
-pie.width = 100
-pie.height = 100
-pie.data = [30, 25, 20, 15, 10]
-pie.labels = ['Product A', 'Product B', 'Product C', 'Product D', 'Other']
-pie.slices.strokeWidth = 0.5
-drawing2.add(pie)
-story.append(drawing2)
-
-doc.build(story)
+# Or render directly to PDF
+from reportlab.graphics import renderPDF
+renderPDF.drawToFile(drawing, 'chart.pdf', 'Chart Title')
 ```
 
-## Common Patterns
+**Available chart types:** Bar (vertical/horizontal), Line, Pie, Area, Scatter
+**Detailed charts reference:** See `references/charts_reference.md` for all chart types, styling, legends, and customization.
 
-### Pattern 1: Invoice Generator
+### Adding Barcodes and QR Codes
 
 ```python
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_RIGHT
-from datetime import datetime
+from reportlab.graphics.barcode import code128
+from reportlab.graphics.barcode.qr import QrCodeWidget
+from reportlab.graphics.shapes import Drawing
+from reportlab.graphics import renderPDF
 
-def create_invoice(invoice_number, customer_name, items, output_file="invoice.pdf"):
-    doc = SimpleDocTemplate(output_file, pagesize=letter)
-    story = []
-    styles = getSampleStyleSheet()
+# Code128 barcode (general purpose)
+barcode = code128.Code128("ABC123456789", barHeight=0.5*inch)
 
-    # Header
-    story.append(Paragraph("INVOICE", styles['Title']))
-    story.append(Spacer(1, 0.2*inch))
+# On Canvas
+barcode.drawOn(c, x, y)
 
-    # Invoice details
-    invoice_info = [
-        ['Invoice Number:', invoice_number],
-        ['Date:', datetime.now().strftime('%Y-%m-%d')],
-        ['Customer:', customer_name],
-    ]
-    info_table = Table(invoice_info, colWidths=[2*inch, 3*inch])
-    info_table.setStyle(TableStyle([
-        ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-    ]))
-    story.append(info_table)
-    story.append(Spacer(1, 0.3*inch))
+# QR Code
+qr = QrCodeWidget("https://example.com")
+qr.barWidth = 2*inch
+qr.barHeight = 2*inch
 
-    # Items table
-    table_data = [['Description', 'Quantity', 'Unit Price', 'Total']]
-    subtotal = 0
-
-    for item in items:
-        total = item['quantity'] * item['price']
-        subtotal += total
-        table_data.append([
-            item['description'],
-            str(item['quantity']),
-            f"${item['price']:.2f}",
-            f"${total:.2f}"
-        ])
-
-    # Add totals
-    tax = subtotal * 0.1  # 10% tax
-    total = subtotal + tax
-
-    table_data.append(['', '', 'Subtotal:', f"${subtotal:.2f}"])
-    table_data.append(['', '', 'Tax (10%):', f"${tax:.2f}"])
-    table_data.append(['', '', 'Total:', f"${total:.2f}"])
-
-    items_table = Table(table_data, colWidths=[3*inch, 1*inch, 1.5*inch, 1.5*inch])
-    items_table.setStyle(TableStyle([
-        # Header
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-
-        # Data
-        ('ALIGN', (1, 1), (-1, -1), 'RIGHT'),
-        ('GRID', (0, 0), (-1, -4), 1, colors.black),
-
-        # Totals
-        ('FONTNAME', (2, -3), (-1, -1), 'Helvetica-Bold'),
-        ('LINEABOVE', (2, -3), (-1, -3), 1, colors.black),
-        ('LINEABOVE', (2, -1), (-1, -1), 2, colors.black),
-    ]))
-
-    story.append(items_table)
-    doc.build(story)
-
-# Usage
-items = [
-    {'description': 'Widget A', 'quantity': 5, 'price': 29.99},
-    {'description': 'Widget B', 'quantity': 2, 'price': 49.99},
-    {'description': 'Service Fee', 'quantity': 1, 'price': 100.00},
-]
-create_invoice("INV-2025-001", "Acme Corporation", items)
+# Wrap in Drawing for Platypus
+d = Drawing()
+d.add(qr)
+story.append(d)
 ```
 
-### Pattern 2: Certificate Generator
+**Supported formats:** Code128, Code39, EAN-13, EAN-8, UPC-A, ISBN, QR, Data Matrix, and 20+ more
+**Detailed barcode reference:** See `references/barcodes_reference.md` for all formats and usage examples.
+
+### Working with Text and Fonts
+
+```python
+from reportlab.platypus import Paragraph
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.enums import TA_JUSTIFY
+
+# Create custom style
+custom_style = ParagraphStyle(
+    'CustomStyle',
+    fontSize=12,
+    leading=14,           # Line spacing
+    alignment=TA_JUSTIFY,
+    spaceAfter=10,
+    textColor=colors.black,
+)
+
+# Paragraph with inline formatting
+text = """
+This paragraph has <b>bold</b>, <i>italic</i>, and <u>underlined</u> text.
+You can also use <font color="blue">colors</font> and <font size="14">different sizes</font>.
+Chemical formula: H<sub>2</sub>O, Einstein: E=mc<sup>2</sup>
+"""
+
+para = Paragraph(text, custom_style)
+story.append(para)
+```
+
+**Using custom fonts:**
+
+```python
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
+# Register TrueType font
+pdfmetrics.registerFont(TTFont('CustomFont', 'CustomFont.ttf'))
+
+# Use in Canvas
+c.setFont('CustomFont', 12)
+
+# Use in Paragraph style
+style = ParagraphStyle('Custom', fontName='CustomFont', fontSize=12)
+```
+
+**Detailed text reference:** See `references/text_and_fonts.md` for paragraph styles, font families, Asian languages, Greek letters, and formatting.
+
+### Adding Images
+
+```python
+from reportlab.platypus import Image
+from reportlab.lib.units import inch
+
+# In Platypus
+img = Image('photo.jpg', width=4*inch, height=3*inch)
+story.append(img)
+
+# Maintain aspect ratio
+img = Image('photo.jpg', width=4*inch, height=3*inch, kind='proportional')
+
+# In Canvas
+c.drawImage('photo.jpg', x, y, width=4*inch, height=3*inch)
+
+# With transparency (mask white background)
+c.drawImage('logo.png', x, y, mask=[255,255,255,255,255,255])
+```
+
+### Creating Forms
 
 ```python
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import landscape, A4
-from reportlab.lib.units import inch
-from reportlab.lib import colors
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.colors import black, white, lightgrey
 
-def create_certificate(name, course, date, output_file="certificate.pdf"):
-    c = canvas.Canvas(output_file, pagesize=landscape(A4))
-    width, height = landscape(A4)
+c = canvas.Canvas("form.pdf")
 
-    # Border
-    c.setStrokeColor(colors.gold)
-    c.setLineWidth(5)
-    c.rect(0.5*inch, 0.5*inch, width - inch, height - inch)
+# Text field
+c.acroForm.textfield(
+    name="name",
+    tooltip="Enter your name",
+    x=100, y=700,
+    width=200, height=20,
+    borderColor=black,
+    fillColor=lightgrey,
+    forceBorder=True
+)
 
-    # Decorative inner border
-    c.setStrokeColor(colors.darkgoldenrod)
-    c.setLineWidth(2)
-    c.rect(0.75*inch, 0.75*inch, width - 1.5*inch, height - 1.5*inch)
+# Checkbox
+c.acroForm.checkbox(
+    name="agree",
+    x=100, y=650,
+    size=20,
+    buttonStyle='check',
+    checked=False
+)
 
-    # Title
-    c.setFont("Helvetica-Bold", 48)
-    c.setFillColor(colors.darkblue)
-    c.drawCentredString(width/2, height - 2*inch, "Certificate of Completion")
+# Dropdown
+c.acroForm.choice(
+    name="country",
+    x=100, y=600,
+    width=150, height=20,
+    options=[("United States", "US"), ("Canada", "CA")],
+    forceBorder=True
+)
 
-    # Body text
-    c.setFont("Helvetica", 20)
-    c.setFillColor(colors.black)
-    c.drawCentredString(width/2, height - 3*inch, "This is to certify that")
-
-    # Name (large and prominent)
-    c.setFont("Helvetica-Bold", 36)
-    c.setFillColor(colors.darkblue)
-    c.drawCentredString(width/2, height - 4*inch, name)
-
-    # Course info
-    c.setFont("Helvetica", 18)
-    c.setFillColor(colors.black)
-    c.drawCentredString(width/2, height - 5*inch, "has successfully completed the course")
-
-    c.setFont("Helvetica-Bold", 24)
-    c.drawCentredString(width/2, height - 5.75*inch, course)
-
-    # Date
-    c.setFont("Helvetica", 14)
-    c.drawCentredString(width/2, height - 6.5*inch, f"Date: {date}")
-
-    c.save()
-
-# Usage
-create_certificate("John Doe", "Advanced Python Programming", "2025-10-27")
+c.save()
 ```
 
-### Pattern 3: Multi-Page Report
+**Detailed PDF features reference:** See `references/pdf_features.md` for forms, links, bookmarks, encryption, and metadata.
+
+### Headers and Footers
+
+For Platypus documents, use page callbacks:
 
 ```python
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-from reportlab.lib import colors
+from reportlab.platypus import BaseDocTemplate, PageTemplate, Frame
 
-def header_footer(canvas, doc):
-    """Add header and footer to each page"""
+def add_header_footer(canvas, doc):
+    """Called on each page"""
     canvas.saveState()
 
     # Header
-    canvas.setFont('Helvetica-Bold', 10)
-    canvas.drawString(inch, letter[1] - 0.5*inch, "Company Report - Confidential")
+    canvas.setFont('Helvetica', 9)
+    canvas.drawString(inch, height - 0.5*inch, "Document Title")
 
     # Footer
-    canvas.setFont('Helvetica', 9)
-    canvas.drawString(inch, 0.5*inch, f"Page {doc.page}")
-    canvas.drawRightString(letter[0] - inch, 0.5*inch, "© 2025 Company Name")
+    canvas.drawRightString(width - inch, 0.5*inch, f"Page {doc.page}")
 
     canvas.restoreState()
 
-def create_report(output_file="report.pdf"):
-    doc = SimpleDocTemplate(output_file, pagesize=letter)
-    story = []
-    styles = getSampleStyleSheet()
+# Set up document
+doc = BaseDocTemplate("output.pdf")
+frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+template = PageTemplate(id='normal', frames=[frame], onPage=add_header_footer)
+doc.addPageTemplates([template])
 
-    # Cover page
-    story.append(Spacer(1, 2*inch))
-    story.append(Paragraph("Annual Report 2025", styles['Title']))
-    story.append(Spacer(1, 0.5*inch))
-    story.append(Paragraph("Company Performance Analysis", styles['Heading1']))
-    story.append(PageBreak())
-
-    # Executive Summary
-    story.append(Paragraph("Executive Summary", styles['Heading1']))
-    story.append(Spacer(1, 0.2*inch))
-    summary_text = "This report provides a comprehensive analysis of company performance..." * 5
-    story.append(Paragraph(summary_text, styles['Normal']))
-    story.append(Spacer(1, 0.3*inch))
-
-    # Financial Data
-    story.append(Paragraph("Financial Performance", styles['Heading1']))
-    story.append(Spacer(1, 0.2*inch))
-
-    financial_data = [
-        ['Metric', 'Q1', 'Q2', 'Q3', 'Q4'],
-        ['Revenue', '$2.5M', '$2.8M', '$3.1M', '$3.5M'],
-        ['Expenses', '$1.8M', '$1.9M', '$2.0M', '$2.1M'],
-        ['Profit', '$0.7M', '$0.9M', '$1.1M', '$1.4M'],
-    ]
-
-    table = Table(financial_data)
-    table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-    ]))
-    story.append(table)
-
-    # Build with header/footer
-    doc.build(story, onFirstPage=header_footer, onLaterPages=header_footer)
-
-create_report()
+# Build with story
+doc.build(story)
 ```
 
-### Pattern 4: Data-Driven PDF from DataFrame
+## Helper Scripts
+
+This skill includes helper scripts for common tasks:
+
+### Quick Document Generator
+
+Use `scripts/quick_document.py` for rapid document creation:
 
 ```python
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
-from reportlab.lib.pagesizes import letter
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet
-import pandas as pd
+from scripts.quick_document import create_simple_document, create_styled_table
 
-def dataframe_to_pdf(df, title, output_file="data_report.pdf"):
-    doc = SimpleDocTemplate(output_file, pagesize=letter)
-    story = []
-    styles = getSampleStyleSheet()
+# Simple document from content blocks
+content = [
+    {'type': 'heading', 'content': 'Introduction'},
+    {'type': 'paragraph', 'content': 'Your text here...'},
+    {'type': 'bullet', 'content': 'Bullet point'},
+]
 
-    # Title
-    story.append(Paragraph(title, styles['Title']))
+create_simple_document("output.pdf", "My Document", content_blocks=content)
 
-    # Convert DataFrame to list
-    data = [df.columns.tolist()] + df.values.tolist()
-
-    # Create table
-    table = Table(data)
-    table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-    ]))
-
-    story.append(table)
-    doc.build(story)
-
-# Usage
-df = pd.DataFrame({
-    'Product': ['A', 'B', 'C'],
-    'Sales': [100, 150, 200],
-    'Revenue': [1000, 1500, 2000]
-})
-dataframe_to_pdf(df, "Sales Report", "sales_report.pdf")
+# Styled tables with presets
+data = [['Header1', 'Header2'], ['Data1', 'Data2']]
+table = create_styled_table(data, style_name='striped')  # 'default', 'striped', 'minimal', 'report'
 ```
+
+## Template Examples
+
+Complete working examples in `assets/`:
+
+### Invoice Template
+
+`assets/invoice_template.py` - Professional invoice with:
+- Company and client information
+- Itemized table with calculations
+- Tax and totals
+- Terms and notes
+- Logo placement
+
+```python
+from assets.invoice_template import create_invoice
+
+create_invoice(
+    filename="invoice.pdf",
+    invoice_number="INV-2024-001",
+    invoice_date="January 15, 2024",
+    due_date="February 15, 2024",
+    company_info={'name': 'Acme Corp', 'address': '...', 'phone': '...', 'email': '...'},
+    client_info={'name': 'Client Name', ...},
+    items=[
+        {'description': 'Service', 'quantity': 1, 'unit_price': 500.00},
+        ...
+    ],
+    tax_rate=0.08,
+    notes="Thank you for your business!",
+)
+```
+
+### Report Template
+
+`assets/report_template.py` - Multi-page business report with:
+- Cover page
+- Table of contents
+- Multiple sections with subsections
+- Charts and tables
+- Headers and footers
+
+```python
+from assets.report_template import create_report
+
+report_data = {
+    'title': 'Quarterly Report',
+    'subtitle': 'Q4 2023',
+    'author': 'Analytics Team',
+    'sections': [
+        {
+            'title': 'Executive Summary',
+            'content': 'Report content...',
+            'table_data': {...},
+            'chart_data': {...}
+        },
+        ...
+    ]
+}
+
+create_report("report.pdf", report_data)
+```
+
+## Reference Documentation
+
+Comprehensive API references organized by feature:
+
+- **`references/canvas_api.md`** - Low-level Canvas: drawing primitives, coordinates, transformations, state management, images, paths
+- **`references/platypus_guide.md`** - High-level Platypus: document templates, frames, flowables, page layouts, TOC
+- **`references/text_and_fonts.md`** - Text formatting: paragraph styles, inline markup, custom fonts, Asian languages, bullets, sequences
+- **`references/tables_reference.md`** - Tables: creation, styling, cell spanning, borders, alignment, colors, gradients
+- **`references/charts_reference.md`** - Charts: all chart types, data handling, axes, legends, colors, rendering
+- **`references/barcodes_reference.md`** - Barcodes: Code128, QR codes, EAN, UPC, postal codes, and 20+ formats
+- **`references/pdf_features.md`** - PDF features: links, bookmarks, forms, encryption, metadata, page transitions
 
 ## Best Practices
 
-1. **Choose the right API** - Use Canvas for simple layouts, Platypus for complex documents
-2. **Use constants for measurements** - Use `inch`, `cm` from `reportlab.lib.units`
-3. **Define styles once** - Create custom styles and reuse them
-4. **Test page sizes** - Verify output on different page sizes (letter, A4, etc.)
-5. **Handle images carefully** - Check image paths exist before adding to PDF
-6. **Use tables for layouts** - Tables are great for structured layouts
-7. **Cache fonts** - Register custom fonts once at module level
-
-## Common Issues
-
-### Issue: Text going off page
-
-Calculate available space before drawing:
+### Coordinate System (Canvas)
+- Origin (0, 0) is **lower-left corner** (not top-left)
+- Y-axis points **upward**
+- Units are in **points** (72 points = 1 inch)
+- Always specify page size explicitly
 
 ```python
 from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
 
 width, height = letter
-margin = 50  # pixels
-usable_width = width - 2 * margin
-usable_height = height - 2 * margin
+margin = inch
+
+# Top of page
+y_top = height - margin
+
+# Bottom of page
+y_bottom = margin
 ```
 
-### Issue: Images not found
-
-Use absolute paths or verify file existence:
+### Choosing Page Size
 
 ```python
-import os
+from reportlab.lib.pagesizes import letter, A4, landscape
 
-image_path = "logo.png"
-if os.path.exists(image_path):
-    c.drawImage(image_path, x, y, width=w, height=h)
+# US Letter (8.5" x 11")
+pagesize=letter
+
+# ISO A4 (210mm x 297mm)
+pagesize=A4
+
+# Landscape
+pagesize=landscape(letter)
+
+# Custom
+pagesize=(6*inch, 9*inch)
 ```
 
-### Issue: Unicode characters not displaying
+### Performance Tips
 
-Register and use TrueType fonts:
+1. **Use `drawImage()` over `drawInlineImage()`** - caches images for reuse
+2. **Enable compression for large files:** `canvas.Canvas("file.pdf", pageCompression=1)`
+3. **Reuse styles** - create once, use throughout document
+4. **Use Forms/XObjects** for repeated graphics
 
+### Common Patterns
+
+**Centering text on Canvas:**
 ```python
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+text = "Centered Text"
+text_width = c.stringWidth(text, "Helvetica", 12)
+x = (width - text_width) / 2
+c.drawString(x, y, text)
 
-pdfmetrics.registerFont(TTFont('Arial', 'Arial.ttf'))
-c.setFont('Arial', 12)
+# Or use built-in
+c.drawCentredString(width/2, y, text)
 ```
 
-## Resources
+**Page breaks in Platypus:**
+```python
+from reportlab.platypus import PageBreak
 
-- **references/api_reference.md**: Quick reference for common ReportLab operations
-- Official docs: https://docs.reportlab.com/
-- User guide (PDF): https://www.reportlab.com/docs/reportlab-userguide.pdf
-- PyPI: https://pypi.org/project/reportlab/
+story.append(PageBreak())
+```
+
+**Keep content together (no split):**
+```python
+from reportlab.platypus import KeepTogether
+
+story.append(KeepTogether([
+    heading,
+    paragraph1,
+    paragraph2,
+]))
+```
+
+**Alternate row colors:**
+```python
+style = TableStyle([
+    ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.lightgrey]),
+])
+```
+
+## Troubleshooting
+
+**Text overlaps or disappears:**
+- Check Y-coordinates - remember origin is bottom-left
+- Ensure text fits within page bounds
+- Verify `leading` (line spacing) is greater than `fontSize`
+
+**Table doesn't fit on page:**
+- Reduce column widths
+- Decrease font size
+- Use landscape orientation
+- Enable table splitting with `repeatRows`
+
+**Barcode not scanning:**
+- Increase `barHeight` (try 0.5 inch minimum)
+- Set `quiet=1` for quiet zones
+- Test print quality (300+ DPI recommended)
+- Validate data format for barcode type
+
+**Font not found:**
+- Register TrueType fonts with `pdfmetrics.registerFont()`
+- Use font family name exactly as registered
+- Check font file path is correct
+
+**Images have white background:**
+- Use `mask` parameter to make white transparent
+- Provide RGB range to mask: `mask=[255,255,255,255,255,255]`
+- Or use PNG with alpha channel
+
+## Example Workflows
+
+### Creating an Invoice
+
+1. Start with invoice template from `assets/invoice_template.py`
+2. Customize company info, logo path
+3. Add items with descriptions, quantities, prices
+4. Set tax rate if applicable
+5. Add notes and payment terms
+6. Generate PDF
+
+### Creating a Report
+
+1. Start with report template from `assets/report_template.py`
+2. Define sections with titles and content
+3. Add tables for data using `create_styled_table()`
+4. Add charts using graphics framework
+5. Build with `doc.multiBuild(story)` for TOC
+
+### Creating a Certificate
+
+1. Use Canvas API for precise positioning
+2. Load custom fonts for elegant typography
+3. Add border graphics or image background
+4. Position text elements (name, date, achievement)
+5. Optional: Add QR code for verification
+
+### Creating Labels with Barcodes
+
+1. Use Canvas with custom page size (label dimensions)
+2. Calculate grid positions for multiple labels per page
+3. Draw label content (text, images)
+4. Add barcode at specific position
+5. Use `showPage()` between labels or grids
+
+## Installation
+
+```bash
+pip install reportlab
+
+# For image support
+pip install pillow
+
+# For charts
+pip install reportlab[renderPM]
+
+# For barcode support (included in reportlab)
+# QR codes require: pip install qrcode
+```
+
+## When to Use This Skill
+
+This skill should be used when:
+- Generating PDF documents programmatically
+- Creating invoices, receipts, or billing documents
+- Building reports with tables and charts
+- Generating certificates, badges, or credentials
+- Creating shipping labels or product labels with barcodes
+- Designing forms or fillable PDFs
+- Producing multi-page documents with consistent formatting
+- Converting data to PDF format for archival or distribution
+- Creating custom layouts that require precise positioning
+
+This skill provides comprehensive guidance for all ReportLab capabilities, from simple documents to complex multi-page reports with charts, tables, and interactive elements.

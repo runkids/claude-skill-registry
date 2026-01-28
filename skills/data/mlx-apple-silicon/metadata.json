@@ -1,9 +1,7 @@
 {
   "name": "mlx-apple-silicon",
-  "description": "Run LLMs on Apple Silicon with MLX/mlx_lm - unified memory, 4-bit quantization, streaming generation, prompt caching. Optimal for M-series chips.",
   "repo": "plurigrid/asi",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/plurigrid/asi"
+  "path": "skills/mlx-apple-silicon/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-28T01:53:15.738363Z"
 }

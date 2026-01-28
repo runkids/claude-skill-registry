@@ -1,7 +1,7 @@
 {
   "name": "skill-writer",
-  "repo": "biobenkj/torch-semimarkov",
+  "repo": "pytorch/pytorch",
   "path": ".claude/skills/skill-writer/SKILL.md",
-  "source": "github.com/biobenkj/torch-semimarkov",
-  "downloaded_at": "2026-01-27T04:21:51.559243Z"
+  "source": "github.com/pytorch/pytorch",
+  "downloaded_at": "2026-01-28T03:40:36.484783Z"
 }

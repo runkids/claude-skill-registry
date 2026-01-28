@@ -1,153 +1,201 @@
 ---
 name: clean-code
-description: Comprehensive clean code workflow that analyzes codebase, recommends best practices, and applies clean code principles for React, Next.js, and modern tooling.
-argument-hint: "[-a] [-e] [-s] [-r <id>] <feature/file>"
+description: Pragmatic coding standards - concise, direct, no over-engineering, no unnecessary comments
+allowed-tools: Read, Write, Edit
+version: 2.0
+priority: CRITICAL
 ---
 
-<objective>
-Fast, systematic clean code improvements using parallel agents.
-</objective>
+# Clean Code - Pragmatic AI Coding Standards
 
-<quick_start>
-**Basic usage (analyze and apply clean code principles):**
+> **CRITICAL SKILL** - Be **concise, direct, and solution-focused**.
 
-```bash
-/clean-code auth feature
+---
+
+## Core Principles
+
+| Principle | Rule |
+|-----------|------|
+| **SRP** | Single Responsibility - each function/class does ONE thing |
+| **DRY** | Don't Repeat Yourself - extract duplicates, reuse |
+| **KISS** | Keep It Simple - simplest solution that works |
+| **YAGNI** | You Aren't Gonna Need It - don't build unused features |
+| **Boy Scout** | Leave code cleaner than you found it |
+
+---
+
+## Naming Rules
+
+| Element | Convention |
+|---------|------------|
+| **Variables** | Reveal intent: `userCount` not `n` |
+| **Functions** | Verb + noun: `getUserById()` not `user()` |
+| **Booleans** | Question form: `isActive`, `hasPermission`, `canEdit` |
+| **Constants** | SCREAMING_SNAKE: `MAX_RETRY_COUNT` |
+
+> **Rule:** If you need a comment to explain a name, rename it.
+
+---
+
+## Function Rules
+
+| Rule | Description |
+|------|-------------|
+| **Small** | Max 20 lines, ideally 5-10 |
+| **One Thing** | Does one thing, does it well |
+| **One Level** | One level of abstraction per function |
+| **Few Args** | Max 3 arguments, prefer 0-2 |
+| **No Side Effects** | Don't mutate inputs unexpectedly |
+
+---
+
+## Code Structure
+
+| Pattern | Apply |
+|---------|-------|
+| **Guard Clauses** | Early returns for edge cases |
+| **Flat > Nested** | Avoid deep nesting (max 2 levels) |
+| **Composition** | Small functions composed together |
+| **Colocation** | Keep related code close |
+
+---
+
+## AI Coding Style
+
+| Situation | Action |
+|-----------|--------|
+| User asks for feature | Write it directly |
+| User reports bug | Fix it, don't explain |
+| No clear requirement | Ask, don't assume |
+
+---
+
+## Anti-Patterns (DON'T)
+
+| ❌ Pattern | ✅ Fix |
+|-----------|-------|
+| Comment every line | Delete obvious comments |
+| Helper for one-liner | Inline the code |
+| Factory for 2 objects | Direct instantiation |
+| utils.ts with 1 function | Put code where used |
+| "First we import..." | Just write code |
+| Deep nesting | Guard clauses |
+| Magic numbers | Named constants |
+| God functions | Split by responsibility |
+
+---
+
+## 🔴 Before Editing ANY File (THINK FIRST!)
+
+**Before changing a file, ask yourself:**
+
+| Question | Why |
+|----------|-----|
+| **What imports this file?** | They might break |
+| **What does this file import?** | Interface changes |
+| **What tests cover this?** | Tests might fail |
+| **Is this a shared component?** | Multiple places affected |
+
+**Quick Check:**
+```
+File to edit: UserService.ts
+└── Who imports this? → UserController.ts, AuthController.ts
+└── Do they need changes too? → Check function signatures
 ```
 
-**Auto mode (skip confirmations):**
+> 🔴 **Rule:** Edit the file + all dependent files in the SAME task.
+> 🔴 **Never leave broken imports or missing updates.**
 
-```bash
-/clean-code -a dashboard
+---
+
+## Summary
+
+| Do | Don't |
+|----|-------|
+| Write code directly | Write tutorials |
+| Let code self-document | Add obvious comments |
+| Fix bugs immediately | Explain the fix first |
+| Inline small things | Create unnecessary files |
+| Name things clearly | Use abbreviations |
+| Keep functions small | Write 100+ line functions |
+
+> **Remember: The user wants working code, not a programming lesson.**
+
+---
+
+## 🔴 Self-Check Before Completing (MANDATORY)
+
+**Before saying "task complete", verify:**
+
+| Check | Question |
+|-------|----------|
+| ✅ **Goal met?** | Did I do exactly what user asked? |
+| ✅ **Files edited?** | Did I modify all necessary files? |
+| ✅ **Code works?** | Did I test/verify the change? |
+| ✅ **No errors?** | Lint and TypeScript pass? |
+| ✅ **Nothing forgotten?** | Any edge cases missed? |
+
+> 🔴 **Rule:** If ANY check fails, fix it before completing.
+
+---
+
+## Verification Scripts (MANDATORY)
+
+> 🔴 **CRITICAL:** Each agent runs ONLY their own skill's scripts after completing work.
+
+### Agent → Script Mapping
+
+| Agent | Script | Command |
+|-------|--------|---------|
+| **frontend-specialist** | UX Audit | `python ~/.claude/skills/frontend-design/scripts/ux_audit.py .` |
+| **frontend-specialist** | A11y Check | `python ~/.claude/skills/frontend-design/scripts/accessibility_checker.py .` |
+| **backend-specialist** | API Validator | `python ~/.claude/skills/api-patterns/scripts/api_validator.py .` |
+| **mobile-developer** | Mobile Audit | `python ~/.claude/skills/mobile-design/scripts/mobile_audit.py .` |
+| **database-architect** | Schema Validate | `python ~/.claude/skills/database-design/scripts/schema_validator.py .` |
+| **security-auditor** | Security Scan | `python ~/.claude/skills/vulnerability-scanner/scripts/security_scan.py .` |
+| **seo-specialist** | SEO Check | `python ~/.claude/skills/seo-fundamentals/scripts/seo_checker.py .` |
+| **seo-specialist** | GEO Check | `python ~/.claude/skills/geo-fundamentals/scripts/geo_checker.py .` |
+| **performance-optimizer** | Lighthouse | `python ~/.claude/skills/performance-profiling/scripts/lighthouse_audit.py <url>` |
+| **test-engineer** | Test Runner | `python ~/.claude/skills/testing-patterns/scripts/test_runner.py .` |
+| **test-engineer** | Playwright | `python ~/.claude/skills/webapp-testing/scripts/playwright_runner.py <url>` |
+| **Any agent** | Lint Check | `python ~/.claude/skills/lint-and-validate/scripts/lint_runner.py .` |
+| **Any agent** | Type Coverage | `python ~/.claude/skills/lint-and-validate/scripts/type_coverage.py .` |
+| **Any agent** | i18n Check | `python ~/.claude/skills/i18n-localization/scripts/i18n_checker.py .` |
+
+> ❌ **WRONG:** `test-engineer` running `ux_audit.py`
+> ✅ **CORRECT:** `frontend-specialist` running `ux_audit.py`
+
+---
+
+### 🔴 Script Output Handling (READ → SUMMARIZE → ASK)
+
+**When running a validation script, you MUST:**
+
+1. **Run the script** and capture ALL output
+2. **Parse the output** - identify errors, warnings, and passes
+3. **Summarize to user** in this format:
+
+```markdown
+## Script Results: [script_name.py]
+
+### ❌ Errors Found (X items)
+- [File:Line] Error description 1
+- [File:Line] Error description 2
+
+### ⚠️ Warnings (Y items)
+- [File:Line] Warning description
+
+### ✅ Passed (Z items)
+- Check 1 passed
+- Check 2 passed
+
+**Should I fix the X errors?**
 ```
 
-**With save (output to `.claude/output/clean-code/`):**
+4. **Wait for user confirmation** before fixing
+5. **After fixing** → Re-run script to confirm
 
-```bash
-/clean-code -s -a refactor api
-```
+> 🔴 **VIOLATION:** Running script and ignoring output = FAILED task.
+> 🔴 **VIOLATION:** Auto-fixing without asking = Not allowed.
+> 🔴 **Rule:** Always READ output → SUMMARIZE → ASK → then fix.
 
-**What it does:**
-
-1. Scans codebase for issues (React, Next.js, Zustand, TanStack Query)
-2. Loads relevant best practices docs
-3. Applies clean code improvements
-4. Verifies with build and tests
-5. Commits changes
-   </quick_start>
-
-<parameters>
-
-| Flag         | Description                                       |
-| ------------ | ------------------------------------------------- |
-| `-a`         | Auto mode: skip confirmations                     |
-| `-e`         | Economy mode: no subagents, direct tools only     |
-| `-s`         | Save mode: output to `.claude/output/clean-code/` |
-| `-r`         | Resume mode: continue from previous task          |
-| `--react`    | Force load React 19 patterns                      |
-| `--nextjs`   | Force load Next.js 15/16 patterns                 |
-| `--zustand`  | Force load Zustand v5 patterns                    |
-| `--query`    | Force load TanStack Query v5 patterns             |
-| `--backend`  | Force load Backend/Prisma patterns                |
-| `--test`     | Force load Testing patterns                       |
-| `--expo`     | Force load Expo/React Native patterns             |
-| `--forms`    | Force load Forms patterns                         |
-| `--css`      | Force load CSS/Tailwind patterns                  |
-| `--ux`       | Force load UX Design patterns                     |
-| `--security` | Force load Security patterns                      |
-| `--no-a11y`  | Skip accessibility checks                         |
-
-<examples>
-```bash
-/clean-code auth feature          # Basic
-/clean-code -a dashboard          # Auto mode
-/clean-code -e -a fix types       # Economy + auto
-/clean-code -s refactor api       # Save outputs
-/clean-code -r auth-feature       # Resume
-/clean-code --nextjs --query data # Force docs
-/clean-code --backend api routes  # Backend focus
-/clean-code --test --security auth # Testing + security
-```
-</examples>
-
-</parameters>
-
-<workflow>
-```
-SCAN → APPLY → VERIFY
-  │       │       │
-  │       │       └─ Build, test, commit
-  │       └─ Load docs, recommend, apply
-  └─ Parse flags, detect tech, find issues
-```
-</workflow>
-
-<state_variables>
-
-| Variable             | Type    | Description                       |
-| -------------------- | ------- | --------------------------------- |
-| `{task_description}` | string  | What to analyze                   |
-| `{task_id}`          | string  | Kebab-case identifier             |
-| `{auto_mode}`        | boolean | Skip confirmations                |
-| `{economy_mode}`     | boolean | No subagents                      |
-| `{save_mode}`        | boolean | Save outputs                      |
-| `{force_*}`          | boolean | Tech flags (CLI or auto-detected) |
-| `{issues}`           | array   | Issues found                      |
-
-</state_variables>
-
-<reference_files>
-
-| File                                          | When Loaded                        |
-| --------------------------------------------- | ---------------------------------- |
-| `references/general-clean-code.md`            | Always                             |
-| `references/react-clean-code.md`              | `force_react`                      |
-| `references/nextjs-clean-code.md`             | `force_nextjs`                     |
-| `references/zustand-best-practices.md`        | `force_zustand`                    |
-| `references/tanstack-query-best-practices.md` | `force_query`                      |
-| `references/backend-best-practices.md`        | `force_backend`                    |
-| `references/testing-best-practices.md`        | `force_test`                       |
-| `references/expo-best-practices.md`           | `force_expo`                       |
-| `references/forms-best-practices.md`          | `force_forms`                      |
-| `references/css-best-practices.md`            | `force_css`                        |
-| `references/accessibility-best-practices.md`  | Always (can skip with `--no-a11y`) |
-| `references/ux-design-best-practices.md`      | `force_ux`                         |
-| `references/security-best-practices.md`       | `force_security`                   |
-
-</reference_files>
-
-<entry_point>
-
-Load `steps/step-01-scan.md`
-
-</entry_point>
-
-<step_files>
-
-| Step | File                | Purpose           |
-| ---- | ------------------- | ----------------- |
-| 01   | `step-01-scan.md`   | Init + analyze    |
-| 02   | `step-02-apply.md`  | Load docs + apply |
-| 03   | `step-03-verify.md` | Build + commit    |
-
-</step_files>
-
-<execution_rules>
-
-- Load one step at a time
-- Use parallel agents in step-01 (unless economy mode)
-- Always run build before completing
-- Follow patterns from reference files exactly
-  </execution_rules>
-
-<success_criteria>
-
-- Technologies correctly detected (React, Next.js, Zustand, TanStack Query)
-- Issues identified and documented
-- Relevant reference docs loaded
-- Clean code improvements applied
-- Build passes without errors
-- Tests pass (if tests exist)
-- Changes committed with clear message
-- No hacks or shortcuts used
-  </success_criteria>

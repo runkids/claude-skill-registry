@@ -1,9 +1,7 @@
 {
   "name": "convert-python-rust",
-  "description": "Convert Python code to idiomatic Rust. Use when migrating Python projects to Rust, translating Python patterns to idiomatic Rust, or refactoring Python codebases for performance, safety, and concurren",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-python-rust/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:55.134879Z"
 }

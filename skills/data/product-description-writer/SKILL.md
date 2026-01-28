@@ -1,341 +1,97 @@
 ---
-name: writing-product-descriptions
-description: Creates compelling product copy for e-commerce listings. Use when the user asks about product descriptions, e-commerce copy, product pages, marketplace listings, or converting features to benefits.
+name: Product Description Writer
+slug: product-description-writer
+description: Create compelling e-commerce product descriptions that convert browsers into buyers
+category: writing
+complexity: simple
+version: "1.0.0"
+author: "ID8Labs"
+triggers:
+  - "write product description"
+  - "product copy"
+  - "ecommerce description"
+  - "product listing"
+tags:
+  - ecommerce
+  - product-copy
+  - conversion-optimization
+  - retail
 ---
 
 # Product Description Writer
 
-## When to use this skill
-
-- User asks to write product descriptions
-- User needs e-commerce listing copy
-- User wants to improve product pages
-- User mentions Amazon, Shopify, or Etsy listings
-- User needs features converted to benefits
-
-## Workflow
-
-- [ ] Identify product and platform
-- [ ] Extract key features
-- [ ] Convert features to benefits
-- [ ] Write headline and hook
-- [ ] Create full description
-- [ ] Add bullet points and specs
-
-## Instructions
-
-### Step 1: Gather Product Information
-
-**Required inputs:**
-
-| Field                | Purpose                       |
-| -------------------- | ----------------------------- |
-| Product name         | Title and SEO                 |
-| Category             | Tone and format               |
-| Key features         | Benefit conversion            |
-| Target audience      | Voice and pain points         |
-| Price point          | Positioning (luxury vs value) |
-| Platform             | Character limits, format      |
-| Unique selling point | Differentiation               |
-
-### Step 2: Platform Requirements
-
-| Platform    | Title Limit | Description  | Bullets                   | Key Focus               |
-| ----------- | ----------- | ------------ | ------------------------- | ----------------------- |
-| Amazon      | 200 chars   | 2,000 chars  | 5 bullets, 500 chars each | Keywords, benefits      |
-| Shopify     | Unlimited   | Unlimited    | Custom                    | Brand story, visuals    |
-| Etsy        | 140 chars   | 10,000 chars | N/A                       | Handmade, unique, story |
-| eBay        | 80 chars    | 4,000 chars  | N/A                       | Specs, condition        |
-| WooCommerce | Unlimited   | Unlimited    | Custom                    | SEO, details            |
-| Bol.com     | 150 chars   | 2,000 chars  | 8 bullets                 | Dutch market, specs     |
-
-### Step 3: Feature-to-Benefit Conversion
-
-**Conversion formula:**
-
-```
-Feature → So what? → Benefit → Emotional payoff
-```
-
-**Examples:**
-
-| Feature           | So what?         | Benefit                   | Emotional Payoff              |
-| ----------------- | ---------------- | ------------------------- | ----------------------------- |
-| 100% cotton       | Soft, breathable | Stays comfortable all day | Feel confident in any meeting |
-| 10-hour battery   | Lasts longer     | No mid-day charging       | Never miss a moment           |
-| 256GB storage     | More space       | Store 50,000 photos       | Keep every memory safe        |
-| Adjustable straps | Custom fit       | Fits any body type        | Look great, feel great        |
-| Handmade          | Unique, quality  | One-of-a-kind piece       | Own something special         |
-
-**Benefit categories:**
-
-| Category | Focus                | Example Phrases               |
-| -------- | -------------------- | ----------------------------- |
-| Time     | Speed, efficiency    | "Save hours every week"       |
-| Money    | Value, savings       | "Pays for itself in 30 days"  |
-| Effort   | Ease, simplicity     | "Set up in 5 minutes"         |
-| Status   | Prestige, image      | "The choice of professionals" |
-| Safety   | Protection, security | "Peace of mind guaranteed"    |
-| Pleasure | Enjoyment, comfort   | "Pure comfort, all day"       |
-
-### Step 4: Headline Formulas
-
-**Title templates:**
-
-| Formula                                   | Example                                          |
-| ----------------------------------------- | ------------------------------------------------ |
-| [Product] + [Key Benefit]                 | "Wireless Earbuds with 24-Hour Battery Life"     |
-| [Adjective] + [Product] + for [Audience]  | "Professional Chef Knife for Home Cooks"         |
-| [Brand] + [Product] + [Differentiator]    | "Acme Ultra-Light Backpack - Weighs Only 12oz"   |
-| [Product] + [Problem Solved]              | "Anti-Fatigue Mat - Stand Comfortably for Hours" |
-| The [Superlative] + [Product] + for [Use] | "The Fastest Charger for iPhone 15"              |
-
-**Power words for titles:**
-
-| Emotion | Words                                       |
-| ------- | ------------------------------------------- |
-| Urgency | Limited, exclusive, new, instant            |
-| Quality | Premium, handcrafted, professional, genuine |
-| Value   | Free, bonus, bundle, complete               |
-| Trust   | Guaranteed, certified, tested, proven       |
-| Novelty | Revolutionary, breakthrough, first-ever     |
-
-### Step 5: Description Structures
-
-**Short description (50-100 words):**
-
-```markdown
-[Hook: Problem or desire]
-[Solution: What the product does]
-[Key benefit 1]
-[Key benefit 2]
-[Call to action]
-```
-
-**Example:**
-
-```markdown
-Tired of tangled cables ruining your desk setup? The Acme Cable Manager
-keeps every cord organized and within reach. Mounts in seconds with no
-tools required. Holds up to 8 cables of any size. Finally, a workspace
-you're proud to show on video calls. Order now and get a free cable
-tie pack included.
-```
-
-**Medium description (100-200 words):**
-
-```markdown
-## [Headline with key benefit]
-
-[Opening hook: 1-2 sentences addressing pain point or desire]
-
-[Product introduction: What it is and what makes it special]
-
-**Why customers love it:**
-
-- [Benefit 1 with specific detail]
-- [Benefit 2 with specific detail]
-- [Benefit 3 with specific detail]
-
-[Social proof or credibility: reviews, awards, certifications]
-
-[Call to action with urgency or bonus]
-```
-
-**Long description (200-500 words):**
-
-```markdown
-## [Headline]
-
-[Hook paragraph: Paint the problem or aspiration]
-
-### [Benefit-focused subhead 1]
-
-[Expand on benefit with features that support it]
-
-### [Benefit-focused subhead 2]
-
-[Expand on benefit with features that support it]
-
-### [Benefit-focused subhead 3]
-
-[Expand on benefit with features that support it]
-
-### What's Included
-
-- [Item 1]
-- [Item 2]
-- [Item 3]
-
-### Specifications
-
-[Technical details table]
-
-### Why [Brand]?
-
-[Brand story, values, guarantee]
-
-[Final CTA]
-```
-
-### Step 6: Bullet Point Best Practices
-
-**Amazon-style bullets:**
-
-```markdown
-✓ [BENEFIT IN CAPS] - Explanation with feature support (Outcome)
-```
-
-**Examples:**
-
-```markdown
-✓ ALL-DAY COMFORT - Memory foam insole molds to your foot shape,
-reducing fatigue even after 12 hours on your feet
-
-✓ WATERPROOF PROTECTION - Sealed seams and water-resistant leather
-keep feet dry in rain, snow, or puddles
-
-✓ SLIP-RESISTANT SOLE - Oil and slip-resistant outsole meets ASTM
-safety standards for workplace environments
-
-✓ EASY ON, EASY OFF - Side zipper design lets you get in and out
-in seconds without untying laces
-
-✓ BUILT TO LAST - Reinforced toe cap and double-stitched seams
-backed by our 2-year warranty
-```
-
-**Bullet formula:**
-
-```
-[BENEFIT] - [Supporting feature] + [Outcome/Proof]
-```
-
-### Step 7: Sensory and Emotional Language
-
-**Sensory words by category:**
-
-| Sense | Words                                                 |
-| ----- | ----------------------------------------------------- |
-| Touch | Silky, plush, velvety, smooth, crisp, lightweight     |
-| Sight | Vibrant, sleek, gleaming, polished, bold, elegant     |
-| Sound | Whisper-quiet, crisp, rich, booming, crystal-clear    |
-| Taste | Rich, zesty, bold, smooth, refreshing (food products) |
-| Smell | Fresh, aromatic, clean, natural (relevant products)   |
-
-**Emotional triggers:**
-
-| Emotion     | Phrases                                              |
-| ----------- | ---------------------------------------------------- |
-| Security    | "Peace of mind", "Protected", "Worry-free"           |
-| Pride       | "Show off", "Impress", "Stand out"                   |
-| Belonging   | "Join thousands", "Part of the family", "Trusted by" |
-| Achievement | "Level up", "Unlock", "Master"                       |
-| Relief      | "Finally", "No more", "Say goodbye to"               |
-
-### Step 8: SEO Integration
-
-**Keyword placement:**
-
-| Location         | Priority          | Notes                 |
-| ---------------- | ----------------- | --------------------- |
-| Title            | High              | Primary keyword first |
-| First sentence   | High              | Natural integration   |
-| Subheadings      | Medium            | Secondary keywords    |
-| Bullet points    | Medium            | Long-tail variations  |
-| Alt text         | Medium            | For images            |
-| Backend keywords | Platform-specific | Amazon, Etsy          |
-
-**Avoid:**
-
-- Keyword stuffing
-- Competitor brand names
-- Unverifiable claims ("best in the world")
-- ALL CAPS in body copy
-
-### Step 9: Social Proof Integration
-
-**Trust elements to include:**
-
-```markdown
-- "Rated 4.8/5 by 2,000+ customers"
-- "As seen in [Publication]"
-- "Winner of [Award]"
-- "Used by [Notable brand/person]"
-- "100% satisfaction guarantee"
-- "Free returns within 30 days"
-- "[Certification] certified"
-```
-
-## Output Format
-
-```markdown
-## Product Description: [Product Name]
-
-**Platform:** [Target platform]
-**Category:** [Product category]
-**Target audience:** [Who this is for]
-
----
-
-### Title
-
-[Optimized product title]
-
-### Short Description
-
-[50-100 word description]
-
-### Bullet Points
-
-- [Bullet 1]
-- [Bullet 2]
-- [Bullet 3]
-- [Bullet 4]
-- [Bullet 5]
-
-### Full Description
-
-[Complete product description]
-
-### Specifications
-
-| Spec     | Value   |
-| -------- | ------- |
-| [Spec 1] | [Value] |
-| [Spec 2] | [Value] |
-
-### SEO Keywords
-
-Primary: [keyword]
-Secondary: [keyword], [keyword]
-Long-tail: [phrase], [phrase]
-```
-
-## Validation
-
-Before completing:
-
-- [ ] Features converted to benefits
-- [ ] Platform character limits respected
-- [ ] Primary keyword in title
-- [ ] Sensory/emotional language used
-- [ ] Social proof included where available
-- [ ] Clear call to action
-- [ ] Specs and dimensions provided
-- [ ] No competitor brand mentions
-
-## Error Handling
-
-- **No product details**: Ask for features, materials, dimensions, and target audience.
-- **No platform specified**: Default to Shopify format, note platform-specific limits.
-- **Features only, no benefits**: Apply "so what?" test to every feature.
-- **Too generic**: Add specific numbers, comparisons, or use cases.
-- **Missing USP**: Ask what makes this product different from alternatives.
-
-## Resources
-
-- [Amazon Style Guide](https://sellercentral.amazon.com/) - Amazon listing requirements
-- [Etsy Seller Handbook](https://www.etsy.com/seller-handbook) - Etsy best practices
-- [Hemingway Editor](https://hemingwayapp.com/) - Readability check
-- [CoSchedule Headline Analyzer](https://coschedule.com/headline-analyzer) - Title scoring
+Transform product features into compelling descriptions that sell. This skill helps you create persuasive, SEO-optimized product copy for e-commerce platforms, marketplaces, and catalogs that converts browsers into buyers.
+
+Whether you're writing for Amazon, Shopify, your own store, or product catalogs, this skill ensures your descriptions highlight benefits, overcome objections, and make customers feel confident in their purchase decision. It balances persuasion with information to drive conversions.
+
+Perfect for e-commerce businesses, retail brands, marketplace sellers, and product managers who need descriptions that stand out, rank well in search, and convince customers to click "Add to Cart."
+
+## Core Workflows
+
+### Workflow 1: Full Product Description
+1. **Product Analysis** - Review features, specs, target audience, competition
+2. **Headline Creation** - Write attention-grabbing product title with keywords
+3. **Opening Hook** - Lead with strongest benefit or unique selling point
+4. **Feature-Benefit Translation** - Convert technical specs into customer value
+5. **Sensory Description** - Help customer visualize, feel, experience product
+6. **Social Proof Integration** - Reference ratings, reviews, popularity
+7. **Urgency & Scarcity** - Add genuine limited-time or stock indicators
+8. **SEO Optimization** - Include relevant keywords naturally
+9. **CTA Placement** - Clear "Add to Cart" or "Buy Now" messaging
+
+### Workflow 2: Bullet Point Optimization
+1. **Priority Ranking** - Lead with most compelling benefits
+2. **Benefit Focus** - Start each bullet with customer value, not feature
+3. **Keyword Integration** - Include search terms customers use
+4. **Scanability** - Keep bullets short, parallel structure
+5. **Question Answering** - Address common customer questions
+6. **Differentiation** - Highlight what competitors don't offer
+7. **Length Optimization** - Stay within platform character limits
+
+### Workflow 3: Category-Specific Copy
+1. **Fashion & Apparel** - Emphasize fit, feel, style, occasion
+2. **Electronics** - Focus on specs, compatibility, ease of use
+3. **Home & Garden** - Highlight transformation, lifestyle improvement
+4. **Beauty & Personal Care** - Promise results, address concerns
+5. **Food & Beverage** - Evoke taste, quality, health benefits
+6. **Toys & Games** - Emphasize fun, learning, developmental benefits
+7. **Tools & Equipment** - Stress durability, precision, time savings
+
+### Workflow 4: Marketplace Optimization
+1. **Amazon Listing** - Title SEO, A+ content, backend keywords
+2. **Shopify Store** - Rich descriptions, upsell opportunities, collections
+3. **Etsy Shop** - Handmade story, materials, customization options
+4. **eBay Listing** - Condition details, shipping info, return policy
+5. **Social Commerce** - Instagram/Facebook shop optimized descriptions
+6. **Google Shopping** - Structured data, specs, merchant highlights
+
+## Quick Reference
+
+| Action | Command/Trigger |
+|--------|-----------------|
+| Full description | "Write product description for [item]" |
+| Bullet points | "Create feature bullets for [product]" |
+| Product title | "Write SEO title for [product]" |
+| Short description | "Write brief description for [item]" |
+| Variant descriptions | "Describe product variants [colors/sizes]" |
+| Meta description | "Create meta description for [product page]" |
+| Comparison copy | "Compare [product] to alternatives" |
+| Bundle description | "Write description for [product bundle]" |
+
+## Best Practices
+
+- **Lead with benefits** - "Sleep better" before "memory foam construction"
+- **Use sensory language** - Help them feel, see, smell, taste, hear it
+- **Be specific** - "Charges in 30 minutes" beats "charges quickly"
+- **Know your audience** - Write for who's buying, not who's browsing
+- **Include dimensions** - Size, weight, capacity with context
+- **Address objections** - Answer "will this work for me?" concerns
+- **Use social proof** - "Best-seller," "5-star rated," "10,000+ sold"
+- **Create urgency** - Limited stock, seasonal availability (if true)
+- **Optimize for mobile** - Short paragraphs, scannable format
+- **Include use cases** - "Perfect for travel" or "Ideal for small spaces"
+- **Match search intent** - Use keywords customers actually search
+- **Avoid jargon** - Unless targeting technical audience
+- **Show, don't just tell** - Use descriptive scenarios
+- **Compare wisely** - Highlight improvements over older models
+- **End with confidence** - Guarantee, warranty, easy returns

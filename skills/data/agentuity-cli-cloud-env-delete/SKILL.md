@@ -1,27 +1,28 @@
 ---
 name: agentuity-cli-cloud-env-delete
-description: Delete an environment variable or secret. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.24"
+description: Delete an environment variable. Requires authentication. Use for Agentuity cloud platform operations
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 argument-hint: "<key>"
 metadata:
   command: "agentuity cloud env delete"
-  tags: "destructive deletes-resource slow requires-auth"
+  tags: "destructive deletes-resource slow requires-auth requires-project"
 ---
 
 # Cloud Env Delete
 
-Delete an environment variable or secret
+Delete an environment variable
 
 ## Prerequisites
 
 - Authenticated with `agentuity auth login`
+- Project context required (run from project directory or use `--project-id`)
 
 ## Usage
 
 ```bash
-agentuity cloud env delete <key> [options]
+agentuity cloud env delete <key>
 ```
 
 ## Arguments
@@ -30,30 +31,18 @@ agentuity cloud env delete <key> [options]
 |----------|------|----------|-------------|
 | `<key>` | string | Yes | - |
 
-## Options
-
-| Option | Type | Required | Default | Description |
-|--------|------|----------|---------|-------------|
-| `--org` | optionalString | Yes | - | delete from organization level (use --org for default org, or --org <orgId> for specific org) |
-
 ## Examples
 
-Delete variable:
+Delete item:
 
 ```bash
 bunx @agentuity/cli env delete OLD_FEATURE_FLAG
 ```
 
-Delete a secret:
+Delete item:
 
 ```bash
-bunx @agentuity/cli env rm API_KEY
-```
-
-Delete org-level secret:
-
-```bash
-bunx @agentuity/cli env rm OPENAI_API_KEY --org
+bunx @agentuity/cli env rm PORT
 ```
 
 ## Output
@@ -64,16 +53,12 @@ Returns JSON object:
 {
   "success": "boolean",
   "key": "string",
-  "path": "string",
-  "secret": "boolean",
-  "scope": "string"
+  "path": "string"
 }
 ```
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `success` | boolean | Whether the operation succeeded |
-| `key` | string | Variable key that was deleted |
-| `path` | string | Local file path where variable was removed (project scope only) |
-| `secret` | boolean | Whether a secret was deleted |
-| `scope` | string | The scope from which the variable was deleted |
+| `key` | string | Environment variable key that was deleted |
+| `path` | string | Local file path where env var was removed |

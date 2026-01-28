@@ -1,7 +1,7 @@
 {
   "name": "skill-template",
-  "repo": "SherifEldeeb/agentskills",
-  "path": "templates/skill-template/SKILL.md",
-  "source": "github.com/SherifEldeeb/agentskills",
-  "downloaded_at": "2026-01-27T04:33:26.501287Z"
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/claude-ecosystem/skills/skill-development/assets/skill-template/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-28T03:11:56.811930Z"
 }

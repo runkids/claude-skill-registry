@@ -21,9 +21,26 @@ Arguments: `$ARGUMENTS` - automation task (screenshot, pdf, scrape, test) or spe
 - Performance monitoring
 
 **Token Optimization:**
-- Quick tool detection (100 tokens)
-- Minimal file operations (300 tokens)
-- Expected: 2,500-4,000 tokens
+- ✅ Bash-based Playwright CLI detection (no file reads)
+- ✅ Template-based script generation (heredocs, no dynamic code)
+- ✅ Caching Playwright setup and MCP configuration
+- ✅ Early exit when Playwright not installed - saves 90%
+- ✅ Focus area flags (--screenshot, --pdf, --scrape, --test)
+- ✅ MCP integration for external tool execution (zero Claude tokens)
+- **Expected tokens:** 400-1,500 (vs. 2,500-4,000 unoptimized) - **70-80% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3C, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/playwright-automate/`
+- Caches: Playwright installation status, MCP configuration, common workflows
+- Cache validity: Until package.json or MCP config changes
+- Shared with: `/mcp-setup`, `/e2e-generate`, `/tool-connect` skills
+
+**Usage:**
+- `playwright-automate screenshot https://example.com` - Screenshot (300-600 tokens)
+- `playwright-automate pdf https://example.com` - PDF generation (300-600 tokens)
+- `playwright-automate test` - Generate test script (600-1,000 tokens)
+- `playwright-automate scrape https://example.com` - Scraping script (500-900 tokens)
 
 ## Phase 1: Prerequisites Check
 

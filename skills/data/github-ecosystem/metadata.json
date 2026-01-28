@@ -1,12 +1,7 @@
 {
   "name": "github-ecosystem",
-  "description": "Generate comprehensive GitHub ecosystem configuration including CI/CD workflows, issue templates, PR templates, CODEOWNERS, dependabot, and Copilot instructions. Language-agnostic with Python, Go, and",
   "repo": "zircote/.claude",
-  "category": "devops",
-  "tags": [
-    "github",
-    "ecosystem"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/github-ecosystem/SKILL.md",
+  "source": "github.com/zircote/.claude",
+  "downloaded_at": "2026-01-28T01:02:56.419746Z"
 }

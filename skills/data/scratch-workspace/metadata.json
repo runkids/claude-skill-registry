@@ -1,9 +1,7 @@
 {
   "name": "scratch-workspace",
-  "description": "Use when creating temporary files, drafts, experiments, or any content that should not be committed to version control. Ensures proper placement in .claude/.scratch with gitignore configuration.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-scratch/skills/scratch-workspace/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:09.542574Z"
 }

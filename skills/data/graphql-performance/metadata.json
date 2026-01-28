@@ -1,9 +1,7 @@
 {
   "name": "graphql-performance",
-  "description": "Use when optimizing GraphQL API performance with query complexity analysis, batching, caching strategies, depth limiting, monitoring, and database optimization.",
   "repo": "TheBushidoCollective/han",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/TheBushidoCollective/han"
+  "path": "jutsu/jutsu-graphql/skills/graphql-performance/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:01.911596Z"
 }

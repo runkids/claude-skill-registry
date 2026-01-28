@@ -1,389 +1,395 @@
 ---
 name: database-migrations
-description: Create, manage, and apply database migrations using Doctrine ORM (MySQL for this service). Use when modifying entities, adding fields, managing database schema changes, creating repositories, or troubleshooting database issues.
+description: Safe database migration strategies for zero-downtime deployments. Covers backward-compatible changes, data migrations, and rollback procedures.
+license: MIT
+compatibility: TypeScript/JavaScript, Python
+metadata:
+  category: database
+  time: 3h
+  source: drift-masterguide
 ---
 
-# Database Migrations Skill
+# Database Migrations
 
-## Context (Input)
+Change your schema without breaking production.
 
-- New entity needs database persistence
-- Existing entity requires schema changes (add/modify/remove fields)
-- Repository implementation needed
-- Database schema validation fails
-- Need to set up indexes for performance
+## When to Use This Skill
 
-## Task (Function)
+- Adding/removing columns
+- Changing data types
+- Creating indexes
+- Data transformations
+- Zero-downtime deployments
 
-Create entities with XML mapping and repositories following hexagonal architecture and relational database best practices (Doctrine ORM, MySQL).
+## The Golden Rule
 
-**Success Criteria**: `make setup-test-db` runs without errors, schema validates, all tests pass.
+**Every migration must be backward compatible with the previous version of your code.**
 
----
+Why? During deployment, both old and new code versions run simultaneously.
 
-## Core Principles
+## Safe Migration Patterns
 
-### Domain-Driven Design
+### Adding a Column
 
-- **Entities**: Domain layer (`{Context}/Domain/Entity/`)
-- **Repository Interfaces**: Domain layer (`{Context}/Domain/Repository/`)
-- **Repository Implementations**: Infrastructure layer (`{Context}/Infrastructure/Repository/`)
-- **XML Mappings**: Infrastructure concern (`config/doctrine/`)
+```sql
+-- ✅ SAFE: New column with default or nullable
+ALTER TABLE users ADD COLUMN phone VARCHAR(20);
 
-**See**: [implementing-ddd-architecture](../implementing-ddd-architecture/SKILL.md) for DDD patterns.
+-- ❌ UNSAFE: Required column without default
+ALTER TABLE users ADD COLUMN phone VARCHAR(20) NOT NULL;
+```
 
-### Doctrine ORM (MySQL)
+### Removing a Column
 
-- Use **XML mappings** for all entity metadata (not annotations/attributes)
-- Define indexes in XML for performance
-- Use custom types (ULID, DomainUuid) for identifiers
-- Schema updates applied via Doctrine migration/ORM commands
+```
+Phase 1: Stop using column in code (deploy)
+Phase 2: Remove column from database (migrate)
+```
 
-> Note: Examples inherited from the template show MongoDB/ODM structures. In this project use `.orm.xml` mappings and Doctrine ORM migrations instead of ODM commands.
+### Renaming a Column
 
----
+```
+Phase 1: Add new column, write to both (deploy)
+Phase 2: Backfill data (migrate)
+Phase 3: Read from new column (deploy)
+Phase 4: Remove old column (migrate)
+```
 
-## Quick Start
+## TypeScript Implementation
 
-### Creating a New Entity
+### Migration Runner
 
-**Step 1: Create Entity (Domain Layer)**
+```typescript
+// migration-runner.ts
+import { Pool } from 'pg';
+import * as fs from 'fs';
+import * as path from 'path';
 
-```php
-// src/Core/{Context}/Domain/Entity/{Entity}.php
-namespace App\Core\{Context}\Domain\Entity;
-
-final class Customer
-{
-    public function __construct(
-        private string $id,
-        private string $name,
-        private string $email,
-        private \DateTimeImmutable $createdAt
-    ) {}
-
-    // Getters only - no setters (immutability)
+interface Migration {
+  id: string;
+  name: string;
+  up: string;
+  down: string;
 }
-```
 
-**Step 2: Create XML Mapping**
+class MigrationRunner {
+  constructor(private pool: Pool, private migrationsDir: string) {}
 
-```xml
-<!-- config/doctrine/Customer.orm.xml -->
-<entity name="App\Core\Customer\Domain\Entity\Customer" repository-class="App\Core\Customer\Infrastructure\Repository\CustomerRepository">
-    <id name="id" type="domain_uuid"/>
-    <field name="name" type="string" length="255"/>
-    <field name="email" type="string" length="255" unique="true"/>
-    <field name="createdAt" column="created_at" type="datetime_immutable"/>
-</entity>
-```
+  async run(): Promise<void> {
+    await this.ensureMigrationsTable();
+    
+    const applied = await this.getAppliedMigrations();
+    const pending = await this.getPendingMigrations(applied);
 
-**Step 3: Configure API Platform**
-
-```yaml
-# config/api_platform/resources/customer.yaml
-App\Core\Customer\Domain\Entity\Customer:
-  shortName: Customer
-  operations:
-    get_collection: ~
-    get: ~
-    post: ~
-```
-
-**Step 4: Update Schema**
-
-```bash
-make cache-clear
-docker compose exec php bin/console doctrine:schema:validate
-```
-
-**See**: [entity-creation-guide.md](entity-creation-guide.md) for complete workflow.
-
----
-
-### Modifying Existing Entities
-
-1. **Update Entity Class** (add/modify fields)
-2. **Update XML Mapping** (add field definitions)
-3. **Clear Cache**: `make cache-clear`
-4. **Validate Schema**: `docker compose exec php bin/console doctrine:schema:validate`
-
-**See**: [entity-modification-guide.md](entity-modification-guide.md)
-
----
-
-### Creating Repositories
-
-**Step 1: Define Interface (Domain)**
-
-```php
-// Domain/Repository/CustomerRepositoryInterface.php
-interface CustomerRepositoryInterface
-{
-    public function save(Customer $customer): void;
-    public function findById(string $id): ?Customer;
-}
-```
-
-**Step 2: Implement (Infrastructure)**
-
-```php
-// Infrastructure/Repository/CustomerRepository.php
-final class CustomerRepository implements CustomerRepositoryInterface
-{
-    public function __construct(
-        private readonly DocumentManager $documentManager
-    ) {}
-
-    public function save(Customer $customer): void
-    {
-        $this->documentManager->persist($customer);
-        $this->documentManager->flush();
+    for (const migration of pending) {
+      console.log(`Running migration: ${migration.name}`);
+      
+      const client = await this.pool.connect();
+      try {
+        await client.query('BEGIN');
+        
+        // Run migration
+        await client.query(migration.up);
+        
+        // Record migration
+        await client.query(
+          'INSERT INTO migrations (id, name, applied_at) VALUES ($1, $2, NOW())',
+          [migration.id, migration.name]
+        );
+        
+        await client.query('COMMIT');
+        console.log(`✓ ${migration.name}`);
+      } catch (error) {
+        await client.query('ROLLBACK');
+        console.error(`✗ ${migration.name}:`, error);
+        throw error;
+      } finally {
+        client.release();
+      }
     }
+  }
+
+  async rollback(steps = 1): Promise<void> {
+    const applied = await this.getAppliedMigrations();
+    const toRollback = applied.slice(-steps).reverse();
+
+    for (const migrationId of toRollback) {
+      const migration = await this.loadMigration(migrationId);
+      
+      const client = await this.pool.connect();
+      try {
+        await client.query('BEGIN');
+        await client.query(migration.down);
+        await client.query('DELETE FROM migrations WHERE id = $1', [migration.id]);
+        await client.query('COMMIT');
+        console.log(`Rolled back: ${migration.name}`);
+      } catch (error) {
+        await client.query('ROLLBACK');
+        throw error;
+      } finally {
+        client.release();
+      }
+    }
+  }
+
+  private async ensureMigrationsTable(): Promise<void> {
+    await this.pool.query(`
+      CREATE TABLE IF NOT EXISTS migrations (
+        id VARCHAR(255) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        applied_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
+  }
+
+  private async getAppliedMigrations(): Promise<string[]> {
+    const result = await this.pool.query(
+      'SELECT id FROM migrations ORDER BY applied_at'
+    );
+    return result.rows.map(r => r.id);
+  }
+
+  private async getPendingMigrations(applied: string[]): Promise<Migration[]> {
+    const files = fs.readdirSync(this.migrationsDir)
+      .filter(f => f.endsWith('.sql'))
+      .sort();
+
+    const pending: Migration[] = [];
+    for (const file of files) {
+      const id = file.replace('.sql', '');
+      if (!applied.includes(id)) {
+        pending.push(await this.loadMigration(id));
+      }
+    }
+    return pending;
+  }
+
+  private async loadMigration(id: string): Promise<Migration> {
+    const filePath = path.join(this.migrationsDir, `${id}.sql`);
+    const content = fs.readFileSync(filePath, 'utf-8');
+    
+    const [up, down] = content.split('-- DOWN');
+    
+    return {
+      id,
+      name: id,
+      up: up.replace('-- UP', '').trim(),
+      down: down?.trim() || '',
+    };
+  }
 }
+
+export { MigrationRunner };
 ```
 
-**Step 3: Register in `services.yaml`**
+### Migration File Format
 
-```yaml
-App\Core\Customer\Domain\Repository\CustomerRepositoryInterface:
-  alias: App\Core\Customer\Infrastructure\Repository\CustomerRepository
+```sql
+-- migrations/20240115_001_add_phone_to_users.sql
+
+-- UP
+ALTER TABLE users ADD COLUMN phone VARCHAR(20);
+CREATE INDEX idx_users_phone ON users(phone);
+
+-- DOWN
+DROP INDEX idx_users_phone;
+ALTER TABLE users DROP COLUMN phone;
 ```
 
-**See**: [repository-patterns.md](repository-patterns.md)
+### Zero-Downtime Column Rename
 
----
+```typescript
+// Step 1: Add new column (migration)
+// 20240115_001_add_display_name.sql
+`
+-- UP
+ALTER TABLE users ADD COLUMN display_name VARCHAR(255);
 
-## Database-Specific Features (Doctrine ORM/MySQL)
+-- DOWN
+ALTER TABLE users DROP COLUMN display_name;
+`
 
-### Custom Types
+// Step 2: Write to both columns (code change)
+async function updateUser(id: string, name: string) {
+  await db.query(
+    'UPDATE users SET name = $1, display_name = $1 WHERE id = $2',
+    [name, id]
+  );
+}
 
-| Type          | Usage                | Purpose                            |
-| ------------- | -------------------- | ---------------------------------- |
-| `ulid`        | Primary/foreign keys | Sortable, time-ordered identifiers |
-| `domain_uuid` | Domain identifiers   | Standard UUID format (RFC 4122)    |
+// Step 3: Backfill existing data (migration)
+// 20240116_001_backfill_display_name.sql
+`
+-- UP
+UPDATE users SET display_name = name WHERE display_name IS NULL;
 
-```xml
-<id name="id" type="domain_uuid"/>
-<field name="token" type="ulid"/>
+-- DOWN
+-- No rollback needed for data backfill
+`
+
+// Step 4: Read from new column (code change)
+async function getUser(id: string) {
+  const result = await db.query(
+    'SELECT id, display_name as name FROM users WHERE id = $1',
+    [id]
+  );
+  return result.rows[0];
+}
+
+// Step 5: Remove old column (migration)
+// 20240117_001_remove_name_column.sql
+`
+-- UP
+ALTER TABLE users DROP COLUMN name;
+
+-- DOWN
+ALTER TABLE users ADD COLUMN name VARCHAR(255);
+UPDATE users SET name = display_name;
+`
 ```
 
-### Indexes & Constraints
+### Safe Index Creation
 
-- Use `unique=\"true\"` on fields or `<unique-constraint>` elements for uniqueness (e.g., email).
-- Add `<indexes>` with `<index name=\"idx_email\" columns=\"email\"/>` for frequent lookups.
-- Always index columns used in filters/sorting (email, token, foreign keys, timestamps).
+```sql
+-- ❌ UNSAFE: Locks table during creation
+CREATE INDEX idx_orders_user ON orders(user_id);
 
-### Relationships & Value Objects
-
-- Model associations with Doctrine relations (`one-to-one`, `one-to-many`, `many-to-many`).
-- Persist value objects as simple fields; avoid framework validation inside Domain.
-
----
-
-## Available Commands
-
-```bash
-# Schema Management
-make doctrine-migrations-migrate        # Apply pending migrations
-make doctrine-migrations-generate       # Create empty migration file
-make setup-test-db                      # Drop and recreate test database
-
-# Schema Operations
-docker compose exec php bin/console doctrine:schema:validate             # Validate schema
+-- ✅ SAFE: Non-blocking index creation
+CREATE INDEX CONCURRENTLY idx_orders_user ON orders(user_id);
 ```
 
----
+### Data Migration with Batching
 
-## Constraints (Parameters)
+```typescript
+// data-migration.ts
+async function migrateUserEmails(): Promise<void> {
+  const BATCH_SIZE = 1000;
+  let processed = 0;
+  let lastId = '';
 
-### NEVER
+  while (true) {
+    const users = await db.query(`
+      SELECT id, email 
+      FROM users 
+      WHERE id > $1 
+      ORDER BY id 
+      LIMIT $2
+    `, [lastId, BATCH_SIZE]);
 
-- Use Doctrine annotations/attributes in Domain entities
-- Modify existing migrations after they're applied
-- Skip XML mapping validation
-- Leave empty migration files in codebase
-- Commit without testing schema changes
-- Skip `make setup-test-db` before integration tests
+    if (users.rows.length === 0) break;
 
-### ALWAYS
-
-- Create XML mappings for all entity metadata
-- Keep Domain entities framework-agnostic
-- Define indexes for frequently queried fields
-- Test migrations on dev database before committing
-- Run `make setup-test-db` to verify schema
-- Use Faker for unique test data (emails, names, etc.)
-- Register resource directories in `api_platform.yaml`
-
----
-
-## Format (Output)
-
-### Expected Schema Validation Output
-
-```bash
-$ docker compose exec php bin/console doctrine:schema:validate
-Mapping files are correct.
-```
-
-### Expected Test DB Setup Output
-
-```bash
-$ make setup-test-db
-Database dropped and recreated successfully
-```
-
----
-
-## Verification Checklist
-
-After entity/migration changes:
-
-- [ ] Entity defined in Domain layer (no framework imports)
-- [ ] XML mapping created in `config/doctrine/`
-- [ ] API Platform resource configured (if needed)
-- [ ] Repository interface in Domain layer
-- [ ] Repository implementation in Infrastructure layer
-- [ ] Repository registered in `services.yaml`
-- [ ] Schema validates: `doctrine:schema:validate`
-- [ ] Test database setup works: `make setup-test-db`
-- [ ] All integration tests pass
-- [ ] `make deptrac` passes (no violations)
-- [ ] `make ci` passes
-
----
-
-## Related Skills
-
-- [implementing-ddd-architecture](../implementing-ddd-architecture/SKILL.md) - DDD patterns and repository interfaces
-- [api-platform-crud](../api-platform-crud/SKILL.md) - Configuring API Platform resources
-- [deptrac-fixer](../deptrac-fixer/SKILL.md) - Fixing architectural violations
-
----
-
-## Quick Commands
-
-```bash
-# Validate schema
-docker compose exec php bin/console doctrine:schema:validate
-
-# Setup test database
-make setup-test-db
-
-# Clear cache after config changes
-make cache-clear
-
-# Run migrations
-make doctrine-migrations-generate
-make doctrine-migrations-migrate
-```
-
----
-
-## Reference Documentation
-
-Detailed guides and examples:
-
-- **[entity-creation-guide.md](entity-creation-guide.md)** - Complete entity creation workflow
-- **[entity-modification-guide.md](entity-modification-guide.md)** - Modifying existing entities
-- **[repository-patterns.md](repository-patterns.md)** - Repository implementation patterns
-- **[mongodb-specifics.md](mongodb-specifics.md)** - Database-specific notes (adapt from template)
-- **[reference/troubleshooting.md](reference/troubleshooting.md)** - Common issues and solutions
-- **[examples/](examples/)** - Complete working examples
-
----
-
-## Migration Best Practices
-
-### 1. Clean Up Empty Migrations
-
-**MANDATORY**: Delete empty migrations immediately.
-
-```php
-// ❌ DELETE: No actual changes
-public function up(Schema $schema): void { }
-public function down(Schema $schema): void { }
-```
-
-### 2. Test Before Committing
-
-1. Apply migration on dev database
-2. Verify schema: `doctrine:schema:validate`
-3. Run all tests
-4. Test rollback if applicable
-
-### 3. Production Safety
-
-```bash
-# Always backup before migration
-# Apply migration
-make doctrine-migrations-migrate
-# Verify application works
-# Keep backup for potential rollback
-```
-
----
-
-## Testing with Database
-
-### Setup Test Database
-
-```bash
-make setup-test-db  # Before integration/E2E tests
-```
-
-### Integration Test Pattern
-
-```php
-final class CustomerRepositoryTest extends IntegrationTestCase
-{
-    private CustomerRepositoryInterface $repository;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->repository = $this->getContainer()->get(CustomerRepositoryInterface::class);
+    for (const user of users.rows) {
+      await db.query(
+        'UPDATE users SET email_normalized = LOWER($1) WHERE id = $2',
+        [user.email, user.id]
+      );
     }
 
-    public function testSaveAndRetrieveCustomer(): void
-    {
-        $customer = new Customer(/* unique test data with Faker */);
-        $this->repository->save($customer);
+    lastId = users.rows[users.rows.length - 1].id;
+    processed += users.rows.length;
+    console.log(`Processed ${processed} users`);
 
-        $retrieved = $this->repository->findById($customer->getId());
-        $this->assertNotNull($retrieved);
-    }
+    // Avoid overwhelming the database
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
 }
 ```
 
-**Important**: Always use Faker for unique test data.
+## Python Implementation
 
----
+```python
+# migration_runner.py
+import os
+import psycopg2
+from datetime import datetime
 
-## Troubleshooting
+class MigrationRunner:
+    def __init__(self, connection_string: str, migrations_dir: str):
+        self.conn = psycopg2.connect(connection_string)
+        self.migrations_dir = migrations_dir
 
-### Common Issues
+    def run(self):
+        self._ensure_migrations_table()
+        applied = self._get_applied_migrations()
+        pending = self._get_pending_migrations(applied)
 
-**Database Connection Errors**:
+        for migration in pending:
+            print(f"Running: {migration['name']}")
+            cursor = self.conn.cursor()
+            try:
+                cursor.execute(migration['up'])
+                cursor.execute(
+                    "INSERT INTO migrations (id, name) VALUES (%s, %s)",
+                    (migration['id'], migration['name'])
+                )
+                self.conn.commit()
+                print(f"✓ {migration['name']}")
+            except Exception as e:
+                self.conn.rollback()
+                print(f"✗ {migration['name']}: {e}")
+                raise
 
-```bash
-docker compose ps database
-docker compose logs database
+    def _ensure_migrations_table(self):
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS migrations (
+                id VARCHAR(255) PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                applied_at TIMESTAMP DEFAULT NOW()
+            )
+        """)
+        self.conn.commit()
+
+    def _get_applied_migrations(self) -> list[str]:
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT id FROM migrations ORDER BY applied_at")
+        return [row[0] for row in cursor.fetchall()]
+
+    def _get_pending_migrations(self, applied: list[str]) -> list[dict]:
+        files = sorted(f for f in os.listdir(self.migrations_dir) if f.endswith('.sql'))
+        pending = []
+        for f in files:
+            migration_id = f.replace('.sql', '')
+            if migration_id not in applied:
+                pending.append(self._load_migration(migration_id))
+        return pending
+
+    def _load_migration(self, migration_id: str) -> dict:
+        path = os.path.join(self.migrations_dir, f"{migration_id}.sql")
+        with open(path) as f:
+            content = f.read()
+        up, down = content.split('-- DOWN') if '-- DOWN' in content else (content, '')
+        return {
+            'id': migration_id,
+            'name': migration_id,
+            'up': up.replace('-- UP', '').strip(),
+            'down': down.strip(),
+        }
 ```
 
-**Schema Sync Issues**:
+## Pre-Deployment Checklist
 
-```bash
-docker compose exec php bin/console doctrine:schema:validate
-docker compose exec php bin/console doctrine:migrations:status
+```markdown
+- [ ] Migration is backward compatible
+- [ ] Indexes created with CONCURRENTLY
+- [ ] Large data migrations batched
+- [ ] Rollback script tested
+- [ ] Migration tested on production-like data
+- [ ] Estimated lock time acceptable
 ```
 
-**Migration Conflicts**:
+## Best Practices
 
-```bash
-docker compose exec php bin/console doctrine:migrations:status
-docker compose exec php bin/console doctrine:migrations:migrate prev  # Rollback
-```
+1. **One change per migration** - Easier to rollback
+2. **Always write DOWN migrations** - You will need them
+3. **Test on production data copy** - Size matters
+4. **Use transactions** - Atomic changes
+5. **Monitor during migration** - Watch for locks
 
-**See**: [reference/troubleshooting.md](reference/troubleshooting.md) for comprehensive guide.
+## Common Mistakes
+
+- Adding NOT NULL without default
+- Creating indexes without CONCURRENTLY
+- Large data migrations in single transaction
+- No rollback plan
+- Not testing with production data volume

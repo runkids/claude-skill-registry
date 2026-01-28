@@ -1,15 +1,7 @@
 {
   "name": "database-development",
-  "description": "Database migrations and Drizzle ORM guidelines for the vm0 project",
   "repo": "vm0-ai/vm0",
-  "category": "data",
-  "tags": [
-    "database",
-    "development"
-  ],
-  "stars": 38,
-  "source": "SkillsMP Synced Skills",
-  "dir_name": "database-development",
-  "github_path": ".claude/skills/database-development",
-  "github_branch": "main"
+  "path": ".claude/skills/database-development/SKILL.md",
+  "source": "github.com/vm0-ai/vm0",
+  "downloaded_at": "2026-01-28T03:02:35.208377Z"
 }

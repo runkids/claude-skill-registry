@@ -3,8 +3,6 @@ name: api-validate
 description: >-
   API validation (OpenAPI, contracts). TODO: Implement for backend.
   Invoked by: "validate api", "api contract", "openapi validate", "schema validate".
-context: fork
-agent: general-purpose
 ---
 
 # API Validate

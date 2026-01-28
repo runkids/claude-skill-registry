@@ -1,12 +1,7 @@
 {
   "name": "code-audit",
-  "description": "Perform comprehensive code audits on repositories or directories. Use when asked to audit code, review a codebase, analyze code quality, find bugs, check for security issues, review architecture, chec",
-  "repo": "vultuk/coding-agent-skills",
-  "category": "security",
-  "tags": [
-    "code",
-    "audit"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lucaswall/adva-administracion",
+  "path": ".claude/skills/code-audit/SKILL.md",
+  "source": "github.com/lucaswall/adva-administracion",
+  "downloaded_at": "2026-01-28T02:16:25.675811Z"
 }

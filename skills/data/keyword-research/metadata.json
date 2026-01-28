@@ -1,7 +1,7 @@
 {
   "name": "keyword-research",
-  "repo": "gtmagents/gtm-agents",
-  "path": "plugins/seo/skills/keyword-research/SKILL.md",
-  "source": "github.com/gtmagents/gtm-agents",
-  "downloaded_at": "2026-01-27T04:35:23.701504Z"
+  "repo": "aaron-he-zhu/seo-geo-claude-skills",
+  "path": "research/keyword-research/SKILL.md",
+  "source": "github.com/aaron-he-zhu/seo-geo-claude-skills",
+  "downloaded_at": "2026-01-28T04:08:38.900009Z"
 }

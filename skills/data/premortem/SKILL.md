@@ -1,27 +1,18 @@
 ---
 name: premortem
-description: Identify failure modes before they occur using structured risk analysis
-allowed-tools: [Read, Grep, Glob, Task, AskUserQuestion, TodoWrite]
+description: "Identify failure modes before they occur. Use when: Reviewing plans, designs, or PRs to catch risks early. Not for: Post-incident analysis (use root-cause-analysis) or debugging active issues."
+user-invocable: true
 ---
 
 # Pre-Mortem
 
 Identify failure modes before they occur by systematically questioning plans, designs, and implementations. Based on Gary Klein's technique, popularized by Shreyas Doshi (Stripe).
 
-## Usage
-
-```
-/premortem              # Auto-detect context, choose depth
-/premortem quick        # Force quick analysis (plans, PRs)
-/premortem deep         # Force deep analysis (before implementation)
-/premortem <file>       # Analyze specific plan or code
-```
-
 ## Core Concept
 
 > "Imagine it's 3 months from now and this project has failed spectacularly. Why did it fail?"
 
-## Risk Categories (Shreyas Framework)
+## Risk Categories
 
 | Category | Symbol | Meaning |
 |----------|--------|---------|
@@ -45,18 +36,10 @@ Common mistakes that create false tigers:
 
 Before flagging ANY tiger, verify:
 
-```yaml
-potential_finding:
-  what: "Hardcoded path at line 42"
-
-verification:
-  context_read: true    # Did I read ±20 lines around the finding?
-  fallback_check: true  # Is there try/except, if exists(), or else branch?
-  scope_check: true     # Is this even in scope for this code?
-  dev_only_check: true  # Is this in __main__, tests/, or dev-only code?
-
-result: tiger | paper_tiger | false_alarm
-```
+1. **Context read**: Did I read ±20 lines around the finding?
+2. **Fallback check**: Is there try/except, if exists(), or else branch?
+3. **Scope check**: Is this even in scope for this code?
+4. **Dev-only check**: Is this in __main__, tests/, or dev-only code?
 
 **If ANY verification check is "no" or "unknown", DO NOT flag as tiger.**
 
@@ -65,12 +48,10 @@ result: tiger | paper_tiger | false_alarm
 Every tiger MUST include:
 
 ```yaml
-tiger:
-  risk: "<description>"
-  location: "file.py:42"
-  severity: high|medium
-  # REQUIRED - what mitigation was checked and NOT found:
-  mitigation_checked: "No exists() check, no try/except, no fallback branch"
+risk: "<description>"
+location: "file.py:42"
+severity: high|medium
+mitigation_checked: "<what was checked and NOT found>"  # REQUIRED
 ```
 
 If you cannot fill in `mitigation_checked` with specific evidence, it's not a verified tiger.
@@ -79,25 +60,11 @@ If you cannot fill in `mitigation_checked` with specific evidence, it's not a ve
 
 ### Step 1: Detect Context & Depth
 
-```python
-# Auto-detect based on context
-if in_plan_creation:
-    depth = "quick"   # Localized scope
-elif before_implementation:
-    depth = "deep"    # Global scope
-elif pr_review:
-    depth = "quick"   # Localized scope
-else:
-    # Ask user
-    AskUserQuestion(
-        question="What depth of pre-mortem analysis?",
-        header="Depth",
-        options=[
-            {"label": "Quick (2-3 min)", "description": "Plans, PRs, localized changes"},
-            {"label": "Deep (5-10 min)", "description": "Before implementation, global scope"}
-        ]
-    )
-```
+Auto-detect based on context:
+- **Plan creation** → Quick (localized scope)
+- **Before implementation** → Deep (global scope)
+- **PR review** → Quick (localized scope)
+- **Otherwise** → Ask user
 
 ### Step 2: Run Appropriate Checklist
 
@@ -114,35 +81,27 @@ Run through these mentally, note any that apply:
 
 **Output Format:**
 ```yaml
-premortem:
-  mode: quick
-  context: "<plan/PR being analyzed>"
+mode: quick
+context: "<plan/PR being analyzed>"
 
-  # Two-pass process: first gather potential risks, then verify each one
-  potential_risks:  # Pass 1: Pattern-matching findings
-    - "hardcoded path at line 42"
-    - "missing error handling for X"
+potential_risks:  # Pass 1: Pattern-matching findings
+  - "hardcoded path at line 42"
+  - "missing error handling for X"
 
-  # Pass 2: After verification
-  tigers:
-    - risk: "<description>"
-      location: "file.py:42"
-      severity: high|medium
-      category: dependency|integration|requirements|testing
-      mitigation_checked: "<what was NOT found>"  # REQUIRED
+tigers:  # Pass 2: After verification
+  - risk: "<description>"
+    location: "file.py:42"
+    severity: high|medium
+    category: dependency|integration|requirements|testing
+    mitigation_checked: "<what was NOT found>"
 
-  elephants:
-    - risk: "<unspoken concern>"
-      severity: medium
+elephants:
+  - risk: "<unspoken concern>"
+    severity: medium
 
-  paper_tigers:
-    - risk: "<looks scary but ok>"
-      reason: "<why it's fine - what mitigation EXISTS>"
-      location: "file.py:42-48"  # Show the mitigation location
-
-  false_alarms:  # Findings that turned out to be nothing
-    - finding: "<what was initially flagged>"
-      reason: "<why it's not a risk>"
+paper_tigers:
+  - risk: "<looks scary but ok>"
+    reason: "<why it's fine - what mitigation EXISTS>"
 ```
 
 #### Deep Checklist (Before Implementation)
@@ -175,157 +134,44 @@ Work through each category systematically:
 - [ ] Load testing needed?
 - [ ] Manual testing plan defined?
 
-**Output Format:**
-```yaml
-premortem:
-  mode: deep
-  context: "<implementation being analyzed>"
-
-  # Two-pass process
-  potential_risks:  # Pass 1: Initial scan findings
-    - "no circuit breaker for external API"
-    - "hardcoded timeout value"
-
-  # Pass 2: After verification (read context, check for mitigations)
-  tigers:
-    - risk: "<description>"
-      location: "file.py:42"
-      severity: high|medium
-      category: scalability|dependency|data|security|integration|testing
-      mitigation_checked: "<what mitigations were looked for and NOT found>"
-      suggested_fix: "<how to address>"
-
-  elephants:
-    - risk: "<unspoken concern>"
-      severity: medium|high
-      suggested_fix: "<suggested approach>"
-
-  paper_tigers:
-    - risk: "<looks scary>"
-      reason: "<why it's actually ok - cite the mitigation code>"
-      location: "file.py:45-52"
-
-  false_alarms:
-    - finding: "<initial concern>"
-      reason: "<why verification showed it's not a risk>"
-
-  checklist_gaps:
-    - category: "<which checklist section>"
-      items_failed: ["<item1>", "<item2>"]
-```
-
 ### Step 3: Present Risks via AskUserQuestion
 
-**BLOCKING:** Present findings and require user decision.
+**BLOCKING:** Present findings and require user decision on HIGH severity tigers.
 
-```python
-# Build risk summary
-risk_summary = format_risks(tigers, elephants)
-
-AskUserQuestion(
-    question=f"""Pre-Mortem identified {len(tigers)} tigers, {len(elephants)} elephants:
-
-{risk_summary}
-
-How would you like to proceed?""",
-    header="Risks",
-    options=[
-        {
-            "label": "Accept risks and proceed",
-            "description": "Acknowledged but not blocking"
-        },
-        {
-            "label": "Add mitigations to plan (Recommended)",
-            "description": "Update plan with risk mitigations before proceeding"
-        },
-        {
-            "label": "Research mitigation options",
-            "description": "I don't know how to mitigate - help me find solutions"
-        },
-        {
-            "label": "Discuss specific risks",
-            "description": "Talk through particular concerns"
-        }
-    ]
-)
-```
+Build the question with these options:
+1. **Accept risks and proceed** - Acknowledged but not blocking
+2. **Add mitigations to plan** - Update plan with risk mitigations before proceeding
+3. **Research mitigation options** - Help find solutions for unknown mitigations
+4. **Discuss specific risks** - Talk through particular concerns
 
 ### Step 4: Handle User Response
 
 #### If "Accept risks and proceed"
-```python
-# Log acceptance for audit trail
-print("Risks acknowledged. Proceeding with implementation.")
-# Continue to next workflow step
-```
+Log acceptance for audit trail and continue to next workflow step.
 
 #### If "Add mitigations to plan"
-```python
-# User provides mitigation approach
-# Update plan file with mitigations section
-# Re-run quick premortem to verify mitigations address risks
-```
+Update plan file with mitigations section, then re-run quick premortem to verify mitigations address risks.
 
 #### If "Research mitigation options"
-```python
-# Spawn parallel research for each HIGH severity tiger
-for tiger in high_severity_tigers:
-    # Internal: How has codebase handled this before?
-    Task(
-        subagent_type="scout",
-        prompt=f"""
-        Find how this codebase has previously handled: {tiger.category}
-
-        Specifically looking for patterns related to: {tiger.risk}
-
-        Return:
-        - File:line references to similar solutions
-        - Patterns used
-        - Libraries/utilities available
-        """
-    )
-
-    # External: What are best practices?
-    Task(
-        subagent_type="oracle",
-        prompt=f"""
-        Research best practices for: {tiger.risk}
-
-        Context: {tiger.category} in a {tech_stack} codebase
-
-        Return:
-        - Recommended approaches (ranked)
-        - Library options
-        - Common pitfalls to avoid
-        """
-    )
-
-# Wait for research to complete
-# Synthesize options
-# Present via AskUserQuestion with 2-4 mitigation options
-```
+For each HIGH severity tiger:
+1. Internal: Use Read/Grep to find how codebase handled this before
+2. External: Use WebSearch for best practices
+3. Synthesize 2-4 options
+4. Present via AskUserQuestion
 
 #### If "Discuss specific risks"
-```python
-# Ask which risk to discuss
-AskUserQuestion(
-    question="Which risk would you like to discuss?",
-    header="Risk",
-    options=[format_risk_option(r) for r in all_risks[:4]]
-)
-# Then have conversation about that specific risk
-```
+Ask which risk to discuss, then have conversation about that specific risk.
 
 ### Step 5: Update Plan (if mitigations added)
 
-If user added mitigations, append to the plan:
+Append to the plan:
 
 ```markdown
 ## Risk Mitigations (Pre-Mortem)
 
 ### Tigers Addressed:
 1. **{risk}** (severity: {severity})
-   - Mitigation: {user_or_researched_mitigation}
+   - Mitigation: {mitigation}
    - Added to phase: {phase_number}
 
 ### Accepted Risks:
@@ -336,38 +182,6 @@ If user added mitigations, append to the plan:
 - Mode: {quick|deep}
 - Tigers: {count}
 - Elephants: {count}
-```
-
-## Integration Points
-
-### In create_plan / plan-agent
-
-After plan structure is approved, before ExitPlanMode:
-
-```python
-# Run quick premortem
-/premortem quick
-
-# If HIGH risks found, block until addressed
-# If only MEDIUM/LOW, inform and proceed
-```
-
-### After plan approval, before implementation
-
-```python
-# Run deep premortem on full plan
-/premortem deep thoughts/shared/plans/YYYY-MM-DD-feature.md
-
-# Block until all HIGH tigers addressed
-```
-
-### In PR review workflows
-
-```python
-# Run quick premortem on diff scope
-/premortem quick
-
-# Inform of any risks found
 ```
 
 ## Severity Thresholds
@@ -381,71 +195,50 @@ After plan structure is approved, before ExitPlanMode:
 ## Example Session
 
 ```
-User: /premortem deep thoughts/shared/plans/2026-01-08-api-rate-limiting.md
-
-Claude: Running deep pre-mortem on API rate limiting plan...
-
-[Reviews plan against deep checklist]
+Running deep pre-mortem on API rate limiting plan...
 
 Pre-mortem complete. Found 2 tigers, 1 elephant:
 
-**TIGERS:**
+TIGERS:
 1. [HIGH] No circuit breaker for external payment API
    - Category: dependency
    - If payment API is slow/down, requests will pile up
+   - mitigation_checked: "No timeout, no retries, no circuit breaker pattern"
 
 2. [HIGH] No rollback strategy defined
    - Category: integration
    - If rate limiting breaks auth flow, no quick fix path
 
-**ELEPHANTS:**
+ELEPHANTS:
 1. [MEDIUM] Team hasn't used Redis before
    - We're introducing Redis for rate limit counters
-   - Learning curve could slow implementation
 
-**PAPER TIGERS:**
+PAPER TIGERS:
 1. Database migration size - Only adds one index, <1s migration
-
-[AskUserQuestion presented]
-
-User: Research mitigation options
-
-Claude: Researching mitigations...
-
-[Spawns scout + oracle in parallel]
-
-Found 3 options for circuit breaker:
-
-1. **Use existing retry util** (Recommended)
-   - Found at src/utils/retry.ts:45
-   - Already handles exponential backoff
-   - Just need to add circuit breaker state
-
-2. **Add resilience4j-lite**
-   - Popular library for this pattern
-   - More features but new dependency
-
-3. **Custom implementation**
-   - Full control but more code to maintain
-
-Which approach for the circuit breaker?
-
-User: Option 1 - use existing retry util
-
-Claude: Added to plan:
-
-## Risk Mitigations (Pre-Mortem)
-
-### Tigers Addressed:
-1. **No circuit breaker** (HIGH)
-   - Mitigation: Extend src/utils/retry.ts with circuit breaker state
-   - Added to Phase 1
-
-Shall I also address the rollback strategy tiger?
 ```
+
+## Integration Points
+
+### In Planning Workflows
+
+After plan structure is approved:
+1. Run quick premortem
+2. If HIGH risks found, block until addressed
+3. If only MEDIUM/LOW, inform and proceed
+
+### Before Implementation
+
+Run deep premortem on full plan:
+1. Block until all HIGH tigers addressed
+2. Update plan with mitigations
+
+### In Code Review
+
+Run quick premortem on diff scope:
+1. Inform of any risks found
+2. Suggest mitigations if applicable
 
 ## References
 
 - [Pre-Mortems by Shreyas Doshi](https://coda.io/@shreyas/pre-mortems)
 - [Gary Klein's Original Research](https://hbr.org/2007/09/performing-a-project-premortem)
-- [Project Pre-Mortem Guide - Mountain Goat Software](https://www.mountaingoatsoftware.com/blog/use-a-pre-mortem-to-identify-project-risks-before-they-occur)

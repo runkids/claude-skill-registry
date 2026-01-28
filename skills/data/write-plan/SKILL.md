@@ -20,10 +20,20 @@ Based on **obra/superpowers** planning methodology:
 - Plan for validation and testing
 
 **Token Optimization:**
-- Uses Grep to understand codebase (100 tokens)
-- Only reads relevant files (2,000 tokens)
-- Caches project patterns (saves 500 tokens)
-- Expected: 2,500-4,000 tokens
+- ✅ Grep to understand codebase structure (100 tokens vs 4,000+ reading all files)
+- ✅ Focused file reading (only architecture-relevant files)
+- ✅ Caching project patterns and conventions
+- ✅ Template-based plan structure (no repeated boilerplate)
+- ✅ Incremental planning (one phase at a time)
+- ✅ Progressive detail (high-level → detailed only if needed)
+- **Expected tokens:** 1,200-3,000 (vs. 3,000-5,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/plans/project-patterns.json`
+- Caches: Project conventions, architecture patterns, common tasks
+- Cache validity: 7 days or until major structure changes
+- Shared with: `/brainstorm`, `/execute-plan`, `/understand` skills
 
 ## Phase 1: Requirements Analysis
 

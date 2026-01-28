@@ -15,10 +15,20 @@ I'll generate comprehensive E2E tests using Playwright for browser automation an
 - Set up test infrastructure if missing
 
 **Token Optimization:**
-- Uses Grep to find routes/pages (200 tokens)
-- Only reads route files, not entire codebase (1,500 tokens)
-- Caches page discoveries (saves 1,000 tokens on reruns)
-- Expected: 2,500-4,000 tokens
+- ✅ Bash-based Playwright detection (minimal tokens)
+- ✅ Grep to find routes/pages (200 tokens vs 3,000+ reading all files)
+- ✅ Template-based test generation (no file reads for templates)
+- ✅ Caching page/route discovery - saves 80% on reruns
+- ✅ Early exit when Playwright not needed
+- ✅ Incremental test generation (one page at a time)
+- **Expected tokens:** 1,200-3,000 (vs. 3,000-5,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/e2e/routes.json`
+- Caches: Discovered routes/pages, framework detection
+- Cache validity: Until route files change (checksum-based)
+- Shared with: `/playwright-automate`, `/test` skills
 
 ## Phase 1: Prerequisites Check
 

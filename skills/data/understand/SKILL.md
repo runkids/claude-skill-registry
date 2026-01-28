@@ -1,94 +1,27 @@
 ---
 name: understand
-description: Project architecture analysis to understand structure, patterns, and dependencies
-disable-model-invocation: false
+description: 深度分析当前项目的架构、Agent 配置及 MCP 集成，生成中文架构文档。
 ---
 
-# Understand Project
+# Understand Project Skill
 
-I'll analyze your entire application to understand its architecture, patterns, and how everything works together.
+## Instructions
+当用户运行此 skill 时，请扮演一名**资深 AI 架构师**，执行以下步骤：
 
-**Phase 1: Project Discovery**
-Using native tools for comprehensive analysis:
-- **Glob** to map entire project structure
-- **Read** key files (README, docs, configs)
-- **Grep** to identify technology patterns
-- **Read** entry points and main files
+1. **信息搜集 (侦探模式)**：
+   - 浏览项目文件结构 (`ls -R`)。
+   - 读取 `requirements.txt` / `config.py` 等关键文件确定依赖。
+   - **关键步骤**：使用 `grep` 寻找 "mcp", "LangChain", "tool", "agent" 等关键字。
 
-I'll discover:
-- Project type and main technologies
-- Architecture patterns (MVC, microservices, etc.)
-- Directory structure and organization
-- Dependencies and external integrations
-- Build and deployment setup
+2. **撰写报告 (必须使用中文)**:
+   - 加载本 Skill 目录下的 `template.md` 作为大纲。
+   - **语言要求**：所有解释性文字**必须使用中文**，保留专业术语（如 LangChain, MCP）为英文。
+   - **代码引用**：必须引用真实存在的代码片段。
 
-**Phase 2: Code Architecture Analysis**
-- **Entry points**: Main files, index files, app initializers
-- **Core modules**: Business logic organization
-- **Data layer**: Database, models, repositories
-- **API layer**: Routes, controllers, endpoints
-- **Frontend**: Components, views, templates
-- **Configuration**: Environment setup, constants
-- **Testing**: Test structure and coverage
+3. **交付结果 (强制存档)**:
+   - **Step A**: 检查根目录下是否有 `docs/` 目录，如果没有，请使用 `mkdir` 创建它。
+   - **Step B**: **必须调用写文件工具**，将填充好的内容保存为 `docs/ARCHITECTURE.md`。不要只在聊天框输出，**必须落地为文件**。
+   - **Step C**: 文件保存成功后，向用户简要汇报：“报告已生成并保存至 docs/ARCHITECTURE.md”，并列出 2 个最核心的架构亮点。
 
-**Phase 3: Pattern Recognition**
-I'll identify established patterns:
-- Naming conventions for files and functions
-- Code style and formatting rules
-- Error handling approaches
-- Authentication/authorization flow
-- State management strategy
-- Communication patterns between modules
-
-**Phase 4: Dependency Mapping**
-- Internal dependencies between modules
-- External library usage patterns
-- Service integrations
-- API dependencies
-- Database relationships
-- Asset and resource management
-
-**Phase 5: Documentation Synthesis**
-After analysis, I'll provide:
-- **Architecture diagram** (in text/markdown)
-- **Key components** and their responsibilities
-- **Data flow** through the application
-- **Important patterns** to follow
-- **Tech stack summary**
-- **Development workflow**
-
-**Integration Points:**
-I'll identify how components interact:
-- API endpoints and their consumers
-- Database queries and their callers
-- Event systems and listeners
-- Shared utilities and helpers
-- Cross-cutting concerns (logging, auth)
-
-**Output Format:**
-```
-PROJECT OVERVIEW
-├── Architecture: [Type]
-├── Main Technologies: [List]
-├── Key Patterns: [List]
-└── Entry Point: [File]
-
-COMPONENT MAP
-├── Frontend
-│   └── [Structure]
-├── Backend
-│   └── [Structure]
-├── Database
-│   └── [Schema approach]
-└── Tests
-    └── [Test strategy]
-
-KEY INSIGHTS
-- [Important finding 1]
-- [Important finding 2]
-- [Unique patterns]
-```
-
-When the analysis is large, I'll create a todo list to explore specific areas in detail.
-
-This gives you a complete mental model of how your application works.
+## Additional resources
+- 架构分析模版: [template.md](template.md)

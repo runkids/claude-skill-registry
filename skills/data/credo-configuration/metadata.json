@@ -1,9 +1,7 @@
 {
   "name": "credo-configuration",
-  "description": "Use when configuring Credo static analysis for Elixir projects requiring customized code quality rules and settings.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-credo/skills/credo-configuration/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:09.912577Z"
 }

@@ -1,7 +1,44 @@
 ---
 name: dotnet-testing-fluentvalidation-testing
-description: 協助測試 FluentValidation 驗證器。當使用者需要撰寫驗證器測試、驗證業務規則、測試錯誤訊息、處理非同步驗證、測試跨欄位邏輯、或使用 FluentValidation.TestHelper 時,請使用此技能。
+description: |
+  測試 FluentValidation 驗證器的專門技能。
+  當需要為 Validator 類別建立測試、驗證業務規則、測試錯誤訊息時使用。
+  涵蓋 FluentValidation.TestHelper 完整使用、ShouldHaveValidationErrorFor、非同步驗證、跨欄位邏輯等。
+
+triggers:
+  # 核心關鍵字
+  - validator
+  - 驗證器
+  - fluentvalidation
+  - validation testing
+
+  # 常見類別名稱
+  - CreateUserValidator
+  - UpdateUserValidator
+  - UserValidator
+  - CreateOrderValidator
+  - UpdateProductValidator
+
+  # 技術術語
+  - 驗證測試
+  - 驗證規則
+  - TestHelper
+  - ShouldHaveValidationErrorFor
+  - ShouldNotHaveValidationErrorFor
+  - TestValidate
+  - TestValidateAsync
+
+  # 動作詞
+  - 測試驗證器
+  - test validator
+  - validate rules
+  - 驗證業務規則
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: ".NET, testing, FluentValidation, validator, validation"
 ---
 
 # FluentValidation Testing Skill
@@ -751,7 +788,7 @@ _fakeTimeProvider.SetUtcNow(new DateTime(2024, 1, 1));
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 18 - 驗證測試：FluentValidation Test Extensions**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10375667
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376147
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day18
 
 ### 官方文件

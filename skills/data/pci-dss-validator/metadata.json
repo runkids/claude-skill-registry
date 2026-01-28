@@ -1,0 +1,9 @@
+{
+  "name": "pci-dss-validator",
+  "description": "Pci Dss Validator - Auto-activating skill for Security Advanced.Triggers on: pci dss validator, pci dss validatorPart of the Security Advanced skill category.",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

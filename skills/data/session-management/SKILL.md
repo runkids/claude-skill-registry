@@ -1,111 +1,132 @@
 ---
 name: session-management
-description: Use when context is growing large, switching tasks, or needing previous session context - covers thresholds, session tools, and workflow patterns
+description: Apply when initializing, saving, resuming, or closing a work session
 ---
 
-# Session Management
+# Session Management Guide
 
-**Philosophy**: Short sessions (<150k tokens) beat long bloated ones. Agents get worse with too much context. Cost is exponential.
+## Phase Tracking
 
-## Context Thresholds
+Sessions track EDIRD phases:
+- NOTES.md: "Current Phase" section with phase, last verb, gate status
+- PROGRESS.md: "Phase Plan" section with 5 phases and status
 
-The environment monitors context usage and warns at these thresholds:
+## MUST-NOT-FORGET
 
-| Threshold | Action                                                     |
-| --------- | ---------------------------------------------------------- |
-| **70%**   | Consolidate work; consider pruning irrelevant tool outputs |
-| **85%**   | Summarize findings and consider starting a new session     |
-| **95%**   | Critical: prune context immediately or restart session     |
+- Session folder location: `[DEFAULT_SESSIONS_FOLDER]/_YYYY-MM-DD_[SessionTopicCamelCase]/`
+- Default: `[DEFAULT_SESSIONS_FOLDER]` = `[WORKSPACE_FOLDER]` (override in `!NOTES.md`)
+- Required files: NOTES.md, PROBLEMS.md, PROGRESS.md
+- Lifecycle: Init → Work → Save → Resume → Finalize → Archive
+- Sync session PROBLEMS.md to project on /session-finalize
+- Phase tracking: NOTES.md has current phase, PROGRESS.md has full phase plan
 
-## Session Tools
+## Session Lifecycle
 
-### list_sessions
+1. **Init** (`/session-new`): Create session folder with tracking files
+2. **Work**: Create specs, plans, implement, track progress
+3. **Save** (`/session-save`): Document findings, commit changes
+4. **Resume** (`/session-load`): Re-read session documents, continue work
+5. **Finalize** (`/session-finalize`): Sync findings to project files, prepare for archive
 
-Discover available sessions before reading:
+## Session Folder Location
 
-```typescript
-list_sessions({ limit: 10, project: "current" }); // Current project
-list_sessions({ since: "today" }); // Today's sessions
-list_sessions({ project: "all", since: "yesterday" }); // Cross-project
-```
+**Base:** `[DEFAULT_SESSIONS_FOLDER]` (default: `[WORKSPACE_FOLDER]`, can be overridden in `!NOTES.md`)
 
-### read_session
+**Format:** `[DEFAULT_SESSIONS_FOLDER]/_YYYY-MM-DD_[SessionTopicCamelCase]/`
 
-Pull context from previous session:
+**Example:** `_PrivateSessions/_2026-01-12_FixAuthenticationBug/`
 
-```typescript
-read_session("last"); // Most recent
-read_session("2 ago", { project: "current" }); // 2nd most recent
-read_session("today"); // Today's first session
-read_session("ses_abc123", { focus: "file changes" }); // Specific aspect
-```
+## Required Session Files
 
-### search_session
+Use templates from this skill folder:
 
-Full-text search across sessions:
+- **NOTES.md** (`NOTES_TEMPLATE.md`): Key information, agent instructions, working patterns, large initial prompts (>120 tokens)
+- **PROBLEMS.md** (`PROBLEMS_TEMPLATE.md`): All problems to be addressed - initial prompts, questions, feature requests, bugs, strange behavior, investigation topics. Each problem gets a unique ID and tracks status (Open/Resolved/Deferred)
+- **PROGRESS.md** (`PROGRESS_TEMPLATE.md`): Task execution tracking - to-do list, done items, tried-but-not-used approaches
 
-```typescript
-search_session({ query: "auth bug" }); // Search all sessions
-search_session({ query: "OAuth", session_id: "ses_abc" }); // Specific session
-search_session({ query: "error", limit: 10 }); // Limit results
-```
+**Key distinction:**
+- **NOTES.md** = Context and reference information (static knowledge)
+- **PROBLEMS.md** = All topics requiring attention (dynamic problem list with IDs)
+- **PROGRESS.md** = Task execution status (what's being worked on)
 
-Use to find past discussions, decisions, or work on a topic before starting new work.
-
-### summarize_session
-
-Generate AI summary of a session:
-
-```typescript
-summarize_session("ses_abc123"); // Trigger AI summarization
-```
-
-Use before `read_session` to get a quick overview of what happened in a past session without loading full context.
-
-## When to Start New Session
-
-- Completing distinct task from `bd ready`
-- Token usage approaching 150k
-- Switching phases (implementation → review → testing)
-- After handoff (`/handoff <bead-id>`)
-
-## Session Workflow Pattern
+## Assumed Workflow
 
 ```
-Session 1: Implement feature X (80k tokens)
-  ↓ close, update memory
-Session 2: list_sessions() → read_session("last") → Refactor (60k tokens)
-  ↓
-Session 3: read_session("previous") → Add tests (90k tokens)
-  ↓
-Session 4: read_session refs → Final review (100k tokens)
+1. INIT: User initializes session (`/session-new`)
+   └── Session folder, NOTES.md, PROBLEMS.md, PROGRESS.md created
+
+2. PREPARE (one of):
+   A) User prepares work manually
+      └── Creates INFO / SPEC / IMPL documents, tracks progress
+   B) User explains problem, agent assists
+      └── Updates Problems, Progress, Notes → researches → creates documents
+
+3. WORK: User or agent implements
+   └── Makes decisions, creates tests, implements, verifies
+   └── Progress and findings tracked continuously
+
+4. SAVE: User saves session for later (`/session-save`)
+   └── Everything updated and committed
+
+5. RESUME: User resumes session (`/session-load`)
+   └── Agent primes from session files, executes workflows in Notes
+   └── Continue with steps 2-3
+
+6. FINALIZE: User finalizes session (`/session-finalize`)
+   └── Everything updated, committed, synced to project/workspace
+
+7. ARCHIVE: User archives session
+   └── Session folder moved to _Archive/
 ```
 
-**Result**: 4 fresh contexts vs 1 degraded 330k context. Better performance, lower cost.
+## ID System
 
-## Context Transfer
+See `[AGENT_FOLDER]/rules/devsystem-ids.md` rule (always-on) for complete ID system.
 
-Use all available sources:
+**Quick Reference:**
+- Document: `[TOPIC]-[DOC][NN]` (IN, SP, IP, TP)
+  - Example: `CRWL-SP01`, `AUTH-IP01`
+- Tracking: `[TOPIC]-[TYPE]-[NNN]` (BG = Bug, FT = Feature, PR = Problem, FX = Fix, TK = Task)
+  - Example: `SAP-BG-001`, `UI-PR-003`, `GLOB-TK-015`
+- Topic Registry: Maintained in project NOTES.md
 
-1. `read_session("last")` - Previous session work
-2. Git state - `git diff`, `git log` - Code changes
-3. Memory files - `.opencode/memory/*` - Persistent context
-4. Beads - `bd show <id>` - Task specs
+## Session Init Template
 
-**Don't**: Carry everything forward. Extract what's needed, discard the rest.
+### NOTES.md
+```markdown
+# Session Notes
 
-## Pruning Strategy
+## Session Info
+- **Started**: [DATE]
+- **Goal**: [Brief description]
 
-When context grows large:
+## Key Decisions
 
-1. **Discard** completed task outputs (read files you won't edit again)
-2. **Extract** key findings before discarding research
-3. **Summarize** complex investigations into memory files
-4. **Restart** session if above 85% and work is at a natural break
+## Important Findings
 
-## Anti-Patterns
+## Workflows to Run on Resume
+```
 
-- ❌ Running until context limit forces restart
-- ❌ Carrying all previous reads forward "just in case"
-- ❌ Not using memory files for cross-session persistence
-- ❌ Re-reading the same files every session instead of extracting key info
+### PROBLEMS.md
+```markdown
+# Session Problems
+
+## Open
+
+## Resolved
+
+## Deferred
+```
+
+### PROGRESS.md
+```markdown
+# Session Progress
+
+## To Do
+
+## In Progress
+
+## Done
+
+## Tried But Not Used
+```

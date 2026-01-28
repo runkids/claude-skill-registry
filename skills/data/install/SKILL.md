@@ -1,127 +1,55 @@
 ---
 name: install
-description: Use when the user asks to install, add, or set up a package, tool, CLI, or application
-argument-hint: [package-name...]
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - AskUserQuestion
-  - Edit(home/dot_config/mise/config.toml)
-  - Edit(home/.chezmoidata/packages.yaml)
-  - Bash(mise registry:*)
-  - Bash(mise ls-remote:*)
-  - Bash(gh release view:*)
-  - Bash(npm view:*)
-  - Bash(pip index:*)
-  - Bash(chezmoi diff:*)
+description: 指定したプラグインをインストールする。「プラグインをインストール」「〇〇を追加して」「プラグインを入れて」「〇〇をインストールして」「プラグインを導入」「〇〇を使えるようにして」「新しいプラグインを追加」などで起動。
+allowed-tools: [Read, Bash, Glob, Grep]
 ---
 
-# Package Installation Skill
+# Plugin Install
 
-## Arguments
+指定したプラグインをインストールします。
 
-`$ARGUMENTS`: Space-separated package names to install.
+## 引数
 
-## Workflow
+- `$ARGUMENTS`: プラグイン名（省略時は一覧表示）
 
-**When to escalate:** For complex backend decisions, version conflicts, or security concerns, consult the Package Manager subagent.
+## オプション
 
-For each package in `$ARGUMENTS`:
+| オプション | 説明                       |
+|------------|----------------------------|
+| `--help`   | このスキルのヘルプを表示 |
 
-### 1. Identify Package Type
+## Claude への指示
 
-Check in order:
+**`--help` が指定された場合**: このファイルの内容を要約して表示し、終了。
 
-1. **Mise registry:**
-   ```bash
-   mise registry | grep -i <package>
-   ```
+### 実行手順
 
-2. **Known GUI/system apps:** GUI applications → cask, system utilities → brew
-
-**Package type mapping:**
-
-| Package Type | Format |
-|-------------|---------|
-| Aqua registry | `"aqua:owner/repo" = "version"` |
-| GitHub releases | `"github:owner/repo" = "version"` |
-| Python CLI | `"pipx:package" = "version"` |
-| Node.js CLI | `"npm:package" = "version"` |
-| GUI app | Add to casks list |
-| System utility | Add to brews list |
-
-### 2. Discover Latest Version
-
-**GitHub tools (aqua/github):**
-```bash
-gh release view --repo <owner>/<repo> --json tagName --jq .tagName
-```
-
-**npm:**
-```bash
-npm view <package> version
-```
-
-**PyPI:**
-```bash
-pip index versions <package> 2>/dev/null | head -1
-```
-
-**Native mise:**
-```bash
-mise ls-remote <tool> | tail -1
-```
-
-### 3. Add to Manifest
-
-**Mise tools** → `home/dot_config/mise/config.toml`:
-- Add under `[tools]` section
-- Use backend prefix
-- Pin exact version
-- Follow comment organization (Runtimes, Aqua, GitHub, Python, Node)
-
-**Homebrew** → `home/.chezmoidata/packages.yaml`:
-- Add to `packages.darwin.brews` or `packages.darwin.casks`
-- Follow alphabetical order
-
-### 4. Verify
+1. プラグイン名が指定されていない場合、`/shiiman-plugin:list` を実行して未インストールのプラグイン一覧を表示し、選択を促す
+2. 指定されたプラグインが marketplace.json に登録されているか確認
+3. 以下のコマンドを実行してインストール:
 
 ```bash
-chezmoi diff
+claude plugin install [plugin-name]
 ```
 
-Expected: Only the intended manifest file changed. If unrelated changes appear, investigate.
+4. インストール結果を表示
 
-### 5. Apply
+### 出力フォーマット
 
-**Requires user approval:**
-```bash
-chezmoi apply
+```
+## プラグインのインストール
+
+プラグイン `shiiman-xxx` をインストールしています...
+
+✅ インストール完了
+
+バージョン: 1.0.0
 ```
 
-**CRITICAL:** Always run `chezmoi apply` with no arguments. This triggers `run_onchange_00-install-mise-tools.sh.tmpl` which runs `mise install`. Targeted apply (`chezmoi apply <file>`) skips this script.
+### 重要な注意事項
 
-If the diff shows unrelated changes, ask the user how to proceed - do NOT attempt a partial apply.
-
-### 6. Commit
-
-```bash
-git add <manifest-file>
-git commit -m "feat: add <package-name>"
-```
-
----
-
-After all packages: Ask user "All packages installed and committed. Push to origin?"
-
-## Rules
-
-- Mise > Homebrew for dev tools; aqua > other mise backends
-- Exact versions only (no `latest`, ranges, wildcards)
-- One commit per package
-- Edit source files in `home/` only
-
-## Reference
-
-See `docs/package-management.md` for complete backend documentation.
+- ✅ `claude plugin install` コマンドを使用
+- ✅ インストール前に marketplace.json で存在確認
+- ✅ インストール結果をユーザーに報告
+- ❌ 既にインストール済みの場合はその旨を通知
+- ❌ 存在しないプラグインを指定された場合はエラーメッセージを表示

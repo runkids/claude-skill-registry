@@ -1,21 +1,22 @@
 ---
 name: agentuity-cli-cloud-env-pull
-description: Pull environment variables from cloud to local .env file. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.24"
+description: Pull environment variables from cloud to local .env.production file. Requires authentication. Use for Agentuity cloud platform operations
+version: "0.0.104"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:
   command: "agentuity cloud env pull"
-  tags: "slow requires-auth"
+  tags: "slow requires-auth requires-project"
 ---
 
 # Cloud Env Pull
 
-Pull environment variables from cloud to local .env file
+Pull environment variables from cloud to local .env.production file
 
 ## Prerequisites
 
 - Authenticated with `agentuity auth login`
+- Project context required (run from project directory or use `--project-id`)
 - cloud deploy
 
 ## Usage
@@ -29,26 +30,19 @@ agentuity cloud env pull [options]
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
 | `--force` | boolean | No | `false` | overwrite local values with cloud values |
-| `--org` | optionalString | Yes | - | pull from organization level (use --org for default org) |
 
 ## Examples
 
-Pull from project:
+Run pull command:
 
 ```bash
 bunx @agentuity/cli env pull
 ```
 
-Overwrite local with cloud values:
+Use force option:
 
 ```bash
 bunx @agentuity/cli env pull --force
-```
-
-Pull from organization:
-
-```bash
-bunx @agentuity/cli env pull --org
 ```
 
 ## Output
@@ -60,8 +54,7 @@ Returns JSON object:
   "success": "boolean",
   "pulled": "number",
   "path": "string",
-  "force": "boolean",
-  "scope": "string"
+  "force": "boolean"
 }
 ```
 
@@ -71,4 +64,3 @@ Returns JSON object:
 | `pulled` | number | Number of items pulled |
 | `path` | string | Local file path where variables were saved |
 | `force` | boolean | Whether force mode was used |
-| `scope` | string | The scope from which variables were pulled |

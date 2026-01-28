@@ -1,7 +1,7 @@
 {
   "name": "ai-engineer",
-  "repo": "iamgrewal/rolesense",
-  "path": ".agent/skills/ai-engineer/SKILL.md",
-  "source": "github.com/iamgrewal/rolesense",
-  "downloaded_at": "2026-01-27T04:02:10.928230Z"
+  "repo": "erichowens/some_claude_skills",
+  "path": ".claude/skills/ai-engineer/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-28T03:29:41.005465Z"
 }

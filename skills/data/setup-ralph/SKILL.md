@@ -1,127 +1,93 @@
 ---
 name: setup-ralph
-description: Setup the Ralph autonomous AI coding loop - ships features while you sleep
-argument-hint: "<project-path> [-i/--interactive] [-f/--feature <name>]"
+description: "Initialize Ralph environments. Use when: Creating new Ralph loops or configuring existing ones. Not for: Running loops or task execution."
 ---
 
-<objective>
-Set up the Ralph autonomous coding loop in any project. Ralph runs AI agents in a loop, picking tasks from a PRD, implementing one at a time, committing after each, and accumulating learnings until all tasks are complete.
+## Essential Principles
 
-**This skill ONLY sets up Ralph - you run the commands yourself.**
-</objective>
+### What is Ralph?
 
-<quick_start>
-**Setup Ralph interactively (recommended):**
+Ralph is Geoffrey Huntley's autonomous AI coding methodology that uses iterative loops with task selection, execution, and validation. In its purest form, it's a Bash loop:
 
 ```bash
-/setup-ralph -i
+while :; do cat PROMPT.md | claude ; done
 ```
 
-**Setup for specific feature:**
+The loop feeds a prompt file to Claude, the agent completes one task, updates the implementation plan, commits changes, then exits. The loop restarts immediately with fresh context.
 
-```bash
-/setup-ralph -f 01-add-authentication
-```
+### Core Philosophy
 
-**What this does:**
+**The Ralph Wiggum Technique is deterministically bad in an undeterministic world.** Ralph solves context accumulation by starting each iteration with fresh context—the core insight behind Geoffrey's approach.
 
-1. Creates `.claude/ralph/` structure in your project
-2. Runs setup script to create all Ralph files
-3. (If -i): Brainstorms PRD with you interactively
-4. Transforms PRD into user stories (prd.json)
-5. Shows you the command to run Ralph (you run it yourself)
+### Three Phases, Two Prompts, One Loop
 
-**After setup, you run:**
+1. **Planning Phase**: Gap analysis (specs vs code) outputs prioritized TODO list—no implementation, no commits
+2. **Building Phase**: Picks tasks from plan, implements, runs tests (backpressure), commits
+3. **Observation Phase**: You sit on the loop, not in it—engineer the setup and environment that allows Ralph to succeed
 
-```bash
-bun run .claude/ralph/ralph.sh -f <feature-name>
-```
+### Key Principles
 
-</quick_start>
+**Your Role**: Ralph does all the work, including deciding which planned work to implement next and how to implement it. Your job is to engineer the environment.
 
-<critical_rule>
-🛑 NEVER run ralph.sh or any execution commands automatically
-🛑 NEVER execute the loop - only set up files and show instructions
-✅ ALWAYS let the user copy and run commands themselves
-✅ ALWAYS end by showing the exact command to run
-</critical_rule>
+**Backpressure**: Create backpressure via tests, typechecks, lints, builds that reject invalid/unacceptable work.
 
-<when_to_use>
-**Use this skill when:**
+**Observation**: Watch, especially early on. Prompts evolve through observed failure patterns.
 
-- Starting a new feature that can be broken into small stories
-- Setting up Ralph in a new project
-- Creating a new feature PRD interactively
+**Context Efficiency**: With ~176K usable tokens from 200K window, allocating 40-60% to "smart zone" means tight tasks with one task per loop achieves maximum context utilization.
 
-**Don't use for:**
+**File I/O as State**: The plan file persists between isolated loop executions, serving as deterministic shared state—no sophisticated orchestration needed.
 
-- Simple single-file changes
-- Exploratory work without clear requirements
-- Major refactors without acceptance criteria
-  </when_to_use>
+**Remote Backup**: The loop automatically creates a private GitHub repo and pushes after each commit. This protects against accidental data loss from autonomous operations. Requires `gh` CLI authenticated. Disable with `RALPH_BACKUP=false`.
 
-<parameters>
-| Flag | Description |
-|------|-------------|
-| `<project-path>` | Path to the project (defaults to current directory) |
-| `-i, --interactive` | Interactive mode: brainstorm PRD with AI assistance |
-| `-f, --feature <name>` | Feature folder name (e.g., `01-add-auth`) |
+**Safety Rules**: PROMPT_build.md includes critical safety rules prohibiting dangerous operations like `rm -rf` on project directories. Tests must run in isolated temp directories.
 
-**Examples:**
+## Intake
 
-```bash
-/setup-ralph /path/to/project -i              # Interactive PRD creation
-/setup-ralph . -f 01-add-auth                 # Setup for specific feature
-/setup-ralph -i -f 02-user-dashboard          # Interactive with specific name
-```
+What would you like to do?
 
-</parameters>
+1. **Set up a new Ralph loop** - Initialize Ralph structure in a directory
+2. **Understand Ralph concepts** - Learn about the technique and how it works
+3. **Customize existing loop** - Modify prompts or configuration
+4. **Troubleshoot Ralph** - Debug loop issues or improve performance
 
-<state_variables>
-| Variable | Type | Description |
-|----------|------|-------------|
-| `{project_path}` | string | Absolute path to target project |
-| `{ralph_dir}` | string | Path to .claude/ralph in project |
-| `{feature_name}` | string | Feature folder name (e.g., `01-add-auth`) |
-| `{feature_dir}` | string | Path to task folder |
-| `{interactive_mode}` | boolean | Whether to brainstorm PRD interactively |
-| `{prd_content}` | string | PRD markdown content |
-| `{user_stories}` | array | User stories extracted from PRD |
-| `{branch_name}` | string | Git branch for the feature |
-</state_variables>
+Wait for response before proceeding.
 
-<entry_point>
-Load `steps/step-00-init.md`
-</entry_point>
+## Routing
 
-<step_files>
-| Step | File | Purpose |
-|------|------|---------|
-| 00 | `step-00-init.md` | Parse flags, run setup script, create structure |
-| 01 | `step-01-interactive-prd.md` | Interactive PRD brainstorming and creation |
-| 02 | `step-02-create-stories.md` | Transform PRD into user stories (prd.json) |
-| 03 | `step-03-finish.md` | Show run command (user runs it themselves) |
-</step_files>
+| Response                                               | Workflow                                         |
+| ------------------------------------------------------ | ------------------------------------------------ |
+| 1, "set up", "setup", "new", "initialize", "create"    | `workflows/setup-new-loop.md`                    |
+| 2, "understand", "learn", "concepts", "explain", "how" | `workflows/understand-ralph.md`                  |
+| 3, "customize", "modify", "change", "update", "edit"   | `workflows/customize-loop.md`                    |
+| 4, "troubleshoot", "debug", "fix", "problem", "issue"  | `workflows/troubleshoot-loop.md`                 |
+| Other                                                  | Clarify intent, then select appropriate workflow |
 
-<scripts>
-| Script | Purpose |
-|--------|---------|
-| `scripts/setup.sh` | Creates all Ralph files in the project |
-</scripts>
+After reading the workflow, follow it exactly.
 
-<execution_rules>
+## Domain Knowledge
 
-1. **Progressive Loading**: Load one step at a time
-2. **Script Execution**: Use scripts/setup.sh to create files atomically
-3. **Interactive Mode**: If -i flag, run brainstorming conversation
-4. **State Persistence**: Track progress in feature_dir/progress.txt
-5. **Resume Support**: Detect existing PRD.md and resume from there
-6. **NEVER RUN RALPH**: Only setup and show commands - user runs them
-   </execution_rules>
+All in `references/`:
 
-<success_criteria>
-✅ Ralph structure created at {project_path}/.claude/ralph
-✅ Feature folder created with PRD.md, prd.json, progress.txt
-✅ User stories properly formatted in prd.json
-✅ Clear run command provided to user (they run it themselves)
-</success_criteria>
+**Core Concepts:** ralph-fundamentals.md - Three phases, two prompts, one loop
+**Structure:** project-structure.md - Required files and directory layout
+**Prompts:** prompt-design.md - Planning vs building mode instructions
+**Backpressure:** validation-strategy.md - Tests, lints, builds as steering
+**Best Practices:** operational-learnings.md - AGENTS.md guidance and evolution
+
+## Workflows Index
+
+| Workflow             | Purpose                                   |
+| -------------------- | ----------------------------------------- |
+| setup-new-loop.md    | Initialize Ralph structure in a directory |
+| understand-ralph.md  | Learn Ralph concepts and philosophy       |
+| customize-loop.md    | Modify prompts or loop configuration      |
+| troubleshoot-loop.md | Debug loop issues and improve performance |
+
+## Success Criteria
+
+Skill is successful when:
+
+- User understands which workflow they need
+- Appropriate workflow loaded based on intent
+- All required references loaded by workflow
+- User can set up and run Ralph loops independently

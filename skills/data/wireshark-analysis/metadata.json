@@ -1,7 +1,7 @@
 {
   "name": "wireshark-analysis",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/security/wireshark-analysis/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-27T03:18:55.085613Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/wireshark-analysis/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-28T03:48:11.032821Z"
 }

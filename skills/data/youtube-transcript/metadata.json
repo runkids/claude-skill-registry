@@ -1,7 +1,7 @@
 {
   "name": "youtube-transcript",
-  "repo": "Doyajin174/myskills",
-  "path": ".public/skills/youtube-transcript/SKILL.md",
-  "source": "github.com/Doyajin174/myskills",
-  "downloaded_at": "2026-01-27T04:22:10.457144Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/talk-to-slidev-workflow/.claude/skills/youtube-transcript/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-28T03:30:15.868504Z"
 }

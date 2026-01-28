@@ -6,6 +6,24 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Networking & Replication
 
+## Quick Reference Links
+
+**Official Documentation:**
+- [Remote Events & Functions](https://create.roblox.com/docs/scripting/events/remote-events) - Client-server communication
+- [Bindable Events](https://create.roblox.com/docs/scripting/events/bindable-events) - Same-context events
+- [Network Ownership](https://create.roblox.com/docs/physics/network-ownership) - Physics authority
+- [Client-Server Model](https://create.roblox.com/docs/projects/client-server) - Architecture overview
+- [RemoteEvent API](https://create.roblox.com/docs/reference/engine/classes/RemoteEvent)
+- [RemoteFunction API](https://create.roblox.com/docs/reference/engine/classes/RemoteFunction)
+- [UnreliableRemoteEvent API](https://create.roblox.com/docs/reference/engine/classes/UnreliableRemoteEvent)
+
+**Wiki References:**
+- [RemoteEvent (Wiki)](https://roblox.fandom.com/wiki/RemoteEvent)
+- [RemoteFunction (Wiki)](https://roblox.fandom.com/wiki/RemoteFunction)
+- [Filtering Enabled (Wiki)](https://roblox.fandom.com/wiki/FilteringEnabled)
+
+---
+
 When implementing networking systems, follow these Roblox-specific patterns for optimal multiplayer experience.
 
 ## RemoteEvent Optimization

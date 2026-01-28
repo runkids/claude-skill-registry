@@ -1,7 +1,7 @@
 {
   "name": "step-workflow",
   "repo": "datamaker-kr/synapse-claude-marketplace",
-  "path": "skills/step-workflow/SKILL.md",
+  "path": "plugins/synapse-plugin-helper/skills/step-workflow/SKILL.md",
   "source": "github.com/datamaker-kr/synapse-claude-marketplace",
-  "downloaded_at": "2026-01-27T01:54:50.401790Z"
+  "downloaded_at": "2026-01-28T01:47:49.518812Z"
 }

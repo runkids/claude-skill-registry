@@ -1,355 +1,485 @@
 ---
 name: issue-review
-description: |
-  系統化的問題分析專家技能，自動協調五個專門代理進行深度問題分析。
-
-  適用於：
-  - 使用者或 PM 報告的線上問題
-  - 開發團隊反映的技術問題
-  - 測試發現的 bug
-  - 生產環境告警和異常
+description: Reviews and categorizes GitHub issues by difficulty (easy/medium/hard). Use when you need to triage open issues, ask clarifying questions for incomplete issues, or write implementation plans for ready issues.
 ---
 
-# Issue Review - 系統化問題分析
+# Issue Review and Categorization
 
-你已進入 **Issue Review 模式**，將執行系統化的問題分析工作流程，協調五個專門代理。
+## Project Board
 
-## 五代理協作架構
+All issues are tracked on the **Anubis Issue Tracker** project board:
+- **Project URL:** https://github.com/users/forrestthewoods/projects/8
+- **Project Number:** 8
+- **Owner:** forrestthewoods
 
-```
-                    ┌────────────────────┐
-                    │  problem-analyzer  │
-                    │   (問題分析)        │
-                    └─────────┬──────────┘
-                              │
-                 ┌────────────┼────────────┐
-                 ↓            ↓            ↓
-        ┌──────────────┐ ┌──────────┐ ┌──────────────┐
-        │diff-analyzer │ │codebase- │ │log-analyzer  │
-        │ (條件觸發)   │ │investigator│ │ (條件觸發)   │
-        │ 最近變更?    │ │ (必定執行) │ │ 有日誌?      │
-        └──────────────┘ └──────────┘ └──────────────┘
-                 │            │            │
-                 └────────────┼────────────┘
-                              ↓
-                    ┌────────────────────┐
-                    │  root-cause-finder │
-                    │   (假設驗證)        │
-                    └────────────────────┘
-```
+## Board Status Workflow
 
-### 代理角色
+| Status | Description |
+|--------|-------------|
+| **Backlog** | Future ideas or deferred work; not ready for action yet |
+| **Triage** | New issues not yet added to the project board |
+| **Needs Agent Review** | Issues ready for agent to review and categorize |
+| **Needs Human Review** | Agent has questions; waiting for human clarification |
+| **Ready to Implement** | Agent reviewed, wrote plan, no questions remaining |
+| **Needs Code Review** | Implementation in progress (has active branch) |
+| **Done** | Closed and completed (automatic via GitHub) |
 
-| 代理 | 顏色 | 模型 | 角色 |
-|------|------|------|------|
-| problem-analyzer | 🟡 黃色 | Sonnet | 問題資訊提取、分類、初步假設 |
-| codebase-investigator | 🔵 藍色 | Sonnet | 程式碼定位、流程追蹤、原因評分 |
-| root-cause-finder | 🟣 紫色 | Opus | 假設驗證、因果鏈、根本原因確認 |
-| diff-analyzer | 🟢 綠色 | Sonnet | Git 歷史分析、變更追蹤 |
-| log-analyzer | 🟠 橙色 | Sonnet | 日誌解析、錯誤模式識別 |
+**Important:** Issues in **Backlog** should be **completely ignored** by this skill. These are deferred tasks that are not ready for review. Do not triage, categorize, or write implementation plans for Backlog issues.
 
----
+## Workflow Overview
 
-## 完整工作流程
+1. **New issues** are created in GitHub Issues
+2. Issues not in the project are placed in **Triage**
+3. Issues move to **Needs Agent Review** for agent processing
+4. Agent reviews each issue:
+   - Labels the issue as `difficulty: easy`, `difficulty: medium`, or `difficulty: hard`
+   - If clarification needed → post questions as comment → move to **Needs Human Review**
+   - If no questions → write detailed implementation plan as comment → move to **Ready to Implement**
+5. When implementation begins, agent creates branch using the branch naming convention
+6. Issues with active branches are detected and moved to **Needs Code Review**
+7. When issue is closed, GitHub automatically moves it to **Done**
 
-### 步驟 1：收集問題描述
+## Purpose
 
-如果用戶已提供問題描述，直接進入步驟 2。
+This skill ensures the project board accurately reflects the current state of all issues by:
+1. Detecting the correct status for each issue based on its actual state
+2. Identifying mismatches between current board status and actual state
+3. Categorizing issues by difficulty (easy, medium, hard)
+4. Posting clarifying questions for incomplete issues
+5. Writing detailed implementation plans for well-defined issues
 
-如果用戶尚未提供，請詢問：
+## Instructions
 
-> 請描述您要分析的問題：
-> - 問題現象是什麼？
-> - 發生在什麼環境？
-> - 有錯誤訊息嗎？
-> - 如何重現？
-> - 是最近才開始發生的嗎？
+### Step 1: Gather Complete Issue Data
 
----
+Collect all information needed to determine correct status:
 
-### 步驟 2：啟動 problem-analyzer
+```bash
+# Get all open issues with full details
+gh issue list --state open --json number,title,body,labels,comments,assignees,state --limit 100
 
-收到問題描述後，**立即使用 Task 工具**啟動 problem-analyzer 代理：
+# Get all open branches (to detect active implementation)
+git ls-remote --heads origin | grep -E 'claude/|issue-' | awk '{print $2}' | sed 's|refs/heads/||'
 
-```
-使用 problem-analyzer 代理執行以下任務：
+# Get all PRs and their linked issues
+gh pr list --state open --json number,title,state,isDraft,body,url,headRefName --limit 100
 
-分析問題描述：
-[用戶提供的問題描述]
-
-要求：
-1. 先檢查 `references/common-patterns.md` 是否有匹配的已知問題模式
-2. 提取所有已知資訊（現象、環境、重現步驟、錯誤訊息）
-3. 識別資訊缺口
-4. 分類問題類型和嚴重程度
-5. 提出 3-5 個初步假設，按可能性排序
-6. **重要**：判斷以下條件
-   - [ ] 條件 A：問題「最近才發生」或「更新後出現」
-   - [ ] 條件 B：問題描述包含日誌、錯誤訊息、堆疊追蹤
-7. 輸出結構化的問題分析報告
+# Get current board state
+gh project item-list 8 --owner forrestthewoods --format json
 ```
 
-**階段完成後**：
-- 向用戶報告「✅ 階段 1 完成：問題分析」
-- 展示關鍵假設和條件判斷結果
-- 根據條件決定下一步
+For each issue, check for active branches:
+```bash
+# Check if issue has an active branch (branch name contains issue number)
+git ls-remote --heads origin | grep -i "issue-<number>\|#<number>\|-<number>-"
 
----
-
-### 步驟 2.5：啟動輔助代理（條件觸發）
-
-根據 problem-analyzer 的條件判斷：
-
-#### 條件 A 觸發：啟動 diff-analyzer
-
-```
-使用 diff-analyzer 代理執行以下任務：
-
-分析 Git 歷史，找出可能引入問題的變更
-
-問題首次報告時間：[從問題分析報告提取]
-相關檔案/模組：[從調查方向提取]
-
-要求：
-1. 查看最近 1-2 週的相關提交
-2. 識別可疑變更（核心邏輯修改、配置變更、依賴更新）
-3. 建立變更時間線
-4. 標記高風險提交
+# Check if issue has linked PRs
+gh pr list --search "#<number>" --state all --json number,title,state,isDraft,headRefName
 ```
 
-#### 條件 B 觸發：啟動 log-analyzer
+### Step 2: Determine Correct Status for Each Issue
 
+Apply these rules **in order** (first match wins):
+
+#### Rule 1: Issue is Closed → **Done**
 ```
-使用 log-analyzer 代理執行以下任務：
-
-分析日誌和錯誤訊息
-
-日誌/錯誤內容：
-[從問題描述提取]
-
-要求：
-1. 解析錯誤類型和堆疊追蹤
-2. 識別錯誤模式和頻率
-3. 分析時間分佈
-4. 找出錯誤源頭和關聯性
+IF issue is closed (merged PR or manually closed)
+THEN status should be "Done"
+Note: GitHub automation handles this automatically
 ```
 
-**如果兩個條件都觸發**：使用 Task 工具**並行**啟動兩個代理。
-
-**階段完成後**：向用戶報告「✅ 階段 1.5 完成：輔助調查」並展示關鍵發現。
-
----
-
-### 步驟 3：啟動 codebase-investigator
-
-將所有前置階段的輸出傳遞給 codebase-investigator：
-
+#### Rule 2: Has Active Branch or Open PR → **Needs Code Review**
 ```
-使用 codebase-investigator 代理執行以下任務：
-
-基於問題分析結果調查程式碼庫：
-[problem-analyzer 的分析報告]
-
-輔助分析結果（如果有）：
-[diff-analyzer 的發現]
-[log-analyzer 的發現]
-
-要求：
-1. 定位相關程式碼進入點
-2. 追蹤執行流程
-3. 識別 5-7 個可能原因並使用動態權重評分 (0-100)
-4. 整合輔助代理的發現
-5. 提供程式碼位置和片段
-6. 按可能性排序輸出
+IF issue has an open PR that references it
+OR issue has an active branch with the issue number in the name
+THEN status should be "Needs Code Review"
 ```
 
-**階段完成後**：向用戶報告「✅ 階段 2 完成：程式碼調查」並展示可能原因列表。
-
----
-
-### 步驟 4：啟動 root-cause-finder（迭代）
-
-從最高可能性假設開始驗證：
-
+#### Rule 3: Has Implementation Plan → **Ready to Implement**
 ```
-使用 root-cause-finder 代理執行以下任務：
-
-驗證假設：[假設描述]
-位置：[程式碼位置]
-可能性評分：[XX/100]
-
-輔助分析參考（如果有）：
-[diff-analyzer 的可疑提交]
-[log-analyzer 的錯誤模式]
-
-要求：
-1. 完整閱讀相關程式碼
-2. 推演執行邏輯
-3. 收集證據（支持/反駁）
-4. 整合輔助分析的發現
-5. 建立因果鏈
-6. 判斷：確認/部分確認/排除
+IF issue comments contain an "## Implementation Plan" section
+AND the plan appears complete (has steps, files to modify)
+AND no unanswered clarifying questions
+THEN status should be "Ready to Implement"
 ```
 
-**迭代邏輯**：
-- **✅ 確認**：停止迭代，進入步驟 5
-- **❓ 部分確認**：記錄，繼續驗證下一假設
-- **❌ 排除**：繼續驗證下一假設
-- **最多驗證 3 個假設**
+#### Rule 4: Waiting for Human Response → **Needs Human Review**
+```
+IF the most recent comment contains "## Clarification Needed" or similar question format
+AND the issue author/maintainer hasn't responded yet
+THEN status should be "Needs Human Review"
+```
 
-**階段完成後**：向用戶報告「✅ 階段 3 完成：根本原因定位」
+#### Rule 5: Has Sufficient Information for Review → **Needs Agent Review**
+```
+IF issue has a description
+AND issue is on the project board
+AND no outstanding clarifying questions have been posted
+THEN status should be "Needs Agent Review"
+```
 
----
+#### Rule 6: Default (New/Untracked) → **Triage**
+```
+IF issue is not on the project board
+OR none of the above apply
+THEN status should be "Triage"
+```
 
-### 步驟 5：生成最終報告
+### Step 3: Review Issues in "Needs Agent Review"
 
-生成結構化的分析報告：
+For each issue in "Needs Agent Review", perform a full review:
+
+1. **Read the issue thoroughly** - understand what is being requested
+2. **Assess difficulty** - determine if it's easy, medium, or hard
+3. **Check for missing information** - identify any gaps
+4. **Decide next action** (mutually exclusive - pick ONE):
+   - If ANY questions needed → post ONLY questions (no plan) → move to **"Needs Human Review"**
+   - If NO questions → write implementation plan → move to **"Ready to Implement"**
+
+**CRITICAL: Never mix questions and implementation plans in the same comment.** If you have questions, post only the questions and wait for answers. Only write an implementation plan when you have zero unanswered questions.
+
+**Difficulty Assessment Criteria:**
+
+| Difficulty | Criteria |
+|------------|----------|
+| **Easy** | Single file change, clear requirements, isolated scope, minimal testing needed |
+| **Medium** | Multiple files, some design decisions, moderate testing, touches 1-2 modules |
+| **Hard** | Architectural changes, complex logic, extensive testing, cross-cutting concerns |
+
+**Completeness Check:**
+- Does it have clear acceptance criteria?
+- Are reproduction steps provided (for bugs)?
+- Is the scope well-defined?
+- Are there conflicting requirements?
+
+### Step 4: Take Actions Based on Review
+
+**For issues needing clarification (move to "Needs Human Review"):**
+
+**Important:** Always use temp files for GitHub comments. Inline comment syntax with special characters breaks easily.
+
+```bash
+# Add difficulty label first
+gh issue edit <number> --add-label "difficulty: easy|medium|hard"
+
+# Write comment to temp file (create directory if needed)
+mkdir -p ./.anubis-temp/github
+```
+
+Write the comment content to `./.anubis-temp/github/issue-<number>-comment.md`:
+```markdown
+## Clarification Needed
+
+Thank you for opening this issue. Before I can create an implementation plan, I need some clarification:
+
+1. [Specific question about requirements]
+2. [Question about expected behavior]
+3. [Question about scope/constraints]
+
+Once these questions are answered, I'll write a detailed implementation plan.
+```
+
+```bash
+# Post comment using the temp file
+gh issue comment <number> --body-file ./.anubis-temp/github/issue-<number>-comment.md
+
+# Move to Needs Human Review on the project board
+```
+
+**For issues ready for implementation (move to "Ready to Implement"):**
+
+**Important:** Always use temp files for GitHub comments. Inline comment syntax with special characters breaks easily.
+
+```bash
+# Add difficulty label
+gh issue edit <number> --add-label "difficulty: easy|medium|hard"
+
+# Write comment to temp file (create directory if needed)
+mkdir -p ./.anubis-temp/github
+```
+
+Write the implementation plan to `./.anubis-temp/github/issue-<number>-plan.md`:
+```markdown
+## Implementation Plan
+
+**Difficulty:** [easy|medium|hard]
+
+### Overview
+[Brief description of the approach]
+
+### Steps
+1. [First implementation step]
+2. [Second implementation step]
+...
+
+### Files to Modify
+- `path/to/file.rs` - [what changes]
+
+### Testing
+- [Test case 1]
+- [Test case 2]
+
+### Considerations
+- [Any edge cases or concerns]
+```
+
+```bash
+# Post implementation plan using the temp file
+gh issue comment <number> --body-file ./.anubis-temp/github/issue-<number>-plan.md
+
+# Move to Ready to Implement on the project board
+```
+
+### Step 4a: Verify Status Updates
+
+**CRITICAL:** After updating any issue's board status, always verify the change took effect. The GitHub API can silently fail or changes may not persist.
+
+```bash
+# After moving an issue, verify its new status
+gh project item-list 8 --owner forrestthewoods --format json | findstr "<issue_number>"
+
+# Or use GraphQL for more precise checking
+gh api graphql -f query='{ user(login: "forrestthewoods") { projectV2(number: 8) { items(last: 10) { nodes { id fieldValueByName(name: "Status") { ... on ProjectV2ItemFieldSingleSelectValue { name } } content { ... on Issue { number } } } } } } }'
+```
+
+If the status doesn't match what you set, retry the `gh project item-edit` command.
+
+### Checklist for Each Issue Reviewed
+
+Before moving to the next issue, ensure ALL of these are complete:
+
+- [ ] Difficulty label added (`gh issue edit <number> --add-label "difficulty: X"`)
+- [ ] Comment posted (questions OR implementation plan, never both)
+- [ ] Board status updated (`gh project item-edit ...`)
+- [ ] **Status update verified** (check the board to confirm change took effect)
+
+Do not batch these operations across multiple issues. Complete the full checklist for one issue before starting on the next.
+
+### Step 5: Detect Issues with Active Branches
+
+Scan for issues that have implementation work in progress:
+
+```bash
+# List all remote branches
+git ls-remote --heads origin
+
+# For each issue, check if there's a matching branch
+# Branch patterns to look for:
+# - claude/issue-<number>-*
+# - issue-<number>-*
+# - feature/<number>-*
+# - fix/<number>-*
+```
+
+Issues with active branches should be moved to "Needs Code Review".
+
+### Step 6: Generate Status Sync Report
 
 ```markdown
-# 🎯 Issue Review 分析報告
+## Issue Status Sync Report
 
-## 執行摘要
+### Status Mismatches (Need Update)
 
-| 項目 | 內容 |
-|------|------|
-| 問題 | [一句話描述] |
-| Root Cause | [根本原因] |
-| 位置 | `file:line` |
-| 信心度 | XX% |
-| 優先級 | P0/P1/P2 |
-| 使用代理 | [實際使用的代理列表] |
+| Issue | Title | Current Status | Correct Status | Reason |
+|-------|-------|----------------|----------------|--------|
+| #25 | Add caching | Needs Agent Review | Needs Code Review | Has active branch |
+| #18 | Fix build | Needs Code Review | Ready to Implement | Branch was deleted |
+| #12 | New feature | Triage | Needs Human Review | Questions posted 3 days ago |
 
-## 分析過程
+### Issues with Active Branches
 
-### 階段 1：問題分析（problem-analyzer）
-[關鍵發現和初步假設]
+| Issue | Branch | PR | Status Should Be |
+|-------|--------|-----|------------------|
+| #25 | claude/issue-25-caching | #31 | Needs Code Review |
+| #30 | claude/issue-30-parallel | - | Needs Code Review |
 
-### 階段 1.5：輔助調查（如果執行）
+### Issues Needing Agent Review
 
-#### Git 歷史分析（diff-analyzer）
-[可疑提交和變更時間線]
+| Issue | Title | Difficulty | Action Needed |
+|-------|-------|------------|---------------|
+| #8 | Add --verbose flag | Medium | Write implementation plan |
+| #14 | Improve error handling | Easy | Write implementation plan |
 
-#### 日誌分析（log-analyzer）
-[錯誤模式和時間分佈]
+### Issues in Needs Human Review
 
-### 階段 2：程式碼調查（codebase-investigator）
-[程式碼地圖和可能原因列表]
+| Issue | Title | Days Waiting | Question Summary |
+|-------|-------|--------------|------------------|
+| #12 | Support ARM64 | 3 | Asked about target platforms |
+| #15 | New config format | 7 | Asked about backwards compat |
 
-### 階段 3：根本原因驗證（root-cause-finder）
-[驗證過程和結論]
+### By Difficulty
 
-## 根本原因
-
-### 問題位置
-**檔案**：`path/to/file.ext`
-**行號**：XX-YY
-**函式**：`functionName()`
-
-### 問題描述
-[詳細說明問題的本質]
-
-### 完整因果鏈
-```
-[根本原因]
-  ↓ 導致
-[中間影響]
-  ↓ 導致
-[直接原因]
-  ↓ 表現為
-[表面症狀]
+| Difficulty | Count | Issues |
+|------------|-------|--------|
+| Easy | 5 | #3, #7, #10, #12, #20 |
+| Medium | 8 | #4, #8, #11, #14, #15, #18, #22, #25 |
+| Hard | 3 | #5, #9, #30 |
+| Unlabeled | 2 | #1, #2 |
 ```
 
-### 程式碼分析
-```[language]
-// 問題程式碼
-[code snippet]
+### Step 7: Generate Final Summary
+
+```markdown
+## Issue Review Summary
+
+### Board Sync Status
+- **Total Open Issues:** 20
+- **Correctly Categorized:** 15
+- **Need Status Update:** 5
+
+### Actions Taken
+- Reviewed issues: #8, #14, #22
+- Posted clarifying questions: #12, #15 → Moved to "Needs Human Review"
+- Wrote implementation plans: #8, #14 → Moved to "Ready to Implement"
+- Added difficulty labels: #1, #2, #8, #14
+- Detected active branches: #25, #30 → Moved to "Needs Code Review"
+
+### Issues Ready for Work
+**Easy (Quick Wins):**
+- #3 - Fix typo in error message
+- #7 - Update help text
+
+**Medium:**
+- #8 - Add --verbose flag (plan written)
+- #14 - Improve error handling (plan written)
+
+**Hard:**
+- #9 - Refactor job system (plan written)
+
+### Issues Needing Human Input
+- #12 - Waiting for ARM64 target clarification (3 days)
+- #15 - Waiting for backwards compat decision (7 days)
 ```
 
-## 修復建議
+## Status Detection Examples
 
-### 推薦修復
-```[language]
-// 修復後程式碼
-[fixed code]
+### Example 1: Issue with Active Branch
+```
+Issue #25: "Add build caching"
+- Current board status: Needs Agent Review
+- Has branch: claude/issue-25-add-caching
+- Has open PR #31
+
+→ Correct status: Needs Code Review
+→ Action: Update board status
 ```
 
-### 修復說明
-[解釋修復的原因和預期效果]
+### Example 2: Issue with Questions Pending
+```
+Issue #12: "Support ARM64"
+- Current board status: Needs Agent Review
+- Agent posted "## Clarification Needed" 3 days ago
+- No response from author yet
 
-## 驗證方法
-
-1. **程式碼審查**：[驗證步驟]
-2. **測試驗證**：[測試方法]
-3. **監控確認**：[監控指標]
-
-## 其他發現
-
-### 次要問題
-- [問題 1] - 優先級: P2
-- [問題 2] - 優先級: P3
-
-### 技術債務
-- [債務 1]
-- [債務 2]
-
----
-
-**分析完成時間**：[timestamp]
-**使用代理**：problem-analyzer → [輔助代理] → codebase-investigator → root-cause-finder
+→ Correct status: Needs Human Review
+→ Action: Update board status
 ```
 
----
+### Example 3: Issue with Implementation Plan
+```
+Issue #8: "Add --dry-run flag"
+- Current board status: Needs Agent Review
+- Has comment with "## Implementation Plan"
+- Plan includes steps and files to modify
+- Has "difficulty: easy" label
 
-## 錯誤處理
+→ Correct status: Ready to Implement
+→ Action: Update board status
+```
 
-### 代理執行失敗
+### Example 4: New Issue Ready for Review
+```
+Issue #14: "Log compilation times"
+- Not on project board yet
+- Has clear description and acceptance criteria
+- No questions needed
 
-如果某個代理執行失敗或返回不完整結果：
+→ Add to project board
+→ Move to: Needs Agent Review
+→ Action: Review issue, assess difficulty, write plan
+```
 
-1. **重試一次**（使用更明確的指示）
-2. **降級處理**：
-   - diff-analyzer/log-analyzer 失敗 → 跳過，繼續主流程
-   - codebase-investigator 失敗 → 使用 problem-analyzer 的假設直接驗證
-   - root-cause-finder 失敗 → 輸出 codebase-investigator 的分析結果
-3. **告知用戶**：說明哪個階段遇到問題
+### Example 5: Issue After Human Response
+```
+Issue #12: "Support ARM64"
+- Current board status: Needs Human Review
+- Agent asked questions 5 days ago
+- Author responded 1 day ago with answers
 
-### 找不到確定的 Root Cause
+→ Correct status: Needs Agent Review (for follow-up review)
+→ Action: Agent should review response and write plan
+```
 
-如果所有假設都無法確認：
-1. 彙總「部分確認」的假設
-2. 說明需要的額外資訊
-3. 提供基於當前分析的臨時建議
+### Example 6: WRONG - Mixing Questions and Plan (Anti-pattern)
+```
+Issue #20: "Add parallel builds"
+- Agent posted comment with BOTH:
+  - "## Implementation Plan" with partial steps
+  - "## Open Questions" asking about thread count
 
-### 多個 Root Causes
+→ THIS IS WRONG - never mix questions and plans
+→ Correct action: Post ONLY questions, move to "Needs Human Review"
+→ Wait for answers, THEN post implementation plan
+```
 
-如果發現多個確認的原因：
-1. 分別說明每個 Root Cause
-2. 分析它們的關係（獨立/共同作用）
-3. 提供各自的修復建議和優先級
+## Branch Naming Convention
 
-### 資訊不足
+When implementing an issue, create a branch following this pattern:
+```
+claude/issue-<number>-<short-description>
+```
 
-如果問題描述過於簡短，請詢問：
-- 瀏覽器開發者工具的網路/主控台截圖
-- 伺服器日誌
-- 詳細的重現步驟
-- 是否是最近才開始發生
+Examples:
+- `claude/issue-25-add-caching`
+- `claude/issue-12-arm64-support`
+- `claude/issue-8-dry-run-flag`
 
----
+This naming convention allows automatic detection of active implementation work.
 
-## 可用命令
+## Guidelines
 
-除了此技能，你還可以使用：
+- **Always verify status updates** - After calling `gh project item-edit`, verify the status actually changed by querying the board. The API can silently fail. Never assume a command succeeded just because it returned no error.
+- **Complete one issue fully before moving to the next** - Don't batch operations across issues. For each issue: add label → post comment → update status → verify status → then move to next issue.
+- **Never mix questions and implementation plans** - If you have ANY questions about an issue, post ONLY the questions as a comment and move to "Needs Human Review". Do NOT include a partial plan. Only write an implementation plan when all questions have been answered.
+- **Always use temp files for GitHub comments** - Write comment content to `./.anubis-temp/github/` and use `gh issue comment --body-file`. Inline `--body` syntax with slashes, backticks, and special characters breaks easily.
+- Always check for active branches first - this indicates implementation is in progress
+- Be respectful and constructive in all comments
+- Implementation plans should be detailed enough for any agent to follow
+- Consider existing architecture when estimating difficulty
+- Look at related code before categorizing
+- Check if issues are duplicates or related to existing work
+- If unsure about difficulty, err on the side of marking as harder
+- Prioritize getting the board status correct over other actions
+- When human responds to clarifying questions, move issue back to "Needs Agent Review" for follow-up
 
-| 命令 | 用途 |
-|------|------|
-| `/analyze-issue [問題描述]` | 快速啟動完整五代理分析流程 |
-| `/quick-analyze [問題描述]` | 快速診斷（適用於有明確錯誤訊息） |
+## Detecting Active Branches
 
----
+Check for branches that reference issue numbers:
 
-## 開始分析
+```bash
+# List all remote branches with issue numbers
+git ls-remote --heads origin | grep -E 'issue-[0-9]+|#[0-9]+|-[0-9]+-'
 
-**請提供您要分析的問題描述**，我將立即啟動系統化的分析流程。
+# Check specific issue
+git ls-remote --heads origin | grep -i "<number>"
+```
 
-如果您已經在上方提供了問題描述，我將直接開始分析。
+Branch patterns that indicate active work:
+- `claude/issue-<number>-*`
+- `feature/issue-<number>-*`
+- `fix/issue-<number>-*`
+- `*-issue-<number>-*`
+
+## Example Clarifying Questions
+
+For a bug report:
+- "What version of Anubis are you using?"
+- "Can you share the exact error message?"
+- "What operating system are you on?"
+- "Can you share a minimal reproduction case?"
+
+For a feature request:
+- "What problem does this solve for you?"
+- "Are there any constraints we should consider?"
+- "How should this interact with [existing feature]?"
+- "What's the expected behavior when [edge case]?"

@@ -1,7 +1,7 @@
 {
   "name": "parallel-agents",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/parallel-agents/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:42.980979Z"
+  "repo": "LeonMelamud/inspector-agents",
+  "path": "skills/parallel-agents/SKILL.md",
+  "source": "github.com/LeonMelamud/inspector-agents",
+  "downloaded_at": "2026-01-28T04:38:08.896851Z"
 }

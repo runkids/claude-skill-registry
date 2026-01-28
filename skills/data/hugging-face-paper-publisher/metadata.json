@@ -1,11 +1,7 @@
 {
   "name": "hugging-face-paper-publisher",
-  "repo": "huggingface/skills",
-  "category": "data",
-  "description": "Publish and manage research papers on Hugging Face Hub. Supports creating paper pages, linking papers to models/datasets, claiming authorship, and generating professional markdown-based research artic",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:15.889123Z",
-  "dir_name": "hugging-face-paper-publisher",
-  "github_path": "skills/hugging-face-paper-publisher",
-  "github_branch": "main"
+  "repo": "POWERFULMOVES/PMOVES-BoTZ",
+  "path": ".claude/skills/hugging-face-paper-publisher/SKILL.md",
+  "source": "github.com/POWERFULMOVES/PMOVES-BoTZ",
+  "downloaded_at": "2026-01-28T03:29:07.040178Z"
 }

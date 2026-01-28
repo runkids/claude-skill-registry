@@ -1,7 +1,7 @@
 {
   "category": "security",
-  "count": 787,
-  "updated_at": "2026-01-27T04:46:39.807460Z",
+  "count": 777,
+  "updated_at": "2026-01-28T04:46:46.645039Z",
   "skills": [
     {
       "name": "git-workflow",
@@ -1868,21 +1868,6 @@
       "source": "local"
     },
     {
-      "name": "security-engineer",
-      "description": "Implement security best practices across the application stack. Use when securing APIs, implementing authentication, preventing vulnerabilities, or conducting security reviews. Covers OWASP Top 10, au",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/security-engineer",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "security",
-        "engineer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "local"
-    },
-    {
       "name": "security-review",
       "description": "セキュリティ脆弱性を自動検出する。認証情報のハードコード、コマンドインジェクション、危険なシェル構文などをチェック。",
       "repo": "shiiman/dotfiles",
@@ -2337,21 +2322,6 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-spring-boot/skills/spring-security",
-      "source": "local"
-    },
-    {
-      "name": "spring-security",
-      "description": "Secure Spring Boot applications - authentication, authorization, OAuth2, JWT, CORS/CSRF protection",
-      "repo": "pluginagentmarketplace/custom-plugin-spring-boot",
-      "path": "data/spring-security",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "spring",
-        "security"
-      ],
-      "stars": 1,
-      "install": "pluginagentmarketplace/custom-plugin-spring-boot",
       "source": "local"
     },
     {
@@ -3436,21 +3406,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "axiom-audit",
-      "description": "Audit Axiom logs to identify and prioritize errors and warnings, research probable causes, and flag log smells. Use when user asks to check Axiom logs, analyze production errors, investigate log issue",
-      "repo": "Cygnusfear/claude-stuff",
-      "path": "data/axiom-audit",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "axiom",
-        "audit"
-      ],
-      "stars": 0,
-      "install": "Cygnusfear/claude-stuff",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "bandit-security-scan",
       "description": "Run Bandit security analysis to find common security issues and vulnerabilities in Python code. Use when the user mentions Bandit, security analysis, vulnerability scanning, security audit, software c",
       "repo": "visgwu/python_web_app",
@@ -3824,21 +3779,6 @@
       ],
       "stars": 0,
       "install": "vultuk/coding-agent-skills/code-audit",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "code-audit",
-      "description": "Perform comprehensive code audits on repositories or directories. Use when asked to audit code, review a codebase, analyze code quality, find bugs, check for security issues, review architecture, chec",
-      "repo": "vultuk/coding-agent-skills",
-      "path": "data/code-audit",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "code",
-        "audit"
-      ],
-      "stars": 0,
-      "install": "vultuk/coding-agent-skills",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -4326,18 +4266,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "darkit-gin",
-      "description": "基于 gin-gonic/gin 的企业级 Web 框架增强版，提供开箱即用的 JWT 认证、SSE 实时通信、缓存管理、OpenAPI 文档生成等企业级功能。涵盖选项式路由配置、统一响应格式、中间件管理、安全加固、性能优化等完整开发能力。",
-      "repo": "DarkiT/gin",
-      "path": "data/darkit-gin",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "DarkiT/gin",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "delonauth-authentication-authorization",
       "description": "Implement authentication and authorization using @delon/auth. Use this skill when adding login/logout flows, JWT token management, role-based access control (RBAC), route guards, HTTP interceptors, an",
       "repo": "tw-lin/ng-lin",
@@ -4609,18 +4537,6 @@
       "tags": [],
       "stars": 0,
       "install": "kprsnt2/MyLocalCLI/src/skills/builtin/django",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "django",
-      "description": "Django framework best practices including project structure, ORM, and security.",
-      "repo": "kprsnt2/MyLocalCLI",
-      "path": "data/django",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "kprsnt2/MyLocalCLI",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6058,18 +5974,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "log-analysis-security",
-      "description": "Log Analysis Security - Auto-activating skill for Security Advanced.Triggers on: log analysis security, log analysis securityPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/log-analysis-security",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "log-analysis-skill",
       "description": "Helps an agent analyze application logs and identify security issues.",
       "repo": "hpppm/lab-agent-skills-design",
@@ -6450,18 +6354,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "nuxt-studio",
-      "description": "This skill should be used when the user asks to \"set up Nuxt Studio\", \"configure Studio OAuth\", \"deploy Studio to Cloudflare\", \"add visual editor to Nuxt\", \"configure studio.domain.com subdomain\", \"St",
-      "repo": "secondsky/claude-skills",
-      "path": "data/nuxt-studio",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "oauth-callback-handler",
       "description": "Oauth Callback Handler - Auto-activating skill for API Integration.Triggers on: oauth callback handler, oauth callback handlerPart of the API Integration skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -6651,6 +6543,18 @@
       "tags": [],
       "stars": 0,
       "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-security-remote-content",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "openwebf-security",
+      "description": "DEPRECATED umbrella Skill (backward compatibility). Use only for cross-cutting security reviews spanning remote content + XSS/sanitization + store compliance. Prefer focused openwebf-security-* Skills",
+      "repo": "archview-ai/webf-plugin",
+      "path": "data/openwebf-security",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "archview-ai/webf-plugin",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7598,6 +7502,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "sandbox-configuration",
+      "description": "Central authority for Claude Code sandboxing and isolation. Covers sandboxed bash tool, /sandbox command, filesystem isolation (blocked access, custom paths), network isolation (domain restrictions, p",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "data/sandbox-configuration",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "sanitizing-user-inputs",
       "description": "Sanitizing and validating user input to prevent XSS, injection attacks, and security vulnerabilities in TypeScript applications",
       "repo": "djankies/claude-configs",
@@ -7922,18 +7838,6 @@
       "tags": [],
       "stars": 0,
       "install": "mgd34msu/goodvibes-plugin/plugins/goodvibes/skills/common/quality/security-audit-checklist",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "security-audit-checklist",
-      "description": "Provides exhaustive security vulnerability checklists with severity classifications, point deductions, and detection commands. Use when performing security audits, code reviews, penetration testing pr",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "data/security-audit-checklist",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "mgd34msu/goodvibes-plugin",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9040,18 +8944,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "spring-boot-security",
-      "description": "Spring Security 7 implementation for Spring Boot 4. Use when configuring authentication, authorization, OAuth2/JWT resource servers, method security, or CORS/CSRF. Covers the mandatory Lambda DSL migr",
-      "repo": "joaquimscosta/arkhe-claude-plugins",
-      "path": "data/spring-boot-security",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "joaquimscosta/arkhe-claude-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "spring-boot-security-jwt",
       "description": "JWT authentication and authorization patterns for Spring Boot 3.5.x covering token generation with JJWT, Bearer/cookie authentication, database/OAuth2 integration, and RBAC/permission-based access con",
       "repo": "giuseppe-trisciuoglio/developer-kit",
@@ -9592,18 +9484,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "vercel-security-basics",
-      "description": "Apply Vercel security best practices for secrets and access control.Use when securing API keys, implementing least privilege access,or auditing Vercel security configuration.Trigger with phrases like ",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vercel-security-basics",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "violetconnect-bigcommerce",
       "description": "BigCommerce OAuth, embedded app JWT validation, and pre-registration patterns for VioletConnect",
       "repo": "violetio/violet-ai-plugins",
@@ -9811,18 +9691,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/04-security-advanced/vulnerability-report-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vulnerability-report-generator",
-      "description": "Vulnerability Report Generator - Auto-activating skill for Security Advanced.Triggers on: vulnerability report generator, vulnerability report generatorPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vulnerability-report-generator",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

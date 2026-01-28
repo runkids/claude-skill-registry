@@ -1,9 +1,7 @@
 {
   "name": "unit-testing-expert",
-  "description": "Comprehensive unit testing expertise covering Vitest, Jest, test-driven development (TDD), mocking strategies, test coverage, snapshot testing, test architecture, testing patterns, dependency injectio",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave-testing/skills/unit-testing-expert/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:06.227360Z"
 }

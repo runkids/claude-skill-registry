@@ -10,28 +10,24 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 ## Core Capabilities
 
 ### 1. Discounted Cash Flow (DCF) Analysis
-
 - Build complete DCF models with multiple growth scenarios
 - Calculate terminal values using perpetuity growth and exit multiple methods
 - Determine weighted average cost of capital (WACC)
 - Generate enterprise and equity valuations
 
 ### 2. Sensitivity Analysis
-
 - Test key assumptions impact on valuation
 - Create data tables for multiple variables
 - Generate tornado charts for sensitivity ranking
 - Identify critical value drivers
 
 ### 3. Monte Carlo Simulation
-
 - Run thousands of scenarios with probability distributions
 - Model uncertainty in key inputs
 - Generate confidence intervals for valuations
 - Calculate probability of achieving targets
 
 ### 4. Scenario Planning
-
 - Build best/base/worst case scenarios
 - Model different economic environments
 - Test strategic alternatives
@@ -40,7 +36,6 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 ## Input Requirements
 
 ### For DCF Analysis
-
 - Historical financial statements (3-5 years)
 - Revenue growth assumptions
 - Operating margin projections
@@ -50,19 +45,16 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 - Discount rate components (risk-free rate, beta, market premium)
 
 ### For Sensitivity Analysis
-
 - Base case model
 - Variable ranges to test
 - Key metrics to track
 
 ### For Monte Carlo Simulation
-
 - Probability distributions for uncertain variables
 - Correlation assumptions between variables
 - Number of iterations (typically 1,000-10,000)
 
 ### For Scenario Planning
-
 - Scenario definitions and assumptions
 - Probability weights for scenarios
 - Key performance indicators to track
@@ -70,7 +62,6 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 ## Output Formats
 
 ### DCF Model Output
-
 - Complete financial projections
 - Free cash flow calculations
 - Terminal value computation
@@ -79,21 +70,18 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 - Excel workbook with full model
 
 ### Sensitivity Analysis Output
-
 - Sensitivity tables showing value ranges
 - Tornado chart of key drivers
 - Break-even analysis
 - Charts showing relationships
 
 ### Monte Carlo Output
-
 - Probability distribution of valuations
 - Confidence intervals (e.g., 90%, 95%)
 - Statistical summary (mean, median, std dev)
 - Risk metrics (VaR, probability of loss)
 
 ### Scenario Planning Output
-
 - Scenario comparison table
 - Probability-weighted expected values
 - Decision tree visualization
@@ -124,7 +112,6 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 ## Best Practices Applied
 
 ### Modeling Standards
-
 - Consistent formatting and structure
 - Clear assumption documentation
 - Separation of inputs, calculations, outputs
@@ -132,7 +119,6 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 - Version control and change tracking
 
 ### Valuation Principles
-
 - Use multiple valuation methods for triangulation
 - Apply appropriate risk adjustments
 - Consider market comparables
@@ -140,7 +126,6 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 - Document key assumptions clearly
 
 ### Risk Management
-
 - Identify and quantify key risks
 - Use probability-weighted scenarios
 - Stress test extreme cases
@@ -174,7 +159,6 @@ A comprehensive financial modeling toolkit for investment analysis, valuation, a
 ## Quality Checks
 
 The model automatically performs:
-
 1. Balance sheet balancing checks
 2. Cash flow reconciliation
 3. Circular reference resolution

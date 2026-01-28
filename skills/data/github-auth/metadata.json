@@ -1,12 +1,7 @@
 {
   "name": "github-auth",
-  "description": "Securely authenticate with GitHub using stored credentials for API operations and git commands",
   "repo": "jackspace/ClaudeSkillz",
-  "category": "development",
-  "tags": [
-    "github",
-    "auth"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/github-auth/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-28T02:11:57.831709Z"
 }

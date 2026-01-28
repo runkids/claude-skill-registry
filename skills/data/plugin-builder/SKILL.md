@@ -1,968 +1,1431 @@
 ---
 name: plugin-builder
-description: Scaffold complete elizaOS plugins with actions, providers, evaluators, and services. Triggers when user asks to "create plugin", "build elizaOS extension", or "scaffold plugin structure"
-allowed-tools: [Write, Read, Edit, Grep, Glob, Bash]
+description: Automate Claude Code plugin creation, packaging, validation, and distribution. Use when creating plugins, packaging skills, generating manifests, validating plugin structure, setting up marketplaces, or distributing skill collections.
+allowed-tools: Read, Write, Edit, Glob, Bash
 ---
 
-# Plugin Builder Skill
+# Plugin Builder
 
-A comprehensive skill that scaffolds production-ready elizaOS plugins with proper structure, TypeScript configuration, testing setup, and documentation.
+## Overview
+
+plugin-builder automates the entire Claude Code plugin creation and distribution process. It generates valid plugin structures, manifests, validates compliance, packages existing skills, and prepares plugins for marketplace distribution.
+
+**Purpose**: Transform skills into distributable plugins in minutes instead of hours
+
+**Key Capabilities**:
+- Initialize plugin directory structure
+- Generate valid plugin.json and marketplace.json manifests
+- Validate plugin structure and 2025 schema compliance
+- Package existing skills into plugin format
+- Automate repetitive plugin tasks
+
+**Pattern**: Task-based (independent operations, flexible order)
+
+**Time Savings**: 2-4 hours manual work → 15-30 minutes automated
+
+## What Are Claude Code Plugins?
+
+Plugins are distributable packages that extend Claude Code with custom functionality. They can contain:
+- **Skills**: Agent capabilities (what we have 32 of!)
+- **Commands**: Custom slash commands
+- **Agents**: Specialized subagents
+- **Hooks**: Event handlers
+- **MCP Servers**: External tool integrations
+
+**Distribution**: Plugins are shared via Git-based marketplaces. Users install with:
+```
+/plugin marketplace add owner/repo
+/plugin install plugin-name@marketplace-name
+```
+
+**Structure**:
+```
+plugin-name/
+├── .claude-plugin/
+│   ├── plugin.json           # Required: Plugin metadata
+│   └── marketplace.json      # Optional: For distribution
+├── skills/                    # Your skills go here
+├── commands/                  # Custom commands (optional)
+├── agents/                    # Subagents (optional)
+└── README.md                  # Recommended: Documentation
+```
 
 ## When to Use
 
-This skill activates when you need to:
-- Create a new elizaOS plugin from scratch
-- Add custom actions, providers, or services
-- Extend elizaOS with new capabilities
-- Build reusable plugin packages
+Use plugin-builder when you need to:
 
-**Trigger phrases:**
-- "Create a plugin for [capability]"
-- "Build an elizaOS plugin that [does something]"
-- "Scaffold a new plugin"
-- "Generate plugin structure for [feature]"
+**Creating Plugins**:
+- Package your skills for distribution
+- Create installable skill collections
+- Share skills with your team
+- Publish to community marketplaces
 
-## Capabilities
+**Validation & Quality**:
+- Validate plugin structure before publishing
+- Ensure 2025 schema compliance
+- Check manifest correctness
+- Verify component formatting
 
-This skill can:
-1. 🏗️ Scaffold complete plugin structure
-2. ⚡ Generate actions with validation and handlers
-3. 📊 Create providers for context enrichment
-4. ✅ Build evaluators for response quality
-5. 🔌 Implement services for platform integrations
-6. 🧪 Set up comprehensive testing
-7. 📦 Configure TypeScript and build tools
-8. 📚 Generate complete documentation
+**Distribution Setup**:
+- Create team/organization marketplaces
+- Set up GitHub distribution
+- Configure multi-plugin catalogs
 
-## Plugin Architecture
+**Bulk Operations**:
+- Convert multiple skills to plugins
+- Package entire skill ecosystems
+- Migrate existing skills to plugin format
 
-```typescript
-interface Plugin {
-  name: string;                    // Unique plugin identifier
-  description?: string;            // Plugin purpose
-  dependencies?: string[];         // Required plugins
+## Prerequisites
 
-  // Extensibility Components
-  actions?: Action[];              // Executable operations
-  providers?: Provider[];          // Context enrichment
-  evaluators?: Evaluator[];        // Response quality
-  services?: typeof Service[];     // Platform integrations
-  models?: ModelHandlers;          // Custom model handlers
+Before using plugin-builder:
 
-  // Lifecycle Hooks
-  init?(config: any, runtime: IAgentRuntime): Promise<void>;
-  start?(runtime: IAgentRuntime): Promise<void>;
-  stop?(runtime: IAgentRuntime): Promise<void>;
-}
-```
+**Knowledge**:
+- Basic understanding of Claude Code skills
+- Familiarity with terminal/command line
+- Basic JSON concepts (scripts generate it for you)
 
-## Workflow
+**Tools**:
+- Python 3.8+ installed
+- Skills/commands/agents to package (for packaging operations)
+- Git installed (for marketplace distribution)
 
-### Phase 1: Requirements Analysis
+**Optional**:
+- GitHub account (for public distribution)
+- Text editor (for manual manifest edits)
 
-**Ask these questions:**
+## Operations
 
-1. **Plugin Purpose**: "What capability does this plugin add?"
-   - Platform integration (Discord, Telegram, Slack)
-   - External service (API, database, search)
-   - Custom action (file operations, calculations)
-   - Data enrichment (context, analytics)
-   - Response enhancement (formatting, validation)
+### Operation 1: Initialize Plugin Structure
 
-2. **Components Needed**:
-   - Actions: User-triggered operations?
-   - Providers: Context enrichment needed?
-   - Evaluators: Response validation required?
-   - Services: Long-running processes?
-   - Models: Custom LLM handlers?
+Create a complete plugin directory structure with minimal configuration.
 
-3. **Dependencies**:
-   - External npm packages?
-   - API credentials required?
-   - Other elizaOS plugins?
-   - System requirements?
+**Purpose**: Quickly scaffold a new plugin with correct structure and minimal boilerplate
 
-4. **Configuration**:
-   - Environment variables needed?
-   - Runtime settings?
-   - Secrets management?
+**When to Use**:
+- Starting a new plugin from scratch
+- Need proper directory layout
+- Want generated README template
 
-### Phase 2: Plugin Structure
+**Prerequisites**:
+- Plugin name decided (kebab-case recommended)
+- Basic metadata known (description, author)
 
-```
-plugin-{name}/
-├── package.json
-├── tsconfig.json
-├── .env.example
-├── README.md
-├── src/
-│   ├── index.ts              # Plugin export
-│   ├── types.ts              # TypeScript interfaces
-│   ├── actions/              # Action implementations
-│   │   ├── index.ts
-│   │   └── {actionName}.ts
-│   ├── providers/            # Provider implementations
-│   │   ├── index.ts
-│   │   └── {providerName}.ts
-│   ├── evaluators/           # Evaluator implementations
-│   │   ├── index.ts
-│   │   └── {evaluatorName}.ts
-│   ├── services/             # Service implementations
-│   │   ├── index.ts
-│   │   └── {serviceName}.ts
-│   └── utils/                # Utility functions
-│       └── index.ts
-├── __tests__/                # Tests
-│   ├── actions.test.ts
-│   ├── providers.test.ts
-│   ├── evaluators.test.ts
-│   └── integration.test.ts
-└── examples/                 # Usage examples
-    └── basic-usage.ts
-```
+**Inputs**:
+- Plugin name
+- Optional: Description, author information
 
-### Phase 3: Implementation
+**Process**:
 
-**Step 1: Initialize Plugin**
-
+**Method 1: Interactive Script (Recommended)**
 ```bash
-# Create directory structure
-mkdir -p plugin-{name}/{src/{actions,providers,evaluators,services,utils},__tests__,examples}
-cd plugin-{name}
+cd /path/to/your/workspace
+python /path/to/plugin-builder/scripts/init_plugin.py
 ```
 
-**Step 2: Package Configuration**
+Follow prompts:
+1. Enter plugin name (will create directory with this name)
+2. Enter description (brief, 1-2 sentences)
+3. Enter author name
+4. Enter author email (optional)
+5. Choose components to include (skills/commands/agents)
 
-```json
+**Method 2: Command Line**
+```bash
+python /path/to/plugin-builder/scripts/init_plugin.py my-plugin \
+  --description "My awesome plugin" \
+  --author "Your Name" \
+  --email "you@example.com" \
+  --components skills,commands
+```
+
+**Method 3: Manual Creation**
+```bash
+mkdir -p my-plugin/.claude-plugin
+mkdir -p my-plugin/skills
+mkdir -p my-plugin/commands  # optional
+mkdir -p my-plugin/agents    # optional
+
+# Create minimal plugin.json
+cat > my-plugin/.claude-plugin/plugin.json <<'EOF'
 {
-  "name": "@elizaos/plugin-{name}",
-  "version": "1.0.0",
-  "description": "{Plugin description}",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "lint": "eslint src/**/*.ts",
-    "format": "prettier --write \"src/**/*.ts\""
-  },
-  "dependencies": {
-    "@elizaos/core": "latest",
-    "zod": "^3.22.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.0.0",
-    "prettier": "^3.0.0",
-    "typescript": "^5.0.0",
-    "vitest": "^1.0.0"
-  },
-  "keywords": [
-    "elizaos",
-    "plugin",
-    "{keywords}"
-  ],
-  "author": "{Your Name}",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/{org}/plugin-{name}"
-  }
+  "name": "my-plugin"
 }
-```
+EOF
 
-**Step 3: TypeScript Configuration**
+# Create README
+cat > my-plugin/README.md <<'EOF'
+# My Plugin
 
-```json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ES2022",
-    "lib": ["ES2022"],
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "__tests__"]
-}
-```
-
-**Step 4: Create Types**
-
-```typescript
-// src/types.ts
-
-import type {
-  Action,
-  Provider,
-  Evaluator,
-  Service,
-  IAgentRuntime,
-  Memory,
-  State
-} from '@elizaos/core';
-
-// Plugin Configuration
-export interface {PluginName}Config {
-  apiKey?: string;
-  baseUrl?: string;
-  timeout?: number;
-  // Add your config properties
-}
-
-// Action Types
-export interface {Action}Input {
-  // Input parameters
-}
-
-export interface {Action}Output {
-  // Output structure
-}
-
-// Provider Types
-export interface {Provider}Data {
-  // Provider data structure
-}
-
-// Service Types
-export interface {Service}Config {
-  // Service configuration
-}
-
-// Export plugin type
-export interface {PluginName}Plugin {
-  name: string;
-  description: string;
-  actions?: Action[];
-  providers?: Provider[];
-  evaluators?: Evaluator[];
-  services?: typeof Service[];
-}
-```
-
-**Step 5: Create Action**
-
-```typescript
-// src/actions/{actionName}.ts
-
-import {
-  type Action,
-  type IAgentRuntime,
-  type Memory,
-  type State,
-  type HandlerCallback
-} from '@elizaos/core';
-import { z } from 'zod';
-
-// Input validation schema
-const {action}Schema = z.object({
-  param1: z.string().min(1),
-  param2: z.number().optional(),
-  // Add your parameters
-});
-
-export const {action}Action: Action = {
-  name: '{ACTION_NAME}',
-
-  // Similar action names for triggering
-  similes: [
-    'SIMILAR_NAME_1',
-    'SIMILAR_NAME_2',
-    'ALTERNATIVE_NAME'
-  ],
-
-  description: '{What this action does and when to use it}',
-
-  // Usage examples for training
-  examples: [
-    [
-      {
-        user: "{{user}}",
-        content: { text: "Can you {action example}?" }
-      },
-      {
-        user: "{{agentName}}",
-        content: {
-          text: "{I'll {action} for you}",
-          action: "{ACTION_NAME}"
-        }
-      }
-    ],
-    [
-      {
-        user: "{{user}}",
-        content: { text: "{Another way to trigger action}" }
-      },
-      {
-        user: "{{agentName}}",
-        content: {
-          text: "{Response}",
-          action: "{ACTION_NAME}"
-        }
-      }
-    ]
-  ],
-
-  // Validate if action should execute
-  validate: async (
-    runtime: IAgentRuntime,
-    message: Memory,
-    state?: State
-  ): Promise<boolean> => {
-    try {
-      // Extract parameters from message
-      const params = extractParams(message);
-
-      // Validate with Zod
-      {action}Schema.parse(params);
-
-      // Additional validation logic
-      if (!hasRequiredPermissions(runtime, message)) {
-        return false;
-      }
-
-      return true;
-    } catch (error) {
-      console.error('Validation failed:', error);
-      return false;
-    }
-  },
-
-  // Execute action
-  handler: async (
-    runtime: IAgentRuntime,
-    message: Memory,
-    state?: State,
-    options?: any,
-    callback?: HandlerCallback
-  ): Promise<string | null> => {
-    try {
-      // Extract and validate parameters
-      const params = extractParams(message);
-      const validated = {action}Schema.parse(params);
-
-      // Send progress update
-      if (callback) {
-        callback({
-          text: 'Processing {action}...',
-          action: '{ACTION_NAME}'
-        });
-      }
-
-      // Execute action logic
-      const result = await performAction(validated, runtime);
-
-      // Store result in memory if needed
-      await runtime.createMemory({
-        entityId: runtime.agentId,
-        roomId: message.roomId,
-        content: {
-          text: `Action {ACTION_NAME} completed`,
-          metadata: { result }
-        }
-      });
-
-      // Return success message
-      return formatSuccessResponse(result);
-
-    } catch (error) {
-      console.error('Action failed:', error);
-
-      // Return error message
-      return formatErrorResponse(error);
-    }
-  }
-};
-
-// Helper functions
-function extractParams(message: Memory): any {
-  // Extract parameters from message content
-  return {
-    param1: message.content.param1,
-    param2: message.content.param2
-  };
-}
-
-async function performAction(params: any, runtime: IAgentRuntime): Promise<any> {
-  // Implement action logic
-  // Access runtime.getService() for services
-  // Use runtime.createMemory() for storing data
-
-  return {
-    success: true,
-    data: {}
-  };
-}
-
-function hasRequiredPermissions(runtime: IAgentRuntime, message: Memory): boolean {
-  // Check permissions
-  return true;
-}
-
-function formatSuccessResponse(result: any): string {
-  return `✅ {Action} completed successfully: ${JSON.stringify(result)}`;
-}
-
-function formatErrorResponse(error: any): string {
-  return `❌ {Action} failed: ${error.message}`;
-}
-```
-
-**Step 6: Create Provider**
-
-```typescript
-// src/providers/{providerName}.ts
-
-import {
-  type Provider,
-  type IAgentRuntime,
-  type Memory,
-  type State
-} from '@elizaos/core';
-
-export const {provider}Provider: Provider = {
-  name: '{PROVIDER_NAME}',
-
-  description: '{What context this provider adds}',
-
-  // Optional: only execute when explicitly requested
-  dynamic: false,
-
-  // Optional: hide from public context
-  private: false,
-
-  // Execution order (lower = earlier)
-  position: 100,
-
-  // Gather and format context
-  get: async (
-    runtime: IAgentRuntime,
-    message: Memory,
-    state?: State
-  ): Promise<{
-    values: Record<string, any>;
-    data: Record<string, any>;
-    text: string;
-  }> => {
-    try {
-      // Gather data
-      const data = await gatherData(runtime, message);
-
-      // Format for template usage
-      const values = {
-        key1: data.value1,
-        key2: data.value2
-      };
-
-      // Format as text for LLM context
-      const text = formatAsText(data);
-
-      return {
-        values,  // For template variables
-        data,    // For programmatic access
-        text     // For LLM context
-      };
-
-    } catch (error) {
-      console.error('Provider failed:', error);
-
-      // Return empty result on error
-      return {
-        values: {},
-        data: {},
-        text: ''
-      };
-    }
-  }
-};
-
-async function gatherData(runtime: IAgentRuntime, message: Memory): Promise<any> {
-  // Fetch data from external sources
-  // Query database
-  // Process information
-
-  return {
-    value1: 'data',
-    value2: 123
-  };
-}
-
-function formatAsText(data: any): string {
-  // Format data as natural language for LLM
-  return `
-{Provider Name} Context:
-- Value 1: ${data.value1}
-- Value 2: ${data.value2}
-`.trim();
-}
-```
-
-**Step 7: Create Service**
-
-```typescript
-// src/services/{serviceName}.ts
-
-import {
-  Service,
-  ServiceTypeName,
-  type IAgentRuntime
-} from '@elizaos/core';
-
-export class {Service}Service extends Service {
-  static serviceType: ServiceTypeName = '{SERVICE_TYPE}' as ServiceTypeName;
-
-  capabilityDescription: string = '{What this service provides}';
-
-  private client: any;
-  private config: any;
-
-  constructor(runtime: IAgentRuntime) {
-    super(runtime);
-
-    // Initialize configuration
-    this.config = {
-      apiKey: runtime.character.settings.{service}ApiKey,
-      baseUrl: runtime.character.settings.{service}BaseUrl || 'https://api.example.com',
-      timeout: runtime.character.settings.{service}Timeout || 30000
-    };
-  }
-
-  // Start service
-  static async start(runtime: IAgentRuntime): Promise<Service> {
-    const service = new {Service}Service(runtime);
-    await service.initialize();
-    return service;
-  }
-
-  // Initialize service
-  async initialize(): Promise<void> {
-    try {
-      // Initialize client
-      this.client = createClient(this.config);
-
-      // Test connection
-      await this.client.healthCheck();
-
-      console.log('✅ {Service} initialized successfully');
-    } catch (error) {
-      console.error('❌ {Service} initialization failed:', error);
-      throw error;
-    }
-  }
-
-  // Stop service
-  async stop(): Promise<void> {
-    try {
-      // Cleanup resources
-      if (this.client) {
-        await this.client.close();
-      }
-
-      console.log('✅ {Service} stopped successfully');
-    } catch (error) {
-      console.error('❌ {Service} stop failed:', error);
-    }
-  }
-
-  // Service methods
-  async doSomething(params: any): Promise<any> {
-    try {
-      return await this.client.request(params);
-    } catch (error) {
-      console.error('Service request failed:', error);
-      throw error;
-    }
-  }
-}
-
-function createClient(config: any): any {
-  // Create and return API client
-  return {
-    healthCheck: async () => true,
-    request: async (params: any) => ({ success: true }),
-    close: async () => {}
-  };
-}
-```
-
-**Step 8: Create Plugin Index**
-
-```typescript
-// src/index.ts
-
-import type { Plugin } from '@elizaos/core';
-
-// Import components
-import { {action}Action } from './actions/{actionName}.js';
-import { {provider}Provider } from './providers/{providerName}.js';
-import { {Service}Service } from './services/{serviceName}.js';
-
-// Export types
-export * from './types.js';
-
-// Export plugin
-export const {plugin}Plugin: Plugin = {
-  name: '@elizaos/plugin-{name}',
-  description: '{Plugin description}',
-
-  // Optional: Dependencies
-  dependencies: [],
-
-  // Components
-  actions: [{action}Action],
-  providers: [{provider}Provider],
-  services: [{Service}Service],
-
-  // Lifecycle hooks
-  async init(config: any, runtime: any): Promise<void> {
-    console.log('Initializing {plugin} plugin...');
-    // Initialization logic
-  },
-
-  async start(runtime: any): Promise<void> {
-    console.log('Starting {plugin} plugin...');
-    // Startup logic
-  },
-
-  async stop(runtime: any): Promise<void> {
-    console.log('Stopping {plugin} plugin...');
-    // Cleanup logic
-  }
-};
-
-export default {plugin}Plugin;
-```
-
-**Step 9: Create Tests**
-
-```typescript
-// __tests__/actions.test.ts
-
-import { describe, it, expect, beforeEach } from 'vitest';
-import { {action}Action } from '../src/actions/{actionName}';
-import { createMockRuntime, createMockMessage } from '@elizaos/core/test';
-
-describe('{Action} Action', () => {
-  let runtime: any;
-  let message: any;
-
-  beforeEach(() => {
-    runtime = createMockRuntime();
-    message = createMockMessage({
-      content: {
-        text: 'test message',
-        param1: 'value1'
-      }
-    });
-  });
-
-  it('validates correct input', async () => {
-    const isValid = await {action}Action.validate(runtime, message);
-    expect(isValid).toBe(true);
-  });
-
-  it('rejects invalid input', async () => {
-    message.content.param1 = '';
-    const isValid = await {action}Action.validate(runtime, message);
-    expect(isValid).toBe(false);
-  });
-
-  it('executes successfully', async () => {
-    const result = await {action}Action.handler(runtime, message);
-    expect(result).toContain('success');
-  });
-
-  it('handles errors gracefully', async () => {
-    // Force an error
-    runtime.createMemory = () => {
-      throw new Error('Test error');
-    };
-
-    const result = await {action}Action.handler(runtime, message);
-    expect(result).toContain('failed');
-  });
-});
-```
-
-**Step 10: Create Documentation**
-
-```markdown
-# @elizaos/plugin-{name}
-
-{Brief description of plugin purpose and capabilities}
-
-## Features
-
-- ✨ {Feature 1}
-- ⚡ {Feature 2}
-- 🔒 {Feature 3}
+Description of what this plugin does.
 
 ## Installation
 
+\`\`\`bash
+/plugin marketplace add your-username/your-repo
+/plugin install my-plugin
+\`\`\`
+EOF
+```
+
+**Outputs**:
+```
+my-plugin/
+├── .claude-plugin/
+│   └── plugin.json       # Minimal manifest (name only)
+├── skills/               # If selected
+├── commands/             # If selected
+├── agents/               # If selected
+└── README.md             # Template with installation instructions
+```
+
+**Validation**:
+- [ ] Directory created with correct name
+- [ ] .claude-plugin/plugin.json exists with valid JSON
+- [ ] README.md exists
+- [ ] Selected component directories created
+
+**Example**:
 ```bash
-npm install @elizaos/plugin-{name}
+# Interactive mode
+$ python scripts/init_plugin.py
+
+Enter plugin name (kebab-case): team-toolkit
+Enter description: Development tools for our team
+Enter author name: DevOps Team
+Enter author email (optional): devops@company.com
+Include skills? (y/n): y
+Include commands? (y/n): y
+Include agents? (y/n): n
+
+Creating plugin structure...
+✓ Created team-toolkit/
+✓ Created .claude-plugin/plugin.json
+✓ Created README.md
+✓ Created skills/
+✓ Created commands/
+
+Next steps:
+1. Add your skills to team-toolkit/skills/
+2. Add your commands to team-toolkit/commands/
+3. Run: python scripts/generate_manifest.py team-toolkit/
+4. Run: python scripts/validate_plugin.py team-toolkit/
 ```
 
-## Configuration
+**See Also**: [templates/plugin.json.minimal](templates/plugin.json.minimal) for the generated manifest structure
 
-Add the plugin to your character configuration:
+---
 
-```typescript
-import { {plugin}Plugin } from '@elizaos/plugin-{name}';
+### Operation 2: Generate plugin.json
 
-export const character: Character = {
-  // ... other config
-  plugins: [
-    '@elizaos/plugin-bootstrap',
-    {plugin}Plugin
-  ],
-  settings: {
-    {service}ApiKey: process.env.{SERVICE}_API_KEY,
-    {service}BaseUrl: 'https://api.example.com',
-    {service}Timeout: 30000
-  }
-};
-```
+Create or update the plugin manifest file with complete metadata.
 
-## Environment Variables
+**Purpose**: Generate a valid, schema-compliant plugin.json with all recommended fields
 
+**When to Use**:
+- After initializing plugin structure
+- Need to add/update metadata
+- Want all optional fields included
+- Upgrading from minimal to complete manifest
+
+**Prerequisites**:
+- Plugin directory exists
+- Plugin name decided
+- Metadata information available
+
+**Inputs**:
+- Plugin name (required)
+- Version (recommended, default: 1.0.0)
+- Description (recommended)
+- Author information (optional but recommended)
+- Homepage URL (optional)
+- Repository URL (optional)
+- License (optional, default: MIT)
+- Keywords (optional, for discoverability)
+- Component paths (optional, uses defaults)
+
+**Process**:
+
+**Method 1: Interactive Script (Recommended)**
 ```bash
-# Required
-{SERVICE}_API_KEY=your-api-key
-
-# Optional
-{SERVICE}_BASE_URL=https://api.example.com
-{SERVICE}_TIMEOUT=30000
+python scripts/generate_manifest.py /path/to/my-plugin
 ```
 
-## Actions
+Follow prompts for each field. Press Enter to accept defaults or skip optional fields.
 
-### {ACTION_NAME}
-
-{Action description}
-
-**Usage:**
-```
-User: Can you {action}?
-Agent: {I'll do the action}
-```
-
-**Parameters:**
-- `param1` (string, required): {Description}
-- `param2` (number, optional): {Description}
-
-## Providers
-
-### {PROVIDER_NAME}
-
-{Provider description}
-
-Adds the following to agent context:
-- {Context item 1}
-- {Context item 2}
-
-## Services
-
-### {Service}Service
-
-{Service description}
-
-**Methods:**
-- `doSomething(params)`: {Method description}
-
-## Usage Examples
-
-### Basic Usage
-
-```typescript
-import { AgentRuntime } from '@elizaos/core';
-import { {plugin}Plugin } from '@elizaos/plugin-{name}';
-import character from './character';
-
-const runtime = new AgentRuntime({
-  character,
-  plugins: [{plugin}Plugin]
-});
-
-await runtime.initialize();
-```
-
-### Using Actions Programmatically
-
-```typescript
-import { {action}Action } from '@elizaos/plugin-{name}';
-
-const result = await {action}Action.handler(
-  runtime,
-  message,
-  state,
-  options,
-  callback
-);
-```
-
-## Testing
-
+**Method 2: Update Existing Manifest**
 ```bash
-# Run tests
-npm test
-
-# Run with coverage
-npm run test:coverage
-
-# Run in watch mode
-npm run test:watch
+python scripts/generate_manifest.py /path/to/my-plugin --update
 ```
 
-## Development
+Loads existing manifest, prompts only for changes/additions.
 
+**Method 3: Use Template**
 ```bash
-# Build
-npm run build
-
-# Watch mode
-npm run dev
-
-# Lint
-npm run lint
-
-# Format
-npm run format
+python scripts/generate_manifest.py /path/to/my-plugin --template standard
 ```
 
-## API Reference
+Templates available:
+- `minimal`: Name only (valid but basic)
+- `standard`: Name, version, description, author (recommended)
+- `complete`: All fields with examples
 
-{Detailed API documentation}
+**Method 4: Manual Creation**
 
-## Contributing
-
-Contributions welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-## License
-
-MIT
-
-## Support
-
-- 📚 [Documentation](https://docs.elizaos.ai)
-- 💬 [Discord](https://discord.gg/elizaos)
-- 🐛 [Issues](https://github.com/{org}/plugin-{name}/issues)
+Copy from [templates/plugin.json.standard](templates/plugin.json.standard) and edit:
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "Brief description of plugin functionality",
+  "author": {
+    "name": "Your Name",
+    "email": "you@example.com"
+  },
+  "keywords": ["keyword1", "keyword2"],
+  "license": "MIT"
+}
 ```
 
-## Plugin Templates
+Save to `my-plugin/.claude-plugin/plugin.json`.
 
-### 1. Platform Integration Plugin
+**Outputs**:
+- Valid `plugin.json` in `.claude-plugin/` directory
+- JSON formatted and validated
+- All required fields present
+- Optional fields included as specified
 
-For integrating new chat platforms (Slack, WhatsApp, etc.):
+**Validation**:
+- [ ] JSON syntax is valid
+- [ ] Name field present (required)
+- [ ] Name is kebab-case
+- [ ] Version follows semver if present
+- [ ] No absolute paths
+- [ ] File saved in correct location
 
-- Service for platform connection
-- Actions for platform-specific features
-- Message formatting providers
-- Platform event handlers
+**Example**:
+```bash
+$ python scripts/generate_manifest.py team-toolkit/
 
-### 2. External API Plugin
+Generating plugin.json for team-toolkit
+======================================
 
-For accessing external services:
+Name: team-toolkit (from directory)
+Version [1.0.0]: 2.1.0
+Description: Development and deployment tools for engineering team
+Author name: DevOps Team
+Author email: devops@company.com
+Author URL (optional): https://company.com/devops
+Homepage (optional): https://github.com/company/team-toolkit
+Repository (optional): https://github.com/company/team-toolkit
+License [MIT]: Apache-2.0
+Keywords (comma-separated): deployment,ci-cd,automation,team
 
-- Actions for API operations
-- Providers for data enrichment
-- Error handling and retries
-- Rate limiting and caching
+Component paths (optional, press Enter for defaults):
+Skills path [./skills/]:
+Commands path [./commands/]:
+Agents path:
 
-### 3. Data Processing Plugin
+Generated plugin.json:
+{
+  "name": "team-toolkit",
+  "version": "2.1.0",
+  "description": "Development and deployment tools for engineering team",
+  "author": {
+    "name": "DevOps Team",
+    "email": "devops@company.com",
+    "url": "https://company.com/devops"
+  },
+  "homepage": "https://github.com/company/team-toolkit",
+  "repository": "https://github.com/company/team-toolkit",
+  "license": "Apache-2.0",
+  "keywords": ["deployment", "ci-cd", "automation", "team"]
+}
 
-For data transformation and analysis:
+✓ Saved to team-toolkit/.claude-plugin/plugin.json
+✓ Validation: All checks passed
 
-- Actions for processing operations
-- Providers for context enrichment
-- Evaluators for result validation
-- Caching for performance
+Next steps:
+1. Review generated manifest
+2. Package your skills: python scripts/package_skills.py
+3. Validate: python scripts/validate_plugin.py team-toolkit/
+```
 
-### 4. Custom Model Plugin
+**Tips**:
+- Use semantic versioning (MAJOR.MINOR.PATCH)
+- Include keywords for discoverability
+- Add repository URL for open source plugins
+- Keep description under 200 characters
+- Use kebab-case for plugin name
 
-For integrating custom LLMs:
+**See Also**:
+- [references/plugin-json-schema.md](references/plugin-json-schema.md) - Complete field reference
+- [templates/](templates/) - All manifest templates
 
-- Model handlers for inference
-- Token counting utilities
-- Streaming support
-- Fallback mechanisms
+---
+
+### Operation 3: Generate marketplace.json
+
+Create a marketplace catalog file for distributing one or more plugins.
+
+**Purpose**: Set up a marketplace for team/community distribution of plugins
+
+**When to Use**:
+- Distributing plugins via GitHub repository
+- Creating team marketplace
+- Publishing multiple plugins
+- Setting up plugin catalog
+
+**Prerequisites**:
+- One or more plugins ready for distribution
+- Marketplace name decided
+- Owner information available
+
+**Inputs**:
+- Marketplace name (required)
+- Owner name and email (required)
+- Plugin entries (required):
+  - Plugin name
+  - Source (path, GitHub repo, or git URL)
+  - Description
+  - Category (optional)
+  - Version (optional)
+
+**Process**:
+
+**Method 1: Interactive Script (Recommended)**
+```bash
+python scripts/generate_marketplace.py
+```
+
+Follow prompts:
+1. Marketplace name (kebab-case)
+2. Marketplace description
+3. Owner name and email
+4. Plugin source directory (optional, for auto-discovery)
+5. For each plugin:
+   - Name
+   - Source (local path, GitHub, git URL)
+   - Description
+   - Category
+   - Version
+
+**Method 2: Auto-Discover Plugins**
+```bash
+python scripts/generate_marketplace.py --scan plugins/
+```
+
+Automatically finds plugins in directory and prompts for metadata.
+
+**Method 3: Manual Creation**
+
+Copy from [templates/marketplace.json.minimal](templates/marketplace.json.minimal) and edit:
+```json
+{
+  "name": "my-marketplace",
+  "description": "Curated plugins for my team",
+  "owner": {
+    "name": "Team Name",
+    "email": "team@company.com"
+  },
+  "plugins": [
+    {
+      "name": "plugin-one",
+      "description": "First plugin",
+      "source": "./plugins/plugin-one",
+      "category": "development"
+    }
+  ]
+}
+```
+
+Save to repository root as `.claude-plugin/marketplace.json`.
+
+**Outputs**:
+- Valid `marketplace.json` file
+- All plugins listed with metadata
+- Ready for Git repository hosting
+
+**Validation**:
+- [ ] JSON syntax valid
+- [ ] Required fields present (name, owner, plugins)
+- [ ] All plugin sources are valid
+- [ ] Plugin names are kebab-case
+- [ ] Categories are standard (development, productivity, security, learning)
+
+**Example**:
+```bash
+$ python scripts/generate_marketplace.py --scan company-plugins/
+
+Generating marketplace.json
+===========================
+
+Scanning company-plugins/ for plugins...
+Found 3 plugins:
+  - deployment-tools
+  - security-scanner
+  - test-automation
+
+Marketplace name: company-approved-plugins
+Marketplace description: Approved plugins for Company use
+Owner name: Engineering Team
+Owner email: engineering@company.com
+
+Plugin 1: deployment-tools
+  Description: Automated deployment and rollback tools
+  Category [development]:
+  Version [1.0.0]: 2.1.0
+  Source [./plugins/deployment-tools]:
+
+Plugin 2: security-scanner
+  Description: Security analysis and vulnerability detection
+  Category [security]:
+  Version [1.0.0]: 1.5.0
+  Source [./plugins/security-scanner]:
+
+Plugin 3: test-automation
+  Description: Automated testing framework and utilities
+  Category [development]:
+  Version [1.0.0]: 3.0.0
+  Source [./plugins/test-automation]:
+
+Generated marketplace.json (3 plugins)
+✓ Saved to .claude-plugin/marketplace.json
+✓ Validation: All checks passed
+
+Next steps:
+1. Create GitHub repository
+2. Push marketplace.json to repo root
+3. Users can add: /plugin marketplace add company/company-plugins
+4. Users can install: /plugin install deployment-tools@company-approved-plugins
+```
+
+**Distribution Setup**:
+
+After generating marketplace.json:
+
+1. **Create GitHub Repository**:
+```bash
+cd /path/to/marketplace
+git init
+git add .
+git commit -m "Initial marketplace setup"
+git remote add origin git@github.com:username/my-marketplace.git
+git push -u origin main
+```
+
+2. **Users Add Marketplace**:
+```
+/plugin marketplace add username/my-marketplace
+```
+
+3. **Users Install Plugins**:
+```
+/plugin install plugin-name@my-marketplace
+```
+
+**See Also**:
+- [references/marketplace-json-schema.md](references/marketplace-json-schema.md) - Complete schema
+- [references/distribution-guide.md](references/distribution-guide.md) - Setup instructions
+- [templates/marketplace.json.multi](templates/marketplace.json.multi) - Multi-plugin example
+
+---
+
+### Operation 4: Validate Plugin
+
+Comprehensive validation of plugin structure, manifests, and component compliance.
+
+**Purpose**: Ensure plugin is correctly structured and ready for distribution
+
+**When to Use**:
+- Before publishing to marketplace
+- After making changes to plugin
+- Before creating GitHub release
+- Troubleshooting plugin issues
+- Ensuring 2025 schema compliance
+
+**Prerequisites**:
+- Plugin directory exists
+- plugin.json file exists
+
+**Inputs**:
+- Plugin directory path
+
+**Process**:
+
+**Method 1: Script Validation (Comprehensive)**
+```bash
+python scripts/validate_plugin.py /path/to/my-plugin
+```
+
+**Method 2: Verbose Output**
+```bash
+python scripts/validate_plugin.py /path/to/my-plugin --verbose
+```
+
+Shows detailed checks and reasoning.
+
+**Method 3: Specific Validation Type**
+```bash
+# Structure only
+python scripts/validate_plugin.py /path/to/my-plugin --check structure
+
+# Manifests only
+python scripts/validate_plugin.py /path/to/my-plugin --check manifests
+
+# Components only (skills, commands, agents)
+python scripts/validate_plugin.py /path/to/my-plugin --check components
+
+# 2025 schema compliance
+python scripts/validate_plugin.py /path/to/my-plugin --check 2025
+```
+
+**Validation Categories**:
+
+**1. Structure Validation**:
+- [x] `.claude-plugin/` directory exists
+- [x] `plugin.json` exists in `.claude-plugin/`
+- [x] Component directories at plugin root (NOT in `.claude-plugin/`)
+- [x] Directory names are kebab-case
+- [x] README.md exists (recommended)
+
+**2. Manifest Validation**:
+- [x] `plugin.json` is valid JSON
+- [x] Required field `name` present
+- [x] Name is kebab-case (no spaces, underscores)
+- [x] Version follows semver if present
+- [x] No absolute paths (all paths relative with `./`)
+- [x] Referenced files in manifest actually exist
+
+**3. Component Validation**:
+- [x] Skills have `SKILL.md` files
+- [x] Skills have valid YAML frontmatter
+- [x] Skills have `allowed-tools` field (2025 schema)
+- [x] Commands have valid markdown with frontmatter
+- [x] Agents have proper markdown structure
+- [x] No placeholder TODO comments in production files
+
+**4. 2025 Schema Compliance**:
+- [x] All skills have `allowed-tools` field in frontmatter
+- [x] `allowed-tools` lists valid Claude Code tools
+- [x] Frontmatter format is correct
+
+**Outputs**:
+
+**Success Example**:
+```
+Validating plugin: team-toolkit
+================================
+
+✓ Structure validation passed (5/5 checks)
+  ✓ .claude-plugin/ directory exists
+  ✓ plugin.json exists
+  ✓ Component directories at root
+  ✓ Directory names valid
+  ✓ README.md present
+
+✓ Manifest validation passed (6/6 checks)
+  ✓ Valid JSON syntax
+  ✓ Required fields present
+  ✓ Name format valid
+  ✓ Version format valid
+  ✓ Paths are relative
+  ✓ Referenced files exist
+
+✓ Component validation passed (8 skills, 3 commands)
+  ✓ All skills have SKILL.md
+  ✓ All skills have valid frontmatter
+  ✓ All skills have allowed-tools field
+  ✓ All commands valid
+
+✓ 2025 schema compliance passed
+
+================
+RESULT: PASSED
+================
+0 errors, 0 warnings
+
+✓ Plugin is ready for distribution!
+```
+
+**Error Example**:
+```
+Validating plugin: my-plugin
+============================
+
+✗ Structure validation failed (4/5 checks)
+  ✓ .claude-plugin/ directory exists
+  ✓ plugin.json exists
+  ✗ Component directories at root
+    ERROR: skills/ directory found in .claude-plugin/ (should be at plugin root)
+  ✓ Directory names valid
+  ✓ README.md present
+
+✗ Manifest validation failed (5/6 checks)
+  ✓ Valid JSON syntax
+  ✓ Required fields present
+  ✗ Paths are relative
+    ERROR: "commands" field has absolute path: /home/user/commands
+    FIX: Change to relative path: ./commands
+  ✓ Referenced files exist
+
+✗ Component validation failed (2/3 skills)
+  ✓ All skills have SKILL.md
+  ✗ Skills missing allowed-tools field
+    ERROR: skills/my-skill/SKILL.md missing allowed-tools in frontmatter
+    FIX: Add "allowed-tools: Read, Write, Bash" to YAML frontmatter
+
+================
+RESULT: FAILED
+================
+3 errors, 0 warnings
+
+Fix errors above before distributing plugin.
+```
+
+**Exit Codes**:
+- `0`: All validation passed, plugin ready
+- `1`: Errors found, plugin not ready
+- `2`: Script execution error
+
+**Common Errors and Fixes**:
+
+**Error**: Component directory in `.claude-plugin/`
+```
+ERROR: skills/ found in .claude-plugin/ (should be at plugin root)
+FIX: Move skills/ to plugin root directory
+```
+
+**Error**: Absolute paths in manifest
+```
+ERROR: "skills" field has absolute path: /Users/me/skills
+FIX: Change to relative path: ./skills
+```
+
+**Error**: Missing `allowed-tools` field
+```
+ERROR: skill missing allowed-tools in frontmatter (2025 schema)
+FIX: Add to SKILL.md frontmatter:
+---
+name: my-skill
+description: ...
+allowed-tools: Read, Write, Glob, Bash
+---
+```
+
+**Error**: Invalid JSON syntax
+```
+ERROR: plugin.json has invalid JSON (trailing comma)
+FIX: Remove trailing comma in JSON file
+```
+
+**Error**: Non-kebab-case name
+```
+ERROR: Plugin name "my_plugin" should be kebab-case
+FIX: Change name to "my-plugin"
+```
+
+**Validation Checklist**:
+
+Before publishing, ensure all pass:
+- [ ] Structure validation: 0 errors
+- [ ] Manifest validation: 0 errors
+- [ ] Component validation: 0 errors
+- [ ] 2025 compliance: All skills have allowed-tools
+- [ ] README exists and is complete
+- [ ] Test installation locally
+
+**See Also**:
+- [references/validation-rules.md](references/validation-rules.md) - Complete validation rules
+- [references/plugin-json-schema.md](references/plugin-json-schema.md) - Schema reference
+
+---
+
+### Operation 5: Package Skills
+
+Copy existing skills into plugin structure and update manifest.
+
+**Purpose**: Convert standalone skills into plugin-packaged skills ready for distribution
+
+**When to Use**:
+- Converting `.claude/skills/` to plugin format
+- Packaging skill collections
+- Migrating existing skills to plugins
+- Creating skill-focused plugins
+
+**Prerequisites**:
+- Plugin structure initialized
+- Skills exist in source directory
+- Skills are 2025-compliant (or will be validated and flagged)
+
+**Inputs**:
+- Source skills directory path
+- Target plugin path
+- Optional: Specific skills to package (default: all)
+- Optional: Validation mode (strict/warn)
+
+**Process**:
+
+**Method 1: Package All Skills**
+```bash
+python scripts/package_skills.py /path/to/skills /path/to/plugin
+```
+
+Copies all skills from source to plugin/skills/ directory.
+
+**Method 2: Package Specific Skills**
+```bash
+python scripts/package_skills.py /path/to/skills /path/to/plugin \
+  --skills skill1,skill2,skill3
+```
+
+**Method 3: Package with Validation**
+```bash
+python scripts/package_skills.py /path/to/skills /path/to/plugin --validate
+```
+
+Validates each skill for 2025 compliance before packaging.
+
+**Method 4: Dry Run (Preview)**
+```bash
+python scripts/package_skills.py /path/to/skills /path/to/plugin --dry-run
+```
+
+Shows what would be packaged without actually copying.
+
+**What Happens**:
+
+1. **Scans Source Directory**:
+   - Finds all skill directories
+   - Identifies skills with SKILL.md files
+   - Lists skills to be packaged
+
+2. **Validates Skills** (if --validate):
+   - Checks SKILL.md exists
+   - Validates YAML frontmatter
+   - Checks for `allowed-tools` field (2025 schema)
+   - Reports warnings for missing fields
+
+3. **Copies Skills**:
+   - Creates plugin/skills/ if doesn't exist
+   - Copies each skill directory
+   - Preserves structure (SKILL.md, references/, scripts/)
+   - Copies all files (no modification)
+
+4. **Updates Manifest**:
+   - Adds skills to plugin.json
+   - Updates skills array (if field exists)
+   - Preserves existing manifest fields
+
+5. **Reports Results**:
+   - Number of skills packaged
+   - Any warnings or issues
+   - Next steps
+
+**Outputs**:
+```
+plugin/
+├── .claude-plugin/
+│   └── plugin.json          # Updated with skills reference
+├── skills/
+│   ├── skill1/
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── scripts/
+│   ├── skill2/
+│   │   └── SKILL.md
+│   └── skill3/
+│       ├── SKILL.md
+│       └── references/
+└── README.md
+```
+
+**Validation**:
+- [ ] All skills copied successfully
+- [ ] Directory structure preserved
+- [ ] SKILL.md files exist in each skill
+- [ ] plugin.json updated (if applicable)
+- [ ] 2025 compliance checked
+
+**Example**:
+```bash
+$ python scripts/package_skills.py .claude/skills skrillz-ecosystem --validate
+
+Packaging skills into plugin: skrillz-ecosystem
+==============================================
+
+Scanning .claude/skills for skills...
+Found 32 skills:
+  ✓ analysis
+  ✓ anthropic-expert
+  ✓ auto-updater
+  ... (29 more)
+
+Validating skills (2025 schema compliance)...
+  ✓ analysis: Valid (allowed-tools present)
+  ✓ anthropic-expert: Valid (allowed-tools present)
+  ⚠ legacy-skill: WARNING - Missing allowed-tools field
+  ... (checking all 32)
+
+Results: 31 valid, 1 warning
+
+Packaging skills...
+  ✓ Copied analysis (245 KB, 3 files)
+  ✓ Copied anthropic-expert (1.2 MB, 12 files)
+  ✓ Copied auto-updater (180 KB, 5 files)
+  ... (29 more)
+
+✓ 32 skills packaged successfully
+✓ Total size: 15.8 MB
+✓ Updated plugin.json
+
+Warnings:
+  ⚠ legacy-skill missing allowed-tools field (2025 compliance)
+    Add to SKILL.md frontmatter: allowed-tools: Read, Write, Bash
+
+Next steps:
+1. Fix warnings (add allowed-tools to legacy-skill)
+2. Review plugin/skills/ directory
+3. Update README.md with skill list
+4. Validate: python scripts/validate_plugin.py skrillz-ecosystem
+5. Test: /plugin install skrillz-ecosystem (local test)
+```
+
+**Handling 2025 Compliance**:
+
+If skills are missing `allowed-tools` field:
+
+1. **Manual Fix**: Add to SKILL.md frontmatter:
+```yaml
+---
+name: my-skill
+description: Skill description
+allowed-tools: Read, Write, Edit, Glob, Bash
+---
+```
+
+2. **Common Tool Sets**:
+- **Read-only analysis**: `Read, Grep, Glob`
+- **File editing**: `Read, Write, Edit`
+- **Automation**: `Read, Write, Bash`
+- **Research**: `Read, WebSearch, WebFetch`
+- **All tools**: `Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch`
+
+3. **Re-package** after fixing:
+```bash
+python scripts/package_skills.py .claude/skills plugin --validate
+```
+
+**Tips**:
+- Use `--validate` to catch issues early
+- Use `--dry-run` to preview before packaging
+- Fix 2025 compliance warnings before distribution
+- Keep original skills as backup
+- Test plugin installation locally before publishing
+
+**See Also**:
+- [references/component-packaging-guide.md](references/component-packaging-guide.md) - Detailed packaging guide
+- [references/validation-rules.md](references/validation-rules.md) - 2025 compliance rules
+
+---
 
 ## Best Practices
 
-1. **Type Safety**: Use TypeScript strictly, no `any` types
-2. **Error Handling**: Catch and log all errors gracefully
-3. **Validation**: Use Zod for input validation
-4. **Testing**: Achieve >80% code coverage
-5. **Documentation**: Document all public APIs
-6. **Security**: Never log sensitive data
-7. **Performance**: Implement caching where appropriate
-8. **Compatibility**: Test with multiple elizaOS versions
-9. **Dependencies**: Minimize external dependencies
-10. **Versioning**: Follow semantic versioning
+### Plugin Development
 
-## Output Checklist
+**1. Start with MVP**:
+- Get basic plugin working first
+- Add optional metadata later
+- Test early, test often
 
-After generating a plugin:
+**2. Use Semantic Versioning**:
+- Format: MAJOR.MINOR.PATCH (e.g., 1.2.3)
+- MAJOR: Breaking changes
+- MINOR: New features, backward compatible
+- PATCH: Bug fixes
 
-✅ Directory structure created
-✅ Package configuration
-✅ TypeScript configuration
-✅ Type definitions
-✅ Actions implemented
-✅ Providers implemented
-✅ Services implemented
-✅ Tests written (>80% coverage)
-✅ Documentation complete
-✅ Examples provided
-✅ Environment template
-✅ Build scripts configured
+**3. Write Good Descriptions**:
+- Clear, concise (under 200 chars)
+- Explain what plugin does
+- Mention key features
+- Include use cases
 
-Then display:
+**4. Include Comprehensive README**:
+- Installation instructions
+- Usage examples
+- List of components
+- Configuration options
+- Troubleshooting
+
+**5. Validate Before Publishing**:
+```bash
+python scripts/validate_plugin.py my-plugin/
+# Should show 0 errors
+```
+
+**6. Test Installation Locally**:
+```bash
+# Create local marketplace
+python scripts/generate_marketplace.py
+
+# Test installation (if possible)
+/plugin marketplace add ./my-marketplace
+/plugin install my-plugin
+```
+
+### Manifest Best Practices
+
+**1. Always Include**:
+- `name`: Clear, kebab-case identifier
+- `version`: Semantic version
+- `description`: What it does
+- `author`: Who maintains it
+
+**2. Highly Recommended**:
+- `keywords`: For discoverability
+- `license`: Legal clarity (MIT, Apache-2.0, etc.)
+- `repository`: Source code location
+- `homepage`: Documentation URL
+
+**3. Path Rules**:
+- Always use relative paths: `./skills/`
+- Never use absolute paths: `/Users/me/skills`
+- Use forward slashes (cross-platform): `./path/to/file`
+
+**4. Naming Conventions**:
+- Plugin names: `kebab-case`
+- No spaces, underscores, or special chars
+- Descriptive and memorable
+
+### 2025 Schema Compliance
+
+**1. All Skills Must Have allowed-tools**:
+```yaml
+---
+name: my-skill
+description: What it does
+allowed-tools: Read, Write, Bash
+---
+```
+
+**2. Common Tool Combinations**:
+- Analysis: `Read, Grep, Glob`
+- Editing: `Read, Write, Edit`
+- Automation: `Read, Write, Bash`
+- Research: `Read, WebSearch, WebFetch`
+
+**3. Be Specific**:
+- Only list tools skill actually uses
+- Don't include all tools if not needed
+- Helps Claude optimize execution
+
+### Distribution Best Practices
+
+**1. GitHub Repository Setup**:
+- Clear repository name
+- Comprehensive README.md
+- LICENSE file
+- .gitignore for OS files
+
+**2. Version Management**:
+- Tag releases: `git tag v1.0.0`
+- Write changelogs
+- Follow semver strictly
+
+**3. Documentation**:
+- Installation instructions
+- Usage examples
+- Component documentation
+- Troubleshooting guide
+
+**4. Team Distribution**:
+- Use `.claude/settings.json` for team-wide:
+```json
+{
+  "extraKnownMarketplaces": [
+    {"source": "github", "repo": "company/approved-plugins"}
+  ]
+}
+```
+
+## Common Mistakes
+
+### Mistake 1: Component Directories in Wrong Location
+
+**❌ Wrong**:
+```
+my-plugin/
+└── .claude-plugin/
+    ├── plugin.json
+    └── skills/          # WRONG LOCATION
+```
+
+**✅ Correct**:
+```
+my-plugin/
+├── .claude-plugin/
+│   └── plugin.json
+└── skills/              # AT PLUGIN ROOT
+```
+
+**Why**: Claude looks for components at plugin root, not in `.claude-plugin/`
+
+**Fix**: Move component directories to plugin root
+
+---
+
+### Mistake 2: Absolute Paths in Manifests
+
+**❌ Wrong**:
+```json
+{
+  "name": "my-plugin",
+  "skills": "/Users/me/my-plugin/skills"
+}
+```
+
+**✅ Correct**:
+```json
+{
+  "name": "my-plugin",
+  "skills": "./skills"
+}
+```
+
+**Why**: Absolute paths break on other machines
+
+**Fix**: Use relative paths starting with `./`
+
+---
+
+### Mistake 3: Non-Kebab-Case Names
+
+**❌ Wrong**:
+```json
+{
+  "name": "My_Plugin"     // Underscores and capitals
+}
+```
+
+**✅ Correct**:
+```json
+{
+  "name": "my-plugin"     // Kebab-case
+}
+```
+
+**Why**: Naming convention expected by Claude Code
+
+**Fix**: Use lowercase with hyphens
+
+---
+
+### Mistake 4: Missing allowed-tools (2025 Schema)
+
+**❌ Wrong**:
+```yaml
+---
+name: my-skill
+description: What it does
+---
+```
+
+**✅ Correct**:
+```yaml
+---
+name: my-skill
+description: What it does
+allowed-tools: Read, Write, Bash
+---
+```
+
+**Why**: 2025 schema requires explicit tool permissions
+
+**Fix**: Add `allowed-tools` field to all skills
+
+---
+
+### Mistake 5: Invalid JSON Syntax
+
+**❌ Wrong**:
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",    // Trailing comma
+}
+```
+
+**✅ Correct**:
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0"
+}
+```
+
+**Why**: JSON doesn't allow trailing commas
+
+**Fix**: Remove trailing commas, validate JSON
+
+---
+
+### Mistake 6: No README
+
+**❌ Wrong**:
+```
+my-plugin/
+├── .claude-plugin/plugin.json
+└── skills/
+```
+
+**✅ Correct**:
+```
+my-plugin/
+├── .claude-plugin/plugin.json
+├── README.md           # Installation & usage
+└── skills/
+```
+
+**Why**: Users need to understand what plugin does and how to install it
+
+**Fix**: Create README with installation instructions
+
+---
+
+### Mistake 7: Not Validating Before Publishing
+
+**❌ Wrong**:
+```bash
+git push origin main    # Push without validation
+```
+
+**✅ Correct**:
+```bash
+python scripts/validate_plugin.py my-plugin/
+# Fix any errors
+git push origin main
+```
+
+**Why**: Catch errors before users try to install
+
+**Fix**: Always validate before publishing
+
+---
+
+### Mistake 8: No Version Bumping
+
+**❌ Wrong**:
+```json
+{
+  "version": "1.0.0"     // Never changes
+}
+```
+
+**✅ Correct**:
+```json
+{
+  "version": "1.1.0"     // Bumped for each release
+}
+```
+
+**Why**: Users need to know when updates are available
+
+**Fix**: Bump version for each release following semver
+
+---
+
+## Quick Reference
+
+### Essential Commands
+
+```bash
+# Initialize new plugin
+python scripts/init_plugin.py my-plugin
+
+# Generate manifest (interactive)
+python scripts/generate_manifest.py my-plugin/
+
+# Generate marketplace
+python scripts/generate_marketplace.py
+
+# Validate plugin
+python scripts/validate_plugin.py my-plugin/
+
+# Package skills
+python scripts/package_skills.py .claude/skills my-plugin/
+
+# Package with validation
+python scripts/package_skills.py .claude/skills my-plugin/ --validate
+```
+
+### Plugin Structure
 
 ```
-🔌 Plugin "@elizaos/plugin-{name}" created successfully!
-
-📋 Summary:
-   Name: @elizaos/plugin-{name}
-   Actions: {count}
-   Providers: {count}
-   Services: {count}
-   Dependencies: {list}
-
-📂 Structure:
-   ✅ src/index.ts - Plugin entry point
-   ✅ src/actions/ - Action implementations
-   ✅ src/providers/ - Provider implementations
-   ✅ src/services/ - Service implementations
-   ✅ __tests__/ - Test suite
-   ✅ README.md - Documentation
-
-🚀 Next steps:
-   1. Install dependencies: npm install
-   2. Build plugin: npm run build
-   3. Run tests: npm test
-   4. Test integration with character
-   5. Publish to npm: npm publish
-
-📖 Read README.md for usage instructions
+plugin-name/
+├── .claude-plugin/
+│   ├── plugin.json           # Required: Metadata
+│   └── marketplace.json      # Optional: Distribution
+├── skills/                    # Your skills
+├── commands/                  # Custom slash commands
+├── agents/                    # Specialized agents
+└── README.md                  # Recommended: Docs
 ```
+
+### plugin.json Minimal
+
+```json
+{
+  "name": "my-plugin"
+}
+```
+
+### plugin.json Standard
+
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "What this plugin does",
+  "author": {
+    "name": "Your Name",
+    "email": "you@example.com"
+  },
+  "keywords": ["keyword1", "keyword2"],
+  "license": "MIT"
+}
+```
+
+### marketplace.json
+
+```json
+{
+  "name": "my-marketplace",
+  "description": "Plugin marketplace",
+  "owner": {
+    "name": "Maintainer",
+    "email": "maintainer@example.com"
+  },
+  "plugins": [
+    {
+      "name": "plugin-one",
+      "description": "First plugin",
+      "source": "./plugins/plugin-one",
+      "category": "development"
+    }
+  ]
+}
+```
+
+### 2025 Skill Frontmatter
+
+```yaml
+---
+name: my-skill
+description: What it does. Use when [triggers].
+allowed-tools: Read, Write, Bash
+---
+```
+
+### Validation Checklist
+
+Before publishing:
+- [ ] Run `python scripts/validate_plugin.py my-plugin/`
+- [ ] 0 errors, 0 warnings
+- [ ] README.md exists and is complete
+- [ ] All skills have allowed-tools field
+- [ ] Version number bumped (if updating)
+- [ ] Git tag created for release
+- [ ] Test installation locally
+
+### Distribution Workflow
+
+1. **Create Plugin**:
+   ```bash
+   python scripts/init_plugin.py my-plugin
+   python scripts/generate_manifest.py my-plugin/
+   python scripts/package_skills.py .claude/skills my-plugin/
+   ```
+
+2. **Validate**:
+   ```bash
+   python scripts/validate_plugin.py my-plugin/
+   ```
+
+3. **Create Marketplace**:
+   ```bash
+   python scripts/generate_marketplace.py
+   ```
+
+4. **Push to GitHub**:
+   ```bash
+   cd my-marketplace
+   git init
+   git add .
+   git commit -m "Initial plugin marketplace"
+   git remote add origin git@github.com:username/my-marketplace.git
+   git push -u origin main
+   ```
+
+5. **Users Install**:
+   ```
+   /plugin marketplace add username/my-marketplace
+   /plugin install my-plugin@my-marketplace
+   ```
+
+### Common Tool Sets (2025)
+
+- **Read-only**: `Read, Grep, Glob`
+- **File editing**: `Read, Write, Edit`
+- **Automation**: `Read, Write, Bash`
+- **Research**: `Read, WebSearch, WebFetch`
+- **Full access**: `Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch`
+
+### Script Help
+
+All scripts support `--help`:
+```bash
+python scripts/init_plugin.py --help
+python scripts/generate_manifest.py --help
+python scripts/validate_plugin.py --help
+python scripts/package_skills.py --help
+```
+
+---
+
+## Next Steps After MVP
+
+This MVP includes the core operations needed to package and distribute plugins. Future enhancements could include:
+
+**Additional Operations**:
+- Package commands (Operation 6)
+- Package agents (Operation 7)
+- Update existing plugin (Operation 9)
+- Bulk package multiple plugins (Operation 10)
+
+**Enhanced Features**:
+- Automated GitHub repo creation
+- Change log generation
+- Dependency resolution
+- Plugin analytics
+
+**For Now**:
+The MVP operations (1-5) are sufficient to:
+- Create plugins
+- Package your 32 skills
+- Distribute via GitHub
+- Validate compliance
+- Share with team or community
+
+---
+
+## References
+
+Detailed guides for advanced topics:
+
+- **[plugin-json-schema.md](references/plugin-json-schema.md)** - Complete field reference, all options, examples
+- **[marketplace-json-schema.md](references/marketplace-json-schema.md)** - Marketplace structure, source types, plugin entries
+- **[validation-rules.md](references/validation-rules.md)** - All validation checks, error fixes, 2025 compliance
+
+---
+
+**plugin-builder** makes plugin creation fast, validated, and reliable. Use it to package your skills and share them with your team or the community!

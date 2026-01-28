@@ -1,11 +1,11 @@
 ---
 name: pr-prepare
-description: "Prepare pull request descriptions for template changes. Activates on: prepare PR, create PR, pull request, ready for PR, draft PR, write PR"
+description: "Prepare pull request descriptions following project template. Activates on: prepare PR, create PR, pull request, ready for PR, draft PR, write PR"
 ---
 
 # PR Preparation Skill
 
-Automatically prepare pull request descriptions for template changes.
+Automatically prepare pull request descriptions following project standards.
 
 ## Activation
 
@@ -28,20 +28,23 @@ Run these commands to understand the changes:
 # Current state
 git status
 
-# Branch comparison
+# Branch comparison (adjust 'main' if different base branch)
 git log $(git merge-base HEAD main)..HEAD --oneline
 
 # Files changed
 git diff $(git merge-base HEAD main)..HEAD --stat
+
+# Actual diff (for smaller changes)
+git diff $(git merge-base HEAD main)..HEAD
 ```
 
-### 2. Analyze Template Changes
+### 2. Analyze Changes
 
 Identify:
-- **Scope**: cookiecutter.json, hooks, template files, docs?
+- **Components modified**: Which files/modules changed
 - **Purpose**: Why these changes were made
-- **Impact**: Breaking changes for existing template users?
-- **Testing**: Template generation tested?
+- **Impact**: Benefits, risks, breaking changes
+- **Testing**: What validation was done or needed
 
 ### 3. Generate PR Description
 
@@ -55,88 +58,92 @@ Use this template format:
 ## Changes
 
 - **[Component]**: [What changed and why]
-
-## Scope
-
-- [ ] `cookiecutter.json` (template variables)
-- [ ] `hooks/` (generation hooks)
-- [ ] `{{cookiecutter.project_slug}}/` (generated project files)
-- [ ] Documentation
+- **[Component]**: [What changed and why]
 
 ## Impact
 
-- ✅ [Key benefit]
-- ✅ No breaking changes to existing template users
+- ✅ [Key benefit or outcome]
+- ✅ [Another benefit]
+- ✅ No breaking changes
 
 ## Testing
 
-- [ ] Template generates with default options
-- [ ] Template generates with features enabled
-- [ ] Generated project passes `uv run pytest`
+- [ ] Tests pass (`uv run pytest`)
+- [ ] Linting passes (`uv run ruff check`)
 
 ## Notes
 
-[Optional: known issues, follow-up work]
+[Optional: known issues, follow-up work, dependencies]
 ```
 
 ### 4. Suggest PR Title
 
-Follow conventional commits with template scopes:
+Follow conventional commits format:
 
-| Scope | When to Use |
-|-------|-------------|
-| `feat(template):` | New template feature |
-| `fix(hooks):` | Hook bug fix |
-| `docs:` | Documentation |
-| `chore(config):` | cookiecutter.json changes |
-| `ci:` | Workflow changes |
+| Type | When to Use |
+|------|-------------|
+| `feat:` | New feature |
+| `fix:` | Bug fix |
+| `docs:` | Documentation only |
+| `refactor:` | Code restructuring |
+| `test:` | Adding tests |
+| `perf:` | Performance improvement |
+| `chore:` | Maintenance, dependencies |
 
-### 5. Output
+### 6. Output
 
-Present the complete PR description ready to copy-paste.
+Present the complete PR description ready to copy-paste into GitHub.
 
 Remind the user:
-- CodeRabbit will auto-fill summary
-- Test template generation before pushing
+- CodeRabbit will auto-fill `@coderabbitai summary` placeholder
+- They can push and create PR with `gh pr create`
 
-## Example Output
+## Example Interaction
 
-**Suggested Title**: `feat(template): add CodeRabbit and Linear integrations`
+**User**: "Can you prepare the PR for this branch?"
+
+**Claude**:
+1. Runs git commands to gather context
+2. Analyzes the changes
+3. Outputs:
+
+---
+
+**Suggested Title**: `feat: add user authentication with OAuth2`
 
 **PR Description**:
 
 ```markdown
 ## Summary
 
-Add CodeRabbit AI code reviews and Linear project management integration as optional features.
+Add OAuth2 authentication supporting Google and GitHub providers.
 
 ## Changes
 
-- **cookiecutter.json**: New `include_coderabbit`, `include_linear`, `linear_team_key` variables
-- **{{cookiecutter.project_slug}}/.coderabbit.yaml**: CodeRabbit configuration template
-- **{{cookiecutter.project_slug}}/.github/PULL_REQUEST_TEMPLATE.md**: PR template with Linear support
-- **hooks/post_gen_project.py**: Cleanup logic and success messages
-
-## Scope
-
-- [x] `cookiecutter.json` (template variables)
-- [x] `hooks/` (generation hooks)
-- [x] `{{cookiecutter.project_slug}}/` (generated project files)
-- [x] Documentation
+- **auth/oauth.py**: OAuth2 client implementation with token refresh
+- **api/routes/auth.py**: Login, logout, and callback endpoints
+- **models/user.py**: User model with OAuth provider fields
 
 ## Impact
 
-- ✅ Projects can now use AI code reviews via CodeRabbit
-- ✅ Linear integration for project management
-- ✅ No breaking changes to existing template users
+- ✅ Users can sign in with Google or GitHub
+- ✅ Secure session management with httponly cookies
+- ✅ No breaking changes to existing API
 
 ## Testing
 
-- [x] Template generates with default options
-- [x] Template generates with features enabled
-- [x] Generated project structure validated
+- [x] Tests pass (`uv run pytest`)
+- [x] Linting passes (`uv run ruff check`)
 
 ## Notes
 
-CodeRabbit requires GitHub App installation after project creation.
+Follow-up: Add Microsoft provider support
+```
+
+---
+
+Ready to copy! Push with:
+```bash
+git push -u origin HEAD
+gh pr create --fill
 ```

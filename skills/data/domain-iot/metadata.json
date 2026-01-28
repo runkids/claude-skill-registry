@@ -1,7 +1,7 @@
 {
   "name": "domain-iot",
-  "repo": "rustfs/rustfs",
-  "path": ".claude/skills/domain-iot/SKILL.md",
-  "source": "github.com/rustfs/rustfs",
-  "downloaded_at": "2026-01-27T03:47:00.578010Z"
+  "repo": "actionbook/rust-skills",
+  "path": "skills/domain-iot/SKILL.md",
+  "source": "github.com/actionbook/rust-skills",
+  "downloaded_at": "2026-01-28T04:10:52.230793Z"
 }

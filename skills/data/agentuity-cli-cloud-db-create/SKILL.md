@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-db-create
 description: Create a new database resource. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.24"
+version: "0.0.104"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:
@@ -29,7 +29,6 @@ agentuity cloud db create [options]
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
 | `--name` | string | Yes | - | Custom database name |
-| `--description` | string | Yes | - | Optional database description |
 
 ## Examples
 

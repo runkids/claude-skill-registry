@@ -1,189 +1,371 @@
+﻿---
+name: Imagine
+description: Imagine (Idea Intake) â€” Start or refine an idea. If given free-form text, create a new IDEA-XXXX folder, ask clarifying questions, draft idea.md, then (after user review) save to inputs/idea.md and log the run.
+argument-hint: >-
+  <initial idea text OR existing IDEA_ID> (examples: build a docs-first backlog generator | IDEA-0007-my-idea)
+disable-model-invocation: false
 ---
-name: imagine
-description: Prepare detailed, professional prompts for Google Imagen 3/4 image generation. Supports character, environment, and object prompts using natural language with technical photography specifications. Extensible support for multiple art styles via reference files.
+
+# Imagine â€” Idea Intake (Interactive)
+
+## Invocation
+
+Run this command with either:
+
+- **A free-form initial idea** (recommended):
+  - `/imagine <initial idea text...>`
+
+OR
+
+- An **existing idea folder id** to refine the current idea:
+  - `/imagine <IDEA_ID>`
+
+Where:
+
+- `$ARGUMENTS` may contain spaces if you pass an initial idea text.
+- If `$ARGUMENTS` is empty, STOP and ask the user to rerun with an initial idea (or an IDEA_ID).
+
 ---
 
-# Imagine: Imagen Prompt Architect
+## Resolve IDEA_ID (required)
 
-Generate detailed, professional prompts for Google Imagen 3/4 that leverage its natural language processing strengths and technical parameter understanding.
+Before using any paths, resolve or create the idea folder:
 
-## Core Prompt Structure
+- If `$ARGUMENTS` matches `^IDEA-\\d{4}(-.*)?$`, treat it as `IDEA_REF` and call `vf.resolve_idea_id` with `idea_ref = $ARGUMENTS`.
+- Otherwise, treat `$ARGUMENTS` as free-form idea text and call `vf.create_idea_from_text` with `initial_text = $ARGUMENTS`.
+- Store the returned `idea_id` as `IDEA_ID`.
+- Use `IDEA_ID` for all paths, YAML headers, and run log entries.
 
-Imagen uses a **Subject-Context-Style framework** powered by T5-XXL language models. Build prompts in three layers:
+---
 
-1. **Subject**: Primary focus (person, object, animal, scenery)
-2. **Context**: Environment, placement, background, setting
-3. **Style**: Aesthetic approach (photographic, artistic, specific technique)
+## Goal
 
-### Photography Prompts Pattern
+Turn a rough idea into a **first, reviewable** `idea.md` stored at:
 
-Start with explicit photography signals: `"A photo of [detailed subject description], [context/placement], [technical specifications]"`
+- `docs/forge/ideas/<IDEA_ID>/inputs/idea.md`
 
-**Technical specifications include:**
-- Lens type: 24-85mm (portraits), 60-105mm macro (products), 10-24mm wide-angle (landscapes)
-- Lighting: natural light, studio lighting, golden hour, dramatic lighting
-- Quality modifiers: sharp focus, high detail, professional photography, 8K resolution
-- Camera/equipment: shot on ARRI Alexa, 35mm film, DSLR
+This command is **interactive** by default:
+- Phase 1: draft an idea.md + ask clarifying questions 
+- Phase 2: after user replies, save the final `idea.md` and capture answers for future stages
 
-**Example**: `"A photo of an elderly woman with weathered hands holding a steaming cup of tea, soft sunlight highlighting her wrinkles and smile, 35mm lens, warm and intimate mood, natural outdoor setting, sharp focus, professional portrait photography"`
+---
 
-### Artistic/Stylized Prompts Pattern
+## Canonical paths (repo-relative)
 
-For non-photographic styles, read the relevant artstyle reference file first, then layer:
+Ideas root:
 
-**Foundation**: `"[Art style name] aesthetic, [medium/technique], [key visual characteristics]"`
+- `docs/forge/ideas/`
 
-**Character/Subject**: Specific features, proportions, design elements
+Per-idea root:
 
-**Environment**: Scene composition, spatial elements, atmospheric details  
+- `docs/forge/ideas/<IDEA_ID>/`
 
-**Atmosphere**: Mood, color palette, lighting approach
+Inputs:
 
-**Technical**: Rendering specifics, texture, quality markers
+- `docs/forge/ideas/<IDEA_ID>/inputs/idea.md` (final target)
+- `docs/forge/ideas/<IDEA_ID>/inputs/imagine_questions.md` (generated)
+- `docs/forge/ideas/<IDEA_ID>/inputs/imagine_answers.md` (captured; append-only)
 
-## Using Artstyle References
+History:
 
-### Step 1: List Available Artstyles
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/imagine_questions.md`
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/idea_draft.md`
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/idea_final.md`
 
-**Before creating any artistic/stylized prompts, ALWAYS list available artstyle files:**
+Per-idea logs:
 
-Use bash to check: `ls /mnt/skills/user/imagine/references/artstyle-*.md`
+- `docs/forge/ideas/<IDEA_ID>/run_log.md` (append-only)
+- `docs/forge/ideas/<IDEA_ID>/manifest.md` (rolling status)
 
-This returns all available artstyle reference files. Present the list to the user so they can choose, or intelligently select based on their request.
+---
 
-### Step 2: Read the Selected Artstyle Reference
+## Directory handling
 
-**Once an artstyle is selected (either by user or inferred from request):**
+Ensure these directories exist (create them if missing):
 
-1. Read the complete `references/artstyle-[name].md` file to understand the visual language
-2. Apply the layered prompting strategy from the reference
-3. Use the technical descriptors provided for style-specific characteristics
-4. Follow the style-specific guidelines and vocabulary from the reference
+- `docs/forge/ideas/`
+- `docs/forge/ideas/<IDEA_ID>/inputs/`
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/`
 
-### Artstyle File Naming Convention
+If you cannot create directories or write files directly, output the artifacts as separate markdown blocks labeled with their target filenames and include a short note listing missing directories.
 
-All artstyle references follow the pattern: `artstyle-[name].md`
+---
 
-Examples:
-- `artstyle-sciencesaru.md` - Science SARU animation style
-- `artstyle-corporate-memphis.md` - Corporate Memphis/Alegria style
-- `artstyle-crewdson-hyperrealism.md` - Gregory Crewdson cinematic hyperrealism
-- `artstyle-iphone-social-media.md` - Modern iPhone social media aesthetic
+## Step 0 â€” Resolve or create IDEA_ID
 
-### When No Artstyle is Specified
+Use the tool-based resolution logic from **Resolve IDEA_ID (required)** above, then proceed:
 
-If the user doesn't specify an artstyle and their request seems to need one:
-1. List available artstyles
-2. Ask which style they prefer, or suggest the most appropriate based on context
-3. Never assume a default artstyle
+- If `docs/forge/ideas/<IDEA_ID>/inputs/idea.md` exists, use it as the base idea.
+- If it does not exist, proceed as a new idea using the resolved/created `IDEA_ID`.
 
-For pure photography requests without artistic styling, proceed without reading artstyle references.
+---
 
-## Best Practices from Imagen Architecture
+## Step 1 â€” Create the idea workspace (if missing)
 
-### Natural Language Advantage
-- Write detailed descriptive sentences, not keyword lists
-- Imagen rewards verbose descriptions over brevity
-- Use professional creative brief language
-- Default enhancePrompt=true automatically optimizes your prose
+Ensure per-idea files exist:
 
-### Iterative Refinement
-Start simple, layer details progressively:
-1. Base: `"A cat"`
-2. Add specifics: `"A fluffy Persian cat with bright blue eyes"`
-3. Add context: `"...sitting on a velvet cushion in a sunlit room"`
-4. Add technical: `"A photo of a fluffy Persian cat with bright blue eyes, sitting on a velvet cushion in a sunlit room, 50mm lens, natural soft lighting, warm colors, professional pet photography"`
+- `docs/forge/ideas/<IDEA_ID>/run_log.md` (create if missing; can start empty)
+- `docs/forge/ideas/<IDEA_ID>/manifest.md` (create if missing; template below)
 
-### Critical Constraints
-- **Text-in-image**: Maximum 25 characters per phrase, 3 phrases total
-- **Negative prompts**: Use plain descriptive terms ("wall, frame") not instructive language ("no walls, without frame")
-- **Token limit**: 480 tokens for prompt text
+---
 
-### Technical Parameters
-**Aspect ratios** (match use case):
-- 1:1 - Square social media
-- 3:4 - Portrait ads, vertical social
-- 4:3 - Traditional photography, TV
-- 16:9 - Widescreen landscape, modern displays
-- 9:16 - Vertical video, tall subjects
+## Step 2 â€” Run identity
 
-**Safety/person controls**: Adjust personGeneration (allow_adult, allow_all, dont_allow) and safetySetting (block_low_and_above, block_medium_and_above, block_only_high, block_none) as needed
+Generate:
 
-## Practical Use Case Patterns
+- `RUN_ID` as a filesystem-safe id (Windows-safe, no `:`), e.g.:
+  - `2026-01-14T05-22-41Z_imagine-8f3c`
 
-### Character/Portrait
-`"Portrait of [character description with age, features, clothing, emotion], [lens specification 24-85mm], [lighting type], [mood descriptors], [setting], [quality modifiers]"`
+Also capture:
 
-**For styled characters**: Read appropriate artstyle reference for character design specifics (proportions, features, design language)
+- `generated_at` as ISO-8601 time (may include timezone offset)
 
-### Environment/Landscape  
-`"[Environment type], [weather/time/season], [lens specification 10-24mm wide-angle], [atmospheric conditions], [quality modifiers]"`
+---
 
-**For styled environments**: Read appropriate artstyle reference for environment treatment (composition, color theory, architectural approach)
+## Step 3 â€” Gather context
 
-### Product/Object
-`"[Product] on [surface], [lens specification 60-105mm macro], [lighting type], [background type], [material/texture details], [quality modifiers]"`
+### If refining an existing idea
+Include file contents in context:
 
-### Cinematic/Stylized
-`"[Animation/art style], [scene description], [color grading approach], [cinematography terms], [atmospheric effects]"`
+- Existing idea (if present):
+  @docs/forge/ideas/<IDEA_ID>/inputs/idea.md
 
-**For cinematic styles**: Read appropriate artstyle reference for cinematic specifics (camera work, lighting philosophy, emotional coding)
+### If creating a new idea
+Use `$ARGUMENTS` (initial idea text) as the base.
 
-## Workflow for Creating Prompts
+---
 
-1. **Determine type**: Photography, artistic style, or hybrid?
-2. **If using art style**: 
-   - List available artstyles: `ls /mnt/skills/user/imagine/references/artstyle-*.md`
-   - Select appropriate style (by user choice or inference)
-   - Read complete `references/artstyle-[name].md` file
-3. **Build foundation**: Establish subject clearly and early
-4. **Layer context**: Add environment, placement, spatial relationships
-5. **Specify style**: Include aesthetic approach with technical vocabulary from reference (if using artstyle)
-6. **Add technical specs**: Lens type, lighting, quality modifiers appropriate to subject
-7. **Refine iteratively**: Start simple, add detail progressively until satisfied
-8. **Validate constraints**: Check text-in-image limits, negative prompt format, token count
+## Step 4 â€” Produce clarifying questions
 
-## Example Complete Prompts
+Create **5â€“12 questions**, optimized to reduce ambiguity without over-scoping.
 
-### Photography Example
-`"A photo of a plate of traditional Indonesian nasi goreng with fried egg on top, colorful vegetables visible, served on rustic ceramic plate on wooden table, 100mm macro lens, natural window lighting from side, warm atmosphere, steam rising from rice, glistening sauce, high detail, professional food photography, appetizing composition"`
+Guidance:
+- Prefer questions that resolve: target user, core problem, non-goals, constraints, MVP vs later, inputs/outputs.
+- Avoid implementation rabbit holes unless the idea explicitly mentions them.
+- If the idea implies a framework/tooling product, ask about: audience, intended workflow, what â€œdoneâ€ looks like.
 
-### Artistic Style Example (Generic Template)
-`"[Artstyle name] aesthetic, [medium/technique]. [Character description following style's design principles], [character-specific features from artstyle reference]. [Environment description following style's composition approach], [environmental specifics from artstyle reference]. [Atmospheric qualities from style guide], [color and lighting approach from reference]. [Technical rendering specs from style guide], [texture and quality markers from reference]"`
+Write questions to:
+- `docs/forge/ideas/<IDEA_ID>/inputs/imagine_questions.md` (overwrite allowed)
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/imagine_questions.md`
 
-**Note**: The actual artistic prompt should be built by reading the specific artstyle reference file and applying its guidelines. See individual artstyle-*.md files for complete examples.
+---
 
-### Hybrid Example (Styled character, photographic background)
-`"A photo of [character description in chosen art style], standing on actual [real environment], 35mm lens, golden hour natural lighting, real background with stylized character overlay, professional photography with [art style] integration, warm atmospheric lighting, high detail background with stylized character"`
+## Step 5 â€” Draft `idea.md` (REVIEWABLE)
 
-## Tips for Quality Output
+Create a **draft** idea document based on:
+- the base idea (existing idea.md or initial text)
+- reasonable assumptions clearly marked
+- TODO markers where answers are needed
 
-- **Be specific with materials and textures**: "glistening sauce," "rough ceramic," "polished wood" guide fine detail
-- **Use cinematography vocabulary**: "shot on ARRI Alexa," "Summilux lens," "volumetric lighting" elevate professional quality  
-- **Time of day matters**: Golden hour, overcast, midday sun, twilight each create distinct lighting and mood
-- **Color grading terms**: "muted cold tones," "warm sepia," "desaturated," "high contrast" specify aesthetic precisely
-- **Atmospheric effects**: "misty," "foggy," "heat haze," "rain-soaked" add environmental depth
+Write draft to:
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/idea_draft.md`
 
-## Extensibility
+Do NOT write to `inputs/idea.md` yet.
 
-This skill is designed to grow with your needs:
-- Add new `artstyle-[name].md` files to `references/` for different visual styles
-- Follow consistent documentation structure from existing artstyle files
-- Always list available artstyles at the start of artistic prompt workflows
-- Each artstyle reference should provide:
-  - Visual DNA and core characteristics
-  - Technical prompting vocabulary
-  - Layered prompting strategy
-  - Complete example prompts
-  - Style-specific guidelines for characters, environments, lighting, composition
+---
 
-## Adding New Artstyles
+## Step 6 â€” Ask the user and stop (Phase 1)
 
-To add a new artstyle:
-1. Create `references/artstyle-[name].md`
-2. Document the style's visual characteristics comprehensively
-3. Provide AI prompting vocabulary and technical descriptors
-4. Include layered prompting strategy and complete examples
-5. The skill will automatically detect and list it when checking available artstyles
+In chat, present:
 
-No code changes needed - the skill dynamically discovers all artstyle-*.md files in the references directory.
+1) The generated questions as a numbered list.
+2) A short note: â€œReply with answers in the same numbered format. Optionally include edits to the draft idea.â€
+3) Also present the **draft idea** (or a short summary + tell where it was saved, depending on tool limits).
+
+Then append a run_log entry with:
+
+- Status: `NEEDS_USER_INPUT`
+- Run-ID: `<RUN_ID>`
+- Outputs so far: `inputs/imagine_questions.md`, `runs/<RUN_ID>/idea_draft.md`
+
+STOP and wait for the user reply.
+
+---
+
+## Phase 2 â€” Capture answers, finalize `inputs/idea.md`
+
+When the user replies:
+
+### Step 7 â€” Persist answers (append-only)
+
+Append the userâ€™s answers to:
+
+- `docs/forge/ideas/<IDEA_ID>/inputs/imagine_answers.md`
+
+Format:
+
+```md
+### <ISO-8601> â€” Answers for <RUN_ID>
+
+<user answers verbatim, lightly formatted if needed>
+```
+
+---
+
+### Step 8 â€” Produce final `idea.md`
+
+Update the draft by incorporating answers:
+
+- Replace TODOs with decisions
+- Move information into correct sections
+- Keep scope stable; do not add new requirements beyond what the user confirmed
+- If something remains unclear, keep it in an â€œOpen Questionsâ€ section (but keep it short)
+
+Write final to BOTH:
+- `docs/forge/ideas/<IDEA_ID>/inputs/idea.md` (overwrite allowed)
+- `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/idea_final.md`
+
+---
+
+### Step 9 â€” Update logs + manifest
+
+Append a SUCCESS entry to:
+- `docs/forge/ideas/<IDEA_ID>/run_log.md`
+
+And create/update manifest:
+- if `manifest.md` exists, update only the keys under `Idea` section
+
+---
+
+## Output Format: `idea.md` (Markdown + YAML header)
+
+Write `idea.md` with a YAML header followed by sections.
+
+### YAML header (example)
+
+```yaml
+---
+doc_type: idea
+idea_id: "<IDEA_ID>"
+generated_by: "Imagine (Idea Intake)"
+generated_at: "<ISO-8601>"
+run_id: "<RUN_ID>"
+source:
+  - "user_input ($ARGUMENTS or existing inputs/idea.md)"
+qa:
+  questions: "inputs/imagine_questions.md"
+  answers: "inputs/imagine_answers.md (appended)"
+status: "Draft"
+---
+```
+
+### Recommended sections
+
+# Idea
+
+## One-liner
+
+(1 sentence)
+
+## Problem / Motivation
+
+- ...
+
+## Target Users
+
+- ...
+
+## Goals
+
+- ...
+
+## Non-Goals
+
+- ...
+
+## Constraints
+
+- ...
+
+## Inputs
+
+- ...
+
+## Outputs
+
+- ...
+
+## High-level Workflow
+
+1. ...
+2. ...
+
+## Success Criteria
+
+- ...
+
+## Open Questions (if any)
+
+- ...
+
+---
+
+## Logging Requirements: `run_log.md` (append-only)
+
+Append entries with this shape:
+
+### Phase 1 (needs input)
+
+```md
+### <ISO-8601 timestamp> â€” Imagine (Idea Intake)
+
+- Idea-ID: <IDEA_ID>
+- Run-ID: <RUN_ID>
+- Mode: new | refine
+- Inputs:
+  - user_input ($ARGUMENTS) OR inputs/idea.md (if refining)
+- Outputs:
+  - inputs/imagine_questions.md
+  - runs/<RUN_ID>/imagine_questions.md
+  - runs/<RUN_ID>/idea_draft.md
+- Status: NEEDS_USER_INPUT
+- Notes:
+  - <1â€“3 bullets on main unknowns>
+```
+
+### Phase 2 (finalized)
+
+```md
+### <ISO-8601 timestamp> â€” Imagine (Idea Intake) â€” Finalize
+
+- Idea-ID: <IDEA_ID>
+- Run-ID: <RUN_ID>
+- Outputs:
+  - inputs/imagine_answers.md (appended)
+  - inputs/idea.md
+  - runs/<RUN_ID>/idea_final.md
+- Status: SUCCESS | SUCCESS_WITH_WARNINGS | FAILED
+- Notes:
+  - <1â€“5 bullets on key decisions captured>
+```
+
+---
+
+## Manifest template (if creating new)
+
+```md
+# Manifest â€” <IDEA_ID>
+
+## Idea
+
+- idea_status: Draft
+- last_updated: <YYYY-MM-DD>
+- last_run_id: <RUN_ID>
+- latest_inputs:
+  - inputs/idea.md
+  - inputs/imagine_questions.md
+  - inputs/imagine_answers.md
+- notes:
+  - <optional bullets>
+```
+
+---
+
+## Failure handling
+
+If the initial idea is extremely short/vague:
+
+- Still generate questions
+- Draft `idea.md` with placeholders/TODOs
+- Do not invent details
+

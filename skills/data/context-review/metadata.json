@@ -1,7 +1,7 @@
 {
   "name": "context-review",
-  "repo": "savvy-web/rslib-builder",
+  "repo": "savvy-web/lint-staged",
   "path": ".claude/skills/context-review/SKILL.md",
-  "source": "github.com/savvy-web/rslib-builder",
-  "downloaded_at": "2026-01-27T04:40:39.404901Z"
+  "source": "github.com/savvy-web/lint-staged",
+  "downloaded_at": "2026-01-28T04:19:50.200320Z"
 }

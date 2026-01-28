@@ -36,8 +36,8 @@ Update CHANGELOG.md with business-focused entries by systematically reviewing fi
 ### Step 1: Gather Changes
 
 Determine change scope:
-- **PR-based**: `git diff origin/main...HEAD --name-only`
-- **Branch-based**: `git log origin/main..HEAD --oneline`
+- **PR-based**: `git diff origin/develop...HEAD --name-only`
+- **Branch-based**: `git log origin/develop..HEAD --oneline`
 - **Commit-based**: `git show {commit} --name-only`
 
 ### Step 2: Create Temp Notes File
@@ -130,15 +130,15 @@ Delete temp notes file: `.ai/workspace/changelog-notes-*.md`
 
 ### Good Entry
 ```markdown
-### TextSnippet: Content Management
+### bravoTALENTS: Hiring Process Management
 
-**Feature**: Rich text snippet management with categorization and search capabilities.
+**Feature**: Customizable hiring process/pipeline management for recruitment workflows.
 
 #### Added
-- Rich text editor with markdown support
-- Category-based organization with tags
-- Full-text search across snippets
-- Multi-language content support (EN/VI)
+- Drag-and-drop pipeline stage builder with default templates
+- Stage categories (Sourced, Applied, Interviewing, Offered, Hired, Rejected)
+- Pipeline duplication for quick setup
+- Multi-language stage names (EN/VI)
 ```
 
 ### Bad Entry (Too Technical)
@@ -159,8 +159,3 @@ Delete temp notes file: `.ai/workspace/changelog-notes-*.md`
 3. ❌ Technical jargon without business context
 4. ❌ Forgetting to delete temp notes file
 5. ❌ Not using [Unreleased] section
-
-## IMPORTANT Task Planning Notes
-
-- Always plan and break many small todo tasks
-- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

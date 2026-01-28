@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-db-list
 description: List database resources. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.24"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:
@@ -16,6 +16,7 @@ List database resources
 ## Prerequisites
 
 - Authenticated with `agentuity auth login`
+- Organization context required (`--org-id` or default org)
 
 ## Usage
 

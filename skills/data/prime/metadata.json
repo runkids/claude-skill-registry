@@ -1,13 +1,7 @@
 {
   "name": "prime",
-  "description": "New agent startup checklist for Agent Mail and Beads. Use when starting a new agent session, when the user says \"prime\" or \"startup\", or when beginning work on a multi-agent project.",
-  "repo": "Mburdo/knowledge_and_vibes",
-  "category": "data",
-  "tags": [
-    "prime"
-  ],
-  "stars": 42,
-  "dir_name": "prime",
-  "github_path": ".claude/skills/prime",
-  "github_branch": "master"
+  "repo": "ianphil/prism",
+  "path": ".claude/skills/prime/SKILL.md",
+  "source": "github.com/ianphil/prism",
+  "downloaded_at": "2026-01-28T03:51:58.668461Z"
 }

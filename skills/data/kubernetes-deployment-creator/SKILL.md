@@ -1,72 +1,50 @@
 ---
-name: "kubernetes-deployment-creator"
+name: creating-kubernetes-deployments
 description: |
-  Create kubernetes deployment creator operations. Auto-activating skill for DevOps Advanced.
-  Triggers on: kubernetes deployment creator, kubernetes deployment creator
-  Part of the DevOps Advanced skill category. Use when deploying applications or services. Trigger with phrases like "kubernetes deployment creator", "kubernetes creator", "deploy kubernetes ment creator".
-allowed-tools: "Read, Write, Edit, Bash(cmd:*), Grep"
-version: 1.0.0
-license: MIT
-author: "Jeremy Longshore <jeremy@intentsolutions.io>"
+  This skill enables Claude to generate Kubernetes deployment manifests, services, and related configurations following best practices. It should be used when the user asks to create a new Kubernetes deployment, service, ingress, or other related resources. Claude will generate YAML files for Deployments, Services, ConfigMaps, Secrets, Ingress, and Horizontal Pod Autoscalers. Use this skill when the user mentions "Kubernetes deployment", "K8s deployment", "create service", "define ingress", or asks for a manifest for any K8s resource.
 ---
-
-# Kubernetes Deployment Creator
 
 ## Overview
 
-This skill provides automated assistance for kubernetes deployment creator tasks within the DevOps Advanced domain.
+This skill allows Claude to create production-ready Kubernetes deployments and services. It generates complete K8s manifests with health checks, auto-scaling, ingress, TLS, and resource management configured.
 
-## When to Use
+## How It Works
 
-This skill activates automatically when you:
-- Mention "kubernetes deployment creator" in your request
-- Ask about kubernetes deployment creator patterns or best practices
-- Need help with advanced devops skills covering kubernetes, terraform, advanced ci/cd, monitoring, and infrastructure as code.
+1. **Receiving Request**: Claude receives a request to create Kubernetes resources.
+2. **Generating Manifests**: Claude generates YAML manifests for deployments, services, configmaps, secrets, ingress, and horizontal pod autoscalers based on the user's requirements.
+3. **Presenting Manifests**: Claude presents the generated manifests to the user for review and deployment.
 
-## Instructions
+## When to Use This Skill
 
-1. Provides step-by-step guidance for kubernetes deployment creator
-2. Follows industry best practices and patterns
-3. Generates production-ready code and configurations
-4. Validates outputs against common standards
+This skill activates when you need to:
+- Create a new Kubernetes deployment.
+- Define a Kubernetes service for an application.
+- Generate Kubernetes manifests for any K8s resource.
 
 ## Examples
 
-**Example: Basic Usage**
-Request: "Help me with kubernetes deployment creator"
-Result: Provides step-by-step guidance and generates appropriate configurations
+### Example 1: Deploying a Web Application
 
+User request: "Create a Kubernetes deployment for a web application named 'my-web-app' with 3 replicas, exposing port 80."
 
-## Prerequisites
+The skill will:
+1. Generate a Deployment manifest for 'my-web-app' with 3 replicas.
+2. Generate a Service manifest to expose port 80 of the deployment.
 
-- Relevant development environment configured
-- Access to necessary tools and services
-- Basic understanding of devops advanced concepts
+### Example 2: Setting up Ingress for a Service
 
+User request: "Set up an Ingress resource to route traffic to the 'my-web-app' service."
 
-## Output
+The skill will:
+1. Generate an Ingress manifest to route external traffic to the 'my-web-app' service.
+2. Configure TLS termination for secure access.
 
-- Generated configurations and code
-- Best practice recommendations
-- Validation results
+## Best Practices
 
+- **Resource Limits**: Define resource requests and limits for each container to ensure fair resource allocation.
+- **Health Checks**: Configure liveness and readiness probes to enable automatic restarts and prevent traffic from being routed to unhealthy pods.
+- **Namespaces**: Use namespaces to isolate different environments or applications within the cluster.
 
-## Error Handling
+## Integration
 
-| Error | Cause | Solution |
-|-------|-------|----------|
-| Configuration invalid | Missing required fields | Check documentation for required parameters |
-| Tool not found | Dependency not installed | Install required tools per prerequisites |
-| Permission denied | Insufficient access | Verify credentials and permissions |
-
-
-## Resources
-
-- Official documentation for related tools
-- Best practices guides
-- Community examples and tutorials
-
-## Related Skills
-
-Part of the **DevOps Advanced** skill category.
-Tags: kubernetes, terraform, helm, monitoring, iac
+This skill can be used with other Claude Code plugins for tasks such as deploying infrastructure-as-code (IaC) or integrating with CI/CD pipelines. It provides the Kubernetes manifests that other plugins can then deploy or manage.

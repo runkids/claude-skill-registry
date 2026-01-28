@@ -1,23 +1,42 @@
 ---
 name: nestjs-module-generator
-description: Generate NestJS module files with controllers, services, DTOs, and entities. Triggers on "create nestjs module", "generate nest module", "nestjs resource", "nest crud module".
+description: |
+  Nestjs Module Generator - Auto-activating skill for Backend Development.
+  Triggers on: nestjs module generator, nestjs module generator
+  Part of the Backend Development skill category.
+allowed-tools: Read, Write, Edit, Bash, Grep
+version: 1.0.0
+license: MIT
+author: Jeremy Longshore <jeremy@intentsolutions.io>
 ---
 
-# NestJS Module Generator
+# Nestjs Module Generator
 
-Generate complete NestJS modules with controllers, services, DTOs, and entity files.
+## Purpose
 
-## Output Requirements
+This skill provides automated assistance for nestjs module generator tasks within the Backend Development domain.
 
-**File Output:** `*.module.ts`, `*.controller.ts`, `*.service.ts`, `*.dto.ts`
-**Format:** Valid NestJS TypeScript
-**Standards:** NestJS best practices
+## When to Use
 
-## When Invoked
+This skill activates automatically when you:
+- Mention "nestjs module generator" in your request
+- Ask about nestjs module generator patterns or best practices
+- Need help with backend skills covering node.js, python, go, database design, caching, messaging, and microservices architecture.
 
-Immediately generate a complete NestJS module with all required files.
+## Capabilities
 
-## Example Invocations
+- Provides step-by-step guidance for nestjs module generator
+- Follows industry best practices and patterns
+- Generates production-ready code and configurations
+- Validates outputs against common standards
 
-**Prompt:** "Create NestJS module for orders"
-**Output:** Complete module with controller, service, DTOs, and entity.
+## Example Triggers
+
+- "Help me with nestjs module generator"
+- "Set up nestjs module generator"
+- "How do I implement nestjs module generator?"
+
+## Related Skills
+
+Part of the **Backend Development** skill category.
+Tags: nodejs, python, go, microservices, database

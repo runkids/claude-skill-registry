@@ -1,9 +1,7 @@
 {
   "name": "lang-graphql-dev",
-  "description": "Foundational GraphQL patterns covering schema design, queries, mutations, subscriptions, and resolvers. Use when building or consuming GraphQL APIs. This is the entry point for GraphQL development.",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-graphql-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:49.441460Z"
 }

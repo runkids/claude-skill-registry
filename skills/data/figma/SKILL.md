@@ -1,214 +1,122 @@
 ---
 name: figma
-description: Access Figma design data via Framelink MCP. Fetch layout, styles, components from Figma files/frames. Use when implementing UI from Figma designs, extracting design tokens, or downloading assets.
-mcp:
-  figma:
-    command: npx
-    args: ["-y", "figma-developer-mcp", "--stdio"]
-    env:
-      FIGMA_API_KEY: "${FIGMA_API_KEY}"
+description: Design and prototype interfaces in Figma - create, edit, and manage design files, components, and collaborate on design projects
+category: design
 ---
 
-# Figma Design Data (MCP)
+# Figma Skill
 
-Access Figma design data via the Framelink MCP server. When this skill is loaded, the `figma` MCP server auto-starts and exposes tools to fetch design data and download images.
+## Overview
+Enables Claude to interact with Figma for UI/UX design work, including creating and managing design files, viewing designs, exporting assets, and managing team collaboration.
 
-## Prerequisites
-
-Set your Figma API key as an environment variable:
+## Quick Install
 
 ```bash
-export FIGMA_API_KEY="your-figma-personal-access-token"
+curl -sSL https://canifi.com/skills/figma/install.sh | bash
 ```
 
-To create a Figma Personal Access Token:
-
-1. Go to Figma → Settings → Account → Personal access tokens
-2. Create a new token with read access
-3. See: https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens
-
-## Quick Start
-
-After loading this skill, use `skill_mcp` to invoke Figma tools:
-
-```
-skill_mcp(skill_name="figma", tool_name="get_figma_data", arguments='{"fileKey": "abc123", "nodeId": "1234:5678"}')
+Or manually:
+```bash
+cp -r skills/figma ~/.canifi/skills/
 ```
 
-## Available Tools
+## Setup
 
-### get_figma_data
+Configure via [canifi-env](https://canifi.com/setup/scripts):
 
-Fetch comprehensive Figma file data including layout, content, visuals, and component information.
+```bash
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
 
-| Parameter | Type   | Required | Description                                                                                       |
-| --------- | ------ | -------- | ------------------------------------------------------------------------------------------------- |
-| `fileKey` | string | Yes      | The Figma file key (from URL: `figma.com/file/<fileKey>/...` or `figma.com/design/<fileKey>/...`) |
-| `nodeId`  | string | No       | Specific node ID (from URL param `node-id=<nodeId>`). Format: `1234:5678` or `1234-5678`          |
-| `depth`   | number | No       | Levels deep to traverse. Only use if explicitly requested by user.                                |
-
-**Returns:** YAML-formatted design data with:
-
-- `metadata` - File/node information
-- `nodes` - Simplified node tree with layout, styles, text content
-- `globalVars` - Shared styles and variables
-
-### download_figma_images
-
-Download SVG and PNG images/icons from a Figma file.
-
-| Parameter   | Type   | Required | Description                                   |
-| ----------- | ------ | -------- | --------------------------------------------- |
-| `fileKey`   | string | Yes      | The Figma file key                            |
-| `nodes`     | array  | Yes      | Array of node objects to download (see below) |
-| `localPath` | string | Yes      | Absolute path to save images                  |
-| `pngScale`  | number | No       | Export scale for PNGs (default: 2)            |
-
-**Node object structure:**
-
-```json
-{
-  "nodeId": "1234:5678",
-  "fileName": "icon-name.svg",
-  "imageRef": "optional-for-image-fills"
-}
+canifi-env set FIGMA_EMAIL "your-email@example.com"
+canifi-env set FIGMA_PASSWORD "your-password"
 ```
 
-## Workflow
+## Privacy & Authentication
 
-### 1. Extract File Key and Node ID from Figma URL
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
 
-Figma URLs follow these patterns:
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
 
-- `https://www.figma.com/file/<fileKey>/<fileName>?node-id=<nodeId>`
-- `https://www.figma.com/design/<fileKey>/<fileName>?node-id=<nodeId>`
-
-Example: `https://www.figma.com/design/abc123xyz/MyDesign?node-id=1234-5678`
-
-- `fileKey`: `abc123xyz`
-- `nodeId`: `1234-5678` (or `1234:5678` - both formats work)
-
-### 2. Fetch Design Data
-
-```
-# Fetch specific frame/component
-skill_mcp(skill_name="figma", tool_name="get_figma_data", arguments='{"fileKey": "abc123xyz", "nodeId": "1234:5678"}')
-
-# Fetch entire file (use sparingly - can be large)
-skill_mcp(skill_name="figma", tool_name="get_figma_data", arguments='{"fileKey": "abc123xyz"}')
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
+```bash
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
-### 3. Download Assets (Optional)
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
 
+## Capabilities
+- View and navigate design files, frames, and pages
+- Export assets in various formats (PNG, SVG, PDF, JPG)
+- Access and manage team libraries and components
+- Review design comments and feedback
+- Check file version history and restore previous versions
+- Manage file sharing and permissions
+
+## Usage Examples
+
+### Example 1: Export Design Assets
 ```
-skill_mcp(skill_name="figma", tool_name="download_figma_images", arguments='{
-  "fileKey": "abc123xyz",
-  "nodes": [
-    {"nodeId": "1234:5678", "fileName": "hero-image.png"},
-    {"nodeId": "5678:9012", "fileName": "icon-arrow.svg"}
-  ],
-  "localPath": "/absolute/path/to/assets"
-}')
-```
-
-## Examples
-
-### Implement a Component from Figma
-
-```
-# User provides: https://www.figma.com/design/abc123/Dashboard?node-id=100-200
-
-# 1. Fetch the design data
-skill_mcp(skill_name="figma", tool_name="get_figma_data", arguments='{"fileKey": "abc123", "nodeId": "100-200"}')
-
-# 2. Review the returned YAML for:
-#    - Layout structure (flex, grid, spacing)
-#    - Typography (font, size, weight, line-height)
-#    - Colors (fills, strokes)
-#    - Dimensions and constraints
-
-# 3. Implement the component using the extracted data
+User: "Export all icons from my Figma design file as SVGs"
+Claude: I'll navigate to your Figma file and export the icons.
+1. Opening Figma via Playwright MCP
+2. Navigating to the specified file
+3. Selecting icon frames
+4. Exporting as SVG format
+5. Downloading to your specified location
 ```
 
-### Extract Design Tokens
-
+### Example 2: View Design Feedback
 ```
-# Fetch a design system file
-skill_mcp(skill_name="figma", tool_name="get_figma_data", arguments='{"fileKey": "designSystemKey"}')
-
-# The globalVars section contains:
-# - Color styles
-# - Typography styles
-# - Effect styles (shadows, blurs)
+User: "Show me all comments on my homepage design"
+Claude: I'll pull up the comments on your homepage design.
+1. Opening the design file in Figma
+2. Navigating to the homepage frame
+3. Displaying all comments with author and timestamp
+4. Summarizing feedback themes
 ```
 
-### Download Icons
-
+### Example 3: Check Design Versions
 ```
-skill_mcp(skill_name="figma", tool_name="download_figma_images", arguments='{
-  "fileKey": "iconLibraryKey",
-  "nodes": [
-    {"nodeId": "10:20", "fileName": "icon-home.svg"},
-    {"nodeId": "10:30", "fileName": "icon-settings.svg"},
-    {"nodeId": "10:40", "fileName": "icon-user.svg"}
-  ],
-  "localPath": "/project/src/assets/icons",
-  "pngScale": 2
-}')
+User: "What changes were made to the login screen this week?"
+Claude: I'll review the version history for the login screen.
+1. Accessing file version history
+2. Filtering changes from this week
+3. Comparing versions to identify modifications
+4. Summarizing key design changes
 ```
 
-## Data Structure
+## Authentication Flow
+1. Navigate to figma.com via Playwright MCP
+2. Enter email credentials
+3. Handle password entry
+4. Complete 2FA if required (via iMessage notification)
+5. Maintain session cookies for subsequent requests
 
-The `get_figma_data` tool returns simplified, AI-optimized data:
+## Error Handling
+- **Login Failed**: Retry authentication up to 3 times, then notify via iMessage
+- **Session Expired**: Re-authenticate automatically using stored credentials
+- **Rate Limited**: Implement exponential backoff (1s, 2s, 4s, 8s)
+- **2FA Required**: Send code request notification via iMessage, wait for user input
+- **File Not Found**: Prompt user to verify file URL or name
+- **Permission Denied**: Notify user of access restrictions
 
-```yaml
-metadata:
-  name: "Component Name"
-  lastModified: "2024-01-15T..."
+## Self-Improvement Instructions
+When encountering new Figma UI patterns or workflows:
+1. Document the specific interaction pattern
+2. Note any selectors or navigation paths that changed
+3. Suggest updates to this skill file via PR or Notion log
+4. Track success/failure rates for common operations
 
-nodes:
-  - id: "1234:5678"
-    name: "Button"
-    type: "FRAME"
-    layout:
-      mode: "HORIZONTAL"
-      padding: { top: 12, right: 24, bottom: 12, left: 24 }
-      gap: 8
-    size: { width: 120, height: 48 }
-    fills:
-      - type: "SOLID"
-        color: { r: 0.2, g: 0.4, b: 1, a: 1 }
-    cornerRadius: 8
-    children:
-      - id: "1234:5679"
-        name: "Label"
-        type: "TEXT"
-        content: "Click me"
-        textStyle:
-          fontFamily: "Inter"
-          fontSize: 16
-          fontWeight: 600
-
-globalVars:
-  styles:
-    "S:abc123": { name: "Primary", fills: [...] }
-```
-
-## Tips
-
-- **Always use nodeId** when provided - fetching entire files is slow and context-heavy
-- **Node IDs with `-` or `:`** both work - the MCP handles conversion
-- **Check globalVars** for reusable styles before hardcoding values
-- **Use depth parameter sparingly** - only when explicitly needed
-- **For images/icons**, identify nodes with `imageRef` in the data for proper downloading
-- **SVG vs PNG**: Use `.svg` for icons/vectors, `.png` for photos/complex images
-
-## Troubleshooting
-
-**"Invalid API key"**: Ensure `FIGMA_API_KEY` environment variable is set correctly.
-
-**"File not found"**: Verify the fileKey is correct and you have access to the file.
-
-**"Node not found"**: Check the nodeId format. Try both `1234:5678` and `1234-5678`.
-
-**Large response**: Use `nodeId` to fetch specific frames instead of entire files.
+## Notes
+- Figma files can be large; allow adequate loading time
+- Some features require paid Figma plans
+- Plugin interactions are limited via browser automation
+- Real-time collaboration features may show other users' cursors
+- FigJam boards use different UI patterns than design files

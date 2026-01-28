@@ -1,7 +1,7 @@
 {
   "name": "v3-integration-deep",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "path": ".claude/skills/v3-integration-deep/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-27T04:25:26.773601Z"
+  "repo": "ruvnet/claude-flow",
+  "path": "v3/@claude-flow/mcp/.claude/skills/v3-integration-deep/SKILL.md",
+  "source": "github.com/ruvnet/claude-flow",
+  "downloaded_at": "2026-01-28T04:26:43.376805Z"
 }

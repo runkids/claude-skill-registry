@@ -1,7 +1,7 @@
 {
   "name": "pr-summary",
-  "repo": "fusengine/agents",
-  "path": "plugins/ai-pilot/skills/pr-summary/SKILL.md",
-  "source": "github.com/fusengine/agents",
-  "downloaded_at": "2026-01-27T04:25:01.762263Z"
+  "repo": "gittower/git-flow-next",
+  "path": ".claude/skills/pr-summary/SKILL.md",
+  "source": "github.com/gittower/git-flow-next",
+  "downloaded_at": "2026-01-28T03:45:31.253703Z"
 }

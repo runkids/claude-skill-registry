@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-email-routing",
-  "repo": "jackspace/ClaudeSkillz",
-  "path": "skills/cloudflare-email-routing/SKILL.md",
-  "source": "github.com/jackspace/ClaudeSkillz",
-  "downloaded_at": "2026-01-27T02:52:42.166354Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-email-routing/skills/cloudflare-email-routing/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-28T01:54:38.163008Z"
 }

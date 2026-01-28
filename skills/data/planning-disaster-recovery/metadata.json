@@ -1,9 +1,7 @@
 {
   "name": "planning-disaster-recovery",
-  "description": "Use when you need to work with backup and recovery.This skill provides backup automation and disaster recovery with comprehensive guidance and automation.Trigger with phrases like \"create backups\", \"a",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "ancoleman/ai-design-components",
+  "path": "skills/planning-disaster-recovery/SKILL.md",
+  "source": "github.com/ancoleman/ai-design-components",
+  "downloaded_at": "2026-01-28T01:07:06.914609Z"
 }

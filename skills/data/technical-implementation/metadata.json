@@ -1,9 +1,7 @@
 {
   "name": "technical-implementation",
-  "description": "Execute implementation plans using strict TDD workflow with quality gates. Fifth phase of research-discussion-specification-plan-implement-review workflow. Use when: (1) Implementing a plan from docs/",
   "repo": "leeovery/claude-technical-workflows",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/technical-implementation/SKILL.md",
+  "source": "github.com/leeovery/claude-technical-workflows",
+  "downloaded_at": "2026-01-28T01:54:49.801634Z"
 }

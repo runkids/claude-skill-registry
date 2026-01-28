@@ -1,9 +1,7 @@
 {
   "name": "markdownlint-custom-rules",
-  "description": "Create custom linting rules for markdownlint including rule structure, parser integration, error reporting, and automatic fixing.",
   "repo": "TheBushidoCollective/han",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-markdown/skills/markdownlint-custom-rules/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:03.315631Z"
 }

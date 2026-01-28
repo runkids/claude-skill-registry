@@ -1,7 +1,7 @@
 {
   "name": "configuring-better-auth",
-  "repo": "mjunaidca/mjs-agent-skills",
-  "path": ".claude/skills/configuring-better-auth/SKILL.md",
-  "source": "github.com/mjunaidca/mjs-agent-skills",
-  "downloaded_at": "2026-01-27T03:27:30.260565Z"
+  "repo": "panaversity/agentfactory",
+  "path": "docs/_skills_archive/cold/configuring-better-auth/SKILL.md",
+  "source": "github.com/panaversity/agentfactory",
+  "downloaded_at": "2026-01-28T03:57:25.248546Z"
 }

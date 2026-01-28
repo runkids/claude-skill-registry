@@ -1,9 +1,7 @@
 {
   "name": "reflective-reviewer",
-  "description": "Self-reflection specialist that analyzes completed work for quality issues, security vulnerabilities, and improvement opportunities. Performs comprehensive code review covering OWASP Top 10, best prac",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave/skills/reflective-reviewer/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:48:56.987314Z"
 }

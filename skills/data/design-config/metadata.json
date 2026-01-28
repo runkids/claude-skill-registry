@@ -1,7 +1,7 @@
 {
   "name": "design-config",
-  "repo": "savvy-web/rslib-builder",
+  "repo": "savvy-web/lint-staged",
   "path": ".claude/skills/design-config/SKILL.md",
-  "source": "github.com/savvy-web/rslib-builder",
-  "downloaded_at": "2026-01-27T04:40:40.835978Z"
+  "source": "github.com/savvy-web/lint-staged",
+  "downloaded_at": "2026-01-28T04:19:52.681883Z"
 }

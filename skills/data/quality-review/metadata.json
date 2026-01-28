@@ -1,7 +1,7 @@
 {
   "name": "quality-review",
-  "repo": "barikata1984/.agent",
-  "path": "skills/quality-review/SKILL.md",
-  "source": "github.com/barikata1984/.agent",
-  "downloaded_at": "2026-01-27T04:31:37.461990Z"
+  "repo": "sunqb/ccsdk",
+  "path": ".claude/skills/quality-review/SKILL.md",
+  "source": "github.com/sunqb/ccsdk",
+  "downloaded_at": "2026-01-28T04:01:26.116467Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "python-repl",
-  "repo": "HelixDevelopment/HelixAgent",
+  "repo": "vasic-digital/SuperAgent",
   "path": "skills/gptme/python-repl/SKILL.md",
-  "source": "github.com/HelixDevelopment/HelixAgent",
-  "downloaded_at": "2026-01-27T03:01:07.633109Z"
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-28T02:58:21.819648Z"
 }

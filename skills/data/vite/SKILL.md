@@ -1,115 +1,524 @@
 ---
-name: vite-best-practices
-description: Vite performance optimization guidelines. This skill should be used when writing, reviewing, or refactoring Vite configuration and projects to ensure optimal performance patterns. Triggers on tasks involving Vite config, build optimization, dependency pre-bundling, plugin development, bundle analysis, or HMR issues.
+name: vite
+description: Builds web applications with Vite including dev server, production builds, plugins, and configuration. Use when scaffolding projects, configuring build tools, optimizing bundles, or setting up development environments.
 ---
 
-# Vite Best Practices
+# Vite
 
-Comprehensive performance optimization guide for Vite applications. Contains 42 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+Next-generation frontend build tool with instant dev server and optimized production builds.
 
-## When to Apply
+## Quick Start
 
-Reference these guidelines when:
-- Configuring Vite for a new project
-- Troubleshooting slow dev server startup
-- Optimizing production bundle size
-- Debugging HMR issues
-- Writing or evaluating Vite plugins
-- Migrating from Webpack or other bundlers
+**Create project:**
+```bash
+npm create vite@latest my-app
+cd my-app
+npm install
+npm run dev
+```
 
-## Rule Categories by Priority
+**Templates:**
+```bash
+npm create vite@latest my-app -- --template react
+npm create vite@latest my-app -- --template react-ts
+npm create vite@latest my-app -- --template vue
+npm create vite@latest my-app -- --template vue-ts
+npm create vite@latest my-app -- --template svelte
+npm create vite@latest my-app -- --template svelte-ts
+```
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Dependency Pre-bundling | CRITICAL | `deps-` |
-| 2 | Plugin Performance | CRITICAL | `plugin-` |
-| 3 | Bundle Optimization | CRITICAL | `bundle-` |
-| 4 | Import Resolution | HIGH | `import-` |
-| 5 | Build Configuration | HIGH | `build-` |
-| 6 | Development Server | MEDIUM-HIGH | `dev-` |
-| 7 | CSS Optimization | MEDIUM | `css-` |
-| 8 | Advanced Patterns | LOW-MEDIUM | `advanced-` |
+## Configuration
 
-## Quick Reference
+### Basic Config
 
-### 1. Dependency Pre-bundling (CRITICAL)
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-- [`deps-include-large-cjs`](references/deps-include-large-cjs.md) - Include large dependencies with many modules
-- [`deps-exclude-esm`](references/deps-exclude-esm.md) - Exclude small ESM dependencies
-- [`deps-force-rebundle`](references/deps-force-rebundle.md) - Use --force flag for dependency changes
-- [`deps-hold-until-crawl`](references/deps-hold-until-crawl.md) - Configure holdUntilCrawlEnd for startup behavior
-- [`deps-entries`](references/deps-entries.md) - Configure custom entry points for discovery
-- [`deps-linked-packages`](references/deps-linked-packages.md) - Handle linked dependencies in monorepos
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+    open: true,
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+  },
+});
+```
 
-### 2. Plugin Performance (CRITICAL)
+### Full Configuration
 
-- [`plugin-lazy-imports`](references/plugin-lazy-imports.md) - Use dynamic imports in plugin code
-- [`plugin-avoid-long-hooks`](references/plugin-avoid-long-hooks.md) - Avoid long operations in startup hooks
-- [`plugin-transform-early-return`](references/plugin-transform-early-return.md) - Early return in transform hooks
-- [`plugin-audit-community`](references/plugin-audit-community.md) - Audit community plugins for performance
-- [`plugin-swc-over-babel`](references/plugin-swc-over-babel.md) - Use SWC instead of Babel for React
+```typescript
+// vite.config.ts
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-### 3. Bundle Optimization (CRITICAL)
+export default defineConfig(({ command, mode }) => {
+  // Load env file based on mode
+  const env = loadEnv(mode, process.cwd(), '');
 
-- [`bundle-manual-chunks`](references/bundle-manual-chunks.md) - Use manualChunks for vendor splitting
-- [`bundle-dynamic-imports`](references/bundle-dynamic-imports.md) - Use dynamic imports for route-level splitting
-- [`bundle-analyze`](references/bundle-analyze.md) - Analyze bundle composition
-- [`bundle-tree-shaking`](references/bundle-tree-shaking.md) - Enable effective tree-shaking
-- [`bundle-chunk-warning`](references/bundle-chunk-warning.md) - Address large chunk warnings
-- [`bundle-compression`](references/bundle-compression.md) - Disable compressed size reporting for large projects
-- [`bundle-asset-inlining`](references/bundle-asset-inlining.md) - Configure asset inlining threshold
+  return {
+    plugins: [react()],
 
-### 4. Import Resolution (HIGH)
+    // Path aliases
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+        '@components': path.resolve(__dirname, './src/components'),
+        '@lib': path.resolve(__dirname, './src/lib'),
+      },
+    },
 
-- [`import-avoid-barrel`](references/import-avoid-barrel.md) - Avoid barrel file imports
-- [`import-explicit-extensions`](references/import-explicit-extensions.md) - Use explicit file extensions
-- [`import-path-aliases`](references/import-path-aliases.md) - Configure path aliases for clean imports
-- [`import-svg-strings`](references/import-svg-strings.md) - Import SVGs as strings instead of components
-- [`import-glob-patterns`](references/import-glob-patterns.md) - Use glob imports carefully
+    // Dev server
+    server: {
+      port: 3000,
+      host: true, // Listen on all addresses
+      open: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:8000',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
+    },
 
-### 5. Build Configuration (HIGH)
+    // Build options
+    build: {
+      outDir: 'dist',
+      sourcemap: mode === 'development',
+      minify: 'terser',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            utils: ['lodash', 'date-fns'],
+          },
+        },
+      },
+    },
 
-- [`build-modern-target`](references/build-modern-target.md) - Target modern browsers
-- [`build-minification`](references/build-minification.md) - Use esbuild for minification
-- [`build-sourcemaps`](references/build-sourcemaps.md) - Disable source maps in production
-- [`build-css-code-split`](references/build-css-code-split.md) - Enable CSS code splitting
-- [`build-rolldown`](references/build-rolldown.md) - Consider Rolldown for faster builds
-- [`build-output-dir`](references/build-output-dir.md) - Configure output directory and caching
+    // Preview server (for built app)
+    preview: {
+      port: 4173,
+    },
 
-### 6. Development Server (MEDIUM-HIGH)
+    // Define global constants
+    define: {
+      __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+    },
 
-- [`dev-server-warmup`](references/dev-server-warmup.md) - Warm up frequently used files
-- [`dev-browser-cache`](references/dev-browser-cache.md) - Keep browser cache enabled in DevTools
-- [`dev-fs-limits`](references/dev-fs-limits.md) - Increase file descriptor limits on Linux
-- [`dev-wsl-polling`](references/dev-wsl-polling.md) - Use polling for WSL file watching
-- [`dev-https-proxy`](references/dev-https-proxy.md) - Configure HTTPS and proxy for development
+    // CSS options
+    css: {
+      modules: {
+        localsConvention: 'camelCaseOnly',
+      },
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/styles/variables.scss";`,
+        },
+      },
+    },
+  };
+});
+```
 
-### 7. CSS Optimization (MEDIUM)
+## Environment Variables
 
-- [`css-lightning`](references/css-lightning.md) - Use Lightning CSS instead of PostCSS
-- [`css-avoid-preprocessors`](references/css-avoid-preprocessors.md) - Prefer CSS over preprocessors when possible
-- [`css-modules`](references/css-modules.md) - Use CSS Modules for component styles
-- [`css-inline-critical`](references/css-inline-critical.md) - Extract critical CSS for initial paint
+### Env Files
 
-### 8. Advanced Patterns (LOW-MEDIUM)
+```bash
+.env                # Loaded in all cases
+.env.local          # Loaded in all cases, ignored by git
+.env.[mode]         # Only loaded in specified mode
+.env.[mode].local   # Only loaded in specified mode, ignored by git
+```
 
-- [`advanced-ssr-externalize`](references/advanced-ssr-externalize.md) - Externalize dependencies for SSR
-- [`advanced-env-static`](references/advanced-env-static.md) - Use static environment variables
-- [`advanced-profiling`](references/advanced-profiling.md) - Profile build performance
-- [`advanced-lib-mode`](references/advanced-lib-mode.md) - Configure library mode for package development
+### Define Variables
 
-## How to Use
+```bash
+# .env
+VITE_API_URL=https://api.example.com
+VITE_APP_TITLE=My App
 
-Read individual reference files for detailed explanations and code examples:
+# Not exposed to client (no VITE_ prefix)
+DATABASE_URL=postgres://...
+```
 
-- [Section definitions](references/_sections.md) - Category structure and impact levels
-- [Rule template](assets/templates/_template.md) - Template for adding new rules
+### Access Variables
+
+```typescript
+// In client code
+console.log(import.meta.env.VITE_API_URL);
+console.log(import.meta.env.VITE_APP_TITLE);
+
+// Built-in variables
+console.log(import.meta.env.MODE);       // 'development' | 'production'
+console.log(import.meta.env.BASE_URL);   // Base URL
+console.log(import.meta.env.PROD);       // boolean
+console.log(import.meta.env.DEV);        // boolean
+```
+
+### TypeScript Types
+
+```typescript
+// env.d.ts
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string;
+  readonly VITE_APP_TITLE: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+```
+
+## Plugins
+
+### React
+
+```typescript
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [
+    react({
+      // Enable React Refresh
+      fastRefresh: true,
+      // Use automatic JSX runtime
+      jsxRuntime: 'automatic',
+    }),
+  ],
+});
+```
+
+### React SWC (Faster)
+
+```bash
+npm install -D @vitejs/plugin-react-swc
+```
+
+```typescript
+import react from '@vitejs/plugin-react-swc';
+
+export default defineConfig({
+  plugins: [react()],
+});
+```
+
+### SVG as Components
+
+```bash
+npm install -D vite-plugin-svgr
+```
+
+```typescript
+import svgr from 'vite-plugin-svgr';
+
+export default defineConfig({
+  plugins: [react(), svgr()],
+});
+```
+
+```tsx
+import Logo from './logo.svg?react';
+
+function App() {
+  return <Logo className="logo" />;
+}
+```
+
+### PWA
+
+```bash
+npm install -D vite-plugin-pwa
+```
+
+```typescript
+import { VitePWA } from 'vite-plugin-pwa';
+
+export default defineConfig({
+  plugins: [
+    VitePWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'My App',
+        short_name: 'App',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: '/icon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: '/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+    }),
+  ],
+});
+```
+
+### Compression
+
+```bash
+npm install -D vite-plugin-compression
+```
+
+```typescript
+import viteCompression from 'vite-plugin-compression';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+    }),
+    viteCompression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+    }),
+  ],
+});
+```
+
+## CSS
+
+### CSS Modules
+
+```css
+/* Button.module.css */
+.button {
+  background: blue;
+  color: white;
+}
+```
+
+```tsx
+import styles from './Button.module.css';
+
+function Button() {
+  return <button className={styles.button}>Click</button>;
+}
+```
+
+### PostCSS
+
+```javascript
+// postcss.config.js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+```
+
+### Sass/SCSS
+
+```bash
+npm install -D sass
+```
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/variables.scss";`,
+      },
+    },
+  },
+});
+```
+
+## Static Assets
+
+### Import Assets
+
+```typescript
+// Import as URL
+import imgUrl from './img.png';
+
+// Import as string (inline)
+import imgData from './img.png?inline';
+
+// Import as raw string
+import shaderCode from './shader.glsl?raw';
+```
+
+### Public Directory
+
+Files in `public/` are served at root and copied as-is to build output.
+
+```html
+<!-- Access public/favicon.ico -->
+<link rel="icon" href="/favicon.ico" />
+```
+
+## Build Optimization
+
+### Code Splitting
+
+```typescript
+// Lazy load routes
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Settings = lazy(() => import('./pages/Settings'));
+```
+
+### Manual Chunks
+
+```typescript
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor code
+          react: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+        },
+      },
+    },
+  },
+});
+```
+
+### Chunk Size Warnings
+
+```typescript
+export default defineConfig({
+  build: {
+    chunkSizeWarningLimit: 500, // KB
+  },
+});
+```
+
+### Analyze Bundle
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript
+import { visualizer } from 'rollup-plugin-visualizer';
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true,
+      gzipSize: true,
+    }),
+  ],
+});
+```
+
+## Library Mode
+
+```typescript
+// vite.config.ts (for building a library)
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import dts from 'vite-plugin-dts';
+
+export default defineConfig({
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'MyLib',
+      fileName: 'my-lib',
+      formats: ['es', 'cjs', 'umd'],
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    },
+  },
+  plugins: [dts()],
+});
+```
+
+## Testing
+
+### Vitest Integration
+
+```bash
+npm install -D vitest
+```
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
+  },
+});
+```
+
+## Commands
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx"
+  }
+}
+```
+
+### Build for Different Modes
+
+```bash
+vite build --mode staging
+vite build --mode production
+```
+
+## Best Practices
+
+1. **Use path aliases** - Cleaner imports
+2. **Split vendor chunks** - Better caching
+3. **Lazy load routes** - Smaller initial bundle
+4. **Enable source maps in dev** - Easier debugging
+5. **Use SWC for React** - Faster builds
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Missing VITE_ prefix | Prefix env vars with VITE_ |
+| Wrong import.meta usage | Use import.meta.env |
+| Large chunks | Add manualChunks |
+| Slow builds | Use @vitejs/plugin-react-swc |
+| Missing types | Add env.d.ts |
 
 ## Reference Files
 
-| File | Description |
-|------|-------------|
-| [AGENTS.md](AGENTS.md) | Complete compiled guide with all rules |
-| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
-| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
-| [metadata.json](metadata.json) | Version and reference information |
+- [references/plugins.md](references/plugins.md) - Plugin ecosystem
+- [references/optimization.md](references/optimization.md) - Build optimization
+- [references/ssr.md](references/ssr.md) - Server-side rendering

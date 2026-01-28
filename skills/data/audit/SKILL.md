@@ -1,106 +1,162 @@
 ---
 name: audit
-description: 'Detects hallucinations, timeline fabrications, and unverified assumptions in agent output. Use when reviewing sub-agent results, receiving research findings, validating claims that seem suspicious, or when output contains assumption language like "probably", "likely", or "I think".'
-user-invocable: true
+description: Audit dotfiles setup for improvements, obsolete workarounds, and optimization opportunities. Use when user runs /audit or asks to audit their dotfiles configuration.
+arg: "[scope]"
 ---
 
-# Hallucination Audit Protocol
+# Audit Dotfiles
 
-Review the target content for these **HALLUCINATION TRIGGERS**:
+Audit the dotfiles setup for improvements, obsolete workarounds, and optimization opportunities.
 
----
+## Usage
 
-## 1. Assumption Language (The "Guessing" Trigger)
+`/audit [scope]` - Audit a specific scope, or all if none given.
 
-**Scan for:** "I think", "likely", "probably", "seems like", "should be", "assume"
+## Valid Scopes
 
-**Action:** If found, FLAG as **Context Poisoning**. Verify these claims with tools immediately.
+These are 1:1 with commit scopes:
 
-```text
-FOUND: [quote the assumption language]
-VERIFICATION: [tool to use or question to ask]
-```
+| Scope      | Target      | Description                  |
+| ---------- | ----------- | ---------------------------- |
+| `aws`      | aws/        | AWS CLI configuration        |
+| `brew`     | Brewfile    | Homebrew packages and casks  |
+| `claude`   | claude/     | Claude Code configuration    |
+| `direnv`   | direnv/     | Directory environment loader |
+| `dock`     | dock/       | macOS Dock configuration     |
+| `dprint`   | dprint/     | Code formatter config        |
+| `fish`     | fish/       | Fish shell configuration     |
+| `gh`       | gh/         | GitHub CLI configuration     |
+| `ghostty`  | ghostty/    | Ghostty terminal config      |
+| `git`      | git/        | Git configuration            |
+| `gitmux`   | gitmux/     | Git info in tmux status      |
+| `lazygit`  | lazygit/    | Git TUI configuration        |
+| `libra`    | libra/      | Libra tool configuration     |
+| `npm`      | npm/, npmrc | npm configuration            |
+| `nvim`     | nvim/       | Neovim configuration         |
+| `ssh`      | ssh/        | SSH configuration            |
+| `starship` | starship/   | Starship prompt config       |
+| `sync`     | sync        | Sync script                  |
+| `tmux`     | tmux/       | tmux terminal multiplexer    |
+| `vim`      | vim/        | Vim configuration            |
+| `zed`      | zed/        | Zed editor configuration     |
 
----
+## Audit Process
 
-## 2. Project Management Language (The "Human" Trigger)
+For each scope, run these checks in order:
 
-**Scan for:** "Week 1", "Sprint 2", "Phase 1 (Jan)", "Q1", "by Friday"
+### 1. Scope-Specific Checks
 
-**Exception:** Technical timeouts or cache expirations (e.g., "Expires in 1h") are ALLOWED.
+Run the defined checks for that scope (see below).
 
-**Action:** **DELETE** scheduling language. Replace with **Priority Ordering** and **Dependencies**.
+### 2. General Checks (all scopes)
 
-```text
-FOUND: [quote the timeline language]
-REPLACEMENT: Priority [N], depends on [X]
-```
+* __Staleness__: Are there workarounds, hacks, or TODOs that are now obsolete?
+* __Documentation__: Is any README or inline documentation accurate and up-to-date?
+* __Consistency__: Does this follow patterns used elsewhere in the dotfiles?
 
----
+### 3. Surprise Me
 
-## 3. Pseudo-Quantification (The "Fake Rigor" Trigger)
+After specific checks, discover something new:
 
-**Scan for:** "8.5/10", "70% improvement", "100% consensus", "significantly better"
+* A fish feature not being leveraged
+* A tool integration that would improve workflow
+* A simplification opportunity
+* A modern replacement for something outdated
 
-**Action:** If no calculation methodology is shown, this is a hallucination. Request **Observable Evidence**.
+## Scope-Specific Checks
 
-```text
-FOUND: [quote the fake metric]
-REQUIRED: [what observable evidence would validate this]
-```
+### fish
 
----
+1. __Semantic organization__: Is config.fish optimally split for human management?
+   * Are related functions grouped together?
+   * Should any sections be extracted to separate files?
 
-## 4. Completeness Claims (The "Thoroughness" Trigger)
+2. __Fish feature usage__: Are fish-specific features being leveraged?
+   * Abbreviations vs aliases (used correctly?)
+   * Event handlers
+   * Universal variables
+   * Autoloading functions in ~/.config/fish/functions/
 
-**Scan for:** "All files checked", "Comprehensive analysis", "Every instance", "Full coverage"
+3. __README accuracy__: Is fish/README.md accurate?
 
-**Action:** Verify the file/item count via `Glob` or `Grep`. If count mismatches, FLAG as **Incomplete Verification**.
+4. __Obsolete workarounds__: Check for stale hacks:
+   * `fish_default_key_bindings` Zed vim conflict - still needed?
+   * fnm workaround comments - still relevant?
+   * Any `# TODO` or `# HACK` comments
 
-```text
-CLAIM: [quote the completeness claim]
-VERIFICATION: [command to verify]
-ACTUAL COUNT: [result]
-VERDICT: [VALID / INCOMPLETE]
-```
+### brew
 
----
+1. __Package audit__: Are all packages still used?
+2. __Cask audit__: Are all casks still installed/needed?
+3. __Tap audit__: Are all taps still needed?
+4. __Duplicates__: Any packages that overlap in functionality?
 
-## 5. Micromanagement in Delegations (The "Trust" Trigger)
+### git
 
-**Scan for:** Specific line edits ("Change line 42 to X") in delegation prompts
+1. __Alias audit__: Are git aliases still useful or redundant with fish aliases?
+2. __Config modernization__: Any deprecated git config options?
 
-**Action:** FLAG as **Prescription**. Remove and replace with "Success Criteria" unless it is a strict User Constraint.
+### zed
 
-```text
-FOUND: [quote the micromanagement]
-REPLACEMENT: Success criteria: [what outcome is needed]
-```
+1. __Keybinding conflicts__: Any keybindings that conflict with system or fish?
+2. __Extension audit__: Are all extensions still used/needed?
+3. __Settings modernization__: Any deprecated settings?
 
----
+### starship
+
+1. __Module audit__: Are all enabled modules useful?
+2. __Performance__: Any slow modules that could be optimized?
+3. __Consistency__: Does prompt style match overall terminal aesthetic?
+
+### claude
+
+1. __Rule accuracy__: Are rules in claude/ still accurate?
+2. __Scope coverage__: Are there missing rules for common workflows?
+
+### sync
+
+1. __Idempotency__: Is the sync script fully idempotent?
+2. __Error handling__: Are failures handled gracefully?
+3. __Documentation__: Are all operations documented?
+
+### npm
+
+1. __Global packages__: Are packages in global-packages.txt still needed?
+2. __npmrc settings__: Are all settings still relevant?
+
+### tmux
+
+1. __Plugin audit__: Are all plugins (resurrect, continuum, sessionx, etc.) still used?
+2. __Keybinding conflicts__: Any keybindings that conflict with Zed, Ghostty, or system?
+3. __Performance__: Are plugins slowing down tmux startup?
+4. __Integration check__: Is gitmux displaying correctly in status bar?
+5. __Session management__: Are resurrect/continuum saving and restoring properly?
+
+### lazygit
+
+1. __Keybinding audit__: Any custom keybindings that conflict or are unused?
+2. __Theme consistency__: Does theme match terminal aesthetic?
+
+### gitmux
+
+1. __Format accuracy__: Is the status bar format still useful?
+2. __Integration__: Is it loading correctly in tmux.conf?
+
+### (other scopes)
+
+For scopes without specific checks defined, run only general checks and "Surprise Me".
 
 ## Output Format
 
-```text
-AUDIT RESULT: [PASS / FAIL]
+For each finding, report:
 
-TRIGGERS FOUND:
-1. [Trigger type]: [Quote] → [Required action]
-2. [Trigger type]: [Quote] → [Required action]
-
-CORRECTIONS REQUIRED:
-- [Specific correction 1]
-- [Specific correction 2]
 ```
+## [scope] Finding Title
 
----
+**Type**: obsolete | improvement | bug | documentation
+**Severity**: low | medium | high
 
-## Quick Reference
+Description of the finding.
 
-| Trigger         | Pattern              | Action                      |
-| --------------- | -------------------- | --------------------------- |
-| Guessing        | "probably", "likely" | Verify with tools           |
-| Timelines       | "Week 1", "Q2"       | Replace with priorities     |
-| Fake Metrics    | "8/10", "70%"        | Demand methodology          |
-| False Coverage  | "all", "every"       | Count and verify            |
-| Micromanagement | "change line X"      | Convert to success criteria |
+**Recommendation**: What to do about it.
+```

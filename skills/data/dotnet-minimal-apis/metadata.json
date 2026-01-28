@@ -1,13 +1,7 @@
 {
   "name": "dotnet-minimal-apis",
-  "description": "Guide for building ASP.NET Core Minimal APIs with OpenAPI/Swagger integration in .NET 10",
   "repo": "NotMyself/claude-stack-dotnet",
-  "category": "development",
-  "tags": [
-    "dotnet",
-    "minimal",
-    "apis"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dotnet-minimal-apis/SKILL.md",
+  "source": "github.com/NotMyself/claude-stack-dotnet",
+  "downloaded_at": "2026-01-28T03:04:01.300380Z"
 }

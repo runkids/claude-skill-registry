@@ -1,9 +1,7 @@
 {
   "name": "lang-fsharp-dev",
-  "description": "Foundational F# patterns covering functional-first programming, type providers, computation expressions, and domain modeling. Use when writing F# code, understanding functional patterns, working with ",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-fsharp-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:48.275529Z"
 }

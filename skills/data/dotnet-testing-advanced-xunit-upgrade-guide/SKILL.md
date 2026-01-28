@@ -1,7 +1,46 @@
 ---
 name: dotnet-testing-advanced-xunit-upgrade-guide
-description: 協助將 xUnit 測試專案從 2.9.x 升級到 3.x 版本。當使用者詢問 xUnit 升級、xUnit v3 遷移、xUnit 破壞性變更、或需要更新 xUnit 測試專案時使用此技能。
+description: |
+  xUnit 2.9.x 到 3.x 升級完整指南。
+  涵蓋破壞性變更、套件更新、async void 修正、IAsyncLifetime 調整。
+  包含新功能介紹: Assert.Skip、Explicit Tests、Matrix Theory、Assembly Fixtures。
+
+triggers:
+  # 核心關鍵字
+  - xunit upgrade
+  - xunit v3
+  - xunit 3.x
+  - xunit migration
+  - xunit 升級
+
+  # 技術術語
+  - xunit.v3
+  - OutputType Exe
+  - async void issue
+  - IAsyncLifetime v3
+  - SkippableFact removed
+  - Assert.Skip
+
+  # 新功能
+  - SkipUnless
+  - SkipWhen
+  - Explicit attribute
+  - MatrixTheoryData
+  - AssemblyFixture
+  - TestPipelineStartup
+
+  # 使用情境
+  - 破壞性變更
+  - Microsoft.Testing.Platform
+  - SDK-style project
+  - xunit.runner.visualstudio 3.x
+  - 測試不被發現
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: "xunit, upgrade, migration, v3, breaking-changes, testing-framework"
 ---
 
 # xUnit 升級指南：從 2.9.x 到 3.x
@@ -500,7 +539,7 @@ xUnit 3.x 帶來的效能改進：
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 26 - xUnit 升級指南：從 2.9.x 到 3.x 的轉換**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376546
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10377477
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day26
 
 ### 官方文件

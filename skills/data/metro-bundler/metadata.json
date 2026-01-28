@@ -1,9 +1,7 @@
 {
   "name": "metro-bundler",
-  "description": "Expert in Metro bundler configuration, optimization, troubleshooting, caching strategies, custom transformers, asset management, source maps, bundling performance. Activates for metro, metro bundler, ",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-mobile/skills/metro-bundler/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:02.613141Z"
 }

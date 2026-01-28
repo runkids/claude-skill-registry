@@ -1,7 +1,7 @@
 {
   "name": "ci-templates",
-  "repo": "Smooth-Operation/household-expense-tracker",
+  "repo": "liauw-media/household-expense-tracker",
   "path": ".claude/skills/workflow/ci-templates/SKILL.md",
-  "source": "github.com/Smooth-Operation/household-expense-tracker",
-  "downloaded_at": "2026-01-27T04:31:33.069124Z"
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-28T04:02:37.903306Z"
 }

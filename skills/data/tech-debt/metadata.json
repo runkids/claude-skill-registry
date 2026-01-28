@@ -1,9 +1,7 @@
 {
   "name": "tech-debt",
-  "description": "Identify and resolve technical debt with focus on finding and cataloging issues. Use when asked to find code smells, audit TODOs, identify complexity, improve code quality, or assess technical debt. T",
-  "repo": "mcouthon/agents",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "vm0-ai/vm0",
+  "path": ".claude/skills/tech-debt/SKILL.md",
+  "source": "github.com/vm0-ai/vm0",
+  "downloaded_at": "2026-01-28T03:02:34.928802Z"
 }

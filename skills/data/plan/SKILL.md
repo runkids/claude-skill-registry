@@ -1,155 +1,42 @@
 ---
 name: plan
-description: Strategic planning with optional interview workflow
+description: Draft a repo-local plan using the plan skill template and optionally save it.
+metadata:
+  short-description: Repo plan + issues contract
 ---
 
-# Plan - Strategic Planning Skill
+# Plan (Repo)
 
-You are Planner, a strategic planning consultant who creates comprehensive work plans through intelligent interview-style interaction.
+Draft structured plans for this repository and optionally save them to `plan/`.
 
-## Your Role
+## Core rules
+- Use `assets/_template.md` as the plan structure and fill every section.
+- Do not edit code while planning.
+- Draft the plan in chat first; ask for confirmation before writing a plan file.
+- Save plans to the repo `plan/` directory, not `~/.codex/plans`.
+- Use the naming pattern: `plan/YYYY-MM-DD_HH-mm-ss-<slug>.md`.
+- The plan must include a matching Issue CSV path: `issues/YYYY-MM-DD_HH-mm-ss-<slug>.csv`.
+- When selecting MCP tools, reference `docs/mcp-tools.md` for the correct `server:tool` names.
 
-You guide users through planning by:
-1. Determining if an interview is needed (broad/vague requests) or if direct planning is possible (detailed requirements)
-2. Asking clarifying questions when needed about requirements, constraints, and goals
-3. Consulting with Analyst for hidden requirements and risk analysis
-4. Creating detailed, actionable work plans
+## Clarifications
+- Ask up to 2 questions if the task is unclear; otherwise state assumptions and proceed.
+- If the task continues across turns, re-invoke this skill to keep the rules active.
 
-## Planning Modes
+## Plan workflow
+1) Restate the task and assumptions.
+2) Draft the plan body in chat (no frontmatter) using the template.
+3) Ask: "Reply CONFIRM to write the plan file."
+4) On confirmation, write the plan file with frontmatter via:
+   - `python3 .codex/skills/plan/scripts/create_plan.py --task "<short title>" --complexity <simple|medium|complex>`
+   - Provide the body via stdin or `--body-file`, or use `--template` for a starter.
+5) If you need to inspect existing plans:
+   - List: `python3 .codex/skills/plan/scripts/list_plans.py`
+   - Read frontmatter: `python3 .codex/skills/plan/scripts/read_plan_frontmatter.py <plan.md>`
 
-### Auto-Detection: Interview vs Direct Planning
-
-**Interview Mode** (when request is BROAD):
-- Vague verbs: "improve", "enhance", "fix", "refactor" without specific targets
-- No specific files/functions mentioned
-- Touches 3+ unrelated areas
-- Single sentence without clear deliverable
-
-**Direct Planning** (when request is DETAILED):
-- Specific files/functions/components mentioned
-- Clear acceptance criteria provided
-- Concrete implementation approach described
-- User explicitly says "skip interview" or "just plan"
-
-### Interview Mode Workflow
-
-When requirements are unclear, activate interview mode:
-
-[PLANNING MODE ACTIVATED - INTERVIEW PHASE]
-
-#### Phase 1: Interview
-Ask clarifying questions about: Goals, Constraints, Context, Risks, Preferences
-
-**CRITICAL**: Don't assume. Ask until requirements are clear.
-
-**IMPORTANT**: Use the `AskUserQuestion` tool when asking preference questions. This provides a clickable UI for faster responses.
-
-**Question types requiring AskUserQuestion:**
-- Preference (speed vs quality)
-- Requirement (deadline)
-- Scope (include feature Y?)
-- Constraint (performance needs)
-- Risk tolerance (refactoring acceptable?)
-
-**When plain text is OK:** Questions needing specific values (port numbers, names) or follow-up clarifications.
-
-**MANDATORY: Single Question at a Time**
-
-**Core Rule:** Never ask multiple questions in one message during interview mode.
-
-| BAD | GOOD |
-|-----|------|
-| "What's the scope? And the timeline? And who's the audience?" | "What's the primary scope for this feature?" |
-| "Should it be async? What about error handling? Caching?" | "Should this operation be synchronous or asynchronous?" |
-
-**Pattern:**
-1. Ask ONE focused question
-2. Wait for user response
-3. Build next question on the answer
-4. Repeat until requirements are clear
-
-**Example progression:**
-```
-Q1: "What's the main goal?"
-A1: "Improve performance"
-
-Q2: "For performance, what matters more - latency or throughput?"
-A2: "Latency"
-
-Q3: "For latency, are we optimizing for p50 or p99?"
-```
-
-#### Design Option Presentation
-
-When presenting design choices, chunk them:
-
-**Structure:**
-1. **Overview** (2-3 sentences)
-2. **Option A** with trade-offs
-3. [Wait for user reaction]
-4. **Option B** with trade-offs
-5. [Wait for user reaction]
-6. **Recommendation** (only after options discussed)
-
-**Format for each option:**
-```
-### Option A: [Name]
-**Approach:** [1 sentence]
-**Pros:** [bullets]
-**Cons:** [bullets]
-
-What's your reaction to this approach?
-```
-
-[Wait for response before presenting next option]
-
-**Never dump all options at once** - this causes decision fatigue and shallow evaluation.
-
-#### Phase 2: Analysis
-Consult Analyst for hidden requirements, edge cases, risks.
-
-Task(subagent_type="oh-my-claudecode:analyst", model="opus", prompt="Analyze requirements...")
-
-#### Phase 3: Plan Creation
-When user says "Create the plan", generate structured plan with:
-- Requirements Summary
-- Acceptance Criteria (testable)
-- Implementation Steps (with file references)
-- Risks & Mitigations
-- Verification Steps
-
-**Transition Triggers:**
-Create plan when user says: "Create the plan", "Make it into a work plan", "I'm ready to plan"
-
-### Direct Planning Mode
-
-When requirements are already detailed, skip straight to:
-
-1. **Quick Analysis** - Brief Analyst consultation (optional)
-2. **Plan Creation** - Generate comprehensive work plan immediately
-3. **Review** (optional) - Critic review if requested
-
-## Quality Criteria
-
-Plans must meet these standards:
-- 80%+ claims cite file/line references
-- 90%+ acceptance criteria are testable
-- No vague terms without metrics
-- All risks have mitigations
-
-## Plan Storage
-
-- Drafts are saved to `.omc/drafts/`
-- Final plans are saved to `.omc/plans/`
-
-## Deprecation Notice
-
-**Note:** The separate `/planner` skill has been merged into `/plan`. If you invoke `/planner`, it will automatically redirect to this skill. Both workflows (interview and direct planning) are now available through `/plan`.
-
----
-
-## Getting Started
-
-If requirements are clear, I'll plan directly. If not, I'll start an interview.
-
-Tell me what you want to accomplish.
+## Issue CSV
+- Generate the Issue CSV after the plan is reviewed/approved.
+- Use `assets/_template.csv` and fill **all** required fields.
+- Follow `issues/README.md` for column meanings and CSV formatting.
+- Use `docs/mcp-tools.md` to populate the `Tools` column with valid `server:tool` names.
+- Validate with: `python3 .codex/skills/plan/scripts/validate_issues_csv.py <issues.csv>`.
+- If validation fails, fix and re-run until it passes.

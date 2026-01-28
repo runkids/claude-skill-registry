@@ -1,116 +1,157 @@
 ---
 name: code-reviewer
-description: 程式碼審查。觸發：review、審查、檢查、看一下、有沒有問題、安全。
+description: Revisa código buscando bugs, seguridad, performance y mejores prácticas
+allowed-tools: Read, Grep, Glob
 ---
 
-# 程式碼審查技能
+# Code Reviewer Skill
 
-## 觸發條件
+Realizas code reviews exhaustivos enfocándote en calidad, seguridad, rendimiento y mantenibilidad. Solo reportas issues con alta confianza para evitar falsos positivos.
 
-| 用戶說法 | 觸發 |
-|----------|------|
-| review、審查程式碼 | ✅ |
-| 檢查、看一下 | ✅ |
-| 有沒有問題、安全 | ✅ |
+## Áreas de Revisión
 
----
+### 1. Seguridad (Prioridad Alta)
+- [ ] Inyección SQL/NoSQL
+- [ ] XSS (Cross-Site Scripting)
+- [ ] CSRF (Cross-Site Request Forgery)
+- [ ] Exposición de secretos/credenciales
+- [ ] Autenticación y autorización débil
+- [ ] Deserialización insegura
+- [ ] Configuración insegura de CORS
+- [ ] Rate limiting ausente
 
-## 可用工具
+### 2. Bugs y Lógica (Prioridad Alta)
+- [ ] Race conditions
+- [ ] Null/undefined no manejados
+- [ ] Off-by-one errors
+- [ ] Manejo de errores incompleto
+- [ ] Memory leaks
+- [ ] Infinite loops potenciales
+- [ ] Estado inconsistente
 
-| 操作 | 工具 |
-|------|------|
-| 讀取程式碼 | `read_file()` |
-| 搜尋模式 | `grep_search()` |
-| 取得錯誤 | `get_errors()` |
-| 執行 linter | `run_in_terminal("ruff check .")` |
-| 執行型別檢查 | `run_in_terminal("mypy .")` |
+### 3. Performance (Prioridad Media)
+- [ ] N+1 queries
+- [ ] Renders innecesarios (React)
+- [ ] Bundle size excesivo
+- [ ] Operaciones bloqueantes
+- [ ] Falta de memoización
+- [ ] Índices de DB faltantes
+- [ ] Caché no utilizado
 
----
+### 4. Mantenibilidad (Prioridad Media)
+- [ ] Código duplicado
+- [ ] Funciones muy largas (>50 líneas)
+- [ ] Complejidad ciclomática alta
+- [ ] Acoplamiento excesivo
+- [ ] Nombres poco descriptivos
+- [ ] Falta de tipos TypeScript
+- [ ] Documentación faltante en código complejo
 
-## 審查項目
+### 5. Estilo y Convenciones (Prioridad Baja)
+- [ ] Inconsistencias de formato
+- [ ] Imports no organizados
+- [ ] Console.logs en producción
+- [ ] Comentarios obsoletos
+- [ ] TODO/FIXME sin resolver
 
-### 1. 程式碼品質
+## Sistema de Confianza
 
-| 項目 | 檢查方式 |
-|------|----------|
-| 函數長度 | `grep_search("def ")` + 計算行數 |
-| 命名清晰度 | 人工審查 |
-| DRY 原則 | 搜尋重複模式 |
-| 複雜度 | 巢狀層級、條件分支數 |
+Solo reportar issues con confianza >= 80%:
 
-### 2. 安全性
+| Nivel | Confianza | Acción |
+|-------|-----------|--------|
+| Crítico | 95%+ | Reportar inmediatamente |
+| Alto | 85-94% | Reportar con contexto |
+| Medio | 80-84% | Reportar como sugerencia |
+| Bajo | <80% | No reportar |
 
-| 風險 | 檢查方式 |
-|------|----------|
-| SQL 注入 | `grep_search("execute.*%s|f\".*SELECT")` |
-| XSS | `grep_search("innerHTML|dangerouslySetInnerHTML")` |
-| 敏感資料 | `grep_search("password|secret|api_key")` |
-| 硬編碼密碼 | `grep_search("password.*=.*['\"]")` |
+## Formato de Reporte
 
-### 3. 效能
+```markdown
+## Code Review: [archivo/componente]
 
-| 問題 | 檢查方式 |
-|------|----------|
-| N+1 查詢 | 審查迴圈內的資料庫呼叫 |
-| 不必要迴圈 | 審查可用 list comprehension 的地方 |
+### Issues Críticos
+🔴 **[SECURITY]** SQL Injection en `src/api/users.ts:45`
+- **Descripción**: Query construida con concatenación de strings
+- **Impacto**: Permite ejecutar SQL arbitrario
+- **Sugerencia**: Usar prepared statements
+- **Confianza**: 98%
 
----
+### Issues Importantes
+🟠 **[BUG]** Race condition en `src/hooks/useAuth.ts:23`
+- **Descripción**: Estado actualizado sin cleanup
+- **Impacto**: Puede causar memory leak
+- **Sugerencia**: Agregar cleanup en useEffect
+- **Confianza**: 90%
 
-## 標準工作流程
+### Sugerencias de Mejora
+🟡 **[PERF]** N+1 query en `src/services/orders.ts:67`
+- **Descripción**: Query en loop para obtener productos
+- **Impacto**: Latencia alta con muchos orders
+- **Sugerencia**: Usar include/join
+- **Confianza**: 85%
 
-```python
-# 1. 執行靜態分析
-run_in_terminal("ruff check src/")
-run_in_terminal("mypy src/")
-
-# 2. 取得編輯器錯誤
-get_errors()
-
-# 3. 讀取目標檔案
-read_file("src/target_file.py")
-
-# 4. 搜尋安全風險模式
-grep_search(query="execute.*%s", isRegexp=True)
-grep_search(query="password.*=.*['\"]", isRegexp=True)
-
-# 5. 彙整報告
+### Resumen
+- Críticos: 1
+- Importantes: 2
+- Sugerencias: 3
+- Archivos revisados: 15
 ```
 
----
+## Patrones Específicos a Detectar
 
-## 輸出格式
+### React/Next.js
+```typescript
+// ❌ Dependency array incompleto
+useEffect(() => {
+  fetchData(userId);
+}, []); // Falta userId
 
-```
-## 🔍 審查結果：src/auth/login.py
+// ❌ State update sin cleanup
+useEffect(() => {
+  const interval = setInterval(tick, 1000);
+  // Falta return () => clearInterval(interval)
+}, []);
 
-### ✅ 優點
-- 函數切分合理
-- 錯誤處理完整
-
-### ⚠️ 建議改進
-
-**[高] SQL 注入風險**
-- 位置：第 45 行
-- 問題：使用字串格式化建構 SQL
-- 建議：使用參數化查詢
-
-**[中] 函數過長**
-- 位置：第 20-85 行 `process_login()`
-- 問題：65 行超過建議的 50 行
-- 建議：拆分為多個子函數
-
-### 📊 評分
-| 項目 | 分數 |
-|------|------|
-| 品質 | 7/10 |
-| 安全 | 5/10 |
-| 效能 | 8/10 |
+// ❌ Re-render innecesario
+const Component = ({ data }) => {
+  const processed = expensiveOperation(data); // Falta useMemo
+  return <div>{processed}</div>;
+};
 ```
 
----
+### Seguridad
+```typescript
+// ❌ SQL Injection
+const query = `SELECT * FROM users WHERE id = ${userId}`;
 
-## 相關技能
+// ❌ XSS
+element.innerHTML = userInput;
 
-- `ddd-architect` - 架構層面審查
-- `test-generator` - 生成測試覆蓋
-- `code-refactor` - 執行重構建議
+// ❌ Secretos expuestos
+const apiKey = "sk_live_abc123"; // Hardcoded
+
+// ❌ CORS inseguro
+app.use(cors({ origin: '*' }));
+```
+
+### Performance
+```typescript
+// ❌ N+1 Query
+const orders = await Order.findAll();
+for (const order of orders) {
+  order.products = await Product.findAll({ where: { orderId: order.id } });
+}
+
+// ❌ Bundle bloat
+import _ from 'lodash'; // Importar todo lodash
+```
+
+## Exclusiones
+
+NO reportar:
+- Preferencias de estilo subjetivas
+- Cambios que requieren refactor mayor
+- Issues en código generado
+- Issues en node_modules o vendors
+- Warnings de linter ya reportados

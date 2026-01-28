@@ -1,9 +1,7 @@
 {
   "name": "vercel-multi-env-setup",
-  "description": "Configure Vercel across development, staging, and production environments.Use when setting up multi-environment deployments, configuring per-environment secrets,or implementing environment-specific Ve",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/saas-packs/vercel-pack/skills/vercel-multi-env-setup/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-28T02:27:41.489827Z"
 }

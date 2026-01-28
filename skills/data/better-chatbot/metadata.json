@@ -1,7 +1,7 @@
 {
   "name": "better-chatbot",
-  "repo": "jackspace/ClaudeSkillz",
-  "path": "skills/better-chatbot/SKILL.md",
-  "source": "github.com/jackspace/ClaudeSkillz",
-  "downloaded_at": "2026-01-27T02:52:34.771830Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/better-chatbot/skills/better-chatbot/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-28T01:54:29.068924Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "ppt-creator",
-  "description": "Create professional slide decks from topics or documents. Generates structured content with data-driven charts, speaker notes, and complete PPTX files. Applies persuasive storytelling principles (Pyra",
-  "repo": "daymade/claude-code-skills",
-  "category": "documents",
-  "tags": [
-    "ppt",
-    "creator"
-  ],
-  "stars": 110,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nguyendinhquocx/code-ai",
+  "path": "skills/ppt-creator/SKILL.md",
+  "source": "github.com/nguyendinhquocx/code-ai",
+  "downloaded_at": "2026-01-28T03:16:11.700217Z"
 }

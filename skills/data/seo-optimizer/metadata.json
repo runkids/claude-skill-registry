@@ -1,7 +1,7 @@
 {
   "name": "seo-optimizer",
-  "repo": "vamseeachanta/workspace-hub",
-  "path": ".claude/skills/business/marketing/seo-optimizer/SKILL.md",
-  "source": "github.com/vamseeachanta/workspace-hub",
-  "downloaded_at": "2026-01-27T03:49:28.175883Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/marketing-pro-workflow/.claude/skills/seo-optimizer/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-28T03:30:10.254681Z"
 }

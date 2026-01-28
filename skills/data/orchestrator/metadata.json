@@ -1,7 +1,7 @@
 {
   "name": "orchestrator",
-  "repo": "ref-docs/sdd-stl",
-  "path": "src/templates/agents/claude-code/skills/orchestrator/SKILL.md",
-  "source": "github.com/ref-docs/sdd-stl",
-  "downloaded_at": "2026-01-27T04:05:18.112169Z"
+  "repo": "draphonix/skills",
+  "path": ".agents/skills/orchestrator/SKILL.md",
+  "source": "github.com/draphonix/skills",
+  "downloaded_at": "2026-01-28T04:38:38.751549Z"
 }

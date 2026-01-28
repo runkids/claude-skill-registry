@@ -1,7 +1,7 @@
 {
   "name": "prompt-caching",
-  "repo": "Nguyenthang2292/Sovereign-IQ",
-  "path": ".claude/skills/prompt-caching/SKILL.md",
-  "source": "github.com/Nguyenthang2292/Sovereign-IQ",
-  "downloaded_at": "2026-01-27T02:40:23.448918Z"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/prompt-caching/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-28T04:27:46.020024Z"
 }

@@ -59,17 +59,40 @@ Check item has all required fields filled:
 **If validation fails:** Return to DESIGNING to fill gaps
 
 **If validation passes:**
-```
-DISPLAY: "Item documented. Returning to work item loop."
-RETURN to collab skill
-```
+
+1. Mark item as documented in workItems:
+   ```
+   Tool: mcp__plugin_mermaid-collab_mermaid__get_session_state
+   Args: { "project": "<cwd>", "session": "<session>" }
+   ```
+
+   Update the item's status in workItems array:
+   ```
+   Tool: mcp__plugin_mermaid-collab_mermaid__update_session_state
+   Args: {
+     "project": "<cwd>",
+     "session": "<session>",
+     "workItems": [<updated array with item status changed to "documented">]
+   }
+   ```
+
+2. Update design doc status:
+   ```
+   Tool: mcp__plugin_mermaid-collab_mermaid__patch_document
+   Args: {
+     "project": "<cwd>",
+     "session": "<session>",
+     "id": "design",
+     "old_string": "### Item N: <title>\n**Type:** <type>\n**Status:** pending",
+     "new_string": "### Item N: <title>\n**Type:** <type>\n**Status:** documented"
+   }
+   ```
+
+3. Display: "Item documented. Returning to work item loop."
 
 **Important:** In single-item mode, do NOT:
 - Run the full completeness gate
 - Transition to rough-draft
-- Update collab-state.json phase
-
-The collab skill manages the work item loop and will mark the item as documented after this skill returns.
 
 ## If Gate Fails
 
@@ -151,3 +174,17 @@ Response: `{ "action": "yes" }` or `{ "action": "no" }`
 **Announce:** "Completeness gate passed. Transitioning to rough-draft skill."
 
 **Invoke skill:** brainstorming-transition
+
+## Completion
+
+At the end of this skill's work, call complete_skill:
+
+```
+Tool: mcp__plugin_mermaid-collab_mermaid__complete_skill
+Args: { "project": "<cwd>", "session": "<session>", "skill": "brainstorming-validating" }
+```
+
+**Handle response:**
+- If `action == "clear"`: Invoke skill: collab-clear
+- If `next_skill` is not null: Invoke that skill
+- If `next_skill` is null: Workflow complete

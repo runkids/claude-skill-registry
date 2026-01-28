@@ -1,40 +1,33 @@
 ---
-description: Imported skill readme from agentskills
 name: readme
-signature: 90aa9df813ede94879be606d30a8dd761bde3d9871115be4eaa9bd41d6f95254
-source: /a0/tmp/skills_research/agentskills/docs/README.md
+description: Update the project README.md with comprehensive documentation based on the current codebase state. Use when the README needs updating or is outdated.
+disable-model-invocation: true
 ---
 
-# Agent Skills Documentation
+# Update README
 
-This directory contains the source code for the Agent Skills documentation site, which is built using [Mintlify](https://mintlify.com).
+Update the project README.md with comprehensive documentation.
 
-## Development
+1. **Analyze Project Structure and State**
+   - List the files in the root directory to identify the project type (Node.js, Python, etc.).
+   - Read key configuration files if they exist (e.g., `package.json`, `tsconfig.json`, `shopify.app.toml`, `fly.toml`, `requirements.txt`, `Gemfile`, `cargo.toml`).
+   - List the contents of valid source directories (e.g., `app/`, `src/`, `lib/`, `components/`) to understand the architecture.
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+2. **Read Existing Documentation**
+   - Read the current `README.md` to preserve any manual sections or specific instructions the user has added.
+   - If available, read `.agent/brain/task.md` or `implementation_plan.md` to understand recent changes and current features (optional, do not fail if missing).
 
-```
-npm i -g mint
-```
+3. **Generate/Update README.md**
+   - Rewrite `README.md` to include the following sections (adapt as necessary for the project type):
+     - **Project Title & Description**: A clear summary of what the project does.
+     - **Features**: A list of key features inferred from the codebase and installed packages/skills.
+     - **Tech Stack**: Languages, frameworks, and key libraries used.
+     - **Prerequisites**: Tools needed to run the project (Node, Python, Docker, etc.).
+     - **Getting Started / Installation**: Step-by-step instructions to install dependencies and run the project (e.g., `npm install`, `npm run dev`).
+     - **Project Structure**: A high-level overview of the main directories.
+     - **Workflows & Skills**: Mention available workflows (like this one) or skills if relevant.
+     - **License**: If a license file exists, mention it.
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
-
-```
-mint dev
-```
-
-View your local preview at `http://localhost:3000`.
-
-## Publishing changes
-
-Changes are deployed to production automatically after pushing to the default branch.
-
-## Need help?
-
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+4. **Review and Verification**
+   - Ensure the new `README.md` is formatted correctly in Markdown.
+   - Check that all links (if any) are valid.

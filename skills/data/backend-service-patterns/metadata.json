@@ -1,9 +1,7 @@
 {
   "name": "backend-service-patterns",
-  "description": "Architect scalable backend services using layered architecture, dependency injection, middleware patterns, service classes, and separation of concerns. Use when building API services, implementing bus",
-  "repo": "korallis/Droidz",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/backend-service-patterns/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:40.323032Z"
 }

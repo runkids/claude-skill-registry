@@ -9,8 +9,6 @@ version: 0.1.0
 
 Orchestrate `.a5c/runs/<runId>/` through iterative execution. Use the SDK CLI to drive the orchestration loop. 
 
-IMPORTANT: Never build a wrapper, python or helper scripts to orchestrate the runs. Use the CLI to drive the orchestration loop and never loop programmatically.
-
 make sure you have the latest version of the cli:
 
 ```bash
@@ -41,7 +39,9 @@ using AskUserQuestion tool (or breakpoint if running in non-interactive mode) - 
 
 a multi-step phase to understand the intent and perspecitve to approach the process building after researching the repo, short research online if needed, short research in the target repo, additional instructions, intent and library (processes, specializations, skills, subagents, methodologies, references, etc.) / guide for methodology building. (clarifications regarding the intent, requirements, goal, scope, etc.) - the library is at [skill-root]/process/specializations/**/**/** and [skill-root]/process/methodologies/ 
 
-this phase can have research and questions steps one after the other until the intent, requirements, goal, scope, etc. are clear and the user is satisfied with the understanding.
+the first step should be the look at the state of the repo, then find the most relevant processes, specializations, skills, subagents, methodologies, references, etc. to use as a reference.
+
+then this phase can have: research online, research the repo, user questions, and other steps one after the other until the intent, requirements, goal, scope, etc. are clear and the user is satisfied with the understanding. after each step, decide the type of next step to take. do not plan more than 1 step ahead in this phase. and the same step type can be used more than once in this phase.
 
 #### Process creation phase
 
@@ -287,31 +287,6 @@ export const skillTask = defineTask('analyzer-skill', (args, taskCtx) => ({
 
 ---
 
-## Packaged Processes
-
-Skills and agents can package processes in `<skill-name>/process/`:
-
-```
-<skill-name>/
-├── SKILL.md
-└── process/
-    ├── simple-build-and-test.js
-    ├── build-test-with-agent-scoring.js
-    ├── codebase-analysis-with-skill.js
-    └── examples/
-        └── *.json
-```
-
-**Usage:**
-```bash
-$CLI run:create \
-  --process-id babysitter/build-test-with-agent-scoring \
-  --entry <skill-dir>/process/build-test-with-agent-scoring.js#process \
-  --inputs inputs.json
-```
-
----
-
 ## Quick Commands Reference
 
 **Create run:**
@@ -388,7 +363,6 @@ prefer processes that have the following characteristics unless otherwise specif
   - Ensures closing quality feedback loops in the most complete and comprehensive way possible and practical.
   - in case the scope includes work in an existing deployed application and the scope of the feedback loop requires validations at the deployed environment (or remote environment), analyze the deployment methods and understand how the existing delivery pipeline works. and how you can deliver changes to the sandbox/staging and verify the accuracy and completeness of the changes you are making on the remote environment. with observability on the ci pipelines, logs of the cluster/app/infra/etc. (for requests like: "fix this bug and make sure that it is fixed locally, then deploy to staging and verify that the bug is fixed there too")
   - if the user is very explicit about the flow and process, create a process that follows it closely and strictly. (ad hoc requests like: "try this functionality and make sure it works as expected, repeat until it works as expected")  
-
   - search for processes (js files), skills and agents (SKILL.md and AGENT.md files) in during the interactive process building phase to compose a comprehensive process that may combine various parts from different sources:
     - .a5c/processes/ (project level processes)
     - plugins/babysitter/skills/babysit/process/specializations/[rnd-specialization-name-slugified]/ (rnd specializations)
@@ -408,3 +382,5 @@ CRITICAL RULE: if a run is broken/failed/at unknown state, when of the way to re
 CRITICAL RULE: when creating processes, search for available skills and subagents before thinking about the exact orchestration. prefer processes that close the widest loop in the quality gates (for example e2e tests with a full browser or emulator/vm if it a mobile or desktop app) AND gates that make sure the work is accurate against the user request (all the specs is covered and no extra stuff was added unless permitted by the intent of the user).
 
 CRITICAL RULE: do not use the babysit skill inside the delegated tasks. if you are performing a delgated task as a subagent. you will get an error when trying to run the setup shell script. that means you have to actually perform the task yourself and not orchestrate, babysit or even use this skill.
+
+CRITICAL RULE: Never build a wrapper, python or helper scripts to orchestrate the runs. Use the CLI to drive the orchestration loop and never loop programmatically.

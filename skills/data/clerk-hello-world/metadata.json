@@ -1,7 +1,7 @@
 {
   "name": "clerk-hello-world",
-  "repo": "HelixDevelopment/HelixAgent",
+  "repo": "vasic-digital/SuperAgent",
   "path": "skills/plugins/saas-packs/clerk-pack/clerk-hello-world/SKILL.md",
-  "source": "github.com/HelixDevelopment/HelixAgent",
-  "downloaded_at": "2026-01-27T03:01:12.658136Z"
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-28T02:58:30.545111Z"
 }

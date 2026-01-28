@@ -1,232 +1,223 @@
 ---
-description: Run security audit checks (rate limiting, webhook validation, SQL injection, XSS)
-handoffs:
-  - label: Fix Security Issues
-    agent: security-auditor
-    prompt: Fix the security vulnerabilities identified
-    send: false
+name: audit-security
+description: Quick security audit checking for hardcoded secrets, SSRF vectors, injection points, dependency issues, and missing security headers
 ---
 
-## User Input
+# Security Audit Skill
 
-```text
-$ARGUMENTS
-```
+Perform a focused security audit on the codebase, checking for common vulnerabilities and security misconfigurations.
 
-Options: empty (run all checks)
+## Instructions
 
-## Task
+Run through each security check systematically and report all findings.
 
-Run comprehensive security tests to identify vulnerabilities.
+### 1. Hardcoded Secrets Detection
 
-### Steps
-
-1. **Test Rate Limiting**:
-   ```bash
-   cd backend
-
-   # Test email verification rate limit (60s cooldown)
-   python -c "
-   import requests
-   import time
-
-   url = 'http://localhost:8000/v1/email/send-verification-code'
-   email = 'ratetest@example.com'
-
-   # Send 2 requests rapidly
-   r1 = requests.post(url, json={'email': email})
-   r2 = requests.post(url, json={'email': email})
-
-   if r1.status_code == 200 and r2.status_code == 429:
-       print('✅ Email verification rate limit working')
-   else:
-       print(f'❌ Rate limit bypass: {r1.status_code}, {r2.status_code}')
-   "
-
-   # Test download rate limit (10 per 24h)
-   # Test recovery rate limit (5 per IP per hour)
-   # Test magic link rate limit (3 per email per 24h)
-   ```
-
-2. **Test Webhook Signature Validation** (FR-P-002):
-   ```bash
-   # Test invalid signature rejection
-   curl -X POST http://localhost:8000/webhooks/paddle \
-     -H "Content-Type: application/json" \
-     -H "Paddle-Signature: invalid_signature" \
-     -H "Paddle-Timestamp: $(date +%s)" \
-     -d '{"event_type":"payment.succeeded","payment_id":"test"}' \
-     -w "\nStatus: %{http_code}\n"
-
-   # Expected: 401 Unauthorized
-
-   # Test expired timestamp rejection (>5 min)
-   OLD_TIMESTAMP=$(($(date +%s) - 400))
-   curl -X POST http://localhost:8000/webhooks/paddle \
-     -H "Paddle-Timestamp: ${OLD_TIMESTAMP}" \
-     -d '{"event_type":"payment.succeeded"}' \
-     -w "\nStatus: %{http_code}\n"
-
-   # Expected: 401 Unauthorized
-   ```
-
-3. **Test SQL Injection Protection**:
-   ```bash
-   # Test quiz submission with SQL injection attempt
-   curl -X POST http://localhost:8000/v1/quiz/submit \
-     -H "Content-Type: application/json" \
-     -d '{
-       "email": "test@example.com'"'"'; DROP TABLE users; --",
-       "step_1": "male"
-     }'
-
-   # Should return validation error, not execute SQL
-   # Check database: users table still exists
-   python -c "
-   from src.lib.database import engine
-   result = engine.execute('SELECT 1 FROM users LIMIT 1')
-   print('✅ SQL injection prevented - users table intact')
-   "
-   ```
-
-4. **Test XSS Protection** (dietary restrictions field):
-   ```bash
-   # Test XSS in step_17 (dietary restrictions)
-   curl -X POST http://localhost:8000/v1/quiz/submit \
-     -H "Content-Type: application/json" \
-     -d '{
-       "email": "test@example.com",
-       "step_1": "male",
-       "step_17": "<script>alert(\"XSS\")</script>"
-     }'
-
-   # Verify script is sanitized in database
-   python -c "
-   from src.models.quiz_response import QuizResponse
-   from src.lib.database import SessionLocal
-
-   db = SessionLocal()
-   quiz = db.query(QuizResponse).filter_by(email='test@example.com').first()
-
-   if '<script>' not in str(quiz.quiz_data.get('step_17', '')):
-       print('✅ XSS sanitization working')
-   else:
-       print('❌ XSS vulnerability: script tag not sanitized')
-   "
-   ```
-
-5. **Test Magic Link Brute Force Protection**:
-   ```bash
-   # Test 256-bit token entropy
-   python -c "
-   from src.services.magic_link import generate_token
-   import secrets
-
-   token = generate_token()
-   token_bytes = secrets.token_bytes(32)
-
-   if len(token) == 64:  # 32 bytes = 64 hex chars
-       print('✅ Magic link token has 256-bit entropy')
-   else:
-       print(f'❌ Weak token: {len(token)} chars')
-
-   # Test brute force protection (should be computationally infeasible)
-   print('   Brute force attempts needed: 2^256')
-   "
-   ```
-
-6. **Test Email Normalization Bypass**:
-   ```bash
-   # Test Gmail dot/plus bypass attempts
-   python -c "
-   from src.lib.email_utils import normalize_email
-
-   test_cases = [
-       ('User.Name+tag@Gmail.com', 'username@gmail.com'),
-       ('user.name@googlemail.com', 'username@gmail.com'),
-       ('TEST@EXAMPLE.COM', 'test@example.com'),
-   ]
-
-   for input_email, expected in test_cases:
-       result = normalize_email(input_email)
-       if result == expected:
-           print(f'✅ {input_email} → {result}')
-       else:
-           print(f'❌ {input_email} → {result} (expected {expected})')
-   "
-   ```
-
-7. **Test Secrets Exposure**:
-   ```bash
-   # Check for exposed secrets in codebase
-   cd ../..
-
-   # Search for common secret patterns
-   echo "Checking for exposed secrets..."
-
-   git grep -i "api_key.*=" -- "*.py" "*.ts" "*.js" | grep -v ".env" && \
-     echo "⚠️ Potential hardcoded API keys found" || \
-     echo "✅ No hardcoded API keys detected"
-
-   git grep -i "password.*=" -- "*.py" "*.ts" "*.js" | grep -v "password_hash" && \
-     echo "⚠️ Potential hardcoded passwords found" || \
-     echo "✅ No hardcoded passwords detected"
-   ```
-
-8. **Output Summary**:
-   ```
-   ✅ Security Audit Report
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   Rate Limiting:
-   ✅ Email verification: 60s cooldown enforced
-   ✅ Download limit: 10 per 24h working
-   ✅ Recovery limit: 5 per IP per hour working
-   ✅ Magic link: 3 per email per 24h working
-
-   Webhook Security (FR-P-002):
-   ✅ HMAC-SHA256 signature validation working
-   ✅ Timestamp validation (5-min window) working
-   ✅ Invalid signature rejected (401)
-   ✅ Expired timestamp rejected (401)
-
-   Injection Protection:
-   ✅ SQL injection: Parameterized queries prevent injection
-   ✅ XSS: HTML sanitization working
-
-   Authentication:
-   ✅ Magic link: 256-bit entropy (computationally secure)
-   ✅ Email normalization: Bypass attempts prevented
-
-   Secrets Management:
-   ✅ No hardcoded API keys found
-   ✅ No hardcoded passwords found
-   ✅ All secrets in .env files (not committed)
-
-   Critical Issues: 0
-   Warnings: 0
-
-   Recommendation: ✅ All security checks passed
-   ```
-
-## Example Usage
+Search for potential secrets in the codebase:
 
 ```bash
-/audit-security    # Run all security checks
+# Patterns to search for
+API_KEY, api_key, apiKey, ApiKey
+PASSWORD, password, Password, passwd
+SECRET, secret, Secret
+TOKEN, token, Token
+CREDENTIAL, credential, Credential
+PRIVATE_KEY, private_key, privateKey
+AUTH, auth (in assignment context)
+Bearer, Basic (hardcoded auth headers)
 ```
 
-## Exit Criteria
+**Using Grep tool**, search for these patterns in:
+- `src/main/java/**/*.java`
+- `src/main/resources/*.yml`
+- `src/main/resources/*.properties`
+- `*.env*` files (except .env.example)
+- `docker-compose*.yml`
 
-- All rate limits tested and working
-- Webhook signature validation tested
-- SQL injection protection verified
-- XSS sanitization working
-- Magic link security confirmed
-- No exposed secrets in codebase
+**Exclude**:
+- Test files (`src/test/**`)
+- Comments explaining what secrets are needed
+- Environment variable references (`${...}`, `System.getenv()`)
+- Configuration property placeholders
 
-## Critical Security Requirements
+### 2. SSRF Vector Analysis
 
-- FR-P-002: Webhook HMAC + timestamp validation
-- FR-P-010: Email normalization to prevent blacklist bypass
-- FR-R-002: Magic link 256-bit entropy, single-use, 24h expiry
-- FR-R-005: Download rate limiting (10 per 24h)
+Identify potential Server-Side Request Forgery vulnerabilities:
+
+**Search for**:
+- URL construction from user input
+- HTTP client calls with dynamic URLs
+- `new URL()`, `URI.create()`, `HttpRequest.newBuilder()`
+- OkHttp, RestTemplate, WebClient with variable URLs
+- Redirect following without validation
+
+**Check**:
+- Are URLs validated against allowlists?
+- Is there URL scheme validation (http/https only)?
+- Are internal IPs blocked (127.0.0.1, 10.x, 192.168.x, 169.254.x)?
+- Is redirect following limited?
+
+**In this project, examine**:
+- `GoogleMapsService.java` - URL unshortening
+- `ForecastService.java` - Windguru API calls
+- Strategy implementations - weather station fetches
+
+### 3. Injection Point Detection
+
+Search for potential injection vulnerabilities:
+
+**Command Injection**:
+```java
+Runtime.exec(), ProcessBuilder
+String concatenation with external input
+```
+
+**SQL Injection** (if applicable):
+```java
+String query = "SELECT * FROM " + userInput
+Statement.execute() with concatenated strings
+```
+
+**Log Injection**:
+```java
+log.info("User: " + userInput)  // without sanitization
+```
+
+**XSS in responses**:
+```java
+Returning user input in HTML without encoding
+```
+
+**Check for**:
+- String concatenation in sensitive operations
+- Missing input validation/sanitization
+- Unparameterized queries or commands
+
+### 4. Dependency Security Check
+
+Analyze `build.gradle` for:
+
+**Version Issues**:
+- Outdated dependencies with known CVEs
+- Dependencies without version pinning
+- Use of deprecated libraries
+
+**Key dependencies to check**:
+```
+spring-boot-starter-* (current: 3.5.x)
+okhttp (current: 4.12.x)
+gson
+spring-ai-*
+playwright (for E2E)
+```
+
+**Recommend**:
+- Running `./gradlew dependencyUpdates` if available
+- Checking against NIST NVD or Snyk database
+- Using OWASP dependency-check plugin
+
+### 5. Security Headers Analysis
+
+Check for missing security headers in responses:
+
+**Required headers**:
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY` or `SAMEORIGIN`
+- `X-XSS-Protection: 1; mode=block`
+- `Strict-Transport-Security` (HSTS)
+- `Content-Security-Policy`
+- `Referrer-Policy`
+
+**Check locations**:
+- Spring Security configuration (if present)
+- WebFilter implementations
+- Controller response modifications
+- `nginx.conf` (if applicable)
+- `NettyConfig.java` or similar
+
+### 6. Additional Quick Checks
+
+**Authentication/Authorization**:
+- Are endpoints properly secured?
+- Is there rate limiting?
+- Session management issues?
+
+**Sensitive Data Exposure**:
+- Stack traces in error responses?
+- Verbose error messages?
+- Debug endpoints enabled in prod?
+
+**CORS Configuration**:
+- Overly permissive CORS (`*`)?
+- Credentials allowed with wildcard origin?
+
+## Output Format
+
+```markdown
+## Security Audit Report
+
+### Summary
+| Category | Issues Found | Severity |
+|----------|--------------|----------|
+| Hardcoded Secrets | X | Critical/None |
+| SSRF Vectors | X | High/Medium/None |
+| Injection Points | X | Critical/None |
+| Dependencies | X | High/Medium/Low |
+| Security Headers | X | Medium/None |
+
+### Critical Issues (Immediate Action Required)
+
+#### [Issue Title]
+**File**: `path/to/file.java:line`
+**Type**: [Hardcoded Secret / Injection / etc.]
+**Risk**: [What could happen if exploited]
+**Evidence**:
+```java
+// problematic code
+```
+**Remediation**: [How to fix]
+
+### High Priority Issues
+
+#### [Issue Title]
+...
+
+### Medium Priority Issues
+
+#### [Issue Title]
+...
+
+### Low Priority / Informational
+
+- [Finding 1]
+- [Finding 2]
+
+### Passed Checks
+
+- No hardcoded secrets found in source code
+- Dependencies are up to date
+- [Other positive findings]
+
+### Recommendations
+
+1. [Priority recommendation]
+2. [Additional recommendation]
+3. [Long-term improvement]
+```
+
+## Execution Steps
+
+1. **Secrets scan**: Use `Grep` to search for secret patterns across the codebase
+2. **SSRF analysis**: Read HTTP client code and URL handling logic
+3. **Injection check**: Search for string concatenation patterns in sensitive contexts
+4. **Dependency review**: Read `build.gradle` and check versions
+5. **Headers check**: Examine security configuration and filters
+6. **Compile report**: Organize findings by severity
+
+## Notes
+
+- Focus on actionable findings, not theoretical risks
+- Distinguish between actual secrets and configuration placeholders
+- Consider the context (e.g., test data vs production code)
+- For dependencies, note that patch versions usually don't have CVEs
+- This is a quick audit; recommend periodic deep security reviews

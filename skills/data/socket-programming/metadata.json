@@ -1,12 +1,7 @@
 {
   "name": "socket-programming",
-  "description": "Low-level socket programming including BSD sockets, Winsock, and network byte manipulation",
-  "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
-  "category": "development",
-  "tags": [
-    "socket",
-    "programming"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "a5c-ai/babysitter",
+  "path": "plugins/babysitter/skills/babysit/process/specializations/network-programming/skills/socket-programming/SKILL.md",
+  "source": "github.com/a5c-ai/babysitter",
+  "downloaded_at": "2026-01-28T00:55:33.349725Z"
 }

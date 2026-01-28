@@ -1,149 +1,161 @@
 ---
-name: axum
-description: |
-  Axum 0.8+ production patterns with SQLx.
-  Use when: building Rust APIs, async database, error handling.
-  Do not use for: API design decisions (use api-design skill).
-  Workflow: api-design (design) → this skill (implementation).
-references:
-  - examples.md
+name: Axum Framework
+description: Ergonomic Rust web framework built on Tower and Tokio.
+metadata:
+  labels: [rust, axum, web, framework, tower]
+  triggers:
+    files: ['**/main.rs', '**/routes/*.rs']
+    keywords: [axum, Router, Extension, State]
 ---
 
-# Axum + SQLx
+# Axum Standards
 
-**For latest APIs, use context7.**
-
----
-
-## Core Philosophy
-
-Axum is built on **Tower** - a composable middleware stack.
-
-```
-Request → [Layer₁ → Layer₂ → ... → Handler] → Response
-```
-
-Everything is a **Service** (request → response). Layers wrap services to add behavior. This enables:
-- Reusable middleware
-- Type-safe composition
-- Zero-cost abstractions
+## Router Setup
 
 ```rust
-// Each layer wraps the inner service, forming a pipeline
-Router::new()
-    .route("/users/{id}", get(get_user))
-    .layer(CompressionLayer::new())   // Layer 3: outermost
-    .layer(TimeoutLayer::new(...))    // Layer 2
-    .layer(TraceLayer::new_for_http()) // Layer 1: innermost
+use axum::{Router, routing::{get, post}, Extension};
+
+#[tokio::main]
+async fn main() {
+    let app = Router::new()
+        .route("/", get(root))
+        .route("/users", get(list_users).post(create_user))
+        .route("/users/:id", get(get_user))
+        .nest("/api", api_routes())
+        .layer(Extension(db_pool))
+        .layer(TraceLayer::new_for_http());
+
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}
 ```
 
----
-
-## Project Structure
-
-```
-src/
-├── main.rs
-├── lib.rs             # AppState, re-exports
-├── error.rs           # AppError (RFC 9457)
-├── extractors.rs      # Db, ValidatedJson
-├── response.rs        # Created<T>, Ok<T>
-└── features/
-    └── users/
-        ├── mod.rs
-        ├── router.rs
-        ├── handlers.rs
-        └── models.rs  # Entity + repository
-migrations/
-.sqlx/                 # Commit this
-```
-
----
-
-## Abstractions
-
-### Response Types
+## Extractors
 
 ```rust
-async fn create(...) -> Result<Created<User>, AppError>  // 201
-async fn get(...) -> Result<Ok<User>, AppError>          // 200
-async fn delete(...) -> Result<NoContent, AppError>      // 204
+use axum::{
+    extract::{Path, Query, State, Json},
+    http::StatusCode,
+};
+
+// Path parameters
+async fn get_user(Path(id): Path<u64>) -> impl IntoResponse {
+    Json(user)
+}
+
+// Query parameters
+async fn list(Query(params): Query<Pagination>) -> impl IntoResponse {
+    Json(items)
+}
+
+// JSON body
+async fn create(Json(payload): Json<CreateUser>) -> impl IntoResponse {
+    (StatusCode::CREATED, Json(user))
+}
+
+// State (shared application state)
+async fn handler(State(pool): State<PgPool>) -> impl IntoResponse {
+    let conn = pool.acquire().await?;
+    Json(result)
+}
 ```
 
-### Db Extractor
+## State Management
 
 ```rust
-async fn handler(Db(db): Db, Path(id): Path<Uuid>) -> Result<Ok<User>, AppError>
+#[derive(Clone)]
+struct AppState {
+    db: PgPool,
+    cache: RedisPool,
+}
+
+let state = AppState { db, cache };
+
+let app = Router::new()
+    .route("/users", get(handler))
+    .with_state(state);
+
+async fn handler(State(state): State<AppState>) -> impl IntoResponse {
+    // Access state.db, state.cache
+}
 ```
 
-### Repository
+## Error Handling
 
 ```rust
-User::find_or_404(&db, id).await?
-User::create(&db, input).await?
+use axum::{
+    response::{IntoResponse, Response},
+    http::StatusCode,
+};
+
+enum AppError {
+    NotFound,
+    Database(sqlx::Error),
+}
+
+impl IntoResponse for AppError {
+    fn into_response(self) -> Response {
+        let (status, message) = match self {
+            AppError::NotFound => (StatusCode::NOT_FOUND, "Not found"),
+            AppError::Database(_) => (StatusCode::INTERNAL_SERVER_ERROR, "Database error"),
+        };
+        (status, Json(json!({ "error": message }))).into_response()
+    }
+}
+
+// Handler returns Result<T, AppError>
+async fn handler() -> Result<Json<User>, AppError> {
+    let user = db.find(id).await.map_err(AppError::Database)?;
+    user.ok_or(AppError::NotFound).map(Json)
+}
 ```
 
----
-
-## Decision Guide
-
-### Query Method
-
-| Situation | Method |
-|-----------|--------|
-| Must exist | `fetch_one` |
-| May not exist | `fetch_optional` → `.ok_or(AppError::NotFound)` |
-| List | `fetch_all` |
-
-### Transaction Scope
-
-Keep transactions short. No external calls inside tx.
+## Middleware (Tower Layers)
 
 ```rust
-// ✅ External call outside tx
-let external = api.call().await?;
-let mut tx = db.begin().await?;
-// DB only
-tx.commit().await?;
+use tower_http::{
+    trace::TraceLayer,
+    cors::CorsLayer,
+    compression::CompressionLayer,
+};
+
+let app = Router::new()
+    .route("/", get(handler))
+    .layer(TraceLayer::new_for_http())
+    .layer(CompressionLayer::new())
+    .layer(CorsLayer::permissive());
+
+// Custom middleware
+async fn auth_layer<B>(
+    req: Request<B>,
+    next: Next<B>,
+) -> Result<Response, StatusCode> {
+    let token = req.headers().get("Authorization");
+    // Validate token
+    Ok(next.run(req).await)
+}
 ```
 
-### Pool Config
+## Testing
 
 ```rust
-PgPoolOptions::new()
-    .max_connections(10)
-    .acquire_timeout(Duration::from_secs(3))  // Required
+use axum::http::StatusCode;
+use axum_test::TestServer;
+
+#[tokio::test]
+async fn test_get_user() {
+    let app = create_app();
+    let server = TestServer::new(app).unwrap();
+
+    let response = server.get("/users/1").await;
+
+    assert_eq!(response.status_code(), StatusCode::OK);
+}
 ```
 
----
+## Best Practices
 
-## Security
-
-| Item | Value |
-|------|-------|
-| Password | argon2id (64MB) |
-| JWT access | 15-30 min |
-| JWT refresh | 90 days (web), 1 year (mobile) |
-| CORS | Explicit origins |
-
----
-
-## CI/CD
-
-```bash
-cargo sqlx prepare
-git add .sqlx/
-SQLX_OFFLINE=true cargo build
-```
-
----
-
-## Checklist
-
-- [ ] Response types (`Created`, `Ok`, `NoContent`)
-- [ ] RFC 9457 error responses
-- [ ] `Db` extractor
-- [ ] Repository pattern
-- [ ] Tower layers for cross-cutting concerns
-- [ ] `acquire_timeout` set
-- [ ] `.sqlx/` committed
+1. **State**: Use `State<T>` over `Extension<T>` for type safety
+2. **Extractors**: Order matters - put fallible extractors last
+3. **Layers**: Apply common layers at router level, not per-route
+4. **Errors**: Implement `IntoResponse` for custom error types

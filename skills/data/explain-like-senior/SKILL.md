@@ -8,10 +8,30 @@ disable-model-invocation: false
 
 I'll explain this code as a senior developer would, focusing on the why behind decisions.
 
+**Token Optimization:**
+- ✅ Grep-before-Read to locate code (no speculative reads)
+- ✅ Focus on specified file/function only (vs exploring entire codebase)
+- ✅ Progressive depth (quick overview → deep dive only if requested)
+- ✅ Caching codebase structure and common patterns
+- ✅ Reuse /understand cache vs re-analyzing project
+- **Expected tokens:** 800-2,500 (vs. 2,000-4,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3B, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/explain-like-senior/`
+- Caches: Project architecture patterns, common idioms, related implementations
+- Cache validity: Until major codebase changes
+- Shared with: `/understand`, `/refactor`, `/review` skills
+
+**Usage:**
+- `explain-like-senior path/to/file.ts` - Explain specific file (800-1,500 tokens)
+- `explain-like-senior path/to/file.ts:FunctionName` - Explain function (600-1,200 tokens)
+- `explain-like-senior --deep` - Deep analysis with alternatives (1,500-2,500 tokens)
+
 I'll analyze the code using native tools:
-- **Read tool** to examine the code structure and patterns
-- **Grep tool** to find related implementations and usage
-- **Glob tool** to understand the broader codebase context
+- **Grep tool** to locate code and find related implementations (no speculative reads)
+- **Read tool** to examine the specified code structure and patterns (targeted)
+- **Glob tool** to understand the broader codebase context (only if needed for architecture insights)
 
 **Technical Context:**
 - Why this approach was chosen over alternatives

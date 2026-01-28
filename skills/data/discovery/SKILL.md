@@ -1,337 +1,360 @@
 ---
-name: user-discovery-research
-version: "2.0.0"
-description: Master user research methodologies, customer interviews, persona development, and journey mapping. Understand customer problems deeply before building.
-sasmp_version: "1.3.0"
-bonded_agent: 02-discovery-research
-bond_type: PRIMARY_BOND
-parameters:
-  - name: research_type
-    type: string
-    enum: [interviews, surveys, usability, mixed]
-    required: true
-  - name: sample_size
-    type: number
-    default: 20
-retry_logic:
-  max_attempts: 3
-  backoff: exponential
-logging:
-  level: info
-  hooks: [start, complete, error]
+name: discovery
+description: "Conduct discovery interviews. Use when: Gathering requirements, clarifying vague ideas, or creating detailed specifications. Not for: Execution or simple partial updates."
+user-invocable: true
 ---
 
-# User Discovery & Research Skill
+# Discovery Interview
 
-Become an expert at understanding customers deeply. Master interview techniques, extract meaningful insights, create accurate personas, and map customer journeys.
+Transform vague ideas into detailed, implementable specifications through deep, iterative interviews. Works for both technical and non-technical users.
 
-## Interview Mastery
+## Core Philosophy
 
-### 30-60 Minute Interview Structure
+**Don't ask obvious questions. Don't accept surface answers. Don't assume knowledge.**
 
-**Opening (5 min)** - Build rapport
-- "Thanks for time. I want to understand your experience with [topic]."
-- Warm conversation (not a interrogation)
-- Note-taking permission, recording permission
+Your job is to:
+1. Deeply understand what the user *actually* wants (not what they say)
+2. Detect knowledge gaps and educate when needed
+3. Surface hidden assumptions and tradeoffs
+4. Research when uncertainty exists
+5. Only write a spec when you have complete understanding
 
-**Context (10 min)** - Background
-- "Tell me about your role..."
-- "What does a typical day look like?"
-- "What tools do you use?"
-- "Who do you work with?"
+## Interview Process
 
-**Deep Dive (15-20 min)** - Core problem
-- "Walk me through how you currently [solve X]..."
-- "Tell me about the last time [problem] happened..."
-- "What frustrates you most about [current solution]?"
-- "How often does [issue] occur?"
+### Phase 1: Initial Orientation (2-3 questions max)
 
-**Impact Questions (5-10 min)** - Consequence
-- "What's the impact when [problem] happens?"
-- "How much time do you spend on [workaround]?"
-- "What's the cost if [issue] isn't resolved?"
+Start broad. Understand the shape of the idea:
 
-**Exploration (5-10 min)** - Future state
-- "What would make your life easier?"
-- "Describe your ideal [solution]..."
-- "What would you be willing to pay to solve [problem]?"
+Ask about:
+- "In one sentence, what problem are you trying to solve?"
+- "Who will use this? (End users, developers, internal team, etc.)"
+- "Is this a new thing or improving something existing?"
 
-**Closing (3-5 min)** - Wrap up
-- "Is there anything else important?"
-- "Can I follow up?"
-- "Can you introduce me to others?"
+Based on answers, determine the PROJECT TYPE:
+- **Backend service/API** → Focus: data, scaling, integrations
+- **Frontend/Web app** → Focus: UX, state, responsiveness
+- **CLI tool** → Focus: ergonomics, composability, output formats
+- **Mobile app** → Focus: offline, platform, permissions
+- **Full-stack app** → Focus: all of the above
+- **Script/Automation** → Focus: triggers, reliability, idempotency
+- **Library/SDK** → Focus: API design, docs, versioning
 
-### Interview Techniques
+### Phase 2: Category-by-Category Deep Dive
 
-**The Socratic Method**
-- Ask questions instead of proposing solutions
-- Let them discover insights
-- Ask "Why?" 5 times to get root cause
-- Example:
-  - Q: "Why do you use spreadsheets?"
-  - A: "It's what we have"
-  - Q: "Why not use a database?"
-  - A: "Don't have budget"
-  - Q: "Why no budget?"
-  - A: "ROI wasn't clear"
-  - → Real problem: ROI uncertainty
+Work through relevant categories IN ORDER. For each category:
 
-**Listen 70%, Talk 30%**
-- You have two ears, one mouth
-- Let silence linger (they fill it)
-- Take notes but stay engaged
-- Nod and show genuine interest
+1. Ask 2-4 questions using AskUserQuestion
+2. Detect uncertainty - if user seems unsure, offer research
+3. Educate when needed - don't let them make uninformed decisions
+4. Track decisions - update your internal state
 
-**Avoid Leading Questions**
-- ❌ "Don't you think mobile is important?"
-- ✅ "What devices do you primarily use?"
-- ❌ "Wouldn't X solve your problem?"
-- ✅ "What would an ideal solution look like?"
+#### Category A: Problem & Goals
 
-**Look for Emotions**
-- Frustration, excitement, anxiety
-- These reveal true pain points
-- "I can see this is frustrating. Tell me more..."
+Questions to explore:
+- What's the current pain point? How do people solve it today?
+- What does success look like? How will you measure it?
+- Who are the stakeholders beyond end users?
+- What happens if this doesn't get built?
 
-### Interview Logistics
+**Knowledge gap signals**: User can't articulate the problem clearly, or describes a solution instead of a problem.
 
-**Recruitment:**
-- Target: 20-25 interviews minimum
-- Mix: power users, light users, non-users
-- Incentive: $50-100 or product credit
-- Screening: Ensure they fit target segment
+#### Category B: User Experience & Journey
 
-**Recording & Notes:**
-- Always record (with permission)
-- Take live notes (rough OK)
-- Timestamps for quotes
-- Video is better than audio if possible
+Questions to explore:
+- Walk me through: a user opens this for the first time. What do they see? What do they do?
+- What's the core action? (The one thing users MUST be able to do)
+- What errors can happen? What should users see when things go wrong?
+- How technical are your users? (Power users vs. novices)
 
-**Debrief Immediately:**
-- Write key insights within 24 hours
-- While memory fresh, fill in gaps
-- Highlight best quotes
-- Note any bias you notice
+**Knowledge gap signals**: User hasn't thought through the actual flow, or describes features instead of journeys.
 
-## Synthesis & Analysis
+#### Category C: Data & State
 
-### Affinity Mapping
+Questions to explore:
+- What information needs to be stored? Temporarily or permanently?
+- Where does data come from? Where does it go?
+- Who owns the data? Are there privacy/compliance concerns?
+- What happens to existing data if requirements change?
 
-**Process:**
-1. Write every quote/insight on sticky note
-2. Group similar insights
-3. Find themes
-4. Rank by frequency/impact
-5. Extract top 10-15 themes
+**Knowledge gap signals**: User says "just a database" without understanding schema implications.
 
-**Example themes:**
-- Time pressure (everyone mentions)
-- Tool switching costs (8 of 20 people)
-- Lack of automation (7 of 20 people)
-- Data fragmentation (15 of 20 people)
+#### Category D: Technical Landscape
 
-### Persona Development
+Questions to explore:
+- What existing systems does this need to work with?
+- Are there technology constraints? (Language, framework, platform)
+- What's your deployment environment? (Cloud, on-prem, edge)
+- What's the team's technical expertise?
 
-**5 Element Persona:**
+**Knowledge gap signals**: User picks technologies without understanding tradeoffs (e.g., "real-time with REST", "mobile with React").
 
-1. **Demographics**
-   - Role, company size, industry
-   - Education, experience level
-   - Geographic location
-   - Company revenue/growth stage
+**Research triggers**:
+- "I've heard X is good" → Research X vs alternatives
+- "We use Y but I'm not sure if..." → Research Y capabilities
+- Technology mismatch detected → Research correct approaches
 
-2. **Goals & Motivations**
-   - What's their job-to-be-done?
-   - How is success measured?
-   - What drives them?
-   - What keeps them up at night?
+#### Category E: Scale & Performance
 
-3. **Challenges & Pain Points**
-   - Top 3 problems (research-backed)
-   - Current workarounds
-   - Cost of problem (time, money, stress)
-   - What they've tried
+Questions to explore:
+- How many users/requests do you expect? (Now vs. future)
+- What response times are acceptable?
+- What happens during traffic spikes?
+- Is this read-heavy, write-heavy, or balanced?
 
-4. **Current Solutions**
-   - What tools do they use?
-   - How do they work together?
-   - What's missing?
-   - Tech stack
+**Knowledge gap signals**: User says "millions of users" without understanding infrastructure implications.
 
-5. **Quote & Story**
-   - Real, powerful quote
-   - Day-in-the-life scenario
-   - Decision journey story
+#### Category F: Integrations & Dependencies
 
-**Persona Document Format:**
-- 1-2 pages max
-- Include photo (stock image)
-- Real quotes (3-5)
-- Scenario/story
-- Key behaviors
-- Success metrics
+Questions to explore:
+- What external services does this need to talk to?
+- What APIs need to be consumed? Created?
+- Are there third-party dependencies? What's the fallback if they fail?
+- What authentication/authorization is needed for integrations?
 
-## Journey Mapping
+**Knowledge gap signals**: User assumes integrations are simple without understanding rate limits, auth, failure modes.
 
-### Current State Journey (As-Is)
+#### Category G: Security & Access Control
 
-**Stages:**
-1. **Awareness** - Realizes problem exists
-2. **Consideration** - Researches solutions
-3. **Purchase** - Buys solution
-4. **Onboarding** - Learns to use
-5. **Usage** - Day-to-day work
-6. **Support** - Gets help
-7. **Renewal** - Continues or leaves
+Questions to explore:
+- Who should be able to do what?
+- What data is sensitive? PII? Financial? Health?
+- Are there compliance requirements? (GDPR, HIPAA, SOC2)
+- How do users authenticate?
 
-### For Each Stage Map:
+**Knowledge gap signals**: User says "just basic login" without understanding security implications.
 
-**Actions** - What customer does
-- Searches online
-- Talks to colleagues
-- Evaluates options
-- etc.
+#### Category H: Deployment & Operations
 
-**Emotions** - How they feel
-- Frustrated (searching)
-- Cautious (evaluating)
-- Confident (purchased)
-- Overwhelmed (onboarding)
-- etc.
+Questions to explore:
+- How will this be deployed? By whom?
+- What monitoring/alerting is needed?
+- How do you handle updates? Rollbacks?
+- What's your disaster recovery plan?
 
-**Touchpoints** - Interactions
-- Website
-- Sales calls
-- Email
-- Product UI
-- Support chat
-- etc.
+**Knowledge gap signals**: User hasn't thought about ops, or assumes "it just runs".
 
-**Pain Points** - Frustrations
-- Hard to find info
-- Slow response times
-- Confusing UI
-- etc.
+### Phase 3: Research Loops
 
-**Opportunities** - Where you can help
-- Better documentation
-- Faster support
-- Simpler onboarding
-- etc.
+When you detect uncertainty or knowledge gaps:
 
-## Research Methods
+Ask: "You mentioned wanting real-time updates. There are several approaches with different tradeoffs. Would you like me to research this before we continue?"
 
-### Quantitative
+Options:
+1. **Yes, research it** - I'll investigate options and explain the tradeoffs
+2. **No, I know what I want** - Skip research, I'll specify the approach
+3. **Tell me briefly** - Give me a quick overview without deep research
 
-**Surveys**
-- Reach: 100+ people
-- Speed: 2-3 days
-- Depth: Medium
-- Best for: Validation, scale
+**If user wants research:**
+1. Use WebSearch/WebFetch to gather relevant information
+2. Summarize findings in plain language
+3. Return with INFORMED follow-up questions
 
-**Net Promoter Score (NPS)**
-- "How likely to recommend?" (0-10)
-- Followers: 9-10
-- Passives: 7-8
-- Detractors: 0-6
-- Formula: %Followers - %Detractors
-
-### Qualitative
-
-**Interviews**
-- Reach: 15-25 people
-- Speed: 2-3 weeks
-- Depth: Very high
-- Best for: Understanding "why"
-
-**Focus Groups**
-- Reach: 8-12 people
-- Speed: 1-2 weeks
-- Depth: High
-- Bonus: Group dynamic reveals thinking
-
-**Observations**
-- Reach: 3-5 people
-- Speed: 2-3 days
-- Depth: Very high
-- Best for: Seeing vs. hearing
-
-### Mixed Methods
-
-**Combine research methods:**
-- Start with interviews (understand why)
-- Then survey (validate with 100+)
-- Iterate based on findings
-
-## Key Insights Extraction
-
-### Five Key Metrics
-
-1. **Problem Severity**
-   - How badly does it hurt?
-   - Frequency of problem
-   - Impact magnitude
-   - Urgency to solve
-
-2. **Current Solution Satisfaction**
-   - Is current approach acceptable?
-   - What's missing?
-   - Workarounds needed?
-   - Would switch if better option?
-
-3. **Willingness to Pay**
-   - What would they pay for solution?
-   - Price sensitivity?
-   - ROI expectations?
-
-4. **Decision Making**
-   - Who decides?
-   - Who influences?
-   - Budget process?
-   - Timeline?
-
-5. **Switching Costs**
-   - What prevents switching?
-   - Integration challenges?
-   - Learning curve acceptable?
-   - Migration effort?
-
-### Top 5 Questions to Answer
-
-From your research:
-1. What's the #1 problem?
-2. Who has the problem most acutely?
-3. How do they solve it today?
-4. What would ideal solution look like?
-5. Would they pay for it, and how much?
-
-## Troubleshooting
-
-### Yaygın Hatalar & Çözümler
-
-| Hata | Olası Sebep | Çözüm |
-|------|-------------|-------|
-| Düşük interview katılımı | Yanlış incentive | $50-100 gift card |
-| Yüzeysel insights | Leading questions | "Why?" 5x sor |
-| Conflicting feedback | Mixed segments | Segment-based analysis |
-| Persona generic | Insufficient data | +10 interview |
-
-### Debug Checklist
-
+Example research loop:
 ```
-[ ] Sample size yeterli mi? (min 15-20)
-[ ] Questions leading değil mi?
-[ ] Recording consent alındı mı?
-[ ] Synthesis 24h içinde yapıldı mı?
-[ ] Bias check yapıldı mı?
+User: "I want real-time updates"
+You: [Research WebSockets vs SSE vs Polling vs WebRTC]
+You: "I researched real-time options. Here's what I found:
+     - WebSockets: Best for bidirectional, but requires sticky sessions
+     - SSE: Simpler, unidirectional, works with load balancers
+     - Polling: Easiest but wasteful and not truly real-time
+
+     Given your scale expectations of 10k users, SSE would likely work well.
+     But I have a follow-up question: Do users need to SEND real-time data, or just receive it?"
 ```
 
-### Recovery Procedures
+### Phase 4: Conflict Resolution
 
-1. **Low Participation** → Adjust incentive or channel
-2. **Conflicting Data** → Segment by user type
-3. **Interviewer Bias** → Add second interviewer
+When you discover conflicts or impossible requirements:
 
----
+Ask: "I noticed a potential conflict: You want [X] but also [Y]. These typically don't work together because [reason]. Which is more important?"
 
-**Master deep customer understanding and let it guide your product decisions!**
+Options:
+1. **Prioritize X** - What you lose: [Y capabilities]
+2. **Prioritize Y** - What you lose: [X capabilities]
+3. **Explore alternatives** - Research ways to get both
+
+Common conflicts to watch for:
+- "Simple AND feature-rich"
+- "Real-time AND cheap infrastructure"
+- "Highly secure AND frictionless UX"
+- "Flexible AND performant"
+- "Fast to build AND future-proof"
+
+### Phase 5: Completeness Check
+
+Before writing the spec, verify you have answers for:
+
+```
+## Completeness Checklist
+
+### Problem Definition
+- [ ] Clear problem statement
+- [ ] Success metrics defined
+- [ ] Stakeholders identified
+
+### User Experience
+- [ ] User journey mapped
+- [ ] Core actions defined
+- [ ] Error states handled
+- [ ] Edge cases considered
+
+### Technical Design
+- [ ] Data model understood
+- [ ] Integrations specified
+- [ ] Scale requirements clear
+- [ ] Security model defined
+- [ ] Deployment approach chosen
+
+### Decisions Made
+- [ ] All tradeoffs explicitly chosen
+- [ ] No "TBD" items remaining
+- [ ] User confirmed understanding
+```
+
+If anything is missing, GO BACK and ask more questions.
+
+### Phase 6: Spec Generation
+
+Only after completeness check passes:
+
+1. **Summarize what you learned**:
+   "Before I write the spec, let me confirm my understanding:
+
+   You're building [X] for [users] to solve [problem].
+   The core experience is [journey].
+   Key technical decisions:
+   - [Decision 1 with rationale]
+   - [Decision 2 with rationale]
+
+   Is this accurate?"
+
+2. **Generate the spec** to a file:
+
+```markdown
+# [Project Name] Specification
+
+## Executive Summary
+[2-3 sentences: what, for whom, why]
+
+## Problem Statement
+[The problem this solves, current pain points, why now]
+
+## Success Criteria
+[Measurable outcomes that define success]
+
+## User Personas
+[Who uses this, their technical level, their goals]
+
+## User Journey
+[Step-by-step flow of the core experience]
+
+## Functional Requirements
+### Must Have (P0)
+- [Requirement with acceptance criteria]
+
+### Should Have (P1)
+- [Requirement with acceptance criteria]
+
+### Nice to Have (P2)
+- [Requirement with acceptance criteria]
+
+## Technical Architecture
+### Data Model
+[Key entities and relationships]
+
+### System Components
+[Major components and their responsibilities]
+
+### Integrations
+[External systems and how we connect]
+
+### Security Model
+[Auth, authorization, data protection]
+
+## Non-Functional Requirements
+- Performance: [specific metrics]
+- Scalability: [expected load]
+- Reliability: [uptime requirements]
+- Security: [compliance, encryption]
+
+## Out of Scope
+[Explicitly what we're NOT building]
+
+## Open Questions for Implementation
+[Technical details to resolve during implementation]
+
+## Appendix: Research Findings
+[Summary of research conducted during discovery]
+```
+
+### Phase 7: Implementation Handoff
+
+After spec is written, ask about next steps:
+
+```
+Spec created. How would you like to proceed?
+```
+
+Options:
+1. **Start implementation now** - Begin implementing the spec
+2. **Review spec first** - Read the spec and come back when ready
+3. **Plan implementation** - Create a detailed implementation plan with tasks
+4. **Done for now** - Save the spec, implement later
+
+## AskUserQuestion Best Practices
+
+### Question Phrasing
+- **Bad**: "What database do you want?" (assumes they know databases)
+- **Good**: "What kind of data will you store, and how often will it be read vs written?"
+
+### Option Design
+Always include options that acknowledge uncertainty:
+```
+options: [
+  {label: "Option A", description: "Clear choice with implications"},
+  {label: "Option B", description: "Alternative with different tradeoffs"},
+  {label: "I'm not sure", description: "Let's explore this more"},
+  {label: "Research this", description: "I'll investigate and come back"}
+]
+```
+
+## Detecting Knowledge Gaps
+
+Watch for these signals:
+
+| Signal | What to do |
+|--------|------------|
+| "I think..." or "Maybe..." | Probe deeper, offer research |
+| "That sounds good" (to your suggestion) | Verify they understand implications |
+| "Just simple/basic X" | Challenge - define what simple means |
+| Technology buzzwords without context | Ask what they think it does |
+| Conflicting requirements | Surface the conflict explicitly |
+| "Whatever is standard" | Explain there's no universal standard |
+| Long pauses / short answers | They might be overwhelmed - simplify |
+
+## Iteration Rules
+
+1. **Never write the spec after just 3-5 questions** - that produces slop
+2. **Minimum 10-15 questions** across categories for any real project
+3. **At least 2 questions per relevant category**
+4. **At least 1 research loop** for any non-trivial project
+5. **Always do a completeness check** before writing
+6. **Summarize understanding** before finalizing
+
+## Handling Different User Types
+
+### Technical User
+- Can skip some education
+- Still probe for assumptions ("You mentioned Kubernetes - have you considered the operational complexity?")
+- Focus more on tradeoffs than explanations
+
+### Non-Technical User
+- More education needed
+- Use analogies ("Think of an API like a waiter - it takes your order to the kitchen")
+- Offer more research options
+- Don't overwhelm with technical options
+
+### User in a Hurry
+- Acknowledge time pressure
+- Prioritize: "If we only have 10 minutes, let's focus on [core UX and data model]"
+- Note what wasn't covered as risks

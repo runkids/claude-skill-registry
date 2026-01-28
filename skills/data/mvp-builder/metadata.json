@@ -1,12 +1,7 @@
 {
   "name": "mvp-builder",
-  "description": "Rapid MVP development and feature prioritization for fast product validation. Use when building minimum viable products, prioritizing features, validating ideas quickly, or when users need to ship pro",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "development",
-  "tags": [
-    "mvp",
-    "builder"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/mvp-builder/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:41.461192Z"
 }

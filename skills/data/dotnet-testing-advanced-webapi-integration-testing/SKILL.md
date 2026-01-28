@@ -1,7 +1,44 @@
 ---
 name: dotnet-testing-advanced-webapi-integration-testing
-description: WebApi 整合測試完整指南，涵蓋測試專案設定、WebApplicationFactory 使用、資料庫整合、全域例外處理、FluentValidation 整合、以及完整的端到端測試實作。
+description: |
+  ASP.NET Core WebApi 整合測試完整指南。
+  涵蓋 WebApplicationFactory、IExceptionHandler、ProblemDetails 標準格式驗證。
+  包含 Testcontainers 多容器編排、Flurl URL 建構、AwesomeAssertions HTTP 驗證。
+
+triggers:
+  # 核心關鍵字
+  - webapi integration testing
+  - WebApplicationFactory
+  - asp.net core integration test
+  - webapi 整合測試
+
+  # 技術術語
+  - IExceptionHandler
+  - ProblemDetails
+  - ValidationProblemDetails
+  - TestWebApplicationFactory
+  - IntegrationTestBase
+
+  # 工具與套件
+  - AwesomeAssertions
+  - Flurl
+  - Respawn
+  - Be201Created
+  - Be400BadRequest
+
+  # 使用情境
+  - 多容器測試
+  - PostgreSQL Redis
+  - Collection Fixture
+  - DatabaseManager
+  - 全域例外處理
+  - FluentValidation testing
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: "webapi, integration-testing, testcontainers, aspnetcore, clean-architecture"
 ---
 
 # WebApi 整合測試
@@ -527,7 +564,7 @@ tests/
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 23 - 整合測試實戰：WebApi 服務的整合測試**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376221
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376873
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day23
 
 ### 官方文件

@@ -1,7 +1,7 @@
 {
   "name": "task-planner",
-  "repo": "VictorSmaniotto/degestao",
-  "path": ".agent/skills/task-planner/SKILL.md",
-  "source": "github.com/VictorSmaniotto/degestao",
-  "downloaded_at": "2026-01-27T03:07:30.415580Z"
+  "repo": "ajianaz/skills-collection",
+  "path": "skills/task-planner/SKILL.md",
+  "source": "github.com/ajianaz/skills-collection",
+  "downloaded_at": "2026-01-28T04:13:53.796304Z"
 }

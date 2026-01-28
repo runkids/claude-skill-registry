@@ -59,7 +59,7 @@ For detailed theme selection guidance, read `references/theme-selection.md`.
 
 5. Add images if needed using patterns from `references/image-patterns.md`
 
-6. Save to `/mnt/user-data/outputs/` with `.md` extension
+6. Save to `the project output directory` with `.md` extension
 
 ## Available Themes
 
@@ -142,7 +142,7 @@ For detailed theme selection guidance, read `references/theme-selection.md`.
    - Use proper Marp image syntax
 
 7. **Output file**
-   - Save to `/mnt/user-data/outputs/`
+   - Save to `the project output directory`
    - Use descriptive filename like `presentation.md`
 
 ## Handling "Make It Look Good" Requests
@@ -194,7 +194,7 @@ Example lecture pattern:
 
 ## File Output
 
-Always save the final Marp file to `/mnt/user-data/outputs/` with `.md` extension:
+Always save the final Marp file to `the project output directory` with `.md` extension:
 - `presentation.md`
 - `seminar-slides.md`
 - `lecture-materials.md`

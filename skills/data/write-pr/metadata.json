@@ -1,7 +1,7 @@
 {
   "name": "write-pr",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/documents/write-pr/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-27T02:59:12.390247Z"
+  "repo": "tldraw/tldraw",
+  "path": ".claude/skills/write-pr/SKILL.md",
+  "source": "github.com/tldraw/tldraw",
+  "downloaded_at": "2026-01-28T01:53:36.268012Z"
 }

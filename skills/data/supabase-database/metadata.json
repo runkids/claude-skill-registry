@@ -1,11 +1,7 @@
 {
   "name": "supabase-database",
-  "repo": "Karlito8888/new-ggv-gps",
-  "category": "data",
-  "description": "Gestion de la base de données Supabase pour MyGGV GPS. Utiliser pour les opérations SQL, migrations, tables et requêtes. NE PAS utiliser pour la documentation (utiliser archon-project).",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:35.900860Z",
-  "dir_name": "supabase-database",
-  "github_path": ".claude/skills/supabase-database",
-  "github_branch": "main"
+  "repo": "DonNigami/eddication.io",
+  "path": ".claude/skills/supabase-database/SKILL.md",
+  "source": "github.com/DonNigami/eddication.io",
+  "downloaded_at": "2026-01-28T03:07:44.581371Z"
 }

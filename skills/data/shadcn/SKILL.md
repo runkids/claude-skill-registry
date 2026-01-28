@@ -1,118 +1,254 @@
 ---
 name: shadcn
-description: shadcn/ui component library best practices and patterns (formerly shadcn-ui). This skill should be used when writing, reviewing, or refactoring shadcn/ui components to ensure proper architecture, accessibility, and performance. Triggers on tasks involving Radix primitives, Tailwind styling, form validation with React Hook Form, data tables, theming, or component composition patterns.
+description: Comprehensive shadcn/ui component library with theming, customization patterns, and accessibility. Use when building modern React UIs with Tailwind CSS. IMPORTANT - Always use MCP server tools first when available.
 ---
 
-# shadcn/ui Community Best Practices
+# shadcn/ui Skill
 
-Comprehensive best practices guide for shadcn/ui applications, maintained by the shadcn/ui community. Contains 42 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+Beautiful, accessible components built with Radix UI and Tailwind CSS. Copy and paste into your apps.
 
-## When to Apply
+## MCP Server Integration (PRIORITY)
 
-Reference these guidelines when:
-- Writing new shadcn/ui components or composing primitives
-- Implementing forms with React Hook Form and Zod validation
-- Building data tables or handling large dataset displays
-- Customizing themes or adding dark mode support
-- Reviewing code for accessibility compliance
+**ALWAYS check and use MCP server tools first:**
 
-## Rule Categories by Priority
+```
+# 1. Check availability
+mcp__shadcn__get_project_registries
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Component Architecture | CRITICAL | `arch-` |
-| 2 | Accessibility Preservation | CRITICAL | `ally-` |
-| 3 | Styling & Theming | HIGH | `style-` |
-| 4 | Form Patterns | HIGH | `form-` |
-| 5 | Data Display | MEDIUM-HIGH | `data-` |
-| 6 | Component Composition | MEDIUM | `comp-` |
-| 7 | Performance Optimization | MEDIUM | `perf-` |
-| 8 | State Management | LOW-MEDIUM | `state-` |
+# 2. Search components
+mcp__shadcn__search_items_in_registries
+  registries: ["@shadcn"]
+  query: "button"
 
-## Quick Reference
+# 3. Get examples
+mcp__shadcn__get_item_examples_from_registries
+  registries: ["@shadcn"]
+  query: "button-demo"
 
-### 1. Component Architecture (CRITICAL)
+# 4. Get install command
+mcp__shadcn__get_add_command_for_items
+  items: ["@shadcn/button"]
 
-- [`arch-use-asChild-for-custom-triggers`](references/arch-use-asChild-for-custom-triggers.md) - Use asChild prop for custom trigger elements
-- [`arch-preserve-radix-primitive-structure`](references/arch-preserve-radix-primitive-structure.md) - Maintain Radix compound component hierarchy
-- [`arch-extend-variants-with-cva`](references/arch-extend-variants-with-cva.md) - Use Class Variance Authority for type-safe variants
-- [`arch-use-cn-for-class-merging`](references/arch-use-cn-for-class-merging.md) - Use cn() utility for safe Tailwind class merging
-- [`arch-forward-refs-for-composable-components`](references/arch-forward-refs-for-composable-components.md) - Forward refs for form and focus integration
-- [`arch-isolate-component-variants`](references/arch-isolate-component-variants.md) - Separate base styles from variant-specific styles
+# 5. Verify implementation
+mcp__shadcn__get_audit_checklist
+```
 
-### 2. Accessibility Preservation (CRITICAL)
+## Quick Start
 
-- [`ally-preserve-aria-attributes`](references/ally-preserve-aria-attributes.md) - Keep Radix ARIA attributes intact
-- [`ally-provide-sr-only-labels`](references/ally-provide-sr-only-labels.md) - Add screen reader labels for icon buttons
-- [`ally-maintain-focus-management`](references/ally-maintain-focus-management.md) - Preserve focus trapping in modals
-- [`ally-preserve-keyboard-navigation`](references/ally-preserve-keyboard-navigation.md) - Keep WAI-ARIA keyboard patterns
-- [`ally-ensure-color-contrast`](references/ally-ensure-color-contrast.md) - Maintain WCAG color contrast ratios
+### Installation
 
-### 3. Styling & Theming (HIGH)
+```bash
+# Initialize shadcn in your project
+npx shadcn@latest init
 
-- [`style-use-css-variables-for-theming`](references/style-use-css-variables-for-theming.md) - Use CSS variables for theme colors
-- [`style-avoid-important-overrides`](references/style-avoid-important-overrides.md) - Never use !important for style overrides
-- [`style-use-tailwind-theme-extend`](references/style-use-tailwind-theme-extend.md) - Extend Tailwind theme for design tokens
-- [`style-consistent-spacing-scale`](references/style-consistent-spacing-scale.md) - Use consistent Tailwind spacing scale
-- [`style-responsive-design-patterns`](references/style-responsive-design-patterns.md) - Apply mobile-first responsive design
-- [`style-dark-mode-support`](references/style-dark-mode-support.md) - Support dark mode with CSS variables
+# Add components
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add input
+```
 
-### 4. Form Patterns (HIGH)
+### Project Structure
 
-- [`form-use-react-hook-form-integration`](references/form-use-react-hook-form-integration.md) - Integrate with React Hook Form
-- [`form-use-zod-for-schema-validation`](references/form-use-zod-for-schema-validation.md) - Use Zod for type-safe validation
-- [`form-show-validation-errors-correctly`](references/form-show-validation-errors-correctly.md) - Show errors at appropriate times
-- [`form-handle-async-validation`](references/form-handle-async-validation.md) - Debounce async validation calls
-- [`form-reset-form-state-correctly`](references/form-reset-form-state-correctly.md) - Reset form state after submission
+```
+src/
+├── components/
+│   └── ui/           # shadcn components
+│       ├── button.tsx
+│       ├── card.tsx
+│       └── input.tsx
+├── lib/
+│   └── utils.ts      # cn() utility
+└── app/
+    └── globals.css   # CSS variables
+```
 
-### 5. Data Display (MEDIUM-HIGH)
+## Key Concepts
 
-- [`data-use-tanstack-table-for-complex-tables`](references/data-use-tanstack-table-for-complex-tables.md) - Use TanStack Table for sorting/filtering
-- [`data-virtualize-large-lists`](references/data-virtualize-large-lists.md) - Virtualize lists with 100+ items
-- [`data-use-skeleton-loading-states`](references/data-use-skeleton-loading-states.md) - Use Skeleton for loading states
-- [`data-paginate-server-side`](references/data-paginate-server-side.md) - Paginate large datasets server-side
-- [`data-empty-states-with-guidance`](references/data-empty-states-with-guidance.md) - Provide actionable empty states
+| Concept | Guide |
+|---------|-------|
+| **Theming** | [reference/theming.md](reference/theming.md) |
+| **Accessibility** | [reference/accessibility.md](reference/accessibility.md) |
+| **Animations** | [reference/animations.md](reference/animations.md) |
+| **Components** | [reference/components.md](reference/components.md) |
 
-### 6. Component Composition (MEDIUM)
+## Examples
 
-- [`comp-compose-with-compound-components`](references/comp-compose-with-compound-components.md) - Use compound component patterns
-- [`comp-use-drawer-for-mobile-modals`](references/comp-use-drawer-for-mobile-modals.md) - Use Drawer on mobile devices
-- [`comp-combine-command-with-popover`](references/comp-combine-command-with-popover.md) - Create searchable selects with Command
-- [`comp-nest-dialogs-correctly`](references/comp-nest-dialogs-correctly.md) - Manage nested dialog focus correctly
-- [`comp-create-reusable-form-fields`](references/comp-create-reusable-form-fields.md) - Extract reusable form field components
-- [`comp-use-slot-pattern-for-flexibility`](references/comp-use-slot-pattern-for-flexibility.md) - Use slot pattern for flexible content
+| Pattern | Guide |
+|---------|-------|
+| **Form Patterns** | [examples/form-patterns.md](examples/form-patterns.md) |
+| **Data Display** | [examples/data-display.md](examples/data-display.md) |
+| **Navigation** | [examples/navigation.md](examples/navigation.md) |
+| **Feedback** | [examples/feedback.md](examples/feedback.md) |
 
-### 7. Performance Optimization (MEDIUM)
+## Templates
 
-- [`perf-lazy-load-heavy-components`](references/perf-lazy-load-heavy-components.md) - Lazy load components over 50KB
-- [`perf-memoize-expensive-renders`](references/perf-memoize-expensive-renders.md) - Memoize list items and expensive components
-- [`perf-optimize-icon-imports`](references/perf-optimize-icon-imports.md) - Use direct imports for Lucide icons
-- [`perf-avoid-unnecessary-rerenders-in-forms`](references/perf-avoid-unnecessary-rerenders-in-forms.md) - Isolate form field watching
-- [`perf-debounce-search-inputs`](references/perf-debounce-search-inputs.md) - Debounce search and filter inputs
+| Template | Purpose |
+|----------|---------|
+| [templates/theme-config.ts](templates/theme-config.ts) | Tailwind theme extension |
+| [templates/component-scaffold.tsx](templates/component-scaffold.tsx) | Base component with variants |
+| [templates/form-template.tsx](templates/form-template.tsx) | Form with validation |
 
-### 8. State Management (LOW-MEDIUM)
+## Component Categories
 
-- [`state-prefer-uncontrolled-for-simple-inputs`](references/state-prefer-uncontrolled-for-simple-inputs.md) - Use uncontrolled for simple forms
-- [`state-lift-state-to-appropriate-level`](references/state-lift-state-to-appropriate-level.md) - Lift state to lowest common ancestor
-- [`state-use-controlled-dialog-state`](references/state-use-controlled-dialog-state.md) - Control dialogs for programmatic access
-- [`state-colocate-state-with-components`](references/state-colocate-state-with-components.md) - Keep state close to where it's used
+### Inputs
+- Button, Input, Textarea, Select, Checkbox, Radio, Switch, Slider
 
-## How to Use
+### Data Display
+- Card, Table, Avatar, Badge, Calendar
 
-Read individual reference files for detailed explanations and code examples:
+### Feedback
+- Alert, Toast, Dialog, Sheet, Tooltip, Popover
 
-- [Section definitions](references/_sections.md) - Category structure and impact levels
-- [Rule template](assets/templates/_template.md) - Template for adding new rules
+### Navigation
+- Tabs, Navigation Menu, Breadcrumb, Pagination
 
-## Full Compiled Document
+### Layout
+- Accordion, Collapsible, Separator, Scroll Area
 
-For a single-file reference containing all rules, see [AGENTS.md](AGENTS.md).
+## Theming System
 
-## Reference Files
+### CSS Variables
 
-| File | Description |
-|------|-------------|
-| [AGENTS.md](AGENTS.md) | Complete compiled guide with all rules |
-| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
-| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
-| [metadata.json](metadata.json) | Version and reference information |
+```css
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* ... */
+  }
+}
+```
+
+### Dark Mode Toggle
+
+```tsx
+"use client";
+
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
+
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+    >
+      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+  );
+}
+```
+
+## Utility Function
+
+```typescript
+// lib/utils.ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+## Common Patterns
+
+### Form with Validation
+
+```tsx
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+function LoginForm() {
+  const form = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+  );
+}
+```
+
+### Toast Notifications
+
+```tsx
+import { toast } from "sonner";
+
+// Success
+toast.success("Task created successfully");
+
+// Error
+toast.error("Something went wrong");
+
+// With action
+toast("Event created", {
+  action: {
+    label: "Undo",
+    onClick: () => console.log("Undo"),
+  },
+});
+```
+
+## Accessibility Checklist
+
+- [ ] All interactive elements are keyboard accessible
+- [ ] Focus states are visible
+- [ ] Color contrast meets WCAG AA (4.5:1 for text)
+- [ ] ARIA labels on icon-only buttons
+- [ ] Form inputs have associated labels
+- [ ] Error messages are announced to screen readers
+- [ ] Dialogs trap focus and return focus on close
+- [ ] Reduced motion preferences respected

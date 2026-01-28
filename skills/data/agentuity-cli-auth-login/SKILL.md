@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-auth-login
 description: "Login to the Agentuity Platform using a browser-based authentication flow. Use for managing authentication credentials"
-version: "0.1.24"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:
@@ -16,14 +16,8 @@ Login to the Agentuity Platform using a browser-based authentication flow
 ## Usage
 
 ```bash
-agentuity auth login [options]
+agentuity auth login
 ```
-
-## Options
-
-| Option | Type | Required | Default | Description |
-|--------|------|----------|---------|-------------|
-| `--setupToken` | string | Yes | - | Use a one-time use setup token |
 
 ## Examples
 
@@ -38,17 +32,3 @@ Login to account:
 ```bash
 bunx @agentuity/cli login
 ```
-
-## Output
-
-Returns JSON object:
-
-```json
-{
-  "success": "boolean"
-}
-```
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `success` | boolean | - |

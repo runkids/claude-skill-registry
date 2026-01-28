@@ -1,9 +1,7 @@
 {
   "name": "woocommerce-dev-cycle",
-  "description": "Run tests, linting, and quality checks for WooCommerce development. Use when running tests, fixing code style, or following the development workflow.",
-  "repo": "woocommerce/woocommerce",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/woocommerce-dev-cycle/skills/woocommerce-dev-cycle/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-28T01:54:30.107768Z"
 }

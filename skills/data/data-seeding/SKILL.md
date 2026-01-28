@@ -1,701 +1,732 @@
 ---
 name: data-seeding
-description: Create database seed scripts with realistic test data for development and testing. Use when setting up development environment or creating demo data.
-allowed-tools: Read, Write, Edit, Bash
+description: Create or update database seed scripts for development and testing environments. Use when setting up test data or initializing development databases.
+allowed-tools: Read, Edit, Write, Bash
 ---
 
-You create database seed scripts with realistic test data for the QA Team Portal.
+# Data Seeding Skill
 
-## When to Use
+This skill helps you create and manage database seed scripts in `packages/database/`.
 
-- Setting up development environment
-- Creating demo data for presentations
-- Populating test database
-- UAT environment setup
+## When to Use This Skill
+
+- Setting up development database with test data
+- Creating seed data for testing
+- Initializing demo environments
 - Resetting database to known state
+- Generating realistic sample data
+- Testing data migration scripts
 
-## Implementation
+## Seed Script Structure
 
-### 1. Seed Data Script
-
-**Location:** `backend/app/db/seed.py`
-
-```python
-import asyncio
-from sqlalchemy.orm import Session
-from app.db.session import SessionLocal
-from app.models.user import User
-from app.models.team_member import TeamMember
-from app.models.update import Update
-from app.models.tool import Tool, ToolCategory
-from app.models.resource import Resource
-from app.models.research import Research
-from app.core.security import get_password_hash
-from datetime import datetime, timedelta
-import random
-
-async def seed_users(db: Session):
-    """Seed initial users."""
-    print("Seeding users...")
-
-    users_data = [
-        {
-            "email": "admin@evoketech.com",
-            "password_hash": get_password_hash("Admin123!@#"),
-            "name": "Admin User",
-            "role": "admin",
-            "status": "active"
-        },
-        {
-            "email": "lead@evoketech.com",
-            "password_hash": get_password_hash("Lead123!@#"),
-            "name": "QA Lead",
-            "role": "lead",
-            "status": "active"
-        },
-        {
-            "email": "member@evoketech.com",
-            "password_hash": get_password_hash("Member123!@#"),
-            "name": "QA Member",
-            "role": "member",
-            "status": "active"
-        }
-    ]
-
-    for user_data in users_data:
-        # Check if user already exists
-        existing = db.query(User).filter(User.email == user_data["email"]).first()
-        if not existing:
-            user = User(**user_data)
-            db.add(user)
-            print(f"  ✓ Created user: {user_data['email']}")
-
-    db.commit()
-    print("Users seeded successfully!\n")
-
-async def seed_team_members(db: Session):
-    """Seed team members."""
-    print("Seeding team members...")
-
-    team_members_data = [
-        {
-            "name": "Sarah Johnson",
-            "role": "Senior QA Engineer",
-            "email": "sarah.johnson@evoketech.com",
-            "bio": "10+ years of experience in software testing and quality assurance. Specialized in automation testing and performance optimization.",
-            "photo_url": "https://i.pravatar.cc/300?img=1"
-        },
-        {
-            "name": "Michael Chen",
-            "role": "QA Automation Lead",
-            "email": "michael.chen@evoketech.com",
-            "bio": "Expert in test automation frameworks including Selenium, Playwright, and Cypress. Passionate about CI/CD integration.",
-            "photo_url": "https://i.pravatar.cc/300?img=12"
-        },
-        {
-            "name": "Emily Rodriguez",
-            "role": "QA Engineer",
-            "email": "emily.rodriguez@evoketech.com",
-            "bio": "Focused on mobile app testing and API testing. Strong background in manual and exploratory testing.",
-            "photo_url": "https://i.pravatar.cc/300?img=5"
-        },
-        {
-            "name": "David Kim",
-            "role": "Performance Testing Specialist",
-            "email": "david.kim@evoketech.com",
-            "bio": "Specialized in load testing, stress testing, and performance optimization. JMeter and Gatling expert.",
-            "photo_url": "https://i.pravatar.cc/300?img=14"
-        },
-        {
-            "name": "Jennifer Taylor",
-            "role": "QA Engineer",
-            "email": "jennifer.taylor@evoketech.com",
-            "bio": "Security testing and accessibility testing advocate. WCAG 2.1 AA compliance specialist.",
-            "photo_url": "https://i.pravatar.cc/300?img=9"
-        },
-        {
-            "name": "Alex Patel",
-            "role": "Junior QA Engineer",
-            "email": "alex.patel@evoketech.com",
-            "bio": "Recent graduate with a passion for quality assurance. Learning automation testing and best practices.",
-            "photo_url": "https://i.pravatar.cc/300?img=33"
-        }
-    ]
-
-    for member_data in team_members_data:
-        existing = db.query(TeamMember).filter(TeamMember.email == member_data["email"]).first()
-        if not existing:
-            member = TeamMember(**member_data)
-            db.add(member)
-            print(f"  ✓ Created team member: {member_data['name']}")
-
-    db.commit()
-    print("Team members seeded successfully!\n")
-
-async def seed_updates(db: Session):
-    """Seed latest updates."""
-    print("Seeding updates...")
-
-    updates_data = [
-        {
-            "title": "New Test Automation Framework Released",
-            "content": "We've released a new test automation framework based on Playwright. It supports cross-browser testing and provides better performance.",
-            "priority": "high"
-        },
-        {
-            "title": "Weekly QA Sync Meeting - Friday 3 PM",
-            "content": "Join us for our weekly sync meeting to discuss ongoing projects, blockers, and upcoming tasks.",
-            "priority": "medium"
-        },
-        {
-            "title": "Security Testing Training Next Week",
-            "content": "Attend our security testing training session covering OWASP Top 10 and penetration testing basics.",
-            "priority": "high"
-        },
-        {
-            "title": "Q4 Performance Testing Complete",
-            "content": "All Q4 performance testing has been completed. Results show 15% improvement in API response times.",
-            "priority": "low"
-        },
-        {
-            "title": "New Team Members Onboarding",
-            "content": "Welcome our new team members! Onboarding sessions scheduled for next Monday and Tuesday.",
-            "priority": "medium"
-        }
-    ]
-
-    for i, update_data in enumerate(updates_data):
-        # Add timestamps (newest first)
-        update_data["created_at"] = datetime.utcnow() - timedelta(days=i)
-        update = Update(**update_data)
-        db.add(update)
-        print(f"  ✓ Created update: {update_data['title']}")
-
-    db.commit()
-    print("Updates seeded successfully!\n")
-
-async def seed_tools(db: Session):
-    """Seed QA tools."""
-    print("Seeding tools...")
-
-    # Create categories first
-    categories_data = [
-        {"name": "Test Automation", "description": "Automated testing tools and frameworks"},
-        {"name": "Performance Testing", "description": "Load and performance testing tools"},
-        {"name": "API Testing", "description": "Tools for testing REST APIs and web services"},
-        {"name": "Mobile Testing", "description": "Mobile app testing tools"},
-        {"name": "Security Testing", "description": "Security and penetration testing tools"},
-        {"name": "Code Quality", "description": "Code analysis and quality tools"}
-    ]
-
-    categories = {}
-    for cat_data in categories_data:
-        existing = db.query(ToolCategory).filter(ToolCategory.name == cat_data["name"]).first()
-        if not existing:
-            category = ToolCategory(**cat_data)
-            db.add(category)
-            db.flush()
-            categories[cat_data["name"]] = category.id
-            print(f"  ✓ Created category: {cat_data['name']}")
-        else:
-            categories[cat_data["name"]] = existing.id
-
-    db.commit()
-
-    # Create tools
-    tools_data = [
-        {
-            "name": "Playwright",
-            "description": "Modern end-to-end testing framework for web applications. Supports all major browsers.",
-            "category_id": categories["Test Automation"],
-            "download_url": "https://playwright.dev/",
-            "version": "1.40.0",
-            "documentation_url": "https://playwright.dev/docs/intro"
-        },
-        {
-            "name": "Selenium WebDriver",
-            "description": "Popular browser automation tool for web application testing.",
-            "category_id": categories["Test Automation"],
-            "download_url": "https://www.selenium.dev/",
-            "version": "4.15.0",
-            "documentation_url": "https://www.selenium.dev/documentation/"
-        },
-        {
-            "name": "JMeter",
-            "description": "Load testing and performance measurement tool.",
-            "category_id": categories["Performance Testing"],
-            "download_url": "https://jmeter.apache.org/",
-            "version": "5.6.2",
-            "documentation_url": "https://jmeter.apache.org/usermanual/index.html"
-        },
-        {
-            "name": "Postman",
-            "description": "Comprehensive API testing and development platform.",
-            "category_id": categories["API Testing"],
-            "download_url": "https://www.postman.com/",
-            "version": "10.19.0",
-            "documentation_url": "https://learning.postman.com/docs/"
-        },
-        {
-            "name": "Appium",
-            "description": "Mobile app automation framework for iOS and Android.",
-            "category_id": categories["Mobile Testing"],
-            "download_url": "https://appium.io/",
-            "version": "2.2.1",
-            "documentation_url": "https://appium.io/docs/en/latest/"
-        },
-        {
-            "name": "OWASP ZAP",
-            "description": "Open-source web application security scanner.",
-            "category_id": categories["Security Testing"],
-            "download_url": "https://www.zaproxy.org/",
-            "version": "2.14.0",
-            "documentation_url": "https://www.zaproxy.org/docs/"
-        },
-        {
-            "name": "SonarQube",
-            "description": "Code quality and security analysis platform.",
-            "category_id": categories["Code Quality"],
-            "download_url": "https://www.sonarsource.com/products/sonarqube/",
-            "version": "10.3",
-            "documentation_url": "https://docs.sonarsource.com/sonarqube/latest/"
-        },
-        {
-            "name": "K6",
-            "description": "Modern load testing tool for developers.",
-            "category_id": categories["Performance Testing"],
-            "download_url": "https://k6.io/",
-            "version": "0.47.0",
-            "documentation_url": "https://k6.io/docs/"
-        }
-    ]
-
-    for tool_data in tools_data:
-        existing = db.query(Tool).filter(Tool.name == tool_data["name"]).first()
-        if not existing:
-            tool = Tool(**tool_data)
-            db.add(tool)
-            print(f"  ✓ Created tool: {tool_data['name']}")
-
-    db.commit()
-    print("Tools seeded successfully!\n")
-
-async def seed_resources(db: Session):
-    """Seed resources."""
-    print("Seeding resources...")
-
-    resources_data = [
-        {
-            "title": "QA Best Practices Guide 2024",
-            "description": "Comprehensive guide covering modern QA best practices, testing strategies, and methodologies.",
-            "url": "https://example.com/qa-guide.pdf",
-            "type": "PDF",
-            "tags": ["best practices", "guide", "methodology"]
-        },
-        {
-            "title": "Test Automation Tutorial Series",
-            "description": "Step-by-step video tutorials on test automation using Playwright and Selenium.",
-            "url": "https://example.com/tutorials",
-            "type": "Video",
-            "tags": ["automation", "tutorial", "playwright", "selenium"]
-        },
-        {
-            "title": "API Testing Checklist",
-            "description": "Complete checklist for API testing including functional, security, and performance tests.",
-            "url": "https://example.com/api-checklist.pdf",
-            "type": "Checklist",
-            "tags": ["API", "checklist", "testing"]
-        },
-        {
-            "title": "Performance Testing Handbook",
-            "description": "In-depth handbook covering load testing, stress testing, and performance optimization.",
-            "url": "https://example.com/performance-handbook.pdf",
-            "type": "PDF",
-            "tags": ["performance", "load testing", "optimization"]
-        },
-        {
-            "title": "Mobile Testing Guide",
-            "description": "Guide to testing mobile applications on iOS and Android platforms.",
-            "url": "https://example.com/mobile-guide.pdf",
-            "type": "PDF",
-            "tags": ["mobile", "iOS", "Android"]
-        }
-    ]
-
-    for resource_data in resources_data:
-        existing = db.query(Resource).filter(Resource.title == resource_data["title"]).first()
-        if not existing:
-            resource = Resource(**resource_data)
-            db.add(resource)
-            print(f"  ✓ Created resource: {resource_data['title']}")
-
-    db.commit()
-    print("Resources seeded successfully!\n")
-
-async def seed_research(db: Session):
-    """Seed research articles."""
-    print("Seeding research...")
-
-    research_data = [
-        {
-            "title": "Impact of AI on Software Testing",
-            "summary": "Analysis of how artificial intelligence and machine learning are transforming software testing practices.",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. AI-powered testing tools are revolutionizing the QA industry...",
-            "author": "Sarah Johnson",
-            "published_date": datetime.utcnow() - timedelta(days=7),
-            "tags": ["AI", "machine learning", "automation"]
-        },
-        {
-            "title": "Shift-Left Testing: A Case Study",
-            "summary": "Real-world case study on implementing shift-left testing methodology in large-scale projects.",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Shift-left testing has proven to reduce defects by 40%...",
-            "author": "Michael Chen",
-            "published_date": datetime.utcnow() - timedelta(days=14),
-            "tags": ["shift-left", "methodology", "case study"]
-        },
-        {
-            "title": "Mobile App Testing Best Practices",
-            "summary": "Comprehensive guide to mobile app testing covering iOS, Android, and cross-platform frameworks.",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mobile testing requires special considerations...",
-            "author": "Emily Rodriguez",
-            "published_date": datetime.utcnow() - timedelta(days=21),
-            "tags": ["mobile", "best practices", "cross-platform"]
-        }
-    ]
-
-    for article_data in research_data:
-        existing = db.query(Research).filter(Research.title == article_data["title"]).first()
-        if not existing:
-            article = Research(**article_data)
-            db.add(article)
-            print(f"  ✓ Created research: {article_data['title']}")
-
-    db.commit()
-    print("Research seeded successfully!\n")
-
-async def seed_all():
-    """Seed all data."""
-    print("=" * 60)
-    print("Starting database seeding...")
-    print("=" * 60 + "\n")
-
-    db = SessionLocal()
-    try:
-        await seed_users(db)
-        await seed_team_members(db)
-        await seed_updates(db)
-        await seed_tools(db)
-        await seed_resources(db)
-        await seed_research(db)
-
-        print("=" * 60)
-        print("✅ Database seeding completed successfully!")
-        print("=" * 60)
-
-        print("\n📝 Test Credentials:")
-        print("  Admin:  admin@evoketech.com / Admin123!@#")
-        print("  Lead:   lead@evoketech.com / Lead123!@#")
-        print("  Member: member@evoketech.com / Member123!@#")
-
-    except Exception as e:
-        print(f"\n❌ Error during seeding: {str(e)}")
-        db.rollback()
-        raise
-    finally:
-        db.close()
-
-if __name__ == "__main__":
-    asyncio.run(seed_all())
+```
+packages/database/
+├── src/
+│   └── seed/
+│       ├── index.ts          # Main seed runner
+│       ├── cars.ts           # Car data seeds
+│       ├── coe.ts            # COE data seeds
+│       ├── posts.ts          # Blog posts seeds
+│       └── users.ts          # User seeds
+├── scripts/
+│   └── seed.ts               # Seed execution script
+└── package.json
 ```
 
-### 2. Reset Database Script
+## Basic Seed Pattern
 
-**Location:** `backend/app/db/reset.py`
+### Simple Seed Script
 
-```python
-import asyncio
-from sqlalchemy import text
-from app.db.session import engine, SessionLocal
-from app.db.base import Base
-from app.db.seed import seed_all
+```typescript
+// packages/database/src/seed/cars.ts
+import { db } from "../index";
+import { cars } from "../db/schema";
+import { nanoid } from "nanoid";
 
-async def reset_database():
-    """Drop all tables, recreate them, and seed data."""
-    print("=" * 60)
-    print("⚠️  WARNING: This will delete all data!")
-    print("=" * 60)
+export async function seedCars() {
+  console.log("Seeding cars...");
 
-    response = input("Are you sure you want to reset the database? (yes/no): ")
-    if response.lower() != "yes":
-        print("❌ Database reset cancelled.")
-        return
+  const carData = [
+    {
+      id: nanoid(),
+      make: "Toyota",
+      model: "Camry",
+      vehicleClass: "Sedan",
+      fuelType: "Petrol",
+      month: "2024-01",
+      number: 150,
+    },
+    {
+      id: nanoid(),
+      make: "Honda",
+      model: "Civic",
+      vehicleClass: "Sedan",
+      fuelType: "Petrol",
+      month: "2024-01",
+      number: 120,
+    },
+    {
+      id: nanoid(),
+      make: "BMW",
+      model: "3 Series",
+      vehicleClass: "Sedan",
+      fuelType: "Petrol",
+      month: "2024-01",
+      number: 80,
+    },
+  ];
 
-    print("\n🗑️  Dropping all tables...")
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-    print("✅ All tables dropped.\n")
+  await db.insert(cars).values(carData);
 
-    print("📦 Creating all tables...")
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    print("✅ All tables created.\n")
-
-    print("🌱 Seeding database...")
-    await seed_all()
-
-    print("\n✅ Database reset complete!")
-
-if __name__ == "__main__":
-    asyncio.run(reset_database())
+  console.log(`✓ Seeded ${carData.length} cars`);
+}
 ```
 
-### 3. Faker for Realistic Data (Optional)
+### Main Seed Runner
+
+```typescript
+// packages/database/src/seed/index.ts
+import { db } from "../index";
+import { seedCars } from "./cars";
+import { seedCOE } from "./coe";
+import { seedPosts } from "./posts";
+
+export async function seed() {
+  try {
+    console.log("🌱 Starting database seed...\n");
+
+    // Clear existing data (optional)
+    await clearDatabase();
+
+    // Run seed functions
+    await seedCars();
+    await seedCOE();
+    await seedPosts();
+
+    console.log("\n✅ Database seeded successfully!");
+  } catch (error) {
+    console.error("❌ Seed failed:", error);
+    throw error;
+  }
+}
+
+async function clearDatabase() {
+  console.log("Clearing existing data...");
+
+  // Delete in reverse order of dependencies
+  await db.delete(posts);
+  await db.delete(coe);
+  await db.delete(cars);
+
+  console.log("✓ Database cleared\n");
+}
+
+// Run if called directly
+if (require.main === module) {
+  seed()
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
+}
+```
+
+### Execution Script
+
+```typescript
+// packages/database/scripts/seed.ts
+import { seed } from "../src/seed";
+
+seed()
+  .then(() => {
+    console.log("Seed completed");
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error("Seed failed:", error);
+    process.exit(1);
+  });
+```
+
+Add to `package.json`:
+
+```json
+{
+  "scripts": {
+    "db:seed": "tsx scripts/seed.ts"
+  }
+}
+```
+
+Run seed:
 
 ```bash
-cd backend
-uv pip install faker
+pnpm -F @sgcarstrends/database db:seed
 ```
 
-```python
-# backend/app/db/seed_faker.py
-from faker import Faker
-import random
+## Advanced Seed Patterns
 
-fake = Faker()
+### Seed with Relationships
 
-async def seed_realistic_data(db: Session, count: int = 50):
-    """Seed realistic data using Faker."""
-    print(f"Generating {count} realistic team members...")
+```typescript
+// packages/database/src/seed/posts.ts
+import { db } from "../index";
+import { users, posts } from "../db/schema";
+import { nanoid } from "nanoid";
 
-    for i in range(count):
-        member = TeamMember(
-            name=fake.name(),
-            role=random.choice([
-                "QA Engineer",
-                "Senior QA Engineer",
-                "QA Lead",
-                "Automation Engineer",
-                "Performance Tester"
-            ]),
-            email=fake.email(),
-            bio=fake.paragraph(nb_sentences=3),
-            photo_url=f"https://i.pravatar.cc/300?img={random.randint(1, 70)}"
-        )
-        db.add(member)
+export async function seedPosts() {
+  console.log("Seeding users and posts...");
 
-        if (i + 1) % 10 == 0:
-            print(f"  Created {i + 1}/{count} members...")
+  // First, create users
+  const userData = [
+    {
+      id: nanoid(),
+      name: "John Doe",
+      email: "john@example.com",
+    },
+    {
+      id: nanoid(),
+      name: "Jane Smith",
+      email: "jane@example.com",
+    },
+  ];
 
-    db.commit()
-    print(f"✅ {count} team members created!\n")
+  const createdUsers = await db.insert(users).values(userData).returning();
+
+  // Then, create posts with user references
+  const postData = [
+    {
+      id: nanoid(),
+      title: "First Blog Post",
+      content: "This is the first blog post content.",
+      authorId: createdUsers[0].id,
+      published: true,
+      publishedAt: new Date(),
+    },
+    {
+      id: nanoid(),
+      title: "Second Blog Post",
+      content: "This is the second blog post content.",
+      authorId: createdUsers[1].id,
+      published: true,
+      publishedAt: new Date(),
+    },
+  ];
+
+  await db.insert(posts).values(postData);
+
+  console.log(`✓ Seeded ${createdUsers.length} users and ${postData.length} posts`);
+}
 ```
 
-### 4. CLI Commands
+### Seed with Faker.js
 
 ```bash
-# Run seed script
-cd backend
-python -m app.db.seed
-
-# Reset database
-python -m app.db.reset
-
-# Run migrations + seed
-alembic upgrade head && python -m app.db.seed
+pnpm -F @sgcarstrends/database add -D @faker-js/faker
 ```
 
-### 5. Make Script
+```typescript
+// packages/database/src/seed/realistic-data.ts
+import { faker } from "@faker-js/faker";
+import { db } from "../index";
+import { cars } from "../db/schema";
+import { nanoid } from "nanoid";
 
-**Location:** `Makefile`
+export async function seedRealisticCars(count: number = 100) {
+  console.log(`Seeding ${count} realistic cars...`);
 
-```makefile
-.PHONY: seed reset-db setup-dev
+  const makes = ["Toyota", "Honda", "BMW", "Mercedes", "Audi", "Nissan", "Mazda"];
+  const fuelTypes = ["Petrol", "Diesel", "Electric", "Hybrid"];
+  const vehicleClasses = ["Sedan", "SUV", "Hatchback", "MPV"];
 
-seed:
-	@echo "Seeding database..."
-	cd backend && python -m app.db.seed
+  const carData = Array.from({ length: count }, () => ({
+    id: nanoid(),
+    make: faker.helpers.arrayElement(makes),
+    model: faker.vehicle.model(),
+    vehicleClass: faker.helpers.arrayElement(vehicleClasses),
+    fuelType: faker.helpers.arrayElement(fuelTypes),
+    month: faker.date.between({ from: "2020-01-01", to: "2024-12-31" })
+      .toISOString()
+      .slice(0, 7),
+    number: faker.number.int({ min: 10, max: 500 }),
+  }));
 
-reset-db:
-	@echo "Resetting database..."
-	cd backend && python -m app.db.reset
+  // Batch insert for performance
+  const batchSize = 50;
+  for (let i = 0; i < carData.length; i += batchSize) {
+    const batch = carData.slice(i, i + batchSize);
+    await db.insert(cars).values(batch);
+  }
 
-setup-dev:
-	@echo "Setting up development environment..."
-	@echo "1. Installing dependencies..."
-	cd backend && uv sync
-	cd frontend && npm install
-	@echo "2. Running migrations..."
-	cd backend && alembic upgrade head
-	@echo "3. Seeding database..."
-	cd backend && python -m app.db.seed
-	@echo "✅ Development environment ready!"
-
-migrate:
-	@echo "Running database migrations..."
-	cd backend && alembic upgrade head
+  console.log(`✓ Seeded ${count} realistic cars`);
+}
 ```
 
-**Usage:**
+### Seed from JSON File
+
+```typescript
+// packages/database/src/seed/from-file.ts
+import { db } from "../index";
+import { cars } from "../db/schema";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+export async function seedFromJSON() {
+  console.log("Seeding from JSON file...");
+
+  // Read data from JSON file
+  const filePath = join(__dirname, "../../data/cars.json");
+  const rawData = readFileSync(filePath, "utf-8");
+  const carData = JSON.parse(rawData);
+
+  await db.insert(cars).values(carData);
+
+  console.log(`✓ Seeded ${carData.length} cars from JSON`);
+}
+```
+
+Example JSON file:
+
+```json
+// packages/database/data/cars.json
+[
+  {
+    "id": "car-1",
+    "make": "Toyota",
+    "model": "Camry",
+    "vehicleClass": "Sedan",
+    "fuelType": "Petrol",
+    "month": "2024-01",
+    "number": 150
+  },
+  {
+    "id": "car-2",
+    "make": "Honda",
+    "model": "Civic",
+    "vehicleClass": "Sedan",
+    "fuelType": "Petrol",
+    "month": "2024-01",
+    "number": 120
+  }
+]
+```
+
+### Seed from CSV
 
 ```bash
-# Seed database
-make seed
-
-# Reset and seed
-make reset-db
-
-# Full dev setup
-make setup-dev
+pnpm -F @sgcarstrends/database add -D csv-parse
 ```
 
-### 6. Seed Data in Tests
+```typescript
+// packages/database/src/seed/from-csv.ts
+import { db } from "../index";
+import { cars } from "../db/schema";
+import { parse } from "csv-parse/sync";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { nanoid } from "nanoid";
 
-```python
-# tests/conftest.py
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from app.db.base import Base
-from app.db.seed import seed_users, seed_team_members
+export async function seedFromCSV() {
+  console.log("Seeding from CSV file...");
 
-TEST_DATABASE_URL = "postgresql://test:test@localhost:5432/test_qa_portal"
+  const filePath = join(__dirname, "../../data/cars.csv");
+  const csvContent = readFileSync(filePath, "utf-8");
 
-@pytest.fixture(scope="session")
-def test_db():
-    """Create test database and seed initial data."""
-    engine = create_engine(TEST_DATABASE_URL)
-    Base.metadata.create_all(engine)
+  const records = parse(csvContent, {
+    columns: true,
+    skip_empty_lines: true,
+  });
 
-    SessionLocal = sessionmaker(bind=engine)
-    db = SessionLocal()
+  const carData = records.map((record: any) => ({
+    id: nanoid(),
+    make: record.make,
+    model: record.model,
+    vehicleClass: record.vehicle_class,
+    fuelType: record.fuel_type,
+    month: record.month,
+    number: parseInt(record.number, 10),
+  }));
 
-    # Seed test data
-    import asyncio
-    asyncio.run(seed_users(db))
-    asyncio.run(seed_team_members(db))
+  // Batch insert
+  const batchSize = 100;
+  for (let i = 0; i < carData.length; i += batchSize) {
+    const batch = carData.slice(i, i + batchSize);
+    await db.insert(cars).values(batch);
+  }
 
-    yield db
-
-    db.close()
-    Base.metadata.drop_all(engine)
-
-@pytest.fixture
-def db(test_db):
-    """Provide a clean database for each test."""
-    test_db.begin_nested()
-    yield test_db
-    test_db.rollback()
+  console.log(`✓ Seeded ${carData.length} cars from CSV`);
+}
 ```
 
-### 7. Environment-Specific Seeding
+## Environment-Specific Seeds
 
-```python
-# backend/app/db/seed.py
-import os
-from app.core.config import settings
+### Development Seeds
 
-async def seed_all():
-    """Seed data based on environment."""
-    db = SessionLocal()
+```typescript
+// packages/database/src/seed/dev.ts
+import { seedCars } from "./cars";
+import { seedCOE } from "./coe";
+import { seedRealisticCars } from "./realistic-data";
 
-    try:
-        # Always seed users
-        await seed_users(db)
+export async function seedDevelopment() {
+  console.log("🔧 Seeding development environment...\n");
 
-        # Seed sample data in dev/staging only
-        if settings.ENVIRONMENT in ["development", "staging"]:
-            print("📝 Development/Staging environment detected")
-            print("   Seeding sample data...\n")
+  // Small, predictable dataset
+  await seedCars();
+  await seedCOE();
 
-            await seed_team_members(db)
-            await seed_updates(db)
-            await seed_tools(db)
-            await seed_resources(db)
-            await seed_research(db)
-        else:
-            print("🚫 Production environment detected")
-            print("   Skipping sample data seeding.\n")
-
-    finally:
-        db.close()
+  console.log("\n✅ Development seed complete!");
+}
 ```
 
-## Seed Data Best Practices
+### Testing Seeds
 
-1. **Idempotent Seeds**: Check if data exists before inserting
-2. **Realistic Data**: Use realistic names, emails, dates
-3. **Relationships**: Maintain referential integrity
-4. **Timestamps**: Use appropriate dates (recent for updates)
-5. **Passwords**: Use strong test passwords, document them
-6. **Environment-Aware**: Don't seed demo data in production
-7. **Version Control**: Keep seed scripts in version control
-8. **Documentation**: Document test credentials clearly
+```typescript
+// packages/database/src/seed/test.ts
+export async function seedTesting() {
+  console.log("🧪 Seeding test environment...\n");
 
-## Testing Seed Scripts
+  // Minimal, deterministic data for tests
+  const testCar = {
+    id: "test-car-1",
+    make: "Toyota",
+    model: "Camry",
+    vehicleClass: "Sedan",
+    fuelType: "Petrol",
+    month: "2024-01",
+    number: 100,
+  };
 
-```python
-# tests/test_seed.py
-import pytest
-from app.db.seed import seed_users, seed_team_members
+  await db.insert(cars).values([testCar]);
 
-@pytest.mark.asyncio
-async def test_seed_users(db):
-    """Test user seeding."""
-    await seed_users(db)
-
-    # Check users created
-    users = db.query(User).all()
-    assert len(users) >= 3
-
-    # Check admin user
-    admin = db.query(User).filter(User.role == "admin").first()
-    assert admin is not None
-    assert admin.email == "admin@evoketech.com"
-
-@pytest.mark.asyncio
-async def test_seed_team_members(db):
-    """Test team member seeding."""
-    await seed_team_members(db)
-
-    # Check team members created
-    members = db.query(TeamMember).all()
-    assert len(members) >= 6
-
-    # Check required fields
-    for member in members:
-        assert member.name
-        assert member.email
-        assert member.role
+  console.log("\n✅ Test seed complete!");
+}
 ```
 
-## Troubleshooting
+### Staging Seeds
 
-**Foreign key constraint errors:**
-- Ensure parent records created before children
-- Check relationship setup in models
-- Seed in correct order (users → team members → content)
+```typescript
+// packages/database/src/seed/staging.ts
+export async function seedStaging() {
+  console.log("🎭 Seeding staging environment...\n");
 
-**Duplicate key errors:**
-- Check for existing data before insert
-- Use `get_or_create` pattern
-- Clear database before reseeding
+  // Larger, realistic dataset similar to production
+  await seedRealisticCars(1000);
+  await seedRealisticCOE(500);
+  await seedRealisticPosts(50);
 
-**Slow seeding:**
-- Use bulk inserts for large datasets
-- Commit in batches (every 100 records)
-- Disable indexes temporarily for large seeds
+  console.log("\n✅ Staging seed complete!");
+}
+```
 
-## Report
+### Conditional Seeding
 
-✅ Seed script created with realistic data
-✅ Users seeded (admin, lead, member)
-✅ Team members seeded (6 members)
-✅ Updates seeded (5 recent updates)
-✅ Tools seeded (8 tools across 6 categories)
-✅ Resources seeded (5 resources)
-✅ Research seeded (3 articles)
-✅ Reset script created
-✅ Makefile commands added
-✅ Environment-aware seeding implemented
-✅ Test credentials documented
-✅ Idempotent seeds (checks for existing data)
+```typescript
+// packages/database/src/seed/index.ts
+import { seedDevelopment } from "./dev";
+import { seedTesting } from "./test";
+import { seedStaging } from "./staging";
+
+export async function seed() {
+  const env = process.env.NODE_ENV || "development";
+
+  switch (env) {
+    case "development":
+      await seedDevelopment();
+      break;
+    case "test":
+      await seedTesting();
+      break;
+    case "staging":
+      await seedStaging();
+      break;
+    default:
+      throw new Error(`No seed strategy for environment: ${env}`);
+  }
+}
+```
+
+## Idempotent Seeds
+
+### Upsert Pattern
+
+```typescript
+// packages/database/src/seed/idempotent.ts
+import { db } from "../index";
+import { cars } from "../db/schema";
+
+export async function seedIdempotent() {
+  console.log("Seeding with upsert...");
+
+  const carData = [
+    {
+      id: "fixed-id-1",
+      make: "Toyota",
+      model: "Camry",
+      month: "2024-01",
+      number: 150,
+    },
+  ];
+
+  // Use onConflictDoUpdate for upsert
+  await db
+    .insert(cars)
+    .values(carData)
+    .onConflictDoUpdate({
+      target: cars.id,
+      set: {
+        make: carData[0].make,
+        model: carData[0].model,
+        number: carData[0].number,
+        updatedAt: new Date(),
+      },
+    });
+
+  console.log("✓ Upserted cars");
+}
+```
+
+### Check Before Insert
+
+```typescript
+export async function seedIfEmpty() {
+  console.log("Checking if database needs seeding...");
+
+  const existingCars = await db.select().from(cars).limit(1);
+
+  if (existingCars.length > 0) {
+    console.log("Database already has data, skipping seed");
+    return;
+  }
+
+  console.log("Database is empty, proceeding with seed");
+  await seedCars();
+}
+```
+
+## Performance Optimization
+
+### Batch Inserts
+
+```typescript
+export async function seedLargeDataset() {
+  const totalRecords = 10000;
+  const batchSize = 1000;
+
+  console.log(`Seeding ${totalRecords} records in batches of ${batchSize}...`);
+
+  for (let i = 0; i < totalRecords; i += batchSize) {
+    const batch = generateBatch(batchSize);
+
+    await db.insert(cars).values(batch);
+
+    console.log(`Progress: ${Math.min(i + batchSize, totalRecords)}/${totalRecords}`);
+  }
+
+  console.log("✓ Large dataset seeded");
+}
+
+function generateBatch(size: number) {
+  return Array.from({ length: size }, () => ({
+    id: nanoid(),
+    make: "Toyota",
+    model: "Camry",
+    month: "2024-01",
+    number: 100,
+  }));
+}
+```
+
+### Use Transactions
+
+```typescript
+import { db } from "../index";
+
+export async function seedWithTransaction() {
+  console.log("Seeding with transaction...");
+
+  await db.transaction(async (tx) => {
+    // All or nothing
+    await tx.insert(cars).values([...carData]);
+    await tx.insert(coe).values([...coeData]);
+    await tx.insert(posts).values([...postData]);
+  });
+
+  console.log("✓ Transaction seed complete");
+}
+```
+
+## Utility Functions
+
+### Generate Realistic Dates
+
+```typescript
+function generateMonthRange(start: string, end: string): string[] {
+  const months = [];
+  let current = new Date(start);
+  const endDate = new Date(end);
+
+  while (current <= endDate) {
+    months.push(current.toISOString().slice(0, 7));
+    current.setMonth(current.getMonth() + 1);
+  }
+
+  return months;
+}
+
+// Usage
+const months = generateMonthRange("2020-01", "2024-12");
+```
+
+### Generate Sequential IDs
+
+```typescript
+function generateSequentialId(prefix: string, index: number): string {
+  return `${prefix}-${String(index).padStart(5, "0")}`;
+}
+
+// Usage
+const id = generateSequentialId("car", 42); // "car-00042"
+```
+
+## Testing Seeds
+
+```typescript
+// packages/database/src/seed/__tests__/seed.test.ts
+import { describe, it, expect, beforeEach } from "vitest";
+import { db } from "../../index";
+import { cars } from "../../db/schema";
+import { seedCars } from "../cars";
+
+describe("Seed Scripts", () => {
+  beforeEach(async () => {
+    // Clear data before each test
+    await db.delete(cars);
+  });
+
+  it("seeds cars successfully", async () => {
+    await seedCars();
+
+    const result = await db.select().from(cars);
+
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0].make).toBeDefined();
+  });
+
+  it("creates valid data", async () => {
+    await seedCars();
+
+    const [car] = await db.select().from(cars).limit(1);
+
+    expect(car.id).toBeTruthy();
+    expect(car.make).toBeTruthy();
+    expect(car.number).toBeGreaterThanOrEqual(0);
+  });
+});
+```
+
+## CLI for Selective Seeding
+
+```typescript
+// packages/database/scripts/seed-cli.ts
+import { seedCars } from "../src/seed/cars";
+import { seedCOE } from "../src/seed/coe";
+import { seedPosts } from "../src/seed/posts";
+
+const seeders = {
+  cars: seedCars,
+  coe: seedCOE,
+  posts: seedPosts,
+  all: async () => {
+    await seedCars();
+    await seedCOE();
+    await seedPosts();
+  },
+};
+
+const target = process.argv[2] as keyof typeof seeders;
+
+if (!target || !seeders[target]) {
+  console.error("Usage: pnpm db:seed [cars|coe|posts|all]");
+  process.exit(1);
+}
+
+seeders[target]()
+  .then(() => {
+    console.log(`✅ Seeded ${target} successfully`);
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error(`❌ Seed failed:`, error);
+    process.exit(1);
+  });
+```
+
+Add to `package.json`:
+
+```json
+{
+  "scripts": {
+    "db:seed": "tsx scripts/seed-cli.ts all",
+    "db:seed:cars": "tsx scripts/seed-cli.ts cars",
+    "db:seed:coe": "tsx scripts/seed-cli.ts coe",
+    "db:seed:posts": "tsx scripts/seed-cli.ts posts"
+  }
+}
+```
+
+## Common Seed Data
+
+### COE Seed Data
+
+```typescript
+// packages/database/src/seed/coe.ts
+import { db } from "../index";
+import { coe } from "../db/schema";
+import { nanoid } from "nanoid";
+
+export async function seedCOE() {
+  console.log("Seeding COE data...");
+
+  const coeData = [
+    {
+      id: nanoid(),
+      biddingNo: 1,
+      month: "2024-01",
+      vehicleClass: "A",
+      quota: 1000,
+      bidsReceived: 1200,
+      premium: "95000.00",
+    },
+    {
+      id: nanoid(),
+      biddingNo: 1,
+      month: "2024-01",
+      vehicleClass: "B",
+      quota: 800,
+      bidsReceived: 900,
+      premium: "105000.00",
+    },
+  ];
+
+  await db.insert(coe).values(coeData);
+
+  console.log(`✓ Seeded ${coeData.length} COE records`);
+}
+```
+
+## References
+
+- Related files:
+  - `packages/database/src/seed/` - Seed scripts
+  - `packages/database/scripts/seed.ts` - Seed runner
+  - `packages/database/CLAUDE.md` - Database package documentation
+
+## Best Practices
+
+1. **Idempotent**: Seeds should be safe to run multiple times
+2. **Environment-Specific**: Different seed data for dev/test/staging
+3. **Realistic Data**: Use Faker for realistic test data
+4. **Batch Inserts**: Use batching for large datasets
+5. **Relationships**: Seed in correct order (parent tables first)
+6. **Transactions**: Use transactions for atomic seeding
+7. **Clear First**: Option to clear existing data
+8. **Logging**: Provide clear progress feedback

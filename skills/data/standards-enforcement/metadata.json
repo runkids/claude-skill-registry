@@ -1,9 +1,7 @@
 {
   "name": "standards-enforcement",
-  "description": "Establish and enforce coding standards, best practices, and architectural patterns across the codebase using linters, formatters, and code review processes. Use when setting up ESLint/Prettier, config",
-  "repo": "korallis/Droidz",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/standards-enforcement/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-28T02:19:38.962507Z"
 }

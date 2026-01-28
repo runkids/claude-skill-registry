@@ -1,7 +1,7 @@
 {
   "name": "continuity",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/real-analysis/continuity/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:44.869614Z"
+  "repo": "vjrivmon/Setup-Software-IA",
+  "path": ".claude/skills/ux-ui/gestalt/continuity/SKILL.md",
+  "source": "github.com/vjrivmon/Setup-Software-IA",
+  "downloaded_at": "2026-01-28T04:40:43.156825Z"
 }

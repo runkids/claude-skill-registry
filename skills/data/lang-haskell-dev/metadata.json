@@ -1,9 +1,7 @@
 {
   "name": "lang-haskell-dev",
-  "description": "Foundational Haskell patterns covering pure functional programming, type system, type classes, monads, and common idioms. Use when writing Haskell code, understanding pure functions, working with Mayb",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-haskell-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:49.180858Z"
 }

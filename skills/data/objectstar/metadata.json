@@ -1,9 +1,7 @@
 {
   "name": "objectstar",
-  "description": ">",
   "repo": "JohnnyVicious/objectstar-skill",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".codex/skills/objectstar/SKILL.md",
+  "source": "github.com/JohnnyVicious/objectstar-skill",
+  "downloaded_at": "2026-01-28T02:36:45.556660Z"
 }

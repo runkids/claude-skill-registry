@@ -18,10 +18,20 @@ Arguments: `$ARGUMENTS` - schema file, API endpoint, or database connection
 - **Validation**: Runtime type guards included
 
 **Token Optimization:**
-- Uses Grep to find schemas (100 tokens)
-- Reads only relevant schema files (1,000 tokens)
-- Caches common patterns (saves 300 tokens)
-- Expected: 1,500-2,500 tokens
+- ✅ Bash-based schema source detection (minimal tokens)
+- ✅ Grep to find schema files (100 tokens vs 4,000+ reading all files)
+- ✅ Template-based type generation (no file reads for type templates)
+- ✅ Caching schema patterns and generated types
+- ✅ Early exit when schemas haven't changed - saves 95%
+- ✅ Incremental type generation (one schema at a time)
+- **Expected tokens:** 800-2,000 (vs. 4,000-6,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/types/schema-cache.json`
+- Caches: Schema checksums, generated types, source mappings
+- Cache validity: Until schema files change (checksum-based)
+- Shared with: `/migration-generate`, `/openapi-types` skills
 
 ## Phase 1: Source Detection
 

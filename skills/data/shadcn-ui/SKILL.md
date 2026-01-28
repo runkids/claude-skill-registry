@@ -1,183 +1,94 @@
 ---
 name: shadcn-ui
-description: Guide for implementing shadcn/ui - a collection of beautifully-designed, accessible UI components built with Radix UI and Tailwind CSS. Use when building user interfaces, adding UI components, or implementing design systems in React-based applications.
-license: MIT
-version: 1.0.0
+description: Build beautiful, accessible UIs with shadcn/ui components. Use this skill when creating forms, dialogs, tables, sidebars, or any UI components in Next.js. Covers installation, component patterns, react-hook-form integration with Zod validation, and dark mode setup.
 ---
 
-# shadcn/ui Skill
+# shadcn/ui
 
-shadcn/ui is a collection of beautifully-designed, accessible components and a code distribution platform built with TypeScript, Tailwind CSS, and Radix UI primitives. It's not a traditional component library but a collection of reusable components you can copy and paste into your apps.
+Build beautiful, accessible UIs with copy-paste components. shadcn/ui provides a collection of reusable components built with Radix UI and Tailwind CSS.
 
-## Reference
+## When to Use
 
-https://ui.shadcn.com/llms.txt
+- Building UI components for Next.js applications
+- Creating forms with validation (react-hook-form + Zod)
+- Implementing dialogs, modals, and alerts
+- Building data tables with sorting/filtering
+- Creating dashboard layouts with sidebars
+- Adding dark mode support
 
-## When to Use This Skill
-
-Use this skill when:
-- Building user interfaces with React-based frameworks (Next.js, Vite, Remix, Astro, etc.)
-- Adding pre-built, accessible UI components to applications
-- Implementing design systems with Tailwind CSS
-- Setting up forms with validation (React Hook Form + Zod)
-- Adding data tables, charts, or complex UI patterns
-- Implementing dark mode with consistent theming
-- Customizing component appearance and behavior
-
-## Core Concepts
-
-### Key Principles
-
-- **Open Code**: Copy components into your project, modify freely
-- **Composition**: Built with composable primitives from Radix UI
-- **Distribution**: Components distributed via CLI, not npm packages
-- **Beautiful Defaults**: Thoughtfully designed with excellent aesthetics
-- **AI-Ready**: Structured for easy integration with AI tools
-
-### Architecture
-
-shadcn/ui follows a unique distribution model:
-1. **CLI Tool**: Installs and manages components via `npx shadcn@latest`
-2. **Component Registry**: Central repository of components
-3. **Local Components**: Components live in your `components/ui/` directory
-4. **Full Ownership**: You own the code, modify as needed
-
-### Technology Stack
-
-- **TypeScript**: Full type safety
-- **Tailwind CSS**: Utility-first styling (v3 and v4 support)
-- **Radix UI**: Accessible, unstyled primitives
-- **Class Variance Authority**: Component variants
-- **React 19**: Compatible with latest React
-
-## Installation & Setup
-
-### Initial Setup
-
-**Using the CLI (Recommended):**
+## Quick Start
 
 ```bash
+# Initialize shadcn/ui in your Next.js project
 npx shadcn@latest init
-```
 
-The CLI will prompt for:
-- Framework preference (Next.js, Vite, etc.)
-- TypeScript or JavaScript
-- Component installation location
-- CSS variables or Tailwind configuration
-- Color theme preferences
-- Global CSS file location
-
-**Manual Setup:**
-
-1. Install dependencies:
-```bash
-npm install tailwindcss-animate class-variance-authority clsx tailwind-merge lucide-react
-```
-
-2. Create `components.json`:
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.ts",
-    "css": "app/globals.css",
-    "baseColor": "zinc",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils"
-  }
-}
-```
-
-3. Configure Tailwind:
-```ts
-// tailwind.config.ts
-import type { Config } from "tailwindcss"
-
-const config: Config = {
-  darkMode: ["class"],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("tailwindcss-animate")],
-}
-
-export default config
-```
-
-4. Create utility file:
-```ts
-// lib/utils.ts
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-```
-
-### Adding Components
-
-**Via CLI:**
-```bash
-# Add single component
+# Add components as needed
 npx shadcn@latest add button
-
-# Add multiple components
-npx shadcn@latest add button card dialog
-
-# Add all components
-npx shadcn@latest add --all
+npx shadcn@latest add form
+npx shadcn@latest add dialog
+npx shadcn@latest add table
+npx shadcn@latest add sidebar
 ```
 
-**What happens when you add a component:**
-1. Component files are copied to `components/ui/`
-2. Dependencies are automatically installed
-3. Component is ready to import and use
+## Core Patterns
 
-## Component Categories
+### 1. Project Setup
 
-### Form & Input Components
+```bash
+# Create Next.js project with shadcn/ui
+npx create-next-app@latest my-app --typescript --tailwind --eslint
+cd my-app
 
-**Button:**
+# Initialize shadcn/ui
+npx shadcn@latest init
+
+# Common components for TaskFlow-style apps
+npx shadcn@latest add button card form input label dialog \
+  table badge sidebar dropdown-menu avatar separator \
+  select textarea tabs toast sonner
+```
+
+### 2. Button Variants
+
 ```tsx
 import { Button } from "@/components/ui/button"
 
-<Button variant="default">Click me</Button>
+// Variants
+<Button variant="default">Primary</Button>
+<Button variant="secondary">Secondary</Button>
 <Button variant="destructive">Delete</Button>
-<Button variant="outline" size="sm">Small</Button>
-<Button variant="ghost" size="icon">
-  <Icon />
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>
+
+// Sizes
+<Button size="sm">Small</Button>
+<Button size="default">Default</Button>
+<Button size="lg">Large</Button>
+<Button size="icon"><Plus /></Button>
+
+// With loading state
+<Button disabled>
+  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+  Loading...
+</Button>
+
+// As child (for Next.js Link)
+<Button asChild>
+  <Link href="/dashboard">Go to Dashboard</Link>
 </Button>
 ```
 
-**Input:**
-```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+### 3. Forms with react-hook-form + Zod
 
-<div>
-  <Label htmlFor="email">Email</Label>
-  <Input id="email" type="email" placeholder="you@example.com" />
-</div>
-```
-
-**Form (with validation):**
 ```tsx
-import { useForm } from "react-hook-form"
+"use client"
+
 import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -188,54 +99,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  email: z.string().email(),
-})
-
-function ProfileForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      email: "",
-    },
-  })
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-  }
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  )
-}
-```
-
-**Select:**
-```tsx
+import { Textarea } from "@/components/ui/textarea"
 import {
   Select,
   SelectContent,
@@ -244,55 +108,471 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-<Select>
-  <SelectTrigger className="w-[180px]">
-    <SelectValue placeholder="Theme" />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="light">Light</SelectItem>
-    <SelectItem value="dark">Dark</SelectItem>
-    <SelectItem value="system">System</SelectItem>
-  </SelectContent>
-</Select>
+// Define schema
+const taskSchema = z.object({
+  title: z.string().min(1, "Title is required").max(200),
+  description: z.string().optional(),
+  priority: z.enum(["low", "medium", "high", "critical"]),
+  assignee: z.string().optional(),
+})
+
+type TaskFormValues = z.infer<typeof taskSchema>
+
+export function TaskForm({ onSubmit }: { onSubmit: (data: TaskFormValues) => void }) {
+  const form = useForm<TaskFormValues>({
+    resolver: zodResolver(taskSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      priority: "medium",
+    },
+  })
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input placeholder="Task title..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Describe the task..."
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Optional details about the task.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="priority"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Priority</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="critical">Critical</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? "Creating..." : "Create Task"}
+        </Button>
+      </form>
+    </Form>
+  )
+}
 ```
 
-**Checkbox:**
-```tsx
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+### 4. Dialog / Modal
 
-<div className="flex items-center space-x-2">
-  <Checkbox id="terms" />
-  <Label htmlFor="terms">Accept terms and conditions</Label>
-</div>
-```
-
-**Date Picker:**
 ```tsx
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { CalendarIcon } from "lucide-react"
-import { format } from "date-fns"
 
-const [date, setDate] = useState<Date>()
+// Basic Dialog
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Create Task</Button>
+  </DialogTrigger>
+  <DialogContent className="sm:max-w-[425px]">
+    <DialogHeader>
+      <DialogTitle>Create New Task</DialogTitle>
+      <DialogDescription>
+        Add a new task to your project. Click save when done.
+      </DialogDescription>
+    </DialogHeader>
+    <TaskForm onSubmit={handleSubmit} />
+  </DialogContent>
+</Dialog>
 
-<Popover>
-  <PopoverTrigger asChild>
-    <Button variant="outline">
-      <CalendarIcon className="mr-2 h-4 w-4" />
-      {date ? format(date, "PPP") : "Pick a date"}
-    </Button>
-  </PopoverTrigger>
-  <PopoverContent className="w-auto p-0">
-    <Calendar mode="single" selected={date} onSelect={setDate} />
-  </PopoverContent>
-</Popover>
+// Controlled Dialog
+const [open, setOpen] = useState(false)
+
+<Dialog open={open} onOpenChange={setOpen}>
+  <DialogTrigger asChild>
+    <Button>Edit</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit Task</DialogTitle>
+    </DialogHeader>
+    <TaskForm
+      onSubmit={(data) => {
+        handleUpdate(data)
+        setOpen(false)
+      }}
+    />
+  </DialogContent>
+</Dialog>
 ```
 
-### Layout & Navigation
+### 5. Alert Dialog (Confirmation)
 
-**Card:**
+```tsx
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="destructive">Delete Task</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone. This will permanently delete the task
+        and remove all associated data.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction onClick={handleDelete}>
+        Delete
+      </AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+### 6. Data Table
+
+```tsx
+"use client"
+
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
+} from "@tanstack/react-table"
+import { useState } from "react"
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+
+// Define columns
+const columns: ColumnDef<Task>[] = [
+  {
+    accessorKey: "title",
+    header: "Title",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string
+      return (
+        <Badge variant={status === "completed" ? "default" : "secondary"}>
+          {status}
+        </Badge>
+      )
+    },
+  },
+  {
+    accessorKey: "priority",
+    header: "Priority",
+    cell: ({ row }) => {
+      const priority = row.getValue("priority") as string
+      const colors = {
+        low: "bg-gray-100 text-gray-800",
+        medium: "bg-blue-100 text-blue-800",
+        high: "bg-orange-100 text-orange-800",
+        critical: "bg-red-100 text-red-800",
+      }
+      return (
+        <Badge className={colors[priority as keyof typeof colors]}>
+          {priority}
+        </Badge>
+      )
+    },
+  },
+  {
+    accessorKey: "assignee",
+    header: "Assignee",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const task = row.original
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => handleEdit(task)}>
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleDelete(task.id)}>
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  },
+]
+
+// DataTable component
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+}
+
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([])
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+    state: { sorting },
+  })
+
+  return (
+    <div>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
+    </div>
+  )
+}
+```
+
+### 7. Sidebar Navigation
+
+```tsx
+import { cookies } from "next/headers"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+import {
+  LayoutDashboard,
+  ListTodo,
+  Users,
+  Settings,
+  Bot,
+} from "lucide-react"
+
+// Menu items
+const menuItems = [
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Tasks", url: "/tasks", icon: ListTodo, badge: "12" },
+  { title: "Workers", url: "/workers", icon: Users },
+  { title: "Agents", url: "/agents", icon: Bot },
+  { title: "Settings", url: "/settings", icon: Settings },
+]
+
+// AppSidebar component
+export function AppSidebar() {
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <div className="flex items-center gap-2 px-4 py-2">
+          <Bot className="h-6 w-6" />
+          <span className="font-semibold">TaskFlow</span>
+        </div>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {menuItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                  {item.badge && (
+                    <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>
+                  )}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>
+        <UserMenu />
+      </SidebarFooter>
+    </Sidebar>
+  )
+}
+
+// Layout with persistent sidebar state
+export async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
+
+  return (
+    <SidebarProvider defaultOpen={defaultOpen}>
+      <AppSidebar />
+      <main className="flex-1">
+        <header className="flex h-14 items-center gap-4 border-b px-4">
+          <SidebarTrigger />
+          <h1 className="text-lg font-semibold">Dashboard</h1>
+        </header>
+        <div className="p-4">{children}</div>
+      </main>
+    </SidebarProvider>
+  )
+}
+```
+
+### 8. Card Component
+
 ```tsx
 import {
   Card,
@@ -302,303 +582,98 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
 
+// Task Card
 <Card>
   <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card Description</CardDescription>
+    <div className="flex items-center justify-between">
+      <CardTitle className="text-lg">{task.title}</CardTitle>
+      <Badge variant={task.status === "completed" ? "default" : "secondary"}>
+        {task.status}
+      </Badge>
+    </div>
+    <CardDescription>
+      Assigned to {task.assignee}
+    </CardDescription>
   </CardHeader>
   <CardContent>
-    <p>Card Content</p>
+    <p className="text-sm text-muted-foreground">{task.description}</p>
+    <div className="mt-4">
+      <div className="flex justify-between text-sm mb-1">
+        <span>Progress</span>
+        <span>{task.progress}%</span>
+      </div>
+      <Progress value={task.progress} />
+    </div>
   </CardContent>
-  <CardFooter>
-    <p>Card Footer</p>
+  <CardFooter className="flex justify-between">
+    <Button variant="outline" size="sm">View Details</Button>
+    <Button size="sm">Start</Button>
   </CardFooter>
 </Card>
 ```
 
-**Tabs:**
+### 9. Toast Notifications (Sonner)
+
 ```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// Install sonner
+// npx shadcn@latest add sonner
 
-<Tabs defaultValue="account">
-  <TabsList>
-    <TabsTrigger value="account">Account</TabsTrigger>
-    <TabsTrigger value="password">Password</TabsTrigger>
-  </TabsList>
-  <TabsContent value="account">Account settings</TabsContent>
-  <TabsContent value="password">Password settings</TabsContent>
-</Tabs>
+// Add Toaster to layout
+import { Toaster } from "@/components/ui/sonner"
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Toaster />
+      </body>
+    </html>
+  )
+}
+
+// Use toast in components
+import { toast } from "sonner"
+
+// Success
+toast.success("Task created successfully")
+
+// Error
+toast.error("Failed to create task")
+
+// With description
+toast("Task Updated", {
+  description: "The task status has been changed to 'in progress'",
+})
+
+// With action
+toast("Task assigned", {
+  description: "Task #123 assigned to @claude-code",
+  action: {
+    label: "Undo",
+    onClick: () => handleUndo(),
+  },
+})
+
+// Promise toast
+toast.promise(createTask(data), {
+  loading: "Creating task...",
+  success: "Task created!",
+  error: "Failed to create task",
+})
 ```
 
-**Accordion:**
+### 10. Dark Mode
+
 ```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+// Install next-themes
+// npm install next-themes
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-    <AccordionContent>
-      Yes. It adheres to the WAI-ARIA design pattern.
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
-```
-
-**Navigation Menu:**
-```tsx
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-
-<NavigationMenu>
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <NavigationMenuLink>Link</NavigationMenuLink>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-  </NavigationMenuList>
-</NavigationMenu>
-```
-
-### Overlays & Dialogs
-
-**Dialog:**
-```tsx
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-
-<Dialog>
-  <DialogTrigger asChild>
-    <Button>Open Dialog</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
-```
-
-**Drawer:**
-```tsx
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-
-<Drawer>
-  <DrawerTrigger>Open</DrawerTrigger>
-  <DrawerContent>
-    <DrawerHeader>
-      <DrawerTitle>Are you sure?</DrawerTitle>
-      <DrawerDescription>This action cannot be undone.</DrawerDescription>
-    </DrawerHeader>
-    <DrawerFooter>
-      <Button>Submit</Button>
-      <DrawerClose>Cancel</DrawerClose>
-    </DrawerFooter>
-  </DrawerContent>
-</Drawer>
-```
-
-**Popover:**
-```tsx
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-
-<Popover>
-  <PopoverTrigger>Open</PopoverTrigger>
-  <PopoverContent>Place content here.</PopoverContent>
-</Popover>
-```
-
-**Toast:**
-```tsx
-import { useToast } from "@/hooks/use-toast"
-import { Button } from "@/components/ui/button"
-
-const { toast } = useToast()
-
-<Button
-  onClick={() => {
-    toast({
-      title: "Scheduled: Catch up",
-      description: "Friday, February 10, 2023 at 5:57 PM",
-    })
-  }}
->
-  Show Toast
-</Button>
-```
-
-**Command:**
-```tsx
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-
-<Command>
-  <CommandInput placeholder="Type a command or search..." />
-  <CommandList>
-    <CommandEmpty>No results found.</CommandEmpty>
-    <CommandGroup heading="Suggestions">
-      <CommandItem>Calendar</CommandItem>
-      <CommandItem>Search Emoji</CommandItem>
-      <CommandItem>Calculator</CommandItem>
-    </CommandGroup>
-  </CommandList>
-</Command>
-```
-
-### Feedback & Status
-
-**Alert:**
-```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-
-<Alert>
-  <AlertTitle>Heads up!</AlertTitle>
-  <AlertDescription>
-    You can add components to your app using the CLI.
-  </AlertDescription>
-</Alert>
-
-<Alert variant="destructive">
-  <AlertTitle>Error</AlertTitle>
-  <AlertDescription>
-    Your session has expired. Please log in again.
-  </AlertDescription>
-</Alert>
-```
-
-**Progress:**
-```tsx
-import { Progress } from "@/components/ui/progress"
-
-<Progress value={33} />
-```
-
-**Skeleton:**
-```tsx
-import { Skeleton } from "@/components/ui/skeleton"
-
-<div className="flex items-center space-x-4">
-  <Skeleton className="h-12 w-12 rounded-full" />
-  <div className="space-y-2">
-    <Skeleton className="h-4 w-[250px]" />
-    <Skeleton className="h-4 w-[200px]" />
-  </div>
-</div>
-```
-
-### Display Components
-
-**Table:**
-```tsx
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
-<Table>
-  <TableCaption>A list of your recent invoices.</TableCaption>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Invoice</TableHead>
-      <TableHead>Status</TableHead>
-      <TableHead>Amount</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>$250.00</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-```
-
-**Data Table (with sorting/filtering):**
-```bash
-npx shadcn@latest add data-table
-```
-
-**Avatar:**
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-<Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>CN</AvatarFallback>
-</Avatar>
-```
-
-**Badge:**
-```tsx
-import { Badge } from "@/components/ui/badge"
-
-<Badge>Default</Badge>
-<Badge variant="secondary">Secondary</Badge>
-<Badge variant="destructive">Destructive</Badge>
-<Badge variant="outline">Outline</Badge>
-```
-
-## Theming & Customization
-
-### Dark Mode Setup
-
-**Next.js (App Router):**
-
-1. Install next-themes:
-```bash
-npm install next-themes
-```
-
-2. Create theme provider:
-```tsx
+// Create theme provider
 // components/theme-provider.tsx
 "use client"
 
@@ -611,11 +686,8 @@ export function ThemeProvider({
 }: React.ComponentProps<typeof NextThemesProvider>) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
-```
 
-3. Wrap app with provider:
-```tsx
-// app/layout.tsx
+// Add to layout
 import { ThemeProvider } from "@/components/theme-provider"
 
 export default function RootLayout({ children }) {
@@ -634,271 +706,95 @@ export default function RootLayout({ children }) {
     </html>
   )
 }
-```
 
-4. Add theme toggle:
-```tsx
-import { Moon, Sun } from "lucide-react"
+// Theme toggle component
+"use client"
+
 import { useTheme } from "next-themes"
+import { Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme()
+  const { setTheme } = useTheme()
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-    >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon">
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 ```
 
-### Color Customization
+## Dependencies
 
-**Using CSS Variables:**
+```bash
+# Core (installed with shadcn init)
+# - tailwindcss
+# - @radix-ui/* (per component)
+# - class-variance-authority
+# - clsx
+# - tailwind-merge
+# - lucide-react
 
-```css
-/* globals.css */
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
+# Forms
+npm install react-hook-form @hookform/resolvers zod
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    /* ... */
-  }
-}
+# Data Tables
+npm install @tanstack/react-table
+
+# Toast
+# Added via: npx shadcn@latest add sonner
+
+# Dark Mode
+npm install next-themes
 ```
 
-**Using Tailwind Config:**
+## File Structure
 
-```ts
-// tailwind.config.ts
-export default {
-  theme: {
-    extend: {
-      colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        // ...
-      },
-    },
-  },
-}
 ```
-
-### Component Customization
-
-Since components live in your codebase, you can modify them directly:
-
-```tsx
-// components/ui/button.tsx
-// Modify variants, add new ones, change styles
-const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground",
-        destructive: "bg-destructive text-destructive-foreground",
-        outline: "border border-input bg-background",
-        // Add custom variant
-        custom: "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        // Add custom size
-        xl: "h-14 rounded-md px-10 text-lg",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
+components/
+├── ui/                    # shadcn components (auto-generated)
+│   ├── button.tsx
+│   ├── card.tsx
+│   ├── dialog.tsx
+│   ├── form.tsx
+│   ├── input.tsx
+│   ├── select.tsx
+│   ├── sidebar.tsx
+│   ├── table.tsx
+│   └── ...
+├── forms/                 # Custom form components
+│   ├── task-form.tsx
+│   └── worker-form.tsx
+├── tables/                # Custom table components
+│   ├── task-table.tsx
+│   └── columns.tsx
+├── theme-provider.tsx     # Dark mode provider
+└── app-sidebar.tsx        # Custom sidebar
 ```
-
-## Advanced Patterns
-
-### Server Actions (Next.js)
-
-```tsx
-// app/actions.ts
-"use server"
-
-import { z } from "zod"
-
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-})
-
-export async function createUser(formData: FormData) {
-  const validatedFields = schema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  })
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    }
-  }
-
-  // Create user
-}
-
-// app/signup/page.tsx
-import { createUser } from "@/app/actions"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-
-export default function SignupPage() {
-  return (
-    <form action={createUser}>
-      <Input name="email" type="email" />
-      <Input name="password" type="password" />
-      <Button type="submit">Sign up</Button>
-    </form>
-  )
-}
-```
-
-### Reusable Form Patterns
-
-```tsx
-// lib/form-utils.ts
-import { UseFormReturn } from "react-hook-form"
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-
-export function TextFormField({
-  form,
-  name,
-  label,
-  placeholder,
-  type = "text",
-}: {
-  form: UseFormReturn<any>
-  name: string
-  label: string
-  placeholder?: string
-  type?: string
-}) {
-  return (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <Input type={type} placeholder={placeholder} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
-```
-
-### Responsive Component Composition
-
-```tsx
-import { useMediaQuery } from "@/hooks/use-media-query"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Drawer, DrawerContent } from "@/components/ui/drawer"
-
-export function ResponsiveDialog({ children, ...props }) {
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-
-  if (isDesktop) {
-    return (
-      <Dialog {...props}>
-        <DialogContent>{children}</DialogContent>
-      </Dialog>
-    )
-  }
-
-  return (
-    <Drawer {...props}>
-      <DrawerContent>{children}</DrawerContent>
-    </Drawer>
-  )
-}
-```
-
-## Best Practices
-
-1. **Use TypeScript**: Leverage full type safety for better DX
-2. **Customize Components**: Modify components directly in your codebase
-3. **Compose Primitives**: Build complex UIs by composing simple components
-4. **Follow Accessibility**: Components are built on accessible Radix UI primitives
-5. **Use Form Validation**: Integrate React Hook Form + Zod for robust forms
-6. **Dark Mode**: Implement theme switching for better UX
-7. **Responsive Design**: Use Tailwind responsive utilities
-8. **Performance**: Use code splitting and lazy loading for large component sets
-9. **Consistent Spacing**: Use Tailwind spacing scale consistently
-10. **Icon Library**: Use lucide-react for consistent icons
-
-## Framework-Specific Setup
-
-### Next.js
-- Support for App Router and Pages Router
-- Server Components compatibility
-- Server Actions integration
-
-### Vite
-- Fast development with HMR
-- Easy setup with TypeScript
-
-### Remix
-- Route-based architecture
-- Progressive enhancement
-
-### Astro
-- Static site generation
-- Islands architecture
-
-### Laravel (Inertia.js)
-- Backend integration with Laravel
-- React frontend with Inertia
 
 ## Common Patterns
 
@@ -907,146 +803,50 @@ export function ResponsiveDialog({ children, ...props }) {
 ```tsx
 import { Skeleton } from "@/components/ui/skeleton"
 
-export function UserCardSkeleton() {
-  return (
-    <div className="flex items-center space-x-4">
-      <Skeleton className="h-12 w-12 rounded-full" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
-    </div>
-  )
-}
+// Card skeleton
+<Card>
+  <CardHeader>
+    <Skeleton className="h-4 w-[250px]" />
+    <Skeleton className="h-4 w-[200px]" />
+  </CardHeader>
+  <CardContent>
+    <Skeleton className="h-[125px] w-full rounded-xl" />
+  </CardContent>
+</Card>
 
-export function UserCard({ user }: { user?: User }) {
-  if (!user) return <UserCardSkeleton />
-
-  return (
-    <div className="flex items-center space-x-4">
-      <Avatar>
-        <AvatarImage src={user.avatar} />
-        <AvatarFallback>{user.initials}</AvatarFallback>
-      </Avatar>
-      <div>
-        <p className="text-sm font-medium">{user.name}</p>
-        <p className="text-sm text-muted-foreground">{user.email}</p>
-      </div>
-    </div>
-  )
-}
+// Table skeleton
+{Array.from({ length: 5 }).map((_, i) => (
+  <TableRow key={i}>
+    <TableCell><Skeleton className="h-4 w-[200px]" /></TableCell>
+    <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+    <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
+  </TableRow>
+))}
 ```
 
-### Error Handling
+### Empty States
 
 ```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+import { FileQuestion } from "lucide-react"
 
-export function ErrorAlert({ error }: { error: Error }) {
-  return (
-    <Alert variant="destructive">
-      <AlertCircle className="h-4 w-4" />
-      <AlertTitle>Error</AlertTitle>
-      <AlertDescription>{error.message}</AlertDescription>
-    </Alert>
-  )
-}
+<div className="flex flex-col items-center justify-center py-12">
+  <FileQuestion className="h-12 w-12 text-muted-foreground" />
+  <h3 className="mt-4 text-lg font-semibold">No tasks found</h3>
+  <p className="mt-2 text-sm text-muted-foreground">
+    Get started by creating a new task.
+  </p>
+  <Button className="mt-4">
+    <Plus className="mr-2 h-4 w-4" />
+    Create Task
+  </Button>
+</div>
 ```
 
-### Confirmation Dialogs
+## References
 
-```tsx
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-
-export function DeleteConfirmation({ onConfirm }: { onConfirm: () => void }) {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive">Delete</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  )
-}
+For additional documentation, use Context7 MCP:
+```
+mcp__context7__get-library-docs with context7CompatibleLibraryID="/shadcn-ui/ui" and topic="form"
 ```
 
-## Troubleshooting
-
-### Common Issues
-
-1. **"Module not found" errors**
-   - Check path aliases in `tsconfig.json`
-   - Verify `components.json` aliases match your project structure
-   - Ensure components are installed in correct directory
-
-2. **Styling not applied**
-   - Verify Tailwind CSS is configured correctly
-   - Check `globals.css` imports CSS variables
-   - Ensure `tailwindcss-animate` plugin is installed
-
-3. **Dark mode not working**
-   - Check ThemeProvider is wrapping your app
-   - Verify `suppressHydrationWarning` on `<html>` tag
-   - Ensure dark mode classes are defined in CSS
-
-4. **Form validation issues**
-   - Install required packages: `react-hook-form`, `@hookform/resolvers`, `zod`
-   - Check schema matches form fields
-   - Verify resolver is configured correctly
-
-5. **TypeScript errors**
-   - Update `@types/react` and `@types/react-dom`
-   - Check component prop types
-   - Ensure TypeScript version is compatible (>= 4.5)
-
-## Resources
-
-- Documentation: https://ui.shadcn.com
-- GitHub: https://github.com/shadcn-ui/ui
-- Component Registry: https://ui.shadcn.com/docs/components
-- Examples: https://ui.shadcn.com/examples
-- Figma Design Kit: https://ui.shadcn.com/figma
-- v0 (AI UI Generator): https://v0.dev
-
-## Implementation Checklist
-
-When implementing shadcn/ui:
-
-- [ ] Run `npx shadcn@latest init` to set up project
-- [ ] Configure Tailwind CSS and path aliases
-- [ ] Set up dark mode with ThemeProvider
-- [ ] Install required components via CLI
-- [ ] Create utility functions (cn helper)
-- [ ] Set up form handling (React Hook Form + Zod)
-- [ ] Configure icons (lucide-react)
-- [ ] Implement theme toggle component
-- [ ] Test components in both light and dark modes
-- [ ] Customize color palette if needed
-- [ ] Add loading states with Skeleton
-- [ ] Implement error handling patterns
-- [ ] Test accessibility features
-- [ ] Optimize bundle size (tree-shaking)
-- [ ] Add responsive design utilities
+Official docs: https://ui.shadcn.com

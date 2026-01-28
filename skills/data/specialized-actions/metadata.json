@@ -1,7 +1,7 @@
 {
   "name": "specialized-actions",
   "repo": "datamaker-kr/synapse-claude-marketplace",
-  "path": "skills/specialized-actions/SKILL.md",
+  "path": "plugins/synapse-plugin-helper/skills/specialized-actions/SKILL.md",
   "source": "github.com/datamaker-kr/synapse-claude-marketplace",
-  "downloaded_at": "2026-01-27T01:54:51.039539Z"
+  "downloaded_at": "2026-01-28T01:47:50.711100Z"
 }

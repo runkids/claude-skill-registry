@@ -1,7 +1,7 @@
 {
   "name": "holistic-testing-pact",
-  "repo": "natea/ai-news-influencer",
+  "repo": "proffesor-for-testing/agentic-qe",
   "path": ".claude/skills/holistic-testing-pact/SKILL.md",
-  "source": "github.com/natea/ai-news-influencer",
-  "downloaded_at": "2026-01-27T04:38:54.331107Z"
+  "source": "github.com/proffesor-for-testing/agentic-qe",
+  "downloaded_at": "2026-01-28T03:40:21.762096Z"
 }

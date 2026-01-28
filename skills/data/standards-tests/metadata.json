@@ -1,7 +1,7 @@
 {
   "name": "standards-tests",
   "repo": "maxritter/claude-codepro",
-  "path": ".claude/plugin/skills/standards-tests/SKILL.md",
+  "path": ".claude/ccp/skills/standards-tests/SKILL.md",
   "source": "github.com/maxritter/claude-codepro",
-  "downloaded_at": "2026-01-27T03:57:51.126783Z"
+  "downloaded_at": "2026-01-28T02:32:26.781281Z"
 }

@@ -1,70 +1,60 @@
 ---
-name: hooks
-description: Hook Development Rules
-user-invocable: false
+name: claude-hooks-developer
+description: Create, configure, and manage Claude Code hooks for workflow automation, validation, and security. Guides hook implementation, configuration patterns, and best practices.
 ---
 
-# Hook Development Rules
+# Claude Code Hooks Developer
 
-When working with files in `.claude/hooks/`:
+Compact skill for creating and managing Claude Code hooks that intercept tool calls, validate operations, and enhance workflows.
 
-## Pattern
-Shell wrapper (.sh) → TypeScript (.ts) via `npx tsx`
+## When to Use
 
-## Shell Wrapper Template
-```bash
-#!/bin/bash
-set -e
-cd "$CLAUDE_PROJECT_DIR/.claude/hooks"
-cat | npx tsx <handler>.ts
-```
+Activate when the user:
+- Needs to create a new hook (PreToolUse, PostToolUse, UserPromptSubmit, Stop, etc.)
+- Wants to configure hooks in `.claude/settings.json` or `.claude/settings.local.json`
+- Asks about hook lifecycle events or available hook types
+- Needs to validate/block operations, format files, or send notifications
+- Mentions security controls, file protection, or command validation
+- Wants examples of hook patterns or common use cases
 
-## TypeScript Handler Pattern
-```typescript
-interface HookInput {
-  // Event-specific fields
-}
+## Core Capabilities
 
-async function main() {
-  const input: HookInput = JSON.parse(await readStdin());
+- **Hook Types**: Guide selection between PreToolUse, PostToolUse, UserPromptSubmit, Stop, SubagentStop, SessionStart, Notification, PermissionRequest
+- **Hook Configuration**: Generate correct JSON structure for `settings.json` with matchers, commands, and paths
+- **Script Templates**: Provide Python/Bash templates for common hook patterns
+- **Security Patterns**: Implement file protection, dangerous command blocking, and access control
+- **Environment Variables**: Utilize CLAUDE_PROJECT_DIR, CLAUDE_TOOL_INPUT_*, and other hook context
+- **Decision Control**: Properly use exit codes (0=approve, 2=block) and JSON decision objects
+- **Common Use Cases**: Format files, validate commands, send notifications, log operations, enforce policies
 
-  // Process input
+## Quick Workflow
 
-  const output = {
-    result: 'continue',  // or 'block'
-    message: 'Optional system reminder'
-  };
+1. Identify the hook event type based on the desired trigger point
+2. Create the hook script in `.claude/hooks/` (Python or Bash)
+3. Make script executable (`chmod +x`)
+4. Add hook configuration to `.claude/settings.json` or `.claude/settings.local.json`
+5. Test the hook with relevant tool operations
+6. Verify proper exit codes and error messages
 
-  console.log(JSON.stringify(output));
-}
-```
+## Hook Event Types
 
-## Hook Events
-- **PreToolUse** - Before tool execution (can block)
-- **PostToolUse** - After tool execution
-- **UserPromptSubmit** - Before processing user prompt
-- **PreCompact** - Before context compaction
-- **SessionStart** - On session start/resume/compact
-- **Stop** - When agent finishes
+- **PreToolUse**: Runs before tool execution (can block/modify)
+- **PostToolUse**: Runs after tool execution (validation/cleanup)
+- **UserPromptSubmit**: Validates user prompts before processing
+- **Stop**: Controls whether Claude continues working
+- **SubagentStop**: Controls sub-agent continuation
+- **SessionStart**: Runs at session initialization
+- **Notification**: Responds to system notifications
+- **PermissionRequest**: Auto-approves/denies permission dialogs
 
-## Testing
-Test hooks manually:
-```bash
-echo '{"type": "resume"}' | .claude/hooks/session-start-continuity.sh
-```
+## Exit Codes
 
-## Registration
-Add hooks to `.claude/settings.json`:
-```json
-{
-  "hooks": {
-    "EventName": [{
-      "matcher": ["pattern"],  // Optional
-      "hooks": [{
-        "type": "command",
-        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/hook.sh"
-      }]
-    }]
-  }
-}
-```
+- **0**: Approve/Success - operation continues
+- **2**: Block - operation blocked with error message
+- **Other**: Error - operation fails
+
+## Reference Documentation
+
+- **Detailed Workflows & Patterns**: See `reference.md` in this directory
+- **Real-World Usage Examples**: See `examples.md` in this directory
+- **Hook Configuration Guide**: `.claude/hooks/doc-standards-reminder.sh` (example)

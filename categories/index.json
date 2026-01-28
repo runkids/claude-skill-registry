@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-27T04:46:40.123741Z",
+  "updated_at": "2026-01-28T04:46:46.932050Z",
   "categories": [
     {
       "name": ".template",
@@ -71,7 +71,7 @@
     },
     {
       "name": "data",
-      "count": 19094
+      "count": 20897
     },
     {
       "name": "data-access",
@@ -79,7 +79,7 @@
     },
     {
       "name": "design",
-      "count": 5710
+      "count": 5661
     },
     {
       "name": "design-principles",
@@ -87,7 +87,7 @@
     },
     {
       "name": "development",
-      "count": 18736
+      "count": 18613
     },
     {
       "name": "development-code",
@@ -99,7 +99,7 @@
     },
     {
       "name": "devops",
-      "count": 3254
+      "count": 3228
     },
     {
       "name": "docs",
@@ -111,7 +111,7 @@
     },
     {
       "name": "documents",
-      "count": 2801
+      "count": 2779
     },
     {
       "name": "domains",
@@ -163,7 +163,7 @@
     },
     {
       "name": "marketing",
-      "count": 464
+      "count": 463
     },
     {
       "name": "meta",
@@ -175,7 +175,7 @@
     },
     {
       "name": "other",
-      "count": 19954
+      "count": 19614
     },
     {
       "name": "performance",
@@ -195,7 +195,7 @@
     },
     {
       "name": "productivity",
-      "count": 1562
+      "count": 1558
     },
     {
       "name": "programming-languages",
@@ -215,7 +215,7 @@
     },
     {
       "name": "security",
-      "count": 787
+      "count": 777
     },
     {
       "name": "security-compliance",
@@ -259,7 +259,7 @@
     },
     {
       "name": "testing",
-      "count": 4092
+      "count": 4080
     },
     {
       "name": "testing-methodologies",

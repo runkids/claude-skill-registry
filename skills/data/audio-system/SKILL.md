@@ -1,547 +1,589 @@
 ---
 name: audio-system
-description: Implements audio systems using AudioStreamPlayer, audio buses, spatial audio, and dynamic music. Use when adding sound effects, music, and ambient audio.
+description: Implements audio systems including sound management, music systems, positional audio, and audio effects. Use when adding sound effects, music, ambient audio, or any audio features to a game.
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# Godot Audio System
+# Roblox Audio Systems
 
 When implementing audio, follow these patterns for immersive and performant sound design.
 
-## Audio Basics
+## Sound Management
 
-### Playing Sounds
-```gdscript
-extends Node2D
+### Sound Pooling
+```lua
+local SoundPool = {}
+SoundPool.pools = {}
 
-@onready var sfx_player: AudioStreamPlayer2D = $SFXPlayer
+function SoundPool.create(soundId, poolSize)
+    poolSize = poolSize or 5
 
-func play_sound(stream: AudioStream, volume_db: float = 0.0) -> void:
-    sfx_player.stream = stream
-    sfx_player.volume_db = volume_db
-    sfx_player.play()
+    local pool = {
+        sounds = {},
+        currentIndex = 1
+    }
 
-func play_sound_pitched(stream: AudioStream, pitch_range: float = 0.1) -> void:
-    sfx_player.stream = stream
-    sfx_player.pitch_scale = 1.0 + randf_range(-pitch_range, pitch_range)
-    sfx_player.play()
+    for i = 1, poolSize do
+        local sound = Instance.new("Sound")
+        sound.SoundId = soundId
+        sound.Parent = SoundService
+        table.insert(pool.sounds, sound)
+    end
 
-# One-shot sound (auto-cleanup)
-func play_oneshot(stream: AudioStream, position: Vector2) -> void:
-    var player := AudioStreamPlayer2D.new()
-    player.stream = stream
-    player.position = position
-    player.bus = "SFX"
-    add_child(player)
-    player.play()
-    player.finished.connect(player.queue_free)
+    SoundPool.pools[soundId] = pool
+    return pool
+end
+
+function SoundPool.play(soundId, properties)
+    local pool = SoundPool.pools[soundId]
+    if not pool then
+        pool = SoundPool.create(soundId)
+    end
+
+    local sound = pool.sounds[pool.currentIndex]
+    pool.currentIndex = pool.currentIndex % #pool.sounds + 1
+
+    -- Apply properties
+    if properties then
+        for key, value in pairs(properties) do
+            sound[key] = value
+        end
+    end
+
+    sound:Play()
+    return sound
+end
+
+-- Usage
+SoundPool.create("rbxassetid://123456789", 10)  -- Pre-create pool
+SoundPool.play("rbxassetid://123456789", {Volume = 0.5, PlaybackSpeed = 1.2})
 ```
 
-### Audio Pool
-```gdscript
-class_name AudioPool
-extends Node
+### Sound Priority System
+```lua
+local SoundManager = {}
+SoundManager.activeSounds = {}
+SoundManager.maxSounds = 32  -- Roblox limit is higher, but good for performance
 
-var pool: Array[AudioStreamPlayer] = []
-var pool_size := 10
-
-func _ready() -> void:
-    for i in range(pool_size):
-        var player := AudioStreamPlayer.new()
-        player.bus = "SFX"
-        add_child(player)
-        pool.append(player)
-
-func get_player() -> AudioStreamPlayer:
-    for player in pool:
-        if not player.playing:
-            return player
-
-    # All players busy, return first (will cut off)
-    return pool[0]
-
-func play(stream: AudioStream, volume: float = 0.0, pitch: float = 1.0) -> void:
-    var player := get_player()
-    player.stream = stream
-    player.volume_db = volume
-    player.pitch_scale = pitch
-    player.play()
-
-# 2D version
-class_name AudioPool2D
-extends Node
-
-var pool: Array[AudioStreamPlayer2D] = []
-
-func play_at(stream: AudioStream, position: Vector2) -> void:
-    var player := get_available_player()
-    player.stream = stream
-    player.global_position = position
-    player.play()
-```
-
-## Audio Bus System
-
-### Bus Configuration
-```gdscript
-extends Node
-
-func _ready() -> void:
-    setup_audio_buses()
-
-func setup_audio_buses() -> void:
-    # Buses are typically set up in Project Settings
-    # But can be modified at runtime
-
-    # Get bus indices
-    var master_idx := AudioServer.get_bus_index("Master")
-    var music_idx := AudioServer.get_bus_index("Music")
-    var sfx_idx := AudioServer.get_bus_index("SFX")
-
-    # Set volumes (in dB)
-    AudioServer.set_bus_volume_db(music_idx, linear_to_db(0.8))
-    AudioServer.set_bus_volume_db(sfx_idx, linear_to_db(1.0))
-
-func set_master_volume(linear: float) -> void:
-    var idx := AudioServer.get_bus_index("Master")
-    AudioServer.set_bus_volume_db(idx, linear_to_db(linear))
-
-func set_music_volume(linear: float) -> void:
-    var idx := AudioServer.get_bus_index("Music")
-    AudioServer.set_bus_volume_db(idx, linear_to_db(linear))
-
-func set_sfx_volume(linear: float) -> void:
-    var idx := AudioServer.get_bus_index("SFX")
-    AudioServer.set_bus_volume_db(idx, linear_to_db(linear))
-
-func mute_bus(bus_name: String, mute: bool) -> void:
-    var idx := AudioServer.get_bus_index(bus_name)
-    AudioServer.set_bus_mute(idx, mute)
-```
-
-### Audio Effects
-```gdscript
-extends Node
-
-func add_reverb_to_bus(bus_name: String) -> void:
-    var idx := AudioServer.get_bus_index(bus_name)
-
-    var reverb := AudioEffectReverb.new()
-    reverb.room_size = 0.8
-    reverb.damping = 0.5
-    reverb.wet = 0.3
-
-    AudioServer.add_bus_effect(idx, reverb)
-
-func add_lowpass_filter(bus_name: String, cutoff_hz: float = 1000.0) -> void:
-    var idx := AudioServer.get_bus_index(bus_name)
-
-    var filter := AudioEffectLowPassFilter.new()
-    filter.cutoff_hz = cutoff_hz
-    filter.resonance = 0.5
-
-    AudioServer.add_bus_effect(idx, filter)
-
-func add_compressor(bus_name: String) -> void:
-    var idx := AudioServer.get_bus_index(bus_name)
-
-    var compressor := AudioEffectCompressor.new()
-    compressor.threshold = -20
-    compressor.ratio = 4
-    compressor.attack_us = 20
-    compressor.release_ms = 250
-
-    AudioServer.add_bus_effect(idx, compressor)
-
-func set_effect_enabled(bus_name: String, effect_idx: int, enabled: bool) -> void:
-    var bus_idx := AudioServer.get_bus_index(bus_name)
-    AudioServer.set_bus_effect_enabled(bus_idx, effect_idx, enabled)
-```
-
-## Music System
-
-### Music Manager
-```gdscript
-# music_manager.gd (Autoload)
-extends Node
-
-@onready var music_player: AudioStreamPlayer = $MusicPlayer
-@onready var crossfade_player: AudioStreamPlayer = $CrossfadePlayer
-
-var current_track: AudioStream
-var is_crossfading := false
-
-func play_music(track: AudioStream, fade_duration: float = 1.0) -> void:
-    if track == current_track:
-        return
-
-    current_track = track
-
-    if music_player.playing and fade_duration > 0:
-        crossfade(track, fade_duration)
-    else:
-        music_player.stream = track
-        music_player.play()
-
-func crossfade(new_track: AudioStream, duration: float) -> void:
-    is_crossfading = true
-
-    # Set up crossfade player
-    crossfade_player.stream = new_track
-    crossfade_player.volume_db = -80
-    crossfade_player.play()
-
-    # Tween volumes
-    var tween := create_tween()
-    tween.set_parallel(true)
-    tween.tween_property(music_player, "volume_db", -80, duration)
-    tween.tween_property(crossfade_player, "volume_db", 0, duration)
-
-    await tween.finished
-
-    # Swap players
-    music_player.stop()
-    music_player.stream = new_track
-    music_player.volume_db = 0
-    music_player.play()
-    music_player.seek(crossfade_player.get_playback_position())
-    crossfade_player.stop()
-
-    is_crossfading = false
-
-func stop_music(fade_duration: float = 1.0) -> void:
-    if fade_duration > 0:
-        var tween := create_tween()
-        tween.tween_property(music_player, "volume_db", -80, fade_duration)
-        await tween.finished
-
-    music_player.stop()
-    music_player.volume_db = 0
-    current_track = null
-```
-
-### Adaptive Music
-```gdscript
-extends Node
-
-enum MusicState { EXPLORE, COMBAT, BOSS, VICTORY }
-
-var music_tracks := {
-    MusicState.EXPLORE: preload("res://audio/music/explore.ogg"),
-    MusicState.COMBAT: preload("res://audio/music/combat.ogg"),
-    MusicState.BOSS: preload("res://audio/music/boss.ogg"),
-    MusicState.VICTORY: preload("res://audio/music/victory.ogg")
+local SoundPriority = {
+    UI = 100,
+    PlayerAction = 80,
+    Combat = 70,
+    Environment = 50,
+    Ambient = 30
 }
 
-var current_state: MusicState = MusicState.EXPLORE
+function SoundManager.play(soundId, priority, properties)
+    priority = priority or SoundPriority.Environment
 
-func set_music_state(state: MusicState) -> void:
-    if state == current_state:
-        return
+    -- Check if we need to stop lower priority sounds
+    if #SoundManager.activeSounds >= SoundManager.maxSounds then
+        -- Find lowest priority sound
+        local lowestPriority = priority
+        local lowestIndex = nil
 
-    current_state = state
-    MusicManager.play_music(music_tracks[state])
+        for i, soundData in ipairs(SoundManager.activeSounds) do
+            if soundData.priority < lowestPriority then
+                lowestPriority = soundData.priority
+                lowestIndex = i
+            end
+        end
 
-# Layered adaptive music
-class_name AdaptiveMusicPlayer
-extends Node
+        if lowestIndex then
+            local removed = table.remove(SoundManager.activeSounds, lowestIndex)
+            removed.sound:Stop()
+        else
+            return nil  -- Can't play, all sounds are higher priority
+        end
+    end
 
-var layers: Array[AudioStreamPlayer] = []
-var layer_volumes: Array[float] = []
+    local sound = Instance.new("Sound")
+    sound.SoundId = soundId
 
-func setup_layers(streams: Array[AudioStream]) -> void:
-    for stream in streams:
-        var player := AudioStreamPlayer.new()
-        player.stream = stream
-        player.bus = "Music"
-        player.volume_db = -80
-        add_child(player)
-        layers.append(player)
-        layer_volumes.append(0.0)
+    if properties then
+        for key, value in pairs(properties) do
+            sound[key] = value
+        end
+    end
 
-func play_all() -> void:
-    for player in layers:
-        player.play()
+    sound.Parent = SoundService
+    sound:Play()
 
-func set_layer_volume(layer_idx: int, volume: float, fade_time: float = 0.5) -> void:
-    if layer_idx >= layers.size():
-        return
+    local soundData = {
+        sound = sound,
+        priority = priority
+    }
 
-    layer_volumes[layer_idx] = volume
-    var target_db := linear_to_db(volume) if volume > 0 else -80
+    table.insert(SoundManager.activeSounds, soundData)
 
-    var tween := create_tween()
-    tween.tween_property(layers[layer_idx], "volume_db", target_db, fade_time)
+    sound.Ended:Connect(function()
+        local index = table.find(SoundManager.activeSounds, soundData)
+        if index then
+            table.remove(SoundManager.activeSounds, index)
+        end
+        sound:Destroy()
+    end)
 
-func set_intensity(intensity: float) -> void:
-    # intensity 0-1 controls which layers are active
-    for i in range(layers.size()):
-        var threshold := float(i) / layers.size()
-        var target_volume := 1.0 if intensity > threshold else 0.0
-        set_layer_volume(i, target_volume)
+    return sound
+end
 ```
 
-### Beat Synchronization
-```gdscript
-extends Node
-
-signal beat
-signal bar
-
-@export var bpm := 120.0
-@export var beats_per_bar := 4
-
-var beat_duration: float
-var time_since_last_beat := 0.0
-var current_beat := 0
-
-func _ready() -> void:
-    beat_duration = 60.0 / bpm
-
-func _process(delta: float) -> void:
-    time_since_last_beat += delta
-
-    if time_since_last_beat >= beat_duration:
-        time_since_last_beat -= beat_duration
-        current_beat += 1
-        beat.emit()
-
-        if current_beat % beats_per_bar == 0:
-            bar.emit()
-
-func get_beat_progress() -> float:
-    return time_since_last_beat / beat_duration
-
-func sync_to_music(music_position: float) -> void:
-    current_beat = int(music_position / beat_duration)
-    time_since_last_beat = fmod(music_position, beat_duration)
-```
-
-## Spatial Audio
-
-### 2D Positional Audio
-```gdscript
-extends AudioStreamPlayer2D
-
-@export var max_distance := 500.0
-@export var attenuation := 1.0
-
-func _ready() -> void:
-    # Configure 2D audio
-    max_distance = max_distance
-    attenuation = attenuation
-
-    # Optional: Panning
-    panning_strength = 1.0
-
-# Doppler effect simulation
-extends AudioStreamPlayer2D
-
-var last_position: Vector2
-var velocity: Vector2
-
-func _physics_process(delta: float) -> void:
-    velocity = (global_position - last_position) / delta
-    last_position = global_position
-
-    # Adjust pitch based on relative velocity to listener
-    var listener_pos := get_viewport().get_camera_2d().global_position
-    var to_listener := (listener_pos - global_position).normalized()
-    var relative_velocity := velocity.dot(to_listener)
-
-    var speed_of_sound := 343.0 * 10  # Scaled for game units
-    var doppler_shift := speed_of_sound / (speed_of_sound + relative_velocity)
-
-    pitch_scale = clamp(doppler_shift, 0.5, 2.0)
-```
-
-### 3D Positional Audio
-```gdscript
-extends AudioStreamPlayer3D
-
-func _ready() -> void:
-    # Distance model
-    attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE
-
-    # Distance settings
-    unit_size = 10.0  # Distance at which volume is 0 dB
-    max_distance = 100.0
-
-    # Doppler
-    doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_PHYSICS_STEP
-
-    # Directional
-    emission_angle_enabled = true
-    emission_angle_degrees = 45.0
-    emission_angle_filter_attenuation_db = -12.0
-```
-
-### Audio Occlusion
-```gdscript
-extends AudioStreamPlayer3D
-
-@export var occlusion_bus := "Occluded"
-@export var normal_bus := "SFX"
-
-var listener: Node3D
-
-func _physics_process(_delta: float) -> void:
-    if not listener:
-        listener = get_viewport().get_camera_3d()
-
-    if not listener:
-        return
-
-    check_occlusion()
-
-func check_occlusion() -> void:
-    var space := get_world_3d().direct_space_state
-    var query := PhysicsRayQueryParameters3D.create(
-        global_position,
-        listener.global_position
-    )
-    query.collision_mask = 1  # Walls layer
-
-    var result := space.intersect_ray(query)
-
-    if result.is_empty():
-        # No occlusion
-        bus = normal_bus
-    else:
-        # Occluded - use muffled bus
-        bus = occlusion_bus
-```
-
-## Sound Design Patterns
-
-### Footstep System
-```gdscript
-extends CharacterBody2D
-
-var surface_sounds := {
-    "grass": [
-        preload("res://audio/sfx/footstep_grass_1.ogg"),
-        preload("res://audio/sfx/footstep_grass_2.ogg")
-    ],
-    "stone": [
-        preload("res://audio/sfx/footstep_stone_1.ogg"),
-        preload("res://audio/sfx/footstep_stone_2.ogg")
-    ],
-    "wood": [
-        preload("res://audio/sfx/footstep_wood_1.ogg"),
-        preload("res://audio/sfx/footstep_wood_2.ogg")
-    ]
+### Volume Categories
+```lua
+local VolumeManager = {}
+VolumeManager.categories = {
+    Master = 1,
+    Music = 0.7,
+    SFX = 0.8,
+    Voice = 1,
+    Ambient = 0.5
 }
 
-var step_timer := 0.0
-var step_interval := 0.4
+VolumeManager.soundGroups = {}
 
-func _physics_process(delta: float) -> void:
-    if is_on_floor() and velocity.length() > 10:
-        step_timer += delta
-        if step_timer >= step_interval:
-            step_timer = 0
-            play_footstep()
+function VolumeManager.setup()
+    -- Create SoundGroups for each category
+    for category, defaultVolume in pairs(VolumeManager.categories) do
+        local group = Instance.new("SoundGroup")
+        group.Name = category
+        group.Volume = defaultVolume
+        group.Parent = SoundService
+        VolumeManager.soundGroups[category] = group
+    end
 
-func play_footstep() -> void:
-    var surface := detect_surface()
-    var sounds: Array = surface_sounds.get(surface, surface_sounds["stone"])
-    var sound: AudioStream = sounds.pick_random()
+    -- Set Master as parent of others
+    for category, group in pairs(VolumeManager.soundGroups) do
+        if category ~= "Master" then
+            group.Parent = VolumeManager.soundGroups.Master
+        end
+    end
+end
 
-    $FootstepPlayer.stream = sound
-    $FootstepPlayer.pitch_scale = randf_range(0.9, 1.1)
-    $FootstepPlayer.play()
+function VolumeManager.setVolume(category, volume)
+    VolumeManager.categories[category] = volume
+    if VolumeManager.soundGroups[category] then
+        VolumeManager.soundGroups[category].Volume = volume
+    end
+end
 
-func detect_surface() -> String:
-    # Raycast down to detect surface
-    var ray_result := get_world_2d().direct_space_state.intersect_ray(
-        PhysicsRayQueryParameters2D.create(global_position, global_position + Vector2(0, 20))
-    )
+function VolumeManager.playInCategory(soundId, category, properties)
+    local sound = Instance.new("Sound")
+    sound.SoundId = soundId
+    sound.SoundGroup = VolumeManager.soundGroups[category]
 
-    if ray_result.is_empty():
-        return "stone"
+    if properties then
+        for key, value in pairs(properties) do
+            sound[key] = value
+        end
+    end
 
-    var collider := ray_result.collider
-    if collider.has_meta("surface_type"):
-        return collider.get_meta("surface_type")
+    sound.Parent = SoundService
+    sound:Play()
 
-    return "stone"
+    return sound
+end
 ```
 
-### Impact Sounds
-```gdscript
-extends RigidBody2D
+## Music Systems
 
-@export var impact_threshold := 100.0  # Minimum impact velocity
+### Music Playlist
+```lua
+local MusicPlayer = {}
+MusicPlayer.playlist = {}
+MusicPlayer.currentIndex = 0
+MusicPlayer.currentSound = nil
+MusicPlayer.isPlaying = false
+MusicPlayer.shuffle = false
 
-var impact_sounds: Array[AudioStream] = [
-    preload("res://audio/sfx/impact_1.ogg"),
-    preload("res://audio/sfx/impact_2.ogg")
-]
+function MusicPlayer.addTrack(soundId, name)
+    table.insert(MusicPlayer.playlist, {
+        id = soundId,
+        name = name
+    })
+end
 
-var last_velocity: Vector2
+function MusicPlayer.play()
+    if #MusicPlayer.playlist == 0 then return end
 
-func _physics_process(_delta: float) -> void:
-    last_velocity = linear_velocity
+    MusicPlayer.isPlaying = true
 
-func _on_body_entered(body: Node) -> void:
-    var impact_speed := last_velocity.length()
+    if MusicPlayer.currentIndex == 0 then
+        MusicPlayer.next()
+    elseif MusicPlayer.currentSound then
+        MusicPlayer.currentSound:Resume()
+    end
+end
 
-    if impact_speed > impact_threshold:
-        play_impact(impact_speed)
+function MusicPlayer.pause()
+    if MusicPlayer.currentSound then
+        MusicPlayer.currentSound:Pause()
+    end
+end
 
-func play_impact(speed: float) -> void:
-    var player := AudioStreamPlayer2D.new()
-    player.stream = impact_sounds.pick_random()
+function MusicPlayer.next()
+    if MusicPlayer.currentSound then
+        MusicPlayer.currentSound:Stop()
+        MusicPlayer.currentSound:Destroy()
+    end
 
-    # Volume based on impact force
-    var volume_ratio := clamp((speed - impact_threshold) / 500.0, 0, 1)
-    player.volume_db = linear_to_db(volume_ratio)
+    if MusicPlayer.shuffle then
+        MusicPlayer.currentIndex = math.random(1, #MusicPlayer.playlist)
+    else
+        MusicPlayer.currentIndex = MusicPlayer.currentIndex % #MusicPlayer.playlist + 1
+    end
 
-    # Pitch variation
-    player.pitch_scale = randf_range(0.8, 1.2)
+    local track = MusicPlayer.playlist[MusicPlayer.currentIndex]
 
-    add_child(player)
-    player.play()
-    player.finished.connect(player.queue_free)
+    MusicPlayer.currentSound = Instance.new("Sound")
+    MusicPlayer.currentSound.SoundId = track.id
+    MusicPlayer.currentSound.Volume = 0.5
+    MusicPlayer.currentSound.Looped = false
+    MusicPlayer.currentSound.SoundGroup = VolumeManager.soundGroups.Music
+    MusicPlayer.currentSound.Parent = SoundService
+
+    MusicPlayer.currentSound.Ended:Connect(function()
+        if MusicPlayer.isPlaying then
+            MusicPlayer.next()
+        end
+    end)
+
+    if MusicPlayer.isPlaying then
+        MusicPlayer.currentSound:Play()
+    end
+end
+
+function MusicPlayer.previous()
+    MusicPlayer.currentIndex = MusicPlayer.currentIndex - 2
+    if MusicPlayer.currentIndex < 0 then
+        MusicPlayer.currentIndex = #MusicPlayer.playlist - 1
+    end
+    MusicPlayer.next()
+end
 ```
 
-### Ambient Audio
-```gdscript
-extends Node2D
+### Crossfade Transition
+```lua
+local function crossfade(fromSound, toSound, duration)
+    duration = duration or 2
 
-@export var ambient_sounds: Array[AudioStream]
-@export var min_interval := 5.0
-@export var max_interval := 15.0
-@export var volume_range := Vector2(-10, 0)
-@export var spawn_radius := 200.0
+    toSound.Volume = 0
+    toSound:Play()
 
-var timer: Timer
+    local startTime = os.clock()
+    local fromVolume = fromSound.Volume
 
-func _ready() -> void:
-    timer = Timer.new()
-    timer.one_shot = true
-    timer.timeout.connect(play_random_ambient)
-    add_child(timer)
-    schedule_next()
+    local conn
+    conn = RunService.Heartbeat:Connect(function()
+        local elapsed = os.clock() - startTime
+        local t = math.min(elapsed / duration, 1)
 
-func schedule_next() -> void:
-    timer.start(randf_range(min_interval, max_interval))
+        fromSound.Volume = fromVolume * (1 - t)
+        toSound.Volume = fromVolume * t
 
-func play_random_ambient() -> void:
-    var sound: AudioStream = ambient_sounds.pick_random()
+        if t >= 1 then
+            fromSound:Stop()
+            conn:Disconnect()
+        end
+    end)
+end
+```
 
-    var player := AudioStreamPlayer2D.new()
-    player.stream = sound
-    player.volume_db = randf_range(volume_range.x, volume_range.y)
+### Contextual Music
+```lua
+local MusicContext = {}
+MusicContext.contexts = {
+    peaceful = "rbxassetid://peaceful_music",
+    combat = "rbxassetid://combat_music",
+    boss = "rbxassetid://boss_music",
+    victory = "rbxassetid://victory_music"
+}
+MusicContext.currentContext = nil
+MusicContext.currentSound = nil
 
-    # Random position around listener
-    var offset := Vector2.from_angle(randf() * TAU) * randf_range(50, spawn_radius)
-    player.global_position = global_position + offset
+function MusicContext.setContext(contextName)
+    if contextName == MusicContext.currentContext then return end
 
-    add_child(player)
-    player.play()
-    player.finished.connect(player.queue_free)
+    local newSoundId = MusicContext.contexts[contextName]
+    if not newSoundId then return end
 
-    schedule_next()
+    local newSound = Instance.new("Sound")
+    newSound.SoundId = newSoundId
+    newSound.Looped = true
+    newSound.Parent = SoundService
+
+    if MusicContext.currentSound then
+        crossfade(MusicContext.currentSound, newSound, 2)
+        task.delay(2, function()
+            MusicContext.currentSound:Destroy()
+            MusicContext.currentSound = newSound
+        end)
+    else
+        newSound.Volume = 0.5
+        newSound:Play()
+        MusicContext.currentSound = newSound
+    end
+
+    MusicContext.currentContext = contextName
+end
+
+-- Usage
+MusicContext.setContext("peaceful")
+-- Later, when combat starts:
+MusicContext.setContext("combat")
+```
+
+## Positional Audio
+
+### 3D Sound Setup
+```lua
+local function play3DSound(soundId, position, properties)
+    local part = Instance.new("Part")
+    part.Anchored = true
+    part.CanCollide = false
+    part.Transparency = 1
+    part.Size = Vector3.new(0.1, 0.1, 0.1)
+    part.Position = position
+    part.Parent = workspace
+
+    local sound = Instance.new("Sound")
+    sound.SoundId = soundId
+    sound.RollOffMode = Enum.RollOffMode.Linear
+    sound.RollOffMinDistance = properties.minDistance or 10
+    sound.RollOffMaxDistance = properties.maxDistance or 100
+    sound.Volume = properties.volume or 1
+    sound.Parent = part
+
+    sound:Play()
+
+    sound.Ended:Connect(function()
+        part:Destroy()
+    end)
+
+    return sound, part
+end
+```
+
+### Sound Falloff Modes
+```lua
+-- Linear falloff (most predictable)
+sound.RollOffMode = Enum.RollOffMode.Linear
+sound.RollOffMinDistance = 10  -- Full volume within this distance
+sound.RollOffMaxDistance = 100 -- Silent beyond this distance
+
+-- Inverse (more realistic)
+sound.RollOffMode = Enum.RollOffMode.Inverse
+-- Volume = 1 / (1 + (distance - minDistance) / (maxDistance - minDistance))
+
+-- InverseTapered (smoother falloff)
+sound.RollOffMode = Enum.RollOffMode.InverseTapered
+-- Combines linear and inverse
+
+-- Custom falloff with emitter size
+sound.EmitterSize = 5  -- Sound appears to come from area, not point
+```
+
+### Footstep Sounds
+```lua
+local FootstepSounds = {
+    [Enum.Material.Grass] = "rbxassetid://grass_step",
+    [Enum.Material.Concrete] = "rbxassetid://concrete_step",
+    [Enum.Material.Wood] = "rbxassetid://wood_step",
+    [Enum.Material.Metal] = "rbxassetid://metal_step",
+    [Enum.Material.Sand] = "rbxassetid://sand_step",
+    [Enum.Material.Water] = "rbxassetid://water_splash"
+}
+
+local function setupFootsteps(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+
+    local lastStep = 0
+    local stepInterval = 0.4  -- Seconds between steps
+
+    humanoid.Running:Connect(function(speed)
+        if speed > 1 then
+            local now = os.clock()
+            if now - lastStep >= stepInterval / (speed / 16) then
+                lastStep = now
+
+                -- Get ground material
+                local ray = workspace:Raycast(
+                    rootPart.Position,
+                    Vector3.new(0, -3, 0)
+                )
+
+                local material = ray and ray.Material or Enum.Material.Concrete
+                local soundId = FootstepSounds[material] or FootstepSounds[Enum.Material.Concrete]
+
+                local sound = Instance.new("Sound")
+                sound.SoundId = soundId
+                sound.Volume = 0.5
+                sound.PlaybackSpeed = 0.9 + math.random() * 0.2  -- Slight variation
+                sound.Parent = rootPart
+                sound:Play()
+
+                Debris:AddItem(sound, 1)
+            end
+        end
+    end)
+end
+```
+
+## Audio Effects
+
+### Sound Groups & Effects
+```lua
+-- Create reverb effect
+local reverbGroup = Instance.new("SoundGroup")
+reverbGroup.Name = "Reverb"
+reverbGroup.Parent = SoundService
+
+local reverb = Instance.new("ReverbSoundEffect")
+reverb.DecayTime = 2
+reverb.Density = 0.8
+reverb.Diffusion = 0.9
+reverb.DryLevel = 0
+reverb.WetLevel = -6
+reverb.Parent = reverbGroup
+
+-- Create low-pass filter (muffled)
+local muffledGroup = Instance.new("SoundGroup")
+muffledGroup.Name = "Muffled"
+muffledGroup.Parent = SoundService
+
+local lowPass = Instance.new("EqualizerSoundEffect")
+lowPass.HighGain = -20  -- Reduce high frequencies
+lowPass.MidGain = -5
+lowPass.LowGain = 0
+lowPass.Parent = muffledGroup
+
+-- Assign sounds to groups
+caveSound.SoundGroup = reverbGroup
+underwaterSound.SoundGroup = muffledGroup
+```
+
+### Dynamic Audio Processing
+```lua
+local function applyUnderwaterEffect(enable)
+    local muffleEffect = camera:FindFirstChild("UnderwaterMuffle")
+
+    if enable then
+        if not muffleEffect then
+            muffleEffect = Instance.new("EqualizerSoundEffect")
+            muffleEffect.Name = "UnderwaterMuffle"
+            muffleEffect.HighGain = -30
+            muffleEffect.MidGain = -10
+            muffleEffect.LowGain = 5
+            muffleEffect.Parent = SoundService
+        end
+    else
+        if muffleEffect then
+            muffleEffect:Destroy()
+        end
+    end
+end
+```
+
+### Doppler Effect (Moving Sources)
+```lua
+-- Roblox doesn't have built-in Doppler, but we can simulate it
+local function simulateDoppler(sound, sourceVelocity, listenerVelocity)
+    local speedOfSound = 343  -- m/s
+
+    local relativeVelocity = sourceVelocity - listenerVelocity
+    local directionToListener = (camera.CFrame.Position - sound.Parent.Position).Unit
+    local approachSpeed = relativeVelocity:Dot(directionToListener)
+
+    -- Doppler shift formula
+    local dopplerShift = speedOfSound / (speedOfSound + approachSpeed)
+    sound.PlaybackSpeed = dopplerShift
+
+    -- Also adjust volume slightly
+    if approachSpeed > 0 then
+        sound.Volume = sound.Volume * 1.1  -- Approaching, slightly louder
+    else
+        sound.Volume = sound.Volume * 0.9  -- Receding, slightly quieter
+    end
+end
+```
+
+## Ambient Audio
+
+### Ambient Soundscape
+```lua
+local AmbientManager = {}
+AmbientManager.activeSounds = {}
+
+function AmbientManager.setup(sounds)
+    for _, soundData in ipairs(sounds) do
+        local sound = Instance.new("Sound")
+        sound.SoundId = soundData.id
+        sound.Volume = soundData.volume or 0.3
+        sound.Looped = true
+        sound.Parent = SoundService
+
+        AmbientManager.activeSounds[soundData.name] = {
+            sound = sound,
+            baseVolume = soundData.volume or 0.3
+        }
+    end
+end
+
+function AmbientManager.setIntensity(name, intensity)
+    local data = AmbientManager.activeSounds[name]
+    if data then
+        data.sound.Volume = data.baseVolume * intensity
+    end
+end
+
+function AmbientManager.start()
+    for _, data in pairs(AmbientManager.activeSounds) do
+        data.sound:Play()
+    end
+end
+
+-- Usage
+AmbientManager.setup({
+    {name = "wind", id = "rbxassetid://wind", volume = 0.2},
+    {name = "birds", id = "rbxassetid://birds", volume = 0.3},
+    {name = "water", id = "rbxassetid://river", volume = 0.4}
+})
+AmbientManager.start()
+
+-- Based on location
+if isNearWater then
+    AmbientManager.setIntensity("water", 1)
+else
+    AmbientManager.setIntensity("water", 0.2)
+end
+```
+
+### Region-Based Audio
+```lua
+local AudioRegions = {}
+
+local function checkAudioRegions()
+    local character = Players.LocalPlayer.Character
+    if not character then return end
+
+    local position = character.PrimaryPart.Position
+
+    for _, region in ipairs(AudioRegions) do
+        local inRegion = position.X >= region.min.X and position.X <= region.max.X
+                     and position.Y >= region.min.Y and position.Y <= region.max.Y
+                     and position.Z >= region.min.Z and position.Z <= region.max.Z
+
+        if inRegion and not region.active then
+            region.active = true
+            region.sound:Play()
+            if region.onEnter then region.onEnter() end
+        elseif not inRegion and region.active then
+            region.active = false
+            region.sound:Stop()
+            if region.onExit then region.onExit() end
+        end
+    end
+end
+
+RunService.Heartbeat:Connect(checkAudioRegions)
 ```

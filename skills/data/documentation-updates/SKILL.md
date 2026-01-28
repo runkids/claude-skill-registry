@@ -1,66 +1,62 @@
 ---
 name: documentation-updates
-description: "Use after modifying library skills, library commands, or agents to ensure CHANGELOG, README, and docs are updated"
+description: Update documentation based on lessons learned. Use after completing work to capture learnings and prevent future issues.
 ---
 
 # Documentation Updates
 
-<analysis>
-Identify: What library content changed? Scope: library skills (`skills/`), commands (`commands/`), agents (`agents/`).
-Exclude: Repo skills (`.claude/skills/`) are internal tooling, no external docs needed.
-</analysis>
+Update documentation based on lessons learned from the conversation.
 
-## Invariant Principles
+## When to Use This Skill
 
-1. **Library changes require documentation trail** - Every modification to installed content must be traceable through CHANGELOG
-2. **Counts must match reality** - README totals reflect actual files, never stale
-3. **Generated docs stay fresh** - Run generator after any library content change
-4. **Repo skills are invisible** - Internal tooling never touches external docs
+Use this skill when:
+- You made a mistake or misunderstanding that could have been prevented
+- You discovered something that should be documented for future reference
+- The user asks you to "reflect" on what happened
+- After completing work where documentation gaps were discovered
 
-## Required Updates Matrix
+## Process
 
-| Change | CHANGELOG | README | Docs Generator |
-|--------|-----------|--------|----------------|
-| Add library skill | "Added" section | count++, add table row, add link ref | Run |
-| Modify library skill | "Changed" section | Only if description changed | Run |
-| Remove library skill | "Removed" section | count--, remove row/link | Run |
-| Add/modify command | Appropriate section | Update if count/description affected | Run |
+Momentarily pause any other actions to review the conversation and
+reflect on any mistakes or misunderstandings. Update any/all of the
+following as appropriate:
 
-## Verification Checklist
+### Files to Update
 
-<reflection>
-Before PR completion, evidence required for each:
-</reflection>
+1. **Project-level documentation**:
+   - `AGENTS.md` in the current project
+   - `CLAUDE.md` in the current project
+   - Any project-specific documentation
 
-- [ ] CHANGELOG.md has entry under `## [Unreleased]`
-- [ ] README.md counts match `ls skills/*/SKILL.md | wc -l` and `ls commands/*.md | wc -l`
-- [ ] New items have table rows AND link references
-- [ ] `python3 scripts/generate_docs.py` executed
-- [ ] Pre-commit hooks committed generated files
+2. **Global documentation**:
+   - Global `AGENTS.md` (`~/.claude/AGENTS.md` or similar)
+   - Global `CLAUDE.md`
 
-## CHANGELOG Entry Format
+3. **Agent settings**:
+   - Per-project settings (`.claude/settings.json`, `opencode.json`)
+   - Global settings (`~/.config/opencode/opencode.json`, `~/.claude/settings.json`)
 
-```markdown
-## [Unreleased]
+4. **Other project documentation**:
+   - README.md
+   - Design documents
+   - Architecture guides
 
-### Added
-- **skill-name skill** - one-line description
-  - Notable feature bullet
+### What to Document
 
-### Changed
-- **skill-name skill** - what changed and why
+- Common pitfalls encountered and how to avoid them
+- Important constraints or requirements discovered
+- Useful patterns or approaches found effective
+- Mistakes made and what should have been done differently
+- Configuration or setup nuances
 
-### Removed
-- **skill-name skill** - removal rationale
-```
+## Important Rule
 
-## README Link Reference Pattern
+Do NOT resume ANY previous actions until the user is satisfied that the
+docs have been appropriately updated.
 
-```markdown
-[skill-name]: https://axiomantic.github.io/spellbook/latest/skills/skill-name/
-```
+## Output
 
-<CRITICAL>
-Library content (`skills/`, `commands/`, `agents/`) triggers this skill.
-Repo content (`.claude/skills/`) does NOT.
-</CRITICAL>
+After updating documentation:
+- List the files that were modified
+- Summarize the changes made
+- Confirm with the user that the updates are adequate

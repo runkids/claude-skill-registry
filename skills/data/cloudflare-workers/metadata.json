@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-workers",
-  "repo": "huydepzai121/skill",
-  "path": ".claude/skills/cloudflare-workers/SKILL.md",
-  "source": "github.com/huydepzai121/skill",
-  "downloaded_at": "2026-01-27T04:15:53.424408Z"
+  "repo": "stephanofer/finance-trackerv2",
+  "path": ".opencode/skill/cloudflare-workers/SKILL.md",
+  "source": "github.com/stephanofer/finance-trackerv2",
+  "downloaded_at": "2026-01-28T03:42:38.075866Z"
 }

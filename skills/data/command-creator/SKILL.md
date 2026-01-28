@@ -1,111 +1,210 @@
 ---
 name: command-creator
-description: Guide for creating Claude Code commands with skill integration. Use when users want to create a new Claude Code command specification, whether skill-based or standalone. Assists with command definition, skill discovery, argument specification, and command generation.
+description: This skill should be used when creating a Claude Code slash command. Use when users ask to "create a command", "make a slash command", "add a command", or want to document a workflow as a reusable command. Essential for creating optimized, agent-executable slash commands with proper structure and best practices.
 ---
 
 # Command Creator
 
-## Overview
+This skill guides the creation of Claude Code slash commands - reusable workflows that can be invoked with `/command-name` in Claude Code conversations.
 
-This skill guides the creation of Claude Code commands through a structured workflow that ensures proper skill integration, argument definition, and command specification. Commands can leverage existing skills or operate standalone.
+## About Slash Commands
 
-**Target Audience:** This skill is designed for agents creating Claude Code command specifications. It provides procedural knowledge for gathering requirements, discovering relevant skills, and generating well-structured command definitions that other agents will execute.
+Slash commands are markdown files stored in `.claude/commands/` (project-level) or `~/.claude/commands/` (global/user-level) that get expanded into prompts when invoked. They're ideal for:
+
+- Repetitive workflows (code review, PR submission, CI fixing)
+- Multi-step processes that need consistency
+- Agent delegation patterns
+- Project-specific automation
+
+## When to Use This Skill
+
+Invoke this skill when users:
+
+- Ask to "create a command" or "make a slash command"
+- Want to automate a repetitive workflow
+- Need to document a consistent process for reuse
+- Say "I keep doing X, can we make a command for it?"
+- Want to create project-specific or global commands
+
+## Bundled Resources
+
+This skill includes reference documentation for detailed guidance:
+
+- **references/patterns.md** - Command patterns (workflow automation, iterative fixing, agent delegation, simple execution)
+- **references/examples.md** - Real command examples with full source (submit-stack, ensure-ci, create-implementation-plan)
+- **references/best-practices.md** - Quality checklist, common pitfalls, writing guidelines, template structure
+
+Load these references as needed when creating commands to understand patterns, see examples, or ensure quality.
+
+## Command Structure Overview
+
+Every slash command is a markdown file with:
+
+```markdown
+---
+description: Brief description shown in /help (required)
+argument-hint: <placeholder> (optional, if command takes arguments)
+---
+
+# Command Title
+
+[Detailed instructions for the agent to execute autonomously]
+```
 
 ## Command Creation Workflow
 
-Follow these steps sequentially to create a well-defined Claude Code command:
+### Step 1: Determine Location
 
-### Step 1: Understand Command Purpose
+**Auto-detect the appropriate location:**
 
-Ask the user what the command should do. Gather specific details about:
-- The task or operation the command will perform
-- Expected inputs and outputs
-- Any special requirements or constraints
+1. Check git repository status: `git rev-parse --is-inside-work-tree 2>/dev/null`
+2. Default location:
+   - If in git repo → Project-level: `.claude/commands/`
+   - If not in git repo → Global: `~/.claude/commands/`
+3. Allow user override:
+   - If user explicitly mentions "global" or "user-level" → Use `~/.claude/commands/`
+   - If user explicitly mentions "project" or "project-level" → Use `.claude/commands/`
 
-**Example questions:**
-- "What should this command do?"
-- "Can you describe a typical use case for this command?"
-- "What would trigger the use of this command?"
+Report the chosen location to the user before proceeding.
 
-### Step 2: Identify Skill Dependencies
+### Step 2: Show Command Patterns
 
-Ask if the command relates to existing skills:
-- "Is this command based on any existing skills?"
-- "Does this command use specific file formats, workflows, or domain knowledge?"
+Help the user understand different command types. Load **references/patterns.md** to see available patterns:
 
-If the user mentions skills, note them. If not, proceed to Step 3.
+- **Workflow Automation** - Analyze → Act → Report (e.g., submit-stack)
+- **Iterative Fixing** - Run → Parse → Fix → Repeat (e.g., ensure-ci)
+- **Agent Delegation** - Context → Delegate → Iterate (e.g., create-implementation-plan)
+- **Simple Execution** - Run command with args (e.g., codex-review)
 
-### Step 3: Discover Relevant Skills
+Ask the user: "Which pattern is closest to what you want to create?" This helps frame the conversation.
 
-Check available skills to identify potentially relevant ones the user may have missed:
+### Step 3: Gather Command Information
 
-```bash
-view .claude/skills    # Current project skills (if available)
-view ~/.claude/skills  # Global skills (if available)
-```
+Ask the user for key information:
 
-Look for skills related to:
-- File types the command will process (docx, pdf, xlsx, pptx)
-- Domain expertise (frontend-design, product-self-knowledge)
-- Workflows or patterns (skill-creator, mcp-builder)
+#### A. Command Name and Purpose
 
-Present relevant skills to the user:
-- "I found these skills that might be relevant: [list]. Should any of these be included?"
-- Be concise; only mention skills with clear relevance
+Ask:
 
-### Step 4: Verify Command Specification
+- "What should the command be called?" (for filename)
+- "What does this command do?" (for description field)
 
-If the command is not skill-based or after skill selection is complete, verify the command specification:
-- Summarize what the command will do
-- Confirm the workflow or operation sequence
-- Verify any constraints or requirements
+Guidelines:
 
-Ask for confirmation:
-- "To confirm, the command will [summary]. Is this correct?"
-- "Are there any other requirements I should know about?"
+- Command names MUST be kebab-case (hyphens, NOT underscores)
+  - ✅ CORRECT: `submit-stack`, `ensure-ci`, `create-from-plan`
+  - ❌ WRONG: `submit_stack`, `ensure_ci`, `create_from_plan`
+- File names match command names: `my-command.md` → invoked as `/my-command`
+- Description should be concise, action-oriented (appears in `/help` output)
 
-### Step 5: Define Command Arguments
+#### B. Arguments
 
-Determine the command arguments through discussion:
-- "What arguments should this command accept?"
-- "Are any arguments required vs optional?"
-- "What are the valid values or types for each argument?"
+Ask:
 
-For each argument, specify:
-- Name and type
-- Required vs optional status
-- Default value (if optional)
-- Description of purpose
-- Valid values or validation rules
+- "Does this command take any arguments?"
+- "Are arguments required or optional?"
+- "What should arguments represent?"
 
-### Step 6: Generate Command Specification
+If command takes arguments:
 
-Create the command specification as a **single Markdown file with YAML front matter**.
+- Add `argument-hint: <placeholder>` to frontmatter
+- Use `<angle-brackets>` for required arguments
+- Use `[square-brackets]` for optional arguments
 
-For detailed format specification, patterns, and examples, see:
-- `references/command-patterns.md` - Complete format guide, argument types, validation patterns, and multiple command pattern examples
-- `references/optimize-images-example.md` - Production-ready example with full workflow, error handling, and statistics
-- `../../commands/audit/js-ts-docs.md` - Real production command for reference
+#### C. Workflow Steps
 
-## Best Practices
+Ask:
 
-**Command Naming:**
-- Use lowercase with hyphens: `audit-performance`, `create-component`
-- Be descriptive but concise
-- Avoid generic names like `process` or `handle`
+- "What are the specific steps this command should follow?"
+- "What order should they happen in?"
+- "What tools or commands should be used?"
 
-**Argument Design:**
-- Minimize required arguments
-- Provide sensible defaults for optional arguments
-- Use clear, unambiguous argument names
-- Validate argument values when possible
+Gather details about:
 
-**Skill Integration:**
-- Reference skills by name in the `skills` array
-- Include skill names in command description when relevant
-- Ensure referenced skills actually exist in `/mnt/skills/`
+- Initial analysis or checks to perform
+- Main actions to take
+- How to handle results
+- Success criteria
+- Error handling approach
 
-**Documentation:**
-- Provide at least 2 usage examples
-- Document argument constraints clearly
-- Include implementation notes for complex commands
+#### D. Tool Restrictions and Guidance
+
+Ask:
+
+- "Should this command use any specific agents or tools?"
+- "Are there any tools or operations it should avoid?"
+- "Should it read any specific files for context?"
+
+### Step 4: Generate Optimized Command
+
+Create the command file with agent-optimized instructions. Load **references/best-practices.md** for:
+
+- Template structure
+- Best practices for agent execution
+- Writing style guidelines
+- Quality checklist
+
+Key principles:
+
+- Use imperative/infinitive form (verb-first instructions)
+- Be explicit and specific
+- Include expected outcomes
+- Provide concrete examples
+- Define clear error handling
+
+### Step 5: Create the Command File
+
+1. Determine full file path:
+   - Project: `.claude/commands/[command-name].md`
+   - Global: `~/.claude/commands/[command-name].md`
+
+2. Ensure directory exists:
+
+   ```bash
+   mkdir -p [directory-path]
+   ```
+
+3. Write the command file using the Write tool
+
+4. Confirm with user:
+   - Report the file location
+   - Summarize what the command does
+   - Explain how to use it: `/command-name [arguments]`
+
+### Step 6: Test and Iterate (Optional)
+
+If the user wants to test:
+
+1. Suggest testing: `You can test this command by running: /command-name [arguments]`
+2. Be ready to iterate based on feedback
+3. Update the file with improvements as needed
+
+## Quick Tips
+
+**For detailed guidance, load the bundled references:**
+
+- Load **references/patterns.md** when designing the command workflow
+- Load **references/examples.md** to see how existing commands are structured
+- Load **references/best-practices.md** before finalizing to ensure quality
+
+**Common patterns to remember:**
+
+- Use Bash tool for `pytest`, `pyright`, `ruff`, `prettier`, `make`, `gt` commands
+- Use Task tool to invoke subagents for specialized tasks
+- Check for specific files first (e.g., `.PLAN.md`) before proceeding
+- Mark todos complete immediately, not in batches
+- Include explicit error handling instructions
+- Define clear success criteria
+
+## Summary
+
+When creating a command:
+
+1. **Detect location** (project vs global)
+2. **Show patterns** to frame the conversation
+3. **Gather information** (name, purpose, arguments, steps, tools)
+4. **Generate optimized command** with agent-executable instructions
+5. **Create file** at appropriate location
+6. **Confirm and iterate** as needed
+
+Focus on creating commands that agents can execute autonomously, with clear steps, explicit tool usage, and proper error handling.

@@ -1,452 +1,431 @@
 ---
-name: peft
-description: |
-  Parameter-efficient fine-tuning with LoRA and Unsloth. Covers LoraConfig,
-  target module selection, QLoRA for 4-bit training, adapter merging, and
-  Unsloth optimizations for 2x faster training.
+name: peft-fine-tuning
+description: Parameter-efficient fine-tuning for LLMs using LoRA, QLoRA, and 25+ methods. Use when fine-tuning large models (7B-70B) with limited GPU memory, when you need to train <1% of parameters with minimal accuracy loss, or for multi-adapter serving. HuggingFace's official library integrated with transformers ecosystem.
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [Fine-Tuning, PEFT, LoRA, QLoRA, Parameter-Efficient, Adapters, Low-Rank, Memory Optimization, Multi-Adapter]
+dependencies: [peft>=0.13.0, transformers>=4.45.0, torch>=2.0.0, bitsandbytes>=0.43.0]
 ---
 
-# Parameter-Efficient Fine-Tuning (PEFT)
+# PEFT (Parameter-Efficient Fine-Tuning)
 
-## Overview
+Fine-tune LLMs by training <1% of parameters using LoRA, QLoRA, and 25+ adapter methods.
 
-PEFT methods like LoRA train only a small number of adapter parameters instead of the full model, reducing memory by 10-100x while maintaining quality.
+## When to use PEFT
 
-## Quick Reference
+**Use PEFT/LoRA when:**
+- Fine-tuning 7B-70B models on consumer GPUs (RTX 4090, A100)
+- Need to train <1% parameters (6MB adapters vs 14GB full model)
+- Want fast iteration with multiple task-specific adapters
+- Deploying multiple fine-tuned variants from one base model
 
-| Method | Memory | Speed | Quality |
-|--------|--------|-------|---------|
-| Full Fine-tune | High | Slow | Best |
-| LoRA | Low | Fast | Very Good |
-| QLoRA | Very Low | Fast | Good |
-| Unsloth | Very Low | 2x Faster | Good |
+**Use QLoRA (PEFT + quantization) when:**
+- Fine-tuning 70B models on single 24GB GPU
+- Memory is the primary constraint
+- Can accept ~5% quality trade-off vs full fine-tuning
 
-## LoRA Concepts
+**Use full fine-tuning instead when:**
+- Training small models (<1B parameters)
+- Need maximum quality and have compute budget
+- Significant domain shift requires updating all weights
 
-### How LoRA Works
+## Quick start
 
+### Installation
+
+```bash
+# Basic installation
+pip install peft
+
+# With quantization support (recommended)
+pip install peft bitsandbytes
+
+# Full stack
+pip install peft transformers accelerate bitsandbytes datasets
 ```
-Original weight matrix W (frozen):     d x k
-LoRA adapters A and B:                 d x r, r x k (where r << min(d,k))
 
-Forward pass:
-  output = x @ W + x @ A @ B * (alpha / r)
-
-Trainable params: 2 * r * d  (instead of d * k)
-```
-
-### Memory Savings
+### LoRA fine-tuning (standard)
 
 ```python
-def lora_savings(d, k, r):
-    original = d * k
-    lora = 2 * r * max(d, k)
-    reduction = (1 - lora / original) * 100
-    return reduction
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
+from peft import get_peft_model, LoraConfig, TaskType
+from datasets import load_dataset
 
-# Example: 4096 x 4096 matrix with rank 8
-print(f"Memory reduction: {lora_savings(4096, 4096, 8):.1f}%")
-# Output: ~99.6% reduction
-```
+# Load base model
+model_name = "meta-llama/Llama-3.1-8B"
+model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype="auto", device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer.pad_token = tokenizer.eos_token
 
-## Basic LoRA Setup
-
-### Configure LoRA
-
-```python
-from peft import LoraConfig, get_peft_model, TaskType
-
+# LoRA configuration
 lora_config = LoraConfig(
-    r=8,                          # Rank (capacity)
-    lora_alpha=16,                # Scaling factor
-    target_modules=["q_proj", "v_proj"],  # Which layers
-    lora_dropout=0.05,            # Regularization
-    bias="none",                  # Don't train biases
-    task_type=TaskType.CAUSAL_LM  # Task type
-)
-```
-
-### Apply to Model
-
-```python
-from transformers import AutoModelForCausalLM
-
-model = AutoModelForCausalLM.from_pretrained(
-    "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
-    device_map="auto"
+    task_type=TaskType.CAUSAL_LM,
+    r=16,                          # Rank (8-64, higher = more capacity)
+    lora_alpha=32,                 # Scaling factor (typically 2*r)
+    lora_dropout=0.05,             # Dropout for regularization
+    target_modules=["q_proj", "v_proj", "k_proj", "o_proj"],  # Attention layers
+    bias="none"                    # Don't train biases
 )
 
+# Apply LoRA
 model = get_peft_model(model, lora_config)
-
-# Check trainable parameters
 model.print_trainable_parameters()
-# Output: trainable params: 4,194,304 || all params: 1,100,048,384 || trainable%: 0.38%
+# Output: trainable params: 13,631,488 || all params: 8,043,307,008 || trainable%: 0.17%
+
+# Prepare dataset
+dataset = load_dataset("databricks/databricks-dolly-15k", split="train")
+
+def tokenize(example):
+    text = f"### Instruction:\n{example['instruction']}\n\n### Response:\n{example['response']}"
+    return tokenizer(text, truncation=True, max_length=512, padding="max_length")
+
+tokenized = dataset.map(tokenize, remove_columns=dataset.column_names)
+
+# Training
+training_args = TrainingArguments(
+    output_dir="./lora-llama",
+    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=4,
+    learning_rate=2e-4,
+    fp16=True,
+    logging_steps=10,
+    save_strategy="epoch"
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized,
+    data_collator=lambda data: {"input_ids": torch.stack([f["input_ids"] for f in data]),
+                                 "attention_mask": torch.stack([f["attention_mask"] for f in data]),
+                                 "labels": torch.stack([f["input_ids"] for f in data])}
+)
+
+trainer.train()
+
+# Save adapter only (6MB vs 16GB)
+model.save_pretrained("./lora-llama-adapter")
 ```
 
-## LoRA Parameters
-
-### Key Parameters
-
-| Parameter | Values | Effect |
-|-----------|--------|--------|
-| `r` | 4, 8, 16, 32 | Adapter capacity |
-| `lora_alpha` | r to 2*r | Scaling (higher = stronger) |
-| `target_modules` | List | Which layers to adapt |
-| `lora_dropout` | 0.0-0.1 | Regularization |
-
-### Target Modules
-
-```python
-# Common target modules for different models
-
-# LLaMA / Mistral / TinyLlama
-target_modules = ["q_proj", "k_proj", "v_proj", "o_proj"]
-
-# GPT-2
-target_modules = ["c_attn", "c_proj"]
-
-# BLOOM
-target_modules = ["query_key_value", "dense"]
-
-# All linear layers (most aggressive)
-target_modules = "all-linear"
-```
-
-### Rank Selection Guide
-
-| Rank (r) | Use Case |
-|----------|----------|
-| 4 | Simple tasks, small datasets |
-| 8 | General purpose (recommended) |
-| 16 | Complex tasks, more capacity |
-| 32+ | Near full fine-tune quality |
-
-## QLoRA (Quantized LoRA)
-
-### Setup
+### QLoRA fine-tuning (memory-efficient)
 
 ```python
 from transformers import AutoModelForCausalLM, BitsAndBytesConfig
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-import torch
+from peft import get_peft_model, LoraConfig, prepare_model_for_kbit_training
 
 # 4-bit quantization config
-quantization_config = BitsAndBytesConfig(
+bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
-    bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch.bfloat16,
-    bnb_4bit_use_double_quant=True
+    bnb_4bit_quant_type="nf4",           # NormalFloat4 (best for LLMs)
+    bnb_4bit_compute_dtype="bfloat16",   # Compute in bf16
+    bnb_4bit_use_double_quant=True       # Nested quantization
 )
 
 # Load quantized model
 model = AutoModelForCausalLM.from_pretrained(
-    "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
-    quantization_config=quantization_config,
+    "meta-llama/Llama-3.1-70B",
+    quantization_config=bnb_config,
     device_map="auto"
 )
 
-# Prepare for k-bit training (important!)
+# Prepare for training (enables gradient checkpointing)
 model = prepare_model_for_kbit_training(model)
 
-# Add LoRA adapters
+# LoRA config for QLoRA
 lora_config = LoraConfig(
-    r=8,
-    lora_alpha=16,
-    target_modules=["q_proj", "v_proj", "k_proj", "o_proj"],
-    lora_dropout=0.05,
+    r=64,                              # Higher rank for 70B
+    lora_alpha=128,
+    lora_dropout=0.1,
+    target_modules=["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
     bias="none",
     task_type="CAUSAL_LM"
 )
 
 model = get_peft_model(model, lora_config)
-model.print_trainable_parameters()
+# 70B model now fits on single 24GB GPU!
 ```
 
-## Training with PEFT
+## LoRA parameter selection
 
-### Using SFTTrainer
+### Rank (r) - capacity vs efficiency
+
+| Rank | Trainable Params | Memory | Quality | Use Case |
+|------|-----------------|--------|---------|----------|
+| 4 | ~3M | Minimal | Lower | Simple tasks, prototyping |
+| **8** | ~7M | Low | Good | **Recommended starting point** |
+| **16** | ~14M | Medium | Better | **General fine-tuning** |
+| 32 | ~27M | Higher | High | Complex tasks |
+| 64 | ~54M | High | Highest | Domain adaptation, 70B models |
+
+### Alpha (lora_alpha) - scaling factor
 
 ```python
-from trl import SFTTrainer, SFTConfig
-from datasets import load_dataset
-
-dataset = load_dataset("timdettmers/openassistant-guanaco")
-
-sft_config = SFTConfig(
-    output_dir="./lora_checkpoints",
-    num_train_epochs=3,
-    per_device_train_batch_size=4,
-    learning_rate=2e-4,  # Higher LR for LoRA
-    logging_steps=10,
-    save_steps=500,
-    max_seq_length=512,
-    gradient_accumulation_steps=4,
-)
-
-trainer = SFTTrainer(
-    model=model,
-    args=sft_config,
-    train_dataset=dataset["train"],
-    tokenizer=tokenizer,
-    dataset_text_field="text",
-    peft_config=lora_config,  # Pass LoRA config
-)
-
-trainer.train()
+# Rule of thumb: alpha = 2 * rank
+LoraConfig(r=16, lora_alpha=32)  # Standard
+LoraConfig(r=16, lora_alpha=16)  # Conservative (lower learning rate effect)
+LoraConfig(r=16, lora_alpha=64)  # Aggressive (higher learning rate effect)
 ```
 
-## Unsloth (2x Faster Training)
-
-### Setup
+### Target modules by architecture
 
 ```python
-from unsloth import FastLanguageModel
+# Llama / Mistral / Qwen
+target_modules = ["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
 
-# Load model with Unsloth optimizations
-model, tokenizer = FastLanguageModel.from_pretrained(
-    "unsloth/tinyllama-chat-bnb-4bit",  # Pre-quantized
-    max_seq_length=2048,
-    dtype=None,  # Auto-detect
-    load_in_4bit=True,
-)
+# GPT-2 / GPT-Neo
+target_modules = ["c_attn", "c_proj", "c_fc"]
 
-# Add LoRA with Unsloth
-model = FastLanguageModel.get_peft_model(
-    model,
-    r=16,
-    target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                    "gate_proj", "up_proj", "down_proj"],
-    lora_alpha=16,
-    lora_dropout=0,
-    bias="none",
-    use_gradient_checkpointing=True,
-    random_state=42,
-)
+# Falcon
+target_modules = ["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"]
+
+# BLOOM
+target_modules = ["query_key_value", "dense", "dense_h_to_4h", "dense_4h_to_h"]
+
+# Auto-detect all linear layers
+target_modules = "all-linear"  # PEFT 0.6.0+
 ```
 
-### Train with Unsloth
+## Loading and merging adapters
+
+### Load trained adapter
 
 ```python
-from trl import SFTTrainer, SFTConfig
+from peft import PeftModel, AutoPeftModelForCausalLM
+from transformers import AutoModelForCausalLM
 
-sft_config = SFTConfig(
-    output_dir="./unsloth_output",
-    per_device_train_batch_size=2,
-    gradient_accumulation_steps=4,
-    warmup_steps=5,
-    max_steps=100,
-    learning_rate=2e-4,
-    fp16=not torch.cuda.is_bf16_supported(),
-    bf16=torch.cuda.is_bf16_supported(),
-    logging_steps=1,
-    optim="adamw_8bit",  # Memory-efficient optimizer
-    weight_decay=0.01,
-    lr_scheduler_type="linear",
-    seed=42,
-)
+# Option 1: Load with PeftModel
+base_model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B")
+model = PeftModel.from_pretrained(base_model, "./lora-llama-adapter")
 
-trainer = SFTTrainer(
-    model=model,
-    tokenizer=tokenizer,
-    train_dataset=dataset,
-    dataset_text_field="text",
-    max_seq_length=2048,
-    args=sft_config,
-)
-
-trainer.train()
-```
-
-## Save and Load Adapters
-
-### Save Adapters Only
-
-```python
-# Save just the LoRA weights (small!)
-model.save_pretrained("./lora_adapters")
-```
-
-### Load Adapters
-
-```python
-from peft import PeftModel
-
-base_model = AutoModelForCausalLM.from_pretrained(
-    "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+# Option 2: Load directly (recommended)
+model = AutoPeftModelForCausalLM.from_pretrained(
+    "./lora-llama-adapter",
     device_map="auto"
 )
-
-model = PeftModel.from_pretrained(base_model, "./lora_adapters")
 ```
 
-### Merge Adapters into Base Model
+### Merge adapter into base model
 
 ```python
-# Merge LoRA weights into base model (for deployment)
+# Merge for deployment (no adapter overhead)
 merged_model = model.merge_and_unload()
 
 # Save merged model
-merged_model.save_pretrained("./merged_model")
+merged_model.save_pretrained("./llama-merged")
+tokenizer.save_pretrained("./llama-merged")
+
+# Push to Hub
+merged_model.push_to_hub("username/llama-finetuned")
 ```
 
-## Inference with Adapters
+### Multi-adapter serving
 
 ```python
 from peft import PeftModel
 
-# Load base + adapters
-base_model = AutoModelForCausalLM.from_pretrained("TinyLlama/TinyLlama-1.1B-Chat-v1.0")
-model = PeftModel.from_pretrained(base_model, "./lora_adapters")
+# Load base with first adapter
+model = AutoPeftModelForCausalLM.from_pretrained("./adapter-task1")
 
-# Generate
-model.eval()
-inputs = tokenizer("What is Python?", return_tensors="pt")
+# Load additional adapters
+model.load_adapter("./adapter-task2", adapter_name="task2")
+model.load_adapter("./adapter-task3", adapter_name="task3")
 
-with torch.no_grad():
-    outputs = model.generate(**inputs, max_new_tokens=100)
+# Switch between adapters at runtime
+model.set_adapter("task1")  # Use task1 adapter
+output1 = model.generate(**inputs)
 
-print(tokenizer.decode(outputs[0]))
+model.set_adapter("task2")  # Switch to task2
+output2 = model.generate(**inputs)
+
+# Disable adapters (use base model)
+with model.disable_adapter():
+    base_output = model.generate(**inputs)
 ```
 
-## Multi-Adapter Hot-Swapping
+## PEFT methods comparison
 
-Train task-specific adapters and swap them at inference time without reloading the base model.
+| Method | Trainable % | Memory | Speed | Best For |
+|--------|------------|--------|-------|----------|
+| **LoRA** | 0.1-1% | Low | Fast | General fine-tuning |
+| **QLoRA** | 0.1-1% | Very Low | Medium | Memory-constrained |
+| AdaLoRA | 0.1-1% | Low | Medium | Automatic rank selection |
+| IA3 | 0.01% | Minimal | Fastest | Few-shot adaptation |
+| Prefix Tuning | 0.1% | Low | Medium | Generation control |
+| Prompt Tuning | 0.001% | Minimal | Fast | Simple task adaptation |
+| P-Tuning v2 | 0.1% | Low | Medium | NLU tasks |
 
-### Train Multiple Adapters
-
-```python
-from unsloth import FastLanguageModel
-from trl import SFTTrainer, SFTConfig
-
-TASK_DATASETS = {
-    "technical": technical_data,   # Precise, factual responses
-    "creative": creative_data,     # Imaginative, expressive responses
-    "code": code_data,             # Code-focused analysis
-}
-
-for task_name, task_data in TASK_DATASETS.items():
-    # Load fresh model
-    model, tokenizer = FastLanguageModel.from_pretrained(
-        "unsloth/Qwen3-4B-Thinking-2507-unsloth-bnb-4bit",
-        max_seq_length=512,
-        load_in_4bit=True,
-    )
-
-    # Apply LoRA
-    model = FastLanguageModel.get_peft_model(
-        model, r=16, lora_alpha=16,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                        "gate_proj", "up_proj", "down_proj"],
-    )
-
-    # Train on task-specific data
-    trainer = SFTTrainer(model=model, train_dataset=task_data, ...)
-    trainer.train()
-
-    # Save lightweight adapter (~130MB each)
-    model.save_pretrained(f"./adapters/{task_name}")
-```
-
-### Hot-Swap at Inference
+### IA3 (minimal parameters)
 
 ```python
-from peft import PeftModel
-from unsloth import FastLanguageModel
+from peft import IA3Config
 
-# Load base model ONCE
-base_model, tokenizer = FastLanguageModel.from_pretrained(
-    "unsloth/Qwen3-4B-Thinking-2507-unsloth-bnb-4bit",
-    max_seq_length=512,
-    load_in_4bit=True,
+ia3_config = IA3Config(
+    target_modules=["q_proj", "v_proj", "k_proj", "down_proj"],
+    feedforward_modules=["down_proj"]
 )
-
-def load_and_generate(adapter_path, prompt):
-    """Load adapter and generate response."""
-    # Hot-swap adapter onto base model
-    adapted_model = PeftModel.from_pretrained(base_model, adapter_path)
-    FastLanguageModel.for_inference(adapted_model)
-
-    messages = [{"role": "user", "content": prompt}]
-    inputs = tokenizer.apply_chat_template(
-        messages, tokenize=True, add_generation_prompt=True, return_tensors="pt"
-    ).to(adapted_model.device)
-
-    outputs = adapted_model.generate(input_ids=inputs, max_new_tokens=128)
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-# Use different adapters for different tasks
-technical_response = load_and_generate("./adapters/technical", "Explain TCP vs UDP")
-creative_response = load_and_generate("./adapters/creative", "Write a haiku about coding")
-code_response = load_and_generate("./adapters/code", "Explain Python decorators")
+model = get_peft_model(model, ia3_config)
+# Trains only 0.01% of parameters!
 ```
 
-### Adapter Storage Efficiency
-
-| Component | Size |
-|-----------|------|
-| Base model (4-bit) | ~8GB |
-| Each adapter | ~130MB |
-| 10 adapters total | ~1.3GB |
-
-**Multi-adapter approach**: 8GB + 1.3GB = 9.3GB total
-**vs 10 full models**: 80GB total
-
-## Comparison: Full vs LoRA vs QLoRA
-
-| Aspect | Full Fine-tune | LoRA | QLoRA |
-|--------|----------------|------|-------|
-| Trainable % | 100% | ~0.1-1% | ~0.1-1% |
-| Memory | 4x model | ~1.2x model | ~0.5x model |
-| Training speed | Slow | Fast | Fast |
-| Quality | Best | Very Good | Good |
-| 7B model | 28GB+ | ~16GB | ~6GB |
-
-## Troubleshooting
-
-### Out of Memory
-
-**Fix:**
+### Prefix Tuning
 
 ```python
-# Use gradient checkpointing
+from peft import PrefixTuningConfig
+
+prefix_config = PrefixTuningConfig(
+    task_type="CAUSAL_LM",
+    num_virtual_tokens=20,      # Prepended tokens
+    prefix_projection=True       # Use MLP projection
+)
+model = get_peft_model(model, prefix_config)
+```
+
+## Integration patterns
+
+### With TRL (SFTTrainer)
+
+```python
+from trl import SFTTrainer, SFTConfig
+from peft import LoraConfig
+
+lora_config = LoraConfig(r=16, lora_alpha=32, target_modules="all-linear")
+
+trainer = SFTTrainer(
+    model=model,
+    args=SFTConfig(output_dir="./output", max_seq_length=512),
+    train_dataset=dataset,
+    peft_config=lora_config,  # Pass LoRA config directly
+)
+trainer.train()
+```
+
+### With Axolotl (YAML config)
+
+```yaml
+# axolotl config.yaml
+adapter: lora
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target_modules:
+  - q_proj
+  - v_proj
+  - k_proj
+  - o_proj
+lora_target_linear: true  # Target all linear layers
+```
+
+### With vLLM (inference)
+
+```python
+from vllm import LLM
+from vllm.lora.request import LoRARequest
+
+# Load base model with LoRA support
+llm = LLM(model="meta-llama/Llama-3.1-8B", enable_lora=True)
+
+# Serve with adapter
+outputs = llm.generate(
+    prompts,
+    lora_request=LoRARequest("adapter1", 1, "./lora-adapter")
+)
+```
+
+## Performance benchmarks
+
+### Memory usage (Llama 3.1 8B)
+
+| Method | GPU Memory | Trainable Params |
+|--------|-----------|------------------|
+| Full fine-tuning | 60+ GB | 8B (100%) |
+| LoRA r=16 | 18 GB | 14M (0.17%) |
+| QLoRA r=16 | 6 GB | 14M (0.17%) |
+| IA3 | 16 GB | 800K (0.01%) |
+
+### Training speed (A100 80GB)
+
+| Method | Tokens/sec | vs Full FT |
+|--------|-----------|------------|
+| Full FT | 2,500 | 1x |
+| LoRA | 3,200 | 1.3x |
+| QLoRA | 2,100 | 0.84x |
+
+### Quality (MMLU benchmark)
+
+| Model | Full FT | LoRA | QLoRA |
+|-------|---------|------|-------|
+| Llama 2-7B | 45.3 | 44.8 | 44.1 |
+| Llama 2-13B | 54.8 | 54.2 | 53.5 |
+
+## Common issues
+
+### CUDA OOM during training
+
+```python
+# Solution 1: Enable gradient checkpointing
 model.gradient_checkpointing_enable()
 
-# Use smaller batch with accumulation
-per_device_train_batch_size=1
-gradient_accumulation_steps=8
+# Solution 2: Reduce batch size + increase accumulation
+TrainingArguments(
+    per_device_train_batch_size=1,
+    gradient_accumulation_steps=16
+)
+
+# Solution 3: Use QLoRA
+from transformers import BitsAndBytesConfig
+bnb_config = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4")
 ```
 
-### Poor Quality
+### Adapter not applying
 
-**Fix:**
+```python
+# Verify adapter is active
+print(model.active_adapters)  # Should show adapter name
 
-- Increase `r` (rank)
-- Add more target modules
-- Train longer
-- Check data quality
+# Check trainable parameters
+model.print_trainable_parameters()
 
-### NaN Loss
+# Ensure model in training mode
+model.train()
+```
 
-**Fix:**
+### Quality degradation
 
-- Lower learning rate
-- Use gradient clipping
-- Check for data issues
+```python
+# Increase rank
+LoraConfig(r=32, lora_alpha=64)
 
-## When to Use This Skill
+# Target more modules
+target_modules = "all-linear"
 
-Use when:
+# Use more training data and epochs
+TrainingArguments(num_train_epochs=5)
 
-- GPU memory is limited
-- Fine-tuning large models (7B+)
-- Need fast training iterations
-- Want to swap adapters for different tasks
+# Lower learning rate
+TrainingArguments(learning_rate=1e-4)
+```
 
-## Cross-References
+## Best practices
 
-- `bazzite-ai-jupyter:qlora` - Advanced QLoRA experiments (alpha, rank, modules)
-- `bazzite-ai-jupyter:finetuning` - Full fine-tuning basics
-- `bazzite-ai-jupyter:quantization` - Quantization for QLoRA
-- `bazzite-ai-jupyter:sft` - SFT training with LoRA
-- `bazzite-ai-jupyter:inference` - Fast inference with adapters
-- `bazzite-ai-jupyter:transformers` - Target module selection
+1. **Start with r=8-16**, increase if quality insufficient
+2. **Use alpha = 2 * rank** as starting point
+3. **Target attention + MLP layers** for best quality/efficiency
+4. **Enable gradient checkpointing** for memory savings
+5. **Save adapters frequently** (small files, easy rollback)
+6. **Evaluate on held-out data** before merging
+7. **Use QLoRA for 70B+ models** on consumer hardware
+
+## References
+
+- **[Advanced Usage](references/advanced-usage.md)** - DoRA, LoftQ, rank stabilization, custom modules
+- **[Troubleshooting](references/troubleshooting.md)** - Common errors, debugging, optimization
+
+## Resources
+
+- **GitHub**: https://github.com/huggingface/peft
+- **Docs**: https://huggingface.co/docs/peft
+- **LoRA Paper**: arXiv:2106.09685
+- **QLoRA Paper**: arXiv:2305.14314
+- **Models**: https://huggingface.co/models?library=peft

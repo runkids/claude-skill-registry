@@ -1,7 +1,7 @@
 {
   "category": "product",
   "count": 1081,
-  "updated_at": "2026-01-27T04:46:40.096306Z",
+  "updated_at": "2026-01-28T04:46:46.904173Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -666,21 +666,6 @@
       "source": "local"
     },
     {
-      "name": "lsp-implementation",
-      "description": "Use when implementing Language Server Protocol features - covers completions, hover, diagnostics, and navigation",
-      "repo": "mcclowes/lea",
-      "path": "data/lsp-implementation",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "lsp",
-        "implementation"
-      ],
-      "stars": 3,
-      "install": "mcclowes/lea",
-      "source": "local"
-    },
-    {
       "name": "plan-implementation",
       "description": "Break down feature specifications into manageable implementation phases with TDD vertical slices. Creates actionable task lists for immediate development. Use when you have a feature spec and need a c",
       "repo": "ovation22/TripleDerby",
@@ -724,22 +709,6 @@
       ],
       "stars": 2,
       "install": "daffy0208/ai-dev-standards/skills/customer-feedback-analyzer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "customer-feedback-analyzer",
-      "description": "Synthesize user feedback from multiple channels and identify patterns to inform product decisions. Use when analyzing feedback, prioritizing feature requests, conducting NPS surveys, or understanding ",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/customer-feedback-analyzer",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "customer",
-        "feedback",
-        "analyzer"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -897,21 +866,6 @@
       "source": "local"
     },
     {
-      "name": "product-analyst",
-      "description": "Track user metrics and provide data-driven insights for product decisions. Use when measuring product health, analyzing user behavior, conducting cohort analysis, or optimizing key metrics. Covers acq",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/product-analyst",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "product",
-        "analyst"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
-      "source": "local"
-    },
-    {
       "name": "product-analytics",
       "description": "Measure what matters with proper event tracking, funnels, cohorts, and metrics. Use when setting up analytics, tracking features, or understanding behavior.",
       "repo": "daffy0208/ai-dev-standards",
@@ -924,21 +878,6 @@
       ],
       "stars": 2,
       "install": "daffy0208/ai-dev-standards/skills/product-analytics",
-      "source": "local"
-    },
-    {
-      "name": "product-analytics",
-      "description": "Measure what matters with proper event tracking, funnels, cohorts, and metrics. Use when setting up analytics, tracking features, or understanding behavior.",
-      "repo": "daffy0208/ai-dev-standards",
-      "path": "data/product-analytics",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "product",
-        "analytics"
-      ],
-      "stars": 2,
-      "install": "daffy0208/ai-dev-standards",
       "source": "local"
     },
     {
@@ -2757,6 +2696,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "bigcommerce",
+      "description": "BigCommerce API patterns and enterprise features",
+      "repo": "violetio/violet-ai-plugins",
+      "path": "data/bigcommerce",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "violetio/violet-ai-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "billing-reporter",
       "description": "Use this skill when users need help analyzing LimaCharlie billing, investigating usage costs, comparing trends across organizations, or understanding what's driving their expenses.",
       "repo": "tekgrunt/boot-test",
@@ -3181,6 +3132,18 @@
       "source": "GitHub Search API"
     },
     {
+      "name": "chain-flow-150",
+      "description": "Orchestrate skills into dynamic chains for complex tasks. Analyzes the task, discovers available skills, builds an optimal chain, explains why each skill is needed, and executes step-by-step with user",
+      "repo": "MykhailoDmytriakha/my-preacher-helper",
+      "path": "data/chain-flow-150",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "MykhailoDmytriakha/my-preacher-helper",
+      "source": "GitHub Search API"
+    },
+    {
       "name": "changelog-skill",
       "description": "Use after completing any feature, fix, or change - updates CHANGELOG.md [Unreleased] section in Slovak",
       "repo": "mcsdodo/kniha-jazd",
@@ -3271,18 +3234,6 @@
       "tags": [],
       "stars": 0,
       "install": "fohte/dotfiles/config/claude/skills/check-pr-review",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "check-pr-review",
-      "description": "Use gh-check-pr-review to fetch and address PR review comments. Use this skill when checking PR review feedback, viewing unresolved threads, or addressing reviewer comments.",
-      "repo": "fohte/dotfiles",
-      "path": "data/check-pr-review",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "fohte/dotfiles",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -3826,18 +3777,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "competitive-research",
-      "description": "Research competitors, analyze market positioning, identify differentiators, and understand competitive landscape to inform product strategy and positioning. Use when researching competitors, analyzing",
-      "repo": "korallis/Droidz",
-      "path": "data/competitive-research",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "korallis/Droidz",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "competitive-research-brightdata",
       "description": "Enterprise-grade company research, competitive analysis, and market intelligence using Bright Data's professional web scraping and search capabilities. Use this skill when asked to research companies,",
       "repo": "SeanECurrie/MaiaLearningResearch",
@@ -4240,6 +4179,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "customer-feedback-taxonomy",
+      "description": "Standardized tagging schema for personas, lifecycle stages, drivers, and sentiment.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "data/customer-feedback-taxonomy",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "cw-story-critique",
       "description": "Creative writing skill for analyzing and critiquing story content. Use when the user requests feedback, critique, or analysis of their writing. Provides balanced feedback calibrated to intended audien",
       "repo": "haowjy/creative-writing-skills",
@@ -4360,6 +4311,18 @@
       "tags": [],
       "stars": 0,
       "install": "vanman2024/ai-dev-marketplace/plugins/redis/skills/deployment-configs",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "deployment-config",
+      "description": "Vercel deployment configuration and optimization for Next.js applications including vercel.json setup, environment variables, build optimization, edge functions, and deployment troubleshooting. Use wh",
+      "repo": "vanman2024/ai-dev-marketplace",
+      "path": "data/deployment-config",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "vanman2024/ai-dev-marketplace",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5177,6 +5140,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "explaining-machine-learning-models",
+      "description": "This skill enables AI assistant to provide interpretability and explainability for machine learning models. it is triggered when the user requests explanations for model predictions, insights into fea",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "data/explaining-machine-learning-models",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "external-docs",
       "description": "Verify external libraries, APIs, and frameworks against current documentation before writing code. Use when about to implement features using external dependencies, when writing import statements for ",
       "repo": "eaasxt/Farmhand",
@@ -5384,18 +5359,6 @@
       "tags": [],
       "stars": 0,
       "install": "xmark168/VibeSDLC/backend/app/agents/developer/src/skills/nextjs/feature-plan",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "feature-plan",
-      "description": "Create implementation plans for Next.js features. Use when breaking down user stories into tasks, planning feature implementation, or decomposing complex requirements.",
-      "repo": "xmark168/VibeSDLC",
-      "path": "data/feature-plan",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "xmark168/VibeSDLC",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8969,6 +8932,18 @@
       "tags": [],
       "stars": 0,
       "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-release-versioning-rollback",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "openwebf-release-versioning-rollback",
+      "description": "Design versioning, cache busting, progressive rollout, and rollback for remote WebF bundles. Use when the user mentions version pinning, cache busting, force update, rollback, feature flags, or staged",
+      "repo": "archview-ai/webf-plugin",
+      "path": "data/openwebf-release-versioning-rollback",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "archview-ai/webf-plugin",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -13096,6 +13071,18 @@
       "tags": [],
       "stars": 0,
       "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-patterns",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "violetconnect",
+      "description": "VioletConnect core features - merchant onboarding application architecture",
+      "repo": "violetio/violet-ai-plugins",
+      "path": "data/violetconnect",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "violetio/violet-ai-plugins",
       "source": "SkillsMP + GitHub Raw"
     },
     {

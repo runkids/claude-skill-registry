@@ -1,9 +1,7 @@
 {
   "name": "technical-planning",
-  "description": "Transform specifications into actionable implementation plans with phases, tasks, and acceptance criteria. Fourth phase of research-discussion-specification-plan-implement-review workflow. Use when: (",
-  "repo": "leeovery/claude-technical-workflows",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/leeovery/claude-technical-workflows"
+  "repo": "TheBushidoCollective/han",
+  "path": "core/skills/technical-planning/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:05.246922Z"
 }

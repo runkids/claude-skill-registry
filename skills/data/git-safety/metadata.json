@@ -1,12 +1,7 @@
 {
   "name": "git-safety",
-  "description": "Apply critical git safety protocols before any git operations, especially in collaborative environments. Use when performing git commands, managing files, or making destructive changes.",
-  "repo": "yzlin/supaviber",
-  "category": "devops",
-  "tags": [
-    "git",
-    "safety"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "NeverSight/skills.sh_feed",
+  "path": "data/skills-md/ab300819/skills/git-safety/SKILL.md",
+  "source": "github.com/NeverSight/skills.sh_feed",
+  "downloaded_at": "2026-01-28T02:26:08.082896Z"
 }

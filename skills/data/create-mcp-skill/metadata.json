@@ -1,9 +1,7 @@
 {
   "name": "create-mcp-skill",
-  "description": "Create a new skill that uses an MCP server, following best practices from the MCP CLI guide. Use when user wants to create a skill for a new MCP server or integrate MCP functionality into a skill.",
   "repo": "Cygnusfear/claude-stuff",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/create-mcp-skill/SKILL.md",
+  "source": "github.com/Cygnusfear/claude-stuff",
+  "downloaded_at": "2026-01-28T01:39:48.674020Z"
 }

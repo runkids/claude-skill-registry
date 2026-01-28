@@ -1,302 +1,549 @@
 ---
 name: git-worktree
-description: This skill manages Git worktrees for isolated parallel development. It handles creating, listing, switching, and cleaning up worktrees with a simple interactive interface, following KISS principles.
+description: Manage git worktrees for parallel feature development
+disable-model-invocation: true
 ---
 
-# Git Worktree Manager
+# Git Worktree Management
 
-This skill provides a unified interface for managing Git worktrees across your development workflow. Whether you're reviewing PRs in isolation or working on features in parallel, this skill handles all the complexity.
+I'll help you manage git worktrees for parallel development workflows.
 
-## What This Skill Does
+Arguments: `$ARGUMENTS` - action (add/list/remove) and worktree name
 
-- **Create worktrees** from main branch with clear branch names
-- **List worktrees** with current status
-- **Switch between worktrees** for parallel work
-- **Clean up completed worktrees** automatically
-- **Interactive confirmations** at each step
-- **Automatic .gitignore management** for worktree directory
-- **Automatic .env file copying** from main repo to new worktrees
+## Worktree Philosophy
 
-## CRITICAL: Always Use the Manager Script
+Based on **obra/superpowers** parallel development patterns:
+- Work on multiple features simultaneously
+- Keep main worktree clean
+- Isolate experimental branches
+- Quick context switching
+- No stashing required
 
-**NEVER call `git worktree add` directly.** Always use the `worktree-manager.sh` script.
+**Token Optimization:**
+- Simple git commands (200 tokens)
+- Minimal file reading (300 tokens)
+- Expected: 1,500-2,500 tokens
 
-The script handles critical setup that raw git commands don't:
-1. Copies `.env`, `.env.local`, `.env.test`, etc. from main repo
-2. Ensures `.worktrees` is in `.gitignore`
-3. Creates consistent directory structure
+## Pre-Flight Checks
 
-```bash
-# ✅ CORRECT - Always use the script
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-name
+Before managing worktrees, I'll verify:
+- Git repository exists and is valid
+- No uncommitted changes in current worktree
+- Sufficient disk space available
+- Target branch exists (for checkout)
 
-# ❌ WRONG - Never do this directly
-git worktree add .worktrees/feature-name -b feature-name main
-```
+<think>
+Worktree Strategy:
+- What's the purpose of this worktree?
+- Should it be a new or existing branch?
+- Where should it be located?
+- How to handle cleanup?
+</think>
 
-## When to Use This Skill
-
-Use this skill in these scenarios:
-
-1. **Code Review (`/workflows:review`)**: If NOT already on the PR branch, offer worktree for isolated review
-2. **Feature Work (`/workflows:work`)**: Always ask if user wants parallel worktree or live branch work
-3. **Parallel Development**: When working on multiple features simultaneously
-4. **Cleanup**: After completing work in a worktree
-
-## How to Use
-
-### In Claude Code Workflows
-
-The skill is automatically called from `/workflows:review` and `/workflows:work` commands:
-
-```
-# For review: offers worktree if not on PR branch
-# For work: always asks - new branch or worktree?
-```
-
-### Manual Usage
-
-You can also invoke the skill directly from bash:
+First, let me check your current worktree setup:
 
 ```bash
-# Create a new worktree (copies .env files automatically)
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-login
+#!/bin/bash
+# Check current worktree configuration
 
-# List all worktrees
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
+set -e
 
-# Switch to a worktree
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh switch feature-login
+echo "=== Git Worktree Status ==="
+echo ""
 
-# Copy .env files to an existing worktree (if they weren't copied)
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh copy-env feature-login
+# 1. Verify git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Error: Not a git repository"
+    exit 1
+fi
 
-# Clean up completed worktrees
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
+# 2. Show main repository location
+echo "Main Repository:"
+git rev-parse --git-dir
+echo ""
+
+# 3. List existing worktrees
+echo "Existing Worktrees:"
+if git worktree list > /dev/null 2>&1; then
+    git worktree list
+else
+    echo "  None (git worktree not supported)"
+    exit 1
+fi
+echo ""
+
+# 4. Show current worktree
+echo "Current Worktree:"
+current_worktree=$(git rev-parse --show-toplevel)
+current_branch=$(git branch --show-current)
+echo "  Location: $current_worktree"
+echo "  Branch: $current_branch"
+echo ""
+
+# 5. Check for uncommitted changes
+echo "Status:"
+if git diff --quiet && git diff --cached --quiet; then
+    echo "  ✓ No uncommitted changes"
+else
+    echo "  ⚠ Uncommitted changes present"
+    git status --short
+fi
+echo ""
 ```
 
-## Commands
+## Action: Add Worktree
 
-### `create <branch-name> [from-branch]`
-
-Creates a new worktree with the given branch name.
-
-**Options:**
-- `branch-name` (required): The name for the new branch and worktree
-- `from-branch` (optional): Base branch to create from (defaults to `main`)
-
-**Example:**
-```bash
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-login
-```
-
-**What happens:**
-1. Checks if worktree already exists
-2. Updates the base branch from remote
-3. Creates new worktree and branch
-4. **Copies all .env files from main repo** (.env, .env.local, .env.test, etc.)
-5. Shows path for cd-ing to the worktree
-
-### `list` or `ls`
-
-Lists all available worktrees with their branches and current status.
-
-**Example:**
-```bash
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
-```
-
-**Output shows:**
-- Worktree name
-- Branch name
-- Which is current (marked with ✓)
-- Main repo status
-
-### `switch <name>` or `go <name>`
-
-Switches to an existing worktree and cd's into it.
-
-**Example:**
-```bash
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh switch feature-login
-```
-
-**Optional:**
-- If name not provided, lists available worktrees and prompts for selection
-
-### `cleanup` or `clean`
-
-Interactively cleans up inactive worktrees with confirmation.
-
-**Example:**
-```bash
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
-```
-
-**What happens:**
-1. Lists all inactive worktrees
-2. Asks for confirmation
-3. Removes selected worktrees
-4. Cleans up empty directories
-
-## Workflow Examples
-
-### Code Review with Worktree
+Create a new worktree for parallel development:
 
 ```bash
-# Claude Code recognizes you're not on the PR branch
-# Offers: "Use worktree for isolated review? (y/n)"
+#!/bin/bash
+# Add new git worktree
 
-# You respond: yes
-# Script runs (copies .env files automatically):
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create pr-123-feature-name
+add_worktree() {
+    local worktree_name="$1"
+    local branch_name="$2"
+    local base_branch="${3:-main}"
 
-# You're now in isolated worktree for review with all env vars
-cd .worktrees/pr-123-feature-name
+    echo "=== Add Git Worktree ==="
+    echo ""
 
-# After review, return to main:
-cd ../..
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
+    # Validate inputs
+    if [ -z "$worktree_name" ]; then
+        echo "Error: Worktree name required"
+        echo ""
+        echo "Usage:"
+        echo "  /git-worktree add feature-auth"
+        echo "  /git-worktree add bugfix-login existing-branch"
+        exit 1
+    fi
+
+    # Default branch name to worktree name
+    branch_name="${branch_name:-$worktree_name}"
+
+    # 1. Check if worktree already exists
+    if git worktree list | grep -q "$worktree_name"; then
+        echo "Error: Worktree '$worktree_name' already exists"
+        echo ""
+        echo "Existing worktrees:"
+        git worktree list
+        exit 1
+    fi
+
+    # 2. Determine worktree location
+    repo_root=$(git rev-parse --show-toplevel)
+    worktree_path="$repo_root/../$worktree_name"
+
+    echo "Configuration:"
+    echo "  Worktree: $worktree_name"
+    echo "  Branch: $branch_name"
+    echo "  Location: $worktree_path"
+    echo ""
+
+    # 3. Check if branch exists
+    if git rev-parse --verify "$branch_name" > /dev/null 2>&1; then
+        echo "Branch exists: $branch_name"
+        echo "Creating worktree from existing branch..."
+        git worktree add "$worktree_path" "$branch_name"
+    else
+        echo "Creating new branch: $branch_name"
+        echo "Base: $base_branch"
+        git worktree add -b "$branch_name" "$worktree_path" "$base_branch"
+    fi
+
+    echo ""
+    echo "✓ Worktree created successfully"
+    echo ""
+    echo "Switch to worktree:"
+    echo "  cd $worktree_path"
+    echo ""
+    echo "Or open in new terminal/editor"
+}
+
+# Parse arguments
+action="${ARGUMENTS%% *}"
+params="${ARGUMENTS#* }"
+
+if [ "$action" = "add" ]; then
+    add_worktree $params
+fi
 ```
 
-### Parallel Feature Development
+## Action: List Worktrees
+
+Show all worktrees with detailed information:
 
 ```bash
-# For first feature (copies .env files):
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-login
+#!/bin/bash
+# List all git worktrees
 
-# Later, start second feature (also copies .env files):
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-notifications
+list_worktrees() {
+    echo "=== Git Worktrees ==="
+    echo ""
 
-# List what you have:
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
+    # 1. Get worktree list
+    if ! git worktree list > /dev/null 2>&1; then
+        echo "No worktrees found"
+        return 0
+    fi
 
-# Switch between them as needed:
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh switch feature-login
+    # 2. Show detailed information
+    git worktree list | while read -r path commit branch; do
+        echo "Worktree: $(basename "$path")"
+        echo "  Path: $path"
+        echo "  Branch: $branch"
+        echo "  Commit: ${commit:0:8}"
 
-# Return to main and cleanup when done:
-cd .
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
+        # Check for uncommitted changes
+        if [ -d "$path" ]; then
+            cd "$path" || continue
+            if ! git diff --quiet || ! git diff --cached --quiet; then
+                echo "  Status: ⚠ Uncommitted changes"
+            else
+                echo "  Status: ✓ Clean"
+            fi
+            cd - > /dev/null || true
+        fi
+
+        echo ""
+    done
+
+    # 3. Show prunable worktrees
+    echo "Prunable Worktrees:"
+    if git worktree prune --dry-run 2>&1 | grep -q "Removing"; then
+        git worktree prune --dry-run
+    else
+        echo "  None"
+    fi
+    echo ""
+}
+
+if [ "$action" = "list" ] || [ -z "$action" ]; then
+    list_worktrees
+fi
 ```
 
-## Key Design Principles
+## Action: Remove Worktree
 
-### KISS (Keep It Simple, Stupid)
-
-- **One manager script** handles all worktree operations
-- **Simple commands** with sensible defaults
-- **Interactive prompts** prevent accidental operations
-- **Clear naming** using branch names directly
-
-### Opinionated Defaults
-
-- Worktrees always created from **main** (unless specified)
-- Worktrees stored in **.worktrees/** directory
-- Branch name becomes worktree name
-- **.gitignore** automatically managed
-
-### Safety First
-
-- **Confirms before creating** worktrees
-- **Confirms before cleanup** to prevent accidental removal
-- **Won't remove current worktree**
-- **Clear error messages** for issues
-
-## Integration with Workflows
-
-### `/workflows:review`
-
-Instead of always creating a worktree:
-
-```
-1. Check current branch
-2. If ALREADY on PR branch → stay there, no worktree needed
-3. If DIFFERENT branch → offer worktree:
-   "Use worktree for isolated review? (y/n)"
-   - yes → call git-worktree skill
-   - no → proceed with PR diff on current branch
-```
-
-### `/workflows:work`
-
-Always offer choice:
-
-```
-1. Ask: "How do you want to work?
-   1. New branch on current worktree (live work)
-   2. Worktree (parallel work)"
-
-2. If choice 1 → create new branch normally
-3. If choice 2 → call git-worktree skill to create from main
-```
-
-## Troubleshooting
-
-### "Worktree already exists"
-
-If you see this, the script will ask if you want to switch to it instead.
-
-### "Cannot remove worktree: it is the current worktree"
-
-Switch out of the worktree first (to main repo), then cleanup:
+Safely remove a worktree:
 
 ```bash
-cd $(git rev-parse --show-toplevel)
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
+#!/bin/bash
+# Remove git worktree
+
+remove_worktree() {
+    local worktree_name="$1"
+
+    echo "=== Remove Git Worktree ==="
+    echo ""
+
+    if [ -z "$worktree_name" ]; then
+        echo "Error: Worktree name required"
+        echo ""
+        echo "Usage:"
+        echo "  /git-worktree remove feature-auth"
+        exit 1
+    fi
+
+    # 1. Find worktree path
+    worktree_path=$(git worktree list | grep "$worktree_name" | awk '{print $1}')
+
+    if [ -z "$worktree_path" ]; then
+        echo "Error: Worktree '$worktree_name' not found"
+        echo ""
+        echo "Available worktrees:"
+        git worktree list
+        exit 1
+    fi
+
+    echo "Worktree: $worktree_name"
+    echo "Path: $worktree_path"
+    echo ""
+
+    # 2. Check for uncommitted changes
+    if [ -d "$worktree_path" ]; then
+        cd "$worktree_path" || exit 1
+
+        if ! git diff --quiet || ! git diff --cached --quiet; then
+            echo "⚠ Warning: Uncommitted changes detected"
+            git status --short
+            echo ""
+            echo "Options:"
+            echo "  1. Commit changes first"
+            echo "  2. Force remove (changes will be lost)"
+            echo ""
+            read -p "Force remove? [y/N]: " confirm
+            if [ "$confirm" != "y" ]; then
+                echo "Remove cancelled"
+                exit 0
+            fi
+        fi
+
+        cd - > /dev/null || true
+    fi
+
+    # 3. Get branch name for optional deletion
+    branch_name=$(git worktree list | grep "$worktree_name" | awk '{print $3}' | sed 's/\[//' | sed 's/\]//')
+
+    # 4. Remove worktree
+    echo "Removing worktree..."
+    git worktree remove "$worktree_path" --force
+
+    echo "✓ Worktree removed"
+    echo ""
+
+    # 5. Ask about branch deletion
+    if [ -n "$branch_name" ] && git rev-parse --verify "$branch_name" > /dev/null 2>&1; then
+        echo "Branch still exists: $branch_name"
+        echo ""
+        read -p "Delete branch too? [y/N]: " delete_branch
+        if [ "$delete_branch" = "y" ]; then
+            git branch -D "$branch_name"
+            echo "✓ Branch deleted"
+        else
+            echo "Branch kept for future use"
+        fi
+    fi
+}
+
+if [ "$action" = "remove" ] || [ "$action" = "rm" ]; then
+    remove_worktree $params
+fi
 ```
 
-### Lost in a worktree?
+## Action: Prune Worktrees
 
-See where you are:
+Clean up removed worktrees:
 
 ```bash
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
+#!/bin/bash
+# Prune deleted worktrees
+
+prune_worktrees() {
+    echo "=== Prune Git Worktrees ==="
+    echo ""
+
+    # 1. Check for prunable worktrees
+    echo "Checking for orphaned worktrees..."
+    if git worktree prune --dry-run 2>&1 | grep -q "Removing"; then
+        echo ""
+        git worktree prune --dry-run
+        echo ""
+
+        read -p "Prune these worktrees? [y/N]: " confirm
+        if [ "$confirm" = "y" ]; then
+            git worktree prune
+            echo "✓ Worktrees pruned"
+        else
+            echo "Prune cancelled"
+        fi
+    else
+        echo "  No orphaned worktrees found"
+    fi
+    echo ""
+}
+
+if [ "$action" = "prune" ]; then
+    prune_worktrees
+fi
 ```
 
-### .env files missing in worktree?
+## Action: Switch Worktree
 
-If a worktree was created without .env files (e.g., via raw `git worktree add`), copy them:
+Quick switch between worktrees:
 
 ```bash
-bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh copy-env feature-name
+#!/bin/bash
+# Switch to worktree (helper)
+
+switch_worktree() {
+    local worktree_name="$1"
+
+    echo "=== Switch Worktree ==="
+    echo ""
+
+    if [ -z "$worktree_name" ]; then
+        echo "Available worktrees:"
+        git worktree list
+        exit 0
+    fi
+
+    # Find worktree path
+    worktree_path=$(git worktree list | grep "$worktree_name" | awk '{print $1}')
+
+    if [ -z "$worktree_path" ]; then
+        echo "Error: Worktree '$worktree_name' not found"
+        exit 1
+    fi
+
+    echo "Switching to: $worktree_name"
+    echo "Path: $worktree_path"
+    echo ""
+    echo "Run this command to switch:"
+    echo "  cd $worktree_path"
+}
+
+if [ "$action" = "switch" ]; then
+    switch_worktree $params
+fi
 ```
 
-Navigate back to main:
+## Common Workflows
+
+**Parallel Feature Development:**
+```bash
+# Main worktree: working on feature A
+/git-worktree add feature-b
+# Opens new worktree for feature B
+
+# Work on both simultaneously
+cd ../feature-b
+# Make changes to feature B
+
+# Return to main worktree
+cd ../main-repo
+# Continue feature A
+```
+
+**Bug Fix While Developing:**
+```bash
+# Currently working on feature
+/git-worktree add hotfix-critical main
+# Creates worktree from main branch
+
+cd ../hotfix-critical
+# Fix bug, test, commit
+
+# Create PR, merge
+# Return to feature work
+cd ../main-repo
+
+# Clean up
+/git-worktree remove hotfix-critical
+```
+
+**Code Review in Separate Worktree:**
+```bash
+# Review PR without disrupting current work
+/git-worktree add review-pr-123 pr-branch
+
+cd ../review-pr-123
+# Review, test, comment
+
+# Clean up after review
+cd ../main-repo
+/git-worktree remove review-pr-123
+```
+
+## Safety Features
+
+**Before Removing Worktree:**
+- Check for uncommitted changes
+- Warn if changes would be lost
+- Require confirmation for force remove
+- Option to delete or keep branch
+
+**Before Adding Worktree:**
+- Verify branch exists or create new
+- Check disk space (optional)
+- Prevent duplicate worktree names
+- Use consistent naming
+
+## Integration with /branch-finish
+
+When completing work in a worktree:
 
 ```bash
-cd $(git rev-parse --show-toplevel)
+# 1. Finish work in worktree
+cd ../feature-x
+/branch-finish
+
+# 2. Return to main and clean up
+cd ../main-repo
+/git-worktree remove feature-x
 ```
 
-## Technical Details
+## Directory Structure
 
-### Directory Structure
-
+**Recommended Structure:**
 ```
-.worktrees/
-├── feature-login/          # Worktree 1
-│   ├── .git
-│   ├── app/
-│   └── ...
-├── feature-notifications/  # Worktree 2
-│   ├── .git
-│   ├── app/
-│   └── ...
-└── ...
-
-.gitignore (updated to include .worktrees)
+project/
+├── main-repo/           # Main worktree
+│   └── .git/
+├── feature-auth/        # Feature worktree
+├── feature-payments/    # Another feature
+└── bugfix-login/        # Bugfix worktree
 ```
 
-### How It Works
+**Alternative (subdirectory):**
+```
+project/
+├── main/               # Main worktree
+│   └── .git/
+└── worktrees/          # All additional worktrees
+    ├── feature-auth/
+    ├── feature-payments/
+    └── bugfix-login/
+```
 
-- Uses `git worktree add` for isolated environments
-- Each worktree has its own branch
-- Changes in one worktree don't affect others
-- Share git history with main repo
-- Can push from any worktree
+## Worktree Best Practices
 
-### Performance
+**When to Use Worktrees:**
+- ✅ Working on multiple features simultaneously
+- ✅ Quick hotfixes without stashing
+- ✅ Code reviews without branch switching
+- ✅ Testing different approaches in parallel
+- ✅ Maintaining multiple versions
 
-- Worktrees are lightweight (just file system links)
-- No repository duplication
-- Shared git objects for efficiency
-- Much faster than cloning or stashing/switching
+**When NOT to Use Worktrees:**
+- ❌ Simple branch switching (use `git checkout`)
+- ❌ Temporary experiments (use stash)
+- ❌ Single-feature development
+- ❌ Limited disk space
+
+## Cleanup Strategy
+
+**Regular Cleanup:**
+```bash
+# Weekly: prune deleted worktrees
+/git-worktree prune
+
+# Monthly: review all worktrees
+/git-worktree list
+
+# Remove completed worktrees
+/git-worktree remove <name>
+```
+
+## Error Handling
+
+If worktree operations fail:
+- I'll explain the error clearly
+- Show current worktree state
+- Provide recovery options
+- Ensure no partial operations
+
+**Common Errors:**
+- **Branch locked**: Another worktree using branch
+- **Path exists**: Directory conflict
+- **Uncommitted changes**: Require commit or force
+- **Not a repository**: Must be in git repo
+
+## What I'll Actually Do
+
+1. **List Worktrees** - Show all worktrees with status
+2. **Add Worktree** - Create new worktree with branch
+3. **Remove Worktree** - Safely delete worktree
+4. **Prune** - Clean up orphaned worktrees
+5. **Status Check** - Show uncommitted changes
+6. **Switch Helper** - Generate cd commands
+
+**Important:** I will NEVER:
+- Remove worktrees without checking for uncommitted work
+- Create duplicate worktrees
+- Leave orphaned worktrees
+- Modify git config
+- Add AI attribution
+
+Worktree management will be safe, clean, and efficient for parallel development.
+
+**Credits:** Worktree workflow based on [obra/superpowers](https://github.com/obra/superpowers) parallel development patterns and git worktree best practices.

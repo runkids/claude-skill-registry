@@ -1,7 +1,7 @@
 {
   "name": "github-workflow",
-  "repo": "iamgrewal/rolesense",
-  "path": ".agent/skills/github-workflow/SKILL.md",
-  "source": "github.com/iamgrewal/rolesense",
-  "downloaded_at": "2026-01-27T04:02:12.673855Z"
+  "repo": "vamseeachanta/workspace-hub",
+  "path": ".claude/skills/development/github/github-workflow/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-28T01:05:23.682208Z"
 }

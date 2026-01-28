@@ -1,291 +1,312 @@
 ---
 name: ui-patterns
-description: Ready-to-use UI patterns library for common scenarios - stats dashboards, data tables, forms, modals, and feedback states
-user-invocable: false
+description: Plaited UI patterns for templates, behavioral elements, and styling. Use when creating bElements or FunctionalTemplates, writing stories for testing, using createStyles, building form controls, or coordinating cross-island communication.
+license: ISC
+compatibility: Requires bun
 ---
 
-# Pierre UI Patterns Library
+# Plaited UI Patterns
 
-Ready-to-use UI patterns for common scenarios. Copy and adapt these patterns when building features.
+## Purpose
 
-## Data Display Patterns
+This skill provides **training data** for the Plaited agent—patterns that establish the agent's understanding of UI architecture, styling systems, and element coordination. These patterns inform code generation for user interfaces.
 
-### Stats Dashboard
-```tsx
-<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-  <Card variant="stat">
-    <div className="text-3xl font-bold text-pierre-gray-900">1,234</div>
-    <div className="text-sm text-pierre-gray-500 mt-1">Total Requests</div>
-    <div className="text-xs text-pierre-green-600 mt-2">+12% from last week</div>
-  </Card>
-  <Card variant="stat">
-    <div className="text-3xl font-bold text-pierre-activity">98.5%</div>
-    <div className="text-sm text-pierre-gray-500 mt-1">Uptime</div>
-  </Card>
-  <Card variant="stat">
-    <div className="text-3xl font-bold text-pierre-violet">42ms</div>
-    <div className="text-sm text-pierre-gray-500 mt-1">Avg Response</div>
-  </Card>
-</div>
+**Use this when:**
+- Creating templates with bElement or FunctionalTemplate
+- Building form-associated custom elements
+- Coordinating cross-island communication
+- Styling elements with CSS-in-JS (createStyles, createHostStyles)
+- Writing stories for testing (`.stories.tsx`)
+- Offloading computation to web workers
+
+**For core BP patterns** (event selection, rule composition, useBehavioral), see **behavioral-core** skill.
+
+## Training Philosophy
+
+### Patterns Are Training Data
+
+All patterns in this skill train the Plaited agent's world model. They are NOT:
+- Reusable templates to import directly
+- Published packages
+- Shared across projects
+
+They ARE:
+- Knowledge for the agent to learn from
+- Self-contained examples demonstrating best practices
+- Training material that improves generation quality
+
+### Training Pipeline
+
+```mermaid
+flowchart LR
+    A[UI Patterns] --> B[Agent World Model]
+    C[Web Patterns] --> B
+    D[User Design Inputs] --> B
+    B --> E[Generated Stories]
+    E --> F[Human Feedback]
+    F --> B
 ```
 
-### Data Table with Actions
-```tsx
-<Card>
-  <CardHeader title="API Keys" subtitle="Manage your API keys" />
-  <div className="overflow-x-auto">
-    <table className="w-full">
-      <thead>
-        <tr className="border-b border-pierre-gray-200">
-          <th className="text-left py-3 px-4 text-sm font-medium text-pierre-gray-700">Name</th>
-          <th className="text-left py-3 px-4 text-sm font-medium text-pierre-gray-700">Status</th>
-          <th className="text-right py-3 px-4 text-sm font-medium text-pierre-gray-700">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item) => (
-          <tr key={item.id} className="border-b border-pierre-gray-100 hover:bg-pierre-gray-50">
-            <td className="py-3 px-4">
-              <div className="font-medium text-pierre-gray-900">{item.name}</div>
-              <div className="text-sm text-pierre-gray-500">{item.description}</div>
-            </td>
-            <td className="py-3 px-4">
-              <Badge variant={item.active ? 'success' : 'secondary'}>
-                {item.active ? 'Active' : 'Inactive'}
-              </Badge>
-            </td>
-            <td className="py-3 px-4 text-right">
-              <Button variant="secondary" size="sm">Edit</Button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</Card>
+**User Design Inputs include:**
+- Color palettes and brand colors
+- Type scales (font sizes, weights, line heights)
+- Spacing scales
+- Border radii, shadows
+- Existing design tokens
+
+The agent uses `createTokens`, `createStyles`, `createHostStyles`, `createKeyframes`, and `joinStyles` to translate these inputs into the Plaited styling system.
+
+### Human-on-the-Loop
+
+The agent generates patterns, but humans provide feedback and can edit:
+
+1. **Agent generates** → Stories with bElements, styles, tokens
+2. **Human reviews** → Runs stories, checks visual output
+3. **Human provides feedback** → "Make the button larger", "Use different colors"
+4. **Agent adjusts** → Regenerates based on feedback
+5. **Human can edit** → Developers can modify generated code directly
+
+This is a **collaborative** workflow, not fully autonomous.
+
+## Quick Reference
+
+**Terminology**: Plaited uses **templates** for user interfaces. Use "template" not "component". Refer to browser APIs by specific names (Custom Elements, Shadow DOM) not "Web Components".
+
+**Testing**: UI templates are tested with stories (`.stories.tsx`) using browser automation via the workshop CLI.
+
+**TypeScript LSP**: Use the `typescript-lsp@plaited_development-skills` skill for type inference from `plaited` package imports.
+
+## CSS-in-JS API
+
+**createStyles** returns objects with `classNames: string[]` and `stylesheets: string[]`:
+
+```typescript
+// button.css.ts
+import { createStyles } from 'plaited'
+
+export const styles = createStyles({
+  button: {
+    padding: '0.5rem 1rem',
+    borderRadius: '4px',
+  },
+})
+
+// Usage in JSX - spread syntax
+<button {...styles.button}>Click me</button>
 ```
 
-## Form Patterns
+## Pattern Categories
 
-### Standard Form
-```tsx
-<Card>
-  <CardHeader title="Create New Key" />
-  <form onSubmit={handleSubmit} className="space-y-4">
-    <div>
-      <label className="label">Key Name</label>
-      <input
-        type="text"
-        className="input-field"
-        placeholder="Enter key name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      {errors.name && <span className="error-text">{errors.name}</span>}
-    </div>
+### Templates & Styling
 
-    <div>
-      <label className="label">Description</label>
-      <textarea
-        className="input-field min-h-[100px]"
-        placeholder="Optional description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <span className="help-text">Describe what this key is used for</span>
-    </div>
+**[styling.md](references/styling.md)** - Templates (JSX, FT, useTemplate, SSR) + CSS-in-JS
 
-    <div className="flex justify-end gap-2 pt-4">
-      <Button variant="secondary" type="button" onClick={onCancel}>
-        Cancel
-      </Button>
-      <Button variant="primary" type="submit" loading={isSubmitting}>
-        {isSubmitting ? 'Creating...' : 'Create Key'}
-      </Button>
-    </div>
-  </form>
-</Card>
+Use for:
+- JSX syntax and template security
+- FunctionalTemplate pattern
+- Atomic CSS with createStyles
+- Host styling with createHostStyles
+- Design tokens with createTokens
+- Keyframes animation with createKeyframes
+- Style composition with joinStyles
+
+### Behavioral Elements
+
+**[b-element.md](references/b-element.md)** - Creating custom elements with bElement
+
+Use for:
+- Islands architecture
+- Decorator pattern (wrapping native elements)
+- Stateful elements
+- Form controls
+
+**When to use bElement:**
+- Interactive islands requiring state
+- Wrapping hard-to-style native elements
+- Complex behavioral coordination
+- Form integration with ElementInternals
+
+### Form Integration
+
+**[form-associated-elements.md](references/form-associated-elements.md)** - Capturing user intent through forms
+
+Use for:
+- Custom form controls with ElementInternals API
+- Custom states (`:state()`) for styling
+- Form validation
+- Type-driven form generation
+
+### Cross-Island Communication
+
+**[cross-island-communication.md](references/cross-island-communication.md)** - Three communication patterns
+
+| Pattern | Direction | API | Use Case |
+|---------|-----------|-----|----------|
+| A | Parent → Child | `trigger()` | Direct method call |
+| B | Child → Parent | `emit()` | Event bubbling |
+| C | Cross-island | `useSignal()` | Pub/sub actor pattern |
+
+### Testing
+
+**[stories.md](references/stories.md)** - Story-based testing with browser automation
+
+Use for:
+- Writing stories for templates and bElements
+- Workshop CLI usage (`bun plaited test`, `bun --hot plaited dev`)
+- Accessibility testing
+- Inspector debugging
+
+Workshop commands:
+```bash
+bun run test:stories src/main  # Run story tests
+bun --hot plaited dev          # Dev server with hot reload
 ```
 
-### Filter Bar
-```tsx
-<div className="flex items-center justify-between mb-6">
-  <div className="flex items-center gap-4">
-    <input
-      type="text"
-      className="input-field w-64"
-      placeholder="Search..."
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-    />
-    <select className="input-field w-40">
-      <option value="">All Status</option>
-      <option value="active">Active</option>
-      <option value="inactive">Inactive</option>
-    </select>
-  </div>
-  <Button variant="primary">Add New</Button>
-</div>
+### Performance
+
+**[web-workers.md](references/web-workers.md)** - Offloading computation to background threads
+
+Use for:
+- CPU-intensive calculations
+- Data processing
+- Complex algorithms
+
+APIs:
+- `useWorker()` - Main thread interface
+- `bWorker()` - Worker thread behavioral program
+
+## Decision Trees
+
+### When to Use Which Pattern?
+
+**Creating UI Elements:**
+```mermaid
+flowchart TD
+    A[Is it simple and<br/>presentational?] -->|YES| B[Use FunctionalTemplate<br/>in *.stories.tsx]
+    A -->|NO| C{Need interactivity?}
+    C -->|YES| D[Use bElement]
+    D --> D1[Islands architecture]
+    D --> D2[Decorator pattern]
+    D --> D3[Stateful elements]
+    D --> D4[Form controls]
+    B -.-> S1[See references/styling.md]
+    D -.-> S2[See references/b-element.md]
 ```
 
-## Feedback Patterns
-
-### Success State
-```tsx
-<div className="bg-pierre-green-50 border border-pierre-green-200 rounded-lg p-4">
-  <div className="flex items-center gap-3">
-    <svg className="w-5 h-5 text-pierre-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-    </svg>
-    <div>
-      <p className="font-medium text-pierre-green-800">Success!</p>
-      <p className="text-sm text-pierre-green-700">Your changes have been saved.</p>
-    </div>
-  </div>
-</div>
+**Communication Between Elements:**
+```mermaid
+flowchart TD
+    A{Parent-Child<br/>relationship?} -->|YES| B{Direction?}
+    A -->|NO| C[Cross-island]
+    B -->|Parent → Child| D[Pattern A: trigger]
+    B -->|Child → Parent| E[Pattern B: emit]
+    C --> F[Pattern C: useSignal]
 ```
 
-### Error State
-```tsx
-<div className="bg-pierre-red-50 border border-pierre-red-200 rounded-lg p-4">
-  <div className="flex items-center gap-3">
-    <svg className="w-5 h-5 text-pierre-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-    <div>
-      <p className="font-medium text-pierre-red-800">Error</p>
-      <p className="text-sm text-pierre-red-700">{error.message}</p>
-    </div>
-  </div>
-</div>
+## File Organization
+
+### Pattern File Structure
+
+Each pattern follows this structure:
+
+```
+pattern/
+  accordion.css.ts        # Styles (createStyles) - ALWAYS separate
+  accordion.tokens.ts     # Design tokens (optional)
+  accordion.stories.tsx   # bElement/FT + stories (imports from css.ts)
 ```
 
-### Empty State
-```tsx
-<div className="text-center py-12">
-  <svg className="w-12 h-12 text-pierre-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-  </svg>
-  <p className="text-lg font-medium text-pierre-gray-900 mb-1">No items yet</p>
-  <p className="text-sm text-pierre-gray-500 mb-4">Get started by creating your first item.</p>
-  <Button variant="primary">Create Item</Button>
-</div>
+**Key principles:**
+1. **Styles in `*.css.ts`** - createStyles always in separate file
+2. **bElement or FunctionalTemplate is local** - Defined in stories, NOT exported
+3. **Stories ARE exported** - Required for testing and training
+4. **Tokens in `*.tokens.ts`** - Design system values when needed
+
+### For Generated Applications
+
+When the agent generates code for an actual application, file structure is determined collaboratively between the agent and developer based on project needs.
+
+### Naming Conventions
+- **bElement-specific styles**: Export as `styles` and `hostStyles`
+- **Reusable pattern styles**: Export with descriptive names (e.g., `buttonStyles`)
+- **Token files**: Use `*.tokens.ts` extension
+
+## Story API
+
+Every story **requires an `intent` property** describing what it demonstrates:
+
+```typescript
+// Interaction story (with play function)
+export const defaultButton = story({
+  intent: 'Demonstrates button click handling',
+  template: () => <Button>Click me</Button>,
+  play: async ({ findByAttribute, assert, fireEvent }) => {
+    const button = await findByAttribute('p-target', 'button')
+    if (button) await fireEvent(button, 'click')
+    // assertions...
+  },
+})
+
+// Snapshot story (no play function)
+export const disabledButton = story({
+  intent: 'Shows disabled button appearance',
+  template: () => <Button disabled>Disabled</Button>,
+})
 ```
 
-### Loading State
-```tsx
-// Full page loading
-<div className="flex items-center justify-center h-64">
-  <div className="pierre-spinner w-8 h-8" />
-</div>
+## Best Practices
 
-// Inline loading
-<Button variant="primary" loading={true}>
-  <div className="pierre-spinner mr-2" />
-  Loading...
-</Button>
+### Templates Are Static
 
-// Skeleton loading
-<div className="space-y-4">
-  <div className="h-4 bg-pierre-gray-200 rounded animate-pulse w-3/4" />
-  <div className="h-4 bg-pierre-gray-200 rounded animate-pulse w-1/2" />
-  <div className="h-4 bg-pierre-gray-200 rounded animate-pulse w-5/6" />
-</div>
+```typescript
+// Templates render once, use attributes for updates
+const btn = $('btn')[0]
+btn?.attr('data-variant', 'primary')  // Change via attributes
 ```
 
-## Navigation Patterns
+### Token Usage
 
-### Tabs
-```tsx
-<div className="border-b border-pierre-gray-200">
-  <nav className="flex gap-8">
-    <button
-      className={clsx('tab', activeTab === 'overview' && 'tab-active')}
-      onClick={() => setActiveTab('overview')}
-    >
-      Overview
-    </button>
-    <button
-      className={clsx('tab', activeTab === 'settings' && 'tab-active')}
-      onClick={() => setActiveTab('settings')}
-    >
-      Settings
-    </button>
-  </nav>
-</div>
+```typescript
+// Pass token references directly, don't invoke
+backgroundColor: tokens.primary    // Correct
+backgroundColor: tokens.primary()  // Wrong
 ```
 
-### Breadcrumbs
-```tsx
-<nav className="flex items-center gap-2 text-sm text-pierre-gray-500 mb-6">
-  <a href="/dashboard" className="hover:text-pierre-violet">Dashboard</a>
-  <span>/</span>
-  <a href="/settings" className="hover:text-pierre-violet">Settings</a>
-  <span>/</span>
-  <span className="text-pierre-gray-900">API Keys</span>
-</nav>
+### Communication Hierarchy
+
+```typescript
+// Parent-child: Use trigger/emit
+parent.trigger({ type: 'event' })
+child.emit({ type: 'event', bubbles: true, composed: true })
+
+// Cross-island: Use useSignal
+const signal = useSignal<Data>()
+signal.set(data)
+signal.listen('evt', trigger)
 ```
 
-## Modal Patterns
+## Examples
 
-### Confirmation Modal
-```tsx
-<ConfirmDialog
-  isOpen={showDelete}
-  onClose={() => setShowDelete(false)}
-  onConfirm={handleDelete}
-  title="Delete API Key"
-  message="Are you sure you want to delete this API key? This action cannot be undone."
-  variant="danger"
-  confirmText="Delete"
-  cancelText="Cancel"
-/>
-```
+Complete working examples in `assets/`:
 
-### Form Modal
-```tsx
-<Modal
-  isOpen={showCreate}
-  onClose={() => setShowCreate(false)}
-  title="Create New Item"
->
-  <form onSubmit={handleSubmit} className="space-y-4">
-    <div>
-      <label className="label">Name</label>
-      <input type="text" className="input-field" />
-    </div>
-    <ModalActions>
-      <Button variant="secondary" onClick={() => setShowCreate(false)}>
-        Cancel
-      </Button>
-      <Button variant="primary" type="submit">
-        Create
-      </Button>
-    </ModalActions>
-  </form>
-</Modal>
-```
+| Example | Pattern | Key Concepts |
+|---------|---------|--------------|
+| [DecoratedCheckbox](assets/decorator-pattern/) | Decorator | Wrapping native elements, attribute observation |
+| [InputAddon](assets/slot-styling/) | Slot styling | `::slotted()` CSS, light DOM styling |
+| [ToggleInput](assets/form-associated/) | Form-associated | ElementInternals, custom states |
+| [Popover](assets/stateful-elements/) | Stateful | Native popover API, emit() |
+| [Tic-Tac-Toe](assets/bp-coordination/) | BP coordination | Complex thread interaction |
 
-## Three Pillars Usage
+## Code Standards
 
-Use pillar colors semantically for fitness-related features:
+For code conventions, standards, and verification workflow, see the **standards** skill:
+- `code-conventions.md` - Type system, function style, imports
+- `standards.md` - 95% confidence threshold, documentation, Bun APIs
+- `verification-workflow.md` - Code generation workflow
 
-```tsx
-// Activity (emerald) - fitness, workouts, movement
-<Badge className="bg-pierre-activity text-white">Running</Badge>
-<div className="bg-gradient-activity text-white p-4 rounded-lg">
-  Activity Summary
-</div>
+## Related Skills
 
-// Nutrition (amber) - food, meals, hydration
-<Badge className="bg-pierre-nutrition text-white">Meal Logged</Badge>
-<div className="bg-gradient-nutrition text-white p-4 rounded-lg">
-  Nutrition Overview
-</div>
-
-// Recovery (indigo) - sleep, rest, wellness
-<Badge className="bg-pierre-recovery text-white">Sleep Score</Badge>
-<div className="bg-gradient-recovery text-white p-4 rounded-lg">
-  Recovery Status
-</div>
-```
+- **standards** - Code conventions, development standards, verification workflow
+- **behavioral-core** - Core BP patterns (foundation)
+- **web-patterns** - Web API patterns for bElement architecture
+- **typescript-lsp@plaited_development-skills** - Type verification and symbol discovery

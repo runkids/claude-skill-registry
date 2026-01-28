@@ -1,12 +1,7 @@
 {
   "name": "video-producer",
-  "description": "Expert in video playback, streaming, and video player customization",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "development",
-  "tags": [
-    "video",
-    "producer"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/video-producer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:41.064197Z"
 }

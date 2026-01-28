@@ -1,11 +1,7 @@
 {
   "name": "model-checkpoint-manager",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Model Checkpoint Manager - Auto-activating skill for ML Training.Triggers on: model checkpoint manager, model checkpoint managerPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:07.780479Z",
-  "dir_name": "model-checkpoint-manager",
-  "github_path": "planned-skills/generated/07-ml-training/model-checkpoint-manager",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/model-checkpoint-manager/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:51.654344Z"
 }

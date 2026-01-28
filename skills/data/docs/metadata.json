@@ -1,7 +1,7 @@
 {
   "name": "docs",
-  "repo": "MyPureCloud/platform-client-sdk-ruby",
-  "path": "build/docs/ScimUserRoutingSkill.md",
-  "source": "github.com/MyPureCloud/platform-client-sdk-ruby",
-  "downloaded_at": "2026-01-27T04:38:45.916473Z"
+  "repo": "stramec/purecloudplatformclientv2-rogue",
+  "path": "docs/ScimUserRoutingSkill.md",
+  "source": "github.com/stramec/purecloudplatformclientv2-rogue",
+  "downloaded_at": "2026-01-28T04:23:32.585763Z"
 }

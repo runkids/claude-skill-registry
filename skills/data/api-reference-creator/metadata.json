@@ -1,9 +1,7 @@
 {
   "name": "api-reference-creator",
-  "description": "Api Reference Creator - Auto-activating skill for Technical Documentation.Triggers on: api reference creator, api reference creatorPart of the Technical Documentation skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/api-reference-creator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-28T02:38:46.886609Z"
 }

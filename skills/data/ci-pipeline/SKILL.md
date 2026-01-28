@@ -3,8 +3,6 @@ name: ci-pipeline
 description: >-
   CI pipeline creation and maintenance. TODO: Implement for devops.
   Invoked by: "ci", "pipeline", "ci/cd", "github actions", "create pipeline".
-context: fork
-agent: general-purpose
 ---
 
 # CI Pipeline

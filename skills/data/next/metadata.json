@@ -1,7 +1,7 @@
 {
   "name": "next",
-  "repo": "flurdy/agent-skills",
-  "path": "skills/next/SKILL.md",
-  "source": "github.com/flurdy/agent-skills",
-  "downloaded_at": "2026-01-27T03:25:09.764003Z"
+  "repo": "endlessblink/flow-state",
+  "path": ".claude/skills/next/SKILL.md",
+  "source": "github.com/endlessblink/flow-state",
+  "downloaded_at": "2026-01-28T02:37:45.993926Z"
 }

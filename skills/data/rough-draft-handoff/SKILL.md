@@ -112,7 +112,7 @@ Ask user: "Compact context before starting implementation?"
 2. No
 ```
 
-- If **1 (Yes)**: Invoke skill: collab-compact, wait for completion, then invoke executing-plans
+- If **1 (Yes)**: Invoke skill: collab-clear, wait for completion, then invoke executing-plans
 - If **2 (No)**: Invoke executing-plans directly
 
 **Step 4: Invoke executing-plans**
@@ -136,3 +136,37 @@ After all tasks complete:
 - [ ] All TODOs resolved
 - [ ] Tests pass
 - [ ] Implementation matches design intent
+
+## Completion
+
+### Mark item as documented
+
+Before completing, update the item status in session state:
+
+```
+Tool: mcp__plugin_mermaid-collab_mermaid__get_session_state
+Args: { "project": "<cwd>", "session": "<session>" }
+```
+
+Update the item's status in workItems array:
+
+```
+Tool: mcp__plugin_mermaid-collab_mermaid__update_session_state
+Args: {
+  "project": "<cwd>",
+  "session": "<session>",
+  "workItems": [<updated array with item status changed to "documented">]
+}
+```
+
+### Call complete_skill
+
+```
+Tool: mcp__plugin_mermaid-collab_mermaid__complete_skill
+Args: { "project": "<cwd>", "session": "<session>", "skill": "rough-draft-handoff" }
+```
+
+**Handle response:**
+- If `action == "clear"`: Invoke skill: collab-clear
+- If `next_skill` is not null: Invoke that skill
+- If `next_skill` is null: Workflow complete

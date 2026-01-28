@@ -1,7 +1,7 @@
 {
   "name": "ast-grep",
-  "repo": "pproenca/dot-skills",
-  "path": "skills/.experimental/ast-grep/SKILL.md",
-  "source": "github.com/pproenca/dot-skills",
-  "downloaded_at": "2026-01-27T04:05:06.708821Z"
+  "repo": "OutlineDriven/odin-claude-plugin",
+  "path": "skills/ast-grep/SKILL.md",
+  "source": "github.com/OutlineDriven/odin-claude-plugin",
+  "downloaded_at": "2026-01-28T03:47:51.507638Z"
 }

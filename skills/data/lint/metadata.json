@@ -1,7 +1,7 @@
 {
   "name": "lint",
-  "repo": "ahtavarasmus/lightfriend-cloud",
-  "path": ".claude/skills/lint/SKILL.md",
-  "source": "github.com/ahtavarasmus/lightfriend-cloud",
-  "downloaded_at": "2026-01-27T04:28:28.822152Z"
+  "repo": "shiiman/claude-code-plugins",
+  "path": "plugins/shiiman-go/skills/lint/SKILL.md",
+  "source": "github.com/shiiman/claude-code-plugins",
+  "downloaded_at": "2026-01-28T01:59:43.780791Z"
 }

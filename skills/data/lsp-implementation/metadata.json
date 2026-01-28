@@ -1,12 +1,7 @@
 {
   "name": "lsp-implementation",
-  "description": "Use when implementing Language Server Protocol features - covers completions, hover, diagnostics, and navigation",
   "repo": "mcclowes/lea",
-  "category": "product",
-  "tags": [
-    "lsp",
-    "implementation"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/lsp-implementation/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-28T03:49:25.245891Z"
 }

@@ -1,509 +1,381 @@
 ---
 name: polars
-description: Lightning-fast DataFrame library written in Rust for high-performance data manipulation and analysis. Use when user wants blazing fast data transformations, working with large datasets, lazy evaluation pipelines, or needs better performance than pandas. Ideal for ETL, data wrangling, aggregations, joins, and reading/writing CSV, Parquet, JSON files.
+description: "Fast DataFrame library (Apache Arrow). Select, filter, group_by, joins, lazy evaluation, CSV/Parquet I/O, expression API, for high-performance data analysis workflows."
 ---
 
 # Polars
 
 ## Overview
 
-Polars is a blazingly fast DataFrame library written in Rust with Python bindings. Built for performance and memory efficiency, Polars leverages parallel execution and lazy evaluation to process data faster than pandas, especially on large datasets.
+Polars is a lightning-fast DataFrame library for Python and Rust built on Apache Arrow. Work with Polars' expression-based API, lazy evaluation framework, and high-performance data manipulation capabilities for efficient data processing, pandas migration, and data pipeline optimization.
 
-## When to Use This Skill
+## Quick Start
 
-Activate when the user:
-- Wants to work with DataFrames and needs high performance
-- Mentions Polars explicitly or asks for "fast" data processing
-- Needs to process large datasets (millions of rows)
-- Wants lazy evaluation for query optimization
-- Asks for data transformations, filtering, grouping, or aggregations
-- Needs to read/write CSV, Parquet, JSON, or other data formats
-- Wants to combine with DuckDB for SQL + DataFrame workflows
+### Installation and Basic Usage
 
-## Installation
-
-Check if Polars is installed:
-
-```bash
-python3 -c "import polars as pl; print(pl.__version__)"
+Install Polars:
+```python
+pip install polars
 ```
 
-If not installed:
-
-```bash
-pip3 install polars
-```
-
-For full features including Parquet support:
-
-```bash
-pip3 install 'polars[pyarrow]'
-```
-
-For DuckDB integration:
-
-```bash
-pip3 install polars duckdb 'polars[pyarrow]'
-```
-
-## Core Capabilities
-
-### 1. Reading Data
-
-Polars can read data from various formats:
-
+Basic DataFrame creation and operations:
 ```python
 import polars as pl
 
-# Read CSV
-df = pl.read_csv('data.csv')
-
-# Read Parquet (fast, columnar format)
-df = pl.read_parquet('data.parquet')
-
-# Read JSON
-df = pl.read_json('data.json')
-
-# Read multiple files
-df = pl.read_csv('data/*.csv')
-
-# Read with lazy evaluation (doesn't load until needed)
-lazy_df = pl.scan_csv('large_data.csv')
-lazy_df = pl.scan_parquet('data/*.parquet')
-```
-
-### 2. Data Selection and Filtering
-
-```python
-import polars as pl
-
-df = pl.read_csv('data.csv')
+# Create DataFrame
+df = pl.DataFrame({
+    "name": ["Alice", "Bob", "Charlie"],
+    "age": [25, 30, 35],
+    "city": ["NY", "LA", "SF"]
+})
 
 # Select columns
-result = df.select(['name', 'age', 'city'])
-
-# Select with expressions
-result = df.select([
-    pl.col('name'),
-    pl.col('age'),
-    pl.col('salary').alias('annual_salary')
-])
+df.select("name", "age")
 
 # Filter rows
-result = df.filter(pl.col('age') > 25)
+df.filter(pl.col("age") > 25)
 
-# Multiple conditions
-result = df.filter(
-    (pl.col('age') > 25) &
-    (pl.col('city') == 'NYC')
+# Add computed columns
+df.with_columns(
+    age_plus_10=pl.col("age") + 10
+)
+```
+
+## Core Concepts
+
+### Expressions
+
+Expressions are the fundamental building blocks of Polars operations. They describe transformations on data and can be composed, reused, and optimized.
+
+**Key principles:**
+- Use `pl.col("column_name")` to reference columns
+- Chain methods to build complex transformations
+- Expressions are lazy and only execute within contexts (select, with_columns, filter, group_by)
+
+**Example:**
+```python
+# Expression-based computation
+df.select(
+    pl.col("name"),
+    (pl.col("age") * 12).alias("age_in_months")
+)
+```
+
+### Lazy vs Eager Evaluation
+
+**Eager (DataFrame):** Operations execute immediately
+```python
+df = pl.read_csv("file.csv")  # Reads immediately
+result = df.filter(pl.col("age") > 25)  # Executes immediately
+```
+
+**Lazy (LazyFrame):** Operations build a query plan, optimized before execution
+```python
+lf = pl.scan_csv("file.csv")  # Doesn't read yet
+result = lf.filter(pl.col("age") > 25).select("name", "age")
+df = result.collect()  # Now executes optimized query
+```
+
+**When to use lazy:**
+- Working with large datasets
+- Complex query pipelines
+- When only some columns/rows are needed
+- Performance is critical
+
+**Benefits of lazy evaluation:**
+- Automatic query optimization
+- Predicate pushdown
+- Projection pushdown
+- Parallel execution
+
+For detailed concepts, load `references/core_concepts.md`.
+
+## Common Operations
+
+### Select
+Select and manipulate columns:
+```python
+# Select specific columns
+df.select("name", "age")
+
+# Select with expressions
+df.select(
+    pl.col("name"),
+    (pl.col("age") * 2).alias("double_age")
 )
 
-# Filter with string methods
-result = df.filter(pl.col('name').str.contains('John'))
+# Select all columns matching a pattern
+df.select(pl.col("^.*_id$"))
 ```
 
-### 3. Transformations and New Columns
-
+### Filter
+Filter rows by conditions:
 ```python
-import polars as pl
+# Single condition
+df.filter(pl.col("age") > 25)
 
-df = pl.read_csv('sales.csv')
+# Multiple conditions (cleaner than using &)
+df.filter(
+    pl.col("age") > 25,
+    pl.col("city") == "NY"
+)
 
+# Complex conditions
+df.filter(
+    (pl.col("age") > 25) | (pl.col("city") == "LA")
+)
+```
+
+### With Columns
+Add or modify columns while preserving existing ones:
+```python
 # Add new columns
-result = df.with_columns([
-    (pl.col('quantity') * pl.col('price')).alias('total'),
-    pl.col('product').str.to_uppercase().alias('product_upper'),
-    pl.when(pl.col('quantity') > 10)
-        .then(pl.lit('bulk'))
-        .otherwise(pl.lit('retail'))
-        .alias('sale_type')
-])
+df.with_columns(
+    age_plus_10=pl.col("age") + 10,
+    name_upper=pl.col("name").str.to_uppercase()
+)
 
-# Modify existing columns
-result = df.with_columns([
-    pl.col('price').round(2),
-    pl.col('date').str.strptime(pl.Date, '%Y-%m-%d')
-])
-
-# Rename columns
-result = df.rename({'old_name': 'new_name'})
+# Parallel computation (all columns computed in parallel)
+df.with_columns(
+    pl.col("value") * 10,
+    pl.col("value") * 100,
+)
 ```
 
-### 4. Aggregations and Grouping
-
+### Group By and Aggregations
+Group data and compute aggregations:
 ```python
-import polars as pl
+# Basic grouping
+df.group_by("city").agg(
+    pl.col("age").mean().alias("avg_age"),
+    pl.len().alias("count")
+)
 
-df = pl.read_csv('sales.csv')
+# Multiple group keys
+df.group_by("city", "department").agg(
+    pl.col("salary").sum()
+)
 
-# Group by and aggregate
-result = df.group_by('category').agg([
-    pl.col('sales').sum().alias('total_sales'),
-    pl.col('sales').mean().alias('avg_sales'),
-    pl.col('sales').count().alias('num_sales'),
-    pl.col('product').n_unique().alias('unique_products')
-])
-
-# Multiple group by columns
-result = df.group_by(['category', 'region']).agg([
-    pl.col('revenue').sum(),
-    pl.col('customer_id').n_unique().alias('unique_customers')
-])
-
-# Aggregation without grouping
-stats = df.select([
-    pl.col('sales').sum(),
-    pl.col('sales').mean(),
-    pl.col('sales').median(),
-    pl.col('sales').std(),
-    pl.col('sales').min(),
-    pl.col('sales').max()
-])
+# Conditional aggregations
+df.group_by("city").agg(
+    (pl.col("age") > 30).sum().alias("over_30")
+)
 ```
 
-### 5. Sorting and Ranking
+For detailed operation patterns, load `references/operations.md`.
 
+## Aggregations and Window Functions
+
+### Aggregation Functions
+Common aggregations within `group_by` context:
+- `pl.len()` - count rows
+- `pl.col("x").sum()` - sum values
+- `pl.col("x").mean()` - average
+- `pl.col("x").min()` / `pl.col("x").max()` - extremes
+- `pl.first()` / `pl.last()` - first/last values
+
+### Window Functions with `over()`
+Apply aggregations while preserving row count:
 ```python
-import polars as pl
+# Add group statistics to each row
+df.with_columns(
+    avg_age_by_city=pl.col("age").mean().over("city"),
+    rank_in_city=pl.col("salary").rank().over("city")
+)
 
-df = pl.read_csv('data.csv')
-
-# Sort by single column
-result = df.sort('age')
-
-# Sort descending
-result = df.sort('salary', descending=True)
-
-# Sort by multiple columns
-result = df.sort(['department', 'salary'], descending=[False, True])
-
-# Add rank column
-result = df.with_columns([
-    pl.col('salary').rank(method='dense').over('department').alias('dept_rank')
-])
+# Multiple grouping columns
+df.with_columns(
+    group_avg=pl.col("value").mean().over("category", "region")
+)
 ```
 
-### 6. Joins
+**Mapping strategies:**
+- `group_to_rows` (default): Preserves original row order
+- `explode`: Faster but groups rows together
+- `join`: Creates list columns
 
+## Data I/O
+
+### Supported Formats
+Polars supports reading and writing:
+- CSV, Parquet, JSON, Excel
+- Databases (via connectors)
+- Cloud storage (S3, Azure, GCS)
+- Google BigQuery
+- Multiple/partitioned files
+
+### Common I/O Operations
+
+**CSV:**
 ```python
-import polars as pl
+# Eager
+df = pl.read_csv("file.csv")
+df.write_csv("output.csv")
 
-customers = pl.read_csv('customers.csv')
-orders = pl.read_csv('orders.csv')
+# Lazy (preferred for large files)
+lf = pl.scan_csv("file.csv")
+result = lf.filter(...).select(...).collect()
+```
 
+**Parquet (recommended for performance):**
+```python
+df = pl.read_parquet("file.parquet")
+df.write_parquet("output.parquet")
+```
+
+**JSON:**
+```python
+df = pl.read_json("file.json")
+df.write_json("output.json")
+```
+
+For comprehensive I/O documentation, load `references/io_guide.md`.
+
+## Transformations
+
+### Joins
+Combine DataFrames:
+```python
 # Inner join
-result = customers.join(orders, on='customer_id', how='inner')
+df1.join(df2, on="id", how="inner")
 
 # Left join
-result = customers.join(orders, on='customer_id', how='left')
+df1.join(df2, on="id", how="left")
 
 # Join on different column names
-result = customers.join(
-    orders,
-    left_on='id',
-    right_on='customer_id',
-    how='inner'
+df1.join(df2, left_on="user_id", right_on="id")
+```
+
+### Concatenation
+Stack DataFrames:
+```python
+# Vertical (stack rows)
+pl.concat([df1, df2], how="vertical")
+
+# Horizontal (add columns)
+pl.concat([df1, df2], how="horizontal")
+
+# Diagonal (union with different schemas)
+pl.concat([df1, df2], how="diagonal")
+```
+
+### Pivot and Unpivot
+Reshape data:
+```python
+# Pivot (wide format)
+df.pivot(values="sales", index="date", columns="product")
+
+# Unpivot (long format)
+df.unpivot(index="id", on=["col1", "col2"])
+```
+
+For detailed transformation examples, load `references/transformations.md`.
+
+## Pandas Migration
+
+Polars offers significant performance improvements over pandas with a cleaner API. Key differences:
+
+### Conceptual Differences
+- **No index**: Polars uses integer positions only
+- **Strict typing**: No silent type conversions
+- **Lazy evaluation**: Available via LazyFrame
+- **Parallel by default**: Operations parallelized automatically
+
+### Common Operation Mappings
+
+| Operation | Pandas | Polars |
+|-----------|--------|--------|
+| Select column | `df["col"]` | `df.select("col")` |
+| Filter | `df[df["col"] > 10]` | `df.filter(pl.col("col") > 10)` |
+| Add column | `df.assign(x=...)` | `df.with_columns(x=...)` |
+| Group by | `df.groupby("col").agg(...)` | `df.group_by("col").agg(...)` |
+| Window | `df.groupby("col").transform(...)` | `df.with_columns(...).over("col")` |
+
+### Key Syntax Patterns
+
+**Pandas sequential (slow):**
+```python
+df.assign(
+    col_a=lambda df_: df_.value * 10,
+    col_b=lambda df_: df_.value * 100
 )
-
-# Join on multiple columns
-result = df1.join(df2, on=['col1', 'col2'], how='inner')
 ```
 
-### 7. Window Functions
-
+**Polars parallel (fast):**
 ```python
-import polars as pl
-
-df = pl.read_csv('sales.csv')
-
-# Calculate running total
-result = df.with_columns([
-    pl.col('sales').cum_sum().over('region').alias('running_total')
-])
-
-# Calculate rolling average
-result = df.with_columns([
-    pl.col('sales').rolling_mean(window_size=7).alias('7_day_avg')
-])
-
-# Rank within groups
-result = df.with_columns([
-    pl.col('sales').rank().over('category').alias('category_rank')
-])
-
-# Lag and lead
-result = df.with_columns([
-    pl.col('sales').shift(1).over('product').alias('prev_sales'),
-    pl.col('sales').shift(-1).over('product').alias('next_sales')
-])
-```
-
-## Lazy Evaluation for Performance
-
-Polars' lazy API optimizes queries before execution:
-
-```python
-import polars as pl
-
-# Start with lazy scan (doesn't load data yet)
-lazy_df = (
-    pl.scan_csv('large_data.csv')
-    .filter(pl.col('date') >= '2024-01-01')
-    .select(['customer_id', 'product', 'sales', 'date'])
-    .group_by('customer_id')
-    .agg([
-        pl.col('sales').sum().alias('total_sales'),
-        pl.col('product').n_unique().alias('unique_products')
-    ])
-    .filter(pl.col('total_sales') > 1000)
-    .sort('total_sales', descending=True)
+df.with_columns(
+    col_a=pl.col("value") * 10,
+    col_b=pl.col("value") * 100,
 )
-
-# Execute the optimized query
-result = lazy_df.collect()
-
-# Or get execution plan
-print(lazy_df.explain())
 ```
 
-## Common Patterns
+For comprehensive migration guide, load `references/pandas_migration.md`.
 
-### Pattern 1: ETL Pipeline
+## Best Practices
 
+### Performance Optimization
+
+1. **Use lazy evaluation for large datasets:**
+   ```python
+   lf = pl.scan_csv("large.csv")  # Don't use read_csv
+   result = lf.filter(...).select(...).collect()
+   ```
+
+2. **Avoid Python functions in hot paths:**
+   - Stay within expression API for parallelization
+   - Use `.map_elements()` only when necessary
+   - Prefer native Polars operations
+
+3. **Use streaming for very large data:**
+   ```python
+   lf.collect(streaming=True)
+   ```
+
+4. **Select only needed columns early:**
+   ```python
+   # Good: Select columns early
+   lf.select("col1", "col2").filter(...)
+
+   # Bad: Filter on all columns first
+   lf.filter(...).select("col1", "col2")
+   ```
+
+5. **Use appropriate data types:**
+   - Categorical for low-cardinality strings
+   - Appropriate integer sizes (i32 vs i64)
+   - Date types for temporal data
+
+### Expression Patterns
+
+**Conditional operations:**
 ```python
-import polars as pl
-from datetime import datetime
-
-# Extract and Transform
-result = (
-    pl.scan_csv('raw_data.csv')
-    # Clean data
-    .filter(
-        (pl.col('amount') > 0) &
-        (pl.col('quantity') > 0)
-    )
-    # Transform columns
-    .with_columns([
-        pl.col('date').str.strptime(pl.Date, '%Y-%m-%d'),
-        pl.col('product').str.strip().str.to_uppercase(),
-        (pl.col('quantity') * pl.col('amount')).alias('total'),
-        pl.when(pl.col('quantity') > 10)
-            .then(pl.lit('bulk'))
-            .otherwise(pl.lit('retail'))
-            .alias('order_type')
-    ])
-    # Aggregate
-    .group_by(['date', 'product', 'order_type'])
-    .agg([
-        pl.col('total').sum().alias('daily_total'),
-        pl.col('quantity').sum().alias('daily_quantity'),
-        pl.count().alias('num_orders')
-    ])
-    .collect()
-)
-
-# Load (save results)
-result.write_parquet('processed_data.parquet')
+pl.when(condition).then(value).otherwise(other_value)
 ```
 
-### Pattern 2: Data Exploration
-
+**Column operations across multiple columns:**
 ```python
-import polars as pl
-
-df = pl.read_csv('data.csv')
-
-# Quick overview
-print(df.head())
-print(df.describe())
-print(df.schema)
-
-# Column statistics
-print(df.select([
-    pl.col('age').min(),
-    pl.col('age').max(),
-    pl.col('age').mean(),
-    pl.col('age').median(),
-    pl.col('age').std()
-]))
-
-# Count nulls
-print(df.null_count())
-
-# Value counts
-print(df['category'].value_counts())
-
-# Unique values
-print(df['status'].n_unique())
+df.select(pl.col("^.*_value$") * 2)  # Regex pattern
 ```
 
-### Pattern 3: Combining with DuckDB
-
-Use Polars for data loading and DuckDB for SQL analytics:
-
+**Null handling:**
 ```python
-import polars as pl
-import duckdb
-
-# Load data with Polars
-df = pl.read_parquet('data/*.parquet')
-
-# Use DuckDB for complex SQL
-result = duckdb.sql("""
-    SELECT
-        category,
-        DATE_TRUNC('month', date) as month,
-        SUM(revenue) as monthly_revenue,
-        COUNT(DISTINCT customer_id) as unique_customers
-    FROM df
-    WHERE date >= '2024-01-01'
-    GROUP BY category, month
-    ORDER BY month DESC, monthly_revenue DESC
-""").pl()  # Convert back to Polars DataFrame
-
-# Continue with Polars
-final = result.with_columns([
-    (pl.col('monthly_revenue') / pl.col('unique_customers')).alias('revenue_per_customer')
-])
+pl.col("x").fill_null(0)
+pl.col("x").is_null()
+pl.col("x").drop_nulls()
 ```
 
-### Pattern 4: Writing Data
-
-```python
-import polars as pl
-
-df = pl.read_csv('data.csv')
-
-# Write to CSV
-df.write_csv('output.csv')
-
-# Write to Parquet (recommended for large data)
-df.write_parquet('output.parquet')
-
-# Write to JSON
-df.write_json('output.json')
-
-# Write partitioned Parquet files
-df.write_parquet('output/', partition_by='date')
-```
-
-## Expression Chaining
-
-Polars uses a powerful expression syntax:
-
-```python
-import polars as pl
-
-result = df.select([
-    # String operations
-    pl.col('name').str.to_lowercase().str.strip().alias('clean_name'),
-
-    # Arithmetic
-    (pl.col('price') * 1.1).round(2).alias('price_with_tax'),
-
-    # Conditional logic
-    pl.when(pl.col('age') < 18)
-        .then(pl.lit('minor'))
-        .when(pl.col('age') < 65)
-        .then(pl.lit('adult'))
-        .otherwise(pl.lit('senior'))
-        .alias('age_group'),
-
-    # Date operations
-    pl.col('date').dt.year().alias('year'),
-    pl.col('date').dt.month().alias('month'),
-
-    # List operations
-    pl.col('tags').list.len().alias('num_tags'),
-])
-```
-
-## Performance Tips
-
-1. **Use lazy evaluation** for large datasets - lets Polars optimize the query
-2. **Use Parquet format** - columnar, compressed, much faster than CSV
-3. **Filter early** - push filters before other operations
-4. **Avoid row iteration** - use vectorized operations instead
-5. **Use expressions** - more efficient than pandas-style operations
-
-```python
-# Good: Lazy + filter early
-result = (
-    pl.scan_parquet('large.parquet')
-    .filter(pl.col('date') >= '2024-01-01')  # Filter first
-    .select(['col1', 'col2', 'col3'])  # Then select
-    .collect()
-)
-
-# Less efficient: Eager loading
-df = pl.read_parquet('large.parquet')
-result = df.filter(pl.col('date') >= '2024-01-01').select(['col1', 'col2', 'col3'])
-```
-
-## Polars vs Pandas
-
-Key differences:
-- **Immutability**: Polars DataFrames are immutable (operations return new DataFrames)
-- **Performance**: Polars is typically 5-10x faster than pandas
-- **Lazy evaluation**: Polars can optimize queries before execution
-- **Expressions**: Polars uses expression API instead of method chaining
-- **Parallel**: Polars automatically parallelizes operations
-
-```python
-# Pandas style
-df['new_col'] = df['col1'] * df['col2']
-
-# Polars style
-df = df.with_columns([
-    (pl.col('col1') * pl.col('col2')).alias('new_col')
-])
-```
-
-## Integration with DuckDB
-
-For the best of both worlds, combine Polars and DuckDB:
-
-```python
-import polars as pl
-import duckdb
-
-# Polars: Fast data loading and transformation
-df = (
-    pl.scan_parquet('data/*.parquet')
-    .filter(pl.col('active') == True)
-    .collect()
-)
-
-# DuckDB: SQL analytics
-result = duckdb.sql("""
-    SELECT
-        category,
-        SUM(amount) as total,
-        AVG(amount) as average
-    FROM df
-    GROUP BY category
-""").pl()
-```
-
-See the `duckdb` skill for more SQL capabilities and the references/api_reference.md file for detailed Polars API documentation.
-
-## Error Handling
-
-```python
-import polars as pl
-
-try:
-    df = pl.read_csv('data.csv')
-except FileNotFoundError:
-    print("File not found")
-except pl.exceptions.ComputeError as e:
-    print(f"Polars compute error: {e}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-```
+For additional best practices and patterns, load `references/best_practices.md`.
 
 ## Resources
 
-- **references/api_reference.md**: Detailed Polars API documentation and examples
-- Official docs: https://docs.pola.rs/
-- API reference: https://docs.pola.rs/api/python/stable/reference/
+This skill includes comprehensive reference documentation:
+
+### references/
+- `core_concepts.md` - Detailed explanations of expressions, lazy evaluation, and type system
+- `operations.md` - Comprehensive guide to all common operations with examples
+- `pandas_migration.md` - Complete migration guide from pandas to Polars
+- `io_guide.md` - Data I/O operations for all supported formats
+- `transformations.md` - Joins, concatenation, pivots, and reshaping operations
+- `best_practices.md` - Performance optimization tips and common patterns
+
+Load these references as needed when users require detailed information about specific topics.

@@ -1,9 +1,7 @@
 {
   "name": "delon-acl",
-  "description": "@delon/acl skill - Access Control List for role-based permissions and UI element visibility. For ng-events construction site progress tracking system.",
   "repo": "aiskillstore/marketplace",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aiskillstore/marketplace"
+  "path": "skills/7spade/delon-acl/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-28T00:59:36.331410Z"
 }

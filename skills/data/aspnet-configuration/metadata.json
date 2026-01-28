@@ -1,12 +1,7 @@
 {
   "name": "aspnet-configuration",
-  "description": "Guide for ASP.NET Core configuration with appsettings.json, environment-specific settings, and the options pattern",
   "repo": "NotMyself/claude-stack-dotnet",
-  "category": "design",
-  "tags": [
-    "aspnet",
-    "configuration"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/aspnet-configuration/SKILL.md",
+  "source": "github.com/NotMyself/claude-stack-dotnet",
+  "downloaded_at": "2026-01-28T03:04:01.429680Z"
 }

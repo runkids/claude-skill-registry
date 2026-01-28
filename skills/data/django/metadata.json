@@ -1,9 +1,7 @@
 {
   "name": "django",
-  "description": "Django framework best practices including project structure, ORM, and security.",
-  "repo": "kprsnt2/MyLocalCLI",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/django/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-28T02:15:52.993982Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "api-authentication",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/api-authentication/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-27T04:25:33.026634Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/api-authentication/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-28T02:01:38.120932Z"
 }

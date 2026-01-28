@@ -1,120 +1,100 @@
 ---
 name: supabase
-description: Comprehensive Supabase platform MCP for database operations, edge functions, development tools, debugging, and project management. Use when working with Supabase projects, databases, or APIs.
+description: Supabase and Postgres database operations for SignalRoom. Use for database queries, schema inspection, connection troubleshooting, or checking loaded data.
 ---
 
-# Supabase Platform (MCP)
+# Supabase Operations
 
-Supabase MCP server for database operations, edge functions, project management, and debugging.
+## Connection Details
 
-## Available Tools
+**Project:** 713 Main DB
+**Project Ref:** `foieoinshqlescyocbld`
 
-### Account & Projects
-
-- `list_projects` - Lists all Supabase projects
-- `get_project` - Gets details for a specific project
-- `list_organizations` - Lists all organizations
-
-### Database
-
-- `list_tables` - Lists all tables in specified schemas
-- `list_extensions` - Lists PostgreSQL extensions
-- `list_migrations` - Lists database migrations
-- `execute_sql` - Executes raw SQL queries
-
-### Development
-
-- `get_project_url` - Gets the API URL for a project
-- `get_publishable_keys` - Gets anonymous API keys (client-safe)
-- `generate_typescript_types` - Generates TypeScript types from schema
-
-### Edge Functions
-
-- `list_edge_functions` - Lists all Edge Functions
-- `get_edge_function` - Retrieves Edge Function file contents
-- `deploy_edge_function` - Deploys or updates an Edge Function
-
-### Debugging
-
-- `get_logs` - Retrieves logs by service type
-- `get_advisors` - Gets security/performance advisory notices
-
-### Documentation
-
-- `search_docs` - Searches Supabase documentation
-
-## Workflow
-
-### Quick Start
-
+### Direct Connection (local dev)
 ```
-# List projects
-skill_mcp(skill_name="supabase", tool_name="list_projects")
-
-# List tables in database
-skill_mcp(skill_name="supabase", tool_name="list_tables")
-
-# Execute SQL query
-skill_mcp(skill_name="supabase", tool_name="execute_sql", arguments='{"query": "SELECT * FROM users LIMIT 10"}')
-
-# Generate TypeScript types
-skill_mcp(skill_name="supabase", tool_name="generate_typescript_types")
-
-# Search docs
-skill_mcp(skill_name="supabase", tool_name="search_docs", arguments='{"query": "auth custom claims"}')
+Host: db.foieoinshqlescyocbld.supabase.co
+Port: 5432
+User: postgres
 ```
 
-### Get Project Credentials
-
+### Pooler Connection (Fly.io, serverless)
 ```
-# Get API URL and keys for project
-skill_mcp(skill_name="supabase", tool_name="get_project_url")
-skill_mcp(skill_name="supabase", tool_name="get_publishable_keys")
-
-# List Edge Functions
-skill_mcp(skill_name="supabase", tool_name="list_edge_functions")
-
-# Deploy Edge Function
-skill_mcp(skill_name="supabase", tool_name="deploy_edge_function", arguments='{"name": "my-function", "import_map": {...}, "entrypoint": "index.ts"}')
+Host: aws-0-us-east-1.pooler.supabase.com
+Port: 6543
+User: postgres.foieoinshqlescyocbld
 ```
 
-### Debug Issues
+## Quick Queries via MCP
 
 ```
-# Get logs by service
-skill_mcp(skill_name="supabase", tool_name="get_logs", arguments='{"service": "postgres", "limit": 100}')
+# List tables
+mcp__supabase-713__list_tables
 
-# Check advisories
-skill_mcp(skill_name="supabase", tool_name="get_advisors")
+# Execute SQL
+mcp__supabase-713__execute_sql with query
+
+# Check security advisors
+mcp__supabase-713__get_advisors type="security"
 ```
 
-## Security Notes
+## Common SQL Queries
 
-- **Read-only mode**: Set `"read_only": true` in mcp.json to disable write operations
-- **Project scoping**: Use `project_ref` to limit access to specific projects
-- **Environment variables**: Set `SUPABASE_ACCESS_TOKEN` for authentication
+### Check loaded data
+```sql
+-- Row counts by table
+SELECT schemaname, tablename, n_tup_ins as rows
+FROM pg_stat_user_tables
+WHERE schemaname NOT LIKE '_dlt%'
+ORDER BY n_tup_ins DESC;
 
-## Server Options
+-- Recent dlt loads
+SELECT * FROM s3_exports._dlt_loads
+ORDER BY inserted_at DESC LIMIT 5;
 
-For advanced usage, modify `mcp.json`:
+-- Everflow daily stats
+SELECT date, SUM(conversions), SUM(payout)
+FROM everflow.daily_stats
+GROUP BY date ORDER BY date DESC LIMIT 7;
 
-```json
-{
-  "supabase": {
-    "command": "npx",
-    "args": ["-y", "@supabase/mcp@latest"],
-    "env": {
-      "SUPABASE_ACCESS_TOKEN": "your-token-here"
-    },
-    "includeTools": ["list_tables", "execute_sql", "..."]
-  }
-}
+-- Redtrack daily spend
+SELECT date, SUM(cost)
+FROM redtrack.daily_spend
+GROUP BY date ORDER BY date DESC LIMIT 7;
 ```
 
-Configuration options:
+### Schema inspection
+```sql
+-- List all schemas
+SELECT schema_name FROM information_schema.schemata
+WHERE schema_name NOT IN ('pg_catalog', 'information_schema');
 
-- `project_ref` - Scope to specific project (recommended)
-- `read_only` - Restrict to read-only operations (recommended)
-- `features` - Enable specific tool groups
+-- Tables in a schema
+SELECT table_name FROM information_schema.tables
+WHERE table_schema = 'everflow';
 
-> **Note**: This skill loads 14 essential tools. Excludes experimental (branching) and storage tools that require paid plans.
+-- Column details
+SELECT column_name, data_type, is_nullable
+FROM information_schema.columns
+WHERE table_schema = 'everflow' AND table_name = 'daily_stats';
+```
+
+## Troubleshooting
+
+**"password authentication failed"**
+- Check user format: must be `postgres.{project_ref}` for pooler
+- Port must be 6543 for pooler, 5432 for direct
+- Password may have special chars - verify in Supabase dashboard
+
+**"connection refused"**
+- Project may be paused - check Supabase dashboard
+- Wrong host - pooler vs direct connection
+
+**"too many connections"**
+- Use pooler connection (port 6543)
+- Check for connection leaks in code
+
+## Dashboard Links
+
+- **Supabase Dashboard:** https://supabase.com/dashboard/project/foieoinshqlescyocbld
+- **Table Editor:** https://supabase.com/dashboard/project/foieoinshqlescyocbld/editor
+- **SQL Editor:** https://supabase.com/dashboard/project/foieoinshqlescyocbld/sql

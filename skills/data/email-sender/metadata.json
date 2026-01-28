@@ -1,9 +1,7 @@
 {
   "name": "email-sender",
-  "description": "Compose and send professional emails with optional attachments and formatting",
-  "repo": "sfmskywalker/agentskillsdotnet",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/tools/email-sender/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-28T03:43:36.216158Z"
 }

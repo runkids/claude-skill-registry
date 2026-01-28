@@ -1,223 +1,90 @@
 ---
 name: job-application
-description: Analyse d'offres d'emploi, adéquation profil-poste, et génération de CV/lettre adaptés. Activer ce skill quand l'utilisateur parle de candidature, offre d'emploi, lettre de motivation, ou CV adapté.
-version: 1.1.0
-commands:
-  - job-analyze
-  - job-fit
-  - job-cv
-  - job-letter
+description: Write tailored cover letters and job applications using your CV and preferred style
+version: 1.0.0
 ---
 
-# Job Application Skill
+# Job Application Assistant
 
-Système d'assistance au processus de candidature : analyse d'offres, évaluation de l'adéquation, génération de CV et lettres adaptés.
+Generate cover letters and job applications that sound like you, not a template.
 
-## Available Commands
+## Your CV/Resume
 
-### job-analyze
+<!-- PASTE YOUR FULL CV BELOW -->
 
-Analyse une offre d'emploi et extrait les informations structurées.
+```
+[Your name]
+[Your title/headline]
 
-```bash
-job-analyze [URL ou texte de l'offre]
+EXPERIENCE
+- [Job 1]
+- [Job 2]
+
+SKILLS
+- [Skill 1]
+- [Skill 2]
+
+EDUCATION
+- [Degree, School, Year]
+
+[Add your full CV here]
 ```
 
-**Fonctionnalités:**
+## Cover Letter Examples You Like
 
-- Parse l'offre depuis URL (LinkedIn, WTTJ, Indeed) ou texte
-- Extrait exigences obligatoires vs souhaitées
-- Identifie les mots-clés ATS
-- Recherche des informations entreprise (optionnel)
-- Génère un rapport d'analyse structuré
+<!-- PASTE 1-2 COVER LETTERS YOU'VE WRITTEN THAT WORKED WELL -->
 
-Voir [workflows/job-analyze.md](workflows/job-analyze.md) pour les détails.
-
-### job-fit
-
-Analyse l'adéquation entre le profil et le poste avec validation interactive.
-
-```bash
-job-fit [--application=ID]
+### Example 1
+```
+[Paste a cover letter you're proud of]
 ```
 
-**Fonctionnalités:**
-
-- Compare le CV aux exigences de l'offre
-- Calcule un score d'adéquation global (0-100)
-- Identifie forces et lacunes
-- Génère des talking points pour l'entretien
-- **Questionnaire de validation** (AskUserQuestion ou fallback textuel)
-- **Confirmation avant génération CV** (arrêt possible si fit insuffisant)
-- Fournit une recommandation go/no-go
-
-Voir [workflows/job-fit.md](workflows/job-fit.md) pour les détails.
-
-### job-cv
-
-Génère une version du CV adaptée à l'offre avec questionnaire interactif.
-
-```bash
-job-cv [--format=short|long] [--dry-run]
+### Example 2 (optional)
+```
+[Another example if you have one]
 ```
 
-**Fonctionnalités:**
+## Your Voice & Preferences
 
-- **Choix format en miroir de l'annonce** (courte → court, longue → long)
-- **Questionnaire de personnalisation** (titre, ordre, expériences, mots-clés, sidebar)
-- Réorganise les expériences par pertinence
-- Intègre les mots-clés ATS de l'offre
-- Ajuste les compétences de la sidebar
-- Génère le fichier Typst adapté avec **métadonnées document**
-- Compile le PDF automatiquement
-- **Vérification visuelle** post-compilation (pages, zones blanches, débordements)
-- Produit un rapport des modifications
+### Tone
+- Professional but not stiff
+- Confident without bragging
+- Specific about achievements, not generic
 
-Voir [workflows/job-cv.md](workflows/job-cv.md) pour les détails.
+### Things to Emphasize
+- [What makes you unique]
+- [Key achievements to highlight]
+- [Skills you want to lead with]
 
-### job-letter (Planned - INF-011)
+### Things to Avoid
+- Generic phrases like "I'm a hard worker"
+- Repeating the job description back
+- Being too formal or robotic
 
-Génère une lettre de motivation personnalisée.
+## How to Use
 
-```bash
-job-letter [--style=formal|modern]
-```
+1. Paste the job description
+2. Say: "Write a cover letter for this"
 
-## Architecture
+Or be more specific:
+- "Write a cover letter emphasizing my backend experience"
+- "Make it shorter, 3 paragraphs max"
+- "Tailor this for a startup vs enterprise"
 
-```text
-.claude/skills/job-application/
-├── SKILL.md                    # Ce fichier (Level 1)
-├── workflows/                  # Instructions détaillées (Level 2)
-│   ├── job-analyze.md
-│   ├── job-fit.md
-│   ├── job-cv.md
-│   └── job-letter.md
-└── templates/                  # Templates de sortie
-    └── cv-adapted-template.typ
+## Output Format
 
-data/applications/              # Données par candidature
-└── {app_id}/                   # Format: {company-slug}-{YYYY-MM-DD}
-    ├── {app_id}-job-posting.md     # Offre originale
-    ├── {app_id}-analysis.md        # Résultat job-analyze
-    ├── {app_id}-fit-report.md      # Résultat job-fit (validé)
-    ├── {app_id}-modifications.md   # Choix utilisateur job-cv
-    ├── {app_id}-cv-adapted.typ     # CV adapté (source Typst)
-    └── {app_id}-cv-adapted.pdf     # PDF compilé
-```
+When writing cover letters:
+- Keep it under 400 words unless asked otherwise
+- Lead with why you're interested in THIS role
+- Connect your experience to their specific needs
+- End with a clear call to action
+- Match the tone to the company (startup = casual, enterprise = formal)
 
-## Workflow typique
+## Additional Context
 
-```text
-     [Offre d'emploi]
-            |
-            v
-    +---------------+
-    | job-analyze   |  --> {app_id}-analysis.md
-    +---------------+
-            |
-            v
-    +---------------+
-    | job-fit       |  --> {app_id}-fit-report.md
-    +---------------+        |
-            |                v
-            |         [Questionnaire validation]
-            |                |
-            |          +-----+-----+
-            |          |           |
-            |     [Continuer]  [Arrêter]
-            |          |           |
-            |          v           v
-            |    +----------+   [FIN]
-            |    | job-cv   |
-            |    +----------+
-            |          |
-            |          v
-            |    [Questionnaire personnalisation]
-            |          |
-            |          v
-            |    [Génération + Compilation]
-            |          |
-            |          v
-            |    [Vérification visuelle]
-            |          |
-            v          v
-+-----------+    [CV adapté]
-| job-letter|
-+-----------+
-      |
-      v
-  [Lettre]
-```
+<!-- ADD ANY OTHER RELEVANT INFO -->
 
-## Modèle de données
-
-```yaml
-application:
-  id: "{company-slug}-{date}"      # ex: wavestone-2025-11-30
-  job:
-    title: string
-    company: string
-    location: string
-    type: string                   # CDI, CDD, freelance
-    url: string
-    word_count: number             # Pour déterminer format CV
-    company_type: string           # startup, grand_groupe, cabinet
-    requirements:
-      must_have: []
-      nice_to_have: []
-    responsibilities: []
-    keywords: []                   # ATS keywords
-  fit_analysis:
-    score: number                  # 0-100
-    strengths: []
-    gaps: []
-    talking_points: []
-    recommendation: string         # go/consider/no-go
-    validated: boolean             # Validation utilisateur
-  cv_customization:
-    format: string                 # short/long
-    title: string                  # Titre adapté
-    experiences_order: []          # Ordre personnalisé
-    experiences_omit: []           # Expériences omises
-    keywords_priority: string      # all/selection
-    sidebar_order: string          # auto/manual
-  outputs:
-    cv_adapted: path
-    cover_letter: path
-```
-
-## Nommage des fichiers
-
-Tous les fichiers utilisent le préfixe `{app_id}` (slug de candidature):
-
-| Fichier | Description |
-|---------|-------------|
-| `{app_id}-job-posting.md` | Offre originale sauvegardée |
-| `{app_id}-analysis.md` | Analyse structurée de l'offre |
-| `{app_id}-fit-report.md` | Rapport d'adéquation validé |
-| `{app_id}-modifications.md` | Choix utilisateur pour le CV |
-| `{app_id}-cv-adapted.typ` | Source Typst du CV adapté |
-| `{app_id}-cv-adapted.pdf` | PDF compilé |
-
-## Compilation
-
-```bash
-# Compiler un CV adapté
-just build-adapted {app_id}
-
-# Exemple
-just build-adapted wavestone-2025-11-30
-```
-
-## Links
-
-- **CV Source:** [src/cv.typ](../../../src/cv.typ)
-- **CV Short:** [src/cv-short.typ](../../../src/cv-short.typ)
-- **CV Modules:** [src/shared/](../../../src/shared/)
-- **Applications Data:** [data/applications/](../../../data/applications/)
-
----
-
-**Version:** 1.1.0
-**Last Updated:** 2025-11-30
+- LinkedIn: [your URL]
+- Portfolio: [your URL]
+- Specific industries you're targeting: [e.g., fintech, healthtech]
+- Role types: [e.g., senior backend, staff engineer]

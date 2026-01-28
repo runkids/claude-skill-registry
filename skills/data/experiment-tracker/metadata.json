@@ -1,9 +1,7 @@
 {
   "name": "experiment-tracker",
-  "description": "Manages ML experiment tracking with MLflow, Weights & Biases, or SpecWeave's built-in tracking. Activates for \"track experiments\", \"MLflow\", \"wandb\", \"experiment logging\", \"compare experiments\", \"hype",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave-ml/skills/experiment-tracker/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:48:57.690633Z"
 }

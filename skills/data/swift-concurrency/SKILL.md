@@ -1,251 +1,434 @@
 ---
-name: swift-concurrency
-description: Guide for building, auditing, and refactoring Swift code using modern concurrency patterns (Swift 6+). This skill should be used when working with async/await, Tasks, actors, MainActor, Sendable types, isolation domains, or when migrating legacy callback/Combine code to structured concurrency. Covers Approachable Concurrency settings, isolated parameters, and common pitfalls.
+name: ios-swift-concurrency
+description: Use when implementing async/await, Task management, actors, or Combine reactive patterns in iOS applications.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Grep
+  - Glob
 ---
 
-# Swift Concurrency
+# iOS - Swift Concurrency
 
-## Overview
+Modern concurrency patterns using async/await, actors, and structured concurrency in Swift.
 
-This skill provides guidance for writing thread-safe Swift code using modern concurrency patterns. It covers three main workflows: building new async code, auditing existing code for issues, and refactoring legacy patterns to Swift 6+.
+## Key Concepts
 
-**Core principle**: Isolation is inherited by default. With Approachable Concurrency, code starts on MainActor and propagates through the program automatically. Opt out explicitly when needed.
-
-## Workflow Decision Tree
-
-```
-What are you doing?
-│
-├─► BUILDING new async code
-│   └─► See "Building Workflow" below
-│
-├─► AUDITING existing code
-│   └─► See "Auditing Checklist" below
-│
-└─► REFACTORING legacy code
-    └─► See "Refactoring Workflow" below
-```
-
-## Building Workflow
-
-When writing new async code, follow this decision process:
-
-### Step 1: Determine Isolation Needs
-
-```
-Does this type manage UI state or interact with UI?
-│
-├─► YES → Mark with @MainActor
-│
-└─► NO → Does it have mutable state shared across contexts?
-         │
-         ├─► YES → Consider: Can it live on MainActor anyway?
-         │         │
-         │         ├─► YES → Use @MainActor (simpler)
-         │         │
-         │         └─► NO → Use a custom actor (requires justification)
-         │
-         └─► NO → Leave non-isolated (default with Approachable Concurrency)
-```
-
-### Step 2: Design Async Functions
+### Async/Await Fundamentals
 
 ```swift
-// PREFER: Inherit caller's isolation (works everywhere)
-func fetchData(isolation: isolated (any Actor)? = #isolation) async throws -> Data {
-  // Runs on whatever actor the caller is on
-}
+// Async function declaration
+func fetchUser(id: String) async throws -> User {
+    let url = URL(string: "https://api.example.com/users/\(id)")!
+    let (data, response) = try await URLSession.shared.data(from: url)
 
-// USE WHEN: CPU-intensive work that must run in background
-@concurrent
-func processLargeFile() async -> Result { }
-
-// AVOID: Non-isolated async without explicit choice
-func ambiguousAsync() async { } // Where does this run?
-```
-
-### Step 3: Handle Parallel Work
-
-```swift
-// For known number of independent operations
-async let avatar = fetchImage("avatar.jpg")
-async let banner = fetchImage("banner.jpg")
-let (a, b) = await (avatar, banner)
-
-// For dynamic number of operations
-try await withThrowingTaskGroup(of: Void.self) { group in
-  for id in userIDs {
-    group.addTask { try await fetchUser(id) }
-  }
-  try await group.waitForAll()
-}
-```
-
-### Step 4: SwiftUI Integration
-
-```swift
-struct ProfileView: View {
-  @State private var avatar: Image?
-
-  var body: some View {
-    avatar
-      .task { avatar = await downloadAvatar() }  // Auto-cancels on disappear
-      .task(id: userID) { /* Reloads when userID changes */ }
-  }
-}
-
-// For user actions
-Button("Save") {
-  Task { await saveProfile() }  // Inherits MainActor isolation
-}
-```
-
-## Auditing Checklist
-
-When reviewing Swift concurrency code, check for these issues:
-
-### Critical Issues (Must Fix)
-
-- [ ] **Blocking the cooperative pool**: Look for `DispatchSemaphore.wait()`, `DispatchGroup.wait()`, or similar blocking calls inside async contexts
-- [ ] **Data races**: Non-Sendable types crossing isolation boundaries without proper handling
-- [ ] **Non-isolated async in non-Sendable types**: These only work from non-isolated contexts
-
-### Common Issues (Should Fix)
-
-- [ ] **Actor overuse**: Custom actors without justification (see "Actor Justification Test" in references)
-- [ ] **Unnecessary `MainActor.run`**: Should usually be `@MainActor` on the function instead
-- [ ] **Thinking async = background**: Synchronous CPU work inside async functions still blocks
-- [ ] **Unstructured Tasks where structured works**: `Task { }` instead of `async let` or `TaskGroup`
-- [ ] **Missing cancellation handling**: Long operations should check `Task.isCancelled`
-
-### SwiftUI-Specific
-
-- [ ] **Views not MainActor-isolated**: SwiftUI views should be `@MainActor` (or use `@Observable`)
-- [ ] **Accessing @State from detached tasks**: Must hop back to MainActor
-
-### Sendable Compliance
-
-- [ ] **@unchecked Sendable overuse**: Should be rare and justified
-- [ ] **Making everything Sendable**: Not all types need to cross boundaries
-- [ ] **Non-Sendable closures escaping**: Check closure captures
-
-## Refactoring Workflow
-
-### From Callbacks to async/await
-
-```swift
-// BEFORE: Callback-based
-func fetchUser(id: Int, completion: @escaping (Result<User, Error>) -> Void) {
-  URLSession.shared.dataTask(with: url) { data, _, error in
-    if let error { completion(.failure(error)); return }
-    // ...
-  }.resume()
-}
-
-// AFTER: async/await with continuation
-func fetchUser(id: Int) async throws -> User {
-  try await withCheckedThrowingContinuation { continuation in
-    fetchUser(id: id) { result in
-      continuation.resume(with: result)
+    guard let httpResponse = response as? HTTPURLResponse,
+          httpResponse.statusCode == 200 else {
+        throw APIError.invalidResponse
     }
-  }
+
+    return try JSONDecoder().decode(User.self, from: data)
+}
+
+// Calling async functions
+func loadUserProfile() async {
+    do {
+        let user = try await fetchUser(id: "123")
+        await MainActor.run {
+            updateUI(with: user)
+        }
+    } catch {
+        await MainActor.run {
+            showError(error)
+        }
+    }
 }
 ```
 
-### From DispatchQueue to Actors
+### Task Management
 
 ```swift
-// BEFORE: Queue-based protection
-class BankAccount {
-  private let queue = DispatchQueue(label: "account")
-  private var _balance: Double = 0
+class UserViewController: UIViewController {
+    private var loadTask: Task<Void, Never>?
 
-  var balance: Double {
-    queue.sync { _balance }
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-  func deposit(_ amount: Double) {
-    queue.async { self._balance += amount }
-  }
+        // Create a task for async work
+        loadTask = Task {
+            await loadUserData()
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Cancel when view disappears
+        loadTask?.cancel()
+    }
+
+    private func loadUserData() async {
+        // Check for cancellation
+        guard !Task.isCancelled else { return }
+
+        do {
+            let user = try await fetchUser()
+
+            // Check again before UI update
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                displayUser(user)
+            }
+        } catch {
+            // Handle error
+        }
+    }
+}
+```
+
+### Actors for Thread Safety
+
+```swift
+actor UserCache {
+    private var cache: [String: User] = [:]
+
+    func user(for id: String) -> User? {
+        cache[id]
+    }
+
+    func setUser(_ user: User, for id: String) {
+        cache[id] = user
+    }
+
+    func clear() {
+        cache.removeAll()
+    }
 }
 
-// AFTER: Actor (if truly needs own isolation)
-actor BankAccount {
-  var balance: Double = 0
+// Usage
+let cache = UserCache()
 
-  func deposit(_ amount: Double) {
-    balance += amount
-  }
+Task {
+    await cache.setUser(user, for: user.id)
+    let cached = await cache.user(for: "123")
 }
+```
 
-// BETTER: MainActor class (if doesn't need concurrent access)
+### MainActor for UI Updates
+
+```swift
 @MainActor
-class BankAccount {
-  var balance: Double = 0
+class UserViewModel: ObservableObject {
+    @Published var user: User?
+    @Published var isLoading = false
+    @Published var error: Error?
 
-  func deposit(_ amount: Double) {
-    balance += amount
-  }
+    func loadUser(id: String) async {
+        isLoading = true
+        defer { isLoading = false }
+
+        do {
+            user = try await userService.fetchUser(id: id)
+        } catch {
+            self.error = error
+        }
+    }
+}
+
+// Or use MainActor.run for specific operations
+func fetchAndDisplay() async {
+    let data = await fetchData()
+
+    await MainActor.run {
+        self.displayData(data)
+    }
 }
 ```
 
-### From Combine to AsyncSequence
+## Best Practices
+
+### Structured Concurrency with TaskGroup
 
 ```swift
-// BEFORE: Combine publisher
-cancellable = NotificationCenter.default
-  .publisher(for: .userDidLogin)
-  .sink { notification in /* ... */ }
+func fetchAllUserData(userId: String) async throws -> UserProfile {
+    async let user = fetchUser(id: userId)
+    async let posts = fetchPosts(userId: userId)
+    async let followers = fetchFollowers(userId: userId)
 
-// AFTER: AsyncSequence
-for await _ in NotificationCenter.default.notifications(named: .userDidLogin) {
-  // Handle notification
+    // All three requests run concurrently
+    return try await UserProfile(
+        user: user,
+        posts: posts,
+        followers: followers
+    )
+}
+
+// For dynamic number of tasks
+func fetchMultipleUsers(ids: [String]) async throws -> [User] {
+    try await withThrowingTaskGroup(of: User.self) { group in
+        for id in ids {
+            group.addTask {
+                try await fetchUser(id: id)
+            }
+        }
+
+        var users: [User] = []
+        for try await user in group {
+            users.append(user)
+        }
+        return users
+    }
 }
 ```
 
-## Quick Reference
+### AsyncSequence for Streams
 
-| Keyword | Purpose |
-|---------|---------|
-| `async` | Function can suspend |
-| `await` | Suspension point |
-| `Task { }` | Start async work, inherits isolation |
-| `Task.detached { }` | Start async work, no inheritance |
-| `@MainActor` | Runs on main thread |
-| `actor` | Type with isolated mutable state |
-| `nonisolated` | Opts out of actor isolation |
-| `nonisolated(nonsending)` | Inherits caller's isolation |
-| `@concurrent` | Always run on background (Swift 6.2+) |
-| `Sendable` | Safe to cross isolation boundaries |
-| `sending` | One-way transfer of non-Sendable |
-| `async let` | Start parallel work |
-| `TaskGroup` | Dynamic parallel work |
+```swift
+// Custom async sequence
+struct NotificationStream: AsyncSequence {
+    typealias Element = Notification
 
-## Approachable Concurrency Settings (Swift 6.2+)
+    let name: Notification.Name
 
-For new Xcode 26+ projects, these are enabled by default:
+    struct AsyncIterator: AsyncIteratorProtocol {
+        let name: Notification.Name
+        var iterator: AsyncStream<Notification>.Iterator
 
+        mutating func next() async -> Notification? {
+            await iterator.next()
+        }
+    }
+
+    func makeAsyncIterator() -> AsyncIterator {
+        let stream = AsyncStream<Notification> { continuation in
+            let observer = NotificationCenter.default.addObserver(
+                forName: name,
+                object: nil,
+                queue: nil
+            ) { notification in
+                continuation.yield(notification)
+            }
+
+            continuation.onTermination = { _ in
+                NotificationCenter.default.removeObserver(observer)
+            }
+        }
+
+        return AsyncIterator(name: name, iterator: stream.makeAsyncIterator())
+    }
+}
+
+// Usage
+for await notification in NotificationStream(name: .userDidLogin) {
+    handleLogin(notification)
+}
 ```
-SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor
-SWIFT_APPROACHABLE_CONCURRENCY = YES
+
+### Continuations for Callback-Based APIs
+
+```swift
+func fetchLegacyData() async throws -> Data {
+    try await withCheckedThrowingContinuation { continuation in
+        legacyAPI.fetch { result in
+            switch result {
+            case .success(let data):
+                continuation.resume(returning: data)
+            case .failure(let error):
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+}
+
+// For delegate-based APIs
+class LocationManager: NSObject, CLLocationManagerDelegate {
+    private var locationContinuation: CheckedContinuation<CLLocation, Error>?
+
+    func getCurrentLocation() async throws -> CLLocation {
+        try await withCheckedThrowingContinuation { continuation in
+            self.locationContinuation = continuation
+            locationManager.requestLocation()
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationContinuation?.resume(returning: locations[0])
+        locationContinuation = nil
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationContinuation?.resume(throwing: error)
+        locationContinuation = nil
+    }
+}
 ```
 
-Effects:
-- Everything runs on MainActor unless explicitly marked otherwise
-- `nonisolated async` functions stay on caller's actor instead of hopping to background
-- Sendable errors become much rarer
+## Common Patterns
 
-## Resources
+### Cancellation Handling
 
-For detailed technical reference, consult:
+```swift
+func downloadFile(url: URL) async throws -> Data {
+    var data = Data()
 
-- `references/fundamentals.md` - async/await, Tasks, structured concurrency
-- `references/isolation.md` - Actors, MainActor, isolation domains, inheritance
-- `references/sendable.md` - Sendable protocol, non-Sendable patterns, isolated parameters
-- `references/common-mistakes.md` - Detailed examples of what to avoid
-- `references/glossary.md` - Complete terminology reference
+    let (bytes, _) = try await URLSession.shared.bytes(from: url)
 
-**Search patterns for references:**
-- Isolation: `grep -i "isolation\|actor\|mainactor\|nonisolated"`
-- Sendable: `grep -i "sendable\|sending\|boundary"`
-- Tasks: `grep -i "task\|taskgroup\|async let\|structured"`
+    for try await byte in bytes {
+        // Cooperative cancellation check
+        try Task.checkCancellation()
+        data.append(byte)
+    }
+
+    return data
+}
+```
+
+### Debouncing with Task
+
+```swift
+class SearchViewModel: ObservableObject {
+    @Published var searchText = ""
+    @Published var results: [SearchResult] = []
+
+    private var searchTask: Task<Void, Never>?
+
+    func search(_ query: String) {
+        searchTask?.cancel()
+
+        searchTask = Task {
+            // Debounce delay
+            try? await Task.sleep(for: .milliseconds(300))
+
+            guard !Task.isCancelled else { return }
+
+            do {
+                let results = try await searchService.search(query: query)
+                guard !Task.isCancelled else { return }
+
+                await MainActor.run {
+                    self.results = results
+                }
+            } catch {
+                // Handle error
+            }
+        }
+    }
+}
+```
+
+### Combine Integration
+
+```swift
+import Combine
+
+extension Publisher {
+    func asyncMap<T>(_ transform: @escaping (Output) async -> T) -> AnyPublisher<T, Failure> {
+        flatMap { value in
+            Future { promise in
+                Task {
+                    let result = await transform(value)
+                    promise(.success(result))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
+// Convert async function to publisher
+func userPublisher(id: String) -> AnyPublisher<User, Error> {
+    Future { promise in
+        Task {
+            do {
+                let user = try await fetchUser(id: id)
+                promise(.success(user))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+    }
+    .eraseToAnyPublisher()
+}
+```
+
+## Anti-Patterns
+
+### Blocking the Main Thread
+
+Bad:
+
+```swift
+// DON'T do this
+func loadData() {
+    let semaphore = DispatchSemaphore(value: 0)
+    Task {
+        data = await fetchData()
+        semaphore.signal()
+    }
+    semaphore.wait() // Blocks main thread!
+}
+```
+
+Good:
+
+```swift
+func loadData() async {
+    data = await fetchData()
+}
+```
+
+### Ignoring Cancellation
+
+Bad:
+
+```swift
+func processItems(_ items: [Item]) async {
+    for item in items {
+        await process(item) // Never checks cancellation
+    }
+}
+```
+
+Good:
+
+```swift
+func processItems(_ items: [Item]) async throws {
+    for item in items {
+        try Task.checkCancellation()
+        await process(item)
+    }
+}
+```
+
+### Data Races with Shared Mutable State
+
+Bad:
+
+```swift
+class Counter {
+    var count = 0 // Not thread-safe!
+
+    func increment() {
+        count += 1
+    }
+}
+```
+
+Good:
+
+```swift
+actor Counter {
+    var count = 0
+
+    func increment() {
+        count += 1
+    }
+}
+```
+
+## Related Skills
+
+- **ios-swiftui-patterns**: Using concurrency with SwiftUI
+- **ios-uikit-architecture**: Async patterns in UIKit

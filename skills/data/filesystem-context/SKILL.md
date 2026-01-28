@@ -1,85 +1,64 @@
 ---
 name: filesystem-context
-description: This skill should be used when the user asks to "offload context to files", "implement dynamic context discovery", "use filesystem for agent memory", "reduce context window bloat", or mentions file-based context management, tool output persistence, agent scratch pads, or just-in-time context loading.
+description: "Manage filesystem context. Use when: Offloading large context to files, persisting state between sessions, or reducing token usage. Not for: Small temporary data or in-memory variables."
 ---
 
 # Filesystem-Based Context Engineering
 
-The filesystem provides a single interface through which agents can flexibly store, retrieve, and update an effectively unlimited amount of context. This pattern addresses the fundamental constraint that context windows are limited while tasks often require more information than fits in a single window.
+The filesystem provides unlimited context capacity through dynamic discovery. Instead of stuffing everything into the context window, agents write once and read selectively, pulling relevant context on demand.
 
-The core insight is that files enable dynamic context discovery: agents pull relevant context on demand rather than carrying everything in the context window. This contrasts with static context, which is always included regardless of relevance.
+## Core Concept
 
-## When to Activate
+**Problem**: Context windows are limited but tasks often require more information than fits
 
-Activate this skill when:
-- Tool outputs are bloating the context window
-- Agents need to persist state across long trajectories
-- Sub-agents must share information without direct message passing
-- Tasks require more context than fits in the window
-- Building agents that learn and update their own instructions
-- Implementing scratch pads for intermediate results
-- Terminal outputs or logs need to be accessible to agents
+**Solution**: Use filesystem as persistent layer where agents:
+1. Write once (large outputs, state, plans)
+2. Read selectively (targeted retrieval via search)
+3. Discover dynamically (find relevant files on-demand)
 
-## Core Concepts
+**Benefit**: Unlimited context capacity with natural progressive disclosure
 
-Context engineering can fail in four predictable ways. First, when the context an agent needs is not in the total available context. Second, when retrieved context fails to encapsulate needed context. Third, when retrieved context far exceeds needed context, wasting tokens and degrading performance. Fourth, when agents cannot discover niche information buried in many files.
-
-The filesystem addresses these failures by providing a persistent layer where agents write once and read selectively, offloading bulk content while preserving the ability to retrieve specific information through search tools.
-
-## Detailed Topics
-
-### The Static vs Dynamic Context Trade-off
-
-**Static Context**
-Static context is always included in the prompt: system instructions, tool definitions, and critical rules. Static context consumes tokens regardless of task relevance. As agents accumulate more capabilities (tools, skills, instructions), static context grows and crowds out space for dynamic information.
-
-**Dynamic Context Discovery**
-Dynamic context is loaded on-demand when relevant to the current task. The agent receives minimal static pointers (names, descriptions, file paths) and uses search tools to load full content when needed.
-
-Dynamic discovery is more token-efficient because only necessary data enters the context window. It can also improve response quality by reducing potentially confusing or contradictory information.
-
-The trade-off: dynamic discovery requires the model to correctly identify when to load additional context. This works well with current frontier models but may fail with less capable models that do not recognize when they need more information.
+## Context Engineering Patterns
 
 ### Pattern 1: Filesystem as Scratch Pad
 
-**The Problem**
-Tool calls can return massive outputs. A web search may return 10k tokens of raw content. A database query may return hundreds of rows. If this content enters the message history, it remains for the entire conversation, inflating token costs and potentially degrading attention to more relevant information.
+**Problem**: Tool calls return massive outputs (10k+ tokens for web search, hundreds of rows for database queries). If this enters message history, it remains for entire conversation, bloating tokens and degrading attention.
 
-**The Solution**
-Write large tool outputs to files instead of returning them directly to the context. The agent then uses targeted retrieval (grep, line-specific reads) to extract only the relevant portions.
+**Solution**: Write large tool outputs to files instead of returning to context. Agent uses targeted retrieval to extract only relevant portions.
 
-**Implementation**
+**Implementation**:
 ```python
 def handle_tool_output(output: str, threshold: int = 2000) -> str:
     if len(output) < threshold:
-        return output
-    
+        return output  # Small output, return directly
+
     # Write to scratch pad
     file_path = f"scratch/{tool_name}_{timestamp}.txt"
     write_file(file_path, output)
-    
-    # Return reference instead of content
-    key_summary = extract_summary(output, max_tokens=200)
-    return f"[Output written to {file_path}. Summary: {key_summary}]"
+
+    # Return reference with summary
+    summary = extract_summary(output, max_tokens=200)
+    return f"[Output written to {file_path}. Summary: {summary}]"
 ```
 
-The agent can then use `grep` to search for specific patterns or `read_file` with line ranges to retrieve targeted sections.
+**Usage**:
+- Web search results → `scratch/web_search_20260126_143022.txt`
+- Database queries → `scratch/db_query_users_active.txt`
+- API responses → `scratch/api_response_20260126_143045.json`
 
-**Benefits**
+**Benefits**:
 - Reduces token accumulation over long conversations
 - Preserves full output for later reference
 - Enables targeted retrieval instead of carrying everything
+- Natural progressive disclosure
 
 ### Pattern 2: Plan Persistence
 
-**The Problem**
-Long-horizon tasks require agents to make plans and follow them. But as conversations extend, plans can fall out of attention or be lost to summarization. The agent loses track of what it was supposed to do.
+**Problem**: Long-horizon tasks require plans. But as conversations extend, plans fall out of attention or get lost to summarization. Agent loses track of objectives.
 
-**The Solution**
-Write plans to the filesystem. The agent can re-read its plan at any point, reminding itself of the current objective and progress. This is sometimes called "manipulating attention through recitation."
+**Solution**: Write plans to filesystem. Agent can re-read plan anytime to re-orient.
 
-**Implementation**
-Store plans in structured format:
+**Implementation**:
 ```yaml
 # scratch/current_plan.yaml
 objective: "Refactor authentication module"
@@ -94,19 +73,30 @@ steps:
   - id: 3
     description: "Implement and test changes"
     status: pending
+
+progress:
+  current_step: 2
+  blockers: ["Waiting for security review"]
+  next_action: "Complete token validation design"
 ```
 
-The agent reads this file at the start of each turn or when it needs to re-orient.
+**Usage**:
+- Agent reads `scratch/current_plan.yaml` at start of each turn
+- Updates progress as work completes
+- Re-orients when context degrades
+
+**Benefits**:
+- Maintains objective visibility throughout long tasks
+- Survives context compaction
+- Enables "manipulating attention through recitation"
 
 ### Pattern 3: Sub-Agent Communication via Filesystem
 
-**The Problem**
-In multi-agent systems, sub-agents typically report findings to a coordinator agent through message passing. This creates a "game of telephone" where information degrades through summarization at each hop.
+**Problem**: In multi-agent systems, sub-agents report to coordinator through message passing. This creates "telephone game" where information degrades through summarization at each hop.
 
-**The Solution**
-Sub-agents write their findings directly to the filesystem. The coordinator reads these files directly, bypassing intermediate message passing. This preserves fidelity and reduces context accumulation in the coordinator.
+**Solution**: Sub-agents write findings directly to filesystem. Coordinator reads files directly, bypassing intermediate passing.
 
-**Implementation**
+**Implementation**:
 ```
 workspace/
   agents/
@@ -117,205 +107,315 @@ workspace/
       changes.md         # Code agent writes here
       test_results.txt   # Test output
   coordinator/
-    synthesis.md         # Coordinator reads agent outputs, writes synthesis
+    synthesis.md         # Coordinator reads outputs, writes synthesis
 ```
 
-Each agent operates in relative isolation but shares state through the filesystem.
+**Usage**:
+- Research agent: `workspace/agents/research_agent/findings.md`
+- Code agent: `workspace/agents/code_agent/changes.md`
+- Coordinator: reads both, writes synthesis
+
+**Benefits**:
+- Preserves fidelity (no telephone game)
+- Reduces coordinator context accumulation
+- Enables asynchronous collaboration
+- Natural audit trail
 
 ### Pattern 4: Dynamic Skill Loading
 
-**The Problem**
-Agents may have many skills or instruction sets, but most are irrelevant to any given task. Stuffing all instructions into the system prompt wastes tokens and can confuse the model with contradictory or irrelevant guidance.
+**Problem**: Agents may have many skills/instructions, but most irrelevant to any given task. Stuffing all into system prompt wastes tokens and can confuse with contradictory guidance.
 
-**The Solution**
-Store skills as files. Include only skill names and brief descriptions in static context. The agent uses search tools to load relevant skill content when the task requires it.
+**Solution**: Store skills as files. Include only skill names/brief descriptions in static context. Load relevant skill content when task requires it.
 
-**Implementation**
-Static context includes:
-```
+**Implementation**:
+```markdown
 Available skills (load with read_file when relevant):
 - database-optimization: Query tuning and indexing strategies
 - api-design: REST/GraphQL best practices
-- testing-strategies: Unit, integration, and e2e testing patterns
+- testing-strategies: Unit, integration, and e2e patterns
+- security-review: OWASP Top 10, authentication patterns
 ```
 
-Agent loads `skills/database-optimization/SKILL.md` only when working on database tasks.
+**Usage**:
+```python
+# Agent working on database task
+skill_content = read_file("skills/database-optimization/SKILL.md")
+
+# Agent working on API task
+skill_content = read_file("skills/api-design/SKILL.md")
+```
+
+**Benefits**:
+- Minimal static context
+- On-demand skill activation
+- No contradictory guidance
+- Scales to hundreds of skills
 
 ### Pattern 5: Terminal and Log Persistence
 
-**The Problem**
-Terminal output from long-running processes accumulates rapidly. Copying and pasting output into agent input is manual and inefficient.
+**Problem**: Terminal output from long-running processes accumulates rapidly. Copying/pasting into agent input is manual and inefficient.
 
-**The Solution**
-Sync terminal output to files automatically. The agent can then grep for relevant sections (error messages, specific commands) without loading entire terminal histories.
+**Solution**: Sync terminal output to files automatically. Agent greps for relevant sections without loading entire histories.
 
-**Implementation**
-Terminal sessions are persisted as files:
-```
-terminals/
-  1.txt    # Terminal session 1 output
-  2.txt    # Terminal session 2 output
-```
-
-Agents query with targeted grep:
+**Implementation**:
 ```bash
-grep -A 5 "error" terminals/1.txt
+# Auto-sync terminal to file
+script -c "npm run dev" scratch/terminal.log
+
+# Agent searches for specific patterns
+grep "ERROR" scratch/terminal.log
+grep -A5 "failed" scratch/terminal.log
 ```
 
-### Pattern 6: Learning Through Self-Modification
+**Benefits**:
+- Automatic log capture
+- Targeted error finding
+- No manual copy/paste
+- Historical terminal access
 
-**The Problem**
-Agents often lack context that users provide implicitly or explicitly during interactions. Traditionally, this requires manual system prompt updates between sessions.
+## Filesystem Navigation
 
-**The Solution**
-Agents write learned information to their own instruction files. Subsequent sessions load these files, incorporating learned context automatically.
+### Discovery Patterns
 
-**Implementation**
-After user provides preference:
+**Find files by name**:
+```bash
+Glob patterns:
+- "**/*.yaml" - All YAML files
+- "**/scratch/*" - Scratch pad directory
+- "**/plans/*" - Plan files
+- "**/logs/*" - Log files
+```
+
+**Search file contents**:
+```bash
+Grep patterns:
+- "TODO|FIXME|BUG" - Find action items
+- "ERROR|Exception" - Find errors
+- "summary|conclusion" - Find summaries
+- "^# .*" - Find headings
+```
+
+**Targeted reading**:
+```bash
+Read specific sections:
+- First 50 lines: `read_file(path, limit=50)`
+- Last 50 lines: `read_file(path, offset=-50)`
+- Around pattern: `grep(pattern)`, then `read_file(path, offset=X, limit=Y)`
+```
+
+### File Metadata Hints
+
+**File sizes suggest complexity**:
+- Small (<1KB): summaries, metadata
+- Medium (1-10KB): full outputs, reports
+- Large (>10KB): raw data, logs
+
+**Naming conventions**:
+- `YYYYMMDD_HHMMSS_*` - Timestamped files
+- `*_summary.*` - Summarized outputs
+- `*_raw.*` - Raw data
+- `current_*.*` - Current state
+
+**Timestamps**:
+- Newer files likely more relevant
+- Timestamps show activity patterns
+- Enable time-based filtering
+
+## JSONL Append-Only Design
+
+**Pattern**: All logs use JSONL (JSON Lines) format
+
+**Benefits**:
+- Agent-friendly parsing
+- History preservation
+- Pattern analysis capability
+- Never-delete integrity
+
+**Example**:
+```jsonl
+{"timestamp": "2026-01-26T14:30:00Z", "type": "post", "content": "...", "status": "published"}
+{"timestamp": "2026-01-26T14:35:00Z", "type": "contact", "name": "Sarah", "updated": true}
+{"timestamp": "2026-01-26T14:40:00Z", "type": "plan_update", "step": 2, "status": "completed"}
+```
+
+**Reading JSONL**:
 ```python
-def remember_preference(key: str, value: str):
-    preferences_file = "agent/user_preferences.yaml"
-    prefs = load_yaml(preferences_file)
-    prefs[key] = value
-    write_yaml(preferences_file, prefs)
+# Read as list of dicts
+logs = [json.loads(line) for line in open('logs.jsonl')]
+
+# Filter by type
+posts = [log for log in logs if log['type'] == 'post']
+
+# Query by timestamp
+recent = [log for log in logs if log['timestamp'] > '2026-01-26']
 ```
 
-Subsequent sessions include a step to load user preferences if the file exists.
+## Ralph Integration
 
-**Caution**
-This pattern is still emerging. Self-modification requires careful guardrails to prevent agents from accumulating incorrect or contradictory instructions over time.
+### Validation Artifacts in Filesystem
 
-### Filesystem Search Techniques
+**Current Ralph**: Markdown reports in `ralph_validated/`
 
-Models are specifically trained to understand filesystem traversal. The combination of `ls`, `glob`, `grep`, and `read_file` with line ranges provides powerful context discovery:
+**Enhanced Ralph**: Filesystem-based artifacts
+```
+ralph_validated/
+├── artifacts/
+│   └── .claude/
+│       └── skills/
+│           └── my-skill/
+│               └── SKILL.md
+├── evidence/
+│   ├── blueprint.yaml
+│   ├── test_spec.json
+│   └── raw_execution.log
+├── reports/
+│   ├── validation_report.json
+│   └── evaluation_scores.json
+└── context/
+    ├── loaded_files.jsonl
+    └── discovery_log.jsonl
+```
 
-- `ls` / `list_dir`: Discover directory structure
-- `glob`: Find files matching patterns (e.g., `**/*.py`)
-- `grep`: Search file contents for patterns, returns matching lines
-- `read_file` with ranges: Read specific line ranges without loading entire files
+**Benefits**:
+- Unlimited context for validation
+- Targeted retrieval of evidence
+- Natural progressive disclosure
+- Append-only audit trail
 
-This combination often outperforms semantic search for technical content (code, API docs) where semantic meaning is sparse but structural patterns are clear.
+### Dynamic Context Discovery
 
-Semantic search and filesystem search work well together: semantic search for conceptual queries, filesystem search for structural and exact-match queries.
+**Ralph validation**:
+1. Load blueprint summary (Level 1)
+2. Load full blueprint if needed (Level 2)
+3. Search evidence files for specific patterns (Level 3)
+4. Retrieve relevant sections via targeted reads
 
-## Practical Guidance
+**Example**:
+```python
+# Find all test failures
+failures = grep("FAIL|ERROR", "evidence/raw_execution.log")
 
-### When to Use Filesystem Context
+# Read around failures
+for failure in failures:
+    context = read_file("evidence/raw_execution.log",
+                       offset=failure.line-10,
+                       limit=20)
+    analyze_failure(context)
+```
 
-**Use filesystem patterns when:**
-- Tool outputs exceed 2000 tokens
-- Tasks span multiple conversation turns
-- Multiple agents need to share state
-- Skills or instructions exceed what fits comfortably in system prompt
-- Logs or terminal output need selective querying
+## Progressive Disclosure in Filesystem
 
-**Avoid filesystem patterns when:**
-- Tasks complete in single turns
-- Context fits comfortably in window
-- Latency is critical (file I/O adds overhead)
-- Simple model incapable of filesystem tool use
+### Level 1: Metadata
+
+```markdown
+# Component Index
+
+skills/my-skill/
+├── overview.yaml      # 200 tokens - auto-loaded
+├── trigger_phrases.md # 100 tokens - auto-loaded
+└── references/        # On-demand
+    ├── examples/
+    └── patterns/
+```
+
+### Level 2: Instructions
+
+```markdown
+# Full Skill (1500 tokens)
+- Load when skill activated
+- Contains all instructions
+- Progressive disclosure enabled
+```
+
+### Level 3: Data
+
+```markdown
+# References/ (As needed)
+- examples/ - Usage examples
+- patterns/ - Implementation patterns
+- scripts/ - Automation scripts
+- data/ - Sample data
+```
+
+## Best Practices
 
 ### File Organization
 
-Structure files for discoverability:
-```
-project/
-  scratch/           # Temporary working files
-    tool_outputs/    # Large tool results
-    plans/           # Active plans and checklists
-  memory/            # Persistent learned information
-    preferences.yaml # User preferences
-    patterns.md      # Learned patterns
-  skills/            # Loadable skill definitions
-  agents/            # Sub-agent workspaces
-```
+1. **Use descriptive names**: `auth_plan_20260126.yaml` not `plan1.yaml`
+2. **Timestamp files**: `scratch/web_search_20260126_143022.txt`
+3. **Group related files**: `evidence/`, `scratch/`, `context/`
+4. **Use extensions**: `.yaml`, `.jsonl`, `.md`, `.txt`
 
-Use consistent naming conventions. Include timestamps or IDs in scratch files for disambiguation.
+### Content Guidelines
 
-### Token Accounting
+1. **Write summaries**: Extract key info for quick reference
+2. **Preserve full data**: Keep raw outputs for later analysis
+3. **Use structured formats**: YAML, JSONL for machine-readability
+4. **Include metadata**: Timestamps, types, status
 
-Track where tokens originate:
-- Measure static vs dynamic context ratio
-- Monitor tool output sizes before and after offloading
-- Track how often dynamic context is actually loaded
+### Performance
 
-Optimize based on measurements, not assumptions.
+1. **Write once, read many**: Optimize for read patterns
+2. **Use targeted reads**: Line ranges, not full files
+3. **Search before read**: Grep to find relevant sections
+4. **Cache frequently accessed**: Keep metadata in memory
 
-## Examples
+## Example Workflow
 
-**Example 1: Tool Output Offloading**
-```
-Input: Web search returns 8000 tokens
-Before: 8000 tokens added to message history
-After: 
-  - Write to scratch/search_results_001.txt
-  - Return: "[Results in scratch/search_results_001.txt. Key finding: API rate limit is 1000 req/min]"
-  - Agent greps file when needing specific details
-Result: ~100 tokens in context, 8000 tokens accessible on demand
+**Task**: Validate component with Ralph
+
+**Step 1**: Write large outputs to scratch
+```bash
+# Test results
+[Output written to scratch/test_results.json. Summary: 15 tests run, 14 passed, 1 failed]
 ```
 
-**Example 2: Dynamic Skill Loading**
-```
-Input: User asks about database indexing
-Static context: "database-optimization: Query tuning and indexing"
-Agent action: read_file("skills/database-optimization/SKILL.md")
-Result: Full skill loaded only when relevant
+**Step 2**: Update plan in structured format
+```yaml
+# scratch/current_plan.yaml
+status: validation_in_progress
+current_step: "Evaluate component quality"
+evidence:
+  test_results: "scratch/test_results.json"
+  blueprint: "evidence/blueprint.yaml"
 ```
 
-**Example 3: Chat History as File Reference**
+**Step 3**: Use targeted retrieval
+```python
+# Find failures
+failures = grep("FAIL", "scratch/test_results.json")
+
+# Read specific test
+test_output = read_file("scratch/test_results.json",
+                       offset=failures[0].line,
+                       limit=10)
+
+# Analyze
+analyze_failure(test_output)
 ```
-Trigger: Context window limit reached, summarization required
-Action: 
-  1. Write full history to history/session_001.txt
-  2. Generate summary for new context window
-  3. Include reference: "Full history in history/session_001.txt"
-Result: Agent can search history file to recover details lost in summarization
+
+**Step 4**: Write structured validation report
+```jsonl
+{"timestamp": "2026-01-26T14:30:00Z", "type": "validation", "step": "evaluation", "result": "partial"}
+{"timestamp": "2026-01-26T14:35:00Z", "type": "validation", "step": "test_execution", "result": "failed", "details": "test_user_auth_failed"}
 ```
 
 ## Guidelines
 
-1. Write large outputs to files; return summaries and references to context
-2. Store plans and state in structured files for re-reading
-3. Use sub-agent file workspaces instead of message chains
-4. Load skills dynamically rather than stuffing all into system prompt
-5. Persist terminal and log output as searchable files
-6. Combine grep/glob with semantic search for comprehensive discovery
-7. Organize files for agent discoverability with clear naming
-8. Measure token savings to validate filesystem patterns are effective
-9. Implement cleanup for scratch files to prevent unbounded growth
-10. Guard self-modification patterns with validation
-
-## Integration
-
-This skill connects to:
-
-- context-optimization - Filesystem offloading is a form of observation masking
-- memory-systems - Filesystem-as-memory is a simple memory layer
-- multi-agent-patterns - Sub-agent file workspaces enable isolation
-- context-compression - File references enable lossless "compression"
-- tool-design - Tools should return file references for large outputs
+1. **Write once, read selectively** - Don't return large outputs to context
+2. **Use descriptive names** - Enable quick discovery
+3. **Timestamp files** - Show temporal relationships
+4. **Preserve full data** - Keep raw outputs for analysis
+5. **Structure formats** - YAML/JSONL for machine-readability
+6. **Search before read** - Grep to find relevant sections
+7. **Progressive disclosure** - Load only what you need
+8. **Append-only logs** - Preserve history for pattern analysis
 
 ## References
 
-Internal reference:
-- [Implementation Patterns](./references/implementation-patterns.md) - Detailed pattern implementations
+**Related Skills**:
+- `context-fundamentals` - Progressive disclosure principles
+- `evaluation` - Multi-dimensional quality assessment
+- `filesystem-context` - Context management patterns
 
-Related skills in this collection:
-- context-optimization - Token reduction techniques
-- memory-systems - Persistent storage patterns
-- multi-agent-patterns - Agent coordination
-
-External resources:
-- LangChain Deep Agents: How agents can use filesystems for context engineering
-- Cursor: Dynamic context discovery patterns
-- Anthropic: Agent Skills specification
-
----
-
-## Skill Metadata
-
-**Created**: 2026-01-07
-**Last Updated**: 2026-01-07
-**Author**: Agent Skills for Context Engineering Contributors
-**Version**: 1.0.0
-
+**Key Principle**: Filesystem provides unlimited context capacity through dynamic discovery. Write once, read selectively, discover on-demand.

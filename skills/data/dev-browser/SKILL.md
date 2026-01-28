@@ -1,313 +1,182 @@
 ---
 name: dev-browser
-description: Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows. Trigger phrases include "go to [url]", "click on", "fill out the form", "take a screenshot", "scrape", "automate", "test the website", "log into", or any browser interaction request.
+description: "Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows. Trigger phrases include 'go to [url]', 'click on', 'fill out the form', 'take a screenshot', 'scrape', 'automate', 'test the website', 'log into', or any browser interaction request."
+allowed-tools: ["Bash", "Read"]
+context: fork
 ---
 
-# Dev Browser Skill
+# Dev Browser Skill (agent-browser)
 
-Browser automation that maintains page state across script executions. Write small, focused scripts to accomplish tasks incrementally. Once you've proven out part of a workflow and there is repeated work to be done, you can write a script to do the repeated work in a single execution.
+ブラウザ自動化を行うスキル。agent-browser CLI を使用して、UI デバッグ・検証・自動操作を実行します。
 
-## Choosing Your Approach
+---
 
-**Local/source-available sites**: If you have access to the source code (e.g., localhost or project files), read the code first to write selectors directly—no need for multi-script discovery.
+## トリガーフレーズ
 
-**Unknown page layouts**: If you don't know the structure of the page, use `getAISnapshot()` to discover elements and `selectSnapshotRef()` to interact with them. The ARIA snapshot provides semantic roles (button, link, heading) and stable refs that persist across script executions.
+このスキルは以下のフレーズで自動起動します：
 
-**Visual feedback**: Take screenshots to see what the user sees and iterate on design or debug layout issues.
+- 「ページを開いて」「URLを確認して」
+- 「クリックして」「入力して」「フォームに」
+- 「スクリーンショットを撮って」
+- 「UIを確認して」「画面をテストして」
+- "open this page", "click on", "fill the form", "screenshot"
 
-## Setup
+---
 
-First, start the dev-browser server using the startup script:
+## 機能詳細
 
-```bash
-./skills/dev-browser/server.sh &
-```
+| 機能 | 詳細 |
+|------|------|
+| **ブラウザ自動化** | See [references/browser-automation.md](references/browser-automation.md) |
+| **AI スナップショットワークフロー** | See [references/ai-snapshot-workflow.md](references/ai-snapshot-workflow.md) |
 
-The script will automatically install dependencies and start the server. It will also install Chromium on first run if needed.
+## 実行手順
 
-### Flags
-
-The server script accepts the following flags:
-
-- `--headless` - Start the browser in headless mode (no visible browser window). Use if the user asks for it.
-
-**Wait for the `Ready` message before running scripts.** On first run, the server will:
-
-- Install dependencies if needed
-- Download and install Playwright Chromium browser
-- Create the `tmp/` directory for scripts
-- Create the `profiles/` directory for browser data persistence
-
-The first run may take longer while dependencies are installed. Subsequent runs will start faster.
-
-**Important:** Scripts must be run with `bun x tsx` (not `bun run`) due to Playwright WebSocket compatibility.
-
-The server starts a Chromium browser with a REST API for page management (default: `http://localhost:9222`).
-
-## How It Works
-
-1. **Server** launches a persistent Chromium browser and manages named pages via REST API
-2. **Client** connects to the HTTP server URL and requests pages by name
-3. **Pages persist** - the server owns all page contexts, so they survive client disconnections
-4. **State is preserved** - cookies, localStorage, DOM state all persist between runs
-
-## Writing Scripts
-
-Execute scripts inline using heredocs—no need to write files for one-off automation.
-
-> **CRITICAL: Always run scripts from `skills/dev-browser/`**
->
-> Scripts must be executed from the `skills/dev-browser/` directory. The `@/` import alias (e.g., `@/client.js`) is configured in this directory's `tsconfig.json` and `package.json`. Running from any other directory will fail with:
->
-> ```
-> ERR_MODULE_NOT_FOUND: Cannot find package '@/client.js'
-> ```
+### Step 0: agent-browser の確認
 
 ```bash
-cd skills/dev-browser && bun x tsx <<'EOF'
-import { connect } from "@/client.js";
-const client = await connect();
-const page = await client.page("main");
-// Your automation code here
-await client.disconnect();
-EOF
+# インストール確認
+which agent-browser
+
+# 未インストールの場合
+npm install -g agent-browser
+agent-browser install
 ```
 
-**Only write to `tmp/` files when:**
+### Step 1: ユーザーのリクエストを分類
 
-- The script needs to be reused multiple times
-- The script is complex and you need to iterate on it
-- The user explicitly asks for a saved script
+| リクエストタイプ | 対応アクション |
+|----------------|---------------|
+| URL を開く | `agent-browser open <url>` |
+| 要素をクリック | スナップショット → `agent-browser click @ref` |
+| フォーム入力 | スナップショット → `agent-browser fill @ref "text"` |
+| 状態確認 | `agent-browser snapshot -i -c` |
+| スクリーンショット | `agent-browser screenshot <path>` |
+| デバッグ | `agent-browser --headed open <url>` |
 
-### Basic Template
+### Step 2: AI スナップショットワークフロー（推奨）
 
-Use the `@/client.js` import path for all scripts.
+ほとんどの操作で、まず**スナップショットを取得**してから要素参照で操作します：
 
 ```bash
-cd skills/dev-browser && bun x tsx <<'EOF'
-import { connect, waitForPageLoad } from "@/client.js";
+# 1. ページを開く
+agent-browser open https://example.com
 
-const client = await connect();
-const page = await client.page("main"); // get or create a named page
-await page.setViewportSize({ width: 1280, height: 800 }); // Required for screenshots
+# 2. スナップショット取得（AI 向け、インタラクティブ要素のみ）
+agent-browser snapshot -i -c
 
-// Your automation code here
-await page.goto("https://example.com");
-await waitForPageLoad(page); // Wait for page to fully load
+# 出力例:
+# - link "Home" [ref=e1]
+# - button "Login" [ref=e2]
+# - input "Email" [ref=e3]
+# - input "Password" [ref=e4]
+# - button "Submit" [ref=e5]
 
-// Always evaluate state at the end
-const title = await page.title();
-const url = page.url();
-console.log({ title, url });
-
-// Disconnect so the script exits (page stays alive on the server)
-await client.disconnect();
-EOF
+# 3. 要素参照で操作
+agent-browser click @e2           # Login ボタンをクリック
+agent-browser fill @e3 "user@example.com"
+agent-browser fill @e4 "password123"
+agent-browser click @e5           # Submit
 ```
 
-### Key Principles
-
-1. **Small scripts**: Each script should do ONE thing (navigate, click, fill, check)
-2. **Evaluate state**: Always log/return state at the end to decide next steps
-3. **Use page names**: Use descriptive names like `"checkout"`, `"login"`, `"search-results"`
-4. **Disconnect to exit**: Call `await client.disconnect()` at the end of your script so the process exits cleanly. Pages persist on the server.
-5. **Plain JS in evaluate**: Always use plain JavaScript inside `page.evaluate()` callbacks—never TypeScript. The code runs in the browser which doesn't understand TS syntax.
-
-### Important Notes
-
-- **tsx runs without type-checking**: Scripts run with `bun x tsx` which transpiles TypeScript but does NOT type-check. Type errors won't prevent execution—they're just ignored.
-- **No TypeScript in browser context**: Code passed to `page.evaluate()`, `page.evaluateHandle()`, or similar methods runs in the browser. Use plain JavaScript only:
-
-```typescript
-// ✅ Correct: plain JavaScript in evaluate
-const text = await page.evaluate(() => {
-  return document.body.innerText;
-});
-
-// ❌ Wrong: TypeScript syntax in evaluate (will fail at runtime)
-const text = await page.evaluate(() => {
-  const el: HTMLElement = document.body; // TS syntax - don't do this!
-  return el.innerText;
-});
-```
-
-## Workflow Loop
-
-Follow this pattern for complex tasks:
-
-1. **Write a script** to perform one action
-2. **Run it** and observe the output
-3. **Evaluate** - did it work? What's the current state?
-4. **Decide** - is the task complete or do we need another script?
-5. **Repeat** until task is done
-
-## Client API
-
-```typescript
-const client = await connect();
-const page = await client.page("name"); // Get or create named page
-const pages = await client.list(); // List all page names
-await client.close("name"); // Close a page
-await client.disconnect(); // Disconnect (pages persist)
-
-// ARIA Snapshot methods for element discovery and interaction
-const snapshot = await client.getAISnapshot("name"); // Get ARIA accessibility tree
-const element = await client.selectSnapshotRef("name", "e5"); // Get element by ref
-```
-
-The `page` object is a standard Playwright Page—use normal Playwright methods.
-
-## Waiting
-
-Use `waitForPageLoad(page)` after navigation (checks document.readyState and network idle):
-
-```typescript
-import { waitForPageLoad } from "@/client.js";
-
-// Preferred: Wait for page to fully load
-await waitForPageLoad(page);
-
-// Wait for specific elements
-await page.waitForSelector(".results");
-
-// Wait for specific URL
-await page.waitForURL("**/success");
-```
-
-## Inspecting Page State
-
-### Screenshots
-
-Take screenshots when you need to visually inspect the page:
-
-```typescript
-await page.screenshot({ path: "tmp/screenshot.png" });
-await page.screenshot({ path: "tmp/full.png", fullPage: true });
-```
-
-### ARIA Snapshot (Element Discovery)
-
-Use `getAISnapshot()` when you don't know the page layout and need to discover what elements are available. It returns a YAML-formatted accessibility tree with:
-
-- **Semantic roles** (button, link, textbox, heading, etc.)
-- **Accessible names** (what screen readers would announce)
-- **Element states** (checked, disabled, expanded, etc.)
-- **Stable refs** that persist across script executions
+### Step 3: 結果の確認
 
 ```bash
-cd skills/dev-browser && bun x tsx <<'EOF'
-import { connect, waitForPageLoad } from "@/client.js";
+# 現在の状態をスナップショットで確認
+agent-browser snapshot -i -c
 
-const client = await connect();
-const page = await client.page("main");
+# または URL を確認
+agent-browser get url
 
-await page.goto("https://news.ycombinator.com");
-await waitForPageLoad(page);
-
-// Get the ARIA accessibility snapshot
-const snapshot = await client.getAISnapshot("main");
-console.log(snapshot);
-
-await client.disconnect();
-EOF
+# スクリーンショットを取得
+agent-browser screenshot result.png
 ```
 
-#### Example Output
+---
 
-The snapshot is YAML-formatted with semantic structure:
+## クイックリファレンス
 
-```yaml
-- banner:
-  - link "Hacker News" [ref=e1]
-  - navigation:
-    - link "new" [ref=e2]
-    - link "past" [ref=e3]
-    - link "comments" [ref=e4]
-    - link "ask" [ref=e5]
-    - link "submit" [ref=e6]
-  - link "login" [ref=e7]
-- main:
-  - list:
-    - listitem:
-      - link "Article Title Here" [ref=e8]
-      - text: "528 points by username 3 hours ago"
-      - link "328 comments" [ref=e9]
-- contentinfo:
-  - textbox [ref=e10]
-    - /placeholder: "Search"
-```
+### 基本操作
 
-#### Interpreting the Snapshot
+| コマンド | 説明 |
+|---------|------|
+| `open <url>` | URL を開く |
+| `snapshot -i -c` | AI 向けスナップショット |
+| `click @e1` | 要素をクリック |
+| `fill @e1 "text"` | フォームに入力 |
+| `type @e1 "text"` | テキストを入力 |
+| `press Enter` | キーを押す |
+| `screenshot [path]` | スクリーンショット |
+| `close` | ブラウザを閉じる |
 
-- **Roles** - Semantic element types: `button`, `link`, `textbox`, `heading`, `listitem`, etc.
-- **Names** - Accessible text in quotes: `link "Click me"`, `button "Submit"`
-- **`[ref=eN]`** - Element reference for interaction. Only assigned to visible, clickable elements
-- **`[checked]`** - Checkbox/radio is checked
-- **`[disabled]`** - Element is disabled
-- **`[expanded]`** - Expandable element (details, accordion) is open
-- **`[level=N]`** - Heading level (h1=1, h2=2, etc.)
-- **`/url:`** - Link URL (shown as a property)
-- **`/placeholder:`** - Input placeholder text
+### ナビゲーション
 
-#### Interacting with Refs
+| コマンド | 説明 |
+|---------|------|
+| `back` | 戻る |
+| `forward` | 進む |
+| `reload` | リロード |
 
-Use `selectSnapshotRef()` to get a Playwright ElementHandle for any ref:
+### 情報取得
+
+| コマンド | 説明 |
+|---------|------|
+| `get text @e1` | テキスト取得 |
+| `get html @e1` | HTML 取得 |
+| `get url` | 現在の URL |
+| `get title` | ページタイトル |
+
+### 待機
+
+| コマンド | 説明 |
+|---------|------|
+| `wait @e1` | 要素を待機 |
+| `wait 1000` | 1秒待機 |
+
+### デバッグ
+
+| コマンド | 説明 |
+|---------|------|
+| `--headed` | ブラウザを表示 |
+| `console` | コンソールログ |
+| `errors` | ページエラー |
+| `highlight @e1` | 要素をハイライト |
+
+---
+
+## セッション管理
+
+複数のタブ/セッションを並列管理：
 
 ```bash
-cd skills/dev-browser && bun x tsx <<'EOF'
-import { connect, waitForPageLoad } from "@/client.js";
+# セッションを指定
+agent-browser --session admin open https://admin.example.com
+agent-browser --session user open https://example.com
 
-const client = await connect();
-const page = await client.page("main");
+# セッション一覧
+agent-browser session list
 
-await page.goto("https://news.ycombinator.com");
-await waitForPageLoad(page);
-
-// Get the snapshot to see available refs
-const snapshot = await client.getAISnapshot("main");
-console.log(snapshot);
-// Output shows: - link "new" [ref=e2]
-
-// Get the element by ref and click it
-const element = await client.selectSnapshotRef("main", "e2");
-await element.click();
-
-await waitForPageLoad(page);
-console.log("Navigated to:", page.url());
-
-await client.disconnect();
-EOF
+# 特定セッションで操作
+agent-browser --session admin snapshot -i -c
 ```
 
-## Debugging Tips
+---
 
-1. **Use getAISnapshot** to see what elements are available and their refs
-2. **Take screenshots** when you need visual context
-3. **Use waitForSelector** before interacting with dynamic content
-4. **Check page.url()** to confirm navigation worked
+## MCP ブラウザツールとの使い分け
 
-## Error Recovery
+| ツール | 推奨度 | 用途 |
+|--------|--------|------|
+| **agent-browser** | ★★★ | 第一選択。AI 向けスナップショットが強力 |
+| chrome-devtools MCP | ★★☆ | Chrome が既に開いている場合 |
+| playwright MCP | ★★☆ | 複雑な E2E テスト |
 
-If a script fails, the page state is preserved. You can:
+**原則**: まず agent-browser を試し、うまくいかない場合のみ MCP ツールを使用。
 
-1. Take a screenshot to see what happened
-2. Check the current URL and DOM state
-3. Write a recovery script to get back on track
+---
 
-```bash
-cd skills/dev-browser && bun x tsx <<'EOF'
-import { connect } from "@/client.js";
+## 注意事項
 
-const client = await connect();
-const page = await client.page("main");
-
-await page.screenshot({ path: "tmp/debug.png" });
-console.log({
-  url: page.url(),
-  title: await page.title(),
-  bodyText: await page.textContent("body").then((t) => t?.slice(0, 200)),
-});
-
-await client.disconnect();
-EOF
-```
+- agent-browser はヘッドレスモードがデフォルト
+- `--headed` オプションでブラウザを表示可能
+- セッションは明示的に `close` するまで維持される
+- 認証が必要なサイトはセッションを活用

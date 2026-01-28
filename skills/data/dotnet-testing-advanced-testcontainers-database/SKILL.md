@@ -1,7 +1,49 @@
 ---
 name: dotnet-testing-advanced-testcontainers-database
-description: 協助使用 Testcontainers for .NET 進行容器化資料庫整合測試。當使用者需要測試真實資料庫行為（PostgreSQL、MSSQL）、需要解決 EF Core InMemory 限制、或需要建立容器共享的測試架構時使用此技能。
+description: |
+  使用 Testcontainers 進行容器化資料庫測試的專門技能。
+  當需要測試真實資料庫行為、使用 SQL Server/PostgreSQL/MySQL 容器、測試 EF Core/Dapper 時使用。
+  涵蓋容器啟動、資料庫遷移、測試隔離、容器共享等。
+
+triggers:
+  # 核心關鍵字
+  - testcontainers
+  - 容器測試
+  - container testing
+  - database testing
+  - 資料庫測試
+  - docker testing
+
+  # 資料庫類型
+  - SQL Server container
+  - PostgreSQL container
+  - MySQL container
+  - MsSqlContainer
+  - PostgreSqlContainer
+  - MySqlContainer
+
+  # 使用情境
+  - 真實資料庫測試
+  - EF Core testing
+  - Dapper testing
+  - 資料庫遷移測試
+  - database migration testing
+  - 交易測試
+  - transaction testing
+
+  # 技術術語
+  - Testcontainers.MsSql
+  - Testcontainers.PostgreSql
+  - StartAsync
+  - GetConnectionString
+  - IAsyncLifetime
+  - CollectionFixture
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: ".NET, testing, Testcontainers, database, SQL Server, PostgreSQL"
 ---
 
 # Testcontainers 資料庫整合測試指南
@@ -604,11 +646,11 @@ public void Dispose()
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 20 - Testcontainers 初探：使用 Docker 架設測試環境**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10375882
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376401
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day20
 
 - **Day 21 - Testcontainers 整合測試：MSSQL + EF Core 以及 Dapper 基礎應用**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10375990
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376524
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day21
 
 ### 官方文件

@@ -6,8 +6,6 @@ description: >-
   or any work requiring research, design, and implementation phases.
   Invoked by: "new feature", "implement feature", "start feature development",
   "complex feature", "multi-session work".
-context: fork
-agent: general-purpose
 ---
 
 # Feature Development Workflow SOP

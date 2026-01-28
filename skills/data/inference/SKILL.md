@@ -1,456 +1,292 @@
 ---
-name: inference
-description: |
-  Fast inference with Unsloth and vLLM backend. Covers model loading, fast_generate(),
-  thinking model output parsing, and memory management for efficient inference.
+name: AI Inference & Model Serving
+description: "AI model inference and serving. Activate when: (1) Setting up LocalAI or vLLM, (2) Configuring model serving, (3) Working with GGUF/GGML models, (4) Implementing inference pipelines, or (5) Optimizing model performance."
 ---
 
-# Fast Inference
+# AI Inference & Model Serving
 
 ## Overview
 
-Unsloth provides optimized inference through the vLLM backend, enabling 2x faster generation compared to standard HuggingFace inference. This skill covers fast inference setup, thinking model output parsing, and memory management.
+This skill covers local AI inference using LocalAI, vLLM, and other model serving frameworks for running LLMs and other AI models.
 
-## Quick Reference
+## LocalAI
 
-| Component | Purpose |
-|-----------|---------|
-| `fast_inference=True` | Enable vLLM backend for 2x speedup |
-| `model.fast_generate()` | vLLM-accelerated generation |
-| `SamplingParams` | Control generation (temperature, top_p, etc.) |
-| `FastLanguageModel.for_inference()` | Merge LoRA adapters for inference |
-| Token ID 151668 | `</think>` boundary for Qwen3-Thinking models |
+### Installation
 
-## Critical Environment Setup
+```bash
+# Docker (recommended)
+docker run -p 8080:8080 \
+  -v $PWD/models:/models \
+  localai/localai:latest-cpu
 
-```python
-import os
-from dotenv import load_dotenv
-load_dotenv()
+# With GPU support
+docker run --gpus all -p 8080:8080 \
+  -v $PWD/models:/models \
+  localai/localai:latest-gpu-nvidia-cuda-12
 ```
 
-## Critical Import Order
+### Model Configuration
 
-```python
-# CRITICAL: Import unsloth FIRST for proper TRL patching
-import unsloth
-from unsloth import FastLanguageModel, is_bf16_supported
+```yaml
+# models/llama.yaml
+name: llama
+backend: llama-cpp
+parameters:
+  model: /models/llama-2-7b-chat.Q4_K_M.gguf
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 40
+  context_size: 4096
+  threads: 4
+  gpu_layers: 35  # Offload layers to GPU
 
-import torch
-import vllm
-from vllm import SamplingParams
+# Template for chat
+template:
+  chat: |
+    {{.System}}
+    {{range .Messages}}
+    {{if eq .Role "user"}}User: {{.Content}}
+    {{else if eq .Role "assistant"}}Assistant: {{.Content}}
+    {{end}}
+    {{end}}
+    Assistant:
 ```
 
-## Environment Verification
+### API Usage
 
-Before inference, verify your environment is correctly configured:
+```bash
+# Chat completion (OpenAI-compatible)
+curl http://localhost:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "llama",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Hello!"}
+    ]
+  }'
 
-```python
-import unsloth
-from unsloth import FastLanguageModel
-import torch
-import vllm
+# Text completion
+curl http://localhost:8080/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "llama",
+    "prompt": "Once upon a time",
+    "max_tokens": 100
+  }'
 
-# Check versions
-print(f"unsloth: {unsloth.__version__}")
-print(f"vLLM: {vllm.__version__}")
-print(f"PyTorch: {torch.__version__}")
-print(f"CUDA available: {torch.cuda.is_available()}")
-
-if torch.cuda.is_available():
-    print(f"GPU: {torch.cuda.get_device_name(0)}")
-    print(f"CUDA version: {torch.version.cuda}")
+# Embeddings
+curl http://localhost:8080/v1/embeddings \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "text-embedding-ada-002",
+    "input": "Hello world"
+  }'
 ```
 
-## Standard Inference (No vLLM)
-
-### Load Model
+### Python Client
 
 ```python
-from unsloth import FastLanguageModel
+from openai import OpenAI
 
-model, tokenizer = FastLanguageModel.from_pretrained(
-    "unsloth/Qwen3-4B-Thinking-2507-unsloth-bnb-4bit",
-    max_seq_length=1024,
-    load_in_4bit=True,
+client = OpenAI(
+    base_url="http://localhost:8080/v1",
+    api_key="not-needed"  # LocalAI doesn't require API key
 )
 
-# Prepare for inference (merges LoRA adapters if present)
-FastLanguageModel.for_inference(model)
-```
-
-### Generate Response
-
-```python
-messages = [{"role": "user", "content": "What is machine learning?"}]
-prompt = tokenizer.apply_chat_template(
-    messages,
-    tokenize=False,
-    add_generation_prompt=True
-)
-
-inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-
-outputs = model.generate(
-    **inputs,
-    max_new_tokens=512,
+response = client.chat.completions.create(
+    model="llama",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Explain quantum computing."}
+    ],
     temperature=0.7,
-    top_p=0.95,
-    do_sample=True,
-    pad_token_id=tokenizer.pad_token_id,
+    max_tokens=500
 )
 
-# Decode only new tokens
-input_length = inputs["input_ids"].shape[1]
-response = tokenizer.decode(outputs[0][input_length:], skip_special_tokens=True)
-print(response)
+print(response.choices[0].message.content)
 ```
 
-## Fast Inference (vLLM Backend)
+## vLLM
 
-### Load Model with Fast Inference
+### Installation
 
-```python
-from unsloth import FastLanguageModel
-from vllm import SamplingParams
+```bash
+pip install vllm
 
-MODEL_NAME = "unsloth/Qwen3-4B-Thinking-2507-unsloth-bnb-4bit"
-
-model, tokenizer = FastLanguageModel.from_pretrained(
-    MODEL_NAME,
-    max_seq_length=1024,
-    load_in_4bit=True,
-    fast_inference=True,  # Enable vLLM backend
-)
+# Or with specific CUDA version
+pip install vllm --extra-index-url https://download.pytorch.org/whl/cu121
 ```
 
-### Fast Generate
+### Server Mode
+
+```bash
+# Start server
+python -m vllm.entrypoints.openai.api_server \
+  --model meta-llama/Llama-2-7b-chat-hf \
+  --port 8000 \
+  --tensor-parallel-size 1
+
+# With quantization
+python -m vllm.entrypoints.openai.api_server \
+  --model TheBloke/Llama-2-7B-Chat-AWQ \
+  --quantization awq
+```
+
+### Python API
 
 ```python
-FastLanguageModel.for_inference(model)
+from vllm import LLM, SamplingParams
 
-messages = [{"role": "user", "content": "What is 15 + 27? Show your thinking."}]
-prompt = tokenizer.apply_chat_template(
-    messages,
-    tokenize=False,
-    add_generation_prompt=True
+# Initialize model
+llm = LLM(
+    model="meta-llama/Llama-2-7b-chat-hf",
+    tensor_parallel_size=1,
+    gpu_memory_utilization=0.9
 )
 
+# Sampling parameters
 sampling_params = SamplingParams(
-    temperature=0.6,      # Recommended for thinking models
-    top_p=0.95,
-    top_k=20,
-    max_tokens=2048,      # Increased for thinking + response
-)
-
-# Use fast_generate instead of generate
-outputs = model.fast_generate([prompt], sampling_params=sampling_params)
-
-# Extract output
-raw_output = outputs[0].outputs[0].text
-output_token_ids = outputs[0].outputs[0].token_ids
-print(raw_output)
-```
-
-### Sampling Parameters
-
-```python
-from vllm import SamplingParams
-
-# Conservative (factual responses)
-conservative = SamplingParams(
-    temperature=0.3,
+    temperature=0.7,
     top_p=0.9,
-    max_tokens=512,
+    max_tokens=256
 )
 
-# Balanced (general use)
-balanced = SamplingParams(
-    temperature=0.6,
-    top_p=0.95,
-    top_k=20,
-    max_tokens=1024,
-)
+# Generate
+prompts = ["Hello, my name is", "The capital of France is"]
+outputs = llm.generate(prompts, sampling_params)
 
-# Creative (diverse outputs)
-creative = SamplingParams(
-    temperature=0.9,
-    top_p=0.95,
-    top_k=50,
-    max_tokens=2048,
-)
-
-# Thinking models (allow long reasoning)
-thinking = SamplingParams(
-    temperature=0.6,
-    top_p=0.95,
-    top_k=20,
-    max_tokens=2048,  # Extra space for <think> content
-)
+for output in outputs:
+    print(f"Prompt: {output.prompt}")
+    print(f"Generated: {output.outputs[0].text}")
 ```
 
-## Thinking Model Output Parsing
+## GGUF/GGML Models
 
-Qwen3-Thinking models use `<think>...</think>` tags to separate reasoning from final responses. Use token-based parsing for accuracy.
+### Model Formats
 
-### Token-Based Parsing (Recommended)
+| Format | Description |
+|--------|-------------|
+| GGUF | New format, recommended |
+| GGML | Legacy format |
+| Q4_K_M | 4-bit quantization, medium quality |
+| Q5_K_M | 5-bit quantization, better quality |
+| Q8_0 | 8-bit quantization, near FP16 |
+| F16 | Full 16-bit floating point |
 
-```python
-THINK_END_TOKEN_ID = 151668  # </think> token for Qwen3-Thinking models
+### Quantization with llama.cpp
 
-def parse_thinking_response(token_ids, tokenizer):
-    """
-    Parse thinking model output using token ID boundary.
+```bash
+# Clone llama.cpp
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp && make
 
-    With Thinking models + add_generation_prompt=True:
-    - Template adds <think> to prompt
-    - Model output starts with thinking content
-    - Model outputs </think> (token 151668) when done
-    - Final response follows </think>
+# Convert to GGUF
+python convert.py /path/to/hf-model --outfile model.gguf
 
-    Args:
-        token_ids: Output token IDs from generation
-        tokenizer: Model tokenizer
+# Quantize
+./quantize model.gguf model-q4_k_m.gguf Q4_K_M
 
-    Returns:
-        tuple: (thinking_content, response_content)
-    """
-    token_list = list(token_ids)
-
-    if THINK_END_TOKEN_ID in token_list:
-        end_idx = token_list.index(THINK_END_TOKEN_ID)
-        thinking_tokens = token_list[:end_idx]
-        response_tokens = token_list[end_idx + 1:]
-
-        thinking = tokenizer.decode(thinking_tokens, skip_special_tokens=True).strip()
-        response = tokenizer.decode(response_tokens, skip_special_tokens=True).strip()
-    else:
-        # No </think> found - model may still be thinking
-        thinking = tokenizer.decode(token_list, skip_special_tokens=True).strip()
-        response = "(Model did not complete thinking - increase max_tokens)"
-
-    return thinking, response
+# Run inference
+./main -m model-q4_k_m.gguf \
+  -p "Hello, how are you?" \
+  -n 256 \
+  --temp 0.7
 ```
 
-### Usage Example
+## Model Optimization
+
+### GPU Memory Management
 
 ```python
-# Generate with fast_inference
-outputs = model.fast_generate([prompt], sampling_params=sampling_params)
-output_token_ids = outputs[0].outputs[0].token_ids
-
-# Parse thinking and response
-thinking, response = parse_thinking_response(output_token_ids, tokenizer)
-
-print("=== THINKING ===")
-print(thinking)
-print("\n=== RESPONSE ===")
-print(response)
-```
-
-### Verification
-
-```python
-# Verify parsing worked correctly
-think_tag_found = THINK_END_TOKEN_ID in list(output_token_ids)
-has_thinking = bool(thinking) and "did not complete" not in response
-has_response = bool(response) and "did not complete" not in response
-
-print(f"</think> token found: {'Yes' if think_tag_found else 'No'}")
-print(f"Thinking extracted: {'Yes' if has_thinking else 'No'}")
-print(f"Response extracted: {'Yes' if has_response else 'No'}")
-
-if not think_tag_found:
-    print("Tip: Increase max_tokens in SamplingParams")
-```
-
-## Batch Inference
-
-### Multiple Prompts
-
-```python
-prompts = [
-    "What is recursion?",
-    "Explain machine learning in simple terms.",
-    "What is the difference between Python and JavaScript?",
-]
-
-# Format all prompts
-formatted_prompts = [
-    tokenizer.apply_chat_template(
-        [{"role": "user", "content": p}],
-        tokenize=False,
-        add_generation_prompt=True
-    )
-    for p in prompts
-]
-
-# Batch generate (vLLM handles parallelization)
-sampling_params = SamplingParams(temperature=0.6, max_tokens=512)
-outputs = model.fast_generate(formatted_prompts, sampling_params=sampling_params)
-
-# Process results
-for i, output in enumerate(outputs):
-    print(f"\n=== Prompt {i+1} ===")
-    print(f"Q: {prompts[i]}")
-    print(f"A: {output.outputs[0].text}")
-```
-
-## Memory Management
-
-### GPU Memory Monitoring
-
-```python
-import subprocess
-
-def measure_gpu_memory():
-    """Measure current GPU memory usage in MB."""
-    result = subprocess.run(
-        ['nvidia-smi', '--query-gpu=memory.used', '--format=csv,noheader,nounits'],
-        capture_output=True, text=True
-    )
-    return int(result.stdout.strip().split('\n')[0])
-
-# Usage
-print(f"GPU memory used: {measure_gpu_memory()} MB")
-```
-
-### Memory Cleanup
-
-```python
-import gc
-import torch
-
-def cleanup_memory():
-    """Force garbage collection and clear CUDA cache."""
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-        torch.cuda.synchronize()
-
-# Usage after inference
-cleanup_memory()
-print(f"GPU memory after cleanup: {measure_gpu_memory()} MB")
-```
-
-### Jupyter Kernel Shutdown (Critical for vLLM)
-
-**vLLM does NOT release GPU memory within a Jupyter session.** Kernel restart is required between model tests:
-
-```python
-import IPython
-print("Shutting down kernel to release GPU memory...")
-app = IPython.Application.instance()
-app.kernel.do_shutdown(restart=False)
-```
-
-**Important**: Always run this at the end of notebooks that use `fast_inference=True`. Without kernel shutdown, loading a different model will fail with OOM.
-
-**Notebook pattern**: All finetuning notebooks end with a shutdown cell.
-
-## Model Loading Patterns
-
-### Pre-Quantized Models (Recommended)
-
-```python
-# Fast loading with pre-quantized models
-model, tokenizer = FastLanguageModel.from_pretrained(
-    "unsloth/Qwen3-4B-Thinking-2507-unsloth-bnb-4bit",  # Pre-quantized
-    max_seq_length=1024,
-    load_in_4bit=True,
-    fast_inference=True,
+# vLLM memory management
+llm = LLM(
+    model="model-name",
+    gpu_memory_utilization=0.9,  # Use 90% of GPU memory
+    max_model_len=4096,          # Max context length
+    enforce_eager=False          # Use CUDA graphs
 )
 ```
 
-### On-Demand Quantization
+### Batching Strategies
 
 ```python
-# Quantize during loading (slower initial load)
-model, tokenizer = FastLanguageModel.from_pretrained(
-    "Qwen/Qwen3-4B-Thinking-2507",  # Full precision
-    max_seq_length=1024,
-    load_in_4bit=True,  # Quantize on load
-    fast_inference=True,
+# Continuous batching (vLLM default)
+# Dynamically batch requests for better throughput
+
+# Static batching
+sampling_params = SamplingParams(max_tokens=256)
+outputs = llm.generate(
+    prompts,  # List of prompts
+    sampling_params,
+    use_tqdm=True
 )
 ```
 
-### Post-Training Inference
+### Speculative Decoding
 
 ```python
-# After SFT/GRPO/DPO training
-FastLanguageModel.for_inference(model)  # Merge LoRA adapters
-
-# Then generate as normal
-outputs = model.generate(**inputs, max_new_tokens=512)
+# Use draft model for faster inference
+llm = LLM(
+    model="meta-llama/Llama-2-70b-chat-hf",
+    speculative_model="meta-llama/Llama-2-7b-chat-hf",
+    num_speculative_tokens=5
+)
 ```
 
-## Supported Models
+## Monitoring & Metrics
 
-| Model | Path | Parameters | Use Case |
-|-------|------|------------|----------|
-| Qwen3-4B-Thinking | `unsloth/Qwen3-4B-Thinking-2507-unsloth-bnb-4bit` | 4B | Reasoning, chain-of-thought |
-| Ministral-3B-Reasoning | `unsloth/Ministral-3-3B-Reasoning-2512` | 3B | Fast reasoning |
-| Qwen3-4B | `unsloth/Qwen3-4B-unsloth-bnb-4bit` | 4B | General instruction following |
-| Llama-3.2-3B | `unsloth/Llama-3.2-3B-Instruct-bnb-4bit` | 3B | General instruction following |
+### Prometheus Metrics
 
-## Troubleshooting
+```yaml
+# LocalAI exposes /metrics endpoint
+# docker-compose.yaml
+services:
+  localai:
+    image: localai/localai:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - METRICS=true
 
-### vLLM Not Available
-
-**Symptom:** `fast_inference=True` fails or falls back to standard inference
-
-**Fix:**
-```python
-# Check vLLM installation
-import inspect
-sig = inspect.signature(FastLanguageModel.from_pretrained)
-if 'fast_inference' in sig.parameters:
-    print("fast_inference parameter available")
-else:
-    print("vLLM not available - using standard inference")
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
 ```
 
-### Out of Memory
+### Key Metrics
 
-**Symptom:** CUDA out of memory during inference
+| Metric | Description |
+|--------|-------------|
+| `request_latency` | Time to generate response |
+| `tokens_per_second` | Generation speed |
+| `queue_depth` | Pending requests |
+| `gpu_memory_used` | GPU memory usage |
+| `batch_size` | Current batch size |
 
-**Fix:**
-- Use 4-bit quantization (`load_in_4bit=True`)
-- Reduce `max_seq_length`
-- Reduce `max_tokens` in SamplingParams
-- Use `cleanup_memory()` between batches
+## Feature Flags (A/B Testing)
 
-### Incomplete Thinking
+```toml
+# pixi.toml feature flags
+[feature.inference-localai]
+[feature.inference-localai.dependencies]
+# LocalAI specific deps
 
-**Symptom:** `</think>` token not found in output
+[feature.inference-vllm]
+[feature.inference-vllm.dependencies]
+vllm = ">=0.3.0"
+torch = ">=2.0"
 
-**Fix:**
-- Increase `max_tokens` in SamplingParams (try 2048+)
-- Check that model is a Thinking variant
-- Verify `add_generation_prompt=True` in chat template
+[environments]
+default = { features = ["inference-localai"] }
+vllm = { features = ["inference-vllm"] }
+```
 
-### GPU Memory Not Released
+## External Links
 
-**Symptom:** Memory stays high after inference
-
-**Fix:**
-- Call `cleanup_memory()`
-- Restart Jupyter kernel between model tests
-- Use `del model` then `cleanup_memory()`
-
-## When to Use This Skill
-
-Use when:
-- Running inference on fine-tuned models
-- Need fast batch inference
-- Working with thinking/reasoning models
-- Optimizing inference latency
-- Parsing chain-of-thought outputs
-
-## Cross-References
-
-- `bazzite-ai-jupyter:sft` - Supervised fine-tuning (train before inference)
-- `bazzite-ai-jupyter:peft` - LoRA adapter loading
-- `bazzite-ai-jupyter:quantization` - Quantization options
-- `bazzite-ai-jupyter:transformers` - Transformer architecture background
-- `bazzite-ai-ollama:api` - Ollama deployment for production
+- [LocalAI Documentation](https://localai.io/docs/)
+- [vLLM Documentation](https://docs.vllm.ai/)
+- [llama.cpp](https://github.com/ggerganov/llama.cpp)
+- [GGUF Specification](https://github.com/ggerganov/ggml/blob/master/docs/gguf.md)
+- [Hugging Face Model Hub](https://huggingface.co/models)

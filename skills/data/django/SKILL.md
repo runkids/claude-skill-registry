@@ -1,42 +1,22 @@
 ---
 name: django
-description: Django framework best practices including project structure, ORM, and security.
-globs: ["**/settings.py", "**/urls.py", "**/views.py", "**/models.py", "**/manage.py"]
-priority: 90
-tags: ["framework"]
+description: Provides comprehensive guidance for Django framework including models, views, templates, forms, admin, REST framework, and deployment. Use when the user asks about Django, needs to create Django applications, implement models and views, or build Django REST APIs.
+license: Complete terms in LICENSE.txt
 ---
 
-# Django Best Practices
+## When to use this skill
 
-## Project Structure
-- Keep apps small and focused
-- Use apps/ directory for apps
-- Separate settings per environment
-- Use environment variables for secrets
+Use this skill whenever the user wants to:
+- [待完善：根据具体工具添加使用场景]
 
-## Models
-- Use verbose_name for fields
-- Add indexes for queried fields
-- Use select_related/prefetch_related
-- Avoid N+1 queries
-- Use custom managers for common queries
+## How to use this skill
 
-## Views
-- Use class-based views for CRUD
-- Use function views for simple logic
-- Return proper HTTP status codes
-- Use Django REST Framework for APIs
+[待完善：根据具体工具添加使用指南]
 
-## Security
-- Never disable CSRF protection
-- Use Django's ORM (no raw SQL)
-- Validate all inputs
-- Use Django's auth system
-- Keep DEBUG=False in production
+## Best Practices
 
-## Performance
-- Use Django Debug Toolbar in dev
-- Cache with Redis/Memcached
-- Use database connection pooling
-- Optimize querysets
-- Use lazy loading
+[待完善：根据具体工具添加最佳实践]
+
+## Keywords
+
+[待完善：根据具体工具添加关键词]

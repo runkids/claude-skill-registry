@@ -1,22 +1,23 @@
 ---
 name: agentuity-cli-cloud-env-get
-description: Get an environment variable or secret value. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.24"
+description: Get an environment variable value. Requires authentication. Use for Agentuity cloud platform operations
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 argument-hint: "<key>"
 metadata:
   command: "agentuity cloud env get"
-  tags: "read-only fast requires-auth"
+  tags: "read-only fast requires-auth requires-project"
 ---
 
 # Cloud Env Get
 
-Get an environment variable or secret value
+Get an environment variable value
 
 ## Prerequisites
 
 - Authenticated with `agentuity auth login`
+- Project context required (run from project directory or use `--project-id`)
 
 ## Usage
 
@@ -34,33 +35,20 @@ agentuity cloud env get <key> [options]
 
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
-| `--maskSecret` | boolean | Yes | - | mask the secret value in output |
-| `--org` | optionalString | Yes | - | get from organization level (use --org for default org, or --org <orgId> for specific org) |
+| `--mask` | boolean | No | `false` | mask the value in output (default: true in TTY, false otherwise) |
 
 ## Examples
 
-Get environment variable:
+Get item details:
 
 ```bash
 bunx @agentuity/cli env get NODE_ENV
 ```
 
-Get a secret value:
+Get item details:
 
 ```bash
-bunx @agentuity/cli env get API_KEY
-```
-
-Show unmasked value:
-
-```bash
-bunx @agentuity/cli env get API_KEY --no-mask
-```
-
-Get org-level variable:
-
-```bash
-bunx @agentuity/cli env get OPENAI_API_KEY --org
+bunx @agentuity/cli env get LOG_LEVEL
 ```
 
 ## Output
@@ -70,9 +58,7 @@ Returns JSON object:
 ```json
 {
   "key": "string",
-  "value": "string",
-  "secret": "boolean",
-  "scope": "string"
+  "value": "string"
 }
 ```
 
@@ -80,5 +66,3 @@ Returns JSON object:
 |-------|------|-------------|
 | `key` | string | Environment variable key name |
 | `value` | string | Environment variable value |
-| `secret` | boolean | Whether the value is stored as a secret |
-| `scope` | string | The scope where the variable was found |

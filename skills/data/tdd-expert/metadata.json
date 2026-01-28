@@ -1,9 +1,7 @@
 {
   "name": "tdd-expert",
-  "description": "Test-Driven Development (TDD) expertise covering red-green-refactor cycle, behavior-driven development, test-first design, refactoring with confidence, TDD best practices, TDD workflow, unit testing s",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-testing/skills/tdd-expert/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:48:56.384992Z"
 }

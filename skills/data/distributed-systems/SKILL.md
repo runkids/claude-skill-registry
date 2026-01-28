@@ -1,94 +1,322 @@
 ---
 name: distributed-systems
-description: Use this skill when designing or reviewing distributed systems, microservices, event-driven architectures, or any system involving multiple networked components that must coordinate. Applies distributed systems thinking to specifications, designs, and implementations.
-version: 0.1.0
+description: Distributed systems tools including NATS messaging, libp2p networking, and Temporal workflows
+icon: 🌐
+category: infrastructure
+tools:
+  - nats
+  - nats-server
+  - nats-cli
+  - temporal
+  - temporalite
 ---
 
-# Distributed Systems Engineering
+# Distributed Systems Skills
 
-## When to Apply
+## Overview
 
-Use this skill when the system involves:
-- Multiple services communicating over a network
-- Data that must be consistent across nodes
-- Operations that span service boundaries
-- Event-driven or message-based architectures
-- Systems requiring high availability or fault tolerance
+This skill provides expertise in distributed systems infrastructure for multi-robot coordination, microservices communication, and workflow orchestration.
 
-## Mindset
+## NATS - Cloud Native Messaging
 
-Distributed systems experts assume failure is normal and design for it.
+NATS is a high-performance messaging system ideal for ROS2 multi-robot coordination.
 
-**Questions to always ask:**
-- What happens if this call fails halfway through?
-- What happens if this message is delivered twice?
-- What happens if these two operations happen concurrently?
-- What happens during a network partition?
-- What happens if this service is slow or unavailable?
-- Where does authoritative state live?
-- What are the consistency requirements - and are they actually needed?
+### Installation (Nix)
 
-**Assumptions to challenge:**
-- "It won't fail" - Networks fail. Disks fail. Services fail.
-- "It's fast enough" - Latency varies. P99 matters more than average.
-- "Order is preserved" - Networks reorder. Clocks drift.
-- "It only happens once" - Messages retry. Users double-click.
-- "Clocks are synchronized" - They're not. Avoid wall-clock ordering across nodes.
-- "The network is reliable" - It's not. Plan for partitions.
+```nix
+# In flake.nix devshells or packages
+{ pkgs, ... }:
+{
+  packages = with pkgs; [
+    nats-server    # NATS server
+    natscli        # CLI tools
+  ];
+}
+```
 
-## Practices
+### Installation (Pixi)
 
-### Idempotency
-Every mutating operation needs an idempotency key. Store keys with results to return consistent responses on retry. Document how long keys are valid. **Don't** assume operations only execute once.
+```bash
+pixi add nats-py       # Python client
+pixi add nats-server   # Server (if available)
+```
 
-### Timeouts & Deadlines
-Every network call needs a timeout. Propagate deadline budgets across service calls, leaving margin for retries. **Don't** make calls without timeouts or ignore deadline propagation.
+### Quick Start
 
-### Retries & Circuit Breakers
-Use exponential backoff with jitter. Set maximum retry limits. Implement circuit breakers to fail fast when downstream is unhealthy. Distinguish retryable errors from permanent failures. **Don't** retry infinitely, retry without backoff, or retry non-retryable errors.
+```bash
+# Start NATS server
+nats-server
 
-### Consistency Model
-Choose and document the consistency model: strong, eventual, causal. Design UIs to handle stale reads gracefully. Use read-your-writes where UX demands it. **Don't** assume "consistent" without specifying what kind, or promise stronger consistency than you deliver.
+# With JetStream (persistence)
+nats-server --jetstream
 
-### Failure Handling
-Design for partial failure. Use sagas with compensation logic for multi-step operations. Define degraded states and fallback behavior. **Don't** use distributed transactions across services, hold locks across network calls, or leave state inconsistent on failure.
+# With config file
+nats-server -c /path/to/nats.conf
+```
 
-### Event Design
-Events are immutable facts, not commands. Include enough context to process independently. Design handlers to be idempotent and tolerate out-of-order delivery. **Don't** assume event ordering or require external lookups to process events.
+### Configuration
 
-### Service Boundaries
-Services own their data. Communicate through APIs or events, not shared databases. Services should be independently deployable. **Don't** create distributed monoliths with tight coupling, shared databases, or synchronized deployments.
+```hcl
+# nats.conf
+port: 4222
+http_port: 8222
 
-### Observability
-Use distributed tracing with correlation IDs across all services. Measure latency percentiles (p50, p95, p99), not just averages. Alert on error rates and latency degradation. **Don't** rely on logs alone or measure only averages.
+jetstream {
+  store_dir: "/var/lib/nats/jetstream"
+  max_memory_store: 1G
+  max_file_store: 10G
+}
 
-## Vocabulary
+# Cluster configuration
+cluster {
+  name: "ros2-cluster"
+  port: 6222
+  routes: [
+    "nats://robot1:6222"
+    "nats://robot2:6222"
+  ]
+}
+```
 
-Use precise terminology:
+### Python Client
 
-| Instead of | Say |
-|------------|-----|
-| "consistent" | "strongly/eventually/causally consistent" |
-| "fast" | "p99 latency < Xms" |
-| "reliable" | "at-least-once delivery" / "exactly-once processing" |
-| "available" | "99.9% availability" / "survives single-node failure" |
-| "transaction" | "local transaction" / "saga" |
-| "lock" | "optimistic locking" / "lease" |
+```python
+import asyncio
+import nats
 
-## SDD Integration
+async def main():
+    # Connect to NATS
+    nc = await nats.connect("nats://localhost:4222")
 
-**During Specification:**
-- Ensure NFRs specify consistency model, latency percentiles, availability targets
-- Flag vague terms like "fast", "reliable", "consistent"
-- Ask about failure scenarios and acceptable degraded states
+    # Publish message
+    await nc.publish("robot.status", b"online")
 
-**During Design:**
-- Verify idempotency strategy for each mutating operation
-- Check that failure modes are documented per component
-- Ensure retry policies and timeouts are specified
-- Validate that the consistency model matches the architecture
+    # Subscribe to topic
+    async def message_handler(msg):
+        print(f"Received: {msg.data.decode()}")
 
-**During Review:**
-- Apply the mindset questions to each component
-- Verify practices are followed
-- Flag vocabulary violations
+    sub = await nc.subscribe("robot.*", cb=message_handler)
+
+    # Request-reply pattern
+    response = await nc.request("robot.ping", b"hello", timeout=1.0)
+    print(f"Response: {response.data.decode()}")
+
+    await nc.close()
+
+asyncio.run(main())
+```
+
+### ROS2 Integration Pattern
+
+```python
+import rclpy
+from rclpy.node import Node
+import nats
+import asyncio
+import json
+
+class NATSBridgeNode(Node):
+    """Bridge ROS2 topics to NATS subjects."""
+
+    def __init__(self):
+        super().__init__('nats_bridge')
+        self.nc = None
+
+    async def connect_nats(self):
+        self.nc = await nats.connect("nats://localhost:4222")
+
+    async def publish_to_nats(self, subject: str, data: dict):
+        if self.nc:
+            await self.nc.publish(subject, json.dumps(data).encode())
+
+    async def subscribe_from_nats(self, subject: str, callback):
+        if self.nc:
+            await self.nc.subscribe(subject, cb=callback)
+```
+
+### JetStream (Persistence)
+
+```python
+import nats
+from nats.js import JetStreamContext
+
+async def setup_jetstream():
+    nc = await nats.connect()
+    js = nc.jetstream()
+
+    # Create stream
+    await js.add_stream(name="ROBOTS", subjects=["robot.*"])
+
+    # Publish with acknowledgment
+    ack = await js.publish("robot.telemetry", b"data")
+    print(f"Published: seq={ack.seq}")
+
+    # Consumer
+    sub = await js.pull_subscribe("robot.*", "telemetry-consumer")
+    msgs = await sub.fetch(10)
+    for msg in msgs:
+        await msg.ack()
+```
+
+### CLI Commands
+
+```bash
+# Server info
+nats server info
+
+# Publish message
+nats pub robot.command "move forward"
+
+# Subscribe
+nats sub "robot.>"
+
+# Request-reply
+nats request robot.ping "hello"
+
+# Stream management
+nats stream add ROBOTS --subjects "robot.*"
+nats stream info ROBOTS
+nats consumer add ROBOTS telemetry
+```
+
+## Temporal - Workflow Orchestration
+
+Temporal provides durable workflow execution for complex robotics tasks.
+
+### Installation
+
+```nix
+{ pkgs, ... }:
+{
+  packages = with pkgs; [
+    temporal-cli   # CLI tools
+    # temporalite  # Local development server
+  ];
+}
+```
+
+### Quick Start
+
+```bash
+# Start local server
+temporalite start --namespace default
+
+# Or with Docker
+docker run -d --name temporal \
+  -p 7233:7233 -p 8233:8233 \
+  temporalio/auto-setup:latest
+```
+
+### Python Workflow
+
+```python
+from temporalio import activity, workflow
+from temporalio.client import Client
+from temporalio.worker import Worker
+from datetime import timedelta
+
+@activity.defn
+async def navigate_to_waypoint(waypoint: dict) -> bool:
+    """Activity: Navigate robot to waypoint."""
+    # ROS2 navigation logic here
+    return True
+
+@activity.defn
+async def pick_object(object_id: str) -> bool:
+    """Activity: Pick up an object."""
+    return True
+
+@workflow.defn
+class DeliveryWorkflow:
+    """Durable workflow for robot delivery task."""
+
+    @workflow.run
+    async def run(self, delivery_request: dict) -> str:
+        # Navigate to pickup
+        await workflow.execute_activity(
+            navigate_to_waypoint,
+            delivery_request["pickup_location"],
+            start_to_close_timeout=timedelta(minutes=5)
+        )
+
+        # Pick up item
+        await workflow.execute_activity(
+            pick_object,
+            delivery_request["object_id"],
+            start_to_close_timeout=timedelta(minutes=2)
+        )
+
+        # Navigate to delivery
+        await workflow.execute_activity(
+            navigate_to_waypoint,
+            delivery_request["delivery_location"],
+            start_to_close_timeout=timedelta(minutes=5)
+        )
+
+        return "delivered"
+
+async def main():
+    client = await Client.connect("localhost:7233")
+
+    # Start workflow
+    handle = await client.start_workflow(
+        DeliveryWorkflow.run,
+        {"pickup_location": {...}, "delivery_location": {...}},
+        id="delivery-001",
+        task_queue="robot-tasks"
+    )
+
+    result = await handle.result()
+    print(f"Delivery result: {result}")
+```
+
+## Architecture Patterns
+
+### Multi-Robot Coordination
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Robot 1   │     │   Robot 2   │     │   Robot 3   │
+│   (ROS2)    │     │   (ROS2)    │     │   (ROS2)    │
+└──────┬──────┘     └──────┬──────┘     └──────┬──────┘
+       │                   │                   │
+       └───────────────────┼───────────────────┘
+                           │
+                    ┌──────┴──────┐
+                    │ NATS Cluster│
+                    │  (JetStream)│
+                    └──────┬──────┘
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+       ┌──────┴──────┐  ┌──┴───┐  ┌────┴─────┐
+       │ Coordinator │  │ Fleet │  │ Telemetry│
+       │   Service   │  │ Mgmt  │  │ Collector│
+       └─────────────┘  └──────┘  └──────────┘
+```
+
+### Event-Driven Microservices
+
+```
+┌─────────────────────────────────────────────────────┐
+│                   NATS Subjects                      │
+├───────────────┬─────────────────┬───────────────────┤
+│ robot.status  │ robot.telemetry │ robot.command     │
+│ task.created  │ task.completed  │ task.failed       │
+│ alert.warning │ alert.critical  │ alert.resolved    │
+└───────────────┴─────────────────┴───────────────────┘
+```
+
+## Best Practices
+
+1. **Use JetStream** for messages that need persistence or replay
+2. **Subject naming**: Use dot-separated hierarchical names (`robot.{id}.{type}`)
+3. **Cluster for HA**: Run 3+ NATS servers in production
+4. **Workflows for durability**: Use Temporal for long-running, recoverable tasks
+5. **Monitor with Prometheus**: Both NATS and Temporal export metrics
+
+## Related Skills
+
+- [ROS2 Development](../ros2-development/SKILL.md) - ROS2 integration
+- [DevOps](../devops/SKILL.md) - Deployment and CI/CD
+- [Observability](../observability/SKILL.md) - Monitoring and metrics

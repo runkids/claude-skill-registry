@@ -1,7 +1,7 @@
 {
   "name": "acceptance-criteria",
-  "repo": "HaRu-LLC/ai-pm_system_notebooklmuse",
-  "path": ".agent/skills/pm/planning/acceptance-criteria/SKILL.md",
-  "source": "github.com/HaRu-LLC/ai-pm_system_notebooklmuse",
-  "downloaded_at": "2026-01-27T03:07:36.185411Z"
+  "repo": "tikazyq/agentic-spec-forge",
+  "path": "AGENTIC_SPEC_FORGE/spec_stage_skill/requirements/acceptance-criteria/SKILL.md",
+  "source": "github.com/tikazyq/agentic-spec-forge",
+  "downloaded_at": "2026-01-28T01:45:38.190087Z"
 }

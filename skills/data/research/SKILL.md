@@ -1,591 +1,210 @@
 ---
 name: research
-description: |
-  Gather and synthesize information from web sources, APIs, and databases.
-  Compile research findings into structured reports. Use when researching
-  topics, gathering threat intelligence, or compiling background information.
-license: Apache-2.0
-compatibility: |
-  - Python 3.9+
-  - Required packages: requests, beautifulsoup4, feedparser
-  - Network access required
-metadata:
-  author: SherifEldeeb
-  version: "1.0.0"
-  category: baseline
+version: 3.2.0
+description: 多 Agent 並行研究框架 - 多視角同時研究，智能匯總成完整報告
+triggers: [multi-research, parallel-research, 多角度研究]
+context: fork
+agent: Explore
+allowed-tools: [Read, Grep, Glob, WebFetch, Write, Bash]
+model: sonnet
 ---
 
-# Research Skill
+# Multi-Agent Research v3.1.0
 
-Gather and synthesize information from web sources, APIs, and databases with support for structured data extraction and report generation.
+> 多視角並行研究 → 交叉驗證 → 智能匯總 → Memory 存檔（自動 commit）
 
-## Capabilities
+## 自動化機制
 
-- **Web Research**: Fetch and extract information from web pages
-- **API Integration**: Query APIs for structured data (NVD, MITRE, etc.)
-- **Information Synthesis**: Compile findings into structured reports
-- **Source Tracking**: Maintain references and citations
-- **Data Extraction**: Parse HTML, JSON, and XML content
-- **RSS/Atom Feeds**: Monitor security feeds and news sources
+> ⚡ **本 skill 已整合 Claude Code Hooks**
+>
+> - Action logging、state tracking、git commit 均由 hooks 自動處理
+> - 只需執行 CP1 初始化，其餘檢查點自動執行
 
-## Quick Start
+## 使用方式
 
-```python
-import requests
-from bs4 import BeautifulSoup
-
-# Fetch web page content
-response = requests.get('https://example.com/security-advisory')
-soup = BeautifulSoup(response.text, 'html.parser')
-
-# Extract title and content
-title = soup.find('h1').text
-content = soup.find('article').text
-print(f"Title: {title}")
+```bash
+/multi-research [研究主題]
+/multi-research AI Agent 架構設計模式 --deep
 ```
 
-## Usage
+**Flags**: `--perspectives N` | `--quick` | `--deep` | `--no-memory`
 
-### Web Page Content Extraction
+## 預設 4 視角
 
-Extract text and structured data from web pages.
+| ID | 名稱 | 模型 | 聚焦 |
+|----|------|------|------|
+| `architecture` | 架構分析師 | sonnet | 系統結構、設計模式 |
+| `cognitive` | 認知研究員 | sonnet | 方法論、思維框架 |
+| `workflow` | 工作流設計 | haiku | 執行流程、整合策略 |
+| `industry` | 業界實踐 | haiku | 現有框架、最佳實踐 |
 
-**Input**: URL to fetch
+→ 模型路由配置：[shared/config/model-routing.yaml](../../shared/config/model-routing.yaml)
 
-**Process**:
-1. Send HTTP request
-2. Parse HTML response
-3. Extract relevant content
+## 執行流程
 
-**Example**:
-```python
-import requests
-from bs4 import BeautifulSoup
-from typing import Dict, Any, List
-from urllib.parse import urljoin
+```
+CP1: 工作流初始化 ⚡ 手動執行
+    python scripts/hooks/init_workflow.py --topic "{topic}" --stage RESEARCH
+    ↓
+Phase 0: 北極星錨定 → 定義研究目標、成功標準
+    ↓
+Phase 1: Memory 搜尋 → 避免重複研究
+    ↓
+Phase 2: 視角分解 → 為每視角生成專屬 prompt
+    ↓
+Phase 3: MAP（並行研究）✅ 自動追蹤
+    ┌──────────┬──────────┬──────────┬──────────┐
+    │架構分析師│認知研究員│工作流設計│業界實踐  │
+    └──────────┴──────────┴──────────┴──────────┘
+    [CP2/CP3 由 hooks 自動處理 Agent 狀態追蹤]
 
-def extract_page_content(url: str) -> Dict[str, Any]:
-    """Extract content from a web page."""
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (compatible; ResearchBot/1.0)'
-    }
+    ⚠️ **並行執行關鍵**：
+       在單一訊息中發送 4 個 Task 工具呼叫：
+       - Task({description: "架構視角", ...})
+       - Task({description: "認知視角", ...})
+       - Task({description: "工作流視角", ...})
+       - Task({description: "業界視角", ...})
+       這樣才能真正並行執行！
 
-    response = requests.get(url, headers=headers, timeout=30)
-    response.raise_for_status()
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Remove script and style elements
-    for element in soup(['script', 'style', 'nav', 'footer']):
-        element.decompose()
-
-    # Extract metadata
-    title = soup.find('title')
-    description = soup.find('meta', attrs={'name': 'description'})
-
-    # Extract main content
-    main_content = soup.find('main') or soup.find('article') or soup.find('body')
-
-    return {
-        'url': url,
-        'title': title.text.strip() if title else '',
-        'description': description['content'] if description else '',
-        'text': main_content.get_text(separator='\n', strip=True) if main_content else '',
-        'links': [urljoin(url, a['href']) for a in soup.find_all('a', href=True)][:20]
-    }
-
-# Usage
-content = extract_page_content('https://nvd.nist.gov/vuln/detail/CVE-2024-1234')
-print(f"Title: {content['title']}")
-print(f"Content length: {len(content['text'])} chars")
+    ⚠️ **強制**：每個 Agent 必須在完成前執行：
+       1. mkdir -p .claude/memory/research/{topic-id}/perspectives/
+       2. Write → .claude/memory/research/{topic-id}/perspectives/{perspective_id}.md
+       未執行 Write = 任務失敗，工作流中止
+    ↓
+Phase 4: REDUCE（交叉驗證 + 匯總）
+    ↓
+Phase 5: Memory 存檔 → 品質閘門檢查 → 存儲報告
+    ↓
+CP4: Task Commit ✅ 自動執行
+    [寫入 .claude/memory/ 時自動 git commit]
 ```
 
-### API Data Retrieval
+## CP4: Task Commit ✅ 自動
 
-Query security-related APIs for structured data.
+> **由 `post_write.py` hook 自動處理**
 
-**Example - NVD CVE Lookup**:
-```python
-import requests
-from datetime import datetime, timedelta
-from typing import List, Dict, Any
+當 Write 工具寫入 `.claude/memory/` 目錄時，hook 會自動：
+1. `git add .claude/memory/research/{topic-id}/`
+2. `git commit -m "docs(research): complete {topic} research"`
+3. 記錄 action 到 `actions.jsonl`
 
-def search_nvd_cves(
-    keyword: str = None,
-    cvss_severity: str = None,
-    days_back: int = 30
-) -> List[Dict[str, Any]]:
-    """
-    Search NVD for CVEs matching criteria.
+→ Hook 設定：[.claude/settings.local.json.template](../../.claude/settings.local.json.template)
+→ 協議：[shared/checkpoints/mandatory-checkpoints.md](../../shared/checkpoints/mandatory-checkpoints.md)
 
-    Args:
-        keyword: Search keyword
-        cvss_severity: LOW, MEDIUM, HIGH, or CRITICAL
-        days_back: Number of days to look back
+## 品質閘門
 
-    Returns:
-        List of CVE records
-    """
-    base_url = "https://services.nvd.nist.gov/rest/json/cves/2.0"
+通過條件（RESEARCH 階段）：
+- ✅ 至少 2 視角達成共識
+- ✅ 無未解決的關鍵矛盾
+- ✅ 品質分數 ≥ 70
 
-    params = {}
-    if keyword:
-        params['keywordSearch'] = keyword
+→ 閘門配置：[shared/quality/gates.yaml](../../shared/quality/gates.yaml)
 
-    if cvss_severity:
-        params['cvssV3Severity'] = cvss_severity
+## 早期終止
 
-    # Date range
-    end_date = datetime.utcnow()
-    start_date = end_date - timedelta(days=days_back)
-    params['pubStartDate'] = start_date.strftime('%Y-%m-%dT00:00:00.000')
-    params['pubEndDate'] = end_date.strftime('%Y-%m-%dT23:59:59.999')
+當 `consensus_rate >= 0.9` 時，可跳過衝突解決。
 
-    response = requests.get(base_url, params=params, timeout=60)
-    response.raise_for_status()
+→ 配置：[shared/config/early-termination.yaml](../../shared/config/early-termination.yaml)
 
-    data = response.json()
-    cves = []
+## Context7 整合
 
-    for item in data.get('vulnerabilities', []):
-        cve = item.get('cve', {})
-        cves.append({
-            'id': cve.get('id'),
-            'description': cve.get('descriptions', [{}])[0].get('value', ''),
-            'published': cve.get('published'),
-            'cvss_score': extract_cvss_score(cve),
-            'references': [ref.get('url') for ref in cve.get('references', [])]
-        })
+自動偵測技術棧關鍵字（react, vue, fastapi 等）時，查詢最新文檔。
 
-    return cves
+→ 配置：[shared/integration/context7.yaml](../../shared/integration/context7.yaml)
 
-def extract_cvss_score(cve: dict) -> float:
-    """Extract CVSS v3 score from CVE data."""
-    metrics = cve.get('metrics', {})
-    cvss_v3 = metrics.get('cvssMetricV31', metrics.get('cvssMetricV30', []))
-    if cvss_v3:
-        return cvss_v3[0].get('cvssData', {}).get('baseScore', 0)
-    return 0
+## 輸出結構
 
-# Usage
-critical_cves = search_nvd_cves(keyword='apache', cvss_severity='CRITICAL', days_back=90)
-for cve in critical_cves[:5]:
-    print(f"{cve['id']} (CVSS: {cve['cvss_score']})")
-    print(f"  {cve['description'][:100]}...")
+```
+.claude/memory/research/[topic-id]/
+├── meta.yaml           # 元數據
+├── perspectives/       # 完整視角報告（MAP 產出，保留）
+│   ├── architecture.md
+│   ├── cognitive.md
+│   ├── workflow.md
+│   └── industry.md
+├── summaries/          # 結構化摘要（REDUCE 產出，供快速查閱）
+│   ├── architecture.yaml
+│   ├── cognitive.yaml
+│   ├── workflow.yaml
+│   └── industry.yaml
+├── synthesis.md        # 匯總報告（主輸出）
+└── metrics.yaml        # 階段指標
 ```
 
-### RSS/Atom Feed Monitoring
+> ⚠️ perspectives/ 保存完整報告，summaries/ 保存結構化摘要，兩者都必須保留。
 
-Monitor security news and advisory feeds.
+## Agent 能力限制
 
-**Example**:
-```python
-import feedparser
-from datetime import datetime
-from typing import List, Dict, Any
+**視角 Agent 不應該開啟 Task**：
 
-SECURITY_FEEDS = {
-    'us_cert': 'https://www.cisa.gov/uscert/ncas/alerts.xml',
-    'nist': 'https://nvd.nist.gov/feeds/xml/cve/misc/nvd-rss.xml',
-    'krebs': 'https://krebsonsecurity.com/feed/',
-    'schneier': 'https://www.schneier.com/feed/atom/',
-    'threatpost': 'https://threatpost.com/feed/'
-}
+| 允許的操作 | 說明 |
+|-----------|------|
+| ✅ Read | 讀取檔案 |
+| ✅ Glob/Grep | 搜尋檔案和內容 |
+| ✅ Explore agent | 輕量級探索 |
+| ✅ Bash | 執行命令 |
+| ✅ WebFetch | 抓取網頁 |
+| ✅ Write | 寫入報告 |
+| ❌ Task | 開子 Agent |
 
-def fetch_feed(feed_url: str, limit: int = 10) -> List[Dict[str, Any]]:
-    """Fetch and parse an RSS/Atom feed."""
-    feed = feedparser.parse(feed_url)
+## 網頁抓取策略
 
-    entries = []
-    for entry in feed.entries[:limit]:
-        entries.append({
-            'title': entry.get('title', ''),
-            'link': entry.get('link', ''),
-            'summary': entry.get('summary', '')[:500],
-            'published': entry.get('published', ''),
-            'source': feed.feed.get('title', '')
-        })
+當需要抓取網頁時，使用以下順序：
 
-    return entries
+1. **優先使用 WebFetch** - 快速、輕量
+2. **如果 WebFetch 失敗**，使用 Chrome：
+   ```
+   a. mcp__claude-in-chrome__tabs_create_mcp → 建立新分頁
+   b. mcp__claude-in-chrome__navigate → 導航到 URL
+   c. mcp__claude-in-chrome__get_page_text → 讀取內容
+   ```
+3. **如果仍然失敗**，記錄 URL 供人工處理
 
-def aggregate_security_news(feeds: dict = None, limit_per_feed: int = 5) -> List[Dict]:
-    """Aggregate news from multiple security feeds."""
-    feeds = feeds or SECURITY_FEEDS
-    all_entries = []
+## 行動日誌 ✅ 自動
 
-    for name, url in feeds.items():
-        try:
-            entries = fetch_feed(url, limit_per_feed)
-            for entry in entries:
-                entry['feed_name'] = name
-            all_entries.extend(entries)
-        except Exception as e:
-            print(f"Error fetching {name}: {e}")
+> **由 Claude Code Hooks 自動處理**
 
-    return all_entries
+工具調用自動記錄到 `.claude/workflow/{workflow-id}/logs/actions.jsonl`。
 
-# Usage
-news = aggregate_security_news(limit_per_feed=3)
-for item in news[:10]:
-    print(f"[{item['feed_name']}] {item['title']}")
-    print(f"  {item['link']}\n")
+**自動記錄的工具**：
+| 工具 | 觸發 Hook | 記錄內容 |
+|------|-----------|----------|
+| Task | pre_task.py / post_task.py | Agent 啟動/完成狀態 |
+| Write | post_write.py | 檔案路徑、Memory commit |
+
+**排查問題**：
+```bash
+# 查看 RESEARCH 階段所有失敗行動
+jq 'select(.stage == "RESEARCH" and .status == "failed")' \
+  .claude/workflow/{workflow-id}/logs/actions.jsonl
+
+# 查看特定視角 Agent 的行動
+jq 'select(.agent_id == "architecture")' \
+  .claude/workflow/{workflow-id}/logs/actions.jsonl
+
+# 查看即時狀態
+cat .claude/workflow/{workflow-id}/current.json | jq .
 ```
 
-### MITRE ATT&CK Research
+→ Hook 腳本：[scripts/hooks/](../../scripts/hooks/)
+→ 日誌規範：[shared/communication/execution-logs.md](../../shared/communication/execution-logs.md)
 
-Query MITRE ATT&CK framework data.
+## 共用模組
 
-**Example**:
-```python
-import requests
-from typing import Dict, List, Any, Optional
+| 模組 | 用途 |
+|------|------|
+| [coordination/map-phase.md](../../shared/coordination/map-phase.md) | 並行協調 |
+| [coordination/reduce-phase.md](../../shared/coordination/reduce-phase.md) | 匯總整合、大檔案處理 |
+| [synthesis/cross-validation.md](../../shared/synthesis/cross-validation.md) | 交叉驗證 |
+| [quality/gates.yaml](../../shared/quality/gates.yaml) | 品質閘門 |
+| [config/model-routing.yaml](../../shared/config/model-routing.yaml) | 模型路由 |
 
-ATTACK_BASE_URL = "https://raw.githubusercontent.com/mitre/cti/master"
+## 工作流位置
 
-def get_attack_techniques(
-    tactic: Optional[str] = None,
-    platform: str = 'enterprise'
-) -> List[Dict[str, Any]]:
-    """
-    Get ATT&CK techniques, optionally filtered by tactic.
-
-    Args:
-        tactic: Tactic name (e.g., 'initial-access', 'execution')
-        platform: 'enterprise', 'mobile', or 'ics'
-
-    Returns:
-        List of technique information
-    """
-    url = f"{ATTACK_BASE_URL}/{platform}-attack/{platform}-attack.json"
-
-    response = requests.get(url, timeout=60)
-    response.raise_for_status()
-    data = response.json()
-
-    techniques = []
-    for obj in data.get('objects', []):
-        if obj.get('type') != 'attack-pattern':
-            continue
-
-        # Filter by tactic if specified
-        if tactic:
-            kill_chain = obj.get('kill_chain_phases', [])
-            tactics = [p.get('phase_name') for p in kill_chain]
-            if tactic not in tactics:
-                continue
-
-        technique_id = ''
-        for ref in obj.get('external_references', []):
-            if ref.get('source_name') == 'mitre-attack':
-                technique_id = ref.get('external_id', '')
-                break
-
-        techniques.append({
-            'id': technique_id,
-            'name': obj.get('name'),
-            'description': obj.get('description', '')[:500],
-            'tactics': [p.get('phase_name') for p in obj.get('kill_chain_phases', [])],
-            'platforms': obj.get('x_mitre_platforms', []),
-            'detection': obj.get('x_mitre_detection', '')[:300]
-        })
-
-    return techniques
-
-# Usage
-initial_access = get_attack_techniques(tactic='initial-access')
-for technique in initial_access[:5]:
-    print(f"{technique['id']}: {technique['name']}")
-    print(f"  Platforms: {', '.join(technique['platforms'])}")
+```
+RESEARCH → PLAN → TASKS → IMPLEMENT → REVIEW → VERIFY
+   ↑
+  你在這裡
 ```
 
-### Research Report Generation
-
-Compile research findings into structured reports.
-
-**Example**:
-```python
-from datetime import datetime
-from typing import List, Dict, Any
-
-def generate_research_report(
-    topic: str,
-    findings: List[Dict[str, Any]],
-    sources: List[str]
-) -> str:
-    """Generate a markdown research report."""
-    report = []
-
-    # Header
-    report.append(f"# Research Report: {topic}")
-    report.append(f"\n**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    report.append(f"**Sources Consulted:** {len(sources)}")
-    report.append("")
-
-    # Executive Summary
-    report.append("## Executive Summary")
-    report.append(f"\nThis report compiles {len(findings)} findings related to {topic}.")
-    report.append("")
-
-    # Findings
-    report.append("## Key Findings")
-    for i, finding in enumerate(findings, 1):
-        report.append(f"\n### Finding {i}: {finding.get('title', 'Untitled')}")
-        report.append(f"\n{finding.get('summary', '')}")
-
-        if finding.get('details'):
-            report.append(f"\n**Details:** {finding['details']}")
-
-        if finding.get('source'):
-            report.append(f"\n*Source: {finding['source']}*")
-
-    # Sources
-    report.append("\n## Sources")
-    for i, source in enumerate(sources, 1):
-        report.append(f"{i}. {source}")
-
-    return '\n'.join(report)
-
-# Usage
-findings = [
-    {
-        'title': 'Critical RCE in Apache Struts',
-        'summary': 'A remote code execution vulnerability allows attackers to execute arbitrary commands.',
-        'details': 'CVE-2024-XXXX affects versions 2.0.0 through 2.5.30',
-        'source': 'NVD'
-    },
-    {
-        'title': 'Active Exploitation Reported',
-        'summary': 'CISA has added this vulnerability to KEV catalog.',
-        'source': 'CISA Alerts'
-    }
-]
-sources = [
-    'https://nvd.nist.gov/vuln/detail/CVE-2024-XXXX',
-    'https://www.cisa.gov/known-exploited-vulnerabilities-catalog'
-]
-
-report = generate_research_report('Apache Struts Vulnerability', findings, sources)
-print(report)
-```
-
-### Caching and Rate Limiting
-
-Implement responsible data collection practices.
-
-**Example**:
-```python
-import requests
-import time
-import hashlib
-import json
-from pathlib import Path
-from functools import wraps
-from typing import Callable, Any
-
-class ResearchCache:
-    """Simple file-based cache for research data."""
-
-    def __init__(self, cache_dir: str = '.research_cache', ttl_hours: int = 24):
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(exist_ok=True)
-        self.ttl_seconds = ttl_hours * 3600
-
-    def _get_cache_key(self, url: str) -> str:
-        return hashlib.md5(url.encode()).hexdigest()
-
-    def get(self, url: str) -> Any:
-        cache_file = self.cache_dir / f"{self._get_cache_key(url)}.json"
-        if cache_file.exists():
-            data = json.loads(cache_file.read_text())
-            if time.time() - data['timestamp'] < self.ttl_seconds:
-                return data['content']
-        return None
-
-    def set(self, url: str, content: Any):
-        cache_file = self.cache_dir / f"{self._get_cache_key(url)}.json"
-        cache_file.write_text(json.dumps({
-            'timestamp': time.time(),
-            'url': url,
-            'content': content
-        }))
-
-class RateLimiter:
-    """Simple rate limiter."""
-
-    def __init__(self, requests_per_minute: int = 30):
-        self.min_interval = 60.0 / requests_per_minute
-        self.last_request = 0
-
-    def wait(self):
-        elapsed = time.time() - self.last_request
-        if elapsed < self.min_interval:
-            time.sleep(self.min_interval - elapsed)
-        self.last_request = time.time()
-
-# Usage
-cache = ResearchCache()
-rate_limiter = RateLimiter(requests_per_minute=10)
-
-def fetch_with_cache(url: str) -> str:
-    """Fetch URL with caching and rate limiting."""
-    cached = cache.get(url)
-    if cached:
-        return cached
-
-    rate_limiter.wait()
-    response = requests.get(url, timeout=30)
-    content = response.text
-
-    cache.set(url, content)
-    return content
-```
-
-## Configuration
-
-### Environment Variables
-
-| Variable | Description | Required | Default |
-|----------|-------------|----------|---------|
-| `RESEARCH_CACHE_DIR` | Cache directory | No | `.research_cache` |
-| `RESEARCH_CACHE_TTL` | Cache TTL in hours | No | `24` |
-| `RESEARCH_RATE_LIMIT` | Requests per minute | No | `30` |
-| `NVD_API_KEY` | NVD API key for higher rate limits | No | None |
-
-### Script Options
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `--query` | string | Search query |
-| `--source` | string | Data source to query |
-| `--output` | path | Output file path |
-| `--format` | string | Output format (json, markdown, csv) |
-
-## Examples
-
-### Example 1: Vulnerability Research Report
-
-**Scenario**: Generate a report on recent critical vulnerabilities.
-
-```python
-import requests
-from datetime import datetime
-
-def research_critical_vulns(keyword: str, days: int = 30) -> dict:
-    """Research critical vulnerabilities for a technology."""
-    results = {
-        'keyword': keyword,
-        'date_range': f'Last {days} days',
-        'cves': [],
-        'sources': []
-    }
-
-    # Query NVD
-    nvd_url = "https://services.nvd.nist.gov/rest/json/cves/2.0"
-    params = {
-        'keywordSearch': keyword,
-        'cvssV3Severity': 'CRITICAL'
-    }
-
-    try:
-        response = requests.get(nvd_url, params=params, timeout=60)
-        data = response.json()
-
-        for item in data.get('vulnerabilities', [])[:10]:
-            cve = item['cve']
-            results['cves'].append({
-                'id': cve['id'],
-                'description': cve['descriptions'][0]['value'][:300],
-                'published': cve['published']
-            })
-
-        results['sources'].append(nvd_url)
-    except Exception as e:
-        results['errors'] = [str(e)]
-
-    return results
-
-# Usage
-research = research_critical_vulns('Microsoft Exchange')
-print(f"Found {len(research['cves'])} critical CVEs")
-```
-
-### Example 2: Threat Actor Research
-
-**Scenario**: Compile information about a threat actor.
-
-```python
-def research_threat_actor(actor_name: str) -> dict:
-    """Compile threat actor intelligence."""
-    report = {
-        'name': actor_name,
-        'aliases': [],
-        'techniques': [],
-        'campaigns': [],
-        'sources': []
-    }
-
-    # This would query MITRE ATT&CK groups data
-    # Simplified example
-    attack_url = f"https://attack.mitre.org/groups/"
-
-    # In practice, you'd parse the ATT&CK data
-    # and extract relevant information
-
-    return report
-```
-
-## Limitations
-
-- **Rate Limits**: External APIs have rate limits that must be respected
-- **Data Freshness**: Cached data may be stale
-- **Access Restrictions**: Some sources require authentication or subscriptions
-- **Content Parsing**: Dynamic/JavaScript-rendered pages may not extract properly
-- **Legal Compliance**: Ensure compliance with robots.txt and terms of service
-
-## Troubleshooting
-
-### Request Blocked
-
-**Problem**: Requests returning 403 or blocked status
-
-**Solution**: Use proper headers and respect rate limits:
-```python
-headers = {
-    'User-Agent': 'YourBot/1.0 (contact@example.com)',
-    'Accept': 'text/html,application/json'
-}
-```
-
-### Incomplete Content
-
-**Problem**: Missing content from dynamic pages
-
-**Solution**: For JavaScript-rendered content, consider using selenium or playwright.
-
-### API Rate Limit Exceeded
-
-**Problem**: Getting 429 Too Many Requests
-
-**Solution**: Implement exponential backoff:
-```python
-import time
-
-for attempt in range(5):
-    response = requests.get(url)
-    if response.status_code != 429:
-        break
-    time.sleep(2 ** attempt)
-```
-
-## Related Skills
-
-- [threat-intelligence](../../cybersecurity/threat-intelligence/): CTI-specific research
-- [docx](../docx/): Generate reports from research findings
-- [xlsx](../xlsx/): Export research data to spreadsheets
-
-## References
-
-- [Detailed API Reference](references/REFERENCE.md)
-- [NVD API Documentation](https://nvd.nist.gov/developers/vulnerabilities)
-- [MITRE ATT&CK](https://attack.mitre.org/)
-- [BeautifulSoup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+研究結果可被 `plan` skill 引用，作為規劃的輸入。

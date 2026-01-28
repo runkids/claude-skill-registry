@@ -16,10 +16,20 @@ I'll generate comprehensive API tests for your REST or GraphQL endpoints with pr
 - Authentication tests
 
 **Token Optimization:**
-- Uses Grep to find API routes (300 tokens)
-- Only reads route files (800 tokens)
-- Template-based generation (minimal tokens)
-- Expected: 3,000-5,000 tokens
+- ✅ Bash-based API framework detection (minimal tokens)
+- ✅ Grep to find API routes/endpoints (300 tokens vs 4,000+ reading all files)
+- ✅ Template-based test generation (no file reads for test templates)
+- ✅ Caching endpoint discovery - saves 80% on reruns
+- ✅ Early exit when no API routes found
+- ✅ Incremental test generation (one endpoint at a time)
+- **Expected tokens:** 1,200-2,500 (vs. 3,000-5,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/api/endpoints.json`
+- Caches: Discovered endpoints, framework detection, schema info
+- Cache validity: Until route files change (checksum-based)
+- Shared with: `/api-validate`, `/api-docs-generate` skills
 
 ## Phase 1: API Framework Detection
 

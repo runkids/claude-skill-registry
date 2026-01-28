@@ -1,163 +1,728 @@
 ---
 name: e2e-testing
-description: Knowledge base for E2E test design and execution. Used by e2e-test-designer (catalog lookup), e2e-test-architect (new test design), and e2e-tester (execution) agents.
+description: Write and run end-to-end tests with Playwright for user flows, page interactions, and visual regression. Use when testing user journeys, ensuring UI functionality works correctly.
+allowed-tools: Read, Edit, Write, Bash, Grep, Glob
 ---
 
-# E2E Testing Skill
+# End-to-End Testing Skill
 
-## Purpose
+This skill helps you write and run comprehensive end-to-end tests using Playwright.
 
-Knowledge base for E2E test design and execution. Used by:
-- **e2e-test-designer** agent — Fast catalog lookup during planning
-- **e2e-test-architect** agent — Design new tests when no match exists
-- **e2e-tester** agent — Execute tests and report results
+## When to Use This Skill
 
-## Agents That Use This Skill
+- Testing complete user flows
+- Verifying page interactions and navigation
+- Testing form submissions
+- Checking API integrations from the UI
+- Visual regression testing
+- Cross-browser compatibility testing
+- Mobile responsiveness testing
+- Before production deployments
 
-| Agent | Model | Purpose | When Invoked |
-|-------|-------|---------|--------------|
-| [e2e-tester](../../agents/e2e-tester.md) | sonnet | Execute tests, report results | After milestone implementation |
-| [e2e-test-designer](../../agents/e2e-test-designer.md) | haiku | Find existing tests, identify gaps | During /kdesign-impl-plan |
-| [e2e-test-architect](../../agents/e2e-test-architect.md) | opus | Design new tests from scratch | When designer finds no match |
+## Playwright Overview
 
-## How Tests Are Designed
+Playwright is a modern E2E testing framework that provides:
+- **Cross-browser**: Chromium, Firefox, WebKit
+- **Auto-waiting**: Intelligent element waiting
+- **Network interception**: Mock API responses
+- **Screenshots & videos**: Visual debugging
+- **Parallel execution**: Fast test runs
+- **TypeScript support**: Type-safe tests
 
-Test design uses two agents with different cognitive demands:
+## Project Configuration
+
+### Installation
+
+```bash
+# Install Playwright (if not already installed)
+pnpm add -D -w @playwright/test
+
+# Install browsers
+pnpm exec playwright install
+```
+
+### Configuration File
+
+```typescript
+// playwright.config.ts
+import { defineConfig, devices } from "@playwright/test";
+
+export default defineConfig({
+  testDir: "./apps/web/__tests__/e2e",
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: [
+    ["html"],
+    ["junit", { outputFile: "test-results/junit.xml" }],
+  ],
+  use: {
+    baseURL: process.env.BASE_URL || "http://localhost:3001",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+  },
+  projects: [
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+    },
+    {
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
+    },
+    {
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
+    },
+    {
+      name: "Mobile Safari",
+      use: { ...devices["iPhone 12"] },
+    },
+  ],
+  webServer: {
+    command: "pnpm -F @sgcarstrends/web dev",
+    url: "http://localhost:3001",
+    reuseExistingServer: !process.env.CI,
+  },
+});
+```
+
+## Test Structure
+
+### File Organization
 
 ```
-/kdesign-impl-plan
-    │
-    ▼
-e2e-test-designer (haiku) ─── catalog lookup
-    │
-    ├── match found ──→ return recommendation
-    │
-    └── no match ──→ e2e-test-architect (opus)
-                          │
-                          ▼
-                    detailed test specification
+apps/web/
+├── __tests__/
+│   └── e2e/
+│       ├── home.spec.ts              # Homepage tests
+│       ├── cars/
+│       │   ├── makes.spec.ts         # Car makes listing
+│       │   └── models.spec.ts        # Car models listing
+│       ├── coe/
+│       │   └── bidding.spec.ts       # COE bidding results
+│       ├── blog/
+│       │   ├── list.spec.ts          # Blog listing
+│       │   └── post.spec.ts          # Blog post detail
+│       └── fixtures/
+│           ├── mock-data.ts          # Test data
+│           └── page-objects.ts       # Page object models
 ```
 
-### e2e-test-designer (haiku) - Catalog Lookup
+### Basic Test Example
 
-1. Receives validation requirements from /kdesign-impl-plan
-2. Loads this skill's catalog
-3. Searches for matching tests using heuristics
-4. Returns recommendations OR hands off to architect
+```typescript
+// apps/web/__tests__/e2e/home.spec.ts
+import { test, expect } from "@playwright/test";
 
-### e2e-test-architect (opus) - New Test Design
+test.describe("Homepage", () => {
+  test("should load successfully", async ({ page }) => {
+    await page.goto("/");
 
-1. Receives handoff from designer when no match exists
-2. Analyzes requirements deeply
-3. Designs comprehensive test specification
-4. Returns detailed test with success criteria and sanity checks
+    // Check page title
+    await expect(page).toHaveTitle(/SG Cars Trends/);
 
-**Why two agents?** Catalog lookup is mechanical (haiku is fast/cheap). Designing new tests requires reasoning about validation, false positives, and edge cases (opus provides quality).
+    // Check main heading
+    const heading = page.getByRole("heading", { name: /SG Cars Trends/ });
+    await expect(heading).toBeVisible();
+  });
 
-See [e2e-test-designer](../../agents/e2e-test-designer.md) and [e2e-test-architect](../../agents/e2e-test-architect.md) for full details.
+  test("should display navigation menu", async ({ page }) => {
+    await page.goto("/");
 
-## How Tests Are Executed
+    // Check nav links
+    await expect(page.getByRole("link", { name: "Cars" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "COE" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Blog" })).toBeVisible();
+  });
 
-The e2e-tester agent:
-1. Loads this skill (SKILL.md)
-2. Finds requested tests in the catalog
-3. Loads test recipe files
-4. Runs pre-flight checks
-5. Executes test steps
-6. Reports PASS/FAIL with evidence
+  test("should navigate to cars page", async ({ page }) => {
+    await page.goto("/");
 
-See [e2e-tester agent](../../agents/e2e-tester.md) for full details.
+    // Click cars link
+    await page.getByRole("link", { name: "Cars" }).click();
 
-## Test Catalog
+    // Verify URL
+    await expect(page).toHaveURL(/\/cars/);
 
-### Training Tests
+    // Verify page content
+    await expect(page.getByRole("heading", { name: /Cars/ })).toBeVisible();
+  });
+});
+```
 
-| Test | Category | Duration | Use When |
-|------|----------|----------|----------|
-| [training/smoke](tests/training/smoke.md) | Training | <30s | Any training changes |
-| [training/progress](tests/training/progress.md) | Training | ~60-90s | Progress tracking, metrics collection |
-| [training/cancellation](tests/training/cancellation.md) | Training | ~30s | Cancellation handling, cleanup |
-| [training/operations-list](tests/training/operations-list.md) | Training | ~5s | Operations API, list/filter |
-| [training/host-start](tests/training/host-start.md) | Training (Host) | ~5s | Host service standalone |
-| [training/host-gpu](tests/training/host-gpu.md) | Training (Host) | ~3s | GPU allocation |
-| [training/host-integration](tests/training/host-integration.md) | Training (Integration) | ~5s | Backend → host proxy |
-| [training/host-cache](tests/training/host-cache.md) | Training (Integration) | ~5s | Two-level operation ID mapping |
-| [training/host-completion](tests/training/host-completion.md) | Training (Integration) | ~5s | Full cycle through proxy |
-| [training/error-invalid-strategy](tests/training/error-invalid-strategy.md) | Training (Error) | ~1s | Error handling |
-| [training/error-not-found](tests/training/error-not-found.md) | Training (Error) | ~1s | Error handling |
+## Page Object Pattern
 
-### Data Tests
+### Create Page Objects
 
-| Test | Category | Duration | Use When |
-|------|----------|----------|----------|
-| [data/cache-get](tests/data/cache-get.md) | Data | <3s | Cache loading, data retrieval |
-| [data/cache-range](tests/data/cache-range.md) | Data | <100ms | Metadata queries |
-| [data/cache-validate](tests/data/cache-validate.md) | Data | <1s | Data validation |
-| [data/cache-info](tests/data/cache-info.md) | Data | <500ms | Data inventory API |
-| [data/error-invalid-symbol](tests/data/error-invalid-symbol.md) | Data (Error) | <1s | Error handling |
-| [data/error-invalid-timeframe](tests/data/error-invalid-timeframe.md) | Data (Error) | <1s | Error handling |
+```typescript
+// apps/web/__tests__/e2e/fixtures/page-objects.ts
+import { Page, Locator } from "@playwright/test";
 
-### Backtest Tests
+export class HomePage {
+  readonly page: Page;
+  readonly heading: Locator;
+  readonly carsLink: Locator;
+  readonly coeLink: Locator;
+  readonly blogLink: Locator;
 
-| Test | Category | Duration | Use When |
-|------|----------|----------|----------|
-| [backtest/smoke](tests/backtest/smoke.md) | Backtest | <10s | Any backtest changes |
-| [backtest/progress](tests/backtest/progress.md) | Backtest | ~20s | Progress tracking |
-| [backtest/cancellation](tests/backtest/cancellation.md) | Backtest | ~15s | Cancellation handling |
-| [backtest/api-start](tests/backtest/api-start.md) | Backtest (Integration) | ~10s | API workflow |
-| [backtest/api-results](tests/backtest/api-results.md) | Backtest (Integration) | ~15s | Progress via API |
-| [backtest/api-list](tests/backtest/api-list.md) | Backtest (Integration) | ~10s | API cancellation |
-| [backtest/remote-start](tests/backtest/remote-start.md) | Backtest (Remote) | ~10s | Remote service |
-| [backtest/remote-proxy](tests/backtest/remote-proxy.md) | Backtest (Remote) | ~10s | Backend → remote proxy |
-| [backtest/remote-progress](tests/backtest/remote-progress.md) | Backtest (Remote) | ~25s | Two-level progress |
-| [backtest/remote-cancel](tests/backtest/remote-cancel.md) | Backtest (Remote) | ~15s | Remote cancellation |
-| [backtest/error-invalid-strategy](tests/backtest/error-invalid-strategy.md) | Backtest (Error) | ~2s | Error handling |
-| [backtest/error-missing-data](tests/backtest/error-missing-data.md) | Backtest (Error) | ~2s | Error handling |
-| [backtest/error-model-not-found](tests/backtest/error-model-not-found.md) | Backtest (Error) | ~2s | Error handling |
+  constructor(page: Page) {
+    this.page = page;
+    this.heading = page.getByRole("heading", { name: /SG Cars Trends/ });
+    this.carsLink = page.getByRole("link", { name: "Cars" });
+    this.coeLink = page.getByRole("link", { name: "COE" });
+    this.blogLink = page.getByRole("link", { name: "Blog" });
+  }
 
-### Agent Tests
+  async goto() {
+    await this.page.goto("/");
+  }
 
-| Test | Category | Duration | Use When |
-|------|----------|----------|----------|
-| [agent/full-cycle](tests/agent/full-cycle.md) | Agent | ~2min | Full orchestrator cycle |
-| [agent/duplicate-trigger](tests/agent/duplicate-trigger.md) | Agent | ~10s | Concurrency handling |
-| [agent/cancellation](tests/agent/cancellation.md) | Agent | ~15s | Cancellation propagation |
-| [agent/status-api](tests/agent/status-api.md) | Agent | ~10s | Status API contract |
-| [agent/metadata](tests/agent/metadata.md) | Agent | ~2min | Metadata storage |
-| [agent/child-ops](tests/agent/child-ops.md) | Agent | ~2min | Child operation tracking |
+  async navigateToCars() {
+    await this.carsLink.click();
+  }
 
-### CLI Tests
+  async navigateToCOE() {
+    await this.coeLink.click();
+  }
 
-| Test | Category | Duration | Use When |
-|------|----------|----------|----------|
-| [cli/client-migration](tests/cli/client-migration.md) | CLI (Migration) | ~2min | Client consolidation M5 cleanup |
-| [cli/train-command](tests/cli/train-command.md) | CLI (Restructure) | ~60s | CLI restructure M1 - train command |
-| [cli/operations-workflow](tests/cli/operations-workflow.md) | CLI (Restructure) | ~90s | CLI restructure M2 - operation commands |
-| [cli/information-commands](tests/cli/information-commands.md) | CLI (Restructure) | ~30s | CLI restructure M3 - list/show/validate |
-| [cli/performance](tests/cli/performance.md) | CLI (Restructure) | ~10s | CLI restructure M4 - startup performance |
+  async navigateToBlog() {
+    await this.blogLink.click();
+  }
+}
 
-## Pre-Flight Modules
+export class CarsPage {
+  readonly page: Page;
+  readonly heading: Locator;
+  readonly makeSelect: Locator;
+  readonly modelSelect: Locator;
+  readonly resultsTable: Locator;
 
-| Module | Checks | Used By |
-|--------|--------|---------|
-| [common](preflight/common.md) | Docker, sandbox, API health | All tests |
-| [training](preflight/training.md) | Strategy, data, workers | Training tests |
-| [backtest](preflight/backtest.md) | Model, strategy, data, workers | Backtest tests |
-| [data](preflight/data.md) | Directory access, mounts | Data tests |
+  constructor(page: Page) {
+    this.page = page;
+    this.heading = page.getByRole("heading", { name: /Cars/ });
+    this.makeSelect = page.getByLabel("Make");
+    this.modelSelect = page.getByLabel("Model");
+    this.resultsTable = page.getByRole("table");
+  }
 
-## Reusable Patterns
+  async goto() {
+    await this.page.goto("/cars");
+  }
 
-*(To be added in later milestones)*
+  async selectMake(make: string) {
+    await this.makeSelect.click();
+    await this.page.getByRole("option", { name: make }).click();
+  }
+
+  async selectModel(model: string) {
+    await this.modelSelect.click();
+    await this.page.getByRole("option", { name: model }).click();
+  }
+
+  async getResultsCount(): Promise<number> {
+    const rows = await this.resultsTable.locator("tbody tr").count();
+    return rows;
+  }
+}
+```
+
+### Use Page Objects
+
+```typescript
+// apps/web/__tests__/e2e/cars/makes.spec.ts
+import { test, expect } from "@playwright/test";
+import { HomePage, CarsPage } from "../fixtures/page-objects";
+
+test.describe("Cars Page", () => {
+  test("should filter by make", async ({ page }) => {
+    const homePage = new HomePage(page);
+    const carsPage = new CarsPage(page);
+
+    // Navigate to cars page
+    await homePage.goto();
+    await homePage.navigateToCars();
+
+    // Select Toyota
+    await carsPage.selectMake("Toyota");
+
+    // Wait for results
+    await expect(carsPage.resultsTable).toBeVisible();
+
+    // Verify results contain Toyota
+    const firstRow = page.locator("tbody tr").first();
+    await expect(firstRow).toContainText("Toyota");
+  });
+
+  test("should filter by make and model", async ({ page }) => {
+    const carsPage = new CarsPage(page);
+
+    await carsPage.goto();
+    await carsPage.selectMake("Toyota");
+    await carsPage.selectModel("Corolla");
+
+    // Verify results
+    const count = await carsPage.getResultsCount();
+    expect(count).toBeGreaterThan(0);
+  });
+});
+```
+
+## API Mocking
+
+### Mock API Responses
+
+```typescript
+// apps/web/__tests__/e2e/cars/mocked.spec.ts
+import { test, expect } from "@playwright/test";
+
+test.describe("Cars Page with Mocked API", () => {
+  test("should display mocked car data", async ({ page }) => {
+    // Mock API response
+    await page.route("**/api/v1/cars/makes", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify([
+          { make: "Toyota", count: 1000 },
+          { make: "Honda", count: 800 },
+          { make: "BMW", count: 600 },
+        ]),
+      });
+    });
+
+    await page.goto("/cars");
+
+    // Verify mocked data is displayed
+    await expect(page.getByText("Toyota")).toBeVisible();
+    await expect(page.getByText("1000")).toBeVisible();
+  });
+
+  test("should handle API errors gracefully", async ({ page }) => {
+    // Mock API error
+    await page.route("**/api/v1/cars/makes", async (route) => {
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "Internal server error" }),
+      });
+    });
+
+    await page.goto("/cars");
+
+    // Verify error message is displayed
+    await expect(page.getByText(/error|failed/i)).toBeVisible();
+  });
+});
+```
+
+## Form Testing
+
+### Test Form Submissions
+
+```typescript
+// apps/web/__tests__/e2e/blog/comment.spec.ts
+import { test, expect } from "@playwright/test";
+
+test.describe("Blog Comment Form", () => {
+  test("should submit comment successfully", async ({ page }) => {
+    await page.goto("/blog/test-post");
+
+    // Fill form
+    await page.getByLabel("Name").fill("John Doe");
+    await page.getByLabel("Email").fill("john@example.com");
+    await page.getByLabel("Comment").fill("Great article!");
+
+    // Submit
+    await page.getByRole("button", { name: "Submit" }).click();
+
+    // Verify success message
+    await expect(page.getByText(/comment submitted/i)).toBeVisible();
+  });
+
+  test("should validate required fields", async ({ page }) => {
+    await page.goto("/blog/test-post");
+
+    // Submit empty form
+    await page.getByRole("button", { name: "Submit" }).click();
+
+    // Verify validation errors
+    await expect(page.getByText(/name is required/i)).toBeVisible();
+    await expect(page.getByText(/email is required/i)).toBeVisible();
+  });
+
+  test("should validate email format", async ({ page }) => {
+    await page.goto("/blog/test-post");
+
+    await page.getByLabel("Email").fill("invalid-email");
+    await page.getByRole("button", { name: "Submit" }).click();
+
+    await expect(page.getByText(/invalid email/i)).toBeVisible();
+  });
+});
+```
+
+## Visual Testing
+
+### Screenshot Comparison
+
+```typescript
+// apps/web/__tests__/e2e/visual/homepage.spec.ts
+import { test, expect } from "@playwright/test";
+
+test.describe("Visual Regression", () => {
+  test("homepage should match snapshot", async ({ page }) => {
+    await page.goto("/");
+
+    // Wait for page to be fully loaded
+    await page.waitForLoadState("networkidle");
+
+    // Take screenshot and compare
+    await expect(page).toHaveScreenshot("homepage.png", {
+      fullPage: true,
+      maxDiffPixels: 100,
+    });
+  });
+
+  test("cars page should match snapshot", async ({ page }) => {
+    await page.goto("/cars");
+    await page.waitForLoadState("networkidle");
+
+    await expect(page).toHaveScreenshot("cars-page.png", {
+      fullPage: true,
+    });
+  });
+
+  test("mobile homepage should match snapshot", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    await expect(page).toHaveScreenshot("homepage-mobile.png", {
+      fullPage: true,
+    });
+  });
+});
+```
+
+## Accessibility Testing
+
+### Test Accessibility
+
+```typescript
+// apps/web/__tests__/e2e/a11y/homepage.spec.ts
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+
+test.describe("Accessibility", () => {
+  test("homepage should not have accessibility violations", async ({ page }) => {
+    await page.goto("/");
+
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+
+  test("should have proper heading hierarchy", async ({ page }) => {
+    await page.goto("/");
+
+    // Check h1 exists and is unique
+    const h1Count = await page.locator("h1").count();
+    expect(h1Count).toBe(1);
+
+    // Check heading order
+    const headings = await page.locator("h1, h2, h3, h4, h5, h6").all();
+    const headingLevels = await Promise.all(
+      headings.map((h) => h.evaluate((el) => el.tagName))
+    );
+
+    // H1 should come first
+    expect(headingLevels[0]).toBe("H1");
+  });
+
+  test("should have alt text on images", async ({ page }) => {
+    await page.goto("/");
+
+    const images = await page.locator("img").all();
+
+    for (const img of images) {
+      const alt = await img.getAttribute("alt");
+      expect(alt).toBeTruthy();
+    }
+  });
+});
+```
+
+## Running Tests
+
+### Common Commands
+
+```bash
+# Run all tests
+pnpm exec playwright test
+
+# Run specific test file
+pnpm exec playwright test home.spec.ts
+
+# Run tests in headed mode
+pnpm exec playwright test --headed
+
+# Run tests in specific browser
+pnpm exec playwright test --project=chromium
+pnpm exec playwright test --project=firefox
+
+# Run tests in debug mode
+pnpm exec playwright test --debug
+
+# Run tests with UI
+pnpm exec playwright test --ui
+
+# Generate test report
+pnpm exec playwright show-report
+
+# Update screenshots
+pnpm exec playwright test --update-snapshots
+```
+
+### Package.json Scripts
+
+```json
+{
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
+  }
+}
+```
+
+## CI Configuration
+
+### GitHub Actions
+
+```yaml
+# .github/workflows/e2e.yml
+name: E2E Tests
+
+on: [push, pull_request]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - run: pnpm install
+      - run: pnpm exec playwright install --with-deps
+
+      - run: pnpm test:e2e
+        env:
+          BASE_URL: http://localhost:3001
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+```
+
+## Best Practices
+
+### 1. Use Locators Wisely
+
+```typescript
+// ❌ Fragile CSS selectors
+await page.locator(".btn-primary").click();
+
+// ✅ Semantic selectors
+await page.getByRole("button", { name: "Submit" }).click();
+
+// ✅ Text content
+await page.getByText("Welcome").click();
+
+// ✅ Label
+await page.getByLabel("Email").fill("test@example.com");
+```
+
+### 2. Auto-waiting
+
+```typescript
+// ❌ Manual waiting
+await page.waitForTimeout(1000);
+await page.click("button");
+
+// ✅ Auto-waiting
+await page.getByRole("button").click();
+
+// ✅ Wait for specific state
+await page.getByRole("button").waitFor({ state: "visible" });
+```
+
+### 3. Isolate Tests
+
+```typescript
+// ❌ Tests depend on each other
+test("create user", async ({ page }) => {
+  // Creates user
+});
+
+test("login user", async ({ page }) => {
+  // Assumes user from previous test exists
+});
+
+// ✅ Independent tests
+test("create user", async ({ page }) => {
+  // Creates user and cleans up
+});
+
+test("login user", async ({ page }) => {
+  // Creates its own user, logs in, cleans up
+});
+```
+
+### 4. Use Fixtures
+
+```typescript
+// apps/web/__tests__/e2e/fixtures/test.ts
+import { test as base } from "@playwright/test";
+import { HomePage, CarsPage } from "./page-objects";
+
+type Fixtures = {
+  homePage: HomePage;
+  carsPage: CarsPage;
+};
+
+export const test = base.extend<Fixtures>({
+  homePage: async ({ page }, use) => {
+    await use(new HomePage(page));
+  },
+  carsPage: async ({ page }, use) => {
+    await use(new CarsPage(page));
+  },
+});
+
+export { expect } from "@playwright/test";
+
+// Use in tests
+import { test, expect } from "./fixtures/test";
+
+test("test with fixtures", async ({ homePage, carsPage }) => {
+  await homePage.goto();
+  await homePage.navigateToCars();
+  // ...
+});
+```
+
+## Debugging
+
+### Debug Mode
+
+```bash
+# Run with debugger
+pnpm exec playwright test --debug
+
+# Debug specific test
+pnpm exec playwright test home.spec.ts --debug
+```
+
+### Inspector
+
+```typescript
+// Add breakpoint
+await page.pause();
+
+// Log to console
+console.log(await page.title());
+
+// Take screenshot
+await page.screenshot({ path: "debug.png" });
+```
+
+### Trace Viewer
+
+```bash
+# Generate trace
+pnpm exec playwright test --trace on
+
+# View trace
+pnpm exec playwright show-trace trace.zip
+```
 
 ## Troubleshooting
 
-| Domain | Module | Common Issues |
-|--------|--------|---------------|
-| [Training](troubleshooting/training.md) | Training | Model collapse, 0 trades, NaN metrics, timeouts |
-| [Data](troubleshooting/data.md) | Data | Location issues, missing symbols, timeframe mismatch |
-| [Environment](troubleshooting/environment.md) | Environment | Docker daemon, sandbox ports, resource exhaustion |
-| [Common](troubleshooting/common.md) | General | API schema, timeouts, permissions |
+### Tests Timing Out
 
-## Creating New Tests
+```typescript
+// Increase timeout
+test("slow test", async ({ page }) => {
+  test.setTimeout(60000); // 60 seconds
 
-Use [TEMPLATE.md](TEMPLATE.md) when creating new test recipes.
+  await page.goto("/slow-page");
+});
+
+// Or in config
+export default defineConfig({
+  timeout: 30000, // 30 seconds
+});
+```
+
+### Flaky Tests
+
+```typescript
+// Use waitForLoadState
+await page.goto("/");
+await page.waitForLoadState("networkidle");
+
+// Wait for specific elements
+await page.getByRole("button").waitFor({ state: "visible" });
+
+// Retry assertions
+await expect(page.getByText("Welcome")).toBeVisible({ timeout: 10000 });
+```
+
+### Selector Not Found
+
+```typescript
+// Check element exists
+const button = page.getByRole("button", { name: "Submit" });
+console.log(await button.count()); // 0 if not found
+
+// Use has
+await expect(page.getByRole("button")).toHaveCount(1);
+
+// Debug selectors
+await page.pause(); // Open inspector
+```
+
+## References
+
+- Playwright Documentation: https://playwright.dev
+- Best Practices: https://playwright.dev/docs/best-practices
+- Accessibility Testing: https://playwright.dev/docs/accessibility-testing
+- Related files:
+  - `playwright.config.ts` - Playwright configuration
+  - Root CLAUDE.md - Testing guidelines
+
+## Best Practices Summary
+
+1. **Use Semantic Selectors**: Prefer role, text, label over CSS selectors
+2. **Isolate Tests**: Each test should be independent
+3. **Auto-waiting**: Let Playwright wait for elements
+4. **Page Objects**: Encapsulate page logic
+5. **Mock APIs**: Use route mocking for predictable tests
+6. **Visual Testing**: Compare screenshots for UI changes
+7. **Accessibility**: Test with axe-core
+8. **CI Integration**: Run tests in continuous integration

@@ -1,7 +1,7 @@
 {
   "name": "plaid-fintech",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/plaid-fintech/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-27T03:32:34.610580Z"
+  "repo": "hainamchung/agent-assistant",
+  "path": "skills/plaid-fintech/SKILL.md",
+  "source": "github.com/hainamchung/agent-assistant",
+  "downloaded_at": "2026-01-28T02:13:14.643700Z"
 }

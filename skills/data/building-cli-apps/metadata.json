@@ -1,9 +1,7 @@
 {
   "name": "building-cli-apps",
-  "description": "Use when building command-line interface tools; when choosing argument parsing libraries; when handling stdin/stdout/stderr patterns; when implementing subcommands; when tests for CLI apps fail or are",
   "repo": "mhagrelius/dotfiles",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mhagrelius/dotfiles"
+  "path": ".claude/skills/building-cli-apps/SKILL.md",
+  "source": "github.com/mhagrelius/dotfiles",
+  "downloaded_at": "2026-01-28T02:02:40.761170Z"
 }

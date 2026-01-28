@@ -1,156 +1,116 @@
 ---
 name: framer-motion
-description: Expert guidelines for building performant animations with Framer Motion/Motion library in React applications
+description: Comprehensive Framer Motion animation library for React. Covers motion components, variants, gestures, page transitions, and scroll animations. Use when adding animations to React/Next.js applications.
 ---
 
-# Framer Motion / Motion Animation Guidelines
+# Framer Motion Skill
 
-You are an expert in Framer Motion (now Motion), React, and TypeScript. Follow these guidelines when creating animations.
+Production-ready animations for React applications.
 
-## Core Principles
+## Quick Start
 
-### Import from the Correct Package
-- Use `import { motion } from "motion/react"` for React projects (not "framer-motion" - this is outdated)
-- The library was renamed from Framer Motion to Motion
-- Always use the latest Motion API
+### Installation
 
-### Performance-First Approach
-- Animate transform properties (`x`, `y`, `scale`, `rotate`) and `opacity` for best performance
-- These properties can be hardware-accelerated and don't trigger layout recalculations
-- Avoid animating properties that cause layout shifts like `width`, `height`, `top`, `left`, `margin`, `padding`
+```bash
+npm install framer-motion
+# or
+pnpm add framer-motion
+```
 
-## Hardware Acceleration
+### Basic Usage
 
-### Use will-change Properly
 ```tsx
-// When animating transforms
+import { motion } from "framer-motion";
+
+// Simple animation
 <motion.div
-  style={{ willChange: "transform" }}
-  animate={{ x: 100, y: 50, scale: 1.2 }}
-/>
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.5 }}
+>
+  Content
+</motion.div>
+```
 
-// When animating other GPU-accelerated properties
+## Core Concepts
+
+| Concept | Guide |
+|---------|-------|
+| **Motion Component** | [reference/motion-component.md](reference/motion-component.md) |
+| **Variants** | [reference/variants.md](reference/variants.md) |
+| **Gestures** | [reference/gestures.md](reference/gestures.md) |
+| **Hooks** | [reference/hooks.md](reference/hooks.md) |
+
+## Examples
+
+| Pattern | Guide |
+|---------|-------|
+| **Page Transitions** | [examples/page-transitions.md](examples/page-transitions.md) |
+| **List Animations** | [examples/list-animations.md](examples/list-animations.md) |
+| **Scroll Animations** | [examples/scroll-animations.md](examples/scroll-animations.md) |
+| **Micro-interactions** | [examples/micro-interactions.md](examples/micro-interactions.md) |
+
+## Templates
+
+| Template | Purpose |
+|----------|---------|
+| [templates/page-transition.tsx](templates/page-transition.tsx) | Page transition wrapper |
+| [templates/animated-list.tsx](templates/animated-list.tsx) | Animated list component |
+
+## Quick Reference
+
+### Basic Animation
+
+```tsx
 <motion.div
-  style={{ willChange: "opacity, transform" }}
-  animate={{ opacity: 0.5, x: 100 }}
-/>
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -20 }}
+  transition={{ duration: 0.3 }}
+>
+  Content
+</motion.div>
 ```
 
-### Properties to Add to willChange
-- `transform` - for x, y, scale, rotate, skew
-- `opacity` - for opacity animations
-- `filter` - for blur, brightness, etc.
-- `clipPath` - for clip-path animations
-- `backgroundColor` - for background color transitions
+### Hover & Tap
 
-## Animation Best Practices
-
-### Use Variants for Complex Animations
-```tsx
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1 }
-};
-```
-
-### Use layoutId for Shared Element Transitions
-```tsx
-<motion.div layoutId="shared-element" />
-```
-
-### Prefer spring Animations
-```tsx
-// Springs feel more natural than duration-based animations
-<motion.div
-  animate={{ x: 100 }}
-  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-/>
-```
-
-## React Integration
-
-### Memoization for Performance
-```tsx
-// Memoize animation variants
-const variants = useMemo(() => ({
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 }
-}), []);
-
-// Memoize callbacks
-const handleAnimationComplete = useCallback(() => {
-  // handler logic
-}, []);
-```
-
-### Avoid Inline Style Objects
-```tsx
-// Bad - creates new object on every render
-<motion.div style={{ willChange: "transform" }} />
-
-// Good - define outside or memoize
-const style = { willChange: "transform" };
-<motion.div style={style} />
-```
-
-## Accessibility
-
-### Respect Reduced Motion Preferences
-```tsx
-import { useReducedMotion } from "motion/react";
-
-function Component() {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <motion.div
-      animate={{ x: shouldReduceMotion ? 0 : 100 }}
-      transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-    />
-  );
-}
-```
-
-## Gesture Animations
-
-### Use Gesture Props Correctly
 ```tsx
 <motion.button
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
   transition={{ type: "spring", stiffness: 400, damping: 17 }}
-/>
+>
+  Click me
+</motion.button>
 ```
 
-## Scroll Animations
+### Variants
 
-### Use useScroll for Scroll-Linked Animations
 ```tsx
-import { useScroll, useTransform, motion } from "motion/react";
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
 
-function ParallaxComponent() {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
 
-  return <motion.div style={{ y }} />;
-}
+<motion.ul variants={container} initial="hidden" animate="show">
+  {items.map(i => (
+    <motion.li key={i} variants={item}>{i}</motion.li>
+  ))}
+</motion.ul>
 ```
 
-## Exit Animations
+### AnimatePresence (Exit Animations)
 
-### Use AnimatePresence for Exit Animations
 ```tsx
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 
 <AnimatePresence mode="wait">
   {isVisible && (
@@ -159,47 +119,194 @@ import { AnimatePresence, motion } from "motion/react";
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-    />
+    >
+      Modal content
+    </motion.div>
   )}
 </AnimatePresence>
 ```
 
-## Common Patterns
+### Scroll Trigger
 
-### Staggered List Animation
 ```tsx
-<motion.ul
-  initial="hidden"
-  animate="visible"
-  variants={{
-    visible: { transition: { staggerChildren: 0.07 } }
-  }}
+<motion.div
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.5 }}
 >
-  {items.map((item) => (
-    <motion.li
-      key={item.id}
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
-      }}
-    />
-  ))}
-</motion.ul>
+  Animates when scrolled into view
+</motion.div>
 ```
 
-### Page Transitions
+### Drag
+
 ```tsx
-const pageTransition = {
-  initial: { opacity: 0, x: -20 },
-  animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: 20 },
-  transition: { duration: 0.3 }
+<motion.div
+  drag
+  dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
+  dragElastic={0.1}
+>
+  Drag me
+</motion.div>
+```
+
+### Layout Animation
+
+```tsx
+<motion.div layout layoutId="shared-element">
+  Content that animates when layout changes
+</motion.div>
+```
+
+## Transition Types
+
+```tsx
+// Tween (default)
+transition={{ duration: 0.3, ease: "easeOut" }}
+
+// Spring
+transition={{ type: "spring", stiffness: 300, damping: 20 }}
+
+// Spring presets
+transition={{ type: "spring", bounce: 0.25 }}
+
+// Inertia (for drag)
+transition={{ type: "inertia", velocity: 50 }}
+```
+
+## Easing Functions
+
+```tsx
+// Built-in easings
+ease: "linear"
+ease: "easeIn"
+ease: "easeOut"
+ease: "easeInOut"
+ease: "circIn"
+ease: "circOut"
+ease: "circInOut"
+ease: "backIn"
+ease: "backOut"
+ease: "backInOut"
+
+// Custom cubic-bezier
+ease: [0.17, 0.67, 0.83, 0.67]
+```
+
+## Reduced Motion
+
+Always respect user preferences:
+
+```tsx
+import { motion, useReducedMotion } from "framer-motion";
+
+function Component() {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+    >
+      Respects motion preferences
+    </motion.div>
+  );
+}
+
+// Or use media query
+const variants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+};
+
+<motion.div
+  variants={variants}
+  initial="initial"
+  animate="animate"
+  className="motion-reduce:transition-none"
+>
+```
+
+## Common Patterns
+
+### Fade In Up
+
+```tsx
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 }
+};
+
+<motion.div {...fadeInUp}>Content</motion.div>
+```
+
+### Staggered List
+
+```tsx
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, x: -20 },
+  show: { opacity: 1, x: 0 }
 };
 ```
 
-## Performance Debugging
+### Modal
 
-- Use React DevTools to inspect re-renders
-- Use Chrome DevTools Performance tab to identify animation jank
-- Target 60fps minimum, 120fps on high refresh rate displays
-- Test on actual devices, especially mid-range Android phones
+```tsx
+<AnimatePresence>
+  {isOpen && (
+    <>
+      {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/50"
+        onClick={onClose}
+      />
+      {/* Modal */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="fixed inset-x-4 top-1/2 -translate-y-1/2 ..."
+      >
+        Modal content
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
+```
+
+### Accordion
+
+```tsx
+<motion.div
+  initial={false}
+  animate={{ height: isOpen ? "auto" : 0 }}
+  transition={{ duration: 0.3, ease: "easeInOut" }}
+  className="overflow-hidden"
+>
+  <div className="p-4">Accordion content</div>
+</motion.div>
+```
+
+## Best Practices
+
+1. **Use variants**: Cleaner code, easier orchestration
+2. **Respect reduced motion**: Always check `useReducedMotion`
+3. **Use `layout` sparingly**: Can be expensive, use only when needed
+4. **Exit animations**: Wrap with `AnimatePresence`
+5. **Spring for interactions**: More natural feel for hover/tap
+6. **Tween for page transitions**: More predictable timing
+7. **GPU-accelerated properties**: Prefer `opacity`, `scale`, `x`, `y` over `width`, `height`

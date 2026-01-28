@@ -1,9 +1,7 @@
 {
   "name": "pulumi-components",
-  "description": "Use when building reusable infrastructure components with Pulumi for modular, composable cloud resources.",
   "repo": "TheBushidoCollective/han",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-pulumi/skills/pulumi-components/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-28T04:32:01.363002Z"
 }

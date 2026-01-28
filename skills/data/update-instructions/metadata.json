@@ -1,9 +1,7 @@
 {
   "name": "update-instructions",
-  "description": "Smart merge for CLAUDE.md and AGENTS.md instruction files.",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave/skills/update-instructions/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-28T01:49:02.115379Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "convert-scala-roc",
-  "description": "Convert Scala code to idiomatic Roc. Use when migrating Scala projects to Roc, translating JVM/FP patterns to pure functional patterns, or refactoring Scala codebases. Extends meta-convert-dev with Sc",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-scala-roc/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:50.440534Z"
 }

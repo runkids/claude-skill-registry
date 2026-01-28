@@ -1,9 +1,7 @@
 {
   "name": "bun-tanstack-start",
-  "description": "TanStack Start full-stack React framework with Bun runtime. Use for TanStack Router, server functions, vinxi, or encountering SSR, build, preset errors.",
   "repo": "secondsky/claude-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/bun/skills/bun-tanstack-start/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-28T01:54:30.836340Z"
 }

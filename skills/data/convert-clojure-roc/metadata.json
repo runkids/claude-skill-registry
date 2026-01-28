@@ -1,9 +1,7 @@
 {
   "name": "convert-clojure-roc",
-  "description": "Convert Clojure code to idiomatic Roc. Use when migrating Clojure applications to Roc's platform model, translating dynamic functional code to static functional style, or refactoring REPL-driven code ",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-clojure-roc/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:54.231943Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "job-application",
-  "description": "Analyse d'offres d'emploi, adéquation profil-poste, et génération de CV/lettre adaptés. Activer ce skill quand l'utilisateur parle de candidature, offre d'emploi, lettre de motivation, ou CV adapté.",
-  "repo": "bastien-gallay/cv-bastien-gallay",
-  "category": "development",
-  "tags": [
-    "job",
-    "application"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "skillcreatorai/Ai-Agent-Skills",
+  "path": "skills/job-application/SKILL.md",
+  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
+  "downloaded_at": "2026-01-28T03:46:52.856123Z"
 }

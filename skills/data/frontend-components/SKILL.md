@@ -1,23 +1,26 @@
 ---
 name: Frontend Components
-description: Design and build reusable, composable UI components with single responsibility, clear interfaces, and proper encapsulation. Use this skill when creating or editing React components, Vue components, Svelte components, or any modular UI building blocks. When defining component props, state management, component composition, or component APIs. When working with component files (e.g., `.jsx`, `.tsx`, `.vue`, `.svelte`), component libraries, design systems, or shared UI elements. When refactoring components, extracting reusable logic, or building component hierarchies.
+description: Build reusable, composable UI components with single responsibilities, clear prop interfaces, proper state management, and minimal coupling. Use this skill when creating React, Vue, Angular, or web components with well-defined APIs, sensible defaults, and documentation. Applies to component files, component libraries, design systems, or any modular UI code that should be maintainable, testable, and reusable across different contexts in the application.
 ---
 
 # Frontend Components
 
 ## When to use this skill
 
-- When creating new UI component files (e.g., React, Vue, Svelte, Web Components)
-- When editing existing component files (`.jsx`, `.tsx`, `.vue`, `.svelte`)
-- When defining component props and interfaces
-- When implementing component state management
-- When building reusable component libraries or design systems
-- When composing complex UIs from smaller components
-- When refactoring monolithic components into smaller pieces
-- When documenting component usage and APIs
-- When creating component prop defaults and validation
-- When managing component lifecycle and side effects
-- When working in component directories or shared UI folders
+- When creating component files like `Button.tsx`, `Card.jsx`, `Modal.vue`, or any UI component in `components/`
+- When building a component library or design system with reusable components like `ui/`, `design-system/`, or `shared/`
+- When defining component props/interfaces with TypeScript types or PropTypes for API clarity
+- When implementing single-purpose components that do one thing well (button, input, card, modal)
+- When composing complex UIs by combining smaller, simpler components rather than building monolithic structures
+- When managing component state and deciding whether state should be local or lifted to parent components
+- When creating configurable components with props that have sensible default values
+- When encapsulating implementation details while exposing only necessary public APIs
+- When naming components descriptively to indicate their purpose (`SubmitButton`, `UserProfileCard`, `ErrorBoundary`)
+- When documenting component usage, required/optional props, and providing code examples
+- When keeping the number of props manageable and considering composition patterns when props grow excessive
+- When building components in React (functional components, hooks), Vue (SFC), Angular, or native web components
+
+# Frontend Components
 
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle frontend components.
 

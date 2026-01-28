@@ -1,160 +1,248 @@
 ---
 name: planning-with-files
-description: 将工作流转换为使用 Manus 风格的持久化 markdown 文件进行规划、进度跟踪和知识存储。适用于开始复杂任务、多步骤项目、研究任务，或者当用户提到规划、组织工作、跟踪进度或需要结构化输出时使用。
+version: "2.10.0"
+description: Implements Manus-style file-based planning for complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when starting complex multi-step tasks, research projects, or any task requiring >5 tool calls. Now with automatic session recovery after /clear.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
+  - WebFetch
+  - WebSearch
+hooks:
+  PreToolUse:
+    - matcher: "Write|Edit|Bash|Read|Glob|Grep"
+      hooks:
+        - type: command
+          command: "cat task_plan.md 2>/dev/null | head -30 || true"
+  PostToolUse:
+    - matcher: "Write|Edit"
+      hooks:
+        - type: command
+          command: "echo '[planning-with-files] File updated. If this completes a phase, update task_plan.md status.'"
+  Stop:
+    - hooks:
+        - type: command
+          command: |
+            SCRIPT_DIR="${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/planning-with-files}/scripts"
+
+            IS_WINDOWS=0
+            if [ "${OS-}" = "Windows_NT" ]; then
+              IS_WINDOWS=1
+            else
+              UNAME_S="$(uname -s 2>/dev/null || echo '')"
+              case "$UNAME_S" in
+                CYGWIN*|MINGW*|MSYS*) IS_WINDOWS=1 ;;
+              esac
+            fi
+
+            if [ "$IS_WINDOWS" -eq 1 ]; then
+              if command -v pwsh >/dev/null 2>&1; then
+                pwsh -ExecutionPolicy Bypass -File "$SCRIPT_DIR/check-complete.ps1" 2>/dev/null ||
+                powershell -ExecutionPolicy Bypass -File "$SCRIPT_DIR/check-complete.ps1" 2>/dev/null ||
+                sh "$SCRIPT_DIR/check-complete.sh"
+              else
+                powershell -ExecutionPolicy Bypass -File "$SCRIPT_DIR/check-complete.ps1" 2>/dev/null ||
+                sh "$SCRIPT_DIR/check-complete.sh"
+              fi
+            else
+              sh "$SCRIPT_DIR/check-complete.sh"
+            fi
 ---
 
-# 使用文件进行规划
+# Planning with Files
 
-像 Manus 一样工作：使用持久化的 markdown 文件作为你的"磁盘工作记忆"。
+Work like Manus: Use persistent markdown files as your "working memory on disk."
 
-## 快速开始
+## FIRST: Check for Previous Session (v2.2.0)
 
-在任何复杂任务之前：
+**Before starting work**, check for unsynced context from a previous session:
 
-1. **在工作目录中创建 `task_plan.md`**
-2. **定义阶段**，使用复选框
-3. **每个阶段后更新** - 标记 [x] 并更改状态
-4. **决策前读取** - 刷新注意力窗口中的目标
+```bash
+# Linux/macOS (auto-detects python3 or python)
+$(command -v python3 || command -v python) ${CLAUDE_PLUGIN_ROOT}/scripts/session-catchup.py "$(pwd)"
+```
 
-## 三文件模式
+```powershell
+# Windows PowerShell
+python "$env:USERPROFILE\.opencode\skills\planning-with-files\scripts\session-catchup.py" (Get-Location)
+```
 
-对于每个非平凡任务，创建三个文件：
+If catchup report shows unsynced context:
+1. Run `git diff --stat` to see actual code changes
+2. Read current planning files
+3. Update planning files based on catchup + git diff
+4. Then proceed with task
 
-| 文件 | 用途 | 更新时机 |
+## Important: Where Files Go
+
+- **Templates** are in `${CLAUDE_PLUGIN_ROOT}/templates/`
+- **Your planning files** go in **your project directory**
+
+| Location | What Goes There |
+|----------|-----------------|
+| Skill directory (`${CLAUDE_PLUGIN_ROOT}/`) | Templates, scripts, reference docs |
+| Your project directory | `task_plan.md`, `findings.md`, `progress.md` |
+
+## Quick Start
+
+Before ANY complex task:
+
+1. **Create `task_plan.md`** — Use [templates/task_plan.md](templates/task_plan.md) as reference
+2. **Create `findings.md`** — Use [templates/findings.md](templates/findings.md) as reference
+3. **Create `progress.md`** — Use [templates/progress.md](templates/progress.md) as reference
+4. **Re-read plan before decisions** — Refreshes goals in attention window
+5. **Update after each phase** — Mark complete, log errors
+
+> **Note:** Planning files go in your project root, not the skill installation folder.
+
+## The Core Pattern
+
+```
+Context Window = RAM (volatile, limited)
+Filesystem = Disk (persistent, unlimited)
+
+→ Anything important gets written to disk.
+```
+
+## File Purposes
+
+| File | Purpose | When to Update |
 |------|---------|----------------|
-| `task_plan.md` | 跟踪阶段和进度 | 每个阶段后 |
-| `notes.md` | 存储发现和研究 | 研究过程中 |
-| `[deliverable].md` | 最终输出 | 完成时 |
+| `task_plan.md` | Phases, progress, decisions | After each phase |
+| `findings.md` | Research, discoveries | After ANY discovery |
+| `progress.md` | Session log, test results | Throughout session |
 
-## 核心工作流
+## Critical Rules
 
-```
-循环 1：创建包含目标和阶段的 task_plan.md
-循环 2：研究 → 保存到 notes.md → 更新 task_plan.md
-循环 3：读取 notes.md → 创建交付物 → 更新 task_plan.md
-循环 4：交付最终输出
-```
+### 1. Create Plan First
+Never start a complex task without `task_plan.md`. Non-negotiable.
 
-### 详细循环说明
+### 2. The 2-Action Rule
+> "After every 2 view/browser/search operations, IMMEDIATELY save key findings to text files."
 
-**每次主要操作前：**
-```bash
-Read task_plan.md  # 刷新注意力窗口中的目标
-```
+This prevents visual/multimodal information from being lost.
 
-**每个阶段后：**
-```bash
-Edit task_plan.md  # 标记 [x]，更新状态
-```
+### 3. Read Before Decide
+Before major decisions, read the plan file. This keeps goals in your attention window.
 
-**存储信息时：**
-```bash
-Write notes.md     # 不要塞满上下文，存储到文件中
-```
+### 4. Update After Act
+After completing any phase:
+- Mark phase status: `in_progress` → `complete`
+- Log any errors encountered
+- Note files created/modified
 
-## task_plan.md 模板
-
-对于任何复杂任务，首先创建此文件：
+### 5. Log ALL Errors
+Every error goes in the plan file. This builds knowledge and prevents repetition.
 
 ```markdown
-# 任务计划：[简要描述]
-
-## 目标
-[一句话描述最终状态]
-
-## 阶段
-- [ ] 阶段 1：规划和设置
-- [ ] 阶段 2：研究/收集信息
-- [ ] 阶段 3：执行/构建
-- [ ] 阶段 4：审查和交付
-
-## 关键问题
-1. [需要回答的问题]
-2. [需要回答的问题]
-
-## 已做出的决策
-- [决策]：[理由]
-
-## 遇到的错误
-- [错误]：[解决方案]
-
-## 状态
-**当前处于阶段 X** - [我现在正在做的事情]
+## Errors Encountered
+| Error | Attempt | Resolution |
+|-------|---------|------------|
+| FileNotFoundError | 1 | Created default config |
+| API timeout | 2 | Added retry logic |
 ```
 
-## notes.md 模板
+### 6. Never Repeat Failures
+```
+if action_failed:
+    next_action != same_action
+```
+Track what you tried. Mutate the approach.
 
-用于研究和发现：
+## The 3-Strike Error Protocol
 
-```markdown
-# 笔记：[主题]
+```
+ATTEMPT 1: Diagnose & Fix
+  → Read error carefully
+  → Identify root cause
+  → Apply targeted fix
 
-## 来源
+ATTEMPT 2: Alternative Approach
+  → Same error? Try different method
+  → Different tool? Different library?
+  → NEVER repeat exact same failing action
 
-### 来源 1：[名称]
-- URL：[链接]
-- 关键点：
-  - [发现]
-  - [发现]
+ATTEMPT 3: Broader Rethink
+  → Question assumptions
+  → Search for solutions
+  → Consider updating the plan
 
-## 综合发现
-
-### [类别]
-- [发现]
-- [发现]
+AFTER 3 FAILURES: Escalate to User
+  → Explain what you tried
+  → Share the specific error
+  → Ask for guidance
 ```
 
-## 关键规则
+## Read vs Write Decision Matrix
 
-### 1. 始终先创建计划
-在没有 `task_plan.md` 的情况下永远不要开始复杂任务。这是不可协商的。
+| Situation | Action | Reason |
+|-----------|--------|--------|
+| Just wrote a file | DON'T read | Content still in context |
+| Viewed image/PDF | Write findings NOW | Multimodal → text before lost |
+| Browser returned data | Write to file | Screenshots don't persist |
+| Starting new phase | Read plan/findings | Re-orient if context stale |
+| Error occurred | Read relevant file | Need current state to fix |
+| Resuming after gap | Read all planning files | Recover state |
 
-### 2. 决策前先读取
-在任何重大决策之前，读取计划文件。这可以将目标保持在你的注意力窗口中。
+## The 5-Question Reboot Test
 
-### 3. 行动后更新
-完成任何阶段后，立即更新计划文件：
-- 用 [x] 标记已完成的阶段
-- 更新状态部分
-- 记录遇到的任何错误
+If you can answer these, your context management is solid:
 
-### 4. 存储，不要塞满
-大型输出放入文件，而不是上下文。在工作记忆中只保留路径。
+| Question | Answer Source |
+|----------|---------------|
+| Where am I? | Current phase in task_plan.md |
+| Where am I going? | Remaining phases |
+| What's the goal? | Goal statement in plan |
+| What have I learned? | findings.md |
+| What have I done? | progress.md |
 
-### 5. 记录所有错误
-每个错误都进入"遇到的错误"部分。这为未来的任务积累知识。
+## When to Use This Pattern
 
-## 何时使用此模式
+**Use for:**
+- Multi-step tasks (3+ steps)
+- Research tasks
+- Building/creating projects
+- Tasks spanning many tool calls
+- Anything requiring organization
 
-**对以下情况使用三文件模式：**
-- 多步骤任务（3+ 步骤）
-- 研究任务
-- 构建/创建某物
-- 跨多个工具调用的任务
-- 任何需要组织的事情
+**Skip for:**
+- Simple questions
+- Single-file edits
+- Quick lookups
 
-**以下情况跳过：**
-- 简单问题
-- 单文件编辑
-- 快速查找
+## Templates
 
-## 避免的反模式
+Copy these templates to start:
 
-| 不要做 | 而是做 |
+- [templates/task_plan.md](templates/task_plan.md) — Phase tracking
+- [templates/findings.md](templates/findings.md) — Research storage
+- [templates/progress.md](templates/progress.md) — Session logging
+
+## Scripts
+
+Helper scripts for automation:
+
+- `scripts/init-session.sh` — Initialize all planning files
+- `scripts/check-complete.sh` — Verify all phases complete
+- `scripts/session-catchup.py` — Recover context from previous session (v2.2.0)
+
+## Advanced Topics
+
+- **Manus Principles:** See [reference.md](reference.md)
+- **Real Examples:** See [examples.md](examples.md)
+
+## Anti-Patterns
+
+| Don't | Do Instead |
 |-------|------------|
-| 使用 TodoWrite 进行持久化 | 创建 `task_plan.md` 文件 |
-| 陈述一次目标就忘记 | 每次决策前重新读取计划 |
-| 隐藏错误并重试 | 将错误记录到计划文件 |
-| 将所有内容塞入上下文 | 将大型内容存储到文件中 |
-| 立即开始执行 | 首先创建计划文件 |
-
-## 高级模式
-
-参见 [reference.md](reference.md) 了解：
-- 注意力操作技巧
-- 错误恢复模式
-- 来自 Manus 的上下文优化
-
-参见 [examples.md](examples.md) 了解：
-- 真实任务示例
-- 复杂工作流模式
+| Use TodoWrite for persistence | Create task_plan.md file |
+| State goals once and forget | Re-read plan before decisions |
+| Hide errors and retry silently | Log errors to plan file |
+| Stuff everything in context | Store large content in files |
+| Start executing immediately | Create plan file FIRST |
+| Repeat failed actions | Track attempts, mutate approach |
+| Create files in skill directory | Create files in your project |

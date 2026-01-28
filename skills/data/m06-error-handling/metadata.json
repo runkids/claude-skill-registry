@@ -1,7 +1,7 @@
 {
   "name": "m06-error-handling",
-  "repo": "rustfs/rustfs",
-  "path": ".claude/skills/m06-error-handling/SKILL.md",
-  "source": "github.com/rustfs/rustfs",
-  "downloaded_at": "2026-01-27T03:47:02.207741Z"
+  "repo": "actionbook/rust-skills",
+  "path": "skills/m06-error-handling/SKILL.md",
+  "source": "github.com/actionbook/rust-skills",
+  "downloaded_at": "2026-01-28T04:10:51.582472Z"
 }

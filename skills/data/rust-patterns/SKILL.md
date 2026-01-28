@@ -1,97 +1,374 @@
 ---
-name: rust-patterns
-description: Rust idioms, patterns, and gotchas to write better Rust code
-allowed-tools:
-  - Read
-  - Grep
-  - Edit
-  - Write
+name: Rust Performance & Safety Patterns
+description: Zero-copy deserialization, async I/O patterns, lifetime management, memory-efficient parsing, and safe handling of unsafe code for SSTable parsing. Use when working with performance optimization, memory efficiency, async/await, borrowing/lifetimes, zero-copy patterns, or memory usage under 128MB target.
 ---
 
-# Rust Patterns
+# Rust Performance & Safety Patterns
 
-Practical patterns and pitfalls for writing idiomatic, testable Rust.
+This skill provides guidance on Rust patterns for high-performance, memory-efficient SSTable parsing.
 
-## Tooling
+## When to Use This Skill
 
-| Context | Do | Why |
-|---------|-----|-----|
-| Running cargo commands | Read `.cargo/config.toml` for aliases | Projects often define custom aliases for common workflows |
-| CI pipeline | `fmt --check` → `clippy -D warnings` → `nextest run` → `doc` | Standard pre-commit checks in order |
-| Bypassing clippy lint | `#[expect(lint, reason = "...")]` or comment above `#[allow(...)]` | Documents why the lint doesn't apply; reviewable justification |
-| Running tests | Check for `.config/nextest.toml`; use `cargo nextest run` if present | Faster parallel execution than `cargo test` |
+- Implementing zero-copy deserialization
+- Managing lifetimes for borrowed data
+- Async I/O patterns with tokio
+- Memory optimization (<128MB target)
+- Safe handling of unsafe code
+- Borrow checker issues
+- Performance bottlenecks
+
+## Documentation Resources
+
+For latest crate documentation, use Context7 MCP:
+
+### bytes crate (`/tokio-rs/bytes`)
+Zero-copy buffer types, Bytes/BytesMut API
+```
+Ask: "Fetch bytes crate documentation using Context7"
+```
+
+### tokio (`/tokio-rs/tokio`)
+Async runtime, I/O patterns, task management
+```
+Ask: "Fetch tokio documentation using Context7"
+```
+
+### serde (`/serde-rs/serde`)
+Serialization framework patterns
+```
+Ask: "Fetch serde documentation using Context7"
+```
+
+## Zero-Copy Patterns
+
+### Core Principle
+Avoid copying data unnecessarily. Use `Bytes` for shared buffer references.
+
+See [zero-copy-patterns.md](zero-copy-patterns.md) for detailed patterns from existing codebase.
+
+### Buffer Sharing with Bytes
+```rust
+use bytes::Bytes;
+
+// Share buffer without copying
+fn parse_partition(buffer: Bytes, offset: usize, len: usize) -> Result<Partition> {
+    // Slice creates new Bytes pointing to same underlying buffer
+    let partition_data = buffer.slice(offset..offset + len);
+    
+    // Pass slices to child parsers
+    let header = parse_header(partition_data.slice(0..10))?;
+    let rows = parse_rows(partition_data.slice(10..))?;
+    
+    Ok(Partition { header, rows })
+}
+```
+
+### Avoiding Unnecessary Clones
+```rust
+// ❌ BAD: Copies data
+fn parse_text(data: &[u8]) -> Result<String> {
+    let bytes = data.to_vec();  // COPY 1
+    String::from_utf8(bytes)    // COPY 2 (if validation needed)
+}
+
+// ✅ GOOD: Minimal copying
+fn parse_text(data: Bytes) -> Result<String> {
+    // Only copy if UTF-8 validation requires it
+    let s = std::str::from_utf8(&data)?;
+    Ok(s.to_string())  // Single copy only when needed
+}
+
+// ✅ BETTER: Keep as Bytes if possible
+fn parse_blob(data: Bytes) -> Result<Bytes> {
+    // No copy at all
+    Ok(data)
+}
+```
+
+## Lifetime Management
+
+### Borrowing vs Owning
+```rust
+// Struct with borrowed data (careful with lifetimes)
+struct Row<'a> {
+    key: &'a [u8],
+    values: Vec<&'a [u8]>,
+}
+
+// Struct with owned data (simpler, but copies)
+struct RowOwned {
+    key: Bytes,      // Shared ownership, no copy
+    values: Vec<Bytes>,
+}
+```
+
+### Lifetime Elision
+```rust
+// Explicit lifetimes
+fn parse_row<'a>(data: &'a [u8]) -> Result<Row<'a>> { ... }
+
+// Elided (compiler infers)
+fn parse_row(data: &[u8]) -> Result<Row> { ... }
+```
+
+### Common Lifetime Patterns
+```rust
+// Pattern 1: Return borrowed data
+fn find_cell<'a>(row: &'a Row, column: &str) -> Option<&'a [u8]> {
+    row.cells.get(column).map(|c| c.value.as_ref())
+}
+
+// Pattern 2: Return owned data (use Bytes for zero-copy)
+fn find_cell_owned(row: &Row, column: &str) -> Option<Bytes> {
+    row.cells.get(column).map(|c| c.value.clone())  // Bytes::clone is cheap
+}
+```
+
+## Async Patterns
+
+### Async File I/O
+```rust
+use tokio::fs::File;
+use tokio::io::AsyncReadExt;
+
+async fn read_sstable(path: &Path) -> Result<Bytes> {
+    let mut file = File::open(path).await?;
+    let mut buffer = Vec::new();
+    file.read_to_end(&mut buffer).await?;
+    Ok(Bytes::from(buffer))
+}
+```
+
+### Async Decompression
+```rust
+use tokio::task;
+
+async fn decompress_chunk(compressed: Bytes) -> Result<Bytes> {
+    // CPU-intensive work in blocking task
+    task::spawn_blocking(move || {
+        let decompressed = lz4::block::decompress(&compressed, None)?;
+        Ok(Bytes::from(decompressed))
+    }).await?
+}
+```
+
+### Async Iteration
+```rust
+use futures::stream::{Stream, StreamExt};
+
+async fn parse_rows<S>(row_stream: S) -> Result<Vec<Row>>
+where
+    S: Stream<Item = Result<Bytes>>,
+{
+    let mut rows = Vec::new();
+    tokio::pin!(row_stream);
+    
+    while let Some(row_data) = row_stream.next().await {
+        let row = parse_row(row_data?)?;
+        rows.push(row);
+    }
+    
+    Ok(rows)
+}
+```
+
+## Memory Management
+
+### PRD Target: <128MB
+Track memory usage for large SSTables:
+
+```rust
+// Don't hold entire SSTable in memory
+struct SstableReader {
+    file: File,
+    index: Vec<IndexEntry>,  // Keep index in memory
+    cache: LruCache<u64, Bytes>,  // Cache hot blocks
+}
+
+// Read only what's needed
+async fn read_partition(&mut self, offset: u64) -> Result<Partition> {
+    // Check cache first
+    if let Some(block) = self.cache.get(&offset) {
+        return parse_partition(block.clone(), 0, block.len());
+    }
+    
+    // Read minimal block
+    let block = self.read_block(offset).await?;
+    self.cache.put(offset, block.clone());
+    parse_partition(block, 0, block.len())
+}
+```
+
+### Streaming Instead of Buffering
+```rust
+// ❌ BAD: Buffer everything
+async fn process_sstable(path: &Path) -> Result<Vec<Row>> {
+    let data = tokio::fs::read(path).await?;  // Load entire file
+    parse_all_rows(&data)
+}
+
+// ✅ GOOD: Stream rows
+async fn process_sstable(path: &Path) -> Result<()> {
+    let reader = SstableReader::open(path).await?;
+    
+    while let Some(row) = reader.next_row().await? {
+        process_row(row)?;
+        // Row dropped here, memory freed
+    }
+    
+    Ok(())
+}
+```
 
 ## Error Handling
 
-| Instead of | Use | Why |
-|------------|-----|-----|
-| `.unwrap()` | `.expect("reason")` or `?` with context | Panics hide bugs; expect documents assumptions; `?` propagates properly |
-| Single error message | `MessagePair { external, internal }` | Prevents leaking sensitive info to clients; keeps detail for logs |
-| Library errors as strings | `thiserror` enums for domain errors | Pattern matching for retry logic, client feedback |
-| Bare `?` propagation | `.context()` / `.with_context(|| format!(...))` | Adds high-level context to low-level errors |
-| `Result<T, Error>` everywhere | Type aliases like `CreateResult<T>`, `DeleteResult` | Self-documenting API signatures |
-| Retrying all errors uniformly | Classify: `BackoffError::Transient(e)` vs `Permanent(e)` | Transient = backoff retry, permanent = fail fast |
-| Monolithic error enum | Nested `Result<Result<T, LocalErr>, FatalErr>` | Separates recoverable failures from system-halting errors |
+### Result Propagation
+```rust
+use thiserror::Error;
 
-## Async & Tokio
+#[derive(Error, Debug)]
+enum ParseError {
+    #[error("Not enough bytes: need {need}, have {have}")]
+    NotEnoughBytes { need: usize, have: usize },
+    
+    #[error("Invalid UTF-8: {0}")]
+    InvalidUtf8(#[from] std::str::Utf8Error),
+    
+    #[error("Compression error: {0}")]
+    Compression(String),
+}
 
-| Pattern | Example | Gotcha |
-|---------|---------|--------|
-| Explicit runtime ownership | Pass `Handle` explicitly; `#[tokio::main]` only at entry point | Don't assume runtime exists; don't spawn from arbitrary code |
-| Select-based event loop | `select!` returns typed `Action` enum; `loop { apply(select().await) }` | Keep select branches thin; complex logic inside can be cancelled |
-| Prevent futurelock | Use channels or `tokio::spawn` for lock-holding futures in `select!` | `select!` stops polling losers; stopped future holding lock = deadlock |
-| Channel selection | `mpsc` bounded (backpressure), `oneshot` (request-reply), `watch` (broadcast latest) | Avoid unbounded `mpsc` except sync-to-async bridge |
+// Use ? operator for clean propagation
+fn parse_row(data: &[u8]) -> Result<Row, ParseError> {
+    let flags = data.get(0).ok_or(ParseError::NotEnoughBytes { 
+        need: 1, 
+        have: data.len() 
+    })?;
+    
+    let text = std::str::from_utf8(&data[1..])?;  // Auto-converts Utf8Error
+    
+    Ok(Row { flags: *flags, text: text.to_string() })
+}
+```
 
-## Type Safety
+## Safe Unsafe Code
 
-| Pattern | Instead of | Use | Why |
-|---------|------------|-----|-----|
-| Newtype wrappers | `fn process(job_id: u64, session_id: Uuid)` | `struct JobId(pub u64);` + `fn process(job: JobId, session: SessionId)` | Compiler prevents mixing up IDs of same underlying type |
-| Validated newtypes | `pub` fields with invariants | Private fields + `new() -> Result` + custom `Deserialize` | Invariants enforced at construction; can't bypass via deserialization |
-| Enum state machines | Flat struct with `Option` fields | Enum variants with embedded state-specific data | Invalid states unrepresentable; each state knows its data |
-| Validated transitions | `set_state(new)` with no checks | `assert!(valid_transition(old, new))` | Fail fast on invalid transitions; bugs don't propagate |
-| `Cow` for flexibility | `String` or `&'static str` separately | `Cow<'static, str>` | Accepts both static and owned; avoids allocation for constants |
-| `Arc` for sharing | `Rc` or cloning data | `Arc<T>` | Clone+Send shared ownership across threads |
-| `Box` for dyn | Stack allocation of trait objects | `Box<dyn Trait>` | Single-owner dynamic dispatch; heap when size unknown |
-| `Arc::clone` | `arc.clone()` | `Arc::clone(&arc)` | Makes intent explicit: cheap ref count bump, not deep clone |
+### When Unsafe is Necessary
+```rust
+// Reading fixed-size integers from buffer
+fn read_u32_be(data: &[u8]) -> u32 {
+    // Safe version (bounds check)
+    u32::from_be_bytes([data[0], data[1], data[2], data[3]])
+    
+    // Unsafe version (skip bounds check if you're certain)
+    unsafe {
+        u32::from_be_bytes(*(data.as_ptr() as *const [u8; 4]))
+    }
+}
+```
 
-## Trait Design
+### Safety Documentation
+```rust
+/// # Safety
+/// 
+/// `data` must be at least 4 bytes long, and properly aligned.
+/// Caller must ensure this invariant.
+unsafe fn read_u32_unchecked(data: &[u8]) -> u32 {
+    debug_assert!(data.len() >= 4);
+    u32::from_be_bytes(*(data.as_ptr() as *const [u8; 4]))
+}
+```
 
-| Guideline | Example | Why |
-|-----------|---------|-----|
-| Dependency abstraction | `trait Clock`, `trait Network` with real + sim impls | Swap behavior for deterministic tests; enables simulation without mocks |
-| Type witness traits | `trait SagaType { type Ctx; type Params; }` instead of `<Ctx, Params, Output, Error>` | Bundle related types via associated types; avoids parameter explosion |
-| Consistent API derives | `#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]` | Predictable capabilities for API types |
-| Adjacent enum tagging | `#[serde(tag = "type", content = "value")]` or `#[serde(tag = "type")]` | Clear JSON: `{"type": "V4", "value": {...}}` vs flat `{"type": "Create", "name": "foo"}` |
+### Prefer Safe Alternatives
+```rust
+// ✅ BEST: Safe with slice pattern matching
+fn read_u32_safe(data: &[u8]) -> Option<u32> {
+    match data {
+        [a, b, c, d, ..] => Some(u32::from_be_bytes([*a, *b, *c, *d])),
+        _ => None,
+    }
+}
+```
 
-## Testing & Structure
+## Performance Profiling
 
-| Pattern | Description | Benefit |
-|---------|-------------|---------|
-| Short functions (10-30 lines) | Decompose into well-named helpers when logic grows | Readable, testable, easier to reason about |
-| Semantic suffixes | `_impl` (trait delegation), `_inner` (non-generic core), `for_` (factory), `from_`/`to_` (conversion) | Clear intent; `_inner` enables manual outlining for faster compiles |
-| Closures vs functions | Closures for one-off logic; named functions for reuse or testing | `.map_err(ActionError::action_failed)` over long inline closures |
-| OpContext/RequestContext | Bundle `log`, `authn`, `authz` into single context with `authorize()`, `child()` | Consistent logging, auth, tracing; avoids parameter explosion |
-| Simulated implementations | Full alternative impls (e.g., `sp-sim/`) instead of mock frameworks | Exercises real code paths; catches integration bugs mocks miss |
-| `#[instrument]` macro | Add `#[tracing::instrument]` to functions when using tracing | Automatic span creation with function args; simplifies observability |
-| Sans-IO | Logic accepts/returns bytes; caller handles I/O | Testable, framework-agnostic; see [sans-io.readthedocs.io](https://sans-io.readthedocs.io) |
+### Cargo Flamegraph
+```bash
+cargo install flamegraph
+cargo flamegraph --bin cqlite -- parse large-file.db
+```
 
-## Database Patterns
+### Criterion Benchmarks
+```rust
+use criterion::{criterion_group, criterion_main, Criterion};
 
-| Pattern | Description | Why |
-|---------|-------------|-----|
-| Soft deletes | `time_deleted TIMESTAMPTZ` column (NULL = live) | Audit trails + name reuse after deletion |
-| Keyset pagination | `ResultsPage { next_page: Option<String>, items }` + `WHERE name > last_seen` | Scales with data size; OFFSET scans skipped rows |
+fn parse_row_benchmark(c: &mut Criterion) {
+    let data = generate_test_row();
+    
+    c.bench_function("parse_row", |b| {
+        b.iter(|| parse_row(&data))
+    });
+}
 
-## Project Organization
+criterion_group!(benches, parse_row_benchmark);
+criterion_main!(benches);
+```
 
-| Pattern | Description | Benefit |
-|---------|-------------|---------|
-| Workspace by change frequency | Separate crates for stable (types, utils) vs volatile (app logic) code | Incremental builds; stable crates rarely recompile |
-| Re-export from crate root | `pub use error::HttpError;` in lib.rs | Users write `use crate::HttpError` not `use crate::error::HttpError` |
+### Memory Profiling
+```bash
+cargo install cargo-instruments
+cargo instruments -t Allocations --bin cqlite -- parse large-file.db
+```
 
-## Unsafe Code
+## PRD Alignment
 
-| Rule | Example | Why |
-|------|---------|-----|
-| SAFETY comments | `// SAFETY: pointer is valid because...` before every `unsafe` block | Documents invariants; required by clippy `undocumented_unsafe_blocks` |
+**Supports Milestone M1** (Core Reading Library):
+- Zero-copy deserialization
+- Memory target: <128MB for large files
+- Type-safe parsing
+
+**Supports Milestone M6** (Performance Validation):
+- Parse 1GB files in <10 seconds
+- Sub-millisecond partition lookups
+
+## Common Patterns from Codebase
+
+See [zero-copy-patterns.md](zero-copy-patterns.md) for patterns extracted from:
+- `v5_compressed_legacy.rs` (1997 lines)
+- Bytes usage
+- Async decompression
+- Buffer management
+
+## Anti-Patterns to Avoid
+
+### 1. Unnecessary Allocations
+❌ `Vec::new()` then `push` in loop with unknown size
+✅ `Vec::with_capacity(known_size)`
+
+### 2. Clone Everything
+❌ `.clone()` on every data structure
+✅ Use `&` references or `Bytes` for shared ownership
+
+### 3. Blocking in Async
+❌ CPU-intensive work in async fn
+✅ `tokio::task::spawn_blocking` for CPU work
+
+### 4. Ignoring Capacity
+❌ `String::new()` then many `push_str` calls
+✅ `String::with_capacity(estimated_size)`
+
+## Next Steps
+
+When optimizing performance:
+1. Profile first (don't guess)
+2. Use flamegraph to find hotspots
+3. Check allocations with Instruments/heaptrack
+4. Benchmark changes with Criterion
+5. Validate memory usage stays <128MB
+
+## References
+
+- [zero-copy-patterns.md](zero-copy-patterns.md) - Patterns from codebase
+- Context7: `/tokio-rs/bytes`, `/tokio-rs/tokio`, `/serde-rs/serde`
+- Rust Performance Book: https://nnethercote.github.io/perf-book/
+

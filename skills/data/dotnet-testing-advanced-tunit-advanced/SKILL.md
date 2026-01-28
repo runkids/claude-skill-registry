@@ -1,14 +1,47 @@
 ---
 name: dotnet-testing-advanced-tunit-advanced
 description: |
-  TUnit 新世代測試框架進階應用技巧。
-  涵蓋資料驅動測試：MethodDataSource、ClassDataSource、Matrix Tests。
-  提供依賴注入模式、測試生命週期管理、Properties 屬性標記與過濾。
-  包含執行控制：Retry 重試機制、Timeout 超時控制、DisplayName 自訂名稱。
-  實戰 ASP.NET Core 整合測試：WebApplicationFactory、效能測試、負載測試。
-  整合 Testcontainers 容器編排：PostgreSQL、Redis、Kafka 多服務協作。
-  適用於企業級專案，需要複雜測試基礎設施的進階測試場景。
+  TUnit 進階應用完整指南 - 資料驅動測試、依賴注入與整合測試實戰。
+  涵蓋 MethodDataSource、ClassDataSource、Matrix Tests、Properties 過濾。
+  包含 Retry/Timeout 控制、WebApplicationFactory 整合、Testcontainers 多服務編排。
+
+triggers:
+  # 核心關鍵字
+  - TUnit advanced
+  - MethodDataSource
+  - ClassDataSource
+  - Matrix Tests
+  - TUnit 進階
+
+  # 技術術語
+  - [MatrixDataSource]
+  - MicrosoftDependencyInjectionDataSource
+  - [Property]
+  - [Retry]
+  - [Timeout]
+  - [DisplayName]
+
+  # 依賴注入
+  - DependencyInjectionDataSourceAttribute
+  - IServiceScope
+  - CreateScope
+  - TUnit DI
+
+  # 使用情境
+  - 資料驅動測試
+  - 測試過濾
+  - treenode-filter
+  - WebApplicationFactory TUnit
+  - Before(Assembly)
+  - After(Assembly)
+  - 複雜基礎設施
+  - 多容器編排
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: "tunit, advanced-testing, data-driven, dependency-injection, integration-testing, testcontainers"
 ---
 
 # TUnit 進階應用：資料驅動測試、依賴注入與整合測試實戰
@@ -1046,11 +1079,11 @@ tunit.enable_verbose_diagnostics = true
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 29 - TUnit 進階應用：資料驅動測試與依賴注入深度實戰**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376862
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10377970
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day29
 
 - **Day 30 - TUnit 進階應用 - 執行控制與測試品質和 ASP.NET Core 整合測試實戰**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376992
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10378176
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day30
 
 ### TUnit 官方資源

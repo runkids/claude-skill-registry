@@ -1,139 +1,258 @@
 ---
 name: skill-authoring
-description: Design and development best practices for Claude Code skills, MCP tools, and AI agent capabilities. Use when creating skills, writing SKILL.md files, designing tool descriptions, or optimizing triggers. Triggers on "create a skill", "skill template", "write skill instructions", SKILL.md, metadata.json, progressive disclosure, trigger optimization, MCP tool design, or skill testing. Does NOT cover specific frameworks or languages (use dedicated skills).
+description: Guide for creating and maintaining user-facing agent skills
 ---
 
-# AI Agent Skills Best Practices
+# Skill Authoring Guide
 
-Design and development guide for AI agent skills, including Claude Code skills and MCP tools. Contains 46 rules across 8 categories, prioritized by impact to guide skill creation, review, and optimization.
+This skill guides you through creating user-facing agent skills. For the canonical reference, see [agentskills.io](https://agentskills.io/home).
 
-## When to Apply
+## Skill Structure
 
-- Creating new Claude Code skills or MCP tools
-- Writing or reviewing SKILL.md metadata and descriptions
-- Optimizing skill trigger reliability
-- Structuring content for progressive disclosure
-- Testing skill activation and behavior
-- Designing tool interfaces for agent workflows
+A skill is a folder containing a `SKILL.md` file with metadata and instructions:
 
-## Core Principles
+```
+my-skill/
+├── SKILL.md          # Required: instructions + metadata
+├── scripts/          # Optional: executable code
+├── references/       # Optional: additional documentation
+└── assets/           # Optional: templates, resources
+```
 
-**1. Descriptions drive activation.** Claude selects skills based on description matching against user intent. Include specific capabilities, trigger keywords, and negative cases. A skill with a vague description activates inconsistently or never.
+## SKILL.md Format
 
-**2. Front-load critical instructions.** Claude may truncate long content. Place non-negotiable rules in the first 100 lines. Bury important constraints at the end and they get ignored.
-
-**3. Progressive disclosure saves tokens.** Load detailed content only when needed. A 2000-line skill wastes context on every activation. Structure as: SKILL.md (overview) → references/ (details) → scripts/ (execution).
-
-**4. Test activation, not just execution.** A skill that works perfectly but never triggers provides zero value. Test with real user phrases, synonyms, and edge cases before deployment.
-
-**5. One skill per domain.** Overlapping skills create activation conflicts. Split by clear boundaries (language, framework, workflow stage) with distinct trigger keywords.
-
-## Rule Categories
-
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Skill Metadata Design | CRITICAL | `meta-` |
-| 2 | Description Engineering | CRITICAL | `desc-` |
-| 3 | Content Structure | HIGH | `struct-` |
-| 4 | Trigger Optimization | HIGH | `trigger-` |
-| 5 | Progressive Disclosure | MEDIUM-HIGH | `prog-` |
-| 6 | MCP Tool Design | MEDIUM | `mcp-` |
-| 7 | Testing and Validation | MEDIUM | `test-` |
-| 8 | Maintenance and Distribution | LOW-MEDIUM | `maint-` |
-
-## Quick Reference
-
-### 1. Skill Metadata Design (CRITICAL)
-
-- `meta-name-format` - Use lowercase hyphenated skill names
-- `meta-name-hyphen-boundaries` - Never start or end names with hyphens
-- `meta-name-no-consecutive-hyphens` - Avoid consecutive hyphens in names
-- `meta-name-uniqueness` - Ensure skill names are globally unique
-- `meta-required-frontmatter` - Include all required frontmatter fields
-- `meta-allowed-frontmatter-fields` - Use only allowed frontmatter fields
-- `meta-frontmatter-yaml-syntax` - Use valid YAML frontmatter syntax
-- `meta-name-length` - Keep skill names under 64 characters
-- `meta-directory-match` - Match skill name to directory name
-
-### 2. Description Engineering (CRITICAL)
-
-- `desc-specific-capabilities` - Name specific capabilities in description
-- `desc-trigger-keywords` - Include user trigger keywords in description
-- `desc-third-person-voice` - Write descriptions in third person
-- `desc-length-optimization` - Optimize description length for discovery
-- `desc-avoid-vague-terms` - Avoid vague terms in descriptions
-- `desc-differentiate-similar-skills` - Differentiate similar skills with distinct triggers
-- `desc-include-negative-cases` - Include negative cases for precision
-
-### 3. Content Structure (HIGH)
-
-- `struct-header-hierarchy` - Use consistent header hierarchy
-- `struct-instructions-first` - Put critical instructions early in content
-- `struct-imperative-instructions` - Write instructions in imperative mood
-- `struct-code-blocks-with-language` - Specify language in code blocks
-- `struct-line-limit` - Keep SKILL.md under 500 lines
-- `struct-single-responsibility` - One skill per domain
-
-### 4. Trigger Optimization (HIGH)
-
-- `trigger-slash-command-aliases` - Include slash command aliases in description
-- `trigger-file-type-patterns` - Include file type patterns in description
-- `trigger-workflow-stages` - Reference workflow stages in description
-- `trigger-error-patterns` - Include error patterns in debugging skills
-- `trigger-synonym-coverage` - Cover synonyms and alternate phrasings
-
-### 5. Progressive Disclosure (MEDIUM-HIGH)
-
-- `prog-three-level-disclosure` - Implement three-level progressive disclosure
-- `prog-one-level-deep-links` - Limit reference links to one level deep
-- `prog-scripts-execute-not-read` - Execute scripts instead of reading code
-- `prog-lazy-load-examples` - Lazy load examples and reference material
-- `prog-mutual-exclusion` - Separate mutually exclusive contexts
-
-### 6. MCP Tool Design (MEDIUM)
-
-- `mcp-tool-naming` - Use clear action-object tool names
-- `mcp-parameter-descriptions` - Document all tool parameters
-- `mcp-error-messages` - Return actionable error messages
-- `mcp-tool-scope` - Design single-purpose tools
-- `mcp-allowed-tools` - Use allowed-tools for safety constraints
-- `mcp-idempotent-operations` - Design idempotent tool operations
-
-### 7. Testing and Validation (MEDIUM)
-
-- `test-trigger-phrases` - Test skill activation with real user phrases
-- `test-edge-cases` - Test skills with edge case inputs
-- `test-negative-scenarios` - Test that skills do NOT trigger on unrelated requests
-- `test-instruction-clarity` - Test instructions with fresh context
-
-### 8. Maintenance and Distribution (LOW-MEDIUM)
-
-- `maint-semantic-versioning` - Use semantic versioning for skill releases
-- `maint-changelog` - Maintain a changelog for skill updates
-- `maint-plugin-packaging` - Package skills as plugins for distribution
-- `maint-audit-security` - Audit skills before installing from external sources
-
-## Creating Rules
-
-Copy [assets/templates/_template.md](assets/templates/_template.md) and follow the frontmatter schema:
+### Required Frontmatter
 
 ```yaml
 ---
-title: Rule Title Here
-impact: CRITICAL|HIGH|MEDIUM-HIGH|MEDIUM|LOW-MEDIUM|LOW
-impactDescription: Quantified impact (e.g., "2-10x improvement")
-tags: prefix, technique, related-concepts
+name: skill-name
+description: Brief description of what the skill does
 ---
 ```
 
-Reference files use the pattern: `references/{prefix}-{slug}.md`
+- **name**: Unique identifier (lowercase, hyphens)
+- **description**: Rich description for skill discovery (1-1024 characters)
 
-## References
+### Writing Effective Descriptions
 
-- [skills-ref specification](https://github.com/agentskills/agentskills/tree/main/skills-ref)
-- [Anthropic Engineering: Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
-- [Claude Code Skills Documentation](https://code.claude.com/docs/en/skills)
-- [Anthropic Skills Repository](https://github.com/anthropics/skills)
-- [MCP Best Practices](https://modelcontextprotocol.info/docs/best-practices/)
-- [Prompt Engineering Guide: LLM Agents](https://www.promptingguide.ai/research/llm-agents)
-- [Claude Skills Deep Dive](https://leehanchung.github.io/blogs/2025/10/26/claude-skills-deep-dive/)
+The description field is **critical for skill discovery** by coding agents. It should include:
+
+1. **What the skill does** - Core functionality
+2. **When to use it** - Trigger scenarios
+3. **Keywords** - Task-oriented phrases that help agents connect questions to skills
+
+**Format:**
+```yaml
+description: "[What it does]. Use when [scenarios]. Keywords/phrases."
+```
+
+**Good examples:**
+```yaml
+# Task-oriented phrases help agents connect "how do I" questions
+description: Search and read B2C Commerce Script API documentation and XSD schemas. Use when writing B2C scripts, looking up classes like URLUtils/ProductMgr/CustomerMgr, or answering "how do I" questions about generating URLs, querying products, processing orders, or any dw.* API task.
+
+# Include common error scenarios
+description: View and debug B2C CLI configuration. Use when authentication fails, connection errors occur, wrong instance is used, or you need to verify dw.json settings, environment variables, or OAuth credentials.
+
+# Disambiguation helps agents choose the right skill
+description: Run and monitor existing jobs, import/export site archives. Use when executing batch jobs, importing site data, or checking job status. For creating new job code, use b2c-custom-job-steps instead.
+```
+
+**Bad examples:**
+```yaml
+# Too brief - no discovery keywords
+description: Using the b2c CLI for documentation
+
+# Action-oriented instead of problem-oriented
+description: Using the b2c CLI to search and read Script API documentation
+```
+
+**Key insight:** Include **task-oriented phrases** ("generating URLs", "querying products") not just class names, since users ask about tasks they want to accomplish.
+
+### Instructions Body
+
+The body contains markdown instructions that tell the agent how to perform the task.
+
+```markdown
+---
+name: my-skill
+description: Does something useful. Use when [scenarios]. Keywords: [task phrases].
+---
+
+# Skill Title
+
+Brief overview of what this skill helps accomplish.
+
+## Examples
+
+Concrete examples demonstrating usage.
+
+## Reference
+
+- [Detailed Reference](references/REFERENCE.md) - Link to additional docs
+```
+
+Note: The description frontmatter is the **only** discovery mechanism. "When to Use" sections in the body are not used for discovery. Put all discovery-relevant information in the description.
+
+## Progressive Disclosure
+
+Structure skills for efficient context usage:
+
+| Layer | Token Budget | When Loaded |
+|-------|--------------|-------------|
+| Metadata | ~100 tokens | At startup (all skills) |
+| Instructions | < 5000 tokens | When skill activated |
+| References | As needed | On demand |
+
+### Guidelines
+
+1. **Keep SKILL.md under 500 lines** - Move detailed content to references
+2. **Front-load key information** - Put most important patterns first
+3. **Use tables for quick reference** - Easy to scan
+4. **Link to references** - Don't inline everything
+
+## Optional Directories
+
+### scripts/
+
+Executable code that agents can run:
+
+```
+scripts/
+├── validate.sh       # Validation script
+├── generate.py       # Code generator
+└── setup.js          # Setup helper
+```
+
+Scripts should:
+- Be self-contained or document dependencies
+- Include helpful error messages
+- Handle edge cases gracefully
+
+### references/
+
+Additional documentation loaded on demand:
+
+```
+references/
+├── PATTERNS.md       # Common patterns
+├── API.md            # API reference
+└── EXAMPLES.md       # Extended examples
+```
+
+Keep individual reference files focused. Smaller files = less context usage.
+
+### assets/
+
+Static resources:
+
+```
+assets/
+├── template.xml      # File templates
+├── schema.json       # Schemas
+└── diagram.png       # Visual aids
+```
+
+## File References
+
+Use relative paths from the skill root:
+
+```markdown
+See [the reference guide](references/REFERENCE.md) for details.
+
+Run the setup script:
+scripts/setup.sh
+```
+
+Keep references one level deep. Avoid deeply nested chains.
+
+## Skill Categories
+
+### Developer Skills (`.claude/skills/`)
+
+Skills for contributors working on this codebase:
+
+- Command development patterns
+- Testing approaches
+- API client patterns
+- Documentation standards
+
+### User-Facing Skills (`plugins/*/skills/`)
+
+Skills for users of the tool:
+
+- CLI command usage
+- Platform-specific patterns (B2C Commerce)
+- Integration guides
+
+## Writing Effective Skills
+
+### 1. Start with the User's Goal
+
+```markdown
+## Overview
+
+This skill helps you [accomplish X] by [doing Y].
+```
+
+### 2. Provide Quick Reference Tables
+
+```markdown
+| Command | Description |
+|---------|-------------|
+| `cmd1`  | Does X      |
+| `cmd2`  | Does Y      |
+```
+
+### 3. Show Concrete Examples
+
+```markdown
+## Examples
+
+### Basic Usage
+
+\`\`\`bash
+b2c command --flag value
+\`\`\`
+
+### Advanced Usage
+
+\`\`\`bash
+b2c command --complex-flag
+\`\`\`
+```
+
+### 4. Explain When NOT to Use
+
+```markdown
+## When NOT to Use
+
+- Scenario A (use skill-x instead)
+- Scenario B (manual approach better)
+```
+
+### 5. Link to Authoritative Sources
+
+Reference official documentation rather than duplicating it:
+
+```markdown
+## Reference
+
+For complete API documentation, see [Official Docs](https://example.com/docs).
+```
+
+## Validation Checklist
+
+Before publishing a skill:
+
+- [ ] Frontmatter has `name` and `description`
+- [ ] SKILL.md under 500 lines
+- [ ] Key information appears early
+- [ ] Examples are concrete and runnable
+- [ ] Reference links are valid
+- [ ] No deeply nested reference chains
+- [ ] Tested with target agent
+
+## Detailed Reference
+
+- [Patterns and Examples](references/PATTERNS.md) - Patterns from B2C skills

@@ -1,7 +1,7 @@
 {
   "name": "thought-leadership",
-  "repo": "gtmagents/gtm-agents",
-  "path": "plugins/content-marketing/skills/thought-leadership/SKILL.md",
-  "source": "github.com/gtmagents/gtm-agents",
-  "downloaded_at": "2026-01-27T04:35:29.567352Z"
+  "repo": "az9713/ai-co-writing-claude-skills",
+  "path": ".claude/skills/thought-leadership/SKILL.md",
+  "source": "github.com/az9713/ai-co-writing-claude-skills",
+  "downloaded_at": "2026-01-28T03:12:31.586669Z"
 }

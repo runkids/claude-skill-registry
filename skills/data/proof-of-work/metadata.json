@@ -1,9 +1,7 @@
 {
   "name": "proof-of-work",
-  "description": "Enforces \"prove before claim\" discipline - validation, testing, and evidencerequirements before declaring work complete.Triggers: completion, finished, done, working, should work, configured,ready to ",
   "repo": "athola/claude-night-market",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/imbue/skills/proof-of-work/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-28T03:48:24.440760Z"
 }

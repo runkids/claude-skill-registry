@@ -1,13 +1,7 @@
 {
   "name": "plantuml",
-  "description": "Generate PlantUML diagrams from text descriptions and convert them to PNG/SVG images. This skill should be used when users need to create UML or non-UML diagrams (sequence, class, ER, Gantt, mindmaps,",
-  "repo": "SpillwaveSolutions/plantuml",
-  "category": "data",
-  "tags": [
-    "plantuml"
-  ],
-  "stars": 0,
-  "dir_name": "plantuml",
-  "github_path": "",
-  "github_branch": "main"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/plantuml/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-28T02:15:47.769157Z"
 }

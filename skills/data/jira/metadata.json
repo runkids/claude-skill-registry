@@ -1,7 +1,7 @@
 {
   "name": "jira",
-  "repo": "msbaek/dotfiles",
-  "path": ".claude/skills/jira/SKILL.md",
-  "source": "github.com/msbaek/dotfiles",
-  "downloaded_at": "2026-01-27T04:00:41.437507Z"
+  "repo": "moltbot/skills",
+  "path": "skills/jdrhyne/jira/SKILL.md",
+  "source": "github.com/moltbot/skills",
+  "downloaded_at": "2026-01-28T03:49:57.017402Z"
 }

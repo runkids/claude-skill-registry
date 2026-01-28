@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "Jasrags/ShadowMaster",
-  "path": ".claude/skills/testing/SKILL.md",
-  "source": "github.com/Jasrags/ShadowMaster",
-  "downloaded_at": "2026-01-27T04:38:42.957969Z"
+  "repo": "appautomaton/agent-designer",
+  "path": ".codex/skills/testing/SKILL.md",
+  "source": "github.com/appautomaton/agent-designer",
+  "downloaded_at": "2026-01-28T04:39:13.997040Z"
 }

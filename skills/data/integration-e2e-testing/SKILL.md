@@ -1,129 +1,87 @@
 ---
 name: integration-e2e-testing
-description: Designs integration and E2E tests with mock boundaries and behavior verification rules. Use when writing E2E or integration tests.
+description: Integration and E2E test design principles, ROI calculation, test skeleton specification, and review criteria. Use when designing integration tests, E2E tests, or reviewing test quality.
 ---
 
-# Integration Test & E2E Test Design/Implementation Rules
+# Integration and E2E Testing Principles
 
-## Test Types and Limits
+## Test Type Definition and Limits
 
-| Type | Purpose | File Format | Limit |
-|------|---------|-------------|-------|
-| Integration Test | Component interaction verification | `*.int.test.ts` | 3 per feature |
-| E2E Test | Critical user journey verification | `*.e2e.test.ts` | 1-2 per feature |
-
-**Critical User Journey**: Features with revenue impact, legal requirements, or daily use by majority of users
+| Test Type | Purpose | Scope | Limit per Feature | Implementation Timing |
+|-----------|---------|-------|-------------------|----------------------|
+| Integration | Verify component interactions | Partial system integration | MAX 3 | Created alongside implementation |
+| E2E | Verify critical user journeys | Full system | MAX 1-2 | Executed in final phase only |
 
 ## Behavior-First Principle
 
-### Observability Check (All YES = Include)
+### Include (High ROI)
+- Business logic correctness (calculations, state transitions, data transformations)
+- Data integrity and persistence behavior
+- User-visible functionality completeness
+- Error handling behavior (what user sees/experiences)
 
-| Check | Question | If NO |
-|-------|----------|-------|
-| Observable | Can user observe the result? | Exclude |
-| System Context | Does it require integration of multiple components? | Exclude |
-| Automatable | Can it run stably in CI environment? | Exclude |
+### Exclude (Low ROI in CI/CD)
+- External service real connections → Use contract/interface verification
+- Performance metrics → Non-deterministic, defer to load testing
+- Implementation details → Focus on observable behavior
+- UI layout specifics → Focus on information availability
 
-### Include/Exclude Criteria
+**Principle**: Test = User-observable behavior verifiable in isolated CI environment
 
-**Include**: Business logic accuracy, data integrity, user-visible features, error handling
-**Exclude**: External live connections, performance metrics, implementation details, UI layout
+## ROI Calculation
 
-## Skeleton Specification
+```
+ROI Score = (Business Value × User Frequency + Legal Requirement × 10 + Defect Detection)
+            / (Creation Cost + Execution Cost + Maintenance Cost)
+```
 
-### Required Comment Format
+### Cost Table
 
-```typescript
-// AC: "[Acceptance criteria original text]"
-// ROI: [0-100] | Business Value: [0-10] | Frequency: [0-10]
-// Behavior: [Trigger] -> [Process] -> [Observable Result]
-// @category: core-functionality | integration | edge-case | ux | e2e
-// @dependency: none | [component name] | full-system
+| Test Type | Create | Execute | Maintain | Total |
+|-----------|--------|---------|----------|-------|
+| Unit | 1 | 1 | 1 | 3 |
+| Integration | 3 | 5 | 3 | 11 |
+| E2E | 10 | 20 | 8 | 38 |
+
+## Test Skeleton Specification
+
+### Required Comment Patterns
+
+Each test MUST include the following annotations:
+
+```
+// AC: [Original acceptance criteria text]
+// Behavior: [Trigger] → [Process] → [Observable Result]
+// @category: core-functionality | integration | edge-case | e2e
+// @dependency: none | [component names] | full-system
 // @complexity: low | medium | high
-it.todo('[AC number]: [Test name]')
+// ROI: [score]
 ```
 
-### Property Annotations
+### Verification Items (Optional)
 
-```typescript
-// Property: `[Verification expression]`
-// fast-check: fc.property(fc.[arbitrary], (input) => [invariant])
-it.todo('[AC number]-property: [Invariant description]')
+When verification points need explicit enumeration:
+```
+// Verification items:
+// - [Item 1]
+// - [Item 2]
 ```
 
-### ROI Calculation
+## EARS Format Mapping
 
-```
-ROI = (Business Value x Frequency + Legal Requirement x 10 + Defect Detection) / Total Cost
-```
+| EARS Keyword | Test Type | Generation Approach |
+|--------------|-----------|---------------------|
+| **When** | Event-driven | Trigger event → verify outcome |
+| **While** | State condition | Setup state → verify behavior |
+| **If-then** | Branch coverage | Both condition paths verified |
+| (none) | Basic functionality | Direct invocation → verify result |
 
-| Type | Total Cost | E2E Generation Condition |
-|------|------------|-------------------------|
-| Integration | 11 | - |
-| E2E | 38 | ROI > 50 |
+## Test File Naming Convention
 
-## Implementation Rules
+- Integration tests: `*.int.test.*` or `*.integration.test.*`
+- E2E tests: `*.e2e.test.*`
 
-### Property-Based Test Implementation
-
-When Property annotation exists, fast-check library is required:
-
-```typescript
-import fc from 'fast-check'
-
-it('AC2-property: Model name is always gemini-3-pro-image-preview', () => {
-  fc.assert(
-    fc.property(fc.string(), (prompt) => {
-      const result = client.generate(prompt)
-      return result.model === 'gemini-3-pro-image-preview'
-    })
-  )
-})
-```
-
-**Requirements**:
-- Write in `fc.assert(fc.property(...))` format
-- Reflect skeleton's `// fast-check:` comment directly in implementation
-- When failure case discovered, add as concrete unit test (regression prevention)
-
-### Behavior Verification Implementation
-
-**Behavior Description Verification Levels**:
-
-| Step Type | Verification Target | Example |
-|-----------|--------------------| --------|
-| Trigger | Reproduce in Arrange | API failure -> mockResolvedValue({ ok: false }) |
-| Process | Intermediate state or call | Function call, state change |
-| Observable Result | Final output value | Return value, error message, log output |
-
-**Pass Criteria**: Pass if "observable result" is verified as **return value or mock call argument** of test target
-
-### Verification Item Determination Rules
-
-| Skeleton State | Verification Item Determination Method |
-|----------------|---------------------------------------|
-| `// Verification items:` listed | Implement all listed items with expect |
-| No `// Verification items:` | Derive from "observable result" in "Behavior" description |
-| Both present | Prioritize verification items, use behavior as supplement |
-
-### Integration Test Mock Boundaries
-
-| Judgment Criteria | Mock | Actual |
-|-------------------|------|--------|
-| Part of test target? | No -> Can mock | Yes -> Actual required |
-| Is call verification target of test? | No -> Can mock | Yes -> Actual or verifiable mock |
-| External network communication? | Yes -> Mock required | No -> Actual recommended |
-
-**Judgment Flow**:
-1. External API (HTTP communication) -> Mock required
-2. Component interaction under test -> Actual required
-3. Log output verification needed -> Use verifiable mock (vi.fn())
-4. Log output verification not needed -> Actual or ignore
-
-### E2E Test Execution Conditions
-
-- Execute only after all components are implemented
-- Do not use mocks (`@dependency: full-system`)
+The test runner or framework in the project determines the appropriate file extension.
 
 ## Review Criteria
 
@@ -131,9 +89,8 @@ it('AC2-property: Model name is always gemini-3-pro-image-preview', () => {
 
 | Check | Failure Condition |
 |-------|-------------------|
-| Property Verification | Property annotation exists but fast-check not used |
-| Behavior Verification | No expect for "observable result" |
-| Verification Item Coverage | Listed verification items not included in expect |
+| Behavior Verification | No assertion for "observable result" in skeleton |
+| Verification Item Coverage | Listed items not all covered by assertions |
 | Mock Boundary | Internal components mocked in integration test |
 
 ### Implementation Quality
@@ -141,6 +98,20 @@ it('AC2-property: Model name is always gemini-3-pro-image-preview', () => {
 | Check | Failure Condition |
 |-------|-------------------|
 | AAA Structure | Arrange/Act/Assert separation unclear |
-| Independence | State sharing between tests, execution order dependency |
-| Reproducibility | Depends on date/random, results vary |
-| Readability | Test name and verification content don't match |
+| Independence | State sharing between tests, order dependency |
+| Reproducibility | Date/random dependency, varying results |
+| Readability | Test name doesn't match verification content |
+
+## Quality Standards
+
+### Required
+- Each test verifies one behavior
+- Clear AAA (Arrange-Act-Assert) structure
+- No test interdependencies
+- Deterministic execution
+
+### Prohibited
+- Testing implementation details
+- Multiple behaviors per test
+- Shared mutable state
+- Time-dependent assertions without mocking

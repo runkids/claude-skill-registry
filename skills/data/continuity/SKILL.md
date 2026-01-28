@@ -1,52 +1,95 @@
 ---
 name: continuity
-description: "Problem-solving strategies for continuity in real analysis"
-allowed-tools: [Bash, Read]
+description:
+  El ojo sigue líneas y curvas naturalmente. Use cuando diseñe flujos visuales,
+  navegación, timelines, o guíe la atención del usuario.
+metadata:
+  author: ux-ui-skills
+  version: "1.0"
+  category: gestalt
 ---
 
-# Continuity
+# Principio de Continuidad
 
-## When to Use
+## Resumen
 
-Use this skill when working on continuity problems in real analysis.
+Los elementos alineados en una línea o curva se perciben como más relacionados
+que elementos no alineados. El ojo tiende a seguir el camino más suave.
 
-## Decision Tree
+## Origen
 
+- **Escuela**: Psicología de la Gestalt
+- **Año**: ~1920s
+- **Autores principales**: Max Wertheimer, Kurt Koffka, Wolfgang Köhler
 
-1. **Check Definition**
-   - f(a) exists (function defined at point)
-   - lim_{x->a} f(x) exists
-   - lim_{x->a} f(x) = f(a)
+## Fundamento Psicológico
 
-2. **Use SymPy for Limit Check**
-   - `sympy_compute.py limit "f(x)" --var x --at a`
-   - Compare with f(a)
+El sistema visual interpreta líneas y curvas como continuaciones naturales,
+prefiriendo trayectorias suaves sobre cambios abruptos. Esto permite seguir
+elementos visuales sin esfuerzo consciente y predecir hacia dónde continúa un
+patrón.
 
-3. **Piecewise Functions**
-   - Check left and right limits separately
-   - `sympy_compute.py limit "f(x)" --var x --at a --dir left`
+## Aplicación en Diseño
 
-4. **Verify with Z3**
-   - `z3_solve.py prove "limit_exists implies continuous"`
+### Alineación de Elementos
 
+- Grids con elementos alineados en ejes
+- Formularios con campos alineados a la izquierda
+- Tablas con columnas consistentes
+- Menús con items alineados
 
-## Tool Commands
+### Flujos y Procesos
 
-### Sympy_Limit
-```bash
-uv run python -m runtime.harness scripts/sympy_compute.py limit "f(x)" --var x --at a
-```
+- Timelines lineales
+- Progress bars continuos
+- Wizards con pasos conectados
+- Onboarding flows con dirección clara
 
-### Sympy_Limit_Left
-```bash
-uv run python -m runtime.harness scripts/sympy_compute.py limit "f(x)" --var x --at a --dir left
-```
+### Guía Visual
 
-### Z3_Prove
-```bash
-uv run python -m runtime.harness scripts/z3_solve.py prove "continuous_at_a"
-```
+- Líneas que conectan elementos relacionados
+- Flechas que indican dirección
+- Borders que crean caminos visuales
+- Gradientes que guían el ojo
 
-## Cognitive Tools Reference
+### Navegación
 
-See `.claude/skills/math-mode/SKILL.md` for full tool documentation.
+- Breadcrumbs como camino lineal
+- Tabs alineados horizontalmente
+- Sidebar con items en columna
+- Pagination como secuencia
+
+## Ejemplos
+
+- **Google Maps**: Rutas como líneas continuas
+- **LinkedIn**: Experiencia laboral como timeline vertical
+- **Checkout flows**: Pasos conectados horizontalmente
+- **Slides/Carousels**: Indicadores de posición en línea
+- **Tables**: Filas y columnas alineadas
+
+## Anti-patterns
+
+- ❌ Elementos relacionados sin alineación
+- ❌ Timelines con saltos visuales
+- ❌ Formularios con campos desalineados
+- ❌ Menús con items en posiciones aleatorias
+- ❌ Flujos sin dirección clara
+
+## Métricas
+
+- **Visual Flow Analysis**: Eye-tracking sigue caminos esperados
+- **Alignment Audit**: Consistencia de alineación en grids
+- **Task Flow Completion**: Usuarios siguen secuencias correctamente
+- **Scan Path Efficiency**: Movimientos oculares optimizados
+
+## Principios Relacionados
+
+- [[proximity]] - Cercanía refuerza continuidad
+- [[common-fate]] - Elementos que se mueven juntos
+- [[figure-ground]] - Separación de camino vs fondo
+
+## Referencias
+
+- Wertheimer, M. (1923). "Laws of Organization in Perceptual Forms"
+- Ware, C. (2012). "Information Visualization: Perception for Design"
+- https://www.smashingmagazine.com/2014/03/design-principles-visual-perception-and-the-principles-of-gestalt/

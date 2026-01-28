@@ -1,7 +1,7 @@
 {
   "name": "tldr-deep",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/tldr-deep/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:40.683097Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/tldr-deep/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-28T02:30:13.594142Z"
 }

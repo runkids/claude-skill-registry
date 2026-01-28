@@ -1,55 +1,102 @@
 ---
 name: check-pr-review
-description: Use `a gh check-pr-review` to fetch and address PR review comments. Use this skill when checking PR review feedback, viewing unresolved threads, or addressing reviewer comments.
+description: PRに付いたレビューコメントを確認し、修正対応を実行する。「レビューコメント確認」「レビュー対応」「PRコメント確認」「レビュー修正」「PR レビュー確認」「指摘対応」「レビューを見せて」などで起動。
+allowed-tools: [Read, Edit, Write, Bash, Glob, Grep]
 ---
 
-# Check PR Review Comments
+# Check PR Review
 
-Fetch review comments for a PR and address any feedback.
+PRに付いたレビューコメントを確認し、指摘事項に対して修正を実行するスキル。
 
-## Usage
+## 引数
 
-```bash
-a gh check-pr-review <pr-number> [-R <owner/repo>] [--all] [--review N] [--full]
+- `$ARGUMENTS`: PR番号（省略時は現在のブランチのPRを自動検出）
+
+## オプション
+
+- `--fix`: 指摘事項を修正する（指定しない場合は確認のみ）
+- `--reply`: 修正後にレビューコメントへ返信を投稿する
+- `--help`: このヘルプを表示する
+
+## 使い方
+
+```
+/check-pr-review --help
+/check-pr-review                    # 現在のブランチのPRのコメントを確認
+/check-pr-review 25                 # PR #25 のコメントを確認
+/check-pr-review --fix              # 現在のブランチのPRの指摘を修正
+/check-pr-review 25 --fix           # PR #25 の指摘を修正
+/check-pr-review --fix --reply      # 修正して返信も投稿
 ```
 
-## Options
+## ワークフロー
 
-- `-R <owner/repo>`: Target repository (default: current repo)
-- `-a, --all`: Include resolved comments (default: only unresolved)
-- `-r, --review N`: Show details for review number N
-- `-f, --full`: Show all details (original behavior)
-- `-d, --open-details`: Expand `<details>` blocks (default: collapsed)
+### 1. PR番号の特定
 
-## Output Modes
+PR番号が指定されていない場合、現在のブランチに関連するPRを検出:
 
-### Default (Summary)
+```bash
+gh pr view --json number,title,url
+```
 
-Shows compact overview of all reviews with thread counts:
+### 2. レビューコメントの取得
 
-- Review author, state, unresolved thread count
-- Thread locations (file:line) with first line of comment
+```bash
+gh api repos/{owner}/{repo}/pulls/{pr_number}/comments
+gh api repos/{owner}/{repo}/pulls/{pr_number}/reviews
+```
 
-### --review N
+### 3. コメントの分類と表示
 
-Shows full details for a specific review:
+取得したコメントを分類して表示:
 
-- Review body
-- All associated threads with diff context and full comments
+| プレフィックス | 種別 | 対応 |
+|--------------|------|-----|
+| must. | 修正必須 | 必ず修正 |
+| imo. | 改善提案 | 基本的に修正 |
+| nits. | 軽微 | 修正 |
+| q. | 質問 | 返信で回答 |
 
-### --full
+### 4. 修正の実行（--fix 指定時）
 
-Shows all reviews and threads with full details (legacy behavior).
+各指摘事項について:
+1. 対象ファイルを特定
+2. 指摘内容を理解
+3. 適切な修正を実行
+4. 修正内容を記録
 
-## Workflow
+### 5. 返信の投稿（--reply 指定時）
 
-1. Run without options to get summary
-2. **Automatically** run `--review N` for each review that has unresolved comments (do NOT ask the user if they want to see details)
-3. **Evaluate each comment** before making changes:
-    - Consider whether the feedback should be addressed or not
-    - If disagreeing with a comment, explain the reasoning to the user instead of making changes
-    - Only proceed with code changes for feedback you agree with
-4. Make necessary code changes based on the feedback
-5. Re-run to verify all comments have been addressed
+```bash
+gh api repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies \
+  -X POST -f body="修正しました。"
+```
 
-**Important**: After getting the summary, immediately proceed to fetch details for each review. Never ask the user "詳細を確認しますか?" or similar confirmation questions.
+## 出力例
+
+```
+=== PR #25: feat: shiiman-google プラグインを追加 ===
+
+【must.】修正必須 (2件)
+1. [plugin.json:3] バージョンは 1.0.0 から始めてください
+2. [README.md:45] インストール手順が不足しています
+
+【imo.】改善提案 (1件)
+1. [google_calendar.py:120] エラーハンドリングの追加を推奨
+
+【nits.】軽微 (1件)
+1. [SKILL.md:15] タイポ: "取得る" → "取得する"
+
+【q.】質問 (1件)
+1. [google_gmail.py:50] この実装の意図を教えてください
+
+--fix オプションで修正を実行できます。
+```
+
+## 重要な注意事項
+
+- ✅ PR番号が指定されていない場合は現在のブランチのPRを自動検出
+- ✅ `--fix` がない場合は確認のみで修正は実行しない
+- ✅ `--reply` を使用する場合は `--fix` も推奨（修正後に返信するため）
+- ✅ `gh` コマンドを使用してPR情報とレビューコメントを取得・投稿
+- ❌ 修正できない指摘事項がある場合は、その旨を報告

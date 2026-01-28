@@ -1,128 +1,350 @@
 ---
 name: resume-builder
-description: Generate professional resumes that conform to the Reactive Resume schema. Use when the user wants to create, build, or generate a resume through conversational AI, or asks about resume structure, sections, or content. This skill guides the agent to ask clarifying questions, avoid hallucination, and produce valid JSON output for https://rxresu.me.
+description: Generate professional PDF resumes from structured data or JSON. Multiple templates, ATS-friendly output, and customizable sections.
 ---
 
-# Resume Builder for Reactive Resume
+# Resume Builder
 
-Build professional resumes through conversational AI for [Reactive Resume](https://rxresu.me), a free and open-source resume builder.
+Create professional PDF resumes from structured data with multiple template styles. Supports JSON input, customizable sections, and ATS-friendly formatting.
 
-## Core Principles
+## Quick Start
 
-1. **Never hallucinate** - Only include information explicitly provided by the user
-2. **Ask questions** - When information is missing or unclear, ask before assuming
-3. **Be concise** - Use clear, direct language; avoid filler words
-4. **Validate output** - Ensure all generated JSON conforms to the schema
+```python
+from scripts.resume_builder import ResumeBuilder
 
-## Workflow
+# Build resume programmatically
+resume = ResumeBuilder()
+resume.set_contact("John Smith", "john@email.com", "555-123-4567", "San Francisco, CA")
+resume.set_summary("Experienced software engineer with 5+ years...")
+resume.add_experience("Software Engineer", "Tech Corp", "2020-Present", [
+    "Led development of microservices architecture",
+    "Improved system performance by 40%"
+])
+resume.add_education("B.S. Computer Science", "State University", "2019")
+resume.add_skills(["Python", "JavaScript", "AWS", "Docker"])
+resume.generate().save("resume.pdf")
 
-### Step 1: Gather Basic Information
+# From JSON
+resume = ResumeBuilder.from_json("resume_data.json")
+resume.generate().save("resume.pdf")
+```
 
-Ask for essential details first, unless the user has already provided them:
+## Features
 
-- Full name
-- Professional headline/title
-- Email address
-- Phone number
-- Location (city, state/country)
-- Website (optional)
+- **Multiple Templates**: Modern, classic, minimal, executive styles
+- **ATS-Friendly**: Clean formatting that passes applicant tracking systems
+- **Customizable Sections**: Experience, education, skills, projects, certifications
+- **Flexible Input**: Python API or JSON data
+- **Professional Output**: Clean PDF with proper typography
+- **Links**: Clickable URLs for portfolio, LinkedIn, GitHub
 
-### Step 2: Collect Section Content
+## API Reference
 
-For each section the user wants to include, gather specific details. Never invent dates, company names, or achievements.
+### Initialization
 
-**Experience**: company, position, location, period (e.g., "Jan 2020 - Present"), description of responsibilities/achievements
+```python
+resume = ResumeBuilder()
+resume = ResumeBuilder(template="modern")
+resume = ResumeBuilder.from_json("data.json")
+resume = ResumeBuilder.from_dict(data)
+```
 
-**Education**: school, degree, area of study, grade (optional), location, period
+### Contact Information
 
-**Skills**: name, proficiency level (Beginner/Intermediate/Advanced/Expert), keywords
+```python
+# Basic contact
+resume.set_contact(
+    name="John Smith",
+    email="john@email.com",
+    phone="555-123-4567",
+    location="San Francisco, CA"
+)
 
-**Projects**: name, period, website (optional), description
+# With links
+resume.set_contact(
+    name="John Smith",
+    email="john@email.com",
+    phone="555-123-4567",
+    location="San Francisco, CA",
+    linkedin="linkedin.com/in/johnsmith",
+    github="github.com/johnsmith",
+    website="johnsmith.dev"
+)
+```
 
-**Other sections**: languages, certifications, awards, publications, volunteer work, interests, references
+### Summary/Objective
 
-### Step 3: Configure Layout and Design
+```python
+# Professional summary
+resume.set_summary(
+    "Experienced software engineer with 5+ years building scalable "
+    "web applications. Passionate about clean code and mentoring."
+)
 
-Ask about preferences:
+# Or objective statement
+resume.set_objective(
+    "Seeking a senior engineering role where I can leverage my "
+    "expertise in distributed systems and cloud architecture."
+)
+```
 
-- Template preference (13 available: azurill, bronzor, chikorita, ditto, ditgar, gengar, glalie, kakuna, lapras, leafish, onyx, pikachu, rhyhorn)
-- Page format: A4 or Letter
-- Which sections to include and their order
+### Work Experience
 
-### Step 4: Generate Valid JSON
+```python
+# Add experience entry
+resume.add_experience(
+    title="Senior Software Engineer",
+    company="Tech Corporation",
+    dates="Jan 2020 - Present",
+    bullets=[
+        "Led team of 5 engineers in developing microservices architecture",
+        "Reduced API response time by 60% through optimization",
+        "Implemented CI/CD pipeline reducing deployment time by 80%"
+    ],
+    location="San Francisco, CA"  # Optional
+)
 
-Output must conform to the Reactive Resume schema. See [references/schema.md](references/schema.md) for the complete schema structure.
+# Multiple entries
+resume.add_experience("Software Engineer", "Startup Inc", "2018-2020", [
+    "Built real-time notification system serving 1M+ users",
+    "Developed RESTful APIs using Python and FastAPI"
+])
+```
 
-Key requirements:
-- All item `id` fields must be valid UUIDs
-- Description fields accept HTML-formatted strings
-- Website fields require both `url` and `label` properties
-- Colors use `rgba(r, g, b, a)` format
-- Fonts must be available on Google Fonts
+### Education
 
-## Resume Writing Tips
+```python
+# Add education
+resume.add_education(
+    degree="Bachelor of Science in Computer Science",
+    school="State University",
+    year="2018",
+    gpa="3.8",  # Optional
+    honors="Magna Cum Laude"  # Optional
+)
 
-Share these tips when helping users craft their resume content:
+# With coursework
+resume.add_education(
+    degree="M.S. Data Science",
+    school="Tech University",
+    year="2020",
+    coursework=["Machine Learning", "Statistical Analysis", "Big Data"]
+)
+```
 
-### Content Guidelines
+### Skills
 
-- **Lead with impact**: Start bullet points with action verbs (Led, Developed, Increased, Managed)
-- **Quantify achievements**: Use numbers when possible ("Increased sales by 25%", "Managed team of 8")
-- **Tailor to the role**: Emphasize relevant experience for the target position
-- **Be specific**: Replace vague terms with concrete examples
-- **Keep it concise**: 1-2 pages maximum for most professionals
+```python
+# Simple skills list
+resume.add_skills(["Python", "JavaScript", "React", "AWS", "Docker"])
 
-### Section Order Recommendations
+# Categorized skills
+resume.add_skills({
+    "Languages": ["Python", "JavaScript", "Go", "SQL"],
+    "Frameworks": ["React", "Django", "FastAPI"],
+    "Tools": ["Docker", "Kubernetes", "AWS", "Git"]
+})
+```
 
-For most professionals:
-1. Summary (if experienced)
-2. Experience
-3. Education
-4. Skills
-5. Projects (if relevant)
-6. Certifications/Awards
+### Projects
 
-For students/recent graduates:
-1. Education
-2. Projects
-3. Skills
-4. Experience (if any)
-5. Activities/Volunteer
+```python
+# Add project
+resume.add_project(
+    name="Open Source Library",
+    description="Data validation library with 1000+ GitHub stars",
+    technologies=["Python", "PyPI"],
+    url="github.com/user/project"  # Optional
+)
+```
 
-### Common Mistakes to Avoid
+### Certifications
 
-- Including personal pronouns ("I", "my")
-- Using passive voice
-- Listing job duties instead of achievements
-- Including irrelevant personal information
-- Inconsistent date formatting
+```python
+resume.add_certification("AWS Solutions Architect", "Amazon", "2023")
+resume.add_certification("Professional Scrum Master", "Scrum.org", "2022")
+```
 
-## Output Format
+### Additional Sections
 
-When generating the resume, output a complete JSON object that conforms to the Reactive Resume schema. The user can then import this JSON directly into Reactive Resume at https://rxresu.me.
+```python
+# Languages
+resume.add_languages(["English (Native)", "Spanish (Fluent)", "French (Basic)"])
 
-Example minimal structure:
+# Volunteer experience
+resume.add_volunteer(
+    role="Tech Mentor",
+    organization="Code for Good",
+    dates="2021 - Present",
+    description="Mentor underrepresented students in programming"
+)
+
+# Publications
+resume.add_publication(
+    title="Scaling Microservices",
+    venue="Tech Blog",
+    year="2023",
+    url="blog.com/article"
+)
+
+# Custom section
+resume.add_custom_section("Awards", [
+    "Employee of the Year 2022",
+    "Hackathon Winner - Best Innovation"
+])
+```
+
+### Templates and Styling
+
+```python
+# Set template
+resume.set_template("modern")    # Clean, contemporary
+resume.set_template("classic")   # Traditional, formal
+resume.set_template("minimal")   # Simple, ATS-optimized
+resume.set_template("executive") # Premium, senior roles
+
+# Custom colors
+resume.set_colors(
+    primary="#2563eb",   # Headers
+    text="#333333"       # Body text
+)
+
+# Margins
+resume.set_margins(top=0.5, bottom=0.5, left=0.6, right=0.6)
+```
+
+### Generation
+
+```python
+# Generate and save
+resume.generate().save("resume.pdf")
+
+# Get PDF bytes
+pdf_bytes = resume.to_bytes()
+```
+
+## Data Formats
+
+### JSON Format
 
 ```json
 {
-  "picture": { "hidden": true, "url": "", "size": 80, "rotation": 0, "aspectRatio": 1, "borderRadius": 0, "borderColor": "rgba(0, 0, 0, 0.5)", "borderWidth": 0, "shadowColor": "rgba(0, 0, 0, 0.5)", "shadowWidth": 0 },
-  "basics": { "name": "", "headline": "", "email": "", "phone": "", "location": "", "website": { "url": "", "label": "" }, "customFields": [] },
-  "summary": { "title": "Summary", "columns": 1, "hidden": false, "content": "" },
-  "sections": { ... },
-  "customSections": [],
-  "metadata": { "template": "onyx", "layout": { ... }, ... }
+  "contact": {
+    "name": "John Smith",
+    "email": "john@email.com",
+    "phone": "555-123-4567",
+    "location": "San Francisco, CA",
+    "linkedin": "linkedin.com/in/johnsmith",
+    "github": "github.com/johnsmith"
+  },
+  "summary": "Experienced software engineer...",
+  "experience": [
+    {
+      "title": "Senior Software Engineer",
+      "company": "Tech Corp",
+      "dates": "2020 - Present",
+      "location": "San Francisco, CA",
+      "bullets": [
+        "Led development of microservices",
+        "Improved performance by 40%"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.S. Computer Science",
+      "school": "State University",
+      "year": "2018",
+      "gpa": "3.8"
+    }
+  ],
+  "skills": {
+    "Languages": ["Python", "JavaScript"],
+    "Frameworks": ["React", "Django"]
+  },
+  "projects": [
+    {
+      "name": "Open Source Tool",
+      "description": "Description here",
+      "technologies": ["Python"],
+      "url": "github.com/project"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Certified",
+      "issuer": "Amazon",
+      "year": "2023"
+    }
+  ]
 }
 ```
 
-For the complete schema, see [references/schema.md](references/schema.md).
+## CLI Usage
 
-## Asking Good Questions
+```bash
+# From JSON file
+python resume_builder.py --input resume.json --output resume.pdf
 
-When information is missing, ask specific questions:
+# With template
+python resume_builder.py --input data.json --template modern --output resume.pdf
 
-- "What was your job title at [Company]?"
-- "What dates did you work there? (e.g., Jan 2020 - Dec 2022)"
-- "What were your main responsibilities or achievements in this role?"
-- "Do you have a specific target role or industry in mind?"
+# Quick resume (interactive prompts)
+python resume_builder.py --quick --output resume.pdf
+```
 
-Avoid compound questions. Ask one thing at a time for clarity.
+### CLI Arguments
+
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `--input` | Input JSON file | Required |
+| `--output` | Output PDF path | `resume.pdf` |
+| `--template` | Template style | `modern` |
+
+## Templates
+
+### Modern
+- Clean sans-serif typography
+- Blue accent color
+- Clear section headers
+- Good for tech roles
+
+### Classic
+- Traditional serif fonts
+- Black and gray colors
+- Formal layout
+- Good for traditional industries
+
+### Minimal
+- Maximum ATS compatibility
+- Simple formatting
+- No colors or graphics
+- Best for online applications
+
+### Executive
+- Premium appearance
+- Elegant typography
+- Subtle accents
+- Good for senior roles
+
+## Best Practices
+
+1. **Keep it concise**: 1 page for <10 years experience, 2 pages max
+2. **Use action verbs**: "Led", "Developed", "Improved", "Achieved"
+3. **Quantify achievements**: "Increased sales by 25%", "Managed team of 8"
+4. **Tailor to job**: Customize skills and summary for each application
+5. **ATS-friendly**: Use standard section headers, avoid tables/graphics
+
+## Dependencies
+
+```
+reportlab>=4.0.0
+Pillow>=10.0.0
+```
+
+## Limitations
+
+- PDF output only
+- English language optimized
+- Maximum 2 pages
+- No photo support (ATS best practice)

@@ -25,9 +25,29 @@ Arguments: `$ARGUMENTS` - specific vulnerability category or full scan
 10. **A10:2021** - Server-Side Request Forgery (SSRF)
 
 **Token Optimization:**
-- Uses Grep for pattern matching (1,000 tokens)
-- Minimal file reading (1,500 tokens)
-- Expected: 2,500-4,000 tokens
+- ✅ Grep-based pattern detection (no file reads for vulnerability scanning)
+- ✅ Framework detection via package files (no code reads)
+- ✅ Template-based remediation examples (heredocs)
+- ✅ Caching vulnerability patterns and framework-specific checks
+- ✅ Early exit when no vulnerabilities found - saves 85%
+- ✅ Focus area flags (--injection, --auth, --access-control, --crypto, --ssrf)
+- ✅ Progressive disclosure (critical → high → medium → low)
+- ✅ Default to git diff scope (changed files only)
+- **Expected tokens:** 800-2,500 (vs. 2,500-4,000 unoptimized) - **60-70% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3C, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/owasp-check/`
+- Caches: Project type, framework, known vulnerability patterns
+- Cache validity: Until package files change
+- Shared with: `/security-scan`, `/security-headers`, `/secrets-scan` skills
+
+**Usage:**
+- `owasp-check` - Full OWASP Top 10 scan (2,000-2,500 tokens)
+- `owasp-check changed` - Scan changed files only (800-1,500 tokens)
+- `owasp-check --injection` - SQL/NoSQL injection only (400-700 tokens)
+- `owasp-check --auth` - Authentication issues only (400-700 tokens)
+- `owasp-check --critical` - Critical vulnerabilities only (600-1,000 tokens)
 
 ## Phase 1: Framework and Language Detection
 

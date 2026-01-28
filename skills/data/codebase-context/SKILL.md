@@ -1,159 +1,127 @@
+﻿---
+name: Codebase context
+description: Create a lightweight codebase_context.md that anchors the idea in the existing repo (modules, constraints, extension points). Generic framework prompt.
+argument-hint: "<IDEA_ID>   (example: IDEA-0003_my-idea)"
+disable-model-invocation: true
 ---
-name: codebase-context
-description: This skill should be used when the user asks to "analyze the codebase", "understand the tech stack", "extract project patterns", "get codebase context", "what technologies are used", or when preparing context for planning documents, PRDs, or design documentation.
-version: 0.1.0
-allowed-tools: Read, Glob, Grep, Bash(find:*), Bash(head:*), Bash(cat:*), Bash(ls:*), Bash(wc:*)
+
+# Codebase Context â€” Agent Instructions
+
+## Invocation
+- `/codebase-context <IDEA_ID>`
+Where:
+- `IDEA_REF = $ARGUMENTS` (single token; no spaces)
+
+If missing, STOP.
+
 ---
 
-# Codebase Context Extraction
+## Resolve IDEA_ID (required)
+Before using any paths:
+- Call `vf.resolve_idea_id` with `idea_ref = $ARGUMENTS`
+- Store returned `idea_id` as `IDEA_ID`
+- Use `IDEA_ID` for all paths and YAML headers
 
-Extract and summarize codebase context for planning purposes. This skill provides quick analysis approaches for different project types and standardized output formats.
+---
 
-## Quick Analysis Approach
+## Goal
+Produce a lightweight, durable â€œmapâ€ of the existing codebase relevant to this idea, focusing on:
+- where to extend vs create
+- major boundaries (API layer, core logic, models/state, UI, tests)
+- any constraints/invariants implied by the current architecture
 
-### 1. Detect Tech Stack
+This is NOT a full survey and NOT a task list. It is an early anchor to prevent greenfield assumptions.
 
-**JavaScript/TypeScript Projects:**
-```bash
-cat package.json 2>/dev/null | head -60
-```
+---
 
-Identify from output:
-- `dependencies` / `devDependencies` for frameworks
-- `scripts` for build/test commands
-- `type: "module"` for ESM
+## Canonical paths (repo-relative)
+Idea root:
+- `docs/forge/ideas/<IDEA_ID>/`
 
-**Python Projects:**
-```bash
-cat pyproject.toml 2>/dev/null || cat requirements.txt 2>/dev/null | head -30
-```
+Inputs (required):
+- `docs/forge/ideas/<IDEA_ID>/latest/concept_summary.md`
+- `docs/forge/ideas/<IDEA_ID>/inputs/concept_summary_config.md`
+Fallback/optional:
+- `docs/forge/ideas/<IDEA_ID>/latest/idea_normalized.md`
+- `docs/forge/ideas/<IDEA_ID>/inputs/idea.md`
 
-**Go Projects:**
-```bash
-cat go.mod 2>/dev/null | head -15
-```
+Outputs:
+- `docs/forge/ideas/<IDEA_ID>/latest/codebase_context.md`
+- Run snapshot:
+  - `docs/forge/ideas/<IDEA_ID>/runs/<RUN_ID>/outputs/codebase_context.md`
 
-**Rust Projects:**
-```bash
-cat Cargo.toml 2>/dev/null | head -30
-```
+Logs:
+- `docs/forge/ideas/<IDEA_ID>/run_log.md`
 
-### 2. Map Project Structure
+---
 
-```bash
-# Get directory tree (excluding noise)
-find . -type d -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/dist/*' -not -path '*/__pycache__/*' -not -path '*/target/*' | sort | head -40
-```
+## Method (generic, repo-aware)
+1) Read the concept summary (primary semantic anchor).
+2) Identify which kinds of components are likely involved:
+   - API endpoints / controllers / routers
+   - core domain logic / services
+   - data models / schemas / state
+   - UI components
+   - orchestration / simulation engine (if applicable)
+   - tests and fixtures
+3) Do a targeted scan of the repo to find:
+   - existing entry points matching the feature area (e.g., control/admin/simulation/session/etc.)
+   - existing patterns for request/response models and state persistence
+   - existing â€œconfigâ€ or â€œpolicyâ€ mechanisms that constrain behavior
+4) Capture only the minimum necessary file/module references (10â€“25 max):
+   - keep it stable, not exhaustive
+5) Write the output artifact.
 
-```bash
-# Count files by type
-find . -type f -name "*.ts" -o -name "*.tsx" | wc -l
-find . -type f -name "*.py" | wc -l
-find . -type f -name "*.go" | wc -l
-```
+If you are unsure where something lives, state it as a hypothesis + provide search cues (keywords to grep), rather than inventing file paths.
 
-### 3. Find Key Documentation
+---
 
-```bash
-# Project docs
-ls -la README* CLAUDE* AGENTS* CONTRIBUTING* 2>/dev/null
-```
+## Output format: codebase_context.md
+Write with YAML header + sections.
 
-```bash
-# Config files
-ls -la *.json *.yaml *.toml .env* 2>/dev/null
-```
+YAML header shape:
 
-### 4. Identify Patterns
+---
+doc_type: codebase_context
+idea_id: "<IDEA_ID>"
+run_id: "<RUN_ID>"
+generated_by: "Codebase Context"
+generated_at: "<ISO-8601>"
+sources:
+  - "docs/forge/ideas/<IDEA_ID>/latest/concept_summary.md"
+  - "docs/forge/ideas/<IDEA_ID>/latest/idea_normalized.md (if used)"
+status: "Draft"
+---
 
-**API Structure:**
-```bash
-# REST endpoints
-grep -r "app\.\(get\|post\|put\|delete\)" --include="*.ts" --include="*.js" | head -10
-```
+# Codebase Context
 
-**Component Patterns:**
-```bash
-# React components
-find . -path '*/components/*' -name "*.tsx" | head -10
-```
+## Purpose of this map
+(1 short paragraph)
 
-**Database Models:**
-```bash
-# Schema definitions
-find . -name "schema*" -o -name "*model*" | grep -v node_modules | head -10
-```
+## High-level architecture boundaries (as observed)
+- Boundary: ... â€” responsibility â€” notes
 
-## Output Format
+## Likely extension points
+- Area: ... â€” existing component(s) â€” recommended extension approach
 
-Structure codebase context summaries as:
+## Key existing concepts to reuse
+- Concept/Model: ... â€” where it exists â€” why it matters
 
-```markdown
-## Technology Stack
+## Constraints implied by current architecture
+- Constraint: ... â€” evidence â€” impact
 
-**Language:** [e.g., TypeScript 5.x]
-**Runtime:** [e.g., Node.js 20, Bun 1.x]
-**Framework:** [e.g., Next.js 14 (App Router), FastAPI]
-**Database:** [e.g., PostgreSQL with Drizzle ORM]
-**Styling:** [e.g., Tailwind CSS]
-**Testing:** [e.g., Vitest, Playwright]
+## Candidate file/module touch list (max ~25)
+List as bullets with a short reason:
+- <path-or-module> â€” why itâ€™s relevant
 
-## Project Structure
+## Unknowns / where to look next
+- Unknown: ... â€” suggested keywords or search locations
 
-- `src/` - Main source code
-  - `components/` - React components
-  - `lib/` - Utility functions
-  - `app/` - Next.js app router pages
-- `tests/` - Test files
+---
 
-## Key Patterns
+## Required tool calls
+1) vf.start_run with idea_id=<IDEA_ID> (label: codebase-context)
+2) Write run snapshot to runs/<RUN_ID>/outputs/codebase_context.md
+3) Write latest to latest/codebase_context.md
+4) Append a run_log entry with stage codebase.context and outputs.
 
-- [Pattern 1: e.g., "Server components by default, client components marked explicitly"]
-- [Pattern 2: e.g., "API routes use zod for validation"]
-- [Pattern 3: e.g., "Error handling uses Result types"]
-
-## Conventions
-
-- Package manager: [pnpm/npm/yarn/bun]
-- Code style: [ESLint + Prettier config]
-- Commit style: [Conventional commits]
-- Branch strategy: [main + feature branches]
-
-## Existing Documentation
-
-- README.md: [brief summary]
-- CLAUDE.md: [if exists, key points]
-- AGENTS.md: [if exists, key points]
-```
-
-## Integration Notes
-
-This context should be:
-1. Saved to `.shipspec/planning/<feature>/context.md` temporarily during planning
-2. Used by PRD and design document generation
-3. Referenced when creating implementation tasks
-
-**Note:** The context file is automatically cleaned up after task generation completes. The relevant context is incorporated into the PRD, SDD, and TASKS.md files.
-
-## Common Tech Stack Indicators
-
-| Indicator | Technology |
-|-----------|------------|
-| `next.config.js` | Next.js |
-| `vite.config.ts` | Vite |
-| `tailwind.config.js` | Tailwind CSS |
-| `drizzle.config.ts` | Drizzle ORM |
-| `prisma/schema.prisma` | Prisma ORM |
-| `pyproject.toml` | Modern Python |
-| `go.mod` | Go modules |
-| `Cargo.toml` | Rust |
-
-## Quality Checklist
-
-Before finalizing context extraction:
-
-- [ ] Tech stack versions identified
-- [ ] Project structure mapped
-- [ ] Key patterns documented
-- [ ] Existing documentation referenced
-- [ ] Conventions noted

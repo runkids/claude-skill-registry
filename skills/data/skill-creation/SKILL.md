@@ -1,336 +1,516 @@
 ---
-name: skill-creation
-description: How to create new agent skills for this project. Use when proposing a new skill, documenting repeated patterns, or formalizing domain knowledge. Keywords: skill, SKILL.md, agent, create skill, new skill, meta.
-compatibility: Antigravity, Claude Code, Cursor
-metadata:
-  version: "1.0"
-  project: "stepleague"
+name: 'skill-creation'
+description: 'Guide for creating new Agent Skills with proper structure, frontmatter, bundled assets, and validation. Includes templates, best practices, and examples for building reusable skill resources.'
 ---
 
-# Skill Creation Skill
+# Skill Creation Guide
 
-> **Meta-skill**: This skill explains how to create other skills.
-
----
-
-## ⚠️ CRITICAL: Approval Required
-
-**New skills MUST be created with filename `SKILL.draft.md` and require user approval before activation.**
-
-### Pending vs Active Skills
-
-| Filename | Meaning |
-|----------|---------|
-| `SKILL.draft.md` | Pending - NOT active, awaiting approval |
-| `SKILL.md` | Active - approved and in use |
-
-**Why this works**: Skill systems only recognize `SKILL.md` files. A file named `SKILL.draft.md` is ignored by agents, so the skill doesn't activate until renamed.
-
-### Approval Workflow
-
-1. **Create** the skill folder with `SKILL.draft.md`
-2. **Notify user**: "Created draft skill `skill-name`, please review"
-3. **User reviews** and approves (or requests changes)
-4. **Upon approval**: Rename `SKILL.draft.md` → `SKILL.md`
-
-```powershell
-# Example: Approve a pending skill
-Rename-Item ".agent\skills\my-skill\SKILL.draft.md" "SKILL.md"
-```
-
----
+This skill provides comprehensive guidance for creating new Agent Skills in the awesome-copilot repository. Use this when you need to create a self-contained, reusable skill with instructions and optional bundled assets.
 
 ## When to Create a Skill
 
-Create a new skill when:
+Create a skill when you need:
+- **Reusable workflows** that combine instructions with bundled resources (scripts, templates, data files)
+- **Complex, multi-step processes** that benefit from structured guidance
+- **Domain-specific toolkits** with reference materials and code samples
+- **Specialized capabilities** that extend beyond simple prompts or instructions
 
-| Trigger | Example |
-|---------|---------|
-| Pattern appears 3+ times | Same API pattern in multiple routes |
-| Domain knowledge is complex | Integration with external service |
-| Instructions are frequently repeated | "Always do X when working with Y" |
-| User explicitly requests it | "Make a skill for..." |
-
-**Do NOT create a skill for:**
-- One-off tasks
-- Simple rules already in AGENTS.md
-- Temporary workarounds
-
----
+**Don't create a skill if:**
+- A simple prompt file (`.prompt.md`) would suffice for a one-off task
+- An instruction file (`.instructions.md`) is more appropriate for coding standards
+- The task doesn't require bundled assets or complex guidance
 
 ## Skill Structure
 
-### Minimum Required
-
+Every skill is a folder containing:
 ```
-.agent/skills/
-└── skill-name/
-    └── SKILL.md  # Required
-```
-
-### With Optional Directories
-
-```
-.agent/skills/
-└── skill-name/
-    ├── SKILL.md           # Required - main instructions
-    ├── scripts/           # Optional - executable scripts
-    ├── references/        # Optional - detailed docs
-    └── assets/            # Optional - templates, data files
+skills/
+  your-skill-name/
+    SKILL.md          # Required: Main skill definition with frontmatter
+    script.py         # Optional: Bundled scripts
+    template.txt      # Optional: Code templates
+    reference.json    # Optional: Reference data
+    assets/           # Optional: Additional resources
 ```
 
----
+## Creating a New Skill
 
-## SKILL.md Format
-
-### YAML Frontmatter (Required)
-
-```yaml
----
-name: skill-name              # 1-64 chars, lowercase, hyphens only
-description: >                # 1-1024 chars
-  What this skill does and WHEN to use it.
-  Include trigger keywords for agent matching.
-  Keywords: keyword1, keyword2, keyword3.
-compatibility: Antigravity, Claude Code, Cursor
-metadata:
-  version: "1.0"
-  project: "stepleague"
----
-```
-
-### Naming Rules
-
-| Rule | Example |
-|------|---------|
-| Lowercase only | `api-handler` not `API-Handler` |
-| Hyphens for spaces | `form-components` not `form_components` |
-| 1-64 characters | Keep it short |
-| Match folder name | Folder `api-handler/` → `name: api-handler` |
-| No consecutive hyphens | `api-handler` not `api--handler` |
-
-### Body Content (Markdown)
-
-Structure the body with:
-
-1. **Title** - `# Skill Name`
-2. **Overview** - What this skill covers
-3. **Critical Rules** - Most important points (use ⚠️)
-4. **Patterns/Examples** - Code examples with ✅/❌
-5. **Real Codebase Examples** - ⭐ See below
-6. **Related Skills** - Cross-references
-
----
-
-## ⭐ Best Practices for Quality Skills (CRITICAL)
-
-### 1. Include Real Codebase Examples
-
-**Don't just write abstract patterns.** Find actual code from the project that demonstrates the pattern.
-
-```markdown
-### Pattern 1: useSearchParams Loops (REAL EXAMPLE)
-
-**File:** `src/hooks/useFilterPersistence.ts`
-
-**Problem:** This was causing infinite loops on /league/[id]/leaderboard...
-
-```typescript
-// ✅ CORRECT - Hydrate-once pattern (useFilterPersistence.ts lines 77-110)
-const hasHydratedRef = useRef(false);
-// ... actual code from project
-```
-```
-
-**How to find examples:**
-1. Search codebase with `grep_search` for pattern keywords
-2. View commits that fixed the issue
-3. Check conversations where the pattern was applied
-
-### 2. Use Scripts for Automation
-
-If a skill involves repeatable tasks, add helper scripts:
-
-```
-.agent/skills/skill-name/
-├── SKILL.md
-└── scripts/
-    ├── check-violations.sh    # Find pattern violations
-    ├── generate-template.js   # Generate boilerplate
-    └── README.md              # Script documentation
-```
-
-**Script Example (design-system/scripts/find-hardcoded-colors.sh):**
+### Method 1: Using the Creation Script (Recommended)
 
 ```bash
-#!/bin/bash
-# Find hardcoded Tailwind color classes in codebase
-echo "Finding potential violations..."
-grep -rn "bg-slate\|bg-gray\|text-slate\|text-gray" src/ --include="*.tsx"
-grep -rn "border-zinc\|bg-zinc" src/ --include="*.tsx"
+npm run skill:create -- --name your-skill-name --description 'Your skill description here'
 ```
 
-### 3. Link to Specific Files and Lines
+This will:
+1. Create the skill folder with proper naming
+2. Generate a `SKILL.md` template with valid frontmatter
+3. Set up the basic structure
 
-```markdown
-**File:** [`useFilterPersistence.ts`](file:///src/hooks/useFilterPersistence.ts#L77-L110)
+### Method 2: Manual Creation
 
-See [submit-steps/page.tsx lines 78-82](file:///src/app/(dashboard)/submit-steps/page.tsx#L78-L82) for the fix.
-```
+1. **Create the folder**: `skills/your-skill-name/`
+   - Use lowercase letters only
+   - Separate words with hyphens
+   - Keep names concise and descriptive
 
-### 4. Include Debugging Checklists
+2. **Create SKILL.md** with proper frontmatter:
+   ```markdown
+   ---
+   name: 'your-skill-name'
+   description: 'A clear, concise description of what this skill does and when to use it.'
+   ---
+   
+   # Your Skill Title
+   
+   [Skill content here]
+   ```
 
-```markdown
-## Debugging Checklist
+## Frontmatter Requirements
 
-When you hit [issue]:
+The SKILL.md file **must** include markdown frontmatter with these fields:
 
-- [ ] Check for [common cause 1]
-- [ ] Check for [common cause 2]
-- [ ] Try [diagnostic step]
-```
+### Required Fields
 
-### 5. Document Project-Specific Issues
+#### `name`
+- **Type**: String (wrapped in single quotes)
+- **Format**: Lowercase with hyphens (e.g., `'web-testing'`, `'skill-creation'`)
+- **Rules**: 
+  - Must match the folder name exactly
+  - Maximum 64 characters
+  - Only lowercase letters, numbers, and hyphens
+  - Cannot start or end with a hyphen
 
-```markdown
-## Project-Specific Issues
-
-| File | Issue | Fix Applied |
-|------|-------|-------------|
-| `useFilterPersistence` | useSearchParams loop | Hydrate-once pattern |
-| `submit-steps/page.tsx` | adminLeagues loop | useMemo for array |
-```
-
-## Description Best Practices
-
-The `description` field is crucial - it's how agents decide to activate the skill.
-
-### Include Trigger Keywords
-
+**Example:**
 ```yaml
-# ❌ BAD: Vague
-description: Helps with forms
-
-# ✅ GOOD: Specific + Keywords
-description: >
-  StepLeague reusable form components with accessibility.
-  Use when creating forms, inputs, selects, checkboxes.
-  Keywords: form, input, FormInput, FormSelect, accessibility.
+name: 'api-testing-toolkit'
 ```
 
-### Describe WHEN to Use
+#### `description`
+- **Type**: String (wrapped in single quotes)
+- **Length**: 10-1024 characters
+- **Purpose**: Brief summary of the skill's purpose and capabilities
+- **Style**: Should be clear, concise, and informative
 
+**Example:**
 ```yaml
-description: >
-  [WHAT it does]. Use when [TRIGGER CONDITIONS].
-  Keywords: [relevant terms].
+description: 'Comprehensive toolkit for testing REST APIs with sample requests, response validation, and debugging utilities.'
 ```
 
----
-
-## Project Context References
-
-When creating skills for this project, reference these files:
-
-| File | Purpose |
-|------|---------|
-| [AGENTS.md](../../../AGENTS.md) | Master context - check if pattern exists |
-| [CLAUDE.md](../../../CLAUDE.md) | Claude Code context |
-| [THEME_SYSTEM.md](../../../docs/THEME_SYSTEM.md) | Design/styling patterns |
-| [FORM_SYSTEM.md](../../../docs/FORM_SYSTEM.md) | Form component docs |
-| [docs/prds/](../../../docs/prds/) | PRD templates and examples |
-
-### Existing Skills to Reference
-
-| Skill | For |
-|-------|-----|
-| `architecture-philosophy` | Core design principles |
-| `api-handler` | API route patterns |
-| `supabase-patterns` | Database/auth patterns |
-| `design-system` | UI/styling patterns |
-| `error-handling` | Error patterns |
-| `form-components` | Form patterns |
-| `prd-creation` | PRD writing |
-| `project-updates` | Documentation updates |
-
----
-
-## Creating a New Skill - Step by Step
-
-### 1. Check if Skill is Needed
-
-Before creating:
-- [ ] Is this pattern used 3+ times?
-- [ ] Is it complex enough to warrant a skill?
-- [ ] Is it NOT already covered in AGENTS.md?
-- [ ] Is it NOT already covered by an existing skill?
-
-### 2. Create the Folder and Draft File
-
-```
-.agent/skills/new-skill-name/SKILL.draft.md   ← Draft, not SKILL.md!
-```
+### Example Complete Frontmatter
 
 ```yaml
 ---
-name: new-skill-name
-description: [WHAT + WHEN + Keywords]
-compatibility: Antigravity, Claude Code, Cursor
-metadata:
-  version: "1.0"
-  project: "stepleague"
+name: 'database-migration'
+description: 'Guide for creating and managing database migrations with schema versioning, rollback procedures, and best practices for multiple database systems.'
+---
+```
+
+## Skill Content Structure
+
+After the frontmatter, structure your SKILL.md with these sections:
+
+### 1. Introduction
+Brief overview of what the skill does.
+
+```markdown
+# Database Migration Toolkit
+
+This skill provides comprehensive guidance for creating, managing, and executing database migrations.
+```
+
+### 2. When to Use This Skill
+Clear criteria for when this skill should be invoked.
+
+```markdown
+## When to Use This Skill
+
+Use this skill when you need to:
+- Create new database schema migrations
+- Version control database changes
+- Rollback problematic migrations
+- Migrate between different database systems
+```
+
+### 3. Prerequisites (if applicable)
+List any required tools, dependencies, or setup.
+
+```markdown
+## Prerequisites
+
+- Database access credentials
+- Migration tool installed (e.g., Alembic, Flyway, Liquibase)
+- Backup of production data before running migrations
+```
+
+### 4. Core Capabilities
+Detail what the skill can help accomplish.
+
+```markdown
+## Core Capabilities
+
+### Schema Management
+- Create tables, indexes, and constraints
+- Alter existing schema structures
+- Drop deprecated objects
+
+### Data Migration
+- Transform data between schema versions
+- Bulk data imports/exports
+- Data validation and cleanup
+```
+
+### 5. Usage Examples
+Provide concrete examples with code snippets.
+
+```markdown
+## Usage Examples
+
+### Example 1: Create a Migration File
+\`\`\`bash
+alembic revision -m "add users table"
+\`\`\`
+
+### Example 2: Apply Migration
+\`\`\`bash
+alembic upgrade head
+\`\`\`
+```
+
+### 6. Guidelines
+Best practices and recommendations.
+
+```markdown
+## Guidelines
+
+1. **Always backup before migrating** - Create backups of production databases
+2. **Test migrations locally** - Verify migrations work on development data first
+3. **Use transactions** - Wrap migrations in transactions when possible
+4. **Document changes** - Include clear comments in migration files
+```
+
+### 7. Common Patterns
+Reusable code patterns and solutions.
+
+```markdown
+## Common Patterns
+
+### Pattern: Reversible Migration
+\`\`\`python
+def upgrade():
+    op.add_column('users', sa.Column('email', sa.String(255)))
+
+def downgrade():
+    op.drop_column('users', 'email')
+\`\`\`
+```
+
+### 8. Limitations (if applicable)
+Known constraints or edge cases.
+
+```markdown
+## Limitations
+
+- Cannot handle cross-database migrations automatically
+- Large data migrations may require manual chunking
+- Some database-specific features may not be portable
+```
+
+## Bundled Assets
+
+Skills can include bundled files to support the instructions:
+
+### Asset Types
+
+1. **Scripts** (`.py`, `.js`, `.sh`, etc.)
+   - Automation scripts
+   - Helper utilities
+   - Example implementations
+
+2. **Templates** (`.txt`, `.md`, `.json`, etc.)
+   - Code templates
+   - Configuration templates
+   - Documentation templates
+
+3. **Reference Data** (`.json`, `.yaml`, `.csv`, etc.)
+   - Sample data
+   - Configuration examples
+   - Lookup tables
+
+4. **Documentation** (`.md`, `.pdf`, etc.)
+   - Extended guides
+   - API references
+   - Cheatsheets
+
+### Asset Guidelines
+
+- **Reference in SKILL.md**: Always mention bundled assets in the instructions
+- **Keep files small**: Each file should be under 5MB
+- **Use descriptive names**: Make filenames clear and self-documenting
+- **Organize with folders**: Use subdirectories for complex skills
+
+### Example Asset Structure
+
+```
+skills/api-testing/
+  SKILL.md
+  scripts/
+    test-runner.py
+    validate-response.js
+  templates/
+    request-template.json
+    test-suite-template.yaml
+  examples/
+    sample-api-test.md
+  reference/
+    http-status-codes.json
+```
+
+### Referencing Assets in SKILL.md
+
+```markdown
+## Using the Test Runner Script
+
+This skill includes a test runner script located at `scripts/test-runner.py`.
+
+To use it:
+\`\`\`bash
+python scripts/test-runner.py --config config.json
+\`\`\`
+
+See `examples/sample-api-test.md` for a complete example.
+```
+
+## Validation
+
+### Before Committing
+
+Run the validation command:
+```bash
+npm run skill:validate
+```
+
+This checks:
+- ✅ SKILL.md exists in each skill folder
+- ✅ Frontmatter is present and valid
+- ✅ `name` field matches folder name
+- ✅ `name` is lowercase with hyphens (max 64 chars)
+- ✅ `description` is 10-1024 characters
+- ✅ Description is wrapped in single quotes
+
+### Manual Validation Checklist
+
+- [ ] Folder name is lowercase-with-hyphens
+- [ ] SKILL.md has frontmatter with `name` and `description`
+- [ ] `name` matches folder name exactly
+- [ ] `description` is clear and informative (10-1024 chars)
+- [ ] All sections are present and well-documented
+- [ ] Bundled assets are referenced in the instructions
+- [ ] Asset files are under 5MB each
+- [ ] Examples are practical and runnable
+- [ ] Guidelines are actionable
+- [ ] README.md has been updated (`npm run build`)
+
+## Complete Example: Creating a "code-review" Skill
+
+### Step 1: Create Folder
+```bash
+mkdir skills/code-review
+```
+
+### Step 2: Create SKILL.md
+
+```markdown
+---
+name: 'code-review'
+description: 'Automated code review toolkit with checklists, linting rules, and best practice guidelines for multiple programming languages.'
 ---
 
-# New Skill Name
+# Code Review Toolkit
 
-## Overview
+This skill provides comprehensive code review guidance and automation tools.
 
-[What this skill covers]
+## When to Use This Skill
 
-## Critical Rules
+Use this skill when you need to:
+- Perform thorough code reviews
+- Apply language-specific best practices
+- Check for common code smells
+- Ensure coding standards compliance
 
-[Most important points]
+## Prerequisites
 
-## Patterns
+- Access to the codebase being reviewed
+- Linting tools installed (optional but recommended)
 
-[Examples with ✅/❌]
+## Core Capabilities
 
-## Related Skills
+### Review Checklists
+- Security vulnerability checks
+- Performance optimization opportunities
+- Code maintainability assessment
+- Documentation completeness
 
-- `related-skill` - Why it's related
+### Automated Analysis
+- Static code analysis
+- Complexity metrics
+- Test coverage evaluation
+
+## Usage Examples
+
+### Example 1: Basic Review
+Review a pull request for common issues and suggest improvements.
+
+### Example 2: Security Audit
+Focus on security vulnerabilities and potential exploits.
+
+## Guidelines
+
+1. **Be constructive** - Provide actionable feedback
+2. **Check context** - Understand the purpose before critiquing
+3. **Prioritize issues** - Focus on critical problems first
+4. **Suggest solutions** - Don't just point out problems
+
+## Common Patterns
+
+### Pattern: Checklist-Based Review
+Use the bundled `checklists/python-review.md` for Python code reviews.
+
+## Limitations
+
+- Automated tools may miss context-specific issues
+- Human judgment still required for architecture decisions
 ```
 
-### 4. Notify User for Approval
+### Step 3: Add Bundled Assets (Optional)
 
-After creating:
+Create `skills/code-review/checklists/python-review.md`:
+
+```markdown
+# Python Code Review Checklist
+
+## Style & Formatting
+- [ ] Follows PEP 8 style guide
+- [ ] Docstrings present for all public functions
+- [ ] Type hints used appropriately
+
+## Functionality
+- [ ] Error handling implemented
+- [ ] Edge cases covered
+- [ ] No code duplication
 ```
-Created draft skill `new-skill-name` in `.agent/skills/new-skill-name/SKILL.draft.md`.
-Please review and approve. To activate: rename to SKILL.md
+
+### Step 4: Validate
+
+```bash
+npm run skill:validate
 ```
 
-### 5. Upon Approval - Activate
+### Step 5: Update README
 
-Rename `SKILL.draft.md` → `SKILL.md`:
-
-```powershell
-Rename-Item ".agent\skills\new-skill-name\SKILL.draft.md" "SKILL.md"
+```bash
+npm run build
 ```
 
----
+### Step 6: Fix Line Endings
 
-## Checklist for New Skills
+```bash
+bash scripts/fix-line-endings.sh
+```
 
-- [ ] Created in `.agent/skills/skill-name/SKILL.draft.md` ← Draft file!
-- [ ] Name follows rules (lowercase, hyphens, 1-64 chars)
-- [ ] Description includes trigger keywords
-- [ ] References relevant project files
-- [ ] Cross-references related skills
-- [ ] User notified for approval
-- [ ] **Renamed to `SKILL.md` only after approval**
+## Best Practices
 
----
+### 1. Be Specific and Actionable
+❌ "This skill helps with testing"
+✅ "This skill provides Playwright-based browser automation for testing web applications with screenshot capture and console log inspection"
 
-## Related Skills
+### 2. Include Concrete Examples
+Always provide runnable code examples that demonstrate the skill's usage.
 
-- `architecture-philosophy` - Principles for when to modularize
-- `project-updates` - How to update docs after changes
+### 3. Document Prerequisites Clearly
+List all required tools, dependencies, and setup steps upfront.
+
+### 4. Keep Assets Organized
+Use subdirectories for multiple asset types:
+```
+skills/your-skill/
+  scripts/
+  templates/
+  examples/
+  reference/
+```
+
+### 5. Reference Assets Explicitly
+Don't just bundle files—explain when and how to use them in SKILL.md.
+
+### 6. Test Your Skill
+Before committing:
+- Validate frontmatter and structure
+- Test bundled scripts
+- Verify examples are runnable
+- Update README with `npm run build`
+
+### 7. Follow the Agent Skills Specification
+This repository follows the [Agent Skills specification](https://agentskills.io/specification) for maximum compatibility.
+
+## Common Mistakes to Avoid
+
+❌ **Forgetting quotes in frontmatter**
+```yaml
+name: skill-name  # Wrong
+```
+```yaml
+name: 'skill-name'  # Correct
+```
+
+❌ **Mismatched folder and name**
+```
+skills/web-testing/
+  SKILL.md with name: 'webapp-testing'  # Wrong
+```
+
+❌ **Description too short**
+```yaml
+description: 'Testing tool'  # Only 12 chars, needs 10+ but should be descriptive
+```
+
+❌ **Uppercase in folder name**
+```
+skills/WebTesting/  # Wrong
+skills/web-testing/  # Correct
+```
+
+❌ **Not referencing bundled assets**
+Including `script.py` but never mentioning it in SKILL.md.
+
+❌ **Skipping validation**
+Not running `npm run skill:validate` before committing.
+
+## Additional Resources
+
+- [Agent Skills Specification](https://agentskills.io/specification)
+- [Project Documentation](../../docs/README.skills.md)
+- [AGENTS.md](../../AGENTS.md) - Full project overview
+- [CONTRIBUTING.md](../../CONTRIBUTING.md) - Contribution guidelines
+
+## Workflow Summary
+
+1. **Plan** - Determine if a skill is the right resource type
+2. **Create** - Use `npm run skill:create` or create manually
+3. **Write** - Add comprehensive instructions and examples
+4. **Bundle** - Include relevant scripts, templates, or data
+5. **Validate** - Run `npm run skill:validate`
+6. **Build** - Run `npm run build` to update README
+7. **Normalize** - Run `bash scripts/fix-line-endings.sh`
+8. **Commit** - Submit your pull request
+
+## Meta: About This Skill
+
+This skill itself follows all the guidelines it recommends. It demonstrates:
+- ✅ Proper frontmatter with `name` and `description`
+- ✅ Clear section structure
+- ✅ Concrete examples and code snippets
+- ✅ Actionable guidelines
+- ✅ Common patterns and anti-patterns
+- ✅ Comprehensive documentation
+
+Use this as a reference template when creating your own skills.

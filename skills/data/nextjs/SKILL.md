@@ -1,58 +1,152 @@
 ---
 name: nextjs
-description: Build, review, and refactor Next.js (App Router) frontend projects with TypeScript. Use for tasks like creating pages/layouts, routing, server components vs client components, data fetching patterns, UI component structure, forms/validation, auth integration points, env vars, linting/testing, and production deployment readiness.
+description: |
+  Configures App Router, server/client components, API routes, and page structure.
+  Use when: creating pages, building API routes, configuring layouts, or working with Next.js routing.
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 
-# nextjs
+# Next.js Skill
 
-Use this skill to implement or review a Next.js frontend in a consistent, production-friendly way.
+This is a Next.js 15 App Router marketing website. Key patterns: server components for layouts/metadata, client components (`'use client'`) for interactivity, API routes for form handling via Resend, and static content in page components. No database - all data lives in component files.
 
-## Defaults (unless repo dictates otherwise)
+## Quick Start
 
-- Next.js App Router (`app/`)
-- TypeScript
-- Server Components by default; add `"use client"` only when needed
-- CSS: Tailwind if already present; otherwise follow existing styling approach
+### Client Page with Navigation
 
-## Workflow
+```tsx
+'use client'
 
-1) Identify project mode
-- New app: decide App Router vs Pages Router (prefer App Router unless constrained).
-- Existing app: follow current structure, conventions, and tooling.
+import { useState } from 'react'
+import Navigation from '@/app/components/Navigation'
+import Footer from '@/app/components/Footer'
 
-2) Establish app structure (App Router)
-- `app/layout.tsx`: global shell (providers, fonts, nav).
-- `app/page.tsx`: landing page.
-- Route groups for domains: `app/(dashboard)/...`, `app/(marketing)/...`.
-- Shared UI: `components/` (reusable), `app/**/_components/` (route-scoped).
-- Types/utilities: `lib/` (fetchers, helpers), `types/`.
+export default function PageName() {
+  const [state, setState] = useState(false)
 
-3) Server vs client boundaries
-- Prefer Server Components for data loading and initial render.
-- Use Client Components for: event handlers, stateful UI, browser APIs, client-only libraries.
-- Keep props serializable across the boundary; avoid passing functions/classes.
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <Navigation />
+      {/* Page content */}
+      <Footer />
+    </div>
+  )
+}
+```
 
-4) Data fetching patterns
-- Prefer colocated server fetchers in `lib/` and call them from Server Components.
-- Use `fetch()` with Next caching semantics when appropriate.
-- Handle loading and errors with `loading.tsx` / `error.tsx` per route segment.
+### API Route Handler
 
-5) Forms and validation
-- Use server actions when appropriate; otherwise route handlers (`app/api/...`) + client submit.
-- Validate on server; optionally mirror on client.
+```typescript
+import { NextRequest, NextResponse } from 'next/server'
 
-6) Env vars & config
-- Document required env vars; use `process.env.X`.
-- Only expose public vars with `NEXT_PUBLIC_` prefix.
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+    // Validate and process
+    return NextResponse.json({ success: true }, { status: 200 })
+  } catch (error) {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+```
 
-7) Quality gates
-- Run `lint` and `typecheck` (and tests if present).
-- Ensure accessibility basics: labels, focus states, keyboard navigation.
-- Avoid breaking route segments/URLs; add redirects when changing paths.
+### Root Layout (Server Component)
 
-## Output expectations when making changes
+```tsx
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
 
-- Keep diffs small and localized.
-- Prefer composition over complex shared state.
-- Add a short usage note (routes added, env vars, how to run) when you introduce new capabilities.
+const inter = Inter({ subsets: ['latin'] })
 
+export const metadata: Metadata = {
+  title: 'Site Title',
+  description: 'Site description',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
+  )
+}
+```
+
+## Key Concepts
+
+| Concept | Usage | Example |
+|---------|-------|---------|
+| `'use client'` | Required for hooks, events, browser APIs | Top of any interactive page |
+| `NextRequest` | Typed request object in API routes | `request.json()`, `request.nextUrl` |
+| `NextResponse` | Typed response builder | `NextResponse.json({ data })` |
+| Dynamic routes | `[slug]` folder naming | `app/solutions/[slug]/page.tsx` |
+| `useParams` | Access route params in client components | `const { slug } = useParams()` |
+| Path aliases | `@/*` maps to project root | `import Footer from '@/app/components/Footer'` |
+
+## Common Patterns
+
+### Form Submission to API Route
+
+**When:** Contact forms, signups, any user input
+
+```tsx
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData),
+  })
+  const data = await response.json()
+  if (!response.ok) throw new Error(data.error)
+}
+```
+
+### Dynamic Route with Fallback
+
+**When:** Content pages with unknown slugs
+
+```tsx
+export default function SolutionPage() {
+  const params = useParams()
+  const slug = params.slug as string
+  const data = contentMap[slug]
+
+  if (!data) {
+    return <NotFound />
+  }
+  return <Content data={data} />
+}
+```
+
+## See Also
+
+- [patterns](references/patterns.md)
+- [workflows](references/workflows.md)
+
+## Related Skills
+
+- See the **react** skill for React hooks and component patterns
+- See the **typescript** skill for type definitions
+- See the **tailwind** skill for styling conventions
+- See the **resend** skill for email API integration
+- See the **vercel** skill for deployment configuration
+
+## Documentation Resources
+
+> Fetch latest Next.js documentation with Context7.
+
+**How to use Context7:**
+1. Use `mcp__context7__resolve-library-id` to search for "nextjs"
+2. **Prefer website documentation** (IDs starting with `/websites/`) over source code repositories when available
+3. Query with `mcp__context7__query-docs` using the resolved library ID
+
+**Library ID:** `/websites/nextjs` _(High reputation, 5101 code snippets)_
+
+**Recommended Queries:**
+- "App Router routing layouts"
+- "Server Actions form handling"
+- "API route handlers POST GET"
+- "Dynamic routes params"
+- "Metadata SEO configuration"

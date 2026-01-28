@@ -1,7 +1,7 @@
 {
   "name": "performance-optimizer",
-  "repo": "ref-docs/sdd-stl",
-  "path": "src/templates/agents/claude-code/skills/performance-optimizer/SKILL.md",
-  "source": "github.com/ref-docs/sdd-stl",
-  "downloaded_at": "2026-01-27T04:05:17.994469Z"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/performance-optimizer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-28T03:33:38.908980Z"
 }

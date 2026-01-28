@@ -1,7 +1,40 @@
 ---
 name: dotnet-testing-advanced-aspire-testing
-description: 協助使用 .NET Aspire Testing 框架建立分散式應用的整合測試。當使用者要求建立 Aspire 測試、從 Testcontainers 遷移到 Aspire Testing、或需要測試雲原生 .NET 應用時使用此技能。
+description: |
+  .NET Aspire Testing 整合測試框架完整指南。
+  涵蓋 AppHost 專案設定、DistributedApplicationTestingBuilder、容器生命週期管理。
+  包含從 Testcontainers 遷移、多服務編排、Respawn 配置與時間可測試性設計。
+
+triggers:
+  # 核心關鍵字
+  - aspire testing
+  - .NET Aspire
+  - DistributedApplicationTestingBuilder
+  - AppHost testing
+  - 分散式測試
+
+  # 技術術語
+  - AspireAppFixture
+  - IAsyncLifetime
+  - ContainerLifetime.Session
+  - WithWebHostBuilder
+  - PostgreSqlContainer AspireContainer
+  - RedisContainer Aspire
+
+  # 使用情境
+  - 雲原生測試
+  - 多服務整合
+  - AppHost 編排
+  - Aspire.Hosting.Testing
+  - WaitForPostgreSqlReadyAsync
+  - EnsureDatabaseExistsAsync
+  - Respawn DbAdapter.Postgres
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: "aspire, distributed-testing, cloud-native, testcontainers, integration-testing"
 ---
 
 # .NET Aspire Testing 整合測試框架
@@ -311,11 +344,11 @@ const string sql = @"
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 24 - .NET Aspire Testing 入門基礎介紹**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376333
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10377071
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day24
 
 - **Day 25 - .NET Aspire 整合測試實戰：從 Testcontainers 到 .NET Aspire Testing**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376439
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10377197
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day25
 
 ### 官方文件

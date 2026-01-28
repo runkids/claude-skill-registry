@@ -1,7 +1,7 @@
 {
   "name": "error-recovery",
-  "repo": "claudeforge/orchestrator",
-  "path": "skills/error-recovery/SKILL.md",
-  "source": "github.com/claudeforge/orchestrator",
-  "downloaded_at": "2026-01-27T04:16:30.100331Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/orchestration/skills/error-recovery/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-28T04:22:24.717308Z"
 }

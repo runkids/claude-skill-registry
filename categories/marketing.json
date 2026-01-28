@@ -1,7 +1,7 @@
 {
   "category": "marketing",
-  "count": 464,
-  "updated_at": "2026-01-27T04:46:40.110327Z",
+  "count": 463,
+  "updated_at": "2026-01-28T04:46:46.917645Z",
   "skills": [
     {
       "name": "social-media",
@@ -2066,18 +2066,6 @@
       "source": "GitHub Search API"
     },
     {
-      "name": "art",
-      "description": "Visual content generation with Excalidraw hand-drawn aesthetic. USE WHEN user wants diagrams, visualizations, comics, or editorial illustrations.",
-      "repo": "edheltzel/atlas",
-      "path": "data/art",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "edheltzel/atlas",
-      "source": "GitHub Search API"
-    },
-    {
       "name": "article-analysis",
       "description": "Analyze blog posts and web articles by fetching content from URLs. Use when the user mentions blog post, article, Substack, Medium, web page, newsletter, or provides a URL to analyze.",
       "repo": "az9713/cerebro",
@@ -3409,6 +3397,18 @@
       "tags": [],
       "stars": 0,
       "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-embed-content",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "embed-content",
+      "description": "Use when you need to manage project embeddings - embed skills, agents, commands, and MCP tools for semantic discovery. Handles rate limiting, incremental updates, and status reporting. Do NOT use if y",
+      "repo": "jrc1883/popkit-claude",
+      "path": "data/embed-content",
+      "branch": "main",
+      "category": "marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -5992,18 +5992,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/18-visual-content/user-journey-mapper",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "user-journey-mapper",
-      "description": "User Journey Mapper - Auto-activating skill for Visual Content.Triggers on: user journey mapper, user journey mapperPart of the Visual Content skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/user-journey-mapper",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {

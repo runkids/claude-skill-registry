@@ -1,9 +1,7 @@
 {
   "name": "convert-fsharp-roc",
-  "description": "Convert F# code to idiomatic Roc. Use when migrating F# projects to Roc, translating F# patterns to idiomatic Roc, or refactoring F# codebases. Extends meta-convert-dev with F#-to-Roc specific pattern",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/convert-fsharp-roc/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:51.765579Z"
 }

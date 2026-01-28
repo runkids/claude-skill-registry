@@ -1,909 +1,633 @@
 ---
 name: deployment-rollback
-description: Safe deployment rollback with health checks and database migration reversal
-disable-model-invocation: false
+description: Rollback failed deployments, restore previous versions, and handle deployment emergencies. Use when deployments fail, bugs are discovered in production, or emergency recovery is needed.
+allowed-tools: Read, Edit, Write, Bash, Grep
 ---
 
-# Safe Deployment Rollback
+# Deployment Rollback Skill
 
-I'll help you safely rollback deployments with automated health checks, database migration reversal, and multi-environment support.
+This skill helps you safely rollback failed deployments and restore previous working versions.
 
-**Rollback Capabilities:**
-- Application version rollback
-- Database migration reversal
-- Infrastructure state restoration
-- Configuration rollback
-- Health monitoring and validation
+## When to Use This Skill
 
-**Token Optimization:**
-- Uses Grep to find deployment configs (150 tokens)
-- Reads deployment history for context (800 tokens)
-- Caches environment detection (saves 400 tokens)
-- Expected: 3,000-5,000 tokens
+- Deployment failures
+- Critical bugs in production
+- Performance degradation after deployment
+- Security vulnerabilities discovered
+- Database migration issues
+- Emergency recovery situations
 
-Arguments: `$ARGUMENTS` - environment (staging/production), version, or rollback target
+## Rollback Strategy
 
-## Phase 1: Detect Deployment Environment
+### Deployment Stages
 
-First, let me analyze your deployment setup:
+```
+Development → Staging → Production
+     ↓           ↓          ↓
+   Rollback   Rollback   Rollback
+```
+
+**Rollback Points:**
+1. **Before deployment**: Cancel deployment
+2. **During deployment**: Stop and revert
+3. **After deployment**: Quick rollback to previous version
+
+## SST Rollback
+
+### Quick Rollback
 
 ```bash
-# Detect deployment platform and configuration
-detect_deployment_environment() {
-    local platform=""
-    local environments=()
+# View deployment history
+sst version list
 
-    echo "=== Detecting Deployment Environment ==="
-    echo ""
+# Output:
+# Version  Stage       Deployed
+# v1.2.0   production  2024-01-15 10:00:00
+# v1.1.0   production  2024-01-10 09:30:00
+# v1.0.0   production  2024-01-05 08:00:00
 
-    # Kubernetes/Helm
-    if [ -f "Chart.yaml" ] || command -v kubectl &> /dev/null; then
-        platform="kubernetes"
-        echo "✓ Kubernetes detected"
+# Rollback to previous version
+sst deploy --stage production --to v1.1.0
 
-        # Get current contexts
-        if command -v kubectl &> /dev/null; then
-            echo "  Available contexts:"
-            kubectl config get-contexts -o name | while read ctx; do
-                echo "    - $ctx"
-                environments+=("$ctx")
-            done
-        fi
-    fi
+# Or rollback to specific git commit
+git checkout v1.1.0
+sst deploy --stage production
+```
 
-    # Docker Compose
-    if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ]; then
-        platform="${platform:+$platform,}docker-compose"
-        echo "✓ Docker Compose detected"
-    fi
+### Service-Specific Rollback
 
-    # AWS ECS
-    if command -v aws &> /dev/null; then
-        if aws ecs list-clusters 2>/dev/null | grep -q "clusterArns"; then
-            platform="${platform:+$platform,}ecs"
-            echo "✓ AWS ECS detected"
-        fi
-    fi
+```bash
+# Rollback API only
+sst deploy api --stage production --to v1.1.0
 
-    # Heroku
-    if command -v heroku &> /dev/null && [ -f "Procfile" ]; then
-        platform="${platform:+$platform,}heroku"
-        echo "✓ Heroku detected"
+# Rollback Web only
+sst deploy web --stage production --to v1.1.0
 
-        heroku apps:info 2>/dev/null | grep -q "===" && {
-            echo "  Current app: $(heroku apps:info | grep '===' | cut -d' ' -f2)"
+# Rollback infrastructure only
+sst deploy --stage production --only infra --to v1.1.0
+```
+
+## Database Rollback
+
+### Migration Rollback
+
+```bash
+# Check current migration status
+pnpm -F @sgcarstrends/database db:status
+
+# Rollback last migration
+pnpm -F @sgcarstrends/database db:rollback
+
+# Rollback to specific migration
+pnpm -F @sgcarstrends/database db:rollback --to 20240115_initial
+
+# Rollback multiple migrations
+pnpm -F @sgcarstrends/database db:rollback --step 3
+```
+
+### Backup and Restore
+
+```bash
+# Create backup before deployment
+pg_dump $DATABASE_URL > backup-$(date +%Y%m%d-%H%M%S).sql
+
+# Restore from backup
+psql $DATABASE_URL < backup-20240115-100000.sql
+
+# Or use automated backup
+# Restore from RDS snapshot (AWS)
+aws rds restore-db-instance-from-snapshot \
+  --db-instance-identifier sgcarstrends-restored \
+  --db-snapshot-identifier sgcarstrends-snapshot-20240115
+```
+
+## Lambda Rollback
+
+### AWS Lambda Version Rollback
+
+```bash
+# List Lambda versions
+aws lambda list-versions-by-function \
+  --function-name sgcarstrends-api-prod
+
+# Update alias to previous version
+aws lambda update-alias \
+  --function-name sgcarstrends-api-prod \
+  --name production \
+  --function-version 42  # Previous working version
+
+# Verify rollback
+aws lambda get-alias \
+  --function-name sgcarstrends-api-prod \
+  --name production
+```
+
+### Lambda Environment Variable Rollback
+
+```bash
+# Get previous configuration
+aws lambda get-function-configuration \
+  --function-name sgcarstrends-api-prod \
+  --qualifier 42  # Previous version
+
+# Update environment variables
+aws lambda update-function-configuration \
+  --function-name sgcarstrends-api-prod \
+  --environment Variables="{KEY1=value1,KEY2=value2}"
+```
+
+## Next.js Rollback
+
+### Vercel/AWS Rollback
+
+```bash
+# If deployed with SST
+sst deploy web --stage production --to v1.1.0
+
+# If using custom deployment
+# Redeploy previous version
+git checkout v1.1.0
+pnpm -F @sgcarstrends/web build
+pnpm -F @sgcarstrends/web deploy:prod
+
+# Or point CloudFront to previous S3 deployment
+aws cloudfront create-invalidation \
+  --distribution-id E1234567890ABC \
+  --paths "/*"
+```
+
+## Git-Based Rollback
+
+### Revert Deployment Commit
+
+```bash
+# Find deployment commit
+git log --oneline
+
+# Revert specific commit
+git revert <commit-hash>
+
+# Or revert multiple commits
+git revert <commit1>..<commit2>
+
+# Push revert
+git push origin main
+
+# CI automatically deploys reverted version
+```
+
+### Reset to Previous Version
+
+```bash
+# Create rollback branch
+git checkout -b rollback/v1.1.0
+
+# Reset to previous version
+git reset --hard v1.1.0
+
+# Force push (use with caution)
+git push origin rollback/v1.1.0 --force
+
+# Create PR to merge rollback
+gh pr create --title "Rollback to v1.1.0" --body "Emergency rollback"
+```
+
+## Automated Rollback
+
+### Health Check-Based Rollback
+
+```yaml
+# .github/workflows/deploy-with-rollback.yml
+name: Deploy with Rollback
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get previous version
+        id: prev
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^)
+          echo "tag=$PREV_TAG" >> $GITHUB_OUTPUT
+
+      - name: Deploy
+        id: deploy
+        run: pnpm deploy:prod
+
+      - name: Health check
+        id: health
+        run: |
+          sleep 30  # Wait for deployment
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.sgcarstrends.com/health)
+          if [ $STATUS -ne 200 ]; then
+            echo "Health check failed: $STATUS"
+            exit 1
+          fi
+
+      - name: Smoke tests
+        if: success()
+        run: pnpm test:e2e:prod
+
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          echo "Deployment failed, rolling back to ${{ steps.prev.outputs.tag }}"
+          git checkout ${{ steps.prev.outputs.tag }}
+          pnpm deploy:prod
+
+      - name: Notify on rollback
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "🚨 Deployment failed and was rolled back to ${{ steps.prev.outputs.tag }}"
+            }
+```
+
+## Rollback Checklist
+
+### Pre-Rollback
+
+- [ ] Identify issue and severity
+- [ ] Determine rollback scope (full/partial)
+- [ ] Check backup availability
+- [ ] Notify team of rollback
+- [ ] Document reason for rollback
+
+### During Rollback
+
+- [ ] Stop incoming traffic (if critical)
+- [ ] Rollback application code
+- [ ] Rollback database if needed
+- [ ] Clear caches (Redis, CDN)
+- [ ] Verify health checks pass
+- [ ] Run smoke tests
+
+### Post-Rollback
+
+- [ ] Monitor error rates
+- [ ] Verify functionality restored
+- [ ] Notify team of completion
+- [ ] Document what went wrong
+- [ ] Create postmortem
+- [ ] Fix root cause
+- [ ] Plan re-deployment
+
+## Rollback Scenarios
+
+### Scenario 1: Critical Bug in Production
+
+```bash
+# 1. Assess impact
+# Check error rates, user reports
+
+# 2. Quick rollback via SST
+sst deploy --stage production --to v1.1.0
+
+# 3. Verify rollback
+curl https://api.sgcarstrends.com/health
+
+# 4. Clear CDN cache
+aws cloudfront create-invalidation \
+  --distribution-id E1234567890ABC \
+  --paths "/*"
+
+# 5. Monitor
+# Check logs, metrics, error rates
+
+# 6. Communicate
+# Update status page, notify users
+```
+
+### Scenario 2: Database Migration Failure
+
+```bash
+# 1. Stop application (prevent data corruption)
+# Scale down or put in maintenance mode
+
+# 2. Rollback migration
+pnpm -F @sgcarstrends/database db:rollback
+
+# 3. Restore from backup if needed
+psql $DATABASE_URL < backup-latest.sql
+
+# 4. Verify database state
+pnpm -F @sgcarstrends/database db:status
+
+# 5. Rollback application code
+git checkout v1.1.0
+pnpm deploy:prod
+
+# 6. Resume application
+# Remove maintenance mode
+```
+
+### Scenario 3: Performance Degradation
+
+```bash
+# 1. Check metrics
+# Response times, CPU, memory usage
+
+# 2. Quick rollback
+sst deploy --stage production --to v1.1.0
+
+# 3. Clear caches
+redis-cli FLUSHALL
+aws cloudfront create-invalidation --distribution-id E123 --paths "/*"
+
+# 4. Monitor performance
+# Check if performance restored
+
+# 5. Investigate
+# Profile code, check database queries
+```
+
+### Scenario 4: Partial Rollback (API Only)
+
+```bash
+# Keep web app, rollback API only
+# 1. Rollback API
+sst deploy api --stage production --to v1.1.0
+
+# 2. Verify API health
+curl https://api.sgcarstrends.com/health
+
+# 3. Test web app still works
+# Check web app functionality
+
+# 4. Monitor for errors
+# Watch for API compatibility issues
+```
+
+## Traffic Management
+
+### Gradual Rollback
+
+```bash
+# If using load balancer with multiple instances
+
+# 1. Deploy old version to 50% of instances
+# Update 1 instance at a time
+
+# 2. Monitor metrics
+# Check error rates on rolled-back instances
+
+# 3. Gradually increase rollback
+# Update more instances if stable
+
+# 4. Complete rollback
+# Once verified, update all instances
+```
+
+### Blue-Green Rollback
+
+```bash
+# Switch traffic back to blue environment
+
+# 1. Update load balancer
+aws elbv2 modify-listener \
+  --listener-arn arn:aws:... \
+  --default-actions TargetGroupArn=arn:aws:...-blue
+
+# 2. Wait for traffic to shift
+sleep 60
+
+# 3. Verify metrics
+# Check error rates on blue environment
+
+# 4. Keep green for investigation
+# Don't destroy immediately
+```
+
+## Cache Invalidation
+
+### Clear Application Caches
+
+```bash
+# Redis cache
+redis-cli -h $REDIS_HOST -p $REDIS_PORT FLUSHALL
+
+# Or selective flush
+redis-cli -h $REDIS_HOST -p $REDIS_PORT --scan --pattern "cache:*" | xargs redis-cli DEL
+
+# Upstash Redis (via API)
+curl -X POST https://your-redis.upstash.io/flushall \
+  -H "Authorization: Bearer $UPSTASH_TOKEN"
+```
+
+### Clear CDN Cache
+
+```bash
+# CloudFront invalidation
+aws cloudfront create-invalidation \
+  --distribution-id E1234567890ABC \
+  --paths "/*"
+
+# Wait for invalidation
+aws cloudfront wait invalidation-completed \
+  --distribution-id E1234567890ABC \
+  --id I2J3K4L5M6N7O8P9
+```
+
+## Monitoring During Rollback
+
+### Health Checks
+
+```bash
+# API health
+curl -f https://api.sgcarstrends.com/health || echo "API unhealthy"
+
+# Web app health
+curl -f https://sgcarstrends.com || echo "Web unhealthy"
+
+# Database connectivity
+psql $DATABASE_URL -c "SELECT 1" || echo "Database unreachable"
+
+# Redis connectivity
+redis-cli -h $REDIS_HOST ping || echo "Redis unreachable"
+```
+
+### Error Rate Monitoring
+
+```bash
+# Check CloudWatch metrics
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/Lambda \
+  --metric-name Errors \
+  --dimensions Name=FunctionName,Value=sgcarstrends-api-prod \
+  --start-time $(date -u -d '5 minutes ago' +%Y-%m-%dT%H:%M:%S) \
+  --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
+  --period 60 \
+  --statistics Sum
+
+# Check logs for errors
+aws logs filter-log-events \
+  --log-group-name /aws/lambda/sgcarstrends-api-prod \
+  --start-time $(($(date +%s) - 300))000 \
+  --filter-pattern "ERROR"
+```
+
+## Communication During Rollback
+
+### Status Page Update
+
+```markdown
+# Status Page Template
+
+## Incident: Deployment Rollback in Progress
+
+**Status:** Investigating
+**Started:** 2024-01-15 10:00 UTC
+**Services Affected:** API, Web Application
+
+### Timeline
+
+**10:00 UTC** - Deployment completed
+**10:05 UTC** - Increased error rates detected
+**10:10 UTC** - Rollback initiated
+**10:15 UTC** - Rollback completed
+**10:20 UTC** - Services restored
+
+### Impact
+
+Some users may have experienced errors during the rollback.
+
+### Next Steps
+
+We're investigating the root cause and will provide updates.
+```
+
+### Team Notification
+
+```bash
+# Slack notification
+curl -X POST $SLACK_WEBHOOK_URL \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "text": "🚨 Rollback in progress",
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "*Deployment Rollback*\nRolling back from v1.2.0 to v1.1.0\nReason: Critical bug affecting user login"
         }
-    fi
+      }
+    ]
+  }'
+```
 
-    # Vercel/Netlify
-    if [ -f "vercel.json" ]; then
-        platform="${platform:+$platform,}vercel"
-        echo "✓ Vercel detected"
-    fi
+## Best Practices
 
-    if [ -f "netlify.toml" ]; then
-        platform="${platform:+$platform,}netlify"
-        echo "✓ Netlify detected"
-    fi
+### 1. Always Have Backups
 
-    # Database detection
-    echo ""
-    echo "Detecting database setup..."
+```bash
+# ✅ Create backups before deployment
+pg_dump $DATABASE_URL > backup-pre-deploy-$(date +%Y%m%d-%H%M%S).sql
 
-    if [ -f "prisma/schema.prisma" ]; then
-        echo "✓ Prisma migrations detected"
-    elif [ -d "migrations" ] || [ -d "db/migrate" ]; then
-        echo "✓ Database migrations detected"
-    elif command -v flyway &> /dev/null; then
-        echo "✓ Flyway migrations detected"
-    fi
+# Store in S3
+aws s3 cp backup.sql s3://sgcarstrends-backups/$(date +%Y%m%d)/
+```
 
-    if [ -z "$platform" ]; then
-        echo "⚠ No deployment platform detected"
-        echo ""
-        echo "Supported platforms:"
-        echo "  - Kubernetes/Helm"
-        echo "  - Docker Compose"
-        echo "  - AWS ECS"
-        echo "  - Heroku"
-        echo "  - Vercel/Netlify"
-    fi
+### 2. Test Rollback Procedures
 
-    echo "$platform"
+```bash
+# ✅ Practice rollback in staging
+sst deploy --stage staging --to v1.0.0
+
+# Verify functionality
+pnpm test:e2e:staging
+```
+
+### 3. Use Feature Flags
+
+```typescript
+// ✅ Enable gradual rollout and quick disable
+const ENABLE_NEW_FEATURE = process.env.ENABLE_NEW_FEATURE === "true";
+
+if (ENABLE_NEW_FEATURE) {
+  // New feature code
+} else {
+  // Old feature code
 }
 
-DEPLOYMENT_PLATFORM=$(detect_deployment_environment)
-
-echo ""
+// Disable feature without rollback
+// Set ENABLE_NEW_FEATURE=false
 ```
 
-## Phase 2: Pre-Rollback Validation
-
-<think>
-Rollback is a critical operation that requires careful consideration:
-- What version are we rolling back to?
-- Are there database schema changes that need reversal?
-- Will rollback cause data loss?
-- Are there dependencies between services that need coordination?
-- What is the rollback window before data loss occurs?
-- Do we need to notify users/stakeholders?
-
-Critical safety checks:
-- Verify target version is healthy
-- Check for breaking database changes
-- Ensure rollback path exists
-- Validate configuration compatibility
-- Confirm backup availability
-</think>
-
-Before rolling back, I'll perform critical safety checks:
+### 4. Monitor Continuously
 
 ```bash
-pre_rollback_validation() {
-    local environment=$1
-
-    echo "=== Pre-Rollback Validation ==="
-    echo ""
-
-    # Extract environment from arguments
-    if [[ "$ARGUMENTS" =~ staging|production|prod|dev ]]; then
-        environment=$(echo "$ARGUMENTS" | grep -oE "staging|production|prod|dev" | head -1)
-        echo "Target Environment: $environment"
-    else
-        echo "⚠ Environment not specified in arguments"
-        echo ""
-        echo "Available environments:"
-        echo "  - dev (development)"
-        echo "  - staging"
-        echo "  - production"
-        echo ""
-        read -p "Enter environment to rollback: " environment
-    fi
-
-    # Safety confirmation for production
-    if [[ "$environment" =~ production|prod ]]; then
-        echo ""
-        echo "🚨 PRODUCTION ROLLBACK WARNING 🚨"
-        echo ""
-        echo "You are about to rollback PRODUCTION."
-        echo "This will affect live users and services."
-        echo ""
-        read -p "Type 'ROLLBACK PRODUCTION' to confirm: " confirmation
-
-        if [ "$confirmation" != "ROLLBACK PRODUCTION" ]; then
-            echo "❌ Rollback cancelled"
-            exit 1
-        fi
-    fi
-
-    echo ""
-    echo "Validation checks:"
-
-    # Check 1: Git status
-    echo "  1. Git repository status..."
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        current_branch=$(git branch --show-current)
-        last_commit=$(git log -1 --oneline)
-        echo "     Current branch: $current_branch"
-        echo "     Last commit: $last_commit"
-    else
-        echo "     ⚠ Not a git repository"
-    fi
-
-    # Check 2: Deployment history
-    echo "  2. Recent deployments..."
-    case $DEPLOYMENT_PLATFORM in
-        *kubernetes*)
-            if command -v kubectl &> /dev/null; then
-                echo "     Fetching rollout history..."
-                kubectl rollout history deployment -n "$environment" 2>/dev/null | head -10
-            fi
-            ;;
-        *heroku*)
-            if command -v heroku &> /dev/null; then
-                echo "     Fetching release history..."
-                heroku releases --app "$environment" -n 10 2>/dev/null
-            fi
-            ;;
-    esac
-
-    # Check 3: Current health status
-    echo "  3. Current application health..."
-    check_application_health "$environment" "before-rollback"
-
-    # Check 4: Database migration status
-    echo "  4. Database migration status..."
-    check_migration_status
-
-    # Check 5: Backup verification
-    echo "  5. Backup availability..."
-    verify_backups "$environment"
-
-    echo ""
-    echo "✓ Pre-rollback validation complete"
-
-    echo "$environment"
-}
-
-ENVIRONMENT=$(pre_rollback_validation)
-```
-
-## Phase 3: Create Rollback Checkpoint
-
-I'll create a checkpoint before rollback for safety:
-
-```bash
-create_rollback_checkpoint() {
-    local environment=$1
-
-    echo ""
-    echo "=== Creating Rollback Checkpoint ==="
-    echo ""
-
-    # Create checkpoint directory
-    CHECKPOINT_DIR=".rollback-checkpoint-$(date +%Y%m%d-%H%M%S)"
-    mkdir -p "$CHECKPOINT_DIR"
-
-    echo "Checkpoint: $CHECKPOINT_DIR"
-    echo ""
-
-    # 1. Save current deployment state
-    echo "1. Saving deployment state..."
-
-    case $DEPLOYMENT_PLATFORM in
-        *kubernetes*)
-            if command -v kubectl &> /dev/null; then
-                kubectl get deployments -n "$environment" -o yaml > "$CHECKPOINT_DIR/deployments.yaml"
-                kubectl get services -n "$environment" -o yaml > "$CHECKPOINT_DIR/services.yaml"
-                kubectl get configmaps -n "$environment" -o yaml > "$CHECKPOINT_DIR/configmaps.yaml"
-                echo "   ✓ Kubernetes state saved"
-            fi
-            ;;
-
-        *docker-compose*)
-            cp docker-compose.yml "$CHECKPOINT_DIR/" 2>/dev/null || true
-            docker-compose config > "$CHECKPOINT_DIR/docker-compose-resolved.yml" 2>/dev/null || true
-            echo "   ✓ Docker Compose state saved"
-            ;;
-
-        *ecs*)
-            if command -v aws &> /dev/null; then
-                aws ecs describe-services --cluster "$environment" \
-                    --services $(aws ecs list-services --cluster "$environment" --query 'serviceArns' --output text) \
-                    > "$CHECKPOINT_DIR/ecs-services.json" 2>/dev/null
-                echo "   ✓ ECS state saved"
-            fi
-            ;;
-    esac
-
-    # 2. Save database schema
-    echo "2. Saving database schema..."
-    if command -v pg_dump &> /dev/null; then
-        # PostgreSQL schema dump
-        pg_dump --schema-only --no-owner --no-privileges "$DATABASE_URL" \
-            > "$CHECKPOINT_DIR/database-schema.sql" 2>/dev/null && \
-            echo "   ✓ Database schema saved" || \
-            echo "   ⚠ Could not save database schema"
-    fi
-
-    # 3. Save environment variables
-    echo "3. Saving environment configuration..."
-    env | grep -E "^(DATABASE|API|AWS|NODE|PORT|HOST)" > "$CHECKPOINT_DIR/environment.txt" 2>/dev/null || true
-    echo "   ✓ Environment saved"
-
-    # 4. Save application logs (recent)
-    echo "4. Saving recent logs..."
-    case $DEPLOYMENT_PLATFORM in
-        *kubernetes*)
-            kubectl logs -n "$environment" --tail=1000 --all-containers=true \
-                > "$CHECKPOINT_DIR/logs-before-rollback.txt" 2>/dev/null || true
-            ;;
-    esac
-    echo "   ✓ Logs saved"
-
-    echo ""
-    echo "✓ Checkpoint created: $CHECKPOINT_DIR"
-
-    echo "$CHECKPOINT_DIR"
-}
-
-CHECKPOINT_DIR=$(create_rollback_checkpoint "$ENVIRONMENT")
-```
-
-## Phase 4: Determine Rollback Target
-
-I'll identify the version to rollback to:
-
-```bash
-determine_rollback_target() {
-    local environment=$1
-
-    echo ""
-    echo "=== Determining Rollback Target ==="
-    echo ""
-
-    # Check if version specified in arguments
-    if [[ "$ARGUMENTS" =~ v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
-        TARGET_VERSION=$(echo "$ARGUMENTS" | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" | head -1)
-        echo "Target version from arguments: $TARGET_VERSION"
-    else
-        # Show recent versions
-        echo "Recent versions/releases:"
-        echo ""
-
-        case $DEPLOYMENT_PLATFORM in
-            *kubernetes*)
-                kubectl rollout history deployment -n "$environment" | tail -10
-                echo ""
-                read -p "Enter revision number to rollback to: " revision
-                TARGET_VERSION="revision-$revision"
-                ;;
-
-            *heroku*)
-                heroku releases --app "$environment" -n 10
-                echo ""
-                read -p "Enter release version (e.g., v123): " version
-                TARGET_VERSION="$version"
-                ;;
-
-            *)
-                git log --oneline -10
-                echo ""
-                read -p "Enter commit hash to rollback to: " commit
-                TARGET_VERSION="$commit"
-                ;;
-        esac
-    fi
-
-    echo ""
-    echo "Target version: $TARGET_VERSION"
-
-    echo "$TARGET_VERSION"
-}
-
-TARGET_VERSION=$(determine_rollback_target "$ENVIRONMENT")
-```
-
-## Phase 5: Database Migration Rollback
-
-I'll safely rollback database migrations if needed:
-
-```bash
-rollback_database_migrations() {
-    echo ""
-    echo "=== Database Migration Rollback ==="
-    echo ""
-
-    # Check if database rollback is needed
-    echo "Analyzing migration changes between versions..."
-
-    # Prisma migrations
-    if [ -f "prisma/schema.prisma" ]; then
-        echo "Prisma migrations detected"
-        echo ""
-        echo "⚠ WARNING: Prisma doesn't support automatic rollback"
-        echo "You need to manually create a migration to reverse changes."
-        echo ""
-        read -p "Have you created a rollback migration? (yes/no): " has_rollback
-
-        if [ "$has_rollback" = "yes" ]; then
-            echo "Applying rollback migration..."
-            npx prisma migrate deploy
-        else
-            echo "❌ Cannot proceed without rollback migration"
-            echo "Create migration first: npx prisma migrate dev"
-            exit 1
-        fi
-
-    # Rails migrations
-    elif [ -d "db/migrate" ] && [ -f "Gemfile" ]; then
-        echo "Rails migrations detected"
-        echo ""
-        echo "Current migration version:"
-        rails db:version 2>/dev/null || echo "  (unable to determine)"
-        echo ""
-        read -p "Rollback to which version? (leave empty for one step back): " migration_version
-
-        if [ -z "$migration_version" ]; then
-            echo "Rolling back one migration..."
-            rails db:rollback
-        else
-            echo "Rolling back to version: $migration_version"
-            rails db:migrate:down VERSION="$migration_version"
-        fi
-
-    # Django migrations
-    elif [ -f "manage.py" ] && [ -d "*/migrations" ]; then
-        echo "Django migrations detected"
-        echo ""
-        python manage.py showmigrations
-        echo ""
-        read -p "Enter app and migration to rollback to (e.g., app_name 0003): " app migration
-
-        if [ -n "$app" ] && [ -n "$migration" ]; then
-            echo "Rolling back $app to $migration..."
-            python manage.py migrate "$app" "$migration"
-        fi
-
-    # Flyway migrations
-    elif command -v flyway &> /dev/null; then
-        echo "Flyway migrations detected"
-        echo ""
-        echo "⚠ WARNING: Flyway requires manual undo migrations"
-        echo "Ensure you have corresponding undo SQL files"
-        echo ""
-        read -p "Number of migrations to undo: " undo_count
-
-        if [ -n "$undo_count" ]; then
-            echo "Undoing $undo_count migrations..."
-            flyway undo -target="-$undo_count"
-        fi
-
-    else
-        echo "No recognized migration system detected"
-        echo ""
-        echo "If you have custom migrations, rollback manually before proceeding."
-        read -p "Press Enter to continue or Ctrl+C to abort..."
-    fi
-
-    echo ""
-    echo "✓ Database migration rollback complete"
-}
-
-# Ask if database rollback needed
-echo ""
-read -p "Does this rollback require database migration reversal? (yes/no): " needs_db_rollback
-
-if [ "$needs_db_rollback" = "yes" ]; then
-    rollback_database_migrations
-fi
-```
-
-## Phase 6: Execute Application Rollback
-
-Now I'll rollback the application:
-
-```bash
-execute_application_rollback() {
-    local environment=$1
-    local target=$2
-
-    echo ""
-    echo "=== Executing Application Rollback ==="
-    echo ""
-    echo "Environment: $environment"
-    echo "Target: $target"
-    echo ""
-
-    case $DEPLOYMENT_PLATFORM in
-        *kubernetes*)
-            echo "Rolling back Kubernetes deployment..."
-
-            # Get deployment name
-            deployments=$(kubectl get deployments -n "$environment" -o name)
-
-            for deployment in $deployments; do
-                deployment_name=$(echo "$deployment" | cut -d'/' -f2)
-
-                echo "  Rollback: $deployment_name"
-
-                if [[ "$target" =~ revision-([0-9]+) ]]; then
-                    revision="${BASH_REMATCH[1]}"
-                    kubectl rollout undo deployment/"$deployment_name" \
-                        -n "$environment" --to-revision="$revision"
-                else
-                    # Rollback to previous revision
-                    kubectl rollout undo deployment/"$deployment_name" -n "$environment"
-                fi
-
-                # Wait for rollback to complete
-                echo "  Waiting for rollback to complete..."
-                kubectl rollout status deployment/"$deployment_name" \
-                    -n "$environment" --timeout=5m
-            done
-
-            echo "✓ Kubernetes rollback complete"
-            ;;
-
-        *heroku*)
-            echo "Rolling back Heroku app..."
-
-            if [[ "$target" =~ v([0-9]+) ]]; then
-                version="${BASH_REMATCH[1]}"
-                heroku rollback "$version" --app "$environment"
-            else
-                # Rollback to previous release
-                heroku rollback --app "$environment"
-            fi
-
-            echo "✓ Heroku rollback complete"
-            ;;
-
-        *ecs*)
-            echo "Rolling back ECS service..."
-
-            # Get service name
-            services=$(aws ecs list-services --cluster "$environment" \
-                --query 'serviceArns[*]' --output text)
-
-            for service_arn in $services; do
-                service_name=$(echo "$service_arn" | rev | cut -d'/' -f1 | rev)
-
-                echo "  Rollback: $service_name"
-
-                # Get previous task definition
-                current_td=$(aws ecs describe-services --cluster "$environment" \
-                    --services "$service_name" \
-                    --query 'services[0].taskDefinition' --output text)
-
-                # Extract family and current revision
-                td_family=$(echo "$current_td" | cut -d':' -f6 | rev | cut -d'/' -f1 | rev | sed 's/:[0-9]*$//')
-                current_rev=$(echo "$current_td" | rev | cut -d':' -f1 | rev)
-                previous_rev=$((current_rev - 1))
-
-                previous_td="$td_family:$previous_rev"
-
-                echo "  Current: $current_td"
-                echo "  Rolling back to: $previous_td"
-
-                # Update service with previous task definition
-                aws ecs update-service \
-                    --cluster "$environment" \
-                    --service "$service_name" \
-                    --task-definition "$previous_td" \
-                    --force-new-deployment
-
-                echo "  Waiting for service to stabilize..."
-                aws ecs wait services-stable \
-                    --cluster "$environment" \
-                    --services "$service_name"
-            done
-
-            echo "✓ ECS rollback complete"
-            ;;
-
-        *docker-compose*)
-            echo "Rolling back Docker Compose..."
-
-            # Restore previous docker-compose.yml
-            if [ -f "$CHECKPOINT_DIR/docker-compose.yml" ]; then
-                echo "  Restoring docker-compose.yml..."
-                # Note: This assumes you have the old version saved
-                echo "  ⚠ Manual intervention may be required"
-                echo "  Restore docker-compose.yml from git: git checkout $target docker-compose.yml"
-            fi
-
-            # Pull and restart with previous version
-            docker-compose down
-            docker-compose pull
-            docker-compose up -d
-
-            echo "✓ Docker Compose rollback complete"
-            ;;
-
-        *)
-            echo "Platform-specific rollback not automated."
-            echo "Manual steps required:"
-            echo "  1. Deploy previous version"
-            echo "  2. Restart services"
-            echo "  3. Verify health"
-            ;;
-    esac
-
-    echo ""
-}
-
-execute_application_rollback "$ENVIRONMENT" "$TARGET_VERSION"
-```
-
-## Phase 7: Health Check Validation
-
-After rollback, I'll verify the application is healthy:
-
-```bash
-check_application_health() {
-    local environment=$1
-    local phase=$2
-
-    echo ""
-    echo "=== Health Check: $phase ==="
-    echo ""
-
-    local all_healthy=true
-
-    # HTTP health checks
-    if [ -n "$HEALTH_CHECK_URL" ]; then
-        echo "Checking HTTP endpoint: $HEALTH_CHECK_URL"
-
-        for i in {1..10}; do
-            if curl -sf "$HEALTH_CHECK_URL" > /dev/null; then
-                echo "  ✓ Health check passed (attempt $i)"
-                break
-            else
-                echo "  ⚠ Health check failed (attempt $i/10)"
-                if [ $i -eq 10 ]; then
-                    all_healthy=false
-                    echo "  ❌ Health checks failed after 10 attempts"
-                fi
-                sleep 5
-            fi
-        done
-    fi
-
-    # Platform-specific health checks
-    case $DEPLOYMENT_PLATFORM in
-        *kubernetes*)
-            echo "Checking Kubernetes pod health..."
-
-            pods=$(kubectl get pods -n "$environment" --field-selector=status.phase=Running --no-headers 2>/dev/null | wc -l)
-            total_pods=$(kubectl get pods -n "$environment" --no-headers 2>/dev/null | wc -l)
-
-            echo "  Running pods: $pods/$total_pods"
-
-            if [ "$pods" -eq "$total_pods" ] && [ "$pods" -gt 0 ]; then
-                echo "  ✓ All pods are running"
-            else
-                echo "  ❌ Some pods are not running"
-                all_healthy=false
-
-                # Show failing pods
-                kubectl get pods -n "$environment" --field-selector=status.phase!=Running
-            fi
-            ;;
-
-        *ecs*)
-            echo "Checking ECS service health..."
-
-            services=$(aws ecs list-services --cluster "$environment" --query 'serviceArns[*]' --output text)
-
-            for service_arn in $services; do
-                service_name=$(echo "$service_arn" | rev | cut -d'/' -f1 | rev)
-
-                running_count=$(aws ecs describe-services --cluster "$environment" \
-                    --services "$service_name" \
-                    --query 'services[0].runningCount' --output text)
-
-                desired_count=$(aws ecs describe-services --cluster "$environment" \
-                    --services "$service_name" \
-                    --query 'services[0].desiredCount' --output text)
-
-                echo "  $service_name: $running_count/$desired_count running"
-
-                if [ "$running_count" -ne "$desired_count" ]; then
-                    all_healthy=false
-                fi
-            done
-            ;;
-    esac
-
-    # Check error rates in logs (last 5 minutes)
-    echo ""
-    echo "Checking error rates..."
-
-    case $DEPLOYMENT_PLATFORM in
-        *kubernetes*)
-            error_count=$(kubectl logs -n "$environment" --since=5m --all-containers=true 2>/dev/null | \
-                grep -iE "error|exception|fatal" | wc -l)
-
-            echo "  Error logs (last 5m): $error_count"
-
-            if [ "$error_count" -gt 50 ]; then
-                echo "  ⚠ High error rate detected"
-                all_healthy=false
-            fi
-            ;;
-    esac
-
-    echo ""
-
-    if [ "$all_healthy" = true ]; then
-        echo "✓ All health checks passed"
-    else
-        echo "❌ Some health checks failed"
-        echo ""
-        echo "Rollback may require additional investigation."
-    fi
-
-    return $([ "$all_healthy" = true ] && echo 0 || echo 1)
-}
-
-# Post-rollback health check
-check_application_health "$ENVIRONMENT" "post-rollback"
-HEALTH_STATUS=$?
-```
-
-## Phase 8: Rollback Summary and Next Steps
-
-I'll provide a comprehensive rollback summary:
-
-```bash
-generate_rollback_summary() {
-    echo ""
-    echo "=== Rollback Summary ==="
-    echo ""
-
-    cat << EOF
-Environment: $ENVIRONMENT
-Target Version: $TARGET_VERSION
-Checkpoint: $CHECKPOINT_DIR
-Status: $([ $HEALTH_STATUS -eq 0 ] && echo "SUCCESS" || echo "NEEDS ATTENTION")
-
-**Actions Taken:**
-1. ✓ Pre-rollback validation completed
-2. ✓ Rollback checkpoint created
-3. ✓ Target version identified
-4. $([ "$needs_db_rollback" = "yes" ] && echo "✓" || echo "-") Database migrations rolled back
-5. ✓ Application rolled back
-6. $([ $HEALTH_STATUS -eq 0 ] && echo "✓" || echo "⚠") Health checks completed
-
-**Next Steps:**
-
-1. Monitor application closely for next 30 minutes
-2. Check error logs for anomalies
-3. Verify critical business functions
-4. Notify stakeholders of rollback
-5. Investigate root cause of issues
-
-**Monitoring Commands:**
-
-Logs:
-EOF
-
-    case $DEPLOYMENT_PLATFORM in
-        *kubernetes*)
-            echo "  kubectl logs -f -n $ENVIRONMENT deployment/your-app"
-            ;;
-        *heroku*)
-            echo "  heroku logs --tail --app $ENVIRONMENT"
-            ;;
-        *ecs*)
-            echo "  aws logs tail /ecs/$ENVIRONMENT --follow"
-            ;;
-    esac
-
-    cat << EOF
-
-Metrics:
-  - Check response times
-  - Monitor error rates
-  - Watch resource utilization
-
-**Checkpoint Recovery:**
-
-If you need to restore to pre-rollback state:
-  1. Review files in: $CHECKPOINT_DIR
-  2. Redeploy using saved configurations
-  3. Restore database schema if needed
-
-**Important Notes:**
-- Keep checkpoint directory until rollback is confirmed stable
-- Document what caused the need for rollback
-- Plan fixes before next deployment
-- Consider additional testing before redeployment
-
-EOF
-
-    if [ $HEALTH_STATUS -ne 0 ]; then
-        cat << EOF
-
-⚠ ATTENTION REQUIRED ⚠
-
-Health checks indicate potential issues.
-Immediate actions:
-  1. Check application logs for errors
-  2. Verify database connectivity
-  3. Test critical user flows
-  4. Consider rolling forward if issues persist
-
-EOF
-    fi
-}
-
-generate_rollback_summary
-```
-
-## Rollback Decision Matrix
-
-Guide for when to rollback:
-
-```bash
-cat << 'EOF'
-
-=== Rollback Decision Matrix ===
-
-**Immediate Rollback (within 5 minutes):**
-- ❌ Complete service outage
-- ❌ Data corruption detected
-- ❌ Security vulnerability introduced
-- ❌ Critical feature completely broken
-
-**Planned Rollback (within 30 minutes):**
-- ⚠ Elevated error rates (>5% increase)
-- ⚠ Performance degradation (>50% slower)
-- ⚠ Partial feature breakage affecting users
-- ⚠ Database migration issues
-
-**Monitor and Fix Forward:**
-- ℹ Minor bugs affecting <1% of users
-- ℹ Cosmetic issues
-- ℹ Non-critical features affected
-- ℹ Performance degradation <20%
-
-**Factors to Consider:**
-1. User impact severity
-2. Data integrity risk
-3. Rollback complexity
-4. Time to fix forward
-5. Business requirements
-
-EOF
-```
-
-## Integration Points
-
-This skill works well with:
-- `/deploy-validate` - Pre-deployment validation to prevent rollbacks
-- `/security-scan` - Verify no security regressions after rollback
-- `/test` - Run tests after rollback to verify functionality
-
-## Safety Guarantees
-
-**Protection Measures:**
-- Automatic checkpoint creation before rollback
-- Health monitoring during rollback
-- Database backup verification
-- Multi-stage confirmation for production
-- Detailed audit trail
-
-**Important:** I will NEVER:
-- Rollback production without explicit confirmation
-- Skip health checks after rollback
-- Delete checkpoints prematurely
-- Ignore database migration conflicts
-- Add AI attribution to rollback logs
-
-## Example Workflows
-
-```bash
-# Emergency production rollback
-/deployment-rollback production
-
-# Rollback to specific version
-/deployment-rollback staging v2.1.0
-
-# Rollback with database reversal
-/deployment-rollback production
-# Follow prompts for database rollback
-
-# Check rollback was successful
-/test
-/security-scan
+# ✅ Set up alerts for key metrics
+# - Error rate
+# - Response time
+# - CPU/Memory usage
+# - Database connections
 ```
 
 ## Troubleshooting
 
-**Issue: Rollback stuck/timing out**
-- Solution: Check platform-specific status
-- Solution: May need manual intervention
-- Solution: Contact platform support if needed
+### Rollback Fails
 
-**Issue: Database rollback failed**
-- Solution: Restore from most recent backup
-- Solution: Manually reverse schema changes
-- Solution: Check migration logs for errors
+```bash
+# Issue: Rollback command fails
+# Solution: Manual intervention
 
-**Issue: Health checks failing after rollback**
-- Solution: Check if previous version had issues too
-- Solution: May need to rollback further
-- Solution: Consider rolling forward with fixes
+# 1. Check current state
+sst version list
 
-**Issue: Configuration mismatch**
-- Solution: Restore environment variables from checkpoint
-- Solution: Check secrets/config management system
-- Solution: Verify external service configurations
+# 2. Force redeploy previous version
+git checkout v1.1.0
+pnpm install
+pnpm build
+pnpm deploy:prod --force
 
-**Credits:**
-- Rollback strategies from [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment)
-- Database migration patterns from [Prisma](https://www.prisma.io/docs/) and [Rails guides](https://guides.rubyonrails.org/active_record_migrations.html)
-- Health check best practices from DevOps engineering
-- Deployment safety patterns from SKILLS_EXPANSION_PLAN.md Tier 3 DevOps practices
+# 3. Verify deployment
+curl https://api.sgcarstrends.com/health
+```
+
+### Database Schema Mismatch
+
+```bash
+# Issue: Code rolled back but database not
+# Solution: Rollback database
+
+# 1. Rollback migrations
+pnpm -F @sgcarstrends/database db:rollback
+
+# 2. Or restore backup
+psql $DATABASE_URL < backup-pre-deploy.sql
+
+# 3. Verify schema version
+pnpm -F @sgcarstrends/database db:status
+```
+
+## References
+
+- SST Deployments: https://docs.sst.dev/deployment
+- AWS Lambda Versions: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+- Database Migrations: https://orm.drizzle.team/docs/migrations
+- Related files:
+  - `.github/workflows/` - Deployment workflows
+  - Root CLAUDE.md - Deployment guidelines
+
+## Best Practices Summary
+
+1. **Always Backup**: Create backups before deployments
+2. **Test Rollback**: Practice rollback procedures in staging
+3. **Monitor Closely**: Watch metrics during and after rollback
+4. **Document Everything**: Record what happened and why
+5. **Communicate**: Keep team and users informed
+6. **Feature Flags**: Use for quick feature disabling
+7. **Gradual Rollout**: Test with small percentage first
+8. **Postmortem**: Learn from rollbacks to prevent recurrence

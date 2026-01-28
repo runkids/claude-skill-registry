@@ -1,7 +1,7 @@
 {
   "name": "libafl",
-  "repo": "trailofbits/skills",
-  "path": "plugins/testing-handbook-skills/skills/libafl/SKILL.md",
-  "source": "github.com/trailofbits/skills",
-  "downloaded_at": "2026-01-27T04:11:37.018395Z"
+  "repo": "plurigrid/asi",
+  "path": "skills/libafl/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-28T01:53:20.567022Z"
 }

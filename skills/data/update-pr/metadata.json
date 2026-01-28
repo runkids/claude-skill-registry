@@ -1,13 +1,7 @@
 {
   "name": "update-pr",
-  "description": "Update a pull request description. Use when asked to update PR description, edit PR body, or refresh PR details.",
-  "repo": "kristofferremback/threa",
-  "category": "data",
-  "tags": [
-    "update"
-  ],
-  "stars": 1,
-  "dir_name": "update-pr",
-  "github_path": ".claude/skills/update-pr",
-  "github_branch": "main"
+  "repo": "datamaker-kr/synapse-claude-marketplace",
+  "path": "plugins/platform-dev-team-common/agents/update-pr/SKILL.md",
+  "source": "github.com/datamaker-kr/synapse-claude-marketplace",
+  "downloaded_at": "2026-01-28T01:47:50.255110Z"
 }

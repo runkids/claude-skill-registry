@@ -17,10 +17,20 @@ I'll perform comprehensive pre-deployment validation to catch issues before they
 - Security checks
 
 **Token Optimization:**
-- Uses Grep for config checks (200 tokens)
-- Bash commands for validation (500 tokens)
-- Only reads necessary files (1,000 tokens)
-- Expected: 2,000-3,500 tokens
+- ✅ Bash-based validation checks (minimal tokens)
+- ✅ Grep for configuration verification (200 tokens vs 2,000+ reading all configs)
+- ✅ Checklist-based validation (no file reads for most checks)
+- ✅ Early exit on critical failures - saves 80%
+- ✅ Progressive validation (stop at first blocker)
+- ✅ Caching previous validation results
+- **Expected tokens:** 800-2,000 (vs. 3,000-5,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/deploy/last-validation.json`
+- Caches: Previous validation results, environment checks
+- Cache validity: Until deployment configs change
+- Shared with: `/ci-setup`, `/release-automation` skills
 
 ## Phase 1: Environment Configuration
 

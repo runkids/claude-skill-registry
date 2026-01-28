@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-secret-push
-description: Push secrets from local .env.production file to cloud. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.0.105"
+description: Push secrets from local .env file to cloud. Requires authentication. Use for Agentuity cloud platform operations
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:
@@ -11,7 +11,7 @@ metadata:
 
 # Cloud Secret Push
 
-Push secrets from local .env.production file to cloud
+Push secrets from local .env file to cloud
 
 ## Prerequisites
 

@@ -1,7 +1,52 @@
 ---
 name: dotnet-testing-awesome-assertions-guide
-description: 協助使用 AwesomeAssertions 進行流暢且可讀的測試斷言。當使用者需要撰寫斷言、比對物件、驗證集合、處理複雜物件比對，或建立自訂 Assertions 時，請使用此技能。
+description: |
+  使用 AwesomeAssertions 進行流暢且可讀的測試斷言技能。
+  當需要撰寫清晰的斷言、比對物件、驗證集合、處理複雜比對時使用。
+  涵蓋 Should()、BeEquivalentTo()、Contain()、ThrowAsync() 等完整 API。
+
+triggers:
+  # 核心關鍵字
+  - assertions
+  - awesome assertions
+  - fluent assertions
+  - 斷言
+  - 流暢斷言
+  - should
+  - assert
+
+  # 方法名稱
+  - Should()
+  - Be()
+  - BeEquivalentTo
+  - Contain
+  - ThrowAsync
+  - NotBeNull
+  - BeTrue
+  - BeFalse
+
+  # 使用情境
+  - 斷言寫法
+  - 物件比對
+  - 集合驗證
+  - 例外斷言
+  - assertion syntax
+  - object comparison
+  - collection assertion
+  - exception testing
+
+  # 技術術語
+  - AwesomeAssertions
+  - FluentAssertions
+  - assertion methods
+  - fluent syntax
+  - 流暢語法
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: ".NET, testing, AwesomeAssertions, FluentAssertions, assertions"
 ---
 
 # AwesomeAssertions 流暢斷言指南
@@ -880,12 +925,12 @@ public void CreateUser_有效資料_應回傳啟用使用者()
 
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
-- **Day 04 - 驗證測試結果：提昇測試驗證的可讀性**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10374178
+- **Day 04 - AwesomeAssertions 基礎應用與實戰技巧**
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10374188
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day04
 
-- **Day 05 - 複雜物件的驗證：使用 FluentAssertions 的進階比對**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10374283
+- **Day 05 - AwesomeAssertions 進階技巧與複雜情境應用**
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10374425
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day05
 
 ### 官方資源

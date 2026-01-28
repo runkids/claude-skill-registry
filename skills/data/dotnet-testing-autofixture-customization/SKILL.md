@@ -1,7 +1,38 @@
 ---
 name: dotnet-testing-autofixture-customization
-description: AutoFixture 進階自訂化技術,包括 DataAnnotations 自動整合、屬性範圍控制、自訂 ISpecimenBuilder 實作、DateTime 與數值範圍建構器、泛型化設計與擴充方法
+description: |
+  AutoFixture 進階自訂化技術完整指南。
+  涵蓋 DataAnnotations 自動整合、ISpecimenBuilder 實作、優先順序管理。
+  包含 DateTime/數值範圍建構器、泛型化設計與流暢式擴充方法。
+
+triggers:
+  # 核心關鍵字
+  - autofixture customization
+  - autofixture customize
+  - autofixture 自訂
+  - specimen builder
+
+  # 技術類別/方法
+  - ISpecimenBuilder
+  - RandomDateTimeSequenceGenerator
+  - NumericRangeBuilder
+  - DataAnnotations autofixture
+
+  # 使用情境
+  - fixture.Customizations
+  - Insert(0)
+  - 屬性範圍控制
+  - 自訂建構器
+  - custom builder autofixture
+  - Random.Shared
+  - NoSpecimen
+  - 泛型化建構器
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: "autofixture, customization, test-data, specimen-builder, data-annotations"
 ---
 
 # AutoFixture 進階:自訂化測試資料生成策略
@@ -472,7 +503,7 @@ public void 多重數值型別範圍控制()
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 11 - AutoFixture 進階：自訂化測試資料生成策略**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10374913
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10375153
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day11
 
 ### 官方文件

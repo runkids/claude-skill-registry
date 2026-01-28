@@ -1,10 +1,50 @@
 ---
 name: dotnet-testing-datetime-testing-timeprovider
 description: |
-  使用 Microsoft.Bcl.TimeProvider 測試時間相依邏輯的完整指南。當使用者需要測試與日期時間相關的程式碼（如營業時間判斷、快取過期、排程任務、Token 有效期限）、詢問如何讓 DateTime.Now 可測試、或需要在測試中控制時間流逝時，請使用此技能。涵蓋 TimeProvider 抽象化、FakeTimeProvider 時間控制（凍結、快轉、倒轉）、以及 AutoFixture 整合。
+  使用 TimeProvider 測試時間相依邏輯的專門技能。
+  當需要測試 DateTime、控制時間流逝、處理時區轉換、測試過期邏輯時使用。
+  涵蓋 TimeProvider 抽象化、FakeTimeProvider 時間控制、時間凍結與快轉等。
+
+triggers:
+  # 核心關鍵字
+  - datetime
+  - time testing
+  - 時間測試
+  - TimeProvider
+  - FakeTimeProvider
+  - DateTime.Now
+
+  # 使用情境
+  - 測試時間
+  - 時間相依
+  - 營業時間
+  - 快取過期
+  - token 過期
+  - 排程測試
+  - schedule testing
+
+  # 技術術語
+  - Microsoft.Bcl.TimeProvider
+  - GetUtcNow
+  - GetLocalNow
+  - SetUtcNow
+  - Advance
+  - time freeze
+  - 時間凍結
+  - 時間快轉
+
+  # 常見問題
+  - DateTime.Now 測試
+  - 如何測試時間
+  - how to test datetime
+  - 時間可測試性
+  - testable time
+
 license: MIT
 metadata:
+  author: Kevin Tseng
   version: "1.0.0"
+  tags: ".NET, testing, TimeProvider, DateTime, time testing"
 ---
 
 # DateTime 與時間相依性測試指南
@@ -361,7 +401,7 @@ public void GetTimeBasedDiscount_週五_應回傳九折優惠(
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 16 - 測試日期與時間：Microsoft.Bcl.TimeProvider 取代 DateTime**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10375431
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10375821
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day16
 
 ### 官方文件

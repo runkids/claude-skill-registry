@@ -1,7 +1,8 @@
 ---
 name: executing-quick-tasks
 description: Use this skill when executing small ad-hoc tasks with Kata guarantees, running quick tasks without full planning, or handling one-off work outside the roadmap. Triggers include "quick task", "quick mode", "quick fix", "ad-hoc task", "small task", and "one-off task".
-version: 0.1.0
+metadata:
+  version: "0.1.0"
 user-invocable: false
 disable-model-invocation: false
 allowed-tools:
@@ -135,6 +136,17 @@ Store `$QUICK_DIR` for use in orchestration.
 
 ---
 
+**Step 4.5: Read context files**
+
+Read files before spawning agents using the Read tool. The `@` syntax does not work across Task() boundaries - content must be inlined.
+
+**Read this file:**
+- `.planning/STATE.md` (required)
+
+Store content for use in Task prompts below.
+
+---
+
 **Step 5: Spawn planner (quick mode)**
 
 Spawn kata-planner with quick mode context:
@@ -149,7 +161,7 @@ Task(
 **Description:** ${DESCRIPTION}
 
 **Project State:**
-@.planning/STATE.md
+${STATE_CONTENT}
 
 </planning_context>
 
@@ -165,7 +177,7 @@ Write plan to: ${QUICK_DIR}/${next_num}-PLAN.md
 Return: ## PLANNING COMPLETE with plan path
 </output>
 ",
-  subagent_type="kata:kata-planner",
+  subagent_type="kata-planner",
   model="{planner_model}",
   description="Quick plan: ${DESCRIPTION}"
 )
@@ -182,15 +194,23 @@ If plan not found, error: "Planner failed to create ${next_num}-PLAN.md"
 
 **Step 6: Spawn executor**
 
-Spawn kata-executor with plan reference:
+Read the plan content before spawning using the Read tool:
+- `${QUICK_DIR}/${next_num}-PLAN.md`
+
+Spawn kata-executor with inlined plan (use the STATE_CONTENT from step 4.5):
 
 ```
 Task(
   prompt="
 Execute quick task ${next_num}.
 
-Plan: @${QUICK_DIR}/${next_num}-PLAN.md
-Project state: @.planning/STATE.md
+<plan>
+${PLAN_CONTENT}
+</plan>
+
+<project_state>
+${STATE_CONTENT}
+</project_state>
 
 <constraints>
 - Execute all tasks in the plan
@@ -199,7 +219,7 @@ Project state: @.planning/STATE.md
 - Do NOT update ROADMAP.md (quick tasks are separate from planned phases)
 </constraints>
 ",
-  subagent_type="kata:kata-executor",
+  subagent_type="kata-executor",
   model="{executor_model}",
   description="Execute: ${DESCRIPTION}"
 )

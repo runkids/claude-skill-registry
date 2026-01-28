@@ -1,312 +1,653 @@
 ---
-name: Anomaly Detection
-description: Identify unusual patterns, outliers, and anomalies in data using statistical methods, isolation forests, and autoencoders for fraud detection and quality monitoring
+name: anomaly-detection
+description: Rule-based anomaly detection for production systems with configurable thresholds, cooldown periods to prevent alert storms, and error pattern tracking for repeated failures.
+license: MIT
+compatibility: TypeScript/JavaScript, Python
+metadata:
+  category: observability
+  time: 5h
+  source: drift-masterguide
 ---
 
 # Anomaly Detection
 
-## Overview
+Rule-based anomaly detection with cooldowns and error pattern tracking.
 
-Anomaly detection identifies unusual patterns, outliers, and anomalies in data that deviate significantly from normal behavior, enabling fraud detection and system monitoring.
+## When to Use This Skill
 
-## When to Use
+- Detecting slow job degradation before failures
+- Tracking error rate creep over time
+- Identifying repeated error patterns
+- Preventing alert fatigue with cooldowns
 
-- Detecting fraudulent transactions or suspicious activity in financial data
-- Identifying system failures, network intrusions, or security breaches
-- Monitoring manufacturing quality and identifying defective products
-- Finding unusual patterns in healthcare data or patient vital signs
-- Detecting abnormal sensor readings in IoT or industrial systems
-- Identifying outliers in customer behavior for targeted intervention
+## Core Concepts
 
-## Detection Methods
+Production systems fail in subtle ways - jobs getting slower, error rates creeping up, same errors repeating. The solution:
 
-- **Statistical**: Z-score, IQR, modified Z-score
-- **Distance-based**: K-nearest neighbors, Local Outlier Factor
-- **Isolation**: Isolation Forest
-- **Density-based**: DBSCAN
-- **Deep Learning**: Autoencoders, GANs
+1. **Configurable rules** with severity levels
+2. **Cooldown periods** to prevent alert storms
+3. **Error pattern tracking** for repeated failures
+4. **Violation decay** to reward recovery
 
-## Anomaly Types
+## Implementation
 
-- **Point Anomalies**: Single unusual records
-- **Contextual**: Unusual in specific context
-- **Collective**: Unusual patterns in sequences
-- **Novel Classes**: Completely new patterns
+### TypeScript
 
-## Implementation with Python
+```typescript
+enum AnomalyType {
+  SLOW_JOB = 'slow_job',
+  HIGH_FAILURE_RATE = 'high_failure_rate',
+  WORKER_UNHEALTHY = 'worker_unhealthy',
+  QUEUE_BACKLOG = 'queue_backlog',
+  TIMEOUT_SPIKE = 'timeout_spike',
+  REPEATED_ERROR = 'repeated_error',
+  MEMORY_SPIKE = 'memory_spike',
+  CPU_SPIKE = 'cpu_spike',
+}
 
-```python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import IsolationForest
-from sklearn.neighbors import LocalOutlierFactor
-from sklearn.covariance import EllipticEnvelope
-from scipy import stats
+enum AnomalySeverity {
+  CRITICAL = 'critical',
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low',
+}
 
-# Generate sample data with anomalies
-np.random.seed(42)
+interface AnomalyAlert {
+  id: string;
+  anomalyType: AnomalyType;
+  severity: AnomalySeverity;
+  workerName: string;
+  jobId?: string;
+  message: string;
+  details: Record<string, unknown>;
+  detectedAt: Date;
+  resolvedAt?: Date;
+  resolution?: string;
+}
 
-# Normal data
-n_normal = 950
-normal_data = np.random.normal(100, 15, (n_normal, 2))
+interface RuleContext {
+  workerName: string;
+  status: string;
+  failureRate: number;
+  queueDepth: number;
+  durationMs: number;
+  expectedDurationMs: number;
+  timeoutCount: number;
+  errorRepeatCount: number;
+  errorMessage: string;
+  memoryMb: number;
+  cpuPercent: number;
+}
 
-# Anomalies
-n_anomalies = 50
-anomalies = np.random.uniform(0, 200, (n_anomalies, 2))
-anomalies[n_anomalies//2:, 0] = np.random.uniform(80, 120, n_anomalies//2)
-anomalies[n_anomalies//2:, 1] = np.random.uniform(-50, 0, n_anomalies//2)
+interface AnomalyRule {
+  anomalyType: AnomalyType;
+  severity: AnomalySeverity;
+  description: string;
+  checkFn: (ctx: RuleContext) => boolean;
+  messageTemplate: string;
+  cooldownSeconds: number;
+}
 
-X = np.vstack([normal_data, anomalies])
-y_true = np.hstack([np.zeros(n_normal), np.ones(n_anomalies)])
+const ANOMALY_RULES: AnomalyRule[] = [
+  {
+    anomalyType: AnomalyType.SLOW_JOB,
+    severity: AnomalySeverity.MEDIUM,
+    description: 'Job execution time exceeds expected duration',
+    checkFn: (ctx) => ctx.durationMs > ctx.expectedDurationMs * 2,
+    messageTemplate: 'Job took {durationMs}ms, expected {expectedDurationMs}ms',
+    cooldownSeconds: 300,
+  },
+  {
+    anomalyType: AnomalyType.HIGH_FAILURE_RATE,
+    severity: AnomalySeverity.HIGH,
+    description: 'Worker failure rate exceeds threshold',
+    checkFn: (ctx) => ctx.failureRate > 15,
+    messageTemplate: 'Failure rate {failureRate}% exceeds 15% threshold',
+    cooldownSeconds: 600,
+  },
+  {
+    anomalyType: AnomalyType.WORKER_UNHEALTHY,
+    severity: AnomalySeverity.CRITICAL,
+    description: 'Worker health status is unhealthy',
+    checkFn: (ctx) => ctx.status === 'unhealthy',
+    messageTemplate: 'Worker {workerName} is unhealthy',
+    cooldownSeconds: 300,
+  },
+  {
+    anomalyType: AnomalyType.QUEUE_BACKLOG,
+    severity: AnomalySeverity.MEDIUM,
+    description: 'Queue depth exceeds threshold',
+    checkFn: (ctx) => ctx.queueDepth > 50,
+    messageTemplate: 'Queue depth {queueDepth} exceeds threshold',
+    cooldownSeconds: 300,
+  },
+  {
+    anomalyType: AnomalyType.REPEATED_ERROR,
+    severity: AnomalySeverity.HIGH,
+    description: 'Same error repeated multiple times',
+    checkFn: (ctx) => ctx.errorRepeatCount > 5,
+    messageTemplate: 'Error "{errorMessage}" repeated {errorRepeatCount} times',
+    cooldownSeconds: 900,
+  },
+  {
+    anomalyType: AnomalyType.MEMORY_SPIKE,
+    severity: AnomalySeverity.HIGH,
+    description: 'Memory usage exceeds threshold',
+    checkFn: (ctx) => ctx.memoryMb > 1024,
+    messageTemplate: 'Memory usage {memoryMb}MB exceeds 1GB threshold',
+    cooldownSeconds: 300,
+  },
+];
 
-df = pd.DataFrame(X, columns=['Feature1', 'Feature2'])
-df['is_anomaly_true'] = y_true
+class AnomalyDetector {
+  private alerts = new Map<string, AnomalyAlert>();
+  private cooldowns = new Map<string, Date>();
+  private errorCounts = new Map<string, Map<string, number>>();
+  private timeoutCounts = new Map<string, number>();
+  private alertIdCounter = 0;
 
-print("Data Summary:")
-print(f"Normal samples: {n_normal}")
-print(f"Anomalies: {n_anomalies}")
-print(f"Total: {len(df)}")
+  checkWorkerHealth(
+    workerName: string,
+    health: {
+      status: string;
+      jobsProcessed: number;
+      jobsFailed: number;
+      queueDepth: number;
+      lastDurationMs: number;
+      expectedDurationMs: number;
+      memoryMb: number;
+      cpuPercent: number;
+    }
+  ): AnomalyAlert[] {
+    const detected: AnomalyAlert[] = [];
+    
+    const failureRate = health.jobsProcessed > 0
+      ? (health.jobsFailed / health.jobsProcessed) * 100
+      : 0;
 
-# Standardize
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+    const ctx: RuleContext = {
+      workerName,
+      status: health.status,
+      failureRate,
+      queueDepth: health.queueDepth,
+      durationMs: health.lastDurationMs,
+      expectedDurationMs: health.expectedDurationMs,
+      timeoutCount: this.timeoutCounts.get(workerName) || 0,
+      errorRepeatCount: 0,
+      errorMessage: '',
+      memoryMb: health.memoryMb,
+      cpuPercent: health.cpuPercent,
+    };
 
-# 1. Statistical Methods (Z-score)
-z_scores = np.abs(stats.zscore(X))
-z_anomaly_mask = (z_scores > 3).any(axis=1)
-df['z_score_anomaly'] = z_anomaly_mask
+    for (const rule of ANOMALY_RULES) {
+      if (this.isOnCooldown(workerName, rule.anomalyType)) continue;
 
-print(f"\n1. Z-score Method:")
-print(f"Anomalies detected: {z_anomaly_mask.sum()}")
-print(f"Accuracy: {(z_anomaly_mask == y_true).mean():.2%}")
+      if (rule.checkFn(ctx)) {
+        const alert = this.createAlert(workerName, rule, ctx);
+        detected.push(alert);
+        this.setCooldown(workerName, rule.anomalyType, rule.cooldownSeconds);
+      }
+    }
 
-# 2. Isolation Forest
-iso_forest = IsolationForest(contamination=n_anomalies/len(df), random_state=42)
-iso_predictions = iso_forest.fit_predict(X_scaled)
-iso_anomaly_mask = iso_predictions == -1
-iso_scores = iso_forest.score_samples(X_scaled)
+    return detected;
+  }
 
-df['iso_anomaly'] = iso_anomaly_mask
-df['iso_score'] = iso_scores
+  checkJobExecution(
+    workerName: string,
+    jobId: string,
+    durationMs: number,
+    expectedDurationMs: number,
+    success: boolean,
+    error?: string
+  ): AnomalyAlert[] {
+    const detected: AnomalyAlert[] = [];
 
-print(f"\n2. Isolation Forest:")
-print(f"Anomalies detected: {iso_anomaly_mask.sum()}")
-print(f"Accuracy: {(iso_anomaly_mask == y_true).mean():.2%}")
+    if (!success && error) {
+      this.trackError(workerName, error);
+    }
 
-# 3. Local Outlier Factor
-lof = LocalOutlierFactor(n_neighbors=20, contamination=n_anomalies/len(df))
-lof_predictions = lof.fit_predict(X_scaled)
-lof_anomaly_mask = lof_predictions == -1
-lof_scores = lof.negative_outlier_factor_
+    // Check slow job
+    if (durationMs > expectedDurationMs * 2) {
+      if (!this.isOnCooldown(workerName, AnomalyType.SLOW_JOB)) {
+        const rule = ANOMALY_RULES[0];
+        const alert = this.createAlert(workerName, rule, {
+          durationMs,
+          expectedDurationMs,
+        } as RuleContext);
+        alert.jobId = jobId;
+        detected.push(alert);
+        this.setCooldown(workerName, AnomalyType.SLOW_JOB, 300);
+      }
+    }
 
-df['lof_anomaly'] = lof_anomaly_mask
-df['lof_score'] = lof_scores
+    // Check repeated errors
+    if (error) {
+      const errorCounts = this.errorCounts.get(workerName);
+      const count = errorCounts?.get(error.slice(0, 200)) || 0;
+      
+      if (count > 5 && !this.isOnCooldown(workerName, AnomalyType.REPEATED_ERROR)) {
+        const rule = ANOMALY_RULES.find(r => r.anomalyType === AnomalyType.REPEATED_ERROR)!;
+        const alert = this.createAlert(workerName, rule, {
+          errorMessage: error.slice(0, 100),
+          errorRepeatCount: count,
+        } as RuleContext);
+        detected.push(alert);
+        this.setCooldown(workerName, AnomalyType.REPEATED_ERROR, 900);
+      }
+    }
 
-print(f"\n3. Local Outlier Factor:")
-print(f"Anomalies detected: {lof_anomaly_mask.sum()}")
-print(f"Accuracy: {(lof_anomaly_mask == y_true).mean():.2%}")
+    return detected;
+  }
 
-# 4. Elliptic Envelope (Robust Covariance)
-ee = EllipticEnvelope(contamination=n_anomalies/len(df), random_state=42)
-ee_predictions = ee.fit_predict(X_scaled)
-ee_anomaly_mask = ee_predictions == -1
-ee_scores = ee.mahalanobis(X_scaled)
+  resolveAnomaly(alertId: string, resolution: string): boolean {
+    const alert = this.alerts.get(alertId);
+    if (!alert || alert.resolvedAt) return false;
 
-df['ee_anomaly'] = ee_anomaly_mask
-df['ee_score'] = ee_scores
+    alert.resolvedAt = new Date();
+    alert.resolution = resolution;
+    return true;
+  }
 
-print(f"\n4. Elliptic Envelope:")
-print(f"Anomalies detected: {ee_anomaly_mask.sum()}")
-print(f"Accuracy: {(ee_anomaly_mask == y_true).mean():.2%}")
+  getActiveAnomalies(): AnomalyAlert[] {
+    return Array.from(this.alerts.values())
+      .filter(a => !a.resolvedAt)
+      .sort((a, b) => {
+        const order = { critical: 0, high: 1, medium: 2, low: 3 };
+        return order[a.severity] - order[b.severity];
+      });
+  }
 
-# 5. IQR Method
-Q1 = np.percentile(X, 25, axis=0)
-Q3 = np.percentile(X, 75, axis=0)
-IQR = Q3 - Q1
-lower_bound = Q1 - 1.5 * IQR
-upper_bound = Q3 + 1.5 * IQR
+  private trackError(workerName: string, error: string): void {
+    if (!this.errorCounts.has(workerName)) {
+      this.errorCounts.set(workerName, new Map());
+    }
+    const counts = this.errorCounts.get(workerName)!;
+    const key = error.slice(0, 200);
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
 
-iqr_anomaly_mask = ((X < lower_bound) | (X > upper_bound)).any(axis=1)
-df['iqr_anomaly'] = iqr_anomaly_mask
+  private createAlert(workerName: string, rule: AnomalyRule, ctx: Partial<RuleContext>): AnomalyAlert {
+    const id = `anomaly_${++this.alertIdCounter}_${Date.now()}`;
+    
+    let message = rule.messageTemplate;
+    for (const [key, value] of Object.entries(ctx)) {
+      message = message.replace(`{${key}}`, String(value));
+    }
 
-print(f"\n5. IQR Method:")
-print(f"Anomalies detected: {iqr_anomaly_mask.sum()}")
-print(f"Accuracy: {(iqr_anomaly_mask == y_true).mean():.2%}")
+    const alert: AnomalyAlert = {
+      id,
+      anomalyType: rule.anomalyType,
+      severity: rule.severity,
+      workerName,
+      message,
+      details: ctx as Record<string, unknown>,
+      detectedAt: new Date(),
+    };
 
-# Visualization of anomaly detection methods
-fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+    this.alerts.set(id, alert);
+    return alert;
+  }
 
-methods = [
-    (z_anomaly_mask, 'Z-score', None),
-    (iso_anomaly_mask, 'Isolation Forest', iso_scores),
-    (lof_anomaly_mask, 'LOF', lof_scores),
-    (ee_anomaly_mask, 'Elliptic Envelope', ee_scores),
-    (iqr_anomaly_mask, 'IQR', None),
-]
+  private isOnCooldown(workerName: string, anomalyType: AnomalyType): boolean {
+    const key = `${workerName}:${anomalyType}`;
+    const cooldownEnd = this.cooldowns.get(key);
+    return cooldownEnd !== undefined && cooldownEnd > new Date();
+  }
 
-# True anomalies
-ax = axes[0, 0]
-colors = ['blue' if not a else 'red' for a in y_true]
-ax.scatter(df['Feature1'], df['Feature2'], c=colors, alpha=0.6, s=30)
-ax.set_title('True Anomalies')
-ax.set_xlabel('Feature 1')
-ax.set_ylabel('Feature 2')
+  private setCooldown(workerName: string, anomalyType: AnomalyType, seconds: number): void {
+    const key = `${workerName}:${anomalyType}`;
+    this.cooldowns.set(key, new Date(Date.now() + seconds * 1000));
+  }
+}
 
-# Plot each method
-for idx, (anomaly_mask, method_name, scores) in enumerate(methods):
-    ax = axes.flatten()[idx + 1]
+// Singleton
+let detector: AnomalyDetector | null = null;
 
-    if scores is not None:
-        scatter = ax.scatter(df['Feature1'], df['Feature2'], c=scores, cmap='RdYlBu_r', alpha=0.6, s=30)
-        plt.colorbar(scatter, ax=ax, label='Score')
-    else:
-        colors = ['red' if a else 'blue' for a in anomaly_mask]
-        ax.scatter(df['Feature1'], df['Feature2'], c=colors, alpha=0.6, s=30)
-
-    ax.set_title(f'{method_name}\n({anomaly_mask.sum()} anomalies)')
-    ax.set_xlabel('Feature 1')
-    ax.set_ylabel('Feature 2')
-
-plt.tight_layout()
-plt.show()
-
-# 6. Anomaly score comparison
-fig, axes = plt.subplots(2, 2, figsize=(14, 8))
-
-# ISO Forest scores
-axes[0, 0].hist(iso_scores[~y_true], bins=30, alpha=0.7, label='Normal', color='blue')
-axes[0, 0].hist(iso_scores[y_true == 1], bins=10, alpha=0.7, label='Anomaly', color='red')
-axes[0, 0].set_xlabel('Anomaly Score')
-axes[0, 0].set_title('Isolation Forest Score Distribution')
-axes[0, 0].legend()
-axes[0, 0].grid(True, alpha=0.3)
-
-# LOF scores
-axes[0, 1].hist(lof_scores[~y_true], bins=30, alpha=0.7, label='Normal', color='blue')
-axes[0, 1].hist(lof_scores[y_true == 1], bins=10, alpha=0.7, label='Anomaly', color='red')
-axes[0, 1].set_xlabel('Anomaly Score')
-axes[0, 1].set_title('LOF Score Distribution')
-axes[0, 1].legend()
-axes[0, 1].grid(True, alpha=0.3)
-
-# ROC-like curve for Isolation Forest
-iso_scores_sorted = np.sort(iso_scores)
-detected_at_threshold = []
-for threshold in iso_scores_sorted:
-    detected = (iso_scores <= threshold).sum()
-    true_detected = ((iso_scores <= threshold) & (y_true == 1)).sum()
-    if detected > 0:
-        precision = true_detected / detected
-        recall = true_detected / n_anomalies
-        detected_at_threshold.append({'Threshold': threshold, 'Precision': precision, 'Recall': recall})
-
-if detected_at_threshold:
-    threshold_df = pd.DataFrame(detected_at_threshold)
-    axes[1, 0].plot(threshold_df['Recall'], threshold_df['Precision'], linewidth=2)
-    axes[1, 0].set_xlabel('Recall')
-    axes[1, 0].set_ylabel('Precision')
-    axes[1, 0].set_title('Precision-Recall Curve (Isolation Forest)')
-    axes[1, 0].grid(True, alpha=0.3)
-
-# Method comparison
-methods_comparison = pd.DataFrame({
-    'Method': ['Z-score', 'Isolation Forest', 'LOF', 'Elliptic Envelope', 'IQR'],
-    'Accuracy': [
-        (z_anomaly_mask == y_true).mean(),
-        (iso_anomaly_mask == y_true).mean(),
-        (lof_anomaly_mask == y_true).mean(),
-        (ee_anomaly_mask == y_true).mean(),
-        (iqr_anomaly_mask == y_true).mean(),
-    ]
-})
-
-axes[1, 1].barh(methods_comparison['Method'], methods_comparison['Accuracy'], color='steelblue', edgecolor='black')
-axes[1, 1].set_xlabel('Accuracy')
-axes[1, 1].set_title('Method Comparison')
-axes[1, 1].set_xlim([0, 1])
-for i, v in enumerate(methods_comparison['Accuracy']):
-    axes[1, 1].text(v, i, f' {v:.2%}', va='center')
-
-plt.tight_layout()
-plt.show()
-
-# 7. Ensemble anomaly detection
-# Combine multiple methods
-ensemble_votes = (z_anomaly_mask.astype(int) +
-                  iso_anomaly_mask.astype(int) +
-                  lof_anomaly_mask.astype(int) +
-                  ee_anomaly_mask.astype(int) +
-                  iqr_anomaly_mask.astype(int))
-
-df['ensemble_votes'] = ensemble_votes
-ensemble_anomaly = ensemble_votes >= 3  # Majority vote
-
-print(f"\n6. Ensemble (Majority Vote):")
-print(f"Anomalies detected: {ensemble_anomaly.sum()}")
-print(f"Accuracy: {(ensemble_anomaly == y_true).mean():.2%}")
-
-# Visualize ensemble
-fig, ax = plt.subplots(figsize=(10, 8))
-scatter = ax.scatter(df['Feature1'], df['Feature2'], c=ensemble_votes, cmap='RdYlGn_r',
-                     s=100 * (ensemble_anomaly.astype(int) + 0.5), alpha=0.6, edgecolors='black')
-ax.set_xlabel('Feature 1')
-ax.set_ylabel('Feature 2')
-ax.set_title('Ensemble Anomaly Detection (Color: Vote Count, Size: Anomaly)')
-cbar = plt.colorbar(scatter, ax=ax, label='Number of Methods')
-plt.show()
-
-# 8. Time-series anomalies
-time_series_data = np.sin(np.arange(100) * 0.2) * 10 + 100
-time_series_data = time_series_data + np.random.normal(0, 2, 100)
-# Add anomalies
-time_series_data[25] = 150
-time_series_data[50] = 50
-time_series_data[75] = 140
-
-# Detect using rolling statistics
-rolling_mean = pd.Series(time_series_data).rolling(window=5).mean()
-rolling_std = pd.Series(time_series_data).rolling(window=5).std()
-z_scores_ts = np.abs((time_series_data - rolling_mean) / rolling_std) > 2
-
-fig, ax = plt.subplots(figsize=(12, 5))
-ax.plot(time_series_data, linewidth=1, label='Data')
-ax.plot(rolling_mean, linewidth=2, label='Rolling Mean')
-ax.scatter(np.where(z_scores_ts)[0], time_series_data[z_scores_ts], color='red', s=100, label='Anomalies', zorder=5)
-ax.fill_between(range(len(time_series_data)), rolling_mean - 2*rolling_std, rolling_mean + 2*rolling_std,
-                alpha=0.2, label='±2 Std Dev')
-ax.set_xlabel('Time')
-ax.set_ylabel('Value')
-ax.set_title('Time-Series Anomaly Detection')
-ax.legend()
-ax.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-
-print("\nAnomaly detection analysis complete!")
+export function getAnomalyDetector(): AnomalyDetector {
+  if (!detector) {
+    detector = new AnomalyDetector();
+  }
+  return detector;
+}
 ```
 
-## Method Selection Guide
+### Python
 
-- **Z-score**: Simple, fast, assumes normal distribution
-- **IQR**: Robust, non-parametric, good for outliers
-- **Isolation Forest**: Efficient, good for high dimensions
-- **LOF**: Density-based, finds local anomalies
-- **Autoencoders**: Complex patterns, deep learning
+```python
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from typing import Dict, List, Optional, Callable
+from enum import Enum
 
-## Threshold Selection
 
-- **Conservative**: Fewer false positives, more false negatives
-- **Aggressive**: More anomalies flagged, more false positives
-- **Data-driven**: Use validation set to optimize threshold
+class AnomalyType(str, Enum):
+    SLOW_JOB = "slow_job"
+    HIGH_FAILURE_RATE = "high_failure_rate"
+    WORKER_UNHEALTHY = "worker_unhealthy"
+    QUEUE_BACKLOG = "queue_backlog"
+    TIMEOUT_SPIKE = "timeout_spike"
+    REPEATED_ERROR = "repeated_error"
+    MEMORY_SPIKE = "memory_spike"
 
-## Deliverables
 
-- Anomaly detection results
-- Anomaly scores visualization
-- Comparison of methods
-- Identified anomalous records
-- Recommendation for production deployment
-- Threshold optimization analysis
+class AnomalySeverity(str, Enum):
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+
+
+@dataclass
+class AnomalyAlert:
+    id: str
+    anomaly_type: AnomalyType
+    severity: AnomalySeverity
+    worker_name: str
+    message: str
+    details: Dict
+    detected_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    job_id: Optional[str] = None
+    resolved_at: Optional[datetime] = None
+    resolution: Optional[str] = None
+
+
+@dataclass
+class RuleContext:
+    worker_name: str
+    status: str = "healthy"
+    failure_rate: float = 0.0
+    queue_depth: int = 0
+    duration_ms: float = 0.0
+    expected_duration_ms: float = 0.0
+    timeout_count: int = 0
+    error_repeat_count: int = 0
+    error_message: str = ""
+    memory_mb: float = 0.0
+    cpu_percent: float = 0.0
+
+
+@dataclass
+class AnomalyRule:
+    anomaly_type: AnomalyType
+    severity: AnomalySeverity
+    description: str
+    check_fn: Callable[[RuleContext], bool]
+    message_template: str
+    cooldown_seconds: int
+
+
+ANOMALY_RULES: List[AnomalyRule] = [
+    AnomalyRule(
+        anomaly_type=AnomalyType.SLOW_JOB,
+        severity=AnomalySeverity.MEDIUM,
+        description="Job execution time exceeds expected duration",
+        check_fn=lambda ctx: ctx.duration_ms > ctx.expected_duration_ms * 2,
+        message_template="Job took {duration_ms}ms, expected {expected_duration_ms}ms",
+        cooldown_seconds=300,
+    ),
+    AnomalyRule(
+        anomaly_type=AnomalyType.HIGH_FAILURE_RATE,
+        severity=AnomalySeverity.HIGH,
+        description="Worker failure rate exceeds threshold",
+        check_fn=lambda ctx: ctx.failure_rate > 15,
+        message_template="Failure rate {failure_rate}% exceeds 15% threshold",
+        cooldown_seconds=600,
+    ),
+    AnomalyRule(
+        anomaly_type=AnomalyType.WORKER_UNHEALTHY,
+        severity=AnomalySeverity.CRITICAL,
+        description="Worker health status is unhealthy",
+        check_fn=lambda ctx: ctx.status == "unhealthy",
+        message_template="Worker {worker_name} is unhealthy",
+        cooldown_seconds=300,
+    ),
+    AnomalyRule(
+        anomaly_type=AnomalyType.REPEATED_ERROR,
+        severity=AnomalySeverity.HIGH,
+        description="Same error repeated multiple times",
+        check_fn=lambda ctx: ctx.error_repeat_count > 5,
+        message_template='Error "{error_message}" repeated {error_repeat_count} times',
+        cooldown_seconds=900,
+    ),
+]
+
+
+class AnomalyDetector:
+    def __init__(self):
+        self._alerts: Dict[str, AnomalyAlert] = {}
+        self._cooldowns: Dict[str, datetime] = {}
+        self._error_counts: Dict[str, Dict[str, int]] = {}
+        self._timeout_counts: Dict[str, int] = {}
+        self._alert_counter = 0
+    
+    def check_worker_health(
+        self,
+        worker_name: str,
+        status: str,
+        jobs_processed: int,
+        jobs_failed: int,
+        queue_depth: int,
+        last_duration_ms: float,
+        expected_duration_ms: float,
+        memory_mb: float = 0,
+        cpu_percent: float = 0,
+    ) -> List[AnomalyAlert]:
+        detected: List[AnomalyAlert] = []
+        
+        failure_rate = (jobs_failed / jobs_processed * 100) if jobs_processed > 0 else 0
+        
+        ctx = RuleContext(
+            worker_name=worker_name,
+            status=status,
+            failure_rate=failure_rate,
+            queue_depth=queue_depth,
+            duration_ms=last_duration_ms,
+            expected_duration_ms=expected_duration_ms,
+            timeout_count=self._timeout_counts.get(worker_name, 0),
+            memory_mb=memory_mb,
+            cpu_percent=cpu_percent,
+        )
+        
+        for rule in ANOMALY_RULES:
+            if self._is_on_cooldown(worker_name, rule.anomaly_type):
+                continue
+            
+            if rule.check_fn(ctx):
+                alert = self._create_alert(worker_name, rule, ctx)
+                detected.append(alert)
+                self._set_cooldown(worker_name, rule.anomaly_type, rule.cooldown_seconds)
+        
+        return detected
+    
+    def check_job_execution(
+        self,
+        worker_name: str,
+        job_id: str,
+        duration_ms: float,
+        expected_duration_ms: float,
+        success: bool,
+        error: Optional[str] = None,
+    ) -> List[AnomalyAlert]:
+        detected: List[AnomalyAlert] = []
+        
+        if not success and error:
+            self._track_error(worker_name, error)
+        
+        # Check slow job
+        if duration_ms > expected_duration_ms * 2:
+            if not self._is_on_cooldown(worker_name, AnomalyType.SLOW_JOB):
+                rule = ANOMALY_RULES[0]
+                ctx = RuleContext(
+                    worker_name=worker_name,
+                    duration_ms=duration_ms,
+                    expected_duration_ms=expected_duration_ms,
+                )
+                alert = self._create_alert(worker_name, rule, ctx)
+                alert.job_id = job_id
+                detected.append(alert)
+                self._set_cooldown(worker_name, AnomalyType.SLOW_JOB, 300)
+        
+        # Check repeated errors
+        if error:
+            error_counts = self._error_counts.get(worker_name, {})
+            count = error_counts.get(error[:200], 0)
+            
+            if count > 5 and not self._is_on_cooldown(worker_name, AnomalyType.REPEATED_ERROR):
+                rule = next(r for r in ANOMALY_RULES if r.anomaly_type == AnomalyType.REPEATED_ERROR)
+                ctx = RuleContext(
+                    worker_name=worker_name,
+                    error_message=error[:100],
+                    error_repeat_count=count,
+                )
+                alert = self._create_alert(worker_name, rule, ctx)
+                detected.append(alert)
+                self._set_cooldown(worker_name, AnomalyType.REPEATED_ERROR, 900)
+        
+        return detected
+    
+    def resolve_anomaly(self, alert_id: str, resolution: str) -> bool:
+        alert = self._alerts.get(alert_id)
+        if not alert or alert.resolved_at:
+            return False
+        
+        alert.resolved_at = datetime.now(timezone.utc)
+        alert.resolution = resolution
+        return True
+    
+    def get_active_anomalies(self) -> List[AnomalyAlert]:
+        severity_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+        return sorted(
+            [a for a in self._alerts.values() if not a.resolved_at],
+            key=lambda a: severity_order[a.severity.value]
+        )
+    
+    def _track_error(self, worker_name: str, error: str) -> None:
+        if worker_name not in self._error_counts:
+            self._error_counts[worker_name] = {}
+        key = error[:200]
+        self._error_counts[worker_name][key] = self._error_counts[worker_name].get(key, 0) + 1
+    
+    def _create_alert(self, worker_name: str, rule: AnomalyRule, ctx: RuleContext) -> AnomalyAlert:
+        self._alert_counter += 1
+        alert_id = f"anomaly_{self._alert_counter}_{int(datetime.now().timestamp() * 1000)}"
+        
+        message = rule.message_template
+        for key, value in ctx.__dict__.items():
+            message = message.replace(f"{{{key}}}", str(value))
+        
+        alert = AnomalyAlert(
+            id=alert_id,
+            anomaly_type=rule.anomaly_type,
+            severity=rule.severity,
+            worker_name=worker_name,
+            message=message,
+            details=ctx.__dict__,
+        )
+        
+        self._alerts[alert_id] = alert
+        return alert
+    
+    def _is_on_cooldown(self, worker_name: str, anomaly_type: AnomalyType) -> bool:
+        key = f"{worker_name}:{anomaly_type.value}"
+        cooldown_end = self._cooldowns.get(key)
+        return cooldown_end is not None and cooldown_end > datetime.now(timezone.utc)
+    
+    def _set_cooldown(self, worker_name: str, anomaly_type: AnomalyType, seconds: int) -> None:
+        from datetime import timedelta
+        key = f"{worker_name}:{anomaly_type.value}"
+        self._cooldowns[key] = datetime.now(timezone.utc) + timedelta(seconds=seconds)
+
+
+# Singleton
+_detector: Optional[AnomalyDetector] = None
+
+def get_anomaly_detector() -> AnomalyDetector:
+    global _detector
+    if _detector is None:
+        _detector = AnomalyDetector()
+    return _detector
+```
+
+## Usage Examples
+
+### Worker Job Monitoring
+
+```typescript
+const detector = getAnomalyDetector();
+
+async function executeJob(job: Job) {
+  const startTime = Date.now();
+  
+  try {
+    await processJob(job);
+    const duration = Date.now() - startTime;
+    
+    const alerts = detector.checkJobExecution(
+      'data-processor',
+      job.id,
+      duration,
+      30000, // Expected 30s
+      true
+    );
+    
+    for (const alert of alerts) {
+      await notifyOps(alert);
+    }
+  } catch (error) {
+    const duration = Date.now() - startTime;
+    
+    const alerts = detector.checkJobExecution(
+      'data-processor',
+      job.id,
+      duration,
+      30000,
+      false,
+      error.message
+    );
+    
+    for (const alert of alerts) {
+      await notifyOps(alert);
+    }
+    throw error;
+  }
+}
+```
+
+### Periodic Health Checks
+
+```typescript
+setInterval(async () => {
+  const health = await getWorkerHealth('data-processor');
+  const alerts = detector.checkWorkerHealth('data-processor', health);
+  
+  for (const alert of alerts) {
+    if (alert.severity === 'critical') {
+      await pageOnCall(alert);
+    } else {
+      await notifySlack(alert);
+    }
+  }
+}, 30000);
+```
+
+## Best Practices
+
+1. Set cooldowns long enough to prevent alert storms
+2. Use severity levels to route alerts appropriately
+3. Track error patterns to catch repeated failures
+4. Clean up old resolved alerts periodically
+5. Tune thresholds based on your baseline metrics
+
+## Common Mistakes
+
+- Cooldowns too short (alert fatigue)
+- No error pattern tracking (miss repeated failures)
+- Same severity for all alerts (everything becomes noise)
+- Not resolving alerts (dashboard becomes useless)
+- Thresholds too sensitive (false positives)
+
+## Related Patterns
+
+- health-checks - Source of health data for anomaly detection
+- logging-observability - Structured logging for alert context
+- graceful-degradation - Response to detected anomalies

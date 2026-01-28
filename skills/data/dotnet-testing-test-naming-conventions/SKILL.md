@@ -1,6 +1,45 @@
 ---
 name: dotnet-testing-test-naming-conventions
-description: 協助命名測試方法與測試類別。當使用者詢問測試命名規範、需要改進測試可讀性、或要求檢查測試名稱是否符合最佳實踐時使用此技能。
+description: |
+  測試命名規範與最佳實踐的專門技能。
+  當需要為測試方法命名、改進測試可讀性、建立命名標準時使用。
+  涵蓋三段式命名法、中文命名建議、測試類別命名等。
+
+triggers:
+  # 核心關鍵字
+  - test naming
+  - 測試命名
+  - naming conventions
+  - 命名規範
+  - test name
+  - 測試方法名稱
+
+  # 命名模式
+  - 三段式命名
+  - three-part naming
+  - method_scenario_expected
+  - 方法_情境_預期
+  - underscore naming
+
+  # 使用情境
+  - 如何命名測試
+  - how to name tests
+  - 測試可讀性
+  - test readability
+  - 命名最佳實踐
+  - naming best practices
+
+  # 相關問題
+  - 測試報告
+  - test report
+  - 測試文件化
+  - test documentation
+
+license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: ".NET, testing, naming conventions, test naming, readability"
 ---
 
 # .NET 測試命名規範指南
@@ -261,5 +300,10 @@ public void IsValidEmail_輸入無效Email格式_應回傳False(string invalidEm
 
 ## 參考資源
 
-- [原始文章 - Day 01：老派工程師的測試啟蒙](https://ithelp.ithome.com.tw/articles/10373888)
-- [範例程式碼](https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day01)
+### 原始文章
+
+本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
+
+- **Day 01 - 老派工程師的測試啟蒙**
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10373888
+  - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day01

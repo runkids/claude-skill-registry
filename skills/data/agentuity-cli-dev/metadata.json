@@ -1,7 +1,7 @@
 {
   "name": "agentuity-cli-dev",
-  "repo": "agentuity/docs",
-  "path": "doc-agents/.agents/skills/agentuity-cli-dev/SKILL.md",
-  "source": "github.com/agentuity/docs",
-  "downloaded_at": "2026-01-27T04:32:13.041775Z"
+  "repo": "agentuity/sdk-explorer",
+  "path": ".agents/skills/agentuity-cli-dev/SKILL.md",
+  "source": "github.com/agentuity/sdk-explorer",
+  "downloaded_at": "2026-01-28T03:16:25.808188Z"
 }

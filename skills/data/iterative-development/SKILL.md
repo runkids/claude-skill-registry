@@ -1,194 +1,67 @@
 ---
 name: iterative-development
-description: |
-  Load when adding deltas or analyzing impact on existing framework. Supports progressive development without requiring everything upfront. Used by /add-delta and /analyze-impact commands.
+description: Implement sub-tasks iteratively with user approval between each one. Use when working through a task list with user collaboration.
 ---
 
-# Iterative Development Skill
+# Iterative Development
 
-Supports adding deltas and analyzing impact without full upfront planning.
+Implement sub-tasks one at a time with user approval between each.
 
-## When to Load
+## When to Use This Skill
 
-Load this skill for:
-- `/katachi:add-delta` - Add new delta on-the-go
-- `/katachi:analyze-impact` - Analyze change impact
+Use this skill when:
+- Working through a task list (`.ai/[feature]/tasks.md`)
+- You want user feedback between each sub-task
+- Following a collaborative development workflow
 
-## Dependencies
+## Instructions
 
-This skill requires `katachi:framework-core` to be loaded first for:
-- Workflow principles
-- Task management protocol
-- Status tracking conventions
+### Sub-task Implementation
 
-## Philosophy
+- Update the task list as you work
+- Add new tasks as they emerge
+- Also update the corresponding `prp.txt` as appropriate
+- Maintain the "Relevant Files" section:
+  - List every file created or modified
+  - Give each file a one-line description of its purpose
 
-The framework should support "add as you go" not "define everything upfront":
+### Sub-task Iteration (IMPORTANT)
 
-- Deltas can be added mid-project
-- Dependencies are analyzed dynamically
-- Quick-start mode for MVPs
+**ONLY DO ONE SUB-TASK AT A TIME:**
 
-## Add Delta Workflow
+- Only ever include one sub-task on your internal TODO list
+  - **This is VERY IMPORTANT!**
+- Do NOT start or even consider the next sub-task until you
+  ask the user for permission and they say "yes" or "y"
 
-### 1. Capture Delta Description
+Stop after each sub-task and wait for the user's go-ahead for the next one.
 
-Ask user to describe the delta:
-- What does it do?
-- Who uses it?
-- Any known dependencies?
+## Quality Controls
 
-### 2. Assign ID
+After completing each sub-task:
 
-Deltas follow the pattern: `DLT-NNN`
+1. Run linters according to repository guidelines
+2. Run tests according to repository guidelines
+3. If linting or testing fails, fix the issues before proceeding
+4. Ask for user approval before moving to the next sub-task
 
-**Process:**
-1. Read existing deltas from DELTAS.md
-2. Assign next available sequential ID
-3. Confirm with user
+## Communication
 
-```python
-# Example categories (domain-oriented, organized by user capability area)
-AUTH - Authentication flows (Login, Logout, Password Reset, Session Timeout)
-USER - User management (Registration, Profile, Settings, Account Deletion)
-ORDERS - Order management (Create Order, View Orders, Cancel Order)
-PAYMENTS - Payment flows (Checkout, Refund, Payment Methods)
-ADMIN - Admin capabilities (Manage Users, View Reports, System Settings)
-CORE - Core infrastructure (when truly cross-cutting and not user-facing)
+After each sub-task:
+1. Summarize what was accomplished
+2. Report any issues encountered
+3. Ask for permission to continue with the next sub-task
+
+## Workflow
+
+```
+1. Select one sub-task from tasks.md
+2. Implement it completely
+3. Run linters and tests
+4. Report completion
+5. Ask: "Ready for the next sub-task?"
+6. Wait for "yes" or "y"
+7. Repeat until all sub-tasks complete
 ```
 
-If new category needed, confirm with user before creating.
-
-### 3. Assign ID
-
-Find next available ID in category:
-
-```bash
-# Check existing IDs
-python ${CLAUDE_PLUGIN_ROOT}/scripts/deltas.py status list --category CORE
-
-# Result: CORE-001, CORE-002, CORE-003
-# New ID: CORE-004
-```
-
-### 4. Capture Complexity
-
-Ask user for complexity estimate:
-- **Easy**: 1-2 hours, straightforward
-- **Medium**: Half day, some complexity
-- **Hard**: Full day+, significant complexity
-
-### 5. Analyze Dependencies
-
-**Option A: User knows dependencies**
-- Ask: "Does this depend on any existing deltas?"
-- Validate dependencies exist
-
-**Option B: Agent analysis**
-- Dispatch `katachi:impact-analyzer` with delta description
-- Agent identifies likely dependencies based on description
-- Present to user for confirmation
-
-### 6. Update DELTAS.md
-
-Add new delta entry:
-
-```markdown
-| CORE-004 | New delta description | Medium | ✗ Defined |
-```
-
-### 7. Update DEPENDENCIES.md
-
-Add to dependency matrix:
-
-```bash
-python ${CLAUDE_PLUGIN_ROOT}/scripts/deltas.py deps add-delta CORE-004
-python ${CLAUDE_PLUGIN_ROOT}/scripts/deltas.py deps add-dep CORE-004 CORE-001  # If depends on CORE-001
-```
-
-### 8. Offer Next Step
-
-After adding:
-- "CORE-004 added. Create spec now? [Y/N]"
-- If yes, transition to `/katachi:spec-delta CORE-004`
-
-## Impact Analysis Workflow
-
-### 1. Capture Change Description
-
-Ask user to describe the proposed change:
-- What is being changed?
-- Why is this change needed?
-- What areas might be affected?
-
-### 2. Dispatch Impact Analyzer
-
-```python
-Task(
-    subagent_type="katachi:impact-analyzer",
-    prompt=f"""
-Analyze the impact of this proposed change:
-
-## Change Description
-{change_description}
-
-## DELTAS.md
-{deltas_content}
-
-## DEPENDENCIES.md
-{dependencies_content}
-
-## Existing Specs
-{list_of_spec_paths}
-
-Trace dependencies and report affected deltas.
-"""
-)
-```
-
-### 3. Present Findings
-
-Show user:
-- Directly affected deltas
-- Transitively affected deltas (dependency chain)
-- Documents needing updates
-- Risk assessment
-
-### 4. Ask Next Steps
-
-Based on impact level:
-
-**Isolated:**
-- "This change is isolated to X. Proceed with implementation?"
-
-**Moderate:**
-- "This affects N deltas. Review affected specs before proceeding?"
-
-**Significant:**
-- "This is a significant change. Create an ADR to document this decision?"
-
-**Structural:**
-- "This affects core architecture. Recommend detailed analysis before proceeding."
-
-## Quick-Start Mode
-
-For new projects, offer quick-start:
-
-1. **Minimal VISION.md**
-   - Problem statement
-   - MVP scope (not full scope)
-   - Key workflows (top 3)
-
-2. **MVP Deltas Only**
-   - Extract only deltas needed for MVP
-   - Skip nice-to-haves
-   - Aim for 5-10 deltas max
-
-3. **Simple Dependencies**
-   - Linear dependencies where possible
-   - Skip complex dependency analysis
-
-4. **First Delta Guidance**
-   - Guide through first spec
-   - Establish patterns early
-   - User learns workflow on real work
+**Follow the above steps EXACTLY!!! NO EXCEPTIONS!!!**

@@ -1,7 +1,7 @@
 {
   "name": "config-yaml-guide",
   "repo": "datamaker-kr/synapse-claude-marketplace",
-  "path": "skills/config-yaml-guide/SKILL.md",
+  "path": "plugins/synapse-plugin-helper/skills/config-yaml-guide/SKILL.md",
   "source": "github.com/datamaker-kr/synapse-claude-marketplace",
-  "downloaded_at": "2026-01-27T01:54:50.621329Z"
+  "downloaded_at": "2026-01-28T01:47:50.142949Z"
 }

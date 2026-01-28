@@ -1,7 +1,7 @@
 {
   "name": "windows-privilege-escalation",
-  "repo": "phuccodenub/Kit_Analyze",
-  "path": "Skill/antigravity-awesome-skills/skills/windows-privilege-escalation/SKILL.md",
-  "source": "github.com/phuccodenub/Kit_Analyze",
-  "downloaded_at": "2026-01-27T03:06:26.101905Z"
+  "repo": "zebbern/claude-code-guide",
+  "path": "skills/windows-privilege-escalation/SKILL.md",
+  "source": "github.com/zebbern/claude-code-guide",
+  "downloaded_at": "2026-01-28T02:53:04.376326Z"
 }

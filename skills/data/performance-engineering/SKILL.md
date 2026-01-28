@@ -1,11 +1,6 @@
 ---
-name: performance_engineering
-router_kit: FullStackKit
+name: performance-engineering
 description: When validating system performance under load, identifying bottlenecks through profiling, or optimizing application responsiveness. Covers load testing (k6, Locust), profiling (CPU, memory, I/O), and optimization strategies (caching, query optimization, Core Web Vitals). Use for capacity planning, regression detection, and establishing performance SLOs.
-metadata:
-  skillport:
-    category: auto-healed
-    tags: [big data, cleaning, csv, data analysis, data engineering, data science, database, etl pipelines, export, import, json, latency, machine learning basics, migration, nosql, numpy, optimization, pandas, performance engineering, profiling, python data stack, query optimization, reporting, scalability, schema design, sql, statistics, throughput, transformation, visualization]
 ---
 
 # Performance Engineering
@@ -322,7 +317,7 @@ For detailed SLO framework and performance budgets, see `references/slo-framewor
 
 **GitHub Actions example:**
 ```yaml
-name: performance_engineering
+name: Performance Tests
 
 on:
   pull_request:
@@ -431,30 +426,4 @@ For CI/CD integration patterns, see the `building-ci-pipelines` skill.
 
 For infrastructure sizing based on load tests, see the `infrastructure-as-code` skill.
 
-*Performance Engineering v1.1 - Enhanced*
-
-## 🔄 Workflow
-
-> **Kaynak:** [k6 Methodology](https://k6.io/docs/test-types/introduction/) & [The Art of Capacity Planning](https://www.oreilly.com/library/view/the-art-of/9781491939207/)
-
-### Aşama 1: Planning & SLOs
-- [ ] **Goal**: Testin amacı ne? (Smoke, Load, Stress, Soak?).
-- [ ] **SLOs**: Başarı kriterlerini belirle (Örn: p95 latency < 200ms, Error rate < %1).
-- [ ] **Environment**: Test ortamı Prod ile ne kadar benzer? (Scaling faktörünü belirle).
-
-### Aşama 2: Scripting & Execution
-- [ ] **User Journey**: Gerçek kullanıcı davranışını simüle et (Login -> Browse -> Buy).
-- [ ] **Data Driven**: Testi statik verilerle değil, CSV'den gelen dinamik verilerle besle (Cache'i aşmak için).
-- [ ] **Ramp-up**: Trafiği aniden değil, kademeli artır (Sistemin ısınması için).
-
-### Aşama 3: Analysis & Optimization
-- [ ] **Correlation**: Hata anında CPU/Memory/DB metrikleri ne durumdaydı?
-- [ ] **Bottleneck**: Darboğaz nerede? (App Code, DB, Network, veya Load Injector'ın kendisi?).
-- [ ] **Report**: Teknik ve yönetici özeti içeren rapor hazırla.
-
-### Kontrol Noktaları
-| Aşama | Doğrulama |
-|-------|-----------|
-| 1 | Test verisi (Database seed) yeterli hacimde mi? |
-| 2 | Load Generator (Test makinesi) CPU darboğazına girdi mi? (False negative riski). |
-| 3 | 3rd party API'lar (Stripe, Twilio) mock'landı mı? (Masraf ve ban riski). |
+For Kubernetes performance testing, see the `kubernetes-operations` skill.

@@ -6,6 +6,28 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox API Patterns & Gotchas
 
+## Quick Reference Links
+
+**Official Documentation:**
+- [Engine API Reference](https://create.roblox.com/docs/reference/engine) - Complete API reference
+- [Luau Language](https://create.roblox.com/docs/luau) - Roblox's Lua variant
+- [Scripts Overview](https://create.roblox.com/docs/scripting/scripts) - Script types and lifecycle
+- [Services](https://create.roblox.com/docs/reference/engine/classes/ServiceProvider) - All game services
+- [Instance API](https://create.roblox.com/docs/reference/engine/classes/Instance)
+- [Players API](https://create.roblox.com/docs/reference/engine/classes/Players)
+- [RunService API](https://create.roblox.com/docs/reference/engine/classes/RunService)
+
+**Wiki References:**
+- [Scripting (Wiki)](https://roblox.fandom.com/wiki/Scripting)
+- [Services (Wiki)](https://roblox.fandom.com/wiki/Service)
+- [Instance (Wiki)](https://roblox.fandom.com/wiki/Instance)
+
+**Learning Resources:**
+- [Roblox DevForum](https://devforum.roblox.com/)
+- [Roblox Education](https://create.roblox.com/docs/education)
+
+---
+
 When working with Roblox APIs, be aware of these platform-specific behaviors and patterns.
 
 ## Common Gotchas

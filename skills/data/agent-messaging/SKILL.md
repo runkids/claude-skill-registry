@@ -29,56 +29,55 @@ When the human operator says "check your messages" or "read your messages":
 - These are messages addressed TO `backend-api` (from any sender)
 - You DO NOT check: The operator's inbox or any other agent's inbox
 
-### Agent Identity
+### Agent Identity - AUTOMATIC, DO NOT SET MANUALLY
 
-- **Your inbox** = Messages addressed TO YOUR AGENT (from any sender)
-- **Your agent ID** = Unique identifier for this agent
-- **Your agent alias** = Human-friendly name for the agent (e.g., `backend-api`, `crm`)
-- **Your inbox location** = `~/.aimaestro/messages/inbox/YOUR-AGENT-ID/`
+**Your identity is detected automatically.** Just use the messaging scripts - they handle everything.
 
-**Identity Resolution (Priority Order):**
-1. **Environment variable** - `AI_MAESTRO_AGENT_ID` (explicit override)
-2. **Structured session name** - Parsed from tmux session if format is `agent@host`
-3. **Working directory** - Lookup agent in registry by workingDirectory
-4. **Git repo name** - Auto-detected from current repository (fallback)
+- **Your inbox** = Messages addressed TO YOUR AGENT
+- **Your agent alias** = Your name (e.g., `backend-api`, `lola`, `crm`)
+- **Your inbox location** = Handled automatically by the scripts
 
-**Note:** tmux is NOT required. External agents can set their identity via environment variable, run from an agent's working directory, or run from a git repository for auto-detection.
+**DO NOT:**
+- ❌ Set environment variables manually
+- ❌ Prefix messages with your agent ID
+- ❌ Try to configure your identity
 
-### External Agents (Not in AI Maestro)
+**JUST DO:**
+- ✅ Run `check-aimaestro-messages.sh` to check your inbox
+- ✅ Run `send-aimaestro-message.sh <target> <subject> <message>` to send
+- ✅ Run `reply-aimaestro-message.sh <msg-id> <reply>` to reply
 
-External agents are AI agents running **outside** of AI Maestro's tmux sessions. They can still send and receive messages using the messaging system.
+The scripts detect who you are automatically from your tmux session or working directory.
 
-**Setting Identity for External Agents:**
+---
+
+### ONLY FOR EXTERNAL AGENTS (Skip if you're in AI Maestro)
+
+⚠️ **READ THIS FIRST:** If you are running inside AI Maestro (in a tmux session managed by the dashboard), **SKIP THIS SECTION**. Your identity is automatic. The section below is ONLY for agents running OUTSIDE of AI Maestro.
+
+**What is an "External Agent"?**
+- An agent running in a separate Claude Code instance (not managed by AI Maestro)
+- An agent in CI/CD pipelines
+- An agent on a machine without AI Maestro installed
+- NOT you, if you see tmux sessions in the AI Maestro dashboard
+
+**For External Agents ONLY:**
 ```bash
-# Option 1: Explicit identity via environment variable
+# Set identity ONLY if you're external (not in AI Maestro)
 export AI_MAESTRO_AGENT_ID="my-project"
-export AI_MAESTRO_HOST_ID="my-hostname"  # Optional, defaults to current host
+export AI_MAESTRO_HOST_ID="my-hostname"  # Optional
 
-# Option 2: Auto-detect from git repo (just run from within a git repository)
-cd /path/to/my-repo
-# Identity will be "my-repo" (the repo folder name)
-```
-
-**Using Messaging as External Agent:**
-```bash
-# Set identity
-export AI_MAESTRO_AGENT_ID="my-project"
-
-# Send messages
-send-aimaestro-message.sh lola@mini-lola "Hello" "Message from external agent"
-
-# Check your inbox
+# Then use messaging normally
+send-aimaestro-message.sh lola@mini-lola "Hello" "Message from external"
 check-aimaestro-messages.sh
-
-# Read messages
-read-aimaestro-message.sh msg-123...
 ```
 
-**How Replies Work:**
-- When you send a message, your identity (`my-project@hostname`) is included
-- Recipients can reply to your identity
-- Replies are delivered to `~/.aimaestro/messages/inbox/my-project/`
-- Check your inbox to see replies
+**How to know if you're external:**
+- You DON'T see yourself in the AI Maestro dashboard
+- You're NOT in a tmux session named after an agent
+- You're running from a random directory, not an agent's workingDirectory
+
+---
 
 **You do NOT read:**
 - ❌ The operator's inbox
@@ -320,19 +319,13 @@ check-new-messages-arrived.sh
 ```
 
 ### 5. Read Specific Message FROM YOUR Inbox (Direct File Access - Advanced)
-**Command:**
+
+**NOTE:** Prefer using `read-aimaestro-message.sh` instead - it handles everything automatically.
+
+**Command (if needed):**
 ```bash
-# If in tmux:
 cat ~/.aimaestro/messages/inbox/$(tmux display-message -p '#S')/<message-id>.json | jq
-
-# If external agent:
-cat ~/.aimaestro/messages/inbox/$AI_MAESTRO_AGENT_ID/<message-id>.json | jq
 ```
-
-**What it does:**
-- Read a specific message file from YOUR inbox
-- Use `jq` for pretty formatting
-- Useful when you know the message ID
 
 **Directory structure:**
 ```
@@ -343,23 +336,6 @@ cat ~/.aimaestro/messages/inbox/$AI_MAESTRO_AGENT_ID/<message-id>.json | jq
 │   └── msg_*.json
 └── archived/YOUR-AGENT-ID/  # YOUR archived messages
     └── msg_*.json
-```
-
-**Example:**
-```bash
-# For tmux agents - get YOUR session name
-tmux display-message -p '#S'
-# Output: frontend-dev  ← This is YOU
-
-# For external agents - use your identity
-echo $AI_MAESTRO_AGENT_ID
-# Output: my-project  ← This is YOU
-
-# List all messages in YOUR inbox
-ls ~/.aimaestro/messages/inbox/my-project/
-
-# Read specific message sent TO YOU
-cat ~/.aimaestro/messages/inbox/my-project/msg_1234567890_abcde.json | jq
 ```
 
 ### 4. Mark Message as Read (via API)
@@ -762,26 +738,6 @@ send-aimaestro-message.sh backend-architect \
 
 ### RECEIVING Examples (Checking YOUR OWN Inbox)
 
-#### Scenario R0: External Agent Checking Messages
-```bash
-# YOU are an external agent (not running in AI Maestro tmux)
-# Set your identity
-export AI_MAESTRO_AGENT_ID="my-project"
-
-# Check your inbox
-check-aimaestro-messages.sh
-# Output shows messages sent TO my-project:
-# [msg-123...] 🔵 From: lola@mini-lola | 2025-01-26 10:30
-#     Subject: Re: Question about API
-#     Preview: Here's the answer you asked for...
-
-# Read the message
-read-aimaestro-message.sh msg-123...
-
-# Reply
-reply-aimaestro-message.sh msg-123... "Thanks for the help!"
-```
-
 #### Scenario R1: Responding to Message Notifications
 ```bash
 # YOU are agent "frontend-dev"
@@ -888,26 +844,6 @@ reply-aimaestro-message.sh msg-slack-123... "The auth API is 80% complete. Login
 ```
 
 ### SENDING Examples
-
-#### Scenario S0: External Agent Sending Messages
-```bash
-# YOU are an external agent (not running in AI Maestro tmux)
-# Set your identity
-export AI_MAESTRO_AGENT_ID="my-project"
-
-# Send a message to an AI Maestro agent
-send-aimaestro-message.sh lola@mini-lola \
-  "Need help with database schema" \
-  "Can you review the schema design in /docs/schema.md?" \
-  normal \
-  request
-
-# Output:
-# ✅ Message sent
-#    From: my-project@juans-macbook-pro
-#    To: lola@mini-lola
-#    Subject: Need help with database schema
-```
 
 #### Scenario S1: Request Work from Another Agent
 ```bash
@@ -1057,6 +993,51 @@ send-aimaestro-message.sh frontend-dev \
 - Use `list-agents.sh` to see all agents on local host
 - Use `list-agents.sh <host-id>` to see agents on a specific remote host
 - Try partial names - fuzzy matching handles typos and abbreviations
+
+---
+
+## APPENDIX: External Agents (ONLY if not in AI Maestro)
+
+⚠️ **SKIP THIS SECTION** if you're running inside AI Maestro. This is ONLY for agents that:
+- Are NOT managed by the AI Maestro dashboard
+- Are NOT in a tmux session
+- Are running from CI/CD, external scripts, or separate machines
+
+### External Agent Setup
+```bash
+# ONLY do this if you're external (not in AI Maestro)
+export AI_MAESTRO_AGENT_ID="my-project"
+export AI_MAESTRO_HOST_ID="my-hostname"  # Optional, defaults to current host
+```
+
+### External Agent Example: Checking Messages
+```bash
+# Set identity (ONLY if external)
+export AI_MAESTRO_AGENT_ID="my-project"
+
+# Check inbox
+check-aimaestro-messages.sh
+
+# Read message
+read-aimaestro-message.sh msg-123...
+
+# Reply
+reply-aimaestro-message.sh msg-123... "Thanks!"
+```
+
+### External Agent Example: Sending Messages
+```bash
+# Set identity (ONLY if external)
+export AI_MAESTRO_AGENT_ID="my-project"
+
+# Send message to AI Maestro agent
+send-aimaestro-message.sh lola@mini-lola \
+  "Need help with schema" \
+  "Can you review /docs/schema.md?" \
+  normal request
+```
+
+---
 
 ## References
 

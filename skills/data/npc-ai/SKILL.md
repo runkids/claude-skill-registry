@@ -25,6 +25,125 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 When implementing AI systems, use these Roblox-specific patterns for performant and intelligent NPCs.
 
+## NPC Creation (CRITICAL: Use Modern Patterns)
+
+**NEVER build NPCs by manually creating Parts.** Use `HumanoidDescription` + `CreateHumanoidModelFromDescriptionAsync`.
+
+### Creating NPCs with HumanoidDescription
+
+```lua
+local Players = game:GetService("Players")
+
+-- Create a basic NPC
+local function createNPC(config)
+    local description = Instance.new("HumanoidDescription")
+
+    -- Customize appearance
+    description.HeadColor = config.headColor or Color3.new(1, 0.8, 0.6)
+    description.TorsoColor = config.torsoColor or Color3.new(0.2, 0.2, 0.8)
+    description.LeftArmColor = config.headColor or Color3.new(1, 0.8, 0.6)
+    description.RightArmColor = config.headColor or Color3.new(1, 0.8, 0.6)
+    description.LeftLegColor = config.legColor or Color3.new(0.1, 0.1, 0.4)
+    description.RightLegColor = config.legColor or Color3.new(0.1, 0.1, 0.4)
+
+    -- Body proportions
+    description.BodyTypeScale = config.bodyType or 0.5
+    description.HeightScale = config.height or 1
+    description.WidthScale = config.width or 1
+    description.HeadScale = config.headScale or 1
+
+    -- Accessories (comma-separated asset IDs)
+    if config.hat then
+        description.HatAccessory = config.hat
+    end
+    if config.shirt then
+        description.Shirt = config.shirt
+    end
+    if config.pants then
+        description.Pants = config.pants
+    end
+
+    -- Animations (optional custom animations)
+    if config.idleAnimation then
+        description.IdleAnimation = config.idleAnimation
+    end
+    if config.walkAnimation then
+        description.WalkAnimation = config.walkAnimation
+    end
+
+    -- Create with proper rig (R15 recommended for modern features)
+    local npc = Players:CreateHumanoidModelFromDescriptionAsync(
+        description,
+        config.rigType or Enum.HumanoidRigType.R15
+    )
+    npc.Name = config.name or "NPC"
+
+    return npc
+end
+
+-- Usage
+local guard = createNPC({
+    name = "Guard",
+    headColor = Color3.new(0.8, 0.6, 0.4),
+    torsoColor = Color3.new(0.3, 0.3, 0.7),
+    hat = "2551510151",  -- Asset ID
+    height = 1.1,
+    bodyType = 0.3
+})
+guard:PivotTo(CFrame.new(0, 5, 0))
+guard.Parent = workspace.NPCs
+```
+
+### Clone Player Appearance for NPC
+
+```lua
+local function createNPCFromPlayer(player)
+    local description = Players:GetHumanoidDescriptionFromUserIdAsync(player.UserId)
+    local npc = Players:CreateHumanoidModelFromDescriptionAsync(
+        description,
+        Enum.HumanoidRigType.R15
+    )
+    npc.Name = player.Name .. "_NPC"
+    return npc
+end
+
+-- Create NPC from any user ID
+local function createNPCFromUserId(userId, npcName)
+    local description = Players:GetHumanoidDescriptionFromUserIdAsync(userId)
+    local npc = Players:CreateHumanoidModelFromDescriptionAsync(
+        description,
+        Enum.HumanoidRigType.R15
+    )
+    npc.Name = npcName or "NPC"
+    return npc
+end
+```
+
+### Modify Existing NPC Appearance
+
+```lua
+local function modifyNPCAppearance(npc, modifications)
+    local humanoid = npc:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+
+    -- IMPORTANT: Get current description, don't create new
+    local description = humanoid:GetAppliedDescription()
+
+    -- Apply modifications
+    if modifications.hat then
+        -- Append to existing accessories
+        local existing = description.HatAccessory
+        description.HatAccessory = existing ~= "" and (existing .. "," .. modifications.hat) or modifications.hat
+    end
+    if modifications.torsoColor then
+        description.TorsoColor = modifications.torsoColor
+    end
+
+    -- Apply updated description
+    humanoid:ApplyDescriptionAsync(description)
+end
+```
+
 ## Pathfinding
 
 ### Basic PathfindingService Usage

@@ -3,8 +3,6 @@ name: db-migrate
 description: >-
   Database migrations and schema management. TODO: Implement for backend.
   Invoked by: "migrate", "db migrate", "database migration", "schema change".
-context: fork
-agent: general-purpose
 ---
 
 # DB Migrate

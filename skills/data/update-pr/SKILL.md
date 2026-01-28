@@ -1,135 +1,173 @@
 ---
 name: update-pr
-description: Update a pull request description. Use when asked to update PR description, edit PR body, or refresh PR details.
+description: Complete PR update workflow - updates both title and description with project-aware content. Orchestrates update-pr-title and update-pr-desc commands.
+allowed-tools: Skill
+user-invocable: true
 ---
 
-# Update Pull Request Description
+# Update PR Agent
 
-Update an existing PR's description, working around sandbox heredoc limitations.
+## Agent Type
 
-## Instructions
+This is an **orchestrator agent** that coordinates PR title and description updates. Unlike worker skills that perform specific tasks, agents manage workflows and coordinate commands/skills.
 
-### 1. Get current PR info
+## Coordinated Commands
 
-```bash
-# View current PR (assumes on feature branch)
-gh pr view --json number,title,body
+- **update-pr-title**: PR title generation based on commits and changes
+- **update-pr-desc**: PR description generation with project-aware content and Mermaid diagrams
 
-# Or specify PR number
-gh pr view 123 --json number,title,body
+## Overview
+
+Provides a complete PR update workflow by orchestrating the update-pr-title and update-pr-desc commands.
+
+## When to Activate
+
+This skill activates when:
+- User requests complete PR update
+- User wants both title and description updated
+- User uses language suggesting comprehensive PR update
+
+## Workflow
+
+### Step 1: Confirm Intent
+
+Ask the user what they want to update:
+- Both title and description (default)
+- Title only
+- Description only
+
+If the user explicitly says "both" or "everything" or just "update PR", default to both.
+
+### Step 2: Gather Options
+
+Collect options from user request or ask if not specified:
+- `--pr <number>`: PR number (optional, detects from branch if not provided)
+- `--lang <language>`: Language (korean/english, default: korean)
+- `--include-load-test`: Include load test results in description (optional)
+
+### Step 3: Execute Commands
+
+Based on user's choice:
+
+**Both title and description (default)**:
+1. Execute update-pr-title command with collected options
+2. Wait for completion
+3. Execute update-pr-desc command with collected options
+4. Report combined results
+
+**Title only**:
+1. Execute update-pr-title command with collected options
+
+**Description only**:
+1. Execute update-pr-desc command with collected options
+
+### Step 4: Report Results
+
+Provide summary:
+- PR number and URL
+- What was updated (title, description, or both)
+- Language used
+- For description updates: mention Mermaid charts generated and project type detected
+- Any relevant statistics (coverage, test count, etc.)
+
+## Command Execution
+
+Use the Skill tool to execute commands:
+
+**Update title**:
+```
+Call Skill tool with:
+- skill: "update-pr-title" (not a command, it's defined in commands/)
+- args: "--pr 123 --lang ko" (if applicable)
 ```
 
-### 2. Write the new body to a temp file
+Note: Since update-pr-title and update-pr-desc are commands (not skills), you should invoke them by reading the command files and executing their instructions, NOT by using the Skill tool.
 
-Use printf to avoid heredoc issues:
+## Correct Approach
 
-```bash
-printf '%s\n' \
-  '## Problem' \
-  '' \
-  'Description of the problem...' \
-  '' \
-  '## Solution' \
-  '' \
-  'Description of the solution...' \
-  > /tmp/claude/pr-body.md
+1. Parse user options (--pr, --lang, --include-load-test)
+2. Read and execute `commands/update-pr-title.md` instructions
+3. Read and execute `commands/update-pr-desc.md` instructions
+4. Report combined results
+
+## Example Workflow
+
+### Example 1: Both title and description with Korean
+
+```
+User: /update-pr --pr 123 --lang ko
+
+Skill: Updating PR #123 with Korean title and description...
+
+[Reads and executes update-pr-title.md instructions]
+✓ Title updated: [SYN-1234] 기능: 사용자 인증 시스템 구현
+
+[Reads and executes update-pr-desc.md instructions]
+✓ Description updated with:
+  - Project type: Django Backend
+  - PR Type: Feature ✨
+  - Mermaid diagram: API Flow
+  - Test coverage: 85%
+
+PR #123 successfully updated!
+View: https://github.com/org/repo/pull/123
 ```
 
-For longer content, build it incrementally:
+### Example 2: Current branch, English
 
-```bash
-# Start fresh
-> /tmp/claude/pr-body.md
+```
+User: /update-pr --lang eng
 
-# Add sections
-printf '%s\n' '## Problem' '' >> /tmp/claude/pr-body.md
-printf '%s\n' 'The issue is...' '' >> /tmp/claude/pr-body.md
-printf '%s\n' '## Solution' '' >> /tmp/claude/pr-body.md
-printf '%s\n' 'We fixed it by...' >> /tmp/claude/pr-body.md
+Skill: Detecting PR from current branch...
+
+[Detects PR #156 from current branch]
+[Executes both update-pr-title and update-pr-desc with English language]
+
+✓ PR #156 updated successfully!
+  - Title: [SYN-1234] feat: Implement JWT authentication system
+  - Description: Complete with API flow diagram
+  - Language: English
 ```
 
-### 3. Update the PR
+### Example 3: Title only
 
-```bash
-# Using body-file (may show GraphQL warning but still works)
-gh pr edit 123 --body-file /tmp/claude/pr-body.md
+```
+User: update pr title for PR 123
 
-# If that fails, use the API directly
-gh api repos/{owner}/{repo}/pulls/123 --method PATCH \
-  -f body="$(cat /tmp/claude/pr-body.md)"
+Skill: Updating only the title for PR #123...
+
+[Executes update-pr-title only]
+✓ Title updated: [SYN-1234] 기능: 사용자 프로필 업데이트 API 추가
 ```
 
-### 4. Verify the update
+### Example 4: Description only with load test
 
-```bash
-gh pr view 123 --json body -q '.body' | head -20
+```
+User: update pr description with load test results
+
+Skill: Updating description for current branch PR with load test results...
+
+[Executes update-pr-desc with --include-load-test flag]
+✓ Description updated with load test results included
 ```
 
-### 5. Clean up
+## Benefits
 
-```bash
-rm /tmp/claude/pr-body.md
-```
+1. **Convenient**: Single command for complete PR updates
+2. **Consistent**: Ensures title and description match and are coherent
+3. **Flexible**: Can update both or just one component
+4. **Project-aware**: Automatically adapts content based on detected project type
+5. **User-friendly**: Simple interface for complex operations
 
-## Common Issues
+## Error Handling
 
-**GraphQL Projects (classic) warning:**
-This warning appears but the update usually still succeeds. Verify with `gh pr view`.
+- If PR number not provided and cannot detect from branch: Ask user for PR number
+- If GitHub MCP not available: Guide user to check GITHUB_TOKEN and .mcp.json configuration
+- If command execution fails: Report specific error and suggest remediation
+- If user's intent is unclear: Ask for clarification
 
-**Heredoc fails:**
-Expected in sandbox mode. Use printf approach.
+## Integration with Other Skills/Commands
 
-**Body too long for single printf:**
-Build the file incrementally with append (>>).
-
-**Special characters:**
-Use single quotes. For apostrophes: `'Don'\''t'`
-
-## PR Body Structure
-
-Follow this template for consistency:
-
-```markdown
-## Problem
-
-[What issue exists?]
-
-## Solution
-
-[High-level approach]
-
-### Key design decisions
-
-**1. [Decision]**
-[Explanation]
-
-## Files changed
-
-| File           | Change      |
-| -------------- | ----------- |
-| `path/file.ts` | Description |
-
-## Test plan
-
-- [ ] Test item
-
----
-
-🤖 _PR by [Claude Code](https://claude.com/claude-code)_
-```
-
-## Examples
-
-**Quick body update:**
-
-```bash
-printf '%s\n' '## Problem' '' 'Users cannot login' '' '## Solution' '' 'Fixed auth token validation' '' '---' '🤖 _PR by [Claude Code](https://claude.com/claude-code)_' > /tmp/claude/pr-body.md
-gh pr edit 123 --body-file /tmp/claude/pr-body.md
-```
-
-**Using API fallback:**
-
-```bash
-gh api repos/myorg/myrepo/pulls/123 --method PATCH \
-  -f body="$(cat /tmp/claude/pr-body.md)"
-```
+- **update-pr-title command**: Generates concise PR title following commit message conventions
+- **update-pr-desc command**: Generates comprehensive PR description with project-aware content and Mermaid charts
+- **mermaid-expert skill**: Used internally by update-pr-desc for diagram generation

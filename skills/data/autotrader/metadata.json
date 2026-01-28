@@ -1,9 +1,7 @@
 {
   "name": "autotrader",
-  "description": "Search millions of new and used cars from dealers and private sellers.",
   "repo": "Andrejones92/canifi-life-os",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Andrejones92/canifi-life-os"
+  "path": "skills/autotrader/SKILL.md",
+  "source": "github.com/Andrejones92/canifi-life-os",
+  "downloaded_at": "2026-01-28T03:33:11.271784Z"
 }

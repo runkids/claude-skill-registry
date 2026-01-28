@@ -1,30 +1,52 @@
 ---
 name: git-commit-formatter
-description: Formats git commit messages according to Conventional Commits specification. Use this when the user asks to commit changes or write a commit message.
+description: 生成符合 Conventional Commits 规范的 Git 提交信息。当用户要求生成提交、创建 commit 或写提交信息时使用
 ---
 
-# Git Commit Formatter Skill
+# Git 提交信息格式化器
 
-When writing a git commit message, you MUST follow the Conventional Commits specification.
+## 任务说明
 
-## Format
-`<type>[optional scope]: <description>`
+分析暂存区的代码变更，生成符合 Conventional Commits 规范的提交信息。
 
-## Allowed Types
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation only changes
-- **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc)
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **perf**: A code change that improves performance
-- **test**: Adding missing tests or correcting existing tests
-- **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation
+## 规范说明
 
-## Instructions
-1. Analyze the changes to determine the primary `type`.
-2. Identify the `scope` if applicable (e.g., specific component or file).
-3. Write a concise `description` in imperative mood (e.g., "add feature" not "added feature").
-4. If there are breaking changes, add a footer starting with `BREAKING CHANGE:`.
+提交信息格式：`<type>(<scope>): <subject>`
 
-## Example
-`feat(auth): implement login with google`
+类型定义：
+- feat: 新功能
+- fix: 修复缺陷
+- docs: 文档更新
+- style: 代码格式调整（不影响逻辑）
+- refactor: 重构代码
+- perf: 性能优化
+- test: 测试相关
+- build: 构建系统或依赖更新
+- ci: CI 配置更新
+- chore: 其他不修改源代码的更改
+
+## 执行步骤
+
+1. 运行 `git diff --cached` 查看暂存的变更
+2. 分析文件变更，识别主要修改类型
+3. 确定影响范围（scope）
+4. 生成简洁的主题（subject），限制在 50 字符内
+5. 如有重大变更，添加 BREAKING CHANGE 说明
+
+## 质量标准
+
+必须遵守：
+- subject 使用动词开头，现在时态
+- subject 不以句号结尾
+- scope 用括号包裹，可选但建议提供
+- 如有详细说明，body 每行不超过 72 字符
+
+## 示例输出
+
+```
+feat(auth): 实现 JWT 令牌认证
+
+- 添加 JWT 生成和验证逻辑
+- 实现令牌刷新机制
+- 添加相关单元测试
+```

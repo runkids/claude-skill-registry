@@ -1,7 +1,7 @@
 {
   "name": "paypal",
-  "repo": "mgd34msu/goodvibes-gemini",
-  "path": "skills/paypal/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-gemini",
-  "downloaded_at": "2026-01-27T03:56:32.810078Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/skills/paypal/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-28T04:33:55.093450Z"
 }

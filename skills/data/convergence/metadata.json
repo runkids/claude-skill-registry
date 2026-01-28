@@ -1,7 +1,7 @@
 {
   "name": "convergence",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/real-analysis/convergence/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-27T04:21:41.760996Z"
+  "repo": "scooter-lacroix/Maestro",
+  "path": "maestro/skills/math/math/real-analysis/convergence/SKILL.md",
+  "source": "github.com/scooter-lacroix/Maestro",
+  "downloaded_at": "2026-01-28T03:00:25.208399Z"
 }

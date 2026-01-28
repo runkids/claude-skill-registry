@@ -1,12 +1,7 @@
 {
   "name": "github-ops",
-  "description": "Provides comprehensive GitHub operations using gh CLI and GitHub API. Activates when working with pull requests, issues, repositories, workflows, or GitHub API operations including creating/viewing/me",
-  "repo": "daymade/claude-code-skills",
-  "category": "productivity",
-  "tags": [
-    "github",
-    "ops"
-  ],
-  "stars": 110,
-  "source": "SkillsMP Synced Skills"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/github-ops/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-28T00:53:47.338663Z"
 }

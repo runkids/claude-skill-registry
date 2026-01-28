@@ -1,7 +1,7 @@
 {
   "name": "1k-i18n",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/other/1k-i18n/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-27T02:59:07.148404Z"
+  "repo": "OneKeyHQ/app-monorepo",
+  "path": ".claude/skills/1k-i18n/SKILL.md",
+  "source": "github.com/OneKeyHQ/app-monorepo",
+  "downloaded_at": "2026-01-28T04:32:13.245256Z"
 }

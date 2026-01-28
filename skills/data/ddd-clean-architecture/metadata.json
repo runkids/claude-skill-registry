@@ -1,13 +1,7 @@
 {
   "name": "ddd-clean-architecture",
-  "description": "Implement domain-driven design (DDD) and clean architecture patterns in ASP.NET Core Web APIs. Use this skill when building or refactoring backend services that need strategic domain modeling, tactica",
-  "repo": "bowlneba/neba-management",
-  "category": "development",
-  "tags": [
-    "ddd",
-    "clean",
-    "architecture"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "partme-ai/full-stack-skills",
+  "path": "skills/ddd-clean-architecture/SKILL.md",
+  "source": "github.com/partme-ai/full-stack-skills",
+  "downloaded_at": "2026-01-28T02:15:51.344679Z"
 }

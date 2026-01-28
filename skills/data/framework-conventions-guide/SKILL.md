@@ -1,6 +1,7 @@
 ---
 name: framework-conventions-guide
 description: This skill should be used when writing code in any opinionated framework's distinctive style. It applies when writing framework-based applications, creating models/controllers/views, or any framework code. Triggers on code generation, refactoring requests, code review, or when the user mentions framework conventions. Embodies the philosophy of embracing framework conventions, fighting complexity, and choosing simplicity over cleverness.
+user-invocable: false
 ---
 
 <objective>

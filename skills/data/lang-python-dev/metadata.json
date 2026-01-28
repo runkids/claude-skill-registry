@@ -1,9 +1,7 @@
 {
   "name": "lang-python-dev",
-  "description": "Foundational Python patterns covering core syntax, idioms, type hints, testing, and modern tooling. Use when writing Python code, understanding Pythonic patterns, working with type hints, or needing g",
   "repo": "aRustyDev/ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/aRustyDev/ai"
+  "path": "components/skills/lang-python-dev/SKILL.md",
+  "source": "github.com/aRustyDev/ai",
+  "downloaded_at": "2026-01-28T01:17:48.033351Z"
 }

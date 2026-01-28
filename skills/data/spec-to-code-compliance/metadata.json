@@ -1,7 +1,7 @@
 {
   "name": "spec-to-code-compliance",
-  "repo": "trailofbits/skills",
-  "path": "plugins/spec-to-code-compliance/skills/spec-to-code-compliance/SKILL.md",
-  "source": "github.com/trailofbits/skills",
-  "downloaded_at": "2026-01-27T04:11:37.930856Z"
+  "repo": "pathvanasoftware/IOSStorageCleaner",
+  "path": ".claude/skills/trailofbits-spec-to-code-compliance/skills/spec-to-code-compliance/SKILL.md",
+  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
+  "downloaded_at": "2026-01-28T03:44:45.823978Z"
 }

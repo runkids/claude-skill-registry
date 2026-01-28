@@ -6,6 +6,25 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Constraints & Physics
 
+## Quick Reference Links
+
+**Official Documentation:**
+- [Constraints Overview](https://create.roblox.com/docs/physics/mechanical-constraints)
+- [Mover Constraints](https://create.roblox.com/docs/physics/mover-constraints) - VectorForce, BodyGyro, etc.
+- [Physics Simulation](https://create.roblox.com/docs/physics)
+- [Network Ownership](https://create.roblox.com/docs/physics/network-ownership)
+- [WeldConstraint API](https://create.roblox.com/docs/reference/engine/classes/WeldConstraint)
+- [RigidConstraint API](https://create.roblox.com/docs/reference/engine/classes/RigidConstraint)
+- [RopeConstraint API](https://create.roblox.com/docs/reference/engine/classes/RopeConstraint)
+- [BallSocketConstraint API](https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint)
+- [HingeConstraint API](https://create.roblox.com/docs/reference/engine/classes/HingeConstraint)
+
+**Wiki References:**
+- [Constraints (Wiki)](https://roblox.fandom.com/wiki/Constraint)
+- [Physics (Wiki)](https://roblox.fandom.com/wiki/Physics)
+
+---
+
 When implementing physics systems, use these constraint patterns for realistic and performant mechanics.
 
 ## Constraint Reference
@@ -513,9 +532,3 @@ local function magneticForce(magnet, target, strength, falloff)
     end)
 end
 ```
-
-## Additional Resources
-
-- Full API reference: [constraints-reference.md](constraints-reference.md)
-- Implementation patterns: [patterns.md](patterns.md)
-- Code samples: [code-samples.md](code-samples.md)

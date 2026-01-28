@@ -1,7 +1,48 @@
 ---
 name: dotnet-testing-advanced-testcontainers-nosql
-description: 協助使用 Testcontainers 進行 MongoDB 與 Redis 的容器化整合測試。當使用者需要測試 NoSQL 資料庫操作、快取服務、文件查詢或五種 Redis 資料結構時使用此技能。
+description: |
+  Testcontainers NoSQL 整合測試完整指南。
+  涵蓋 MongoDB 文件操作、Redis 五種資料結構、Collection Fixture 模式。
+  包含 BSON 序列化、索引效能測試、資料隔離策略與容器生命週期管理。
+
+triggers:
+  # 核心關鍵字
+  - testcontainers mongodb
+  - testcontainers redis
+  - mongodb integration test
+  - redis integration test
+  - nosql testing
+
+  # 技術術語
+  - MongoDbContainer
+  - RedisContainer
+  - IMongoDatabase
+  - IConnectionMultiplexer
+  - BSON serialization
+
+  # 類別/方法
+  - MongoDbContainerFixture
+  - RedisContainerFixture
+  - BsonDocument
+  - BsonElement
+  - SetStringAsync
+  - ListLeftPushAsync
+  - SortedSetAddAsync
+
+  # 使用情境
+  - 文件模型測試
+  - 快取測試
+  - 五種資料結構
+  - String Hash List Set SortedSet
+  - 複合索引
+  - 唯一索引
+  - Collection Fixture
+
 license: MIT
+metadata:
+  author: Kevin Tseng
+  version: "1.0.0"
+  tags: "testcontainers, mongodb, redis, nosql, integration-testing, bson"
 ---
 
 # Testcontainers NoSQL 整合測試指南
@@ -1153,7 +1194,7 @@ _container = new MongoDbBuilder()
 本技能內容提煉自「老派軟體工程師的測試修練 - 30 天挑戰」系列文章：
 
 - **Day 22 - Testcontainers 整合測試：MongoDB 及 Redis 基礎到進階**
-  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376114
+  - 鐵人賽文章：https://ithelp.ithome.com.tw/articles/10376740
   - 範例程式碼：https://github.com/kevintsengtw/30Days_in_Testing_Samples/tree/main/day22
 
 ### 官方文件

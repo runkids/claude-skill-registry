@@ -1,12 +1,7 @@
 {
   "name": "content-collections",
-  "description": "Production-tested setup for Content Collections - a TypeScript-first build tool that transformslocal content files (Markdown/MDX) into type-safe data collections with automatic validation.Use when: bu",
   "repo": "jackspace/ClaudeSkillz",
-  "category": "documents",
-  "tags": [
-    "content",
-    "collections"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/content-collections/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-28T02:12:00.184352Z"
 }

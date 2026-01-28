@@ -1,345 +1,395 @@
 ---
-name: streams
-description: Master Node.js streams for memory-efficient processing of large datasets, real-time data handling, and building data pipelines
-version: "2.1.0"
-sasmp_version: "1.3.0"
-bonded_agent: 03-async-programming
-bond_type: PRIMARY_BOND
+name: Streams
+description: This skill should be used when the user asks about "Effect Stream", "Stream.from", "Stream.map", "Stream.filter", "Stream.run", "streaming data", "async iteration", "Sink", "Channel", "Stream.concat", "Stream.merge", "backpressure", "Stream.fromIterable", "chunked processing", "real-time data", or needs to understand how Effect handles streaming data processing.
+version: 1.0.0
 ---
 
-# Node.js Streams Skill
+# Streams in Effect
 
-Master streams for memory-efficient processing of large files, real-time data, and building composable data pipelines.
+## Overview
 
-## Quick Start
+Effect Streams provide:
 
-Streams in 4 types:
-1. **Readable** - Source of data (file, HTTP request)
-2. **Writable** - Destination (file, HTTP response)
-3. **Transform** - Modify data in transit
-4. **Duplex** - Both readable and writable
+- **Lazy evaluation** - Elements produced on demand
+- **Resource safety** - Automatic cleanup
+- **Backpressure** - Producer/consumer coordination
+- **Composition** - Transform, filter, merge streams
+- **Error handling** - Typed errors in stream pipeline
 
-## Core Concepts
-
-### Readable Stream
-```javascript
-const fs = require('fs');
-
-// Create readable stream
-const readStream = fs.createReadStream('large-file.txt', {
-  encoding: 'utf8',
-  highWaterMark: 64 * 1024 // 64KB chunks
-});
-
-// Event-based consumption
-readStream.on('data', (chunk) => {
-  console.log(`Received ${chunk.length} bytes`);
-});
-
-readStream.on('end', () => {
-  console.log('Finished reading');
-});
-
-readStream.on('error', (err) => {
-  console.error('Read error:', err);
-});
+```typescript
+Stream<A, E, R>
+// Produces values of type A
+// May fail with error E
+// Requires environment R
 ```
 
-### Writable Stream
-```javascript
-const writeStream = fs.createWriteStream('output.txt');
+## Creating Streams
 
-// Write data
-writeStream.write('Hello, ');
-writeStream.write('World!\n');
-writeStream.end(); // Signal end
+### From Values
 
-// Handle backpressure
-const ok = writeStream.write(data);
-if (!ok) {
-  // Wait for drain event before writing more
-  writeStream.once('drain', () => {
-    continueWriting();
-  });
-}
+```typescript
+import { Stream } from "effect"
+
+// From known values
+const numbers = Stream.make(1, 2, 3, 4, 5)
+
+// From iterable
+const fromArray = Stream.fromIterable([1, 2, 3])
+
+// Empty stream
+const empty = Stream.empty
+
+// Single value
+const single = Stream.succeed(42)
+
+// Infinite stream
+const infinite = Stream.iterate(1, (n) => n + 1)
 ```
 
-### Transform Stream
-```javascript
-const { Transform } = require('stream');
+### From Effects
 
-// Custom transform: uppercase text
-const upperCase = new Transform({
-  transform(chunk, encoding, callback) {
-    this.push(chunk.toString().toUpperCase());
-    callback();
-  }
-});
+```typescript
+// Single effect as stream
+const fromEffect = Stream.fromEffect(fetchData())
 
-// Usage
-fs.createReadStream('input.txt')
-  .pipe(upperCase)
-  .pipe(fs.createWriteStream('output.txt'));
+// Repeat effect
+const polling = Stream.repeatEffect(checkStatus())
+
+// Repeat with schedule
+const scheduled = Stream.repeatEffectWithSchedule(
+  checkStatus(),
+  Schedule.spaced("5 seconds")
+)
 ```
 
-## Learning Path
+### From Async Sources
 
-### Beginner (1-2 weeks)
-- ✅ Understand stream types
-- ✅ Read/write file streams
-- ✅ Basic pipe operations
-- ✅ Handle stream events
+```typescript
+// From async iterable
+const fromAsyncIterable = Stream.fromAsyncIterable(
+  asyncGenerator(),
+  (error) => new StreamError({ cause: error })
+)
 
-### Intermediate (3-4 weeks)
-- ✅ Transform streams
-- ✅ Backpressure handling
-- ✅ Object mode streams
-- ✅ Pipeline utility
+// From callback/event emitter
+const fromCallback = Stream.async<number, never>((emit) => {
+  const handler = (value: number) => emit.single(value)
+  eventEmitter.on("data", handler)
+  return Effect.sync(() => eventEmitter.off("data", handler))
+})
 
-### Advanced (5-6 weeks)
-- ✅ Custom stream implementation
-- ✅ Async iterators
-- ✅ Web Streams API
-- ✅ Performance optimization
-
-## Pipeline (Recommended)
-```javascript
-const { pipeline } = require('stream/promises');
-const zlib = require('zlib');
-
-// Compose streams with error handling
-async function compressFile(input, output) {
-  await pipeline(
-    fs.createReadStream(input),
-    zlib.createGzip(),
-    fs.createWriteStream(output)
-  );
-  console.log('Compression complete');
-}
-
-// With transform
-await pipeline(
-  fs.createReadStream('data.csv'),
-  csvParser(),
-  transformRow(),
-  jsonStringify(),
-  fs.createWriteStream('data.json')
-);
+// From queue
+const fromQueue = Stream.fromQueue(queue)
 ```
 
-### Pipeline with Error Handling
-```javascript
-const { pipeline } = require('stream');
+### Generating Streams
 
-pipeline(
-  source,
-  transform1,
-  transform2,
-  destination,
-  (err) => {
-    if (err) {
-      console.error('Pipeline failed:', err);
-    } else {
-      console.log('Pipeline succeeded');
-    }
-  }
-);
+```typescript
+// Unfold from seed
+const naturals = Stream.unfold(1, (n) => Option.some([n, n + 1]))
+
+// Range
+const range = Stream.range(1, 100)
+
+// Repeat value
+const repeated = Stream.repeat(Stream.succeed("ping")).pipe(
+  Stream.take(5)
+)
 ```
 
-## HTTP Streaming
-```javascript
-const http = require('http');
-const fs = require('fs');
+## Transforming Streams
 
-// Stream file as HTTP response
-http.createServer((req, res) => {
-  const filePath = './video.mp4';
-  const stat = fs.statSync(filePath);
+### map - Transform Elements
 
-  res.writeHead(200, {
-    'Content-Type': 'video/mp4',
-    'Content-Length': stat.size
-  });
+```typescript
+const doubled = numbers.pipe(
+  Stream.map((n) => n * 2)
+)
 
-  // Stream instead of loading entire file
-  fs.createReadStream(filePath).pipe(res);
-}).listen(3000);
+// With Effect
+const enriched = users.pipe(
+  Stream.mapEffect((user) => fetchProfile(user.id))
+)
 
-// Stream HTTP request body
-http.createServer((req, res) => {
-  const writeStream = fs.createWriteStream('./upload.bin');
-  req.pipe(writeStream);
-
-  req.on('end', () => {
-    res.end('Upload complete');
-  });
-}).listen(3001);
+// Parallel mapping
+const parallel = items.pipe(
+  Stream.mapEffect(process, { concurrency: 10 })
+)
 ```
 
-## Object Mode Streams
-```javascript
-const { Transform } = require('stream');
+### filter - Select Elements
 
-const jsonParser = new Transform({
-  objectMode: true,
-  transform(chunk, encoding, callback) {
-    try {
-      const obj = JSON.parse(chunk);
-      this.push(obj);
-      callback();
-    } catch (err) {
-      callback(err);
-    }
-  }
-});
+```typescript
+const evens = numbers.pipe(
+  Stream.filter((n) => n % 2 === 0)
+)
 
-// Process objects instead of buffers
-const processRecords = new Transform({
-  objectMode: true,
-  transform(record, encoding, callback) {
-    record.processed = true;
-    record.timestamp = Date.now();
-    this.push(record);
-    callback();
-  }
-});
+// With Effect
+const valid = items.pipe(
+  Stream.filterEffect((item) => validate(item))
+)
 ```
 
-## Async Iterators
-```javascript
-const { Readable } = require('stream');
+### flatMap - Nested Streams
 
-// Create from async iterator
-async function* generateData() {
-  for (let i = 0; i < 100; i++) {
-    yield { id: i, data: `item-${i}` };
-  }
-}
-
-const stream = Readable.from(generateData(), { objectMode: true });
-
-// Consume with for-await
-async function processStream(readable) {
-  for await (const chunk of readable) {
-    console.log('Processing:', chunk);
-  }
-}
+```typescript
+const expanded = numbers.pipe(
+  Stream.flatMap((n) => Stream.make(n, n * 10, n * 100))
+)
+// 1, 10, 100, 2, 20, 200, ...
 ```
 
-## Backpressure Handling
-```javascript
-const readable = fs.createReadStream('huge-file.txt');
-const writable = fs.createWriteStream('output.txt');
+### take/drop
 
-readable.on('data', (chunk) => {
-  // Check if writable can accept more data
-  const canContinue = writable.write(chunk);
-
-  if (!canContinue) {
-    // Pause reading until writable is ready
-    readable.pause();
-    writable.once('drain', () => {
-      readable.resume();
-    });
-  }
-});
-
-// Or use pipeline (handles automatically)
-pipeline(readable, writable, (err) => {
-  if (err) console.error('Error:', err);
-});
+```typescript
+const first5 = numbers.pipe(Stream.take(5))
+const skip5 = numbers.pipe(Stream.drop(5))
+const firstWhile = numbers.pipe(Stream.takeWhile((n) => n < 10))
+const dropWhile = numbers.pipe(Stream.dropWhile((n) => n < 10))
 ```
 
-## Custom Readable Stream
-```javascript
-const { Readable } = require('stream');
+## Combining Streams
 
-class DatabaseStream extends Readable {
-  constructor(query, options) {
-    super({ ...options, objectMode: true });
-    this.query = query;
-    this.cursor = null;
-  }
+### concat - Sequential
 
-  async _read() {
-    if (!this.cursor) {
-      this.cursor = await db.collection('items').find(this.query).cursor();
-    }
-
-    const doc = await this.cursor.next();
-    if (doc) {
-      this.push(doc);
-    } else {
-      this.push(null); // Signal end
-    }
-  }
-}
-
-// Usage
-const dbStream = new DatabaseStream({ status: 'active' });
-for await (const item of dbStream) {
-  console.log(item);
-}
+```typescript
+const combined = Stream.concat(stream1, stream2)
+// or
+const combined = stream1.pipe(Stream.concat(stream2))
 ```
 
-## Unit Test Template
-```javascript
-const { Readable, Transform } = require('stream');
-const { pipeline } = require('stream/promises');
+### merge - Interleaved
 
-describe('Stream Processing', () => {
-  it('should transform data correctly', async () => {
-    const input = Readable.from(['hello', 'world']);
-    const chunks = [];
+```typescript
+// Interleave elements from both
+const merged = Stream.merge(stream1, stream2)
 
-    const upperCase = new Transform({
-      transform(chunk, enc, cb) {
-        this.push(chunk.toString().toUpperCase());
-        cb();
-      }
-    });
-
-    await pipeline(
-      input,
-      upperCase,
-      async function* (source) {
-        for await (const chunk of source) {
-          chunks.push(chunk.toString());
-        }
-      }
-    );
-
-    expect(chunks).toEqual(['HELLO', 'WORLD']);
-  });
-});
+// Merge multiple
+const allMerged = Stream.mergeAll([s1, s2, s3], { concurrency: 3 })
 ```
 
-## Troubleshooting
+### zip - Pair Elements
 
-| Problem | Cause | Solution |
-|---------|-------|----------|
-| Memory grows infinitely | No backpressure | Use pipeline or handle drain |
-| Data loss | Errors not caught | Use pipeline with error callback |
-| Slow processing | Small chunk size | Increase highWaterMark |
-| Stream hangs | Missing end() call | Call writable.end() |
+```typescript
+const zipped = Stream.zip(names, ages)
+// Stream<[string, number]>
 
-## When to Use
+// With function
+const combined = Stream.zipWith(
+  names,
+  ages,
+  (name, age) => ({ name, age })
+)
+```
 
-Use streams when:
-- Processing large files (GB+)
-- Real-time data processing
-- Memory-constrained environments
-- Building data pipelines
-- HTTP request/response handling
+### interleave
 
-## Related Skills
+```typescript
+const interleaved = Stream.interleave(stream1, stream2)
+// a1, b1, a2, b2, ...
+```
 
-- Async Programming (async patterns)
-- Performance Optimization (memory efficiency)
-- Express REST API (streaming responses)
+## Consuming Streams
 
-## Resources
+### Running to Collection
 
-- [Node.js Streams Docs](https://nodejs.org/api/stream.html)
-- [Stream Handbook](https://github.com/substack/stream-handbook)
-- [Node.js Streams Guide](https://nodejs.dev/learn/nodejs-streams)
+```typescript
+// To array
+const array = yield* Stream.runCollect(numbers)
+// Returns Chunk<number>
+
+// To single value (first)
+const first = yield* Stream.runHead(numbers)
+// Returns Option<number>
+
+// Fold/reduce
+const sum = yield* Stream.runFold(
+  numbers,
+  0,
+  (acc, n) => acc + n
+)
+```
+
+### Running for Effects
+
+```typescript
+// Execute effect for each element
+yield* numbers.pipe(
+  Stream.runForEach((n) => Effect.log(`Got: ${n}`))
+)
+
+// Drain (consume, ignore values)
+yield* numbers.pipe(Stream.runDrain)
+```
+
+### Running to Sink
+
+```typescript
+import { Sink } from "effect"
+
+// Custom sink
+const sum = yield* numbers.pipe(
+  Stream.run(Sink.sum)
+)
+
+// Collect to array
+const array = yield* numbers.pipe(
+  Stream.run(Sink.collectAll())
+)
+```
+
+## Chunking
+
+Streams process elements in chunks for efficiency:
+
+```typescript
+// Chunk elements
+const chunked = numbers.pipe(
+  Stream.grouped(10)  // Stream of 10-element chunks
+)
+
+// Process by chunk
+const processed = numbers.pipe(
+  Stream.mapChunks((chunk) => Chunk.map(chunk, (n) => n * 2))
+)
+
+// Re-chunk
+const rechunked = numbers.pipe(
+  Stream.rechunk(100)
+)
+```
+
+## Error Handling
+
+```typescript
+// Catch errors
+const safe = stream.pipe(
+  Stream.catchAll((error) => Stream.succeed(fallbackValue))
+)
+
+// Catch specific error
+const handled = stream.pipe(
+  Stream.catchTag("NetworkError", (error) =>
+    Stream.succeed(cachedValue)
+  )
+)
+
+// Retry on failure
+const resilient = stream.pipe(
+  Stream.retry(Schedule.exponential("1 second"))
+)
+
+// On error, switch to fallback stream
+const withFallback = stream.pipe(
+  Stream.orElse(() => fallbackStream)
+)
+```
+
+## Resource Management
+
+```typescript
+// Stream with resource lifecycle
+const fileStream = Stream.acquireRelease(
+  Effect.sync(() => fs.openSync("data.txt", "r")),
+  (fd) => Effect.sync(() => fs.closeSync(fd))
+).pipe(
+  Stream.flatMap((fd) =>
+    Stream.repeatEffectOption(
+      Effect.sync(() => {
+        const buffer = Buffer.alloc(1024)
+        const bytes = fs.readSync(fd, buffer)
+        return bytes > 0 ? Option.some(buffer.slice(0, bytes)) : Option.none()
+      })
+    )
+  )
+)
+
+// Scoped streams
+const scoped = Stream.scoped(
+  Effect.acquireRelease(openConnection, closeConnection)
+)
+```
+
+## Sinks
+
+Sinks consume stream elements:
+
+```typescript
+import { Sink } from "effect"
+
+// Built-in sinks
+Sink.sum          // Sum numbers
+Sink.count        // Count elements
+Sink.head         // First element
+Sink.last         // Last element
+Sink.collectAll() // Collect to Chunk
+Sink.forEach(f)   // Run effect for each
+
+// Custom sink
+const maxSink = Sink.foldLeft(
+  Number.NEGATIVE_INFINITY,
+  (max, n: number) => Math.max(max, n)
+)
+```
+
+## Common Patterns
+
+### Batched Processing
+
+```typescript
+const batchProcess = stream.pipe(
+  Stream.grouped(100),
+  Stream.mapEffect((batch) =>
+    Effect.tryPromise(() => api.processBatch(Chunk.toArray(batch)))
+  )
+)
+```
+
+### Rate Limiting
+
+```typescript
+const rateLimited = stream.pipe(
+  Stream.throttle({
+    units: 1,
+    duration: "100 millis",
+    strategy: "shape"
+  })
+)
+```
+
+### Debouncing
+
+```typescript
+const debounced = stream.pipe(
+  Stream.debounce("500 millis")
+)
+```
+
+### Windowing
+
+```typescript
+// Time-based windows
+const windows = stream.pipe(
+  Stream.groupedWithin(1000, "1 second")
+)
+```
+
+## Best Practices
+
+1. **Use chunking for efficiency** - Batch operations when possible
+2. **Handle backpressure** - Use appropriate buffer strategies
+3. **Clean up resources** - Use acquireRelease for external resources
+4. **Process in parallel** - Use concurrency option in mapEffect
+5. **Handle errors early** - Catch/retry before final consumption
+
+## Additional Resources
+
+For comprehensive stream documentation, consult `${CLAUDE_PLUGIN_ROOT}/references/llms-full.txt`.
+
+Search for these sections:
+- "Creating Streams" for stream construction
+- "Consuming Streams" for running streams
+- "Operations" for transformations
+- "Error Handling in Streams" for error patterns
+- "Resourceful Streams" for resource management
+- "Sink" for custom sinks

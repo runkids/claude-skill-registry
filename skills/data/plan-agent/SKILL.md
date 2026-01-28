@@ -1,5 +1,4 @@
 ---
-name: planning-agent
 description: Planning agent that creates implementation plans and handoffs from conversation context
 ---
 
@@ -325,7 +324,7 @@ The orchestrator will spawn you like this:
 ```
 Task(
   subagent_type="general-purpose",
-  model="claude-opus-4-5-20251101",
+  model="opus",
   prompt="""
   # Plan Agent
 

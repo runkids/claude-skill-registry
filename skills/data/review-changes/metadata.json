@@ -1,9 +1,7 @@
 {
   "name": "review-changes",
-  "description": "Code review of current git changes, compare to related plan if exists, identify bad engineering, over-engineering, or suboptimal solutions. Use when user asks to review changes, check git diff, valida",
   "repo": "Cygnusfear/claude-stuff",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/review-changes/SKILL.md",
+  "source": "github.com/Cygnusfear/claude-stuff",
+  "downloaded_at": "2026-01-28T01:39:47.925935Z"
 }

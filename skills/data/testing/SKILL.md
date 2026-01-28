@@ -1,128 +1,69 @@
 ---
 name: testing
-description: Test infrastructure reference for Shadow Master. Use when writing tests, finding existing test files, or running test suites. Covers Vitest unit tests, Playwright E2E tests, and testing patterns.
-allowed-tools: Read, Grep, Glob, Bash
+description: Write, configure, and run unit + integration tests using project-independent best practices; detect tooling; triage failures/flakes; keep a compact Testing State Capsule.
+metadata:
+  short-description: Unit + integration testing best practices
 ---
 
-# Testing Reference
+# Testing
 
-Shadow Master uses Vitest for unit/integration tests and Playwright for E2E browser tests.
+Help the agent add and improve unit/integration tests across languages and frameworks, while staying aligned with repo-specific conventions.
 
-## Test Commands
+## Core rules
+- Follow the closest in-scope `AGENTS.md` instructions first.
+- If present, follow `docs/testing-policy.md`.
+- Prefer the smallest, fastest test that proves the change; expand only if needed by policy/risk.
+- Do not invent test commands: discover how the repo runs tests, then reuse it.
+- Keep tests deterministic: no network calls, no real time dependence, no order dependence, no shared global state.
+- Ask clarifying questions only when they unblock forward progress; otherwise proceed with explicit assumptions.
+- While this skill is active, keep a short **Testing State Capsule** updated in every reply.
+- If the task continues across turns, keep following this skill; if context was reset/compacted, re-invoke `$testing` and restate the state capsule.
 
-```bash
-pnpm test              # Run all unit tests
-pnpm test:watch        # Watch mode for development
-pnpm test:ci           # CI mode (no watch, exits with code)
-pnpm test:e2e          # Run Playwright E2E tests
-pnpm test:e2e:ui       # E2E with visual UI for debugging
+## Clarifying loop (no fixed turn limit)
+If test tooling/requirements are unclear:
+1) Ask the minimum set of questions that unblock an immediate next action.
+2) If the user cannot answer, propose reasonable assumptions and continue (clearly marked), preserving easy rollback.
+3) After each user answer, restate the updated state capsule and continue.
+
+## Workflow (repeatable)
+1) Read project context (`AGENTS.md`, `docs/testing-policy.md`, README/CONTRIBUTING/CI config).
+2) Discover test tooling and commands (see `references/tooling-discovery.md`).
+3) Choose the right layer:
+   - Unit: pure logic and edge cases; fast; isolated.
+   - Integration: cross-module boundaries and real dependency behavior; realistic setup.
+4) Draft a small test plan (use `assets/test-plan-template.md` and/or `assets/test-matrix.csv` as needed).
+5) Implement tests with minimal coupling and clear naming (see `references/unit-testing.md`, `references/integration-testing.md`).
+6) Run the narrowest relevant tests, then expand per policy/risk.
+7) If failures are flaky or environment-related, follow `references/flaky-tests.md`.
+
+## Output requirements (when this skill is used)
+- Always include exact commands you ran (or will run) and the observed output snippets that matter.
+- Always update the **Testing State Capsule** (keep it short).
+- When making assumptions, label them and provide the easiest validation step.
+
+### Testing State Capsule (template)
+Keep this block up to date and near the end of each reply:
+
+```text
+[Testing State Capsule]
+Goal:
+Repo signals (runner/framework):
+Unit command(s):
+Integration command(s):
+Env/deps (DB/containers/fixtures):
+Assumptions:
+Last result:
+Next action:
+Open questions:
 ```
 
-## Test Enforcement Scripts
+## References
+- `references/principles.md`
+- `references/tooling-discovery.md`
+- `references/unit-testing.md`
+- `references/integration-testing.md`
+- `references/flaky-tests.md`
 
-```bash
-pnpm check-tests       # Check staged files for missing tests (non-blocking)
-pnpm check-tests:all   # Check all source files for missing tests
-pnpm check-tests:strict # Strict mode (fails if tests are missing)
-```
-
----
-
-## Test File Locations
-
-Tests are co-located with source code in `__tests__` directories:
-
-```
-/__tests__/                                    # Root level tests
-/lib/auth/__tests__/                           # Auth unit tests (3 files)
-/lib/storage/__tests__/                        # Storage layer tests (10 files)
-/lib/security/__tests__/                       # Security tests (1 file)
-/lib/rules/__tests__/                          # Core rules tests (8 files)
-/lib/rules/action-resolution/__tests__/        # Action resolution tests (2 files)
-/lib/rules/action-resolution/combat/__tests__/ # Combat handler tests (2 files)
-/lib/rules/advancement/__tests__/              # Advancement logic tests (8 files)
-/lib/rules/augmentations/__tests__/            # Augmentation tests (6 files)
-/lib/rules/character/__tests__/                # Character state machine tests (1 file)
-/lib/rules/encumbrance/__tests__/              # Encumbrance tests (1 file)
-/lib/rules/gear/__tests__/                     # Gear validation tests (2 files)
-/lib/rules/inventory/__tests__/                # Inventory tests (1 file)
-/lib/rules/magic/__tests__/                    # Magic system tests (5 files)
-/lib/rules/matrix/__tests__/                   # Matrix tests (1 file)
-/lib/rules/qualities/__tests__/                # Quality system tests (7 files)
-/lib/rules/rigging/__tests__/                  # Rigging tests (2 files)
-/app/api/**/__tests__/                         # API route tests (~25 files)
-/e2e/                                          # Playwright E2E tests
-```
-
----
-
-## Writing Tests
-
-### Unit Test Pattern (Vitest)
-
-```typescript
-import { describe, it, expect, beforeEach } from "vitest";
-import { myFunction } from "../myModule";
-
-describe("myFunction", () => {
-  beforeEach(() => {
-    // Setup
-  });
-
-  it("should handle normal case", () => {
-    const result = myFunction(input);
-    expect(result).toBe(expected);
-  });
-
-  it("should handle edge case", () => {
-    expect(() => myFunction(badInput)).toThrow();
-  });
-});
-```
-
-### API Route Test Pattern
-
-```typescript
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { GET, POST } from "../route";
-import { NextRequest } from "next/server";
-
-// Mock auth
-vi.mock("@/lib/auth/session", () => ({
-  getSession: vi.fn(),
-}));
-
-describe("GET /api/endpoint", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("returns 401 when unauthenticated", async () => {
-    const request = new NextRequest("http://localhost/api/endpoint");
-    const response = await GET(request);
-    expect(response.status).toBe(401);
-  });
-});
-```
-
----
-
-## Manual Testing Workflow
-
-1. Create test user via `/signup`
-2. Test character creation via `/characters/create/sheet` end-to-end
-3. Check `/data` directory for persisted JSON
-4. Verify authentication by signing out and back in
-5. Test draft auto-save by refreshing page mid-creation (drafts persist server-side)
-
----
-
-## Test Coverage Focus
-
-Priority areas for test coverage:
-
-1. **Rules logic** (`/lib/rules/`) - Core game mechanics must be correct
-2. **Storage operations** (`/lib/storage/`) - Data integrity is critical
-3. **Auth flows** (`/lib/auth/`) - Security-sensitive code
-4. **API routes** (`/app/api/`) - User-facing endpoints
-5. **Character creation** - Complex state management
+## Assets
+- `assets/test-plan-template.md`
+- `assets/test-matrix.csv`

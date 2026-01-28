@@ -549,10 +549,10 @@ cd apps/vega
 # Build with npm (default from Vega CLI)
 npm run build:app       # Builds for all architectures
 
-# Build with Kepler CLI (more control)
-kepler build --arch armv7 --buildType release    # Fire TV Stick
-kepler build --arch aarch64 --buildType release  # M-series Mac virtual devices
-kepler build --arch x86_64 --buildType release   # Intel virtual devices
+# Build with Vega CLI (more control)
+vega build --arch armv7 --buildType release    # Fire TV Stick
+vega build --arch aarch64 --buildType release  # M-series Mac virtual devices
+vega build --arch x86_64 --buildType release   # Intel virtual devices
 
 # Clean build
 rm -rf build && npm run build:app
@@ -579,40 +579,38 @@ yarn format
 **Project Management:**
 ```bash
 # List available project templates
-kepler project list-templates
+vega project list-templates
 
-# Generate new Vega project
-kepler project generate \
-  --template hello-world \
-  --name myapp \
-  --packageId com.company.myapp \
-  --outputDir myapp
+# Generate new Vega project (files are created in current directory)
+# First create and cd into target directory, then generate:
+mkdir -p myapp && cd myapp
+vega project generate -n myapp --template helloWorld
 
 # Verify Vega SDK installation
-kepler --version
+vega --version
 ```
 
 **Building:**
 ```bash
 # Build for specific architecture and build type
-kepler build --arch <armv7|aarch64|x86_64> --buildType <debug|release>
+vega build --arch <armv7|aarch64|x86_64> --buildType <debug|release>
 
 # Examples:
-kepler build --arch armv7 --buildType release     # Production Fire TV Stick build
-kepler build --arch aarch64 --buildType debug     # Debug build for M-series Mac
-kepler build --arch x86_64 --buildType debug      # Debug build for Intel virtual device
+vega build --arch armv7 --buildType release     # Production Fire TV Stick build
+vega build --arch aarch64 --buildType debug     # Debug build for M-series Mac
+vega build --arch x86_64 --buildType debug      # Debug build for Intel virtual device
 ```
 
 **Device Management:**
 ```bash
 # List connected devices
-kepler device list
+vega device list
 
 # Install VPKG on device
-kepler install --vpkg <path-to-vpkg-file>
+vega install --vpkg <path-to-vpkg-file>
 
 # Run app on device
-kepler run --packageId com.company.myapp
+vega run --packageId com.company.myapp
 ```
 
 ---
@@ -741,13 +739,11 @@ brew update && brew install binutils coreutils gawk findutils grep jq lz4 gnu-se
 
 **Create Vega Project:**
 ```bash
-cd apps
+# Files are generated in current directory, so create and cd into target first
+mkdir -p apps/vega
+cd apps/vega
 
-kepler project generate \
-  --template hello-world \
-  --name vega \
-  --packageId com.yourcompany.yourapp.vega \
-  --outputDir vega
+vega project generate -n vega --template helloWorld
 ```
 
 ### 6. Configure Metro Bundler

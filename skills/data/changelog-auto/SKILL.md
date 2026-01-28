@@ -18,10 +18,20 @@ Arguments: `$ARGUMENTS` - version range, tag names, or changelog format
 - **Keep a Changelog**: Follow keepachangelog.com format
 
 **Token Optimization:**
-- Uses git commands (minimal tokens)
-- Grep for conventional commits (100 tokens)
-- No file reading needed (efficient)
-- Expected: 500-1,000 tokens
+- ✅ Git command-based analysis (minimal tokens, no file reads)
+- ✅ Bash-based commit parsing (no Claude processing needed)
+- ✅ Template-based changelog formatting
+- ✅ Caching previous changelog for incremental updates
+- ✅ Early exit when no new commits - saves 95%
+- ✅ Progressive generation (version by version)
+- **Expected tokens:** 400-1,000 (vs. 2,000-3,500 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/changelog/last-version.json`
+- Caches: Last processed commit, version tags, changelog state
+- Cache validity: Until new commits or tags added
+- Shared with: `/release-automation` skill
 
 ## Phase 1: Commit Analysis
 

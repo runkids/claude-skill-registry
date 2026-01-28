@@ -1,7 +1,7 @@
 {
   "name": "groq-prod-checklist",
-  "repo": "HelixDevelopment/HelixAgent",
+  "repo": "vasic-digital/SuperAgent",
   "path": "skills/plugins/saas-packs/groq-pack/groq-prod-checklist/SKILL.md",
-  "source": "github.com/HelixDevelopment/HelixAgent",
-  "downloaded_at": "2026-01-27T03:01:13.817823Z"
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-28T02:58:32.802698Z"
 }

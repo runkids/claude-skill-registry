@@ -6,27 +6,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Game Systems
 
-## Quick Reference Links
-
-**Official Documentation:**
-- [Game Design](https://create.roblox.com/docs/production/game-design) - Design principles
-- [Badges](https://create.roblox.com/docs/production/publishing/badges) - Achievement system
-- [Leaderboards](https://create.roblox.com/docs/players/leaderboards) - Player stats display
-- [Data Stores](https://create.roblox.com/docs/cloud-services/data-stores) - Saving inventory/progress
-- [BadgeService API](https://create.roblox.com/docs/reference/engine/classes/BadgeService)
-- [MarketplaceService API](https://create.roblox.com/docs/reference/engine/classes/MarketplaceService)
-
-**Wiki References:**
-- [Game Systems (Wiki)](https://roblox.fandom.com/wiki/Gameplay)
-- [Badges (Wiki)](https://roblox.fandom.com/wiki/Badge)
-- [Inventory Systems (Wiki)](https://roblox.fandom.com/wiki/Inventory)
-
-**Related Skills:**
-- [monetization-mechanics](../monetization-mechanics/SKILL.md) - Shops, passes, products
-- [data-persistence](../data-persistence/SKILL.md) - Saving player data
-
----
-
 When implementing game systems, follow these patterns for robust and exploiter-resistant mechanics.
 
 ## Inventory System

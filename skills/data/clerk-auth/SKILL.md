@@ -1,122 +1,58 @@
 ---
 name: clerk-auth
 description: |
-  Clerk auth with API Keys beta (Dec 2025), Next.js 16 proxy.ts (March 2025 CVE context), API version 2025-11-10 breaking changes, clerkMiddleware() options, webhooks, production considerations (GCP outages), and component reference. Prevents 15 documented errors. Use when: API keys for users/orgs, Next.js 16 middleware filename, troubleshooting JWKS/CSRF/JWT/token-type-mismatch errors, webhook verification, user type inconsistencies, or testing with 424242 OTP.
-user-invocable: true
+  Clerk auth with API version 2025-11-10 breaking changes (billing endpoints, payment_source→payment_method), Next.js v6 async auth(), PKCE for custom OAuth, credential stuffing defense. Use when: troubleshooting "Missing Clerk Secret Key", JWKS errors, authorizedParties CSRF, JWT size limits (1.2KB), 431 header errors (Vite dev mode), or testing with 424242 OTP.
+license: MIT
+metadata:
+  version: 2.0.0
+  last_verified: 2025-11-22
+  sdk_versions:
+    nextjs: 6.35.4
+    backend: 2.23.2
+    clerk_react: 5.56.2
+    testing: 1.13.18
+  token_savings: ~52%
+  errors_prevented: 11
+  breaking_changes: Nov 2025 - API version 2025-11-10 (billing endpoints), Oct 2024 - Next.js v6 async auth()
+  keywords:
+    - clerk
+    - clerk auth
+    - api version 2025-11-10
+    - billing api breaking changes
+    - commerce to billing migration
+    - payment_source to payment_method
+    - "@clerk/nextjs"
+    - "@clerk/backend"
+    - "@clerk/clerk-react"
+    - next.js v6 async auth
+    - next.js 16 support
+    - pkce custom oauth
+    - credential stuffing defense
+    - client trust
+    - verifyToken
+    - authorizedParties csrf
+    - JWT template
+    - JWT size limit 1.2kb
+    - 431 request header too large
+    - vite dev mode clerk
+    - "@clerk/testing"
+    - 424242 OTP
+    - test credentials
+    - session token script
+    - "Missing Clerk Secret Key"
+    - JWKS cache race condition
+    - core 2 migration
 ---
 
 # Clerk Auth - Breaking Changes & Error Prevention Guide
 
-**Package Versions**: @clerk/nextjs@6.36.7, @clerk/backend@2.29.2, @clerk/clerk-react@5.59.2, @clerk/testing@1.13.26
+**Package Versions**: @clerk/nextjs@6.35.4, @clerk/backend@2.23.2, @clerk/clerk-react@5.56.2, @clerk/testing@1.13.18
 **Breaking Changes**: Nov 2025 - API version 2025-11-10, Oct 2024 - Next.js v6 async auth()
-**Last Updated**: 2026-01-09
+**Last Updated**: 2025-11-22
 
 ---
 
-## What's New (Dec 2025 - Jan 2026)
-
-### 1. API Keys Beta (Dec 11, 2025) - NEW ✨
-
-User-scoped and organization-scoped API keys for your application. Zero-code UI component.
-
-```typescript
-// 1. Add the component for self-service API key management
-import { APIKeys } from '@clerk/nextjs'
-
-export default function SettingsPage() {
-  return (
-    <div>
-      <h2>API Keys</h2>
-      <APIKeys />  {/* Full CRUD UI for user's API keys */}
-    </div>
-  )
-}
-```
-
-**Backend Verification:**
-```typescript
-import { verifyToken } from '@clerk/backend'
-
-// API keys are verified like session tokens
-const { data, error } = await verifyToken(apiKey, {
-  secretKey: process.env.CLERK_SECRET_KEY,
-  authorizedParties: ['https://yourdomain.com'],
-})
-
-// Check token type
-if (data?.tokenType === 'api_key') {
-  // Handle API key auth
-}
-```
-
-**clerkMiddleware Token Types:**
-```typescript
-// v6.36.0+: Middleware can distinguish token types
-clerkMiddleware((auth, req) => {
-  const { userId, tokenType } = auth()
-
-  if (tokenType === 'api_key') {
-    // API key auth - programmatic access
-  } else if (tokenType === 'session_token') {
-    // Regular session - web UI access
-  }
-})
-```
-
-**Pricing (Beta = Free):**
-- Creation: $0.001/key
-- Verification: $0.0001/verification
-
-### 2. Next.js 16: proxy.ts Middleware Filename (Dec 2025)
-
-**⚠️ BREAKING**: Next.js 16 changed middleware filename due to critical security vulnerability (CVE disclosed March 2025).
-
-**Background**: The March 2025 vulnerability (affecting Next.js 11.1.4-15.2.2) allowed attackers to completely bypass middleware-based authorization by adding a single HTTP header: `x-middleware-subrequest: true`. This affected all auth libraries (NextAuth, Clerk, custom solutions).
-
-**Why the Rename**: The `middleware.ts` → `proxy.ts` change isn't just cosmetic - it's Next.js signaling that middleware-first security patterns are dangerous. Future auth implementations should not rely solely on middleware for authorization.
-
-```
-Next.js 15 and earlier: middleware.ts
-Next.js 16+:            proxy.ts
-```
-
-**Correct Setup for Next.js 16:**
-```typescript
-// src/proxy.ts (NOT middleware.ts!)
-import { clerkMiddleware } from '@clerk/nextjs/server'
-
-export default clerkMiddleware()
-
-export const config = {
-  matcher: [
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    '/(api|trpc)(.*)',
-  ],
-}
-```
-
-**Minimum Version**: @clerk/nextjs@6.35.0+ required for Next.js 16 (fixes Turbopack build errors and cache invalidation on sign-out).
-
-### 3. Force Password Reset (Dec 19, 2025)
-
-Administrators can mark passwords as compromised and force reset:
-
-```typescript
-import { clerkClient } from '@clerk/backend'
-
-// Force password reset for a user
-await clerkClient.users.updateUser(userId, {
-  passwordDigest: 'compromised',  // Triggers reset on next sign-in
-})
-```
-
-### 4. Organization Reports & Filters (Dec 15-17, 2025)
-
-Dashboard now includes org creation metrics and filtering by name/slug/date.
-
----
-
-## API Version 2025-11-10 Breaking Changes
+## What's New in v6.35.x & API 2025-11-10 (Nov 2025)
 
 ### 1. API Version 2025-11-10 (Nov 10, 2025) - BREAKING CHANGES ⚠️
 
@@ -236,149 +172,6 @@ const { data, error } = await verifyToken(token, {
 **Why:** Without `authorizedParties`, attackers can use valid tokens from other domains.
 
 **Source:** https://clerk.com/docs/reference/backend/verify-token
-
----
-
-## clerkMiddleware() Configuration
-
-### Route Protection Patterns
-
-```typescript
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-
-// Define protected routes
-const isProtectedRoute = createRouteMatcher([
-  '/dashboard(.*)',
-  '/api/private(.*)',
-])
-
-const isAdminRoute = createRouteMatcher(['/admin(.*)'])
-
-export default clerkMiddleware(async (auth, req) => {
-  // Protect routes
-  if (isProtectedRoute(req)) {
-    await auth.protect()  // Redirects unauthenticated users
-  }
-
-  // Require specific permissions
-  if (isAdminRoute(req)) {
-    await auth.protect({
-      role: 'org:admin',  // Requires organization admin role
-    })
-  }
-})
-```
-
-### All Middleware Options
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `debug` | `boolean` | Enable debug logging |
-| `jwtKey` | `string` | JWKS public key for networkless verification |
-| `clockSkewInMs` | `number` | Token time variance (default: 5000ms) |
-| `organizationSyncOptions` | `object` | URL-based org activation |
-| `signInUrl` | `string` | Custom sign-in URL |
-| `signUpUrl` | `string` | Custom sign-up URL |
-
-### Organization Sync (URL-based Org Activation)
-
-**⚠️ Next.js Only**: This feature currently only works with `clerkMiddleware()` in Next.js. It does NOT work with `authenticateRequest()` in other runtimes (Cloudflare Workers, Express, etc.) due to `Sec-Fetch-Dest` header checks.
-
-**Source**: [GitHub Issue #7178](https://github.com/clerk/javascript/issues/7178)
-
-```typescript
-clerkMiddleware({
-  organizationSyncOptions: {
-    organizationPatterns: ['/orgs/:slug', '/orgs/:slug/(.*)'],
-    personalAccountPatterns: ['/personal', '/personal/(.*)'],
-  },
-})
-```
-
----
-
-## Webhooks
-
-### Webhook Verification
-
-```typescript
-import { Webhook } from 'svix'
-
-export async function POST(req: Request) {
-  const payload = await req.text()
-  const headers = {
-    'svix-id': req.headers.get('svix-id')!,
-    'svix-timestamp': req.headers.get('svix-timestamp')!,
-    'svix-signature': req.headers.get('svix-signature')!,
-  }
-
-  const wh = new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET!)
-
-  try {
-    const event = wh.verify(payload, headers)
-    // Process event
-    return Response.json({ success: true })
-  } catch (err) {
-    return Response.json({ error: 'Invalid signature' }, { status: 400 })
-  }
-}
-```
-
-### Common Event Types
-
-| Event | Trigger |
-|-------|---------|
-| `user.created` | New user signs up |
-| `user.updated` | User profile changes |
-| `user.deleted` | User account deleted |
-| `session.created` | New sign-in |
-| `session.ended` | Sign-out |
-| `organization.created` | New org created |
-| `organization.membership.created` | User joins org |
-
-**⚠️ Important:** Webhook routes must be PUBLIC (no auth). Add to middleware exclude list:
-
-```typescript
-const isPublicRoute = createRouteMatcher([
-  '/api/webhooks/clerk(.*)',  // Clerk webhooks are public
-])
-
-clerkMiddleware((auth, req) => {
-  if (!isPublicRoute(req)) {
-    auth.protect()
-  }
-})
-```
-
----
-
-## UI Components Quick Reference
-
-| Component | Purpose |
-|-----------|---------|
-| `<SignIn />` | Full sign-in flow |
-| `<SignUp />` | Full sign-up flow |
-| `<SignInButton />` | Trigger sign-in modal |
-| `<SignUpButton />` | Trigger sign-up modal |
-| `<SignedIn>` | Render only when authenticated |
-| `<SignedOut>` | Render only when unauthenticated |
-| `<UserButton />` | User menu with sign-out |
-| `<UserProfile />` | Full profile management |
-| `<OrganizationSwitcher />` | Switch between orgs |
-| `<OrganizationProfile />` | Org settings |
-| `<CreateOrganization />` | Create new org |
-| `<APIKeys />` | API key management (NEW) |
-
-### React Hooks
-
-| Hook | Returns |
-|------|---------|
-| `useAuth()` | `{ userId, sessionId, isLoaded, isSignedIn, getToken }` |
-| `useUser()` | `{ user, isLoaded, isSignedIn }` |
-| `useClerk()` | Clerk instance with methods |
-| `useSession()` | Current session object |
-| `useOrganization()` | Current org context |
-| `useOrganizationList()` | All user's orgs |
 
 ---
 
@@ -511,7 +304,7 @@ test('sign up', async ({ page }) => {
 
 ## Known Issues Prevention
 
-This skill prevents **15 documented issues**:
+This skill prevents **11 documented issues**:
 
 ### Issue #1: Missing Clerk Secret Key
 **Error**: "Missing Clerk Secret Key or API Key"
@@ -551,7 +344,7 @@ This skill prevents **15 documented issues**:
 ### Issue #8: ClerkProvider JSX Component Error
 **Error**: "cannot be used as a JSX component"
 **Source**: https://stackoverflow.com/questions/79265537
-**Prevention**: Ensure React 19 compatibility with @clerk/clerk-react@5.59.2+
+**Prevention**: Ensure React 19 compatibility with @clerk/clerk-react@5.56.2+
 
 ### Issue #9: Async auth() Helper Confusion
 **Error**: "auth() is not a function"
@@ -583,80 +376,6 @@ Add to `package.json`:
 
 **Note**: This is different from Issue #6 (session token size). Issue #6 is about cookies (1.2KB), this is about URL parameters in dev mode (8KB → 32KB).
 
-### Issue #12: User Type Mismatch (useUser vs currentUser)
-**Error**: TypeScript errors when sharing user utilities across client/server
-**Source**: [GitHub Issue #2176](https://github.com/clerk/javascript/issues/2176)
-**Why It Happens**: `useUser()` returns `UserResource` (client-side) with different properties than `currentUser()` returns `User` (server-side). Client has `fullName`, `primaryEmailAddress` object; server has `primaryEmailAddressId` and `privateMetadata` instead.
-**Prevention**: Use shared properties only, or create separate utility functions for client vs server contexts.
-
-```typescript
-// ✅ CORRECT: Use properties that exist in both
-const primaryEmailAddress = user.emailAddresses.find(
-  ({ id }) => id === user.primaryEmailAddressId
-)
-
-// ✅ CORRECT: Separate types
-type ClientUser = ReturnType<typeof useUser>['user']
-type ServerUser = Awaited<ReturnType<typeof currentUser>>
-```
-
-### Issue #13: Multiple acceptsToken Types Causes token-type-mismatch
-**Error**: "token-type-mismatch" when using `authenticateRequest()` with multiple token types
-**Source**: [GitHub Issue #7520](https://github.com/clerk/javascript/issues/7520)
-**Why It Happens**: When using `authenticateRequest()` with multiple `acceptsToken` values (e.g., `['session_token', 'api_key']`), Clerk incorrectly throws token-type-mismatch error.
-**Prevention**: Upgrade to @clerk/backend@2.29.2+ (fix available in snapshot, releasing soon).
-
-```typescript
-// This now works in @clerk/backend@2.29.2+
-const result = await authenticateRequest(request, {
-  acceptsToken: ['session_token', 'api_key'],  // Fixed!
-})
-```
-
-### Issue #14: deriveUrlFromHeaders Server Crash on Malformed URLs
-**Error**: Server crashes with URL parsing error
-**Source**: [GitHub Issue #7275](https://github.com/clerk/javascript/issues/7275)
-**Why It Happens**: Internal `deriveUrlFromHeaders()` function performs unsafe URL parsing and crashes the entire server when receiving malformed URLs in headers (e.g., `x-forwarded-host: 'example.com[invalid]'`). This is a denial-of-service vulnerability.
-**Prevention**: Upgrade to @clerk/backend@2.29.0+ (fixed).
-
-### Issue #15: treatPendingAsSignedOut Option for Pending Sessions
-**Error**: None - optional parameter for edge case handling
-**Source**: [Changelog @clerk/nextjs@6.32.0](https://github.com/clerk/javascript/blob/main/packages/nextjs/CHANGELOG.md#6320)
-**Why It Exists**: Sessions can have a `pending` status during certain flows (e.g., credential stuffing defense secondary auth). By default, pending sessions are treated as signed-out (user is null).
-**Usage**: Set `treatPendingAsSignedOut: false` to treat pending as signed-in (available in @clerk/nextjs@6.32.0+).
-
-```typescript
-// Default: pending = signed out
-const user = await currentUser()  // null if status is 'pending'
-
-// Treat pending as signed in
-const user = await currentUser({ treatPendingAsSignedOut: false })  // defined if pending
-```
-
----
-
-## Production Considerations
-
-### Service Availability & Reliability
-
-**Context**: Clerk experienced 3 major service disruptions in May-June 2025 attributed to Google Cloud Platform (GCP) outages. The June 26, 2025 outage lasted 45 minutes (6:16-7:01 UTC) and affected all Clerk customers.
-
-**Source**: [Clerk Postmortem: June 26, 2025](https://clerk.com/blog/postmortem-jun-26-2025-service-outage)
-
-**Mitigation Strategies**:
-- Monitor [Clerk Status](https://status.clerk.com) for real-time updates
-- Implement graceful degradation when Clerk API is unavailable
-- Cache auth tokens locally where possible
-- For existing sessions, use `jwtKey` option for networkless verification:
-
-```typescript
-clerkMiddleware({
-  jwtKey: process.env.CLERK_JWT_KEY,  // Allows offline token verification
-})
-```
-
-**Note**: During total outage, no new sessions can be created (auth requires Clerk API). However, existing sessions can continue working if you verify JWTs locally with `jwtKey`. Clerk committed to exploring multi-cloud redundancy to reduce single-vendor dependency risk.
-
 ---
 
 ## Official Documentation
@@ -678,10 +397,10 @@ clerkMiddleware({
 ```json
 {
   "dependencies": {
-    "@clerk/nextjs": "^6.36.7",
-    "@clerk/clerk-react": "^5.59.2",
-    "@clerk/backend": "^2.29.2",
-    "@clerk/testing": "^1.13.26"
+    "@clerk/nextjs": "^6.35.4",
+    "@clerk/clerk-react": "^5.56.2",
+    "@clerk/backend": "^2.23.2",
+    "@clerk/testing": "^1.13.18"
   }
 }
 ```
@@ -689,13 +408,13 @@ clerkMiddleware({
 ---
 
 **Token Efficiency**:
-- **Without skill**: ~6,500 tokens (setup tutorials, JWT templates, testing setup, webhooks, production considerations)
-- **With skill**: ~3,200 tokens (breaking changes + critical patterns + error prevention + production guidance)
-- **Savings**: ~51% (~3,300 tokens)
+- **Without skill**: ~5,200 tokens (setup tutorials, JWT templates, testing setup)
+- **With skill**: ~2,500 tokens (breaking changes + critical patterns + error prevention)
+- **Savings**: ~52% (~2,700 tokens)
 
-**Errors prevented**: 15 documented issues with exact solutions
-**Key value**: API Keys beta, Next.js 16 proxy.ts (with March 2025 CVE context), clerkMiddleware() options, webhooks, component reference, API 2025-11-10 breaking changes, JWT size limits, user type mismatches, production considerations (GCP outages, jwtKey offline verification)
+**Errors prevented**: 11 documented issues with exact solutions
+**Key value**: API 2025-11-10 breaking changes, Next.js v6 async auth(), PKCE for custom OAuth, credential stuffing defense, JWT size limits, 431 header error workaround
 
 ---
 
-**Last verified**: 2026-01-20 | **Skill version**: 3.1.0 | **Changes**: Added 4 new Known Issues (#12-15: user type mismatch, acceptsToken type mismatch, deriveUrlFromHeaders crash, treatPendingAsSignedOut option), expanded proxy.ts section with March 2025 CVE security context, added Production Considerations section (GCP outages + mitigation), added organizationSyncOptions Next.js-only limitation note, updated minimum version requirements for Next.js 16 (6.35.0+).
+**Last verified**: 2025-11-22 | **Skill version**: 2.0.0 | **Changes**: Added API version 2025-11-10 breaking changes (billing endpoints), PKCE support, Client Trust defense, Next.js 16 support. Removed tutorials (~480 lines). Updated SDK versions. Focused on breaking changes + error prevention + critical patterns.

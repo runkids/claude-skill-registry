@@ -1,131 +1,131 @@
 ---
 name: task-analyzer
-description: タスクの本質を分析し適切なスキルを選択。規模見積もりとメタデータを返却。タスク開始時、スキル選択時に使用。
+description: Performs metacognitive task analysis and skill selection. Use when determining task complexity, selecting appropriate skills, or estimating work scale. Returns skills with confidence scores and metadata.
 ---
 
-# タスクアナライザー
+# Task Analyzer
 
-メタ認知的タスク分析とスキル選択ガイダンスを提供。
+Provides metacognitive task analysis and skill selection guidance.
 
-## スキルインデックス
+## Skills Index
 
-利用可能なスキルのメタデータは **[skills-index.yaml](references/skills-index.yaml)** を参照。
+See **[skills-index.yaml](references/skills-index.yaml)** for available skills metadata.
 
-## タスク分析プロセス
+## Task Analysis Process
 
-### 1. タスク本質の理解
+### 1. Understand Task Essence
 
-表面的な作業を超えた根本目的を特定：
+Identify the fundamental purpose beyond surface-level work:
 
-| 表面的な作業 | 根本目的 |
-|-------------|---------|
-| 「このバグを直して」 | 問題解決、根本原因分析 |
-| 「この機能を実装して」 | 機能追加、価値提供 |
-| 「このコードをリファクタリングして」 | 品質改善、保守性向上 |
-| 「このファイルを更新して」 | 変更管理、一貫性確保 |
+| Surface Work | Fundamental Purpose |
+|--------------|---------------------|
+| "Fix this bug" | Problem solving, root cause analysis |
+| "Implement this feature" | Feature addition, value delivery |
+| "Refactor this code" | Quality improvement, maintainability |
+| "Update this file" | Change management, consistency |
 
-**キーとなる質問：**
-- 本当に解決しようとしている問題は何か？
-- 期待される成果は何か？
-- 表面的にアプローチした場合、何が問題になり得るか？
+**Key Questions:**
+- What problem are we really solving?
+- What is the expected outcome?
+- What could go wrong if we approach this superficially?
 
-### 2. タスク規模の見積もり
+### 2. Estimate Task Scale
 
-| 規模 | ファイル数 | 指標 |
-|------|----------|------|
-| 小規模 | 1-2 | 単一の関数/コンポーネントの変更 |
-| 中規模 | 3-5 | 複数の関連コンポーネント |
-| 大規模 | 6以上 | 横断的関心事、アーキテクチャへの影響 |
+| Scale | File Count | Indicators |
+|-------|------------|------------|
+| Small | 1-2 | Single function/component change |
+| Medium | 3-5 | Multiple related components |
+| Large | 6+ | Cross-cutting concerns, architecture impact |
 
-**規模がスキル優先度に影響：**
-- 大規模 → プロセス/ドキュメントスキルがより重要
-- 小規模 → 実装スキルに集中
+**Scale affects skill priority:**
+- Larger scale → process/documentation skills more important
+- Smaller scale → implementation skills more focused
 
-### 3. タスクタイプの特定
+### 3. Identify Task Type
 
-| タイプ | 特徴 | キースキル |
-|--------|------|-----------|
-| 実装 | 新規コード、機能 | coding-standards, typescript-testing |
-| 修正 | バグ解決 | coding-standards, typescript-testing |
-| リファクタリング | 構造改善 | coding-standards, implementation-approach |
-| 設計 | アーキテクチャ決定 | documentation-criteria, implementation-approach |
-| 品質 | テスト、レビュー | typescript-testing, integration-e2e-testing |
+| Type | Characteristics | Key Skills |
+|------|-----------------|------------|
+| Implementation | New code, features | coding-principles, testing-principles |
+| Fix | Bug resolution | ai-development-guide, testing-principles |
+| Refactoring | Structure improvement | coding-principles, ai-development-guide |
+| Design | Architecture decisions | documentation-criteria, implementation-approach |
+| Quality | Testing, review | testing-principles, integration-e2e-testing |
 
-### 4. タグベースのスキルマッチング
+### 4. Tag-Based Skill Matching
 
-タスク説明から関連タグを抽出し、skills-index.yamlとマッチング：
+Extract relevant tags from task description and match against skills-index.yaml:
 
 ```yaml
 Task: "Implement user authentication with tests"
 Extracted tags: [implementation, testing, security]
 Matched skills:
-  - coding-standards (implementation, security)
-  - typescript-testing (testing)
-  - typescript-rules (implementation)
+  - coding-principles (implementation, security)
+  - testing-principles (testing)
+  - ai-development-guide (implementation)
 ```
 
-### 5. 暗黙的な関連性
+### 5. Implicit Relationships
 
-隠れた依存関係を考慮：
+Consider hidden dependencies:
 
-| タスクに含まれる | 追加で含める |
-|-----------------|-------------|
-| エラーハンドリング | デバッグ、テスト |
-| 新機能 | 設計、実装、ドキュメント |
-| パフォーマンス | プロファイリング、最適化、テスト |
-| フロントエンド | typescript-rules, typescript-testing |
-| API/統合 | integration-e2e-testing |
+| Task Involves | Also Include |
+|---------------|--------------|
+| Error handling | debugging, testing |
+| New features | design, implementation, documentation |
+| Performance | profiling, optimization, testing |
+| Frontend | typescript-rules, typescript-testing |
+| API/Integration | integration-e2e-testing |
 
-## 出力形式
+## Output Format
 
-skills-index.yamlからのスキルメタデータを含む構造化された分析を返却：
+Return structured analysis with skill metadata from skills-index.yaml:
 
 ```yaml
 taskAnalysis:
-  essence: <string>  # 特定された根本目的
+  essence: <string>  # Fundamental purpose identified
   type: <implementation|fix|refactoring|design|quality>
   scale: <small|medium|large>
   estimatedFiles: <number>
-  tags: [<string>, ...]  # タスク説明から抽出
+  tags: [<string>, ...]  # Extracted from task description
 
 selectedSkills:
-  - skill: <skill-name>  # skills-index.yamlから
+  - skill: <skill-name>  # From skills-index.yaml
     priority: <high|medium|low>
-    reason: <string>  # このスキルが選択された理由
-    # skills-index.yamlからメタデータを引き継ぐ
+    reason: <string>  # Why this skill was selected
+    # Pass through metadata from skills-index.yaml
     tags: [...]
     typical-use: <string>
     size: <small|medium|large>
-    sections: [...]  # yamlからの全セクション（フィルタなし）
+    sections: [...]  # All sections from yaml, unfiltered
 ```
 
-**注意**: セクション選択（どのセクションが関連するかの選定）は、実際のSKILL.mdファイルを読み込んだ後に別途行う。
+**Note**: Section selection (choosing which sections are relevant) is done after reading the actual SKILL.md files.
 
-## スキル選択の優先順位
+## Skill Selection Priority
 
-1. **必須** - タスクタイプに直接関連
-2. **品質** - テストと品質保証
-3. **プロセス** - ワークフローとドキュメント
-4. **補助** - リファレンスとベストプラクティス
+1. **Essential** - Directly related to task type
+2. **Quality** - Testing and quality assurance
+3. **Process** - Workflow and documentation
+4. **Supplementary** - Reference and best practices
 
-## メタ認知質問の設計
+## Metacognitive Question Design
 
-タスクの性質に応じて3-5個の質問を生成：
+Generate 3-5 questions according to task nature:
 
-| タスクタイプ | 質問の焦点 |
-|-------------|-----------|
-| 実装 | 設計の妥当性、エッジケース、パフォーマンス |
-| 修正 | 根本原因（5 Whys）、影響範囲、回帰テスト |
-| リファクタリング | 現状の問題、目標状態、段階的計画 |
-| 設計 | 要件の明確性、将来の拡張性、トレードオフ |
+| Task Type | Question Focus |
+|-----------|----------------|
+| Implementation | Design validity, edge cases, performance |
+| Fix | Root cause (5 Whys), impact scope, regression testing |
+| Refactoring | Current problems, target state, phased plan |
+| Design | Requirement clarity, future extensibility, trade-offs |
 
-## 警告パターン
+## Warning Patterns
 
-これらのパターンを検出してフラグを立てる：
+Detect and flag these patterns:
 
-| パターン | 警告 | 緩和策 |
-|---------|------|--------|
-| 一度に大規模変更 | 高リスク | フェーズに分割 |
-| テストなしの実装 | 品質リスク | TDDに従う |
-| エラー発見時の即座の修正 | 根本原因の見落とし | 一時停止、分析 |
-| 計画なしのコーディング | スコープクリープ | まず計画 |
+| Pattern | Warning | Mitigation |
+|---------|---------|------------|
+| Large change at once | High risk | Split into phases |
+| Implementation without tests | Quality risk | Follow TDD |
+| Immediate fix on error | Root cause missed | Pause, analyze |
+| Coding without plan | Scope creep | Plan first |

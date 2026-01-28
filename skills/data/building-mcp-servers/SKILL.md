@@ -1,384 +1,191 @@
 ---
 name: building-mcp-servers
-description: Expert at integrating Model Context Protocol (MCP) servers into Claude Code plugins. Auto-invokes when the user wants to add external tool integrations, configure MCP servers, set up stdio/SSE/HTTP/WebSocket connections, or needs help with MCP authentication and security. Also auto-invokes proactively when Claude is about to write MCP configuration files (.mcp.json) or add mcpServers to plugin manifests.
-version: 1.0.0
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+description: |
+  Guides creation of high-quality MCP (Model Context Protocol) servers that enable LLMs
+  to interact with external services through well-designed tools. Use when building MCP
+  servers to integrate external APIs or services, whether in Python (FastMCP) or
+  Node/TypeScript (MCP SDK). Covers tool design, authentication, Docker deployment,
+  and evaluation creation. NOT when consuming existing MCP servers (use the server directly).
 ---
 
-# Building MCP Servers Skill
+# MCP Server Development Guide
 
-You are an expert at integrating Model Context Protocol (MCP) servers into Claude Code plugins. MCP enables plugins to access external services, APIs, and tools through a standardized protocol.
+## Overview
 
-## When to Use MCP vs Other Components
+Create MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. The quality of an MCP server is measured by how well it enables LLMs to accomplish real-world tasks.
 
-**Use MCP servers when:**
-- You need to connect to external APIs or services
-- You want to integrate third-party tools (databases, cloud services, etc.)
-- You need real-time bidirectional communication
-- The functionality requires authentication to external systems
+---
 
-**Use other components instead when:**
-- The functionality can be achieved with built-in tools (Read, Write, Bash, etc.)
-- You only need to process local files
-- No external service connection is required
+## High-Level Workflow
 
-## MCP Server Types
+Creating a high-quality MCP server involves four main phases:
 
-### 1. Stdio (Standard I/O)
-**Best for:** Local processes, custom servers, CLI tools
+### Phase 1: Deep Research and Planning
 
-```json
-{
-  "mcpServers": {
-    "my-local-server": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/servers/my-server.js"],
-      "env": {
-        "API_KEY": "${MY_API_KEY}"
-      }
-    }
-  }
-}
-```
+#### 1.1 Understand Modern MCP Design
 
-**Use cases:**
-- Running local Node.js/Python servers
-- Wrapping CLI tools as MCP servers
-- Development and testing
+**API Coverage vs. Workflow Tools:**
+Balance comprehensive API endpoint coverage with specialized workflow tools. When uncertain, prioritize comprehensive API coverage.
 
-### 2. SSE (Server-Sent Events)
-**Best for:** Cloud services with OAuth, hosted MCP endpoints
+**Tool Naming and Discoverability:**
+Use consistent prefixes (e.g., `github_create_issue`, `github_list_repos`) and action-oriented naming.
 
-```json
-{
-  "mcpServers": {
-    "cloud-service": {
-      "type": "sse",
-      "url": "https://api.example.com/mcp/sse",
-      "headers": {
-        "Authorization": "Bearer ${CLOUD_API_TOKEN}"
-      }
-    }
-  }
-}
-```
+**Context Management:**
+Design tools that return focused, relevant data. Support filtering/pagination.
 
-**Use cases:**
-- Connecting to hosted MCP services
-- OAuth-authenticated APIs
-- Services requiring persistent connections
+**Actionable Error Messages:**
+Error messages should guide agents toward solutions with specific suggestions.
 
-### 3. HTTP
-**Best for:** REST APIs, stateless services
+#### 1.2 Study MCP Protocol Documentation
 
-```json
-{
-  "mcpServers": {
-    "rest-api": {
-      "type": "http",
-      "url": "https://api.example.com/mcp",
-      "headers": {
-        "X-API-Key": "${REST_API_KEY}"
-      }
-    }
-  }
-}
-```
+Start with the sitemap: `https://modelcontextprotocol.io/sitemap.xml`
 
-**Use cases:**
-- Traditional REST API integration
-- Stateless request/response patterns
-- Services with rate limiting
+Fetch pages with `.md` suffix (e.g., `https://modelcontextprotocol.io/specification/draft.md`).
 
-### 4. WebSocket
-**Best for:** Real-time bidirectional communication
+Key pages: Specification overview, transport mechanisms, tool/resource/prompt definitions.
 
-```json
-{
-  "mcpServers": {
-    "realtime-service": {
-      "type": "websocket",
-      "url": "wss://api.example.com/mcp/ws",
-      "headers": {
-        "Authorization": "Bearer ${WS_TOKEN}"
-      }
-    }
-  }
-}
-```
+#### 1.3 Study Framework Documentation
 
-**Use cases:**
-- Real-time data streams
-- Interactive services
-- Low-latency requirements
+**Recommended stack:**
+- **Language**: TypeScript (high-quality SDK, good AI code generation)
+- **Transport**: Streamable HTTP for remote servers, stdio for local servers
 
-## Configuration Methods
+**Load framework documentation:**
+- [MCP Best Practices](references/mcp_best_practices.md) - Core guidelines
+- [TypeScript Guide](references/node_mcp_server.md) - TypeScript patterns
+- [Python Guide](references/python_mcp_server.md) - Python/FastMCP patterns
 
-### Method 1: Dedicated .mcp.json File (Recommended)
-For plugins with multiple MCP servers:
+**SDK Documentation:**
+- TypeScript: `https://raw.githubusercontent.com/modelcontextprotocol/typescript-sdk/main/README.md`
+- Python: `https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/README.md`
 
-```
-plugin-name/
-├── .mcp.json           # MCP server configurations
-├── .claude-plugin/
-│   └── plugin.json
-└── ...
-```
+#### 1.4 Plan Your Implementation
 
-**.mcp.json format:**
-```json
-{
-  "mcpServers": {
-    "server-one": { ... },
-    "server-two": { ... }
-  }
-}
-```
+Review the service's API documentation. List endpoints to implement, starting with most common operations.
 
-### Method 2: Inline in plugin.json
-For single-server simplicity:
+---
 
-```json
-{
-  "name": "my-plugin",
-  "version": "1.0.0",
-  "mcpServers": {
-    "my-server": {
-      "type": "stdio",
-      "command": "python",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/server.py"]
-    }
-  }
-}
-```
+### Phase 2: Implementation
 
-## Tool Naming Convention
+#### 2.1 Set Up Project Structure
 
-MCP tools are automatically prefixed with the server name:
-```
-mcp__<plugin-name>_<server-name>__<tool-name>
-```
+See language-specific guides:
+- [TypeScript Guide](references/node_mcp_server.md) - Project structure, package.json, tsconfig.json
+- [Python Guide](references/python_mcp_server.md) - Module organization, dependencies
 
-**Example:**
-- Plugin: `database-tools`
-- Server: `postgres`
-- Tool: `query`
-- Result: `mcp__database-tools_postgres__query`
+#### 2.2 Implement Core Infrastructure
 
-## Security Best Practices
+Create shared utilities:
+- API client with authentication
+- Error handling helpers
+- Response formatting (JSON/Markdown)
+- Pagination support
 
-### 1. Never Hardcode Credentials
-```json
-// ❌ BAD - hardcoded secret
-{
-  "headers": {
-    "Authorization": "Bearer sk-12345..."
-  }
-}
+#### 2.3 Implement Tools
 
-// ✅ GOOD - environment variable
-{
-  "headers": {
-    "Authorization": "Bearer ${MY_API_KEY}"
-  }
-}
-```
+For each tool:
 
-### 2. Use HTTPS/WSS Only
-```json
-// ❌ BAD - insecure
-{ "url": "http://api.example.com/mcp" }
+**Input Schema:**
+- Use Zod (TypeScript) or Pydantic (Python)
+- Include constraints and clear descriptions
 
-// ✅ GOOD - secure
-{ "url": "https://api.example.com/mcp" }
-```
+**Output Schema:**
+- Define `outputSchema` where possible
+- Use `structuredContent` in responses
 
-### 3. Document Required Environment Variables
-In your plugin's README:
-```markdown
-## Required Environment Variables
+**Tool Description:**
+- Concise summary, parameter descriptions, return type
 
-| Variable | Description |
-|----------|-------------|
-| `MY_API_KEY` | API key for the service |
-| `DATABASE_URL` | Connection string |
-```
+**Annotations:**
+- `readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`
 
-### 4. Pre-allow Specific Tools
-In plugin.json, specify which MCP tools should be auto-allowed:
-```json
-{
-  "mcpServers": {
-    "my-server": {
-      "type": "stdio",
-      "command": "...",
-      "allowedTools": ["query", "list"]  // Only these tools auto-allowed
-    }
-  }
-}
-```
+---
 
-### 5. Use ${CLAUDE_PLUGIN_ROOT} for Paths
-Always use the portable path variable:
-```json
-{
-  "command": "node",
-  "args": ["${CLAUDE_PLUGIN_ROOT}/servers/main.js"]
-}
-```
+### Phase 3: Review and Test
 
-## Creating an MCP Server Integration
+#### 3.1 Code Quality
 
-### Step 1: Determine Server Type
-Ask:
-1. Is it a local process or remote service?
-2. Does it need persistent connections?
-3. What authentication method does it use?
+Review for: DRY principle, consistent error handling, full type coverage, clear descriptions.
 
-### Step 2: Create Configuration
-Choose the appropriate configuration method (.mcp.json or inline).
+#### 3.2 Build and Test
 
-### Step 3: Document Environment Variables
-List all required secrets and how to obtain them.
-
-### Step 4: Add to Plugin Manifest
-Update plugin.json to reference the MCP configuration:
-```json
-{
-  "name": "my-plugin",
-  "mcp": "./.mcp.json"
-}
-```
-
-### Step 5: Test the Integration
+**TypeScript:**
 ```bash
-# Debug MCP connections
-claude --debug
-
-# Verify server starts
-claude mcp list
+npm run build
+npx @modelcontextprotocol/inspector
 ```
 
-## Validation Script
-
-This skill includes a validation script:
-
-**Usage:**
+**Python:**
 ```bash
-python3 {baseDir}/scripts/validate-mcp.py <mcp-config-file>
+python -m py_compile your_server.py
+# Test with MCP Inspector
 ```
 
-**What It Checks:**
-- JSON syntax validity
-- Required fields present for each server type
-- No hardcoded credentials (warns on suspicious patterns)
-- URL schemes (https/wss required for remote)
-- Path variables use ${CLAUDE_PLUGIN_ROOT}
+---
 
-## Common Patterns
+### Phase 4: Create Evaluations
 
-### Pattern 1: Database Integration
-```json
-{
-  "mcpServers": {
-    "database": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres"],
-      "env": {
-        "DATABASE_URL": "${DATABASE_URL}"
-      }
-    }
-  }
-}
+Create 10 evaluation questions to test LLM effectiveness with your server.
+
+**Requirements for each question:**
+- Independent, read-only, complex, realistic, verifiable, stable
+
+**Output Format:**
+```xml
+<evaluation>
+  <qa_pair>
+    <question>Your question here</question>
+    <answer>Expected answer</answer>
+  </qa_pair>
+</evaluation>
 ```
 
-### Pattern 2: Cloud API Wrapper
-```json
-{
-  "mcpServers": {
-    "cloud-api": {
-      "type": "http",
-      "url": "https://api.service.com/v1/mcp",
-      "headers": {
-        "Authorization": "Bearer ${SERVICE_API_KEY}",
-        "Content-Type": "application/json"
-      }
-    }
-  }
-}
+See [Evaluation Guide](references/evaluation.md) for complete guidelines.
+
+---
+
+## Docker/Containerization
+
+### Transport Security (allowed_hosts)
+
+FastMCP validates Host headers. For Docker, configure:
+
+```python
+from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
+
+transport_security = TransportSecuritySettings(
+    allowed_hosts=[
+        "127.0.0.1:*", "localhost:*", "[::1]:*",
+        "mcp-server:*",  # Docker container name
+        "0.0.0.0:*",
+    ],
+)
+mcp = FastMCP("my_server", transport_security=transport_security)
 ```
 
-### Pattern 3: Local Development Server
-```json
-{
-  "mcpServers": {
-    "dev-server": {
-      "type": "stdio",
-      "command": "python",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/servers/dev_server.py"],
-      "env": {
-        "DEBUG": "true"
-      }
-    }
-  }
-}
-```
+### Health Check Endpoint
 
-## Lifecycle & Debugging
+Add `/health` endpoint via middleware (see references for full example).
 
-### Server Lifecycle
-1. **Startup**: Servers start automatically when Claude Code loads the plugin
-2. **Connection**: Claude maintains connection throughout the session
-3. **Reconnection**: Automatic reconnection on transient failures
-4. **Shutdown**: Servers stop when Claude Code exits
+---
 
-### Debugging
-```bash
-# Enable debug mode
-claude --debug
+## Verification
 
-# Check MCP server status
-claude mcp status
+Run: `python3 scripts/verify.py`
 
-# View server logs
-claude mcp logs <server-name>
-```
+Expected: `✓ building-mcp-servers skill ready`
 
-### Common Issues
+## If Verification Fails
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Server not starting | Missing dependencies | Check command/args paths |
-| Auth failures | Wrong env variable | Verify ${VAR} is set |
-| Connection timeout | Network/firewall | Check URL accessibility |
-| Tool not found | Wrong naming | Check tool name matches |
+1. Run diagnostic: Check references/ folder exists
+2. Check: All reference files present
+3. **Stop and report** if still failing
 
-## Reference Documentation
+## References
 
-### Templates
-- `{baseDir}/templates/mcp-stdio-template.json` - Stdio server template
-- `{baseDir}/templates/mcp-http-template.json` - HTTP server template
-- `{baseDir}/templates/mcp-config-template.json` - Full .mcp.json template
-
-### References
-- `{baseDir}/references/mcp-security-guide.md` - Security best practices
-- `{baseDir}/references/mcp-server-types.md` - Detailed server type documentation
-
-## Your Role
-
-When the user asks to add MCP integration:
-
-1. **Determine requirements** - What service? What auth? Local or remote?
-2. **Select server type** - stdio, SSE, HTTP, or WebSocket
-3. **Create configuration** - Generate appropriate .mcp.json or inline config
-4. **Document secrets** - List required environment variables
-5. **Update plugin manifest** - Add MCP reference if needed
-6. **Provide testing steps** - How to verify the integration works
-
-Be proactive in:
-- Identifying security issues (hardcoded secrets, HTTP URLs)
-- Recommending the appropriate server type
-- Suggesting environment variable names
-- Providing complete, working configurations
+- [MCP Best Practices](references/mcp_best_practices.md) - Universal guidelines
+- [Python Guide](references/python_mcp_server.md) - Python/FastMCP patterns
+- [TypeScript Guide](references/node_mcp_server.md) - TypeScript patterns
+- [TaskFlow Patterns](references/taskflow_patterns.md) - Internal server patterns
+- [Evaluation Guide](references/evaluation.md) - Creating evaluations

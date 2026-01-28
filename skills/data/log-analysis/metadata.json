@@ -1,7 +1,7 @@
 {
   "name": "log-analysis",
-  "repo": "a5c-ai/babysitter",
-  "path": "plugins/babysitter/skills/babysit/process/specializations/devops-sre-platform/skills/log-analysis/SKILL.md",
-  "source": "github.com/a5c-ai/babysitter",
-  "downloaded_at": "2026-01-27T04:38:35.470069Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/log-analysis/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-28T02:01:31.395021Z"
 }

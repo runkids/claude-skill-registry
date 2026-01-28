@@ -1,80 +1,95 @@
 ---
 name: pull-request
-description: Creating pull requests with concise descriptions
+description: "Generate comprehensive PR descriptions from commits and changes. Use when creating pull requests, writing PR descriptions, or when the user asks for a PR summary."
+event: pr-creation
+auto_trigger: true
+version: "2.0.0"
+last_updated: "2026-01-26"
+
+# Inputs/Outputs
+inputs:
+  - commits
+  - changed_files
+  - related_issues
+  - diff_summary
+output: pr_description
+output_format: "markdown (GitHub PR template)"
+
+# Auto-Trigger Rules
+auto_invoke:
+  events:
+    - "pr-creation"
+    - "branch-push"
+  conditions:
+    - "branch ready for review"
+    - "commits exist on branch"
+
+# Validation
+validation_rules:
+  - "description must summarize all changes"
+  - "testing checkboxes required"
+  - "related issues must be linked"
+
+# Chaining
+chain_after: [commit]
+chain_before: [code-review]
+
+# Agent Association
+called_by: ["@Scribe"]
+mcp_tools:
+  - mcp_gitkraken_git_add_or_commit
+  - activate_git_pull_request_and_issue_tools
 ---
 
-# Pull Request
+# Pull Request Skill
 
-## Creating PRs
+> **Purpose:** Generate comprehensive PR descriptions from commits and changes.
 
-**This is a jj repository.** Use `gh pr create --repo` to create PRs without needing a git repository.
+## Trigger
 
-No test plan section - CI runs the full quality suite automatically.
+**When:** User creates a new pull request
+**Context Needed:** Commit history, changed files list, issue references
+**MCP Tools:** `mcp_gitkraken_git_add_or_commit`, `activate_git_pull_request_and_issue_tools`
 
 ## Template
 
 ```markdown
-<concise description of what changed and why>
+## Description
 
-🤖 Generated with Ralph harness
+[Summary of changes]
+
+## Type of Change
+
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+- [ ] Documentation update
+
+## Changes Made
+
+- [Change 1]
+- [Change 2]
+
+## Testing
+
+- [ ] Unit tests pass
+- [ ] E2E tests pass
+- [ ] Manual testing done
+
+## Related Issues
+
+Closes #[issue]
 ```
 
-## Command
+## Auto-Detection
 
-```bash
-gh pr create \
-  --repo mgreenly/ikigai \
-  --base main \
-  --head <bookmark-name> \
-  --title "<title>" \
-  --body "$(cat <<'EOF'
-<description>
+| Commit Type | PR Type       |
+| :---------- | :------------ |
+| `feat`      | New feature   |
+| `fix`       | Bug fix       |
+| `docs`      | Documentation |
+| `refactor`  | Refactor      |
 
-🤖 Generated with Ralph harness
-EOF
-)"
-```
+## Reference
 
-**Parameters:**
-- `--repo`: Repository in owner/repo format (required for jj repos)
-- `--base`: Target branch (usually `main`)
-- `--head`: Source bookmark name (e.g., `rel-09-rc5`)
-- `--title`: PR title (imperative mood, concise)
-- `--body`: PR description
-
-## Guidelines
-
-- **Title:** Imperative mood, concise (e.g., "Add user authentication", "Fix memory leak in parser")
-- **Description:** One line or short paragraph explaining what and why
-- **No headers:** They add noise for typical PRs
-- **No test plan:** Implicit - CI runs quality checks
-- **Footer:** Attribution preserved
-
-## Examples
-
-**Simple change:**
-```
-Remove dead code: ik_content_block_thinking
-
-🤖 Generated with Ralph harness
-```
-
-**Feature addition:**
-```
-Add JSON export for metrics data
-
-Enables users to export their usage metrics in JSON format
-for integration with external tools.
-
-🤖 Generated with Ralph harness
-```
-
-**Bug fix:**
-```
-Fix null pointer dereference in config parser
-
-The parser didn't handle missing optional fields correctly
-when the config file used the legacy format.
-
-🤖 Generated with Ralph harness
-```
+- [.github/pull_request_template.md](../pull_request_template.md)

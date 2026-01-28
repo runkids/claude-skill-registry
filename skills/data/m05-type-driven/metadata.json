@@ -1,7 +1,7 @@
 {
   "name": "m05-type-driven",
-  "repo": "rustfs/rustfs",
-  "path": ".claude/skills/m05-type-driven/SKILL.md",
-  "source": "github.com/rustfs/rustfs",
-  "downloaded_at": "2026-01-27T03:47:01.729031Z"
+  "repo": "actionbook/rust-skills",
+  "path": "skills/m05-type-driven/SKILL.md",
+  "source": "github.com/actionbook/rust-skills",
+  "downloaded_at": "2026-01-28T04:10:52.626396Z"
 }
