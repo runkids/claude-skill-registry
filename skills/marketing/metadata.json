@@ -1,9 +1,7 @@
 {
   "name": "marketing",
-  "repo": "vapvarun/claude-backup",
-  "path": "skills/marketing/SKILL.md",
-  "source": "github.com/vapvarun/claude-backup",
-  "downloaded_at": "2026-01-19T06:37:42.115866Z",
-  "github_path": "skills/email-marketing",
-  "github_branch": "main"
+  "repo": "Brownbull/khujta_ai_business",
+  "path": ".claude/skills/marketing/Skill.md",
+  "source": "github.com/Brownbull/khujta_ai_business",
+  "downloaded_at": "2026-01-29T06:19:24.348131Z"
 }

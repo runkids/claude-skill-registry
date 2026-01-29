@@ -1,9 +1,7 @@
 {
   "name": "testing",
-  "repo": "Intellifill/IntelliFill",
+  "repo": "joshribakoff/surfsim",
   "path": ".claude/skills/testing/SKILL.md",
-  "source": "github.com/Intellifill/IntelliFill",
-  "downloaded_at": "2026-01-19T08:13:18.771654Z",
-  "github_path": ".claude/skills/testing",
-  "github_branch": "main"
+  "source": "github.com/joshribakoff/surfsim",
+  "downloaded_at": "2026-01-29T08:56:11.494406Z"
 }

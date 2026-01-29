@@ -1,9 +1,7 @@
 {
   "name": "security",
-  "repo": "pluginagentmarketplace/custom-plugin-javascript",
-  "path": "skills/security/SKILL.md",
-  "source": "github.com/pluginagentmarketplace/custom-plugin-javascript",
-  "downloaded_at": "2026-01-19T08:11:03.084345Z",
-  "github_path": "skills/security",
-  "github_branch": "main"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/security/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T08:54:50.072403Z"
 }

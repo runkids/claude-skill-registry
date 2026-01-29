@@ -1,9 +1,7 @@
 {
   "name": "design",
-  "repo": "matteocervelli/llms",
-  "path": "src/tools/skill_builder/templates/design/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-19T07:41:58.061013Z",
-  "github_path": ".claude/skills/design",
-  "github_branch": "main"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/design/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T08:54:49.549501Z"
 }
